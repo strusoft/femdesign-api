@@ -27,7 +27,7 @@ return FemDesign.Properties.Resources.+;$
  ```
 
 ### Add material library and section library (optional)
-Add necessary embedded resources according to [Resource.Designer.cs](https://github.com/andosca/femdesign-api/blob/dynamo/Properties/Resources.Designer.cs)
+Add necessary embedded resources according to [Resource.Designer.cs](https://github.com/andosca/femdesign-api/blob/grasshopper/Properties/Resources.Designer.cs)
 * Resources/materialLibrary/
 * Resources/sectionLibrary/
 
