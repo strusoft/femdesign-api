@@ -1,0 +1,12 @@
+.vs
+.vscode
+bin
+componentsGrasshopper/Materials/@*
+obj
+packages
+Resources
+Properties/Resources.resx
+src/Calculate/@*
+*.csproj
+*.sln
+*config
