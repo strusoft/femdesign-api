@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<migrations>
+  <priorNameHint>
+    <oldName>FemDesign.Model.Model.FromStruxml</oldName>
+    <newName>FemDesign.Model.Model.ReadStruxml</newName>
+  </priorNameHint>
+</migrations>

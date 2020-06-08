@@ -1,0 +1,20 @@
+{
+	"license": "-",
+	"file_hash": null,
+	"name": "FemDesign",
+	"version": "1.0.1",
+	"description": "",
+	"group": "",
+	"keywords": null,
+	"dependencies": [],
+	"contents": "",
+	"engine_version": "2.1.0.0",
+	"engine": "dynamo",
+	"engine_metadata": "",
+	"site_url": "",
+	"repository_url": "",
+	"contains_binaries": true,
+	"node_libraries": [
+		"FemDesign, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+	]
+}

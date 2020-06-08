@@ -1,0 +1,13 @@
+.vs
+.vscode
+bin
+obj
+packages
+Resources
+Properties/Resources.resx
+src/Calculate/@notImplemented*
+*.csproj
+*.csproj.user
+*.sln
+*.config
+
