@@ -1,0 +1,9 @@
+.vs
+bin
+obj
+packages
+Properties
+Resources
+FdApiSource.csproj
+FdApiSource.sln
+packages.config
