@@ -141,15 +141,15 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="shellEccentricity">ShellEccentricity.</param>
-        /// <param name="shellOrthotropy">ShellOrthotropy</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="thickness">Thickness.</param>
         /// <param name="material">Material.</param>
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, ShellEccentricity shellEccentricity, ShellOrthotropy shellOrthotropy, ShellEdgeConnection shellEdgeConnection, double thickness, Materials.Material material, string identifier = "P")
+        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection,  double thickness, Materials.Material material, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -168,15 +168,15 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="shellEccentricity">ShellEccentricity.</param>
-        /// <param name="shellOrthotropy">ShellOrthotropy</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="thickness">Thickness. List of 3 items [t1, t2, t3].</param>
         /// <param name="material">Material.</param>
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, ShellEccentricity shellEccentricity, ShellOrthotropy shellOrthotropy, ShellEdgeConnection shellEdgeConnection, List<Thickness> thickness, Materials.Material material, string identifier = "P")
+        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, List<Thickness> thickness, Materials.Material material, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -193,33 +193,19 @@ namespace FemDesign.Shells
             return _shell;
         }
         /// <summary>
-        /// Create a plate with default properties.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="thickness">Thickness.</param>
-        /// <param name="material">Material.</param>
-        /// <param name="identifier">Identifier of plate element. Optional.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
-        public static Slab PlateDefault(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, string identifier = "P")
-        {
-            return Slab.Plate(surface, ShellEccentricity.Default(), ShellOrthotropy.Default(), ShellEdgeConnection.Rigid(), thickness, material, identifier);
-        }
-        /// <summary>
         /// Create a wall element.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="shellEccentricity">ShellEccentricity.</param>
-        /// <param name="shellOrthotropy">ShellOrthotropy</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="thickness">Thickness.</param>
         /// <param name="material">Material.</param>
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface, ShellEccentricity shellEccentricity, ShellOrthotropy shellOrthotropy, ShellEdgeConnection shellEdgeConnection, double thickness, Materials.Material material, string identifier = "W")
+        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, double thickness, Materials.Material material, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -244,15 +230,15 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="shellEccentricity">ShellEccentricity.</param>
-        /// <param name="shellOrthotropy">ShellOrthotropy</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="thickness">Thickness. List of 2 items [t1, t2].</param>
         /// <param name="material">Material.</param>
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, ShellEccentricity shellEccentricity, ShellOrthotropy shellOrthotropy, ShellEdgeConnection shellEdgeConnection, List<Thickness> thickness, Materials.Material material, string identifier = "W")
+        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, List<Thickness> thickness, Materials.Material material, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -274,21 +260,6 @@ namespace FemDesign.Shells
 
             return _shell;
         }
-        /// <summary>
-        /// Create a wall with default properties.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="surface">Surface. Surface must be flat.</param>
-        /// <param name="thickness">Thickness.</param>
-        /// <param name="material">Material.</param>
-        /// <param name="identifier">Identifier of wall element. Optional.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
-        public static Slab WallDefault(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, string identifier = "W")
-        {
-            return Slab.Wall(surface, ShellEccentricity.Default(), ShellOrthotropy.Default(), ShellEdgeConnection.Rigid(), thickness, material, identifier);
-        }
-
         /// <summary>
         /// Set local x- and z-axes. Local y-axis will be defined according to a right handed coordinate system.
         /// </summary>
