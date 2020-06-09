@@ -66,6 +66,15 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
+        /// Create a default (rigid) ShellEdgeConnection.
+        /// </summary>
+        /// <returns></returns>
+        public static ShellEdgeConnection Default()
+        {
+            return ShellEdgeConnection.Rigid();
+        }
+
+        /// <summary>
         /// Create a hinged ShellEdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>

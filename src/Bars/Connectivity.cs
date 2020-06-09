@@ -123,6 +123,16 @@ namespace FemDesign.Bars
         {
             return new Connectivity(m_x, m_y, m_z, r_x, r_y, r_z);
         }
+
+        /// <summary>
+        /// Define default (rigid) releases for a bar-element.
+        /// </summary>
+        /// <returns></returns>
+        public static Connectivity Default()
+        {
+            return Connectivity.Rigid();
+        }
+
         /// <summary>
         /// Define hinged releases for a bar-element.
         /// </summary>
