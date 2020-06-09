@@ -99,9 +99,8 @@ namespace FemDesign.Sections
                         return sectionDatabase;
                     }
                 }
-                throw new System.ArgumentException("Section library resource not in assembly! Was solution compiled without embedded resource?");
             }
-            return null;
+            throw new System.ArgumentException("Section library resource not in assembly! Was solution compiled without embedded resource?");
         }
         /// <summary>
         /// Load the default SectionDatabase.
