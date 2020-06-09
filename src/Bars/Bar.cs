@@ -213,20 +213,6 @@ namespace FemDesign.Bars
             // return
             return Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
         }
-        // /// <summary>
-        // /// Create a bar-element of type beam with default properties.
-        // /// </summary>
-        // /// <remarks>Create</remarks>
-        // /// <param name="curve">Curve. Only line and arc are supported.</param>
-        // /// <param name="material">Material.</param>
-        // /// <param name="section">Section.</param>
-        // /// <param name="identifier">Identifier. Optional.</param>
-        // /// <returns></returns>
-        // [IsVisibleInDynamoLibrary(true)]
-        // public static Bar BeamDefault(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, string identifier = "B")
-        // {
-        //     return Bar.Beam(curve, Connectivity.Rigid(), Eccentricity.Default(), material, section, identifier);
-        // }
         /// <summary>
         /// Create a bar-element of type column.
         /// </summary>
@@ -246,20 +232,6 @@ namespace FemDesign.Bars
             // return
             return Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
         }
-        // /// <summary>
-        // /// Create a bar-element of type column with default properties.
-        // /// </summary>
-        // /// <remarks>Create</remarks>
-        // /// <param name="line">Line.</param>
-        // /// <param name="material">Material.</param>
-        // /// <param name="section">Section.</param>
-        // /// <param name="identifier">Identifier. Optional.</param>
-        // /// <returns></returns>
-        // [IsVisibleInDynamoLibrary(true)]
-        // public static Bar ColumnDefault(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, string identifier = "C")
-        // {
-        //     return Bar.Column(line, Connectivity.Rigid(), Eccentricity.Default(), material, section, identifier);
-        // }
         /// <summary>
         /// Create a bar-element of type truss.
         /// </summary>
