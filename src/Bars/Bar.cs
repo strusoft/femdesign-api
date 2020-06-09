@@ -199,13 +199,13 @@ namespace FemDesign.Bars
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="curve">Curve. Only line and arc are supported.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity.</param>
+        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "B")
+        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "B")
         {
             // convert class
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
@@ -214,51 +214,23 @@ namespace FemDesign.Bars
             return Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
         }
         /// <summary>
-        /// Create a bar-element of type beam with default properties.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="curve">Curve. Only line and arc are supported.</param>
-        /// <param name="material">Material.</param>
-        /// <param name="section">Section.</param>
-        /// <param name="identifier">Identifier. Optional.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
-        public static Bar BeamDefault(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, string identifier = "B")
-        {
-            return Bar.Beam(curve, Connectivity.Rigid(), Eccentricity.Default(), material, section, identifier);
-        }
-        /// <summary>
         /// Create a bar-element of type column.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="line">Line.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity.</param>
+        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "C")
+        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "C")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
 
             // return
             return Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
-        }
-        /// <summary>
-        /// Create a bar-element of type column with default properties.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="line">Line.</param>
-        /// <param name="material">Material.</param>
-        /// <param name="section">Section.</param>
-        /// <param name="identifier">Identifier. Optional.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
-        public static Bar ColumnDefault(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, string identifier = "C")
-        {
-            return Bar.Column(line, Connectivity.Rigid(), Eccentricity.Default(), material, section, identifier);
         }
         /// <summary>
         /// Create a bar-element of type truss.
