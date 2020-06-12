@@ -4,7 +4,7 @@
 Clone and create a local repository
 
 ## 2. Create new project from existing code
-Create new Visual Studio C# class library project from existing code and chose your repository. Set .NET Framework to match references.
+Create new Visual Studio C# class library project from existing code and chose your repository. Set .NET Framework to match references. Name assembly FemDesign. Set build output xml-file to generate comments.
 
 ## 3. Add references
 Add necessary references
@@ -50,8 +50,9 @@ sections.struxml can contain sections to be used:
 Set post-build events:
 ```
 xcopy /Y "$(TargetDir)*.dll" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)\bin\"
-xcopy /Y "$(TargetDir)FemDesign.xml" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)\bin\"
+xcopy /Y "$(TargetDir)$(AssemblyName).xml" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)\bin\"
 xcopy /Y "$(ProjectDir)FemDesign_DynamoCustomization.xml" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)\bin\"
+xcopy /Y "$(ProjectDir)FemDesign.Migrations.xml" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)\extra\"
 xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.1\packages\$(ProjectName)"
 ```
 
