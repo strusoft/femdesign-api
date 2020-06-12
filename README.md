@@ -51,11 +51,11 @@ These library specific code regions and attributes are stripped for each repesct
 
 ### dynamo 
 The dynamo branch contains the code for the dynamo solution. To setup a solution in Visual studio for the grasshopper branch: 
-* [setup-dynamo-sln.md](https://github.com/andosca/femdesign-api/blob/master/setup-dynamo-sln.md)
+* [setup-dynamo-sln.md](https://github.com/andosca/femdesign-api/blob/dynamo/setup-dynamo-sln.md)
 
 ### grasshopper
 The grasshopper branch contains the grasshopper solution. To setup a solution in Visual Studio for the dynamo branch: 
-* [setup-grasshopper-sln.md](https://github.com/andosca/femdesign-api/blob/master/setup-grasshopper-sln.md)
+* [setup-grasshopper-sln.md](https://github.com/andosca/femdesign-api/blob/grasshopper/setup-grasshopper-sln.md)
 
 ## Contributing
 
