@@ -47,7 +47,7 @@ Moreover some classes and methods are decorated with Dynamo specific attributes:
 [IsLacingDisabled()]
 ```
 
-These library specific code regions and attributes are stripped for each repesctive branch using [convertLibrary.py](scripts/convertLibrary/convertLibrary.py)
+These library specific code regions and attributes are stripped for each repesctive branch using [convertLibrary.py](scripts/convertLibrary/convertLibrary.py).
 
 ### dynamo 
 The dynamo branch contains the code for the dynamo solution. To setup a solution in Visual studio for the grasshopper branch: 
