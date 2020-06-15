@@ -58,6 +58,9 @@ The grasshopper branch contains the grasshopper solution. To setup a solution in
 * [setup-grasshopper-sln.md](https://github.com/andosca/femdesign-api/blob/grasshopper/setup-grasshopper-sln.md)
 
 ## Contributing
+Grasshopper and dynamo branches are not intended to be merged back with master at any point, rather they are created from master using [convertLibrary.py](scripts/convertLibrary/convertLibrary.py) when the master branch has been updated. 
+
+Feel free to fork grasshopper and dynamo branches as you seem fit. However if you want to contribute your updates to the repository please add the changes to a fork of the master branch and create a pull request to ask the upstream repository (this repository) to accept these changes.
 
 ## Versioning
 Future versioning will be using the following structure: major.minor.patch.
