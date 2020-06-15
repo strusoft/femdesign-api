@@ -47,7 +47,7 @@ Moreover some classes and methods are decorated with Dynamo specific attributes:
 [IsLacingDisabled()]
 ```
 
-These library specific code regions and attributes are stripped for each repesctive branch.
+These library specific code regions and attributes are stripped for each repesctive branch using [convertLibrary.py](scripts/convertLibrary/convertLibrary.py).
 
 ### dynamo 
 The dynamo branch contains the code for the dynamo solution. To setup a solution in Visual studio for the grasshopper branch: 
@@ -60,12 +60,14 @@ The grasshopper branch contains the grasshopper solution. To setup a solution in
 ## Contributing
 
 ## Versioning
+Future versioning will be using the following structure: major.minor.patch.
 
 ## Authors
 The FEM-Design API repository is developed and maintained by StruSoft. The main developers are:
 * [Andreas Oscarsson](https://github.com/andosca)
 
 ## Disclaimer
+In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package.
 
 ## License
 [LICENSE.md](LICENSE)
