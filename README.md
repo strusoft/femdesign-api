@@ -60,6 +60,7 @@ The grasshopper branch contains the grasshopper solution. To setup a solution in
 ## Contributing
 
 ## Versioning
+Future versioning will be using the following structure: major.minor.patch.
 
 ## Authors
 The FEM-Design API repository is developed and maintained by StruSoft. The main developers are:
