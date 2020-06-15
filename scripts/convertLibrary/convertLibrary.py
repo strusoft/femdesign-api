@@ -2,8 +2,6 @@ import os
 import shutil
 from pathlib import Path
 
-# add this script as a pre-build event to Grasshopper components solution!
-
 def getCsFiles(dir, lst = []):
     """
     Find cs-files in directory and sub-directories of directory.
