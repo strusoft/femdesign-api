@@ -4,6 +4,8 @@ obj
 packages
 Properties
 Resources
+scripts/convertLibrary/run*.*
 FdApiSource.csproj
 FdApiSource.sln
 packages.config
+strusoft.xsd
