@@ -1,3 +1,4 @@
+# https://strusoft.com/
 import os
 import shutil
 from pathlib import Path
