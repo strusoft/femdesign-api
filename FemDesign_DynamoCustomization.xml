@@ -49,6 +49,9 @@
     <namespace name="FemDesign.Shells">
       <category>FemDesign.Shells</category>
     </namespace>
+    <namespace name="FemDesign.StructureGrid">
+      <category>FemDesign.StructureGrid</category>
+    </namespace>
     <namespace name="FemDesign.Supports">
       <category>FemDesign.Supports</category>
     </namespace>
