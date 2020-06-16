@@ -156,7 +156,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys) 
         {
             if (this.fromStruxml)
             {
@@ -245,6 +245,14 @@ namespace FemDesign
                 foreach (object support in supports)
                 {
                     this.AddSupport(support);
+                }
+            }
+
+            if (storeys != null)
+            {
+                foreach (StructureGrid.Storey storey in storeys)
+                {
+                    this.AddStorey(storey);
                 }
             }
 
@@ -670,6 +678,64 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add Storey to Model.
+        /// </summary>
+        /// <param name="obj">Storey.</param>
+        private void AddStorey(StructureGrid.Storey obj)
+        {
+            if (this.StoreyInModel(obj))
+            {
+                // pass
+            }
+            else
+            {
+                // check if geometry is consistent
+                this.ConsistenStoreyGeometry(obj);
+
+                // add to storeys
+                this.entities.storeys.storey.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if storey in entities.
+        /// </summary>
+        /// <param name="obj">Storey.</param>
+        /// <returns></returns>
+        private bool StoreyInModel(StructureGrid.Storey obj)
+        {
+            foreach (StructureGrid.Storey elem in this.entities.storeys.storey)
+            {
+                if (elem.guid == obj.guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if geometry of storey is consistent with geometry of storeys aldread added.
+        /// Storey origo should share XY-coordinates. Z-coordinate should be unique.
+        /// Storey direction should be identical.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void ConsistenStoreyGeometry(StructureGrid.Storey obj)
+        {
+            foreach (StructureGrid.Storey elem in this.entities.storeys.storey)
+            {
+                if (elem.origo.x != obj.origo.x || elem.origo.y != obj.origo.y)
+                {
+                    throw new System.ArgumentException($"Storey does not share XY-coordinates with storeys in model (point x: {elem.origo.x}, y: {elem.origo.y}). If model was empty make sure all storeys added to model share XY-coordinates.");
+                }
+                if (!elem.direction.Equals(obj.direction))
+                {
+                    throw new System.ArgumentException($"Storey does not share direction with storeys in model (vector i: {elem.direction.x} , j: {elem.direction.y}). If model was empty make sure all storeys added to model share direction.");
+                }
+            }
+        }
+
+        /// <summary>
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="slab"></param>
@@ -1069,7 +1135,7 @@ namespace FemDesign
         /// <param name="supports"> Single support element or list of support elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports)
+        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys)
         {
             //
             if (countryCode == null)
@@ -1079,7 +1145,7 @@ namespace FemDesign
 
             // create model
             Model _model = new Model(countryCode);
-            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports);
+            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys);
             return _model;
         }
         /// <summary>
@@ -1109,11 +1175,11 @@ namespace FemDesign
         /// <param name="supports"> Single support element or list of support-elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model ReadStruxml(string filePathStruxml, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports)
+        public static Model ReadStruxml(string filePathStruxml, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys)
         {
 
             Model _model = Model.DeserializeFromFilePath(filePathStruxml);
-            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports);
+            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys);
             return _model;
         }
         /// <summary>
