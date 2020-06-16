@@ -50,7 +50,8 @@ namespace FemDesign
         [XmlElement("advanced-fem", Order = 18)]
         public AdvancedFem advancedFem = new AdvancedFem();
 
-        // storeys
+        [XmlElement("storeys", Order = 19)]
+        public StructureGrid.Storeys storeys = new StructureGrid.Storeys();
         // axes
         // ref planes
         // tsolids
