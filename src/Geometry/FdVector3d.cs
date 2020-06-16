@@ -112,6 +112,39 @@ namespace FemDesign.Geometry
             return new FdVector3d(this.x * s, this.y * s, this.z * s);
         }
 
+        /// <summary>
+        /// Check if z-component is 0 and convert to 2d vector in XY-plane.
+        /// </summary>
+        /// <returns></returns>
+        internal FdVector2d To2d()
+        {
+            if (this.z == 0)
+            {
+                return new FdVector2d(this.x, this.y);
+            }
+            else
+            {
+                throw new System.ArgumentException("Z-component of Vector is not zero. Vector is not in XY plane.");
+            }
+
+        }
+
+        /// <summary>
+        /// Check if zero vector.
+        /// </summary>
+        /// <returns></returns>
+        internal bool IsZero()
+        {
+            if (this.Length() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public override bool Equals(System.Object obj)
         {
             if (obj == null)

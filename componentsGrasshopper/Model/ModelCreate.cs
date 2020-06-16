@@ -29,6 +29,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -37,46 +39,57 @@ namespace FemDesign.GH
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // set reference
-            string countryCode = "S";
-            List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
-            List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
-            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
-            List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
-
             // get indata
+            string countryCode = "S";
             if (!DA.GetData(0, ref countryCode))
             {
                 // pass
             }
+ 
+            List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
             if (!DA.GetDataList(1, bars))
             {
                 // pass
             }
+ 
+            List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
             if (!DA.GetDataList(2, slabs))
             {
                 // pass
             }
+  
+            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
             if (!DA.GetDataList(3, covers))
             {
                 // pass
             }
+  
+            List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
             if (!DA.GetDataList(4, loads))
             {
                 // pass
             }
+ 
+            List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
             if (!DA.GetDataList(5, loadCases))
             {
                 // pass
             }
+
+            List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
             if (!DA.GetDataList(6, loadCombinations))
             {
                 // pass
             }
+
+            List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
             if (!DA.GetDataList(7, supports))
+            {
+                // pass
+            }
+
+            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
+            if (!DA.GetDataList(8, storeys))
             {
                 // pass
             }
@@ -87,7 +100,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Model _obj = new FemDesign.Model(countryCode);
-            _obj.AddEntities(bars, slabs, covers, _loads, loadCases, loadCombinations, _supports);
+            _obj.AddEntities(bars, slabs, covers, _loads, loadCases, loadCombinations, _supports, storeys);
 
             // return
             DA.SetData(0, _obj);
