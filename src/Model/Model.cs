@@ -150,7 +150,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
             if (this.fromStruxml)
             {
@@ -247,6 +247,14 @@ namespace FemDesign
                 foreach (StructureGrid.Storey storey in storeys)
                 {
                     this.AddStorey(storey);
+                }
+            }
+
+            if (axes != null)
+            {
+                foreach (StructureGrid.Axis axis in axes)
+                {
+                    this.AddAxis(axis);
                 }
             }
 
@@ -671,12 +679,84 @@ namespace FemDesign
             return false;
         }
 
+
+        /// <summary>
+        /// Add StructureGrid (axis or storey) to model.
+        /// </summary>
+        /// <param name="obj">Axis, Storey</param>
+        private void AddStructureGrid(object obj)
+        {
+            if (obj == null)
+            {
+                throw new System.ArgumentException("Passed object is null");
+            }
+            else if (obj.GetType() == typeof(StructureGrid.Axis))
+            {
+                this.AddAxis((StructureGrid.Axis)obj);
+            }
+            else if (obj.GetType() == typeof(StructureGrid.Storey))
+            {
+                this.AddStorey((StructureGrid.Storey)obj);
+            }
+            else
+            {
+                throw new System.ArgumentException("Passed object must be Axis or Storey");
+            }
+        }
+
+        /// <summary>
+        /// Add axis to entities.
+        /// </summary>
+        /// <param name="obj">Axis.</param>
+        private void AddAxis(StructureGrid.Axis obj)
+        {
+            // check if axes in entities
+            if (this.entities.axes == null)
+            {
+                this.entities.axes = new StructureGrid.Axes();
+            }
+
+            // add axis to entities
+            if (this.AxisInModel(obj))
+            {
+                // pass
+            }
+            else
+            {
+                this.entities.axes.axis.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if axis in entities.
+        /// </summary>
+        /// <param name="obj">Axis.</param>
+        /// <returns></returns>
+        private bool AxisInModel(StructureGrid.Axis obj)
+        {
+            foreach (StructureGrid.Axis elem in this.entities.axes.axis)
+            {
+                if (elem.guid == obj.guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Add Storey to Model.
         /// </summary>
         /// <param name="obj">Storey.</param>
         private void AddStorey(StructureGrid.Storey obj)
         {
+            // check if storeys in entities
+            if (this.entities.storeys == null)
+            {
+                this.entities.storeys = new StructureGrid.Storeys();
+            }
+
+            // add storey to entities
             if (this.StoreyInModel(obj))
             {
                 // pass
@@ -720,11 +800,11 @@ namespace FemDesign
             {
                 if (elem.origo.x != obj.origo.x || elem.origo.y != obj.origo.y)
                 {
-                    throw new System.ArgumentException($"Storey does not share XY-coordinates with storeys in model (point x: {elem.origo.x}, y: {elem.origo.y}).");
+                    throw new System.ArgumentException($"Storey does not share XY-coordinates with storeys in model (point x: {elem.origo.x}, y: {elem.origo.y}). If model was empty make sure all storeys added to model share XY-coordinates.");
                 }
                 if (!elem.direction.Equals(obj.direction))
                 {
-                    throw new System.ArgumentException($"Storey does not share direction with storeys in model (vector i: {elem.direction.x} , j: {elem.direction.y})");
+                    throw new System.ArgumentException($"Storey does not share direction with storeys in model (vector i: {elem.direction.x} , j: {elem.direction.y}). If model was empty make sure all storeys added to model share direction.");
                 }
             }
         }

@@ -48,6 +48,24 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Check if length of val is smaller than len.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        internal static string Length(string val, int len)
+        {
+            if (val.Length > len)
+            {
+                throw new System.ArgumentException($"Length of value {val.Length} must be equal to {len} or shorter.");
+            }
+            else
+            {
+                return val;
+            }
+        }
+
+        /// <summary>
         /// bar_buckling_type
         /// </summary>
         internal static string BarBucklingType(string val)
