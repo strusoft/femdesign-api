@@ -51,6 +51,15 @@ namespace FemDesign.Geometry
             return new FdPoint3d(this.x + v.x, this.y + v.y, this.z + v.z);
         }
 
+        /// <summary>
+        /// Project point on XY-plane.
+        /// </summary>
+        /// <returns></returns>
+        internal FdPoint2d To2d()
+        {
+            return new FdPoint2d(this.x, this.y);
+        }
+
         public override bool Equals(System.Object obj)
         {
             if (obj == null)
