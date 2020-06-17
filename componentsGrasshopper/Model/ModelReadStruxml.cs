@@ -30,6 +30,9 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -86,6 +89,11 @@ namespace FemDesign.GH
             {
                 // pass
             }
+            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
+            if (!DA.GetDataList(9, axes))
+            {
+                // pass
+            }
             
             if (filePath == null) 
             {
@@ -98,7 +106,7 @@ namespace FemDesign.GH
 
             //
             FemDesign.Model obj = FemDesign.Model.DeserializeFromFilePath(filePath);
-            obj.AddEntities(bars, slabs, covers, _loads, loadCases, loadCombinations, _supports, storeys);
+            obj.AddEntities(bars, slabs, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
 
             // return
             DA.SetData(0, obj);

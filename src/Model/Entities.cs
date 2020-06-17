@@ -53,9 +53,11 @@ namespace FemDesign
         public Supports.Supports supports = new Supports.Supports();
         [XmlElement("advanced-fem", Order = 18)]
         public AdvancedFem advancedFem = new AdvancedFem();
-
         [XmlElement("storeys", Order = 19)]
-        public StructureGrid.Storeys storeys = new StructureGrid.Storeys();
+        public StructureGrid.Storeys storeys { get; set; }
+        [XmlElement("axes", Order = 20)]
+        public StructureGrid.Axes axes { get; set; }
+
         // axes
         // ref planes
         // tsolids
