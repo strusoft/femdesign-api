@@ -139,6 +139,26 @@ namespace FemDesign.Geometry
             return edgeConnections;
         }
 
+        /// <summary>
+        /// Returns a new instance of region, without any EdgeConnections.
+        /// </summary>
+        /// <returns></returns>
+        internal Region RemoveEdgeConnections()
+        {
+            Region newRegion = this.DeepClone();
+            foreach (Contour newContour in newRegion.contours)
+            {
+                foreach (Edge newEdge in newContour.edges)
+                {
+                    if (newEdge.edgeConnection != null)
+                    {
+                        newEdge.edgeConnection = null;
+                    }
+                }
+            }
+            return newRegion;
+        }
+
         #region dynamo
         /// <summary>
         /// Create Region from Dynamo surface.
