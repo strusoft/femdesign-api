@@ -135,6 +135,26 @@ namespace FemDesign.Geometry
             return edgeConnections;
         }
 
+        /// <summary>
+        /// Returns a new instance of region, without any EdgeConnections.
+        /// </summary>
+        /// <returns></returns>
+        internal Region RemoveEdgeConnections()
+        {
+            Region newRegion = this.DeepClone();
+            foreach (Contour newContour in newRegion.contours)
+            {
+                foreach (Edge newEdge in newContour.edges)
+                {
+                    if (newEdge.edgeConnection != null)
+                    {
+                        newEdge.edgeConnection = null;
+                    }
+                }
+            }
+            return newRegion;
+        }
+
 
         #region grasshopper
         /// <summary>
@@ -217,7 +237,7 @@ namespace FemDesign.Geometry
                         pB0 = items[idx + 1].PointAtStart;
                         pB1 = items[idx + 1].PointAtEnd;
 
-                        if (pA0.Equals(pB0))
+                        if (pA0.EpsilonEquals(pB0, Tolerance.point3d))
                         {
                             if (idx == 0)
                             {
@@ -229,7 +249,7 @@ namespace FemDesign.Geometry
                             }
                         }
 
-                        else if (pA0.Equals(pB1))
+                        else if (pA0.EpsilonEquals(pB1, Tolerance.point3d))
                         {
                             if (idx == 0)
                             {
@@ -242,12 +262,12 @@ namespace FemDesign.Geometry
                             }
                         }
 
-                        else if (pA1.Equals(pB0))
+                        else if (pA1.EpsilonEquals(pB0, Tolerance.point3d))
                         {
                             // pass
                         }
 
-                        else if (pA1.Equals(pB1))
+                        else if (pA1.EpsilonEquals(pB1, Tolerance.point3d))
                         {
                             items[idx + 1].Reverse();
                         }
@@ -261,7 +281,7 @@ namespace FemDesign.Geometry
                     // check if outline is closed.
                     pA1 = items[items.Count - 1].PointAtEnd;
                     pB0 = items[0].PointAtStart;
-                    if (pA1.Equals(pB0))
+                    if (pA1.EpsilonEquals(pB0, Tolerance.point3d))
                     {
                         
                     }
