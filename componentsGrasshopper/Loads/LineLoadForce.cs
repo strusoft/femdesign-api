@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class LineLoadForceUniform: GH_Component
+    public class LineLoadForce: GH_Component
     {
-        public LineLoadForceUniform(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
+        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
         {
 
         }
