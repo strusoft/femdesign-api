@@ -5,20 +5,20 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class LineLoadForceUniform: GH_Component
+    public class LineLoadMoment: GH_Component
     {
-        public LineLoadForceUniform(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
+        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FemDesign", "Loads")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce. Optional. If undefined LineLoad will be uniform with a force of StartForce.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment).", GH_ParamAccess.item);
+            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction of load will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -57,7 +57,7 @@ namespace FemDesign.GH
             {
                 // pass
             }
-
+            
             if (curve == null || startForce == null || endForce == null || loadCase == null) { return; }
 
             //
@@ -65,7 +65,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.FdVector3d _startForce = FemDesign.Geometry.FdVector3d.FromRhino(startForce);
             FemDesign.Geometry.FdVector3d _endForce = FemDesign.Geometry.FdVector3d.FromRhino(endForce);
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.lineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "force");
+            obj.lineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
 
             // return
             DA.SetData(0, obj);
@@ -74,12 +74,12 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.LineLoadForce;
+                return FemDesign.Properties.Resources.LineLoadMoment;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("5ef58ff2-2480-4df9-923a-ecad75abf2b2"); }
+            get { return new Guid("2a90c1aa-96fe-4e1f-abd2-62244c966f51"); }
         }
     }
 }
