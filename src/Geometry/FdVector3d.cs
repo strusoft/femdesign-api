@@ -113,6 +113,28 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Check if this FdVector3d is parallel to v.
+        /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel
+        /// </summary>
+        internal int Parallel(FdVector3d v)
+        {
+            FdVector3d v0 = this.Normalize();
+            FdVector3d v1 = v.Normalize();
+            if (v0.Equals(v1, Tolerance.point3d))
+            {
+                return 1;
+            }
+            else if (v0.Scale(-1).Equals(v, Tolerance.point3d))
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Check if z-component is 0 and convert to 2d vector in XY-plane.
         /// </summary>
         /// <returns></returns>
@@ -166,6 +188,15 @@ namespace FemDesign.Geometry
                 return false;
             }
             return (x == v.x) && (y == v.y) && (z == v.z);
+        }
+
+        public bool Equals(FdVector3d v, double tol)
+        {
+            if ((object)v == null)
+            {
+                return false;
+            }
+            return (Math.Abs(x - v.x) < tol) && (Math.Abs(y - v.y) < tol) && (Math.Abs(z - v.z) < tol);
         }
 
         public override int GetHashCode()

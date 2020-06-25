@@ -12,4 +12,12 @@
     <oldName>FemDesign.Model.Model.RunDesign</oldName>
     <newName>FemDesign.Calculate.Application.RunAnalysis</newName>
   </priorNameHint>
+  <priorNameHint>
+    <oldName>FemDesign.Loads.LineLoad.ForceUniform</oldName>
+    <newName>FemDesign.Loads.LineLoad.Force</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>FemDesign.Loads.LineLoad.MomentUniform</oldName>
+    <newName>FemDesign.Loads.LineLoad.Moment</newName>
+  </priorNameHint>
 </migrations>
