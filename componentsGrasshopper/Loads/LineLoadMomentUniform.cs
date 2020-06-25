@@ -1,6 +1,5 @@
 // https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -8,17 +7,21 @@ namespace FemDesign.GH
 {
     public class LineLoadMomentUniform: GH_Component
     {
-        public LineLoadMomentUniform(): base("LineLoad.MomentUniform", "MomentUniform", "Creates a uniform moment line load.", "FemDesign", "Loads")
+        public LineLoadMomentUniform(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FemDesign", "Loads")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Moment", "Moment", "Moment.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment).", GH_ParamAccess.item);
+            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
-            pManager[3].Optional = true;
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -28,23 +31,41 @@ namespace FemDesign.GH
         {
             // get data
             Curve curve = null;
-            Vector3d moment = Vector3d.Zero;
-            FemDesign.Loads.LoadCase loadCase = null;
-            string comment = null;
             if (!DA.GetData(0, ref curve)) { return; }
-            if (!DA.GetData(1, ref moment)) { return; }
-            if (!DA.GetData(2, ref loadCase)) { return; }
-            if (!DA.GetData(3, ref comment))
+
+            Vector3d startForce = Vector3d.Zero;
+            if (!DA.GetData(1, ref startForce)) { return; }
+
+            Vector3d endForce = Vector3d.Zero;
+            if (!DA.GetData(2, ref endForce))
+            {
+                // if no data set endForce to startForce to create a uniform line load.
+                endForce = startForce;
+            }
+
+            FemDesign.Loads.LoadCase loadCase = null;
+            if (!DA.GetData(3, ref loadCase)) { return; }
+
+            bool constLoadDir = true;
+            if (!DA.GetData(4, ref constLoadDir)) 
             {
                 // pass
             }
-            if (curve == null || moment == null || loadCase == null) { return; }
+            
+            string comment = null;
+            if (!DA.GetData(5, ref comment))
+            {
+                // pass
+            }
+            
+            if (curve == null || startForce == null || endForce == null || loadCase == null) { return; }
 
             //
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineOrArc1(curve);
-            FemDesign.Geometry.FdVector3d _moment = FemDesign.Geometry.FdVector3d.FromRhino(moment);
+            FemDesign.Geometry.FdVector3d _startForce = FemDesign.Geometry.FdVector3d.FromRhino(startForce);
+            FemDesign.Geometry.FdVector3d _endForce = FemDesign.Geometry.FdVector3d.FromRhino(endForce);
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.lineLoad = new FemDesign.Loads.LineLoad(edge, _moment, _moment, loadCase, comment, "constant", false, "moment");
+            obj.lineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
 
             // return
             DA.SetData(0, obj);

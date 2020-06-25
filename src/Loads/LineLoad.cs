@@ -13,10 +13,16 @@ namespace FemDesign.Loads
         [XmlAttribute("load_dir")]
         public string _loadDirection; // load_dir_type
         [XmlIgnore]
-        public string loadDirection
+        public bool constLoadDir
         {
-            get {return this._loadDirection;}
-            set {this._loadDirection = RestrictedString.LoadDirType(value);}
+            get
+            {
+                return RestrictedString.LoadDirTypeToBool(this._loadDirection);
+            }
+            set
+            {
+                this._loadDirection = RestrictedString.LoadDirTypeFromBool(value);
+            }
         }
         [XmlAttribute("load_projection")]
         public bool loadProjection { get; set; } // bool
@@ -29,7 +35,48 @@ namespace FemDesign.Loads
         [XmlElement("normal", Order = 3)]
         public Geometry.FdVector3d normal { get; set; } // point_type_3d
         [XmlElement("load", Order = 4)]
-        public List<LoadLocationValue> load = new List<LoadLocationValue>(); // sequence: location_value
+        public LoadLocationValue[] load = new LoadLocationValue[2];
+        // public List<LoadLocationValue> load = new List<LoadLocationValue>(2); // sequence: location_value
+        [XmlIgnore]
+        public double startLoad
+        {
+            get
+            {
+                return this.load[0].val;
+            }
+            set
+            {
+                this.load[0] = new LoadLocationValue(this.edge.points[0], value);
+            }
+        }
+        [XmlIgnore]
+        public double endLoad
+        {
+            get
+            {
+                return this.load[1].val;
+            }
+            set
+            {
+                this.load[1] = new LoadLocationValue(this.edge.points[this.edge.points.Count - 1], value);
+            }
+        }
+        [XmlIgnore]
+        public Geometry.FdVector3d startForce
+        {
+            get
+            {
+                return this.direction.Scale(this.startLoad);
+            }
+        }
+        [XmlIgnore]
+        public Geometry.FdVector3d endForce
+        {
+            get
+            {
+                return this.direction.Scale(this.endLoad);
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -42,19 +89,34 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        internal LineLoad(Geometry.Edge _edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, string loadDirection, bool loadProjection, string loadType)
+        internal LineLoad(Geometry.Edge _edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, string loadType)
         {
             this.EntityCreated();
             this.loadCase = loadCase.guid;
             this.comment = comment;
-            this.loadDirection = loadDirection;
+            this.constLoadDir = constLoadDir;
             this.loadProjection = loadProjection;
             this.loadType = loadType;
             this.edge = _edge;
-            this.direction = f0.Normalize();
             this.normal = _edge.coordinateSystem.localZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
-            this.load.Add(new LoadLocationValue(_edge.points[0], f0.Length()));
-            this.load.Add(new LoadLocationValue(_edge.points[_edge.points.Count - 1], f1.Length())); 
+            this.SetStartAndEndForces(f0, f1);
+        }
+
+        internal void SetStartAndEndForces(Geometry.FdVector3d startForce, Geometry.FdVector3d endForce)
+        {
+            Geometry.FdVector3d v0 = startForce.Normalize();
+            Geometry.FdVector3d v1 = endForce.Normalize();
+            int par = v0.Parallel(v1);
+            if (par != 0)
+            {
+                this.direction = v0;
+                this.startLoad = startForce.Length();
+                this.endLoad = par * endForce.Length();
+            }
+            else
+            {
+                throw new System.ArgumentException($"Forces must be parallel or antiparallel.");
+            }
         }
 
         

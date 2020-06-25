@@ -174,6 +174,49 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Set LoadDirType to string from bool
+        /// </summary>
+        internal static string LoadDirTypeFromBool(bool val)
+        {
+            if (val)
+            {
+                return RestrictedString.LoadDirType("constant");
+            }
+            else
+            {
+                return RestrictedString.LoadDirType("changing");
+            }
+        }
+
+        /// <summary>
+        /// Get LoadDirType as bool from string
+        /// </summary>
+        internal static bool LoadDirTypeToBool(string val)
+        {
+            if (val == "constant")
+            {
+                return true;
+            }
+            else if (val == "changing")
+            {
+                return false;
+            }
+            else
+            {
+                throw new System.ArgumentException($"Unallowed value, {val}, can't GetLoadDirType as bool.");
+            }
+        }
+
+        /// <summary>
+        /// paneltype
+        /// </summary>
+        internal static string PanelType(string val)
+        {
+            List<string> items = new List<string>(){"concrete", "timber"};
+            return RestrictedString.RestrictionItems(val, items);
+        }
+
+        /// <summary>
         /// sf_rc_face
         /// </summary>
         internal static string SfRcFace(string val)
