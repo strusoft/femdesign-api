@@ -470,12 +470,57 @@ namespace FemDesign.Geometry
 
         #region grasshopper
         /// <summary>
+        /// Convert a Rhino Curve to one or several Edges.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static List<Geometry.Edge> FromRhinoBrep(Rhino.Geometry.Curve obj)
+        {
+            // initate list
+            List<Geometry.Edge> edges = new List<Edge>();
+
+            // if curve must be represented by a collection of curves
+            // if polyline
+            if (obj.IsPolyline())
+            {
+                obj.TryGetPolyline(out Rhino.Geometry.Polyline poly);
+                foreach (Rhino.Geometry.Line line in poly.GetSegments())
+                {
+                    edges.Add(Geometry.Edge.FromRhinoLineCurve(new Rhino.Geometry.LineCurve(line)));
+                }
+                return edges;
+            }
+
+            // if nurbscurve of degree > 2
+            // else if (obj.GetType() == typeof(Rhino.Geometry.NurbsCurve) && obj.Degree > 2)
+            // {
+            //     if (obj.IsLinear() || obj.IsArc() || obj.IsCircle() || !obj.IsPlanar())
+            //     {
+            //         // pass
+            //     }
+            //     else
+            //     {
+            //         // pass
+            //         // add method to translate nurbscurve to arcs and lines.
+            //     }
+            // }
+            
+            // else if curve can be represented by a single curve
+            else
+            {
+                edges.Add(Geometry.Edge.FromRhino(obj));
+                return edges;
+            }
+        }
+
+
+        /// <summary>
         /// Convert a Rhino Curve to Edge
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="arcType1">True if output is general purpose Edge. False if output is BarPart Edge.</param>
         /// <returns></returns>
-        public static Geometry.Edge FromRhino(Rhino.Geometry.Curve obj, bool arcType1 = true)
+        public static Geometry.Edge FromRhino(Rhino.Geometry.Curve obj)
         {
             // check length
             if (obj.GetLength() < FemDesign.Tolerance.point3d)
@@ -491,17 +536,7 @@ namespace FemDesign.Geometry
                 // if Arc
                 if (!obj.IsClosed)
                 {
-                    // if output is a general purpose Edge
-                    if (arcType1)
-                    {
-                        return Edge.FromRhinoArc1(arcCurve);
-                    }
-
-                    // if output is a BarPart Edge
-                    else
-                    {
-                        return Edge.FromRhinoArc2(arcCurve);
-                    }
+                    return Edge.FromRhinoArc1(arcCurve);
                 }
 
                 // if Circle

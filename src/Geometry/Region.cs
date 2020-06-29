@@ -426,7 +426,8 @@ namespace FemDesign.Geometry
                     // if curve for some reason is not a Circle
                     else
                     {
-                        throw new System.ArgumentException("Inconsistent BrepLoop. BrepLoop only contains one Trim and the underlying EdgeCurve is not a closed circle.");
+                        // if the curve can not be represented by a circle then direction is irrelevant.
+                        // pass
                     }
                 }
 
@@ -507,7 +508,10 @@ namespace FemDesign.Geometry
             {
                 foreach (Rhino.Geometry.Curve curve in items)
                 {
-                    edges.Add(Geometry.Edge.FromRhino(curve));
+                    foreach (Geometry.Edge edge in Geometry.Edge.FromRhinoBrep(curve))
+                    {
+                        edges.Add(edge);
+                    }
                 }
                 contours.Add(new Geometry.Contour(new List<Edge>(edges)));
                 edges.Clear();
