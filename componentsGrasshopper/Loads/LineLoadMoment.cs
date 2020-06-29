@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class LineLoadMomentUniform: GH_Component
+    public class LineLoadMoment: GH_Component
     {
-        public LineLoadMomentUniform(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FemDesign", "Loads")
+        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FemDesign", "Loads")
         {
 
         }
