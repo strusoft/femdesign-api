@@ -66,6 +66,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_neg_max_10
+        /// </summary>
+        internal static double NonNegMax_10(double val)
+        {
+            return RestrictedDouble.ValueInRange(val, 0, 10);
+        }
+
+        /// <summary>
         // non_neg_max_100
         /// </summary>
         internal static double NonNegMax_100(double val)
