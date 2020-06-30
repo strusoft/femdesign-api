@@ -12,6 +12,7 @@ namespace FemDesign.Loads
         public LineLoad lineLoad { get; set; }
         public SurfaceLoad surfaceLoad { get; set; }
         public PressureLoad pressureLoad { get; set; }
+        public MassConversionTable massConversionTable { get; set; }
         internal GenericLoadObject()
         {
             
@@ -31,6 +32,10 @@ namespace FemDesign.Loads
         internal GenericLoadObject(PressureLoad obj)
         {
             this.pressureLoad = obj;
+        }
+        internal GenericLoadObject(MassConversionTable obj)
+        {
+            this.massConversionTable = obj;
         }
         public static List<object> ToObjectList(List<GenericLoadObject> objs)
         {
@@ -52,6 +57,10 @@ namespace FemDesign.Loads
                 else if (obj.pressureLoad != null)
                 {
                     list.Add(obj.pressureLoad);
+                }                
+                else if (obj.massConversionTable != null)
+                {
+                    list.Add(obj.massConversionTable);
                 }
             }
             

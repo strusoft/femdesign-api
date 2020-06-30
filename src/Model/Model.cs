@@ -387,6 +387,10 @@ namespace FemDesign
             {
                 this.AddSurfaceLoad((Loads.SurfaceLoad)obj);
             }
+            else if (obj.GetType() == typeof(Loads.MassConversionTable))
+            {
+                this.AddMassConversionTable((Loads.MassConversionTable)obj);
+            }
             else
             {
                 throw new System.ArgumentException("Passed object must be PointLoad, LineLoad, SurfaceLoad or PressureLoad");
@@ -511,6 +515,14 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Add MassConversionTable to Model.
+        /// </summary>
+        private void AddMassConversionTable(Loads.MassConversionTable obj)
+        {
+            this.entities.loads.loadCaseMassConversionTable = obj;  
         }
 
         /// <summary>

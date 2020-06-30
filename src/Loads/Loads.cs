@@ -40,7 +40,7 @@ namespace FemDesign.Loads
         public List<DummyXmlObject> mass {get {return null;} set {value = null;}} // mass_point_type
         
         [XmlElement("load_case_mass_conversion_table", Order = 13)]
-        public List<DummyXmlObject> loadCaseMassConversionTable {get {return null;} set {value = null;}} // mass_conversion_type
+        public MassConversionTable loadCaseMassConversionTable {get; set;} // mass_conversion_type
         
         [XmlElement("seismic_load", Order = 14)]
         public List<DummyXmlObject> seismicLoad {get {return null;} set {value = null;}} // seismic_load_type

@@ -473,6 +473,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MassConversionTableDefine {
+            get {
+                object obj = ResourceManager.GetObject("MassConversionTableDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MaterialDatabaseDefault {
             get {
                 object obj = ResourceManager.GetObject("MaterialDatabaseDefault", resourceCulture);
