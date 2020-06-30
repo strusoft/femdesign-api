@@ -12,10 +12,12 @@ namespace FemDesign.GH
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Stage", "Stage", "Definition for construction stage calculation method. Optional.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Stage", "Stage", "Definition for construction stage calculation method. Optional, if undefined default values will be used - for reference please see default values of Stage.Define component.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Comb", "Comb", "Load combination calculation options. Optional.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;                        
+            pManager.AddGenericParameter("Comb", "Comb", "Load combination calculation options. Optional, if undefined default values will be used - for reference please see default values of Comb.Define component.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Freq", "Freq", "Eigienfrequency calculation options. Optional, if undefined default values will be used - for reference please see default values of Freq.Define component.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;                         
             pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;            
             pManager.AddBooleanParameter("calcCstage", "calcCstage", "Construction stages.", GH_ParamAccess.item, false);
@@ -47,83 +49,105 @@ namespace FemDesign.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Calculate.Stage stage = FemDesign.Calculate.Stage.Default();
-            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
-            bool calcCase = false;
-            bool calcCstage = false;
-            bool calcImpf = false;
-            bool calcComb = false;
-            bool calcGmax = false;
-            bool calcStab = false;
-            bool calcFreq = false;
-            bool calcSeis = false;
-            bool calcDesign = false;
-            bool elemfine = false;
-            bool diaphragm = false;
-            bool peakSmoothing = false;
-
             if (!DA.GetData(0, ref stage))
             {
                 // pass
             }
+
+            
+            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
             if (!DA.GetData(1, ref comb))
             {
                 // pass
             } 
-            if (!DA.GetData(2, ref calcCase))
+
+            FemDesign.Calculate.Freq freq = FemDesign.Calculate.Freq.Default();
+            if (!DA.GetData(2, ref freq))
+            {
+                // pass
+            } 
+
+            
+            bool calcCase = false;
+            if (!DA.GetData(3, ref calcCase))
             {
                 // pass
             }
-            if (!DA.GetData(3, ref calcCstage))
+
+            
+            bool calcCstage = false;
+            if (!DA.GetData(4, ref calcCstage))
             {
                 // pass
             }
-            if (!DA.GetData(4, ref calcImpf))
+            
+            bool calcImpf = false;
+            if (!DA.GetData(5, ref calcImpf))
             {
                 // pass
             }
-            if (!DA.GetData(5, ref calcComb))
+            
+            bool calcComb = false;
+            if (!DA.GetData(6, ref calcComb))
             {
                 // pass
             }
-            if (!DA.GetData(6, ref calcGmax))
+            
+            bool calcGMax = false;
+            if (!DA.GetData(7, ref calcGMax))
             {
                 // pass
             }
-            if (!DA.GetData(7, ref calcStab))
+            
+            bool calcStab = false;
+            if (!DA.GetData(8, ref calcStab))
             {
                 // pass
             }
-            if (!DA.GetData(8, ref calcFreq))
+            
+            bool calcFreq = false;
+            if (!DA.GetData(9, ref calcFreq))
             {
                 // pass
             }
-            if (!DA.GetData(9, ref calcSeis))
+            
+            bool calcSeis = false;
+            if (!DA.GetData(10, ref calcSeis))
             {
                 // pass
             }
-            if (!DA.GetData(10, ref calcDesign))
+            
+            bool calcDesign = false;
+            if (!DA.GetData(11, ref calcDesign))
             {
                 // pass
             }
-            if (!DA.GetData(11, ref elemfine))
+            
+            bool elemFine = false;
+            if (!DA.GetData(12, ref elemFine))
             {
                 // pass
             }
-            if (!DA.GetData(12, ref diaphragm))
+            
+            bool diaphragm = false;
+            if (!DA.GetData(13, ref diaphragm))
             {
                 // pass
             }
-            if (!DA.GetData(13, ref peakSmoothing))
+            
+            bool peakSmoothing = false;
+            if (!DA.GetData(14, ref peakSmoothing))
             {
                 // pass
             }
-            if (stage == null || comb == null)
+
+            if (stage == null || comb == null || freq == null)
             {
                 // pass
             }
 
             //
-            FemDesign.Calculate.Analysis obj = FemDesign.Calculate.Analysis.Define(stage, comb, calcCase, calcCstage, calcImpf, calcComb, calcGmax, calcStab, calcFreq, calcSeis, calcDesign, elemfine, diaphragm, peakSmoothing);
+            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, comb, freq, calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, elemFine, diaphragm, peakSmoothing);
 
             // return
             DA.SetData(0, obj);

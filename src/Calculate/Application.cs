@@ -209,7 +209,7 @@ namespace FemDesign.Calculate
         /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static bool RunDesign(string mode, Model fdModel, string struxmlPath, Calculate.Analysis analysis, Calculate.Design design, string bscPath = "", string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
+        public static bool RunDesign(string mode, Model fdModel, string struxmlPath, Calculate.Analysis analysis, Calculate.Design design, string bscPath = "", string docxTemplatePath = "", bool endSession = false, bool closeOpenWindows = false, bool runNode = true)
         {
             if (!runNode)
             {
