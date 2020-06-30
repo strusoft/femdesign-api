@@ -13,37 +13,181 @@ namespace FemDesign.Calculate
     {
         // elements
         [XmlElement("stage")]
-        public Stage stage { get; set; } // ANALSTAGE
+        public Stage Stage { get; set; } // ANALSTAGE
         [XmlElement("comb")]
-        public Comb comb { get; set; } // ANALCOMB
+        public Comb Comb { get; set; } // ANALCOMB
         [XmlElement("freq")]
-        public Freq freq { get; set; } // ANALFREQ
+        public Freq Freq { get; set; } // ANALFREQ
 
         // attributes
         [XmlAttribute("calcCase")]
-        public int calcCase { get; set; } // bool // int (0/1)?
+        public int _calcCase; // bool as int
+        [XmlIgnore]
+        public bool CalcCase
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcCase);
+            }
+            set
+            {
+                this._calcCase = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcCStage")]
-        public int calcCStage { get; set; } // bool // int (0/1)?
+        public int _calcCStage; // bool as int
+        [XmlIgnore]
+        public bool CalcCStage
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcCStage);
+            }
+            set
+            {
+                this._calcCStage = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcCImpf")]
-        public int calcCImpf { get; set; } // bool // int (0/1)?
+        public int _calcCImpf; // bool as int
+        [XmlIgnore]
+        public bool CalcCImpf
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcCImpf);
+            }
+            set
+            {
+                this._calcCImpf = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcComb")]
-        public int calcComb { get; set; } // bool // int (0/1)?
+        public int _calcComb; // bool as int
+        [XmlIgnore]
+        public bool CalcComb
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcComb);
+            }
+            set
+            {
+                this._calcComb = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcGmax")]
-        public int calcGmax { get; set; } // bool // int (0/1)?
+        public int _calcGMax; // bool as int
+        [XmlIgnore]
+        public bool CalcGMax
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcGMax);
+            }
+            set
+            {
+                this._calcGMax = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcStab")]
-        public int calcStab { get; set; } // bool // int (0/1)?
+        public int _calcStab; // bool as int
+        [XmlIgnore]
+        public bool CalcStab
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcStab);
+            }
+            set
+            {
+                this._calcStab = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcFreq")]
-        public int calcFreq { get; set; } // bool // int (0/1)?
+        public int _calcFreq; // bool as int
+        [XmlIgnore]
+        public bool CalcFreq
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcFreq);
+            }
+            set
+            {
+                this._calcFreq = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcSeis")]
-        public int calcSeis { get; set; } // bool // int (0/1)?
+        public int _calcSeis; // bool as int
+        [XmlIgnore]
+        public bool CalcSeis
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcSeis);
+            }
+            set
+            {
+                this._calcSeis = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("calcDesign")]
-        public int calcDesign { get; set; } // bool // int (0/1)?
+        public int _calcDesign; // bool as int
+        [XmlIgnore]
+        public bool CalcDesign
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcDesign);
+            }
+            set
+            {
+                this._calcDesign = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("elemfine")]
-        public int elemfine { get; set; } // bool // int (0/1)?
+        public int _elemFine; // bool as int
+        [XmlIgnore]
+        public bool ElemFine
+        {
+            get
+            {
+                return Convert.ToBoolean(this._elemFine);
+            }
+            set
+            {
+                this._elemFine = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("diaphragm")]
-        public int diaphragm { get; set; } // bool // int (0/1)?
+        public int _diaphragm; // bool as int
+        [XmlIgnore]
+        public bool Diaphragm
+        {
+            get
+            {
+                return Convert.ToBoolean(this._diaphragm);
+            }
+            set
+            {
+                this._diaphragm = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("peaksmoothing")]
-        public int peaksmoothing { get; set; } // bool // int (0/1)?
+        public int _peakSmoothing; // bool as int
+        [XmlIgnore]
+        public bool PeakSmoothing
+        {
+            get
+            {
+                return Convert.ToBoolean(this._peakSmoothing);
+            }
+            set
+            {
+                this._peakSmoothing = Convert.ToInt32(value);
+            }
+        }
  
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -52,68 +196,37 @@ namespace FemDesign.Calculate
         {
             
         }
-        private Analysis(Stage stage, Comb comb, bool calcCase = false, bool calcCstage = false, bool calcImpf = false, bool calcComb = false, bool calcGmax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool elemfine = false, bool diaphragm = false, bool peaksmoothing = false)
+        public Analysis(Stage stage, Comb comb, Freq freq, bool calcCase, bool calcCStage, bool calcImpf, bool calcComb, bool calcGMax, bool calcStab, bool calcFreq, bool calcSeis, bool calcDesign, bool elemFine, bool diaphragm, bool peakSmoothing)
         {
-            this.stage = stage;
-            this.comb = comb;
-            this.calcCase = Convert.ToInt32(calcCase);
-            this.calcCStage = Convert.ToInt32(calcCStage);
-            this.calcCImpf = Convert.ToInt32(calcImpf);
-            this.calcComb = Convert.ToInt32(calcComb);
-            this.calcGmax = Convert.ToInt32(calcGmax);
-            this.calcStab = Convert.ToInt32(calcStab);
-            this.calcFreq = Convert.ToInt32(calcFreq);
-            this.calcSeis = Convert.ToInt32(calcSeis);
-            this.calcDesign = Convert.ToInt32(calcDesign);
-            this.elemfine = Convert.ToInt32(elemfine);
-            this.diaphragm = Convert.ToInt32(diaphragm);
-            this.peaksmoothing = Convert.ToInt32(peaksmoothing);
+            this.Stage = stage;
+            this.Comb = comb;
+            this.Freq = freq;
+            this.CalcCase = calcCase;
+            this.CalcCStage = calcCStage;
+            this.CalcCImpf = calcImpf;
+            this.CalcComb = calcComb;
+            this.CalcGMax = calcGMax;
+            this.CalcStab = calcStab;
+            this.CalcFreq = calcFreq;
+            this.CalcSeis = calcSeis;
+            this.CalcDesign = calcDesign;
+            this.ElemFine = elemFine;
+            this.Diaphragm = diaphragm;
+            this.PeakSmoothing = peakSmoothing;
         }
+
+        /// <summary>
+        /// Internal method to transfer load combination calculation parameters from LoadCombination to Analysis.
+        /// </summary>
+        /// <param name="model"></param>
         public void SetLoadCombinationCalculationParameters(FemDesign.Model model)
         {
             List<Loads.LoadCombination> loadCombinations = model.entities.loads.loadCombination;
             foreach(Loads.LoadCombination _loadCombination in loadCombinations)
             {
-                this.comb.AddLoadCombinationParameters(_loadCombination);
+                this.Comb.AddLoadCombinationParameters(_loadCombination);
             }
         }
-        /// <summary>Set parameters for analysis.</summary>
-        /// <remarks>Create</remarks>
-        /// <param name="calcCase">Load cases.</param>
-        /// <param name="calcCstage">Construction stages.</param>
-        /// <param name="calcImpf">Imperfections.</param>
-        /// <param name="calcComb">Load combinations.</param>
-        /// <param name="calcGmax">Maximum of load groups.</param>
-        /// <param name="calcStab">Stability analysis</param>
-        /// <param name="calcFreq">Eigenfrequencies.</param>
-        /// <param name="calcSeis">Seismic analysis.</param>
-        /// <param name="calcDesign">Design calculations.</param>
-        /// <param name="elemfine">Fine or standard finite elements.</param>
-        /// <param name="diaphragm">Diaphragm calculation</param>
-        /// <param name="peaksmoothing">Peak smoothing of internal forces</param>
-        public static Analysis Default(bool calcCase = false, bool calcCstage = false, bool calcImpf = false, bool calcComb = false, bool calcGmax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool elemfine = false, bool diaphragm = false, bool peaksmoothing = false)
-        {
-            return new Analysis(Stage.Default(), Comb.Default(), calcCase, calcCstage, calcImpf, calcComb, calcGmax, calcStab, calcFreq, calcSeis, calcDesign, elemfine, diaphragm, peaksmoothing);
-        }
-        /// <summary>Set parameters for analysis.</summary>
-        /// <remarks>Create</remarks>
-        /// <param name="stage">Definition for construction stage calculation method.</param>
-        /// <param name="comb">Load combination calculation options.</param>
-        /// <param name="calcCase">Load cases.</param>
-        /// <param name="calcCstage">Construction stages.</param>
-        /// <param name="calcImpf">Imperfections.</param>
-        /// <param name="calcComb">Load combinations.</param>
-        /// <param name="calcGmax">Maximum of load groups.</param>
-        /// <param name="calcStab">Stability analysis</param>
-        /// <param name="calcFreq">Eigenfrequencies.</param>
-        /// <param name="calcSeis">Seismic analysis.</param>
-        /// <param name="calcDesign">Design calculations.</param>
-        /// <param name="elemfine">Fine or standard elements.</param>
-        /// <param name="diaphragm">Diaphragm calculation</param>
-        /// <param name="peaksmoothing">Peak smoothing of internal forces</param>
-        public static Analysis Define(Stage stage, Comb comb, bool calcCase = false, bool calcCstage = false, bool calcImpf = false, bool calcComb = false, bool calcGmax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool elemfine = false, bool diaphragm = false, bool peaksmoothing = false)
-        {
-            return new Analysis(stage, comb, calcCase, calcCstage, calcImpf, calcComb, calcGmax, calcStab, calcFreq, calcSeis, calcDesign, elemfine, diaphragm, peaksmoothing);
-        }
+
     }
 }

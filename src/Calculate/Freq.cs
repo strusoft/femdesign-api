@@ -12,15 +12,51 @@ namespace FemDesign.Calculate
     public class Freq
     {
         [XmlAttribute("Numshapes")]
-        public int Numshapes { get; set; } // int
+        public int NumShapes { get; set; } // int
         [XmlAttribute("MaxSturm")]
         public int MaxSturm { get; set; } // int
         [XmlAttribute("X")]
-        public int X { get; set; } // bool // int(?)
+        public int _x; // bool as int32
+        [XmlIgnore]
+        public bool X
+        {
+            get
+            {
+                return Convert.ToBoolean(this._x);
+            }
+            set
+            {
+                this._x = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("Y")]
-        public int Y { get; set; } // bool // int(?)
+        public int _y; // bool as int32
+        [XmlIgnore]
+        public bool Y
+        {
+            get
+            {
+                return Convert.ToBoolean(this._y);
+            }
+            set
+            {
+                this._y = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("Z")]
-        public int Z { get; set; } // bool // int(?)
+        public int _z; // bool as int32
+        [XmlIgnore]
+        public bool Z
+        {
+            get
+            {
+                return Convert.ToBoolean(this._z);
+            }
+            set
+            {
+                this._z = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("top")]
         public double top { get; set; } // double
 
@@ -32,14 +68,33 @@ namespace FemDesign.Calculate
             
         }
 
-        public Freq(int Numshapes, int MaxSturm = 0, bool X = true, bool Y = true, bool Z = true, double top = 0)
+        /// <summary>
+        /// Define calculation parameters for an eigenfrequency calculation.
+        /// </summary>
+        /// <param name="Numshapes">Number of shapes.</param>
+        /// <param name="MaxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
+        /// <param name="X">Consider masses in global x-direction.</param>
+        /// <param name="Y">Consider masses in global y-direction.</param>
+        /// <param name="Z">Consider masses in global z-direction.</param>
+        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.</param>
+        public Freq(int numShapes, int maxSturm, bool x, bool y, bool z, double top)
         {
-            this.Numshapes = Numshapes;
-            this.MaxSturm = MaxSturm;
-            this.X = Convert.ToInt32(X);
-            this.Y = Convert.ToInt32(Y);
-            this.Z = Convert.ToInt32(Z);
+            this.NumShapes = numShapes;
+            this.MaxSturm = maxSturm;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
             this.top = top;
         }
+
+        /// <summary>
+        /// Define default calculation parameters for an eigenfrequency calculation.
+        /// </summary>
+        /// <returns></returns>
+        public static Freq Default()
+        {
+            return new Freq(2, 0, true, true, true, -0.01);
+        }
+
     }
 }
