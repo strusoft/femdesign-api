@@ -1,7 +1,7 @@
 namespace FemDesign
 {
     #region dynamo
-    internal class DynamoNullArgument
+    internal class DefaultArgument
     {
         /// <summary>
         /// Pass null as default argument for Zero-touch nodes.

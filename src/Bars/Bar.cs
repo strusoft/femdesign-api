@@ -199,38 +199,58 @@ namespace FemDesign.Bars
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="curve">Curve. Only line and arc are supported.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
+        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "B")
+        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity,[DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "B")
         {
             // convert class
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
 
+            // create bar
+            Bar bar = Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
+
+            // set local y-axis
+            if (localY != null)
+            {
+                bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
             // return
-            return Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
+            return bar;
         }
         /// <summary>
         /// Create a bar-element of type column.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="line">Line.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
+        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, Materials.Material material, Sections.Section section, string identifier = "C")
+        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity,[DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "C")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
 
+            // create bar
+            Bar bar = Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
+
+            // set local y-axis
+            if (localY != null)
+            {
+                bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
             // return
-            return Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
+            return bar;
         }
         /// <summary>
         /// Create a bar-element of type truss.
@@ -239,15 +259,25 @@ namespace FemDesign.Bars
         /// <param name="line">Line.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, string identifier = "T")
+        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
 
+            // create bar
+            Bar bar = Bar.Truss(identifier, _line, material, section);
+
+            // set local y-axis
+            if (localY != null)
+            {
+                bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
             // return
-            return Bar.Truss(identifier, _line, material, section);
+            return bar;
         }
         /// <summary>
         /// Create a bar-element of type truss with limited capacity in compression and tension.
@@ -260,16 +290,26 @@ namespace FemDesign.Bars
         /// <param name="compressionPlasticity">True if plastic behaviour. False if brittle behaviour.</param>
         /// <param name="maxTension">Tension force limit.</param>
         /// <param name="tensionPlasticity">True if plastic behaviour. False if brittle behaviour.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity = false,  bool tensionPlasticity = false, string identifier = "T")
+        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
 
+            // create bar
+            Bar bar = Bar.Truss(identifier, _line, material, section, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
+
+            // set local y-axis
+            if (localY != null)
+            {
+                bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
             // return
-            return Bar.Truss(identifier, _line, material, section, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
+            return bar;
         }
 
         /// <summary>
@@ -277,7 +317,7 @@ namespace FemDesign.Bars
         /// </summary>
         /// <param name="localY">Vector. Local y-axis.</param>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public Bar SetLocalY(Autodesk.DesignScript.Geometry.Vector localY)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
