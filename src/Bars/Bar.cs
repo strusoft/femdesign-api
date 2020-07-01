@@ -280,7 +280,8 @@ namespace FemDesign.Bars
         [IsVisibleInDynamoLibrary(true)]
         public Bar SetLocalY(Autodesk.DesignScript.Geometry.Vector localY)
         {
-            //
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Bar bar = this.DeepClone();
 
             //

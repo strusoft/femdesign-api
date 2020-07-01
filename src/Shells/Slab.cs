@@ -94,7 +94,8 @@ namespace FemDesign.Shells
         [IsVisibleInDynamoLibrary(true)]
         public static Slab SetShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
         {
-            // clone slab
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Slab slabClone = slab.DeepClone();
 
             foreach (int index in indices)
@@ -126,7 +127,8 @@ namespace FemDesign.Shells
         [IsVisibleInDynamoLibrary(true)]
         public static Slab SetAverageSurfaceElementSize(Slab slab, double avgMeshSize)
         {
-            // clone slab
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Slab slabClone = slab.DeepClone();
 
             //
@@ -269,7 +271,8 @@ namespace FemDesign.Shells
         [IsVisibleInDynamoLibrary(true)]
         public Slab SetLocalAxes(Autodesk.DesignScript.Geometry.Vector localX, Autodesk.DesignScript.Geometry.Vector localZ)
         {
-            //
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Slab slab = this.DeepClone();
 
             // set local x and local z
