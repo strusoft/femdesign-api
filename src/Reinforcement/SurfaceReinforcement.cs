@@ -72,7 +72,8 @@ namespace FemDesign.Reinforcement
         /// </summary>
         internal static Shells.Slab AddStraightReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> _surfaceReinforcement)
         {
-            // clone slab
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Shells.Slab slabClone = slab.DeepClone();
 
             // check if slab material is concrete

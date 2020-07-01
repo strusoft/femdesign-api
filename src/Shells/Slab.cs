@@ -89,7 +89,8 @@ namespace FemDesign.Shells
         /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
         public static Slab SetShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
         {
-            // clone slab
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Slab slabClone = slab.DeepClone();
 
             foreach (int index in indices)
@@ -120,7 +121,8 @@ namespace FemDesign.Shells
         /// <returns></returns>
         public static Slab SetAverageSurfaceElementSize(Slab slab, double avgMeshSize)
         {
-            // clone slab
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
             Slab slabClone = slab.DeepClone();
 
             //

@@ -88,8 +88,10 @@ namespace FemDesign.Materials
         {
             if (material.concrete != null)
             {
-                // deep clone and create new entity
+                // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
                 Material newMaterial = material.DeepClone();
+                
+                // downstream and uppstream objs will NOT share guid.
                 newMaterial.EntityCreated();
 
                 // set parameters
