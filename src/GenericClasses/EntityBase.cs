@@ -14,15 +14,21 @@ namespace FemDesign
     [IsVisibleInDynamoLibrary(false)]
     public class EntityBase
     {
-        [XmlIgnore]
-        internal System.DateTime lastChange { get; set; }
         [XmlAttribute("guid")]
         public System.Guid guid { get; set; }
         [XmlAttribute("last_change")]
-        public string _lastChange 
+        public string _lastChange;
+        [XmlIgnore]
+        internal System.DateTime lastChange
         {
-            get { return this.lastChange.ToString("yyyy-MM-ddTHH:mm:ss.fff"); }
-            set { this.lastChange = System.DateTime.Parse(value); }
+            get
+            {
+                return System.DateTime.Parse(this._lastChange);
+            }
+            set
+            {
+                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+            }
         }
         [XmlAttribute("action")]
         public string action { get; set; }
