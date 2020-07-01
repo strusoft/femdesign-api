@@ -7,7 +7,7 @@ namespace FemDesign.GH
 {
     public class GenericSupportObjectSortSupports: GH_Component
     {
-       public GenericSupportObjectSortSupports(): base("GenericSupportObject.SortSupports", "SortLoads", "Sort a list of GenericSupportObject into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
+       public GenericSupportObjectSortSupports(): base("GenericSupportObject.SortSupports", "SortSupports", "Sort a list of GenericSupportObject into lists classified by each respective type of support.", "FemDesign", "Deconstruct")
        {
 
        }
