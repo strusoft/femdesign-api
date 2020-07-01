@@ -50,8 +50,16 @@ namespace FemDesign.Shells
         /// </summary>
         internal static ShellEdgeConnection CopyExisting(ShellEdgeConnection shellEdgeConnection, string name)
         {
+            // deep clone. downstreams objs contain changes made in this method, upstream objs will not.
             ShellEdgeConnection ec = shellEdgeConnection.DeepClone();
+
+            // downstream and uppstream objs will NOT share guid.
+            ec.EntityCreated();
+
+            //
             ec.name = name;
+
+            // return
             return ec;
         }
 
