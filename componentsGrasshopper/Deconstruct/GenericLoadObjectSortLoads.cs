@@ -63,7 +63,7 @@ namespace FemDesign.GH
                 }
                 else
                 {
-                    throw new System.ArgumentException("Type not supported. LoadsDeconstruct failed.");
+                    throw new System.ArgumentException("Type not supported. SortLoads failed.");
                 }
             }
 
