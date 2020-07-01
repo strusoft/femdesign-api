@@ -95,14 +95,21 @@ namespace FemDesign.Materials
         {
             if (material.concrete != null)
             {
-                material.concrete.SetMaterialParameters(creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
-                material.EntityModified();
+                // deep clone and create new entity
+                Material newMaterial = material.DeepClone();
+                newMaterial.EntityCreated();
+
+                // set parameters
+                newMaterial.concrete.SetMaterialParameters(creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
+                newMaterial.EntityModified();
+
+                // return
+                return newMaterial;
             }
             else
             {
                 throw new System.ArgumentException("Material must be concrete!");
             }
-            return material;
         }
         // /// <summary>
         // /// Set material properties for timber material.
