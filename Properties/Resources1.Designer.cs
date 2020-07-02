@@ -303,6 +303,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FreqDefine {
+            get {
+                object obj = ResourceManager.GetObject("FreqDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LateralTorsional {
             get {
                 object obj = ResourceManager.GetObject("LateralTorsional", resourceCulture);
