@@ -100,9 +100,7 @@ namespace FemDesign.Calculate
             return obj;
         }
 
-        /// <summary>
         /// Create fdscript to read a str-model.
-        /// </summary>
         internal static FdScript ReadStr(string strPath, List<string> bscPath = null)
         {
             //

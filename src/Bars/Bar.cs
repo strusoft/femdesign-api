@@ -86,9 +86,7 @@ namespace FemDesign.Bars
             this.end = "";
         }
 
-        /// <summary>
         /// Create a bar of type beam.
-        /// </summary>
         internal static Bar Beam(string identifier, Geometry.Edge edge, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section)
         {
             barInstance++;
@@ -110,9 +108,7 @@ namespace FemDesign.Bars
             return bar;
         }
 
-        /// <summary>
         /// Create a bar of type column.
-        /// </summary>
         internal static Bar Column(string identifier, Geometry.Edge line, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section)
         {
             columnInstance++;
@@ -133,9 +129,7 @@ namespace FemDesign.Bars
             return bar;
         }
 
-        /// <summary>
         /// Create a bar of type truss without compression or tension limits.
-        /// </summary>
         internal static Bar Truss(string identifier, Geometry.Edge line, Materials.Material material, Sections.Section section)
         {
             trussInstance++;
@@ -149,9 +143,7 @@ namespace FemDesign.Bars
             return bar;
         }
 
-        /// <summary>
         /// Create a bar of type truss.
-        /// </summary>
         internal static Bar Truss(string identifier, Geometry.Edge line, Materials.Material material, Sections.Section section, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
         {
             Bar bar = Bar.Truss(identifier, line, material, section);

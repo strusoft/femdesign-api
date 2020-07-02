@@ -63,8 +63,8 @@ namespace FemDesign.Shells
         /// Define a new ShellEdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="motions"></param>
-        /// <param name="rotations"></param>
+        /// <param name="motions">Motions.</param>
+        /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
         public static ShellEdgeConnection Define(Releases.Motions motions, Releases.Rotations rotations)
         {
