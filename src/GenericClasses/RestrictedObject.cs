@@ -1,6 +1,10 @@
 // https://strusoft.com/
 using System.Collections.Generic;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign
 {
     /// <summary>
@@ -8,6 +12,7 @@ namespace FemDesign
     /// 
     /// Restrictions are defined by strusoft.xsd
     /// </summary>
+    [IsVisibleInDynamoLibrary(false)]
     public class RestrictedObject
     {
         /// <summary>

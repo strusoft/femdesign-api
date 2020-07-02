@@ -60,7 +60,15 @@ namespace FemDesign.Loads
 
         /// <summary>
         /// Private constructor.
-        /// </summary>       
+        /// </summary>
+        /// <param name="loadDirection">Vector. Direction of force.</param>
+        /// <param name="z0">Surface level of soil/water (on the global Z axis).</param>
+        /// <param name="q0">Load intensity at the surface level.</param>
+        /// <param name="qh">Increment of load intensity per meter (along the global Z axis).</param>
+        /// <param name="loadCase">LoadCase.</param>
+        /// <param name="comment">Comment.</param>
+        /// <param name="loadProjection"></param>
+        /// <param name="loadType"></param>
         private PressureLoad(Geometry.Region region, Geometry.FdVector3d loadDirection, double z0, double q0, double qh, LoadCase loadCase, string comment, bool loadProjection, string loadType)
         {
             // base
@@ -79,10 +87,8 @@ namespace FemDesign.Loads
         }
 
         
-        /// <summary>
         /// Define new PressureLoad.
         /// Internal method used for GH components and Dynamo nodes.
-        /// </summary>
         internal static PressureLoad Define(Geometry.Region region, Geometry.FdVector3d loadDirection, LoadCase loadCase,  double z0, double q0, double qh, string comment)
         {
             //
