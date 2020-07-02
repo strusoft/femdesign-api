@@ -23,6 +23,10 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "ShellEdgeConnection. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true; 
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional.", GH_ParamAccess.item, "P");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -34,28 +38,46 @@ namespace FemDesign.GH
         {
             // get input
             Brep surface = null;
-            double thickness = 0;
-            FemDesign.Materials.Material material = null;
-            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default();
-            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default();
-            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Rigid();
-            string identifier = "P";
             if(!DA.GetData(0, ref surface)) { return; }
+            
+            double thickness = 0;
             if(!DA.GetData(1, ref thickness)) { return; }
+            
+            FemDesign.Materials.Material material = null;
             if(!DA.GetData(2, ref material)) { return; }
+            
+            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default();
             if(!DA.GetData(3, ref eccentricity))
             {
                 // pass
             }
+            
+            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default();
             if(!DA.GetData(4, ref orthotropy))
             {
                 // pass
             }
+            
+            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Rigid();
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass
             }
-            if(!DA.GetData(6, ref identifier))
+
+            Rhino.Geometry.Vector3d x = Vector3d.Zero;
+            if (!DA.GetData(6, ref x))
+            {
+                // pass
+            }
+
+            Rhino.Geometry.Vector3d z = Vector3d.Zero;
+            if (!DA.GetData(7, ref z))
+            {
+                // pass
+            }
+            
+            string identifier = "P";
+            if(!DA.GetData(8, ref identifier))
             {
                 // pass
             }
@@ -71,6 +93,18 @@ namespace FemDesign.GH
             //
             FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);
 
+            // set local x-axis
+            if (!x.Equals(Vector3d.Zero))
+            {
+                obj.slabPart.localX = FemDesign.Geometry.FdVector3d.FromRhino(x);
+            }
+
+            // set local z-axis
+            if (!z.Equals(Vector3d.Zero))
+            {
+                obj.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
+            }
+            
             // return
             DA.SetData(0, obj);
         }
