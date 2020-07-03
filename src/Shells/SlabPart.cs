@@ -107,7 +107,7 @@ namespace FemDesign.Shells
                 if (Math.Abs(dot) < Tolerance.dotProduct)
                 {
                     this._localX = val;
-                    this._localY = val.Cross(z);
+                    this._localY = z.Cross(val); // follows right-hand-rule
                 }
                 
                 else
@@ -151,7 +151,7 @@ namespace FemDesign.Shells
                 if (Math.Abs(dot) < Tolerance.dotProduct)
                 {
                     this._localZ = val;
-                    this._localY = val.Cross(x);
+                    this._localY = val.Cross(x); // follows right-hand-rule
                 }
                 
                 else
