@@ -19,7 +19,7 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Private constructor.
+        /// Private constructor [kN/m or kN/m/m].
         /// </summary>
         /// <param name="x_neg">Kx' compression.</param>
         /// <param name="x_pos">Kx' tension.</param>
@@ -40,12 +40,12 @@ namespace FemDesign.Releases
         /// <summary>
         /// Define a new translations release [kN/m or kN/m/m].
         /// </summary>
-        /// <param name="x_neg">Kx' compression.</param>
-        /// <param name="x_pos">Kx' tension.</param>
-        /// <param name="y_neg">Ky' compression.</param>
-        /// <param name="y_pos">Ky' tension.</param>
-        /// <param name="z_neg">Kz' compression.</param>
-        /// <param name="z_pos">Kz' tension.</param>
+        /// <param name="x_neg">Kx' compression [kN/m or kN/m/m].</param>
+        /// <param name="x_pos">Kx' tension [kN/m or kN/m/m].</param>
+        /// <param name="y_neg">Ky' compression [kN/m or kN/m/m].</param>
+        /// <param name="y_pos">Ky' tension [kN/m or kN/m/m].</param>
+        /// <param name="z_neg">Kz' compression [kN/m or kN/m/m].</param>
+        /// <param name="z_pos">Kz' tension [kN/m or kN/m/m].</param>
         [IsVisibleInDynamoLibrary(true)]
         public static Motions Define(double x_neg = 0, double x_pos = 0, double y_neg = 0, double y_pos = 0, double z_neg = 0, double z_pos = 0)
         {
