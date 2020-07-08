@@ -115,6 +115,12 @@ namespace FemDesign
         /// </summary>
         internal static Model DeserializeFromFilePath(string filePath)
         {
+            // check file extension
+            if (Path.GetExtension(filePath) != ".struxml")
+            {
+                throw new System.ArgumentException("File extension must be .struxml! Model.DeserializeModel failed.");
+            }
+
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
