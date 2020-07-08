@@ -1227,6 +1227,8 @@ namespace FemDesign
         /// <param name="loadCases"> Single loadCase element or list of loadCase-elements to add. Nested lists are not supported, use flatten.</param>
         /// <param name="loadCombinations"> Single loadCombination element or list of loadCombination elements to add. Nested lists are not supported, use flatten.</param>
         /// <param name="supports"> Single support element or list of support elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="storeys"> Single storey element or list of storey elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
         public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
@@ -1261,19 +1263,12 @@ namespace FemDesign
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="filePathStruxml">File path to .struxml file.</param>
-        /// <param name="bars"> Single bar element or list of bar-elements to add. Nested lists are not supported, use flatten.</param>
-        /// <param name="shells"> Single shell element or list of shell-elements to add. Nested lists are not supported, use flatten.</param>
-        /// <param name="loads"> Single load element or list of load-elements to add. Nested lists are not supported, use flatten.</param>
-        /// <param name="loadCases"> Single loadCase element or list of loadCase-elements to add. Nested lists are not supported, use flatten.</param>
-        /// <param name="loadCombinations"> Single loadCombination element or list of loadCombination-elements to add. Nested lists are not supported, use flatten.</param>
-        /// <param name="supports"> Single support element or list of support-elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model ReadStruxml(string filePathStruxml, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model ReadStruxml(string filePathStruxml)
         {
 
             Model _model = Model.DeserializeFromFilePath(filePathStruxml);
-            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
             return _model;
         }
         /// <summary>
