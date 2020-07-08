@@ -15,9 +15,9 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Private constructor.
+        /// Private constructor [kNm/rad or kNm/m/rad].
         /// </summary>
-        /// <param name="x_neg">Cx' compression.</param>
+        /// <param name="x_neg">Cx' compression. </param>
         /// <param name="x_pos">Cx' tension.</param>
         /// <param name="y_neg">Cy' compression.</param>
         /// <param name="y_pos">Cy' tension.</param>
@@ -34,15 +34,15 @@ namespace FemDesign.Releases
         }
         
         /// <summary>
-        /// Define a new rotations release [kN/rad or kN/m/rad].
+        /// Define a new rotations release [kNm/rad or kNm/m/rad].
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="x_neg">Cx' compression.</param>
-        /// <param name="x_pos">Cx' tension.</param>
-        /// <param name="y_neg">Cy' compression.</param>
-        /// <param name="y_pos">Cy' tension.</param>
-        /// <param name="z_neg">Cz' compression.</param>
-        /// <param name="z_pos">Cz' tension.</param>
+        /// <param name="x_neg">Cx' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="x_pos">Cx' tension [kNm/rad or kNm/m/rad].</param>
+        /// <param name="y_neg">Cy' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="y_pos">Cy' tension [kNm/rad or kNm/m/rad].</param>
+        /// <param name="z_neg">Cz' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="z_pos">Cz' tension [kNm/rad or kNm/m/rad].</param>
         public static Rotations Define(double x_neg = 0, double x_pos = 0, double y_neg = 0, double y_pos = 0, double z_neg = 0, double z_pos = 0)
         {
             return new Rotations(x_neg, x_pos, y_neg, y_pos, z_neg, z_pos);

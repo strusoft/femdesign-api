@@ -6,23 +6,23 @@ namespace FemDesign.GH
 {
     public class RotationsDefine: GH_Component
     {
-        public RotationsDefine(): base("Rotations.Define", "Define", "Define a new rotations release [kN/rad or kN/m/rad].", "FemDesign", "Releases")
+        public RotationsDefine(): base("Rotations.Define", "Define", "Define a new rotations release [kNm/rad or kNm/m/rad].", "FemDesign", "Releases")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("x_neg", "x_neg", "Cx' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_neg", "x_neg", "Cx' compression [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("x_pos", "x_pos", "Cx' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_pos", "x_pos", "Cx' tension [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_neg", "y_neg", "Cy' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_neg", "y_neg", "Cy' compression [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_pos", "y_pos", "Cy' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_pos", "y_pos", "Cy' tension [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_neg", "z_neg", "Cz' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_neg", "z_neg", "Cz' compression [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_pos", "z_pos", "Cz' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_pos", "z_pos", "Cz' tension [kNm/rad or kNm/m/rad].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

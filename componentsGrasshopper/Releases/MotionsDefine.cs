@@ -12,17 +12,17 @@ namespace FemDesign.GH
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
