@@ -117,12 +117,12 @@ namespace FemDesign.Bars
         /// Define releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="m_x">Translation local-x axis.</param>
-        /// <param name="m_y">Translation local-y axis.</param>
-        /// <param name="m_z">Translation local-z axis.</param>
-        /// <param name="r_x">Rotation around local-x axis.</param>
-        /// <param name="r_y">Rotation around local-y axis.</param>
-        /// <param name="r_z">Rotation around local-z axis.</param>
+        /// <param name="m_x">Translation local-x axis. True if rigid, false if free.</param>
+        /// <param name="m_y">Translation local-y axis. True if rigid, false if free.</param>
+        /// <param name="m_z">Translation local-z axis. True if rigid, false if free.</param>
+        /// <param name="r_x">Rotation around local-x axis. True if rigid, false if free.</param>
+        /// <param name="r_y">Rotation around local-y axis. True if rigid, false if free.</param>
+        /// <param name="r_z">Rotation around local-z axis. True if rigid, false if free.</param>
         public static Connectivity Define(bool m_x, bool m_y, bool m_z, bool r_x, bool r_y, bool r_z)
         {
             return new Connectivity(m_x, m_y, m_z, r_x, r_y, r_z);
