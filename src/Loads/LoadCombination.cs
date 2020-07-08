@@ -11,6 +11,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// load_combination_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class LoadCombination: EntityBase
     {

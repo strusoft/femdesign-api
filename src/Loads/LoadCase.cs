@@ -12,6 +12,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// load_case_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class LoadCase: EntityBase
     {

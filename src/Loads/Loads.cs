@@ -10,6 +10,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// loads
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Loads
     {

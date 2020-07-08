@@ -13,6 +13,7 @@ namespace FemDesign.Calculate
     /// Retreive process information of a running fd3dstruct. 
     /// Start and run processes (open, analysis, design etc.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Application
     {

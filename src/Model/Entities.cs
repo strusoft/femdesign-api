@@ -11,6 +11,7 @@ namespace FemDesign
     /// <summary>
     /// entities.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Entities
     {

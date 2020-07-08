@@ -8,6 +8,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// location_value_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class LoadLocationValue: LocationValue
     {

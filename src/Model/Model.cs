@@ -13,6 +13,7 @@ namespace FemDesign
     /// <summary>
     /// Model. Represents a complete struxml model.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public class Model
@@ -130,11 +131,24 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-            object obj = deserializer.Deserialize(reader);
+
+            // catch inner exception
+            object obj;
+            try
+            {    
+                obj = deserializer.Deserialize(reader);
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                throw ex.InnerException.InnerException;
+            }
+
+            // 
             Model fdModel = (Model)obj;
             fdModel.fromStruxml = true;
             reader.Close();
             return fdModel;
+            
         }
 
         /// <summary>
@@ -1221,6 +1235,31 @@ namespace FemDesign
         }
         #endregion
         #region dynamo
+        /// <summary>
+        /// Add elements to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="fdModel"> Model to add elements to.</param>
+        /// <param name="bars"> Single bar element or list of bar elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="shells"> Single shell element or list of shell elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="covers"> Single cover element or list of cover elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loads"> Loads", "Single PointLoad, LineLoad, SurfaceLoad or PressureLoad element or list of PointLoad, LineLoad, SurfaceLoad or PressureLoad to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loadCases"> Single loadCase element or list of loadCase-elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loadCombinations"> Single loadCombination element or list of loadCombination elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="supports"> Single support element or list of support elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="storeys"> Single storey element or list of storey elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
+        [IsLacingDisabled()]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        {
+            // deep clone model
+            Model model = fdModel.DeepClone();
+
+            // create model
+            model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            return model;
+        }
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
         /// </summary>

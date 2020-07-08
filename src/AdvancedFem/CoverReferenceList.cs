@@ -11,6 +11,7 @@ namespace FemDesign
     /// <summary>
     /// cover_referencelist_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class CoverReferenceList
     {

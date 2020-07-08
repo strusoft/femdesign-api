@@ -7,6 +7,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign
 {
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class ForceLoadBase: LoadBase
     {

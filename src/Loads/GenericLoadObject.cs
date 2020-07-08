@@ -9,6 +9,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// Object to contain load instances in GH when passing generic objects.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class GenericLoadObject
     {

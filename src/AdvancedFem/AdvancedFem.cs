@@ -11,6 +11,7 @@ namespace FemDesign
     /// <summary>
     /// Connections and virtual objects
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class AdvancedFem
     {        

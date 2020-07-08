@@ -11,6 +11,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// line_load_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class LineLoad: ForceLoadBase
     {

@@ -10,6 +10,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// point_load_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class PointLoad: ForceLoadBase
     {

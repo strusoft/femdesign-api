@@ -10,6 +10,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// line_support_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class LineSupport: EntityBase
     {
