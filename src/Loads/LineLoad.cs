@@ -8,6 +8,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// line_load_type
     /// </summary>
+    [System.Serializable]
     public class LineLoad: ForceLoadBase
     {
         [XmlAttribute("load_dir")]

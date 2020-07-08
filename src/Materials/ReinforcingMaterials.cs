@@ -8,6 +8,7 @@ namespace FemDesign.Materials
     /// <summary>
     /// reinforcing_materials.
     /// </summary>
+    [System.Serializable]
     public class ReinforcingMaterials
     {
         [XmlElement("material", Order = 1)]

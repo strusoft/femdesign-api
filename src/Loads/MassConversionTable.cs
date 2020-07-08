@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace FemDesign.Loads
 {
+    [System.Serializable]
     public class MassConversion
     {
         [XmlAttribute("factor")]
@@ -43,6 +44,7 @@ namespace FemDesign.Loads
         }
     }
 
+    [System.Serializable]
     public class MassConversionTable
     {
         [XmlElement("conversion", Order = 1)]

@@ -10,6 +10,7 @@ namespace FemDesign
     /// <summary>
     /// Model. Represents a complete struxml model.
     /// </summary>
+    [System.Serializable]
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public class Model
     {
@@ -124,11 +125,24 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-            object obj = deserializer.Deserialize(reader);
+
+            // catch inner exception
+            object obj;
+            try
+            {    
+                obj = deserializer.Deserialize(reader);
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                throw ex.InnerException.InnerException;
+            }
+
+            // 
             Model fdModel = (Model)obj;
             fdModel.fromStruxml = true;
             reader.Close();
             return fdModel;
+            
         }
 
         /// <summary>

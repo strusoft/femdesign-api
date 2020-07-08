@@ -7,6 +7,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// loads
     /// </summary>
+    [System.Serializable]
     public class Loads
     {
         // dummy elements are needed to deserialize an .struxml model correctly as order of elements is needed.

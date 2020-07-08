@@ -7,6 +7,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// point_load_type
     /// </summary>
+    [System.Serializable]
     public class PointLoad: ForceLoadBase
     {
         [XmlElement("direction")]

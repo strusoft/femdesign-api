@@ -7,6 +7,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// line_support_type
     /// </summary>
+    [System.Serializable]
     public class LineSupport: EntityBase
     {
 

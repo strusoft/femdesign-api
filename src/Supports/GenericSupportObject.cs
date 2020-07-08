@@ -7,6 +7,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// Object to contain support instances in GH when passing generic objects.
     /// </summary>
+    [System.Serializable]
     public class GenericSupportObject
     {
         public PointSupport pointSupport { get; set; }

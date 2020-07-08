@@ -8,6 +8,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// load_combination_type
     /// </summary>
+    [System.Serializable]
     public class LoadCombination: EntityBase
     {
         [XmlAttribute("name")]

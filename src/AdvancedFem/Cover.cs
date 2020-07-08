@@ -9,6 +9,7 @@ namespace FemDesign
     /// <summary>
     /// cover_type
     /// </summary>
+    [System.Serializable]
     public class Cover: EntityBase
     {
         private static int coverInstance = 0; // used for numbering in name

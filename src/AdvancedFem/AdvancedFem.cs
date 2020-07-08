@@ -8,6 +8,7 @@ namespace FemDesign
     /// <summary>
     /// Connections and virtual objects
     /// </summary>
+    [System.Serializable]
     public class AdvancedFem
     {        
         // connected_points

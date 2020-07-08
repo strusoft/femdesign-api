@@ -8,6 +8,7 @@ namespace FemDesign.Sections
     /// <summary>
     /// Sections container used in model.
     /// </summary>
+    [System.Serializable]
     public class ModelSections
     {
         [XmlElement("section", Order = 1)]

@@ -7,6 +7,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// pressure_load_type.
     /// </summary>
+    [System.Serializable]
     public class PressureLoad: ForceLoadBase
     {
         // attributes

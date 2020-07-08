@@ -7,6 +7,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// surface_load_type
     /// </summary>
+    [System.Serializable]
     public class SurfaceLoad: ForceLoadBase
     {
         // attributes

@@ -5,6 +5,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// location_value_type
     /// </summary>
+    [System.Serializable]
     public class LoadLocationValue: LocationValue
     {
         /// <summary>

@@ -7,6 +7,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// point_support_type
     /// </summary>
+    [System.Serializable]
     public class PointSupport: EntityBase
     {
         [XmlIgnore]

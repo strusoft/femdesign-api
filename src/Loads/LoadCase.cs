@@ -9,6 +9,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// load_case_type
     /// </summary>
+    [System.Serializable]
     public class LoadCase: EntityBase
     {
         // attributes

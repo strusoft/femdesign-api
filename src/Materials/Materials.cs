@@ -8,6 +8,7 @@ namespace FemDesign.Materials
     /// <summary>
     /// materials
     /// </summary>
+    [System.Serializable]
     public class Materials
     {
         [XmlElement("material", Order = 1)]

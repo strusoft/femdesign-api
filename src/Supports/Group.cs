@@ -7,6 +7,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// support_rigidity_data_type --> group
     /// </summary>
+    [System.Serializable]
     public class Group
     {
         [XmlElement("local_x", Order = 1)]

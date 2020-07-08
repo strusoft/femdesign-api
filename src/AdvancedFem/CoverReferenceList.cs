@@ -8,6 +8,7 @@ namespace FemDesign
     /// <summary>
     /// cover_referencelist_type
     /// </summary>
+    [System.Serializable]
     public class CoverReferenceList
     {
         [XmlElement("ref")]

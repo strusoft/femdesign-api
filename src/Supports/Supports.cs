@@ -8,6 +8,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// supports
     /// </summary>
+    [System.Serializable]
     public class Supports
     {
         [XmlElement("point_support", Order = 1)]

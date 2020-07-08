@@ -8,6 +8,7 @@ namespace FemDesign
     /// <summary>
     /// entities.
     /// </summary>
+    [System.Serializable]
     public class Entities
     {
         // dummy elements are needed to deserialize an .struxml model correctly as order of elements is needed.
