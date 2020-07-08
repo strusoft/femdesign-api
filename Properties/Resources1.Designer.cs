@@ -673,6 +673,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ModelAddElements {
+            get {
+                object obj = ResourceManager.GetObject("ModelAddElements", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ModelCreate {
             get {
                 object obj = ResourceManager.GetObject("ModelCreate", resourceCulture);
@@ -716,16 +726,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap ModelReadStr {
             get {
                 object obj = ResourceManager.GetObject("ModelReadStr", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ModelReadStr1 {
-            get {
-                object obj = ResourceManager.GetObject("ModelReadStr1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
