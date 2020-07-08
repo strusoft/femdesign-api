@@ -10,6 +10,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// load_case (child of load_combination_type)
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class ModelLoadCase
     {

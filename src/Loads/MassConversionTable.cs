@@ -7,6 +7,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Loads
 {
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class MassConversion
     {
@@ -47,6 +48,7 @@ namespace FemDesign.Loads
         }
     }
 
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class MassConversionTable
     {

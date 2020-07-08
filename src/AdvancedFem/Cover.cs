@@ -12,6 +12,7 @@ namespace FemDesign
     /// <summary>
     /// cover_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Cover: EntityBase
     {

@@ -11,6 +11,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// supports
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Supports
     {

@@ -10,6 +10,7 @@ namespace FemDesign.Supports
     /// <summary>
     /// support_rigidity_data_type --> group
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Group
     {

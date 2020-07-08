@@ -10,6 +10,7 @@ namespace FemDesign.Bars.Buckling
     /// <summary>
     /// segmentposition_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Position
     {

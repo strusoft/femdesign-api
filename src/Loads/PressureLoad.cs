@@ -10,6 +10,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// pressure_load_type.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class PressureLoad: ForceLoadBase
     {

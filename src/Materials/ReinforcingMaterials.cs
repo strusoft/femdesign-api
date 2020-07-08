@@ -11,6 +11,7 @@ namespace FemDesign.Materials
     /// <summary>
     /// reinforcing_materials.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class ReinforcingMaterials
     {

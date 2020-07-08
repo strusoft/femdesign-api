@@ -10,6 +10,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// surface_load_type
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class SurfaceLoad: ForceLoadBase
     {
