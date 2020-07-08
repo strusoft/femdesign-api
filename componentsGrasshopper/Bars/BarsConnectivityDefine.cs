@@ -13,12 +13,12 @@ namespace FemDesign.GH
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("m_x", "m_x", "Translation local-x axis", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("m_y", "m_z", "Translation local-y axis", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("m_z", "m_z", "Translation local-z axis", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("r_x", "r_x", "Rotation around local-x axis", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("r_y", "r_y", "Rotation around local-y axis", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("r_z", "r_z", "Rotation around local-z axis", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("m_x", "m_x", "Translation local-x axis. True if rigid, false if free.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("m_y", "m_z", "Translation local-y axis. True if rigid, false if free.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("m_z", "m_z", "Translation local-z axis. True if rigid, false if free.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("r_x", "r_x", "Rotation around local-x axis. True if rigid, false if free.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("r_y", "r_y", "Rotation around local-y axis. True if rigid, false if free.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("r_z", "r_z", "Rotation around local-z axis. True if rigid, false if free.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
