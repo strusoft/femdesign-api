@@ -92,16 +92,6 @@ namespace FemDesign.Bars.Buckling
             }
         }
         /// <summary>
-        /// Create a default BucklingLength in Flexural Stiff direction.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        public static BucklingLength FlexuralStiffDefault()
-        {
-            string type = "flexural_stiff";
-            return new BucklingLength(Position.AlongBar(), type, 1, false);
-        }
-        /// <summary>
         /// Define BucklingLength in Flexural Stiff direction.
         /// </summary>
         /// <remarks>Create</remarks>
@@ -114,16 +104,6 @@ namespace FemDesign.Bars.Buckling
             return new BucklingLength(Position.AlongBar(), _type, beta, sway);
         }
         /// <summary>
-        /// Create a default BucklingLength in Flexural Weak direction.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        public static BucklingLength FlexuralWeakDefault()
-        {
-            string _type = "flexural_weak";
-            return new BucklingLength(Position.AlongBar(), _type, 1, false);
-        }
-        /// <summary>
         /// Define BucklingLength in Flexural Weak direction.
         /// </summary>
         /// <remarks>Create</remarks>
@@ -134,16 +114,6 @@ namespace FemDesign.Bars.Buckling
         {
             string _type = "flexural_weak";
             return new BucklingLength(Position.AlongBar(), _type, beta, sway);
-        }
-        /// <summary>
-        /// Create a default BucklingLength for Pressured Top Flange.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        public static BucklingLength PressuredTopFlangeDefault()
-        {
-            string _type = "pressured_flange";
-            return new BucklingLength(Position.AlongBar(), _type, 1, "top", false);
         }
         /// <summary>
         /// Define BucklingLength for Pressured Top Flange.
@@ -159,16 +129,6 @@ namespace FemDesign.Bars.Buckling
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
         }
         /// <summary>
-        /// Create a default BucklingLength for Pressured Bottom Flange.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        public static BucklingLength PressuredBottomFlangeDefault()
-        {
-            string _type = "pressured_bottom_flange";
-            return new BucklingLength(Position.AlongBar(), _type, 1, "top", false);
-        }
-        /// <summary>
         /// Define BucklingLength for Pressured Bottom Flange.
         /// </summary>
         /// <remarks>Create</remarks>
@@ -180,16 +140,6 @@ namespace FemDesign.Bars.Buckling
         {
             string _type = "pressured_bottom_flange";
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
-        }
-        /// <summary>
-        /// Create a default BucklingLength for Lateral Torsional buckling.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        public static BucklingLength LateralTorsionalDefault()
-        {
-            string _type = "lateral_torsional";
-            return new BucklingLength(Position.AlongBar(), _type, "top", false, false);
         }
         /// <summary>
         /// Define BucklingLength for Lateral Torsional buckling.
