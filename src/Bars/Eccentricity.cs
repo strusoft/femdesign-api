@@ -92,5 +92,15 @@ namespace FemDesign.Bars
         {
             return new Eccentricity(y, z);
         }
+
+        /// <summary>
+        /// Create a default eccentricity, i.e. y=z=0.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <returns></returns>
+        public static Eccentricity Default()
+        {
+            return new Eccentricity(0, 0);
+        }
     }
 }
