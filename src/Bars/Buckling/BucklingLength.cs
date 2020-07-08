@@ -26,7 +26,7 @@ namespace FemDesign.Bars.Buckling
         } 
         [XmlAttribute("sway")]
         public bool sway { get; set; } // boolean
-        [XmlAttribute("loadPosition")]
+        [XmlAttribute("load_position")]
         public string _loadPosition;  // ver_align
         [XmlIgnore]
         public string loadPosition
