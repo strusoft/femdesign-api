@@ -16,8 +16,6 @@ namespace FemDesign.GH
             pManager.AddTextParameter("FilePathStr", "FilePathStr", "File path to .str file.", GH_ParamAccess.item);
             pManager.AddTextParameter("FilePathBsc", "FilePathBsc", "File path to .bsc batch-file. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("CloseOpenWindows", "CloseOpenWindows", "If true all open windows will be closed without prior warning.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -29,7 +27,6 @@ namespace FemDesign.GH
             // 
             string filePath = null;
             List<string> bscPath = new List<string>();
-            bool closeOpenWindows = false;
 
             // get data
             if (!DA.GetData(0, ref filePath))
@@ -47,10 +44,6 @@ namespace FemDesign.GH
                     bscPath = null;
                 }
             }
-            if (!DA.GetData(2, ref closeOpenWindows))
-            {
-                // pass
-            }
             if (filePath == null)
             {
                 return;
@@ -59,7 +52,7 @@ namespace FemDesign.GH
             //
             FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPath);
             FemDesign.Calculate.Application app = new FemDesign.Calculate.Application();
-            bool hasExited = app.RunFdScript(fdScript, closeOpenWindows, true);
+            bool hasExited = app.RunFdScript(fdScript, false, true);
 
             //
             if (hasExited)
