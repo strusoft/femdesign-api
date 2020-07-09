@@ -26,6 +26,9 @@ namespace FemDesign.GH
             pManager.AddGenericParameter("LoadCases", "LoadCases", "Single LoadCase element or list of LoadCase elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Supports", "Supports", "Single Support element or list of Support elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Axes", "Axes", "Single axis element or list of axis elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Storeys", "Storeys", "Single storey element or list of storey elements.", GH_ParamAccess.list);
+
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -49,6 +52,8 @@ namespace FemDesign.GH
             DA.SetDataList(5, model.entities.loads.loadCase);
             DA.SetDataList(6, model.entities.loads.loadCombination);
             DA.SetDataList(7, model.entities.supports.GetGenericSupportObjects());
+            DA.SetDataList(8, model.entities.axes.axis);
+            DA.SetDataList(9, model.entities.storeys.storey);
         }
         protected override System.Drawing.Bitmap Icon
         {

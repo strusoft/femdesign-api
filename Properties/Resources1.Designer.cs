@@ -73,6 +73,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AxisDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("AxisDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AxisDefine {
             get {
                 object obj = ResourceManager.GetObject("AxisDefine", resourceCulture);
@@ -1226,6 +1236,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StageDefine {
             get {
                 object obj = ResourceManager.GetObject("StageDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StoreyDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("StoreyDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
