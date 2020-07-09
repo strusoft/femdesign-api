@@ -13,7 +13,24 @@ namespace FemDesign
     [IsVisibleInDynamoLibrary(false)]
     public class Deconstruct
     {
-
+        /// <summary>
+        /// Deconstruct an axis element
+        /// </summary>
+        /// <param name="axis">Axis.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Line", "Prefix", "Id", "IdIsLetter"})]
+        public static Dictionary<string, object> AxisDeconstruct(FemDesign.StructureGrid.Axis axis)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", axis.guid},
+                {"Line", Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(axis.startPoint.ToDynamo(), axis.endPoint.ToDynamo())},
+                {"Prefix", axis.prefix},
+                {"Id", axis.id},
+                {"IdIsLetter", axis.idIsLetter}
+            };
+        }
         /// <summary>
         /// Deconstruct a bar element.
         /// </summary>
@@ -208,7 +225,7 @@ namespace FemDesign
         /// <param name="model">Model.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "Shells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports"})]
+        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "Shells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             // return
@@ -222,7 +239,9 @@ namespace FemDesign
                 {"Loads", model.entities.loads.GetLoads()},
                 {"LoadCases", model.entities.loads.loadCase},
                 {"LoadCombinations", model.entities.loads.loadCombination},
-                {"Supports", model.entities.supports.ListSupports()}
+                {"Supports", model.entities.supports.ListSupports()},
+                {"Axes", model.entities.axes.axis},
+                {"Storeys", model.entities.storeys.storey}
             };
         }
 
@@ -258,6 +277,26 @@ namespace FemDesign
                 {"Diameter", wire.diameter},
                 {"ReinforcingMaterial", wire.reinforcingMaterialGuid},
                 {"Profile", wire.profile}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a storey element.
+        /// </summary>
+        /// <param name="storey">Storey.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Origo", "Direction", "DimensionX", "DimensionY", "Name"})]
+        public static Dictionary<string, object> StoreyDeconstruct(FemDesign.StructureGrid.Storey storey)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", storey.guid},
+                {"Origo", storey.origo.ToDynamo()},
+                {"Direction", storey.direction.ToDynamo()},
+                {"DimensionX", storey.dimensionX},
+                {"DimensionY", storey.dimensionY},
+                {"Name", storey.name}
             };
         }
 
