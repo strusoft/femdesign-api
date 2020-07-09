@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class LoadCombinationSetCalculationParameters: GH_Component
+    public class LoadCombinationSetupCalculation: GH_Component
     {
-        public LoadCombinationSetCalculationParameters(): base("LoadCombination.SetCalculationParameters", "SetCalculationParameters", "Set calculation parameters for a specific load combination.", "FemDesign", "Loads")
+        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", "FemDesign", "Calculate")
         {
 
         }
