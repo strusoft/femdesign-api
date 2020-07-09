@@ -113,7 +113,7 @@ namespace FemDesign.Shells
             return slabClone;          
         }
         /// <summary>
-        /// Set average mesh size to slab. Note: Does not work for walls in FEM-Design 19.00.001.
+        /// Set average mesh size to slab. Note: Does not work for walls.
         /// </summary>
         /// <remarks>Action</remarks>
         /// <param name="slab">Slab.</param>

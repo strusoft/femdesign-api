@@ -6,7 +6,7 @@ namespace FemDesign.GH
 {
     public class SlabAverageMeshSize: GH_Component
     {
-        public SlabAverageMeshSize(): base("Slab.AverageSurfaceElementSize", "AvgSrfElemSize", "Set average surface element size to slab. Note: Does not work for walls in FEM-Design 19.00.001.", "FemDesign", "Mesh")
+        public SlabAverageMeshSize(): base("Slab.AverageSurfaceElementSize", "AvgSrfElemSize", "Set average surface element size to slab. Note: Does not work for walls.", "FemDesign", "Mesh")
         {
 
         }
