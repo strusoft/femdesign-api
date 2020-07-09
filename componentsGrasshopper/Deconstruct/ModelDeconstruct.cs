@@ -43,6 +43,27 @@ namespace FemDesign.GH
                 return;
             }
 
+            List<StructureGrid.Axis> axes;
+            if (model.entities.axes != null)
+            {
+                axes = model.entities.axes.axis;
+            }
+            else
+            {
+                axes = null;
+            }
+
+            List<StructureGrid.Storey> storeys;
+            if (model.entities.storeys != null)
+            {
+                storeys = model.entities.storeys.storey;
+            }
+            else
+            {
+                storeys = null;
+            }
+        
+
             // return data
             DA.SetData(0, model.country);
             DA.SetDataList(1, model.GetBars());
@@ -52,8 +73,8 @@ namespace FemDesign.GH
             DA.SetDataList(5, model.entities.loads.loadCase);
             DA.SetDataList(6, model.entities.loads.loadCombination);
             DA.SetDataList(7, model.entities.supports.GetGenericSupportObjects());
-            DA.SetDataList(8, model.entities.axes.axis);
-            DA.SetDataList(9, model.entities.storeys.storey);
+            DA.SetDataList(8, axes);
+            DA.SetDataList(9, storeys);
         }
         protected override System.Drawing.Bitmap Icon
         {
