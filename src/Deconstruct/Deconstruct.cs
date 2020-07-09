@@ -228,6 +228,26 @@ namespace FemDesign
         [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "Shells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
+            List<StructureGrid.Axis> axes;
+            if (model.entities.axes != null)
+            {
+                axes = model.entities.axes.axis;
+            }
+            else
+            {
+                axes = null;
+            }
+
+            List<StructureGrid.Storey> storeys;
+            if (model.entities.storeys != null)
+            {
+                storeys = model.entities.storeys.storey;
+            }
+            else
+            {
+                storeys = null;
+            }
+        
             // return
             return new Dictionary<string, object>
             {
@@ -240,8 +260,8 @@ namespace FemDesign
                 {"LoadCases", model.entities.loads.loadCase},
                 {"LoadCombinations", model.entities.loads.loadCombination},
                 {"Supports", model.entities.supports.ListSupports()},
-                {"Axes", model.entities.axes.axis},
-                {"Storeys", model.entities.storeys.storey}
+                {"Axes", axes},
+                {"Storeys", storeys}
             };
         }
 
