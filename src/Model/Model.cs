@@ -1321,15 +1321,14 @@ namespace FemDesign
         /// </summary>
         /// <param name="strPath">File path to .str file.</param>
         /// <param name="bscPath">File path to .bsc batch-file. Item or list.</param>
-        /// <param name="closeOpenWindows">If true all open windows will be closed without prior warning.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "HasExited"})]
-        public static Dictionary<string, object> ReadStr(string strPath,[DefaultArgument("[]")] List<string> bscPath, bool closeOpenWindows = false)
+        public static Dictionary<string, object> ReadStr(string strPath,[DefaultArgument("[]")] List<string> bscPath)
         {
             Calculate.FdScript fdScript = Calculate.FdScript.ReadStr(strPath, bscPath);
             Calculate.Application fdApp = new Calculate.Application();
-            bool hasExited =  fdApp.RunFdScript(fdScript, closeOpenWindows, true);
+            bool hasExited =  fdApp.RunFdScript(fdScript, false, true);
             if (hasExited)
             {
                 return new Dictionary<string, object>
