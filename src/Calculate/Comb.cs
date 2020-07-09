@@ -87,7 +87,7 @@ namespace FemDesign.Calculate
             return new Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
         }
 
-        /// <summary>Define calculation parameters for load combinations.</summary>
+        /// <summary>Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation (found under the Calculate category).</summary>
         /// <remarks>Create</remarks>
         /// <param name="NLEmaxiter">Non-linear elastic analysis: Maximum iteration number.</param>
         /// <param name="PLdefloadstep">Plastic analysis: Default load step in % of the total load.</param>
