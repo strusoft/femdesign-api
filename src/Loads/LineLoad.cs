@@ -183,7 +183,7 @@ namespace FemDesign.Loads
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="curve">Curve defining the line load.</param>
-        /// <param name="startForce">Force at start.</param>
+        /// <param name="startForce">Force at start. The start force will define the direction of the line load.</param>
         /// <param name="endForce">Force at end.</param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="constLoadDir">Bool. Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.</param>
@@ -232,7 +232,7 @@ namespace FemDesign.Loads
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="curve">Curve defining the line load.</param>
-        /// <param name="startForce">Force (moment) at start.</param>
+        /// <param name="startForce">Force (moment) at start. The start force will define the direction of the line load.</param>
         /// <param name="endForce">Force (moment) at end.</param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="constLoadDir">Bool. Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.</param>

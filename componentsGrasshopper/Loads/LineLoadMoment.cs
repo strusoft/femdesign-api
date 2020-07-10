@@ -14,7 +14,7 @@ namespace FemDesign.GH
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment).", GH_ParamAccess.item);
+            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment). The start force will define the direction of the line load.", GH_ParamAccess.item);
             pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
