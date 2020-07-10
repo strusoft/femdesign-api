@@ -105,18 +105,44 @@ namespace FemDesign.Loads
 
         internal void SetStartAndEndForces(Geometry.FdVector3d startForce, Geometry.FdVector3d endForce)
         {
-            Geometry.FdVector3d v0 = startForce.Normalize();
-            Geometry.FdVector3d v1 = endForce.Normalize();
-            int par = v0.Parallel(v1);
-            if (par != 0)
+            if (startForce.IsZero() && !endForce.IsZero())
             {
-                this.direction = v0;
-                this.startLoad = startForce.Length();
-                this.endLoad = par * endForce.Length();
+                this.direction = endForce.Normalize();
+                this.startLoad = 0;
+                this.endLoad = endForce.Length();
             }
+
+            else if (!startForce.IsZero() && endForce.IsZero())
+            {
+                this.direction = startForce.Normalize();
+                this.startLoad = startForce.Length();
+                this.endLoad = 0;
+            }
+
+            else if (startForce.IsZero() && endForce.IsZero())
+            {
+                throw new System.ArgumentException($"Both StartForce and EndForce are zero vectors. Can't set direction of LineLoad.");
+            }
+
+            // if no zero vectors - check if vectors are parallel
             else
             {
-                throw new System.ArgumentException($"Forces must be parallel or antiparallel.");
+                Geometry.FdVector3d v0 = startForce.Normalize();
+                Geometry.FdVector3d v1 = endForce.Normalize();
+                double q0 = startForce.Length();
+                double q1 = endForce.Length();
+
+                int par = v0.Parallel(v1);
+                if (par != 0)
+                {
+                    this.direction = v0;
+                    this.startLoad = q0;
+                    this.endLoad = par * q1;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"StartForce and EndForce must be parallel or antiparallel.");
+                }
             }
         }
 
