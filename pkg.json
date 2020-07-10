@@ -2,19 +2,19 @@
 	"license": "MIT",
 	"file_hash": null,
 	"name": "FemDesign",
-	"version": "1.0.8",
+	"version": "1.1.0",
 	"description": "",
 	"group": "",
 	"keywords": null,
 	"dependencies": [],
 	"contents": "",
-	"engine_version": "2.1.0.0",
+	"engine_version": "2.2.1.5175",
 	"engine": "dynamo",
 	"engine_metadata": "",
 	"site_url": "",
 	"repository_url": "",
 	"contains_binaries": true,
 	"node_libraries": [
-		"FemDesign, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		"FemDesign, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null"
 	]
 }
