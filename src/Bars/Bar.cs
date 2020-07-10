@@ -198,7 +198,7 @@ namespace FemDesign.Bars
         /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity,[DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "B")
+        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "B")
         {
             // convert class
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
@@ -207,7 +207,7 @@ namespace FemDesign.Bars
             Bar bar = Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
 
             // set local y-axis
-            if (localY != null)
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
@@ -227,7 +227,7 @@ namespace FemDesign.Bars
         /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity,[DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "C")
+        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "C")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -236,7 +236,7 @@ namespace FemDesign.Bars
             Bar bar = Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
 
             // set local y-axis
-            if (localY != null)
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
@@ -254,7 +254,7 @@ namespace FemDesign.Bars
         /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
+        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -263,7 +263,7 @@ namespace FemDesign.Bars
             Bar bar = Bar.Truss(identifier, _line, material, section);
 
             // set local y-axis
-            if (localY != null)
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
@@ -286,7 +286,7 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
+        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -295,7 +295,7 @@ namespace FemDesign.Bars
             Bar bar = Bar.Truss(identifier, _line, material, section, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
 
             // set local y-axis
-            if (localY != null)
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
