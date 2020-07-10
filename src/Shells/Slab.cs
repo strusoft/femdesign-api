@@ -153,7 +153,7 @@ namespace FemDesign.Shells
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
+        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -166,13 +166,13 @@ namespace FemDesign.Shells
             Slab slab = Slab.Plate(identifier, material, region, shellEdgeConnection, shellEccentricity, shellOrthotropy, _thickness);
 
             // set local x-axis
-            if (localX != null)
+            if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
             }
 
             // set local z-axis
-            if (localZ != null)
+            if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
@@ -194,7 +194,7 @@ namespace FemDesign.Shells
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
+        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -209,13 +209,13 @@ namespace FemDesign.Shells
             Slab slab = Slab.Plate(identifier, material, region, shellEdgeConnection, shellEccentricity, shellOrthotropy, thickness);
 
             // set local x-axis
-            if (localX != null)
+            if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
             }
 
             // set local z-axis
-            if (localZ != null)
+            if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
@@ -237,7 +237,7 @@ namespace FemDesign.Shells
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
+        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -256,13 +256,13 @@ namespace FemDesign.Shells
             Slab slab = Slab.Wall(identifier, material, region, shellEdgeConnection, shellEccentricity, shellOrthotropy, _thickness);
 
             // set local x-axis
-            if (localX != null)
+            if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
             }
 
             // set local z-axis
-            if (localZ != null)
+            if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
@@ -284,7 +284,7 @@ namespace FemDesign.Shells
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface,  List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("DefaultArgument.GetNull()")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
+        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface,  List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -305,13 +305,13 @@ namespace FemDesign.Shells
             Slab slab = Slab.Wall(identifier, material, region, shellEdgeConnection, shellEccentricity, shellOrthotropy, thickness);
 
             // set local x-axis
-            if (localX != null)
+            if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
             }
 
             // set local z-axis
-            if (localZ != null)
+            if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 slab.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
