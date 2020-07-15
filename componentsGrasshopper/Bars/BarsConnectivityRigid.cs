@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.GH
 {
-    public class BarsConnectivityHinged: GH_Component
+    public class BarsConnectivityRigid: GH_Component
     {
-        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", "FemDesign", "Bars")
+        public BarsConnectivityRigid(): base("Connectivity.Rigid", "Rigid", "Define Rigid end releases for a bar element.", "FemDesign", "Bars")
         {
 
         }
@@ -20,18 +20,18 @@ namespace FemDesign.GH
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            DA.SetData(0, FemDesign.Bars.Connectivity.Hinged());
+            DA.SetData(0, FemDesign.Bars.Connectivity.Rigid());
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return FemDesign.Properties.Resources.ConnectivityHinged;
+                return FemDesign.Properties.Resources.ConnectivityRigid;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("a37aad78-7306-486f-8ef2-57bfd986307d"); }
+            get { return new Guid("4d958eab-ea4a-4753-a6d6-42f9dc27c96b"); }
         }
     }
 }
