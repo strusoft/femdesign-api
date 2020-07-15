@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.GH
 {
-    public class BarsConnectivityRigid: GH_Component
+    public class BarsConnectivityHinged: GH_Component
     {
-        public BarsConnectivityRigid(): base("Connectivity.Rigid", "Rigid", "Define Rigid end releases for a bar element.", "FemDesign", "Bars")
+        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", "FemDesign", "Bars")
         {
 
         }
@@ -26,12 +26,12 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.ConnectivityRigid;
+                return FemDesign.Properties.Resources.ConnectivityHinged;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("4d958eab-ea4a-4753-a6d6-42f9dc27c96b"); }
+            get { return new Guid("a37aad78-7306-486f-8ef2-57bfd986307d"); }
         }
     }
 }
