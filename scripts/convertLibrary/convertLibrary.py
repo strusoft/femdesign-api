@@ -16,14 +16,17 @@ def getCsFiles(dir, lst = []):
             lst.append(entry.path)
     return lst
 
-def parseCsFileGH(csFile):
-    with open(csFile, "r") as f:
+def readCsContent(csFilePath):
+    with open(csFilePath, "r") as f:
         lines = f.readlines()
+    return lines
+
+def parseCsContentGH(csContent):
     content = ""
     dynamoRegion = False
     skipRegion = False
     skipLine = False
-    for line in lines:
+    for line in csContent:
         if "#region dynamo" in line:
             dynamoRegion = True
             skipRegion = True
@@ -42,15 +45,12 @@ def parseCsFileGH(csFile):
             skipLine = False
     return content
 
-def parseCsFileDynamo(csFile):
-    with open(csFile, "r") as f:
-        lines = f.readlines()
-
+def parseCsContentDyn(csContent):
     content = ""
     ghRegion = False
     skipRegion = False
     skipLine = False
-    for line in lines:
+    for line in csContent:
         if "#region grasshopper" in line:
             ghRegion = True
             skipRegion = True
@@ -65,6 +65,11 @@ def parseCsFileDynamo(csFile):
         else:
             content += line
             skipLine = False
+    return content
+
+def parseCsContentDll(csContent):
+    csContent = parseCsContentGH(csContent)
+    content = parseCsContentDyn(csContent)
     return content
 
 def writeNewCsFile(content, destPath, overWrite = False):
@@ -103,25 +108,37 @@ def copyCommonFiles(srcDir, dstDir):
         dst = dstDir + "\\" + _file
         shutil.copyfile(src, dst)
 
-def wrapper(srcDir, destDir, parseGH):
+def wrapper(srcDir, destDir, parse):
     srcPaths = getCsFiles(srcDir)
     for srcPath in srcPaths:
         destPath = destDir + srcPath.split(srcDir)[-1]
-        if parseGH:
-            content = parseCsFileGH(srcPath)
-        if not parseGH:
-            content = parseCsFileDynamo(srcPath)
+        csContent = readCsContent(srcPath)
+
+        # parse content
+        if parse == "GH":
+            content = parseCsContentGH(csContent)
+        elif parse == "Dyn":
+            content = parseCsContentDyn(csContent)
+        elif parse == "DLL":
+            content = parseCsContentDll(csContent)
+
+        # write new file to destination path
         writeNewCsFile(content, destPath, True)
+
+    # clear list
     srcPaths.clear()
 
 def convertGH(srcDir, dstDir):
-    wrapper(srcDir + "\\src", dstDir + "\\src", parseGH = True)
-    wrapper(srcDir + "\\componentsGrasshopper", dstDir + "\\componentsGrasshopper", parseGH = True)
+    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "GH")
+    wrapper(srcDir + "\\componentsGrasshopper", dstDir + "\\componentsGrasshopper", parse = "GH")
     copyCommonFiles(srcDir, dstDir)
 
 def convertDynamo(srcDir, dstDir):
-    wrapper(srcDir +"\\src", dstDir + "\\src", parseGH = False)
+    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "Dyn")
     copyCommonFiles(srcDir, dstDir)
+
+def convertDLL(srcDir, dstDir):
+    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "DLL")
 
 if __name__ == "__main__":
     pass
