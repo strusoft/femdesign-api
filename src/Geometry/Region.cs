@@ -37,6 +37,46 @@ namespace FemDesign.Geometry
             this.contours = _contours;
             this.coordinateSystem = _coordinateSystem;
         }
+
+        /// <summary>
+        /// Create region by points and coordinate system.
+        /// </summary>
+        /// <param name="points">List of sorted points defining the outer perimeter of the region.</param>
+        /// <param name="coordinateSystem">Coordinate system of the region</param>
+        internal Region(List<FdPoint3d> points, FdCoordinateSystem coordinateSystem)
+        {
+            // edge normal
+            FdVector3d edgeLocalY = coordinateSystem.localZ;
+
+            List<Edge> edges = new List<Edge>();
+            for (int idx = 0 ; idx < points.Count; idx++)
+            {
+                // startPoint
+                FdPoint3d p0 = p0 = points[idx];
+
+                // endPoint
+                FdPoint3d p1;
+                if (idx != points.Count - 1)
+                {
+                    p1 = points[idx + 1];
+                }
+
+                else
+                {
+                    p1 = points[0];
+                }
+
+                // create edge
+                edges.Add(new Edge(p0, p1, edgeLocalY));
+            }
+            
+            // create contours
+            Contour contour = new Contour(edges);
+
+            // set properties
+            this.contours = new List<Contour>{contour};
+            this.coordinateSystem = coordinateSystem;
+        }
         
         /// <summary>
         /// Get region from a Slab.
