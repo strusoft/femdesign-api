@@ -145,7 +145,7 @@ namespace FemDesign.Geometry
             this.coordinateSystem = _coordinateSystem;
         }
         /// <summary>
-        /// Construct Edge of line type.
+        /// Construct Edge of line type by points and coordinate system.
         /// </summary>
         internal Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
@@ -154,6 +154,17 @@ namespace FemDesign.Geometry
             this.points.Add(_endPoint);
             this.normal = _coordinateSystem.localY;
             this.coordinateSystem = _coordinateSystem;
+        }
+
+        /// <summary>
+        /// Construct Edge of line type by points and normal (localY).
+        /// </summary>
+        internal Edge(FdPoint3d startPoint, FdPoint3d endPoint, FdVector3d localY)
+        {
+            this.type = "line";
+            this.points.Add(startPoint);
+            this.points.Add(endPoint);
+            this.normal = localY;
         }
 
         internal bool IsLine()
