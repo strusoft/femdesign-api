@@ -6,6 +6,9 @@ Properties
 Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
+src/Calculate/@*
+src/Shells/InternalPanel.cs
+src/Shells/Panel.cs
 FdApiSource.csproj
 FdApiSource.sln
 packages.config

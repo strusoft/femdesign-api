@@ -29,6 +29,20 @@ namespace FemDesign.Releases
 
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public RigidityDataType1()
+        {
 
+        }
+
+        /// <summary>
+        /// Construct RigidityDataType1 with motions only
+        /// </summary>
+        public RigidityDataType1(Motions motions)
+        {
+            this.motions = motions;
+        }
     }
 }
