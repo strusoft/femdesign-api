@@ -18,6 +18,8 @@ namespace FemDesign
         // surface_connection
 
         // virtual_bar
+        [XmlElement("virtual_bar")]
+        public List<VirtualBar> virtualBar = new List<VirtualBar>();
 
         // virtual_shell
 
