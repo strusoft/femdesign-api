@@ -5,7 +5,9 @@ obj
 packages
 Resources
 Properties/Resources.resx
-src/Calculate/@notImplemented*
+src/Calculate/@*
+src/Shells/InternalPanel.cs
+src/Shells/Panel.cs
 *.csproj
 *.csproj.user
 *.sln

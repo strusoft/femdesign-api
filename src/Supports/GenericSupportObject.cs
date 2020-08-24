@@ -16,6 +16,7 @@ namespace FemDesign.Supports
     {
         public PointSupport pointSupport { get; set; }
         public LineSupport lineSupport { get; set; }
+        public SurfaceSupport surfaceSupport { get; set; }
         internal GenericSupportObject()
         {
             
@@ -33,6 +34,10 @@ namespace FemDesign.Supports
                 else if (obj.lineSupport != null)
                 {
                     list.Add(obj.lineSupport);
+                }
+                else if (obj.surfaceSupport != null)
+                {
+                    list.Add(obj.surfaceSupport);
                 }
             }
 
