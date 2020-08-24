@@ -939,6 +939,10 @@ namespace FemDesign
             {
                 this.AddLineSupport((Supports.LineSupport)obj);
             }
+            else if (obj.GetType() == typeof(Supports.SurfaceSupport))
+            {
+                this.AddSurfaceSupport((Supports.SurfaceSupport)obj);
+            }
             else
             {
                 throw new System.ArgumentException("Passed object must be PointSupport or LineSupport");
@@ -996,6 +1000,36 @@ namespace FemDesign
         private bool LineSupportInModel(Supports.LineSupport obj)
         {
             foreach (Supports.LineSupport elem in this.entities.supports.lineSupport)
+            {
+                if (elem.guid == obj.guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add SurfaceSupport to Model.
+        /// </summary>
+        private void AddSurfaceSupport(Supports.SurfaceSupport obj)
+        {
+            if (this.SurfaceSupportInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.entities.supports.surfaceSupport.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if LineSupport in Model.
+        /// </summary>
+        private bool SurfaceSupportInModel(Supports.SurfaceSupport obj)
+        {
+            foreach (Supports.SurfaceSupport elem in this.entities.supports.surfaceSupport)
             {
                 if (elem.guid == obj.guid)
                 {

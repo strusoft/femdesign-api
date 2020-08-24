@@ -15,13 +15,15 @@ namespace FemDesign.Supports
         public List<PointSupport> pointSupport = new List<PointSupport>(); // point_support_type
         [XmlElement("line_support", Order = 2)]
         public List<LineSupport> lineSupport = new List<LineSupport>(); // line_support_type
-        // surface_support
+        [XmlElement("surface_support", Order = 3)] 
+        public List<SurfaceSupport> surfaceSupport = new List<SurfaceSupport>(); // surface_support
 
         internal List<object> ListSupports()
         {
             var objs = new List<object>();
             objs.AddRange(this.pointSupport);
             objs.AddRange(this.lineSupport);
+            objs.AddRange(this.surfaceSupport);
             return objs;
         }
 
