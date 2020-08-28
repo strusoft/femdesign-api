@@ -17,23 +17,13 @@ namespace FemDesign.Geometry
         {
             get
             {
-                return this._localX;
-            }
-            set
-            {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d z = this.localZ;
-
-                double dot = z.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
+                if (this._localX == null)
                 {
-                    this._localX = val;
-                    this._localY = z.Cross(val); // follows right-hand-rule
+                    throw new System.ArgumentException("LocalX is null. Property must be set.");
                 }
-                
                 else
                 {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to Z-axis. The dot-product is {dot}, but should be 0");
+                    return this._localX;
                 }
             }
         }        
@@ -44,8 +34,15 @@ namespace FemDesign.Geometry
         {
             get
             {
-                return this._localY;
-            }
+                if (this._localY == null)
+                {
+                    throw new System.ArgumentException("LocalY is null. Property must be set.");
+                }
+                else
+                {
+                    return this._localY;
+                }
+            } 
         }
         [XmlIgnore]
         public FdVector3d _localZ;
@@ -56,28 +53,11 @@ namespace FemDesign.Geometry
             {
                 if (this.localX == null || this.localY == null)
                 {
-                    throw new System.ArgumentException("Impossible to construct z-axis as either this.localX or this.localY is null.");
+                    throw new System.ArgumentException("Impossible to get z-axis as either this.localX or this.localY is null.");
                 }
                 else
                 {     
                     return this.localX.Cross(localY).Normalize();
-                }
-            }
-            set
-            {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d x = this.localX;
-
-                double dot = x.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
-                {
-                    this._localZ = val;
-                    this._localY = val.Cross(x); // follows right-hand-rule
-                }
-                
-                else
-                {
-                    throw new System.ArgumentException($"Z-axis is not perpendicular to X-axis. The dot-product is {dot}, but should be 0");
                 }
             }
         }
@@ -85,7 +65,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public FdCoordinateSystem()
+        private FdCoordinateSystem()
         {
 
         }
@@ -100,6 +80,102 @@ namespace FemDesign.Geometry
             this._localY = _localY;
             this._localZ = _localZ;
         }
+
+        /// <summary>
+        /// Check if this coordinate system is complete. 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsComplete()
+        {
+            return (this.origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
+        }
+
+        /// <summary>
+        /// Set X-axis and rotate coordinate system accordingly around Z-axis.
+        /// </summary>
+        public void SetXAroundZ(FdVector3d vector)
+        {
+            // try to set axis
+            FdVector3d val = vector.Normalize();
+            FdVector3d z = this.localZ;
+
+            double dot = z.Dot(val);
+            if (Math.Abs(dot) < Tolerance.dotProduct)
+            {
+                this._localX = val;
+                this._localY = z.Cross(val); // follows right-hand-rule
+            }
+            else
+            {
+                throw new System.ArgumentException($"The passed X-axis is not perpendicular to Z-axis. The dot-product is {dot}, but should be 0");
+            }
+        }
+
+        /// <summary>
+        /// Set Y-axis and rotate coordinate system accordingly around X-Axis.
+        /// </summary>
+        public void SetYAroundX(FdVector3d vector)
+        {
+            // try to set axis
+            FdVector3d val = vector.Normalize();
+            FdVector3d x = this.localX;
+
+            double dot = x.Dot(val);
+            if (Math.Abs(dot) < Tolerance.dotProduct)
+            {
+                this._localY = val;
+                this._localZ = x.Cross(val); // follows right-hand-rule
+            }
+            else
+            {
+                throw new System.ArgumentException($"The passed Y-axis is not perpendicular to X-axis. The dot-product is {dot}, but should be 0");
+            }
+        }
+
+        /// <summary>
+        /// Set Y-axis and rotate coordinate system accordingly around Z-axis
+        /// </summary>
+        public void SetYAroundZ(FdVector3d vector)
+        {
+            // try set axis
+            FdVector3d val = vector.Normalize();
+            FdVector3d z = this.localZ;
+
+            double dot = z.Dot(val);
+            if (Math.Abs(dot) < Tolerance.dotProduct)
+            {
+                this._localY = val;
+                this._localX = val.Cross(z); // follows right-hand-rule
+            }
+            
+            else
+            {
+                throw new System.ArgumentException($"Y-axis is not perpendicular to Z-axis. The dot-product is {dot}, but should be 0");
+            }
+        }
+
+        /// <summary>
+        /// Set Z-axis and rotate coordinate system accordingly around X-axis
+        /// </summary>
+        public void SetZAroundX(FdVector3d vector)
+        {
+            // try to set axis
+            Geometry.FdVector3d val = vector.Normalize();
+            Geometry.FdVector3d x = this.localX;
+
+            double dot = x.Dot(val);
+            if (Math.Abs(dot) < Tolerance.dotProduct)
+            {
+                this._localZ = val;
+                this._localY = val.Cross(x); // follows right-hand-rule
+            }
+            
+            else
+            {
+                throw new System.ArgumentException($"Z-axis is not perpendicular to X-axis. The dot-product is {dot}, but should be 0");
+            }
+        }
+
 
 
         #region grasshopper
