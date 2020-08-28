@@ -54,6 +54,33 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Returns the unit x vector.
+        /// </summary>
+        /// <returns></returns>
+        internal static FdVector3d UnitX()
+        {
+            return new FdVector3d(1, 0, 0);
+        }
+        
+        /// <summary>
+        /// Returns the unit y vector.
+        /// </summary>
+        /// <returns></returns>
+        internal static FdVector3d UnitY()
+        {
+            return new FdVector3d(0, 1, 0);
+        }
+        
+        /// <summary>
+        /// Return the unit z vector.
+        /// </summary>
+        /// <returns></returns>
+        internal static FdVector3d UnitZ()
+        {
+            return new FdVector3d(0, 0, 1);
+        }
+
+        /// <summary>
         /// Calculate length of FdVector3d.
         /// </summary>
         internal double Length()
@@ -110,6 +137,15 @@ namespace FemDesign.Geometry
         internal FdVector3d Scale(double s)
         {   
             return new FdVector3d(this.x * s, this.y * s, this.z * s);
+        }
+
+        /// <summary>
+        /// Reverse this by negative scaling.
+        /// </summary>
+        /// <returns></returns>
+        internal FdVector3d Reverse()
+        {
+            return this.Scale(-1);
         }
 
         /// <summary>

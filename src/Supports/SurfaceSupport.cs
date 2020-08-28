@@ -86,13 +86,13 @@ namespace FemDesign.Supports
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalSystem.localX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                obj.LocalSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromDynamo(localX));
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalSystem.localZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                obj.LocalSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
             }
 
             // return
