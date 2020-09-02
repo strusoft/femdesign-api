@@ -41,8 +41,8 @@ namespace FemDesign.Geometry
                     // arc1
                     if (this.type == "arc" && this.points.Count == 1)
                     {
-                            // not implemented. only use for bars is intended at this point.
-                            throw new System.ArgumentException("Could not reconstruct FdCoordinateSystem from Edge of type Arc1.");
+                        // not implemented. only use for bars is intended at this point.
+                        throw new System.ArgumentException("Could not reconstruct FdCoordinateSystem from Edge of type Arc1.");
                     }
 
                     // arc2
