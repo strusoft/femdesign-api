@@ -10,6 +10,9 @@ namespace FemDesign.Supports
     [System.Serializable]
     public class Group
     {
+        /// <summary>
+        /// Local x is actual local x for points. For lines local x is local z??
+        /// </summary>
         [XmlElement("local_x", Order = 1)]
         public Geometry.FdVector3d localX { get; set; }
         [XmlElement("local_y", Order = 2)]

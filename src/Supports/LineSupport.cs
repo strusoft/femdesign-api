@@ -40,6 +40,11 @@ namespace FemDesign.Supports
             this.EntityCreated();
             this.name = "S." + PointSupport.instance.ToString();
             this.movingLocal = movingLocal;
+
+            // orient edge
+            _edge.OrientCoordinateSystemToGCS();
+
+            // set edge specific properties
             this.group = new Group(_edge, motions, rotations);
             this.edge = _edge;
             this.normal = _edge.coordinateSystem.localZ;
