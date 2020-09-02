@@ -90,6 +90,10 @@ namespace FemDesign.Bars
             this.name = _name + ".1";
             this.complexMaterial = _material.guid;
             this.ecc_calc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
+            
+            // orient edge coordinate system
+            _edge.OrientCoordinateSystemToGCS();
+            
             this.edge = _edge;
             this.localY = _edge.coordinateSystem.localY;
             this.end = "";
