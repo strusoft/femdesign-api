@@ -30,11 +30,11 @@ namespace FemDesign.Supports
         /// <summary>
         /// PointSupport at point with rigidity (motions, rotations). Group aligned with GCS.
         /// </summary>
-        public PointSupport(Geometry.FdPoint3d point, Releases.Motions motions, Releases.Rotations rotations)
+        public PointSupport(Geometry.FdPoint3d point, Releases.Motions motions, Releases.Rotations rotations, string identifier)
         {
             instance++;
             this.EntityCreated();
-            this.name = "S." + instance.ToString();
+            this.name = identifier + "." + instance.ToString();
             this.group = new Group(new Geometry.FdVector3d(1,0,0), new Geometry.FdVector3d(0,1,0), motions, rotations); // aligned with GCS
             this.position = point;
         }
@@ -42,21 +42,21 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid PointSupport at point.
         /// </summary>
-        public static PointSupport Rigid(Geometry.FdPoint3d point)
+        public static PointSupport Rigid(Geometry.FdPoint3d point, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.RigidPoint();
-            return new PointSupport(point, motions, rotations);
+            return new PointSupport(point, motions, rotations, identifier);
         }
 
         /// <summary>
         /// Hinged PointSupport at point.
         /// </summary>
-        public static PointSupport Hinged(Geometry.FdPoint3d point)
+        public static PointSupport Hinged(Geometry.FdPoint3d point, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.Free();
-            return new PointSupport(point, motions, rotations);
+            return new PointSupport(point, motions, rotations, identifier);
         }
 
         #region dynamo
@@ -65,11 +65,12 @@ namespace FemDesign.Supports
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="point"></param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static PointSupport Rigid(Autodesk.DesignScript.Geometry.Point point)
+        public static PointSupport Rigid(Autodesk.DesignScript.Geometry.Point point, [DefaultArgument("S")] string identifier)
         {
-            return PointSupport.Rigid(Geometry.FdPoint3d.FromDynamo(point));
+            return PointSupport.Rigid(Geometry.FdPoint3d.FromDynamo(point), identifier);
         }
 
         /// <summary>
@@ -77,11 +78,12 @@ namespace FemDesign.Supports
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="point"></param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static PointSupport Hinged(Autodesk.DesignScript.Geometry.Point point)
+        public static PointSupport Hinged(Autodesk.DesignScript.Geometry.Point point, [DefaultArgument("S")] string identifier)
         {
-            return PointSupport.Hinged(Geometry.FdPoint3d.FromDynamo(point));
+            return PointSupport.Hinged(Geometry.FdPoint3d.FromDynamo(point), identifier);
         }
 
         /// <summary>
@@ -91,11 +93,12 @@ namespace FemDesign.Supports
         /// <param name="point"></param>
         /// <param name="motions">Motions. Translation releases.</param>
         /// <param name="rotations">Rotations. Rotation releases.</param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Releases.Motions motions, Releases.Rotations rotations)
+        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("S")] string identifier)
         {
-            return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, rotations);
+            return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, rotations, identifier);
         }
 
         internal Autodesk.DesignScript.Geometry.Point GetDynamoGeometry()

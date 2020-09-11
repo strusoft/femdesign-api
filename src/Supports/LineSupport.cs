@@ -38,11 +38,11 @@ namespace FemDesign.Supports
         /// <summary>
         /// LineSupport along edge with rigidity (motions, rotations). Group LCS aligned with edge LCS.
         /// </summary>
-        internal LineSupport(Geometry.Edge _edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal)
+        internal LineSupport(Geometry.Edge _edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal, string identifier)
         {
             PointSupport.instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.name = "S." + PointSupport.instance.ToString();
+            this.name =  identifier + "." + PointSupport.instance.ToString();
             this.movingLocal = movingLocal;
 
             // orient edge
@@ -57,21 +57,21 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid LineSupport along edge.
         /// </summary>
-        internal static LineSupport Rigid(Geometry.Edge edge, bool movingLocal = false)
+        internal static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.RigidLine();
-            return new LineSupport(edge, motions, rotations, movingLocal);
+            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         /// <summary>
         /// Hinged LineSupport along edge.
         /// </summary>
-        internal static LineSupport Hinged(Geometry.Edge edge, bool movingLocal = false)
+        internal static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.Free();
-            return new LineSupport(edge, motions, rotations, movingLocal);
+            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         #region dynamo
@@ -81,12 +81,13 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, bool movingLocal = false)
+        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Rigid(edge, movingLocal);
+            return LineSupport.Rigid(edge, movingLocal, identifier);
         }
 
         /// <summary>
@@ -95,12 +96,13 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, bool movingLocal = false)
+        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Hinged(edge, movingLocal);
+            return LineSupport.Hinged(edge, movingLocal, identifier);
         }
 
         /// <summary>
@@ -111,12 +113,13 @@ namespace FemDesign.Supports
         /// <param name="motions">Motions. Translation releases.</param>
         /// <param name="rotations">Rotations. Rotation releases.</param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal = false)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return new LineSupport(edge, motions, rotations, movingLocal);
+            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoGeometry()

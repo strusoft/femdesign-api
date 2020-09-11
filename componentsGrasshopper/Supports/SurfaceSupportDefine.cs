@@ -19,6 +19,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
+           pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -48,7 +50,12 @@ namespace FemDesign.GH
             {
                 // pass
             }
-            if (surface == null || motions == null)
+            string identifier = "S";
+            if (!DA.GetData(4, ref identifier))
+            {
+                // pass
+            }
+            if (surface == null || motions == null || identifier == null)
             {
                 return;
             }
@@ -57,7 +64,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
                        
             //
-            FemDesign.Supports.SurfaceSupport obj = new Supports.SurfaceSupport(region, motions);
+            FemDesign.Supports.SurfaceSupport obj = new Supports.SurfaceSupport(region, motions, identifier);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))

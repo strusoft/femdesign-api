@@ -16,6 +16,8 @@ namespace FemDesign.GH
             pManager.AddCurveParameter("Curve", "Curve", "Curve along where to place the LineSupport.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("MovingLocal", "MovingLocal", "LCS changes direction along line? True/false.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
+           pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -34,7 +36,12 @@ namespace FemDesign.GH
             {
                 // pass
             }
-            if (curve == null)
+            string identifier = "S";
+            if (!DA.GetData(2, ref identifier))
+            {
+                // pass
+            }
+            if (curve == null || identifier == null)
             {
                 return;
             }
@@ -44,7 +51,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.lineSupport = FemDesign.Supports.LineSupport.Rigid(edge, movingLocal);
+            obj.lineSupport = FemDesign.Supports.LineSupport.Rigid(edge, movingLocal, identifier);
 
             // return
             DA.SetData(0, obj);

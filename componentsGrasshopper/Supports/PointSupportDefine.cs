@@ -16,6 +16,8 @@ namespace FemDesign.GH
             pManager.AddPointParameter("Point", "Point", "Point where to place the PointSupport.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Motions", "Motions", "Motion springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotation springs.", GH_ParamAccess.item);
+           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
+           pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -39,7 +41,12 @@ namespace FemDesign.GH
             {
                 return;
             }
-            if (point == null || motions == null || rotations == null)
+            string identifier = "S";
+            if (!DA.GetData(3, ref identifier))
+            {
+                // pass
+            }
+            if (point == null || motions == null || rotations == null || identifier == null)
             {
                 return;
             }
@@ -49,7 +56,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.pointSupport = new FemDesign.Supports.PointSupport(fdPoint, motions, rotations);
+            obj.pointSupport = new FemDesign.Supports.PointSupport(fdPoint, motions, rotations, identifier);
 
             // return
             DA.SetData(0, obj);
