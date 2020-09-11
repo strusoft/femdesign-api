@@ -405,6 +405,10 @@ namespace FemDesign
             {
                 this.AddLineLoad((Loads.LineLoad)obj);
             }
+            else if (obj.GetType() == typeof(Loads.LineTemperatureLoad))
+            {
+                this.AddLineTemperatureLoad((Loads.LineTemperatureLoad)obj);
+            }
             else if (obj.GetType() == typeof(Loads.PressureLoad))
             {
                 this.AddPressureLoad((Loads.PressureLoad)obj);
@@ -412,6 +416,10 @@ namespace FemDesign
             else if (obj.GetType() == typeof(Loads.SurfaceLoad))
             {
                 this.AddSurfaceLoad((Loads.SurfaceLoad)obj);
+            }
+            else if (obj.GetType() == typeof(Loads.SurfaceTemperatureLoad))
+            {
+                this.AddSurfaceTemperatureLoad((Loads.SurfaceTemperatureLoad)obj);
             }
             else if (obj.GetType() == typeof(Loads.MassConversionTable))
             {
@@ -484,6 +492,36 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add LineTemperatureLoad to Model.
+        /// </summary>
+        private void AddLineTemperatureLoad(Loads.LineTemperatureLoad obj)
+        {
+            if (this.LineTemperatureLoadInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.entities.loads.lineTemperatureVariationLoad.Add(obj);
+            }   
+        }
+
+        /// <summary>
+        /// Check if LineTemperatureLoad in Model.
+        /// </summary>
+        private bool LineTemperatureLoadInModel(Loads.LineTemperatureLoad obj)
+        {
+            foreach (Loads.LineTemperatureLoad elem in this.entities.loads.lineTemperatureVariationLoad)
+            {
+                if (elem.guid == obj.guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Add PressureLoad to Model.
         /// </summary>
         private void AddPressureLoad(Loads.PressureLoad obj)
@@ -534,6 +572,36 @@ namespace FemDesign
         private bool SurfaceLoadInModel(Loads.SurfaceLoad obj)
         {
             foreach (Loads.SurfaceLoad elem in this.entities.loads.surfaceLoad)
+            {
+                if (elem.guid == obj.guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add SurfaceTemperatureLoad to Model.
+        /// </summary>
+        private void AddSurfaceTemperatureLoad(Loads.SurfaceTemperatureLoad obj)
+        {
+            if (this.SurfaceTemperatureLoadInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.entities.loads.surfaceTemperatureVariationLoad.Add(obj);
+            }   
+        }
+
+        /// <summary>
+        /// Check if SurfaceLoad in Model.
+        /// </summary>
+        private bool SurfaceTemperatureLoadInModel(Loads.SurfaceTemperatureLoad obj)
+        {
+            foreach (Loads.SurfaceTemperatureLoad elem in this.entities.loads.surfaceTemperatureVariationLoad)
             {
                 if (elem.guid == obj.guid)
                 {

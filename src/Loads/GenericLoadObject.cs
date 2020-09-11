@@ -15,7 +15,9 @@ namespace FemDesign.Loads
     {
         public PointLoad pointLoad { get; set; }
         public LineLoad lineLoad { get; set; }
+        public LineTemperatureLoad lineTemperatureLoad { get; set; }
         public SurfaceLoad surfaceLoad { get; set; }
+        public SurfaceTemperatureLoad surfaceTemperatureLoad { get; set; }
         public PressureLoad pressureLoad { get; set; }
         public MassConversionTable massConversionTable { get; set; }
         internal GenericLoadObject()
@@ -30,9 +32,18 @@ namespace FemDesign.Loads
         {
             this.lineLoad = obj;
         }
+        internal GenericLoadObject(LineTemperatureLoad obj)
+        {
+            this.lineTemperatureLoad = obj;
+        }
         internal GenericLoadObject(SurfaceLoad obj)
         {
             this.surfaceLoad = obj;
+        }
+
+        internal GenericLoadObject(SurfaceTemperatureLoad obj)
+        {
+            this.surfaceTemperatureLoad = obj;
         }
         internal GenericLoadObject(PressureLoad obj)
         {
@@ -55,9 +66,17 @@ namespace FemDesign.Loads
                 {
                     list.Add(obj.lineLoad);
                 }
+                else if (obj.lineTemperatureLoad != null)
+                {
+                    list.Add(obj.lineTemperatureLoad);
+                }
                 else if (obj.surfaceLoad != null)
                 {
                     list.Add(obj.surfaceLoad);
+                }
+                else if (obj.surfaceTemperatureLoad != null)
+                {
+                    list.Add(obj.surfaceTemperatureLoad);
                 }
                 else if (obj.pressureLoad != null)
                 {

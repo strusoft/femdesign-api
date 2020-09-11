@@ -45,10 +45,10 @@ namespace FemDesign.Supports
         /// <summary>
         /// Internal constructor
         /// </summary>
-        public SurfaceSupport(Geometry.Region region, Releases.RigidityDataType1 rigidity)
+        public SurfaceSupport(Geometry.Region region, Releases.RigidityDataType1 rigidity, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = "S";
+            this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
             this.LocalSystem = region.coordinateSystem;
@@ -57,10 +57,10 @@ namespace FemDesign.Supports
         /// <summary>
         /// Internal constructor with only translation rigidity defined
         /// </summary>
-        public SurfaceSupport(Geometry.Region region, Releases.Motions motions)
+        public SurfaceSupport(Geometry.Region region, Releases.Motions motions, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = "S";
+            this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = new Releases.RigidityDataType1(motions);
             this.LocalSystem = region.coordinateSystem;
@@ -74,14 +74,15 @@ namespace FemDesign.Supports
         /// <param name="motions">"Motions release for the surface support.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
+        /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static SurfaceSupport SurfaceSupportDefine(Autodesk.DesignScript.Geometry.Surface surface, Releases.Motions motions, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ)
+        public static SurfaceSupport SurfaceSupportDefine(Autodesk.DesignScript.Geometry.Surface surface, Releases.Motions motions, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("S")] string identifier)
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
 
             // create new surface support
-            SurfaceSupport obj = new SurfaceSupport(region, motions);
+            SurfaceSupport obj = new SurfaceSupport(region, motions, identifier);
 
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
