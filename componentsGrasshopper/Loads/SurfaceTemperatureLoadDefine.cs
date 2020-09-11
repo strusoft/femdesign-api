@@ -33,7 +33,7 @@ namespace FemDesign.GH
                 return;
             }
 
-            List<TopBotLocationValue> vals = new List<TopBotLocationValue>();
+            List<Loads.TopBotLocationValue> vals = new List<Loads.TopBotLocationValue>();
             if (!DA.GetDataList(1, vals))
             {
                 return;
