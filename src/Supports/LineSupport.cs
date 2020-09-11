@@ -34,11 +34,11 @@ namespace FemDesign.Supports
         /// <summary>
         /// LineSupport along edge with rigidity (motions, rotations). Group LCS aligned with edge LCS.
         /// </summary>
-        internal LineSupport(Geometry.Edge _edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal)
+        internal LineSupport(Geometry.Edge _edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal, string identifier)
         {
             PointSupport.instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.name = "S." + PointSupport.instance.ToString();
+            this.name =  identifier + "." + PointSupport.instance.ToString();
             this.movingLocal = movingLocal;
 
             // orient edge
@@ -53,21 +53,21 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid LineSupport along edge.
         /// </summary>
-        internal static LineSupport Rigid(Geometry.Edge edge, bool movingLocal = false)
+        internal static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.RigidLine();
-            return new LineSupport(edge, motions, rotations, movingLocal);
+            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         /// <summary>
         /// Hinged LineSupport along edge.
         /// </summary>
-        internal static LineSupport Hinged(Geometry.Edge edge, bool movingLocal = false)
+        internal static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.Free();
-            return new LineSupport(edge, motions, rotations, movingLocal);
+            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         #region grasshopper

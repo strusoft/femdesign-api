@@ -41,10 +41,10 @@ namespace FemDesign.Supports
         /// <summary>
         /// Internal constructor
         /// </summary>
-        public SurfaceSupport(Geometry.Region region, Releases.RigidityDataType1 rigidity)
+        public SurfaceSupport(Geometry.Region region, Releases.RigidityDataType1 rigidity, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = "S";
+            this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
             this.LocalSystem = region.coordinateSystem;
@@ -53,10 +53,10 @@ namespace FemDesign.Supports
         /// <summary>
         /// Internal constructor with only translation rigidity defined
         /// </summary>
-        public SurfaceSupport(Geometry.Region region, Releases.Motions motions)
+        public SurfaceSupport(Geometry.Region region, Releases.Motions motions, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = "S";
+            this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = new Releases.RigidityDataType1(motions);
             this.LocalSystem = region.coordinateSystem;

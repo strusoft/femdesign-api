@@ -14,6 +14,8 @@ namespace FemDesign.GH
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddPointParameter("Point", "Point", "Point where to place the PointSupport.", GH_ParamAccess.item);
+           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
+           pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -27,7 +29,12 @@ namespace FemDesign.GH
             {
                 return;
             }
-            if (point == null)
+            string identifier = "S";
+            if (!DA.GetData(1, ref identifier))
+            {
+                // pass
+            }
+            if (point == null || identifier == null)
             {
                 return;
             }
@@ -37,7 +44,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.pointSupport = FemDesign.Supports.PointSupport.Rigid(fdPoint);
+            obj.pointSupport = FemDesign.Supports.PointSupport.Rigid(fdPoint, identifier);
 
             // return
             DA.SetData(0, obj);

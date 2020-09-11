@@ -26,11 +26,11 @@ namespace FemDesign.Supports
         /// <summary>
         /// PointSupport at point with rigidity (motions, rotations). Group aligned with GCS.
         /// </summary>
-        public PointSupport(Geometry.FdPoint3d point, Releases.Motions motions, Releases.Rotations rotations)
+        public PointSupport(Geometry.FdPoint3d point, Releases.Motions motions, Releases.Rotations rotations, string identifier)
         {
             instance++;
             this.EntityCreated();
-            this.name = "S." + instance.ToString();
+            this.name = identifier + "." + instance.ToString();
             this.group = new Group(new Geometry.FdVector3d(1,0,0), new Geometry.FdVector3d(0,1,0), motions, rotations); // aligned with GCS
             this.position = point;
         }
@@ -38,21 +38,21 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid PointSupport at point.
         /// </summary>
-        public static PointSupport Rigid(Geometry.FdPoint3d point)
+        public static PointSupport Rigid(Geometry.FdPoint3d point, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.RigidPoint();
-            return new PointSupport(point, motions, rotations);
+            return new PointSupport(point, motions, rotations, identifier);
         }
 
         /// <summary>
         /// Hinged PointSupport at point.
         /// </summary>
-        public static PointSupport Hinged(Geometry.FdPoint3d point)
+        public static PointSupport Hinged(Geometry.FdPoint3d point, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.Free();
-            return new PointSupport(point, motions, rotations);
+            return new PointSupport(point, motions, rotations, identifier);
         }
 
         #region grasshopper
