@@ -502,7 +502,7 @@ namespace FemDesign
             }
             else
             {
-                this.entities.loads.lineTemperatureVariationLoad.Add(obj);
+                this.entities.loads.lineTemperatureLoad.Add(obj);
             }   
         }
 
@@ -511,7 +511,7 @@ namespace FemDesign
         /// </summary>
         private bool LineTemperatureLoadInModel(Loads.LineTemperatureLoad obj)
         {
-            foreach (Loads.LineTemperatureLoad elem in this.entities.loads.lineTemperatureVariationLoad)
+            foreach (Loads.LineTemperatureLoad elem in this.entities.loads.lineTemperatureLoad)
             {
                 if (elem.guid == obj.guid)
                 {
@@ -592,7 +592,7 @@ namespace FemDesign
             }
             else
             {
-                this.entities.loads.surfaceTemperatureVariationLoad.Add(obj);
+                this.entities.loads.surfaceTemperatureLoad.Add(obj);
             }   
         }
 
@@ -601,7 +601,7 @@ namespace FemDesign
         /// </summary>
         private bool SurfaceTemperatureLoadInModel(Loads.SurfaceTemperatureLoad obj)
         {
-            foreach (Loads.SurfaceTemperatureLoad elem in this.entities.loads.surfaceTemperatureVariationLoad)
+            foreach (Loads.SurfaceTemperatureLoad elem in this.entities.loads.surfaceTemperatureLoad)
             {
                 if (elem.guid == obj.guid)
                 {

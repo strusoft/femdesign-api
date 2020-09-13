@@ -26,9 +26,9 @@ namespace FemDesign.Loads
         [XmlElement("surface_load", Order = 4)]
         public List<SurfaceLoad> surfaceLoad = new List<SurfaceLoad>(); // surface_load_type
         [XmlElement("line_temperature_variation_load", Order = 5)]
-        public List<LineTemperatureLoad> lineTemperatureVariationLoad = new List<LineTemperatureLoad>(); // line_temperature_load_type
+        public List<LineTemperatureLoad> lineTemperatureLoad = new List<LineTemperatureLoad>(); // line_temperature_load_type
         [XmlElement("surface_temperature_variation_load", Order = 6)]
-        public List<SurfaceTemperatureLoad> surfaceTemperatureVariationLoad = new List<SurfaceTemperatureLoad>(); // surface_temperature_variation_load
+        public List<SurfaceTemperatureLoad> surfaceTemperatureLoad = new List<SurfaceTemperatureLoad>(); // surface_temperature_variation_load
         [XmlElement("line_stress_load", Order = 7)]
         public List<DummyXmlObject> lineStressLoad {get {return null;} set {value = null;}} // line_stress_load
         [XmlElement("surface_stress_load", Order = 8)]
@@ -73,8 +73,10 @@ namespace FemDesign.Loads
             var objs = new List<object>();
             objs.AddRange(this.pointLoad);
             objs.AddRange(this.lineLoad);
+            objs.AddRange(this.lineTemperatureLoad);
             objs.AddRange(this.pressureLoad);
             objs.AddRange(this.surfaceLoad);
+            objs.AddRange(this.surfaceTemperatureLoad);
             return objs;
         }
         
@@ -106,12 +108,38 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
+        /// Get LineTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal List<GenericLoadObject> GetGenericLoadObjectsForLineTemperatureLoads()
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (LineTemperatureLoad obj in this.lineTemperatureLoad)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
         /// Get SurfaceLoads in Loads as GenericLoadObject.
         /// </summary>
         internal List<GenericLoadObject> GetGenericLoadObjectsForSurfaceLoads()
         {
             var objs = new List<GenericLoadObject>();
             foreach (SurfaceLoad obj in this.surfaceLoad)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get SurfaceTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal List<GenericLoadObject> GetGenericLoadObjectsForSurfaceTemperatureLoads()
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (SurfaceTemperatureLoad obj in this.surfaceTemperatureLoad)
             {
                 objs.Add(new GenericLoadObject(obj));
             }
@@ -145,7 +173,15 @@ namespace FemDesign.Loads
             {
                 list.Add(obj);
             }
+            foreach (GenericLoadObject obj in this.GetGenericLoadObjectsForLineTemperatureLoads())
+            {
+                list.Add(obj);
+            }
             foreach (GenericLoadObject obj in this.GetGenericLoadObjectsForSurfaceLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in this.GetGenericLoadObjectsForSurfaceTemperatureLoads())
             {
                 list.Add(obj);
             }

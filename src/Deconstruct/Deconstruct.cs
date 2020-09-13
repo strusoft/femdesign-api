@@ -115,6 +115,44 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a LineLoad.
+        /// </summary>
+        /// <param name="lineTemperatureLoad">LineLoad.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Curve", "Direction", "TopBotLocVal1", "TopBotLocVal2", "LoadCaseGuid", "Comment"})]
+        public static Dictionary<string, object> LineTemperatureLoadDeconstruct(FemDesign.Loads.LineTemperatureLoad lineTemperatureLoad)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", lineTemperatureLoad.guid},
+                {"Curve", lineTemperatureLoad.Edge.ToDynamo()},
+                {"Direction", lineTemperatureLoad.Direction.ToDynamo()},
+                {"TopBotLocVal1", lineTemperatureLoad.TopBotLocVal[0]},
+                {"TopBotLocVal2", lineTemperatureLoad.TopBotLocVal[1]},
+                {"LoadCaseGuid", lineTemperatureLoad.loadCase},
+                {"Comment", lineTemperatureLoad.comment}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a TopBottomLocationValue element.
+        /// </summary>
+        /// <param name="topBotLocVal">TopBottomLocationValue</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Point", "TopValue", "BottomValue"})]
+        public static Dictionary<string, object> TopBottomLocationValueDeconstruct(FemDesign.Loads.TopBotLocationValue topBotLocVal)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Point", topBotLocVal.GetFdPoint().ToDynamo()},
+                {"TopValue", topBotLocVal.TopVal},
+                {"BottomValue", topBotLocVal.BottomVal}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a SurfaceLoad.
         /// </summary>
         /// <param name="surfaceLoad">SurfaceLoad.</param>
@@ -151,6 +189,47 @@ namespace FemDesign
                     {"q3", surfaceLoad.load[2].val},
                     {"LoadCaseGuid", surfaceLoad.loadCase},
                     {"Comment", surfaceLoad.comment}
+                };
+            }
+            else
+            {
+                throw new System.ArgumentException("Length of load must be 1 or 3.");
+            }  
+        }
+
+        /// <summary>
+        /// Deconstruct a SurfaceTemperatureLoad.
+        /// </summary>
+        /// <param name="srfTmpLoad">SurfaceTemperatureLoad.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Surface", "TopBotLocVal1", "TopBotLocVal2", "TopBotLocVal3", "LoadCaseGuid", "Comment"})]
+        public static Dictionary<string, object> SurfaceTemperatureLoadDeconstruct(FemDesign.Loads.SurfaceTemperatureLoad srfTmpLoad)
+        {
+            if (srfTmpLoad.TopBotLocVal.Count == 1)
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", srfTmpLoad.guid},
+                    {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
+                    {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
+                    {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[0]},
+                    {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[0]},
+                    {"LoadCaseGuid", srfTmpLoad.loadCase},
+                    {"Comment", srfTmpLoad.comment}
+                };
+            }
+            else if (srfTmpLoad.TopBotLocVal.Count == 3)
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", srfTmpLoad.guid},
+                    {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
+                    {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
+                    {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[1]},
+                    {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[2]},
+                    {"LoadCaseGuid", srfTmpLoad.loadCase},
+                    {"Comment", srfTmpLoad.comment}
                 };
             }
             else
