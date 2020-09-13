@@ -31,24 +31,24 @@ namespace FemDesign.Loads
         /// Field
         /// </summary>
         [XmlElement("temperature", Order=4)]
-        public List<TopBotLocationValue> _tempLocationValue;
+        public List<TopBotLocationValue> _topBotLocVal;
 
         
         /// <summary>
         /// Top bottom value can be a list of 1 or 2 items. 1 item defines a uniform line load, 2 items defines a variable line load.
         /// </summary>
         [XmlIgnore]
-        public List<TopBotLocationValue> TempLocationValue
+        public List<TopBotLocationValue> TopBotLocVal
         {
             get
             {
-                return this._tempLocationValue;
+                return this._topBotLocVal;
             }
             set
             {
                 if (value.Count == 2)
                 {
-                    this._tempLocationValue = value;
+                    this._topBotLocVal = value;
                 }
                 else
                 {
@@ -76,7 +76,7 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Edge = edge;
             this.Direction = direction;
-            this.TempLocationValue = topBotLocVals;
+            this.TopBotLocVal = topBotLocVals;
             this.loadCase = _loadCase.guid;
             this.comment = _comment;
         }

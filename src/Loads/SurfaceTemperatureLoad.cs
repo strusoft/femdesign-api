@@ -10,19 +10,19 @@ namespace FemDesign.Loads
         [XmlElement("region", Order=1)]
         public Geometry.Region Region { get; set; }
         [XmlElement("temperature", Order=2)]
-        public List<TopBotLocationValue> _tempLocationValue;
+        public List<TopBotLocationValue> _topBotLocVal;
         [XmlIgnore]
-        public List<TopBotLocationValue> TempLocationValue
+        public List<TopBotLocationValue> TopBotLocVal
         {
             get
             {
-                return this._tempLocationValue;
+                return this._topBotLocVal;
             }
             set
             {
                 if (value.Count == 1 || value.Count == 3)
                 {
-                    this._tempLocationValue = value;
+                    this._topBotLocVal = value;
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.Region = region;
-            this.TempLocationValue = tempLocValue;
+            this.TopBotLocVal = tempLocValue;
             this.loadCase = _loadCase.guid;
             this.comment = _comment;
         }
@@ -67,7 +67,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.Region = region;
-            this.TempLocationValue = new List<TopBotLocationValue>{new TopBotLocationValue(region.coordinateSystem.origin, topVal, bottomVal)};
+            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.coordinateSystem.origin, topVal, bottomVal)};
             this.loadCase = _loadCase.guid;
             this.comment = _comment;
         }

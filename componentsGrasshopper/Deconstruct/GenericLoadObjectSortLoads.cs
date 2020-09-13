@@ -17,9 +17,11 @@ namespace FemDesign.GH
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
-           pManager.AddGenericParameter("PointLoad", "PointLoad", "PointLoad.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("LineLoad", "LineLoad", "LineLoad.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("SurfaceLoad", "SurfaceLoad", "SurfaceLoad." , GH_ParamAccess.list);
+           pManager.AddGenericParameter("PointLoad", "PtLoad", "PointLoad.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("LineLoad", "LnLoad", "LineLoad.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("LineTemperatureLoad", "LnTmpLoad", "LineTemperatureLoad.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("SurfaceLoad", "SrfLoad", "SurfaceLoad." , GH_ParamAccess.list);
+           pManager.AddGenericParameter("SurfaceTemperatureLoad", "SrfTmpLoad", "SurfaceTemperatureLoad." , GH_ParamAccess.list);
            pManager.AddGenericParameter("PressureLoad", "PressureLoad", "PressureLoad.", GH_ParamAccess.list);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
@@ -39,6 +41,8 @@ namespace FemDesign.GH
             var r1 = new List<FemDesign.Loads.GenericLoadObject>();
             var r2 = new List<FemDesign.Loads.GenericLoadObject>();
             var r3 = new List<FemDesign.Loads.GenericLoadObject>();
+            var r4 = new List<FemDesign.Loads.GenericLoadObject>();
+            var r5 = new List<FemDesign.Loads.GenericLoadObject>();
 
             foreach (FemDesign.Loads.GenericLoadObject obj in objs)
             {
@@ -51,15 +55,25 @@ namespace FemDesign.GH
                 {
                     r1.Add(obj);
                 }
-                
-                else if (obj.surfaceLoad != null)
+
+                else if (obj.lineTemperatureLoad != null)
                 {
                     r2.Add(obj);
                 }
                 
-                else if (obj.pressureLoad != null)
+                else if (obj.surfaceLoad != null)
                 {
                     r3.Add(obj);
+                }
+
+                else if (obj.surfaceTemperatureLoad != null)
+                {
+                    r4.Add(obj);
+                }
+                
+                else if (obj.pressureLoad != null)
+                {
+                    r5.Add(obj);
                 }
                 else
                 {
@@ -71,7 +85,9 @@ namespace FemDesign.GH
             DA.SetDataList(0, r0);
             DA.SetDataList(1, r1);
             DA.SetDataList(2, r2);
-            DA.SetDataList(3, r3);            
+            DA.SetDataList(3, r3);
+            DA.SetDataList(4, r4);
+            DA.SetDataList(5, r5);            
        }
        protected override System.Drawing.Bitmap Icon
        {
