@@ -89,7 +89,7 @@ namespace FemDesign.GH
 
             //
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
-            thicknessObj.Add(new FemDesign.Shells.Thickness(region.coordinateSystem.origin, thickness));
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.origin, thickness));
 
             //
             FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Plate(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);
@@ -97,13 +97,13 @@ namespace FemDesign.GH
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                obj.slabPart.localX = FemDesign.Geometry.FdVector3d.FromRhino(x);
+                obj.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromRhino(x);
             }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                obj.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
+                obj.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
             }
 
             // return

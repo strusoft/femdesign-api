@@ -13,10 +13,10 @@ namespace FemDesign.LineConnectionTypes
     public class PredefinedType: EntityBase
     {
         [XmlAttribute("name")]
-        public string name { get; set; } // name40
+        public string Name { get; set; } // name40
 
         [XmlElement("rigidity")]
-        public FemDesign.Releases.RigidityDataType3 rigidity { get; set; } // rigidity_data_type3
+        public FemDesign.Releases.RigidityDataType3 Rigidity { get; set; } // rigidity_data_type3
         
         /// <summary>
         /// Parameterless constructor for serialization.

@@ -40,16 +40,16 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, obj.GetType());
-            if (obj.lineLoad != null)
+            if (obj.LineLoad != null)
             {
-                DA.SetData(0, obj.lineLoad.guid);
-                DA.SetData(1, obj.lineLoad.loadType);
-                DA.SetData(2, obj.lineLoad.GetRhinoGeometry());
-                DA.SetData(3, obj.lineLoad.direction.ToRhino());
-                DA.SetData(4, obj.lineLoad.load[0].val);
-                DA.SetData(5, obj.lineLoad.load[1].val);
-                DA.SetData(6, obj.lineLoad.loadCase);
-                DA.SetData(7, obj.lineLoad.comment);
+                DA.SetData(0, obj.LineLoad.Guid);
+                DA.SetData(1, obj.LineLoad.LoadType);
+                DA.SetData(2, obj.LineLoad.GetRhinoGeometry());
+                DA.SetData(3, obj.LineLoad.Direction.ToRhino());
+                DA.SetData(4, obj.LineLoad.Load[0].Value);
+                DA.SetData(5, obj.LineLoad.Load[1].Value);
+                DA.SetData(6, obj.LineLoad.LoadCase);
+                DA.SetData(7, obj.LineLoad.Comment);
             }
             else
             {

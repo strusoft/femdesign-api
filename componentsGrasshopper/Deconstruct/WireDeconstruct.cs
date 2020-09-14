@@ -34,9 +34,9 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.diameter);
-            DA.SetData(1, obj.reinforcingMaterial);
-            DA.SetData(2, obj.profile);
+            DA.SetData(0, obj.Diameter);
+            DA.SetData(1, obj.ReinforcingMaterial);
+            DA.SetData(2, obj.Profile);
        }
        protected override System.Drawing.Bitmap Icon
        {

@@ -11,11 +11,11 @@ namespace FemDesign
     public class EntityBase
     {
         [XmlAttribute("guid")]
-        public System.Guid guid { get; set; }
+        public System.Guid Guid { get; set; }
         [XmlAttribute("last_change")]
         public string _lastChange;
         [XmlIgnore]
-        internal System.DateTime lastChange
+        internal System.DateTime LastChange
         {
             get
             {
@@ -27,7 +27,7 @@ namespace FemDesign
             }
         }
         [XmlAttribute("action")]
-        public string action { get; set; }
+        public string Action { get; set; }
 
         /// <summary>
         /// Invoke when an instance is created.
@@ -36,9 +36,9 @@ namespace FemDesign
         /// </summary>
         internal void EntityCreated()
         {
-            this.guid = System.Guid.NewGuid();
-            this.lastChange = System.DateTime.UtcNow;
-            this.action = "added";
+            this.Guid = System.Guid.NewGuid();
+            this.LastChange = System.DateTime.UtcNow;
+            this.Action = "added";
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace FemDesign
         /// </summary>
         internal void EntityModified()
         {
-            this.lastChange = System.DateTime.UtcNow;
-            this.action = "modified";
+            this.LastChange = System.DateTime.UtcNow;
+            this.Action = "modified";
         }
     }
 }

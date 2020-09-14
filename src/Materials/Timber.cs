@@ -11,9 +11,9 @@ namespace FemDesign.Materials
     public class Timber: MaterialBase
     {
         [XmlAttribute("type")]
-        public string type { get; set; } // integer
+        public string Type { get; set; } // integer
         [XmlAttribute("quality")]
-        public string quality { get; set; } // integer
+        public string Quality { get; set; } // integer
         [XmlAttribute("Fmk0")]
         public string Fmk0 { get; set; } // material_base_value
         [XmlAttribute("Fmk90")]
@@ -47,15 +47,15 @@ namespace FemDesign.Materials
         [XmlAttribute("Rhomean")]
         public string Rhomean { get; set; } // material_base_value
         [XmlAttribute("gammaM_0")]
-        public string gammaM_0 { get; set; } // material_base_value
+        public string GammaM_0 { get; set; } // material_base_value
         [XmlAttribute("gammaM_1")]
-        public string gammaM_1 { get; set; } // material_base_value
+        public string GammaM_1 { get; set; } // material_base_value
         [XmlAttribute("ksys")]
         public double ksys { get; set; } // double
         [XmlAttribute("k_cr")]
         public double k_cr { get; set; } // reduction_factor_type. Optional.
         [XmlAttribute("service_class")]
-        public int service_class { get; set; } // timber_service_class_type
+        public int ServiceClass { get; set; } // timber_service_class_type
         [XmlAttribute("kdefU")]
         public double kdefU { get; set; } // material_0base_value. Optional.
         [XmlAttribute("kdefSq")]
@@ -65,7 +65,7 @@ namespace FemDesign.Materials
         [XmlAttribute("kdefSc")]
         public double kdefSc { get; set; } // material_0base_value. Optional.
         [XmlAttribute("gammaMfi")]
-        public string gammaMFi { get; set; } // material_base_value. Optional.
+        public string GammaMFi { get; set; } // material_base_value. Optional.
 
         /// <summary>
         /// Parameterless constructor for serialization.

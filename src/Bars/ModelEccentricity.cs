@@ -15,13 +15,13 @@ namespace FemDesign.Bars
     {
         // attributes
         [XmlAttribute("use_default_physical_alignment")]
-        public bool use_default_physical_alignment { get; set; } // bool
+        public bool UseDefaultPhysicalAlignment { get; set; } // bool
 
         // elements
         [XmlElement("analytical")]
-        public List<Eccentricity> analytical = new List<Eccentricity>(); // ecc_value_type
+        public List<Eccentricity> Analytical = new List<Eccentricity>(); // ecc_value_type
         [XmlElement("physical")]
-        public List<Eccentricity> physical = new List<Eccentricity>(); // ecc_value_type
+        public List<Eccentricity> Physical = new List<Eccentricity>(); // ecc_value_type
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -36,10 +36,10 @@ namespace FemDesign.Bars
         /// </summary>
         public ModelEccentricity(Eccentricity eccentricity)
         {
-            this.use_default_physical_alignment = true;
+            this.UseDefaultPhysicalAlignment = true;
             List<Eccentricity> eccentricities = new List<Eccentricity>{eccentricity, eccentricity};
-            this.analytical = eccentricities;
-            this.physical = eccentricities;
+            this.Analytical = eccentricities;
+            this.Physical = eccentricities;
         }
     }
 }

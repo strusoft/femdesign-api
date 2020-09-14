@@ -76,7 +76,7 @@ namespace FemDesign.GH
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                bar.barPart.localY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
             }
 
             // output

@@ -44,7 +44,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.pointSupport = FemDesign.Supports.PointSupport.Hinged(fdPoint, identifier);
+            obj.PointSupport = FemDesign.Supports.PointSupport.Hinged(fdPoint, identifier);
 
             // return
             DA.SetData(0, obj);

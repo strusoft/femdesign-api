@@ -37,14 +37,14 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.guid);
-            DA.SetData(1, obj.name);
+            DA.SetData(0, obj.Guid);
+            DA.SetData(1, obj.Name);
 
             // catch pre-defined rigidity
             try
             {
-                DA.SetData(2, obj.rigidity.motions);
-                DA.SetData(3, obj.rigidity.rotations);
+                DA.SetData(2, obj.Rigidity.Motions);
+                DA.SetData(3, obj.Rigidity.Rotations);
             }
             catch
             {

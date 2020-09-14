@@ -56,7 +56,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.pointSupport = new FemDesign.Supports.PointSupport(fdPoint, motions, rotations, identifier);
+            obj.PointSupport = new FemDesign.Supports.PointSupport(fdPoint, motions, rotations, identifier);
 
             // return
             DA.SetData(0, obj);

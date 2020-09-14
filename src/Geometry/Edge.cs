@@ -22,7 +22,7 @@ namespace FemDesign.Geometry
         /// If no LCS exists on Edge (i.e. when an Edge was deserialized from path) an LCS will be reconstructed.
         /// </summary>
         [XmlIgnore]
-        public FdCoordinateSystem coordinateSystem
+        public FdCoordinateSystem CoordinateSystem
         {
             get
             {
@@ -35,29 +35,29 @@ namespace FemDesign.Geometry
                     FdPoint3d origin;
                     FdVector3d localX, localY, localZ;
                     // arc1
-                    if (this.type == "arc" && this.points.Count == 1)
+                    if (this.Type == "arc" && this.Points.Count == 1)
                     {
                         // not implemented. only use for bars is intended at this point.
                         throw new System.ArgumentException("Could not reconstruct FdCoordinateSystem from Edge of type Arc1.");
                     }
 
                     // arc2
-                    if (this.type == "arc" && this.points.Count == 3)
+                    if (this.Type == "arc" && this.Points.Count == 3)
                     {
-                        origin = this.points[1];
-                        localX = new FdVector3d(this.points[0], this.points[2]).Normalize();
-                        localZ = this.normal;
+                        origin = this.Points[1];
+                        localX = new FdVector3d(this.Points[0], this.Points[2]).Normalize();
+                        localZ = this.Normal;
                         localY = localX.Cross(localZ);
                         return new FdCoordinateSystem(origin, localX, localY, localZ);
                     }
 
                     // line
-                    else if (this.type == "line" && this.points.Count == 2)
+                    else if (this.Type == "line" && this.Points.Count == 2)
                     {
-                        FdVector3d v = new FdVector3d(this.points[0], this.points[1]);
-                        origin = new FdPoint3d(v.x/2, v.y/2, v.z/2);
+                        FdVector3d v = new FdVector3d(this.Points[0], this.Points[1]);
+                        origin = new FdPoint3d(v.X/2, v.Y/2, v.Z/2);
                         localX = v.Normalize();
-                        localY = this.normal;
+                        localY = this.Normal;
                         localZ = localX.Cross(localY);
                         return new FdCoordinateSystem(origin, localX, localY, localZ);
                     }
@@ -65,34 +65,34 @@ namespace FemDesign.Geometry
                     // else
                     else
                     {
-                        throw new System.ArgumentException($"Could not reconstruct FdCoordinateSystem from Edge of type: {this.type}");
+                        throw new System.ArgumentException($"Could not reconstruct FdCoordinateSystem from Edge of type: {this.Type}");
                     }
                 }
             }
             set { this._coordinateSystem = value; }
         }
         [XmlElement("point", Order = 1)]
-        public List<Geometry.FdPoint3d> points = new List<Geometry.FdPoint3d>(); // sequence: point_type_3d // ordered internal points, or the center of the circle/arc
+        public List<Geometry.FdPoint3d> Points = new List<Geometry.FdPoint3d>(); // sequence: point_type_3d // ordered internal points, or the center of the circle/arc
         [XmlElement("normal", Order = 2)]
-        public FdVector3d normal { get; set; } // point_type_3d // normal of the curve; it must be used if the curve is arc or circle.
+        public FdVector3d Normal { get; set; } // point_type_3d // normal of the curve; it must be used if the curve is arc or circle.
         [XmlElement("x_axis", Order = 3)]
-        public Geometry.FdVector3d xAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
+        public Geometry.FdVector3d XAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
         [XmlElement("edge_connection", Order = 4)]
-        public Shells.ShellEdgeConnection edgeConnection { get; set; } // optional. ec_type.
+        public Shells.ShellEdgeConnection EdgeConnection { get; set; } // optional. ec_type.
         [XmlAttribute("type")]
         public string _type; // edgetype
         [XmlIgnore]
-        public string type
+        public string Type
         {
             get {return this._type;}
             set {this._type = RestrictedString.EdgeType(value);}
         }
         [XmlAttribute("radius")]
-        public double radius { get; set; }   // optional. double
+        public double Radius { get; set; }   // optional. double
         [XmlAttribute("start_angle")]
-        public double startAngle { get; set; } // optional. double
+        public double StartAngle { get; set; } // optional. double
         [XmlAttribute("end_angle")]
-        public double endAngle { get; set; } // optional. double
+        public double EndAngle { get; set; } // optional. double
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -105,16 +105,16 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc1 type.
         /// </summary>
-        internal Edge(double _radius, double _startAngle, double _endAngle, Geometry.FdPoint3d _centerPoint, Geometry.FdVector3d _xAxis, Geometry.FdCoordinateSystem _coordinateSystem)
+        internal Edge(double radius, double startAngle, double endAngle, Geometry.FdPoint3d centerPoint, Geometry.FdVector3d xAxis, Geometry.FdCoordinateSystem coordinateSystem)
         {
-            this.type = "arc";
-            this.radius = _radius;
-            this.startAngle = _startAngle;
-            this.endAngle = _endAngle;
-            this.points.Add(_centerPoint);
-            this.normal = _coordinateSystem.localZ;
-            this.xAxis = _xAxis;
-            this.coordinateSystem = _coordinateSystem;
+            this.Type = "arc";
+            this.Radius = radius;
+            this.StartAngle = startAngle;
+            this.EndAngle = endAngle;
+            this.Points.Add(centerPoint);
+            this.Normal = coordinateSystem.LocalZ;
+            this.XAxis = xAxis;
+            this.CoordinateSystem = coordinateSystem;
         }
 
         /// <summary>
@@ -122,11 +122,11 @@ namespace FemDesign.Geometry
         /// </summary>
         internal Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _midPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
-            this.type = "arc";
-            this.points.Add(_startPoint);
-            this.points.Add(_midPoint);
-            this.points.Add(_endPoint);
-            this.coordinateSystem = _coordinateSystem;
+            this.Type = "arc";
+            this.Points.Add(_startPoint);
+            this.Points.Add(_midPoint);
+            this.Points.Add(_endPoint);
+            this.CoordinateSystem = _coordinateSystem;
         }
 
         /// <summary>
@@ -134,22 +134,22 @@ namespace FemDesign.Geometry
         /// </summary>
         internal Edge(double _radius, Geometry.FdPoint3d _centerPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
-            this.type = "circle";
-            this.radius = _radius;
-            this.points.Add(_centerPoint);
-            this.normal = _coordinateSystem.localZ;
-            this.coordinateSystem = _coordinateSystem;
+            this.Type = "circle";
+            this.Radius = _radius;
+            this.Points.Add(_centerPoint);
+            this.Normal = _coordinateSystem.LocalZ;
+            this.CoordinateSystem = _coordinateSystem;
         }
         /// <summary>
         /// Construct Edge of line type by points and coordinate system.
         /// </summary>
         internal Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
-            this.type = "line";
-            this.points.Add(_startPoint);
-            this.points.Add(_endPoint);
-            this.normal = _coordinateSystem.localY;
-            this.coordinateSystem = _coordinateSystem;
+            this.Type = "line";
+            this.Points.Add(_startPoint);
+            this.Points.Add(_endPoint);
+            this.Normal = _coordinateSystem.LocalY;
+            this.CoordinateSystem = _coordinateSystem;
         }
 
         /// <summary>
@@ -157,26 +157,26 @@ namespace FemDesign.Geometry
         /// </summary>
         internal Edge(FdPoint3d startPoint, FdPoint3d endPoint, FdVector3d localY)
         {
-            this.type = "line";
-            this.points.Add(startPoint);
-            this.points.Add(endPoint);
-            this.normal = localY;
+            this.Type = "line";
+            this.Points.Add(startPoint);
+            this.Points.Add(endPoint);
+            this.Normal = localY;
         }
 
         internal bool IsLine()
         {
-            return (this.type == "line");
+            return (this.Type == "line");
         }
 
         internal bool IsLineVertical()
         {
             if (this.IsLine())
             {
-                return (this.points[0].x == this.points[1].x && this.points[0].y == this.points[1].y);
+                return (this.Points[0].X == this.Points[1].X && this.Points[0].Y == this.Points[1].Y);
             }
             else
             {
-                throw new System.ArgumentException($"Edge type: {this.type}, is not line.");
+                throw new System.ArgumentException($"Edge type: {this.Type}, is not line.");
             }
         }
 
@@ -185,19 +185,19 @@ namespace FemDesign.Geometry
         /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
-            if (this.coordinateSystem.IsComplete())
+            if (this.CoordinateSystem.IsComplete())
             {
                 // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.coordinateSystem.localX.Parallel(Geometry.FdVector3d.UnitZ());
+                int par = this.CoordinateSystem.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
                 if (par == 1 || par == -1)
                 {
-                    this.coordinateSystem.SetYAroundX(FdVector3d.UnitY());
+                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitY());
                 }
 
                 // else set (rotate) LocalY to UnitZ cross LocalX
                 else
                 {
-                    this.coordinateSystem.SetYAroundX(FdVector3d.UnitZ().Cross(this.coordinateSystem.localX).Normalize());
+                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitZ().Cross(this.CoordinateSystem.LocalX).Normalize());
                 }
             }
 
@@ -263,7 +263,7 @@ namespace FemDesign.Geometry
         public static Geometry.Edge FromRhino(Rhino.Geometry.Curve obj)
         {
             // check length
-            if (obj.GetLength() < FemDesign.Tolerance.point3d)
+            if (obj.GetLength() < FemDesign.Tolerance.Point3d)
             {
                 throw new System.ArgumentException("Curve has no length.");
             }
@@ -311,7 +311,7 @@ namespace FemDesign.Geometry
         public static Geometry.Edge FromRhinoLineOrArc1(Rhino.Geometry.Curve obj)
         {
             // check length
-            if (obj.GetLength() < FemDesign.Tolerance.point3d)
+            if (obj.GetLength() < FemDesign.Tolerance.Point3d)
             {
                 throw new System.ArgumentException("Curve has no length.");
             }
@@ -365,7 +365,7 @@ namespace FemDesign.Geometry
         public static Geometry.Edge FromRhinoLineOrArc2(Rhino.Geometry.Curve obj)
         {
             // check length
-            if (obj.GetLength() < FemDesign.Tolerance.point3d)
+            if (obj.GetLength() < FemDesign.Tolerance.Point3d)
             {
                 throw new System.ArgumentException("Curve has no length.");
             }
@@ -529,21 +529,21 @@ namespace FemDesign.Geometry
         /// </summary>
         public Rhino.Geometry.Curve ToRhino()
         {
-            if (this.type == "arc")
+            if (this.Type == "arc")
             {
                 return Edge.ToRhinoArcCurve(this);
             }
-            else if (this.type == "circle")
+            else if (this.Type == "circle")
             {
                 return Edge.ToRhinoArcCurveFromCircle(this);
             }
-            else if (this.type == "line")
+            else if (this.Type == "line")
             {
                 return Edge.ToRhinoLineCurve(this);
             }
             else
             {
-                throw new System.ArgumentException($"Edge type: {this.type}, is not supported for conversion to a Rhino Curve");
+                throw new System.ArgumentException($"Edge type: {this.Type}, is not supported for conversion to a Rhino Curve");
             }
         }
 
@@ -552,17 +552,17 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Rhino.Geometry.ArcCurve ToRhinoArcCurve(Geometry.Edge obj)
         {
-            if (obj.points.Count == 3)
+            if (obj.Points.Count == 3)
             {
-                Rhino.Geometry.Arc arc = new Rhino.Geometry.Arc(obj.points[0].ToRhino(), obj.points[1].ToRhino(), obj.points[2].ToRhino());
+                Rhino.Geometry.Arc arc = new Rhino.Geometry.Arc(obj.Points[0].ToRhino(), obj.Points[1].ToRhino(), obj.Points[2].ToRhino());
                 return new Rhino.Geometry.ArcCurve(arc);
             }
 
             else
             {
-                Rhino.Geometry.Interval interval = new Rhino.Geometry.Interval(obj.startAngle, obj.endAngle);
-                Rhino.Geometry.Plane plane = new Rhino.Geometry.Plane(obj.points[0].ToRhino(), obj.normal.ToRhino());
-                Rhino.Geometry.Circle circle = new Rhino.Geometry.Circle(plane, obj.radius);
+                Rhino.Geometry.Interval interval = new Rhino.Geometry.Interval(obj.StartAngle, obj.EndAngle);
+                Rhino.Geometry.Plane plane = new Rhino.Geometry.Plane(obj.Points[0].ToRhino(), obj.Normal.ToRhino());
+                Rhino.Geometry.Circle circle = new Rhino.Geometry.Circle(plane, obj.Radius);
                 Rhino.Geometry.Arc arc = new Rhino.Geometry.Arc(circle, interval);
                 return new Rhino.Geometry.ArcCurve(arc);
             }
@@ -573,8 +573,8 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Rhino.Geometry.ArcCurve ToRhinoArcCurveFromCircle(Geometry.Edge obj)
         {
-            Rhino.Geometry.Plane plane = new Rhino.Geometry.Plane(obj.points[0].ToRhino(), obj.normal.ToRhino());
-            Rhino.Geometry.Circle circle = new Rhino.Geometry.Circle(plane, obj.radius);
+            Rhino.Geometry.Plane plane = new Rhino.Geometry.Plane(obj.Points[0].ToRhino(), obj.Normal.ToRhino());
+            Rhino.Geometry.Circle circle = new Rhino.Geometry.Circle(plane, obj.Radius);
             return new Rhino.Geometry.ArcCurve(circle);
         }
 
@@ -583,7 +583,7 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Rhino.Geometry.LineCurve ToRhinoLineCurve(Geometry.Edge obj)
         {
-            return new Rhino.Geometry.LineCurve(obj.points[0].ToRhino(), obj.points[1].ToRhino());
+            return new Rhino.Geometry.LineCurve(obj.Points[0].ToRhino(), obj.Points[1].ToRhino());
         }
 
         #endregion

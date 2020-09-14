@@ -11,13 +11,13 @@ namespace FemDesign.Materials
     public class ReinforcingSteel
     {
         [XmlAttribute("fyk")]
-        public string fyk {get; set;} // non_neg_max_1e10
+        public string Fyk {get; set;} // non_neg_max_1e10
         [XmlAttribute("Es")]
         public string Es {get; set;} // non_neg_max_1e10
         [XmlAttribute("Epsilon_uk")]
-        public string epsilon_uk {get; set;} // non_neg_max_1e10
+        public string Epsilon_uk {get; set;} // non_neg_max_1e10
         [XmlAttribute("Epsilon_ud")]
-        public string epsilon_ud {get; set;} // non_neg_max_1e10
+        public string Epsilon_ud {get; set;} // non_neg_max_1e10
         [XmlAttribute("k")]
         public string k {get; set;} // rc_k_value
 

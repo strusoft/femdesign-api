@@ -37,8 +37,8 @@ namespace FemDesign.GH
 
             // return
             
-            DA.SetData(0, cover.guid);
-            DA.SetData(1, cover.name);
+            DA.SetData(0, cover.Guid);
+            DA.SetData(1, cover.Name);
             DA.SetData(2, cover.GetRhinoSurface());
             DA.SetDataList(3, cover.GetRhinoCurves());
        }

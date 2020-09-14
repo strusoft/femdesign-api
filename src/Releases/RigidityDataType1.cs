@@ -12,13 +12,13 @@ namespace FemDesign.Releases
     public class RigidityDataType1
     {
         [XmlElement("motions", Order=1)]
-        public Releases.Motions motions { get; set; }
+        public Releases.Motions Motions { get; set; }
         [XmlElement("plastic_limit_forces", Order=2)]
-        public Releases.PlasticityType3d plasticLimitForces { get; set; }
+        public Releases.PlasticityType3d PlasticLimitForces { get; set; }
         [XmlAttribute("detach")]
         public string _detach; // detach_type
         [XmlIgnore]
-        public string detach
+        public string Detach
         {
             get {return this._detach;}
             set {this._detach = RestrictedString.DetachType(value);}
@@ -38,7 +38,7 @@ namespace FemDesign.Releases
         /// </summary>
         public RigidityDataType1(Motions motions)
         {
-            this.motions = motions;
+            this.Motions = motions;
         }
     }
 }

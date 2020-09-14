@@ -11,21 +11,21 @@ namespace FemDesign.Sections
     public class Section: EntityBase
     {
         [XmlAttribute("name")]
-        public string name { get; set; } // string
+        public string Name { get; set; } // string
         [XmlAttribute("type")]
-        public string type { get; set; } // sectiontype
+        public string Type { get; set; } // sectiontype
         [XmlAttribute("fd-mat")]
-        public string fdMat { get; set; } // fd_mat_type
+        public string FdMat { get; set; } // fd_mat_type
         [XmlAttribute("fd_name_code")]
-        public string fdNameCode { get; set; } // string. Optional
+        public string FdNameCode { get; set; } // string. Optional
         [XmlAttribute("fd_name_type")]
-        public string fdNameType { get; set; } // string. Optional
+        public string FdNameType { get; set; } // string. Optional
         [XmlAttribute("fd_name_size")]
-        public string fdNameSize { get; set; } // string. Optional
+        public string FdNameSize { get; set; } // string. Optional
         [XmlElement("region_group")]
-        public Geometry.RegionGroup regionGroup { get; set; } // region_group_type
+        public Geometry.RegionGroup RegionGroup { get; set; } // region_group_type
         [XmlElement("end")]
-        public string end { get; set; } // enpty_type
+        public string End { get; set; } // enpty_type
 
         /// <summary>
         /// Get a Section from a SectionDatabase by name.
@@ -36,9 +36,9 @@ namespace FemDesign.Sections
         /// <returns></returns>
         public static Section GetSectionByName(SectionDatabase sectionDatabase, string sectionName)
         {
-            foreach (Section section in sectionDatabase.sections.section)
+            foreach (Section section in sectionDatabase.Sections.Section)
             {
-                if (section.name == sectionName)
+                if (section.Name == sectionName)
                 {
                     return section;
                 }

@@ -46,32 +46,32 @@ namespace FemDesign.GH
 
             foreach (FemDesign.Loads.GenericLoadObject obj in objs)
             {
-                if (obj.pointLoad != null)
+                if (obj.PointLoad != null)
                 {
                     r0.Add(obj);
                 }
                 
-                else if (obj.lineLoad != null)
+                else if (obj.LineLoad != null)
                 {
                     r1.Add(obj);
                 }
 
-                else if (obj.lineTemperatureLoad != null)
+                else if (obj.LineTemperatureLoad != null)
                 {
                     r2.Add(obj);
                 }
                 
-                else if (obj.surfaceLoad != null)
+                else if (obj.SurfaceLoad != null)
                 {
                     r3.Add(obj);
                 }
 
-                else if (obj.surfaceTemperatureLoad != null)
+                else if (obj.SurfaceTemperatureLoad != null)
                 {
                     r4.Add(obj);
                 }
                 
-                else if (obj.pressureLoad != null)
+                else if (obj.PressureLoad != null)
                 {
                     r5.Add(obj);
                 }

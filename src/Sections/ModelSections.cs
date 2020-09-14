@@ -12,8 +12,8 @@ namespace FemDesign.Sections
     public class ModelSections
     {
         [XmlElement("section", Order = 1)]
-        public List<FemDesign.Sections.Section> section = new List<FemDesign.Sections.Section>(); // sequence: section_type
+        public List<FemDesign.Sections.Section> Section = new List<FemDesign.Sections.Section>(); // sequence: section_type
         [XmlElement("complex_section", Order = 2)]
-        public List<FemDesign.Sections.ComplexSection> complexSection = new List<FemDesign.Sections.ComplexSection>(); // sequence: complex_section_type
+        public List<FemDesign.Sections.ComplexSection> ComplexSection = new List<FemDesign.Sections.ComplexSection>(); // sequence: complex_section_type
     }
 }

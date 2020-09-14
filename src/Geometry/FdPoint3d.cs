@@ -10,11 +10,11 @@ namespace FemDesign.Geometry
     public class FdPoint3d
     {
         [XmlAttribute("x")]
-        public double x;
+        public double X;
         [XmlAttribute("y")]
-        public double y;
+        public double Y;
         [XmlAttribute("z")]
-        public double z;
+        public double Z;
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -32,9 +32,9 @@ namespace FemDesign.Geometry
         /// <param name="z"></param>
         internal FdPoint3d(double x, double y, double z)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         public FdPoint3d Translate(FdVector3d v)
         {
-            return new FdPoint3d(this.x + v.x, this.y + v.y, this.z + v.z);
+            return new FdPoint3d(this.X + v.X, this.Y + v.Y, this.Z + v.Z);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         internal FdPoint2d To2d()
         {
-            return new FdPoint2d(this.x, this.y);
+            return new FdPoint2d(this.X, this.Y);
         }
 
         public override bool Equals(System.Object obj)
@@ -67,7 +67,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (x == p.x) && (y == p.y) && (z == p.z);            
+            return (X == p.X) && (Y == p.Y) && (Z == p.Z);            
         }
 
         public bool Equals(FdPoint3d p)
@@ -76,7 +76,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (x == p.x) && (y == p.y) && (z == p.z);
+            return (X == p.X) && (Y == p.Y) && (Z == p.Z);
         }
 
         public bool Equals(FdPoint3d p, double tolerance)
@@ -85,12 +85,12 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (Math.Abs(x - p.x) < tolerance) && (Math.Abs(y - p.y) < tolerance) && (Math.Abs(z - p.z) < tolerance);
+            return (Math.Abs(X - p.X) < tolerance) && (Math.Abs(Y - p.Y) < tolerance) && (Math.Abs(Z - p.Z) < tolerance);
         }
 
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
         #region grasshopper
@@ -116,7 +116,7 @@ namespace FemDesign.Geometry
         /// </summary>
         public Rhino.Geometry.Point3d ToRhino()
         {
-            return new Rhino.Geometry.Point3d(this.x, this.y, this.z);
+            return new Rhino.Geometry.Point3d(this.X, this.Y, this.Z);
         }
         #endregion
     }

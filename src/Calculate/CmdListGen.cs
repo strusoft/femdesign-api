@@ -12,16 +12,16 @@ namespace FemDesign.Calculate
     public class CmdListGen
     {
         [XmlAttribute("command")]
-        public string command = "$ MODULECOM LISTGEN"; // token, fixed.
+        public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
         [XmlAttribute("bscfile")]
-        public string bscFile { get; set; } // string
+        public string BscFile { get; set; } // string
         [XmlAttribute("outfile")]
-        public string outFile { get; set; } // string
+        public string OutFile { get; set; } // string
         [XmlAttribute("regional")]
-        public int regional { get; set; } // bool // int (0,1)?
+        public int Regional { get; set; } // bool // int (0,1)?
         [XmlAttribute("fillcells")]
-        public int fillCells { get; set; } // bool // int (0,1)?
-        private string fileName { get; set; }
+        public int FillCells { get; set; } // bool // int (0,1)?
+        private string FileName { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -42,11 +42,11 @@ namespace FemDesign.Calculate
             }
 
             //
-            this.bscFile = bscPath;
-            this.fileName = _fileName;
-            this.outFile = outputDir + @"\" + this.fileName + @".csv";
-            this.regional = 0;
-            this.fillCells = 0;
+            this.BscFile = bscPath;
+            this.FileName = _fileName;
+            this.OutFile = outputDir + @"\" + this.FileName + @".csv";
+            this.Regional = 0;
+            this.FillCells = 0;
         }
     }
 }

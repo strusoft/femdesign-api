@@ -41,26 +41,26 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, obj.GetType());
-            if (obj.surfaceLoad != null)
+            if (obj.SurfaceLoad != null)
             {
-                DA.SetData(0, obj.surfaceLoad.guid);
-                DA.SetData(1, obj.surfaceLoad.loadType);
-                DA.SetData(2, obj.surfaceLoad.GetRhinoGeometry());
-                DA.SetData(3, obj.surfaceLoad.direction.ToRhino());
-                DA.SetData(4, obj.surfaceLoad.load[0].val);
+                DA.SetData(0, obj.SurfaceLoad.Guid);
+                DA.SetData(1, obj.SurfaceLoad.LoadType);
+                DA.SetData(2, obj.SurfaceLoad.GetRhinoGeometry());
+                DA.SetData(3, obj.SurfaceLoad.Direction.ToRhino());
+                DA.SetData(4, obj.SurfaceLoad.Loads[0].Value);
                 
                 // if uniform
-                if (obj.surfaceLoad.load.Count == 1)
+                if (obj.SurfaceLoad.Loads.Count == 1)
                 {
-                    DA.SetData(5, obj.surfaceLoad.load[0].val);
-                    DA.SetData(6, obj.surfaceLoad.load[0].val);
+                    DA.SetData(5, obj.SurfaceLoad.Loads[0].Value);
+                    DA.SetData(6, obj.SurfaceLoad.Loads[0].Value);
                 }
 
                 // if variable
-                else if (obj.surfaceLoad.load.Count == 3)
+                else if (obj.SurfaceLoad.Loads.Count == 3)
                 {
-                    DA.SetData(5, obj.surfaceLoad.load[1].val);
-                    DA.SetData(6, obj.surfaceLoad.load[2].val);
+                    DA.SetData(5, obj.SurfaceLoad.Loads[1].Value);
+                    DA.SetData(6, obj.SurfaceLoad.Loads[2].Value);
                 }
 
                 // else
@@ -69,8 +69,8 @@ namespace FemDesign.GH
                     throw new System.ArgumentException("Length of load should be 1 or 3.");
                 }
 
-                DA.SetData(7, obj.surfaceLoad.loadCase);
-                DA.SetData(8, obj.surfaceLoad.comment);
+                DA.SetData(7, obj.SurfaceLoad.LoadCase);
+                DA.SetData(8, obj.SurfaceLoad.Comment);
             }
             else
             {

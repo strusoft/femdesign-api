@@ -11,9 +11,9 @@ namespace FemDesign.Loads
     public class PointLoad: ForceLoadBase
     {
         [XmlElement("direction")]
-        public Geometry.FdVector3d direction { get; set; } // point_type_3d
+        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
         [XmlElement("load")]
-        public LoadLocationValue load { get; set; } // location_value
+        public LoadLocationValue Load { get; set; } // location_value
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -29,11 +29,11 @@ namespace FemDesign.Loads
         internal PointLoad(Geometry.FdPoint3d point, Geometry.FdVector3d force, LoadCase loadCase, string comment, string type)
         {
             this.EntityCreated();
-            this.loadCase = loadCase.guid;
-            this.comment = comment;
-            this.loadType = type;
-            this.direction = force.Normalize();
-            this.load = new LoadLocationValue(point, force.Length());
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
+            this.LoadType = type;
+            this.Direction = force.Normalize();
+            this.Load = new LoadLocationValue(point, force.Length());
         }
 
         
@@ -44,7 +44,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Rhino.Geometry.Point3d GetRhinoGeometry()
         {
-            return this.load.GetFdPoint().ToRhino();
+            return this.Load.GetFdPoint().ToRhino();
         }
         #endregion
     }

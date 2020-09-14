@@ -17,35 +17,35 @@ namespace FemDesign.Releases
         /// <summary>
         /// Private constructor [kNm/rad or kNm/m/rad].
         /// </summary>
-        /// <param name="x_neg">Cx' compression. </param>
-        /// <param name="x_pos">Cx' tension.</param>
-        /// <param name="y_neg">Cy' compression.</param>
-        /// <param name="y_pos">Cy' tension.</param>
-        /// <param name="z_neg">Cz' compression.</param>
-        /// <param name="z_pos">Cz' tension.</param>
-        private Rotations(double x_neg, double x_pos, double y_neg, double y_pos, double z_neg, double z_pos)
+        /// <param name="xNeg">Cx' compression. </param>
+        /// <param name="xPos">Cx' tension.</param>
+        /// <param name="yNeg">Cy' compression.</param>
+        /// <param name="yPos">Cy' tension.</param>
+        /// <param name="zNeg">Cz' compression.</param>
+        /// <param name="zPos">Cz' tension.</param>
+        private Rotations(double xNeg, double xPos, double yNeg, double yPos, double zNeg, double zPos)
         {
-            this.x_neg = x_neg;
-            this.x_pos = x_pos;
-            this.y_neg = y_neg;
-            this.y_pos = y_pos;
-            this.z_neg = z_neg;
-            this.z_pos = z_pos; 
+            this.XNeg = xNeg;
+            this.XPos = xPos;
+            this.YNeg = yNeg;
+            this.YPos = yPos;
+            this.ZNeg = zNeg;
+            this.ZPos = zPos; 
         }
         
         /// <summary>
         /// Define a new rotations release [kNm/rad or kNm/m/rad].
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="x_neg">Cx' compression [kNm/rad or kNm/m/rad].</param>
-        /// <param name="x_pos">Cx' tension [kNm/rad or kNm/m/rad].</param>
-        /// <param name="y_neg">Cy' compression [kNm/rad or kNm/m/rad].</param>
-        /// <param name="y_pos">Cy' tension [kNm/rad or kNm/m/rad].</param>
-        /// <param name="z_neg">Cz' compression [kNm/rad or kNm/m/rad].</param>
-        /// <param name="z_pos">Cz' tension [kNm/rad or kNm/m/rad].</param>
-        public static Rotations Define(double x_neg = 0, double x_pos = 0, double y_neg = 0, double y_pos = 0, double z_neg = 0, double z_pos = 0)
+        /// <param name="xNeg">Cx' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="xPos">Cx' tension [kNm/rad or kNm/m/rad].</param>
+        /// <param name="yNeg">Cy' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="yPos">Cy' tension [kNm/rad or kNm/m/rad].</param>
+        /// <param name="zNeg">Cz' compression [kNm/rad or kNm/m/rad].</param>
+        /// <param name="zPos">Cz' tension [kNm/rad or kNm/m/rad].</param>
+        public static Rotations Define(double xNeg = 0, double xPos = 0, double yNeg = 0, double yPos = 0, double zNeg = 0, double zPos = 0)
         {
-            return new Rotations(x_neg, x_pos, y_neg, y_pos, z_neg, z_pos);
+            return new Rotations(xNeg, xPos, yNeg, yPos, zNeg, zPos);
         }
         /// <summary>
         /// Define a rigid rotations release for a point-type release (1e+10 kNm/rad).

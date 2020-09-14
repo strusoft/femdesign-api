@@ -12,13 +12,13 @@ namespace FemDesign.Reinforcement
     public class Center
     {
         [XmlAttribute("x")]
-        public double x { get; set; } // double
+        public double X { get; set; } // double
         [XmlAttribute("y")]
-        public double y { get; set; } // double
+        public double Y { get; set; } // double
         [XmlAttribute("z")]
-        public double z { get; set; } // double
+        public double Z { get; set; } // double
         [XmlAttribute("polar_system")]
-        public bool polarSystem { get; set; } // bool
+        public bool PolarSystem { get; set; } // bool
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -33,10 +33,10 @@ namespace FemDesign.Reinforcement
         /// </summary>
         private Center(double x, double y, double z, bool polarSystem)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.polarSystem = polarSystem;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.PolarSystem = polarSystem;
         }
 
         /// <summary>

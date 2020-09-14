@@ -11,6 +11,6 @@ namespace FemDesign.Sections
     public class DatabaseSections
     {
         [XmlElement("section")]
-        public List<Section> section = new List<Section>();
+        public List<Section> Section = new List<Section>();
     }
 }

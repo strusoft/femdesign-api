@@ -39,7 +39,7 @@ namespace FemDesign.Calculate
         public int NLSplasticelemratio { get; set; } // int
 
         [XmlElement("combitem")]
-        public List<CombItem> combItem = new List<CombItem>();
+        public List<CombItem> CombItem = new List<CombItem>();
 
         
         /// <summary>
@@ -111,13 +111,13 @@ namespace FemDesign.Calculate
         /// <param name="loadCombination">LoadCombination</param>
         public void AddLoadCombinationParameters(Loads.LoadCombination loadCombination)
         {
-            if (loadCombination.combItem == null)
+            if (loadCombination.CombItem == null)
             {
                 // pass
             }
             else
             {
-                this.combItem.Add(loadCombination.combItem);
+                this.CombItem.Add(loadCombination.CombItem);
             }      
         }
     }

@@ -12,25 +12,25 @@ namespace FemDesign.Materials
     public class Material: EntityBase
     {
         [XmlAttribute("standard")]
-        public string standard { get; set; } // standardtype
+        public string Standard { get; set; } // standardtype
         [XmlAttribute("country")]
-        public string country { get; set; } // eurocodetype
+        public string Country { get; set; } // eurocodetype
         /// <summary>
         /// Name of Material.
         /// </summary>
         /// <value></value>
         [XmlAttribute("name")]
-        public string name { get; set; } // name256
+        public string Name { get; set; } // name256
         [XmlElement("timber")]
-        public Timber timber { get; set; }
+        public Timber Timber { get; set; }
         [XmlElement("concrete")]
-        public Concrete concrete { get; set; }
+        public Concrete Concrete { get; set; }
         [XmlElement("custom")]
-        public Custom custom { get; set; }
+        public Custom Custom { get; set; }
         [XmlElement("steel")]
-        public Steel steel { get; set; }
+        public Steel Steel { get; set; }
         [XmlElement("reinforcing_steel")]
-        public ReinforcingSteel reinforcingSteel { get; set; }
+        public ReinforcingSteel ReinforcingSteel { get; set; }
 
         /// <summary>
         /// Get Material from MaterialDatabase by name.
@@ -41,14 +41,14 @@ namespace FemDesign.Materials
         /// <returns></returns>
         public static Material GetMaterialByName(MaterialDatabase materialDatabase, string materialName)
         {
-            if (materialDatabase.materials != null)
+            if (materialDatabase.Materials != null)
             {
-                foreach (Material material in materialDatabase.materials.material)
+                foreach (Material material in materialDatabase.Materials.Material)
                 {
-                    if (material.name == materialName)
+                    if (material.Name == materialName)
                     {
                         // update object information
-                        material.guid = System.Guid.NewGuid();
+                        material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -56,14 +56,14 @@ namespace FemDesign.Materials
                     }
                 }
             }
-            if (materialDatabase.reinforcingMaterials != null)
+            if (materialDatabase.ReinforcingMaterials != null)
             {
-                foreach (Material material in materialDatabase.reinforcingMaterials.material)
+                foreach (Material material in materialDatabase.ReinforcingMaterials.Material)
                 {
-                    if (material.name == materialName)
+                    if (material.Name == materialName)
                     {
                         // update object information
-                        material.guid = System.Guid.NewGuid();
+                        material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -86,7 +86,7 @@ namespace FemDesign.Materials
         /// <returns></returns>
         public static Material SetConcreteMaterialProperties(Material material, double creepUls = 0, double creepSlq = 0, double creepSlf = 0, double creepSlc = 0, double shrinkage = 0)
         {
-            if (material.concrete != null)
+            if (material.Concrete != null)
             {
                 // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
                 Material newMaterial = material.DeepClone();
@@ -95,7 +95,7 @@ namespace FemDesign.Materials
                 newMaterial.EntityCreated();
 
                 // set parameters
-                newMaterial.concrete.SetMaterialParameters(creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
+                newMaterial.Concrete.SetMaterialParameters(creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
                 newMaterial.EntityModified();
 
                 // return

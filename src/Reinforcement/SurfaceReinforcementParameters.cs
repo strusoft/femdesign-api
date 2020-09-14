@@ -14,16 +14,16 @@ namespace FemDesign.Reinforcement
     public class SurfaceReinforcementParameters: EntityBase
     {
         [XmlAttribute("single_layer_reinforcement")]
-        public bool singleLayerReinforcement { get; set; } // bool. Default = false
+        public bool SingleLayerReinforcement { get; set; } // bool. Default = false
 
         [XmlElement("base_shell", Order=1)]
-        public GuidListType baseShell { get; set; } // guid_list_type // reference to slabPart of slab
+        public GuidListType BaseShell { get; set; } // guid_list_type // reference to slabPart of slab
         [XmlElement("center", Order=2)]
-        public Center center { get; set; }
+        public Center Center { get; set; }
         [XmlElement("x_direction", Order=3)]
-        public Geometry.FdVector3d xDirection { get; set; } // point_type_3d
+        public Geometry.FdVector3d XDirection { get; set; } // point_type_3d
         [XmlElement("y_direction", Order = 4)]
-        public Geometry.FdVector3d yDirection { get; set; } // point_type_3d
+        public Geometry.FdVector3d YDirection { get; set; } // point_type_3d
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -44,14 +44,14 @@ namespace FemDesign.Reinforcement
             // single layer reinforcement?
             if (singleLayerReinforcement)
             {
-                this.singleLayerReinforcement = singleLayerReinforcement;
+                this.SingleLayerReinforcement = singleLayerReinforcement;
             }
 
             // other properties
-            this.baseShell = baseShell;
-            this.center = center;
-            this.xDirection = xDirection;
-            this.yDirection = yDirection;
+            this.BaseShell = baseShell;
+            this.Center = center;
+            this.XDirection = xDirection;
+            this.YDirection = yDirection;
         }
 
         /// <summary>
@@ -59,10 +59,10 @@ namespace FemDesign.Reinforcement
         /// </summary>
         public static SurfaceReinforcementParameters Straight(Shells.Slab slab, bool singleLayerReinforcement = false)
         {
-            GuidListType baseShell = new GuidListType(slab.slabPart.guid);
+            GuidListType baseShell = new GuidListType(slab.SlabPart.Guid);
             Center center = Center.Straight();
-            Geometry.FdVector3d xDirection = slab.slabPart.localX;
-            Geometry.FdVector3d yDirection = slab.slabPart.localY;
+            Geometry.FdVector3d xDirection = slab.SlabPart.LocalX;
+            Geometry.FdVector3d yDirection = slab.SlabPart.LocalY;
             return new SurfaceReinforcementParameters(singleLayerReinforcement, baseShell, center, xDirection, yDirection);
         }
     }

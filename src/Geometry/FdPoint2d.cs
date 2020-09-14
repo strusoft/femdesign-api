@@ -9,9 +9,9 @@ namespace FemDesign.Geometry
     public class FdPoint2d
     {
         [XmlAttribute("x")]
-        public double x { get; set;}
+        public double X { get; set;}
         [XmlAttribute("y")]
-        public double y { get; set; }
+        public double Y { get; set; }
 
         /// <summary>
         /// Parameterless constructor for
@@ -28,8 +28,8 @@ namespace FemDesign.Geometry
         /// <param name="y">y-coordinate.</param>
         public FdPoint2d(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         public FdPoint3d To3d()
         {
-            return new FdPoint3d(this.x, this.y, 0);
+            return new FdPoint3d(this.X, this.Y, 0);
         }
     }
 }

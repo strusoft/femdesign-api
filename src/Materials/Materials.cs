@@ -12,6 +12,6 @@ namespace FemDesign.Materials
     public class Materials
     {
         [XmlElement("material", Order = 1)]
-        public List<Material> material = new List<Material>(); // sequence: material_type
+        public List<Material> Material = new List<Material>(); // sequence: material_type
     }
 }

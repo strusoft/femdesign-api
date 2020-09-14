@@ -39,12 +39,12 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, bar.guid);
-            DA.SetData(1, bar.name);
-            DA.SetData(2, bar.barPart.name);
+            DA.SetData(0, bar.Guid);
+            DA.SetData(1, bar.Name);
+            DA.SetData(2, bar.BarPart.Name);
             DA.SetData(3, bar.GetRhinoCurve());
-            DA.SetData(4, bar.material);
-            DA.SetData(5, bar.section);
+            DA.SetData(4, bar.Material);
+            DA.SetData(5, bar.Section);
        }
        protected override System.Drawing.Bitmap Icon
        {

@@ -11,7 +11,7 @@ namespace FemDesign.Calculate
     public class Stage
     {
         [XmlAttribute("ghost")]
-        public int ghost { get; set; } // bool // int(?)
+        public int Ghost { get; set; } // bool // int(?)
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -24,7 +24,7 @@ namespace FemDesign.Calculate
         private Stage(bool ghost = false)
         {
             //
-            this.ghost = Convert.ToInt32(ghost);
+            this.Ghost = Convert.ToInt32(ghost);
         }
 
         /// <summary>

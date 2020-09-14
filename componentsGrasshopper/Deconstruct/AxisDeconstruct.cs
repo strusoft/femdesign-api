@@ -36,11 +36,11 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.guid);
-            DA.SetData(1, new Rhino.Geometry.LineCurve(obj.startPoint.ToRhino(), obj.endPoint.ToRhino()));
-            DA.SetData(2, obj.prefix);
-            DA.SetData(3, obj.id);
-            DA.SetData(4, obj.idIsLetter);
+            DA.SetData(0, obj.Guid);
+            DA.SetData(1, new Rhino.Geometry.LineCurve(obj.StartPoint.ToRhino(), obj.EndPoint.ToRhino()));
+            DA.SetData(2, obj.Prefix);
+            DA.SetData(3, obj.Id);
+            DA.SetData(4, obj.IdIsLetter);
        }
        protected override System.Drawing.Bitmap Icon
        {

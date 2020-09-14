@@ -36,12 +36,12 @@ namespace FemDesign.GH
            }
 
            // 
-           DA.SetData(0, obj.x_neg);
-           DA.SetData(1, obj.x_pos);
-           DA.SetData(2, obj.y_neg);
-           DA.SetData(3, obj.y_pos);
-           DA.SetData(4, obj.z_neg);
-           DA.SetData(5, obj.z_pos);
+           DA.SetData(0, obj.XNeg);
+           DA.SetData(1, obj.XPos);
+           DA.SetData(2, obj.YNeg);
+           DA.SetData(3, obj.YPos);
+           DA.SetData(4, obj.ZNeg);
+           DA.SetData(5, obj.ZPos);
 
        }
        protected override System.Drawing.Bitmap Icon

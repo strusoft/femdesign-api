@@ -11,6 +11,6 @@ namespace FemDesign.StructureGrid
     public class Axes
     {
         [XmlElement("axis", Order = 1)]
-        public List<Axis> axis = new List<Axis>();
+        public List<Axis> Axis = new List<Axis>();
     }
 }

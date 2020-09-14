@@ -10,7 +10,7 @@ namespace FemDesign
     public class GuidListType
     {
         [XmlAttribute("guid")]
-        public System.Guid guid { get; set; }
+        public System.Guid Guid { get; set; }
 
         /// <summary>
         /// Parameterless constructor.
@@ -21,7 +21,7 @@ namespace FemDesign
         }
         public GuidListType(System.Guid guid)
         {
-            this.guid = guid;
+            this.Guid = guid;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FemDesign.StructureGrid
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint2d _startPoint; // point_type_2d
         [XmlIgnore]
-        public Geometry.FdPoint3d startPoint
+        public Geometry.FdPoint3d StartPoint
         {
             get { return this._startPoint.To3d(); }
             set { this._startPoint = value.To2d(); }
@@ -17,7 +17,7 @@ namespace FemDesign.StructureGrid
         [XmlElement("end_point", Order = 2)]
         public Geometry.FdPoint2d _endPoint; // point_type_2d
         [XmlIgnore]
-        public Geometry.FdPoint3d endPoint
+        public Geometry.FdPoint3d EndPoint
         {
             get { return this._endPoint.To3d(); }
             set { this._endPoint = value.To2d(); }
@@ -25,7 +25,7 @@ namespace FemDesign.StructureGrid
         [XmlAttribute("prefix")]
         public string _prefix; // string15
         [XmlIgnore]
-        public string prefix
+        public string Prefix
         {
              get
              {
@@ -39,7 +39,7 @@ namespace FemDesign.StructureGrid
         [XmlAttribute("id")]
         public int _id; // int_1_to_1024
         [XmlIgnore]
-        public int id
+        public int Id
         {
             get
             {
@@ -51,7 +51,7 @@ namespace FemDesign.StructureGrid
             }
         }
         [XmlAttribute("id_is_letter")]
-        public bool idIsLetter { get; set; } // bool
+        public bool IdIsLetter { get; set; } // bool
 
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace FemDesign.StructureGrid
         public Axis(Geometry.FdPoint3d startPoint, Geometry.FdPoint3d endPoint, string prefix, int id, bool idIsLetter)
         {
             this.EntityCreated();
-            this.startPoint = startPoint;
-            this.endPoint = endPoint;
-            this.prefix = prefix;
-            this.id = id;
-            this.idIsLetter = idIsLetter;
+            this.StartPoint = startPoint;
+            this.EndPoint = endPoint;
+            this.Prefix = prefix;
+            this.Id = id;
+            this.IdIsLetter = idIsLetter;
         }
 
     }

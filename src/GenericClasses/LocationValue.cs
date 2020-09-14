@@ -14,12 +14,12 @@ namespace FemDesign
         /// Value.
         /// </summary>
         [XmlAttribute("val")]
-        public double _val;
+        public double _value;
         [XmlIgnore]
-        public double val
+        public double Value
         {
-            get { return this._val; }
-            set { this._val = RestrictedDouble.AbsMax_1e20(value); }
+            get { return this._value; }
+            set { this._value = RestrictedDouble.AbsMax_1e20(value); }
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FemDesign
         /// </summary>
         internal Geometry.FdPoint3d GetFdPoint()
         {
-            return new Geometry.FdPoint3d(this.x, this.y, this.z);
+            return new Geometry.FdPoint3d(this.X, this.Y, this.Z);
         }
     }
 }

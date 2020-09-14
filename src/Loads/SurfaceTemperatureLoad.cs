@@ -44,15 +44,15 @@ namespace FemDesign.Loads
         /// </summary>
         /// <param name="region">Region</param>
         /// <param name="tempLocValue">List of top bottom location value. List should have 1 or 3 elements.></param>
-        /// <param name="_loadCase">LoadCase.</param>
-        /// <param name="_comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, List<TopBotLocationValue> tempLocValue, LoadCase _loadCase, string _comment)
+        /// <param name="loadCase">LoadCase.</param>
+        /// <param name="comment">Comment.</param>
+        public SurfaceTemperatureLoad(Geometry.Region region, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
             this.TopBotLocVal = tempLocValue;
-            this.loadCase = _loadCase.guid;
-            this.comment = _comment;
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
         }
         
         /// <summary>
@@ -61,15 +61,15 @@ namespace FemDesign.Loads
         /// <param name="region">Region</param>
         /// <param name="topVal">Top value, temperature in celsius</param>
         /// <param name="bottomVal">Bottom value, temperature in celsius</param>
-        /// <param name="_loadCase">LoadCase.</param>
-        /// <param name="_comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, double topVal, double bottomVal, LoadCase _loadCase, string _comment)
+        /// <param name="loadCase">LoadCase.</param>
+        /// <param name="comment">Comment.</param>
+        public SurfaceTemperatureLoad(Geometry.Region region, double topVal, double bottomVal, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
-            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.coordinateSystem.origin, topVal, bottomVal)};
-            this.loadCase = _loadCase.guid;
-            this.comment = _comment;
+            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.origin, topVal, bottomVal)};
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
         }
 
     }

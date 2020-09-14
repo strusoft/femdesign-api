@@ -35,10 +35,10 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.guid);
-            DA.SetData(1, obj.region.ToRhinoBrep());
-            DA.SetData(2, obj.straight);
-            DA.SetData(3, obj.wire);
+            DA.SetData(0, obj.Guid);
+            DA.SetData(1, obj.Region.ToRhinoBrep());
+            DA.SetData(2, obj.Straight);
+            DA.SetData(3, obj.Wire);
        }
        protected override System.Drawing.Bitmap Icon
        {

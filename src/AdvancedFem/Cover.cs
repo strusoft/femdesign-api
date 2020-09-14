@@ -12,30 +12,30 @@ namespace FemDesign
     [System.Serializable]
     public class Cover: EntityBase
     {
-        private static int coverInstance = 0; // used for numbering in name
+        private static int _coverInstance = 0; // used for numbering in name
         [XmlAttribute("name")]
         /// <summary>
         /// Name (identifier)
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
         
         [XmlElement("load_bearing_direction", Order = 1)]
         /// <summary>
         /// Load bearing direction (point_type_3d)
         /// </summary>
-        public Geometry.FdVector3d loadBearingDirection { get; set; }
+        public Geometry.FdVector3d LoadBearingDirection { get; set; }
 
         [XmlElement("region", Order = 2)]
         /// <summary>
         /// Region (region_type).
         /// </summary>
-        public Geometry.Region region { get; set; }
+        public Geometry.Region Region { get; set; }
 
         [XmlElement("supporting_structures", Order = 3)]
         /// <summary>
         /// Supporting structures (cover_referencelist_type)
         /// </summary>
-        public CoverReferenceList supportingStructures { get; set; } 
+        public CoverReferenceList SupportingStructures { get; set; } 
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -53,12 +53,12 @@ namespace FemDesign
         /// <param name="loadBearingDirection">Vector, if null a TwoWay cover is defined.</param>
         private Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.FdVector3d loadBearingDirection)
         {
-            coverInstance++;
+            Cover._coverInstance++;
             this.EntityCreated();
-            string name = "C0." + coverInstance.ToString();
-            this.loadBearingDirection = loadBearingDirection;
-            this.region = region;
-            this.supportingStructures = supportingStructures;
+            string name = "C0." + Cover._coverInstance.ToString();
+            this.LoadBearingDirection = loadBearingDirection;
+            this.Region = region;
+            this.SupportingStructures = supportingStructures;
         }
 
         /// Create OneWayCover.
@@ -92,7 +92,7 @@ namespace FemDesign
         /// </summary>
         internal Rhino.Geometry.Brep GetRhinoSurface()
         {
-            return this.region.ToRhinoBrep();
+            return this.Region.ToRhinoBrep();
         }
         
         /// <summary>
@@ -100,7 +100,7 @@ namespace FemDesign
         /// </summary>
         internal List<Rhino.Geometry.Curve> GetRhinoCurves()
         {
-            return this.region.ToRhinoCurves();
+            return this.Region.ToRhinoCurves();
         }
 
         #endregion

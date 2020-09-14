@@ -12,19 +12,19 @@ namespace FemDesign.Loads
     public class LoadCombination: EntityBase
     {
         [XmlAttribute("name")]
-        public string name { get; set; } // name159
+        public string Name { get; set; } // name159
         [XmlAttribute("type")]
         public string _type; // loadcombtype 
         [XmlIgnore]
-        public string type
+        public string Type
         {
             get {return this._type;}
             set {this._type = RestrictedString.LoadCombType(value);}
         }
         [XmlElement("load_case")]
-        public List<ModelLoadCase> modelLoadCase = new List<ModelLoadCase>(); // sequence: ModelLoadCase
+        public List<ModelLoadCase> ModelLoadCase = new List<ModelLoadCase>(); // sequence: ModelLoadCase
         [XmlIgnore]
-        public Calculate.CombItem combItem { get; set; }
+        public Calculate.CombItem CombItem { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -40,8 +40,8 @@ namespace FemDesign.Loads
         internal LoadCombination(string name, string type, List<LoadCase> loadCase, List<double> gamma)
         {
             this.EntityCreated();
-            this.name = name;
-            this.type = type;
+            this.Name = name;
+            this.Type = type;
             
 
             if (loadCase.GetType() == typeof(List<LoadCase>) && gamma.GetType() == typeof(List<double>))
@@ -73,9 +73,9 @@ namespace FemDesign.Loads
         internal List<string> GetLoadCaseGuidsAsString()
         {
             var loadCaseGuids = new List<string>();
-            foreach (ModelLoadCase item in this.modelLoadCase)
+            foreach (ModelLoadCase item in this.ModelLoadCase)
             {
-                loadCaseGuids.Add(item.guid.ToString());
+                loadCaseGuids.Add(item.Guid.ToString());
             }
             return loadCaseGuids;
         }
@@ -86,9 +86,9 @@ namespace FemDesign.Loads
         internal List<double> GetGammas()
         {
             var gammas = new List<double>();
-            foreach (ModelLoadCase item in this.modelLoadCase)
+            foreach (ModelLoadCase item in this.ModelLoadCase)
             {
-                gammas.Add(item.gamma);
+                gammas.Add(item.Gamma);
             }
             return gammas;
         }
@@ -104,7 +104,7 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.modelLoadCase.Add(new ModelLoadCase(loadCase.guid, gamma)); 
+               this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma)); 
             }         
         }
 
@@ -113,9 +113,9 @@ namespace FemDesign.Loads
         /// </summary>
         private bool LoadCaseInLoadCombination(LoadCase loadCase)
         {
-            foreach (ModelLoadCase elem in this.modelLoadCase)
+            foreach (ModelLoadCase elem in this.ModelLoadCase)
             {
-                if (elem.guid == loadCase.guid)
+                if (elem.Guid == loadCase.Guid)
                 {
                     return true;
                 }

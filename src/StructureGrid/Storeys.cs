@@ -11,6 +11,6 @@ namespace FemDesign.StructureGrid
     public class Storeys
     {
         [XmlElement("storey", Order = 1)]
-        public List<Storey> storey = new List<Storey>();
+        public List<Storey> Storey = new List<Storey>();
     }
 }

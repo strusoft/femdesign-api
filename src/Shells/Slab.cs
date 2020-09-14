@@ -12,28 +12,28 @@ namespace FemDesign.Shells
     [System.Serializable]
     public class Slab: EntityBase
     {
-        private static int plateInstance = 0;
-        private static int wallInstance = 0;
+        private static int _plateInstance = 0;
+        private static int _wallInstance = 0;
         [XmlIgnore]
-        public Materials.Material material { get; set; }
+        public Materials.Material Material { get; set; }
         [XmlIgnore]
-        public Reinforcement.SurfaceReinforcementParameters surfaceReinforcementParameters { get; set; }
+        public Reinforcement.SurfaceReinforcementParameters SurfaceReinforcementParameters { get; set; }
         [XmlIgnore]
-        public List<Reinforcement.SurfaceReinforcement> surfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
+        public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
         [XmlAttribute("name")]
-        public string name {get; set;} // identifier
+        public string Name {get; set;} // identifier
         [XmlAttribute("type")]
         public string _type; // slabtype
         [XmlIgnore]
-        public string type
+        public string Type
         {
             get {return this._type;}
             set {this._type = RestrictedString.SlabType(value);}
         }
         [XmlElement("slab_part", Order=1)]
-        public SlabPart slabPart {get; set;}
+        public SlabPart SlabPart {get; set;}
         [XmlElement("end", Order=2)]
-        public string end {get; set;} // empty_type
+        public string End {get; set;} // empty_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -49,18 +49,18 @@ namespace FemDesign.Shells
         private Slab(string type, string name, SlabPart slabPart, Materials.Material material)
         {
             this.EntityCreated();
-            this.name = name;
-            this.type = type;
-            this.slabPart = slabPart;
-            this.material = material;
-            this.end = "";
+            this.Name = name;
+            this.Type = type;
+            this.SlabPart = slabPart;
+            this.Material = material;
+            this.End = "";
         }
 
         internal static Slab Plate(string identifier, Materials.Material material, Geometry.Region region, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
-            plateInstance++;
+            Slab._plateInstance++;
             string type = "plate";
-            string name = identifier + "." + plateInstance.ToString() + ".1";
+            string name = identifier + "." + Slab._plateInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
@@ -68,14 +68,14 @@ namespace FemDesign.Shells
         internal static Slab Wall(string identifier, Materials.Material material, Geometry.Region region, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             // check if surface is vertical
-            if (Math.Abs(region.coordinateSystem.localZ.z) > FemDesign.Tolerance.point3d)
+            if (Math.Abs(region.CoordinateSystem.LocalZ.Z) > FemDesign.Tolerance.Point3d)
             {
                 throw new System.ArgumentException("Wall is not vertical! Create plate instead.");
             }
             
-            wallInstance++;
+            Slab._wallInstance++;
             string type = "wall";
-            string name = identifier + "." + wallInstance.ToString() + ".1";
+            string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
@@ -95,7 +95,7 @@ namespace FemDesign.Shells
 
             foreach (int index in indices)
             {
-                if (index >= 0 & index < slab.slabPart.GetEdgeConnections().Count)
+                if (index >= 0 & index < slab.SlabPart.GetEdgeConnections().Count)
                 {
                     // pass
                 }
@@ -105,7 +105,7 @@ namespace FemDesign.Shells
                 }
                 
                 //
-                slabClone.slabPart.region.SetEdgeConnection(shellEdgeConnection, index);  
+                slabClone.SlabPart.Region.SetEdgeConnection(shellEdgeConnection, index);  
 
             }
 
@@ -126,7 +126,7 @@ namespace FemDesign.Shells
             Slab slabClone = slab.DeepClone();
 
             //
-            slabClone.slabPart.meshSize = avgMeshSize;
+            slabClone.SlabPart.MeshSize = avgMeshSize;
 
             // return
             return slabClone;

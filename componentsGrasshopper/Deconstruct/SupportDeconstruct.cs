@@ -39,27 +39,27 @@ namespace FemDesign.GH
             }
             
             // return
-             if (obj.pointSupport != null)
+             if (obj.PointSupport != null)
             {   
-                DA.SetData(0, obj.pointSupport.guid);
-                DA.SetData(1, obj.pointSupport.name);
-                DA.SetData(2, obj.pointSupport.GetRhinoGeometry());
+                DA.SetData(0, obj.PointSupport.Guid);
+                DA.SetData(1, obj.PointSupport.Name);
+                DA.SetData(2, obj.PointSupport.GetRhinoGeometry());
                 DA.SetData(3, "PointSupport has no moving local property.");
-                DA.SetData(4, obj.pointSupport.group.localX.ToRhino());
-                DA.SetData(5, obj.pointSupport.group.localY.ToRhino());
-                DA.SetData(6, obj.pointSupport.group.rigidity.motions);
-                DA.SetData(7, obj.pointSupport.group.rigidity.rotations);
+                DA.SetData(4, obj.PointSupport.Group.LocalX.ToRhino());
+                DA.SetData(5, obj.PointSupport.Group.LocalY.ToRhino());
+                DA.SetData(6, obj.PointSupport.Group.Rigidity.Motions);
+                DA.SetData(7, obj.PointSupport.Group.Rigidity.Rotations);
             }
-            else if (obj.lineSupport != null)
+            else if (obj.LineSupport != null)
             {   
-                DA.SetData(0, obj.lineSupport.guid);
-                DA.SetData(1, obj.lineSupport.name);
-                DA.SetData(2, obj.lineSupport.GetRhinoGeometry());
-                DA.SetData(3, obj.lineSupport.movingLocal);
-                DA.SetData(4, obj.lineSupport.group.localX.ToRhino());
-                DA.SetData(5, obj.lineSupport.group.localY.ToRhino());
-                DA.SetData(6, obj.lineSupport.group.rigidity.motions);
-                DA.SetData(7, obj.lineSupport.group.rigidity.rotations);
+                DA.SetData(0, obj.LineSupport.Guid);
+                DA.SetData(1, obj.LineSupport.Name);
+                DA.SetData(2, obj.LineSupport.GetRhinoGeometry());
+                DA.SetData(3, obj.LineSupport.MovingLocal);
+                DA.SetData(4, obj.LineSupport.Group.LocalX.ToRhino());
+                DA.SetData(5, obj.LineSupport.Group.LocalY.ToRhino());
+                DA.SetData(6, obj.LineSupport.Group.Rigidity.Motions);
+                DA.SetData(7, obj.LineSupport.Group.Rigidity.Rotations);
             }
             else
             {

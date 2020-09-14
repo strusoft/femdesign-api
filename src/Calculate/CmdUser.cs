@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
         [XmlAttribute("command")]
         public string _command; // token
         [XmlIgnore]
-        public string command
+        public string Command
         {
             get {return this._command;}
             set {this._command = "; CXL $MODULE " + RestrictedString.CmdUserModule(value);}
@@ -25,7 +25,7 @@ namespace FemDesign.Calculate
         }
         public CmdUser(string module)
         {
-            this.command = module;
+            this.Command = module;
         }
     }
 }

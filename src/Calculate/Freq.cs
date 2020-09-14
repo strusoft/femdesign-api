@@ -58,7 +58,7 @@ namespace FemDesign.Calculate
             }
         }
         [XmlAttribute("top")]
-        public double top { get; set; } // double
+        public double Top { get; set; } // double
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -84,7 +84,7 @@ namespace FemDesign.Calculate
             this.X = x;
             this.Y = y;
             this.Z = z;
-            this.top = top;
+            this.Top = top;
         }
 
         /// <summary>

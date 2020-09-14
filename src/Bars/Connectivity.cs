@@ -15,71 +15,71 @@ namespace FemDesign.Bars
         // binary-rigid
         /// <summary>Translation local-x axis.</summary>
         [XmlAttribute("m_x")]
-        public bool m_x { get; set; }
+        public bool Mx { get; set; }
         /// <summary>Translation local-y axis. </summary>
         [XmlAttribute("m_y")]
-        public bool m_y { get; set; }
+        public bool My { get; set; }
         /// <summary>Translation local-z axis.</summary>
         [XmlAttribute("m_z")]
-        public bool m_z { get; set; }
+        public bool Mz { get; set; }
         /// <summary>Rotation around local-x axis.</summary>
         [XmlAttribute("r_x")]
-        public bool r_x { get; set; }
+        public bool Rx { get; set; }
         /// <summary>Rotation around local-y axis.</summary>
         [XmlAttribute("r_y")]
-        public bool r_y { get; set; }
+        public bool Ry { get; set; }
         /// <summary>Rotation around local-z axis.</summary>
         [XmlAttribute("r_z")]
-        public bool r_z { get; set; }
+        public bool Rz { get; set; }
 
         // semi-rigid       
         [XmlAttribute("m_x_release")]
-        public double _m_x_release; // non_neg_max_1e10. Default = 0. Valid only if m_x is false.
+        public double _mxRelease; // non_neg_max_1e10. Default = 0. Valid only if m_x is false.
         [XmlIgnore]
-        public double m_x_release
+        public double MxRelease
         {
-            get {return this._m_x_release;}
-            set {this._m_x_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._mxRelease;}
+            set {this._mxRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
         [XmlAttribute("m_y_release")]
-        public double _m_y_release; // non_neg_max_1e10. Default = 0. Valid only if m_y is false.
+        public double _myRelease; // non_neg_max_1e10. Default = 0. Valid only if m_y is false.
         [XmlIgnore]
-        public double m_y_release
+        public double MyRelease
         {
-            get {return this._m_y_release;}
-            set {this._m_y_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._myRelease;}
+            set {this._myRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
         [XmlAttribute("m_z_release")]
-        public double _m_z_release; // non_neg_max_1e10. Default = 0. Valid only if m_z is false.
+        public double _mzRelease; // non_neg_max_1e10. Default = 0. Valid only if m_z is false.
         [XmlIgnore]
-        public double m_z_release
+        public double MzRelease
         {
-            get {return this._m_z_release;}
-            set {this._m_z_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._mzRelease;}
+            set {this._mzRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
         [XmlAttribute("r_x_release")]
-        public double _r_x_release; // non_neg_max_1e10. Default = 0. Valid only if r_x is false.
+        public double _rxRelease; // non_neg_max_1e10. Default = 0. Valid only if r_x is false.
         [XmlIgnore]
-        public double r_x_release
+        public double RxRelease
         {
-            get {return this._r_x_release;}
-            set {this._r_x_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._rxRelease;}
+            set {this._rxRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
         [XmlAttribute("r_y_release")]
-        public double _r_y_release; // non_neg_max_1e10. Default = 0. Valid only if r_y is false.
+        public double _ryRelease; // non_neg_max_1e10. Default = 0. Valid only if r_y is false.
         [XmlIgnore]
-        public double r_y_release
+        public double RyRelease
         {
-            get {return this._r_y_release;}
-            set {this._r_y_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._ryRelease;}
+            set {this._ryRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
         [XmlAttribute("r_z_release")]
-        public double _r_z_release; // non_neg_max_1e10. Default = 0. Valid only if r_z is false.
+        public double _rzRelease; // non_neg_max_1e10. Default = 0. Valid only if r_z is false.
         [XmlIgnore]
-        public double r_z_release
+        public double RzRelease
         {
-            get {return this._r_z_release;}
-            set {this._r_z_release = RestrictedDouble.NonNegMax_1e10(value);}
+            get {return this._rzRelease;}
+            set {this._rzRelease = RestrictedDouble.NonNegMax_1e10(value);}
         }
 
         /// <summary>
@@ -93,35 +93,35 @@ namespace FemDesign.Bars
         /// <summary>
         /// Private constructor for binary-rigid definition.
         /// </summary>
-        /// <param name="m_x"></param>
-        /// <param name="m_y"></param>
-        /// <param name="m_z"></param>
-        /// <param name="r_x"></param>
-        /// <param name="r_y"></param>
-        /// <param name="r_z"></param>
-        private Connectivity(bool m_x, bool m_y, bool m_z, bool r_x, bool r_y, bool r_z)
+        /// <param name="mx"></param>
+        /// <param name="my"></param>
+        /// <param name="mz"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="rz"></param>
+        private Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
         {
-            this.m_x = m_x;
-            this.m_y = m_y;
-            this.m_z = m_z;
-            this.r_x = r_x;
-            this.r_y = r_y;
-            this.r_z = r_z;
+            this.Mx = mx;
+            this.My = my;
+            this.Mz = mz;
+            this.Rx = rx;
+            this.Ry = ry;
+            this.Rz = rz;
         }
 
         /// <summary>
         /// Define releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="m_x">Translation local-x axis. True if rigid, false if free.</param>
-        /// <param name="m_y">Translation local-y axis. True if rigid, false if free.</param>
-        /// <param name="m_z">Translation local-z axis. True if rigid, false if free.</param>
-        /// <param name="r_x">Rotation around local-x axis. True if rigid, false if free.</param>
-        /// <param name="r_y">Rotation around local-y axis. True if rigid, false if free.</param>
-        /// <param name="r_z">Rotation around local-z axis. True if rigid, false if free.</param>
-        public static Connectivity Define(bool m_x, bool m_y, bool m_z, bool r_x, bool r_y, bool r_z)
+        /// <param name="mx">Translation local-x axis. True if rigid, false if free.</param>
+        /// <param name="my">Translation local-y axis. True if rigid, false if free.</param>
+        /// <param name="mz">Translation local-z axis. True if rigid, false if free.</param>
+        /// <param name="rx">Rotation around local-x axis. True if rigid, false if free.</param>
+        /// <param name="ry">Rotation around local-y axis. True if rigid, false if free.</param>
+        /// <param name="rz">Rotation around local-z axis. True if rigid, false if free.</param>
+        public static Connectivity Define(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
         {
-            return new Connectivity(m_x, m_y, m_z, r_x, r_y, r_z);
+            return new Connectivity(mx, my, mz, rx, ry, rz);
         }
 
         /// <summary>

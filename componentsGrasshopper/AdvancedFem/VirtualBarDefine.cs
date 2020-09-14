@@ -111,7 +111,7 @@ namespace FemDesign.GH
             Geometry.Edge edge = Geometry.Edge.FromRhinoLineOrArc2(curve);
 
             // create virtual bar
-            VirtualBar bar = new VirtualBar(edge, edge.coordinateSystem.localY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
+            VirtualBar bar = new VirtualBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

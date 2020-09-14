@@ -38,12 +38,12 @@ namespace FemDesign.GH
 
             foreach (FemDesign.Supports.GenericSupportObject obj in objs)
             {
-                if (obj.pointSupport != null)
+                if (obj.PointSupport != null)
                 {
                     r0.Add(obj);
                 }
                 
-                else if (obj.lineSupport != null)
+                else if (obj.LineSupport != null)
                 {
                     r1.Add(obj);
                 }

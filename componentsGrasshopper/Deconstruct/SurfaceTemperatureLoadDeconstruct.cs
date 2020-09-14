@@ -39,25 +39,25 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, obj.GetType());
-            if (obj.surfaceTemperatureLoad != null)
+            if (obj.SurfaceTemperatureLoad != null)
             {
-                DA.SetData(0, obj.surfaceTemperatureLoad.guid);
-                DA.SetData(1, obj.surfaceTemperatureLoad.Region.ToRhinoBrep());
+                DA.SetData(0, obj.SurfaceTemperatureLoad.Guid);
+                DA.SetData(1, obj.SurfaceTemperatureLoad.Region.ToRhinoBrep());
                 
                 // if uniform
-                if (obj.surfaceTemperatureLoad.TopBotLocVal.Count == 1)
+                if (obj.SurfaceTemperatureLoad.TopBotLocVal.Count == 1)
                 {
-                    DA.SetData(2, obj.surfaceTemperatureLoad.TopBotLocVal[0]);
-                    DA.SetData(3, obj.surfaceTemperatureLoad.TopBotLocVal[0]);
-                    DA.SetData(4, obj.surfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(2, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(3, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(4, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
                 }
 
                 // if variable
-                else if (obj.surfaceTemperatureLoad.TopBotLocVal.Count == 3)
+                else if (obj.SurfaceTemperatureLoad.TopBotLocVal.Count == 3)
                 {
-                    DA.SetData(2, obj.surfaceTemperatureLoad.TopBotLocVal[0]);
-                    DA.SetData(3, obj.surfaceTemperatureLoad.TopBotLocVal[1]);
-                    DA.SetData(4, obj.surfaceTemperatureLoad.TopBotLocVal[2]);
+                    DA.SetData(2, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(3, obj.SurfaceTemperatureLoad.TopBotLocVal[1]);
+                    DA.SetData(4, obj.SurfaceTemperatureLoad.TopBotLocVal[2]);
                 }
 
                 // else
@@ -66,8 +66,8 @@ namespace FemDesign.GH
                     throw new System.ArgumentException("Length of load should be 1 or 3.");
                 }
 
-                DA.SetData(5, obj.surfaceTemperatureLoad.loadCase);
-                DA.SetData(6, obj.surfaceTemperatureLoad.comment);
+                DA.SetData(5, obj.SurfaceTemperatureLoad.LoadCase);
+                DA.SetData(6, obj.SurfaceTemperatureLoad.Comment);
             }
             else
             {

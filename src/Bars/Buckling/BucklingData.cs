@@ -8,7 +8,7 @@ namespace FemDesign.Bars.Buckling
     public class BucklingData
     {
         [XmlElement("buckling_length")]
-        public List<BucklingLength> bucklingLength = new List<BucklingLength>();
+        public List<BucklingLength> BucklingLength = new List<BucklingLength>();
         private BucklingData()
         {
 
@@ -24,24 +24,24 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnConcreteBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
         {
             // assert input
-            if (bar.material.concrete == null)
+            if (bar.Material.Concrete == null)
             {
                 throw new System.ArgumentException("Material of bar element must be concrete!");
             }
-            if (flexuralStiff.type != "flexural_stiff")
+            if (flexuralStiff.Type != "flexural_stiff")
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.type != "flexural_weak")
+            if (flexuralWeak.Type != "flexural_weak")
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
             
             // add input
             BucklingData bucklingData = new BucklingData();
-            bucklingData.bucklingLength.Add(flexuralStiff);
-            bucklingData.bucklingLength.Add(flexuralWeak);
-            bar.barPart.bucklingData = bucklingData;
+            bucklingData.BucklingLength.Add(flexuralStiff);
+            bucklingData.BucklingLength.Add(flexuralWeak);
+            bar.BarPart.BucklingData = bucklingData;
 
             return bar;
         }
@@ -58,34 +58,34 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnSteelBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength pressuredFlange, BucklingLength pressuredBottomFlange)
         {
             // assert input
-            if (bar.material.steel == null)
+            if (bar.Material.Steel == null)
             {
                 throw new System.ArgumentException("Material of bar element must be steel!");
             }
-            if (flexuralStiff.type != "flexural_stiff")
+            if (flexuralStiff.Type != "flexural_stiff")
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.type != "flexural_weak")
+            if (flexuralWeak.Type != "flexural_weak")
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
-            if (pressuredFlange.type != "pressured_flange")
+            if (pressuredFlange.Type != "pressured_flange")
             {
                 throw new System.ArgumentException("pressuredFlange is not of type PressuredFlange!");
             }
-            if (pressuredBottomFlange.type != "pressured_bottom_flange")
+            if (pressuredBottomFlange.Type != "pressured_bottom_flange")
             {
                 throw new System.ArgumentException("pressuredBottomFlange is not of type PressuredBottomFlange!");
             }
 
             // add input
             BucklingData bucklingData = new BucklingData();
-            bucklingData.bucklingLength.Add(flexuralStiff);
-            bucklingData.bucklingLength.Add(flexuralWeak);
-            bucklingData.bucklingLength.Add(pressuredFlange);
-            bucklingData.bucklingLength.Add(pressuredBottomFlange);
-            bar.barPart.bucklingData = bucklingData;
+            bucklingData.BucklingLength.Add(flexuralStiff);
+            bucklingData.BucklingLength.Add(flexuralWeak);
+            bucklingData.BucklingLength.Add(pressuredFlange);
+            bucklingData.BucklingLength.Add(pressuredBottomFlange);
+            bar.BarPart.BucklingData = bucklingData;
 
             return bar;
         }
@@ -101,29 +101,29 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnTimberBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength lateralTorsional)
         {
             // assert input
-            if (bar.material.timber == null)
+            if (bar.Material.Timber == null)
             {
                 throw new System.ArgumentException("Material of bar element must be timber!");
             }
-            if (flexuralStiff.type != "flexural_stiff")
+            if (flexuralStiff.Type != "flexural_stiff")
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.type != "flexural_weak")
+            if (flexuralWeak.Type != "flexural_weak")
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
-            if (lateralTorsional.type != "lateral_torsional")
+            if (lateralTorsional.Type != "lateral_torsional")
             {
                 throw new System.ArgumentException("lateralTorsional is not of type LateralTorsional!");
             }
 
             // add input.
             BucklingData bucklingData = new BucklingData();
-            bucklingData.bucklingLength.Add(flexuralStiff);
-            bucklingData.bucklingLength.Add(flexuralWeak);
-            bucklingData.bucklingLength.Add(lateralTorsional);
-            bar.barPart.bucklingData = bucklingData;
+            bucklingData.BucklingLength.Add(flexuralStiff);
+            bucklingData.BucklingLength.Add(flexuralWeak);
+            bucklingData.BucklingLength.Add(lateralTorsional);
+            bar.BarPart.BucklingData = bucklingData;
 
             return bar;
         }

@@ -22,8 +22,8 @@ namespace FemDesign
             set
             {
                 Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.coordinateSystem.localX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
+                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
+                if (Math.Abs(dot) < Tolerance.DotProduct)
                 {
                     this._localY = val;
                 }

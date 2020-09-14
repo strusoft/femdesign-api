@@ -53,7 +53,7 @@ namespace FemDesign.GH
 
             //
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.surfaceLoad = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, comment);
+            obj.SurfaceLoad = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, comment);
 
             // return
             DA.SetData(0, obj);

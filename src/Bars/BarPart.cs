@@ -15,15 +15,15 @@ namespace FemDesign.Bars
     public class BarPart: EntityBase
     {
         [XmlAttribute("name")]
-        public string name { get; set; } // identifier
+        public string Name { get; set; } // identifier
         [XmlAttribute("complex_material")]
-        public System.Guid complexMaterial { get; set; } // guidtype
+        public System.Guid ComplexMaterial { get; set; } // guidtype
         [XmlAttribute("complex_section")]
-        public System.Guid complexSection { get; set; } // guidtype
+        public System.Guid ComplexSection { get; set; } // guidtype
         [XmlAttribute("made")]
         public string _made; // steelmadetype
         [XmlIgnore]
-        public string made
+        public string Made
         {
             get {return this._made;}
             set
@@ -39,20 +39,20 @@ namespace FemDesign.Bars
             }
         }
         [XmlAttribute("ecc_calc")]
-        public bool ecc_calc { get; set; } // bool
+        public bool EccentricityCalc { get; set; } // bool
         [XmlElement("curve", Order = 1)]
-        public Geometry.Edge edge { get; set; } // edge_type
+        public Geometry.Edge Edge { get; set; } // edge_type
         [XmlElement("local-y", Order = 2)]
         public Geometry.FdVector3d _localY;//  point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d localY
+        public Geometry.FdVector3d LocalY
         {
             get { return this._localY; }
             set
             {
                 Geometry.FdVector3d val = value.Normalize();
-                double dot = this.edge.coordinateSystem.localX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
+                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
+                if (Math.Abs(dot) < Tolerance.DotProduct)
                 {
                     this._localY = val;
                 }
@@ -64,13 +64,13 @@ namespace FemDesign.Bars
             }
         }
         [XmlElement("connectivity", Order = 3)]
-        public List<Connectivity> connectivity = new List<Connectivity>(); // connectivity_type
+        public List<Connectivity> Connectivity = new List<Connectivity>(); // connectivity_type
         [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity eccentricity { get; set; } // eccentricity_type
+        public ModelEccentricity Eccentricity { get; set; } // eccentricity_type
         [XmlElement("buckling_data", Order = 5)]
-        public Buckling.BucklingData bucklingData { get; set; } // buckling_data_type
+        public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
         [XmlElement("end", Order = 6)]
-        public string end { get; set; } // empty_type
+        public string End { get; set; } // empty_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -83,16 +83,16 @@ namespace FemDesign.Bars
         private BarPart(string _name, Geometry.Edge _edge, Materials.Material _material)
         {
             this.EntityCreated();
-            this.name = _name + ".1";
-            this.complexMaterial = _material.guid;
-            this.ecc_calc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
+            this.Name = _name + ".1";
+            this.ComplexMaterial = _material.Guid;
+            this.EccentricityCalc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
             
             // orient edge coordinate system
             _edge.OrientCoordinateSystemToGCS();
             
-            this.edge = _edge;
-            this.localY = _edge.coordinateSystem.localY;
-            this.end = "";
+            this.Edge = _edge;
+            this.LocalY = _edge.CoordinateSystem.LocalY;
+            this.End = "";
         }
 
         /// <summary>
@@ -100,17 +100,17 @@ namespace FemDesign.Bars
         /// </summary>
         internal static BarPart Beam(string name, Geometry.Edge edge, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.ComplexSection complexSection)
         {
-            if (edge.type == "line" || edge.type == "arc")
+            if (edge.Type == "line" || edge.Type == "arc")
             {
                 BarPart barPart = new BarPart(name, edge, material);
-                barPart.complexSection = complexSection.guid;
-                barPart.connectivity = new List<Connectivity>{connectivity, connectivity}; // start and end eccentricity
-                barPart.eccentricity = new ModelEccentricity(eccentricity);
+                barPart.ComplexSection = complexSection.Guid;
+                barPart.Connectivity = new List<Connectivity>{connectivity, connectivity}; // start and end eccentricity
+                barPart.Eccentricity = new ModelEccentricity(eccentricity);
                 return barPart;
             }
             else
             {
-                throw new System.ArgumentException($"Edge type: {edge.type}, is not line or arc.");
+                throw new System.ArgumentException($"Edge type: {edge.Type}, is not line or arc.");
             }   
         }
 
@@ -122,7 +122,7 @@ namespace FemDesign.Bars
             // check if line
             if (!edge.IsLine())
             {
-                throw new System.ArgumentException($"Edge type: {edge.type}, is not line.");
+                throw new System.ArgumentException($"Edge type: {edge.Type}, is not line.");
             }
 
             // check if line is vertical
@@ -145,11 +145,11 @@ namespace FemDesign.Bars
             // check if line
             if (!edge.IsLine())
             {
-                throw new System.ArgumentException($"Edge type: {edge.type}, is not line.");
+                throw new System.ArgumentException($"Edge type: {edge.Type}, is not line.");
             }
             
             BarPart barPart = new BarPart(name, edge, material);
-            barPart.complexSection = section.guid;
+            barPart.ComplexSection = section.Guid;
             return barPart;
         }
     }

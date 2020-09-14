@@ -6,11 +6,11 @@ namespace FemDesign.StructureGrid
     public class Storey: EntityBase
     {
         [XmlElement("origo", Order=1)]
-        public Geometry.FdPoint3d origo { get; set; }
+        public Geometry.FdPoint3d Origo { get; set; }
         [XmlElement("direction", Order=2)]
         public Geometry.FdVector2d _direction;
         [XmlIgnore]
-        public Geometry.FdVector3d direction
+        public Geometry.FdVector3d Direction
         {
             get
             {
@@ -25,7 +25,7 @@ namespace FemDesign.StructureGrid
         [XmlAttribute("dimension_x")]
         public double _dimensionX; // positive double
         [XmlIgnore]
-        public double dimensionX
+        public double DimensionX
         {
             get { return this._dimensionX; }
             set { this._dimensionX = RestrictedDouble.Positive(value); }
@@ -33,13 +33,13 @@ namespace FemDesign.StructureGrid
         [XmlAttribute("dimension_y")]
         public double _dimensionY; // positive double
         [XmlIgnore]
-        public double dimensionY
+        public double DimensionY
         {
             get { return this._dimensionY; }
             set { this._dimensionY = RestrictedDouble.Positive(value); }
         }
         [XmlAttribute("name")]
-        public string name { get; set; }
+        public string Name { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization
@@ -60,11 +60,11 @@ namespace FemDesign.StructureGrid
         internal Storey(Geometry.FdPoint3d origo, Geometry.FdVector3d direction, double dimensionX, double dimensionY, string name)
         {
             this.EntityCreated();
-            this.origo = origo;
-            this.direction = direction;
-            this.dimensionX = dimensionX;
-            this.dimensionY = dimensionY;
-            this.name = name;
+            this.Origo = origo;
+            this.Direction = direction;
+            this.DimensionX = dimensionX;
+            this.DimensionY = dimensionY;
+            this.Name = name;
         }
 
     }

@@ -6,19 +6,19 @@ namespace FemDesign.Shells
     public class ShellEccentricity
     {
         private string _alignment; // ver_align
-        public string alignment
+        public string Alignment
         {
             get {return this._alignment;}
             set {this._alignment = RestrictedString.VerticalAlign(value);}
         }
         private double _eccentricity; // align_offset // abs_max_1e20
-        public double eccentricity
+        public double Eccentricity
         {
             get {return this._eccentricity;}
             set {this._eccentricity = RestrictedDouble.AbsMax_1e20(value);}
         }
-        public bool eccentricityCalculation { get; set; } // bool
-        public bool eccentricityByCracking { get; set; } // bool
+        public bool EccentricityCalculation { get; set; } // bool
+        public bool EccentricityByCracking { get; set; } // bool
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -30,10 +30,10 @@ namespace FemDesign.Shells
         
         internal ShellEccentricity(string alignment, double eccentricity, bool eccentricityCalculation, bool eccentricityByCracking)
         {
-            this.alignment = alignment;
-            this.eccentricity = eccentricity;
-            this.eccentricityCalculation = eccentricityCalculation;
-            this.eccentricityByCracking = eccentricityByCracking;
+            this.Alignment = alignment;
+            this.Eccentricity = eccentricity;
+            this.EccentricityCalculation = eccentricityCalculation;
+            this.EccentricityByCracking = eccentricityByCracking;
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace FemDesign.GH
 
             //
             model.SerializeModel(filePath);
-            model.fdApp.OpenStruxml(filePath, closeOpenWindows);
+            model.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
         protected override System.Drawing.Bitmap Icon
         {

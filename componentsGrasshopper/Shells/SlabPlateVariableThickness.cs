@@ -96,13 +96,13 @@ namespace FemDesign.GH
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                obj.slabPart.localX = FemDesign.Geometry.FdVector3d.FromRhino(x);
+                obj.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromRhino(x);
             }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                obj.slabPart.localZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
+                obj.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
             }
 
             // return

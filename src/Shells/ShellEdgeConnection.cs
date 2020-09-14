@@ -13,13 +13,13 @@ namespace FemDesign.Shells
     public class ShellEdgeConnection: EdgeConnectionBase
     {
         [XmlIgnore]
-        public bool release { get; set; }
+        public bool Release { get; set; }
         [XmlAttribute("name")]
-        public string name { get; set; } // identifier
+        public string Name { get; set; } // identifier
         [XmlElement("rigidity")]
-        public Releases.RigidityDataType3 rigidity { get; set; } // rigidity_data_type2(3?)
+        public Releases.RigidityDataType3 Rigidity { get; set; } // rigidity_data_type2(3?)
         [XmlElement("predefined_rigidity")]
-        public GuidListType predefinedRigidity { get; set; } // reference_type
+        public GuidListType PredefinedRigidity { get; set; } // reference_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -35,10 +35,10 @@ namespace FemDesign.Shells
         private ShellEdgeConnection(Releases.RigidityDataType3 rigidity)
         {
             this.EntityCreated();
-            this.movingLocal = true;
-            this.joinedStartPoint = true;
-            this.joinedEndPoint = true;
-            this.rigidity = rigidity;
+            this.MovingLocal = true;
+            this.JoinedStartPoint = true;
+            this.JoinedEndPoint = true;
+            this.Rigidity = rigidity;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace FemDesign.Shells
             ec.EntityCreated();
 
             //
-            ec.name = name;
+            ec.Name = name;
 
             // return
             return ec;
@@ -69,7 +69,7 @@ namespace FemDesign.Shells
         public static ShellEdgeConnection Define(Releases.Motions motions, Releases.Rotations rotations)
         {
             ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.Define(motions, rotations));
-            _shellEdgeConnection.release = true;
+            _shellEdgeConnection.Release = true;
             return _shellEdgeConnection;
         }
 
@@ -90,7 +90,7 @@ namespace FemDesign.Shells
         public static ShellEdgeConnection Hinged()
         {
             ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.HingedLine());
-            _shellEdgeConnection.release = true;
+            _shellEdgeConnection.Release = true;
             return _shellEdgeConnection;
         }
         
@@ -102,7 +102,7 @@ namespace FemDesign.Shells
         public static ShellEdgeConnection Rigid()
         {
             ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.RigidLine());
-            _shellEdgeConnection.release = false;
+            _shellEdgeConnection.Release = false;
             return _shellEdgeConnection;
         }
     }

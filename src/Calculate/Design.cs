@@ -11,13 +11,13 @@ namespace FemDesign.Calculate
     public class Design
     {
         [XmlElement("cmax")]
-        public string cMax { get; set; } // choice?
+        public string CMax { get; set; } // choice?
         [XmlElement("gmax")]
-        public string gMax { get; set; } // choice?
+        public string GMax { get; set; } // choice?
         [XmlElement("autodesign")]
-        public bool autoDesign { get; set; } // bool
+        public bool AutoDesign { get; set; } // bool
         [XmlElement("check")]
-        public bool check { get; set; } // bool
+        public bool Check { get; set; } // bool
 
         
         /// <summary>
@@ -28,11 +28,11 @@ namespace FemDesign.Calculate
 
         }
         
-        private Design(bool _autoDesign, bool _check)
+        private Design(bool autoDesign, bool check)
         {
-            this.cMax = "";
-            this.autoDesign = _autoDesign;
-            this.check = _check;
+            this.CMax = "";
+            this.AutoDesign = autoDesign;
+            this.Check = check;
         }
 
         /// <summary>Set parameters for design.</summary>

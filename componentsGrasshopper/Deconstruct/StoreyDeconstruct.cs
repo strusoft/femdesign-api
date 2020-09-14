@@ -37,12 +37,12 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.guid);
-            DA.SetData(1, obj.origo.ToRhino());
-            DA.SetData(2, obj.direction.ToRhino());
-            DA.SetData(3, obj.dimensionX);
-            DA.SetData(4, obj.dimensionY);
-            DA.SetData(5, obj.name);
+            DA.SetData(0, obj.Guid);
+            DA.SetData(1, obj.Origo.ToRhino());
+            DA.SetData(2, obj.Direction.ToRhino());
+            DA.SetData(3, obj.DimensionX);
+            DA.SetData(4, obj.DimensionY);
+            DA.SetData(5, obj.Name);
        }
        protected override System.Drawing.Bitmap Icon
        {

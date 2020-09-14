@@ -10,11 +10,11 @@ namespace FemDesign.Geometry
     public class FdVector3d
     {
         [XmlAttribute("x")]
-        public double x { get; set; }
+        public double X { get; set; }
         [XmlAttribute("y")]
-        public double y { get; set; }
+        public double Y { get; set; }
         [XmlAttribute("z")]
-        public double z { get; set; }
+        public double Z { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -25,16 +25,16 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
-        /// Construct FdVector3d by i, j and k components.
+        /// Construct FdVector3d by x, y and z components.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        internal FdVector3d(double i, double j, double k)
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        internal FdVector3d(double x, double y, double z)
         {
-            this.x = i;
-            this.y = j;
-            this.z = k;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
         }
 
         /// <summary>
@@ -44,9 +44,9 @@ namespace FemDesign.Geometry
         /// <param name="p1">End point</param>
         internal FdVector3d(FdPoint3d p0, FdPoint3d p1)
         {
-            this.x = p1.x - p0.x;
-            this.y = p1.y - p0.y;
-            this.z = p1.z - p0.z;
+            this.X = p1.X - p0.X;
+            this.Y = p1.Y - p0.Y;
+            this.Z = p1.Z - p0.Z;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace FemDesign.Geometry
         /// </summary>
         internal double Length()
         {
-            double len = Math.Pow((Math.Pow(this.x, 2) + Math.Pow(this.y, 2) + Math.Pow(this.z, 2)), (1.0/2.0));
+            double len = Math.Pow((Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2)), (1.0/2.0));
             return len;
         }
 
@@ -91,7 +91,7 @@ namespace FemDesign.Geometry
         internal FdVector3d Normalize()
         {
             double l = this.Length();
-            FdVector3d normal = new FdVector3d(this.x / l, this.y / l, this.z / l);
+            FdVector3d normal = new FdVector3d(this.X / l, this.Y / l, this.Z / l);
             return normal;
         }
 
@@ -105,9 +105,9 @@ namespace FemDesign.Geometry
 
             double i, j, k;
             // https://en.wikipedia.org/wiki/Cross_product#Coordinate_notation
-            i = v0.y * v1.z - v0.z * v1.y;
-            j = v0.z * v1.x - v0.x * v1.z;
-            k = v0.x * v1.y - v0.y * v1.x;
+            i = v0.Y * v1.Z - v0.Z * v1.Y;
+            j = v0.Z * v1.X - v0.X * v1.Z;
+            k = v0.X * v1.Y - v0.Y * v1.X;
 
             FdVector3d v2 = new FdVector3d(i, j, k);;
             return v2;
@@ -122,7 +122,7 @@ namespace FemDesign.Geometry
             FdVector3d v1 = v;
 
             // https://en.wikipedia.org/wiki/Dot_product#Algebraic_definition
-            double s = v0.x*v1.x + v0.y*v1.y + v0.z*v1.z;
+            double s = v0.X*v1.X + v0.Y*v1.Y + v0.Z*v1.Z;
             return s;
 
         }
@@ -132,7 +132,7 @@ namespace FemDesign.Geometry
         /// </summary>
         internal FdVector3d Scale(double s)
         {   
-            return new FdVector3d(this.x * s, this.y * s, this.z * s);
+            return new FdVector3d(this.X * s, this.Y * s, this.Z * s);
         }
 
         /// <summary>
@@ -152,11 +152,11 @@ namespace FemDesign.Geometry
         {
             FdVector3d v0 = this.Normalize();
             FdVector3d v1 = v.Normalize();
-            if (v0.Equals(v1, Tolerance.point3d))
+            if (v0.Equals(v1, Tolerance.Point3d))
             {
                 return 1;
             }
-            else if (v0.Scale(-1).Equals(v, Tolerance.point3d))
+            else if (v0.Scale(-1).Equals(v, Tolerance.Point3d))
             {
                 return -1;
             }
@@ -172,9 +172,9 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         internal FdVector2d To2d()
         {
-            if (this.z == 0)
+            if (this.Z == 0)
             {
-                return new FdVector2d(this.x, this.y);
+                return new FdVector2d(this.X, this.Y);
             }
             else
             {
@@ -210,7 +210,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (x == v.x) && (y == v.y) && (z == v.z);            
+            return (X == v.X) && (Y == v.Y) && (Z == v.Z);            
         }
 
         public bool Equals(FdVector3d v)
@@ -219,7 +219,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (x == v.x) && (y == v.y) && (z == v.z);
+            return (X == v.X) && (Y == v.Y) && (Z == v.Z);
         }
 
         public bool Equals(FdVector3d v, double tol)
@@ -228,12 +228,12 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            return (Math.Abs(x - v.x) < tol) && (Math.Abs(y - v.y) < tol) && (Math.Abs(z - v.z) < tol);
+            return (Math.Abs(X - v.X) < tol) && (Math.Abs(Y - v.Y) < tol) && (Math.Abs(Z - v.Z) < tol);
         }
 
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
         #region grasshopper
         /// <summary>
@@ -256,7 +256,7 @@ namespace FemDesign.Geometry
         /// </summary>
         public Rhino.Geometry.Vector3d ToRhino()
         {
-            return new Rhino.Geometry.Vector3d(this.x, this.y, this.z);
+            return new Rhino.Geometry.Vector3d(this.X, this.Y, this.Z);
         }
         #endregion
     }

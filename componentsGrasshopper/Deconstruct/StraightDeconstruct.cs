@@ -35,10 +35,10 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.direction);
-            DA.SetData(1, obj.space);
-            DA.SetData(2, obj.face);
-            DA.SetData(3, obj.cover);
+            DA.SetData(0, obj.Direction);
+            DA.SetData(1, obj.Space);
+            DA.SetData(2, obj.Face);
+            DA.SetData(3, obj.Cover);
        }
        protected override System.Drawing.Bitmap Icon
        {

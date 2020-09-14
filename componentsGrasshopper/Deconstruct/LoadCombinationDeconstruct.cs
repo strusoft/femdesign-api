@@ -36,9 +36,9 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, obj.guid);
-            DA.SetData(1, obj.name);
-            DA.SetData(2, obj.type);
+            DA.SetData(0, obj.Guid);
+            DA.SetData(1, obj.Name);
+            DA.SetData(2, obj.Type);
             DA.SetDataList(3, obj.GetLoadCaseGuidsAsString());
             DA.SetDataList(4, obj.GetGammas());
             

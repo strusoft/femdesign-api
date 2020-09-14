@@ -19,8 +19,8 @@ namespace FemDesign.Supports
             }
             set
             {
-                PointSupport.instance++;
-                this._name = value + "." + PointSupport.instance.ToString();
+                PointSupport._instance++;
+                this._name = value + "." + PointSupport._instance.ToString();
             }
         }
         [XmlElement("region", Order=1)]
@@ -47,7 +47,7 @@ namespace FemDesign.Supports
             this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
-            this.LocalSystem = region.coordinateSystem;
+            this.LocalSystem = region.CoordinateSystem;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace FemDesign.Supports
             this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = new Releases.RigidityDataType1(motions);
-            this.LocalSystem = region.coordinateSystem;
+            this.LocalSystem = region.CoordinateSystem;
         }
 
     }

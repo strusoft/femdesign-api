@@ -9,78 +9,78 @@ namespace FemDesign.Loads
     [System.Serializable]
     public class GenericLoadObject
     {
-        public PointLoad pointLoad { get; set; }
-        public LineLoad lineLoad { get; set; }
-        public LineTemperatureLoad lineTemperatureLoad { get; set; }
-        public SurfaceLoad surfaceLoad { get; set; }
-        public SurfaceTemperatureLoad surfaceTemperatureLoad { get; set; }
-        public PressureLoad pressureLoad { get; set; }
-        public MassConversionTable massConversionTable { get; set; }
+        public PointLoad PointLoad { get; set; }
+        public LineLoad LineLoad { get; set; }
+        public LineTemperatureLoad LineTemperatureLoad { get; set; }
+        public SurfaceLoad SurfaceLoad { get; set; }
+        public SurfaceTemperatureLoad SurfaceTemperatureLoad { get; set; }
+        public PressureLoad PressureLoad { get; set; }
+        public MassConversionTable MassConversionTable { get; set; }
         internal GenericLoadObject()
         {
             
         }
         internal GenericLoadObject(PointLoad obj)
         {
-            this.pointLoad = obj;
+            this.PointLoad = obj;
         }
         internal GenericLoadObject(LineLoad obj)
         {
-            this.lineLoad = obj;
+            this.LineLoad = obj;
         }
         internal GenericLoadObject(LineTemperatureLoad obj)
         {
-            this.lineTemperatureLoad = obj;
+            this.LineTemperatureLoad = obj;
         }
         internal GenericLoadObject(SurfaceLoad obj)
         {
-            this.surfaceLoad = obj;
+            this.SurfaceLoad = obj;
         }
 
         internal GenericLoadObject(SurfaceTemperatureLoad obj)
         {
-            this.surfaceTemperatureLoad = obj;
+            this.SurfaceTemperatureLoad = obj;
         }
         internal GenericLoadObject(PressureLoad obj)
         {
-            this.pressureLoad = obj;
+            this.PressureLoad = obj;
         }
         internal GenericLoadObject(MassConversionTable obj)
         {
-            this.massConversionTable = obj;
+            this.MassConversionTable = obj;
         }
         public static List<object> ToObjectList(List<GenericLoadObject> objs)
         {
             List<object> list = new List<object>();
             foreach (GenericLoadObject obj in objs)
             {
-                if (obj.pointLoad != null)
+                if (obj.PointLoad != null)
                 {
-                    list.Add(obj.pointLoad);
+                    list.Add(obj.PointLoad);
                 }
-                else if (obj.lineLoad != null)
+                else if (obj.LineLoad != null)
                 {
-                    list.Add(obj.lineLoad);
+                    list.Add(obj.LineLoad);
                 }
-                else if (obj.lineTemperatureLoad != null)
+                else if (obj.LineTemperatureLoad != null)
                 {
-                    list.Add(obj.lineTemperatureLoad);
+                    list.Add(obj.LineTemperatureLoad);
                 }
-                else if (obj.surfaceLoad != null)
+                else if (obj.SurfaceLoad != null)
                 {
-                    list.Add(obj.surfaceLoad);
+                    list.Add(obj.SurfaceLoad);
                 }
-                else if (obj.surfaceTemperatureLoad != null)
+                else if (obj.SurfaceTemperatureLoad != null)
                 {
-                    list.Add(obj.surfaceTemperatureLoad);
+                    list.Add(obj.SurfaceTemperatureLoad);
                 }
-                else if (obj.pressureLoad != null)
+                else if (obj.PressureLoad != null)
                 {
-                    list.Add(obj.pressureLoad);
+                    list.Add(obj.PressureLoad);
                 }                
-                else if (obj.massConversionTable != null)
+                else if (obj.MassConversionTable != null)
                 {
-                    list.Add(obj.massConversionTable);
+                    list.Add(obj.MassConversionTable);
                 }
             }
             
