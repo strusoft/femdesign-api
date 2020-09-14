@@ -18,7 +18,7 @@ namespace FemDesign.Releases
         [XmlAttribute("friction")]
         public double _friction; // reduction_factor_type. Default = 0.3
         [XmlIgnore]
-        public double friction 
+        public double Friction 
         {
             get {return this._friction;}
             set {this._friction = RestrictedDouble.NonNegMax_1(value);}
@@ -37,8 +37,8 @@ namespace FemDesign.Releases
         /// </summary>
         private RigidityDataType3(Motions motions, Rotations rotations)
         {
-            this.motions = motions;
-            this.rotations = rotations;
+            this.Motions = motions;
+            this.Rotations = rotations;
         }
 
         /// <summary>

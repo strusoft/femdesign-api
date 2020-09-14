@@ -31,7 +31,7 @@ namespace FemDesign.Calculate
         [IsVisibleInDynamoLibrary(true)]
         public static Loads.LoadCombination SetupCalculation(Loads.LoadCombination loadCombination, int ImpfRqd = 0, int StabRqd = 0, bool NLE = false, bool PL = false, bool NLS = false, bool Cr = false, bool f2nd = false, bool Im = false, int Waterlevel = 0)
         {
-            loadCombination.combItem = new Calculate.CombItem(ImpfRqd, StabRqd, NLE, PL, NLS, Cr, f2nd, Im, Waterlevel);
+            loadCombination.CombItem = new Calculate.CombItem(ImpfRqd, StabRqd, NLE, PL, NLS, Cr, f2nd, Im, Waterlevel);
             return loadCombination;
         }
         #endregion

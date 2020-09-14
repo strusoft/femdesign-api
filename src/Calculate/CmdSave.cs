@@ -15,9 +15,9 @@ namespace FemDesign.Calculate
     public class CmdSave
     {
         [XmlAttribute("command")]
-        public string command = "; CXL CS2SHELL SAVE"; // token, fixed
+        public string Command = "; CXL CS2SHELL SAVE"; // token, fixed
         [XmlElement("filename")]
-        public string filePath { get; set; } // SZPATH
+        public string FilePath { get; set; } // SZPATH
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -28,7 +28,7 @@ namespace FemDesign.Calculate
         }
         public CmdSave(string filePath)
         {
-            this.filePath = filePath;
+            this.FilePath = filePath;
         }
     }
 }

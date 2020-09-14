@@ -16,9 +16,9 @@ namespace FemDesign.Calculate
     public class CmdOpen
     {
         [XmlAttribute("command")]
-        public string command = "; CXL CS2SHELL OPEN"; // token, fixed
+        public string Command = "; CXL CS2SHELL OPEN"; // token, fixed
         [XmlElement("filename")]
-        public string filename { get; set; } // SZPATH
+        public string Filename { get; set; } // SZPATH
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -29,7 +29,7 @@ namespace FemDesign.Calculate
         }
         public CmdOpen(string filepath)
         {
-            this.filename = filepath;
+            this.Filename = filepath;
         }
     }
 }

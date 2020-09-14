@@ -60,17 +60,17 @@ namespace FemDesign.Materials
         [XmlAttribute("Epscu3")]
         public string Epscu3 { get; set; } // material_base_value
         [XmlAttribute("environment")]
-        public string environment { get; set; } // integer
+        public string Environment { get; set; } // integer
         [XmlAttribute("creep")]
-        public double creep { get; set; } // material_0base_value
+        public double Creep { get; set; } // material_0base_value
         [XmlAttribute("creep_sls")]
-        public double creepSlq { get; set;} // material_0base_value
+        public double CreepSlq { get; set;} // material_0base_value
         [XmlAttribute("creep_slf")]
-        public double creepSlf { get; set;} // material_0base_value
+        public double CreepSlf { get; set;} // material_0base_value
         [XmlAttribute("creep_slc")]
-        public double creepSlc { get; set;} // material_0base_value
+        public double CreepSlc { get; set;} // material_0base_value
         [XmlAttribute("shrinkage")]
-        public double shrinkage { get; set; } // non_neg_max_1000
+        public double Shrinkage { get; set; } // non_neg_max_1000
         [XmlAttribute("nu")]
         public string nu { get; set; } // material_nu_value
         [XmlAttribute("alfa")]
@@ -81,13 +81,13 @@ namespace FemDesign.Materials
         /// <summary>
         /// Set Material parameters.
         /// </summary>
-        internal void SetMaterialParameters(double _creepUls, double _creepSlq, double _creepSlf, double _creepSlc, double _shrinkage)
+        internal void SetMaterialParameters(double creepUls, double creepSlq, double creepSlf, double creepSlc, double shrinkage)
         {
-            this.creep = _creepUls;
-            this.creepSlq = _creepSlq;
-            this.creepSlf = _creepSlf;
-            this.creepSlc = _creepSlc;
-            this.shrinkage = _shrinkage;
+            this.Creep = creepUls;
+            this.CreepSlq = creepSlq;
+            this.CreepSlf = creepSlf;
+            this.CreepSlc = creepSlc;
+            this.Shrinkage = shrinkage;
         }
     }
 }

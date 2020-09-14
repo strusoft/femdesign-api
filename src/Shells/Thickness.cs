@@ -25,10 +25,10 @@ namespace FemDesign.Shells
         /// </summary>
         internal Thickness(Geometry.FdPoint3d point, double val)
         {
-            this.x = point.x;
-            this.y = point.y;
-            this.z = point.z;
-            this.val = val;            
+            this.X = point.X;
+            this.Y = point.Y;
+            this.Z = point.Z;
+            this.Value = val;            
         }
 
         #region dynamo

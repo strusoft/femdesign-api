@@ -225,7 +225,7 @@ namespace FemDesign.Calculate
         /// <param name="model"></param>
         public void SetLoadCombinationCalculationParameters(FemDesign.Model model)
         {
-            List<Loads.LoadCombination> loadCombinations = model.entities.loads.loadCombination;
+            List<Loads.LoadCombination> loadCombinations = model.Entities.Loads.LoadCombinations;
             foreach(Loads.LoadCombination _loadCombination in loadCombinations)
             {
                 this.Comb.AddLoadCombinationParameters(_loadCombination);

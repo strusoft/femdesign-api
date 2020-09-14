@@ -16,15 +16,15 @@ namespace FemDesign.Loads
     {
         // attributes
         [XmlAttribute("load_projection")]
-        public bool loadProjection { get; set; } // bool
+        public bool LoadProjection { get; set; } // bool
 
         // elements        
         [XmlElement("region", Order = 1)]
-        public Geometry.Region region { get; set; } // region_type
+        public Geometry.Region Region { get; set; } // region_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d direction { get; set; } // point_type_3d
+        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
         [XmlElement("load", Order = 3)]
-        public List<LoadLocationValue> load = new List<LoadLocationValue>(); // location_value
+        public List<LoadLocationValue> Loads = new List<LoadLocationValue>(); // location_value
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -40,15 +40,15 @@ namespace FemDesign.Loads
         private SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, string comment, bool loadProjection, string loadType)
         {
             this.EntityCreated();
-            this.loadCase = loadCase.guid;
-            this.comment = comment;
-            this.loadProjection = loadProjection;
-            this.loadType = loadType;
-            this.region = region;
-            this.direction = loadDirection;
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
+            this.LoadProjection = loadProjection;
+            this.LoadType = loadType;
+            this.Region = region;
+            this.Direction = loadDirection;
             foreach (LoadLocationValue _load in loads)
             {
-                this.load.Add(_load);
+                this.Loads.Add(_load);
             }
         }
 
@@ -57,7 +57,7 @@ namespace FemDesign.Loads
         internal static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, string comment = "")
         {
             // create load as list of loads
-            List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.coordinateSystem.origin, force.Length())};
+            List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.CoordinateSystem.origin, force.Length())};
 
             // create load direction
             Geometry.FdVector3d loadDirection = force.Normalize();
@@ -151,7 +151,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Surface GetDynamoGeometry()
         {
-            return this.region.ToDynamoSurface();
+            return this.Region.ToDynamoSurface();
         }
         #endregion
 

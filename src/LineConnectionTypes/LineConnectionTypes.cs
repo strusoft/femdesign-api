@@ -16,6 +16,6 @@ namespace FemDesign.LineConnectionTypes
     public class LineConnectionTypes
     {
         [XmlElement("predefined_type")]
-        public List<PredefinedType> predefinedType = new List<PredefinedType>(); // sequence: rigidity_datalib_type3
+        public List<PredefinedType> PredefinedType = new List<PredefinedType>(); // sequence: rigidity_datalib_type3
     }
 }

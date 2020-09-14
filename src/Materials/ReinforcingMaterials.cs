@@ -16,6 +16,6 @@ namespace FemDesign.Materials
     public class ReinforcingMaterials
     {
         [XmlElement("material", Order = 1)]
-        public List<Material> material = new List<Material>(); // sequence: rfmaterial_type
+        public List<Material> Material = new List<Material>(); // sequence: rfmaterial_type
     }
 }

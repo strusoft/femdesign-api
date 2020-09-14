@@ -129,7 +129,7 @@ namespace FemDesign.Loads
                 List<MassConversion> items = new List<MassConversion>();
                 for (int idx = 0; idx < factors.Count; idx++)
                 {
-                    items.Add(new MassConversion(factors[idx], loadCases[idx].guid));
+                    items.Add(new MassConversion(factors[idx], loadCases[idx].Guid));
                 }
                 
                 this.EntityCreated();

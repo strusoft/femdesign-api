@@ -15,13 +15,13 @@ namespace FemDesign.Supports
     public class PointSupport: EntityBase
     {
         [XmlIgnore]
-        public static int instance = 0; // used for PointSupports and LineSupports
+        public static int _instance = 0; // used for PointSupports and LineSupports
         [XmlAttribute("name")]
-        public string name { get; set; } // identifier
+        public string Name { get; set; } // identifier
         [XmlElement("group", Order = 1)]
-        public Group group { get; set; }  // support_rigidity_data_type
+        public Group Group { get; set; }  // support_rigidity_data_type
         [XmlElement("position", Order = 2)]
-        public Geometry.FdPoint3d position { get; set; } // point_type_3d
+        public Geometry.FdPoint3d Position { get; set; } // point_type_3d
         public PointSupport()
         {
             // parameterless constructor for serialization
@@ -32,11 +32,11 @@ namespace FemDesign.Supports
         /// </summary>
         public PointSupport(Geometry.FdPoint3d point, Releases.Motions motions, Releases.Rotations rotations, string identifier)
         {
-            instance++;
+            PointSupport._instance++;
             this.EntityCreated();
-            this.name = identifier + "." + instance.ToString();
-            this.group = new Group(new Geometry.FdVector3d(1,0,0), new Geometry.FdVector3d(0,1,0), motions, rotations); // aligned with GCS
-            this.position = point;
+            this.Name = identifier + "." + PointSupport._instance.ToString();
+            this.Group = new Group(new Geometry.FdVector3d(1,0,0), new Geometry.FdVector3d(0,1,0), motions, rotations); // aligned with GCS
+            this.Position = point;
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace FemDesign.Supports
 
         internal Autodesk.DesignScript.Geometry.Point GetDynamoGeometry()
         {
-            return this.position.ToDynamo();
+            return this.Position.ToDynamo();
         }
 
         #endregion

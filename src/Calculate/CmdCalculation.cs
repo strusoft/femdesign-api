@@ -15,11 +15,11 @@ namespace FemDesign.Calculate
     public class CmdCalculation
     {
         [XmlElement("analysis")]
-        public Analysis analysis { get; set; } // ANALYSIS
+        public Analysis Analysis { get; set; } // ANALYSIS
         [XmlElement("design")]
-        public Design design { get; set; } // DESIGNCALC
+        public Design Design { get; set; } // DESIGNCALC
         [XmlAttribute("command")]
-        public string command = "; CXL $MODULE CALC"; // token
+        public string Command = "; CXL $MODULE CALC"; // token
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -30,12 +30,12 @@ namespace FemDesign.Calculate
         }
         public CmdCalculation(Analysis analysis)
         {
-            this.analysis = analysis;
+            this.Analysis = analysis;
         }
         public CmdCalculation(Analysis analysis, Design design)
         {
-            this.analysis = analysis;
-            this.design = design;
+            this.Analysis = analysis;
+            this.Design = design;
         }
     }
 }

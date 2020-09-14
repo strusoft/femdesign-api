@@ -14,7 +14,7 @@ namespace FemDesign
         [XmlAttribute("load_type")]
         public string _loadType; // force_load_type
         [XmlIgnore]
-        public string loadType
+        public string LoadType
         {
             get {return this._loadType;}
             set {this._loadType = RestrictedString.ForceLoadType(value);}

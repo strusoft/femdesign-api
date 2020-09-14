@@ -23,7 +23,7 @@ namespace FemDesign
 
         // virtual_bar
         [XmlElement("virtual_bar")]
-        public List<VirtualBar> virtualBar = new List<VirtualBar>();
+        public List<VirtualBar> VirtualBar = new List<VirtualBar>();
 
         // virtual_shell
 
@@ -35,6 +35,6 @@ namespace FemDesign
         /// List of Cover (cover_type)
         /// </summary>
         [XmlElement("cover")]
-        public List<Cover> cover = new List<Cover>();
+        public List<Cover> Cover = new List<Cover>();
     }
 }

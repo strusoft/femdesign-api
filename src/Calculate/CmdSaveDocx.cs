@@ -16,9 +16,9 @@ namespace FemDesign.Calculate
     public class CmdSaveDocx
     {
         [XmlAttribute("command")]
-        public string command = "$ DOC SAVEDOCX"; // token, fixed
+        public string Command = "$ DOC SAVEDOCX"; // token, fixed
         [XmlElement("filename")]
-        public string filePath { get; set; } // SZPATH
+        public string FilePath { get; set; } // SZPATH
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -37,7 +37,7 @@ namespace FemDesign.Calculate
             }
 
             //
-            this.filePath = filePath;
+            this.FilePath = filePath;
         }
     }
 }

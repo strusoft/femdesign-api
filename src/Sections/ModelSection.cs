@@ -16,13 +16,13 @@ namespace FemDesign.Sections
     public class ModelSection
     {
         [XmlAttribute("pos")]
-        public string pos { get; set; }
+        public string Pos { get; set; }
         [XmlAttribute("guid")]
-        public System.Guid guid { get; set; }
+        public System.Guid Guid { get; set; }
         [XmlElement("ecc")]
-        public Bars.Eccentricity ecc { get; set; }
+        public Bars.Eccentricity Eccentricity { get; set; }
         [XmlElement("end")]
-        public string end { get; set; }
+        public string End { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -40,10 +40,10 @@ namespace FemDesign.Sections
         /// <param name="eccentricity">Eccentricity at pos.</param>
         internal ModelSection(int pos, Section section, Bars.Eccentricity eccentricity)
         {
-            this.pos = pos.ToString();
-            this.guid = section.guid;
-            this.ecc = eccentricity;
-            this.end = "";
+            this.Pos = pos.ToString();
+            this.Guid = section.Guid;
+            this.Eccentricity = eccentricity;
+            this.End = "";
         }
     }
 }

@@ -16,6 +16,6 @@ namespace FemDesign.Geometry
     public class RegionGroup
     {
         [XmlElement("region")]
-        public List<Region> region = new List<Region>(); // sequence: region_type
+        public List<Region> Region = new List<Region>(); // sequence: region_type
     }
 }

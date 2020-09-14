@@ -15,31 +15,31 @@ namespace FemDesign.Bars.Buckling
     public class BucklingLength
     {
         [XmlAttribute("type")]
-        public string type { get; set; } // bar_buckling_type
+        public string Type { get; set; } // bar_buckling_type
         [XmlAttribute("beta")]
         public double _beta; // non_neg_max_100
         [XmlIgnore]
-        public double beta
+        public double Beta
         {
             get {return this._beta;}
             set {this._beta = RestrictedDouble.NonNegMax_100(value);}
         } 
         [XmlAttribute("sway")]
-        public bool sway { get; set; } // boolean
+        public bool Sway { get; set; } // boolean
         [XmlAttribute("load_position")]
         public string _loadPosition;  // ver_align
         [XmlIgnore]
-        public string loadPosition
+        public string LoadPosition
         {
             get{return this._loadPosition;}
             set{this._loadPosition = RestrictedString.VerticalAlign(value);}
         }
         [XmlAttribute("continously_restrained")]
-        public bool continouslyRestrained { get; set; } // bool
+        public bool ContinouslyRestrained { get; set; } // bool
         [XmlAttribute("cantilever")]
-        public bool cantilever { get; set; } // bool
+        public bool Cantilever { get; set; } // bool
         [XmlElement("position")]
-        public Position position { get; set; } // segmentposition_type
+        public Position Position { get; set; } // segmentposition_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -54,12 +54,12 @@ namespace FemDesign.Bars.Buckling
         /// </summary>
         internal BucklingLength(Position position, string type, double beta = 1, bool sway = false)
         {
-            this.position = position;
-            this.type = type;
-            this.beta = beta;
+            this.Position = position;
+            this.Type = type;
+            this.Beta = beta;
             if (sway)
             {
-                this.sway = sway;
+                this.Sway = sway;
             }   
         }
 
@@ -68,13 +68,13 @@ namespace FemDesign.Bars.Buckling
         /// </summary>
         internal BucklingLength(Position position, string type, double beta, string loadPosition, bool continouslyRestrained)
         {
-            this.position = position;
-            this.type = type;
-            this.beta = beta;
-            this.loadPosition = loadPosition;
+            this.Position = position;
+            this.Type = type;
+            this.Beta = beta;
+            this.LoadPosition = loadPosition;
             if (continouslyRestrained)
             {
-                this.continouslyRestrained = continouslyRestrained;
+                this.ContinouslyRestrained = continouslyRestrained;
             }
         }
 
@@ -83,16 +83,16 @@ namespace FemDesign.Bars.Buckling
         /// </summary>
         internal BucklingLength(Position position, string type, string loadPosition, bool continouslyRestrained, bool cantilever)
         {
-            this.position = position;
-            this.type = type;
-            this.loadPosition = loadPosition;
+            this.Position = position;
+            this.Type = type;
+            this.LoadPosition = loadPosition;
             if (continouslyRestrained)
             {
-                this.continouslyRestrained = continouslyRestrained;
+                this.ContinouslyRestrained = continouslyRestrained;
                 }
             if (cantilever)
             {
-                this.cantilever = cantilever;
+                this.Cantilever = cantilever;
             }
         }
         /// <summary>

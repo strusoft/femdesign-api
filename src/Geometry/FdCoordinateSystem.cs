@@ -17,7 +17,7 @@ namespace FemDesign.Geometry
         [XmlElement("local_x", Order=2)]
         public FdVector3d _localX;
         [XmlIgnore]
-        public FdVector3d localX
+        public FdVector3d LocalX
         {
             get
             {
@@ -34,7 +34,7 @@ namespace FemDesign.Geometry
         [XmlElement("local_y", Order=3)]
         public FdVector3d _localY;
         [XmlIgnore]
-        public FdVector3d localY
+        public FdVector3d LocalY
         {
             get
             {
@@ -51,17 +51,17 @@ namespace FemDesign.Geometry
         [XmlIgnore]
         public FdVector3d _localZ;
         [XmlIgnore]
-        public FdVector3d localZ
+        public FdVector3d LocalZ
         {
             get
             {
-                if (this.localX == null || this.localY == null)
+                if (this.LocalX == null || this.LocalY == null)
                 {
                     throw new System.ArgumentException("Impossible to get z-axis as either this.localX or this.localY is null.");
                 }
                 else
                 {     
-                    return this.localX.Cross(localY).Normalize();
+                    return this.LocalX.Cross(LocalY).Normalize();
                 }
             }
         }
@@ -77,12 +77,12 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct FdCoordinateSystem from origin point and local x, y, z axes.
         /// </summary>
-        public FdCoordinateSystem(FdPoint3d _origin, FdVector3d _localX, FdVector3d _localY, FdVector3d _localZ)
+        public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY, FdVector3d localZ)
         {
-            this.origin = _origin;
-            this._localX = _localX;
-            this._localY = _localY;
-            this._localZ = _localZ;
+            this.origin = origin;
+            this._localX = localX;
+            this._localY = localY;
+            this._localZ = localZ;
         }
 
         /// <summary>
@@ -101,10 +101,10 @@ namespace FemDesign.Geometry
         {
             // try to set axis
             FdVector3d val = vector.Normalize();
-            FdVector3d z = this.localZ;
+            FdVector3d z = this.LocalZ;
 
             double dot = z.Dot(val);
-            if (Math.Abs(dot) < Tolerance.dotProduct)
+            if (Math.Abs(dot) < Tolerance.DotProduct)
             {
                 this._localX = val;
                 this._localY = z.Cross(val); // follows right-hand-rule
@@ -122,10 +122,10 @@ namespace FemDesign.Geometry
         {
             // try to set axis
             FdVector3d val = vector.Normalize();
-            FdVector3d x = this.localX;
+            FdVector3d x = this.LocalX;
 
             double dot = x.Dot(val);
-            if (Math.Abs(dot) < Tolerance.dotProduct)
+            if (Math.Abs(dot) < Tolerance.DotProduct)
             {
                 this._localY = val;
                 this._localZ = x.Cross(val); // follows right-hand-rule
@@ -143,10 +143,10 @@ namespace FemDesign.Geometry
         {
             // try set axis
             FdVector3d val = vector.Normalize();
-            FdVector3d z = this.localZ;
+            FdVector3d z = this.LocalZ;
 
             double dot = z.Dot(val);
-            if (Math.Abs(dot) < Tolerance.dotProduct)
+            if (Math.Abs(dot) < Tolerance.DotProduct)
             {
                 this._localY = val;
                 this._localX = val.Cross(z); // follows right-hand-rule
@@ -165,10 +165,10 @@ namespace FemDesign.Geometry
         {
             // try to set axis
             Geometry.FdVector3d val = vector.Normalize();
-            Geometry.FdVector3d x = this.localX;
+            Geometry.FdVector3d x = this.LocalX;
 
             double dot = x.Dot(val);
-            if (Math.Abs(dot) < Tolerance.dotProduct)
+            if (Math.Abs(dot) < Tolerance.DotProduct)
             {
                 this._localZ = val;
                 this._localY = val.Cross(x); // follows right-hand-rule

@@ -15,8 +15,8 @@ namespace FemDesign
     public class LoadBase: EntityBase
     {
         [XmlAttribute("load_case")]
-        public System.Guid loadCase { get; set; } // load_case_id
+        public System.Guid LoadCase { get; set; } // load_case_id
         [XmlAttribute("comment")]
-        public string comment { get; set; } // comment_string
+        public string Comment { get; set; } // comment_string
     }
 }

@@ -15,56 +15,56 @@ namespace FemDesign.Releases
     public class StiffnessType
     {
         [XmlAttribute("x_neg")]
-        public double _x_neg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _xNeg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double x_neg
+        public double XNeg
         {
-            get {return this._x_neg;}
-            set {this._x_neg = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._xNeg;}
+            set {this._xNeg = RestrictedDouble.NonNegMax_1e15(value);}
         }
         [XmlAttribute("x_pos")]
         
-        public double _x_pos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _xPos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double x_pos
+        public double XPos
         {
-            get {return this._x_pos;}
-            set {this._x_pos = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._xPos;}
+            set {this._xPos = RestrictedDouble.NonNegMax_1e15(value);}
         }
         [XmlAttribute("y_neg")]
         
-        public double _y_neg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _yNeg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double y_neg
+        public double YNeg
         {
-            get {return this._y_neg;}
-            set {this._y_neg = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._yNeg;}
+            set {this._yNeg = RestrictedDouble.NonNegMax_1e15(value);}
         }
         [XmlAttribute("y_pos")]
         
-        public double _y_pos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _yPos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double y_pos
+        public double YPos
         {
-            get {return this._y_pos;}
-            set {this._y_pos = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._yPos;}
+            set {this._yPos = RestrictedDouble.NonNegMax_1e15(value);}
         }
         [XmlAttribute("z_neg")]
         
-        public double _z_neg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _zNeg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double z_neg
+        public double ZNeg
         {
-            get {return this._z_neg;}
-            set {this._z_neg = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._zNeg;}
+            set {this._zNeg = RestrictedDouble.NonNegMax_1e15(value);}
         }
         [XmlAttribute("z_pos")]
-        public double _z_pos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
+        public double _zPos; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15
         [XmlIgnore]
-        public double z_pos
+        public double ZPos
         {
-            get {return this._z_pos;}
-            set {this._z_pos = RestrictedDouble.NonNegMax_1e15(value);}
+            get {return this._zPos;}
+            set {this._zPos = RestrictedDouble.NonNegMax_1e15(value);}
         }
 
         /// <summary>

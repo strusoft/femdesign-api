@@ -16,12 +16,12 @@ namespace FemDesign.Loads
     {
         // attributes
         [XmlAttribute("load_projection")]
-        public bool loadProjection { get; set; } // bool
+        public bool LoadProjection { get; set; } // bool
         
         [XmlAttribute("z0")]
         public double _z0; // abs_max_1e20
         [XmlIgnore]
-        public double z0
+        public double Z0
         {
             get {return this._z0;}
             set {this._z0 = RestrictedDouble.AbsMax_1e20(value);}
@@ -30,7 +30,7 @@ namespace FemDesign.Loads
         [XmlAttribute("q0")]
         public double _q0; // abs_max_1e20
         [XmlIgnore]
-        public double q0
+        public double Q0
         {
             get {return this._q0;}
             set {this._q0 = RestrictedDouble.AbsMax_1e20(value);}
@@ -39,7 +39,7 @@ namespace FemDesign.Loads
         [XmlAttribute("qh")]
         public double _qh; // abs_max_1e20
         [XmlIgnore]
-        public double qh
+        public double Qh
         {
             get {return this._qh;}
             set {this._qh = RestrictedDouble.AbsMax_1e20(value);}
@@ -47,9 +47,9 @@ namespace FemDesign.Loads
 
         // elements
         [XmlElement("region", Order = 1)]
-        public Geometry.Region region { get; set; } // region_type
+        public Geometry.Region Region { get; set; } // region_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d direction { get; set; } // point_type_3c
+        public Geometry.FdVector3d Direction { get; set; } // point_type_3c
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -74,17 +74,17 @@ namespace FemDesign.Loads
         {
             // base
             this.EntityCreated();
-            this.loadCase = loadCase.guid;
-            this.comment = comment;
-            this.loadProjection = loadProjection;
-            this.loadType = loadType;
-            this.region = region;
-            this.direction = loadDirection; 
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
+            this.LoadProjection = loadProjection;
+            this.LoadType = loadType;
+            this.Region = region;
+            this.Direction = loadDirection; 
 
             // specific
-            this.z0 = z0;
-            this.q0 = q0;
-            this.qh = qh;
+            this.Z0 = z0;
+            this.Q0 = q0;
+            this.Qh = qh;
         }
 
         
@@ -133,7 +133,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Surface GetDynamoGeometry()
         {
-            return this.region.ToDynamoSurface();
+            return this.Region.ToDynamoSurface();
         }
         #endregion
 

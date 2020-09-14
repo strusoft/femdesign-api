@@ -19,9 +19,9 @@ namespace FemDesign.Geometry
     public class Region
     {
         [XmlIgnore]
-        internal Geometry.FdCoordinateSystem coordinateSystem { get; set; }
+        internal Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
         [XmlElement("contour")]
-        public List<Contour> contours = new List<Contour>(); // sequence: contour_type
+        public List<Contour> Contours = new List<Contour>(); // sequence: contour_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -33,13 +33,13 @@ namespace FemDesign.Geometry
 
         internal Region(List<Contour> contours)
         {
-            this.contours = contours;
+            this.Contours = contours;
         }
 
-        internal Region(List<Contour> _contours, FdCoordinateSystem _coordinateSystem)
+        internal Region(List<Contour> contours, FdCoordinateSystem coordinateSystem)
         {
-            this.contours = _contours;
-            this.coordinateSystem = _coordinateSystem;
+            this.Contours = contours;
+            this.CoordinateSystem = coordinateSystem;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace FemDesign.Geometry
         internal Region(List<FdPoint3d> points, FdCoordinateSystem coordinateSystem)
         {
             // edge normal
-            FdVector3d edgeLocalY = coordinateSystem.localZ;
+            FdVector3d edgeLocalY = coordinateSystem.LocalZ;
 
             List<Edge> edges = new List<Edge>();
             for (int idx = 0 ; idx < points.Count; idx++)
@@ -78,8 +78,8 @@ namespace FemDesign.Geometry
             Contour contour = new Contour(edges);
 
             // set properties
-            this.contours = new List<Contour>{contour};
-            this.coordinateSystem = coordinateSystem;
+            this.Contours = new List<Contour>{contour};
+            this.CoordinateSystem = coordinateSystem;
         }
         
         /// <summary>
@@ -87,7 +87,7 @@ namespace FemDesign.Geometry
         /// </summary>
         internal static Region FromSlab(Shells.Slab slab)
         {
-            return slab.slabPart.region;
+            return slab.SlabPart.Region;
         }
 
         /// <summary>
@@ -95,22 +95,22 @@ namespace FemDesign.Geometry
         /// </summary>
         internal void SetEdgeConnection(Shells.ShellEdgeConnection edgeConnection, int index)
         {
-            if (edgeConnection.release)
+            if (edgeConnection.Release)
             {
                 int edgeIdx = 0;
-                foreach (Contour contour in this.contours)
+                foreach (Contour contour in this.Contours)
                 {
-                    if (contour.edges != null)
+                    if (contour.Edges != null)
                     {
                         int cInstance = 0;
-                        foreach (Edge edge in contour.edges)
+                        foreach (Edge edge in contour.Edges)
                         {
                             cInstance++;
                             if (index == edgeIdx)
                             {
                                 string name = "CE." + cInstance.ToString();
                                 Shells.ShellEdgeConnection ec = Shells.ShellEdgeConnection.CopyExisting(edgeConnection, name);
-                                edge.edgeConnection = ec;
+                                edge.EdgeConnection = ec;
                                 return;
                             }
                             edgeIdx++;
@@ -136,19 +136,19 @@ namespace FemDesign.Geometry
         /// </summary>
         internal void SetEdgeConnections(Shells.ShellEdgeConnection edgeConnection)
         {
-            if (edgeConnection.release)
+            if (edgeConnection.Release)
             {
-                foreach (Contour contour in this.contours)
+                foreach (Contour contour in this.Contours)
                 {
-                    if (contour.edges != null)
+                    if (contour.Edges != null)
                     {
                         int cInstance = 0;
-                        foreach (Edge edge in contour.edges)
+                        foreach (Edge edge in contour.Edges)
                         {
                             cInstance++;
                             string name = "CE." + cInstance.ToString();
                             Shells.ShellEdgeConnection ec = Shells.ShellEdgeConnection.CopyExisting(edgeConnection, name);
-                            edge.edgeConnection = ec;
+                            edge.EdgeConnection = ec;
                         }
                     }
                     else
@@ -169,11 +169,11 @@ namespace FemDesign.Geometry
         internal List<Shells.ShellEdgeConnection> GetEdgeConnections()
         {
             var edgeConnections = new List<Shells.ShellEdgeConnection>();
-            foreach (Contour contour in this.contours)
+            foreach (Contour contour in this.Contours)
             {
-                foreach (Edge edge in contour.edges)
+                foreach (Edge edge in contour.Edges)
                 {
-                    edgeConnections.Add(edge.edgeConnection);
+                    edgeConnections.Add(edge.EdgeConnection);
                 }
             }
             return edgeConnections;
@@ -186,13 +186,13 @@ namespace FemDesign.Geometry
         internal Region RemoveEdgeConnections()
         {
             Region newRegion = this.DeepClone();
-            foreach (Contour newContour in newRegion.contours)
+            foreach (Contour newContour in newRegion.Contours)
             {
-                foreach (Edge newEdge in newContour.edges)
+                foreach (Edge newEdge in newContour.Edges)
                 {
-                    if (newEdge.edgeConnection != null)
+                    if (newEdge.EdgeConnection != null)
                     {
-                        newEdge.edgeConnection = null;
+                        newEdge.EdgeConnection = null;
                     }
                 }
             }
@@ -353,10 +353,10 @@ namespace FemDesign.Geometry
         {
             // get closed curves
             List<Autodesk.DesignScript.Geometry.PolyCurve> closedCurves = new List<Autodesk.DesignScript.Geometry.PolyCurve>();
-            foreach (Geometry.Contour contour in this.contours)
+            foreach (Geometry.Contour contour in this.Contours)
             {
                 List<Autodesk.DesignScript.Geometry.Curve> curves = new List<Autodesk.DesignScript.Geometry.Curve>();
-                foreach (Geometry.Edge edge in contour.edges)
+                foreach (Geometry.Edge edge in contour.Edges)
                 {
                     curves.Add(edge.ToDynamo());
                 }
@@ -387,10 +387,10 @@ namespace FemDesign.Geometry
         public List<List<Autodesk.DesignScript.Geometry.Curve>> ToDynamoCurves()
         {
             List<List<Autodesk.DesignScript.Geometry.Curve>> outlines = new List<List<Autodesk.DesignScript.Geometry.Curve>>();
-            foreach (Geometry.Contour contour in this.contours)
+            foreach (Geometry.Contour contour in this.Contours)
             {
                 List<Autodesk.DesignScript.Geometry.Curve> curves = new List<Autodesk.DesignScript.Geometry.Curve>();
-                foreach (Geometry.Edge edge in contour.edges)
+                foreach (Geometry.Edge edge in contour.Edges)
                 {
                     curves.Add(edge.ToDynamo());
                 }

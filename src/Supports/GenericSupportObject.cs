@@ -14,9 +14,9 @@ namespace FemDesign.Supports
     [IsVisibleInDynamoLibrary(false)]
     public class GenericSupportObject
     {
-        public PointSupport pointSupport { get; set; }
-        public LineSupport lineSupport { get; set; }
-        public SurfaceSupport surfaceSupport { get; set; }
+        public PointSupport PointSupport { get; set; }
+        public LineSupport LineSupport { get; set; }
+        public SurfaceSupport SurfaceSupport { get; set; }
         internal GenericSupportObject()
         {
             
@@ -27,17 +27,17 @@ namespace FemDesign.Supports
             List<object> list = new List<object>();
             foreach (GenericSupportObject obj in objs)
             {
-                if (obj.pointSupport != null)
+                if (obj.PointSupport != null)
                 {
-                    list.Add(obj.pointSupport);
+                    list.Add(obj.PointSupport);
                 }
-                else if (obj.lineSupport != null)
+                else if (obj.LineSupport != null)
                 {
-                    list.Add(obj.lineSupport);
+                    list.Add(obj.LineSupport);
                 }
-                else if (obj.surfaceSupport != null)
+                else if (obj.SurfaceSupport != null)
                 {
-                    list.Add(obj.surfaceSupport);
+                    list.Add(obj.SurfaceSupport);
                 }
             }
 

@@ -18,11 +18,11 @@ namespace FemDesign.Supports
         /// Local x is actual local x for points. For lines local x is local z??
         /// </summary>
         [XmlElement("local_x", Order = 1)]
-        public Geometry.FdVector3d localX { get; set; }
+        public Geometry.FdVector3d LocalX { get; set; }
         [XmlElement("local_y", Order = 2)]
-        public Geometry.FdVector3d localY { get; set; }
+        public Geometry.FdVector3d LocalY { get; set; }
         [XmlElement("rigidity", Order = 3)]
-        public Releases.RigidityDataType3 rigidity { get; set; }
+        public Releases.RigidityDataType3 Rigidity { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -35,21 +35,21 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity.
         /// </summary>
-        internal Group(Geometry.Edge _edge, Releases.Motions motions, Releases.Rotations rotations)
+        internal Group(Geometry.Edge edge, Releases.Motions motions, Releases.Rotations rotations)
         {
-            this.localX = _edge.coordinateSystem.localZ;
-            this.localY = _edge.coordinateSystem.localY;
-            this.rigidity = Releases.RigidityDataType3.Define(motions, rotations);
+            this.LocalX = edge.CoordinateSystem.LocalZ;
+            this.LocalY = edge.CoordinateSystem.LocalY;
+            this.Rigidity = Releases.RigidityDataType3.Define(motions, rotations);
         }
 
         /// <summary>
         /// Constructor by vectors and rigidity.
         /// </summary>
-        public Group(Geometry.FdVector3d _localX, Geometry.FdVector3d _localY, Releases.Motions motions, Releases.Rotations rotations)
+        public Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Releases.Motions motions, Releases.Rotations rotations)
         {
-            this.localX = _localX;
-            this.localY = _localY;
-            this.rigidity = Releases.RigidityDataType3.Define(motions, rotations);
+            this.LocalX = localX;
+            this.LocalY = localY;
+            this.Rigidity = Releases.RigidityDataType3.Define(motions, rotations);
         }
     }
 }
