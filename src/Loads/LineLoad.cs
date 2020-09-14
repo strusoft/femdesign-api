@@ -16,70 +16,69 @@ namespace FemDesign.Loads
     public class LineLoad: ForceLoadBase
     {
         [XmlAttribute("load_dir")]
-        public string _loadDirection; // load_dir_type
+        public string _constantLoadDirection; // load_dir_type
         [XmlIgnore]
-        public bool constLoadDir
+        public bool ConstantLoadDirection
         {
             get
             {
-                return RestrictedString.LoadDirTypeToBool(this._loadDirection);
+                return RestrictedString.LoadDirTypeToBool(this._constantLoadDirection);
             }
             set
             {
-                this._loadDirection = RestrictedString.LoadDirTypeFromBool(value);
+                this._constantLoadDirection = RestrictedString.LoadDirTypeFromBool(value);
             }
         }
         [XmlAttribute("load_projection")]
-        public bool loadProjection { get; set; } // bool
+        public bool LoadProjection { get; set; } // bool
         
         // elements
         [XmlElement("edge", Order = 1)]
-        public Geometry.Edge edge { get; set; } // edge_type
+        public Geometry.Edge Edge { get; set; } // edge_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d direction { get; set; } // point_type_3d
+        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d normal { get; set; } // point_type_3d
+        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
         [XmlElement("load", Order = 4)]
-        public LoadLocationValue[] load = new LoadLocationValue[2];
-        // public List<LoadLocationValue> load = new List<LoadLocationValue>(2); // sequence: location_value
+        public LoadLocationValue[] Load = new LoadLocationValue[2];
         [XmlIgnore]
-        public double startLoad
+        public double StartLoad
         {
             get
             {
-                return this.load[0].val;
+                return this.Load[0].Value;
             }
             set
             {
-                this.load[0] = new LoadLocationValue(this.edge.points[0], value);
+                this.Load[0] = new LoadLocationValue(this.Edge.Points[0], value);
             }
         }
         [XmlIgnore]
-        public double endLoad
+        public double EndLoad
         {
             get
             {
-                return this.load[1].val;
+                return this.Load[1].Value;
             }
             set
             {
-                this.load[1] = new LoadLocationValue(this.edge.points[this.edge.points.Count - 1], value);
+                this.Load[1] = new LoadLocationValue(this.Edge.Points[this.Edge.Points.Count - 1], value);
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d startForce
+        public Geometry.FdVector3d StartForce
         {
             get
             {
-                return this.direction.Scale(this.startLoad);
+                return this.Direction.Scale(this.StartLoad);
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d endForce
+        public Geometry.FdVector3d EndForce
         {
             get
             {
-                return this.direction.Scale(this.endLoad);
+                return this.Direction.Scale(this.EndLoad);
             }
         }
 
@@ -94,16 +93,16 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        internal LineLoad(Geometry.Edge _edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, string loadType)
+        internal LineLoad(Geometry.Edge edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, string loadType)
         {
             this.EntityCreated();
-            this.loadCase = loadCase.guid;
-            this.comment = comment;
-            this.constLoadDir = constLoadDir;
-            this.loadProjection = loadProjection;
-            this.loadType = loadType;
-            this.edge = _edge;
-            this.normal = _edge.coordinateSystem.localZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
+            this.ConstantLoadDirection = constLoadDir;
+            this.LoadProjection = loadProjection;
+            this.LoadType = loadType;
+            this.Edge = edge;
+            this.Normal = edge.CoordinateSystem.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
             this.SetStartAndEndForces(f0, f1);
         }
 
@@ -111,16 +110,16 @@ namespace FemDesign.Loads
         {
             if (startForce.IsZero() && !endForce.IsZero())
             {
-                this.direction = endForce.Normalize();
-                this.startLoad = 0;
-                this.endLoad = endForce.Length();
+                this.Direction = endForce.Normalize();
+                this.StartLoad = 0;
+                this.EndLoad = endForce.Length();
             }
 
             else if (!startForce.IsZero() && endForce.IsZero())
             {
-                this.direction = startForce.Normalize();
-                this.startLoad = startForce.Length();
-                this.endLoad = 0;
+                this.Direction = startForce.Normalize();
+                this.StartLoad = startForce.Length();
+                this.EndLoad = 0;
             }
 
             else if (startForce.IsZero() && endForce.IsZero())
@@ -139,9 +138,9 @@ namespace FemDesign.Loads
                 int par = v0.Parallel(v1);
                 if (par != 0)
                 {
-                    this.direction = v0;
-                    this.startLoad = q0;
-                    this.endLoad = par * q1;
+                    this.Direction = v0;
+                    this.StartLoad = q0;
+                    this.EndLoad = par * q1;
                 }
                 else
                 {
@@ -254,7 +253,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoGeometry()
         {
-            return this.edge.ToDynamo();
+            return this.Edge.ToDynamo();
         }
 
         #endregion
@@ -265,7 +264,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Rhino.Geometry.Curve GetRhinoGeometry()
         {
-            return this.edge.ToRhino();
+            return this.Edge.ToRhino();
         }
 
         #endregion

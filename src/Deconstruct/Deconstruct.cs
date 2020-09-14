@@ -24,11 +24,11 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", axis.guid},
-                {"Line", Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(axis.startPoint.ToDynamo(), axis.endPoint.ToDynamo())},
-                {"Prefix", axis.prefix},
-                {"Id", axis.id},
-                {"IdIsLetter", axis.idIsLetter}
+                {"Guid", axis.Guid},
+                {"Line", Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(axis.StartPoint.ToDynamo(), axis.EndPoint.ToDynamo())},
+                {"Prefix", axis.Prefix},
+                {"Id", axis.Id},
+                {"IdIsLetter", axis.IdIsLetter}
             };
         }
         /// <summary>
@@ -42,13 +42,13 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", bar.guid},
-                {"AnalyticalID", bar.name},
-                {"StructuralID", bar.barPart.name},
-                {"Type", bar.type},
+                {"Guid", bar.Guid},
+                {"AnalyticalID", bar.Name},
+                {"StructuralID", bar.BarPart.Name},
+                {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},
-                {"Material", bar.material},
-                {"Section", bar.section}
+                {"Material", bar.Material},
+                {"Section", bar.Section}
             };
         }
 
@@ -64,8 +64,8 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", cover.guid},
-                {"Id", cover.name},
+                {"Guid", cover.Guid},
+                {"Id", cover.Name},
                 {"Surface", cover.GetDynamoSurface()},
                 {"Contours", cover.GetDynamoCurves()}
             };
@@ -82,13 +82,13 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", pointLoad.guid},
-                {"Type", pointLoad.loadType},
+                {"Guid", pointLoad.Guid},
+                {"Type", pointLoad.LoadType},
                 {"Point", pointLoad.GetDynamoGeometry()},
-                {"Direction", pointLoad.direction.ToDynamo()},
-                {"q", pointLoad.load.val},
-                {"LoadCaseGuid", pointLoad.loadCase},
-                {"Comment", pointLoad.comment}
+                {"Direction", pointLoad.Direction.ToDynamo()},
+                {"q", pointLoad.Load.Value},
+                {"LoadCaseGuid", pointLoad.LoadCase},
+                {"Comment", pointLoad.Comment}
             };
         }
 
@@ -103,14 +103,14 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", lineLoad.guid},
-                {"Type", lineLoad.loadType},
+                {"Guid", lineLoad.Guid},
+                {"Type", lineLoad.LoadType},
                 {"Curve", lineLoad.GetDynamoGeometry()},
-                {"Direction", lineLoad.direction.ToDynamo()},
-                {"q1", lineLoad.load[0].val},
-                {"q2", lineLoad.load[1].val},
-                {"LoadCaseGuid", lineLoad.loadCase},
-                {"Comment", lineLoad.comment}
+                {"Direction", lineLoad.Direction.ToDynamo()},
+                {"q1", lineLoad.Load[0].Value},
+                {"q2", lineLoad.Load[1].Value},
+                {"LoadCaseGuid", lineLoad.LoadCase},
+                {"Comment", lineLoad.Comment}
             };
         }
 
@@ -125,13 +125,13 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", lineTemperatureLoad.guid},
+                {"Guid", lineTemperatureLoad.Guid},
                 {"Curve", lineTemperatureLoad.Edge.ToDynamo()},
                 {"Direction", lineTemperatureLoad.Direction.ToDynamo()},
                 {"TopBotLocVal1", lineTemperatureLoad.TopBotLocVal[0]},
                 {"TopBotLocVal2", lineTemperatureLoad.TopBotLocVal[1]},
-                {"LoadCaseGuid", lineTemperatureLoad.loadCase},
-                {"Comment", lineTemperatureLoad.comment}
+                {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
+                {"Comment", lineTemperatureLoad.Comment}
             };
         }
 
@@ -161,34 +161,34 @@ namespace FemDesign
         [MultiReturn(new[]{"Guid", "Type", "Surface", "Direction", "q1", "q2", "q3", "LoadCaseGuid", "Comment"})]
         public static Dictionary<string, object> SurfaceLoadDeconstruct(FemDesign.Loads.SurfaceLoad surfaceLoad)
         {
-            if (surfaceLoad.load.Count == 1)
+            if (surfaceLoad.Loads.Count == 1)
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", surfaceLoad.guid},
-                    {"Type", surfaceLoad.loadType},
-                    {"Surface", surfaceLoad.region.ToDynamoSurface()},
-                    {"Direction", surfaceLoad.direction.ToDynamo()},
-                    {"q1", surfaceLoad.load[0].val},
-                    {"q2", surfaceLoad.load[0].val},
-                    {"q3", surfaceLoad.load[0].val},
-                    {"LoadCaseGuid", surfaceLoad.loadCase},
-                    {"Comment", surfaceLoad.comment}
+                    {"Guid", surfaceLoad.Guid},
+                    {"Type", surfaceLoad.LoadType},
+                    {"Surface", surfaceLoad.Region.ToDynamoSurface()},
+                    {"Direction", surfaceLoad.Direction.ToDynamo()},
+                    {"q1", surfaceLoad.Loads[0].Value},
+                    {"q2", surfaceLoad.Loads[0].Value},
+                    {"q3", surfaceLoad.Loads[0].Value},
+                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"Comment", surfaceLoad.Comment}
                 };
             }
-            else if (surfaceLoad.load.Count == 3)
+            else if (surfaceLoad.Loads.Count == 3)
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", surfaceLoad.guid},
-                    {"Type", surfaceLoad.loadType},
-                    {"Surface", surfaceLoad.region.ToDynamoSurface()},
-                    {"Direction", surfaceLoad.direction.ToDynamo()},
-                    {"q1", surfaceLoad.load[0].val},
-                    {"q2", surfaceLoad.load[1].val},
-                    {"q3", surfaceLoad.load[2].val},
-                    {"LoadCaseGuid", surfaceLoad.loadCase},
-                    {"Comment", surfaceLoad.comment}
+                    {"Guid", surfaceLoad.Guid},
+                    {"Type", surfaceLoad.LoadType},
+                    {"Surface", surfaceLoad.Region.ToDynamoSurface()},
+                    {"Direction", surfaceLoad.Direction.ToDynamo()},
+                    {"q1", surfaceLoad.Loads[0].Value},
+                    {"q2", surfaceLoad.Loads[1].Value},
+                    {"q3", surfaceLoad.Loads[2].Value},
+                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"Comment", surfaceLoad.Comment}
                 };
             }
             else
@@ -210,26 +210,26 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", srfTmpLoad.guid},
+                    {"Guid", srfTmpLoad.Guid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[0]},
-                    {"LoadCaseGuid", srfTmpLoad.loadCase},
-                    {"Comment", srfTmpLoad.comment}
+                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"Comment", srfTmpLoad.Comment}
                 };
             }
             else if (srfTmpLoad.TopBotLocVal.Count == 3)
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", srfTmpLoad.guid},
+                    {"Guid", srfTmpLoad.Guid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[1]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[2]},
-                    {"LoadCaseGuid", srfTmpLoad.loadCase},
-                    {"Comment", srfTmpLoad.comment}
+                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"Comment", srfTmpLoad.Comment}
                 };
             }
             else
@@ -250,15 +250,15 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", pressureLoad.guid},
-                {"Type", pressureLoad.loadType},
-                {"Surface", pressureLoad.region.ToDynamoSurface()},
-                {"Direction", pressureLoad.direction.ToDynamo()},
-                {"z0", pressureLoad.z0},
-                {"q0", pressureLoad.q0},
-                {"qh", pressureLoad.qh},
-                {"LoadCaseGuid", pressureLoad.loadCase},
-                {"Comment", pressureLoad.comment}
+                {"Guid", pressureLoad.Guid},
+                {"Type", pressureLoad.LoadType},
+                {"Surface", pressureLoad.Region.ToDynamoSurface()},
+                {"Direction", pressureLoad.Direction.ToDynamo()},
+                {"z0", pressureLoad.Z0},
+                {"q0", pressureLoad.Q0},
+                {"qh", pressureLoad.Qh},
+                {"LoadCaseGuid", pressureLoad.LoadCase},
+                {"Comment", pressureLoad.Comment}
             };
         }
 
@@ -273,10 +273,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCase.guid},
-                {"Name", loadCase.name},
-                {"Type", loadCase.type},
-                {"DurationClass", loadCase.durationClass}
+                {"Guid", loadCase.Guid},
+                {"Name", loadCase.Name},
+                {"Type", loadCase.Type},
+                {"DurationClass", loadCase.DurationClass}
             };
         }
         
@@ -291,8 +291,8 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCombination.guid},
-                {"Name", loadCombination.name},
+                {"Guid", loadCombination.Guid},
+                {"Name", loadCombination.Name},
                 {"LoadCases", loadCombination.GetLoadCaseGuidsAsString()},
                 {"Gammas", loadCombination.GetGammas()}
             };
@@ -308,9 +308,9 @@ namespace FemDesign
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             List<StructureGrid.Axis> axes;
-            if (model.entities.axes != null)
+            if (model.Entities.Axes != null)
             {
-                axes = model.entities.axes.axis;
+                axes = model.Entities.Axes.Axis;
             }
             else
             {
@@ -318,9 +318,9 @@ namespace FemDesign
             }
 
             List<StructureGrid.Storey> storeys;
-            if (model.entities.storeys != null)
+            if (model.Entities.Storeys != null)
             {
-                storeys = model.entities.storeys.storey;
+                storeys = model.Entities.Storeys.Storey;
             }
             else
             {
@@ -330,15 +330,15 @@ namespace FemDesign
             // return
             return new Dictionary<string, object>
             {
-                {"Guid", model.guid},
-                {"CountryCode", model.country},
+                {"Guid", model.Guid},
+                {"CountryCode", model.Country},
                 {"Bars", model.GetBars()},
                 {"Shells", model.GetSlabs()},
-                {"Covers", model.entities.advancedFem.cover},
-                {"Loads", model.entities.loads.GetLoads()},
-                {"LoadCases", model.entities.loads.loadCase},
-                {"LoadCombinations", model.entities.loads.loadCombination},
-                {"Supports", model.entities.supports.ListSupports()},
+                {"Covers", model.Entities.AdvancedFem.Cover},
+                {"Loads", model.Entities.Loads.GetLoads()},
+                {"LoadCases", model.Entities.Loads.LoadCases},
+                {"LoadCombinations", model.Entities.Loads.LoadCombinations},
+                {"Supports", model.Entities.Supports.ListSupports()},
                 {"Axes", axes},
                 {"Storeys", storeys}
             };
@@ -355,10 +355,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", surfaceReinforcement.guid},
-                {"Straight", surfaceReinforcement.straight},
-                {"Wire", surfaceReinforcement.wire},
-                {"Surface", surfaceReinforcement.region.ToDynamoSurface()}
+                {"Guid", surfaceReinforcement.Guid},
+                {"Straight", surfaceReinforcement.Straight},
+                {"Wire", surfaceReinforcement.Wire},
+                {"Surface", surfaceReinforcement.Region.ToDynamoSurface()}
             };
         }
 
@@ -373,9 +373,9 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Diameter", wire.diameter},
-                {"ReinforcingMaterial", wire.reinforcingMaterialGuid},
-                {"Profile", wire.profile}
+                {"Diameter", wire.Diameter},
+                {"ReinforcingMaterial", wire.ReinforcingMaterialGuid},
+                {"Profile", wire.Profile}
             };
         }
 
@@ -390,12 +390,12 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", storey.guid},
-                {"Origo", storey.origo.ToDynamo()},
-                {"Direction", storey.direction.ToDynamo()},
-                {"DimensionX", storey.dimensionX},
-                {"DimensionY", storey.dimensionY},
-                {"Name", storey.name}
+                {"Guid", storey.Guid},
+                {"Origo", storey.Origo.ToDynamo()},
+                {"Direction", storey.Direction.ToDynamo()},
+                {"DimensionX", storey.DimensionX},
+                {"DimensionY", storey.DimensionY},
+                {"Name", storey.Name}
             };
         }
 
@@ -410,10 +410,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Direction", straight.direction},
-                {"Space", straight.space},
-                {"Face", straight.face},
-                {"Cover", straight.cover}
+                {"Direction", straight.Direction},
+                {"Space", straight.Space},
+                {"Face", straight.Face},
+                {"Cover", straight.Cover}
             };
         }
 
@@ -428,14 +428,14 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", slab.guid},
-                {"StructuralId", slab.name},
-                {"AnalyticalId", slab.slabPart.name},
-                {"Material", slab.material},
-                {"Surface", slab.slabPart.GetDynamoSurface()},
-                {"EdgeCurves", slab.slabPart.GetDynamoCurves()},
-                {"ShellEdgeConnections", slab.slabPart.GetEdgeConnections()},
-                {"SurfaceReinforcement", slab.surfaceReinforcement}
+                {"Guid", slab.Guid},
+                {"StructuralId", slab.Name},
+                {"AnalyticalId", slab.SlabPart.Name},
+                {"Material", slab.Material},
+                {"Surface", slab.SlabPart.GetDynamoSurface()},
+                {"EdgeCurves", slab.SlabPart.GetDynamoCurves()},
+                {"ShellEdgeConnections", slab.SlabPart.GetEdgeConnections()},
+                {"SurfaceReinforcement", slab.SurfaceReinforcement}
             };
         }
 
@@ -464,18 +464,18 @@ namespace FemDesign
                 {
                     return new Dictionary<string, object>
                     {
-                        {"Guid", shellEdgeConnection.guid},
-                        {"AnalyticalID", shellEdgeConnection.name},
-                        {"Motions", shellEdgeConnection.rigidity.motions},
-                        {"Rotations", shellEdgeConnection.rigidity.rotations},
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"Motions", shellEdgeConnection.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.Rigidity.Rotations},
                     };
                 }
                 catch
                 {
                     return new Dictionary<string, object>
                     {
-                        {"Guid", shellEdgeConnection.guid},
-                        {"AnalyticalID", shellEdgeConnection.name},
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
                         {"Motions", "Pre-defined edge connection type was serialized."},
                         {"Rotations", "Pre-defined edge connection type was serialized."},
                     };   
@@ -505,12 +505,12 @@ namespace FemDesign
                 var obj = (FemDesign.Releases.Motions)release;
                 return new Dictionary<string, object>
                 {
-                    {"x_neg", obj.x_neg},
-                    {"x_pos", obj.x_pos},
-                    {"y_neg", obj.y_neg},
-                    {"y_pos", obj.y_pos},
-                    {"z_neg", obj.z_neg},
-                    {"z_pos", obj.z_pos}
+                    {"x_neg", obj.XNeg},
+                    {"x_pos", obj.XPos},
+                    {"y_neg", obj.YNeg},
+                    {"y_pos", obj.YPos},
+                    {"z_neg", obj.ZNeg},
+                    {"z_pos", obj.ZPos}
                 };
             }
             else if (release.GetType() == typeof(FemDesign.Releases.Rotations))
@@ -518,12 +518,12 @@ namespace FemDesign
                 var obj = (FemDesign.Releases.Rotations)release;
                 return new Dictionary<string, object>
                 {
-                    {"x_neg", obj.x_neg},
-                    {"x_pos", obj.x_pos},
-                    {"y_neg", obj.y_neg},
-                    {"y_pos", obj.y_pos},
-                    {"z_neg", obj.z_neg},
-                    {"z_pos", obj.z_pos}
+                    {"x_neg", obj.XNeg},
+                    {"x_pos", obj.XPos},
+                    {"y_neg", obj.YNeg},
+                    {"y_pos", obj.YPos},
+                    {"z_neg", obj.ZNeg},
+                    {"z_pos", obj.ZPos}
                 };
             }
             else
@@ -546,14 +546,14 @@ namespace FemDesign
                 var obj = (FemDesign.Supports.PointSupport)support;
                 return new Dictionary<string, object>
                 {
-                    {"Guid", obj.guid},
-                    {"AnalyticalID", obj.name},
+                    {"Guid", obj.Guid},
+                    {"AnalyticalID", obj.Name},
                     {"Geometry", obj.GetDynamoGeometry()},
                     {"MovingLocal", "PointLoad has no moving local property."},
-                    {"LocalX", obj.group.localX.ToDynamo()},
-                    {"LocalY", obj.group.localY.ToDynamo()},
-                    {"Motions", obj.group.rigidity.motions},
-                    {"Rotations", obj.group.rigidity.rotations}
+                    {"LocalX", obj.Group.LocalX.ToDynamo()},
+                    {"LocalY", obj.Group.LocalY.ToDynamo()},
+                    {"Motions", obj.Group.Rigidity.Motions},
+                    {"Rotations", obj.Group.Rigidity.Rotations}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.LineSupport))
@@ -561,14 +561,14 @@ namespace FemDesign
                 var obj = (FemDesign.Supports.LineSupport)support;
                 return new Dictionary<string, object>
                 {
-                    {"Guid", obj.guid},
-                    {"AnalyticalID", obj.name},
+                    {"Guid", obj.Guid},
+                    {"AnalyticalID", obj.Name},
                     {"Geometry", obj.GetDynamoGeometry()},
-                    {"MovingLocal", obj.movingLocal},
-                    {"LocalX", obj.group.localX.ToDynamo()},
-                    {"LocalY", obj.group.localY.ToDynamo()},
-                    {"Motions", obj.group.rigidity.motions},
-                    {"Rotations", obj.group.rigidity.rotations}
+                    {"MovingLocal", obj.MovingLocal},
+                    {"LocalX", obj.Group.LocalX.ToDynamo()},
+                    {"LocalY", obj.Group.LocalY.ToDynamo()},
+                    {"Motions", obj.Group.Rigidity.Motions},
+                    {"Rotations", obj.Group.Rigidity.Rotations}
                 };
             }
             else

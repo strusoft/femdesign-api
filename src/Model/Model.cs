@@ -19,62 +19,62 @@ namespace FemDesign
     public class Model
     {
         [XmlIgnore]
-        private bool fromStruxml { get; set; } // was model constructed from a .struxml file.
+        private bool FromStruxml { get; set; } // was model constructed from a .struxml file.
         [XmlIgnore]
-        internal Calculate.Application fdApp = new Calculate.Application(); // start a new FdApp to get process information.
+        internal Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
         /// </summary>
         [XmlAttribute("struxml_version")]
-        public string struxmlVersion { get; set; } // versiontype
+        public string StruxmlVersion { get; set; } // versiontype
         /// <summary>
         /// Name of the StruSoft or 3rd party product what generated this XML file.
         /// </summary>
         [XmlAttribute("source_software")]
-        public string sourceSoftware { get; set; } // string
+        public string SourceSoftware { get; set; } // string
         /// <summary>
         /// The data is partial data, so the oldest entity latest modification date and time is the
         /// value in UTC. If the current XML contains the whole database, the start_time value is
         /// "1970-01-01T00:00:00Z". The date and time always in UTC!
         /// </summary>
         [XmlAttribute("start_time")]
-        public string startTime { get; set; } // dateTime
+        public string StartTime { get; set; } // dateTime
         /// <summary>
         /// The data is partial data, so the newest entity latest modification date and time is this
         /// value in UTC. This date and time always in UTC!
         /// </summary>
         [XmlAttribute("end_time")]
-        public string endTime { get; set; } // dateTime
+        public string EndTime { get; set; } // dateTime
         [XmlAttribute("guid")]
-        public System.Guid guid { get; set; } // guidtype
+        public System.Guid Guid { get; set; } // guidtype
         [XmlAttribute("convertid")]
-        public string convertid { get; set; } // guidtype
+        public string ConvertId { get; set; } // guidtype
         /// <summary>Calculation code</summary>
         [IsVisibleInDynamoLibrary(true)]
         [XmlAttribute("standard")]
-        public string standard { get; set; } // standardtype
+        public string Standard { get; set; } // standardtype
         /// <summary>National annex of calculation code</summary>
         [IsVisibleInDynamoLibrary(true)]
         [XmlAttribute("country")]
-        public string country { get; set; } // eurocodetype
+        public string Country { get; set; } // eurocodetype
         [XmlAttribute("xmlns")]
-        public string xmlns { get; set; }
+        public string Xmlns { get; set; }
         [XmlElement("entities", Order = 1)]
-        public Entities entities { get; set; } 
+        public Entities Entities { get; set; } 
         [XmlElement("sections", Order = 2)]
-        public Sections.ModelSections sections { get; set; }
+        public Sections.ModelSections Sections { get; set; }
         [XmlElement("materials", Order = 3)]
-        public Materials.Materials materials { get; set; }
+        public Materials.Materials Materials { get; set; }
         [XmlElement("reinforcing_materials", Order = 4)]
-        public Materials.ReinforcingMaterials reinforcingMaterials { get; set; }
+        public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
         [XmlElement("composites", Order = 5)]
-        public List<DummyXmlObject> composites {get {return null;} set {value = null;}}
+        public List<DummyXmlObject> Composites {get {return null;} set {value = null;}}
         [XmlElement("point_connection_types", Order = 6)]
-        public List<DummyXmlObject> pointConnectionTypes {get {return null;} set {value = null;}}
+        public List<DummyXmlObject> PointConnectionTypes {get {return null;} set {value = null;}}
         [XmlElement("point_support_group_types", Order = 7)]
-        public List<DummyXmlObject> pointSupportGroupTypes {get {return null;} set {value = null;}}
+        public List<DummyXmlObject> PointSupportGroupTypes {get {return null;} set {value = null;}}
         [XmlElement("line_connection_types", Order = 8)]
-        public LineConnectionTypes.LineConnectionTypes lineConnectionTypes {get; set; }
+        public LineConnectionTypes.LineConnectionTypes LineConnectionTypes {get; set; }
 
         // line_connection_types
         // line_support_group_types
@@ -89,7 +89,7 @@ namespace FemDesign
         // geometry
 
         [XmlElement("end", Order = 9)]
-        public string end { get; set; }
+        public string End { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -104,16 +104,16 @@ namespace FemDesign
         /// </summary>
         internal Model(string country)
         {
-            this.fromStruxml = false;
-            this.struxmlVersion = "01.00.000";
-            this.sourceSoftware = "FEM-Design 18.00.004";
-            this.startTime = "1970-01-01T00:00:00.000";
-            this.endTime = System.DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
-            this.guid = System.Guid.NewGuid();
-            this.convertid = "00000000-0000-0000-0000-000000000000";
-            this.standard = "EC";
-            this.country = country;
-            this.end = "";
+            this.FromStruxml = false;
+            this.StruxmlVersion = "01.00.000";
+            this.SourceSoftware = "FEM-Design 18.00.004";
+            this.StartTime = "1970-01-01T00:00:00.000";
+            this.EndTime = System.DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
+            this.Guid = System.Guid.NewGuid();
+            this.ConvertId = "00000000-0000-0000-0000-000000000000";
+            this.Standard = "EC";
+            this.Country = country;
+            this.End = "";
         }
 
         #region serialization
@@ -145,7 +145,7 @@ namespace FemDesign
 
             // 
             Model fdModel = (Model)obj;
-            fdModel.fromStruxml = true;
+            fdModel.FromStruxml = true;
             reader.Close();
             return fdModel;
             
@@ -178,38 +178,38 @@ namespace FemDesign
         /// </summary>
         internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
-            if (this.fromStruxml)
+            if (this.FromStruxml)
             {
                 // check if model contains entities, sections and materials
-                if (this.entities == null)
+                if (this.Entities == null)
                 {
-                    this.entities = new Entities();
+                    this.Entities = new Entities();
                 }
-                if (this.sections == null)
+                if (this.Sections == null)
                 {
-                    this.sections = new Sections.ModelSections();
+                    this.Sections = new Sections.ModelSections();
                 }
-                if (this.materials == null)
+                if (this.Materials == null)
                 {
-                    this.materials = new Materials.Materials();
+                    this.Materials = new Materials.Materials();
                 }
-                if (this.reinforcingMaterials == null)
+                if (this.ReinforcingMaterials == null)
                 {
-                    this.reinforcingMaterials = new Materials.ReinforcingMaterials();
+                    this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
                 }
 
                 // if model was imported from struxml: do not reset entities, sections or materials.
                 // reset to false
-                this.fromStruxml = false;
+                this.FromStruxml = false;
             }
 
             else
             {
                 // if model was created in runtime: reset entities, sections and materials.
-                this.entities = new Entities();
-                this.sections = new Sections.ModelSections();
-                this.materials = new Materials.Materials();
-                this.reinforcingMaterials = new Materials.ReinforcingMaterials();
+                this.Entities = new Entities();
+                this.Sections = new Sections.ModelSections();
+                this.Materials = new Materials.Materials();
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
             }
 
             if (bars != null)
@@ -294,17 +294,17 @@ namespace FemDesign
         {
             if (this.BarInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
                 // add bar properties
                 this.AddComplexSection(obj);
-                this.AddMaterial(obj.material);
-                this.AddSection(obj.section);
+                this.AddMaterial(obj.Material);
+                this.AddSection(obj.Section);
 
                 // add bar
-                this.entities.bar.Add(obj);  
+                this.Entities.Bar.Add(obj);  
             }
         }
 
@@ -313,9 +313,9 @@ namespace FemDesign
         /// </summary>
         private bool BarInModel(Bars.Bar obj)
         {
-            foreach (Bars.Bar elem in this.entities.bar)
+            foreach (Bars.Bar elem in this.Entities.Bar)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -328,13 +328,13 @@ namespace FemDesign
         /// </summary>
         private void AddComplexSection(Bars.Bar obj)
         {   
-            if (obj.complexSection == null)
+            if (obj.ComplexSection == null)
             {
                 // pass
             }
             else
             {
-                this.sections.complexSection.Add(obj.complexSection);
+                this.Sections.ComplexSection.Add(obj.ComplexSection);
             }     
         }
 
@@ -343,14 +343,14 @@ namespace FemDesign
         /// </summary>
         private string ComplexSectionInModel(FemDesign.Sections.ComplexSection obj)
         {
-            foreach (FemDesign.Sections.ComplexSection elem in this.sections.complexSection)
+            foreach (FemDesign.Sections.ComplexSection elem in this.Sections.ComplexSection)
             {
-                if (elem.section[0].guid == obj.section[0].guid &&
-                    elem.section[0].ecc.Equals(obj.section[0].ecc) &&
-                    elem.section[1].guid == obj.section[1].guid &&
-                    elem.section[1].ecc.Equals(obj.section[1].ecc))
+                if (elem.Section[0].Guid == obj.Section[0].Guid &&
+                    elem.Section[0].Eccentricity.Equals(obj.Section[0].Eccentricity) &&
+                    elem.Section[1].Guid == obj.Section[1].Guid &&
+                    elem.Section[1].Eccentricity.Equals(obj.Section[1].Eccentricity))
                 {
-                    return elem.guid.ToString();
+                    return elem.Guid.ToString();
                 }
             }
             return null;
@@ -363,12 +363,12 @@ namespace FemDesign
         {
             if (this.CoverInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
                 // add cover
-                this.entities.advancedFem.cover.Add(obj);  
+                this.Entities.AdvancedFem.Cover.Add(obj);  
             }
         }
 
@@ -377,9 +377,9 @@ namespace FemDesign
         /// </summary>
         private bool CoverInModel(Cover obj)
         {
-            foreach (Cover elem in this.entities.advancedFem.cover)
+            foreach (Cover elem in this.Entities.AdvancedFem.Cover)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -438,11 +438,11 @@ namespace FemDesign
         {
             if (this.PointLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.pointLoad.Add(obj);
+                this.Entities.Loads.PointLoads.Add(obj);
             }    
         }
 
@@ -451,9 +451,9 @@ namespace FemDesign
         /// </summary>
         private bool PointLoadInModel(Loads.PointLoad obj)
         {
-            foreach (Loads.PointLoad elem in this.entities.loads.pointLoad)
+            foreach (Loads.PointLoad elem in this.Entities.Loads.PointLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -468,11 +468,11 @@ namespace FemDesign
         {
             if (this.LineLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.lineLoad.Add(obj);
+                this.Entities.Loads.LineLoads.Add(obj);
             }   
         }
 
@@ -481,9 +481,9 @@ namespace FemDesign
         /// </summary>
         private bool LineLoadInModel(Loads.LineLoad obj)
         {
-            foreach (Loads.LineLoad elem in this.entities.loads.lineLoad)
+            foreach (Loads.LineLoad elem in this.Entities.Loads.LineLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -498,11 +498,11 @@ namespace FemDesign
         {
             if (this.LineTemperatureLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.lineTemperatureLoad.Add(obj);
+                this.Entities.Loads.LineTemperatureLoads.Add(obj);
             }   
         }
 
@@ -511,9 +511,9 @@ namespace FemDesign
         /// </summary>
         private bool LineTemperatureLoadInModel(Loads.LineTemperatureLoad obj)
         {
-            foreach (Loads.LineTemperatureLoad elem in this.entities.loads.lineTemperatureLoad)
+            foreach (Loads.LineTemperatureLoad elem in this.Entities.Loads.LineTemperatureLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -528,11 +528,11 @@ namespace FemDesign
         {
             if (this.PressureLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.pressureLoad.Add(obj);
+                this.Entities.Loads.PressureLoads.Add(obj);
             }   
         }
 
@@ -541,9 +541,9 @@ namespace FemDesign
         /// </summary>
         private bool PressureLoadInModel(Loads.PressureLoad obj)
         {
-            foreach (Loads.PressureLoad elem in this.entities.loads.pressureLoad)
+            foreach (Loads.PressureLoad elem in this.Entities.Loads.PressureLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -558,11 +558,11 @@ namespace FemDesign
         {
             if (this.SurfaceLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.surfaceLoad.Add(obj);
+                this.Entities.Loads.SurfaceLoads.Add(obj);
             }   
         }
 
@@ -571,9 +571,9 @@ namespace FemDesign
         /// </summary>
         private bool SurfaceLoadInModel(Loads.SurfaceLoad obj)
         {
-            foreach (Loads.SurfaceLoad elem in this.entities.loads.surfaceLoad)
+            foreach (Loads.SurfaceLoad elem in this.Entities.Loads.SurfaceLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -588,11 +588,11 @@ namespace FemDesign
         {
             if (this.SurfaceTemperatureLoadInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.loads.surfaceTemperatureLoad.Add(obj);
+                this.Entities.Loads.SurfaceTemperatureLoads.Add(obj);
             }   
         }
 
@@ -601,9 +601,9 @@ namespace FemDesign
         /// </summary>
         private bool SurfaceTemperatureLoadInModel(Loads.SurfaceTemperatureLoad obj)
         {
-            foreach (Loads.SurfaceTemperatureLoad elem in this.entities.loads.surfaceTemperatureLoad)
+            foreach (Loads.SurfaceTemperatureLoad elem in this.Entities.Loads.SurfaceTemperatureLoads)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -616,7 +616,7 @@ namespace FemDesign
         /// </summary>
         private void AddMassConversionTable(Loads.MassConversionTable obj)
         {
-            this.entities.loads.loadCaseMassConversionTable = obj;  
+            this.Entities.Loads.LoadCaseMassConversionTable = obj;  
         }
 
         /// <summary>
@@ -626,15 +626,15 @@ namespace FemDesign
         {
             if (this.LoadCaseInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
                 if (this.LoadCaseNameTaken(obj))
                 {
-                    obj.name = obj.name + " (1)";
+                    obj.Name = obj.Name + " (1)";
                 }
-                this.entities.loads.loadCase.Add(obj);
+                this.Entities.Loads.LoadCases.Add(obj);
             } 
         }
 
@@ -643,9 +643,9 @@ namespace FemDesign
         /// </summary>
         private bool LoadCaseInModel(Loads.LoadCase obj)
         {
-            foreach (Loads.LoadCase elem in this.entities.loads.loadCase)
+            foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -658,9 +658,9 @@ namespace FemDesign
         /// </summary>
         private bool LoadCaseNameTaken(Loads.LoadCase obj)
         {
-            foreach (Loads.LoadCase elem in this.entities.loads.loadCase)
+            foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.name == obj.name)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -675,15 +675,15 @@ namespace FemDesign
         {
             if (this.LoadCombinationInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
                 if (this.LoadCombinationNameTaken(obj))
                 {
-                    obj.name = obj.name + " (1)";
+                    obj.Name = obj.Name + " (1)";
                 }
-                this.entities.loads.loadCombination.Add(obj);
+                this.Entities.Loads.LoadCombinations.Add(obj);
             }
         }
 
@@ -692,9 +692,9 @@ namespace FemDesign
         /// </summary>
         private bool LoadCombinationInModel(Loads.LoadCombination obj)
         {
-            foreach (Loads.LoadCombination elem in this.entities.loads.loadCombination)
+            foreach (Loads.LoadCombination elem in this.Entities.Loads.LoadCombinations)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -707,9 +707,9 @@ namespace FemDesign
         /// </summary>
         private bool LoadCombinationNameTaken(Loads.LoadCombination obj)
         {
-            foreach (Loads.LoadCombination elem in this.entities.loads.loadCombination)
+            foreach (Loads.LoadCombination elem in this.Entities.Loads.LoadCombinations)
             {
-                if (elem.name == obj.name)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -724,19 +724,19 @@ namespace FemDesign
         {
             if (this.SlabInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
                 // add shell properties
-                this.AddMaterial(obj.material);
+                this.AddMaterial(obj.Material);
                 this.AddSurfaceReinforcementParameters(obj);
 
                 // add SurfaceReinforcement
                 this.AddSurfaceReinforcements(obj);
                 
                 // add shell
-                this.entities.slab.Add(obj); 
+                this.Entities.Slab.Add(obj); 
             }
         }
 
@@ -745,9 +745,9 @@ namespace FemDesign
         /// </summary>
         private bool SlabInModel(Shells.Slab obj)
         {
-            foreach (Shells.Slab elem in this.entities.slab)
+            foreach (Shells.Slab elem in this.Entities.Slab)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -766,7 +766,7 @@ namespace FemDesign
             }
             else
             {
-                this.reinforcingMaterials.material.Add(obj);
+                this.ReinforcingMaterials.Material.Add(obj);
             }  
         }
 
@@ -775,9 +775,9 @@ namespace FemDesign
         /// </summary>
         private bool ReinforcingMaterialInModel(Materials.Material obj)
         {
-            foreach (Materials.Material elem in this.reinforcingMaterials.material)
+            foreach (Materials.Material elem in this.ReinforcingMaterials.Material)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -817,19 +817,19 @@ namespace FemDesign
         private void AddAxis(StructureGrid.Axis obj)
         {
             // check if axes in entities
-            if (this.entities.axes == null)
+            if (this.Entities.Axes == null)
             {
-                this.entities.axes = new StructureGrid.Axes();
+                this.Entities.Axes = new StructureGrid.Axes();
             }
 
             // add axis to entities
             if (this.AxisInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.axes.axis.Add(obj);
+                this.Entities.Axes.Axis.Add(obj);
             }
         }
 
@@ -840,9 +840,9 @@ namespace FemDesign
         /// <returns></returns>
         private bool AxisInModel(StructureGrid.Axis obj)
         {
-            foreach (StructureGrid.Axis elem in this.entities.axes.axis)
+            foreach (StructureGrid.Axis elem in this.Entities.Axes.Axis)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -857,15 +857,15 @@ namespace FemDesign
         private void AddStorey(StructureGrid.Storey obj)
         {
             // check if storeys in entities
-            if (this.entities.storeys == null)
+            if (this.Entities.Storeys == null)
             {
-                this.entities.storeys = new StructureGrid.Storeys();
+                this.Entities.Storeys = new StructureGrid.Storeys();
             }
 
             // add storey to entities
             if (this.StoreyInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
@@ -873,7 +873,7 @@ namespace FemDesign
                 this.ConsistenStoreyGeometry(obj);
 
                 // add to storeys
-                this.entities.storeys.storey.Add(obj);
+                this.Entities.Storeys.Storey.Add(obj);
             }
         }
 
@@ -884,9 +884,9 @@ namespace FemDesign
         /// <returns></returns>
         private bool StoreyInModel(StructureGrid.Storey obj)
         {
-            foreach (StructureGrid.Storey elem in this.entities.storeys.storey)
+            foreach (StructureGrid.Storey elem in this.Entities.Storeys.Storey)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -902,15 +902,15 @@ namespace FemDesign
         /// <param name="obj"></param>
         private void ConsistenStoreyGeometry(StructureGrid.Storey obj)
         {
-            foreach (StructureGrid.Storey elem in this.entities.storeys.storey)
+            foreach (StructureGrid.Storey elem in this.Entities.Storeys.Storey)
             {
-                if (elem.origo.x != obj.origo.x || elem.origo.y != obj.origo.y)
+                if (elem.Origo.X != obj.Origo.X || elem.Origo.Y != obj.Origo.Y)
                 {
-                    throw new System.ArgumentException($"Storey does not share XY-coordinates with storeys in model (point x: {elem.origo.x}, y: {elem.origo.y}). If model was empty make sure all storeys added to model share XY-coordinates.");
+                    throw new System.ArgumentException($"Storey does not share XY-coordinates with storeys in model (point x: {elem.Origo.X}, y: {elem.Origo.Y}). If model was empty make sure all storeys added to model share XY-coordinates.");
                 }
-                if (!elem.direction.Equals(obj.direction))
+                if (!elem.Direction.Equals(obj.Direction))
                 {
-                    throw new System.ArgumentException($"Storey does not share direction with storeys in model (vector i: {elem.direction.x} , j: {elem.direction.y}). If model was empty make sure all storeys added to model share direction.");
+                    throw new System.ArgumentException($"Storey does not share direction with storeys in model (vector i: {elem.Direction.X} , j: {elem.Direction.Y}). If model was empty make sure all storeys added to model share direction.");
                 }
             }
         }
@@ -921,9 +921,9 @@ namespace FemDesign
         /// <param name="obj"></param>
         private void AddSurfaceReinforcements(Shells.Slab obj)
         {
-            foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in obj.surfaceReinforcement)
+            foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in obj.SurfaceReinforcement)
             {
-                this.AddReinforcingMaterial(surfaceReinforcement.wire.reinforcingMaterial);
+                this.AddReinforcingMaterial(surfaceReinforcement.Wire.ReinforcingMaterial);
                 this.AddSurfaceReinforcement(surfaceReinforcement);
             }
         }
@@ -935,11 +935,11 @@ namespace FemDesign
         {
             if (this.SurfaceReinforcementInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Did you add the same {obj.GetType().FullName} to different Slabs?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Did you add the same {obj.GetType().FullName} to different Slabs?");
             }
             else
             {
-                this.entities.surfaceReinforcement.Add(obj);
+                this.Entities.SurfaceReinforcement.Add(obj);
             }  
         }
 
@@ -950,9 +950,9 @@ namespace FemDesign
         /// <returns></returns>
         private bool SurfaceReinforcementInModel(Reinforcement.SurfaceReinforcement obj)
         {
-            foreach (Reinforcement.SurfaceReinforcement elem in this.entities.surfaceReinforcement)
+            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcement)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -965,15 +965,15 @@ namespace FemDesign
         /// </summary>
         private void AddSurfaceReinforcementParameters(Shells.Slab obj)
         {
-            if (obj.surfaceReinforcementParameters != null)
+            if (obj.SurfaceReinforcementParameters != null)
             {
-                if (this.SurfaceReinforcementParametersInModel(obj.surfaceReinforcementParameters))
+                if (this.SurfaceReinforcementParametersInModel(obj.SurfaceReinforcementParameters))
                 {
-                    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
                 }
                 else
                 {
-                    this.entities.surfaceReinforcementParameters.Add(obj.surfaceReinforcementParameters);
+                    this.Entities.SurfaceReinforcementParameters.Add(obj.SurfaceReinforcementParameters);
                 }
             } 
         }
@@ -985,9 +985,9 @@ namespace FemDesign
         /// <returns></returns>
         private bool SurfaceReinforcementParametersInModel(Reinforcement.SurfaceReinforcementParameters obj)
         {
-            foreach (Reinforcement.SurfaceReinforcementParameters elem in this.entities.surfaceReinforcementParameters)
+            foreach (Reinforcement.SurfaceReinforcementParameters elem in this.Entities.SurfaceReinforcementParameters)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1030,11 +1030,11 @@ namespace FemDesign
         {
             if (this.PointSupportInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.supports.pointSupport.Add(obj);
+                this.Entities.Supports.PointSupport.Add(obj);
             }
         }
 
@@ -1043,9 +1043,9 @@ namespace FemDesign
         /// </summary>
         private bool PointSupportInModel(Supports.PointSupport obj)
         {
-            foreach (Supports.PointSupport elem in this.entities.supports.pointSupport)
+            foreach (Supports.PointSupport elem in this.Entities.Supports.PointSupport)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1060,11 +1060,11 @@ namespace FemDesign
         {
             if (this.LineSupportInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.supports.lineSupport.Add(obj);
+                this.Entities.Supports.LineSupport.Add(obj);
             }
         }
 
@@ -1073,9 +1073,9 @@ namespace FemDesign
         /// </summary>
         private bool LineSupportInModel(Supports.LineSupport obj)
         {
-            foreach (Supports.LineSupport elem in this.entities.supports.lineSupport)
+            foreach (Supports.LineSupport elem in this.Entities.Supports.LineSupport)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1090,11 +1090,11 @@ namespace FemDesign
         {
             if (this.SurfaceSupportInModel(obj))
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else
             {
-                this.entities.supports.surfaceSupport.Add(obj);
+                this.Entities.Supports.SurfaceSupport.Add(obj);
             }
         }
 
@@ -1103,9 +1103,9 @@ namespace FemDesign
         /// </summary>
         private bool SurfaceSupportInModel(Supports.SurfaceSupport obj)
         {
-            foreach (Supports.SurfaceSupport elem in this.entities.supports.surfaceSupport)
+            foreach (Supports.SurfaceSupport elem in this.Entities.Supports.SurfaceSupport)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1124,7 +1124,7 @@ namespace FemDesign
             }
             else
             {
-                this.materials.material.Add(obj);
+                this.Materials.Material.Add(obj);
             }
         }
 
@@ -1133,9 +1133,9 @@ namespace FemDesign
         /// </summary>
         private bool MaterialInModel(Materials.Material obj)
         {
-            foreach (Materials.Material elem in this.materials.material)
+            foreach (Materials.Material elem in this.Materials.Material)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1154,7 +1154,7 @@ namespace FemDesign
             }
             else
             {
-                this.sections.section.Add(obj);
+                this.Sections.Section.Add(obj);
             }
         }
 
@@ -1163,9 +1163,9 @@ namespace FemDesign
         /// </summary>
         private bool SectionInModel(FemDesign.Sections.Section obj)
         {
-            foreach (FemDesign.Sections.Section elem in this.sections.section)
+            foreach (FemDesign.Sections.Section elem in this.Sections.Section)
             {
-                if (elem.guid == obj.guid)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1182,21 +1182,21 @@ namespace FemDesign
         internal List<Bars.Bar> GetBars()
         {
             List<Bars.Bar> _bars = new List<Bars.Bar>();
-            foreach (Bars.Bar item in this.entities.bar)
+            foreach (Bars.Bar item in this.Entities.Bar)
             {
                 // get complex section
-                if (item.type != "truss")
+                if (item.Type != "truss")
                 {
-                    foreach (FemDesign.Sections.ComplexSection _complexSection in this.sections.complexSection)
+                    foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
-                        if (_complexSection.guid == item.barPart.complexSection)
+                        if (complexSection.Guid == item.BarPart.ComplexSection)
                         {
-                            item.complexSection = _complexSection;
+                            item.ComplexSection = complexSection;
                         }
                     }
 
                     // check if complex section found
-                    if (item.complexSection == null)
+                    if (item.ComplexSection == null)
                     {
                         throw new System.ArgumentException("No matching complex section found. Model.GetBars() failed.");
                     }
@@ -1204,41 +1204,41 @@ namespace FemDesign
 
 
                 // get material
-                foreach (Materials.Material _material in this.materials.material)
+                foreach (Materials.Material material in this.Materials.Material)
                 {
-                    if (_material.guid == item.barPart.complexMaterial)
+                    if (material.Guid == item.BarPart.ComplexMaterial)
                     {
-                        item.material = _material;
+                        item.Material = material;
                     }
                 }
 
                 // check if material found
-                if (item.material == null)
+                if (item.Material == null)
                 {
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
 
                 // get section
-                foreach (FemDesign.Sections.Section _section in this.sections.section)
+                foreach (FemDesign.Sections.Section section in this.Sections.Section)
                 {
-                    if (item.complexSection == null)
+                    if (item.ComplexSection == null)
                     {
-                        if (_section.guid == item.barPart.complexSection)
+                        if (section.Guid == item.BarPart.ComplexSection)
                         {
-                            item.section = _section;
+                            item.Section = section;
                         }
                     }
                     else
                     {
-                        if (_section.guid == item.complexSection.section[0].guid)
+                        if (section.Guid == item.ComplexSection.Section[0].Guid)
                         {
-                            item.section = _section;
+                            item.Section = section;
                         }
                     }  
                 }
                 
                 // check if section found
-                if (item.section == null)
+                if (item.Section == null)
                 {
                     throw new System.ArgumentException("No matching section found. Model.GetBars() failed");
                 }
@@ -1257,36 +1257,36 @@ namespace FemDesign
         internal List<Shells.Slab> GetSlabs()
         {
             List<Shells.Slab> _slabs = new List<Shells.Slab>();
-            foreach (Shells.Slab item in this.entities.slab)
+            foreach (Shells.Slab item in this.Entities.Slab)
             {
                 // get material
-                foreach (Materials.Material _material in this.materials.material)
+                foreach (Materials.Material _material in this.Materials.Material)
                 {
-                    if (_material.guid == item.slabPart.complexMaterial)
+                    if (_material.Guid == item.SlabPart.ComplexMaterial)
                     {
-                        item.material = _material;
+                        item.Material = _material;
                     }
                 }
 
                 // get line_connection_type     
-                if (this.lineConnectionTypes != null)
+                if (this.LineConnectionTypes != null)
                 {         
-                    foreach (Geometry.Contour _contour in item.slabPart.region.contours)
+                    foreach (Geometry.Contour contour in item.SlabPart.Region.Contours)
                     {
-                        foreach (Geometry.Edge _edge in _contour.edges)
+                        foreach (Geometry.Edge edge in contour.Edges)
                         {
-                            if (_edge.edgeConnection != null)
+                            if (edge.EdgeConnection != null)
                             {
-                                if (_edge.edgeConnection.predefinedRigidity != null)
+                                if (edge.EdgeConnection.PredefinedRigidity != null)
                                 {
-                                    foreach (LineConnectionTypes.PredefinedType _predefinedType in this.lineConnectionTypes.predefinedType)
+                                    foreach (LineConnectionTypes.PredefinedType _predefinedType in this.LineConnectionTypes.PredefinedType)
                                     {
                                         // replace referenceType with a rigidity
-                                        if (_edge.edgeConnection.predefinedRigidity.guid == _predefinedType.guid)
+                                        if (edge.EdgeConnection.PredefinedRigidity.Guid == _predefinedType.Guid)
                                         {
-                                            _edge.edgeConnection.rigidity = _predefinedType.rigidity;
+                                            edge.EdgeConnection.Rigidity = _predefinedType.Rigidity;
                                             // remove referenceType
-                                            _edge.edgeConnection.predefinedRigidity = null;
+                                            edge.EdgeConnection.PredefinedRigidity = null;
                                         }
                                     }
                                 }
@@ -1296,36 +1296,36 @@ namespace FemDesign
                 }
 
                 // get surface reinforcement parameters
-                foreach (Reinforcement.SurfaceReinforcementParameters _surfaceReinforcementParameter in this.entities.surfaceReinforcementParameters)
+                foreach (Reinforcement.SurfaceReinforcementParameters surfaceReinforcementParameter in this.Entities.SurfaceReinforcementParameters)
                 {
-                    if (_surfaceReinforcementParameter.baseShell.guid == item.slabPart.guid)
+                    if (surfaceReinforcementParameter.BaseShell.Guid == item.SlabPart.Guid)
                     {
-                        item.surfaceReinforcementParameters = _surfaceReinforcementParameter;
+                        item.SurfaceReinforcementParameters = surfaceReinforcementParameter;
                     }
                 }
 
                 // get surface reinforcement
-                foreach (Reinforcement.SurfaceReinforcement _surfaceReinforcement in this.entities.surfaceReinforcement)
+                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcement)
                 {
-                    if (_surfaceReinforcement.baseShell.guid == item.slabPart.guid)
+                    if (surfaceReinforcement.BaseShell.Guid == item.SlabPart.Guid)
                     {
 
                         // get wire material
-                        foreach (Materials.Material _material in this.reinforcingMaterials.material)
+                        foreach (Materials.Material material in this.ReinforcingMaterials.Material)
                         {
-                            if (_surfaceReinforcement.wire.reinforcingMaterialGuid == _material.guid)
+                            if (surfaceReinforcement.Wire.ReinforcingMaterialGuid == material.Guid)
                             {
-                                _surfaceReinforcement.wire.reinforcingMaterial = _material;
+                                surfaceReinforcement.Wire.ReinforcingMaterial = material;
                             }
                         }
 
                         // add surface reinforcement to slab
-                        item.surfaceReinforcement.Add(_surfaceReinforcement);
+                        item.SurfaceReinforcement.Add(surfaceReinforcement);
                     }
                 }
 
                 // check if material found
-                if (item.material == null)
+                if (item.Material == null)
                 {
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
@@ -1402,7 +1402,7 @@ namespace FemDesign
         public static void OpenModel(Model fdModel, string struxmlPath, bool closeOpenWindows = false)
         {
             fdModel.SerializeModel(struxmlPath);
-            fdModel.fdApp.OpenStruxml(struxmlPath, closeOpenWindows);
+            fdModel.FdApp.OpenStruxml(struxmlPath, closeOpenWindows);
             // FdScript.Open(struxmlPath, closeOpenWindows);
         }
         /// <summary>
@@ -1435,7 +1435,7 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Model", Model.DeserializeFromFilePath(fdScript.struxmlPath)},
+                    {"Model", Model.DeserializeFromFilePath(fdScript.StruxmlPath)},
                     {"HasExited", hasExited}
                 };
             }

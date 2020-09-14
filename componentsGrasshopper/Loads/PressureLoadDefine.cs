@@ -53,7 +53,7 @@ namespace FemDesign.GH
 
             //
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.pressureLoad = FemDesign.Loads.PressureLoad.Define(region, fdVector, loadCase, z0, q0, qh, comment);
+            obj.PressureLoad = FemDesign.Loads.PressureLoad.Define(region, fdVector, loadCase, z0, q0, qh, comment);
 
             // return
             DA.SetData(0, obj);

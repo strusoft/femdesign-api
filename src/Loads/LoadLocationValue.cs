@@ -25,10 +25,10 @@ namespace FemDesign.Loads
         /// </summary>
         internal LoadLocationValue(Geometry.FdPoint3d loadPosition, double val)
         {
-            this.x = loadPosition.x;
-            this.y = loadPosition.y;
-            this.z = loadPosition.z;
-            this.val = val;
+            this.X = loadPosition.X;
+            this.Y = loadPosition.Y;
+            this.Z = loadPosition.Z;
+            this.Value = val;
         }
 
         #region dynamo

@@ -46,7 +46,7 @@ namespace FemDesign.GH
 
             //
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.pointLoad =  new FemDesign.Loads.PointLoad(fdPoint, _force, loadCase, comment, "force");
+            obj.PointLoad =  new FemDesign.Loads.PointLoad(fdPoint, _force, loadCase, comment, "force");
 
             //
         

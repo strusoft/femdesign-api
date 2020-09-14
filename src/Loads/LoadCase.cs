@@ -18,11 +18,11 @@ namespace FemDesign.Loads
     {
         // attributes
         [XmlAttribute("name")]
-        public string name { get; set; } // name79
+        public string Name { get; set; } // name79
         [XmlAttribute("type")]
         public string _type; // loadcasetype_type
         [XmlIgnore]
-        public string type
+        public string Type
         {
             get {return this._type;}
             set {this._type = RestrictedString.LoadCaseType(value);}
@@ -30,7 +30,7 @@ namespace FemDesign.Loads
         [XmlAttribute("duration_class")]
         public string _durationClass; // loadcasedurationtype
         [XmlIgnore]
-        public string durationClass
+        public string DurationClass
         {
             get {return this._durationClass;}
             set {this._durationClass = RestrictedString.LoadCaseDurationType(value);}
@@ -50,9 +50,9 @@ namespace FemDesign.Loads
         internal LoadCase(string name, string type, string durationClass)
         {
             this.EntityCreated();
-            this.type = type;
-            this.durationClass = durationClass;
-            this.name = name;
+            this.Type = type;
+            this.DurationClass = durationClass;
+            this.Name = name;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace FemDesign.Loads
         {
             foreach (LoadCase _loadCase in loadCases)
             {
-                if (_loadCase.name == name)
+                if (_loadCase.Name == name)
                 {
                     return _loadCase;
                 }

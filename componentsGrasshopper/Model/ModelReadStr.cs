@@ -57,7 +57,7 @@ namespace FemDesign.GH
             //
             if (hasExited)
             {
-                DA.SetData(0, FemDesign.Model.DeserializeFromFilePath(fdScript.struxmlPath));
+                DA.SetData(0, FemDesign.Model.DeserializeFromFilePath(fdScript.StruxmlPath));
                 DA.SetData(1, hasExited);
             }
             else

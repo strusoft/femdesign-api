@@ -49,7 +49,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(brep);          
 
             //
-            FemDesign.Reinforcement.SurfaceReinforcement obj = FemDesign.Reinforcement.SurfaceReinforcement.Straight(region, straight, wire);
+            FemDesign.Reinforcement.SurfaceReinforcement obj = FemDesign.Reinforcement.SurfaceReinforcement.DefineStraightSurfaceReinforcement(region, straight, wire);
         
             // return
             DA.SetData(0, obj);

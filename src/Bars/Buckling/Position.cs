@@ -17,7 +17,7 @@ namespace FemDesign.Bars.Buckling
         [XmlAttribute("start")]
         public double _start; // position_type
         [XmlIgnore]
-        public double start
+        public double Start
         {
             get { return this._start; }
             set { this._start = RestrictedDouble.PositionType(value); }
@@ -25,7 +25,7 @@ namespace FemDesign.Bars.Buckling
         [XmlAttribute("end")]
         public double _end; // position_type
         [XmlIgnore]
-        public double end
+        public double End
         {
             get { return this._end; }
             set { this._end = RestrictedDouble.PositionType(value); }
@@ -47,8 +47,8 @@ namespace FemDesign.Bars.Buckling
             }
             else
             {
-                this.start = start;
-                this.end = end;
+                this.Start = start;
+                this.End = end;
             }
         }
         

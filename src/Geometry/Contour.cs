@@ -12,7 +12,7 @@ namespace FemDesign.Geometry
     public class Contour
     {
         [XmlElement("edge")]
-        public List<Edge> edges = new List<Edge>(); // sequence: edge_type
+        public List<Edge> Edges = new List<Edge>(); // sequence: edge_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -29,7 +29,7 @@ namespace FemDesign.Geometry
         /// </summary>
         internal Contour(List<Edge> edges)
         {
-            this.edges = edges;
+            this.Edges = edges;
         }
     }
 }

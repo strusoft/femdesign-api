@@ -18,31 +18,31 @@ namespace FemDesign.Materials
     public class MaterialDatabase
     {
         [XmlIgnore]
-        public string filePath {get; set; }
+        public string FilePath {get; set; }
         [XmlAttribute("struxml_version")]
-        public string struxml_version { get; set; }
+        public string StruxmlVersion { get; set; }
         [XmlAttribute("source_software")]
-        public string source_software { get; set; }
+        public string SourceSoftware { get; set; }
         [XmlAttribute("start_time")]
-        public string start_time { get; set; }
+        public string StartTime { get; set; }
         [XmlAttribute("end_time")]
-        public string end_time { get; set; }
+        public string EndTime { get; set; }
         [XmlAttribute("guid")]
-        public string guid { get; set; }
+        public string Guid { get; set; }
         [XmlAttribute("convertid")]
-        public string convertid { get; set; }
+        public string ConvertId { get; set; }
         [XmlAttribute("standard")]
-        public string standard { get; set; }
+        public string Standard { get; set; }
         [XmlAttribute("country")]
-        public string country { get; set; }
+        public string Country { get; set; }
         [XmlAttribute("xmlns")]
-        public string xmlns { get; set; }
+        public string Xmlns { get; set; }
         [XmlElement("materials")]
-        public Materials materials { get; set; } // materials
+        public Materials Materials { get; set; } // materials
         [XmlElement("reinforcing_materials")]
-        public Materials reinforcingMaterials { get; set; } // reinforcing_materials
+        public Materials ReinforcingMaterials { get; set; } // reinforcing_materials
         [XmlElement("end")]
-        public string end { get; set;}
+        public string End { get; set;}
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -63,18 +63,18 @@ namespace FemDesign.Materials
             List<string> list = new List<string>();
 
             // list material names
-            if (this.materials != null)
+            if (this.Materials != null)
             {
-                foreach (Material material in this.materials.material)
+                foreach (Material material in this.Materials.Material)
                 {
-                    list.Add(material.name);
+                    list.Add(material.Name);
                 }
             }
-            if (this.reinforcingMaterials != null)
+            if (this.ReinforcingMaterials != null)
             {
-                foreach (Material material in this.reinforcingMaterials.material)
+                foreach (Material material in this.ReinforcingMaterials.Material)
                 {
-                    list.Add(material.name);
+                    list.Add(material.Name);
                 } 
             }
 
@@ -99,7 +99,7 @@ namespace FemDesign.Materials
         public static MaterialDatabase FromStruxml(string filePath)
         {
             MaterialDatabase materialDatabase = MaterialDatabase.DeserializeFromFilePath(filePath);
-            materialDatabase.end = "";
+            materialDatabase.End = "";
             return materialDatabase;
         }
 
@@ -138,7 +138,7 @@ namespace FemDesign.Materials
         {
             string code = RestrictedString.EurocodeType(countryCode);
             MaterialDatabase materialDatabase = MaterialDatabase.DeserializeFromResource(code);
-            materialDatabase.end = "";
+            materialDatabase.End = "";
             return materialDatabase;
         }
 

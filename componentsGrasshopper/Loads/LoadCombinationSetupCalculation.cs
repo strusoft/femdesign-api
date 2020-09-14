@@ -97,7 +97,7 @@ namespace FemDesign.GH
             }
 
             //
-            loadCombination.combItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, waterlevel);
+            loadCombination.CombItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, waterlevel);
 
             // return
             DA.SetData(0, loadCombination);

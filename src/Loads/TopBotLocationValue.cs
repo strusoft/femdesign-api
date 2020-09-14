@@ -51,9 +51,9 @@ namespace FemDesign.Loads
         /// </summary>
         public TopBotLocationValue(Geometry.FdPoint3d point, double topVal, double bottomVal)
         {
-            this.x = point.x;
-            this.y = point.y;
-            this.z = point.z;
+            this.X = point.X;
+            this.Y = point.Y;
+            this.Z = point.Z;
             this.TopVal = topVal;
             this.BottomVal = bottomVal;
         }
@@ -63,7 +63,7 @@ namespace FemDesign.Loads
         /// </summary>
         internal Geometry.FdPoint3d GetFdPoint()
         {
-            return new Geometry.FdPoint3d(this.x, this.y, this.z);
+            return new Geometry.FdPoint3d(this.X, this.Y, this.Z);
         }
 
         #region dynamo

@@ -41,17 +41,17 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, obj.GetType());
-            if (obj.pressureLoad != null)
+            if (obj.PressureLoad != null)
             {
-                DA.SetData(0, obj.pressureLoad.guid);
-                DA.SetData(1, obj.pressureLoad.loadType);
-                DA.SetData(2, obj.pressureLoad.GetRhinoGeometry());
-                DA.SetData(3, obj.pressureLoad.direction.ToRhino());
-                DA.SetData(4, obj.pressureLoad.z0);
-                DA.SetData(5, obj.pressureLoad.q0);
-                DA.SetData(6, obj.pressureLoad.qh);
-                DA.SetData(7, obj.pressureLoad.loadCase);
-                DA.SetData(8, obj.pressureLoad.comment);
+                DA.SetData(0, obj.PressureLoad.Guid);
+                DA.SetData(1, obj.PressureLoad.LoadType);
+                DA.SetData(2, obj.PressureLoad.GetRhinoGeometry());
+                DA.SetData(3, obj.PressureLoad.Direction.ToRhino());
+                DA.SetData(4, obj.PressureLoad.Z0);
+                DA.SetData(5, obj.PressureLoad.Q0);
+                DA.SetData(6, obj.PressureLoad.Qh);
+                DA.SetData(7, obj.PressureLoad.LoadCase);
+                DA.SetData(8, obj.PressureLoad.Comment);
             }
             else
             {

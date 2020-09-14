@@ -85,7 +85,7 @@ namespace FemDesign.GH
             //
             model.SerializeModel(filePath);
             analysis.SetLoadCombinationCalculationParameters(model);
-            bool rtn = model.fdApp.RunAnalysis(filePath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows);
+            bool rtn = model.FdApp.RunAnalysis(filePath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows);
             DA.SetData(0, rtn);
         }
         protected override System.Drawing.Bitmap Icon

@@ -65,7 +65,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.FdVector3d _startForce = FemDesign.Geometry.FdVector3d.FromRhino(startForce);
             FemDesign.Geometry.FdVector3d _endForce = FemDesign.Geometry.FdVector3d.FromRhino(endForce);
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.lineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
+            obj.LineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
 
             // return
             DA.SetData(0, obj);

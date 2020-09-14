@@ -19,7 +19,7 @@ namespace FemDesign.Bars
         [XmlAttribute("x")]
         public double _x; // abs_max_1000
         [XmlIgnore]
-        public double x
+        public double X
         {
             get {return this._x;}
             set {this._x = RestrictedDouble.AbsMax_1000(value);}
@@ -28,7 +28,7 @@ namespace FemDesign.Bars
         [XmlAttribute("y")]
         public double _y; // abs_max_1000
         [XmlIgnore]
-        public double y
+        public double Y
         {
             get {return this._y;}
             set {this._y = RestrictedDouble.AbsMax_1000(value);}
@@ -37,7 +37,7 @@ namespace FemDesign.Bars
         [XmlAttribute("z")]
         public double _z; // abs_max_1000
         [XmlIgnore]
-        public double z
+        public double Z
         {
             get {return this._z;}
             set {this._z = RestrictedDouble.AbsMax_1000(value);}
@@ -53,9 +53,9 @@ namespace FemDesign.Bars
 
         internal Eccentricity(double y = 0, double z = 0)
         {
-            this.x = 0;
-            this.y = y;
-            this.z = z;
+            this.X = 0;
+            this.Y = y;
+            this.Z = z;
         }
 
         public override bool Equals(System.Object obj)
@@ -69,7 +69,7 @@ namespace FemDesign.Bars
             {
                 return false;
             }
-            return (x == p.x) && (y == p.y) && (z == p.z);            
+            return (X == p.X) && (Y == p.Y) && (Z == p.Z);            
         }
 
         public bool Equals(Eccentricity p)
@@ -78,12 +78,12 @@ namespace FemDesign.Bars
             {
                 return false;
             }
-            return (x == p.x) && (y == p.y) && (z == p.z);
+            return (X == p.X) && (Y == p.Y) && (Z == p.Z);
         }
 
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
         
         /// <summary>

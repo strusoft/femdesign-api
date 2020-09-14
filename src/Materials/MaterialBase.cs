@@ -13,7 +13,7 @@ namespace FemDesign.Materials
     {
         // material_type_attribs
         [XmlAttribute("mass")]
-        public string mass { get; set; } // non_neg_max_1e20
+        public string Mass { get; set; } // non_neg_max_1e20
         [XmlAttribute("E_0")]
         public string E_0  { get; set; } // double
         [XmlAttribute("E_1")]

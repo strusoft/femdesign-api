@@ -18,13 +18,13 @@ namespace FemDesign.Shells
     public class SlabPart: EntityBase
     {
         [XmlAttribute("name")]
-        public string name {get; set;} // identifier
+        public string Name {get; set;} // identifier
         [XmlAttribute("complex_material")]
-        public System.Guid complexMaterial {get; set;} // guidtype
+        public System.Guid ComplexMaterial {get; set;} // guidtype
         [XmlAttribute("alignment")]
         public string _alignment; // ver_align
         [XmlIgnore]
-        public string alignment
+        public string Alignment
         {
             get {return this._alignment;}
             set {this._alignment = RestrictedString.VerticalAlign(value);}
@@ -32,7 +32,7 @@ namespace FemDesign.Shells
         [XmlAttribute("align_offset")]
         public double _alignOffset; // abs_max_1e20
         [XmlIgnore]
-        public double alignOffset
+        public double AlignOffset
         {
             get {return this._alignOffset;}
             set {this._alignOffset = RestrictedDouble.AbsMax_1e20(value);}
@@ -40,7 +40,7 @@ namespace FemDesign.Shells
         [XmlAttribute("ortho_alfa")]
         public double _orthoAlfa; // two_quadrants
         [XmlIgnore]
-        public double orthoAlfa
+        public double OrthoAlfa
         {
             get {return this._orthoAlfa;}
             set {this._orthoAlfa = RestrictedDouble.TwoQuadrantsRadians(value);}
@@ -48,19 +48,19 @@ namespace FemDesign.Shells
         [XmlAttribute("ortho_ratio")]
         public double _orthoRatio; // orthotropy_type
         [XmlIgnore]
-        public double orthoRatio
+        public double OrthoRatio
         {
             get {return this._orthoRatio;}
             set {this._orthoRatio = RestrictedDouble.NonNegMax_1(value);}
         }
         [XmlAttribute("ecc_calc")]
-        public bool eccentricityCalculation { get; set; } // bool
+        public bool EccentricityCalculation { get; set; } // bool
         [XmlAttribute("ecc_crack")]
-        public bool eccentricityByCracking { get; set; } // bool
+        public bool EccentricityByCracking { get; set; } // bool
         [XmlAttribute("mesh_size")]
         public double _meshSize; // non_neg_max_1e20
         [XmlIgnore]
-        public double meshSize
+        public double MeshSize
         {
             get {return this._meshSize;}
             set {this._meshSize = RestrictedDouble.NonNegMax_1e20(value);}
@@ -68,15 +68,15 @@ namespace FemDesign.Shells
         [XmlElement("contour", Order = 1)]
         public List<Geometry.Contour> _region;
         [XmlIgnore]
-        public Geometry.Region region
+        public Geometry.Region Region
         {
             get { return new Geometry.Region(this._region); }
-            set { this._region = value.contours; }
+            set { this._region = value.Contours; }
         }
         [XmlElement("thickness", Order = 2)]
         public List<Thickness> _thickness; // sequence: location_value
         [XmlIgnore]
-        public List<Thickness> thickness
+        public List<Thickness> Thickness
         {
             get { return this._thickness; }
             set
@@ -92,11 +92,11 @@ namespace FemDesign.Shells
             }
         } 
         [XmlElement("local_pos", Order = 3)]
-        public Geometry.FdPoint3d localPos {get; set;} // point_type_3d
+        public Geometry.FdPoint3d LocalPos {get; set;} // point_type_3d
         [XmlElement("local_x", Order = 4)]
         public Geometry.FdVector3d _localX; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d localX
+        public Geometry.FdVector3d LocalX
         {
             get
             {
@@ -105,10 +105,10 @@ namespace FemDesign.Shells
             set
             {
                 Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d z = this.localZ;
+                Geometry.FdVector3d z = this.LocalZ;
 
                 double dot = z.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
+                if (Math.Abs(dot) < Tolerance.DotProduct)
                 {
                     this._localX = val;
                     this._localY = z.Cross(val); // follows right-hand-rule
@@ -123,7 +123,7 @@ namespace FemDesign.Shells
         [XmlElement("local_y", Order = 5)]
         public Geometry.FdVector3d _localY; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d localY
+        public Geometry.FdVector3d LocalY
         {
             get
             {
@@ -133,26 +133,26 @@ namespace FemDesign.Shells
         [XmlIgnore]
         private Geometry.FdVector3d _localZ;
         [XmlIgnore]
-        public Geometry.FdVector3d localZ
+        public Geometry.FdVector3d LocalZ
         {
             get
             {
-                if (this.localX == null || this.localY == null)
+                if (this.LocalX == null || this.LocalY == null)
                 {
                     throw new System.ArgumentException("Impossible to construct z-axis as either this.localX or this.localY is null.");
                 }
                 else
                 {     
-                    return this.localX.Cross(localY).Normalize();
+                    return this.LocalX.Cross(LocalY).Normalize();
                 }
             }
             set
             {
                 Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d x = this.localX;
+                Geometry.FdVector3d x = this.LocalX;
 
                 double dot = x.Dot(val);
-                if (Math.Abs(dot) < Tolerance.dotProduct)
+                if (Math.Abs(dot) < Tolerance.DotProduct)
                 {
                     this._localZ = val;
                     this._localY = val.Cross(x); // follows right-hand-rule
@@ -165,7 +165,7 @@ namespace FemDesign.Shells
             }
         }
         [XmlElement("end", Order = 6)]
-        public string end {get; set;} // empty_type
+        public string End {get; set;} // empty_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -181,20 +181,20 @@ namespace FemDesign.Shells
         internal SlabPart(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
         {
             this.EntityCreated();
-            this.name = name;
-            this.region = region;
-            this.complexMaterial = complexMaterial.guid;
-            this.alignment = alignment.alignment;
-            this.alignOffset = alignment.eccentricity;
-            this.orthoAlfa = orthotropy.orthoAlfa;
-            this.orthoRatio = orthotropy.orthoRatio;
-            this.eccentricityCalculation = alignment.eccentricityCalculation;
-            this.eccentricityByCracking = alignment.eccentricityByCracking;
-            this.thickness = thickness;
-            this.localPos = region.coordinateSystem.origin;
-            this._localX = region.coordinateSystem.localX;
-            this._localY = region.coordinateSystem.localY;
-            this.end = "";
+            this.Name = name;
+            this.Region = region;
+            this.ComplexMaterial = complexMaterial.Guid;
+            this.Alignment = alignment.Alignment;
+            this.AlignOffset = alignment.Eccentricity;
+            this.OrthoAlfa = orthotropy.OrthoAlfa;
+            this.OrthoRatio = orthotropy.OrthoRatio;
+            this.EccentricityCalculation = alignment.EccentricityCalculation;
+            this.EccentricityByCracking = alignment.EccentricityByCracking;
+            this.Thickness = thickness;
+            this.LocalPos = region.CoordinateSystem.origin;
+            this._localX = region.CoordinateSystem.LocalX;
+            this._localY = region.CoordinateSystem.LocalY;
+            this.End = "";
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace FemDesign.Shells
         /// </summary>
         internal List<Shells.ShellEdgeConnection> GetEdgeConnections()
         {
-            return this.region.GetEdgeConnections();
+            return this.Region.GetEdgeConnections();
         }
 
         #region dynamo
@@ -227,7 +227,7 @@ namespace FemDesign.Shells
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Surface GetDynamoSurface()
         {
-            return this.region.ToDynamoSurface();
+            return this.Region.ToDynamoSurface();
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace FemDesign.Shells
         /// </summary>
         internal List<List<Autodesk.DesignScript.Geometry.Curve>> GetDynamoCurvesNested()
         {
-            return this.region.ToDynamoCurves();
+            return this.Region.ToDynamoCurves();
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace FemDesign.Shells
         /// </summary>
         public Rhino.Geometry.Brep GetRhinoSurface()
         {
-            return this.region.ToRhinoBrep();
+            return this.Region.ToRhinoBrep();
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace FemDesign.Shells
         /// </summary>
         public List<Rhino.Geometry.Curve> GetRhinoCurves()
         {
-            return this.region.ToRhinoCurves();
+            return this.Region.ToRhinoCurves();
         }
 
         #endregion

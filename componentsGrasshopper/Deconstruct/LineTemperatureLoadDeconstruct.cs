@@ -39,15 +39,15 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, obj.GetType());
-            if (obj.lineTemperatureLoad != null)
+            if (obj.LineTemperatureLoad != null)
             {
-                DA.SetData(0, obj.lineTemperatureLoad.guid);
-                DA.SetData(1, obj.lineTemperatureLoad.Edge.ToRhino());
-                DA.SetData(2, obj.lineTemperatureLoad.Direction.ToRhino());
-                DA.SetData(3, obj.lineTemperatureLoad.TopBotLocVal[0]);
-                DA.SetData(4, obj.lineTemperatureLoad.TopBotLocVal[1]);
-                DA.SetData(5, obj.lineTemperatureLoad.loadCase);
-                DA.SetData(6, obj.lineTemperatureLoad.comment);
+                DA.SetData(0, obj.LineTemperatureLoad.Guid);
+                DA.SetData(1, obj.LineTemperatureLoad.Edge.ToRhino());
+                DA.SetData(2, obj.LineTemperatureLoad.Direction.ToRhino());
+                DA.SetData(3, obj.LineTemperatureLoad.TopBotLocVal[0]);
+                DA.SetData(4, obj.LineTemperatureLoad.TopBotLocVal[1]);
+                DA.SetData(5, obj.LineTemperatureLoad.LoadCase);
+                DA.SetData(6, obj.LineTemperatureLoad.Comment);
             }
             else
             {

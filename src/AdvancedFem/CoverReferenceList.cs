@@ -16,7 +16,7 @@ namespace FemDesign
     public class CoverReferenceList
     {
         [XmlElement("ref")]
-        public List<GuidListType> refGuid = new List<GuidListType>(); // guidtype
+        public List<GuidListType> RefGuid = new List<GuidListType>(); // guidtype
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -47,11 +47,11 @@ namespace FemDesign
             {
                 if (elem.GetType() == typeof(Bars.Bar))
                 {
-                    refList.refGuid.Add(new GuidListType(((Bars.Bar)elem).barPart.guid));
+                    refList.RefGuid.Add(new GuidListType(((Bars.Bar)elem).BarPart.Guid));
                 }
                 else if (elem.GetType() == typeof(Shells.Slab))
                 {
-                    refList.refGuid.Add(new GuidListType(((Shells.Slab)elem).slabPart.guid));
+                    refList.RefGuid.Add(new GuidListType(((Shells.Slab)elem).SlabPart.Guid));
                 }
                 else
                 {

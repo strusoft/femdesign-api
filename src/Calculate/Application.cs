@@ -21,18 +21,18 @@ namespace FemDesign.Calculate
         /// Path to fd3dstruct.
         /// </summary>
         /// <value></value>
-        internal string fdPath { get; set; }
+        internal string FdPath { get; set; }
 
         /// <summary>
         /// Version of running fd3dstruct process.
         /// </summary>
         /// <value></value>
-        internal string fdVersion { get; set; }
+        internal string FdVersion { get; set; }
 
         /// <summary>
         /// Target version of class library.
         /// </summary>
-        internal string fdTargetVersion = "19";
+        internal string FdTargetVersion = "19";
 
         internal Application()
         {
@@ -49,18 +49,18 @@ namespace FemDesign.Calculate
             {
                 // get process information
                 Process firstProcess = processes[0];
-                this.fdPath = firstProcess.MainModule.FileName;
-                this.fdVersion = firstProcess.MainModule.FileVersionInfo.FileVersion.Split(new char[] { '.' })[0];
+                this.FdPath = firstProcess.MainModule.FileName;
+                this.FdVersion = firstProcess.MainModule.FileVersionInfo.FileVersion.Split(new char[] { '.' })[0];
 
                 // check if process inforamtion matches target version
-                if (this.fdVersion != null && this.fdVersion == this.fdTargetVersion && this.fdPath != null)
+                if (this.FdVersion != null && this.FdVersion == this.FdTargetVersion && this.FdPath != null)
                 {
                     return;
                 }
             }
             else
             {
-                throw new System.ArgumentException("FEM-Design " + this.fdTargetVersion + " - 3D Structure must be running! Start FEM-Design " + this.fdTargetVersion + " - 3D Structure and reload script.");
+                throw new System.ArgumentException("FEM-Design " + this.FdTargetVersion + " - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script.");
             } 
         }
 
@@ -106,7 +106,7 @@ namespace FemDesign.Calculate
                 Arguments = arguments,
                 UseShellExecute = false,
                 WorkingDirectory = Path.GetDirectoryName(struxmlPath),
-                FileName = this.fdPath,
+                FileName = this.FdPath,
                 Verb = "open"
             };
 
@@ -132,15 +132,15 @@ namespace FemDesign.Calculate
                 this.KillProcesses();
             }
 
-            string arguments = "/s " + fdScript.fdScriptPath;
-            string processPath = fdScript.fdScriptPath;
+            string arguments = "/s " + fdScript.FdScriptPath;
+            string processPath = fdScript.FdScriptPath;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo(processPath)
             {
                 Arguments = arguments,
                 UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(fdScript.fdScriptPath),
-                FileName = this.fdPath,
+                WorkingDirectory = Path.GetDirectoryName(fdScript.FdScriptPath),
+                FileName = this.FdPath,
                 Verb = "open"
             };
 
@@ -192,7 +192,7 @@ namespace FemDesign.Calculate
             }
             fdModel.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(fdModel);
-            return fdModel.fdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows);
+            return fdModel.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows);
         }
         /// <summary>
         /// Run analysis and design of a model.
@@ -219,7 +219,7 @@ namespace FemDesign.Calculate
 
             fdModel.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(fdModel);
-            return fdModel.fdApp.RunDesign(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows);
+            return fdModel.FdApp.RunDesign(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows);
         }
         #endregion
     }

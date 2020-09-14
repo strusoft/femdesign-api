@@ -44,9 +44,9 @@ namespace FemDesign.GH
             }
 
             List<StructureGrid.Axis> axes;
-            if (model.entities.axes != null)
+            if (model.Entities.Axes != null)
             {
-                axes = model.entities.axes.axis;
+                axes = model.Entities.Axes.Axis;
             }
             else
             {
@@ -54,9 +54,9 @@ namespace FemDesign.GH
             }
 
             List<StructureGrid.Storey> storeys;
-            if (model.entities.storeys != null)
+            if (model.Entities.Storeys != null)
             {
-                storeys = model.entities.storeys.storey;
+                storeys = model.Entities.Storeys.Storey;
             }
             else
             {
@@ -65,14 +65,14 @@ namespace FemDesign.GH
         
 
             // return data
-            DA.SetData(0, model.country);
+            DA.SetData(0, model.Country);
             DA.SetDataList(1, model.GetBars());
             DA.SetDataList(2, model.GetSlabs());
-            DA.SetDataList(3, model.entities.advancedFem.cover);
-            DA.SetDataList(4, model.entities.loads.GetGenericLoadObjects());
-            DA.SetDataList(5, model.entities.loads.loadCase);
-            DA.SetDataList(6, model.entities.loads.loadCombination);
-            DA.SetDataList(7, model.entities.supports.GetGenericSupportObjects());
+            DA.SetDataList(3, model.Entities.AdvancedFem.Cover);
+            DA.SetDataList(4, model.Entities.Loads.GetGenericLoadObjects());
+            DA.SetDataList(5, model.Entities.Loads.LoadCases);
+            DA.SetDataList(6, model.Entities.Loads.LoadCombinations);
+            DA.SetDataList(7, model.Entities.Supports.GetGenericSupportObjects());
             DA.SetDataList(8, axes);
             DA.SetDataList(9, storeys);
         }

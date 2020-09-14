@@ -13,13 +13,13 @@ namespace FemDesign.Shells
     public class ShellOrthotropy
     {
         private double _orthoAlfa; // two_quadrants.
-        public double orthoAlfa
+        public double OrthoAlfa
         {
             get {return this._orthoAlfa;}
             set {this._orthoAlfa = RestrictedDouble.TwoQuadrantsRadians(value);}
         }
         private double _orthoRatio; // orthotropy_type
-        public double orthoRatio
+        public double OrthoRatio
         {
             get {return this._orthoRatio;}
             set {this._orthoRatio = RestrictedDouble.NonNegMax_1(value);}
@@ -39,8 +39,8 @@ namespace FemDesign.Shells
         /// <param name="orthoRatio">Double</param>
         internal ShellOrthotropy(double orthoAlfa, double orthoRatio)
         {
-            this.orthoAlfa = FemDesign.Geometry.Degree.ToRadians(orthoAlfa);
-            this.orthoRatio = orthoRatio;
+            this.OrthoAlfa = FemDesign.Geometry.Degree.ToRadians(orthoAlfa);
+            this.OrthoRatio = orthoRatio;
         }
         /// <summary>
         /// Create a definition for ShellOrthotropy.

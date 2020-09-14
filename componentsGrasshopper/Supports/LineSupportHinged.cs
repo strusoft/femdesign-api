@@ -51,7 +51,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.lineSupport = FemDesign.Supports.LineSupport.Hinged(edge, movingLocal, identifier);
+            obj.LineSupport = FemDesign.Supports.LineSupport.Hinged(edge, movingLocal, identifier);
 
             // return
             DA.SetData(0, obj);

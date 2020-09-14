@@ -10,22 +10,22 @@ namespace FemDesign
         /// <summary>
         /// Predefined brep tolerance.
         /// </summary>
-        internal static double brep = Math.Pow(10, -6);
+        internal static double Brep = Math.Pow(10, -6);
 
         /// <summary>
         /// Predefined tolerance when controlling if two vectors, v0 and v1, are perpendicular by assuming v0.Dot(v1) == 0.
         /// </summary>
         /// <returns></returns>
-        internal static double dotProduct = Math.Pow(10, -10);
+        internal static double DotProduct = Math.Pow(10, -10);
 
         /// <summary>
         /// Predefined tolernace for length evaluations.
         /// </summary>
-        internal static double lengthComparison = Math.Pow(10, -5);
+        internal static double LengthComparison = Math.Pow(10, -5);
 
         /// <summary>
         /// Predefined point3d tolerance.
         /// </summary>
-        internal static double point3d = Math.Pow(10, -10);
+        internal static double Point3d = Math.Pow(10, -10);
     }
 }

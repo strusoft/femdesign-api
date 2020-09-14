@@ -16,8 +16,8 @@ namespace FemDesign.Releases
     public class RigidityDataType2: RigidityDataType1
     {
         [XmlElement("rotations", Order=3)]
-        public Releases.Rotations rotations { get; set; }
+        public Releases.Rotations Rotations { get; set; }
         [XmlElement("plastic_limit_moments", Order=4)]
-        public Releases.PlasticityType3d plasticLimitMoments { get; set; }
+        public Releases.PlasticityType3d PlasticLimitMoments { get; set; }
     }
 }

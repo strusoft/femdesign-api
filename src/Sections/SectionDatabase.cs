@@ -19,29 +19,29 @@ namespace FemDesign.Sections
     public class SectionDatabase
     {
         [XmlIgnore]
-        public string filePath {get; set; }
+        public string FilePath {get; set; }
         [XmlAttribute("struxml_version")]
-        public string struxml_version { get; set; }
+        public string StruxmlVersion { get; set; }
         [XmlAttribute("source_software")]
-        public string source_software { get; set; }
+        public string SourceSoftware { get; set; }
         [XmlAttribute("start_time")]
-        public string start_time { get; set; }
+        public string StartTime { get; set; }
         [XmlAttribute("end_time")]
-        public string end_time { get; set; }
+        public string EndTime { get; set; }
         [XmlAttribute("guid")]
-        public string guid { get; set; }
+        public string Guid { get; set; }
         [XmlAttribute("convertid")]
-        public string convertid { get; set; }
+        public string ConvertId { get; set; }
         [XmlAttribute("standard")]
-        public string standard { get; set; }
+        public string Standard { get; set; }
         [XmlAttribute("country")]
-        public string country { get; set; }
+        public string Country { get; set; }
         [XmlAttribute("xmlns")]
-        public string xmlns { get; set; }
+        public string Xmlns { get; set; }
         [XmlElement("sections")]
-        public DatabaseSections sections { get; set; }
+        public DatabaseSections Sections { get; set; }
         [XmlElement("end")]
-        public string end { get; set;}
+        public string End { get; set;}
         private SectionDatabase()
         {
             // parameterless constructor for serialization
@@ -55,9 +55,9 @@ namespace FemDesign.Sections
         public List<string> ListSectionNames()
         {
             List<string> list = new List<string>();
-            foreach (Section section in this.sections.section)
+            foreach (Section section in this.Sections.Section)
             {
-                list.Add(section.name);
+                list.Add(section.Name);
             }
             return list;
         }
@@ -80,7 +80,7 @@ namespace FemDesign.Sections
         public static SectionDatabase FromStruxml(string filePath)
         {
             SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromFilePath(filePath);
-            sectionDatabase.end = "";
+            sectionDatabase.End = "";
             return sectionDatabase;
         }
 
@@ -117,7 +117,7 @@ namespace FemDesign.Sections
         public static SectionDatabase Default()
         {
             SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromResource();
-            sectionDatabase.end = "";
+            sectionDatabase.End = "";
             return sectionDatabase;
         }
         private void SerializeSectionDatabase(string filepath)

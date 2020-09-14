@@ -41,14 +41,14 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, slab.guid);
-            DA.SetData(1, slab.name);
-            DA.SetData(2, slab.slabPart.name);
-            DA.SetData(3, slab.slabPart.GetRhinoSurface());
-            DA.SetData(4, slab.material);
-            DA.SetDataList(5, slab.slabPart.GetRhinoCurves());
-            DA.SetDataList(6, slab.slabPart.GetEdgeConnections());
-            DA.SetDataList(7, slab.surfaceReinforcement);
+            DA.SetData(0, slab.Guid);
+            DA.SetData(1, slab.Name);
+            DA.SetData(2, slab.SlabPart.Name);
+            DA.SetData(3, slab.SlabPart.GetRhinoSurface());
+            DA.SetData(4, slab.Material);
+            DA.SetDataList(5, slab.SlabPart.GetRhinoCurves());
+            DA.SetDataList(6, slab.SlabPart.GetEdgeConnections());
+            DA.SetDataList(7, slab.SurfaceReinforcement);
        }
        protected override System.Drawing.Bitmap Icon
        {
