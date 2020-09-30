@@ -21,6 +21,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LoadBearingDirection", "LoadBearingDirection", "Vector of load bearing direction.", GH_ParamAccess.item, Vector3d.XAxis);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "CO");
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -33,6 +35,7 @@ namespace FemDesign.GH
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
             Vector3d vector = Vector3d.XAxis;
+            string identifier = "CO";
             
             if (!DA.GetData(0, ref brep))
             {
@@ -50,7 +53,11 @@ namespace FemDesign.GH
             {
                 // pass
             }
-            if (brep == null || bars == null || slabs == null || vector == null)
+            if (!DA.GetData(4, ref identifier))
+            {
+                // pass
+            }
+            if (brep == null || bars == null || slabs == null || vector == null || identifier == null)
             {
                 return;
             }
@@ -71,7 +78,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.FdVector3d fdVector3d = FemDesign.Geometry.FdVector3d.FromRhino(vector).Normalize();
 
             //
-            FemDesign.Cover obj = FemDesign.Cover.OneWayCover(region, structures, fdVector3d);
+            FemDesign.Cover obj = FemDesign.Cover.OneWayCover(region, structures, fdVector3d, identifier);
 
             // return
             DA.SetData(0, obj);
