@@ -361,6 +361,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Create Edge (Line or Arc2) from Rhino LineCurve or open ArcCurve.
+        /// Used for bar definition.
         /// </summary>
         public static Geometry.Edge FromRhinoLineOrArc2(Rhino.Geometry.Curve obj)
         {

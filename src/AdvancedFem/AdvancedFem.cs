@@ -19,7 +19,7 @@ namespace FemDesign
 
         // virtual_bar
         [XmlElement("virtual_bar")]
-        public List<VirtualBar> VirtualBar = new List<VirtualBar>();
+        public List<ModellingTool.VirtualBar> VirtualBar = new List<ModellingTool.VirtualBar>();
 
         // virtual_shell
 
