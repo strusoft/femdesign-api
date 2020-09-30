@@ -19,6 +19,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("SupportingSlabs", "SupportingSlabs", "Single slab element or list of slab elements. List cannot be nested.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "CO");
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -30,6 +32,7 @@ namespace FemDesign.GH
             Brep brep = null;
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
+            string identifier = "CO";
             if (!DA.GetData(0, ref brep))
             {
                 return;
@@ -42,7 +45,11 @@ namespace FemDesign.GH
             {
                 // pass
             }
-            if (brep == null || bars == null || slabs == null)
+            if (!DA.GetData(3, ref identifier))
+            {
+                // pass
+            }
+            if (brep == null || bars == null || slabs == null || identifier == null)
             {
                 return;
             }
@@ -62,7 +69,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(brep);
 
             //
-            FemDesign.Cover obj = FemDesign.Cover.TwoWayCover(region, structures);
+            FemDesign.Cover obj = FemDesign.Cover.TwoWayCover(region, structures, identifier);
 
             // return
             DA.SetData(0, obj);
