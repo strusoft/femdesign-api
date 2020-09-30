@@ -65,7 +65,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", cover.Guid},
-                {"Id", cover.Name},
+                {"Id", cover.Identifier},
                 {"Surface", cover.GetDynamoSurface()},
                 {"Contours", cover.GetDynamoCurves()}
             };

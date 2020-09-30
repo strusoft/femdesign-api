@@ -34,6 +34,9 @@
     <namespace name="FemDesign.Model.CalculationParameters">
       <category>FemDesign.Model.CalculationParameters</category>
     </namespace>
+	<namespace name="FemDesign.ModellingTool">
+		<category>FemDesign.ModellingTool</category>
+    </namespace>
     <namespace name="FemDesign.Releases">
       <category>FemDesign.Releases</category>
     </namespace>

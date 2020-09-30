@@ -291,6 +291,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Create Edge (Line or Arc2) from Dynamo Line or Arc.
+        /// Used for bar definition.
         /// </summary>
         public static Geometry.Edge FromDynamoLineOrArc2(Autodesk.DesignScript.Geometry.Curve obj)
         {
@@ -340,6 +341,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Create Edge (Arc2) from Dynamo Arc.
+        /// Used for bar definition.
         /// </summary>
         public static Geometry.Edge FromDynamoArc2(Autodesk.DesignScript.Geometry.Arc obj)
         {
