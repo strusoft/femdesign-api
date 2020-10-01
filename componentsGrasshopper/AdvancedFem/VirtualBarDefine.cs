@@ -15,7 +15,7 @@ namespace FemDesign.GH
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddVectorParameter("LocalY", "LocalY", "LocalY.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
@@ -111,7 +111,7 @@ namespace FemDesign.GH
             Geometry.Edge edge = Geometry.Edge.FromRhinoLineOrArc2(curve);
 
             // create virtual bar
-            VirtualBar bar = new VirtualBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
+            ModellingTool.VirtualBar bar = new ModellingTool.VirtualBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace FemDesign
+namespace FemDesign.ModellingTool
 {
     [System.Serializable]
     public class VirtualBar: EntityBase
@@ -156,5 +157,6 @@ namespace FemDesign
             this.I1E = i1e;
             this.I2E = i2e;
         }
+
     }
 }
