@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System.Globalization;
 using System.Xml.Serialization;
 
 #region dynamo
@@ -23,8 +24,21 @@ namespace FemDesign.Releases
         [XmlIgnore]
         public double Friction 
         {
-            get {return System.Convert.ToDouble(this._friction);}
-            set {this._friction = RestrictedDouble.NonNegMax_1(value).ToString();}
+            get
+            {
+                if (this._friction == null)
+                {
+                    throw new System.ArgumentException("_friction is null");
+                }
+                else
+                {    
+                    return System.Convert.ToDouble(this._friction, CultureInfo.InvariantCulture);
+                }
+            }
+            set
+            {
+                this._friction = value.ToString();
+            }
         }
 
         /// <summary>

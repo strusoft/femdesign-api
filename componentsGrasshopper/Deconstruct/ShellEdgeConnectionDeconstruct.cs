@@ -48,7 +48,14 @@ namespace FemDesign.GH
             {
                 DA.SetData(2, null);
                 DA.SetData(3, null);
-                DA.SetData(4, obj.Rigidity.Friction);
+                if (obj.Rigidity._friction == null)
+                {  
+                    DA.SetData(4, null);
+                }
+                else
+                {    
+                    DA.SetData(4, obj.Rigidity.Friction);
+                }
                 DA.SetData(5, obj.Rigidity.Motions);
                 DA.SetData(6, obj.Rigidity.Rotations);
             }
@@ -56,7 +63,14 @@ namespace FemDesign.GH
             {
                 DA.SetData(2, obj.PredefRigidity.Name);
                 DA.SetData(3, obj.PredefRigidity.Guid);
-                DA.SetData(4, obj.PredefRigidity.Rigidity.Friction);
+                if (obj.PredefRigidity.Rigidity._friction == null)
+                {  
+                    DA.SetData(4, null);
+                }
+                else
+                {    
+                    DA.SetData(4, obj.PredefRigidity.Rigidity.Friction);
+                }
                 DA.SetData(5, obj.PredefRigidity.Rigidity.Motions);
                 DA.SetData(6, obj.PredefRigidity.Rigidity.Rotations);
             }

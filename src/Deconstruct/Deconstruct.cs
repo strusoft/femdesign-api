@@ -463,7 +463,20 @@ namespace FemDesign
             }
             else
             {
-                if (shellEdgeConnection.Rigidity != null)
+                if (shellEdgeConnection.Rigidity != null && shellEdgeConnection.Rigidity._friction == null)
+                {
+                    return new Dictionary<string, object>
+                    {
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", null},
+                        {"PredefinedGuid", null},
+                        {"Friction", null},
+                        {"Motions", shellEdgeConnection.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.Rigidity.Rotations},
+                    };
+                }
+                else if (shellEdgeConnection.Rigidity != null && shellEdgeConnection.Rigidity._friction != null)
                 {
                     return new Dictionary<string, object>
                     {
@@ -476,7 +489,20 @@ namespace FemDesign
                         {"Rotations", shellEdgeConnection.Rigidity.Rotations},
                     };
                 }
-                else
+                else if (shellEdgeConnection.PredefRigidity != null && shellEdgeConnection.PredefRigidity.Rigidity._friction == null)
+                {
+                    return new Dictionary<string, object>
+                    {
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
+                        {"Friction", null},
+                        {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.PredefRigidity.Rigidity.Rotations},
+                    };   
+                }
+                else if (shellEdgeConnection.PredefRigidity != null && shellEdgeConnection.PredefRigidity.Rigidity._friction != null)
                 {
                     return new Dictionary<string, object>
                     {
@@ -488,6 +514,10 @@ namespace FemDesign
                         {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
                         {"Rotations", shellEdgeConnection.PredefRigidity.Rigidity.Rotations},
                     };   
+                }
+                else
+                {
+                    throw new System.ArgumentException("Unexpected shell edge connection");
                 }
             }       
         }
