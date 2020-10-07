@@ -23,7 +23,22 @@ namespace FemDesign.Shells
         [XmlElement("rigidity")]
         public Releases.RigidityDataType3 Rigidity { get; set; } // rigidity_data_type2(3?)
         [XmlElement("predefined_rigidity")]
-        public GuidListType PredefinedRigidity { get; set; } // reference_type
+        public GuidListType _predefRigidityRef; // reference_type
+        [XmlIgnore]
+        public LineConnectionTypes.PredefinedType _predefRigidity;
+        [XmlIgnore]
+        public LineConnectionTypes.PredefinedType PredefRigidity
+        {
+            get
+            {
+                return this._predefRigidity;
+            }
+            set
+            {
+                this._predefRigidity = value;
+                this._predefRigidityRef = new GuidListType(value.Guid);
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
