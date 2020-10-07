@@ -149,6 +149,38 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Rotate this vector by an angle around an axis
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        internal FdVector3d RotateAroundAxis(double angle, FdVector3d axis)
+        {
+            // normalize vector
+            FdVector3d _axis = axis.Normalize();
+
+            // https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle
+            double[,] rotationMatrix = new double[3,3];
+            rotationMatrix[0,0] = Math.Cos(angle) + Math.Pow(_axis.X, 2)*(1 - Math.Cos(angle));
+            rotationMatrix[0,1] = _axis.X*_axis.Y*(1 - Math.Cos(angle)) - _axis.Z*Math.Sin(angle);
+            rotationMatrix[0,2] = _axis.X*_axis.Z*(1 - Math.Cos(angle)) + _axis.Y*Math.Sin(angle);
+            rotationMatrix[1,0] = _axis.Y*_axis.X*(1 - Math.Cos(angle)) + _axis.Z*Math.Sin(angle);
+            rotationMatrix[1,1] = Math.Cos(angle) + Math.Pow(_axis.Y, 2)*(1 - Math.Cos(angle));
+            rotationMatrix[1,2] = _axis.Y*_axis.Z*(1 - Math.Cos(angle)) - _axis.X*Math.Sin(angle);
+            rotationMatrix[2,0] = _axis.Z*_axis.X*(1 - Math.Cos(angle)) - _axis.Y*Math.Sin(angle);
+            rotationMatrix[2,1] = _axis.Z*_axis.Y*(1 - Math.Cos(angle)) + _axis.X*Math.Sin(angle);
+            rotationMatrix[2,2] = Math.Cos(angle) + Math.Pow(_axis.Z, 2)*(1 - Math.Cos(angle));
+
+            // matrix multiplication
+            double x = this.X*rotationMatrix[0,0] + this.Y*rotationMatrix[0,1] + this.Z*rotationMatrix[0,2];
+            double y = this.X*rotationMatrix[1,0] + this.Y*rotationMatrix[1,1] + this.Z*rotationMatrix[1,2];
+            double z = this.X*rotationMatrix[2,0] + this.Y*rotationMatrix[2,1] + this.Z*rotationMatrix[2,2];
+
+            // return new vector
+            return new FdVector3d(x, y, z);
+        }
+
+        /// <summary>
         /// Check if this FdVector3d is parallel to v.
         /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel
         /// </summary>
