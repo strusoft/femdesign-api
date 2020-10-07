@@ -18,8 +18,11 @@ namespace FemDesign.GH
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
-           pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
+           pManager.AddTextParameter("Guid", "Guid", "Guid of edge connection.", GH_ParamAccess.item);
            pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical element ID.", GH_ParamAccess.item);
+           pManager.AddTextParameter("PredefinedName", "PredefinedName", "Name of predefined type.", GH_ParamAccess.item);
+           pManager.AddTextParameter("PredefinedGuid", "PredefinedGuid", "Guid of predefined type.", GH_ParamAccess.item);
+           pManager.AddTextParameter("Friction", "Friction", "Friction.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Motions", "Motions", "Motions", GH_ParamAccess.item);
            pManager.AddGenericParameter("Rotations", "Rotations", "Rotations", GH_ParamAccess.item);
        }
@@ -41,15 +44,21 @@ namespace FemDesign.GH
             DA.SetData(1, obj.Name);
 
             // catch pre-defined rigidity
-            try
+            if (obj.Rigidity != null)
             {
-                DA.SetData(2, obj.Rigidity.Motions);
-                DA.SetData(3, obj.Rigidity.Rotations);
+                DA.SetData(2, null);
+                DA.SetData(3, null);
+                DA.SetData(4, obj.Rigidity.Friction);
+                DA.SetData(5, obj.Rigidity.Motions);
+                DA.SetData(6, obj.Rigidity.Rotations);
             }
-            catch
+            else
             {
-                DA.SetData(2, "Pre-defined edge connection type was serialized.");
-                DA.SetData(3, "Pre-defined edge connection type was serialized.");
+                DA.SetData(2, obj.PredefRigidity.Name);
+                DA.SetData(3, obj.PredefRigidity.Guid);
+                DA.SetData(4, obj.PredefRigidity.Rigidity.Friction);
+                DA.SetData(5, obj.PredefRigidity.Rigidity.Motions);
+                DA.SetData(6, obj.PredefRigidity.Rigidity.Rotations);
             }
        }
        protected override System.Drawing.Bitmap Icon

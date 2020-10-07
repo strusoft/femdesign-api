@@ -445,7 +445,7 @@ namespace FemDesign
         /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[] {"Guid", "AnalyticalID", "Motions", "Rotations"})]
+        [MultiReturn(new[] {"Guid", "AnalyticalID", "PredefinedName", "PredefinedGuid", "Friction", "Motions", "Rotations"})]
         public static Dictionary<string, object> ShellEdgeConnectionDeconstruct(FemDesign.Shells.ShellEdgeConnection shellEdgeConnection)
         {
             if (shellEdgeConnection == null)
@@ -454,34 +454,42 @@ namespace FemDesign
                 {
                     {"Guid", null},
                     {"AnalyticalID", null},
+                    {"PredefinedName", null},
+                    {"PredefinedGuid", null},
+                    {"Friction", null},
                     {"Motions", null},
                     {"Rotations", null},
                 };
             }
             else
             {
-                try
+                if (shellEdgeConnection.Rigidity != null)
                 {
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
                         {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", null},
+                        {"PredefinedGuid", null},
+                        {"Friction", shellEdgeConnection.Rigidity.Friction},
                         {"Motions", shellEdgeConnection.Rigidity.Motions},
                         {"Rotations", shellEdgeConnection.Rigidity.Rotations},
                     };
                 }
-                catch
+                else
                 {
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
                         {"AnalyticalID", shellEdgeConnection.Name},
-                        {"Motions", "Pre-defined edge connection type was serialized."},
-                        {"Rotations", "Pre-defined edge connection type was serialized."},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
+                        {"Friction", shellEdgeConnection.PredefRigidity.Rigidity.Friction},
+                        {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.PredefRigidity.Rigidity.Rotations},
                     };   
                 }
-            }
-            
+            }       
         }
 
         /// <summary>
