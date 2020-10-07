@@ -197,6 +197,10 @@ namespace FemDesign
                 {
                     this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
                 }
+                if (this.LineConnectionTypes == null)
+                {
+                    this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
+                }
 
                 // if model was imported from struxml: do not reset entities, sections or materials.
                 // reset to false
@@ -210,6 +214,7 @@ namespace FemDesign
                 this.Sections = new Sections.ModelSections();
                 this.Materials = new Materials.Materials();
                 this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+                this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
             }
 
             if (bars != null)
@@ -734,6 +739,12 @@ namespace FemDesign
 
                 // add SurfaceReinforcement
                 this.AddSurfaceReinforcements(obj);
+
+                // add line connection types (predefined rigidity)
+                foreach(LineConnectionTypes.PredefinedType predef in obj.SlabPart.Region.GetPredefinedRigidities())
+                {   
+                    this.AddPredefinedRigidity(predef);
+                }
                 
                 // add shell
                 this.Entities.Slab.Add(obj); 
@@ -784,6 +795,39 @@ namespace FemDesign
             }
             return false;
         }
+        
+
+        /// <summary>
+        /// Add predefined rigidity
+        /// </summary>
+        private void AddPredefinedRigidity(LineConnectionTypes.PredefinedType obj)
+        {
+            if (this.PredefRigidityInModel(obj))
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else
+            {
+                this.LineConnectionTypes.PredefinedType.Add(obj);
+            }  
+        }
+
+        /// <summary>
+        /// Check if Material (reinforcring) in Model.
+        /// </summary>
+        private bool PredefRigidityInModel(LineConnectionTypes.PredefinedType obj)
+        {
+            foreach (LineConnectionTypes.PredefinedType elem in this.LineConnectionTypes.PredefinedType)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
 
         /// <summary>
@@ -1277,16 +1321,14 @@ namespace FemDesign
                         {
                             if (edge.EdgeConnection != null)
                             {
-                                if (edge.EdgeConnection.PredefinedRigidity != null)
+                                if (edge.EdgeConnection._predefRigidityRef != null)
                                 {
-                                    foreach (LineConnectionTypes.PredefinedType _predefinedType in this.LineConnectionTypes.PredefinedType)
+                                    foreach (LineConnectionTypes.PredefinedType predefinedType in this.LineConnectionTypes.PredefinedType)
                                     {
-                                        // replace referenceType with a rigidity
-                                        if (edge.EdgeConnection.PredefinedRigidity.Guid == _predefinedType.Guid)
+                                        // add predefined type to edge connection if edge connection predef rigidity reference matches guid of predefine type
+                                        if (edge.EdgeConnection._predefRigidityRef.Guid == predefinedType.Guid)
                                         {
-                                            edge.EdgeConnection.Rigidity = _predefinedType.Rigidity;
-                                            // remove referenceType
-                                            edge.EdgeConnection.PredefinedRigidity = null;
+                                            edge.EdgeConnection.PredefRigidity = predefinedType;
                                         }
                                     }
                                 }
