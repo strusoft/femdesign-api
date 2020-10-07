@@ -83,6 +83,16 @@ namespace FemDesign.Geometry
             this._localX = localX;
             this._localY = localY;
             this._localZ = localZ;
+
+            if (!this.IsComplete())
+            {
+                throw new System.ArgumentException("The defined coordinate system is not complete!");
+            }
+
+            if (!this.IsOrthogonal())
+            {
+                throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
+            }
         }
 
         /// <summary>
@@ -92,6 +102,15 @@ namespace FemDesign.Geometry
         public bool IsComplete()
         {
             return (this.origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
+        }
+
+        /// <summary>
+        /// Check if this coordinate system is orthogonal within the tolernace.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOrthogonal()
+        {
+            return (Math.Abs(this._localX.Dot(this._localY)) < Tolerance.DotProduct) && (Math.Abs(this._localX.Dot(this._localZ)) < Tolerance.DotProduct);
         }
 
         /// <summary>
