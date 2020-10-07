@@ -180,6 +180,30 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Get all PredefinedRigidities from all Edges in Region
+        /// </summary>
+        /// <returns></returns>
+        internal List<LineConnectionTypes.PredefinedType> GetPredefinedRigidities()
+        {
+            List<LineConnectionTypes.PredefinedType> predefRigidities = new List<LineConnectionTypes.PredefinedType>();
+            foreach (Contour contour in this.Contours)
+            {
+                foreach(Edge edge in contour.Edges)
+                {
+                    if (edge.EdgeConnection != null)
+                    {
+                        if (edge.EdgeConnection.PredefRigidity != null)
+                        {
+                            predefRigidities.Add(edge.EdgeConnection.PredefRigidity);
+                        }
+                    }
+                    
+                }
+            }
+            return predefRigidities;
+        }
+
+        /// <summary>
         /// Returns a new instance of region, without any EdgeConnections.
         /// </summary>
         /// <returns></returns>
