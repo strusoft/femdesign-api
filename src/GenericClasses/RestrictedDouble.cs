@@ -90,6 +90,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_neg_max_1e15
+        /// </summary>
+        internal static double NonNegMax_1e5(double val)
+        {
+            return RestrictedDouble.ValueInRange(val, 0, 1E5);
+        }
+
+        /// <summary>
         /// non_neg_max_1e10
         /// </summary>
         internal static double NonNegMax_1e10(double val)
@@ -200,6 +208,14 @@ namespace FemDesign
         internal static double RcKValue(double val)
         {
             return RestrictedDouble.ValueInRange(val, 1.05, 1E10);
+        }
+
+        /// <summary>
+        /// timber_panel_thickness
+        /// </summary>
+        internal static double TimberPanelThickness(double val)
+        {
+            return RestrictedDouble.ValueInRange(val, 0.001, 100.0);
         }
     }
 }
