@@ -1,6 +1,7 @@
 // https://strusoft.com/
-
+using System;
 using System.Xml.Serialization;
+
 #region dynamo
 using Autodesk.DesignScript.Runtime;
 #endregion
@@ -24,8 +25,36 @@ namespace FemDesign.Supports
         public Group Group { get; set; } // support_rigidity_data_type
         [XmlElement("edge", Order = 2)]
         public Geometry.Edge Edge { get; set; } // edge_type
+
+        /// <summary>
+        /// This property only reflects the edge normal. If this normal is changed arcs may transform.
+        /// </summary>
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
+        public Geometry.FdVector3d Normal;
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalY
+        {
+            get
+            {
+                return this.Group.LocalY;
+            }
+            set
+            {
+                Geometry.FdVector3d val = value.Normalize();
+                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
+                if (Math.Abs(dot) < Tolerance.DotProduct)
+                {
+                    // set support group lcs information
+                    this.Group.LocalY = val;
+                    this.Group.LocalX = val.Cross(this.Edge.CoordinateSystem.LocalZ).Normalize();
+                }
+
+                else
+                {
+                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
+                }
+            }
+        }
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -51,7 +80,7 @@ namespace FemDesign.Supports
             // set edge specific properties
             this.Group = new Group(edge, motions, rotations);
             this.Edge = edge;
-            this.Normal = edge.CoordinateSystem.LocalZ;
+            this.Normal = edge.Normal;
         }
 
         /// <summary>
@@ -84,10 +113,18 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY,  [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Rigid(edge, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = LineSupport.Rigid(edge, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            return obj;
         }
 
         /// <summary>
@@ -99,10 +136,18 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY,[DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Hinged(edge, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = LineSupport.Hinged(edge, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            return obj;
         }
 
         /// <summary>
@@ -116,10 +161,18 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, rotations, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            return obj;
         }
 
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoGeometry()
