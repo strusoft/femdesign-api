@@ -18,6 +18,8 @@ namespace FemDesign.GH
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotation springs.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("MovingLocal", "MovingLocal", "LCS changes direction along line? True/false.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
            pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -48,8 +50,13 @@ namespace FemDesign.GH
             {
                 // pass
             }
+            Vector3d v = Vector3d.Zero;
+            if (!DA.GetData(4, ref v))
+            {
+                // pass
+            }
             string identifier = "S";
-            if (!DA.GetData(4, ref identifier))
+            if (!DA.GetData(5, ref identifier))
             {
                 // pass
             }
@@ -66,6 +73,12 @@ namespace FemDesign.GH
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
             obj.LineSupport = new FemDesign.Supports.LineSupport(edge, motions, rotations, movingLocal, identifier);
+
+            // set local y-axis
+            if (!v.Equals(Vector3d.Zero))
+            {
+                obj.LineSupport.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+            }
 
             // return
             DA.SetData(0, obj);
