@@ -6,6 +6,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.StructureGrid
 {
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Storey: EntityBase
     {
