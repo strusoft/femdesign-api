@@ -41,6 +41,22 @@ namespace FemDesign.Geometry
                     // arc1
                     if (this.Type == "arc" && this.Points.Count == 1)
                     {
+                        // // sweep angle
+                        // double sweepAngle = this.EndAngle - this.StartAngle;
+
+                        // // find p0, p1 and p2
+                        // FdPoint3d p0, p1, p2;
+
+                        // p0 = this.Points[0].Translate(this.XAxis);
+                        // p1 = this.Points[0].Translate(this.XAxis.RotateAroundAxis(sweepAngle/2, this.Normal));
+                        // p2 = this.Points[0].Translate(this.XAxis.RotateAroundAxis(sweepAngle, this.Normal));
+
+                        // origin = p1;
+                        // localX = new FdVector3d(p0, p2).Normalize();
+                        // localZ = this.Normal;
+                        // localY = localX.Cross(localZ);
+                        // return new FdCoordinateSystem(origin, localX, localY, localZ);
+
                         // not implemented. only use for bars is intended at this point.
                         throw new System.ArgumentException("Could not reconstruct FdCoordinateSystem from Edge of type Arc1.");
                     }
