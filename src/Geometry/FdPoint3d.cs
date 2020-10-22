@@ -34,7 +34,7 @@ namespace FemDesign.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        internal FdPoint3d(double x, double y, double z)
+        public FdPoint3d(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
@@ -55,7 +55,7 @@ namespace FemDesign.Geometry
         /// Project point on XY-plane.
         /// </summary>
         /// <returns></returns>
-        internal FdPoint2d To2d()
+        public FdPoint2d To2d()
         {
             return new FdPoint2d(this.X, this.Y);
         }
@@ -101,7 +101,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Create FdPoint3d from Dynamo point.
         /// </summary>
-        internal static FdPoint3d FromDynamo(Autodesk.DesignScript.Geometry.Point point)
+        public static FdPoint3d FromDynamo(Autodesk.DesignScript.Geometry.Point point)
         {
             FdPoint3d newPoint = new FdPoint3d(point.X, point.Y, point.Z);
             return newPoint;
@@ -122,7 +122,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        internal static FemDesign.Geometry.FdPoint3d FromRhino(Rhino.Geometry.Point3d obj)
+        public static FemDesign.Geometry.FdPoint3d FromRhino(Rhino.Geometry.Point3d obj)
         {
             //
             double x, y, z;

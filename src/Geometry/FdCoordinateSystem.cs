@@ -13,7 +13,7 @@ namespace FemDesign.Geometry
     public class FdCoordinateSystem
     {
         [XmlElement("local_pos", Order=1)]
-        public FdPoint3d origin { get; set; }
+        public FdPoint3d Origin { get; set; }
         [XmlElement("local_x", Order=2)]
         public FdVector3d _localX;
         [XmlIgnore]
@@ -75,11 +75,32 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Construct FdCoordinateSystem from origin point and local x and y axes.
+        /// </summary>
+        public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY)
+        {
+            this.Origin = origin;
+            this._localX = localX;
+            this._localY = localY;
+            this._localZ = localX.Cross(localY);
+            
+            if (!this.IsComplete())
+            {
+                throw new System.ArgumentException("The defined coordinate system is not complete!");  
+            }
+
+            if (!this.IsOrthogonal())
+            {
+                throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
+            }
+        }
+
+        /// <summary>
         /// Construct FdCoordinateSystem from origin point and local x, y, z axes.
         /// </summary>
         public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY, FdVector3d localZ)
         {
-            this.origin = origin;
+            this.Origin = origin;
             this._localX = localX;
             this._localY = localY;
             this._localZ = localZ;
@@ -101,7 +122,7 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         public bool IsComplete()
         {
-            return (this.origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
+            return (this.Origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
         }
 
         /// <summary>
@@ -110,7 +131,7 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         public bool IsOrthogonal()
         {
-            return (Math.Abs(this._localX.Dot(this._localY)) < Tolerance.DotProduct) && (Math.Abs(this._localX.Dot(this._localZ)) < Tolerance.DotProduct);
+            return (Math.Abs(this._localX.Dot(this._localY)) < Tolerance.DotProduct) && this._localX.Cross(this._localY).Equals(this._localZ, Tolerance.Point3d);
         }
 
         /// <summary>
