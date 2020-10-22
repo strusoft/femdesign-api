@@ -17,7 +17,11 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Shells", "Shells", "Single shell element or list of shell elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("FictitiousShells", "FictShells", "Single fictitious shell element or list of fictitious shell elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Covers", "Covers", "Single cover element or list of cover elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -53,51 +57,63 @@ namespace FemDesign.GH
             {
                 // pass
             }
+
+            List<FemDesign.ModellingTools.FictitiousBar> fictBars = new List<FemDesign.ModellingTools.FictitiousBar>();
+            if (!DA.GetDataList(2, fictBars))
+            {
+                // pass
+            }
  
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
-            if (!DA.GetDataList(2, slabs))
+            if (!DA.GetDataList(3, slabs))
+            {
+                // pass
+            }
+
+            List<FemDesign.ModellingTools.FictitiousShell> fictShells = new List<FemDesign.ModellingTools.FictitiousShell>();
+            if (!DA.GetDataList(4, fictShells))
             {
                 // pass
             }
   
             List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            if (!DA.GetDataList(3, covers))
+            if (!DA.GetDataList(5, covers))
             {
                 // pass
             }
   
             List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
-            if (!DA.GetDataList(4, loads))
+            if (!DA.GetDataList(6, loads))
             {
                 // pass
             }
  
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            if (!DA.GetDataList(5, loadCases))
+            if (!DA.GetDataList(7, loadCases))
             {
                 // pass
             }
 
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            if (!DA.GetDataList(6, loadCombinations))
+            if (!DA.GetDataList(8, loadCombinations))
             {
                 // pass
             }
 
             List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
-            if (!DA.GetDataList(7, supports))
+            if (!DA.GetDataList(9, supports))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(8, storeys))
+            if (!DA.GetDataList(10, storeys))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(9, axes))
+            if (!DA.GetDataList(11, axes))
             {
                 // pass
             }
@@ -108,7 +124,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Model _obj = new FemDesign.Model(countryCode);
-            _obj.AddEntities(bars, slabs, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
+            _obj.AddEntities(bars,fictBars, slabs, fictShells, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
 
             // return
             DA.SetData(0, _obj);
