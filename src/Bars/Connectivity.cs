@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Connectivity / End-condition releases
     /// </summary>
     [System.Serializable]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class Connectivity
     {
         // binary-rigid
@@ -123,6 +123,7 @@ namespace FemDesign.Bars
         /// <param name="rx">Rotation around local-x axis. True if rigid, false if free.</param>
         /// <param name="ry">Rotation around local-y axis. True if rigid, false if free.</param>
         /// <param name="rz">Rotation around local-z axis. True if rigid, false if free.</param>
+        [IsVisibleInDynamoLibrary(true)]
         public static Connectivity Define(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
         {
             return new Connectivity(mx, my, mz, rx, ry, rz);
@@ -142,6 +143,7 @@ namespace FemDesign.Bars
         /// Define hinged releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
+        [IsVisibleInDynamoLibrary(true)]
         public static Connectivity Hinged()
         {
             Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
@@ -151,6 +153,7 @@ namespace FemDesign.Bars
         /// Define rigid releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
+        [IsVisibleInDynamoLibrary(true)]
         public static Connectivity Rigid()
         {
             Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
