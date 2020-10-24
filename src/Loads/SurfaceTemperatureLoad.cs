@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.Region = region;
-            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.origin, topVal, bottomVal)};
+            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.Origin, topVal, bottomVal)};
             this.LoadCase = loadCase.Guid;
             this.Comment = comment;
         }
