@@ -176,7 +176,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
             if (this.FromStruxml)
             {
@@ -225,11 +225,27 @@ namespace FemDesign
                 }
             }
 
+            if (fictitiousBars != null)
+            {
+                foreach (ModellingTools.FictitiousBar fictBar in fictitiousBars)
+                {
+                    this.AddFictBar(fictBar);
+                }
+            }
+
             if (shells != null)
             {
                 foreach (Shells.Slab shell in shells)
                 {
                     this.AddSlab(shell);
+                }
+            }
+
+            if (fictitiousShells != null)
+            {
+                foreach (ModellingTools.FictitiousShell fictShell in fictitiousShells)
+                {
+                    this.AddFictShell(fictShell);
                 }
             }
 
@@ -319,6 +335,66 @@ namespace FemDesign
         private bool BarInModel(Bars.Bar obj)
         {
             foreach (Bars.Bar elem in this.Entities.Bar)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Fictitious Bar to Model.
+        /// </summary>
+        private void AddFictBar(ModellingTools.FictitiousBar obj)
+        {
+            if (this.FictBarInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.Entities.AdvancedFem.FictitiousBar.Add(obj);  
+            }
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool FictBarInModel(ModellingTools.FictitiousBar obj)
+        {
+            foreach (ModellingTools.FictitiousBar elem in this.Entities.AdvancedFem.FictitiousBar)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Fictitious Shell to Model.
+        /// </summary>
+        private void AddFictShell(ModellingTools.FictitiousShell obj)
+        {
+            if (this.FictShellInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.Entities.AdvancedFem.FictitiousShell.Add(obj);  
+            }
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool FictShellInModel(ModellingTools.FictitiousShell obj)
+        {
+            foreach (ModellingTools.FictitiousShell elem in this.Entities.AdvancedFem.FictitiousShell)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1395,13 +1471,13 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
             // deep clone model
             Model model = fdModel.DeepClone();
 
             // create model
-            model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
             return model;
         }
         /// <summary>
@@ -1420,7 +1496,7 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
             //
             if (countryCode == null)
@@ -1430,7 +1506,7 @@ namespace FemDesign
 
             // create model
             Model _model = new Model(countryCode);
-            _model.AddEntities(bars, shells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
             return _model;
         }
         /// <summary>
