@@ -77,7 +77,7 @@ namespace FemDesign.Materials
                     }
                 }
             }
-            return null;
+            throw new System.ArgumentException("Material was not found. Incorrect material name or empty material database.");
         }
 
         /// <summary>

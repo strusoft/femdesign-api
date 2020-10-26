@@ -49,7 +49,7 @@ namespace FemDesign.Sections
                     return section;
                 }
             }
-            return null;
+            throw new System.ArgumentException("Section was not found. Incorrect section name or empty section database.");
         }
     }
 }
