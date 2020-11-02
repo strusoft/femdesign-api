@@ -249,6 +249,9 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Orient this coordinate system to GCS as if this coordinate system was constrained as a plane (i.e. x' and y' are constrianed by the plane)
+        /// If plane is not vertical plane z' will be orientated up.
+        /// If plane is vertical y' will be orientated up.
+        /// </summary>
         public void OrientPlaneLcsToGcs()
         {
             double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ());
@@ -264,8 +267,7 @@ namespace FemDesign.Geometry
                 // the plane is not horisontal nor vertical but z' is pointing up
 
                 // set x' to the cross-product of z' and Z
-                this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
-
+                // this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
             }
             else if (dot == 0)
             {
@@ -282,7 +284,7 @@ namespace FemDesign.Geometry
                 this.SetZAroundX(this.LocalZ.Reverse());
 
                 // set x' to the cross-product of z' and Z
-                this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
+                // this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
 
             }
             else if (dot == -1)
@@ -293,7 +295,7 @@ namespace FemDesign.Geometry
                 this.SetZAroundX(this.LocalZ.Reverse());
 
                 // set x' to X
-                this.SetXAroundZ(FdVector3d.UnitX());
+                // this.SetXAroundZ(FdVector3d.UnitX());
             }
             else
             {
