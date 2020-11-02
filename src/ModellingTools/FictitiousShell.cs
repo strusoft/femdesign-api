@@ -19,7 +19,7 @@ namespace FemDesign.ModellingTools
         private Geometry.FdCoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        public Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.FdCoordinateSystem CoordinateSystem
         {
             get
             {
@@ -37,8 +37,8 @@ namespace FemDesign.ModellingTools
             {
                 this._coordinateSystem = value;
                 this._localPosition = value.Origin;
-                this._localX = value._localX;
-                this._localY = value._localY;
+                this._localX = value.LocalX;
+                this._localY = value.LocalY;
             }
 
         }
@@ -87,6 +87,7 @@ namespace FemDesign.ModellingTools
             {
                 this.CoordinateSystem.SetXAroundZ(value);
                 this._localX = this.CoordinateSystem.LocalX;
+                this._localY = this.CoordinateSystem.LocalY;
             }
         }
 
@@ -102,6 +103,22 @@ namespace FemDesign.ModellingTools
             set
             {
                 this.CoordinateSystem.SetYAroundZ(value);
+                this._localX = this.CoordinateSystem.LocalX;
+                this._localY = this.CoordinateSystem.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalZ;
+            }
+            set
+            {
+                this.CoordinateSystem.SetZAroundX(value);
+                this._localX = this.CoordinateSystem.LocalX;
                 this._localY = this.CoordinateSystem.LocalY;
             }
         }
@@ -317,7 +334,6 @@ namespace FemDesign.ModellingTools
                 
         //         //
         //         clone.Region.SetEdgeConnection(edgeConnection, index);  
-
         //     }
 
         //     //
