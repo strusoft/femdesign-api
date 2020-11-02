@@ -376,17 +376,13 @@ namespace FemDesign.ModellingTools
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                var cs = obj.CoordinateSystem;
-                cs.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromDynamo(localX));
-                obj.CoordinateSystem = cs;
+                obj.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                var cs = obj.CoordinateSystem;
-                cs.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
-                obj.CoordinateSystem = cs;
+                obj.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
 
             // return
