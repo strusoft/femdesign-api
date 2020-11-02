@@ -149,17 +149,13 @@ namespace FemDesign.GH
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                var cs = obj.CoordinateSystem;
-                cs.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromRhino(x));
-                obj.CoordinateSystem = cs;
+                obj.LocalX = FemDesign.Geometry.FdVector3d.FromRhino(x);
             }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                var cs = obj.CoordinateSystem;
-                cs.SetZAroundX(FemDesign.Geometry.FdVector3d.FromRhino(z));
-                obj.CoordinateSystem = cs;
+                obj.LocalZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
             }
 
             // return
