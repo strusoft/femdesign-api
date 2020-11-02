@@ -307,38 +307,38 @@ namespace FemDesign.ModellingTools
             this.Identifier = identifier;
         }
 
-        // /// <summary>
-        // /// Set ShellEdgeConnection by indices.
-        // /// </summary>
-        // /// <param name="fictShell">Fictitious Shell</param>
-        // /// <param name="edgeConnection">ShellEdgeConnection</param>
-        // /// <param name="indices">Index. List of items. Deconstruct fictitious shell to extract index for each respective edge.</param>
-        // /// <returns></returns>
-        // [IsVisibleInDynamoLibrary(true)]
-        // public static FictitiousShell SetShellEdgeConnection(FictitiousShell fictShell, Shells.ShellEdgeConnection edgeConnection, List<int> indices)
-        // {
-        //     // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
-        //     // downstream and uppstream objs will share guid.
-        //     FictitiousShell clone = fictShell.DeepClone();
+        /// <summary>
+        /// Set ShellEdgeConnection by indices.
+        /// </summary>
+        /// <param name="fictShell">Fictitious Shell</param>
+        /// <param name="edgeConnection">ShellEdgeConnection</param>
+        /// <param name="indices">Index. List of items. Deconstruct fictitious shell to extract index for each respective edge.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static FictitiousShell SetShellEdgeConnection(FictitiousShell fictShell, Shells.ShellEdgeConnection edgeConnection, List<int> indices)
+        {
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
+            FictitiousShell clone = fictShell.DeepClone();
 
-        //     foreach (int index in indices)
-        //     {
-        //         if (index >= 0 & index < fictShell.Region.GetEdgeConnections().Count)
-        //         {
-        //             // pass
-        //         }
-        //         else
-        //         {
-        //             throw new System.ArgumentException("Index is out of bounds.");
-        //         }
+            foreach (int index in indices)
+            {
+                if (index >= 0 & index < fictShell.Region.GetEdgeConnections().Count)
+                {
+                    // pass
+                }
+                else
+                {
+                    throw new System.ArgumentException("Index is out of bounds.");
+                }
                 
-        //         //
-        //         clone.Region.SetEdgeConnection(edgeConnection, index);  
-        //     }
+                //
+                clone.Region.SetEdgeConnection(edgeConnection, index);  
+            }
 
-        //     //
-        //     return clone;
-        // } 
+            //
+            return clone;
+        } 
 
         #region dynamo
         /// <summary>
