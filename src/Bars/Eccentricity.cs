@@ -16,31 +16,62 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public class Eccentricity
     {
+        /// <summary>Eccentricity local-y.</summary>
         [XmlAttribute("x")]
-        public double _x; // abs_max_1000
+        public double _x;
         [XmlIgnore]
         public double X
         {
-            get {return this._x;}
-            set {this._x = RestrictedDouble.AbsMax_1000(value);}
+            get
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = this._x * -1;
+                return val;
+            }
+            set
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = value * -1;
+                this._x = RestrictedDouble.AbsMax_1000(val);
+            }
         }
         /// <summary>Eccentricity local-y.</summary>
         [XmlAttribute("y")]
-        public double _y; // abs_max_1000
+        public double _y;
         [XmlIgnore]
         public double Y
         {
-            get {return this._y;}
-            set {this._y = RestrictedDouble.AbsMax_1000(value);}
+            get
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = this._y * -1;
+                return val;
+            }
+            set
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = value * -1;
+                this._y = RestrictedDouble.AbsMax_1000(val);
+            }
         }
         /// <summary>Eccentricity local-z.</summary>
         [XmlAttribute("z")]
-        public double _z; // abs_max_1000
+        public double _z;
         [XmlIgnore]
         public double Z
         {
-            get {return this._z;}
-            set {this._z = RestrictedDouble.AbsMax_1000(value);}
+            get
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = this._z * -1;
+                return val;
+            }
+            set
+            {
+                // value is negated to correspond to sign convention in FEM-Design GUI. Sign convention in data-protocol and FEM-Design GUI is different.
+                double val = value * -1;
+                this._z = RestrictedDouble.AbsMax_1000(val);
+            }
         }
 
         /// <summary>
@@ -88,6 +119,7 @@ namespace FemDesign.Bars
         
         /// <summary>
         /// Define the eccentricity of bar-element along its local axes.
+        /// Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="y">Eccentricity local-y</param>
