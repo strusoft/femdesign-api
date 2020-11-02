@@ -70,7 +70,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.FictShellDeconstruct;
            }
        }
        public override Guid ComponentGuid

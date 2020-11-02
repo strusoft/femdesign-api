@@ -56,7 +56,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.FictBarDeconstruct;
            }
        }
        public override Guid ComponentGuid
