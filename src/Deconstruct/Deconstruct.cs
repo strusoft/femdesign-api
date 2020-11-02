@@ -358,7 +358,7 @@ namespace FemDesign
                 {"Bars", model.GetBars()},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBar},
                 {"Shells", model.GetSlabs()},
-                {"FictitiousShells", model.Entities.AdvancedFem.FictitiousShell},
+                {"FictitiousShells", model.GetFictitiousShells()},
                 {"Covers", model.Entities.AdvancedFem.Cover},
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},
