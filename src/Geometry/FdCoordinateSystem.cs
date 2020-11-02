@@ -220,6 +220,87 @@ namespace FemDesign.Geometry
             }
         }
 
+        /// <summary>
+        /// Orient this coordinate system to GCS as if this coordinate system was constrained as an edge (i.e x' is constrained by the edge)
+        /// </summary>
+        public void OrientEdgeLcsToGcs()
+        {
+            if (this.IsComplete())
+            {
+                // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
+                int par = this.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
+                if (par == 1 || par == -1)
+                {
+                    this.SetYAroundX(FdVector3d.UnitY());
+                }
+
+                // else set (rotate) LocalY to UnitZ cross LocalX
+                else
+                {
+                    this.SetYAroundX(FdVector3d.UnitZ().Cross(this.LocalX).Normalize());
+                }
+            }
+
+            else
+            {
+                throw new System.ArgumentException("Impossible to orient axes as the passed coordinate system is incomplete.");
+            }            
+        }
+
+        /// <summary>
+        /// Orient this coordinate system to GCS as if this coordinate system was constrained as a plane (i.e. x' and y' are constrianed by the plane)
+        public void OrientPlaneLcsToGcs()
+        {
+            double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ());
+            if (dot == 1)
+            {
+                // the plane is horisontal and z' is equal to Z
+
+                // set x' to X
+                this.SetXAroundZ(FdVector3d.UnitX());
+            }
+            else if (dot < 1 && dot > 0)
+            {
+                // the plane is not horisontal nor vertical but z' is pointing up
+
+                // set x' to the cross-product of z' and Z
+                this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
+
+            }
+            else if (dot == 0)
+            {
+                // the plane is vertical 
+
+                // set y' to Z. This is the equivalent as setting x' to the cross-product of z' and Z in this case.
+                this.SetYAroundZ(FdVector3d.UnitZ());
+            }
+            else if (dot < 0 && dot > -1)
+            {
+                // the plane is not horisontal nor vertical, z' is pointing down
+
+                // flip coordinate system around x' so that z' points up
+                this.SetZAroundX(this.LocalZ.Reverse());
+
+                // set x' to the cross-product of z' and Z
+                this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
+
+            }
+            else if (dot == -1)
+            {
+                // the plane is horisontal but z' is equal to negative Z
+
+                // flip coordinate system around x' so that z' points up
+                this.SetZAroundX(this.LocalZ.Reverse());
+
+                // set x' to X
+                this.SetXAroundZ(FdVector3d.UnitX());
+            }
+            else
+            {
+                throw new System.ArgumentException($"Impossible to orient axes. Dot product, {dot}, should be between -1 and 1");
+            }
+        }
+
 
         #region dynamo
         /// <summary>
