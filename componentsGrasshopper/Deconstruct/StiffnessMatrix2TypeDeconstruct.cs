@@ -41,7 +41,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.StiffnessMatrix2TypeDeconstruct;
            }
        }
        public override Guid ComponentGuid
