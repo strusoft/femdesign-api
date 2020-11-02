@@ -71,7 +71,7 @@ namespace FemDesign.GH
             DA.SetDataList(1, model.GetBars());
             DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBar);
             DA.SetDataList(3, model.GetSlabs());
-            DA.SetDataList(4, model.Entities.AdvancedFem.FictitiousShell);
+            DA.SetDataList(4, model.GetFictitiousShells());
             DA.SetDataList(5, model.Entities.AdvancedFem.Cover);
             DA.SetDataList(6, model.Entities.Loads.GetGenericLoadObjects());
             DA.SetDataList(7, model.Entities.Loads.LoadCases);
