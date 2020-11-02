@@ -385,6 +385,13 @@ namespace FemDesign
             }
             else
             {
+                // add line connection types (predefined rigidity)
+                foreach (LineConnectionTypes.PredefinedType predef in obj.Region.GetPredefinedRigidities())
+                {
+                    this.AddPredefinedRigidity(predef);
+                }
+
+                // add shell
                 this.Entities.AdvancedFem.FictitiousShell.Add(obj);  
             }
         }
@@ -1292,6 +1299,7 @@ namespace FemDesign
             }
             return false;
         }
+
         #endregion
         
         #region deconstruct
@@ -1370,6 +1378,28 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Get FictitiousShells from Model.
+        /// FicititiousShells will be reconstruted from Model incorporating predefined EdgeConnections
+        /// </summary>
+        /// <returns></returns>
+        internal List<ModellingTools.FictitiousShell> GetFictitiousShells()
+        {
+            List<ModellingTools.FictitiousShell> objs = new List<ModellingTools.FictitiousShell>();
+            foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShell)
+            {
+                // set line_connection_types (i.e predefined edge connections) on edge
+                if (this.LineConnectionTypes.PredefinedType != null)
+                {
+                    item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                }
+
+                // add to return object
+                objs.Add(item);
+            }
+            return objs;            
+        }
+
+        /// <summary>
         /// Get Slabs from Model.
         /// Slabs will be reconstruted from Model incorporating all references: Material, Predefined EdgeConnections, SurfaceReinforcementParameters, SurfaceReinforcement.
         /// </summary>
@@ -1388,29 +1418,10 @@ namespace FemDesign
                     }
                 }
 
-                // get line_connection_type     
-                if (this.LineConnectionTypes != null)
-                {         
-                    foreach (Geometry.Contour contour in item.SlabPart.Region.Contours)
-                    {
-                        foreach (Geometry.Edge edge in contour.Edges)
-                        {
-                            if (edge.EdgeConnection != null)
-                            {
-                                if (edge.EdgeConnection._predefRigidityRef != null)
-                                {
-                                    foreach (LineConnectionTypes.PredefinedType predefinedType in this.LineConnectionTypes.PredefinedType)
-                                    {
-                                        // add predefined type to edge connection if edge connection predef rigidity reference matches guid of predefine type
-                                        if (edge.EdgeConnection._predefRigidityRef.Guid == predefinedType.Guid)
-                                        {
-                                            edge.EdgeConnection.PredefRigidity = predefinedType;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                // set line_connection_types (i.e predefined edge connections) on edge
+                if (this.LineConnectionTypes.PredefinedType != null)
+                {
+                    item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
                 }
 
                 // get surface reinforcement parameters
