@@ -1575,15 +1575,16 @@ namespace FemDesign
         }  
             
         /// <summary>
-        /// Save model to .struxml.
+        /// Save model to .struxml. Returns true if model was serialized.
         /// </summary>
         /// <remarks>Action</remarks>
         /// <param name="fdModel">FdModel.</param>
         /// <param name="struxmlPath">File path where to save the model as .struxml.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static void SaveModel(Model fdModel, string struxmlPath)
+        public static bool SaveModel(Model fdModel, string struxmlPath)
         {
             fdModel.SerializeModel(struxmlPath);
+            return true;
         }
         #endregion 
     }

@@ -18,7 +18,7 @@ namespace FemDesign.GH
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-
+            pManager.AddBooleanParameter("Done", "Done", "Returns true if model was serialized", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -40,8 +40,11 @@ namespace FemDesign.GH
                 return;
             }
 
-            //
+            // serialize model
             model.SerializeModel(filePath);
+            
+            // return true
+            DA.SetData(0, true);
             }
         protected override System.Drawing.Bitmap Icon
         {
