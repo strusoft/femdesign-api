@@ -12,11 +12,58 @@ namespace FemDesign.ModellingTools
     [IsVisibleInDynamoLibrary(false)]
     public class FictitiousBar: EntityBase
     {
+        [XmlIgnore]
         private static int Instance = 0;
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem _coordinateSystem;
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem CoordinateSystem
+        {
+            get
+            {
+                if (this._coordinateSystem == null)
+                {
+                    this._coordinateSystem = this.Edge.CoordinateSystem;
+                    return this._coordinateSystem;
+                }
+                else
+                {
+                    return this._coordinateSystem;
+                }
+            }
+            set
+            {
+                this._coordinateSystem = value;
+                this._localY = value.LocalY;
+            }
+        }
+
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; }
+
+        [XmlIgnore]
+        public Geometry.FdPoint3d LocalOrigin
+        {
+            get
+            {
+                return this.CoordinateSystem.Origin;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalX
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalX;
+            }
+        }
+
         [XmlElement("local-y", Order = 2)]
         public Geometry.FdVector3d _localY;
+
         [XmlIgnore]
         public Geometry.FdVector3d LocalY
         {
@@ -26,21 +73,23 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.DotProduct)
-                {
-                    this._localY = val;
-                }
-
-                else
-                {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
-                }
+                this.CoordinateSystem.SetYAroundX(value);
+                this._localY = this.CoordinateSystem.LocalY;
             }
         }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalZ;
+            }
+        }
+
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
+
         [XmlIgnore]
         public Bars.Connectivity StartConnectivity
         {
@@ -53,6 +102,7 @@ namespace FemDesign.ModellingTools
                 this._connectivity[0] = value;
             }
         }
+
         [XmlIgnore]
         public Bars.Connectivity EndConnectivity
         {
@@ -65,8 +115,10 @@ namespace FemDesign.ModellingTools
                 this._connectivity[1] = value;
             }
         }
+
         [XmlAttribute("name")]
         public string _name;
+
         [XmlIgnore]
         public string Name
         { 
@@ -80,8 +132,10 @@ namespace FemDesign.ModellingTools
                 this._name = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
             }
         }
+
         [XmlAttribute("AE")]
         public double _ae;
+
         [XmlIgnore]
         public double AE
         {
@@ -94,8 +148,10 @@ namespace FemDesign.ModellingTools
                 this._ae = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("ItG")]
         public double _itg;
+
         [XmlIgnore]
         public double ItG
         {
@@ -108,8 +164,10 @@ namespace FemDesign.ModellingTools
                 this._itg = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I1E")]
         public double _i1e;
+
         [XmlIgnore]
         public double I1E
         {
@@ -122,8 +180,10 @@ namespace FemDesign.ModellingTools
                 this._i1e = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I2E")]
         public double _i2e;
+
         [XmlIgnore]
         public double I2E
         {
