@@ -15,6 +15,9 @@ namespace FemDesign.ModellingTools
         [XmlIgnore]
         private static int Instance = 0;
 
+        [XmlElement("edge", Order = 1)]
+        public Geometry.Edge Edge { get; set; }
+
         [XmlIgnore]
         private Geometry.FdCoordinateSystem _coordinateSystem;
 
@@ -39,9 +42,6 @@ namespace FemDesign.ModellingTools
                 this._localY = value.LocalY;
             }
         }
-
-        [XmlElement("edge", Order = 1)]
-        public Geometry.Edge Edge { get; set; }
 
         [XmlIgnore]
         public Geometry.FdPoint3d LocalOrigin
