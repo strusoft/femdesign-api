@@ -25,7 +25,7 @@ namespace FemDesign.ModellingTools
             {
                 if (this._coordinateSystem == null)
                 {
-                    this._coordinateSystem = new Geometry.FdCoordinateSystem(this.LocalPosition, this.LocalX, this.LocalY);
+                    this._coordinateSystem = new Geometry.FdCoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalY);
                     return this._coordinateSystem;
                 }
                 else
@@ -36,11 +36,10 @@ namespace FemDesign.ModellingTools
             set
             {
                 this._coordinateSystem = value;
-                this._localPosition = value.Origin;
+                this._localOrigin = value.Origin;
                 this._localX = value.LocalX;
                 this._localY = value.LocalY;
             }
-
         }
         
         [XmlElement("region", Order=1)]
@@ -59,18 +58,18 @@ namespace FemDesign.ModellingTools
         }
         
         [XmlElement("local_pos", Order=2)]
-        public Geometry.FdPoint3d _localPosition;
+        public Geometry.FdPoint3d _localOrigin;
         [XmlIgnore]
-        public Geometry.FdPoint3d LocalPosition
+        public Geometry.FdPoint3d LocalOrigin
         {
             get
             {
-                return this._localPosition;
+                return this._localOrigin;
             }
             set
             {
                 this.CoordinateSystem.Origin = value;
-                this._localPosition = value;
+                this._localOrigin = value;
             }
         }
 
