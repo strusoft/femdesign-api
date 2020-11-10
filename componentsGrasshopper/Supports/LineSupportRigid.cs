@@ -63,7 +63,7 @@ namespace FemDesign.GH
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                obj.LineSupport.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                obj.LineSupport.Group.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
             }
 
             // return

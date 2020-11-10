@@ -15,7 +15,6 @@ namespace FemDesign.Supports
     [IsVisibleInDynamoLibrary(false)]
     public class LineSupport: EntityBase
     {
-
         // serialization properties
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier. Default = S
@@ -30,31 +29,7 @@ namespace FemDesign.Supports
         /// This property only reflects the edge normal. If this normal is changed arcs may transform.
         /// </summary>
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal;
-        [XmlIgnore]
-        public Geometry.FdVector3d LocalY
-        {
-            get
-            {
-                return this.Group.LocalY;
-            }
-            set
-            {
-                Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.DotProduct)
-                {
-                    // set support group lcs information
-                    this.Group.LocalY = val;
-                    this.Group.LocalX = val.Cross(this.Edge.CoordinateSystem.LocalZ).Normalize();
-                }
-
-                else
-                {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
-                }
-            }
-        }
+        public Geometry.FdVector3d EdgeNormal;
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -78,9 +53,9 @@ namespace FemDesign.Supports
             edge.OrientCoordinateSystemToGCS();
 
             // set edge specific properties
-            this.Group = new Group(edge, motions, rotations);
+            this.Group = new Group(edge.CoordinateSystem, motions, rotations);
             this.Edge = edge;
-            this.Normal = edge.Normal;
+            this.EdgeNormal = edge.Normal;
         }
 
         /// <summary>
@@ -121,7 +96,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
             return obj;
@@ -144,7 +119,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
             return obj;
@@ -169,7 +144,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
             return obj;

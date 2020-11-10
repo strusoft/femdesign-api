@@ -31,8 +31,9 @@ namespace FemDesign.Supports
         public Geometry.Region Region { get; set; }
         [XmlElement("rigidity", Order=2)]
         public Releases.RigidityDataType1 Rigidity { get; set; }
+
         [XmlElement("local_system", Order=3)]
-        public Geometry.FdCoordinateSystem LocalSystem { get; set; }
+        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization
@@ -51,7 +52,7 @@ namespace FemDesign.Supports
             this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
-            this.LocalSystem = region.CoordinateSystem;
+            this.CoordinateSystem = region.CoordinateSystem;
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace FemDesign.Supports
             this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = new Releases.RigidityDataType1(motions);
-            this.LocalSystem = region.CoordinateSystem;
+            this.CoordinateSystem = region.CoordinateSystem;
         }
 
         #region dynamo
@@ -87,13 +88,13 @@ namespace FemDesign.Supports
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromDynamo(localX));
+                obj.CoordinateSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromDynamo(localX));
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
+                obj.CoordinateSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
             }
 
             // return

@@ -703,8 +703,8 @@ namespace FemDesign
                     {"AnalyticalID", obj.Identifier},
                     {"Geometry", obj.Region.ToDynamoSurface()},
                     {"MovingLocal", "SurfaceSupport has no moving local property."},
-                    {"LocalX", obj.LocalSystem.LocalX.ToDynamo()},
-                    {"LocalY", obj.LocalSystem.LocalY.ToDynamo()},
+                    {"LocalX", obj.CoordinateSystem.LocalX.ToDynamo()},
+                    {"LocalY", obj.CoordinateSystem.LocalY.ToDynamo()},
                     {"Motions", obj.Rigidity.Motions},
                     {"Rotations", "SurfaceSupport has no rotations property."}
                 };

@@ -42,6 +42,14 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Construct FdPoint3d in origin
+        /// </summary>
+        public static FdPoint3d Origin()
+        {
+            return new FdPoint3d(0,0,0);
+        }
+
+        /// <summary>
         /// Translate a point by a vector.
         /// </summary>
         /// <param name="v">Vector.</param>

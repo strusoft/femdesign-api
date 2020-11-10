@@ -67,8 +67,8 @@ namespace FemDesign.GH
                 DA.SetData(1, obj.SurfaceSupport.Identifier);
                 DA.SetData(2, obj.SurfaceSupport.Region.ToRhinoBrep());
                 DA.SetData(3, "SurfaceSupport has no moving local property.");
-                DA.SetData(4, obj.SurfaceSupport.LocalSystem.LocalX.ToRhino());
-                DA.SetData(5, obj.SurfaceSupport.LocalSystem.LocalY.ToRhino());
+                DA.SetData(4, obj.SurfaceSupport.CoordinateSystem.LocalX.ToRhino());
+                DA.SetData(5, obj.SurfaceSupport.CoordinateSystem.LocalY.ToRhino());
                 DA.SetData(6, obj.SurfaceSupport.Rigidity.Motions);
                 DA.SetData(7, "SurfaceSupport has no rotations property");
             }
