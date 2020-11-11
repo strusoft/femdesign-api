@@ -108,5 +108,16 @@ namespace FemDesign.Supports
             this._localY = localY;
             this.Rigidity = Releases.RigidityDataType3.Define(motions, rotations);
         }
+
+        /// <summary>
+        /// Orient this object's coordinate system to GCS
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
+        }
+
     }
 }

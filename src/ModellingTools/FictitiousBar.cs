@@ -222,6 +222,16 @@ namespace FemDesign.ModellingTools
             this.I2E = i2e;
         }
 
+        /// <summary>
+        /// Orient this object's coordinate system to GCS.
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
+        }
+
         #region dynamo
         [IsVisibleInDynamoLibrary(true)]
         /// <summary>
@@ -261,11 +271,6 @@ namespace FemDesign.ModellingTools
                 throw new System.ArgumentException($"Connectivity must contain 1 or 2 items. Number of items is {connectivity.Count}");
             }
 
-            if (orientLCS)
-            {
-                edge.OrientCoordinateSystemToGCS();
-            }
-
             // create virtual bar
             FictitiousBar bar = new FictitiousBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, identifier, AE, ItG, I1E, I2E);
 
@@ -273,6 +278,12 @@ namespace FemDesign.ModellingTools
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.OrientCoordinateSystemToGCS();
             }
 
             // return

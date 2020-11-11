@@ -78,6 +78,12 @@ namespace FemDesign.GH
             {
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
             }
+            
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
 
             // output
             DA.SetData(0, bar);

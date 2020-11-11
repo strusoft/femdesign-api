@@ -223,7 +223,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Orient this coordinate system to GCS as if this coordinate system was constrained as an edge (i.e x' is constrained by the edge)
         /// </summary>
-        public void OrientEdgeLcsToGcs()
+        public void OrientEdgeTypeLcsToGcs()
         {
             if (this.IsComplete())
             {
@@ -252,7 +252,7 @@ namespace FemDesign.Geometry
         /// If plane is not vertical plane z' will be orientated up.
         /// If plane is vertical y' will be orientated up.
         /// </summary>
-        public void OrientPlaneLcsToGcs()
+        public void OrientPlaneTypeLcsToGcs()
         {
             double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ());
             if (dot == 1)

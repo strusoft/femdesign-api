@@ -144,13 +144,19 @@ namespace FemDesign.Bars
             this.Name = _name + ".1";
             this.ComplexMaterial = _material.Guid;
             this.EccentricityCalc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
-            
-            // orient edge coordinate system
-            _edge.OrientCoordinateSystemToGCS();
-            
             this.Edge = _edge;
             this.LocalY = _edge.CoordinateSystem.LocalY;
             this.End = "";
+        }
+
+        /// <summary>
+        /// Orient this object's coordinate system to GCS
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
         }
 
         /// <summary>

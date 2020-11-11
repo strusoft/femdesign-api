@@ -49,9 +49,6 @@ namespace FemDesign.Supports
             this.Name =  identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
-            // orient edge
-            edge.OrientCoordinateSystemToGCS();
-
             // set edge specific properties
             this.Group = new Group(edge.CoordinateSystem, motions, rotations);
             this.Edge = edge;
@@ -99,6 +96,12 @@ namespace FemDesign.Supports
                 obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                obj.Group.OrientCoordinateSystemToGCS();
+            }
+
             return obj;
         }
 
@@ -120,6 +123,12 @@ namespace FemDesign.Supports
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                obj.Group.OrientCoordinateSystemToGCS();
             }
 
             return obj;
@@ -145,6 +154,12 @@ namespace FemDesign.Supports
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                obj.Group.OrientCoordinateSystemToGCS();
             }
 
             return obj;

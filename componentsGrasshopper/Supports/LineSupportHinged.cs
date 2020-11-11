@@ -66,6 +66,12 @@ namespace FemDesign.GH
                 obj.LineSupport.Group.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                obj.LineSupport.Group.OrientCoordinateSystemToGCS();
+            }
+
             // return
             DA.SetData(0, obj);
 

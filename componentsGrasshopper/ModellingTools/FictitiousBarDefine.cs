@@ -118,11 +118,6 @@ namespace FemDesign.GH
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromRhinoLineOrArc2(curve);
 
-            if (orientLCS)
-            {
-                edge.OrientCoordinateSystemToGCS();
-            }
-
             // create virtual bar
             ModellingTools.FictitiousBar bar = new ModellingTools.FictitiousBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
 
@@ -130,6 +125,12 @@ namespace FemDesign.GH
             if (!v.Equals(Vector3d.Zero))
             {
                 bar.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.OrientCoordinateSystemToGCS();
             }
 
             // output

@@ -212,6 +212,12 @@ namespace FemDesign.Bars
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
+
             // return
             return bar;
         }
@@ -241,6 +247,12 @@ namespace FemDesign.Bars
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
+
             // return
             return bar;
         }
@@ -266,6 +278,12 @@ namespace FemDesign.Bars
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
             }
 
             // return
@@ -300,26 +318,13 @@ namespace FemDesign.Bars
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
+
             // return
-            return bar;
-        }
-
-        /// <summary>
-        /// Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis.
-        /// </summary>
-        /// <param name="localY">Vector. Local y-axis.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public Bar SetLocalY(Autodesk.DesignScript.Geometry.Vector localY)
-        {
-            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
-            // downstream and uppstream objs will share guid.
-            Bar bar = this.DeepClone();
-
-            //
-            bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
-
-            //
             return bar;
         }
 
