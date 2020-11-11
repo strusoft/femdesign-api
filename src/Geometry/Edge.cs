@@ -200,33 +200,6 @@ namespace FemDesign.Geometry
             }
         }
 
-        /// <summary>
-        /// Orient coordinate system to GCS.
-        /// </summary>
-        public void OrientCoordinateSystemToGCS()
-        {
-            if (this.CoordinateSystem.IsComplete())
-            {
-                // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.CoordinateSystem.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
-                if (par == 1 || par == -1)
-                {
-                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitY());
-                }
-
-                // else set (rotate) LocalY to UnitZ cross LocalX
-                else
-                {
-                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitZ().Cross(this.CoordinateSystem.LocalX).Normalize());
-                }
-            }
-
-            else
-            {
-                throw new System.ArgumentException("Impossible to orient axes as the passed coordinate system is incomplete.");
-            }            
-        }
-
         #region dynamo
         /// <summary>
         /// Convert a Dynamo Curve to Edge.
