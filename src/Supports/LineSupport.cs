@@ -82,10 +82,12 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY,  [DefaultArgument("S")] string identifier)
+        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS,  [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
             FemDesign.Supports.LineSupport obj = LineSupport.Rigid(edge, movingLocal, identifier);
@@ -99,7 +101,10 @@ namespace FemDesign.Supports
             // else orient coordinate system to GCS
             else
             {
-                obj.Group.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
             }
 
             return obj;
@@ -111,10 +116,12 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY,[DefaultArgument("S")] string identifier)
+        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
             FemDesign.Supports.LineSupport obj = LineSupport.Hinged(edge, movingLocal, identifier);
@@ -128,7 +135,10 @@ namespace FemDesign.Supports
             // else orient coordinate system to GCS
             else
             {
-                obj.Group.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
             }
 
             return obj;
@@ -142,10 +152,12 @@ namespace FemDesign.Supports
         /// <param name="motions">Motions. Translation releases.</param>
         /// <param name="rotations">Rotations. Rotation releases.</param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("S")] string identifier)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
             FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, rotations, movingLocal, identifier);
@@ -159,7 +171,10 @@ namespace FemDesign.Supports
             // else orient coordinate system to GCS
             else
             {
-                obj.Group.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
             }
 
             return obj;

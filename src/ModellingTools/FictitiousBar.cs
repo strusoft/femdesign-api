@@ -243,8 +243,8 @@ namespace FemDesign.ModellingTools
         /// <param name="I1E">I1E</param>
         /// <param name="I2E">I2E</param>
         /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.</param>
-        /// <param name="localY">LocalY</param>
-        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertial).</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
         public static FictitiousBar Define(Autodesk.DesignScript.Geometry.Curve curve, double AE, double ItG, double I1E, double I2E, [DefaultArgument("FemDesign.Bars.Connectivity.Default()")] List<Bars.Connectivity> connectivity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "BF")
@@ -283,7 +283,10 @@ namespace FemDesign.ModellingTools
             // else orient coordinate system to GCS
             else
             {
-                bar.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {
+                    bar.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return
