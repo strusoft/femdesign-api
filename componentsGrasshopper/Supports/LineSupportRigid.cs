@@ -16,8 +16,9 @@ namespace FemDesign.GH
             pManager.AddCurveParameter("Curve", "Curve", "Curve along where to place the LineSupport.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("MovingLocal", "MovingLocal", "LCS changes direction along line? True/false.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
+           pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
            pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -43,8 +44,13 @@ namespace FemDesign.GH
             {
                 // pass
             }
+            bool orientLCS = true;
+            if (!DA.GetData(3, ref orientLCS))
+            {
+                // pass
+            }
             string identifier = "S";
-            if (!DA.GetData(3, ref identifier))
+            if (!DA.GetData(4, ref identifier))
             {
                 // pass
             }
@@ -69,7 +75,10 @@ namespace FemDesign.GH
             // else orient coordinate system to GCS
             else
             {
-                obj.LineSupport.Group.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {  
+                    obj.LineSupport.Group.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return

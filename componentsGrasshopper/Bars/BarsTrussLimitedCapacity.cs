@@ -20,8 +20,9 @@ namespace FemDesign.GH
             pManager.AddBooleanParameter("BehaviourCompression", "BehaviourCompression", "True if plastic behaviour. False if brittle behaviour", GH_ParamAccess.item);
             pManager.AddNumberParameter("LimitTension", "LimitTension", "Tension force limit", GH_ParamAccess.item);
             pManager.AddBooleanParameter("BehaviourTension", "BehaviourTension", "True if plastic behaviour. False if brittle behaviour", GH_ParamAccess.item);
-            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
+           pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "T");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -59,8 +60,14 @@ namespace FemDesign.GH
                 // pass
             }
 
+            bool orientLCS = true;
+            if (!DA.GetData(8, ref orientLCS))
+            {
+                // pass
+            }
+
             string identifier = "T";
-            if (!DA.GetData(8, ref identifier))
+            if (!DA.GetData(9, ref identifier))
             {
                 // pass
             }
@@ -85,7 +92,10 @@ namespace FemDesign.GH
             // else orient coordinate system to GCS
             else
             {
-                bar.BarPart.OrientCoordinateSystemToGCS();
+                if (orientLCS)
+                {  
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return
