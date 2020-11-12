@@ -1388,9 +1388,12 @@ namespace FemDesign
             foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShell)
             {
                 // set line_connection_types (i.e predefined edge connections) on edge
-                if (this.LineConnectionTypes.PredefinedType != null)
+                if (this.LineConnectionTypes != null)
                 {
-                    item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                    if (this.LineConnectionTypes.PredefinedType != null)
+                    {
+                        item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                    }
                 }
 
                 // add to return object
@@ -1419,9 +1422,12 @@ namespace FemDesign
                 }
 
                 // set line_connection_types (i.e predefined edge connections) on edge
-                if (this.LineConnectionTypes.PredefinedType != null)
+                if (this.LineConnectionTypes != null)
                 {
-                    item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                    if (this.LineConnectionTypes.PredefinedType != null)
+                    {
+                        item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                    }
                 }
 
                 // get surface reinforcement parameters
