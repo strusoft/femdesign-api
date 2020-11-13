@@ -14,23 +14,54 @@ namespace FemDesign.Sections
     [IsVisibleInDynamoLibrary(false)]
     public class Section: EntityBase
     {
-        [IsVisibleInDynamoLibrary(true)]
+        [XmlElement("region_group", Order = 1)]
+        public Geometry.RegionGroup RegionGroup { get; set; } // region_group_type
+
+        [XmlElement("end", Order = 2)]
+        public string _end { get; set; } // enpty_type
+
         [XmlAttribute("name")]
         public string Name { get; set; } // string
+
         [XmlAttribute("type")]
         public string Type { get; set; } // sectiontype
+
         [XmlAttribute("fd-mat")]
-        public string FdMat { get; set; } // fd_mat_type
+        public string MaterialType { get; set; }
+        // public Materials.MaterialTypeEnum MaterialType { get; set; } // fd_mat_type
+
         [XmlAttribute("fd_name_code")]
-        public string FdNameCode { get; set; } // string. Optional
+        public string GroupName { get; set; } // string. Optional
+
         [XmlAttribute("fd_name_type")]
-        public string FdNameType { get; set; } // string. Optional
+        public string TypeName { get; set; } // string. Optional
+
         [XmlAttribute("fd_name_size")]
-        public string FdNameSize { get; set; } // string. Optional
-        [XmlElement("region_group")]
-        public Geometry.RegionGroup RegionGroup { get; set; } // region_group_type
-        [XmlElement("end")]
-        public string End { get; set; } // enpty_type
+        public string SizeName { get; set; } // string. Optional
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// <summary>
+        private Section()
+        {
+
+        }
+
+        // /// <summary>
+        // /// Construct a new section
+        // /// <summary>
+        // public Section(Geometry.RegionGroup regionGroup, string name, string type, Materials.MaterialTypeEnum materialTypeEnum, string groupName, string typeName, string sizeName)
+        // {
+        //     this.EntityCreated();
+        //     this.RegionGroup = regionGroup;
+        //     this.Name = name;
+        //     this.Type = type;
+        //     this.MaterialType = materialTypeEnum; 
+        //     this.GroupName = groupName;
+        //     this.TypeName = typeName;
+        //     this.SizeName = sizeName;
+        //     this._end = "";
+        // }
 
         /// <summary>
         /// Get a Section from a SectionDatabase by name.
