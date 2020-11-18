@@ -1,6 +1,7 @@
 // https://strusoft.com/
-
+using System;
 using System.Xml.Serialization;
+
 
 namespace FemDesign.Supports
 {
@@ -10,7 +11,6 @@ namespace FemDesign.Supports
     [System.Serializable]
     public class LineSupport: EntityBase
     {
-
         // serialization properties
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier. Default = S
@@ -20,8 +20,12 @@ namespace FemDesign.Supports
         public Group Group { get; set; } // support_rigidity_data_type
         [XmlElement("edge", Order = 2)]
         public Geometry.Edge Edge { get; set; } // edge_type
+
+        /// <summary>
+        /// This property only reflects the edge normal. If this normal is changed arcs may transform.
+        /// </summary>
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
+        public Geometry.FdVector3d EdgeNormal;
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -41,13 +45,10 @@ namespace FemDesign.Supports
             this.Name =  identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
-            // orient edge
-            edge.OrientCoordinateSystemToGCS();
-
             // set edge specific properties
-            this.Group = new Group(edge, motions, rotations);
+            this.Group = new Group(edge.CoordinateSystem, motions, rotations);
             this.Edge = edge;
-            this.Normal = edge.CoordinateSystem.LocalZ;
+            this.EdgeNormal = edge.Normal;
         }
 
         /// <summary>

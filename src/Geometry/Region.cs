@@ -176,6 +176,57 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Get all PredefinedRigidities from all Edges in Region
+        /// </summary>
+        /// <returns></returns>
+        internal List<LineConnectionTypes.PredefinedType> GetPredefinedRigidities()
+        {
+            List<LineConnectionTypes.PredefinedType> predefRigidities = new List<LineConnectionTypes.PredefinedType>();
+            foreach (Contour contour in this.Contours)
+            {
+                foreach(Edge edge in contour.Edges)
+                {
+                    if (edge.EdgeConnection != null)
+                    {
+                        if (edge.EdgeConnection.PredefRigidity != null)
+                        {
+                            predefRigidities.Add(edge.EdgeConnection.PredefRigidity);
+                        }
+                    }
+                    
+                }
+            }
+            return predefRigidities;
+        }
+
+        /// <summary>
+        /// Set line connection types (i.e predefined line connection type) on region edges
+        /// </summary>
+        internal void SetPredefinedRigidities(List<LineConnectionTypes.PredefinedType> predefinedTypes)
+        {
+            foreach (Geometry.Contour contour in this.Contours)
+            {
+                foreach (Geometry.Edge edge in contour.Edges)
+                {
+                    if (edge.EdgeConnection != null)
+                    {
+                        if (edge.EdgeConnection._predefRigidityRef != null)
+                        {
+                            foreach (LineConnectionTypes.PredefinedType predefinedType in predefinedTypes)
+                            {
+                                // add predefined type to edge connection if edge connection predef rigidity reference matches guid of predefine type
+                                if (edge.EdgeConnection._predefRigidityRef.Guid == predefinedType.Guid)
+                                {
+                                    edge.EdgeConnection.PredefRigidity = predefinedType;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns a new instance of region, without any EdgeConnections.
         /// </summary>
         /// <returns></returns>

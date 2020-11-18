@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.StructureGrid
 {
+    [System.Serializable]
     public class Storey: EntityBase
     {
         [XmlElement("origo", Order=1)]

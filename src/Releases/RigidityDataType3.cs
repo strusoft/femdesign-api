@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System.Globalization;
 using System.Xml.Serialization;
 
 
@@ -11,13 +12,29 @@ namespace FemDesign.Releases
     [System.Serializable]
     public class RigidityDataType3: RigidityDataType2
     {
+        /// <summary>
+        /// Type string in order to make field nullable. When null FEM-Design will load default value.
+        /// </summary>
         [XmlAttribute("friction")]
-        public double _friction; // reduction_factor_type. Default = 0.3
+        public string _friction; // reduction_factor_type. Default = 0.3
         [XmlIgnore]
         public double Friction 
         {
-            get {return this._friction;}
-            set {this._friction = RestrictedDouble.NonNegMax_1(value);}
+            get
+            {
+                if (this._friction == null)
+                {
+                    throw new System.ArgumentException("_friction is null");
+                }
+                else
+                {    
+                    return System.Convert.ToDouble(this._friction, CultureInfo.InvariantCulture);
+                }
+            }
+            set
+            {
+                this._friction = value.ToString();
+            }
         }
 
         /// <summary>
@@ -29,12 +46,22 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Private constructor of simple RigidityDataType3
+        /// Construct RigidityDataType3 with default friction
         /// </summary>
-        private RigidityDataType3(Motions motions, Rotations rotations)
+        public RigidityDataType3(Motions motions, Rotations rotations)
         {
             this.Motions = motions;
             this.Rotations = rotations;
+        }
+
+        /// <summary>
+        /// Construct RigidityDataType3 with defined friction
+        /// </summary>
+        public RigidityDataType3(Motions motions, Rotations rotations, double friction)
+        {
+            this.Motions = motions;
+            this.Rotations = rotations;
+            this.Friction = friction;
         }
 
         /// <summary>

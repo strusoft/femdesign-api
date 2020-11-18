@@ -30,11 +30,19 @@ namespace FemDesign.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        internal FdPoint3d(double x, double y, double z)
+        public FdPoint3d(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
             this.Z = z;
+        }
+
+        /// <summary>
+        /// Construct FdPoint3d in origin
+        /// </summary>
+        public static FdPoint3d Origin()
+        {
+            return new FdPoint3d(0,0,0);
         }
 
         /// <summary>
@@ -51,7 +59,7 @@ namespace FemDesign.Geometry
         /// Project point on XY-plane.
         /// </summary>
         /// <returns></returns>
-        internal FdPoint2d To2d()
+        public FdPoint2d To2d()
         {
             return new FdPoint2d(this.X, this.Y);
         }
@@ -99,7 +107,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        internal static FemDesign.Geometry.FdPoint3d FromRhino(Rhino.Geometry.Point3d obj)
+        public static FemDesign.Geometry.FdPoint3d FromRhino(Rhino.Geometry.Point3d obj)
         {
             //
             double x, y, z;

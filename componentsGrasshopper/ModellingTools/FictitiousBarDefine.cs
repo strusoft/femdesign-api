@@ -6,19 +6,15 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class VirtualBarDefine: GH_Component
+    public class FictitiousBarDefine: GH_Component
     {
-       public VirtualBarDefine(): base("FictitiousBar.Define", "Define", "Create a fictitious bar element.", "FemDesign", "Modeling tool")
+       public FictitiousBarDefine(): base("FictitiousBar.Define", "Define", "Create a fictitious bar element.", "FemDesign", "ModellingTools")
        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.", GH_ParamAccess.list);
-           pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddVectorParameter("LocalY", "LocalY", "LocalY.", GH_ParamAccess.item);
-           pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddNumberParameter("AE", "AE", "AE", GH_ParamAccess.item, 1E7);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddNumberParameter("ItG", "ItG", "ItG", GH_ParamAccess.item, 1E7);
@@ -27,6 +23,11 @@ namespace FemDesign.GH
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddNumberParameter("I2E", "I2E", "I2E", GH_ParamAccess.item, 1E7);
            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.", GH_ParamAccess.list);
+           pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
+           pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "BF");
            pManager[pManager.ParamCount - 1].Optional = true;
        } 
@@ -39,11 +40,36 @@ namespace FemDesign.GH
             // get input
             Curve curve = null;
             if (!DA.GetData(0, ref curve)) { return; }
-            
+
+            double stiffness = 1E7;
+            double ae = stiffness;
+            if (!DA.GetData(1, ref ae))
+            {
+                // pass
+            }
+
+            double itg = stiffness;
+            if (!DA.GetData(2, ref itg))
+            {
+                // pass
+            }
+
+            double i1e = stiffness;
+            if (!DA.GetData(3, ref i1e))
+            {
+                // pass
+            }
+
+            double i2e = stiffness;
+            if (!DA.GetData(4, ref i2e))
+            {
+                // pass
+            }
+
             Bars.Connectivity startConnectivity = Bars.Connectivity.Default();
             Bars.Connectivity endConnectivity = Bars.Connectivity.Default();
             List<Bars.Connectivity> connectivity = new List<Bars.Connectivity>();
-            if (!DA.GetDataList(1, connectivity))
+            if (!DA.GetDataList(5, connectivity))
             {
                 // pass
             }
@@ -66,38 +92,19 @@ namespace FemDesign.GH
             }
 
             Vector3d v = Vector3d.Zero;
-            if (!DA.GetData(2, ref v))
+            if (!DA.GetData(6, ref v))
             {
                 // pass
             }
 
-            double stiffness = 1E7;
-            double ae = stiffness;
-            if (!DA.GetData(3, ref ae))
-            {
-                // pass
-            }
-
-            double itg = stiffness;
-            if (!DA.GetData(4, ref itg))
-            {
-                // pass
-            }
-
-            double i1e = stiffness;
-            if (!DA.GetData(5, ref i1e))
-            {
-                // pass
-            }
-
-            double i2e = stiffness;
-            if (!DA.GetData(6, ref i2e))
+            bool orientLCS = true;
+            if (!DA.GetData(7, ref orientLCS))
             {
                 // pass
             }
 
             string name = "BF";
-            if (!DA.GetData(7, ref name))
+            if (!DA.GetData(8, ref name))
             {
                 // pass
             }
@@ -111,12 +118,21 @@ namespace FemDesign.GH
             Geometry.Edge edge = Geometry.Edge.FromRhinoLineOrArc2(curve);
 
             // create virtual bar
-            ModellingTool.VirtualBar bar = new ModellingTool.VirtualBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
+            ModellingTools.FictitiousBar bar = new ModellingTools.FictitiousBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
                 bar.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    bar.OrientCoordinateSystemToGCS();
+                }
             }
 
             // output
@@ -127,7 +143,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.FictBar;
            }
        }
        public override Guid ComponentGuid

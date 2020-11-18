@@ -3,16 +3,63 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace FemDesign.ModellingTool
+namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class VirtualBar: EntityBase
+    public class FictitiousBar: EntityBase
     {
+        [XmlIgnore]
         private static int Instance = 0;
+
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; }
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem _coordinateSystem;
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem CoordinateSystem
+        {
+            get
+            {
+                if (this._coordinateSystem == null)
+                {
+                    this._coordinateSystem = this.Edge.CoordinateSystem;
+                    return this._coordinateSystem;
+                }
+                else
+                {
+                    return this._coordinateSystem;
+                }
+            }
+            set
+            {
+                this._coordinateSystem = value;
+                this._localY = value.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdPoint3d LocalOrigin
+        {
+            get
+            {
+                return this.CoordinateSystem.Origin;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalX
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalX;
+            }
+        }
+
         [XmlElement("local-y", Order = 2)]
         public Geometry.FdVector3d _localY;
+
         [XmlIgnore]
         public Geometry.FdVector3d LocalY
         {
@@ -22,21 +69,23 @@ namespace FemDesign.ModellingTool
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.DotProduct)
-                {
-                    this._localY = val;
-                }
-
-                else
-                {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
-                }
+                this.CoordinateSystem.SetYAroundX(value);
+                this._localY = this.CoordinateSystem.LocalY;
             }
         }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalZ;
+            }
+        }
+
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
+
         [XmlIgnore]
         public Bars.Connectivity StartConnectivity
         {
@@ -49,6 +98,7 @@ namespace FemDesign.ModellingTool
                 this._connectivity[0] = value;
             }
         }
+
         [XmlIgnore]
         public Bars.Connectivity EndConnectivity
         {
@@ -61,8 +111,10 @@ namespace FemDesign.ModellingTool
                 this._connectivity[1] = value;
             }
         }
+
         [XmlAttribute("name")]
         public string _name;
+
         [XmlIgnore]
         public string Name
         { 
@@ -72,12 +124,14 @@ namespace FemDesign.ModellingTool
             }
             set
             {
-                VirtualBar.Instance++;
-                this._name = RestrictedString.Length(value, 40) + "." + VirtualBar.Instance.ToString();
+                FictitiousBar.Instance++;
+                this._name = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
             }
         }
+
         [XmlAttribute("AE")]
         public double _ae;
+
         [XmlIgnore]
         public double AE
         {
@@ -90,8 +144,10 @@ namespace FemDesign.ModellingTool
                 this._ae = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("ItG")]
         public double _itg;
+
         [XmlIgnore]
         public double ItG
         {
@@ -104,8 +160,10 @@ namespace FemDesign.ModellingTool
                 this._itg = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I1E")]
         public double _i1e;
+
         [XmlIgnore]
         public double I1E
         {
@@ -118,8 +176,10 @@ namespace FemDesign.ModellingTool
                 this._i1e = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I2E")]
         public double _i2e;
+
         [XmlIgnore]
         public double I2E
         {
@@ -136,7 +196,7 @@ namespace FemDesign.ModellingTool
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        private VirtualBar()
+        private FictitiousBar()
         {
 
         }
@@ -144,7 +204,7 @@ namespace FemDesign.ModellingTool
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public VirtualBar(Geometry.Edge edge, Geometry.FdVector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
+        public FictitiousBar(Geometry.Edge edge, Geometry.FdVector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
         {
             this.EntityCreated();
             this.Edge = edge;
@@ -156,6 +216,16 @@ namespace FemDesign.ModellingTool
             this.ItG = itg;
             this.I1E = i1e;
             this.I2E = i2e;
+        }
+
+        /// <summary>
+        /// Orient this object's coordinate system to GCS.
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
         }
 
     }

@@ -47,6 +47,16 @@ namespace FemDesign.Supports
             }
             return objs;
         }
+
+        internal List<GenericSupportObject> GetGenericSupportObjectsForSurfaceSupport()
+        {
+            var objs = new List<GenericSupportObject>();
+            foreach (SurfaceSupport obj in this.SurfaceSupport)
+            {
+                objs.Add(new GenericSupportObject(obj));
+            }
+            return objs;
+        }
         
         internal List<GenericSupportObject> GetGenericSupportObjects()
         {
@@ -56,6 +66,10 @@ namespace FemDesign.Supports
                 list.Add(obj);
             }
             foreach (GenericSupportObject obj in this.GetGenericSupportObjectsForLineSupport())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericSupportObject obj in this.GetGenericSupportObjectsForSurfaceSupport())
             {
                 list.Add(obj);
             }

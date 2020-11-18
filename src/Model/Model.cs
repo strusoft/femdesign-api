@@ -170,7 +170,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<Shells.Slab> shells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
             if (this.FromStruxml)
             {
@@ -191,6 +191,10 @@ namespace FemDesign
                 {
                     this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
                 }
+                if (this.LineConnectionTypes == null)
+                {
+                    this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
+                }
 
                 // if model was imported from struxml: do not reset entities, sections or materials.
                 // reset to false
@@ -204,6 +208,7 @@ namespace FemDesign
                 this.Sections = new Sections.ModelSections();
                 this.Materials = new Materials.Materials();
                 this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+                this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
             }
 
             if (bars != null)
@@ -214,11 +219,27 @@ namespace FemDesign
                 }
             }
 
+            if (fictitiousBars != null)
+            {
+                foreach (ModellingTools.FictitiousBar fictBar in fictitiousBars)
+                {
+                    this.AddFictBar(fictBar);
+                }
+            }
+
             if (shells != null)
             {
                 foreach (Shells.Slab shell in shells)
                 {
                     this.AddSlab(shell);
+                }
+            }
+
+            if (fictitiousShells != null)
+            {
+                foreach (ModellingTools.FictitiousShell fictShell in fictitiousShells)
+                {
+                    this.AddFictShell(fictShell);
                 }
             }
 
@@ -308,6 +329,73 @@ namespace FemDesign
         private bool BarInModel(Bars.Bar obj)
         {
             foreach (Bars.Bar elem in this.Entities.Bar)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Fictitious Bar to Model.
+        /// </summary>
+        private void AddFictBar(ModellingTools.FictitiousBar obj)
+        {
+            if (this.FictBarInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.Entities.AdvancedFem.FictitiousBar.Add(obj);  
+            }
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool FictBarInModel(ModellingTools.FictitiousBar obj)
+        {
+            foreach (ModellingTools.FictitiousBar elem in this.Entities.AdvancedFem.FictitiousBar)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Fictitious Shell to Model.
+        /// </summary>
+        private void AddFictShell(ModellingTools.FictitiousShell obj)
+        {
+            if (this.FictShellInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                // add line connection types (predefined rigidity)
+                foreach (LineConnectionTypes.PredefinedType predef in obj.Region.GetPredefinedRigidities())
+                {
+                    this.AddPredefinedRigidity(predef);
+                }
+
+                // add shell
+                this.Entities.AdvancedFem.FictitiousShell.Add(obj);  
+            }
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool FictShellInModel(ModellingTools.FictitiousShell obj)
+        {
+            foreach (ModellingTools.FictitiousShell elem in this.Entities.AdvancedFem.FictitiousShell)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -728,6 +816,12 @@ namespace FemDesign
 
                 // add SurfaceReinforcement
                 this.AddSurfaceReinforcements(obj);
+
+                // add line connection types (predefined rigidity)
+                foreach(LineConnectionTypes.PredefinedType predef in obj.SlabPart.Region.GetPredefinedRigidities())
+                {   
+                    this.AddPredefinedRigidity(predef);
+                }
                 
                 // add shell
                 this.Entities.Slab.Add(obj); 
@@ -778,6 +872,39 @@ namespace FemDesign
             }
             return false;
         }
+        
+
+        /// <summary>
+        /// Add predefined rigidity
+        /// </summary>
+        private void AddPredefinedRigidity(LineConnectionTypes.PredefinedType obj)
+        {
+            if (this.PredefRigidityInModel(obj))
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else
+            {
+                this.LineConnectionTypes.PredefinedType.Add(obj);
+            }  
+        }
+
+        /// <summary>
+        /// Check if Material (reinforcring) in Model.
+        /// </summary>
+        private bool PredefRigidityInModel(LineConnectionTypes.PredefinedType obj)
+        {
+            foreach (LineConnectionTypes.PredefinedType elem in this.LineConnectionTypes.PredefinedType)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
 
         /// <summary>
@@ -1166,6 +1293,7 @@ namespace FemDesign
             }
             return false;
         }
+
         #endregion
         
         #region deconstruct
@@ -1244,6 +1372,31 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Get FictitiousShells from Model.
+        /// FicititiousShells will be reconstruted from Model incorporating predefined EdgeConnections
+        /// </summary>
+        /// <returns></returns>
+        internal List<ModellingTools.FictitiousShell> GetFictitiousShells()
+        {
+            List<ModellingTools.FictitiousShell> objs = new List<ModellingTools.FictitiousShell>();
+            foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShell)
+            {
+                // set line_connection_types (i.e predefined edge connections) on edge
+                if (this.LineConnectionTypes != null)
+                {
+                    if (this.LineConnectionTypes.PredefinedType != null)
+                    {
+                        item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                    }
+                }
+
+                // add to return object
+                objs.Add(item);
+            }
+            return objs;            
+        }
+
+        /// <summary>
         /// Get Slabs from Model.
         /// Slabs will be reconstruted from Model incorporating all references: Material, Predefined EdgeConnections, SurfaceReinforcementParameters, SurfaceReinforcement.
         /// </summary>
@@ -1262,30 +1415,12 @@ namespace FemDesign
                     }
                 }
 
-                // get line_connection_type     
+                // set line_connection_types (i.e predefined edge connections) on edge
                 if (this.LineConnectionTypes != null)
-                {         
-                    foreach (Geometry.Contour contour in item.SlabPart.Region.Contours)
+                {
+                    if (this.LineConnectionTypes.PredefinedType != null)
                     {
-                        foreach (Geometry.Edge edge in contour.Edges)
-                        {
-                            if (edge.EdgeConnection != null)
-                            {
-                                if (edge.EdgeConnection.PredefinedRigidity != null)
-                                {
-                                    foreach (LineConnectionTypes.PredefinedType _predefinedType in this.LineConnectionTypes.PredefinedType)
-                                    {
-                                        // replace referenceType with a rigidity
-                                        if (edge.EdgeConnection.PredefinedRigidity.Guid == _predefinedType.Guid)
-                                        {
-                                            edge.EdgeConnection.Rigidity = _predefinedType.Rigidity;
-                                            // remove referenceType
-                                            edge.EdgeConnection.PredefinedRigidity = null;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
                     }
                 }
 

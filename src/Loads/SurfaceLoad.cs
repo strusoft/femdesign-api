@@ -53,7 +53,7 @@ namespace FemDesign.Loads
         internal static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, string comment = "")
         {
             // create load as list of loads
-            List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.CoordinateSystem.origin, force.Length())};
+            List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.CoordinateSystem.Origin, force.Length())};
 
             // create load direction
             Geometry.FdVector3d loadDirection = force.Normalize();

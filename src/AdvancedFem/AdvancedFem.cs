@@ -18,10 +18,12 @@ namespace FemDesign
         // surface_connection
 
         // virtual_bar
-        [XmlElement("virtual_bar")]
-        public List<ModellingTool.VirtualBar> VirtualBar = new List<ModellingTool.VirtualBar>();
+        [XmlElement("virtual_bar", Order = 1)]
+        public List<ModellingTools.FictitiousBar> FictitiousBar = new List<ModellingTools.FictitiousBar>();
 
         // virtual_shell
+        [XmlElement("virtual_shell", Order = 2)]
+        public List<ModellingTools.FictitiousShell> FictitiousShell = new List<ModellingTools.FictitiousShell>();
 
         // diaphragm
 
@@ -30,7 +32,7 @@ namespace FemDesign
         /// <summary>
         /// List of Cover (cover_type)
         /// </summary>
-        [XmlElement("cover")]
+        [XmlElement("cover", Order = 3)]
         public List<Cover> Cover = new List<Cover>();
     }
 }

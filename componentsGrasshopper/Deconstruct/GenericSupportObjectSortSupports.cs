@@ -19,6 +19,7 @@ namespace FemDesign.GH
        {
            pManager.AddGenericParameter("PointSupport", "PointSupport", "PointSupport.", GH_ParamAccess.list);
            pManager.AddGenericParameter("LineSupport", "LineSupport", "LineSupport.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("SurfaceSupport", "SurfaceSupport", "SurfaceSupport.", GH_ParamAccess.list);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -35,6 +36,7 @@ namespace FemDesign.GH
 
             var r0 = new List<FemDesign.Supports.GenericSupportObject>();
             var r1 = new List<FemDesign.Supports.GenericSupportObject>();
+            var r2 = new List<FemDesign.Supports.GenericSupportObject>();
 
             foreach (FemDesign.Supports.GenericSupportObject obj in objs)
             {
@@ -47,6 +49,10 @@ namespace FemDesign.GH
                 {
                     r1.Add(obj);
                 }
+                else if (obj.SurfaceSupport != null)
+                {
+                    r2.Add(obj);
+                }
                 else
                 {
                     throw new System.ArgumentException("Type not supported. SortSupports failed.");
@@ -55,7 +61,8 @@ namespace FemDesign.GH
 
             // return
             DA.SetDataList(0, r0);
-            DA.SetDataList(1, r1);           
+            DA.SetDataList(1, r1);
+            DA.SetDataList(2, r2);          
        }
        protected override System.Drawing.Bitmap Icon
        {

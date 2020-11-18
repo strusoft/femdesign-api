@@ -69,13 +69,13 @@ namespace FemDesign.GH
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                obj.LocalSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromRhino(x));
+                obj.CoordinateSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromRhino(x));
             }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                obj.LocalSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromRhino(z));
+                obj.CoordinateSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromRhino(z));
             }
 
 
@@ -91,7 +91,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.SurfaceSupport;
             }
         }
         public override Guid ComponentGuid

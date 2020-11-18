@@ -30,7 +30,7 @@ namespace FemDesign.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        internal FdVector3d(double x, double y, double z)
+        public FdVector3d(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
@@ -42,7 +42,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="p0">Start point</param>
         /// <param name="p1">End point</param>
-        internal FdVector3d(FdPoint3d p0, FdPoint3d p1)
+        public FdVector3d(FdPoint3d p0, FdPoint3d p1)
         {
             this.X = p1.X - p0.X;
             this.Y = p1.Y - p0.Y;
@@ -53,7 +53,7 @@ namespace FemDesign.Geometry
         /// Returns the unit x vector.
         /// </summary>
         /// <returns></returns>
-        internal static FdVector3d UnitX()
+        public static FdVector3d UnitX()
         {
             return new FdVector3d(1, 0, 0);
         }
@@ -62,7 +62,7 @@ namespace FemDesign.Geometry
         /// Returns the unit y vector.
         /// </summary>
         /// <returns></returns>
-        internal static FdVector3d UnitY()
+        public static FdVector3d UnitY()
         {
             return new FdVector3d(0, 1, 0);
         }
@@ -71,7 +71,7 @@ namespace FemDesign.Geometry
         /// Return the unit z vector.
         /// </summary>
         /// <returns></returns>
-        internal static FdVector3d UnitZ()
+        public static FdVector3d UnitZ()
         {
             return new FdVector3d(0, 0, 1);
         }
@@ -79,7 +79,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Calculate length of FdVector3d.
         /// </summary>
-        internal double Length()
+        public double Length()
         {
             double len = Math.Pow((Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2)), (1.0/2.0));
             return len;
@@ -88,7 +88,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Normalize FdVector3d (i.e. scale so that length equals 1).
         /// </summary>
-        internal FdVector3d Normalize()
+        public FdVector3d Normalize()
         {
             double l = this.Length();
             FdVector3d normal = new FdVector3d(this.X / l, this.Y / l, this.Z / l);
@@ -98,7 +98,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Calculate cross-product of this FdVector3d and v FdVector3d.
         /// </summary>
-        internal FdVector3d Cross(FdVector3d v)
+        public FdVector3d Cross(FdVector3d v)
         {
             FdVector3d v0 = this;
             FdVector3d v1 = v;
@@ -116,7 +116,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Calculate dot-product of this FdVector3d and v FdVector3d.
         /// </summary>
-        internal double Dot(FdVector3d v)
+        public double Dot(FdVector3d v)
         {
             FdVector3d v0 = this;
             FdVector3d v1 = v;
@@ -130,7 +130,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Scale this FdVector3d by s.
         /// </summary>
-        internal FdVector3d Scale(double s)
+        public FdVector3d Scale(double s)
         {   
             return new FdVector3d(this.X * s, this.Y * s, this.Z * s);
         }
@@ -139,16 +139,48 @@ namespace FemDesign.Geometry
         /// Reverse this by negative scaling.
         /// </summary>
         /// <returns></returns>
-        internal FdVector3d Reverse()
+        public FdVector3d Reverse()
         {
             return this.Scale(-1);
+        }
+
+        /// <summary>
+        /// Rotate this vector by an angle around an axis
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public FdVector3d RotateAroundAxis(double angle, FdVector3d axis)
+        {
+            // normalize vector
+            FdVector3d _axis = axis.Normalize();
+
+            // https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle
+            double[,] rotationMatrix = new double[3,3];
+            rotationMatrix[0,0] = Math.Cos(angle) + Math.Pow(_axis.X, 2)*(1 - Math.Cos(angle));
+            rotationMatrix[0,1] = _axis.X*_axis.Y*(1 - Math.Cos(angle)) - _axis.Z*Math.Sin(angle);
+            rotationMatrix[0,2] = _axis.X*_axis.Z*(1 - Math.Cos(angle)) + _axis.Y*Math.Sin(angle);
+            rotationMatrix[1,0] = _axis.Y*_axis.X*(1 - Math.Cos(angle)) + _axis.Z*Math.Sin(angle);
+            rotationMatrix[1,1] = Math.Cos(angle) + Math.Pow(_axis.Y, 2)*(1 - Math.Cos(angle));
+            rotationMatrix[1,2] = _axis.Y*_axis.Z*(1 - Math.Cos(angle)) - _axis.X*Math.Sin(angle);
+            rotationMatrix[2,0] = _axis.Z*_axis.X*(1 - Math.Cos(angle)) - _axis.Y*Math.Sin(angle);
+            rotationMatrix[2,1] = _axis.Z*_axis.Y*(1 - Math.Cos(angle)) + _axis.X*Math.Sin(angle);
+            rotationMatrix[2,2] = Math.Cos(angle) + Math.Pow(_axis.Z, 2)*(1 - Math.Cos(angle));
+
+            // matrix multiplication
+            double x = this.X*rotationMatrix[0,0] + this.Y*rotationMatrix[0,1] + this.Z*rotationMatrix[0,2];
+            double y = this.X*rotationMatrix[1,0] + this.Y*rotationMatrix[1,1] + this.Z*rotationMatrix[1,2];
+            double z = this.X*rotationMatrix[2,0] + this.Y*rotationMatrix[2,1] + this.Z*rotationMatrix[2,2];
+
+            // return new vector
+            return new FdVector3d(x, y, z);
         }
 
         /// <summary>
         /// Check if this FdVector3d is parallel to v.
         /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel
         /// </summary>
-        internal int Parallel(FdVector3d v)
+        public int Parallel(FdVector3d v)
         {
             FdVector3d v0 = this.Normalize();
             FdVector3d v1 = v.Normalize();
@@ -170,7 +202,7 @@ namespace FemDesign.Geometry
         /// Check if z-component is 0 and convert to 2d vector in XY-plane.
         /// </summary>
         /// <returns></returns>
-        internal FdVector2d To2d()
+        public FdVector2d To2d()
         {
             if (this.Z == 0)
             {
@@ -187,7 +219,7 @@ namespace FemDesign.Geometry
         /// Check if zero vector.
         /// </summary>
         /// <returns></returns>
-        internal bool IsZero()
+        public bool IsZero()
         {
             if (this.Length() == 0)
             {
@@ -239,7 +271,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Create FdVector3d from Rhino vector.
         /// </summary>
-        internal static FemDesign.Geometry.FdVector3d FromRhino(Rhino.Geometry.Vector3d obj)
+        public static FemDesign.Geometry.FdVector3d FromRhino(Rhino.Geometry.Vector3d obj)
         {
             //
             double x, y, z;

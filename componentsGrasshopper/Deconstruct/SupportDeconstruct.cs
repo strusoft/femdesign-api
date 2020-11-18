@@ -61,6 +61,17 @@ namespace FemDesign.GH
                 DA.SetData(6, obj.LineSupport.Group.Rigidity.Motions);
                 DA.SetData(7, obj.LineSupport.Group.Rigidity.Rotations);
             }
+            else if (obj.SurfaceSupport != null)
+            {
+                DA.SetData(0, obj.SurfaceSupport.Guid);
+                DA.SetData(1, obj.SurfaceSupport.Identifier);
+                DA.SetData(2, obj.SurfaceSupport.Region.ToRhinoBrep());
+                DA.SetData(3, "SurfaceSupport has no moving local property.");
+                DA.SetData(4, obj.SurfaceSupport.CoordinateSystem.LocalX.ToRhino());
+                DA.SetData(5, obj.SurfaceSupport.CoordinateSystem.LocalY.ToRhino());
+                DA.SetData(6, obj.SurfaceSupport.Rigidity.Motions);
+                DA.SetData(7, "SurfaceSupport has no rotations property");
+            }
             else
             {
                 throw new System.ArgumentException("Type is not supported. LoadsDeconstruct failed.");

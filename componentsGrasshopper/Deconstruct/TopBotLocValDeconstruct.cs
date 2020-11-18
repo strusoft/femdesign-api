@@ -42,7 +42,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.TopBottomValueDeconstruct;
            }
        }
        public override Guid ComponentGuid

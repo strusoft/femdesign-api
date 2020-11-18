@@ -12,6 +12,30 @@ namespace FemDesign.Geometry
     public class RegionGroup
     {
         [XmlElement("region")]
-        public List<Region> Region = new List<Region>(); // sequence: region_type
+        public List<Region> Regions = new List<Region>(); // sequence: region_type
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// <summary>
+        private RegionGroup()
+        {
+
+        }
+
+        /// <summary>
+        /// Construct region group from single region
+        /// <summary>
+        public RegionGroup(Region region)
+        {
+            this.Regions.Add(region);
+        }
+
+        /// <summary>
+        /// Construct region group from list of regions
+        /// <summary>
+        public RegionGroup(List<Region> regions)
+        {
+            this.Regions = regions;
+        }
     }
 }
