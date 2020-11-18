@@ -160,7 +160,7 @@ namespace FemDesign.Shells
 
             // create Thickness object
             List<Thickness> _thickness = new List<Thickness>();
-            _thickness.Add(new Thickness(region.CoordinateSystem.origin, thickness));
+            _thickness.Add(new Thickness(region.CoordinateSystem.Origin, thickness));
 
             // create shell
             Slab slab = Slab.Plate(identifier, material, region, shellEdgeConnection, shellEccentricity, shellOrthotropy, _thickness);
@@ -244,7 +244,7 @@ namespace FemDesign.Shells
 
             // create Thickness object
             List<Thickness> _thickness = new List<Thickness>();
-            _thickness.Add(new Thickness(region.CoordinateSystem.origin, thickness));
+            _thickness.Add(new Thickness(region.CoordinateSystem.Origin, thickness));
 
             // check if surface is vertical
             if (Math.Abs(region.CoordinateSystem.LocalZ.Z) > FemDesign.Tolerance.Point3d)

@@ -53,6 +53,29 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a fictitious bar element.
+        /// </summary>
+        /// <param name="fictitiousBar">FictitiousBar.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "AnalyticalID", "Curve", "AE", "ItG", "I1E", "I2E", "Connectivity", "LocalY"})]
+        public static Dictionary<string, object> FictitiousBarDeconstruct(FemDesign.ModellingTools.FictitiousBar fictitiousBar)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", fictitiousBar.Guid},
+                {"AnalyticalID", fictitiousBar.Name},
+                {"Curve", fictitiousBar.Edge.ToDynamo()},
+                {"AE", fictitiousBar.AE},
+                {"ItG", fictitiousBar.ItG},
+                {"I1E", fictitiousBar.I1E},
+                {"I2E", fictitiousBar.I2E},
+                {"Connectivity", fictitiousBar._connectivity},
+                {"LocalY", fictitiousBar.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a cover.
         /// </summary>
         /// <param name="cover">Cover.</param>
@@ -304,7 +327,7 @@ namespace FemDesign
         /// <param name="model">Model.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "Shells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
+        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             List<StructureGrid.Axis> axes;
@@ -333,7 +356,9 @@ namespace FemDesign
                 {"Guid", model.Guid},
                 {"CountryCode", model.Country},
                 {"Bars", model.GetBars()},
+                {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBar},
                 {"Shells", model.GetSlabs()},
+                {"FictitiousShells", model.GetFictitiousShells()},
                 {"Covers", model.Entities.AdvancedFem.Cover},
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},
@@ -440,12 +465,42 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a fictitious shell element.
+        /// </summary>
+        /// <param name="fictitiousShell">FictitiousShell.</param>
+        /// <returns></returns>
+        [MultiReturn(new[]{"Guid", "AnalyticalId", "Surface", "MembraneStiffness", "FlexuralStiffness", "ShearStiffness", "Density", "T1", "T2", "Alpha1", "Alpha2", "IgnoreInStImpCalc", "EdgeCurves", "ShellEdgeConnections", "LocalX", "LocalY"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> FictitiousShellDeconstruct(FemDesign.ModellingTools.FictitiousShell fictitiousShell)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", fictitiousShell.Guid},
+                {"AnalyticalId", fictitiousShell.Identifier},
+                {"Surface", fictitiousShell.Region.ToDynamoSurface()},
+                {"MembraneStiffness", fictitiousShell.MembraneStiffness},
+                {"FlexuralStiffness", fictitiousShell.FlexuralStiffness},
+                {"ShearStiffness", fictitiousShell.ShearStiffness},
+                {"Density", fictitiousShell.Density},
+                {"T1", fictitiousShell.T1},
+                {"T2", fictitiousShell.T2},
+                {"Alpha1", fictitiousShell.Alpha1},
+                {"Alpha2", fictitiousShell.Alpha2},
+                {"IgnoreInStImpCalc", fictitiousShell.IgnoreInStImpCalculation},
+                {"EdgeCurves", fictitiousShell.Region.ToDynamoCurves()},
+                {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
+                {"LocalX", fictitiousShell.LocalX.ToDynamo()},
+                {"LocalY", fictitiousShell.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a ShellEdgeConnection.
         /// </summary>
         /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[] {"Guid", "AnalyticalID", "Motions", "Rotations"})]
+        [MultiReturn(new[] {"Guid", "AnalyticalID", "PredefinedName", "PredefinedGuid", "Friction", "Motions", "Rotations"})]
         public static Dictionary<string, object> ShellEdgeConnectionDeconstruct(FemDesign.Shells.ShellEdgeConnection shellEdgeConnection)
         {
             if (shellEdgeConnection == null)
@@ -454,34 +509,102 @@ namespace FemDesign
                 {
                     {"Guid", null},
                     {"AnalyticalID", null},
+                    {"PredefinedName", null},
+                    {"PredefinedGuid", null},
+                    {"Friction", null},
                     {"Motions", null},
                     {"Rotations", null},
                 };
             }
             else
             {
-                try
+                if (shellEdgeConnection.Rigidity != null && shellEdgeConnection.Rigidity._friction == null)
                 {
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
                         {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", null},
+                        {"PredefinedGuid", null},
+                        {"Friction", null},
                         {"Motions", shellEdgeConnection.Rigidity.Motions},
                         {"Rotations", shellEdgeConnection.Rigidity.Rotations},
                     };
                 }
-                catch
+                else if (shellEdgeConnection.Rigidity != null && shellEdgeConnection.Rigidity._friction != null)
                 {
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
                         {"AnalyticalID", shellEdgeConnection.Name},
-                        {"Motions", "Pre-defined edge connection type was serialized."},
-                        {"Rotations", "Pre-defined edge connection type was serialized."},
+                        {"PredefinedName", null},
+                        {"PredefinedGuid", null},
+                        {"Friction", shellEdgeConnection.Rigidity.Friction},
+                        {"Motions", shellEdgeConnection.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.Rigidity.Rotations},
+                    };
+                }
+                else if (shellEdgeConnection.PredefRigidity != null && shellEdgeConnection.PredefRigidity.Rigidity._friction == null)
+                {
+                    return new Dictionary<string, object>
+                    {
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
+                        {"Friction", null},
+                        {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.PredefRigidity.Rigidity.Rotations},
                     };   
                 }
-            }
-            
+                else if (shellEdgeConnection.PredefRigidity != null && shellEdgeConnection.PredefRigidity.Rigidity._friction != null)
+                {
+                    return new Dictionary<string, object>
+                    {
+                        {"Guid", shellEdgeConnection.Guid},
+                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
+                        {"Friction", shellEdgeConnection.PredefRigidity.Rigidity.Friction},
+                        {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
+                        {"Rotations", shellEdgeConnection.PredefRigidity.Rigidity.Rotations},
+                    };   
+                }
+                else
+                {
+                    throw new System.ArgumentException("Unexpected shell edge connection");
+                }
+            }       
+        }
+
+        /// <summary>
+        /// Deconstruct a shear stiffness matrix, stiffness matrix 2 type
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"XZ", "YZ"})]
+        public static Dictionary<string, object> StiffnessMatrix2Type(ModellingTools.StiffnessMatrix2Type stiffnessMatrix)
+        {
+            return new Dictionary<string, object>
+            {
+                {"XZ", stiffnessMatrix.XZ},
+                {"YZ", stiffnessMatrix.YZ}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a membrane or flexural stiffness matrix, stiffness matrix 4 type
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"XX", "XY", "YY", "GXY"})]
+        public static Dictionary<string, object> StiffnessMatrix4Type(ModellingTools.StiffnessMatrix4Type stiffnessMatrix)
+        {
+            return new Dictionary<string, object>
+            {
+                {"XX", stiffnessMatrix.XX},
+                {"XY", stiffnessMatrix.XY},
+                {"YY", stiffnessMatrix.YY},
+                {"GXY", stiffnessMatrix.GXY}
+            };
         }
 
         /// <summary>
@@ -569,6 +692,21 @@ namespace FemDesign
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
                     {"Motions", obj.Group.Rigidity.Motions},
                     {"Rotations", obj.Group.Rigidity.Rotations}
+                };
+            }
+            else if (support.GetType() == typeof(FemDesign.Supports.SurfaceSupport))
+            {
+                var obj = (FemDesign.Supports.SurfaceSupport)support;
+                return new Dictionary<string, object>
+                {
+                    {"Guid", obj.Guid},
+                    {"AnalyticalID", obj.Identifier},
+                    {"Geometry", obj.Region.ToDynamoSurface()},
+                    {"MovingLocal", "SurfaceSupport has no moving local property."},
+                    {"LocalX", obj.CoordinateSystem.LocalX.ToDynamo()},
+                    {"LocalY", obj.CoordinateSystem.LocalY.ToDynamo()},
+                    {"Motions", obj.Rigidity.Motions},
+                    {"Rotations", "SurfaceSupport has no rotations property."}
                 };
             }
             else

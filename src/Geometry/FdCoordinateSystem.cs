@@ -13,7 +13,7 @@ namespace FemDesign.Geometry
     public class FdCoordinateSystem
     {
         [XmlElement("local_pos", Order=1)]
-        public FdPoint3d origin { get; set; }
+        public FdPoint3d Origin { get; set; }
         [XmlElement("local_x", Order=2)]
         public FdVector3d _localX;
         [XmlIgnore]
@@ -75,14 +75,45 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Construct FdCoordinateSystem from origin point and local x and y axes.
+        /// </summary>
+        public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY)
+        {
+            this.Origin = origin;
+            this._localX = localX;
+            this._localY = localY;
+            this._localZ = localX.Cross(localY);
+            
+            if (!this.IsComplete())
+            {
+                throw new System.ArgumentException("The defined coordinate system is not complete!");  
+            }
+
+            if (!this.IsOrthogonal())
+            {
+                throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
+            }
+        }
+
+        /// <summary>
         /// Construct FdCoordinateSystem from origin point and local x, y, z axes.
         /// </summary>
         public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY, FdVector3d localZ)
         {
-            this.origin = origin;
+            this.Origin = origin;
             this._localX = localX;
             this._localY = localY;
             this._localZ = localZ;
+
+            if (!this.IsComplete())
+            {
+                throw new System.ArgumentException("The defined coordinate system is not complete!");
+            }
+
+            if (!this.IsOrthogonal())
+            {
+                throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
+            }
         }
 
         /// <summary>
@@ -91,7 +122,16 @@ namespace FemDesign.Geometry
         /// <returns></returns>
         public bool IsComplete()
         {
-            return (this.origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
+            return (this.Origin != null) && (this._localX != null) && (this._localY != null) && (this._localZ != null);
+        }
+
+        /// <summary>
+        /// Check if this coordinate system is orthogonal within the tolernace.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOrthogonal()
+        {
+            return (Math.Abs(this._localX.Dot(this._localY)) < Tolerance.DotProduct) && this._localX.Cross(this._localY).Equals(this._localZ, Tolerance.Point3d);
         }
 
         /// <summary>
@@ -177,6 +217,89 @@ namespace FemDesign.Geometry
             else
             {
                 throw new System.ArgumentException($"Z-axis is not perpendicular to X-axis. The dot-product is {dot}, but should be 0");
+            }
+        }
+
+        /// <summary>
+        /// Orient this coordinate system to GCS as if this coordinate system was constrained as an edge (i.e x' is constrained by the edge)
+        /// </summary>
+        public void OrientEdgeTypeLcsToGcs()
+        {
+            if (this.IsComplete())
+            {
+                // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
+                int par = this.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
+                if (par == 1 || par == -1)
+                {
+                    this.SetYAroundX(FdVector3d.UnitY());
+                }
+
+                // else set (rotate) LocalY to UnitZ cross LocalX
+                else
+                {
+                    this.SetYAroundX(FdVector3d.UnitZ().Cross(this.LocalX).Normalize());
+                }
+            }
+
+            else
+            {
+                throw new System.ArgumentException("Impossible to orient axes as the passed coordinate system is incomplete.");
+            }            
+        }
+
+        /// <summary>
+        /// Orient this coordinate system to GCS as if this coordinate system was constrained as a plane (i.e. x' and y' are constrianed by the plane)
+        /// If plane is not vertical plane z' will be orientated up.
+        /// If plane is vertical y' will be orientated up.
+        /// </summary>
+        public void OrientPlaneTypeLcsToGcs()
+        {
+            double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ());
+            if (dot == 1)
+            {
+                // the plane is horisontal and z' is equal to Z
+
+                // set x' to X
+                this.SetXAroundZ(FdVector3d.UnitX());
+            }
+            else if (dot < 1 && dot > 0)
+            {
+                // the plane is not horisontal nor vertical but z' is pointing up
+
+                // set x' to the cross-product of z' and Z
+                // this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
+            }
+            else if (dot == 0)
+            {
+                // the plane is vertical 
+
+                // set y' to Z. This is the equivalent as setting x' to the cross-product of z' and Z in this case.
+                this.SetYAroundZ(FdVector3d.UnitZ());
+            }
+            else if (dot < 0 && dot > -1)
+            {
+                // the plane is not horisontal nor vertical, z' is pointing down
+
+                // flip coordinate system around x' so that z' points up
+                this.SetZAroundX(this.LocalZ.Reverse());
+
+                // set x' to the cross-product of z' and Z
+                // this.SetXAroundZ(FdVector3d.UnitZ().Cross(this.LocalZ));
+
+            }
+            else if (dot == -1)
+            {
+                // the plane is horisontal but z' is equal to negative Z
+
+                // flip coordinate system around x' so that z' points up
+                this.SetZAroundX(this.LocalZ.Reverse());
+
+                // set x' to X
+                // this.SetXAroundZ(FdVector3d.UnitX());
+            }
+            else
+            {
+                throw new System.ArgumentException($"Impossible to orient axes. Dot product, {dot}, should be between -1 and 1");
             }
         }
 

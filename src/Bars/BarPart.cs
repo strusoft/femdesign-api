@@ -18,14 +18,90 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public class BarPart: EntityBase
     {
+        [XmlElement("curve", Order = 1)]
+        public Geometry.Edge Edge { get; set; } // edge_type
+        
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem _coordinateSystem;
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem CoordinateSystem
+        {
+            get
+            {
+                if (this._coordinateSystem == null)
+                {
+                    this._coordinateSystem = this.Edge.CoordinateSystem;
+                    return this._coordinateSystem;
+                }
+                else
+                {
+                    return this._coordinateSystem;
+                }
+            }
+            set
+            {
+                this._coordinateSystem = value;
+                this._localY = value.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdPoint3d LocalOrigin
+        {
+            get
+            {
+                return this.CoordinateSystem.Origin;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalX
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalX;
+            }
+        }
+
+        [XmlElement("local-y", Order = 2)]
+        public Geometry.FdVector3d _localY;
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalY
+        {
+            get 
+            { 
+                return this._localY;
+            }
+            set
+            {
+                this.CoordinateSystem.SetYAroundX(value);
+                this._localY = this.CoordinateSystem.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalZ;
+            }
+        }
+
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
+
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterial { get; set; } // guidtype
+
         [XmlAttribute("complex_section")]
         public System.Guid ComplexSection { get; set; } // guidtype
+
         [XmlAttribute("made")]
         public string _made; // steelmadetype
+
         [XmlIgnore]
         public string Made
         {
@@ -44,29 +120,7 @@ namespace FemDesign.Bars
         }
         [XmlAttribute("ecc_calc")]
         public bool EccentricityCalc { get; set; } // bool
-        [XmlElement("curve", Order = 1)]
-        public Geometry.Edge Edge { get; set; } // edge_type
-        [XmlElement("local-y", Order = 2)]
-        public Geometry.FdVector3d _localY;//  point_type_3d
-        [XmlIgnore]
-        public Geometry.FdVector3d LocalY
-        {
-            get { return this._localY; }
-            set
-            {
-                Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.DotProduct)
-                {
-                    this._localY = val;
-                }
 
-                else
-                {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
-                }
-            }
-        }
         [XmlElement("connectivity", Order = 3)]
         public List<Connectivity> Connectivity = new List<Connectivity>(); // connectivity_type
         [XmlElement("eccentricity", Order = 4)]
@@ -90,13 +144,19 @@ namespace FemDesign.Bars
             this.Name = _name + ".1";
             this.ComplexMaterial = _material.Guid;
             this.EccentricityCalc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
-            
-            // orient edge coordinate system
-            _edge.OrientCoordinateSystemToGCS();
-            
             this.Edge = _edge;
             this.LocalY = _edge.CoordinateSystem.LocalY;
             this.End = "";
+        }
+
+        /// <summary>
+        /// Orient this object's coordinate system to GCS
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
         }
 
         /// <summary>

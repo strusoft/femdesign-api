@@ -38,20 +38,35 @@ namespace FemDesign.Geometry
                 {
                     FdPoint3d origin;
                     FdVector3d localX, localY, localZ;
+                    
                     // arc1
                     if (this.Type == "arc" && this.Points.Count == 1)
                     {
-                        // not implemented. only use for bars is intended at this point.
-                        throw new System.ArgumentException("Could not reconstruct FdCoordinateSystem from Edge of type Arc1.");
+                        // sweep angle
+                        double sweepAngle = this.EndAngle - this.StartAngle;
+
+                        // find p0, p1 and p2
+                        FdPoint3d p0, p1, p2;
+                        FdVector3d v = this.XAxis.Scale(this.Radius);
+                        p0 = this.Points[0].Translate(v);
+                        p1 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle/2, this.Normal));
+                        p2 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle, this.Normal));
+
+                        origin = p1;
+                        localX = new FdVector3d(p0, p2).Normalize();
+                        localZ = this.Normal;
+                        localY = localZ.Cross(localX);
+                        return new FdCoordinateSystem(origin, localX, localY, localZ);
                     }
 
                     // arc2
-                    if (this.Type == "arc" && this.Points.Count == 3)
+                    else if (this.Type == "arc" && this.Points.Count == 3)
                     {
                         origin = this.Points[1];
                         localX = new FdVector3d(this.Points[0], this.Points[2]).Normalize();
-                        localZ = this.Normal;
-                        localY = localX.Cross(localZ);
+                        FdVector3d v = new FdVector3d(this.Points[0], this.Points[1]).Normalize();
+                        localZ = v.Cross(localX);
+                        localY = localZ.Cross(localX);
                         return new FdCoordinateSystem(origin, localX, localY, localZ);
                     }
 
@@ -59,7 +74,7 @@ namespace FemDesign.Geometry
                     else if (this.Type == "line" && this.Points.Count == 2)
                     {
                         FdVector3d v = new FdVector3d(this.Points[0], this.Points[1]);
-                        origin = new FdPoint3d(v.X/2, v.Y/2, v.Z/2);
+                        origin = this.Points[0].Translate(v.Scale(0.5));
                         localX = v.Normalize();
                         localY = this.Normal;
                         localZ = localX.Cross(localY);
@@ -144,6 +159,7 @@ namespace FemDesign.Geometry
             this.Normal = _coordinateSystem.LocalZ;
             this.CoordinateSystem = _coordinateSystem;
         }
+
         /// <summary>
         /// Construct Edge of line type by points and coordinate system.
         /// </summary>
@@ -182,33 +198,6 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Edge type: {this.Type}, is not line.");
             }
-        }
-
-        /// <summary>
-        /// Orient coordinate system to GCS.
-        /// </summary>
-        public void OrientCoordinateSystemToGCS()
-        {
-            if (this.CoordinateSystem.IsComplete())
-            {
-                // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.CoordinateSystem.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
-                if (par == 1 || par == -1)
-                {
-                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitY());
-                }
-
-                // else set (rotate) LocalY to UnitZ cross LocalX
-                else
-                {
-                    this.CoordinateSystem.SetYAroundX(FdVector3d.UnitZ().Cross(this.CoordinateSystem.LocalX).Normalize());
-                }
-            }
-
-            else
-            {
-                throw new System.ArgumentException("Impossible to orient axes as the passed coordinate system is incomplete.");
-            }            
         }
 
         #region dynamo

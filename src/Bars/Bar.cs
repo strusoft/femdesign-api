@@ -195,10 +195,11 @@ namespace FemDesign.Bars
         /// <param name="section">Section.</param>
         /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
         /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
-        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "B")
+        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "B")
         {
             // convert class
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
@@ -210,6 +211,15 @@ namespace FemDesign.Bars
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return
@@ -224,10 +234,11 @@ namespace FemDesign.Bars
         /// <param name="section">Section.</param>
         /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
         /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
-        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "C")
+        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "C")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -241,6 +252,15 @@ namespace FemDesign.Bars
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                { 
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
+            }
+
             // return
             return bar;
         }
@@ -251,10 +271,11 @@ namespace FemDesign.Bars
         /// <param name="line">Line.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section.</param>
-        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
+        public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -266,6 +287,15 @@ namespace FemDesign.Bars
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return
@@ -282,11 +312,12 @@ namespace FemDesign.Bars
         /// <param name="compressionPlasticity">True if plastic behaviour. False if brittle behaviour.</param>
         /// <param name="maxTension">Tension force limit.</param>
         /// <param name="tensionPlasticity">True if plastic behaviour. False if brittle behaviour.</param>
-        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. Optional, local y-axis from Curve coordinate system at mid-point used if undefined.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, string identifier = "T")
+        public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "T")
         {
             // convert class
             Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
@@ -300,26 +331,16 @@ namespace FemDesign.Bars
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
             }
 
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
+            }
+
             // return
-            return bar;
-        }
-
-        /// <summary>
-        /// Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis.
-        /// </summary>
-        /// <param name="localY">Vector. Local y-axis.</param>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public Bar SetLocalY(Autodesk.DesignScript.Geometry.Vector localY)
-        {
-            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
-            // downstream and uppstream objs will share guid.
-            Bar bar = this.DeepClone();
-
-            //
-            bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
-
-            //
             return bar;
         }
 

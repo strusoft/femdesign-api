@@ -1,6 +1,7 @@
 // https://strusoft.com/
-
+using System;
 using System.Xml.Serialization;
+
 #region dynamo
 using Autodesk.DesignScript.Runtime;
 #endregion
@@ -14,7 +15,6 @@ namespace FemDesign.Supports
     [IsVisibleInDynamoLibrary(false)]
     public class LineSupport: EntityBase
     {
-
         // serialization properties
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier. Default = S
@@ -24,8 +24,12 @@ namespace FemDesign.Supports
         public Group Group { get; set; } // support_rigidity_data_type
         [XmlElement("edge", Order = 2)]
         public Geometry.Edge Edge { get; set; } // edge_type
+
+        /// <summary>
+        /// This property only reflects the edge normal. If this normal is changed arcs may transform.
+        /// </summary>
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
+        public Geometry.FdVector3d EdgeNormal;
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -45,13 +49,10 @@ namespace FemDesign.Supports
             this.Name =  identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
-            // orient edge
-            edge.OrientCoordinateSystemToGCS();
-
             // set edge specific properties
-            this.Group = new Group(edge, motions, rotations);
+            this.Group = new Group(edge.CoordinateSystem, motions, rotations);
             this.Edge = edge;
-            this.Normal = edge.CoordinateSystem.LocalZ;
+            this.EdgeNormal = edge.Normal;
         }
 
         /// <summary>
@@ -81,13 +82,32 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Rigid(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS,  [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Rigid(edge, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = LineSupport.Rigid(edge, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
+            }
+
+            return obj;
         }
 
         /// <summary>
@@ -96,13 +116,32 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="curve"></param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Hinged(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return LineSupport.Hinged(edge, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = LineSupport.Hinged(edge, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
+            }
+
+            return obj;
         }
 
         /// <summary>
@@ -113,13 +152,32 @@ namespace FemDesign.Supports
         /// <param name="motions">Motions. Translation releases.</param>
         /// <param name="rotations">Rotations. Rotation releases.</param>
         /// <param name="movingLocal">LCS changes direction along line?</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("S")] string identifier)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            return new LineSupport(edge, motions, rotations, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, rotations, movingLocal, identifier);
+
+            // set local y-axis
+            if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
+            {
+                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {  
+                    obj.Group.OrientCoordinateSystemToGCS();
+                }
+            }
+
+            return obj;
         }
 
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoGeometry()

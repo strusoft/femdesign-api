@@ -6,17 +6,64 @@ using System.Xml.Serialization;
 using Autodesk.DesignScript.Runtime;
 #endregion
 
-namespace FemDesign.ModellingTool
+namespace FemDesign.ModellingTools
 {
     [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
-    public class VirtualBar: EntityBase
+    public class FictitiousBar: EntityBase
     {
+        [XmlIgnore]
         private static int Instance = 0;
+
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; }
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem _coordinateSystem;
+
+        [XmlIgnore]
+        private Geometry.FdCoordinateSystem CoordinateSystem
+        {
+            get
+            {
+                if (this._coordinateSystem == null)
+                {
+                    this._coordinateSystem = this.Edge.CoordinateSystem;
+                    return this._coordinateSystem;
+                }
+                else
+                {
+                    return this._coordinateSystem;
+                }
+            }
+            set
+            {
+                this._coordinateSystem = value;
+                this._localY = value.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdPoint3d LocalOrigin
+        {
+            get
+            {
+                return this.CoordinateSystem.Origin;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalX
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalX;
+            }
+        }
+
         [XmlElement("local-y", Order = 2)]
         public Geometry.FdVector3d _localY;
+
         [XmlIgnore]
         public Geometry.FdVector3d LocalY
         {
@@ -26,21 +73,23 @@ namespace FemDesign.ModellingTool
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                double dot = this.Edge.CoordinateSystem.LocalX.Dot(val);
-                if (Math.Abs(dot) < Tolerance.DotProduct)
-                {
-                    this._localY = val;
-                }
-
-                else
-                {
-                    throw new System.ArgumentException($"X-axis is not perpendicular to y-axis: {value}. The dot-product is {dot}, but should be 0");
-                }
+                this.CoordinateSystem.SetYAroundX(value);
+                this._localY = this.CoordinateSystem.LocalY;
             }
         }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.CoordinateSystem.LocalZ;
+            }
+        }
+
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
+
         [XmlIgnore]
         public Bars.Connectivity StartConnectivity
         {
@@ -53,6 +102,7 @@ namespace FemDesign.ModellingTool
                 this._connectivity[0] = value;
             }
         }
+
         [XmlIgnore]
         public Bars.Connectivity EndConnectivity
         {
@@ -65,8 +115,10 @@ namespace FemDesign.ModellingTool
                 this._connectivity[1] = value;
             }
         }
+
         [XmlAttribute("name")]
         public string _name;
+
         [XmlIgnore]
         public string Name
         { 
@@ -76,12 +128,14 @@ namespace FemDesign.ModellingTool
             }
             set
             {
-                VirtualBar.Instance++;
-                this._name = RestrictedString.Length(value, 40) + "." + VirtualBar.Instance.ToString();
+                FictitiousBar.Instance++;
+                this._name = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
             }
         }
+
         [XmlAttribute("AE")]
         public double _ae;
+
         [XmlIgnore]
         public double AE
         {
@@ -94,8 +148,10 @@ namespace FemDesign.ModellingTool
                 this._ae = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("ItG")]
         public double _itg;
+
         [XmlIgnore]
         public double ItG
         {
@@ -108,8 +164,10 @@ namespace FemDesign.ModellingTool
                 this._itg = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I1E")]
         public double _i1e;
+
         [XmlIgnore]
         public double I1E
         {
@@ -122,8 +180,10 @@ namespace FemDesign.ModellingTool
                 this._i1e = RestrictedDouble.Positive(value);
             }
         }
+
         [XmlAttribute("I2E")]
         public double _i2e;
+
         [XmlIgnore]
         public double I2E
         {
@@ -140,7 +200,7 @@ namespace FemDesign.ModellingTool
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        private VirtualBar()
+        private FictitiousBar()
         {
 
         }
@@ -148,7 +208,7 @@ namespace FemDesign.ModellingTool
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public VirtualBar(Geometry.Edge edge, Geometry.FdVector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
+        public FictitiousBar(Geometry.Edge edge, Geometry.FdVector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
         {
             this.EntityCreated();
             this.Edge = edge;
@@ -162,6 +222,16 @@ namespace FemDesign.ModellingTool
             this.I2E = i2e;
         }
 
+        /// <summary>
+        /// Orient this object's coordinate system to GCS.
+        /// <summary>
+        public void OrientCoordinateSystemToGCS()
+        {
+            var cs = this.CoordinateSystem;
+            cs.OrientEdgeTypeLcsToGcs();
+            this.CoordinateSystem = cs;
+        }
+
         #region dynamo
         [IsVisibleInDynamoLibrary(true)]
         /// <summary>
@@ -173,10 +243,11 @@ namespace FemDesign.ModellingTool
         /// <param name="I1E">I1E</param>
         /// <param name="I2E">I2E</param>
         /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.</param>
-        /// <param name="localY">LocalY</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
-        public static VirtualBar Define(Autodesk.DesignScript.Geometry.Curve curve, double AE, double ItG, double I1E, double I2E, [DefaultArgument("FemDesign.Bars.Connectivity.Default()")] List<Bars.Connectivity> connectivity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("BF")] string identifier)
+        public static FictitiousBar Define(Autodesk.DesignScript.Geometry.Curve curve, double AE, double ItG, double I1E, double I2E, [DefaultArgument("FemDesign.Bars.Connectivity.Default()")] List<Bars.Connectivity> connectivity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "BF")
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
@@ -201,12 +272,21 @@ namespace FemDesign.ModellingTool
             }
 
             // create virtual bar
-            VirtualBar bar = new VirtualBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, identifier, AE, ItG, I1E, I2E);
+            FictitiousBar bar = new FictitiousBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, identifier, AE, ItG, I1E, I2E);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
                 bar.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            // else orient coordinate system to GCS
+            else
+            {
+                if (orientLCS)
+                {
+                    bar.OrientCoordinateSystemToGCS();
+                }
             }
 
             // return

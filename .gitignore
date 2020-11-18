@@ -6,6 +6,12 @@ packages
 Resources
 Properties/Resources.resx
 src/Calculate/@*
+src/Materials/TimberApplicationData.cs
+src/Materials/TimberFactors.cs
+src/Materials/TimberPanelData.cs
+src/Materials/TimberPanelStiffness.cs
+src/Materials/TimberPanelStrength.cs
+src/Materials/TimberServiceClassFactors.cs
 src/Shells/InternalPanel.cs
 src/Shells/Panel.cs
 *.csproj

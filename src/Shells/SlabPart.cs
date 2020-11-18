@@ -191,7 +191,7 @@ namespace FemDesign.Shells
             this.EccentricityCalculation = alignment.EccentricityCalculation;
             this.EccentricityByCracking = alignment.EccentricityByCracking;
             this.Thickness = thickness;
-            this.LocalPos = region.CoordinateSystem.origin;
+            this.LocalPos = region.CoordinateSystem.Origin;
             this._localX = region.CoordinateSystem.LocalX;
             this._localY = region.CoordinateSystem.LocalY;
             this.End = "";
