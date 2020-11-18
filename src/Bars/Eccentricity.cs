@@ -16,9 +16,13 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public class Eccentricity
     {
-        /// <summary>Eccentricity local-y.</summary>
+        /// <summary>
+        /// Private field for eccentricity of local-x.
+        /// <summary>
         [XmlAttribute("x")]
         public double _x;
+
+        /// <summary>Eccentricity local-x. Sign convention of value as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.</summary>
         [XmlIgnore]
         public double X
         {
@@ -35,9 +39,14 @@ namespace FemDesign.Bars
                 this._x = RestrictedDouble.AbsMax_1000(val);
             }
         }
-        /// <summary>Eccentricity local-y.</summary>
+        
+        /// <summary>
+        /// Private field for eccentricity of local-y
+        /// </summary>
         [XmlAttribute("y")]
         public double _y;
+
+        /// <summary>Eccentricity local-y. Sign convention of value as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.</summary>
         [XmlIgnore]
         public double Y
         {
@@ -54,9 +63,12 @@ namespace FemDesign.Bars
                 this._y = RestrictedDouble.AbsMax_1000(val);
             }
         }
-        /// <summary>Eccentricity local-z.</summary>
+
+        /// <summary>Private field for eccentricity of local-z</summary>
         [XmlAttribute("z")]
         public double _z;
+
+        /// <summary>Eccentricity local-z. Sign convention of value as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.</summary>
         [XmlIgnore]
         public double Z
         {
@@ -82,6 +94,11 @@ namespace FemDesign.Bars
             
         }
 
+        /// <summary>
+        /// Constructor for eccentricity object used for bar-eccentricity definition. Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.
+        /// </summary>
+        /// <param name="y">Eccentricity local-y.</param>
+        /// <param name="z">Eccentricity local-z.</param>
         internal Eccentricity(double y = 0, double z = 0)
         {
             this.X = 0;
@@ -122,8 +139,8 @@ namespace FemDesign.Bars
         /// Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="y">Eccentricity local-y</param>
-        /// <param name="z">Eccentricity local-z</param>
+        /// <param name="y">Eccentricity local-y.</param>
+        /// <param name="z">Eccentricity local-z.</param>
         [IsVisibleInDynamoLibrary(true)]
         public static Eccentricity Define(double y = 0, double z = 0)
         {
@@ -131,7 +148,7 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Create a default eccentricity, i.e. y=z=0.
+        /// Create a default eccentricity, i.e. no ecceentricity (y=z=0).
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
