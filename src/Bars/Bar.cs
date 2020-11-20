@@ -22,12 +22,82 @@ namespace FemDesign.Bars
         private static int _columnInstance = 0; // used for counter of name
         [XmlIgnore]
         private static int _trussInstance = 0; // used for counter of name
+
         [XmlIgnore]
         public Materials.Material Material { get; set; } // for internal use, not to be serialized
+        
+        [XmlIgnore]
+        public Sections.Section[] _section = new Sections.Section[2];
+
+        [XmlIgnore]
+        public Sections.Section StartSection
+        {
+            get
+            {
+                return this._section[0];
+            }
+            set
+            {
+                this._section[0] = value;
+            }
+        }
+
+        [XmlIgnore]
+        public Sections.Section EndSection
+        {
+            get
+            {
+                return this._section[1];
+            }
+            set
+            {
+                this._section[1] = value;
+            }
+        }
         [XmlIgnore]
         public Sections.Section Section { get; set; } // for internal use, not to be serialized
+        
+        [XmlIgnore]
+        public Eccentricity[] _eccentricity = new Eccentricity[2];
+
+        [XmlIgnore]
+        public Eccentricity StartEccentricity
+        {
+            get
+            {
+                return this._eccentricity[0];
+            }
+            set
+            {
+                this._eccentricity[0] = value;
+            }
+        }
+
+        [XmlIgnore]
+        public Eccentricity EndEccentricity
+        {
+            get
+            {
+                return this._eccentricity[1];
+            }
+            set
+            {
+                this._eccentricity[1] = value;
+            }
+        }
+
+        [XmlIgnore]
+        public Sections.ComplexSection _complexSection
+        {
+            get
+            {
+                return new Sections.ComplexSection(this.StartSection, this.EndSection, this.StartEccentricity, this.EndEccentricity);
+            }
+        }
+
         [XmlIgnore]
         public Sections.ComplexSection ComplexSection { get; set; } // for internal use, not to be serialized
+
         /// <summary>
         /// Truss only.
         /// </summary>
@@ -39,40 +109,49 @@ namespace FemDesign.Bars
             get{return this._maxCompression;}
             set{this._maxCompression = RestrictedDouble.NonNegMax_1e30(value);}
         } 
+
         /// <summary>
         /// Truss only.
         /// </summary>
         [XmlAttribute("compressions_plasticity")]
         public bool CompressionPlasticity { get; set;} // bool
+
         /// <summary>
         /// Truss only.
         /// </summary>
         [XmlAttribute("tension")]
         public double _maxTension; // non_neg_max_1e30
+
         [XmlIgnore]
         public double MaxTension
         {
             get{return this._maxTension;}
             set{this._maxTension = RestrictedDouble.NonNegMax_1e30(value);}
         }
+
         /// <summary>
         /// Truss only.
         /// </summary>
         [XmlAttribute("tensions_plasticity")]
         public bool TensionPlasticity { get; set; } // bool
+
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
+
         [XmlAttribute("type")]
         public string _type; // beamtype
+
         [XmlIgnore]
         public string Type
         {
             get {return this._type;}
             set {this._type = RestrictedString.BeamType(value);}
         }
-        [XmlElement("bar_part")]
+
+        [XmlElement("bar_part", Order = 1)]
         public BarPart BarPart { get; set; } // bar_part_type
-        [XmlElement("end")]
+
+        [XmlElement("end", Order = 2)]
         public string End { get; set; } // empty_type
 
         /// <summary>
@@ -82,6 +161,7 @@ namespace FemDesign.Bars
         {
             
         }
+
         private Bar(string type, string name)
         {
             this.EntityCreated();
