@@ -34,11 +34,21 @@ namespace FemDesign.Sections
         /// <param name="eccentricity">Eccentricity</param>
         internal ComplexSection(Section section, Bars.Eccentricity eccentricity)
         {
-            this.Guid = System.Guid.NewGuid();
-            this.LastChange = System.DateTime.UtcNow;
-            this.Action = "added";
+            this.EntityCreated();
             this.Section.Add(new ModelSection(0, section, eccentricity));
             this.Section.Add(new ModelSection(1, section, eccentricity));
+        }
+
+        /// <summary>
+        /// Create complex section from a start and end section and eccentricity.
+        /// </summary>
+        /// <param name="section">Cross-section</param>
+        /// <param name="eccentricity">Eccentricity</param>
+        internal ComplexSection(Section startSection, Section endSection, Bars.Eccentricity startEccentricity, Bars.Eccentricity endEccentricity)
+        {
+            this.EntityCreated();
+            this.Section.Add(new ModelSection(0, startSection, startEccentricity));
+            this.Section.Add(new ModelSection(1, endSection, endEccentricity));
         }
     }
 }
