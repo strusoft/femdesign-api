@@ -117,6 +117,10 @@ namespace FemDesign.Bars
 
                 // update complex section
                 this._complexSection.Section = this.ModelSection.ToList();
+
+                // update model eccentricity
+                this._modelEccentricity.StartAnalytical = value;
+                this._modelEccentricity.StartPhysical = value;
             }
         }
 
@@ -137,6 +141,10 @@ namespace FemDesign.Bars
 
                 // update complex section                
                 this._complexSection.Section = this.ModelSection.ToList();
+
+                // update model eccentricity
+                this._modelEccentricity.EndAnalytical = value;
+                this._modelEccentricity.EndPhysical = value;
             }
         }
 
@@ -182,7 +190,7 @@ namespace FemDesign.Bars
                 this._section[1] = value;
 
                 // update complex section
-                this._complexSection.Section = this.ModelSection.ToList();
+                this._complexSection.Section = this.ModelSection.ToList();                
             }
         }
 
@@ -259,7 +267,8 @@ namespace FemDesign.Bars
         [XmlElement("connectivity", Order = 3)]
         public List<Connectivity> Connectivity = new List<Connectivity>(); // connectivity_type
         [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity Eccentricity { get; set; } // eccentricity_type
+        public ModelEccentricity _modelEccentricity { get; set; } // eccentricity_type
+
         [XmlElement("buckling_data", Order = 5)]
         public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
         [XmlElement("end", Order = 6)]
@@ -304,7 +313,7 @@ namespace FemDesign.Bars
                 BarPart barPart = new BarPart(name, edge, material);
                 barPart.ComplexSectionRef = complexSection.Guid;
                 barPart.Connectivity = new List<Connectivity>{connectivity, connectivity}; // start and end eccentricity
-                barPart.Eccentricity = new ModelEccentricity(eccentricity);
+                barPart._modelEccentricity = new ModelEccentricity(eccentricity);
                 return barPart;
             }
             else
