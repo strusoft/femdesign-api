@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 #region dynamo
@@ -18,8 +19,11 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public class BarPart: EntityBase
     {
+        /// <summary>
+        /// Bar edge
+        /// </summary>
         [XmlElement("curve", Order = 1)]
-        public Geometry.Edge Edge { get; set; } // edge_type
+        public Geometry.Edge Edge { get; set; }
         
         [XmlIgnore]
         private Geometry.FdCoordinateSystem _coordinateSystem;
@@ -90,6 +94,137 @@ namespace FemDesign.Bars
             }
         }
 
+        /// <summary>
+        /// Private field for bar with start and end eccentricity
+        /// </summary>
+        [XmlIgnore]
+        public Eccentricity[] _eccentricity = new Eccentricity[2];
+
+        /// <summary>
+        /// Get/set start eccentricity of bar
+        /// </summary>
+        [XmlIgnore]
+        public Eccentricity StartEccentricity
+        {
+            get
+            {
+                return this._eccentricity[0];
+            }
+            set
+            {
+                // set value
+                this._eccentricity[0] = value;
+
+                // update complex section
+                this._complexSection.Section = this.ModelSection.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Get/set end eccentricity of bar
+        /// </summary>
+        [XmlIgnore]
+        public Eccentricity EndEccentricity
+        {
+            get
+            {
+                return this._eccentricity[1];
+            }
+            set
+            {
+                // set value
+                this._eccentricity[1] = value;
+
+                // update complex section                
+                this._complexSection.Section = this.ModelSection.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Private field for bar with start and end section
+        /// </summary>
+        [XmlIgnore]
+        private Sections.Section[] _section = new Sections.Section[2];
+
+        /// <summary>
+        /// Get/set start section of bar
+        /// </summary>
+        [XmlIgnore]
+        public Sections.Section StartSection
+        {
+            get
+            {
+                return this._section[0];
+            }
+            set
+            {
+                // set value
+                this._section[0] = value;
+
+                // update complex section
+                this._complexSection.Section = this.ModelSection.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Get/set end section of bar
+        /// </summary>
+        [XmlIgnore]
+        public Sections.Section EndSection
+        {
+            get
+            {
+                return this._section[1];
+            }
+            set
+            {
+                // set value
+                this._section[1] = value;
+
+                // update complex section
+                this._complexSection.Section = this.ModelSection.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Private property used for complex section updates
+        /// </summary>
+        [XmlIgnore]
+        private Sections.ModelSection[] ModelSection
+        {
+            get
+            {
+                return new Sections.ModelSection[]
+                {
+                    new Sections.ModelSection(0, this.StartSection, this.StartEccentricity),
+                    new Sections.ModelSection(1, this.EndSection, this.EndEccentricity)
+                };
+            }
+        }
+
+        /// <summary>
+        /// Complex section property.
+        /// </summary>
+        [XmlIgnore]
+        private Sections.ComplexSection _complexSection;
+
+        /// <summary>
+        /// Complex section property.
+        /// </summary>
+        [XmlIgnore]
+        public Sections.ComplexSection ComplexSection
+        {
+            get
+            {
+                return this._complexSection;
+            }
+            set
+            {
+                this._complexSection = value;
+                this.ComplexSectionRef = value.Guid;
+            }
+        }
+
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
 
@@ -97,7 +232,7 @@ namespace FemDesign.Bars
         public System.Guid ComplexMaterial { get; set; } // guidtype
 
         [XmlAttribute("complex_section")]
-        public System.Guid ComplexSection { get; set; } // guidtype
+        public System.Guid ComplexSectionRef { get; set; } // guidtype
 
         [XmlAttribute("made")]
         public string _made; // steelmadetype
@@ -167,7 +302,7 @@ namespace FemDesign.Bars
             if (edge.Type == "line" || edge.Type == "arc")
             {
                 BarPart barPart = new BarPart(name, edge, material);
-                barPart.ComplexSection = complexSection.Guid;
+                barPart.ComplexSectionRef = complexSection.Guid;
                 barPart.Connectivity = new List<Connectivity>{connectivity, connectivity}; // start and end eccentricity
                 barPart.Eccentricity = new ModelEccentricity(eccentricity);
                 return barPart;
@@ -213,7 +348,7 @@ namespace FemDesign.Bars
             }
             
             BarPart barPart = new BarPart(name, edge, material);
-            barPart.ComplexSection = section.Guid;
+            barPart.ComplexSectionRef = section.Guid;
             return barPart;
         }
     }
