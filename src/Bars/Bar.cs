@@ -27,73 +27,7 @@ namespace FemDesign.Bars
         public Materials.Material Material { get; set; } // for internal use, not to be serialized
         
         [XmlIgnore]
-        public Sections.Section[] _section = new Sections.Section[2];
-
-        [XmlIgnore]
-        public Sections.Section StartSection
-        {
-            get
-            {
-                return this._section[0];
-            }
-            set
-            {
-                this._section[0] = value;
-            }
-        }
-
-        [XmlIgnore]
-        public Sections.Section EndSection
-        {
-            get
-            {
-                return this._section[1];
-            }
-            set
-            {
-                this._section[1] = value;
-            }
-        }
-        [XmlIgnore]
         public Sections.Section Section { get; set; } // for internal use, not to be serialized
-        
-        [XmlIgnore]
-        public Eccentricity[] _eccentricity = new Eccentricity[2];
-
-        [XmlIgnore]
-        public Eccentricity StartEccentricity
-        {
-            get
-            {
-                return this._eccentricity[0];
-            }
-            set
-            {
-                this._eccentricity[0] = value;
-            }
-        }
-
-        [XmlIgnore]
-        public Eccentricity EndEccentricity
-        {
-            get
-            {
-                return this._eccentricity[1];
-            }
-            set
-            {
-                this._eccentricity[1] = value;
-            }
-        }
-
-        [XmlIgnore]
-        public Sections.ComplexSection _complexSection
-        {
-            get
-            {
-                return new Sections.ComplexSection(this.StartSection, this.EndSection, this.StartEccentricity, this.EndEccentricity);
-            }
-        }
 
         [XmlIgnore]
         public Sections.ComplexSection ComplexSection { get; set; } // for internal use, not to be serialized
