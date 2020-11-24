@@ -433,9 +433,9 @@ namespace FemDesign
         {
             foreach (FemDesign.Sections.ComplexSection elem in this.Sections.ComplexSection)
             {
-                if (elem.Section[0].Guid == obj.Section[0].Guid &&
+                if (elem.Section[0].SectionRef == obj.Section[0].SectionRef &&
                     elem.Section[0].Eccentricity.Equals(obj.Section[0].Eccentricity) &&
-                    elem.Section[1].Guid == obj.Section[1].Guid &&
+                    elem.Section[1].SectionRef == obj.Section[1].SectionRef &&
                     elem.Section[1].Eccentricity.Equals(obj.Section[1].Eccentricity))
                 {
                     return elem.Guid.ToString();
@@ -1317,7 +1317,7 @@ namespace FemDesign
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
-                        if (complexSection.Guid == item.BarPart.ComplexSection)
+                        if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
                             item.ComplexSection = complexSection;
                         }
@@ -1351,14 +1351,14 @@ namespace FemDesign
                 {
                     if (item.ComplexSection == null)
                     {
-                        if (section.Guid == item.BarPart.ComplexSection)
+                        if (section.Guid == item.BarPart.ComplexSectionRef)
                         {
                             item.Section = section;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.ComplexSection.Section[0].Guid)
+                        if (section.Guid == item.ComplexSection.Section[0].SectionRef)
                         {
                             item.Section = section;
                         }
