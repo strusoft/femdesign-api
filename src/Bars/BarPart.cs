@@ -165,17 +165,35 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this.ModelEccentricity.Analytical;
+                return this._eccentricities;
             }
             set
             {
-                this.ModelEccentricity.Analytical = value;
+                if (value.Length == 1)
+                {
+                    this._eccentricities[0] = value[0];
+                    this._eccentricities[1] = value[0];
+                }
+                else if (value.Length == 2)
+                {
+                    if (this.Type == "truss")
+                    {
+                        throw new System.ArgumentException("Truss can only have 1 section");
+                    }
+
+                    this._eccentricities[0] = value[0];
+                    this._eccentricities[1] = value[1];
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
+                }
 
                 // update model eccentricity
-                this._modelEccentricity.StartAnalytical = value[0];
-                this._modelEccentricity.EndAnalytical = value[value.Length - 1];
-                this._modelEccentricity.StartPhysical = value[0];
-                this._modelEccentricity.EndPhysical = value[value.Length - 1];
+                this.ModelEccentricity.StartAnalytical = value[0];
+                this.ModelEccentricity.EndAnalytical = value[value.Length - 1];
+                this.ModelEccentricity.StartPhysical = value[0];
+                this.ModelEccentricity.EndPhysical = value[value.Length - 1];
             }
         }
 
@@ -249,12 +267,39 @@ namespace FemDesign.Bars
                 }
                 else if (value.Length == 2)
                 {
+                    if (this.Type == "truss")
+                    {
+                        throw new System.ArgumentException("Truss can only have 1 section");
+                    }
+
                     this._sections[0] = value[0];
                     this._sections[1] = value[1];
                 }
                 else
                 {
                     throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Try to get a uniform section. Compares section based on guid.
+        public Sections.Section UniformSection
+        {
+            get
+            {
+                if (this.Sections.Length != 2)
+                {
+                    throw new System.ArgumentException($"Sections should contain 2 items but contains {this.Sections.Length}.");
+                }
+
+                if (this.Sections[0].Guid == this.Sections[1].Guid)
+                {
+                    return this.Sections[0];
+                }
+                else
+                {
+                    throw new System.ArgumentException("Sections contain two different sections. Impossible to get a uniform section.");
                 }
             }
         }
@@ -566,6 +611,11 @@ namespace FemDesign.Bars
         {
             get
             {
+                if (this._modelEccentricity == null)
+                {
+                    this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities[this.Eccentricities.Length - 1], true);
+                }
+
                 return this._modelEccentricity;
             }
         }
@@ -594,19 +644,31 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct BarPart
+        /// Construct BarPart (beam or column)
         /// </summary>
-        public BarPart(Geometry.Edge edge, Geometry.FdVector3d localY, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
             this.EntityCreated();
             this.Edge = edge;
-            this.LocalY = localY;
             this.Type = type;
             this.Material = material;
             this.Sections = sections;
             this.Connectivities = connectivities;
             this.Eccentricities = eccentricities;
             this.EccentricityCalc = true;
+            this.Identifier = identifier;
+        }
+
+        /// <summary>
+        /// Construct BarPart (truss)
+        /// <summary>
+        public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section section, string identifier)
+        {
+            this.EntityCreated();
+            this.Edge = edge;
+            this.Type = type;
+            this.Material = material;
+            this.Sections = new Sections.Section[1]{section};
             this.Identifier = identifier;
         }
 

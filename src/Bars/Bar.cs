@@ -126,110 +126,55 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct bar
+        /// Construct bar (beam or column)
         /// </summary>
-        public Bar(Geometry.Edge edge, Geometry.FdVector3d localY, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public Bar(Geometry.Edge edge, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            this.EntityCreated();
            this.Type = type;
            this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, localY, this.Type, material, sections, connectivities, eccentricities, this.Identifier);
+           this.BarPart = new BarPart(edge, this.Type, material, sections, connectivities, eccentricities, this.Identifier);
+        }
+
+        /// <summary>
+        /// Construct bar (truss)
+        /// <summary>
+        public Bar(Geometry.Edge edge, string type, Materials.Material material, Sections.Section section, string identifier)
+        {
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, section, this.Identifier);
         }
 
         /// Create a bar of type beam.
-        internal static Bar Beam(string identifier, Geometry.Edge edge, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section)
+        internal static Bar Beam(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
-            Bar._barInstance++;
-            string type = "beam";
-            string name = identifier + "." + Bar._barInstance.ToString();
-
-            // bar
-            Bar bar = new Bar(type, name);
-            Sections.ComplexSection complexSection = new Sections.ComplexSection(section, eccentricity);
-            bar.BarPart.Material = material;
-            bar.Section = section;
-            bar.ComplexSection = complexSection;
-
-
-            // barPart
-            bar.BarPart = BarPart.Beam(name, edge, connectivity, eccentricity, material, complexSection);
-
-            // return
-            return bar;
+           return new Bar(edge, "beam", material, sections, connectivities, eccentricities, identifier);
         }
 
         /// Create a bar of type column.
-        internal static Bar Column(string identifier, Geometry.Edge line, Connectivity connectivity, Eccentricity eccentricity, Materials.Material material, Sections.Section section)
+        internal static Bar Column(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
-            Bar._columnInstance++;
-            string type = "column";
-            string name = identifier + "." + Bar._columnInstance.ToString();
-
-            // bar
-            Bar bar = new Bar(type, name);
-            Sections.ComplexSection complexSection = new Sections.ComplexSection(section, eccentricity);
-            bar.BarPart.Material = material;
-            bar.Section = section;
-            bar.ComplexSection = complexSection;
-
-            // barPart
-            bar.BarPart = BarPart.Column(name, line, connectivity, eccentricity, material, complexSection);
-
-            // return
-            return bar;
+           return new Bar(edge, "column", material, sections, connectivities, eccentricities, identifier);            
         }
 
         /// Create a bar of type truss without compression or tension limits.
-        internal static Bar Truss(string identifier, Geometry.Edge line, Materials.Material material, Sections.Section section)
+        internal static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
-            Bar._trussInstance++;
-            string type = "truss";
-            string name = identifier + "." + Bar._trussInstance.ToString();
-            Bar bar = new Bar(type, name);
-            bar.BarPart = BarPart.Truss(name, line, material, section);
-            bar.BarMaterial = material;
-            bar.Section = section;
-            bar.ComplexSection = null;
-            return bar;
+           return new Bar(edge, "truss", material, section, identifier);            
         }
 
         /// Create a bar of type truss.
-        internal static Bar Truss(string identifier, Geometry.Edge line, Materials.Material material, Sections.Section section, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
+        internal static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
         {
-            Bar bar = Bar.Truss(identifier, line, material, section);
+            Bar bar = new Bar(edge, "truss", material, section, identifier);
             bar.MaxCompression = maxCompression;
             bar.CompressionPlasticity = compressionPlasticity;
             bar.MaxTension = maxTension;
             bar.TensionPlasticity = tensionPlasticity;
             return bar;
         }
-
-        // internal static Bar Truss(FdLine line, Materials.Material material, Sections.Section section, TrussLimitedCapacity lcCompression, TrussLimitedCapacity lcTension)
-        // {
-        //     tInstance++;
-        //     string type = "truss";
-        //     string name = "T." + tInstance.ToString();
-
-        //     // create bar
-        //     Bar bar = new Bar(type, name);
-        //     bar.barPart = BarPart.Truss(name, line, material, section);
-        //     bar.material = material;
-        //     bar.section = section;
-        //     bar.complexSection = null;
-
-        //     // limited capacity
-        //     if (lcCompression != null)
-        //     {
-        //         bar.maxCompression = lcCompression.maxCapacity;
-        //         bar.compressionPlasticity = lcCompression.plasticBehaviour;
-        //     }
-        //     if (lcTension != null)
-        //     {
-        //         bar.maxTension = lcTension.maxCapacity;
-        //         bar.tensionPlasticity = lcTension.plasticBehaviour;
-        //     }
-        //     return bar;
-        // }
 
         #region dynamo
         /// <summary>
