@@ -319,10 +319,14 @@ namespace FemDesign
             }
             else
             {
-                // add bar properties
+                // material
+                this.AddMaterial(obj.BarPart.Material);
+
+                // add sections
                 this.AddComplexSection(obj);
-                this.AddMaterial(obj.Material);
-                this.AddSection(obj.Section);
+                this.AddSection(obj.BarPart.StartSection);
+                this.AddSection(obj.BarPart.EndSection);
+                
 
                 // add bar
                 this.Entities.Bar.Add(obj);  
@@ -416,13 +420,13 @@ namespace FemDesign
         /// </summary>
         private void AddComplexSection(Bars.Bar obj)
         {   
-            if (obj.ComplexSection == null)
+            if (obj.BarPart.ComplexSection == null)
             {
                 // pass
             }
             else
             {
-                this.Sections.ComplexSection.Add(obj.ComplexSection);
+                this.Sections.ComplexSection.Add(obj.BarPart.ComplexSection);
             }     
         }
 
@@ -1319,12 +1323,12 @@ namespace FemDesign
                     {
                         if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.ComplexSection = complexSection;
+                            item.BarPart.ComplexSectionDerserialization = complexSection;
                         }
                     }
 
                     // check if complex section found
-                    if (item.ComplexSection == null)
+                    if (item.BarPart.ComplexSectionIsNull)
                     {
                         throw new System.ArgumentException("No matching complex section found. Model.GetBars() failed.");
                     }
@@ -1334,39 +1338,44 @@ namespace FemDesign
                 // get material
                 foreach (Materials.Material material in this.Materials.Material)
                 {
-                    if (material.Guid == item.BarPart.ComplexMaterial)
+                    if (material.Guid == item.BarPart.ComplexMaterialRef)
                     {
-                        item.Material = material;
+                        item.BarPart.Material = material;
                     }
                 }
 
                 // check if material found
-                if (item.Material == null)
+                if (item.BarPart.Material == null)
                 {
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
 
                 // get section
-                foreach (FemDesign.Sections.Section section in this.Sections.Section)
+                foreach (Sections.Section section in this.Sections.Section)
                 {
-                    if (item.ComplexSection == null)
+                    if (item.BarPart.ComplexSectionIsNull)
                     {
                         if (section.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.Section = section;
+                            item.BarPart.StartSection = section;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.ComplexSection.Section[0].SectionRef)
+                        if (section.Guid == item.BarPart.ComplexSectionDerserialization.Section[0].SectionRef)
                         {
-                            item.Section = section;
+                            item.BarPart.StartSection = section;
+                        }
+                        
+                        if (section.Guid == item.BarPart.ComplexSectionDerserialization.Section[item.BarPart.ComplexSectionDerserialization.Section.Count - 1].SectionRef)
+                        {
+                            item.BarPart.EndSection = section;
                         }
                     }  
                 }
                 
                 // check if section found
-                if (item.Section == null)
+                if (item.BarPart.StartSection == null || item.BarPart.EndSection == null)
                 {
                     throw new System.ArgumentException("No matching section found. Model.GetBars() failed");
                 }

@@ -50,5 +50,15 @@ namespace FemDesign.Sections
             this.Section.Add(new ModelSection(0, startSection, startEccentricity));
             this.Section.Add(new ModelSection(1, endSection, endEccentricity));
         }
+
+        /// <summary>
+        /// Construct a complex sectoin from a list of ModelSections
+        /// </summary>
+        /// <param name="modelSections">List of model sections</param>
+        internal ComplexSection(List<ModelSection> modelSections)
+        {
+            this.EntityCreated();
+            this.Section = modelSections;
+        }
     }
 }

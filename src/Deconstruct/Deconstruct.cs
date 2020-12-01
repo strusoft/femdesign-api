@@ -43,12 +43,12 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", bar.Guid},
-                {"AnalyticalID", bar.Name},
-                {"StructuralID", bar.BarPart.Name},
+                {"AnalyticalID", bar._identifier},
+                {"StructuralID", bar.BarPart.Identifier},
                 {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},
-                {"Material", bar.Material},
-                {"Section", bar.Section}
+                {"Material", bar.BarPart.Material},
+                {"Section", bar.BarPart.Sections}
             };
         }
 

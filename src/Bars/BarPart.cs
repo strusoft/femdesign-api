@@ -20,10 +20,70 @@ namespace FemDesign.Bars
     public class BarPart: EntityBase
     {
         /// <summary>
-        /// Bar edge
+        /// Edge field
         /// </summary>
         [XmlElement("curve", Order = 1)]
-        public Geometry.Edge Edge { get; set; }
+        public Geometry.Edge _edge;
+
+        /// <summary>
+        /// Edge property
+        /// </summary>
+        [XmlIgnore]
+        public Geometry.Edge Edge
+        {
+            get
+            {
+                return this._edge;
+            }
+            set
+            {
+                this._edge = value;
+
+                if (this.Type == "beam")
+                {
+                    if (value.Type == "line" || value.Type == "arc")
+                    {
+                        this._edge = value;
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc.");
+                    }   
+                }
+                else if (this.Type == "column")
+                {
+                    // check if line
+                    if (!value.IsLine())
+                    {
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
+                    }
+
+                    // check if line is vertical
+                    if (!value.IsLineVertical())
+                    {
+                        throw new System.ArgumentException("Edge (Line) must be vertial for column definition");
+                    }
+
+                    // set value
+                    this._edge = value;
+                }
+                else if (this.Type == "truss")
+                {
+                    // check if line
+                    if (!value.IsLine())
+                    {
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
+                    }
+
+                    // set value
+                    this._edge = value;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
+                }
+            }
+        }
         
         [XmlIgnore]
         private Geometry.FdCoordinateSystem _coordinateSystem;
@@ -98,7 +158,26 @@ namespace FemDesign.Bars
         /// Private field for bar with start and end eccentricity
         /// </summary>
         [XmlIgnore]
-        public Eccentricity[] _eccentricity = new Eccentricity[2];
+        public Eccentricity[] _eccentricities = new Eccentricity[2];
+
+        [XmlIgnore]
+        public Eccentricity[] Eccentricities
+        {
+            get
+            {
+                return this.ModelEccentricity.Analytical;
+            }
+            set
+            {
+                this.ModelEccentricity.Analytical = value;
+
+                // update model eccentricity
+                this._modelEccentricity.StartAnalytical = value[0];
+                this._modelEccentricity.EndAnalytical = value[value.Length - 1];
+                this._modelEccentricity.StartPhysical = value[0];
+                this._modelEccentricity.EndPhysical = value[value.Length - 1];
+            }
+        }
 
         /// <summary>
         /// Get/set start eccentricity of bar
@@ -108,12 +187,12 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._eccentricity[0];
+                return this._eccentricities[0];
             }
             set
             {
                 // set value
-                this._eccentricity[0] = value;
+                this._eccentricities[0] = value;
 
                 // update complex section
                 this._complexSection.Section = this.ModelSection.ToList();
@@ -132,12 +211,12 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._eccentricity[1];
+                return this._eccentricities[1];
             }
             set
             {
                 // set value
-                this._eccentricity[1] = value;
+                this._eccentricities[1] = value;
 
                 // update complex section                
                 this._complexSection.Section = this.ModelSection.ToList();
@@ -152,7 +231,33 @@ namespace FemDesign.Bars
         /// Private field for bar with start and end section
         /// </summary>
         [XmlIgnore]
-        private Sections.Section[] _section = new Sections.Section[2];
+        private Sections.Section[] _sections = new Sections.Section[2];
+
+        [XmlIgnore]
+        public Sections.Section[] Sections
+        {
+            get
+            {
+                return this._sections;
+            }
+            set
+            {
+                if (value.Length == 1)
+                {
+                    this._sections[0] = value[0];
+                    this._sections[1] = value[0];
+                }
+                else if (value.Length == 2)
+                {
+                    this._sections[0] = value[0];
+                    this._sections[1] = value[1];
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
+                }
+            }
+        }
 
         /// <summary>
         /// Get/set start section of bar
@@ -162,12 +267,12 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._section[0];
+                return this._sections[0];
             }
             set
             {
                 // set value
-                this._section[0] = value;
+                this._sections[0] = value;
 
                 // update complex section
                 this._complexSection.Section = this.ModelSection.ToList();
@@ -182,15 +287,80 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._section[1];
+                return this._sections[1];
             }
             set
             {
                 // set value
-                this._section[1] = value;
+                this._sections[1] = value;
 
                 // update complex section
                 this._complexSection.Section = this.ModelSection.ToList();                
+            }
+        }
+
+        /// <summary>
+        /// Section position field
+        /// </summary>
+        [XmlIgnore]
+        public double[] _sectionPos;
+
+        /// <summary>
+        /// Section position property. Set position of sections for complex section by defining the parammetric position 0-1.
+        /// </summary>
+        [XmlIgnore]
+        public double[] SectionPos
+        {
+            get
+            {
+                if (this._sectionPos == null)
+                {
+                    double[] val = new double[this.Sections.Length];
+
+                    // set start and end pos
+                    val[0] = 0;
+                    val[val.Length - 1] = 1;
+
+                    if (val.Length > 2)
+                    {
+                        // set intermediate pos
+                        for (int idx = 1; idx < val.Length - 1; idx++)
+                        {
+                            val[idx] = 1/(val.Length - 1)*idx;
+                        }
+                    }
+
+                    // set
+                    this._sectionPos = val;
+
+                    // return
+                    return this._sectionPos;
+                }
+
+                else
+                {
+                    // return
+                    return this._sectionPos;
+                }
+            }
+            set
+            {
+                if (value.Length != this.Sections.Length)
+                {
+                    throw new System.ArgumentException($"Length of value: {value.Length} must be equal to length of Sections: {this.Sections.Length}");
+                }
+
+                if (value[0] != 0)
+                {
+                    throw new System.ArgumentException("First item of value must be 0");
+                }
+
+                if (value[value.Length - 1] != 1)
+                {
+                    throw new System.ArgumentException("Last item of value must be 1");
+                }
+
+                this._sectionPos = value;
             }
         }
 
@@ -211,16 +381,48 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Complex section property.
+        /// Complex section field.
         /// </summary>
         [XmlIgnore]
         private Sections.ComplexSection _complexSection;
 
         /// <summary>
-        /// Complex section property.
+        /// Complex section property getter. For model deserialization use other property.
         /// </summary>
         [XmlIgnore]
         public Sections.ComplexSection ComplexSection
+        {
+            get
+            {
+                if (this._complexSection == null)
+                {
+                    // construct new complex section
+                    this._complexSection = new Sections.ComplexSection(this.ModelSection.ToList());
+
+                    // set guid ref
+                    this.ComplexSectionRef = this._complexSection.Guid;
+
+                    // return
+                    return this._complexSection;
+                }
+                else
+                {
+                    // update _complexSection with BarPart sections and eccentricities
+                    this._complexSection.Section = ModelSection.ToList();
+
+                    // no need to set guid ref
+
+                    // return
+                    return this._complexSection;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Property to get and set _complexSection during model deserialization
+        /// </summary>
+        [XmlIgnore]
+        internal Sections.ComplexSection ComplexSectionDerserialization
         {
             get
             {
@@ -229,15 +431,77 @@ namespace FemDesign.Bars
             set
             {
                 this._complexSection = value;
-                this.ComplexSectionRef = value.Guid;
+                this.ComplexSectionRef = this._complexSection.Guid;
+            }
+        }
+
+        [XmlIgnore]
+        public bool ComplexSectionIsNull
+        {
+            get
+            {
+                if (this._complexSection == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Material field
+        /// </summary>
+        [XmlIgnore]
+        public Materials.Material _material;
+
+        /// <summary>
+        /// Material property. When a new material is set the ComplexMaterialRef is updated.
+        /// </summary>
+        [XmlIgnore]
+        public Materials.Material Material
+        {
+            get
+            {
+                return this._material;
+            }
+            set
+            {
+                this._material = value;
+                this.ComplexMaterialRef = this._material.Guid;
             }
         }
 
         [XmlAttribute("name")]
-        public string Name { get; set; } // identifier
+        public string _identifier;
+
+        [XmlIgnore]
+        public string Identifier
+        {
+            get
+            {
+                return this._identifier;
+            }
+            set
+            {
+                this._identifier = value + ".1";
+            }
+        }
+
+        [XmlIgnore]
+        private string _type;
+        
+        [XmlIgnore]
+        public string Type
+        {
+            get {return this._type;}
+            set {this._type = RestrictedString.BeamType(value);}
+        }
 
         [XmlAttribute("complex_material")]
-        public System.Guid ComplexMaterial { get; set; } // guidtype
+        public System.Guid ComplexMaterialRef { get; set; } // guidtype
 
         [XmlAttribute("complex_section")]
         public System.Guid ComplexSectionRef { get; set; } // guidtype
@@ -265,14 +529,51 @@ namespace FemDesign.Bars
         public bool EccentricityCalc { get; set; } // bool
 
         [XmlElement("connectivity", Order = 3)]
-        public List<Connectivity> Connectivity = new List<Connectivity>(); // connectivity_type
+        public Connectivity[] _connectivities = new Connectivity[2]; // connectivity_type
+        
+        [XmlIgnore]
+        public Connectivity[] Connectivities
+        {
+            get
+            {
+                return this._connectivities;
+            }
+            set
+            {
+                if (value.Length == 1)
+                {
+                    this._connectivities[0] = value[0];
+                    this._connectivities[1] = value[0];
+                }
+                else if (value.Length == 2)
+                {
+                    this._connectivities[0] = value[0];
+                    this._connectivities[1] = value[1];
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect length of Connectivities: {value.Length}. Length should be 1 or 2");
+                }
+            }
+        }
+           
+        
         [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity _modelEccentricity { get; set; } // eccentricity_type
+        public ModelEccentricity _modelEccentricity;
+
+        [XmlIgnore]
+        public ModelEccentricity ModelEccentricity
+        {
+            get
+            {
+                return this._modelEccentricity;
+            }
+        }
 
         [XmlElement("buckling_data", Order = 5)]
         public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
         [XmlElement("end", Order = 6)]
-        public string End { get; set; } // empty_type
+        public string End = "";
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -282,15 +583,31 @@ namespace FemDesign.Bars
             
         }
 
-        private BarPart(string _name, Geometry.Edge _edge, Materials.Material _material)
+        private BarPart(string name, Geometry.Edge _edge, Materials.Material _material)
         {
             this.EntityCreated();
-            this.Name = _name + ".1";
-            this.ComplexMaterial = _material.Guid;
+            this.Identifier = name;
+            this.ComplexMaterialRef = _material.Guid;
             this.EccentricityCalc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
-            this.Edge = _edge;
+            this._edge = _edge;
             this.LocalY = _edge.CoordinateSystem.LocalY;
-            this.End = "";
+        }
+
+        /// <summary>
+        /// Construct BarPart
+        /// </summary>
+        public BarPart(Geometry.Edge edge, Geometry.FdVector3d localY, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        {
+            this.EntityCreated();
+            this.Edge = edge;
+            this.LocalY = localY;
+            this.Type = type;
+            this.Material = material;
+            this.Sections = sections;
+            this.Connectivities = connectivities;
+            this.Eccentricities = eccentricities;
+            this.EccentricityCalc = true;
+            this.Identifier = identifier;
         }
 
         /// <summary>
@@ -312,7 +629,7 @@ namespace FemDesign.Bars
             {
                 BarPart barPart = new BarPart(name, edge, material);
                 barPart.ComplexSectionRef = complexSection.Guid;
-                barPart.Connectivity = new List<Connectivity>{connectivity, connectivity}; // start and end eccentricity
+                barPart._connectivities = new Connectivity[]{connectivity, connectivity}; // start and end eccentricity
                 barPart._modelEccentricity = new ModelEccentricity(eccentricity);
                 return barPart;
             }

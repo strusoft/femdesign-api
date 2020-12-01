@@ -26,6 +26,32 @@ namespace FemDesign.Bars
         public Eccentricity[] _analytical = new Eccentricity[2]; // ecc_value_type
 
         [XmlIgnore]
+        public Eccentricity[] Analytical
+        {
+            get
+            {
+                return this._analytical;
+            }
+            set
+            {
+                if (value.Length == 1)
+                {
+                    this._analytical[0] = value[0];
+                    this._analytical[1] = value[0];
+                }
+                else if (value.Length == 2)
+                {
+                    this._analytical[0] = value[0];
+                    this._analytical[1] = value[1];                  
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect length of value: {value.Length}. Length should be 1 or 2");
+                }
+            }
+        }
+
+        [XmlIgnore]
         public Eccentricity StartAnalytical
         {
             get
@@ -53,6 +79,32 @@ namespace FemDesign.Bars
 
         [XmlElement("physical", Order = 2)]
         public Eccentricity[] _physical = new Eccentricity[2]; // ecc_value_type
+
+        [XmlIgnore]
+        public Eccentricity[] Physical
+        {
+            get
+            {
+                return this._physical;
+            }
+            set
+            {
+                if (value.Length == 1)
+                {
+                    this._physical[0] = value[0];
+                    this._physical[1] = value[0];
+                }
+                else if (value.Length == 2)
+                {
+                    this._physical[0] = value[0];
+                    this._physical[1] = value[1];                  
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect length of value: {value.Length}. Length should be 1 or 2");
+                }
+            }
+        }
 
         [XmlIgnore]
         public Eccentricity StartPhysical

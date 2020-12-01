@@ -23,15 +23,6 @@ namespace FemDesign.Bars
         [XmlIgnore]
         private static int _trussInstance = 0; // used for counter of name
 
-        [XmlIgnore]
-        public Materials.Material Material { get; set; } // for internal use, not to be serialized
-        
-        [XmlIgnore]
-        public Sections.Section Section { get; set; } // for internal use, not to be serialized
-
-        [XmlIgnore]
-        public Sections.ComplexSection ComplexSection { get; set; } // for internal use, not to be serialized
-
         /// <summary>
         /// Truss only.
         /// </summary>
@@ -70,7 +61,38 @@ namespace FemDesign.Bars
         public bool TensionPlasticity { get; set; } // bool
 
         [XmlAttribute("name")]
-        public string Name { get; set; } // identifier
+        public string _identifier { get; set; } // identifier
+
+        [XmlIgnore]
+        public string Identifier
+        {
+            get
+            {
+                return this._identifier;
+            }
+            set
+            {
+                if (this.Type == "beam")
+                {
+                    Bar._barInstance++;
+                    this._identifier = value + "." + Bar._barInstance.ToString();
+                }
+                else if (this.Type == "column")
+                {
+                    Bar._columnInstance++;
+                    this._identifier = value + "." + Bar._columnInstance.ToString();
+                }
+                else if (this.Type == "truss")
+                {
+                    Bar._trussInstance++;
+                    this._identifier = value + "." + Bar._trussInstance.ToString();
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
+                }
+            }
+        }
 
         [XmlAttribute("type")]
         public string _type; // beamtype
@@ -86,7 +108,7 @@ namespace FemDesign.Bars
         public BarPart BarPart { get; set; } // bar_part_type
 
         [XmlElement("end", Order = 2)]
-        public string End { get; set; } // empty_type
+        public string End = "";
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -100,8 +122,18 @@ namespace FemDesign.Bars
         {
             this.EntityCreated();
             this.Type = type;
-            this.Name = name;
-            this.End = "";
+            this._identifier = name;
+        }
+
+        /// <summary>
+        /// Construct bar
+        /// </summary>
+        public Bar(Geometry.Edge edge, Geometry.FdVector3d localY, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        {
+           this.EntityCreated();
+           this.Type = type;
+           this.Identifier = identifier;
+           this.BarPart = new BarPart(edge, localY, this.Type, material, sections, connectivities, eccentricities, this.Identifier);
         }
 
         /// Create a bar of type beam.
@@ -114,7 +146,7 @@ namespace FemDesign.Bars
             // bar
             Bar bar = new Bar(type, name);
             Sections.ComplexSection complexSection = new Sections.ComplexSection(section, eccentricity);
-            bar.Material = material;
+            bar.BarPart.Material = material;
             bar.Section = section;
             bar.ComplexSection = complexSection;
 
@@ -136,7 +168,7 @@ namespace FemDesign.Bars
             // bar
             Bar bar = new Bar(type, name);
             Sections.ComplexSection complexSection = new Sections.ComplexSection(section, eccentricity);
-            bar.Material = material;
+            bar.BarPart.Material = material;
             bar.Section = section;
             bar.ComplexSection = complexSection;
 
@@ -155,7 +187,7 @@ namespace FemDesign.Bars
             string name = identifier + "." + Bar._trussInstance.ToString();
             Bar bar = new Bar(type, name);
             bar.BarPart = BarPart.Truss(name, line, material, section);
-            bar.Material = material;
+            bar.BarMaterial = material;
             bar.Section = section;
             bar.ComplexSection = null;
             return bar;
@@ -363,7 +395,7 @@ namespace FemDesign.Bars
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoCurve()
         {
-            return this.BarPart.Edge.ToDynamo();
+            return this.BarPart._edge.ToDynamo();
         }
         #endregion
 
@@ -373,7 +405,7 @@ namespace FemDesign.Bars
         /// </summary>
         internal Rhino.Geometry.Curve GetRhinoCurve()
         {
-            return this.BarPart.Edge.ToRhino();
+            return this.BarPart._edge.ToRhino();
         }
         #endregion
     }
