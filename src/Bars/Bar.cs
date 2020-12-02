@@ -1,4 +1,6 @@
 // https://strusoft.com/
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 #region dynamo
@@ -148,25 +150,25 @@ namespace FemDesign.Bars
         }
 
         /// Create a bar of type beam.
-        internal static Bar Beam(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        internal static Bar BeamDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            return new Bar(edge, "beam", material, sections, connectivities, eccentricities, identifier);
         }
 
         /// Create a bar of type column.
-        internal static Bar Column(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        internal static Bar ColumnDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            return new Bar(edge, "column", material, sections, connectivities, eccentricities, identifier);            
         }
 
         /// Create a bar of type truss without compression or tension limits.
-        internal static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
+        internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
            return new Bar(edge, "truss", material, section, identifier);            
         }
 
         /// Create a bar of type truss.
-        internal static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
+        internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
         {
             Bar bar = new Bar(edge, "truss", material, section, identifier);
             bar.MaxCompression = maxCompression;
@@ -183,20 +185,20 @@ namespace FemDesign.Bars
         /// <remarks>Create</remarks>
         /// <param name="curve">Curve. Only line and arc are supported.</param>
         /// <param name="material">Material.</param>
-        /// <param name="section">Section.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="section">Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.</param>
+        /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
         /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
         /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "B")
+        public static Bar Beam(Autodesk.DesignScript.Geometry.Curve curve, Materials.Material material, Sections.Section[] section, [DefaultArgument("Connectivity.Default()")] Connectivity[] connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity[] eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "B")
         {
             // convert class
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
 
             // create bar
-            Bar bar = Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
+            Bar bar = Bar.BeamDefine(edge, material, section, connectivity, eccentricity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -222,20 +224,20 @@ namespace FemDesign.Bars
         /// <remarks>Create</remarks>
         /// <param name="line">Line.</param>
         /// <param name="material">Material.</param>
-        /// <param name="section">Section.</param>
-        /// <param name="connectivity">Connectivity. Both ends of the bar-element are given the same connectivity. Optional, if undefined default value will be used.</param>
-        /// <param name="eccentricity">Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, if undefined default value will be used.</param>
+        /// <param name="section">Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.</param>
+        /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
         /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
         /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Connectivity.Default()")] Connectivity connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "C")
+        public static Bar Column(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section[] section, [DefaultArgument("Connectivity.Default()")] Connectivity[] connectivity, [DefaultArgument("Eccentricity.Default()")] Eccentricity[] eccentricity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "C")
         {
             // convert class
-            Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
+            Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.Column(identifier, _line, connectivity, eccentricity, material, section);
+            Bar bar = Bar.ColumnDefine(edge, material, section, connectivity, eccentricity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -269,10 +271,10 @@ namespace FemDesign.Bars
         public static Bar Truss(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "T")
         {
             // convert class
-            Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
+            Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.Truss(identifier, _line, material, section);
+            Bar bar = Bar.TrussDefine(edge, material, section, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -311,10 +313,10 @@ namespace FemDesign.Bars
         public static Bar TrussLimitedCapacity(Autodesk.DesignScript.Geometry.Line line, Materials.Material material, Sections.Section section, double maxCompression, double maxTension, bool compressionPlasticity,  bool tensionPlasticity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "T")
         {
             // convert class
-            Geometry.Edge _line = Geometry.Edge.FromDynamoLine(line);
+            Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.Truss(identifier, _line, material, section, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
+            Bar bar = Bar.TrussDefine(edge, material, section, identifier, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
