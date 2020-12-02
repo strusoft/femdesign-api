@@ -84,7 +84,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineCurve((LineCurve)curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Column(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.ColumnDefine(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

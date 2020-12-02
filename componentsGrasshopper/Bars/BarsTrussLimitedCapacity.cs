@@ -81,7 +81,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(edge, material, section, identifier, maxCompression, maxTension, compressionPlasticity, tensionPlasticity);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.TrussDefine(edge, material, section, identifier, maxCompression, maxTension, compressionPlasticity, tensionPlasticity);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
