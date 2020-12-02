@@ -188,12 +188,6 @@ namespace FemDesign.Bars
                 {
                     throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
                 }
-
-                // update model eccentricity
-                this.ModelEccentricity.StartAnalytical = value[0];
-                this.ModelEccentricity.EndAnalytical = value[value.Length - 1];
-                this.ModelEccentricity.StartPhysical = value[0];
-                this.ModelEccentricity.EndPhysical = value[value.Length - 1];
             }
         }
 
@@ -209,15 +203,7 @@ namespace FemDesign.Bars
             }
             set
             {
-                // set value
                 this._eccentricities[0] = value;
-
-                // update complex section
-                this._complexSection.Section = this.ModelSection.ToList();
-
-                // update model eccentricity
-                this._modelEccentricity.StartAnalytical = value;
-                this._modelEccentricity.StartPhysical = value;
             }
         }
 
@@ -233,15 +219,7 @@ namespace FemDesign.Bars
             }
             set
             {
-                // set value
                 this._eccentricities[1] = value;
-
-                // update complex section                
-                this._complexSection.Section = this.ModelSection.ToList();
-
-                // update model eccentricity
-                this._modelEccentricity.EndAnalytical = value;
-                this._modelEccentricity.EndPhysical = value;
             }
         }
 
@@ -318,9 +296,6 @@ namespace FemDesign.Bars
             {
                 // set value
                 this._sections[0] = value;
-
-                // update complex section
-                this._complexSection.Section = this.ModelSection.ToList();
             }
         }
 
@@ -337,10 +312,7 @@ namespace FemDesign.Bars
             set
             {
                 // set value
-                this._sections[1] = value;
-
-                // update complex section
-                this._complexSection.Section = this.ModelSection.ToList();                
+                this._sections[1] = value;             
             }
         }
 
@@ -455,8 +427,6 @@ namespace FemDesign.Bars
                 {
                     // update _complexSection with BarPart sections and eccentricities
                     this._complexSection.Section = ModelSection.ToList();
-
-                    // no need to set guid ref
 
                     // return
                     return this._complexSection;
@@ -633,21 +603,42 @@ namespace FemDesign.Bars
             }
         }
            
-        
-        [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity _modelEccentricity;
 
-        [XmlIgnore]
+        [XmlIgnore]  
+        private ModelEccentricity _modelEccentricity;
+
+        [XmlElement("eccentricity", Order = 4)]
         public ModelEccentricity ModelEccentricity
         {
             get
             {
-                if (this._modelEccentricity == null)
+                if (this.Type == "truss")
                 {
-                    this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities[this.Eccentricities.Length - 1], true);
+                    return null;
                 }
+                
+                else
+                {
+                    if (this._modelEccentricity == null)
+                    {
+                        // create new model eccentricity
+                        this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities.Last(), true);
+                    }
+                    else
+                    {
+                        // update model eccentricity
+                        this._modelEccentricity.StartAnalytical = this.Eccentricities[0];
+                        this._modelEccentricity.EndAnalytical = this.Eccentricities.Last();
+                        this._modelEccentricity.StartPhysical = this.Eccentricities[0];
+                        this._modelEccentricity.EndPhysical = this.Eccentricities.Last();
+                    }
 
-                return this._modelEccentricity;
+                    return this._modelEccentricity;
+                } 
+            }
+            set
+            {
+                this._modelEccentricity = value;
             }
         }
 
