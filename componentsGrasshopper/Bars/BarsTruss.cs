@@ -16,9 +16,9 @@ namespace FemDesign.GH
             pManager.AddCurveParameter("Line", "Line", "LineCurve", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
-           pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
-           pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
+            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "T");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -67,7 +67,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(identifier, edge, material, section);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(edge, material, section, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

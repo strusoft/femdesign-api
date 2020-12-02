@@ -1,5 +1,7 @@
 // https://strusoft.com/
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -15,10 +17,10 @@ namespace FemDesign.GH
        {
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Both ends of the bar-element are given the same connectivity. Optional, default value if undefined.", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Section", "Section", "Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. Both ends of the bar-element are given the same eccentricity. Optional, default value if undefined.", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
@@ -40,19 +42,19 @@ namespace FemDesign.GH
             FemDesign.Materials.Material material = null;
             if (!DA.GetData(1, ref material)) { return; }
 
-            FemDesign.Sections.Section section = null;
-            if (!DA.GetData(2, ref section)) { return; }
+            List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
+            if (!DA.GetDataList(2, sections)) { return; }
 
-            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.Rigid();
-            if (!DA.GetData(3, ref connectivity))
+            List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
+            if (!DA.GetDataList(3, connectivities))
             {
-                // pass
+                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.Rigid()};
             }
 
-            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.Default();
-            if (!DA.GetData(4, ref eccentricity))
+            List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
+            if (!DA.GetDataList(4, eccentricities))
             {
-                // pass
+                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.Default()};
             }
             
             Vector3d v = Vector3d.Zero;
@@ -73,13 +75,13 @@ namespace FemDesign.GH
                 // pass
             }
 
-            if (curve == null || material == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
+            if (curve == null || material == null || sections == null || connectivities == null || eccentricities == null || identifier == null) { return; }
 
             // convert geometry
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineOrArc2(curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Beam(identifier, edge, connectivity, eccentricity, material, section);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Beam(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

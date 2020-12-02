@@ -439,13 +439,14 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._complexSection == null)
+                if (this.Type == "truss")
+                {
+                    return null;
+                }
+                else if (this._complexSection == null && this.Type != "truss")
                 {
                     // construct new complex section
                     this._complexSection = new Sections.ComplexSection(this.ModelSection.ToList());
-
-                    // set guid ref
-                    this.ComplexSectionRef = this._complexSection.Guid;
 
                     // return
                     return this._complexSection;
@@ -548,8 +549,38 @@ namespace FemDesign.Bars
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialRef { get; set; } // guidtype
 
+        [XmlIgnore]
+        private System.Guid _complexSectionRef;
+
         [XmlAttribute("complex_section")]
-        public System.Guid ComplexSectionRef { get; set; } // guidtype
+        public System.Guid ComplexSectionRef
+        {
+            get
+            {
+                // used for trusses only
+                if (this.Type == "truss")
+                {
+                    return this.UniformSection.Guid;
+                }
+
+                // used when deserializing only
+                else if (this.ComplexSection == null)
+                {
+                    return this._complexSectionRef;
+                }
+
+                // used for all other cases
+                else
+                {
+                    this._complexSectionRef = this.ComplexSection.Guid;
+                    return this._complexSectionRef;
+                }
+            }
+            set
+            {
+                this._complexSectionRef = value;
+            }
+        }
 
         [XmlAttribute("made")]
         public string _made; // steelmadetype
@@ -649,8 +680,8 @@ namespace FemDesign.Bars
         public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
             this.EntityCreated();
-            this.Edge = edge;
             this.Type = type;
+            this.Edge = edge;
             this.Material = material;
             this.Sections = sections;
             this.Connectivities = connectivities;
@@ -665,8 +696,8 @@ namespace FemDesign.Bars
         public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section section, string identifier)
         {
             this.EntityCreated();
-            this.Edge = edge;
             this.Type = type;
+            this.Edge = edge;
             this.Material = material;
             this.Sections = new Sections.Section[1]{section};
             this.Identifier = identifier;

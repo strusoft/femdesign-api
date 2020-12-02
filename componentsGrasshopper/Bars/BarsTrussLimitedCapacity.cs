@@ -42,17 +42,17 @@ namespace FemDesign.GH
             FemDesign.Sections.Section section = null;
             if (!DA.GetData(2, ref section)) { return; }
 
-            double limitCompression = 0;
-            if (!DA.GetData(3, ref limitCompression)) { return; }
+            double maxCompression = 0;
+            if (!DA.GetData(3, ref maxCompression)) { return; }
 
-            bool plasticCompression = false;
-            if (!DA.GetData(4, ref plasticCompression)) { return; }
+            bool compressionPlasticity = false;
+            if (!DA.GetData(4, ref compressionPlasticity)) { return; }
             
-            double limitTension = 0;
-            if (!DA.GetData(5, ref limitTension)) { return; }
+            double maxTension = 0;
+            if (!DA.GetData(5, ref maxTension)) { return; }
             
-            bool plasticTension = false;
-            if (!DA.GetData(6, ref plasticTension)) { return; }
+            bool tensionPlasticity = false;
+            if (!DA.GetData(6, ref tensionPlasticity)) { return; }
 
             Vector3d v = Vector3d.Zero;
             if (!DA.GetData(7, ref v))
@@ -81,7 +81,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(identifier, edge, material, section, limitCompression, limitTension, plasticCompression, plasticTension);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(edge, material, section, identifier, maxCompression, maxTension, compressionPlasticity, tensionPlasticity);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
