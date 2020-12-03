@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class BarsSet: GH_Component
+    public class BarsModify: GH_Component
     {
-       public BarsSet(): base("Bars.Set", "Set", "Set properties of an exiting bar element of any type.", "FemDesign", "Bars")
+       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", "FemDesign", "Bars")
        {
 
        }
