@@ -261,7 +261,19 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
+        /// Check if sections are null
+        /// </summary>
+        public bool SectionsAreNull
+        {
+            get
+            {
+                return (this.Sections[0] == null & this.Sections[1] == null);
+            }
+        }
+
+        /// <summary>
         /// Try to get a uniform section. Compares section based on guid.
+        /// </summary>
         public Sections.Section UniformSection
         {
             get
@@ -415,34 +427,21 @@ namespace FemDesign.Bars
                 {
                     return null;
                 }
-                else if (this._complexSection == null && this.Type != "truss")
-                {
-                    // construct new complex section
-                    this._complexSection = new Sections.ComplexSection(this.ModelSection.ToList());
-
-                    // return
-                    return this._complexSection;
-                }
                 else
                 {
-                    // update _complexSection with BarPart sections and eccentricities
-                    this._complexSection.Section = ModelSection.ToList();
+                    try
+                    {
+                        // update _complexSection with BarPart sections and eccentricities
+                        this._complexSection.Section = ModelSection.ToList();
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        // pass
+                    }
 
                     // return
                     return this._complexSection;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Property to get and set _complexSection during model deserialization
-        /// </summary>
-        [XmlIgnore]
-        internal Sections.ComplexSection ComplexSectionDerserialization
-        {
-            get
-            {
-                return this._complexSection;
             }
             set
             {
@@ -527,15 +526,19 @@ namespace FemDesign.Bars
         {
             get
             {
-                // used for trusses only
-                if (this.Type == "truss")
+                // used when deserializing only
+                if (this.ComplexSectionIsNull && this.Type != "truss")
                 {
-                    return this.UniformSection.Guid;
+                    return this._complexSectionRef;
                 }
 
-                // used when deserializing only
-                else if (this.ComplexSection == null)
+                // used for trusses only
+                else if (this.ComplexSectionIsNull && this.Type == "truss")
                 {
+                    if (!this.SectionsAreNull)
+                    {
+                        this._complexSectionRef = this.UniformSection.Guid;
+                    }
                     return this._complexSectionRef;
                 }
 
@@ -678,6 +681,7 @@ namespace FemDesign.Bars
             this.Connectivities = connectivities;
             this.Eccentricities = eccentricities;
             this.EccentricityCalc = true;
+            this.ComplexSection = new Sections.ComplexSection(this.ModelSection.ToList());
             this.Identifier = identifier;
         }
 

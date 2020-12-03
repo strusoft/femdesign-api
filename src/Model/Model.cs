@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 #region dynamo
 using Autodesk.DesignScript.Runtime;
@@ -420,7 +421,7 @@ namespace FemDesign
         /// </summary>
         private void AddComplexSection(Bars.Bar obj)
         {   
-            if (obj.BarPart.ComplexSection == null)
+            if (obj.BarPart.ComplexSectionIsNull)
             {
                 // pass
             }
@@ -1303,7 +1304,6 @@ namespace FemDesign
             }
             return false;
         }
-
         #endregion
         
         #region deconstruct
@@ -1313,9 +1313,12 @@ namespace FemDesign
         /// </summary>
         internal List<Bars.Bar> GetBars()
         {
-            List<Bars.Bar> _bars = new List<Bars.Bar>();
+            List<Bars.Bar> bars = new List<Bars.Bar>();
             foreach (Bars.Bar item in this.Entities.Bar)
             {
+                // set type on barPart
+                item.BarPart.Type = item.Type;
+
                 // get complex section
                 if (item.Type != "truss")
                 {
@@ -1323,7 +1326,7 @@ namespace FemDesign
                     {
                         if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.ComplexSectionDerserialization = complexSection;
+                            item.BarPart.ComplexSection = complexSection;
                         }
                     }
 
@@ -1353,21 +1356,22 @@ namespace FemDesign
                 // get section
                 foreach (Sections.Section section in this.Sections.Section)
                 {
-                    if (item.BarPart.ComplexSectionIsNull)
+                    if (item.BarPart.Type == "truss")
                     {
                         if (section.Guid == item.BarPart.ComplexSectionRef)
                         {
                             item.BarPart.StartSection = section;
+                            item.BarPart.EndSection = section;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.BarPart.ComplexSectionDerserialization.Section[0].SectionRef)
+                        if (section.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
                         {
                             item.BarPart.StartSection = section;
                         }
                         
-                        if (section.Guid == item.BarPart.ComplexSectionDerserialization.Section[item.BarPart.ComplexSectionDerserialization.Section.Count - 1].SectionRef)
+                        if (section.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
                         {
                             item.BarPart.EndSection = section;
                         }
@@ -1381,9 +1385,9 @@ namespace FemDesign
                 }
 
                 // add to return object
-                _bars.Add(item);
+                bars.Add(item);
             }
-            return _bars;
+            return bars;
         }
 
         /// <summary>
