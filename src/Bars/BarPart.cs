@@ -33,6 +33,11 @@ namespace FemDesign.Bars
         {
             get
             {
+                if (this._edge.Type == "line")
+                {
+                    this._edge.Normal = this.LocalY;
+                }
+                
                 return this._edge;
             }
             set
