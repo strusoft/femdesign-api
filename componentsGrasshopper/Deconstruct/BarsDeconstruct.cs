@@ -23,7 +23,7 @@ namespace FemDesign.GH
            pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical element ID.", GH_ParamAccess.item);
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -44,7 +44,7 @@ namespace FemDesign.GH
             DA.SetData(2, bar.BarPart.Identifier);
             DA.SetData(3, bar.GetRhinoCurve());
             DA.SetData(4, bar.BarPart.Material);
-            DA.SetData(5, bar.BarPart.Sections);
+            DA.SetDataList(5, bar.BarPart.Sections);
        }
        protected override System.Drawing.Bitmap Icon
        {
