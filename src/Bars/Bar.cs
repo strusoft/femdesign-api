@@ -12,7 +12,16 @@ namespace FemDesign.Bars
     /// <summary>
     /// BarType enum
     /// </summary>
-    public enum BarType {Beam, Column, Truss};
+    [System.Serializable]
+    public enum BarType 
+    {
+        [XmlEnum("beam")]
+        Beam, 
+        [XmlEnum("column")]
+        Column, 
+        [XmlEnum("truss")]
+        Truss
+    };
 
     /// <summary>
     /// bar_type
