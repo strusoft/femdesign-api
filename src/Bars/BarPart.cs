@@ -450,21 +450,17 @@ namespace FemDesign.Bars
                 {
                     return null;
                 }
+                else if (!this.SectionsAreNull && !this.EccentricitiesAreNull)
+                {
+                    // update _complexSection with BarPart sections and eccentricities
+                    this._complexSection.Section = ModelSection.ToList();
+                }
                 else
                 {
-                    try
-                    {
-                        // update _complexSection with BarPart sections and eccentricities
-                        this._complexSection.Section = ModelSection.ToList();
-                    }
-                    catch (System.NullReferenceException)
-                    {
-                        // pass
-                    }
-
-                    // return
-                    return this._complexSection;
+                    // pass
                 }
+                // return
+                return this._complexSection;
             }
             set
             {
