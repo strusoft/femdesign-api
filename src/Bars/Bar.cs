@@ -360,6 +360,78 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
+        /// Modify properties of an exiting bar element of any type.
+        /// </summary>
+        /// <param name="newGuid">Generate a new guid for this bar?</param>
+        /// <param name="curve">Curve. Only line and arc are supported.</param>
+        /// <param name="material">Material.</param>
+        /// <param name="section">Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.</param>
+        /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
+        /// <param name="eccentricity">Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>
+        /// <param name="localY">Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS</param>
+        /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
+        /// <param name="identifier">Identifier. Optional.</param>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Bar Modify(Bar bar, [DefaultArgument("false")] bool newGuid, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("null")] Materials.Material material, [DefaultArgument("null")] Sections.Section[] section, [DefaultArgument("null")] Connectivity[] connectivity, [DefaultArgument("null")] Eccentricity[] eccentricity, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("false")] bool orientLCS, [DefaultArgument("null")] string identifier)
+        {
+            // deep clone input bar
+            bar = bar.DeepClone();
+
+            if (newGuid)
+            {
+                bar.EntityCreated();
+                bar.BarPart.EntityCreated();
+            }
+
+            if (curve != null)
+            {
+                // convert geometry
+                Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
+
+                // update edge
+                bar.BarPart.Edge = edge;
+            }
+
+            if (material != null)
+            {
+                bar.BarPart.Material = material;
+            }
+
+            if (section != null)
+            {
+                bar.BarPart.Sections = section;
+            }
+
+            if (connectivity != null)
+            {
+                bar.BarPart.Connectivities = connectivity;
+            }
+
+            if (eccentricity != null)
+            {
+                bar.BarPart.Eccentricities = eccentricity;
+            }
+
+            if (localY != null)
+            {
+                bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
+            }
+
+            if (orientLCS)
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
+
+            if (identifier != null)
+            {
+                bar.Identifier = identifier;
+                bar.BarPart.Identifier = bar.Identifier;
+            }
+
+            return bar;
+        }
+
+        /// <summary>
         /// Create Dynamo curve from underlying Edge (Line or Arc) of Bar.
         /// </summary>
         internal Autodesk.DesignScript.Geometry.Curve GetDynamoCurve()
