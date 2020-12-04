@@ -177,7 +177,7 @@ namespace FemDesign.Bars
                 }
 
                 // get eccentricities from complex section
-                else if (EccentricitiesAreNull)
+                else if (AnyEccentricityIsNull)
                 {
                     this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
@@ -213,13 +213,13 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Check if sections are null
+        /// Check if one or both eccentricities are null
         /// </summary>
-        public bool EccentricitiesAreNull
+        public bool AnyEccentricityIsNull
         {
             get
             {
-                return (this._eccentricities[0] == null & this._eccentricities[1] == null);
+                return (this._eccentricities[0] == null || this._eccentricities[1] == null);
             }
         }
 
@@ -677,7 +677,7 @@ namespace FemDesign.Bars
                         // create new model eccentricity
                         this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities.Last(), true);
                     }
-                    else if (!this.EccentricitiesAreNull)
+                    else if (!this.AnyEccentricityIsNull)
                     {
                         // update model eccentricity
                         this._modelEccentricity.StartAnalytical = this.Eccentricities[0];
