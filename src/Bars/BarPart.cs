@@ -42,13 +42,12 @@ namespace FemDesign.Bars
             }
             set
             {
-                this._edge = value;
-
                 if (this.Type == BarType.Beam)
                 {
+                    // check if line or arc
                     if (value.Type == "line" || value.Type == "arc")
                     {
-                        this._edge = value;
+                        // pass
                     }
                     else
                     {
@@ -69,8 +68,6 @@ namespace FemDesign.Bars
                         throw new System.ArgumentException("Edge (Line) must be vertial for column definition");
                     }
 
-                    // set value
-                    this._edge = value;
                 }
                 else if (this.Type == BarType.Truss)
                 {
@@ -79,14 +76,17 @@ namespace FemDesign.Bars
                     {
                         throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
                     }
-
-                    // set value
-                    this._edge = value;
                 }
                 else
                 {
                     throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
                 }
+
+                // set value
+                this._edge = value;
+
+                // update cooridnate system to fit new edge
+                this.CoordinateSystem = value.CoordinateSystem;
             }
         }
         
@@ -170,16 +170,30 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this.Type != BarType.Truss && EccentricitiesAreNull)
+                // truss has no eccentricity
+                if (this.Type == BarType.Truss)
+                {
+                    return null;
+                }
+
+                // get eccentricities from complex section
+                else if (this.Type != BarType.Truss && EccentricitiesAreNull)
                 {
                     this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
 
+                // return
                 return this._eccentricities;
             }
             set
             {
-                if (value.Length == 1)
+                // truss has no eccentricity
+                if (this.Type == BarType.Truss)
+                {
+                    // pass
+                }
+
+                else if (value.Length == 1)
                 {
                     this._eccentricities[0] = value[0];
                     this._eccentricities[1] = value[0];
@@ -211,8 +225,6 @@ namespace FemDesign.Bars
                 return (this._eccentricities[0] == null & this._eccentricities[1] == null);
             }
         }
-
-
 
         /// <summary>
         /// Get/set start eccentricity of bar
@@ -614,7 +626,11 @@ namespace FemDesign.Bars
             }
             set
             {
-                if (value.Length == 1)
+                if (this.Type == BarType.Truss)
+                {
+                    // pass
+                }
+                else if (value.Length == 1)
                 {
                     this._connectivities[0] = value[0];
                     this._connectivities[1] = value[0];
