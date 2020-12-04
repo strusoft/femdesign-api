@@ -10,6 +10,11 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Bars
 {
     /// <summary>
+    /// BarType enum
+    /// </summary>
+    public enum BarType {Beam, Column, Truss};
+
+    /// <summary>
     /// bar_type
     /// 
     /// Bar-element
@@ -74,17 +79,17 @@ namespace FemDesign.Bars
             }
             set
             {
-                if (this.Type == "beam")
+                if (this.Type == BarType.Beam)
                 {
                     Bar._barInstance++;
                     this._identifier = value + "." + Bar._barInstance.ToString();
                 }
-                else if (this.Type == "column")
+                else if (this.Type == BarType.Column)
                 {
                     Bar._columnInstance++;
                     this._identifier = value + "." + Bar._columnInstance.ToString();
                 }
-                else if (this.Type == "truss")
+                else if (this.Type == BarType.Truss)
                 {
                     Bar._trussInstance++;
                     this._identifier = value + "." + Bar._trussInstance.ToString();
@@ -97,13 +102,21 @@ namespace FemDesign.Bars
         }
 
         [XmlAttribute("type")]
-        public string _type; // beamtype
+        public BarType _type; // beamtype
 
         [XmlIgnore]
-        public string Type
+        public BarType Type
         {
-            get {return this._type;}
-            set {this._type = RestrictedString.BeamType(value);}
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                this._type = value;
+            }
+            // get {return this._type;}
+            // set {this._type = RestrictedString.BeamType(value);}
         }
 
         [XmlElement("bar_part", Order = 1)]
@@ -120,7 +133,7 @@ namespace FemDesign.Bars
             
         }
 
-        private Bar(string type, string name)
+        private Bar(BarType type, string name)
         {
             this.EntityCreated();
             this.Type = type;
@@ -130,7 +143,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct bar (beam or column)
         /// </summary>
-        public Bar(Geometry.Edge edge, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            this.EntityCreated();
            this.Type = type;
@@ -141,7 +154,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct bar (truss)
         /// <summary>
-        public Bar(Geometry.Edge edge, string type, Materials.Material material, Sections.Section section, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
             this.EntityCreated();
             this.Type = type;
@@ -152,25 +165,25 @@ namespace FemDesign.Bars
         /// Create a bar of type beam.
         internal static Bar BeamDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
-           return new Bar(edge, "beam", material, sections, connectivities, eccentricities, identifier);
+           return new Bar(edge, BarType.Beam, material, sections, connectivities, eccentricities, identifier);
         }
 
         /// Create a bar of type column.
         internal static Bar ColumnDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
-           return new Bar(edge, "column", material, sections, connectivities, eccentricities, identifier);            
+           return new Bar(edge, BarType.Column, material, sections, connectivities, eccentricities, identifier);            
         }
 
         /// Create a bar of type truss without compression or tension limits.
         internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
-           return new Bar(edge, "truss", material, section, identifier);            
+           return new Bar(edge, BarType.Truss, material, section, identifier);            
         }
 
         /// Create a bar of type truss.
         internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
         {
-            Bar bar = new Bar(edge, "truss", material, section, identifier);
+            Bar bar = new Bar(edge, BarType.Truss, material, section, identifier);
             bar.MaxCompression = maxCompression;
             bar.CompressionPlasticity = compressionPlasticity;
             bar.MaxTension = maxTension;
