@@ -16,6 +16,8 @@ namespace FemDesign.GH
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
            pManager.AddGenericParameter("Bar", "Bar", "Bar element", GH_ParamAccess.item);
+           pManager.AddBooleanParameter("NewGuid", "NewGuid", "Generate a new guid for this bar?", GH_ParamAccess.item);
+           pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
@@ -46,8 +48,18 @@ namespace FemDesign.GH
                 bar = bar.DeepClone();
             }
 
+            bool newGuid = false;
+            if (DA.GetData(1, ref newGuid))
+            {
+                if (newGuid)
+                {
+                    bar.EntityCreated();
+                    bar.BarPart.EntityCreated();
+                }
+            }
+
             Curve curve = null;
-            if (DA.GetData(1, ref curve))
+            if (DA.GetData(2, ref curve))
             {
                 // convert geometry 
                 FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineOrArc2(curve);
@@ -57,43 +69,43 @@ namespace FemDesign.GH
             }
             
             FemDesign.Materials.Material material = null;
-            if (DA.GetData(2, ref material))
+            if (DA.GetData(3, ref material))
             {
                 bar.BarPart.Material = material;
             }
 
             List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
-            if (DA.GetDataList(3, sections))
+            if (DA.GetDataList(4, sections))
             {
                 bar.BarPart.Sections = sections.ToArray();
             }
 
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
-            if (DA.GetDataList(4, connectivities))
+            if (DA.GetDataList(5, connectivities))
             {
                 bar.BarPart.Connectivities = connectivities.ToArray();
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
-            if (DA.GetDataList(5, eccentricities))
+            if (DA.GetDataList(6, eccentricities))
             {
                 bar.BarPart.Eccentricities = eccentricities.ToArray();
             }
             
             Vector3d v = Vector3d.Zero;
-            if (DA.GetData(6, ref v))
+            if (DA.GetData(7, ref v))
             {
                 bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
             }
 
             bool orientLCS = true;
-            if (DA.GetData(7, ref orientLCS))
+            if (DA.GetData(8, ref orientLCS))
             {
                 bar.BarPart.OrientCoordinateSystemToGCS();
             }
 
             string identifier = null;
-            if (DA.GetData(8, ref identifier))
+            if (DA.GetData(9, ref identifier))
             {
                 bar.Identifier = identifier;
                 bar.BarPart.Identifier = bar.Identifier;
