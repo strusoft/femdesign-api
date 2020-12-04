@@ -293,13 +293,13 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Check if sections are null
+        /// Check if one or both sections are null
         /// </summary>
-        public bool SectionsAreNull
+        public bool AnySectionIsNull
         {
             get
             {
-                return (this.Sections[0] == null & this.Sections[1] == null);
+                return (this.Sections[0] == null || this.Sections[1] == null);
             }
         }
 
@@ -462,9 +462,9 @@ namespace FemDesign.Bars
                 }
 
                 // update _complexSection with BarPart sections and eccentricities
-                else if (!this.SectionsAreNull && !this.EccentricitiesAreNull)
+                else if (!this.AnySectionIsNull)
                 {
-                    this._complexSection.Section = ModelSection.ToList();
+                    this._complexSection.Section = this.ModelSection.ToList();
                 }
 
                 else
@@ -581,7 +581,7 @@ namespace FemDesign.Bars
                 // used for trusses only
                 else if (this.ComplexSectionIsNull && this.Type == BarType.Truss)
                 {
-                    if (!this.SectionsAreNull)
+                    if (!this.AnySectionIsNull)
                     {
                         this._complexSectionRef = this.UniformSection.Guid;
                     }
