@@ -177,7 +177,7 @@ namespace FemDesign.Bars
                 }
 
                 // get eccentricities from complex section
-                else if (this.Type != BarType.Truss && EccentricitiesAreNull)
+                else if (EccentricitiesAreNull)
                 {
                     this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
@@ -198,16 +198,13 @@ namespace FemDesign.Bars
                     this._eccentricities[0] = value[0];
                     this._eccentricities[1] = value[0];
                 }
+
                 else if (value.Length == 2)
                 {
-                    if (this.Type == BarType.Truss)
-                    {
-                        throw new System.ArgumentException("Truss can only have 1 section");
-                    }
-
                     this._eccentricities[0] = value[0];
                     this._eccentricities[1] = value[1];
                 }
+
                 else
                 {
                     throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
@@ -458,19 +455,23 @@ namespace FemDesign.Bars
         {
             get
             {
+                // truss has no ComplexSection
                 if (this.Type == BarType.Truss)
                 {
                     return null;
                 }
+
+                // update _complexSection with BarPart sections and eccentricities
                 else if (!this.SectionsAreNull && !this.EccentricitiesAreNull)
                 {
-                    // update _complexSection with BarPart sections and eccentricities
                     this._complexSection.Section = ModelSection.ToList();
                 }
+
                 else
                 {
                     // pass
                 }
+
                 // return
                 return this._complexSection;
             }
@@ -481,6 +482,8 @@ namespace FemDesign.Bars
             }
         }
 
+        /// <summary>
+        /// Check if ComplexSection is null without updating ComplexSection (check if private field _complexSection is null)
         [XmlIgnore]
         public bool ComplexSectionIsNull
         {
@@ -520,9 +523,15 @@ namespace FemDesign.Bars
             }
         }
 
+        /// <summary>
+        /// Identifier field
+        /// </summary>
         [XmlAttribute("name")]
         public string _identifier;
 
+        /// <summary>
+        /// Identifier property
+        /// </summary>
         [XmlIgnore]
         public string Identifier
         {
