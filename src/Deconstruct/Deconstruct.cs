@@ -43,7 +43,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", bar.Guid},
-                {"AnalyticalID", bar._identifier},
+                {"AnalyticalID", bar.Identifier},
                 {"StructuralID", bar.BarPart.Identifier},
                 {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},

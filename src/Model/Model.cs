@@ -1320,7 +1320,7 @@ namespace FemDesign
                 item.BarPart.Type = item.Type;
 
                 // get complex section
-                if (item.Type != "truss")
+                if (item.Type != Bars.BarType.Truss)
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
@@ -1356,7 +1356,7 @@ namespace FemDesign
                 // get section
                 foreach (Sections.Section section in this.Sections.Section)
                 {
-                    if (item.BarPart.Type == "truss")
+                    if (item.BarPart.Type == Bars.BarType.Truss)
                     {
                         if (section.Guid == item.BarPart.ComplexSectionRef)
                         {

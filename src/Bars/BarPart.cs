@@ -33,24 +33,28 @@ namespace FemDesign.Bars
         {
             get
             {
+                if (this._edge.Type == "line")
+                {
+                    this._edge.Normal = this.LocalY;
+                }
+                
                 return this._edge;
             }
             set
             {
-                this._edge = value;
-
-                if (this.Type == "beam")
+                if (this.Type == BarType.Beam)
                 {
+                    // check if line or arc
                     if (value.Type == "line" || value.Type == "arc")
                     {
-                        this._edge = value;
+                        // pass
                     }
                     else
                     {
                         throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc.");
                     }   
                 }
-                else if (this.Type == "column")
+                else if (this.Type == BarType.Column)
                 {
                     // check if line
                     if (!value.IsLine())
@@ -64,24 +68,25 @@ namespace FemDesign.Bars
                         throw new System.ArgumentException("Edge (Line) must be vertial for column definition");
                     }
 
-                    // set value
-                    this._edge = value;
                 }
-                else if (this.Type == "truss")
+                else if (this.Type == BarType.Truss)
                 {
                     // check if line
                     if (!value.IsLine())
                     {
                         throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
                     }
-
-                    // set value
-                    this._edge = value;
                 }
                 else
                 {
                     throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
                 }
+
+                // set value
+                this._edge = value;
+
+                // update cooridnate system to fit new edge
+                this.CoordinateSystem = value.CoordinateSystem;
             }
         }
         
@@ -165,29 +170,56 @@ namespace FemDesign.Bars
         {
             get
             {
+                // truss has no eccentricity
+                if (this.Type == BarType.Truss)
+                {
+                    return null;
+                }
+
+                // get eccentricities from complex section
+                else if (AnyEccentricityIsNull)
+                {
+                    this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
+                }
+
+                // return
                 return this._eccentricities;
             }
             set
             {
-                if (value.Length == 1)
+                // truss has no eccentricity
+                if (this.Type == BarType.Truss)
+                {
+                    // pass
+                }
+
+                else if (value.Length == 1)
                 {
                     this._eccentricities[0] = value[0];
                     this._eccentricities[1] = value[0];
                 }
+
                 else if (value.Length == 2)
                 {
-                    if (this.Type == "truss")
-                    {
-                        throw new System.ArgumentException("Truss can only have 1 section");
-                    }
-
                     this._eccentricities[0] = value[0];
                     this._eccentricities[1] = value[1];
                 }
+
                 else
                 {
                     throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Check if one or both eccentricities are null
+        /// </summary>
+        public bool AnyEccentricityIsNull
+        {
+            get
+            {
+                return (this._eccentricities[0] == null || this._eccentricities[1] == null);
             }
         }
 
@@ -245,7 +277,7 @@ namespace FemDesign.Bars
                 }
                 else if (value.Length == 2)
                 {
-                    if (this.Type == "truss")
+                    if (this.Type == BarType.Truss)
                     {
                         throw new System.ArgumentException("Truss can only have 1 section");
                     }
@@ -261,13 +293,13 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Check if sections are null
+        /// Check if one or both sections are null
         /// </summary>
-        public bool SectionsAreNull
+        public bool AnySectionIsNull
         {
             get
             {
-                return (this.Sections[0] == null & this.Sections[1] == null);
+                return (this.Sections[0] == null || this.Sections[1] == null);
             }
         }
 
@@ -423,25 +455,25 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this.Type == "truss")
+                // truss has no ComplexSection
+                if (this.Type == BarType.Truss)
                 {
                     return null;
                 }
+
+                // update _complexSection with BarPart sections and eccentricities
+                else if (!this.AnySectionIsNull)
+                {
+                    this._complexSection.Section = this.ModelSection.ToList();
+                }
+
                 else
                 {
-                    try
-                    {
-                        // update _complexSection with BarPart sections and eccentricities
-                        this._complexSection.Section = ModelSection.ToList();
-                    }
-                    catch (System.NullReferenceException)
-                    {
-                        // pass
-                    }
-
-                    // return
-                    return this._complexSection;
+                    // pass
                 }
+
+                // return
+                return this._complexSection;
             }
             set
             {
@@ -450,6 +482,8 @@ namespace FemDesign.Bars
             }
         }
 
+        /// <summary>
+        /// Check if ComplexSection is null without updating ComplexSection (check if private field _complexSection is null)
         [XmlIgnore]
         public bool ComplexSectionIsNull
         {
@@ -489,9 +523,15 @@ namespace FemDesign.Bars
             }
         }
 
+        /// <summary>
+        /// Identifier field
+        /// </summary>
         [XmlAttribute("name")]
         public string _identifier;
 
+        /// <summary>
+        /// Identifier property
+        /// </summary>
         [XmlIgnore]
         public string Identifier
         {
@@ -506,13 +546,19 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        private string _type;
+        private BarType _type;
         
         [XmlIgnore]
-        public string Type
+        public BarType Type
         {
-            get {return this._type;}
-            set {this._type = RestrictedString.BeamType(value);}
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                this._type = value;
+            }
         }
 
         [XmlAttribute("complex_material")]
@@ -527,15 +573,15 @@ namespace FemDesign.Bars
             get
             {
                 // used when deserializing only
-                if (this.ComplexSectionIsNull && this.Type != "truss")
+                if (this.ComplexSectionIsNull && this.Type != BarType.Truss)
                 {
                     return this._complexSectionRef;
                 }
 
                 // used for trusses only
-                else if (this.ComplexSectionIsNull && this.Type == "truss")
+                else if (this.ComplexSectionIsNull && this.Type == BarType.Truss)
                 {
-                    if (!this.SectionsAreNull)
+                    if (!this.AnySectionIsNull)
                     {
                         this._complexSectionRef = this.UniformSection.Guid;
                     }
@@ -589,7 +635,11 @@ namespace FemDesign.Bars
             }
             set
             {
-                if (value.Length == 1)
+                if (this.Type == BarType.Truss)
+                {
+                    // pass
+                }
+                else if (value.Length == 1)
                 {
                     this._connectivities[0] = value[0];
                     this._connectivities[1] = value[0];
@@ -615,7 +665,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this.Type == "truss")
+                if (this.Type == BarType.Truss)
                 {
                     return null;
                 }
@@ -627,7 +677,7 @@ namespace FemDesign.Bars
                         // create new model eccentricity
                         this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities.Last(), true);
                     }
-                    else
+                    else if (!this.AnyEccentricityIsNull)
                     {
                         // update model eccentricity
                         this._modelEccentricity.StartAnalytical = this.Eccentricities[0];
@@ -671,7 +721,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct BarPart (beam or column)
         /// </summary>
-        public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
             this.EntityCreated();
             this.Type = type;
@@ -688,7 +738,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct BarPart (truss)
         /// <summary>
-        public BarPart(Geometry.Edge edge, string type, Materials.Material material, Sections.Section section, string identifier)
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
             this.EntityCreated();
             this.Type = type;

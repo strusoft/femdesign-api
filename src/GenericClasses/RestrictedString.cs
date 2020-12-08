@@ -75,15 +75,6 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// beamtype
-        /// </summary>
-        internal static string BeamType(string val)
-        {
-            List<string> items = new List<string>(){"beam", "column", "truss"};
-            return RestrictedString.RestrictionItems(val, items);
-        }
-
-        /// <summary>
         /// cmdUserModule
         /// </summary>
         internal static string CmdUserModule(string val)

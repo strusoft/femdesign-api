@@ -19,11 +19,13 @@ namespace FemDesign.GH
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
-           pManager.AddTextParameter("StructuralID", "StructuralID", "Structural element ID.", GH_ParamAccess.item);
-           pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical element ID.", GH_ParamAccess.item);
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
            pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity", GH_ParamAccess.list);
+           pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
+           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -40,11 +42,13 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, bar.Guid);
-            DA.SetData(1, bar._identifier);
-            DA.SetData(2, bar.BarPart.Identifier);
-            DA.SetData(3, bar.GetRhinoCurve());
-            DA.SetData(4, bar.BarPart.Material);
-            DA.SetDataList(5, bar.BarPart.Sections);
+            DA.SetData(1, bar.GetRhinoCurve());
+            DA.SetData(2, bar.BarPart.Material);
+            DA.SetDataList(3, bar.BarPart.Sections);
+            DA.SetDataList(4, bar.BarPart.Connectivities);
+            DA.SetDataList(5, bar.BarPart.Eccentricities);
+            DA.SetData(6, bar.BarPart.LocalY.ToRhino());
+            DA.SetData(7, bar.Identifier);
        }
        protected override System.Drawing.Bitmap Icon
        {

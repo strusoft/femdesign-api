@@ -64,55 +64,55 @@ namespace FemDesign.GH
             }
  
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
-            if (!DA.GetDataList(2, slabs))
+            if (!DA.GetDataList(3, slabs))
             {
                 // pass
             }
 
             List<FemDesign.ModellingTools.FictitiousShell> fictShells = new List<FemDesign.ModellingTools.FictitiousShell>();
-            if (!DA.GetDataList(3, fictShells))
+            if (!DA.GetDataList(4, fictShells))
             {
                 // pass
             }
   
             List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            if (!DA.GetDataList(4, covers))
+            if (!DA.GetDataList(5, covers))
             {
                 // pass
             }
   
             List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
-            if (!DA.GetDataList(5, loads))
+            if (!DA.GetDataList(6, loads))
             {
                 // pass
             }
  
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            if (!DA.GetDataList(6, loadCases))
+            if (!DA.GetDataList(7, loadCases))
             {
                 // pass
             }
 
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            if (!DA.GetDataList(7, loadCombinations))
+            if (!DA.GetDataList(8, loadCombinations))
             {
                 // pass
             }
 
             List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
-            if (!DA.GetDataList(8, supports))
+            if (!DA.GetDataList(9, supports))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(9, storeys))
+            if (!DA.GetDataList(10, storeys))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(10, axes))
+            if (!DA.GetDataList(11, axes))
             {
                 // pass
             }
