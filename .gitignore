@@ -6,7 +6,6 @@ Properties
 Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
-*SectionDefine.cs
 *ProfiledPanelDefine.cs
 src/Calculate/@*
 src/Materials/TimberApplicationData.cs
