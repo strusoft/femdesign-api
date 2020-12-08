@@ -17,7 +17,7 @@ namespace FemDesign.Geometry
     [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class Edge
-    {           
+    {         
         [XmlIgnore]
         private FdCoordinateSystem _coordinateSystem;
         /// <summary>
@@ -197,6 +197,46 @@ namespace FemDesign.Geometry
             else
             {
                 throw new System.ArgumentException($"Edge type: {this.Type}, is not line.");
+            }
+        }
+
+        /// <summary>
+        /// Reverse this edge
+        /// </summary>
+        internal void Reverse()
+        {
+            // reset coordinate system
+            this.CoordinateSystem = null;
+
+            if (this.Type == "line" && this.Points.Count == 2)
+            {
+                this.Points.Reverse();
+            }
+
+            else if (this.Type == "arc" && this.Points.Count == 3)
+            {
+                this.Points.Reverse();
+            }
+
+            else if (this.Type == "arc" && this.Points.Count == 1)
+            {
+                // get sweep angle
+                double sweepAngle = this.EndAngle - this.StartAngle;
+                
+                // set new properties
+                this.XAxis = this.XAxis.RotateAroundAxis(sweepAngle, this.Normal);
+                this.Normal = this.Normal.Reverse();
+                this.StartAngle = 0;
+                this.EndAngle = sweepAngle;
+            }
+
+            else if (this.Type == "circle")
+            {
+                this.Normal = this.Normal.Reverse();
+            }
+            else
+            {
+                throw new System.ArgumentException($"Could not reverse Edge of type: {this.Type}");
             }
         }
 

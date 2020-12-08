@@ -13,6 +13,7 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public class Contour
     {
+
         /// <summary>
         /// Get LocalZ of Contour by analysing the direction of the contour.
         /// </summary>
@@ -103,8 +104,6 @@ namespace FemDesign.Geometry
             }
         }
 
-
-
         [XmlElement("edge")]
         public List<Edge> Edges = new List<Edge>(); // sequence: edge_type
 
@@ -124,6 +123,21 @@ namespace FemDesign.Geometry
         internal Contour(List<Edge> edges)
         {
             this.Edges = edges;
+        }
+
+        /// <summary>
+        /// Reverse direction of edges in this contour
+        /// </summary>
+        internal void Reverse()
+        {
+            // reverse every edge
+            foreach (Edge edge in this.Edges)
+            {
+                edge.Reverse();
+            }
+
+            // reverse list of edges
+            this.Edges.Reverse();
         }
     }
 }
