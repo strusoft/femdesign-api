@@ -14,9 +14,9 @@ namespace FemDesign.GH
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section.", GH_ParamAccess.list);
+           pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0.", GH_ParamAccess.list);
            pManager.AddTextParameter("Name", "Name", "Name of section", GH_ParamAccess.item);
-           pManager.AddTextParameter("MaterialType", "MatType", "Material type.", GH_ParamAccess.item);
+           pManager.AddTextParameter("MaterialType", "MatType", "Material type. Choice: SteelRolled/SteelColdWorked/SteelWelded/Concrete/Timber", GH_ParamAccess.item);
            pManager.AddTextParameter("GroupName","GroupName","Name of section group", GH_ParamAccess.item);
            pManager.AddTextParameter("TypeName","TypeName","Name of section type", GH_ParamAccess.item);
            pManager.AddTextParameter("SizeName","SizeName","Name of section size", GH_ParamAccess.item);

@@ -22,7 +22,7 @@ namespace FemDesign.Geometry
         internal Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>
-        /// Used for panels only
+        /// Used for panels and sections
         /// </summary>
         [XmlIgnore]
         public FdVector3d LocalZ
@@ -49,18 +49,6 @@ namespace FemDesign.Geometry
                 {
                     throw new System.ArgumentException($"Value: ({value.X}, {value.Y}, {value.Z}) is not parallell to LocalZ ({this.LocalZ.X}, {this.LocalZ.Y}, {this.LocalZ.Z}) ");
                 }
-            }
-        }
-
-        public Rhino.Geometry.Vector3d Normal
-        {
-            get
-            {
-                return this.LocalZ.ToRhino();
-            }
-            set
-            {
-                this.LocalZ = Geometry.FdVector3d.FromRhino(value);
             }
         }
 
