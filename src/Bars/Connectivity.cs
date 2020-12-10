@@ -27,18 +27,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._mxRelease == 0)
-                {
-                    this._mx = true;
-                }
-                else if (this._mxRelease > 0)
-                {
-                    this._mx = false;
-                }
-                else if (this._mxRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._mx;
             }
             set
@@ -55,18 +43,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._myRelease == 0)
-                {
-                    this._my = true;
-                }
-                else if (this._myRelease > 0)
-                {
-                    this._my = false;
-                }
-                else if (this._myRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._my;
             }
             set
@@ -84,18 +60,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._mzRelease == 0)
-                {
-                    this._mz = true;
-                }
-                else if (this._mzRelease > 0)
-                {
-                    this._mz = false;
-                }
-                else if (this._mzRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._mz;
             }
             set
@@ -113,18 +77,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._rxRelease == 0)
-                {
-                    this._rx = true;
-                }
-                else if (this._rxRelease > 0)
-                {
-                    this._rx = false;
-                }
-                else if (this._rxRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._rx;
             }
             set
@@ -142,18 +94,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._ryRelease == 0)
-                {
-                    this._ry = true;
-                }
-                else if (this._ryRelease > 0)
-                {
-                    this._ry = false;
-                }
-                else if (this._ryRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._ry;
             }
             set
@@ -171,18 +111,6 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this._rzRelease == 0)
-                {
-                    this._rz = true;
-                }
-                else if (this._rzRelease > 0)
-                {
-                    this._rz = false;
-                }
-                else if (this._rzRelease < 0)
-                {
-                    throw new System.ArgumentException("Release stiffness cannot be negative.");
-                }
                 return this._rz;
             }
             set
@@ -319,7 +247,7 @@ namespace FemDesign.Bars
         /// <param name="rxRelease"></param>
         /// <param name="ryRelease"></param>
         /// <param name="rzRelease"></param>
-        private Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz, double mxRelease, double myRelease, double mzRelease, double rxRelease, double ryRelease, double rzRelease)
+        public Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz, double mxRelease, double myRelease, double mzRelease, double rxRelease, double ryRelease, double rzRelease)
         {
             this.Mx = mx;
             this.My = my;
