@@ -322,6 +322,22 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct basic material information
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", material.Guid},
+                {"Standard", material.Standard},
+                {"Country", material.Country},
+                {"Name", material.Name}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct model.
         /// </summary>
         /// <param name="model">Model.</param>
