@@ -322,6 +322,22 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct basic material information
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", material.Guid},
+                {"Standard", material.Standard},
+                {"Country", material.Country},
+                {"Name", material.Name}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct model.
         /// </summary>
         /// <param name="model">Model.</param>
@@ -491,6 +507,26 @@ namespace FemDesign
                 {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
                 {"LocalX", fictitiousShell.LocalX.ToDynamo()},
                 {"LocalY", fictitiousShell.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a section
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Name", "Surfaces", "SectionType", "MaterialType", "GroupName", "TypeName", "SizeName"})]
+        public static Dictionary<string, object> SectionDeconstruct(FemDesign.Sections.Section section)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", section.Guid},
+                {"Name", section.Name},
+                {"Surfaces", section.RegionGroup.ToDynamo()},
+                {"SectionType", section.Type},
+                {"MaterialType", section.MaterialType},
+                {"GroupName", section.GroupName},
+                {"TypeName", section.TypeName},
+                {"SizeName", section.SizeName}
             };
         }
 

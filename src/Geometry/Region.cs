@@ -20,6 +20,38 @@ namespace FemDesign.Geometry
     {
         [XmlIgnore]
         internal Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+
+        /// <summary>
+        /// Used for panels only
+        /// </summary>
+        [XmlIgnore]
+        public FdVector3d LocalZ
+        {
+            get
+            {
+                return this.Contours[0].LocalZ;
+            }
+            
+            set
+            {
+                int par = value.Parallel(this.LocalZ);
+                if (par == 1)
+                {
+                    // pass
+                }
+                
+                else if (par == -1)
+                {
+                    this.Reverse();
+                }
+
+                else
+                {
+                    throw new System.ArgumentException($"Value: ({value.X}, {value.Y}, {value.Z}) is not parallell to LocalZ ({this.LocalZ.X}, {this.LocalZ.Y}, {this.LocalZ.Z}) ");
+                }
+            }
+        }
+
         [XmlElement("contour")]
         public List<Contour> Contours = new List<Contour>(); // sequence: contour_type
 
@@ -80,6 +112,17 @@ namespace FemDesign.Geometry
             // set properties
             this.Contours = new List<Contour>{contour};
             this.CoordinateSystem = coordinateSystem;
+        }
+
+        /// <summary>
+        /// Reverse the contours in this region
+        /// </summary>
+        internal void Reverse()
+        {
+            foreach (Contour contour in this.Contours)
+            {
+                contour.Reverse();
+            }
         }
         
         /// <summary>
