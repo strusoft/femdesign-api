@@ -52,18 +52,6 @@ namespace FemDesign.Geometry
             }
         }
 
-        public Rhino.Geometry.Vector3d Normal
-        {
-            get
-            {
-                return this.LocalZ.ToRhino();
-            }
-            set
-            {
-                this.LocalZ = Geometry.FdVector3d.FromRhino(value);
-            }
-        }
-
         [XmlElement("contour")]
         public List<Contour> Contours = new List<Contour>(); // sequence: contour_type
 

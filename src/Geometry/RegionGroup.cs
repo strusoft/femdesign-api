@@ -41,5 +41,20 @@ namespace FemDesign.Geometry
         {
             this.Regions = regions;
         }
+
+        #region dynamo
+        /// <summary>
+        /// Get dynamo surfaces of underlying regions
+        /// </summary>
+        public List<Autodesk.DesignScript.Geometry.Surface> ToDynamo()
+        {
+            List<Autodesk.DesignScript.Geometry.Surface> surfaces = new List<Autodesk.DesignScript.Geometry.Surface>();
+            foreach (Region region in this.Regions)
+            {
+                surfaces.Add(region.ToDynamoSurface());
+            }
+            return surfaces;
+        }
+        #endregion
     }
 }

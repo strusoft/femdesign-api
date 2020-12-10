@@ -495,6 +495,26 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a section
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Name", "Surfaces", "SectionType", "MaterialType", "GroupName", "TypeName", "SizeName"})]
+        public static Dictionary<string, object> SectionDeconstruct(FemDesign.Sections.Section section)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", section.Guid},
+                {"Name", section.Name},
+                {"Surfaces", section.RegionGroup.ToDynamo()},
+                {"SectionType", section.Type},
+                {"MaterialType", section.MaterialType},
+                {"GroupName", section.GroupName},
+                {"TypeName", section.TypeName},
+                {"SizeName", section.SizeName}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a ShellEdgeConnection.
         /// </summary>
         /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
