@@ -283,12 +283,12 @@ namespace FemDesign.Bars
         /// Define releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="mx">Release stiffness. Translation local-x axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
-        /// <param name="my">Release stiffness. Translation local-y axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
-        /// <param name="mz">Release stiffness. Translation local-z axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
-        /// <param name="rx">Release stiffness. Rotation around local-x axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
-        /// <param name="ry">Release stiffness. Rotation around local-y axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
-        /// <param name="rz">Release stiffness. Rotation around local-z axis. Bool or number: true if rigid, false if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
+        /// <param name="mx">Release stiffness. Translation local-x axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
+        /// <param name="my">Release stiffness. Translation local-y axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
+        /// <param name="mz">Release stiffness. Translation local-z axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kN/m]. Optional, default value is fully rigid.</param>
+        /// <param name="rx">Release stiffness. Rotation around local-x axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
+        /// <param name="ry">Release stiffness. Rotation around local-y axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
+        /// <param name="rz">Release stiffness. Rotation around local-z axis. Bool or number: true if rigid, false or 0 if free, positive number if semi-rigid with stiffness [kNm/rad]. Optional, default value is fully rigid.</param>
         [IsVisibleInDynamoLibrary(true)]
         public static Connectivity SemiRigid([DefaultArgument("true")] System.Object mx, [DefaultArgument("true")] System.Object my, [DefaultArgument("true")] System.Object mz, [DefaultArgument("true")] System.Object rx, [DefaultArgument("true")] System.Object ry, [DefaultArgument("true")] System.Object rz)
         {
