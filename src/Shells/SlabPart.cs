@@ -16,7 +16,31 @@ namespace FemDesign.Shells
     [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class SlabPart: EntityBase
-    {
+    { 
+        /// <summary>
+        /// Get ShellEccentricity
+        /// </summary>
+        [XmlIgnore]
+        public ShellEccentricity ShellEccentricity
+        {
+            get
+            {
+               return new ShellEccentricity(this.Alignment, this.AlignOffset, this.EccentricityCalculation, this.EccentricityByCracking); 
+            }
+        }
+
+        /// <summary>
+        /// Get ShellOrthotropy
+        /// </summary>
+        [XmlIgnore]
+        public ShellOrthotropy ShellOrthotropy
+        {
+            get
+            {
+                return new ShellOrthotropy(this.OrthoAlfa, this.OrthoRatio);
+            }
+        }
+
         [XmlAttribute("name")]
         public string Name {get; set;} // identifier
         [XmlAttribute("complex_material")]
@@ -90,7 +114,7 @@ namespace FemDesign.Shells
                     throw new System.ArgumentException("List of thickness objects must contain either 1, 2 or 3 elements");
                 }
             }
-        } 
+        }
         [XmlElement("local_pos", Order = 3)]
         public Geometry.FdPoint3d LocalPos {get; set;} // point_type_3d
         [XmlElement("local_x", Order = 4)]
