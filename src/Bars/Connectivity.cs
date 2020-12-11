@@ -279,6 +279,7 @@ namespace FemDesign.Bars
             return new Connectivity(mx, my, mz, rx, ry, rz);
         }
 
+        #region dynamo
         /// <summary>
         /// Define releases for a bar-element.
         /// </summary>
@@ -331,6 +332,7 @@ namespace FemDesign.Bars
 
             return new Connectivity(releases[0], releases[1], releases[2], releases[3], releases[4], releases[5], stiffnesses[0], stiffnesses[1], stiffnesses[2], stiffnesses[3], stiffnesses[4], stiffnesses[5]);
         }
+        #endregion
 
         /// <summary>
         /// Define default (rigid) releases for a bar-element.
