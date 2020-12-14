@@ -30,7 +30,9 @@ namespace FemDesign.GH
            pManager.AddVectorParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("SurfaceReinforcementParameters", "SrfReinfParams", "SurfaceReinforcementParameters", GH_ParamAccess.item);
            pManager.AddGenericParameter("SurfaceReinforcement", "SrfReinf", "SurfaceReinforcement", GH_ParamAccess.list);
-           pManager.AddTextParameter("StructuralID", "StructuralID", "Structural element ID.", GH_ParamAccess.item);     
+        //    pManager.AddVectorParameter("Reinforcement x-direction", "ReinfXDir", "X-direction of reinforcement layout", GH_ParamAccess.item);
+        //    pManager.AddVectorParameter("Reinforcement y-direction", "ReinfYDir", "Y-direction of reinforcement layout", GH_ParamAccess.item);
+           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);     
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -58,6 +60,8 @@ namespace FemDesign.GH
             DA.SetData(9, slab.SlabPart.LocalY.ToRhino());
             DA.SetData(10, slab.SurfaceReinforcementParameters);
             DA.SetDataList(11, slab.SurfaceReinforcement);
+            DA.SetData(12, slab.Name);
+
        }
        protected override System.Drawing.Bitmap Icon
        {

@@ -404,6 +404,24 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a SurfaceReinforcement Parameters
+        /// </summary>
+        /// <param name="surfaceReinforcement">SurfaceReinforcement</param>
+        /// <returns></returns>
+        [MultiReturn(new[]{"Guid", "SingleLayerReinforcement", "XDirection", "YDirection"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> SurfaceReinforcementParametersDeconstruct(FemDesign.Reinforcement.SurfaceReinforcementParameters surfaceReinforcementParameters)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", surfaceReinforcementParameters.Guid},
+                {"SingleLayerReinforcement", surfaceReinforcementParameters.SingleLayerReinforcement},
+                {"XDirection", surfaceReinforcementParameters.XDirection.ToDynamo()},
+                {"YDirection", surfaceReinforcementParameters.YDirection.ToDynamo()}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a Wire.
         /// </summary>
         /// <param name="wire">Wire.</param>
@@ -463,20 +481,25 @@ namespace FemDesign
         /// </summary>
         /// <param name="slab">Slab.</param>
         /// <returns></returns>
-        [MultiReturn(new[]{"Guid", "StructuralId", "AnalyticalId", "Material", "Surface", "EdgeCurves", "ShellEdgeConnections", "SurfaceReinforcement"})]
+        [MultiReturn(new[]{"Guid", "Surface", "ThicknessItems", "Material", "ShellEccentricity", "ShellOrthotropy", "EdgeCurves", "ShellEdgeConnections", "LocalX", "LocalY", "SurfaceReinforcementParameters", "SurfaceReinforcement", "Identifier"})]
         [IsVisibleInDynamoLibrary(true)]
         public static Dictionary<string, object> SlabDeconstruct(FemDesign.Shells.Slab slab)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", slab.Guid},
-                {"StructuralId", slab.Name},
-                {"AnalyticalId", slab.SlabPart.Name},
+                {"Surface", slab.SlabPart.Region.ToDynamoSurface()},
+                {"ThicknessItems", slab.SlabPart.Thickness},
                 {"Material", slab.Material},
-                {"Surface", slab.SlabPart.GetDynamoSurface()},
-                {"EdgeCurves", slab.SlabPart.GetDynamoCurves()},
+                {"ShellEccentricity", slab.SlabPart.ShellEccentricity},
+                {"ShellOrthotropy", slab.SlabPart.ShellOrthotropy},
+                {"EdgeCurves", slab.SlabPart.Region.ToDynamoCurves()},
                 {"ShellEdgeConnections", slab.SlabPart.GetEdgeConnections()},
-                {"SurfaceReinforcement", slab.SurfaceReinforcement}
+                {"LocalX", slab.SlabPart.LocalX.ToDynamo()},
+                {"LocalY", slab.SlabPart.LocalY.ToDynamo()},
+                {"SurfaceReinforcementParameters", slab.SurfaceReinforcementParameters},
+                {"SurfaceReinforcement", slab.SurfaceReinforcement},
+                {"Identifier", slab.Name}
             };
         }
 
