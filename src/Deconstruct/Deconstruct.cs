@@ -159,6 +159,20 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a thickness item (location value)
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Point", "Value"})]
+        public static Dictionary<string, object> ThicknessDeconstruct(FemDesign.Shells.Thickness thicknessLocationValue)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Point", thicknessLocationValue.ToDynamo()},
+                {"Value", thicknessLocationValue.Value}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a TopBottomLocationValue element.
         /// </summary>
         /// <param name="topBotLocVal">TopBottomLocationValue</param>
