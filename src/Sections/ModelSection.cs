@@ -18,7 +18,7 @@ namespace FemDesign.Sections
         [XmlAttribute("pos")]
         public string Pos { get; set; }
         [XmlAttribute("guid")]
-        public System.Guid Guid { get; set; }
+        public System.Guid SectionRef { get; set; }
         [XmlElement("ecc")]
         public Bars.Eccentricity Eccentricity { get; set; }
         [XmlElement("end")]
@@ -41,7 +41,7 @@ namespace FemDesign.Sections
         internal ModelSection(int pos, Section section, Bars.Eccentricity eccentricity)
         {
             this.Pos = pos.ToString();
-            this.Guid = section.Guid;
+            this.SectionRef = section.Guid;
             this.Eccentricity = eccentricity;
             this.End = "";
         }

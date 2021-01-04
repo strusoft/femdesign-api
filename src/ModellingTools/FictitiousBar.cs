@@ -247,7 +247,7 @@ namespace FemDesign.ModellingTools
         /// <param name="orientLCS">Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.</param>
         /// <param name="identifier">Identifier. Optional.</param>
         /// <returns></returns>
-        public static FictitiousBar Define(Autodesk.DesignScript.Geometry.Curve curve, double AE, double ItG, double I1E, double I2E, [DefaultArgument("FemDesign.Bars.Connectivity.Default()")] List<Bars.Connectivity> connectivity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "BF")
+        public static FictitiousBar Define(Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("10000000")] double AE, [DefaultArgument("10000000")] double ItG, [DefaultArgument("10000000")] double I1E, [DefaultArgument("10000000")] double I2E, [DefaultArgument("FemDesign.Bars.Connectivity.Default()")] List<Bars.Connectivity> connectivity, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, string identifier = "BF")
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);

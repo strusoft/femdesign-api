@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 #region dynamo
 using Autodesk.DesignScript.Runtime;
@@ -319,10 +320,14 @@ namespace FemDesign
             }
             else
             {
-                // add bar properties
+                // material
+                this.AddMaterial(obj.BarPart.Material);
+
+                // add sections
                 this.AddComplexSection(obj);
-                this.AddMaterial(obj.Material);
-                this.AddSection(obj.Section);
+                this.AddSection(obj.BarPart.StartSection);
+                this.AddSection(obj.BarPart.EndSection);
+                
 
                 // add bar
                 this.Entities.Bar.Add(obj);  
@@ -416,13 +421,13 @@ namespace FemDesign
         /// </summary>
         private void AddComplexSection(Bars.Bar obj)
         {   
-            if (obj.ComplexSection == null)
+            if (obj.BarPart.ComplexSectionIsNull)
             {
                 // pass
             }
             else
             {
-                this.Sections.ComplexSection.Add(obj.ComplexSection);
+                this.Sections.ComplexSection.Add(obj.BarPart.ComplexSection);
             }     
         }
 
@@ -433,9 +438,9 @@ namespace FemDesign
         {
             foreach (FemDesign.Sections.ComplexSection elem in this.Sections.ComplexSection)
             {
-                if (elem.Section[0].Guid == obj.Section[0].Guid &&
+                if (elem.Section[0].SectionRef == obj.Section[0].SectionRef &&
                     elem.Section[0].Eccentricity.Equals(obj.Section[0].Eccentricity) &&
-                    elem.Section[1].Guid == obj.Section[1].Guid &&
+                    elem.Section[1].SectionRef == obj.Section[1].SectionRef &&
                     elem.Section[1].Eccentricity.Equals(obj.Section[1].Eccentricity))
                 {
                     return elem.Guid.ToString();
@@ -1299,7 +1304,6 @@ namespace FemDesign
             }
             return false;
         }
-
         #endregion
         
         #region deconstruct
@@ -1309,22 +1313,25 @@ namespace FemDesign
         /// </summary>
         internal List<Bars.Bar> GetBars()
         {
-            List<Bars.Bar> _bars = new List<Bars.Bar>();
+            List<Bars.Bar> bars = new List<Bars.Bar>();
             foreach (Bars.Bar item in this.Entities.Bar)
             {
+                // set type on barPart
+                item.BarPart.Type = item.Type;
+
                 // get complex section
-                if (item.Type != "truss")
+                if (item.Type != Bars.BarType.Truss)
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
-                        if (complexSection.Guid == item.BarPart.ComplexSection)
+                        if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.ComplexSection = complexSection;
+                            item.BarPart.ComplexSection = complexSection;
                         }
                     }
 
                     // check if complex section found
-                    if (item.ComplexSection == null)
+                    if (item.BarPart.ComplexSectionIsNull)
                     {
                         throw new System.ArgumentException("No matching complex section found. Model.GetBars() failed.");
                     }
@@ -1334,47 +1341,53 @@ namespace FemDesign
                 // get material
                 foreach (Materials.Material material in this.Materials.Material)
                 {
-                    if (material.Guid == item.BarPart.ComplexMaterial)
+                    if (material.Guid == item.BarPart.ComplexMaterialRef)
                     {
-                        item.Material = material;
+                        item.BarPart.Material = material;
                     }
                 }
 
                 // check if material found
-                if (item.Material == null)
+                if (item.BarPart.Material == null)
                 {
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
 
                 // get section
-                foreach (FemDesign.Sections.Section section in this.Sections.Section)
+                foreach (Sections.Section section in this.Sections.Section)
                 {
-                    if (item.ComplexSection == null)
+                    if (item.BarPart.Type == Bars.BarType.Truss)
                     {
-                        if (section.Guid == item.BarPart.ComplexSection)
+                        if (section.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.Section = section;
+                            item.BarPart.StartSection = section;
+                            item.BarPart.EndSection = section;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.ComplexSection.Section[0].Guid)
+                        if (section.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
                         {
-                            item.Section = section;
+                            item.BarPart.StartSection = section;
+                        }
+                        
+                        if (section.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
+                        {
+                            item.BarPart.EndSection = section;
                         }
                     }  
                 }
                 
                 // check if section found
-                if (item.Section == null)
+                if (item.BarPart.StartSection == null || item.BarPart.EndSection == null)
                 {
                     throw new System.ArgumentException("No matching section found. Model.GetBars() failed");
                 }
 
                 // add to return object
-                _bars.Add(item);
+                bars.Add(item);
             }
-            return _bars;
+            return bars;
         }
 
         /// <summary>

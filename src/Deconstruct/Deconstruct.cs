@@ -43,12 +43,12 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", bar.Guid},
-                {"AnalyticalID", bar.Name},
-                {"StructuralID", bar.BarPart.Name},
+                {"AnalyticalID", bar.Identifier},
+                {"StructuralID", bar.BarPart.Identifier},
                 {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},
-                {"Material", bar.Material},
-                {"Section", bar.Section}
+                {"Material", bar.BarPart.Material},
+                {"Section", bar.BarPart.Sections}
             };
         }
 
@@ -155,6 +155,20 @@ namespace FemDesign
                 {"TopBotLocVal2", lineTemperatureLoad.TopBotLocVal[1]},
                 {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
                 {"Comment", lineTemperatureLoad.Comment}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a thickness item (location value)
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Point", "Value"})]
+        public static Dictionary<string, object> ThicknessDeconstruct(FemDesign.Shells.Thickness thicknessLocationValue)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Point", thicknessLocationValue.ToDynamo()},
+                {"Value", thicknessLocationValue.Value}
             };
         }
 
@@ -322,6 +336,22 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct basic material information
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", material.Guid},
+                {"Standard", material.Standard},
+                {"Country", material.Country},
+                {"Name", material.Name}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct model.
         /// </summary>
         /// <param name="model">Model.</param>
@@ -388,6 +418,24 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a SurfaceReinforcement Parameters
+        /// </summary>
+        /// <param name="surfaceReinforcement">SurfaceReinforcement</param>
+        /// <returns></returns>
+        [MultiReturn(new[]{"Guid", "SingleLayerReinforcement", "XDirection", "YDirection"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> SurfaceReinforcementParametersDeconstruct(FemDesign.Reinforcement.SurfaceReinforcementParameters surfaceReinforcementParameters)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", surfaceReinforcementParameters.Guid},
+                {"SingleLayerReinforcement", surfaceReinforcementParameters.SingleLayerReinforcement},
+                {"XDirection", surfaceReinforcementParameters.XDirection.ToDynamo()},
+                {"YDirection", surfaceReinforcementParameters.YDirection.ToDynamo()}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a Wire.
         /// </summary>
         /// <param name="wire">Wire.</param>
@@ -447,20 +495,25 @@ namespace FemDesign
         /// </summary>
         /// <param name="slab">Slab.</param>
         /// <returns></returns>
-        [MultiReturn(new[]{"Guid", "StructuralId", "AnalyticalId", "Material", "Surface", "EdgeCurves", "ShellEdgeConnections", "SurfaceReinforcement"})]
+        [MultiReturn(new[]{"Guid", "Surface", "ThicknessItems", "Material", "ShellEccentricity", "ShellOrthotropy", "EdgeCurves", "ShellEdgeConnections", "LocalX", "LocalY", "SurfaceReinforcementParameters", "SurfaceReinforcement", "Identifier"})]
         [IsVisibleInDynamoLibrary(true)]
         public static Dictionary<string, object> SlabDeconstruct(FemDesign.Shells.Slab slab)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", slab.Guid},
-                {"StructuralId", slab.Name},
-                {"AnalyticalId", slab.SlabPart.Name},
+                {"Surface", slab.SlabPart.Region.ToDynamoSurface()},
+                {"ThicknessItems", slab.SlabPart.Thickness},
                 {"Material", slab.Material},
-                {"Surface", slab.SlabPart.GetDynamoSurface()},
-                {"EdgeCurves", slab.SlabPart.GetDynamoCurves()},
+                {"ShellEccentricity", slab.SlabPart.ShellEccentricity},
+                {"ShellOrthotropy", slab.SlabPart.ShellOrthotropy},
+                {"EdgeCurves", slab.SlabPart.Region.ToDynamoCurves()},
                 {"ShellEdgeConnections", slab.SlabPart.GetEdgeConnections()},
-                {"SurfaceReinforcement", slab.SurfaceReinforcement}
+                {"LocalX", slab.SlabPart.LocalX.ToDynamo()},
+                {"LocalY", slab.SlabPart.LocalY.ToDynamo()},
+                {"SurfaceReinforcementParameters", slab.SurfaceReinforcementParameters},
+                {"SurfaceReinforcement", slab.SurfaceReinforcement},
+                {"Identifier", slab.Name}
             };
         }
 
@@ -491,6 +544,26 @@ namespace FemDesign
                 {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
                 {"LocalX", fictitiousShell.LocalX.ToDynamo()},
                 {"LocalY", fictitiousShell.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a section
+        /// </summary>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "Name", "Surfaces", "SectionType", "MaterialType", "GroupName", "TypeName", "SizeName"})]
+        public static Dictionary<string, object> SectionDeconstruct(FemDesign.Sections.Section section)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", section.Guid},
+                {"Name", section.Name},
+                {"Surfaces", section.RegionGroup.ToDynamo()},
+                {"SectionType", section.Type},
+                {"MaterialType", section.MaterialType},
+                {"GroupName", section.GroupName},
+                {"TypeName", section.TypeName},
+                {"SizeName", section.SizeName}
             };
         }
 
