@@ -18,7 +18,7 @@ namespace FemDesign.Geometry
         /// Get LocalZ of Contour by analysing the direction of the contour.
         /// </summary>
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        internal Geometry.FdVector3d LocalZ
         {
             get
             {

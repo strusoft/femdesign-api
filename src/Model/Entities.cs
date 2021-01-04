@@ -45,7 +45,7 @@ namespace FemDesign
         [XmlElement("no-shear_region", Order = 13)]
         public List<DummyXmlObject> NoShearRegion {get {return null;} set {value = null;}}
         [XmlElement("panel", Order = 14)]
-        public List<DummyXmlObject> Panel {get {return null;} set {value = null;}}
+        public List<Shells.Panel> Panel = new List<Shells.Panel>();
         [XmlElement("post-tensioned_cable", Order = 15)]
         public List<DummyXmlObject> PostTensionedCable {get {return null;} set {value = null;}}
         [XmlElement("loads", Order = 16)]

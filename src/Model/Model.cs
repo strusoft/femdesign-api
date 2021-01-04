@@ -76,20 +76,24 @@ namespace FemDesign
         public List<DummyXmlObject> PointSupportGroupTypes {get {return null;} set {value = null;}}
         [XmlElement("line_connection_types", Order = 8)]
         public LineConnectionTypes.LineConnectionTypes LineConnectionTypes {get; set; }
-
-        // line_connection_types
-        // line_support_group_types
-        // surface_connection_types
-        // surface_support_types
-        // timber_panel_types
-        // glc_panel_types
-        // clt_panel_types
+        [XmlElement("line_support_group_types", Order = 9)]
+        public List<DummyXmlObject> LineSupportGroupTypes {get {return null; } set { value = null; }}
+        [XmlElement("surface_connection_types", Order = 10)]
+        public List<DummyXmlObject> SurfaceConnectionTypes {get {return null; } set { value = null; }}
+        [XmlElement("surface_support_types", Order = 11)]
+        public List<DummyXmlObject> SurfaceSupportTypes {get {return null; } set { value = null; }}
+        [XmlElement("timber_panel_types", Order = 12)]
+        public Materials.TimberPanelTypes TimberPanelTypes { get; set; }
+        [XmlElement("glc_panel_types", Order = 13)]
+        public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
+        [XmlElement("clt_panel_types", Order = 14)]
+        public Materials.CltPanelTypes CltPanelTypes { get; set; }
         // ptc_strand_types
         // vehicle_types
         // bolt_types
         // geometry
 
-        [XmlElement("end", Order = 9)]
+        [XmlElement("end", Order = 15)]
         public string End { get; set; }
 
         /// <summary>
@@ -177,7 +181,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
             if (this.FromStruxml)
             {
@@ -247,6 +251,14 @@ namespace FemDesign
                 foreach (ModellingTools.FictitiousShell fictShell in fictitiousShells)
                 {
                     this.AddFictShell(fictShell);
+                }
+            }
+
+            if (panels != null)
+            {
+                foreach (Shells.Panel panel in panels)
+                {
+                    this.AddPanel(panel);
                 }
             }
 
@@ -522,6 +534,87 @@ namespace FemDesign
             {
                 throw new System.ArgumentException("Passed object must be PointLoad, LineLoad, SurfaceLoad or PressureLoad");
             }
+        }
+
+        /// <summary>
+        /// Add Panel to Model.
+        /// </summary>
+        private void AddPanel(Shells.Panel obj)
+        {
+            if (this.PanelInModel(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+            else
+            {
+                // add panel properties
+                if (obj.Material != null)
+                {   
+                    this.AddMaterial(obj.Material);
+                }
+
+                if (obj.Section != null)
+                {    
+                    this.AddSection(obj.Section);
+                }
+
+                // add timber application data
+                if (obj.TimberApplicationData != null)
+                {
+                    // add library types
+                    if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                    {
+                        this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData); 
+                    }
+                    else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                    {
+                        this.AddCltPanelLibraryType(obj.CltPanelLibraryData);
+                    }
+                    else if (obj.GlcPanelLibraryData != null && obj.GlcPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                    {
+                        this.AddGlcPanelLibraryType(obj.GlcPanelLibraryData);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"Could not find the related lirbary data with guid: {obj.TimberApplicationData.PanelType}. Failed to add panel library data.");
+                    }
+                }
+                // add line connection types from border
+                foreach (LineConnectionTypes.PredefinedType predef in obj.Region.GetPredefinedRigidities())
+                {
+                    this.AddPredefinedRigidity(predef);
+                }
+
+                // add line connection types of internal panels
+                if (obj.InternalPanels != null)
+                {
+                    foreach (InternalPanel intPanel in obj.InternalPanels.IntPanels)
+                    {
+                        foreach (LineConnectionTypes.PredefinedType predef in intPanel.Region.GetPredefinedRigidities())
+                        {
+                            this.AddPredefinedRigidity(predef);
+                        }
+                    }
+                }
+
+                // add panel
+                this.Entities.Panel.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if Panel in Model.
+        /// </summary>
+        private bool PanelInModel(Shells.Panel obj)
+        {
+            foreach (Shells.Panel elem in this.Entities.Panel)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -1276,6 +1369,120 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add Timber panel library type to Model.
+        /// </summary>
+        private void AddTimberPanelLibraryType(Materials.TimberPanelLibraryType obj)
+        {
+            // if null create new element
+            if (this.TimberPanelTypes == null)
+            {
+                this.TimberPanelTypes = new Materials.TimberPanelTypes();
+                this.TimberPanelTypes.TimberPanelLibraryTypes = new List<Materials.TimberPanelLibraryType>();
+            }
+           
+            // add items if not already in model
+            if (TimberPanelLibraryTypeInModel(obj))
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else
+            {
+                this.TimberPanelTypes.TimberPanelLibraryTypes.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if Timber panel library type in Model.
+        /// </summary>
+        private bool TimberPanelLibraryTypeInModel(Materials.TimberPanelLibraryType obj)
+        {
+            foreach (Materials.TimberPanelLibraryType elem in this.TimberPanelTypes.TimberPanelLibraryTypes)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Clt panel library type to Model.
+        /// </summary>
+        private void AddCltPanelLibraryType(Materials.CltPanelLibraryType obj)
+        {
+            // if null create new element
+            if (this.CltPanelTypes == null)
+            {
+                this.CltPanelTypes = new Materials.CltPanelTypes();
+                this.CltPanelTypes.CltPanelLibraryTypes = new List<Materials.CltPanelLibraryType>();
+            }
+
+            // add items if not already in model
+            if (CltPanelLibraryTypeInModel(obj))
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else
+            {
+                this.CltPanelTypes.CltPanelLibraryTypes.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if Clt panel library type in Model.
+        /// </summary>
+        private bool CltPanelLibraryTypeInModel(Materials.CltPanelLibraryType obj)
+        {
+            foreach (Materials.CltPanelLibraryType elem in this.CltPanelTypes.CltPanelLibraryTypes)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Glc panel library type to Model.
+        /// </summary>
+        private void AddGlcPanelLibraryType(Materials.GlcPanelLibraryType obj)
+        {
+            // if null create new element
+            if (this.GlcPanelTypes == null)
+            {
+                this.GlcPanelTypes = new Materials.GlcPanelTypes();
+                this.GlcPanelTypes.GlcPanelLibraryTypes = new List<Materials.GlcPanelLibraryType>();
+            }
+
+            // add items if not already in model
+            if (GlcPanelLibraryTypeInModel(obj))
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else
+            {
+                this.GlcPanelTypes.GlcPanelLibraryTypes.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if Glc panel library type in Model.
+        /// </summary>
+        private bool GlcPanelLibraryTypeInModel(Materials.GlcPanelLibraryType obj)
+        {
+            foreach (Materials.GlcPanelLibraryType elem in this.GlcPanelTypes.GlcPanelLibraryTypes)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Add Section to Model.
         /// </summary>
         private void AddSection(FemDesign.Sections.Section obj)
@@ -1483,6 +1690,96 @@ namespace FemDesign
             }
             return _slabs;
         }
+
+        internal List<Shells.Panel> GetPanels()
+        {
+            foreach (Shells.Panel panel in this.Entities.Panel)
+            {
+                // get material
+                foreach (Materials.Material material in this.Materials.Material)
+                {
+                    if (material.Guid == panel.ComplexMaterial)
+                    {
+                        panel.Material = material;
+                    }
+                }
+
+                // get section
+                foreach (Sections.Section section in this.Sections.Section)
+                {
+                    if (section.Guid == panel.ComplexSection)
+                    {
+                        panel.Section = section;
+                    }
+                }
+
+                // get timber application data
+                if (panel.TimberApplicationData != null)
+                {
+                    // timber panel types
+                    if (this.TimberPanelTypes != null && this.TimberPanelTypes.TimberPanelLibraryTypes != null)
+                    {
+                        foreach (FemDesign.Materials.TimberPanelLibraryType libItem in this.TimberPanelTypes.TimberPanelLibraryTypes)
+                        {
+                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            {
+                                panel.TimberPanelLibraryData = libItem;
+                            }
+                        }
+                    }
+                    
+
+                    // clt panel types
+                    if (this.CltPanelTypes != null && this.CltPanelTypes.CltPanelLibraryTypes != null)
+                    {
+                        foreach (FemDesign.Materials.CltPanelLibraryType libItem in this.CltPanelTypes.CltPanelLibraryTypes)
+                        {
+                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            {
+                                panel.CltPanelLibraryData = libItem;
+                            }
+                        }
+                    }
+                    
+                    
+                    // glc panel types
+                    if (this.GlcPanelTypes != null && this.GlcPanelTypes.GlcPanelLibraryTypes != null)
+                    {
+                        foreach (FemDesign.Materials.GlcPanelLibraryType libItem in this.GlcPanelTypes.GlcPanelLibraryTypes)
+                        {
+                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            {
+                                panel.GlcPanelLibraryData = libItem;
+                            }
+                        }
+                    }
+                    
+
+                    // check if libItem found
+                    if (panel.TimberPanelLibraryData == null && panel.CltPanelLibraryData == null && panel.GlcPanelLibraryData == null)
+                    {
+                        throw new System.ArgumentException("A timber/clt/glc library item was expected but not found. Can't construct Panel. Model.GetPanels() failed.");
+                    }
+                }
+
+                // predefined rigidity
+                if (this.LineConnectionTypes != null)
+                {
+                    if (this.LineConnectionTypes.PredefinedType != null)
+                    {
+                        panel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                        foreach (InternalPanel internalPanel in panel.InternalPanels.IntPanels)
+                        {
+                            internalPanel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                        }
+                    }                        
+                }
+            }
+
+            // return
+            return this.Entities.Panel;
+        }
+
         #endregion
         #region dynamo
         /// <summary>
@@ -1501,13 +1798,13 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
             // deep clone model
             Model model = fdModel.DeepClone();
 
             // create model
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
             return model;
         }
         /// <summary>
@@ -1526,7 +1823,7 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
             //
             if (countryCode == null)
@@ -1536,7 +1833,7 @@ namespace FemDesign
 
             // create model
             Model _model = new Model(countryCode);
-            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
             return _model;
         }
         /// <summary>

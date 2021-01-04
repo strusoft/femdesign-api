@@ -47,7 +47,8 @@ namespace FemDesign.Geometry
 
                 else
                 {
-                    throw new System.ArgumentException($"Value: ({value.X}, {value.Y}, {value.Z}) is not parallell to LocalZ ({this.LocalZ.X}, {this.LocalZ.Y}, {this.LocalZ.Z}) ");
+                    FdVector3d v = this.LocalZ;
+                    throw new System.ArgumentException($"Value: ({value.X}, {value.Y}, {value.Z}) is not parallell to LocalZ ({v.X}, {v.Y}, {v.Z}) ");
                 }
             }
         }

@@ -6,17 +6,7 @@ Properties
 Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
-*SectionDefine.cs
-*ProfiledPanelDefine.cs
 src/Calculate/@*
-src/Materials/TimberApplicationData.cs
-src/Materials/TimberFactors.cs
-src/Materials/TimberPanelData.cs
-src/Materials/TimberPanelStiffness.cs
-src/Materials/TimberPanelStrength.cs
-src/Materials/TimberServiceClassFactors.cs
-src/Shells/InternalPanel.cs
-src/Shells/Panel.cs
 FdApiSource.csproj
 FdApiSource.sln
 packages.config

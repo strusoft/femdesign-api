@@ -23,6 +23,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("FictitiousShells", "FictShells", "Single fictitious shell element or list of fictitious shell elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Panels", "Panels", "Panel element or list of Panel elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Covers", "Covers", "Single cover element or list of cover elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Loads", "Loads", "Single PointLoad, LineLoad, SurfaceLoad or PressureLoad element or list of PointLoad, LineLoad, SurfaceLoad or PressureLoad to add. Nested lists are not supported.", GH_ParamAccess.list);
@@ -75,45 +77,53 @@ namespace FemDesign.GH
             {
                 // pass
             }
+
+            List<FemDesign.Shells.Panel> panels = new List<Shells.Panel>();
+            {
+                if (!DA.GetDataList(5, panels))
+                {
+                    // pass
+                }
+            }
   
             List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            if (!DA.GetDataList(5, covers))
+            if (!DA.GetDataList(6, covers))
             {
                 // pass
             }
   
             List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
-            if (!DA.GetDataList(6, loads))
+            if (!DA.GetDataList(7, loads))
             {
                 // pass
             }
  
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            if (!DA.GetDataList(7, loadCases))
+            if (!DA.GetDataList(8, loadCases))
             {
                 // pass
             }
 
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            if (!DA.GetDataList(8, loadCombinations))
+            if (!DA.GetDataList(9, loadCombinations))
             {
                 // pass
             }
 
             List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
-            if (!DA.GetDataList(9, supports))
+            if (!DA.GetDataList(10, supports))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(10, storeys))
+            if (!DA.GetDataList(11, storeys))
             {
                 // pass
             }
 
             List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(11, axes))
+            if (!DA.GetDataList(12, axes))
             {
                 // pass
             }
@@ -124,7 +134,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Model _obj = new FemDesign.Model(countryCode);
-            _obj.AddEntities(bars,fictBars, slabs, fictShells, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
+            _obj.AddEntities(bars,fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
 
             // return
             DA.SetData(0, _obj);

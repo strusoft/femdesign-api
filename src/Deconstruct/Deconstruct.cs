@@ -357,7 +357,7 @@ namespace FemDesign
         /// <param name="model">Model.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
+        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Panels", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             List<StructureGrid.Axis> axes;
@@ -389,6 +389,7 @@ namespace FemDesign
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBar},
                 {"Shells", model.GetSlabs()},
                 {"FictitiousShells", model.GetFictitiousShells()},
+                {"Panels", model.GetPanels()},
                 {"Covers", model.Entities.AdvancedFem.Cover},
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},
