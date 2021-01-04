@@ -1843,12 +1843,20 @@ namespace FemDesign
         /// <param name="fdModel">FdModel.</param>
         /// <param name="struxmlPath">File path where to save the model as .struxml</param>
         /// <param name="closeOpenWindows">If true all open windows will be closed without prior warning.</param>
+        /// <param name="runNode">If true node will execute. If false node will not execute. </param>
+        /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static void OpenModel(Model fdModel, string struxmlPath, bool closeOpenWindows = false)
+        public static void OpenModel(Model fdModel, string struxmlPath, bool closeOpenWindows = false, bool runNode = true)
         {
-            fdModel.SerializeModel(struxmlPath);
-            fdModel.FdApp.OpenStruxml(struxmlPath, closeOpenWindows);
-            // FdScript.Open(struxmlPath, closeOpenWindows);
+            if (runNode)
+            {
+                fdModel.SerializeModel(struxmlPath);
+                fdModel.FdApp.OpenStruxml(struxmlPath, closeOpenWindows);
+            }
+            else
+            {
+                throw new System.ArgumentException("runNode is set to false!");
+            }
         }
         /// <summary>
         /// Load model from .struxml. Add entities to model. Nested lists are not supported, use flatten. Note: Only supported elements will loaded from the .struxml model.

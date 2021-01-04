@@ -16,6 +16,8 @@ namespace FemDesign.GH
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
             pManager.AddBooleanParameter("CloseOpenWindows", "CloseOpenWindows", "If true all open windows will be closed without prior warning.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -42,14 +44,28 @@ namespace FemDesign.GH
             {
                 // pass
             }
+
+            bool runNode = true;
+            if (!DA.GetData(3, ref runNode))
+            {
+                // pass
+            }
+
             if (model == null || filePath == null)
             {
                 return;
             }
 
             //
-            model.SerializeModel(filePath);
-            model.FdApp.OpenStruxml(filePath, closeOpenWindows);
+            if (runNode)
+            {
+                model.SerializeModel(filePath);
+                model.FdApp.OpenStruxml(filePath, closeOpenWindows);
+            }
+            else
+            {
+                throw new System.ArgumentException("RunNode is set to false!");
+            }
         }
         protected override System.Drawing.Bitmap Icon
         {
