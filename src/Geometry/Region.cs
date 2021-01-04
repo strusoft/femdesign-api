@@ -22,7 +22,7 @@ namespace FemDesign.Geometry
         internal Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>
-        /// Used for panels only
+        /// Used for panels and sections
         /// </summary>
         [XmlIgnore]
         public FdVector3d LocalZ
