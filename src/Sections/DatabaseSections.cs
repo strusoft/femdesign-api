@@ -11,6 +11,7 @@ namespace FemDesign.Sections
     /// <summary>
     /// Sections container used in database.
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class DatabaseSections
     {

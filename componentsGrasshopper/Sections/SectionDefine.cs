@@ -8,7 +8,7 @@ namespace FemDesign.GH
 {
     public class SectionDefine: GH_Component
     {
-       public SectionDefine(): base("Section.Define", "Define", "Define a new section.", "FemDesign", "Sections")
+       public SectionDefine(): base("Section.Define", "Define", "Define a new custom section.", "FemDesign", "Sections")
        {
 
        }
