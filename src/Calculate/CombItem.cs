@@ -12,6 +12,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALCOMBITEM
     /// </summary>
+    [System.Serializable]
     [IsVisibleInDynamoLibrary(false)]
     public class CombItem
     {

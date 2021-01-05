@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Materials
 {
+    [System.Serializable]
     public class TimberPanelTypes
     {
         [XmlElement("predefined_type", Order = 1)]
