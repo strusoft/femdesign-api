@@ -20,8 +20,6 @@ namespace FemDesign
     public class Model
     {
         [XmlIgnore]
-        private bool FromStruxml { get; set; } // was model constructed from a .struxml file.
-        [XmlIgnore]
         internal Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
@@ -109,7 +107,6 @@ namespace FemDesign
         /// </summary>
         internal Model(string country)
         {
-            this.FromStruxml = false;
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";
             this.StartTime = "1970-01-01T00:00:00.000";
@@ -150,7 +147,6 @@ namespace FemDesign
 
             // 
             Model fdModel = (Model)obj;
-            fdModel.FromStruxml = true;
             reader.Close();
             return fdModel;
             
@@ -183,42 +179,25 @@ namespace FemDesign
         /// </summary>
         internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
         {
-            if (this.FromStruxml)
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
             {
-                // check if model contains entities, sections and materials
-                if (this.Entities == null)
-                {
-                    this.Entities = new Entities();
-                }
-                if (this.Sections == null)
-                {
-                    this.Sections = new Sections.ModelSections();
-                }
-                if (this.Materials == null)
-                {
-                    this.Materials = new Materials.Materials();
-                }
-                if (this.ReinforcingMaterials == null)
-                {
-                    this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
-                }
-                if (this.LineConnectionTypes == null)
-                {
-                    this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
-                }
-
-                // if model was imported from struxml: do not reset entities, sections or materials.
-                // reset to false
-                this.FromStruxml = false;
-            }
-
-            else
-            {
-                // if model was created in runtime: reset entities, sections and materials.
                 this.Entities = new Entities();
+            }
+            if (this.Sections == null)
+            {
                 this.Sections = new Sections.ModelSections();
+            }
+            if (this.Materials == null)
+            {
                 this.Materials = new Materials.Materials();
+            }
+            if (this.ReinforcingMaterials == null)
+            {
                 this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            }
+            if (this.LineConnectionTypes == null)
+            {
                 this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
             }
 
@@ -330,6 +309,7 @@ namespace FemDesign
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
+
             else
             {
                 // material
