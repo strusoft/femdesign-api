@@ -120,7 +120,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ProfiledPlateDefine;
             }
         }
         public override Guid ComponentGuid

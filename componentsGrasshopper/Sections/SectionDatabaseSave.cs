@@ -41,7 +41,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return FemDesign.Properties.Resources.SectionDatabaseDefault;
+                return FemDesign.Properties.Resources.SectionDatabaseSave;
            }
        }
        public override Guid ComponentGuid

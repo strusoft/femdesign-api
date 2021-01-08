@@ -38,7 +38,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.MaterialDeconstrut;
            }
        }
        public override Guid ComponentGuid
