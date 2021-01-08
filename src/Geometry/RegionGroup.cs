@@ -37,5 +37,21 @@ namespace FemDesign.Geometry
         {
             this.Regions = regions;
         }
+
+
+        #region grasshopper
+        /// <summary>
+        /// Get rhino breps of underlying regions
+        /// </summary>
+        public List<Rhino.Geometry.Brep> ToRhino()
+        {
+            List<Rhino.Geometry.Brep> breps = new List<Rhino.Geometry.Brep>();
+            foreach (Region region in this.Regions)
+            {
+                breps.Add(region.ToRhinoBrep());
+            }
+            return breps;
+        }
+        #endregion
     }
 }

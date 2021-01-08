@@ -24,7 +24,7 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnConcreteBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
         {
             // assert input
-            if (bar.Material.Concrete == null)
+            if (bar.BarPart.Material.Concrete == null)
             {
                 throw new System.ArgumentException("Material of bar element must be concrete!");
             }
@@ -58,7 +58,7 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnSteelBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength pressuredFlange, BucklingLength pressuredBottomFlange)
         {
             // assert input
-            if (bar.Material.Steel == null)
+            if (bar.BarPart.Material.Steel == null)
             {
                 throw new System.ArgumentException("Material of bar element must be steel!");
             }
@@ -101,7 +101,7 @@ namespace FemDesign.Bars.Buckling
         public static Bar SetOnTimberBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength lateralTorsional)
         {
             // assert input
-            if (bar.Material.Timber == null)
+            if (bar.BarPart.Material.Timber == null)
             {
                 throw new System.ArgumentException("Material of bar element must be timber!");
             }

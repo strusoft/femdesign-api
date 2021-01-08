@@ -125,7 +125,7 @@ namespace FemDesign.Materials
         /// Load the default MaterialDatabase for each respective country.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="countryCode">National annex of calculation code ("D"/"DK"/"EST"/"FIN"/"GB"/"H"/"N"/"PL"/"RO"/"S"/"TR")</param>
+        /// <param name="countryCode">National annex of calculation code (D/DK/EST/FIN/GB/H/N/PL/RO/S/TR)</param>
         /// <returns></returns>
         public static MaterialDatabase Default(string countryCode = "S")
         {

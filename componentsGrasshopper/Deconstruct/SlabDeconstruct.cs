@@ -19,13 +19,20 @@ namespace FemDesign.GH
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
-           pManager.AddTextParameter("StructuralID", "StructuralID", "Structural element ID.", GH_ParamAccess.item);
-           pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical element ID.", GH_ParamAccess.item);
            pManager.AddBrepParameter("Surface", "Surface", "Surface", GH_ParamAccess.item);
+           pManager.AddGenericParameter("ThicknessItems", "ThickItems", "Thickness items. List of LocationValues", GH_ParamAccess.list);
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
+           pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity.", GH_ParamAccess.item);
+           pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrhotropy", GH_ParamAccess.item);
            pManager.AddCurveParameter("EdgeCurves", "EdgeCurves", "EdgeCurves", GH_ParamAccess.list);
            pManager.AddGenericParameter("ShellEdgeConnections", "ShellEdgeConnections", "ShellEdgeConnections", GH_ParamAccess.list);
-           pManager.AddGenericParameter("SurfaceReinforcement", "SurfaceReinforcement", "SurfaceReinforcement", GH_ParamAccess.list);
+           pManager.AddVectorParameter("LocalX", "LocalX", "LocalX", GH_ParamAccess.item);
+           pManager.AddVectorParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
+           pManager.AddGenericParameter("SurfaceReinforcementParameters", "SrfReinfParams", "SurfaceReinforcementParameters", GH_ParamAccess.item);
+           pManager.AddGenericParameter("SurfaceReinforcement", "SrfReinf", "SurfaceReinforcement", GH_ParamAccess.list);
+        //    pManager.AddVectorParameter("Reinforcement x-direction", "ReinfXDir", "X-direction of reinforcement layout", GH_ParamAccess.item);
+        //    pManager.AddVectorParameter("Reinforcement y-direction", "ReinfYDir", "Y-direction of reinforcement layout", GH_ParamAccess.item);
+           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);     
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -42,13 +49,19 @@ namespace FemDesign.GH
 
             // return
             DA.SetData(0, slab.Guid);
-            DA.SetData(1, slab.Name);
-            DA.SetData(2, slab.SlabPart.Name);
-            DA.SetData(3, slab.SlabPart.GetRhinoSurface());
-            DA.SetData(4, slab.Material);
-            DA.SetDataList(5, slab.SlabPart.GetRhinoCurves());
-            DA.SetDataList(6, slab.SlabPart.GetEdgeConnections());
-            DA.SetDataList(7, slab.SurfaceReinforcement);
+            DA.SetData(1, slab.SlabPart.GetRhinoSurface());
+            DA.SetDataList(2, slab.SlabPart.Thickness);
+            DA.SetData(3, slab.Material);
+            DA.SetData(4, slab.SlabPart.ShellEccentricity);
+            DA.SetData(5, slab.SlabPart.ShellOrthotropy);
+            DA.SetDataList(6, slab.SlabPart.GetRhinoCurves());
+            DA.SetDataList(7, slab.SlabPart.GetEdgeConnections());
+            DA.SetData(8, slab.SlabPart.LocalX.ToRhino());
+            DA.SetData(9, slab.SlabPart.LocalY.ToRhino());
+            DA.SetData(10, slab.SurfaceReinforcementParameters);
+            DA.SetDataList(11, slab.SurfaceReinforcement);
+            DA.SetData(12, slab.Name);
+
        }
        protected override System.Drawing.Bitmap Icon
        {

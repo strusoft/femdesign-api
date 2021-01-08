@@ -123,6 +123,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BarModify {
+            get {
+                object obj = ResourceManager.GetObject("BarModify", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BeamDefault {
             get {
                 object obj = ResourceManager.GetObject("BeamDefault", resourceCulture);
@@ -593,6 +603,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MaterialDeconstrut {
+            get {
+                object obj = ResourceManager.GetObject("MaterialDeconstrut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MaterialGetMaterialByName {
             get {
                 object obj = ResourceManager.GetObject("MaterialGetMaterialByName", resourceCulture);
@@ -796,6 +816,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap ModelReadStr {
             get {
                 object obj = ResourceManager.GetObject("ModelReadStr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ModelReadStr1 {
+            get {
+                object obj = ResourceManager.GetObject("ModelReadStr1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1053,6 +1083,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ProfiledPlateDefine {
+            get {
+                object obj = ResourceManager.GetObject("ProfiledPlateDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ReinforcementParametersDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("ReinforcementParametersDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RotationsDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("RotationsDeconstruct", resourceCulture);
@@ -1113,6 +1163,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SectionDatabaseAddSection {
+            get {
+                object obj = ResourceManager.GetObject("SectionDatabaseAddSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SectionDatabaseDefault {
             get {
                 object obj = ResourceManager.GetObject("SectionDatabaseDefault", resourceCulture);
@@ -1136,6 +1196,36 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SectionDatabaseListSectionNames {
             get {
                 object obj = ResourceManager.GetObject("SectionDatabaseListSectionNames", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SectionDatabaseSave {
+            get {
+                object obj = ResourceManager.GetObject("SectionDatabaseSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("SectionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SectionDefine {
+            get {
+                object obj = ResourceManager.GetObject("SectionDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1496,6 +1586,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SurfaceTempLoadDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("SurfaceTempLoadDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThicknessDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("ThicknessDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

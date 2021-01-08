@@ -11,6 +11,7 @@ namespace FemDesign.Sections
     /// <summary>
     /// Section database.
     /// </summary>
+    [System.Serializable]
     [XmlRoot("database", Namespace="urn:strusoft")]
     public class SectionDatabase
     {
@@ -42,6 +43,7 @@ namespace FemDesign.Sections
         {
             // parameterless constructor for serialization
         }
+
         /// <summary>
         /// List the names of all Sections in SectionDatabase.
         /// </summary>
@@ -55,6 +57,36 @@ namespace FemDesign.Sections
                 list.Add(section.Name);
             }
             return list;
+        }
+
+        /// <summary>
+        /// Add a section to this section database
+        /// </summary>
+        internal void AddNewSection(Section obj)
+        {
+            if (this.SectionInDatabase(obj))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to SectionDatabase. Are you adding the same element twice?");
+            }
+            else
+            {
+                this.Sections.Section.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if a section is in this section database
+        /// </summary>
+        internal bool SectionInDatabase(Section newSection)
+        {
+            foreach (Section section in this.Sections.Section)
+            {
+                if (section.Guid == newSection.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         private static SectionDatabase DeserializeFromFilePath(string filePath)
         {
@@ -102,6 +134,7 @@ namespace FemDesign.Sections
             }
             throw new System.ArgumentException("Section library resource not in assembly! Was solution compiled without embedded resource?");
         }
+
         /// <summary>
         /// Load the default SectionDatabase.
         /// </summary>
@@ -113,13 +146,24 @@ namespace FemDesign.Sections
             sectionDatabase.End = "";
             return sectionDatabase;
         }
-        private void SerializeSectionDatabase(string filepath)
+
+        /// <summary>
+        /// Serialize section database to file
+        /// </summary>
+        internal void SerializeSectionDatabase(string filePath)
         {
+            // check file extension
+            if (Path.GetExtension(filePath) != ".struxml")
+            {
+                throw new System.ArgumentException("File extension must be .struxml! SectionDatabase.SerializeDatabase failed.");
+            }
+
             XmlSerializer serializer = new XmlSerializer(typeof(SectionDatabase));
-            using (TextWriter writer = new StreamWriter(filepath))
+            using (TextWriter writer = new StreamWriter(filePath))
             {
                 serializer.Serialize(writer, this);
             }
         }
+
     }
 }

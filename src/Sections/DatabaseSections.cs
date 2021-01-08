@@ -8,6 +8,7 @@ namespace FemDesign.Sections
     /// <summary>
     /// Sections container used in database.
     /// </summary>
+    [System.Serializable]
     public class DatabaseSections
     {
         [XmlElement("section")]

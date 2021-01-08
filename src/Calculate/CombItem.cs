@@ -9,6 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALCOMBITEM
     /// </summary>
+    [System.Serializable]
     public class CombItem
     {
         [XmlAttribute("NLE")]
