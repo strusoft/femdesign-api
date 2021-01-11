@@ -21,18 +21,16 @@ namespace FemDesign
         [XmlElement("connected_lines", Order = 2)]
         public ModellingTools.ConnectedLines[] ConnectedLines { get; set; }
 
-        // surface_connection
+        [XmlElement("surface_connection", Order = 3)]
+        public ModellingTools.SurfaceConnection[] SurfaceConnections { get; set; }
 
-        // virtual_bar
-        [XmlElement("virtual_bar", Order = 3)]
+        [XmlElement("virtual_bar", Order = 4)]
         public List<ModellingTools.FictitiousBar> FictitiousBars = new List<ModellingTools.FictitiousBar>();
 
-        // virtual_shell
-        [XmlElement("virtual_shell", Order = 4)]
+        [XmlElement("virtual_shell", Order = 5)]
         public List<ModellingTools.FictitiousShell> FictitiousShells = new List<ModellingTools.FictitiousShell>();
 
-        // diaphragm
-        [XmlElement("diaphragm", Order = 5)]
+        [XmlElement("diaphragm", Order = 6)]
         public ModellingTools.Diaphragm[] Diaphragms { get; set; }
 
         // steel_joint
@@ -40,7 +38,7 @@ namespace FemDesign
         /// <summary>
         /// List of Cover (cover_type)
         /// </summary>
-        [XmlElement("cover", Order = 6)]
+        [XmlElement("cover", Order = 7)]
         public List<Cover> Covers = new List<Cover>();
     }
 }
