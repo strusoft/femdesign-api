@@ -15,28 +15,32 @@ namespace FemDesign
     [IsVisibleInDynamoLibrary(false)]
     public class AdvancedFem
     {        
-        // connected_points
+        [XmlElement("connected_points", Order = 1)]
+        public ModellingTools.ConnectedPoints[] ConnectedPoints { get; set; }
 
-        // connected_lines
+        [XmlElement("connected_lines", Order = 2)]
+        public ModellingTools.ConnectedLines[] ConnectedLines { get; set; }
 
         // surface_connection
 
         // virtual_bar
-        [XmlElement("virtual_bar", Order = 1)]
-        public List<ModellingTools.FictitiousBar> FictitiousBar = new List<ModellingTools.FictitiousBar>();
+        [XmlElement("virtual_bar", Order = 3)]
+        public List<ModellingTools.FictitiousBar> FictitiousBars = new List<ModellingTools.FictitiousBar>();
 
         // virtual_shell
-        [XmlElement("virtual_shell", Order = 2)]
-        public List<ModellingTools.FictitiousShell> FictitiousShell = new List<ModellingTools.FictitiousShell>();
+        [XmlElement("virtual_shell", Order = 4)]
+        public List<ModellingTools.FictitiousShell> FictitiousShells = new List<ModellingTools.FictitiousShell>();
 
         // diaphragm
+        [XmlElement("diaphragm", Order = 5)]
+        public ModellingTools.Diaphragm[] Diaphragms { get; set; }
 
         // steel_joint
 
         /// <summary>
         /// List of Cover (cover_type)
         /// </summary>
-        [XmlElement("cover", Order = 3)]
-        public List<Cover> Cover = new List<Cover>();
+        [XmlElement("cover", Order = 6)]
+        public List<Cover> Covers = new List<Cover>();
     }
 }

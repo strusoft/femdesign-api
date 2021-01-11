@@ -352,7 +352,7 @@ namespace FemDesign
             }
             else
             {
-                this.Entities.AdvancedFem.FictitiousBar.Add(obj);  
+                this.Entities.AdvancedFem.FictitiousBars.Add(obj);  
             }
         }
 
@@ -361,7 +361,7 @@ namespace FemDesign
         /// </summary>
         private bool FictBarInModel(ModellingTools.FictitiousBar obj)
         {
-            foreach (ModellingTools.FictitiousBar elem in this.Entities.AdvancedFem.FictitiousBar)
+            foreach (ModellingTools.FictitiousBar elem in this.Entities.AdvancedFem.FictitiousBars)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -389,7 +389,7 @@ namespace FemDesign
                 }
 
                 // add shell
-                this.Entities.AdvancedFem.FictitiousShell.Add(obj);  
+                this.Entities.AdvancedFem.FictitiousShells.Add(obj);  
             }
         }
 
@@ -398,7 +398,7 @@ namespace FemDesign
         /// </summary>
         private bool FictShellInModel(ModellingTools.FictitiousShell obj)
         {
-            foreach (ModellingTools.FictitiousShell elem in this.Entities.AdvancedFem.FictitiousShell)
+            foreach (ModellingTools.FictitiousShell elem in this.Entities.AdvancedFem.FictitiousShells)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -453,7 +453,7 @@ namespace FemDesign
             else
             {
                 // add cover
-                this.Entities.AdvancedFem.Cover.Add(obj);  
+                this.Entities.AdvancedFem.Covers.Add(obj);  
             }
         }
 
@@ -462,7 +462,7 @@ namespace FemDesign
         /// </summary>
         private bool CoverInModel(Cover obj)
         {
-            foreach (Cover elem in this.Entities.AdvancedFem.Cover)
+            foreach (Cover elem in this.Entities.AdvancedFem.Covers)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1585,7 +1585,7 @@ namespace FemDesign
         internal List<ModellingTools.FictitiousShell> GetFictitiousShells()
         {
             List<ModellingTools.FictitiousShell> objs = new List<ModellingTools.FictitiousShell>();
-            foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShell)
+            foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShells)
             {
                 // set line_connection_types (i.e predefined edge connections) on edge
                 if (this.LineConnectionTypes != null)

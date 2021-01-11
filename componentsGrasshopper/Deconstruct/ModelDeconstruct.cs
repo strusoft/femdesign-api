@@ -70,11 +70,11 @@ namespace FemDesign.GH
             // return data
             DA.SetData(0, model.Country);
             DA.SetDataList(1, model.GetBars());
-            DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBar);
+            DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBars);
             DA.SetDataList(3, model.GetSlabs());
             DA.SetDataList(4, model.GetFictitiousShells());
             DA.SetDataList(5, model.GetPanels());
-            DA.SetDataList(6, model.Entities.AdvancedFem.Cover);
+            DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
             DA.SetDataList(7, model.Entities.Loads.GetGenericLoadObjects());
             DA.SetDataList(8, model.Entities.Loads.LoadCases);
             DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
