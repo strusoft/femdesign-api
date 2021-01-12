@@ -32,7 +32,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Target version of class library.
         /// </summary>
-        internal string FdTargetVersion = "19";
+        internal string FdTargetVersion = "20";
 
         internal Application()
         {
