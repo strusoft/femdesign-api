@@ -86,12 +86,13 @@ namespace FemDesign
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
         [XmlElement("clt_panel_types", Order = 14)]
         public Materials.CltPanelTypes CltPanelTypes { get; set; }
-        // ptc_strand_types
+        [XmlElement("ptc_strand_types", Order = 15)]
+        public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
         // vehicle_types
         // bolt_types
         // geometry
 
-        [XmlElement("end", Order = 15)]
+        [XmlElement("end", Order = 16)]
         public string End { get; set; }
 
         /// <summary>
