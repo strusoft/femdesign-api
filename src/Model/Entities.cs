@@ -49,10 +49,10 @@ namespace FemDesign
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
 
         [XmlElement("punching_area", Order = 11)]
-        public List<DummyXmlObject> PunchingArea {get {return null;} set {value = null;}}
+        public List<Reinforcement.PunchingArea> PunchingArea { get; set; }
 
         [XmlElement("punching_reinforcement", Order = 12)]
-        public List<DummyXmlObject> PunchingReinforcement {get {return null;} set {value = null;}}
+        public List<Reinforcement.PunchingReinforcement> PunchingReinforcement { get; set; }
 
         [XmlElement("no-shear_region", Order = 13)]
         public List<DummyXmlObject> NoShearRegion {get {return null;} set {value = null;}}
