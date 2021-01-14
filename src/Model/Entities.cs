@@ -37,7 +37,7 @@ namespace FemDesign
         public List<Shells.Slab> Slab = new List<Shells.Slab>();
 
         [XmlElement("shell_buckling", Order = 7)]
-        public List<DummyXmlObject> ShellBuckling {get {return null;} set {value = null;}}
+        public Shells.ShellBucklingType[] ShellBuckling { get; set; }
 
         [XmlElement("wall_corbel", Order = 8)]
         public List<DummyXmlObject> WallCorbel {get {return null;} set {value = null;}}
