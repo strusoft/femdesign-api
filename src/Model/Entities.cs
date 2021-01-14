@@ -55,7 +55,7 @@ namespace FemDesign
         public List<Reinforcement.PunchingReinforcement> PunchingReinforcement { get; set; }
 
         [XmlElement("no-shear_region", Order = 13)]
-        public List<DummyXmlObject> NoShearRegion {get {return null;} set {value = null;}}
+        public Reinforcement.NoShearRegionType[] NoShearRegion { get; set; }
 
         [XmlElement("panel", Order = 14)]
         public List<Shells.Panel> Panel = new List<Shells.Panel>();
