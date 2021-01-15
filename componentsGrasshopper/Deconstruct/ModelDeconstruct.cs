@@ -65,6 +65,11 @@ namespace FemDesign.GH
             {
                 storeys = null;
             }
+
+            // get library items
+            model.GetPointSupports();
+            model.GetLineSupports();
+            model.GetSurfaceSupports();
         
 
             // return data

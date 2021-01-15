@@ -227,9 +227,9 @@ namespace FemDesign.Geometry
         /// Get all PredefinedRigidities from all Edges in Region
         /// </summary>
         /// <returns></returns>
-        internal List<LineConnectionTypes.PredefinedType> GetPredefinedRigidities()
+        internal List<Releases.RigidityDataLibType3> GetPredefinedRigidities()
         {
-            List<LineConnectionTypes.PredefinedType> predefRigidities = new List<LineConnectionTypes.PredefinedType>();
+            List<Releases.RigidityDataLibType3> predefRigidities = new List<Releases.RigidityDataLibType3>();
             foreach (Contour contour in this.Contours)
             {
                 foreach(Edge edge in contour.Edges)
@@ -250,7 +250,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set line connection types (i.e predefined line connection type) on region edges
         /// </summary>
-        internal void SetPredefinedRigidities(List<LineConnectionTypes.PredefinedType> predefinedTypes)
+        internal void SetPredefinedRigidities(List<Releases.RigidityDataLibType3> predefinedTypes)
         {
             foreach (Geometry.Contour contour in this.Contours)
             {
@@ -260,7 +260,7 @@ namespace FemDesign.Geometry
                     {
                         if (edge.EdgeConnection._predefRigidityRef != null)
                         {
-                            foreach (LineConnectionTypes.PredefinedType predefinedType in predefinedTypes)
+                            foreach (Releases.RigidityDataLibType3 predefinedType in predefinedTypes)
                             {
                                 // add predefined type to edge connection if edge connection predef rigidity reference matches guid of predefine type
                                 if (edge.EdgeConnection._predefRigidityRef.Guid == predefinedType.Guid)

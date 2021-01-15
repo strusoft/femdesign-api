@@ -7,6 +7,8 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.ModellingTools
 {
+    [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class ConnectedPoints: EntityBase
     {
         [XmlIgnore]

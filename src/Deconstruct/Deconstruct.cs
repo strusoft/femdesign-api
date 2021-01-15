@@ -379,6 +379,11 @@ namespace FemDesign
             {
                 storeys = null;
             }
+
+            // get library items
+            model.GetPointSupports();
+            model.GetLineSupports();
+            model.GetSurfaceSupports();
         
             // return
             return new Dictionary<string, object>
@@ -741,6 +746,21 @@ namespace FemDesign
             if (support.GetType() == typeof(FemDesign.Supports.PointSupport))
             {
                 var obj = (FemDesign.Supports.PointSupport)support;
+
+                // catch pre-defined rigidity
+                Releases.Motions motions;
+                Releases.Rotations rotations;
+                if (obj.Group.Rigidity != null)
+                {
+                    motions = obj.Group.Rigidity.Motions;
+                    rotations = obj.Group.Rigidity.Rotations;
+                }
+                else
+                {
+                    motions = obj.Group.PredefRigidity.Rigidity.Motions;
+                    rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                }
+
                 return new Dictionary<string, object>
                 {
                     {"Guid", obj.Guid},
@@ -749,13 +769,28 @@ namespace FemDesign
                     {"MovingLocal", "PointLoad has no moving local property."},
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
-                    {"Motions", obj.Group.Rigidity.Motions},
-                    {"Rotations", obj.Group.Rigidity.Rotations}
+                    {"Motions", motions},
+                    {"Rotations", rotations}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.LineSupport))
             {
                 var obj = (FemDesign.Supports.LineSupport)support;
+
+                // catch pre-defined rigidity
+                Releases.Motions motions;
+                Releases.Rotations rotations;
+                if (obj.Group.Rigidity != null)
+                {
+                    motions = obj.Group.Rigidity.Motions;
+                    rotations = obj.Group.Rigidity.Rotations;
+                }
+                else
+                {
+                    motions = obj.Group.PredefRigidity.Rigidity.Motions;
+                    rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                }
+
                 return new Dictionary<string, object>
                 {
                     {"Guid", obj.Guid},
@@ -764,13 +799,25 @@ namespace FemDesign
                     {"MovingLocal", obj.MovingLocal},
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
-                    {"Motions", obj.Group.Rigidity.Motions},
-                    {"Rotations", obj.Group.Rigidity.Rotations}
+                    {"Motions", motions},
+                    {"Rotations", rotations}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.SurfaceSupport))
             {
                 var obj = (FemDesign.Supports.SurfaceSupport)support;
+
+                // catch pre-defined rigidity
+                Releases.Motions motions;
+                if (obj.Rigidity != null)
+                {
+                    motions = obj.Rigidity.Motions;
+                }
+                else
+                {
+                    motions = obj.PredefRigidity.Rigidity.Motions;
+                }
+
                 return new Dictionary<string, object>
                 {
                     {"Guid", obj.Guid},
@@ -779,7 +826,7 @@ namespace FemDesign
                     {"MovingLocal", "SurfaceSupport has no moving local property."},
                     {"LocalX", obj.CoordinateSystem.LocalX.ToDynamo()},
                     {"LocalY", obj.CoordinateSystem.LocalY.ToDynamo()},
-                    {"Motions", obj.Rigidity.Motions},
+                    {"Motions", motions},
                     {"Rotations", "SurfaceSupport has no rotations property."}
                 };
             }

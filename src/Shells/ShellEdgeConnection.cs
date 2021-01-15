@@ -25,9 +25,9 @@ namespace FemDesign.Shells
         [XmlElement("predefined_rigidity")]
         public GuidListType _predefRigidityRef; // reference_type
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType _predefRigidity;
+        public Releases.RigidityDataLibType3 _predefRigidity;
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType PredefRigidity
+        public Releases.RigidityDataLibType3 PredefRigidity
         {
             get
             {

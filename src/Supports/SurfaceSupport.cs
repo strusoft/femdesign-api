@@ -27,12 +27,33 @@ namespace FemDesign.Supports
                 this._name = value + "." + PointSupport._instance.ToString();
             }
         }
-        [XmlElement("region", Order=1)]
+        [XmlElement("region", Order= 1)]
         public Geometry.Region Region { get; set; }
-        [XmlElement("rigidity", Order=2)]
+        
+        [XmlElement("rigidity", Order= 2)]
         public Releases.RigidityDataType1 Rigidity { get; set; }
 
-        [XmlElement("local_system", Order=3)]
+        [XmlElement("predefined_rigidity", Order = 3)]
+        public GuidListType _predefRigidityRef; // reference_type
+
+        [XmlIgnore]
+        public Releases.RigidityDataLibType1 _predefRigidity;
+
+        [XmlIgnore]
+        public Releases.RigidityDataLibType1 PredefRigidity
+        {
+            get
+            {
+                return this._predefRigidity;
+            }
+            set
+            {
+                this._predefRigidity = value;
+                this._predefRigidityRef = new GuidListType(value.Guid);
+            }
+        }
+
+        [XmlElement("local_system", Order= 4)]
         public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>

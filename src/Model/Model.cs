@@ -69,17 +69,17 @@ namespace FemDesign
         [XmlElement("composites", Order = 5)]
         public List<DummyXmlObject> Composites {get {return null;} set {value = null;}}
         [XmlElement("point_connection_types", Order = 6)]
-        public List<DummyXmlObject> PointConnectionTypes {get {return null;} set {value = null;}}
+        public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set;}
         [XmlElement("point_support_group_types", Order = 7)]
-        public List<DummyXmlObject> PointSupportGroupTypes {get {return null;} set {value = null;}}
+        public LibraryItems.PointSupportGroupTypes PointSupportGroupTypes { get; set;}
         [XmlElement("line_connection_types", Order = 8)]
-        public LineConnectionTypes.LineConnectionTypes LineConnectionTypes {get; set; }
+        public LibraryItems.LineConnectionTypes LineConnectionTypes {get; set; }
         [XmlElement("line_support_group_types", Order = 9)]
-        public List<DummyXmlObject> LineSupportGroupTypes {get {return null; } set { value = null; }}
+        public LibraryItems.LineSupportGroupTypes LineSupportGroupTypes { get; set;}
         [XmlElement("surface_connection_types", Order = 10)]
-        public List<DummyXmlObject> SurfaceConnectionTypes {get {return null; } set { value = null; }}
+        public LibraryItems.SurfaceConnectionTypes SurfaceConnectionTypes { get; set;}
         [XmlElement("surface_support_types", Order = 11)]
-        public List<DummyXmlObject> SurfaceSupportTypes {get {return null; } set { value = null; }}
+        public LibraryItems.SurfaceSupportTypes SurfaceSupportTypes { get; set;}
         [XmlElement("timber_panel_types", Order = 12)]
         public Materials.TimberPanelTypes TimberPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 13)]
@@ -199,7 +199,8 @@ namespace FemDesign
             }
             if (this.LineConnectionTypes == null)
             {
-                this.LineConnectionTypes = new LineConnectionTypes.LineConnectionTypes();
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
             }
 
             if (bars != null)
@@ -384,7 +385,7 @@ namespace FemDesign
             else
             {
                 // add line connection types (predefined rigidity)
-                foreach (LineConnectionTypes.PredefinedType predef in obj.Region.GetPredefinedRigidities())
+                foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
                 {
                     this.AddPredefinedRigidity(predef);
                 }
@@ -561,7 +562,7 @@ namespace FemDesign
                     }
                 }
                 // add line connection types from border
-                foreach (LineConnectionTypes.PredefinedType predef in obj.Region.GetPredefinedRigidities())
+                foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
                 {
                     this.AddPredefinedRigidity(predef);
                 }
@@ -571,7 +572,7 @@ namespace FemDesign
                 {
                     foreach (InternalPanel intPanel in obj.InternalPanels.IntPanels)
                     {
-                        foreach (LineConnectionTypes.PredefinedType predef in intPanel.Region.GetPredefinedRigidities())
+                        foreach (Releases.RigidityDataLibType3 predef in intPanel.Region.GetPredefinedRigidities())
                         {
                             this.AddPredefinedRigidity(predef);
                         }
@@ -903,7 +904,7 @@ namespace FemDesign
                 this.AddSurfaceReinforcements(obj);
 
                 // add line connection types (predefined rigidity)
-                foreach(LineConnectionTypes.PredefinedType predef in obj.SlabPart.Region.GetPredefinedRigidities())
+                foreach(Releases.RigidityDataLibType3 predef in obj.SlabPart.Region.GetPredefinedRigidities())
                 {   
                     this.AddPredefinedRigidity(predef);
                 }
@@ -962,7 +963,7 @@ namespace FemDesign
         /// <summary>
         /// Add predefined rigidity
         /// </summary>
-        private void AddPredefinedRigidity(LineConnectionTypes.PredefinedType obj)
+        private void AddPredefinedRigidity(Releases.RigidityDataLibType3 obj)
         {
             if (this.PredefRigidityInModel(obj))
             {
@@ -970,16 +971,16 @@ namespace FemDesign
             }
             else
             {
-                this.LineConnectionTypes.PredefinedType.Add(obj);
+                this.LineConnectionTypes.PredefinedTypes.Add(obj);
             }  
         }
 
         /// <summary>
         /// Check if Material (reinforcring) in Model.
         /// </summary>
-        private bool PredefRigidityInModel(LineConnectionTypes.PredefinedType obj)
+        private bool PredefRigidityInModel(Releases.RigidityDataLibType3 obj)
         {
-            foreach (LineConnectionTypes.PredefinedType elem in this.LineConnectionTypes.PredefinedType)
+            foreach (Releases.RigidityDataLibType3 elem in this.LineConnectionTypes.PredefinedTypes)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1591,9 +1592,9 @@ namespace FemDesign
                 // set line_connection_types (i.e predefined edge connections) on edge
                 if (this.LineConnectionTypes != null)
                 {
-                    if (this.LineConnectionTypes.PredefinedType != null)
+                    if (this.LineConnectionTypes.PredefinedTypes != null)
                     {
-                        item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                        item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                     }
                 }
 
@@ -1625,9 +1626,9 @@ namespace FemDesign
                 // set line_connection_types (i.e predefined edge connections) on edge
                 if (this.LineConnectionTypes != null)
                 {
-                    if (this.LineConnectionTypes.PredefinedType != null)
+                    if (this.LineConnectionTypes.PredefinedTypes != null)
                     {
-                        item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                        item.SlabPart.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                     }
                 }
 
@@ -1746,12 +1747,12 @@ namespace FemDesign
                 // predefined rigidity
                 if (this.LineConnectionTypes != null)
                 {
-                    if (this.LineConnectionTypes.PredefinedType != null)
+                    if (this.LineConnectionTypes.PredefinedTypes != null)
                     {
-                        panel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                        panel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                         foreach (InternalPanel internalPanel in panel.InternalPanels.IntPanels)
                         {
-                            internalPanel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedType);
+                            internalPanel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                         }
                     }                        
                 }
@@ -1760,6 +1761,62 @@ namespace FemDesign
             // return
             return this.Entities.Panel;
         }
+
+        internal void GetPointSupports()
+        {
+            foreach (Supports.PointSupport pointSupport in this.Entities.Supports.PointSupport)
+            {
+                // predefined rigidity
+                if (this.PointSupportGroupTypes != null && this.PointSupportGroupTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType2 predefinedType in this.PointSupportGroupTypes.PredefinedTypes)
+                    {
+                        if (pointSupport.Group._predefRigidityRef != null && predefinedType.Guid == pointSupport.Group._predefRigidityRef.Guid)
+                        {
+                            pointSupport.Group.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetLineSupports()
+        {
+            foreach (Supports.LineSupport lineSupport in this.Entities.Supports.LineSupport)
+            {
+                // predefined rigidity
+                if (this.LineSupportGroupTypes != null && this.LineSupportGroupTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType2 predefinedType in this.LineSupportGroupTypes.PredefinedTypes)
+                    {
+                        if (lineSupport.Group._predefRigidityRef != null && predefinedType.Guid == lineSupport.Group._predefRigidityRef.Guid)
+                        {
+                            lineSupport.Group.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetSurfaceSupports()
+        {
+            foreach (Supports.SurfaceSupport surfaceSupport in this.Entities.Supports.SurfaceSupport)
+            {
+                // predefined rigidity
+                if (this.SurfaceSupportTypes != null && this.SurfaceSupportTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType1 predefinedType in this.SurfaceSupportTypes.PredefinedTypes)
+                    {
+                        if (surfaceSupport._predefRigidityRef != null && predefinedType.Guid == surfaceSupport._predefRigidityRef.Guid)
+                        {
+                            surfaceSupport.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         #endregion
         #region dynamo

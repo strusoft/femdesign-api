@@ -80,7 +80,27 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("rigidity", Order = 3)]
-        public Releases.RigidityDataType3 Rigidity { get; set; }
+        public Releases.RigidityDataType2 Rigidity { get; set; }
+
+        [XmlElement("predefined_rigidity", Order = 4)]
+        public GuidListType _predefRigidityRef; // reference_type
+
+        [XmlIgnore]
+        public Releases.RigidityDataLibType2 _predefRigidity;
+
+        [XmlIgnore]
+        public Releases.RigidityDataLibType2 PredefRigidity
+        {
+            get
+            {
+                return this._predefRigidity;
+            }
+            set
+            {
+                this._predefRigidity = value;
+                this._predefRigidityRef = new GuidListType(value.Guid);
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.

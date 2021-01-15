@@ -112,7 +112,7 @@ namespace FemDesign.Reinforcement
                          str = str + " ";
                      }
 
-                     str = str + _positions[idx].ToString();
+                     str = str + _positions[idx].ToString(System.Globalization.CultureInfo.InvariantCulture);
                  }
 
                  return str;
@@ -125,7 +125,7 @@ namespace FemDesign.Reinforcement
 
                 for (int idx = 0; idx < vals.Length; idx++)
                 {
-                    dbls[idx] = double.Parse(vals[idx]);
+                    dbls[idx] = double.Parse(vals[idx], System.Globalization.CultureInfo.InvariantCulture);
                 }
 
                 this._positions = dbls;
