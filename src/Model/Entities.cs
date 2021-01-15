@@ -22,7 +22,7 @@ namespace FemDesign
         public List<DummyXmlObject> Foundations {get {return null;} set {value = null;}}
 
         [XmlElement("bar", Order = 2)]
-        public List<Bars.Bar> Bar = new List<Bars.Bar>();
+        public List<Bars.Bar> Bars = new List<Bars.Bar>();
 
         [XmlElement("column_corbel", Order = 3)]
         public List<DummyXmlObject> ColumnCorbel {get {return null;} set {value = null;}}
@@ -34,7 +34,7 @@ namespace FemDesign
         public Reinforcement.BarReinforcement[] BarReinforcement { get; set; }
 
         [XmlElement("slab", Order = 6)]
-        public List<Shells.Slab> Slab = new List<Shells.Slab>();
+        public List<Shells.Slab> Slabs = new List<Shells.Slab>();
 
         [XmlElement("shell_buckling", Order = 7)]
         public Shells.ShellBucklingType[] ShellBuckling { get; set; }
@@ -58,7 +58,7 @@ namespace FemDesign
         public Reinforcement.NoShearRegionType[] NoShearRegion { get; set; }
 
         [XmlElement("panel", Order = 14)]
-        public List<Shells.Panel> Panel = new List<Shells.Panel>();
+        public List<Shells.Panel> Panels = new List<Shells.Panel>();
 
         [XmlElement("post-tensioned_cable", Order = 15)]
         public Reinforcement.Ptc[] PostTensionedCable { get; set; }

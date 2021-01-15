@@ -52,10 +52,10 @@ namespace FemDesign.ModellingTools
         public GuidListType _predefRigidityRef;
 
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType _predefRigidity;
+        public Releases.RigidityDataLibType2 _predefRigidity;
 
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType PredefRigidity
+        public Releases.RigidityDataLibType2 PredefRigidity
         {
             get
             {

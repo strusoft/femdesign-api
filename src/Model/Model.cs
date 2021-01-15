@@ -146,10 +146,23 @@ namespace FemDesign
                 throw ex.InnerException.InnerException;
             }
 
-            // 
-            Model fdModel = (Model)obj;
+            // close reader
             reader.Close();
-            return fdModel;
+
+            // cast type
+            Model model = (Model)obj;
+
+            // prepare elements
+            model.GetBars();
+            model.GetFictitiousShells();
+            model.GetLineSupports();
+            model.GetPanels();
+            model.GetPointSupports();
+            model.GetSlabs();
+            model.GetSurfaceSupports();
+
+            // return
+            return model;
             
         }
 
@@ -324,7 +337,7 @@ namespace FemDesign
                 
 
                 // add bar
-                this.Entities.Bar.Add(obj);  
+                this.Entities.Bars.Add(obj);  
             }
         }
 
@@ -333,7 +346,7 @@ namespace FemDesign
         /// </summary>
         private bool BarInModel(Bars.Bar obj)
         {
-            foreach (Bars.Bar elem in this.Entities.Bar)
+            foreach (Bars.Bar elem in this.Entities.Bars)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -580,7 +593,7 @@ namespace FemDesign
                 }
 
                 // add panel
-                this.Entities.Panel.Add(obj);
+                this.Entities.Panels.Add(obj);
             }
         }
 
@@ -589,7 +602,7 @@ namespace FemDesign
         /// </summary>
         private bool PanelInModel(Shells.Panel obj)
         {
-            foreach (Shells.Panel elem in this.Entities.Panel)
+            foreach (Shells.Panel elem in this.Entities.Panels)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -910,7 +923,7 @@ namespace FemDesign
                 }
                 
                 // add shell
-                this.Entities.Slab.Add(obj); 
+                this.Entities.Slabs.Add(obj); 
             }
         }
 
@@ -919,7 +932,7 @@ namespace FemDesign
         /// </summary>
         private bool SlabInModel(Shells.Slab obj)
         {
-            foreach (Shells.Slab elem in this.Entities.Slab)
+            foreach (Shells.Slab elem in this.Entities.Slabs)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1500,10 +1513,9 @@ namespace FemDesign
         /// Get Bars from Model. 
         /// Bars will be reconstructed from Model incorporating all references: ComplexSection, Section, Material.
         /// </summary>
-        internal List<Bars.Bar> GetBars()
+        internal void GetBars()
         {
-            List<Bars.Bar> bars = new List<Bars.Bar>();
-            foreach (Bars.Bar item in this.Entities.Bar)
+            foreach (Bars.Bar item in this.Entities.Bars)
             {
                 // set type on barPart
                 item.BarPart.Type = item.Type;
@@ -1572,11 +1584,7 @@ namespace FemDesign
                 {
                     throw new System.ArgumentException("No matching section found. Model.GetBars() failed");
                 }
-
-                // add to return object
-                bars.Add(item);
             }
-            return bars;
         }
 
         /// <summary>
@@ -1584,9 +1592,8 @@ namespace FemDesign
         /// FicititiousShells will be reconstruted from Model incorporating predefined EdgeConnections
         /// </summary>
         /// <returns></returns>
-        internal List<ModellingTools.FictitiousShell> GetFictitiousShells()
+        internal void GetFictitiousShells()
         {
-            List<ModellingTools.FictitiousShell> objs = new List<ModellingTools.FictitiousShell>();
             foreach (ModellingTools.FictitiousShell item in this.Entities.AdvancedFem.FictitiousShells)
             {
                 // set line_connection_types (i.e predefined edge connections) on edge
@@ -1597,11 +1604,7 @@ namespace FemDesign
                         item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                     }
                 }
-
-                // add to return object
-                objs.Add(item);
-            }
-            return objs;            
+            }            
         }
 
         /// <summary>
@@ -1609,10 +1612,9 @@ namespace FemDesign
         /// Slabs will be reconstruted from Model incorporating all references: Material, Predefined EdgeConnections, SurfaceReinforcementParameters, SurfaceReinforcement.
         /// </summary>
         /// <returns></returns>
-        internal List<Shells.Slab> GetSlabs()
+        internal void GetSlabs()
         {
-            List<Shells.Slab> _slabs = new List<Shells.Slab>();
-            foreach (Shells.Slab item in this.Entities.Slab)
+            foreach (Shells.Slab item in this.Entities.Slabs)
             {
                 // get material
                 foreach (Materials.Material _material in this.Materials.Material)
@@ -1666,16 +1668,12 @@ namespace FemDesign
                 {
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
-
-                // add to return object
-                _slabs.Add(item);
             }
-            return _slabs;
         }
 
-        internal List<Shells.Panel> GetPanels()
+        internal void GetPanels()
         {
-            foreach (Shells.Panel panel in this.Entities.Panel)
+            foreach (Shells.Panel panel in this.Entities.Panels)
             {
                 // get material
                 foreach (Materials.Material material in this.Materials.Material)
@@ -1757,9 +1755,6 @@ namespace FemDesign
                     }                        
                 }
             }
-
-            // return
-            return this.Entities.Panel;
         }
 
         internal void GetPointSupports()

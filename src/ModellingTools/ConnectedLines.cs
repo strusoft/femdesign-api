@@ -30,16 +30,16 @@ namespace FemDesign.ModellingTools
 
         // rigidity data choice
         [XmlElement("rigidity", Order = 5)]
-        public Releases.RigidityDataType2 Rigidity { get; set; } 
+        public Releases.RigidityDataType3 Rigidity { get; set; } 
 
         [XmlElement("predefined_rigidity", Order = 6)]
         public GuidListType _predefRigidityRef;
 
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType _predefRigidity;
+        public Releases.RigidityDataLibType3 _predefRigidity;
 
         [XmlIgnore]
-        public LineConnectionTypes.PredefinedType PredefRigidity
+        public Releases.RigidityDataLibType3 PredefRigidity
         {
             get
             {

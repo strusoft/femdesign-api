@@ -379,22 +379,17 @@ namespace FemDesign
             {
                 storeys = null;
             }
-
-            // get library items
-            model.GetPointSupports();
-            model.GetLineSupports();
-            model.GetSurfaceSupports();
         
             // return
             return new Dictionary<string, object>
             {
                 {"Guid", model.Guid},
                 {"CountryCode", model.Country},
-                {"Bars", model.GetBars()},
+                {"Bars", model.Entities.Bars},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
-                {"Shells", model.GetSlabs()},
-                {"FictitiousShells", model.GetFictitiousShells()},
-                {"Panels", model.GetPanels()},
+                {"Shells", model.Entities.Slabs},
+                {"FictitiousShells", model.Entities.AdvancedFem.FictitiousShells},
+                {"Panels", model.Entities.Panels},
                 {"Covers", model.Entities.AdvancedFem.Covers},
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},

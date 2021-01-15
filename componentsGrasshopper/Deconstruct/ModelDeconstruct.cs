@@ -64,21 +64,15 @@ namespace FemDesign.GH
             else
             {
                 storeys = null;
-            }
-
-            // get library items
-            model.GetPointSupports();
-            model.GetLineSupports();
-            model.GetSurfaceSupports();
-        
+            }        
 
             // return data
             DA.SetData(0, model.Country);
-            DA.SetDataList(1, model.GetBars());
+            DA.SetDataList(1, model.Entities.Bars);
             DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBars);
-            DA.SetDataList(3, model.GetSlabs());
-            DA.SetDataList(4, model.GetFictitiousShells());
-            DA.SetDataList(5, model.GetPanels());
+            DA.SetDataList(3, model.Entities.Slabs);
+            DA.SetDataList(4, model.Entities.AdvancedFem.FictitiousShells);
+            DA.SetDataList(5, model.Entities.Panels);
             DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
             DA.SetDataList(7, model.Entities.Loads.GetGenericLoadObjects());
             DA.SetDataList(8, model.Entities.Loads.LoadCases);
