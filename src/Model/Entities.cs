@@ -25,7 +25,7 @@ namespace FemDesign
         public List<Bars.Bar> Bars = new List<Bars.Bar>();
 
         [XmlElement("column_corbel", Order = 3)]
-        public List<DummyXmlObject> ColumnCorbel {get {return null;} set {value = null;}}
+        public List<Bars.ColumnCorbel> ColumnCorbel { get; set; }
 
         [XmlElement("hidden_bar", Order = 4)]
         public Reinforcement.HiddenBar[] HiddenBar { get; set; }
@@ -40,7 +40,7 @@ namespace FemDesign
         public Shells.ShellBucklingType[] ShellBuckling { get; set; }
 
         [XmlElement("wall_corbel", Order = 8)]
-        public List<DummyXmlObject> WallCorbel {get {return null;} set {value = null;}}
+        public List<Shells.WallCorbel> WallCorbel { get; set; }
 
         [XmlElement("surface_reinforcement_parameters", Order = 9)]
         public List<Reinforcement.SurfaceReinforcementParameters> SurfaceReinforcementParameters = new List<Reinforcement.SurfaceReinforcementParameters>();
