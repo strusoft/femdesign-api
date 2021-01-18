@@ -191,7 +191,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -260,7 +260,7 @@ namespace FemDesign
             {
                 foreach (Cover cover in covers)
                 {
-                    this.AddCover(cover);
+                    this.AddCover(cover, overwrite);
                 }
             }
 
@@ -459,17 +459,36 @@ namespace FemDesign
         /// <summary>
         /// Add Cover to Model.
         /// </summary>
-        private void AddCover(Cover obj)
+        private void AddCover(Cover obj, bool overwrite)
         {
-            if (this.CoverInModel(obj))
-            {
+            // in model?
+            bool inModel = this.CoverInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {    
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                obj.EntityModified();
+                this.Entities.AdvancedFem.Covers.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.AdvancedFem.Covers.Add(obj);
+            }
+
+            // not in model, add to model
+            else 
             {
                 // add cover
                 this.Entities.AdvancedFem.Covers.Add(obj);  
             }
+        }
+
+        private int OverwriteCover(Cover obj)
+        {
+            return this.Entities.AdvancedFem.Covers.RemoveAll(x => x.Guid == obj.Guid);
         }
 
         /// <summary>
@@ -1829,15 +1848,16 @@ namespace FemDesign
         /// <param name="supports"> Single support element or list of support elements to add. Nested lists are not supported, use flatten.</param>
         /// <param name="storeys"> Single storey element or list of storey elements to add. Nested lists are not supported, use flatten.</param>
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes, bool overwrite = false)
         {
             // deep clone model
             Model model = fdModel.DeepClone();
 
             // create model
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
             return model;
         }
         /// <summary>
@@ -1866,7 +1886,7 @@ namespace FemDesign
 
             // create model
             Model _model = new Model(countryCode);
-            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes);
+            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, false);
             return _model;
         }
         /// <summary>
