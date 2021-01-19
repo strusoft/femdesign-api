@@ -220,7 +220,7 @@ namespace FemDesign
             {
                 foreach (Bars.Bar bar in bars)
                 {
-                    this.AddBar(bar);
+                    this.AddBar(bar, overwrite);
                 }
             }
 
@@ -228,7 +228,7 @@ namespace FemDesign
             {
                 foreach (ModellingTools.FictitiousBar fictBar in fictitiousBars)
                 {
-                    this.AddFictBar(fictBar);
+                    this.AddFictBar(fictBar, overwrite);
                 }
             }
 
@@ -236,7 +236,7 @@ namespace FemDesign
             {
                 foreach (Shells.Slab shell in shells)
                 {
-                    this.AddSlab(shell);
+                    this.AddSlab(shell, overwrite);
                 }
             }
 
@@ -244,7 +244,7 @@ namespace FemDesign
             {
                 foreach (ModellingTools.FictitiousShell fictShell in fictitiousShells)
                 {
-                    this.AddFictShell(fictShell);
+                    this.AddFictShell(fictShell, overwrite);
                 }
             }
 
@@ -252,7 +252,7 @@ namespace FemDesign
             {
                 foreach (Shells.Panel panel in panels)
                 {
-                    this.AddPanel(panel);
+                    this.AddPanel(panel, overwrite);
                 }
             }
 
@@ -268,7 +268,7 @@ namespace FemDesign
             {
                 foreach (object load in loads)
                 {
-                    this.AddLoad(load);
+                    this.AddLoad(load, overwrite);
                 }
             }
             
@@ -276,7 +276,7 @@ namespace FemDesign
             {
                 foreach (Loads.LoadCase loadCase in loadCases)
                 {
-                    this.AddLoadCase(loadCase);
+                    this.AddLoadCase(loadCase, overwrite);
                 }
             }
 
@@ -284,7 +284,7 @@ namespace FemDesign
             {
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                 {
-                    this.AddLoadCombination(loadCombination);
+                    this.AddLoadCombination(loadCombination, overwrite);
                 }
             }
 
@@ -292,7 +292,7 @@ namespace FemDesign
             {
                 foreach (object support in supports)
                 {
-                    this.AddSupport(support);
+                    this.AddSupport(support, overwrite);
                 }
             }
 
@@ -300,7 +300,7 @@ namespace FemDesign
             {
                 foreach (StructureGrid.Storey storey in storeys)
                 {
-                    this.AddStorey(storey);
+                    this.AddStorey(storey, overwrite);
                 }
             }
 
@@ -308,7 +308,7 @@ namespace FemDesign
             {
                 foreach (StructureGrid.Axis axis in axes)
                 {
-                    this.AddAxis(axis);
+                    this.AddAxis(axis, overwrite);
                 }
             }
 
@@ -318,27 +318,33 @@ namespace FemDesign
         /// <summary>
         /// Add Bar to Model.
         /// </summary>
-        private void AddBar(Bars.Bar obj)
+        private void AddBar(Bars.Bar obj, bool overwrite)
         {
-            if (this.BarInModel(obj))
+            // in model?
+            bool inModel = this.BarInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
-            else
+            // in model, overwrite
+            else if (inModel && overwrite == true)
             {
-                // material
-                this.AddMaterial(obj.BarPart.Material);
-
-                // add sections
-                this.AddComplexSection(obj);
-                this.AddSection(obj.BarPart.StartSection);
-                this.AddSection(obj.BarPart.EndSection);
-                
-
-                // add bar
-                this.Entities.Bars.Add(obj);  
+                this.Entities.Bars.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add material
+            this.AddMaterial(obj.BarPart.Material, overwrite);
+
+            // add sections
+            this.AddComplexSection(obj, overwrite);
+            this.AddSection(obj.BarPart.StartSection, overwrite);
+            this.AddSection(obj.BarPart.EndSection, overwrite);
+
+            // add bar
+            this.Entities.Bars.Add(obj);
         }
 
         /// <summary>
@@ -359,16 +365,23 @@ namespace FemDesign
         /// <summary>
         /// Add Fictitious Bar to Model.
         /// </summary>
-        private void AddFictBar(ModellingTools.FictitiousBar obj)
+        private void AddFictBar(ModellingTools.FictitiousBar obj, bool overwrite)
         {
-            if (this.FictBarInModel(obj))
+            // in model?
+            bool inModel = this.FictBarInModel(obj);
+
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+            
+            else if (inModel && overwrite == true)
             {
-                this.Entities.AdvancedFem.FictitiousBars.Add(obj);  
+                this.Entities.AdvancedFem.FictitiousBars.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add fictitious bar
+            this.Entities.AdvancedFem.FictitiousBars.Add(obj);  
         }
 
         /// <summary>
@@ -389,23 +402,31 @@ namespace FemDesign
         /// <summary>
         /// Add Fictitious Shell to Model.
         /// </summary>
-        private void AddFictShell(ModellingTools.FictitiousShell obj)
+        private void AddFictShell(ModellingTools.FictitiousShell obj, bool overwrite)
         {
-            if (this.FictShellInModel(obj))
+            // in model?
+            bool inModel = this.FictShellInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
-            {
-                // add line connection types (predefined rigidity)
-                foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
-                {
-                    this.AddPredefinedRigidity(predef);
-                }
 
-                // add shell
-                this.Entities.AdvancedFem.FictitiousShells.Add(obj);  
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.AdvancedFem.FictitiousShells.RemoveAll(x => x.Guid == obj.Guid);
             }
+    
+            // add line connection types (predefined rigidity)
+            foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
+            {
+                this.AddPredefinedRigidity(predef, overwrite);
+            }
+
+            // add shell
+            this.Entities.AdvancedFem.FictitiousShells.Add(obj);  
         }
 
         /// <summary>
@@ -426,34 +447,50 @@ namespace FemDesign
         /// <summary>
         /// Add ComplexSection (from Bar) to Model.
         /// </summary>
-        private void AddComplexSection(Bars.Bar obj)
+        private void AddComplexSection(Bars.Bar bar, bool overwrite)
         {   
-            if (obj.BarPart.ComplexSectionIsNull)
+            if (bar.BarPart.ComplexSectionIsNull)
             {
                 // pass
             }
             else
             {
-                this.Sections.ComplexSection.Add(obj.BarPart.ComplexSection);
+                // obj
+                Sections.ComplexSection obj = bar.BarPart.ComplexSection;
+
+                // in model?
+                bool inModel = this.ComplexSectionInModel(obj);
+
+                // in model, don't overwrite
+                if (inModel && overwrite == false)
+                {
+                    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                }
+
+                // in model, overwrite
+                else if (inModel && overwrite == true)
+                {
+                    this.Sections.ComplexSection.RemoveAll(x => x.Guid == obj.Guid);
+                }
+
+                // add complex section
+                this.Sections.ComplexSection.Add(obj);
             }     
         }
 
         /// <summary>
         /// Check if ComplexSection in Model.
         /// </summary>
-        private string ComplexSectionInModel(FemDesign.Sections.ComplexSection obj)
+        private bool ComplexSectionInModel(FemDesign.Sections.ComplexSection obj)
         {
-            foreach (FemDesign.Sections.ComplexSection elem in this.Sections.ComplexSection)
+            foreach (Sections.ComplexSection elem in this.Sections.ComplexSection)
             {
-                if (elem.Section[0].SectionRef == obj.Section[0].SectionRef &&
-                    elem.Section[0].Eccentricity.Equals(obj.Section[0].Eccentricity) &&
-                    elem.Section[1].SectionRef == obj.Section[1].SectionRef &&
-                    elem.Section[1].Eccentricity.Equals(obj.Section[1].Eccentricity))
+                if (elem.Guid == obj.Guid)
                 {
-                    return elem.Guid.ToString();
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
 
         /// <summary>
@@ -473,22 +510,11 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                obj.EntityModified();
                 this.Entities.AdvancedFem.Covers.RemoveAll(x => x.Guid == obj.Guid);
-                this.Entities.AdvancedFem.Covers.Add(obj);
             }
 
-            // not in model, add to model
-            else 
-            {
-                // add cover
-                this.Entities.AdvancedFem.Covers.Add(obj);  
-            }
-        }
-
-        private int OverwriteCover(Cover obj)
-        {
-            return this.Entities.AdvancedFem.Covers.RemoveAll(x => x.Guid == obj.Guid);
+            // add cover
+            this.Entities.AdvancedFem.Covers.Add(obj);  
         }
 
         /// <summary>
@@ -510,7 +536,7 @@ namespace FemDesign
         /// Add Load to Model.
         /// </summary>
         /// <param name="obj">PointLoad, LineLoad, PressureLoad, SurfaceLoad</param>
-        private void AddLoad(object obj)
+        private void AddLoad(object obj, bool overwrite)
         {
             if (obj == null)
             {
@@ -518,27 +544,27 @@ namespace FemDesign
             }
             else if (obj.GetType() == typeof(Loads.PointLoad))
             {
-                this.AddPointLoad((Loads.PointLoad)obj);
+                this.AddPointLoad((Loads.PointLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.LineLoad))
             {
-                this.AddLineLoad((Loads.LineLoad)obj);
+                this.AddLineLoad((Loads.LineLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.LineTemperatureLoad))
             {
-                this.AddLineTemperatureLoad((Loads.LineTemperatureLoad)obj);
+                this.AddLineTemperatureLoad((Loads.LineTemperatureLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.PressureLoad))
             {
-                this.AddPressureLoad((Loads.PressureLoad)obj);
+                this.AddPressureLoad((Loads.PressureLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.SurfaceLoad))
             {
-                this.AddSurfaceLoad((Loads.SurfaceLoad)obj);
+                this.AddSurfaceLoad((Loads.SurfaceLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.SurfaceTemperatureLoad))
             {
-                this.AddSurfaceTemperatureLoad((Loads.SurfaceTemperatureLoad)obj);
+                this.AddSurfaceTemperatureLoad((Loads.SurfaceTemperatureLoad)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.MassConversionTable))
             {
@@ -553,67 +579,75 @@ namespace FemDesign
         /// <summary>
         /// Add Panel to Model.
         /// </summary>
-        private void AddPanel(Shells.Panel obj)
+        private void AddPanel(Shells.Panel obj, bool overwrite)
         {
-            if (this.PanelInModel(obj))
+            // in model?
+            bool inModel = this.PanelInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
             {
-                // add panel properties
-                if (obj.Material != null)
-                {   
-                    this.AddMaterial(obj.Material);
-                }
-
-                if (obj.Section != null)
-                {    
-                    this.AddSection(obj.Section);
-                }
-
-                // add timber application data
-                if (obj.TimberApplicationData != null)
-                {
-                    // add library types
-                    if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                    {
-                        this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData); 
-                    }
-                    else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                    {
-                        this.AddCltPanelLibraryType(obj.CltPanelLibraryData);
-                    }
-                    else if (obj.GlcPanelLibraryData != null && obj.GlcPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                    {
-                        this.AddGlcPanelLibraryType(obj.GlcPanelLibraryData);
-                    }
-                    else
-                    {
-                        throw new System.ArgumentException($"Could not find the related lirbary data with guid: {obj.TimberApplicationData.PanelType}. Failed to add panel library data.");
-                    }
-                }
-                // add line connection types from border
-                foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
-                {
-                    this.AddPredefinedRigidity(predef);
-                }
-
-                // add line connection types of internal panels
-                if (obj.InternalPanels != null)
-                {
-                    foreach (InternalPanel intPanel in obj.InternalPanels.IntPanels)
-                    {
-                        foreach (Releases.RigidityDataLibType3 predef in intPanel.Region.GetPredefinedRigidities())
-                        {
-                            this.AddPredefinedRigidity(predef);
-                        }
-                    }
-                }
-
-                // add panel
-                this.Entities.Panels.Add(obj);
+                this.Entities.Panels.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add panel properties
+            if (obj.Material != null)
+            {   
+                this.AddMaterial(obj.Material, overwrite);
+            }
+
+            if (obj.Section != null)
+            {    
+                this.AddSection(obj.Section, overwrite);
+            }
+
+            // add timber application data
+            if (obj.TimberApplicationData != null)
+            {
+                // add library types
+                if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                {
+                    this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData, overwrite); 
+                }
+                else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                {
+                    this.AddCltPanelLibraryType(obj.CltPanelLibraryData, overwrite);
+                }
+                else if (obj.GlcPanelLibraryData != null && obj.GlcPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                {
+                    this.AddGlcPanelLibraryType(obj.GlcPanelLibraryData, overwrite);
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Could not find the related lirbary data with guid: {obj.TimberApplicationData.PanelType}. Failed to add panel library data.");
+                }
+            }
+            // add line connection types from border
+            foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
+            {
+                this.AddPredefinedRigidity(predef, overwrite);
+            }
+
+            // add line connection types of internal panels
+            if (obj.InternalPanels != null)
+            {
+                foreach (InternalPanel intPanel in obj.InternalPanels.IntPanels)
+                {
+                    foreach (Releases.RigidityDataLibType3 predef in intPanel.Region.GetPredefinedRigidities())
+                    {
+                        this.AddPredefinedRigidity(predef, overwrite);
+                    }
+                }
+            }
+
+            // add panel
+            this.Entities.Panels.Add(obj);
         }
 
         /// <summary>
@@ -634,16 +668,25 @@ namespace FemDesign
         /// <summary>
         /// Add PointLoad to Model.
         /// </summary>
-        private void AddPointLoad(Loads.PointLoad obj)
+        private void AddPointLoad(Loads.PointLoad obj, bool overwrite)
         {
-            if (this.PointLoadInModel(obj))
+            // in model?
+            bool inModel = this.PointLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.PointLoads.Add(obj);
-            }    
+                this.Entities.Loads.PointLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add point load
+            this.Entities.Loads.PointLoads.Add(obj);   
         }
 
         /// <summary>
@@ -664,16 +707,25 @@ namespace FemDesign
         /// <summary>
         /// Add LineLoad to Model.
         /// </summary>
-        private void AddLineLoad(Loads.LineLoad obj)
+        private void AddLineLoad(Loads.LineLoad obj, bool overwrite)
         {
-            if (this.LineLoadInModel(obj))
+            // in model?
+            bool inModel = this.LineLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineLoads.Add(obj);
-            }   
+                this.Entities.Loads.LineLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line load
+            this.Entities.Loads.LineLoads.Add(obj);
         }
 
         /// <summary>
@@ -694,16 +746,23 @@ namespace FemDesign
         /// <summary>
         /// Add LineTemperatureLoad to Model.
         /// </summary>
-        private void AddLineTemperatureLoad(Loads.LineTemperatureLoad obj)
+        private void AddLineTemperatureLoad(Loads.LineTemperatureLoad obj, bool overwrite)
         {
-            if (this.LineTemperatureLoadInModel(obj))
+            // in model?
+            bool inModel = this.LineTemperatureLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+            else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineTemperatureLoads.Add(obj);
-            }   
+                this.Entities.Loads.LineTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line temperature load
+            this.Entities.Loads.LineTemperatureLoads.Add(obj);
         }
 
         /// <summary>
@@ -724,16 +783,24 @@ namespace FemDesign
         /// <summary>
         /// Add PressureLoad to Model.
         /// </summary>
-        private void AddPressureLoad(Loads.PressureLoad obj)
+        private void AddPressureLoad(Loads.PressureLoad obj, bool overwrite)
         {
-            if (this.PressureLoadInModel(obj))
+            bool inModel = this.PressureLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if(inModel && overwrite)
             {
-                this.Entities.Loads.PressureLoads.Add(obj);
-            }   
+                this.Entities.Loads.PressureLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add pressure load
+            this.Entities.Loads.PressureLoads.Add(obj); 
         }
 
         /// <summary>
@@ -754,16 +821,25 @@ namespace FemDesign
         /// <summary>
         /// Add SurfaceLoad to Model.
         /// </summary>
-        private void AddSurfaceLoad(Loads.SurfaceLoad obj)
+        private void AddSurfaceLoad(Loads.SurfaceLoad obj, bool overwrite)
         {
-            if (this.SurfaceLoadInModel(obj))
+            // in model?
+            bool inModel = this.SurfaceLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+            
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceLoads.Add(obj);
-            }   
+                this.Entities.Loads.SurfaceLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add surface load
+            this.Entities.Loads.SurfaceLoads.Add(obj); 
         }
 
         /// <summary>
@@ -784,16 +860,25 @@ namespace FemDesign
         /// <summary>
         /// Add SurfaceTemperatureLoad to Model.
         /// </summary>
-        private void AddSurfaceTemperatureLoad(Loads.SurfaceTemperatureLoad obj)
+        private void AddSurfaceTemperatureLoad(Loads.SurfaceTemperatureLoad obj, bool overwrite)
         {
-            if (this.SurfaceTemperatureLoadInModel(obj))
+            // in model?
+            bool inModel = this.SurfaceTemperatureLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceTemperatureLoads.Add(obj);
-            }   
+                this.Entities.Loads.SurfaceTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add surface temperature loads
+            this.Entities.Loads.SurfaceTemperatureLoads.Add(obj);
         }
 
         /// <summary>
@@ -813,6 +898,7 @@ namespace FemDesign
 
         /// <summary>
         /// Add MassConversionTable to Model.
+        /// MassConversionTable is always overwritten.
         /// </summary>
         private void AddMassConversionTable(Loads.MassConversionTable obj)
         {
@@ -822,20 +908,29 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCase to Model.
         /// </summary>
-        private void AddLoadCase(Loads.LoadCase obj)
+        private void AddLoadCase(Loads.LoadCase obj, bool overwrite)
         {
-            if (this.LoadCaseInModel(obj))
+            // in model?
+            bool inModel = this.LoadCaseInModel(obj);
+
+            // in model, don't overwrite?
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                if (this.LoadCaseNameTaken(obj))
-                {
-                    obj.Name = obj.Name + " (1)";
-                }
-                this.Entities.Loads.LoadCases.Add(obj);
-            } 
+                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add load case
+            if (this.LoadCaseNameTaken(obj))
+            {
+                obj.Name = obj.Name + " (1)";
+            }
+            this.Entities.Loads.LoadCases.Add(obj);
         }
 
         /// <summary>
@@ -871,20 +966,29 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCombination to Model.
         /// </summary>
-        private void AddLoadCombination(Loads.LoadCombination obj)
+        private void AddLoadCombination(Loads.LoadCombination obj, bool overwrite)
         {
-            if (this.LoadCombinationInModel(obj))
+            // in model?
+            bool inModel = this.LoadCombinationInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                if (this.LoadCombinationNameTaken(obj))
-                {
-                    obj.Name = obj.Name + " (1)";
-                }
-                this.Entities.Loads.LoadCombinations.Add(obj);
+                this.Entities.Loads.LoadCombinations.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add load combination
+            if (this.LoadCombinationNameTaken(obj))
+            {
+                obj.Name = obj.Name + " (1)";
+            }
+            this.Entities.Loads.LoadCombinations.Add(obj);
         }
 
         /// <summary>
@@ -920,30 +1024,38 @@ namespace FemDesign
         /// <summary>
         /// Add Slab to Model.
         /// </summary>
-        private void AddSlab(Shells.Slab obj)
+        private void AddSlab(Shells.Slab obj, bool overwrite)
         {
-            if (this.SlabInModel(obj))
+            // in model?
+            bool inModel = this.SlabInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                // add shell properties
-                this.AddMaterial(obj.Material);
-                this.AddSurfaceReinforcementParameters(obj);
-
-                // add SurfaceReinforcement
-                this.AddSurfaceReinforcements(obj);
-
-                // add line connection types (predefined rigidity)
-                foreach(Releases.RigidityDataLibType3 predef in obj.SlabPart.Region.GetPredefinedRigidities())
-                {   
-                    this.AddPredefinedRigidity(predef);
-                }
-                
-                // add shell
-                this.Entities.Slabs.Add(obj); 
+                this.Entities.Slabs.RemoveAll(x => x.Guid == obj.Guid);
             }
+ 
+            // add shell properties
+            this.AddMaterial(obj.Material, overwrite);
+            this.AddSurfaceReinforcementParameters(obj, overwrite);
+
+            // add SurfaceReinforcement
+            this.AddSurfaceReinforcements(obj, overwrite);
+
+            // add line connection types (predefined rigidity)
+            foreach(Releases.RigidityDataLibType3 predef in obj.SlabPart.Region.GetPredefinedRigidities())
+            {   
+                this.AddPredefinedRigidity(predef, overwrite);
+            }
+            
+            // add shell
+            this.Entities.Slabs.Add(obj); 
         }
 
         /// <summary>
@@ -964,13 +1076,26 @@ namespace FemDesign
         /// <summary>
         /// Add Material (reinforcing) to Model.
         /// </summary>
-        private void AddReinforcingMaterial(Materials.Material obj)
+        private void AddReinforcingMaterial(Materials.Material obj, bool overwrite)
         {
-            if (this.ReinforcingMaterialInModel(obj))
+            // in model?
+            bool inModel = this.ReinforcingMaterialInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.ReinforcingMaterials.Material.RemoveAll(x => x.Guid == obj.Guid);
+                this.ReinforcingMaterials.Material.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.ReinforcingMaterials.Material.Add(obj);
             }  
@@ -995,16 +1120,29 @@ namespace FemDesign
         /// <summary>
         /// Add predefined rigidity
         /// </summary>
-        private void AddPredefinedRigidity(Releases.RigidityDataLibType3 obj)
+        private void AddPredefinedRigidity(Releases.RigidityDataLibType3 obj, bool overwrite)
         {
-            if (this.PredefRigidityInModel(obj))
+            // in model?
+            bool inModel = this.PredefRigidityInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.LineConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.LineConnectionTypes.PredefinedTypes.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.LineConnectionTypes.PredefinedTypes.Add(obj);
-            }  
+            }
         }
 
         /// <summary>
@@ -1022,14 +1160,11 @@ namespace FemDesign
             return false;
         }
 
-
-
-
         /// <summary>
         /// Add StructureGrid (axis or storey) to model.
         /// </summary>
         /// <param name="obj">Axis, Storey</param>
-        private void AddStructureGrid(object obj)
+        private void AddStructureGrid(object obj, bool overwrite)
         {
             if (obj == null)
             {
@@ -1037,11 +1172,11 @@ namespace FemDesign
             }
             else if (obj.GetType() == typeof(StructureGrid.Axis))
             {
-                this.AddAxis((StructureGrid.Axis)obj);
+                this.AddAxis((StructureGrid.Axis)obj, overwrite);
             }
             else if (obj.GetType() == typeof(StructureGrid.Storey))
             {
-                this.AddStorey((StructureGrid.Storey)obj);
+                this.AddStorey((StructureGrid.Storey)obj, overwrite);
             }
             else
             {
@@ -1053,7 +1188,7 @@ namespace FemDesign
         /// Add axis to entities.
         /// </summary>
         /// <param name="obj">Axis.</param>
-        private void AddAxis(StructureGrid.Axis obj)
+        private void AddAxis(StructureGrid.Axis obj, bool overwrite)
         {
             // check if axes in entities
             if (this.Entities.Axes == null)
@@ -1061,15 +1196,23 @@ namespace FemDesign
                 this.Entities.Axes = new StructureGrid.Axes();
             }
 
-            // add axis to entities
-            if (this.AxisInModel(obj))
+            // in model?
+            bool inModel = this.AxisInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Axes.Axis.Add(obj);
+                this.Entities.Axes.Axis.RemoveAll(x => x.Guid == obj.Guid);
             }
+            
+            // add obj
+            this.Entities.Axes.Axis.Add(obj);
         }
 
         /// <summary>
@@ -1093,7 +1236,7 @@ namespace FemDesign
         /// Add Storey to Model.
         /// </summary>
         /// <param name="obj">Storey.</param>
-        private void AddStorey(StructureGrid.Storey obj)
+        private void AddStorey(StructureGrid.Storey obj, bool overwrite)
         {
             // check if storeys in entities
             if (this.Entities.Storeys == null)
@@ -1101,19 +1244,25 @@ namespace FemDesign
                 this.Entities.Storeys = new StructureGrid.Storeys();
             }
 
-            // add storey to entities
-            if (this.StoreyInModel(obj))
+            // in model?
+            bool inModel = this.StoreyInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
-            {
-                // check if geometry is consistent
-                this.ConsistenStoreyGeometry(obj);
 
-                // add to storeys
-                this.Entities.Storeys.Storey.Add(obj);
+            else if (inModel && overwrite)
+            {
+                this.Entities.Storeys.Storey.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // check if geometry is consistent
+            this.ConsistenStoreyGeometry(obj);
+
+            // add to storeys
+            this.Entities.Storeys.Storey.Add(obj);
         }
 
         /// <summary>
@@ -1158,28 +1307,40 @@ namespace FemDesign
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="obj"></param>
-        private void AddSurfaceReinforcements(Shells.Slab obj)
+        private void AddSurfaceReinforcements(Shells.Slab obj, bool overwrite)
         {
             foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in obj.SurfaceReinforcement)
             {
-                this.AddReinforcingMaterial(surfaceReinforcement.Wire.ReinforcingMaterial);
-                this.AddSurfaceReinforcement(surfaceReinforcement);
+                this.AddReinforcingMaterial(surfaceReinforcement.Wire.ReinforcingMaterial, overwrite);
+                this.AddSurfaceReinforcement(surfaceReinforcement, overwrite);
             }
         }
+
+        
 
         /// <summary>
         /// Add SurfaceReinforcement to Model.
         /// </summary>
-        private void AddSurfaceReinforcement(Reinforcement.SurfaceReinforcement obj)
+        private void AddSurfaceReinforcement(Reinforcement.SurfaceReinforcement obj, bool overwrite)
         {
-            if (this.SurfaceReinforcementInModel(obj))
+            // in model?
+            bool inModel = this.SurfaceReinforcementInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Did you add the same {obj.GetType().FullName} to different Slabs?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.SurfaceReinforcement.Add(obj);
-            }  
+                this.Entities.SurfaceReinforcement.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.Entities.SurfaceReinforcement.Add(obj);
+  
         }
 
         /// <summary>
@@ -1202,18 +1363,29 @@ namespace FemDesign
         /// <summary>
         /// Add SurfaceReinforcementParameters to Model.
         /// </summary>
-        private void AddSurfaceReinforcementParameters(Shells.Slab obj)
+        private void AddSurfaceReinforcementParameters(Shells.Slab slab, bool overwrite)
         {
-            if (obj.SurfaceReinforcementParameters != null)
+            if (slab.SurfaceReinforcementParameters != null)
             {
-                if (this.SurfaceReinforcementParametersInModel(obj.SurfaceReinforcementParameters))
+                // obj
+                Reinforcement.SurfaceReinforcementParameters obj = slab.SurfaceReinforcementParameters;
+                // in model?
+                bool inModel = this.SurfaceReinforcementParametersInModel(obj);
+
+                // in model, don't overwrite
+                if (inModel && !overwrite)
                 {
                     throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
                 }
-                else
+
+                // in model, overwrite
+                else if (inModel && overwrite)
                 {
-                    this.Entities.SurfaceReinforcementParameters.Add(obj.SurfaceReinforcementParameters);
+                    this.Entities.SurfaceReinforcementParameters.RemoveAll(x => x.Guid == obj.Guid);
                 }
+
+                // add obj
+                this.Entities.SurfaceReinforcementParameters.Add(obj);
             } 
         }
 
@@ -1238,7 +1410,7 @@ namespace FemDesign
         /// Add Support to Model
         /// </summary>
         /// <param name="obj">PointSupport, LineSupport</param>
-        private void AddSupport(object obj)
+        private void AddSupport(object obj, bool overwrite)
         {
             if (obj == null)
             {
@@ -1246,15 +1418,15 @@ namespace FemDesign
             }
             else if (obj.GetType() == typeof(Supports.PointSupport))
             {
-                this.AddPointSupport((Supports.PointSupport)obj);
+                this.AddPointSupport((Supports.PointSupport)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Supports.LineSupport))
             {
-                this.AddLineSupport((Supports.LineSupport)obj);
+                this.AddLineSupport((Supports.LineSupport)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Supports.SurfaceSupport))
             {
-                this.AddSurfaceSupport((Supports.SurfaceSupport)obj);
+                this.AddSurfaceSupport((Supports.SurfaceSupport)obj, overwrite);
             }
             else
             {
@@ -1265,16 +1437,25 @@ namespace FemDesign
         /// <summary>
         /// Add PointSupport to Model.
         /// </summary>
-        private void AddPointSupport(Supports.PointSupport obj)
+        private void AddPointSupport(Supports.PointSupport obj, bool overwrite)
         {
-            if (this.PointSupportInModel(obj))
+            // in model?
+            bool inModel = this.PointSupportInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Supports.PointSupport.Add(obj);
+                this.Entities.Supports.PointSupport.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add obj
+            this.Entities.Supports.PointSupport.Add(obj);
         }
 
         /// <summary>
@@ -1295,16 +1476,25 @@ namespace FemDesign
         /// <summary>
         /// Add LineSupport to Model.
         /// </summary>
-        private void AddLineSupport(Supports.LineSupport obj)
+        private void AddLineSupport(Supports.LineSupport obj, bool overwrite)
         {
-            if (this.LineSupportInModel(obj))
+            // in model?
+            bool inModel = this.LineSupportInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Supports.LineSupport.Add(obj);
+                this.Entities.Supports.LineSupport.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add obj
+            this.Entities.Supports.LineSupport.Add(obj);
         }
 
         /// <summary>
@@ -1325,16 +1515,25 @@ namespace FemDesign
         /// <summary>
         /// Add SurfaceSupport to Model.
         /// </summary>
-        private void AddSurfaceSupport(Supports.SurfaceSupport obj)
+        private void AddSurfaceSupport(Supports.SurfaceSupport obj, bool overwrite)
         {
-            if (this.SurfaceSupportInModel(obj))
+            // in model?
+            bool inModel = this.SurfaceSupportInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
             {
-                this.Entities.Supports.SurfaceSupport.Add(obj);
+                this.Entities.Supports.SurfaceSupport.RemoveAll(x => x.Guid == obj.Guid);
             }
+
+            // add obj
+            this.Entities.Supports.SurfaceSupport.Add(obj);
         }
 
         /// <summary>
@@ -1355,13 +1554,26 @@ namespace FemDesign
         /// <summary>
         /// Add Material to Model.
         /// </summary>
-        private void AddMaterial(Materials.Material obj)
+        private void AddMaterial(Materials.Material obj, bool overwrite)
         {
-            if (MaterialInModel(obj))
+            // in model?
+            bool inModel = this.MaterialInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Materials.Material.RemoveAll(x => x.Guid == obj.Guid);
+                this.Materials.Material.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.Materials.Material.Add(obj);
             }
@@ -1385,7 +1597,7 @@ namespace FemDesign
         /// <summary>
         /// Add Timber panel library type to Model.
         /// </summary>
-        private void AddTimberPanelLibraryType(Materials.TimberPanelLibraryType obj)
+        private void AddTimberPanelLibraryType(Materials.TimberPanelLibraryType obj, bool overwrite)
         {
             // if null create new element
             if (this.TimberPanelTypes == null)
@@ -1393,13 +1605,25 @@ namespace FemDesign
                 this.TimberPanelTypes = new Materials.TimberPanelTypes();
                 this.TimberPanelTypes.TimberPanelLibraryTypes = new List<Materials.TimberPanelLibraryType>();
             }
-           
-            // add items if not already in model
-            if (TimberPanelLibraryTypeInModel(obj))
+
+            // in model?
+            bool inModel = this.TimberPanelLibraryTypeInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.TimberPanelTypes.TimberPanelLibraryTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.TimberPanelTypes.TimberPanelLibraryTypes.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.TimberPanelTypes.TimberPanelLibraryTypes.Add(obj);
             }
@@ -1423,7 +1647,7 @@ namespace FemDesign
         /// <summary>
         /// Add Clt panel library type to Model.
         /// </summary>
-        private void AddCltPanelLibraryType(Materials.CltPanelLibraryType obj)
+        private void AddCltPanelLibraryType(Materials.CltPanelLibraryType obj, bool overwrite)
         {
             // if null create new element
             if (this.CltPanelTypes == null)
@@ -1432,12 +1656,24 @@ namespace FemDesign
                 this.CltPanelTypes.CltPanelLibraryTypes = new List<Materials.CltPanelLibraryType>();
             }
 
-            // add items if not already in model
-            if (CltPanelLibraryTypeInModel(obj))
+            // in model?
+            bool inModel = this.CltPanelLibraryTypeInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.CltPanelTypes.CltPanelLibraryTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.CltPanelTypes.CltPanelLibraryTypes.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.CltPanelTypes.CltPanelLibraryTypes.Add(obj);
             }
@@ -1461,7 +1697,7 @@ namespace FemDesign
         /// <summary>
         /// Add Glc panel library type to Model.
         /// </summary>
-        private void AddGlcPanelLibraryType(Materials.GlcPanelLibraryType obj)
+        private void AddGlcPanelLibraryType(Materials.GlcPanelLibraryType obj, bool overwrite)
         {
             // if null create new element
             if (this.GlcPanelTypes == null)
@@ -1470,12 +1706,24 @@ namespace FemDesign
                 this.GlcPanelTypes.GlcPanelLibraryTypes = new List<Materials.GlcPanelLibraryType>();
             }
 
-            // add items if not already in model
-            if (GlcPanelLibraryTypeInModel(obj))
+            // in model?
+            bool inModel = this.GlcPanelLibraryTypeInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.GlcPanelTypes.GlcPanelLibraryTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.GlcPanelTypes.GlcPanelLibraryTypes.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.GlcPanelTypes.GlcPanelLibraryTypes.Add(obj);
             }
@@ -1499,13 +1747,26 @@ namespace FemDesign
         /// <summary>
         /// Add Section to Model.
         /// </summary>
-        private void AddSection(FemDesign.Sections.Section obj)
+        private void AddSection(FemDesign.Sections.Section obj, bool overwrite)
         {
-            if (SectionInModel(obj))
+            // in model?
+            bool inModel = this.SectionInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
             }
-            else
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Sections.Section.RemoveAll(x => x.Guid == obj.Guid);
+                this.Sections.Section.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
             {
                 this.Sections.Section.Add(obj);
             }

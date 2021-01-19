@@ -92,16 +92,34 @@ namespace FemDesign.Bars
                 {
                     Bar._barInstance++;
                     this._identifier = value + "." + Bar._barInstance.ToString();
+
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else if (this.Type == BarType.Column)
                 {
                     Bar._columnInstance++;
                     this._identifier = value + "." + Bar._columnInstance.ToString();
+                    
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else if (this.Type == BarType.Truss)
                 {
                     Bar._trussInstance++;
                     this._identifier = value + "." + Bar._trussInstance.ToString();
+                    
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else
                 {
