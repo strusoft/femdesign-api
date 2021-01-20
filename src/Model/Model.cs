@@ -550,6 +550,10 @@ namespace FemDesign
             {
                 this.AddLineLoad((Loads.LineLoad)obj, overwrite);
             }
+            else if (obj.GetType() == typeof(Loads.LineStressLoad))
+            {
+                this.AddLineStressLoad((Loads.LineStressLoad)obj, overwrite);
+            }
             else if (obj.GetType() == typeof(Loads.LineTemperatureLoad))
             {
                 this.AddLineTemperatureLoad((Loads.LineTemperatureLoad)obj, overwrite);
@@ -741,6 +745,33 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        private void AddLineStressLoad(Loads.LineStressLoad obj, bool overwrite)
+        {
+            // line stress loads null?
+            if (this.Entities.Loads.LineStressLoads == null)
+            {
+                this.Entities.Loads.LineStressLoads = new List<Loads.LineStressLoad>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.Loads.LineStressLoads.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Loads.LineStressLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line stress load
+            this.Entities.Loads.LineStressLoads.Add(obj);
         }
 
         /// <summary>
