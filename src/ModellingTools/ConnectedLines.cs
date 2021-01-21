@@ -17,6 +17,10 @@ namespace FemDesign.ModellingTools
         [XmlElement("edge" , Order = 1)]
         public Geometry.Edge[] Edges { get; set; }
 
+        /// <summary>
+        /// This property is optional.
+        /// Represents first interface point, i.e Point@Parameter on Line between Edge[0].StartPoint and Edge[1].StartPoint.
+        /// </summary>
         [XmlElement("point", Order = 2)]
         public Geometry.FdPoint3d[] Points { get; set; }
 
@@ -105,6 +109,32 @@ namespace FemDesign.ModellingTools
             {
                 this._interface[1] = RestrictedDouble.NonNegMax_1(value);
             }
+        }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private ConnectedLines()
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ConnectedLines(Geometry.Edge firstEdge, Geometry.Edge secondEdge, Geometry.FdVector3d localX, Geometry.FdVector3d localY, Releases.RigidityDataType3 rigidity, GuidListType[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
+        {
+            this.EntityCreated();
+            this.Edges[0] = firstEdge;
+            this.Edges[1] = secondEdge;
+            this.LocalX = localX;
+            this.LocalY = localY;
+            this.Rigidity = rigidity;
+            this.References = references;
+            this.Identifier = identifier;
+            this.MovingLocal = movingLocal;
+            this.InterfaceStart = interfaceStart;
+            this.InterfaceEnd = interfaceEnd;
         }
 
     }
