@@ -218,6 +218,22 @@ namespace FemDesign.Bars
             return bar;
         }
 
+        /// Update entities if this bar should be "reconstructed"
+        internal void UpdateEntities()
+        {
+            if (this.Type == BarType.Truss)
+            {
+                this.EntityCreated();
+                this.BarPart.EntityCreated();
+            }
+            else
+            {
+                this.EntityCreated();
+                this.BarPart.EntityCreated();
+                this.BarPart.ComplexSection.EntityCreated();
+            }
+        }
+
         #region dynamo
         /// <summary>
         /// Create a bar-element of type beam.
