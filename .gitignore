@@ -11,3 +11,4 @@ FdApiSource.csproj
 FdApiSource.sln
 packages.config
 strusoft.xsd
+fdscript.xsd
