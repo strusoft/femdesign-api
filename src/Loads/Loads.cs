@@ -30,7 +30,7 @@ namespace FemDesign.Loads
         [XmlElement("surface_temperature_variation_load", Order = 6)]
         public List<SurfaceTemperatureLoad> SurfaceTemperatureLoads = new List<SurfaceTemperatureLoad>(); // surface_temperature_variation_load
         [XmlElement("line_stress_load", Order = 7)]
-        public List<LineStressLoad> LineStressLoads { get; set; } // line_stress_load
+        public List<LineStressLoad> LineStressLoads = new List<LineStressLoad>(); // line_stress_load
         [XmlElement("surface_stress_load", Order = 8)]
         public List<DummyXmlObject> SurfaceStressLoads {get {return null;} set {value = null;}} // surface_stress_load
         [XmlElement("point_support_motion_load", Order = 9)]
