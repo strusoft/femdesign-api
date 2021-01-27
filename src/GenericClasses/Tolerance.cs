@@ -27,5 +27,12 @@ namespace FemDesign
         /// Predefined point3d tolerance.
         /// </summary>
         internal static double Point3d = Math.Pow(10, -10);
+
+        /// <summary>
+        /// Predefined vector3d tolerance.
+        /// </summary>
+        internal static double Vector3d = Math.Pow(10, -10);
+
+
     }
 }

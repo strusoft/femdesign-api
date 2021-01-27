@@ -213,7 +213,7 @@ namespace FemDesign.Geometry
         {
             if (this.IsLine())
             {
-                return (this.CoordinateSystem.LocalX.Equals(Geometry.FdVector3d.UnitZ()));
+                return (this.CoordinateSystem.LocalX.Equals(Geometry.FdVector3d.UnitZ(), Tolerance.Vector3d));
             }
             else
             {
