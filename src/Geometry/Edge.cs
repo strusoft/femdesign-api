@@ -183,11 +183,17 @@ namespace FemDesign.Geometry
             this.Normal = localY;
         }
 
+        /// <summary>
+        /// Check if line
+        /// </summary>
         internal bool IsLine()
         {
             return (this.Type == "line");
         }
 
+        /// <summary>
+        /// Check if line is vertical (i.e. parallel to global Z)
+        /// </summary>
         internal bool IsLineVertical()
         {
             if (this.IsLine())
@@ -198,6 +204,22 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Edge type: {this.Type}, is not line.");
             }
+        }
+
+        /// <summary>
+        /// Check if line local x is equal to positive global Z
+        /// </summary>
+        internal bool IsLineTangentEqualToGlobalZ()
+        {
+            if (this.IsLine())
+            {
+                return (this.CoordinateSystem.LocalX.Equals(Geometry.FdVector3d.UnitZ()));
+            }
+            else
+            {
+                throw new System.ArgumentException($"Edge type: {this.Type}, is not line.");
+            }
+
         }
 
         /// <summary>

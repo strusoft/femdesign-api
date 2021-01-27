@@ -278,7 +278,7 @@ namespace FemDesign.Bars
         /// Create a bar-element of type column.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="line">Line.</param>
+        /// <param name="line">Local x of line must equal positive global Z.</param>
         /// <param name="material">Material.</param>
         /// <param name="section">Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.</param>
         /// <param name="connectivity">Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, if undefined default value will be used.</param>

@@ -62,12 +62,11 @@ namespace FemDesign.Bars
                         throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
                     }
 
-                    // check if line is vertical
-                    if (!value.IsLineVertical())
+                    // check if line local x equals positive global Z
+                    if (!value.IsLineTangentEqualToGlobalZ())
                     {
-                        throw new System.ArgumentException("Edge (Line) must be vertial for column definition");
+                        throw new System.ArgumentException("Edge (Line) must be vertial with its tangent equal to positive global Z for column definition");
                     }
-
                 }
                 else if (this.Type == BarType.Truss)
                 {

@@ -15,7 +15,7 @@ namespace FemDesign.GH
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddCurveParameter("Line", "Line", "Description", GH_ParamAccess.item);
+           pManager.AddCurveParameter("Line", "Line", "Line. Local x of line must equal positive global Z.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Section", "Section", "Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
