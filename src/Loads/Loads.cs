@@ -26,7 +26,7 @@ namespace FemDesign.Loads
         [XmlElement("surface_temperature_variation_load", Order = 6)]
         public List<SurfaceTemperatureLoad> SurfaceTemperatureLoads = new List<SurfaceTemperatureLoad>(); // surface_temperature_variation_load
         [XmlElement("line_stress_load", Order = 7)]
-        public List<DummyXmlObject> LineStressLoads {get {return null;} set {value = null;}} // line_stress_load
+        public List<LineStressLoad> LineStressLoads = new List<LineStressLoad>(); // line_stress_load
         [XmlElement("surface_stress_load", Order = 8)]
         public List<DummyXmlObject> SurfaceStressLoads {get {return null;} set {value = null;}} // surface_stress_load
         [XmlElement("point_support_motion_load", Order = 9)]
@@ -69,6 +69,7 @@ namespace FemDesign.Loads
             var objs = new List<object>();
             objs.AddRange(this.PointLoads);
             objs.AddRange(this.LineLoads);
+            objs.AddRange(this.LineStressLoads);
             objs.AddRange(this.LineTemperatureLoads);
             objs.AddRange(this.PressureLoads);
             objs.AddRange(this.SurfaceLoads);
@@ -97,6 +98,19 @@ namespace FemDesign.Loads
         {
             var objs = new List<GenericLoadObject>();
             foreach (LineLoad obj in this.LineLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get LineTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal List<GenericLoadObject> GetGenericLoadObjectsForLineStressLoads()
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (LineStressLoad obj in this.LineStressLoads)
             {
                 objs.Add(new GenericLoadObject(obj));
             }
@@ -166,6 +180,10 @@ namespace FemDesign.Loads
                 list.Add(obj);
             }
             foreach (GenericLoadObject obj in this.GetGenericLoadObjectsForLineLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in this.GetGenericLoadObjectsForLineStressLoads())
             {
                 list.Add(obj);
             }

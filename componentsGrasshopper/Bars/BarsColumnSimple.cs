@@ -7,20 +7,20 @@ using Rhino.Geometry;
 
 namespace FemDesign.GH
 {
-    public class BarsColumn: GH_Component
+    public class BarsColumnSimple: GH_Component
     {
-       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FemDesign", "Bars")
+       public BarsColumnSimple(): base("Bars.ColumnSimple", "ColumnSimple", "Create a bar element of type column with same start/end properties.", "FemDesign", "Bars")
        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddCurveParameter("Line", "Line", "Line. Local x of line must equal positive global Z.", GH_ParamAccess.item);
+           pManager.AddCurveParameter("Line", "Line", "Local x of line must equal positive global Z.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Section", "Section", "Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Optional, default value if undefined.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. Optional, default value if undefined.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
@@ -41,19 +41,19 @@ namespace FemDesign.GH
             FemDesign.Materials.Material material = null;
             if (!DA.GetData(1, ref material)) { return; }
 
-            List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
-            if (!DA.GetDataList(2, sections)) { return; }
+            FemDesign.Sections.Section sections = null;
+            if (!DA.GetData(2, ref sections)) { return; }
 
-            List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
-            if (!DA.GetDataList(3, connectivities))
+            FemDesign.Bars.Connectivity connectivities = FemDesign.Bars.Connectivity.Rigid();
+            if (!DA.GetData(3, ref connectivities))
             {
-                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.Rigid()};
+                // pass
             }
 
-            List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
-            if (!DA.GetDataList(4, eccentricities))
+            FemDesign.Bars.Eccentricity eccentricities = FemDesign.Bars.Eccentricity.Default();
+            if (!DA.GetData(4, ref eccentricities))
             {
-                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.Default()};
+                // pass
             }
 
             Vector3d v = Vector3d.Zero;
@@ -84,7 +84,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineCurve((LineCurve)curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.ColumnDefine(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.ColumnDefine(edge, material, new FemDesign.Sections.Section[]{sections}, new FemDesign.Bars.Connectivity[]{connectivities}, new FemDesign.Bars.Eccentricity[]{eccentricities}, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
@@ -114,7 +114,7 @@ namespace FemDesign.GH
        }
        public override Guid ComponentGuid
        {
-           get { return new Guid("3105b98e-ed85-46f4-9295-ed1d0d1af432"); }
+           get { return new Guid("4f7cdee1-2e06-403b-b503-acdb8cc5cd4f"); }
        }
     }
 }

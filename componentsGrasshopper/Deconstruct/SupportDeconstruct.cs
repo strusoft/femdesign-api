@@ -39,7 +39,7 @@ namespace FemDesign.GH
             }
             
             // return
-             if (obj.PointSupport != null)
+            if (obj.PointSupport != null)
             {   
                 DA.SetData(0, obj.PointSupport.Guid);
                 DA.SetData(1, obj.PointSupport.Name);
@@ -47,8 +47,18 @@ namespace FemDesign.GH
                 DA.SetData(3, "PointSupport has no moving local property.");
                 DA.SetData(4, obj.PointSupport.Group.LocalX.ToRhino());
                 DA.SetData(5, obj.PointSupport.Group.LocalY.ToRhino());
-                DA.SetData(6, obj.PointSupport.Group.Rigidity.Motions);
-                DA.SetData(7, obj.PointSupport.Group.Rigidity.Rotations);
+
+                // catch pre-defined rigidity
+                if (obj.PointSupport.Group.Rigidity != null)
+                { 
+                    DA.SetData(6, obj.PointSupport.Group.Rigidity.Motions);
+                    DA.SetData(7, obj.PointSupport.Group.Rigidity.Rotations);
+                }
+                else
+                {
+                    DA.SetData(6, obj.PointSupport.Group.PredefRigidity.Rigidity.Motions);
+                    DA.SetData(7, obj.PointSupport.Group.PredefRigidity.Rigidity.Rotations);
+                }
             }
             else if (obj.LineSupport != null)
             {   
@@ -58,8 +68,18 @@ namespace FemDesign.GH
                 DA.SetData(3, obj.LineSupport.MovingLocal);
                 DA.SetData(4, obj.LineSupport.Group.LocalX.ToRhino());
                 DA.SetData(5, obj.LineSupport.Group.LocalY.ToRhino());
-                DA.SetData(6, obj.LineSupport.Group.Rigidity.Motions);
-                DA.SetData(7, obj.LineSupport.Group.Rigidity.Rotations);
+
+                // catch pre-defined rigidity
+                if (obj.LineSupport.Group.Rigidity != null)
+                { 
+                    DA.SetData(6, obj.LineSupport.Group.Rigidity.Motions);
+                    DA.SetData(7, obj.LineSupport.Group.Rigidity.Rotations);
+                }
+                else
+                {
+                    DA.SetData(6, obj.LineSupport.Group.PredefRigidity.Rigidity.Motions);
+                    DA.SetData(7, obj.LineSupport.Group.PredefRigidity.Rigidity.Rotations);
+                }
             }
             else if (obj.SurfaceSupport != null)
             {
@@ -69,7 +89,17 @@ namespace FemDesign.GH
                 DA.SetData(3, "SurfaceSupport has no moving local property.");
                 DA.SetData(4, obj.SurfaceSupport.CoordinateSystem.LocalX.ToRhino());
                 DA.SetData(5, obj.SurfaceSupport.CoordinateSystem.LocalY.ToRhino());
-                DA.SetData(6, obj.SurfaceSupport.Rigidity.Motions);
+
+                // catch pre-defined rigidity
+                if (obj.SurfaceSupport.Rigidity != null)
+                { 
+                    DA.SetData(6, obj.SurfaceSupport.Rigidity.Motions);
+                }
+                else
+                {
+                    DA.SetData(6, obj.SurfaceSupport.PredefRigidity.Rigidity.Motions);
+                }
+
                 DA.SetData(7, "SurfaceSupport has no rotations property");
             }
             else

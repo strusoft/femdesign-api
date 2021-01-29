@@ -88,16 +88,34 @@ namespace FemDesign.Bars
                 {
                     Bar._barInstance++;
                     this._identifier = value + "." + Bar._barInstance.ToString();
+
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else if (this.Type == BarType.Column)
                 {
                     Bar._columnInstance++;
                     this._identifier = value + "." + Bar._columnInstance.ToString();
+                    
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else if (this.Type == BarType.Truss)
                 {
                     Bar._trussInstance++;
                     this._identifier = value + "." + Bar._trussInstance.ToString();
+                    
+                    // update barpart identifier
+                    if (this.BarPart != null)
+                    {
+                        this.BarPart.Identifier = this._identifier;
+                    }
                 }
                 else
                 {
@@ -194,6 +212,22 @@ namespace FemDesign.Bars
             bar.MaxTension = maxTension;
             bar.TensionPlasticity = tensionPlasticity;
             return bar;
+        }
+
+        /// Update entities if this bar should be "reconstructed"
+        internal void UpdateEntities()
+        {
+            if (this.Type == BarType.Truss)
+            {
+                this.EntityCreated();
+                this.BarPart.EntityCreated();
+            }
+            else
+            {
+                this.EntityCreated();
+                this.BarPart.EntityCreated();
+                this.BarPart.ComplexSection.EntityCreated();
+            }
         }
 
 

@@ -134,7 +134,7 @@ namespace FemDesign.GH
             
             //
             FemDesign.Model _obj = new FemDesign.Model(countryCode);
-            _obj.AddEntities(bars,fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
+            _obj.AddEntities(bars,fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes, false);
 
             // return
             DA.SetData(0, _obj);

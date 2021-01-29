@@ -11,6 +11,7 @@ namespace FemDesign.Loads
     {
         public PointLoad PointLoad { get; set; }
         public LineLoad LineLoad { get; set; }
+        public LineStressLoad LineStressLoad { get; set; }
         public LineTemperatureLoad LineTemperatureLoad { get; set; }
         public SurfaceLoad SurfaceLoad { get; set; }
         public SurfaceTemperatureLoad SurfaceTemperatureLoad { get; set; }
@@ -28,6 +29,12 @@ namespace FemDesign.Loads
         {
             this.LineLoad = obj;
         }
+
+        internal GenericLoadObject(LineStressLoad obj)
+        {
+            this.LineStressLoad = obj;
+        }
+
         internal GenericLoadObject(LineTemperatureLoad obj)
         {
             this.LineTemperatureLoad = obj;

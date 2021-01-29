@@ -38,11 +38,20 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// abs_max_10
+        /// abs_max_1000
         /// </summary>
         internal static double AbsMax_1000(double val)
         {
             double max = 1000;
+            return RestrictedDouble.ValueInRange(val, -max, max);
+        }
+
+        /// <summary>
+        /// abs_max_10000
+        /// </summary>
+        internal static double AbsMax_10000(double val)
+        {
+            double max = 10000;
             return RestrictedDouble.ValueInRange(val, -max, max);
         }
 

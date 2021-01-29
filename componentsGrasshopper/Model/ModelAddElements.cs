@@ -38,6 +38,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -127,12 +129,18 @@ namespace FemDesign.GH
                 // pass
             }
 
+            bool overwrite = false;
+            if (!DA.GetData(13, ref overwrite))
+            {
+                // pass
+            }
+
             // supports
             List<object> _loads = FemDesign.Loads.GenericLoadObject.ToObjectList(loads);
             List<object> _supports = FemDesign.Supports.GenericSupportObject.ToObjectList(supports);
             
             //
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
 
             // return
             DA.SetData(0, model);
