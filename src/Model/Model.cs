@@ -1487,6 +1487,43 @@ namespace FemDesign
 
             // add obj
             this.Entities.Supports.PointSupport.Add(obj);
+
+            // add predefined rigidity
+            if (obj.Group.PredefRigidity != null)
+            {
+                this.AddPointSupportGroupLibItem(obj.Group.PredefRigidity, overwrite);
+            }
+        }
+
+        /// <summary>
+        /// Add predefined point support rigidity to model
+        /// </summary>
+        private void AddPointSupportGroupLibItem(Releases.RigidityDataLibType2 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.PointSupportGroupTypes == null)
+            {
+                this.PointSupportGroupTypes = new LibraryItems.PointSupportGroupTypes();
+                this.PointSupportGroupTypes.PredefinedTypes = new List<Releases.RigidityDataLibType2>();
+            }
+
+            // in model?
+            bool inModel = this.PointSupportGroupTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.PointSupportGroupTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.PointSupportGroupTypes.PredefinedTypes.Add(obj);
         }
 
         /// <summary>
@@ -1503,6 +1540,8 @@ namespace FemDesign
             }
             return false;
         }
+
+
 
         /// <summary>
         /// Add LineSupport to Model.
@@ -1526,6 +1565,12 @@ namespace FemDesign
 
             // add obj
             this.Entities.Supports.LineSupport.Add(obj);
+
+            // add lib item
+            if (obj.Group.PredefRigidity != null)
+            {
+                this.AddLineSupportGroupLibItem(obj.Group.PredefRigidity, overwrite);
+            }
         }
 
         /// <summary>
@@ -1541,6 +1586,37 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Add predefined line support rigidity to model
+        /// </summary>
+        private void AddLineSupportGroupLibItem(Releases.RigidityDataLibType2 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.LineSupportGroupTypes == null)
+            {
+                this.LineSupportGroupTypes = new LibraryItems.LineSupportGroupTypes();
+                this.LineSupportGroupTypes.PredefinedTypes = new List<Releases.RigidityDataLibType2>();
+            }
+            
+            // in model?
+            bool inModel = this.LineSupportGroupTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.LineSupportGroupTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.LineSupportGroupTypes.PredefinedTypes.Add(obj);
         }
 
         /// <summary>
@@ -1565,10 +1641,16 @@ namespace FemDesign
 
             // add obj
             this.Entities.Supports.SurfaceSupport.Add(obj);
+
+            // add lib item
+            if (obj.PredefRigidity != null)
+            {
+                this.AddSurfaceSupportLibItem(obj.PredefRigidity, overwrite);
+            }
         }
 
         /// <summary>
-        /// Check if LineSupport in Model.
+        /// Check if SurfaceSupport in Model.
         /// </summary>
         private bool SurfaceSupportInModel(Supports.SurfaceSupport obj)
         {
@@ -1580,6 +1662,37 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Add predefined surface support rigidity to model
+        /// </summary>
+        private void AddSurfaceSupportLibItem(Releases.RigidityDataLibType1 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.SurfaceSupportTypes == null)
+            {
+                this.SurfaceSupportTypes = new LibraryItems.SurfaceSupportTypes();
+                this.SurfaceSupportTypes.PredefinedTypes = new List<Releases.RigidityDataLibType1>();
+            }
+            
+            // in model?
+            bool inModel = this.SurfaceSupportTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.SurfaceSupportTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.SurfaceSupportTypes.PredefinedTypes.Add(obj);
         }
 
         /// <summary>

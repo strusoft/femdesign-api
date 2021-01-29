@@ -14,7 +14,7 @@ namespace FemDesign.LibraryItems
     public class PointConnectionTypes
     {
         [XmlElement("predefined_type", Order = 1)]
-        public Releases.RigidityDataLibType2[] PredefinedTypes { get; set; }
+        public List<Releases.RigidityDataLibType2> PredefinedTypes { get; set; }
     }
 
     [System.Serializable]
@@ -22,7 +22,7 @@ namespace FemDesign.LibraryItems
     public class PointSupportGroupTypes
     {
         [XmlElement("predefined_type", Order = 1)]
-        public Releases.RigidityDataLibType2[] PredefinedTypes { get; set; }
+        public List<Releases.RigidityDataLibType2> PredefinedTypes { get; set; }
     }
 
     [System.Serializable]
@@ -38,7 +38,7 @@ namespace FemDesign.LibraryItems
     public class LineSupportGroupTypes
     {
         [XmlElement("predefined_type", Order = 1)]
-        public Releases.RigidityDataLibType2[] PredefinedTypes { get; set; }
+        public List<Releases.RigidityDataLibType2> PredefinedTypes { get; set; }
     }
 
     [System.Serializable]
@@ -46,7 +46,7 @@ namespace FemDesign.LibraryItems
     public class SurfaceConnectionTypes
     {
         [XmlElement("predefined_type", Order = 1)]
-        public Releases.RigidityDataLibType1[] PredefinedTypes { get; set; }
+        public List<Releases.RigidityDataLibType1> PredefinedTypes { get; set; }
     }
 
     [System.Serializable]
@@ -54,6 +54,6 @@ namespace FemDesign.LibraryItems
     public class SurfaceSupportTypes
     {
         [XmlElement("predefined_type", Order = 1)]
-        public Releases.RigidityDataLibType1[] PredefinedTypes { get; set; }
+        public List<Releases.RigidityDataLibType1> PredefinedTypes { get; set; }
     }
 }
