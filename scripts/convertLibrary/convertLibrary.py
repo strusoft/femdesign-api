@@ -139,6 +139,7 @@ def convertDynamo(srcDir, dstDir):
 
 def convertDLL(srcDir, dstDir):
     wrapper(srcDir + "\\src", dstDir + "\\src", parse = "DLL")
+    copyCommonFiles(srcDir, dstDir)
 
 if __name__ == "__main__":
     pass
