@@ -16,8 +16,9 @@ This repository contains source code for the FEM-Design Dynamo and Grasshopper t
 
 
 ## Branches
-The repository contains three branches: 
+The repository contains four branches: 
 * master
+* [core](https://github.com/andosca/femdesign-api/tree/core)
 * [dynamo](https://github.com/andosca/femdesign-api/tree/dynamo)
 * [grasshopper](https://github.com/andosca/femdesign-api/tree/grasshopper)
 
@@ -48,6 +49,9 @@ Moreover some classes and methods are decorated with Dynamo specific attributes:
 ```
 
 These library specific code regions and attributes are stripped for each repesctive branch using [convertLibrary.py](scripts/convertLibrary/convertLibrary.py).
+
+### core
+The core branch contains the source code stripped from any Dynamo or Grasshopper methods.
 
 ### dynamo 
 The dynamo branch contains the code for the dynamo solution. To setup a solution in Visual studio for the grasshopper branch: 
