@@ -19,7 +19,7 @@ namespace FemDesign
         public ModellingTools.ConnectedPoints[] ConnectedPoints { get; set; }
 
         [XmlElement("connected_lines", Order = 2)]
-        public ModellingTools.ConnectedLines[] ConnectedLines { get; set; }
+        public List<ModellingTools.ConnectedLines> ConnectedLines { get; set; }
 
         [XmlElement("surface_connection", Order = 3)]
         public ModellingTools.SurfaceConnection[] SurfaceConnections { get; set; }

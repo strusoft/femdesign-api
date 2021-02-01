@@ -532,6 +532,34 @@ namespace FemDesign
             return false;
         }
 
+        private void AddConnectedLine(ModellingTools.ConnectedLines obj, bool overwrite)
+        {
+            // connected lines null?
+            if (this.Entities.AdvancedFem == null && this.Entities.AdvancedFem.ConnectedLines == null)
+            {
+                this.Entities.AdvancedFem.ConnectedLines = new List<ModellingTools.ConnectedLines>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.AdvancedFem.ConnectedLines.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.AdvancedFem.ConnectedLines.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add connected line
+            this.Entities.AdvancedFem.ConnectedLines.Add(obj);
+        }
+
+
         /// <summary>
         /// Add Load to Model.
         /// </summary>
@@ -2261,10 +2289,26 @@ namespace FemDesign
             // deep clone model
             Model model = fdModel.DeepClone();
 
-            // create model
+            // add entities
             model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
             return model;
         }
+
+        [IsLacingDisabled()]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Model ModelAddConnectedLine(Model fdModel, List<ModellingTools.ConnectedLines> connectedLines, bool overwrite = false)
+        {
+            // add connectedLines
+            foreach (ModellingTools.ConnectedLines item in connectedLines)
+            {
+                fdModel.AddConnectedLine(item, overwrite);
+            }
+
+            // return
+            return fdModel;
+            
+        }
+
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
         /// </summary>
