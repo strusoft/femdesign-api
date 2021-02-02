@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class GlcPanelTypes
     {
         [XmlElement("predefined_type", Order = 1)]
@@ -21,7 +21,7 @@ namespace FemDesign.Materials
     }
 
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class GlcPanelLibraryType: LibraryBase
     {
         [XmlElement("glc_panel_data", Order = 1)]

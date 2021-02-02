@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class GlcDataType
     {
         [XmlElement("layer", Order = 1)]

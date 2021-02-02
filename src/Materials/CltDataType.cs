@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class CltDataType
     {
         [XmlElement("default_kdef", Order = 1)]

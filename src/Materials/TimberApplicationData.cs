@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Materials
 {
     /// <summary>
     /// timber_application_data
     /// </summary>
     [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class TimberApplicationData
     {
         /// <summary>

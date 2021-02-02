@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class LimitStresses: MechProps
     {
         [XmlAttribute("fm0k")]

@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Materials
 {   [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class CltPanelTypes
     {
         [XmlElement("predefined_type", Order = 1)]
@@ -20,7 +20,7 @@ namespace FemDesign.Materials
     }
 
     [System.Serializable()]
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public class CltPanelLibraryType: LibraryBase
     {
         [XmlElement("clt_panel_data")]

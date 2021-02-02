@@ -1,11 +1,16 @@
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Materials
 {
     /// <summary>
     /// service_class_factors
     /// </summary>
     [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class ServiceClassFactors
     {
         [XmlAttribute("kdef")]

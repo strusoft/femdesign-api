@@ -1,11 +1,16 @@
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Materials
 {
     /// <summary>
     /// timber_factors_type
     /// </summary>
     [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class TimberFactors
     {
         /// <summary>

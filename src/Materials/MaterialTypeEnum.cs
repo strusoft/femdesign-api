@@ -1,7 +1,13 @@
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Materials
 {
+    [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public enum MaterialTypeEnum
     {
         SteelRolled  = 0,

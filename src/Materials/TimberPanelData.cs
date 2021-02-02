@@ -1,11 +1,16 @@
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Materials
 {
     /// <summary>
     /// tp_datatype
     /// </summary>
     [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class TimberPanelData
     {
         [XmlElement("stiffness", Order=1)]
