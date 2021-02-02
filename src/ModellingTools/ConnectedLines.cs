@@ -140,7 +140,7 @@ namespace FemDesign.ModellingTools
         #region dynamo
 
         [IsVisibleInDynamoLibrary(true)]
-        public ConnectedLines Define(Autodesk.DesignScript.Geometry.Curve firstCurve, Autodesk.DesignScript.Geometry.Curve secondCurve, Autodesk.DesignScript.Geometry.Vector localX, Autodesk.DesignScript.Geometry.Vector localY, Releases.Motions motions, Releases.Rotations rotations, System.Guid[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
+        public static ConnectedLines Define(Autodesk.DesignScript.Geometry.Curve firstCurve, Autodesk.DesignScript.Geometry.Curve secondCurve, Autodesk.DesignScript.Geometry.Vector localX, Autodesk.DesignScript.Geometry.Vector localY, Releases.Motions motions, Releases.Rotations rotations, System.Guid[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
         {
             // convert geometry
             Geometry.Edge edge0 = Geometry.Edge.FromDynamoLineOrArc2(firstCurve);
