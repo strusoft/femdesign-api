@@ -534,8 +534,14 @@ namespace FemDesign
 
         private void AddConnectedLine(ModellingTools.ConnectedLines obj, bool overwrite)
         {
+            // advanced fem null?
+            if (this.Entities.AdvancedFem == null)
+            {
+                this.Entities.AdvancedFem = new AdvancedFem();
+            }
+
             // connected lines null?
-            if (this.Entities.AdvancedFem == null && this.Entities.AdvancedFem.ConnectedLines == null)
+            if ( this.Entities.AdvancedFem.ConnectedLines == null)
             {
                 this.Entities.AdvancedFem.ConnectedLines = new List<ModellingTools.ConnectedLines>();
             }
