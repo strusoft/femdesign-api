@@ -125,8 +125,11 @@ namespace FemDesign.ModellingTools
         public ConnectedLines(Geometry.Edge firstEdge, Geometry.Edge secondEdge, Geometry.FdVector3d localX, Geometry.FdVector3d localY, Releases.RigidityDataType3 rigidity, GuidListType[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
         {
             this.EntityCreated();
-            this.Edges[0] = firstEdge;
-            this.Edges[1] = secondEdge;
+            this.Edges = new Geometry.Edge[2]
+            {
+                firstEdge,
+                secondEdge
+            };
             this.LocalX = localX;
             this.LocalY = localY;
             this.Rigidity = rigidity;
