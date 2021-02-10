@@ -13,6 +13,20 @@ namespace FemDesign.Loads
     {
         [XmlElement("region", Order=1)]
         public Geometry.Region Region { get; set; }
+
+        [XmlIgnore]
+        public Geometry.FdVector3d LocalZ
+        {
+            get
+            {
+                return this.Region.LocalZ;
+            }
+            set
+            {
+                this.Region.LocalZ = value;
+            }
+        }
+
         [XmlElement("temperature", Order=2)]
         public List<TopBotLocationValue> _topBotLocVal;
         [XmlIgnore]
@@ -50,10 +64,11 @@ namespace FemDesign.Loads
         /// <param name="tempLocValue">List of top bottom location value. List should have 1 or 3 elements.></param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment)
+        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.FdVector3d direction, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
+            this.LocalZ = direction;
             this.TopBotLocVal = tempLocValue;
             this.LoadCase = loadCase.Guid;
             this.Comment = comment;
@@ -67,10 +82,11 @@ namespace FemDesign.Loads
         /// <param name="bottomVal">Bottom value, temperature in celsius</param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, double topVal, double bottomVal, LoadCase loadCase, string comment)
+        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.FdVector3d direction, double topVal, double bottomVal, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
+            this.LocalZ = direction;
             this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.Origin, topVal, bottomVal)};
             this.LoadCase = loadCase.Guid;
             this.Comment = comment;
@@ -86,13 +102,14 @@ namespace FemDesign.Loads
         /// <param name="comment">Comment.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static SurfaceTemperatureLoad Define(Autodesk.DesignScript.Geometry.Surface surface, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment = "")
+        public static SurfaceTemperatureLoad Define(Autodesk.DesignScript.Geometry.Surface surface, Autodesk.DesignScript.Geometry.Vector direction, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment = "")
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
+            Geometry.FdVector3d dir = Geometry.FdVector3d.FromDynamo(direction);
 
             // return
-            return new SurfaceTemperatureLoad(region, tempLocValue, loadCase, comment);
+            return new SurfaceTemperatureLoad(region, dir, tempLocValue, loadCase, comment);
         }
         #endregion
     }
