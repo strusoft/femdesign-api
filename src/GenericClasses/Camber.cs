@@ -41,5 +41,16 @@ namespace FemDesign
                 this._eccentricity = RestrictedDouble.NonNegMax_10000(value);
             }
         }
+
+        /// <summary>
+        /// Construct a new Camber instance
+        /// </summary>
+        /// <param name="force">Force.</param>
+        /// <param name="eccentricity">Eccentricity.</param>
+        public Camber(double force, double eccentricity)
+        {
+            this.Force = force;
+            this.Eccentricity = eccentricity;
+        }
     }
 }

@@ -493,6 +493,25 @@ namespace FemDesign.Shells
             // return
             return obj;
         }
+
+        ///<summary>
+        /// Set camber simulation (by prestress) defining the prestress force and the related eccentricity
+        ///</summary>
+        ///<param name="panel">Panel.</param>
+        ///<param name="force">Total prestress force in kN</param>
+        ///<param name="eccentricity">Eccentricity of prestress force</param>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Panel SetCamberSimByPreStress(Panel panel, double force, double eccentricity)
+        {
+            // deep clone to create a new instance
+            var obj = panel.DeepClone();
+
+            // set camber of new instance
+            obj.Camber = new Camber(force, eccentricity);
+
+            // return new instance
+            return obj;
+        }
         #endregion
     }
 }
