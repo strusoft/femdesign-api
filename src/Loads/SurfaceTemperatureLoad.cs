@@ -61,6 +61,7 @@ namespace FemDesign.Loads
         /// Construct a surface temperature load by region and temperature location values (top/bottom)
         /// </summary>
         /// <param name="region">Region</param>
+        /// <param name="direction">Direction of load</param>
         /// <param name="tempLocValue">List of top bottom location value. List should have 1 or 3 elements.></param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
@@ -78,6 +79,7 @@ namespace FemDesign.Loads
         /// Construct surface temperature load by region, top value and bottom value.
         /// </summary>
         /// <param name="region">Region</param>
+        /// <param name="direction">Direction of load</param>
         /// <param name="topVal">Top value, temperature in celsius</param>
         /// <param name="bottomVal">Bottom value, temperature in celsius</param>
         /// <param name="loadCase">LoadCase.</param>
@@ -97,6 +99,7 @@ namespace FemDesign.Loads
         /// Define a surface temperature load
         /// </summary>
         /// <param name="surface">Surface</param>
+        /// <param name="direction">Direction of load</param>
         /// <param name="tempLocValue">Top and bottom temperature location values. Should be 1 or 3 elements. Use one if uniform and 3 if variable.</param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
