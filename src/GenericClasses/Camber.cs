@@ -43,6 +43,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private Camber()
+        {
+
+        }
+
+        /// <summary>
         /// Construct a new Camber instance
         /// </summary>
         /// <param name="force">Force.</param>
