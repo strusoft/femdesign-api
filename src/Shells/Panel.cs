@@ -330,6 +330,17 @@ namespace FemDesign.Shells
                 this._panelWidth = RestrictedDouble.NonNegMax_100(value).ToString();
             }
         }
+        [XmlIgnore]
+        public double UniformAvgMeshSize
+        {
+            set
+            {    
+                foreach (InternalPanel intPanel in this.InternalPanels.IntPanels)
+                {
+                    intPanel.MeshSize = value;
+                }    
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization
@@ -467,10 +478,11 @@ namespace FemDesign.Shells
         /// <param name="edgeConnection">ShellEdgeConnection. Optional.</param>
         /// <param name="LocalX">"Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined."</param>
         /// <param name="LocalZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
+        /// <param name="identifier">Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.</param>
         /// <param name="identifier">Identifier.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Panel ProfiledPlate(Autodesk.DesignScript.Geometry.Surface surface, Materials.Material material, Sections.Section section, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity eccentricity, [DefaultArgument("1")] double orthoRatio, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ,  string identifier = "PP")
+        public static Panel ProfiledPlate(Autodesk.DesignScript.Geometry.Surface surface, Materials.Material material, Sections.Section section, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity eccentricity, [DefaultArgument("1")] double orthoRatio, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("0")] double avgMeshSize, string identifier = "PP")
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -489,6 +501,9 @@ namespace FemDesign.Shells
             {
                 obj.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
             }
+
+            // set mesh
+            obj.UniformAvgMeshSize = avgMeshSize;
 
             // return
             return obj;
