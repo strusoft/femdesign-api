@@ -37,7 +37,7 @@ namespace FemDesign.Releases
             }
             set
             {
-                this._friction = value.ToString();
+                this._friction = value.ToString(CultureInfo.InvariantCulture);
             }
         }
 

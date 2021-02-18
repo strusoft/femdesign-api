@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -158,12 +159,12 @@ namespace FemDesign.Calculate
             }
         }
 
-        internal bool RunAnalysis(string struxmlPath, Analysis analysis, string bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        internal bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);
         }
-        internal bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, string bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        internal bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);
@@ -184,7 +185,7 @@ namespace FemDesign.Calculate
         /// <param name="runNode">If true node will execute. If false node will not execute. </param>
         /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static bool RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, string bscPath = "", string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
+        public static bool RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, [DefaultArgument("[]")] List<string> bscPath, string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
         {
             if (!runNode)
             {
@@ -210,7 +211,7 @@ namespace FemDesign.Calculate
         /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static bool RunDesign(string mode, Model fdModel, string struxmlPath, Calculate.Analysis analysis, Calculate.Design design, string bscPath = "", string docxTemplatePath = "", bool endSession = false, bool closeOpenWindows = false, bool runNode = true)
+        public static bool RunDesign(string mode, Model fdModel, string struxmlPath, Calculate.Analysis analysis, Calculate.Design design, [DefaultArgument("[]")] List<string> bscPath, string docxTemplatePath = "", bool endSession = false, bool closeOpenWindows = false, bool runNode = true)
         {
             if (!runNode)
             {

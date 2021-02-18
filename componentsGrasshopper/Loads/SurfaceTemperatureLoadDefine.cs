@@ -15,6 +15,7 @@ namespace FemDesign.GH
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Direction", "Direction", "Direction.", GH_ParamAccess.item);
             pManager.AddGenericParameter("TopBotLocationValue", "TopBotLocVal", "Temperature at top and bottom of surface. Either 1 value (uniform) or 3 values (variable)", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
@@ -33,20 +34,26 @@ namespace FemDesign.GH
                 return;
             }
 
+            Vector3d direction = Vector3d.Zero;
+            if (!DA.GetData(1, ref direction))
+            {
+                return;
+            }
+
             List<Loads.TopBotLocationValue> vals = new List<Loads.TopBotLocationValue>();
-            if (!DA.GetDataList(1, vals))
+            if (!DA.GetDataList(2, vals))
             {
                 return;
             }
 
             Loads.LoadCase lc = null;
-            if (!DA.GetData(2, ref lc))
+            if (!DA.GetData(3, ref lc))
             {
                 return;
             }
 
             string comment = null;
-            if (!DA.GetData(3, ref comment))
+            if (!DA.GetData(4, ref comment))
             {
                 // pass;
             }
@@ -58,9 +65,10 @@ namespace FemDesign.GH
 
             // convert geometry
             Geometry.Region region = Geometry.Region.FromRhino(brep);
+            Geometry.FdVector3d dir = Geometry.FdVector3d.FromRhino(direction);
 
             // create obj
-            Loads.GenericLoadObject obj = new Loads.GenericLoadObject(new Loads.SurfaceTemperatureLoad(region, vals, lc, comment));
+            Loads.GenericLoadObject obj = new Loads.GenericLoadObject(new Loads.SurfaceTemperatureLoad(region, dir, vals, lc, comment));
 
             // return
             DA.SetData(0, obj);

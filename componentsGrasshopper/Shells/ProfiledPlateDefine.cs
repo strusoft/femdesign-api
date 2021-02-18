@@ -26,6 +26,8 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("AvgMeshSize", "AverageMeshSize", "Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.", GH_ParamAccess.item, 0);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional.", GH_ParamAccess.item, "PP");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -83,9 +85,15 @@ namespace FemDesign.GH
             {
                 // pass
             }
+
+            double meshSize = 0;
+            if (!DA.GetData(8, ref meshSize))
+            {
+                // pass
+            }
             
             string identifier = "PP";
-            if (!DA.GetData(8, ref identifier))
+            if (!DA.GetData(9, ref identifier))
             {
                 // pass
             }
@@ -112,6 +120,9 @@ namespace FemDesign.GH
             {
                 obj.LocalZ = FemDesign.Geometry.FdVector3d.FromRhino(z);
             }
+
+            // set uniform average mesh size
+            obj.UniformAvgMeshSize = meshSize;
 
             // return
             DA.SetData(0, obj);

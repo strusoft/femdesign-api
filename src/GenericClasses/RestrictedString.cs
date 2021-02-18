@@ -88,7 +88,7 @@ namespace FemDesign
         /// </summary>
         internal static string DetachType(string val)
         {
-            List<string> items = new List<string>(){"x_tens", "x_comp", "y_tens", "y_comp", "z_tens", "z_comp"};
+            List<string> items = new List<string>(){"", "x_tens", "x_comp", "y_tens", "y_comp", "z_tens", "z_comp"};
             return RestrictedString.RestrictionItems(val, items);
         }
 
