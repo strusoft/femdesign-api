@@ -100,7 +100,7 @@ namespace FemDesign.Shells
 
             foreach (int index in indices)
             {
-                if (index >= 0 & index < slab.SlabPart.GetEdgeConnections().Count)
+                if (index >= 0 & index < slabClone.SlabPart.GetEdgeConnections().Count)
                 {
                     // pass
                 }
