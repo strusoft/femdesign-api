@@ -54,7 +54,7 @@ namespace FemDesign.Shells
         private ShellEdgeConnection(Releases.RigidityDataType3 rigidity)
         {
             this.EntityCreated();
-            this.MovingLocal = true;
+            this.MovingLocal = false;
             this.JoinedStartPoint = true;
             this.JoinedEndPoint = true;
             this.Rigidity = rigidity;
