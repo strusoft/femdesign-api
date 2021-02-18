@@ -152,7 +152,7 @@ namespace FemDesign
             // cast type
             Model model = (Model)obj;
 
-            // prepare elements
+            // prepare elements with library references
             model.GetBars();
             model.GetFictitiousShells();
             model.GetLineSupports();
