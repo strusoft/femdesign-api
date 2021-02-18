@@ -343,6 +343,27 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
+        /// Set external edge connections (i.e. set edge connections around region). 
+        /// When this is performed for panels the external rigidity should be changed to reflect the majority of edge connections of the region.
+        /// </summary>
+        public void SetExternalEdgeConnections(ShellEdgeConnection ec)
+        {
+            // set the edge connections of the external edges of the internal panels
+            if (this.InternalPanels.IntPanels.Count == 1)
+            {
+                this.InternalPanels.IntPanels[0].Region.SetEdgeConnections(ec);
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+
+
+            // set external rigidity property to reflect the majority of edge connections of the region
+            this.ExternalRigidity = ec.Rigidity;
+        }
+
+        /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
         private Panel()
@@ -366,7 +387,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Releases.RigidityDataType3 externalRigidity, string type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
+        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, ShellEdgeConnection externalEdgeConnection, string type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
 
@@ -375,7 +396,10 @@ namespace FemDesign.Shells
             this.CoordinateSystem = region.CoordinateSystem;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
-            this.ExternalRigidity = externalRigidity;
+            this.ExternalRigidity = externalEdgeConnection.Rigidity;
+
+            // set edge connections
+            this.SetExternalEdgeConnections(externalEdgeConnection);
 
             // attributes
             this.Type = type;
@@ -408,7 +432,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberApplicationData timberApplicationData, Releases.RigidityDataType3 externalRigidity, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberApplicationData timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -418,7 +442,11 @@ namespace FemDesign.Shells
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
             this.TimberApplicationData = timberApplicationData;
-            this.ExternalRigidity = externalRigidity;
+
+            // set external rigidity
+            this.SetExternalEdgeConnections(externalEdgeConnection);
+
+            // set internal rigidity - not relevant for a panel with continuous analytical model
 
             // attributes
             this.Type = type;
@@ -436,7 +464,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default concrete shell with panels using a continuous analytical model.
         /// </summary>
-        public static Panel DefaultContreteContinuous(Geometry.Region region, Releases.RigidityDataType3 externalRigidity, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
+        public static Panel DefaultContreteContinuous(Geometry.Region region, ShellEdgeConnection externalEdgeConnection, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
         {
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
@@ -444,15 +472,15 @@ namespace FemDesign.Shells
             string type = "concrete";
             string panelName = "A";
             double gap = 0.003;
-            bool externalMovingLocal = true;
+            bool externalMovingLocal = externalEdgeConnection.MovingLocal;
             
-            return new Panel(region, anchorPoint, internalPanels, externalRigidity, type, material, section, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal);
+            return new Panel(region, anchorPoint, internalPanels, externalEdgeConnection, type, material, section, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal);
         }
 
         /// <summary>
         /// Create a default timber shell with panels using a continuous analytical model.
         /// </summary>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberApplicationData timberApplicationData,  Releases.RigidityDataType3 externalRigidity, string identifier, ShellEccentricity ecc, double panelWidth)
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberApplicationData timberApplicationData,  ShellEdgeConnection externalEdgeConnection, string identifier, ShellEccentricity ecc, double panelWidth)
         {
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
@@ -461,9 +489,9 @@ namespace FemDesign.Shells
             string panelName = "A";
             double gap = 0.01;
             double orthotropy = 1;
-            bool externalMovingLocal = true;
+            bool externalMovingLocal = externalEdgeConnection.MovingLocal;
 
-            return new Panel(region, anchorPoint, internalPanels, timberApplicationData, externalRigidity, type, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal, panelWidth);
+            return new Panel(region, anchorPoint, internalPanels, timberApplicationData, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal, panelWidth);
         }
 
         #region dynamo
@@ -475,20 +503,20 @@ namespace FemDesign.Shells
         /// <param name="section">Section.</param>
         /// <param name="eccentricity">ShellEccentricity. Optional.</param>
         /// <param name="orthoRatio">Transverse flexural stiffness factor.</param>
-        /// <param name="edgeConnection">ShellEdgeConnection. Optional.</param>
+        /// <param name="edgeConnection">ShellEdgeConnection. Optional. If not defined hinged will be used.</param>
         /// <param name="LocalX">"Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined."</param>
         /// <param name="LocalZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
         /// <param name="identifier">Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.</param>
         /// <param name="identifier">Identifier.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Panel ProfiledPlate(Autodesk.DesignScript.Geometry.Surface surface, Materials.Material material, Sections.Section section, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity eccentricity, [DefaultArgument("1")] double orthoRatio, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("0")] double avgMeshSize, string identifier = "PP")
+        public static Panel ProfiledPlate(Autodesk.DesignScript.Geometry.Surface surface, Materials.Material material, Sections.Section section, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity eccentricity, [DefaultArgument("1")] double orthoRatio, [DefaultArgument("ShellEdgeConnection.Hinged()")] ShellEdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("0")] double avgMeshSize, string identifier = "PP")
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
 
             // create panel
-            Panel obj = Panel.DefaultContreteContinuous(region, edgeConnection.Rigidity, material, section, identifier, orthoRatio, eccentricity);
+            Panel obj = Panel.DefaultContreteContinuous(region, edgeConnection, material, section, identifier, orthoRatio, eccentricity);
 
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))

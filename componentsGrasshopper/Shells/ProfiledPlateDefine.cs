@@ -20,7 +20,7 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("OrthoRatio", "OrthoRatio", "Transversal flexural stiffness factor.", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "ShellEdgeConnection. Optional.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "ShellEdgeConnection. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -68,7 +68,7 @@ namespace FemDesign.GH
                 // pass
             }
             
-            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Rigid();
+            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Hinged();
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass
@@ -107,7 +107,7 @@ namespace FemDesign.GH
             FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
 
             //
-            FemDesign.Shells.Panel obj = FemDesign.Shells.Panel.DefaultContreteContinuous(region, edgeConnection.Rigidity, material, section, identifier, orthoRatio, eccentricity);
+            FemDesign.Shells.Panel obj = FemDesign.Shells.Panel.DefaultContreteContinuous(region, edgeConnection, material, section, identifier, orthoRatio, eccentricity);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
