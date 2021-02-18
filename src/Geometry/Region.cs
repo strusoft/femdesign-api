@@ -139,36 +139,36 @@ namespace FemDesign.Geometry
         /// </summary>
         internal void SetEdgeConnection(Shells.ShellEdgeConnection edgeConnection, int index)
         {
-            if (edgeConnection.Release)
+            int edgeIdx = 0;
+            foreach (Contour contour in this.Contours)
             {
-                int edgeIdx = 0;
-                foreach (Contour contour in this.Contours)
+                if (contour.Edges != null)
                 {
-                    if (contour.Edges != null)
+                    int cInstance = 0;
+                    foreach (Edge edge in contour.Edges)
                     {
-                        int cInstance = 0;
-                        foreach (Edge edge in contour.Edges)
+                        cInstance++;
+                        if (index == edgeIdx)
                         {
-                            cInstance++;
-                            if (index == edgeIdx)
+                            if (!edgeConnection.Release)
                             {
+                                edge.EdgeConnection = null;
+                            }
+                            else
+                            { 
                                 string name = "CE." + cInstance.ToString();
                                 Shells.ShellEdgeConnection ec = Shells.ShellEdgeConnection.CopyExisting(edgeConnection, name);
                                 edge.EdgeConnection = ec;
-                                return;
                             }
-                            edgeIdx++;
+                            return;
                         }
-                    }
-                    else
-                    {
-                        throw new System.ArgumentException("No edges in contour!");
+                        edgeIdx++;
                     }
                 }
-            }
-            else
-            {
-                // don't modify edges if no release on edgeConnection.
+                else
+                {
+                    throw new System.ArgumentException("No edges in contour!");
+                }
             }
 
             // edge not found
