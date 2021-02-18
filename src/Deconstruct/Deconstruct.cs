@@ -549,6 +549,33 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Deconstruct a panel of continuous analytical model.
+        /// </summary>
+        /// <param name="panel">Panel.</param>
+        [MultiReturn(new[]{"Guid", "ExtSurface", "Material", "Section", "ExtEdgeCurves", "ExtEdgeConnections", "LocalX", "LocalY", "Identifier"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> PanelContinuousAnalyticalModelDeconstruct(FemDesign.Shells.Panel panel)
+        {
+            if (panel.InternalPanels.IntPanels.Count != 1)
+            {
+                throw new System.ArgumentException("Panel has more than 1 internal panel. Panel analytical model is not of type continuous.");
+            }
+
+            return new Dictionary<string, object>
+            {
+                {"Guid", panel.Guid},
+                {"ExtSurface", panel.InternalPanels.IntPanels[0].Region.ToDynamoSurface()},
+                {"Material", panel.Material},
+                {"Section", panel.Section},
+                {"ExtEdgeCurves", panel.InternalPanels.IntPanels[0].Region.ToDynamoCurves()},
+                {"ExtEdgeConnections", panel.InternalPanels.IntPanels[0].Region.GetEdgeConnections()},
+                {"LocalX", panel.LocalX.ToDynamo()},
+                {"LocalY", panel.LocalY.ToDynamo()},
+                {"Identifier", panel.Identifier}
+            };
+        }
+
+        /// <summary>
         /// Deconstruct a section
         /// </summary>
         [IsVisibleInDynamoLibrary(true)]

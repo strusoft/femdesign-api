@@ -558,7 +558,7 @@ namespace FemDesign.Shells
         /// <param name="borderEdgeConnection">ShellEdgeConnection of external border of the Panel. Optional. If not defined hinged will be used.</param>
         /// <param name="LocalX">"Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined."</param>
         /// <param name="LocalZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
-        /// <param name="identifier">Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.</param>
+        /// <param name="avgMeshSize">Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.</param>
         /// <param name="identifier">Identifier.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
