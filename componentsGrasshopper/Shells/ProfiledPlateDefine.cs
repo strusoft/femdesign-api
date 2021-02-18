@@ -20,7 +20,7 @@ namespace FemDesign.GH
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("OrthoRatio", "OrthoRatio", "Transversal flexural stiffness factor.", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "ShellEdgeConnection. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BorderShellEdgeConnection", "BorderEdgeConnection", "ShellEdgeConnection of the external border of the panel. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Globalization;
 using System.Xml.Serialization;
 
@@ -344,8 +345,9 @@ namespace FemDesign.Shells
 
         /// <summary>
         /// Set external edge connections (i.e. set edge connections around region). 
-        /// When this is performed for panels the external rigidity should be changed to reflect the majority of edge connections of the region.
+        /// When this is performed for panels the external rigidity is changed accordingly.
         /// </summary>
+        /// <param name="ec">ShellEdgeConnection</param>
         public void SetExternalEdgeConnections(ShellEdgeConnection ec)
         {
             // set the edge connections of the external edges of the internal panels
@@ -361,6 +363,56 @@ namespace FemDesign.Shells
 
             // set external rigidity property to reflect the majority of edge connections of the region
             this.ExternalRigidity = ec.Rigidity;
+        }
+
+        /// <summary>
+        /// Set external edge connection at index (i.e. set edge connections at specific edge of region).
+        /// </summary>
+        /// <param name="ec">ShellEdgeConnection</param>
+        /// <param name="index">Index of edge to set at region of first (and only) internal panel.</param>
+        public void SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(ShellEdgeConnection ec, int index)
+        {
+            if (this.InternalPanels.IntPanels.Count != 1)
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+
+            if (index >= 0 & index < this.InternalPanels.IntPanels[0].Region.GetEdgeConnections().Count)
+            {
+                this.InternalPanels.IntPanels[0].Region.SetEdgeConnection(ec, index);
+            }
+            else
+            {
+                throw new System.ArgumentException("Index is out of bounds.");
+            }
+        }
+
+        /// <summary>
+        /// Set external edge connection at indices (i.e. set edge connections at specific edges of region).
+        /// </summary>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="indices">Index. List of items</param>
+        public void SetExternalEdgeConnectionsForContinuousAnalyticalModel(ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        {
+            if (this.InternalPanels.IntPanels.Count != 1)
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+
+            foreach (int index in indices)
+            {
+                if (index >= 0 & index < this.InternalPanels.IntPanels[0].Region.GetEdgeConnections().Count)
+                {
+                    // pass
+                }
+                else
+                {
+                    throw new System.ArgumentException("Index is out of bounds.");
+                }
+                
+                //
+                this.SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(shellEdgeConnection, index);  
+            }
         }
 
         /// <summary>
@@ -503,7 +555,7 @@ namespace FemDesign.Shells
         /// <param name="section">Section.</param>
         /// <param name="eccentricity">ShellEccentricity. Optional.</param>
         /// <param name="orthoRatio">Transverse flexural stiffness factor.</param>
-        /// <param name="edgeConnection">ShellEdgeConnection. Optional. If not defined hinged will be used.</param>
+        /// <param name="borderEdgeConnection">ShellEdgeConnection of external border of the Panel. Optional. If not defined hinged will be used.</param>
         /// <param name="LocalX">"Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined."</param>
         /// <param name="LocalZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
         /// <param name="identifier">Average mesh size. If zero an automatic value will be used by FEM-Design. Optional.</param>
@@ -554,6 +606,26 @@ namespace FemDesign.Shells
 
             // return new instance
             return obj;
+        }
+
+        /// <summary>
+        /// Set external ShellEdgeConnections by indices on a panel with continuous analytical model.
+        /// </summary>
+        /// <param name="panel">Panel.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Panel SetExternalEdgeConnectionForContinuousAnalyticalModel(Panel panel, ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        {
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
+            Panel panelClone = panel.DeepClone();
+
+            // set external edge connections
+            panelClone.SetExternalEdgeConnectionsForContinuousAnalyticalModel(shellEdgeConnection, indices);
+
+            // return
+            return panelClone;  
         }
         #endregion
     }
