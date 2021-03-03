@@ -262,7 +262,7 @@ namespace FemDesign.Shells
             set
             {
                 Panel.Instance++;
-                this._identifier = RestrictedString.Length(value, 50) + Panel.Instance.ToString();
+                this._identifier = RestrictedString.Length(value, 50) + "." + Panel.Instance.ToString();
             }
         }
         [XmlAttribute("panelname")]
