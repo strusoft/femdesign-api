@@ -83,5 +83,6 @@ namespace FemDesign.Loads
             this.LoadCase = loadCase.Guid;
             this.Comment = comment;
         }
+
     }
 }

@@ -18,7 +18,7 @@ namespace FemDesign.GH
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
-            pManager.AddTextParameter("BscPath", "BscPath", "File path to batch-file (.bsc) to run. Optional parameter.", GH_ParamAccess.item);
+            pManager.AddTextParameter("BscPath", "BscPath", "File path(s) to batch-file (.bsc) to run. Optional parameter.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documenation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -42,7 +42,7 @@ namespace FemDesign.GH
             string filePath = null;
             FemDesign.Calculate.Analysis analysis = null;
             FemDesign.Calculate.Design design = null;
-            string bscPath = "";
+            List<string> bscPath = new List<string>();
             string docxTemplatePath = "";
             bool endSession = false;
             bool closeOpenWindows = false;
@@ -70,7 +70,7 @@ namespace FemDesign.GH
             {
                 return;
             }
-            if (!DA.GetData(5, ref bscPath))
+            if (!DA.GetDataList(5, bscPath))
             {
                 // pass
             }

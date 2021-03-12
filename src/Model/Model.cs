@@ -146,7 +146,7 @@ namespace FemDesign
             // cast type
             Model model = (Model)obj;
 
-            // prepare elements
+            // prepare elements with library references
             model.GetBars();
             model.GetFictitiousShells();
             model.GetLineSupports();
@@ -525,6 +525,40 @@ namespace FemDesign
             }
             return false;
         }
+
+        private void AddConnectedLine(ModellingTools.ConnectedLines obj, bool overwrite)
+        {
+            // advanced fem null?
+            if (this.Entities.AdvancedFem == null)
+            {
+                this.Entities.AdvancedFem = new AdvancedFem();
+            }
+
+            // connected lines null?
+            if ( this.Entities.AdvancedFem.ConnectedLines == null)
+            {
+                this.Entities.AdvancedFem.ConnectedLines = new List<ModellingTools.ConnectedLines>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.AdvancedFem.ConnectedLines.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.AdvancedFem.ConnectedLines.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add connected line
+            this.Entities.AdvancedFem.ConnectedLines.Add(obj);
+        }
+
 
         /// <summary>
         /// Add Load to Model.

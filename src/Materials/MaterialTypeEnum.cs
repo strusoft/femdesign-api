@@ -1,7 +1,9 @@
 using System.Xml.Serialization;
 
+
 namespace FemDesign.Materials
 {
+    [System.Serializable]
     public enum MaterialTypeEnum
     {
         SteelRolled  = 0,

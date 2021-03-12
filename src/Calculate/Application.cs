@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -154,12 +155,12 @@ namespace FemDesign.Calculate
             }
         }
 
-        internal bool RunAnalysis(string struxmlPath, Analysis analysis, string bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        internal bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);
         }
-        internal bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, string bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        internal bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);

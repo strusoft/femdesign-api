@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 
@@ -54,7 +55,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
-        internal static FdScript CalculateStruxml(string struxmlPath, string mode, string bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript CalculateStruxml(string struxmlPath, string mode, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             FdScript obj = new FdScript();
 
@@ -74,10 +75,14 @@ namespace FemDesign.Calculate
             // set user
             obj.CmdUser = new CmdUser(mode);
 
-            // set batch
-            if (bscPath != "")
+            // listgen
+            if (bscPath != null || !bscPath.Any())
             {
-                obj.CmdListGen = new List<CmdListGen>{new CmdListGen(bscPath, obj.Cwd)};
+                obj.CmdListGen = new List<CmdListGen>();
+                foreach (string item in bscPath)
+                {
+                    obj.CmdListGen.Add(new CmdListGen(item, obj.Cwd));
+                }  
             }
 
             // set save docx
@@ -120,7 +125,7 @@ namespace FemDesign.Calculate
             obj.CmdOpen = new CmdOpen(strPath);
 
             // listgen
-            if (bscPath != null)
+            if (bscPath != null || !bscPath.Any())
             {
                 obj.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
@@ -142,7 +147,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis.
         /// </summary>
-        internal static FdScript Analysis(string struxmlPath, Analysis analysis, string bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             string mode = "RESMODE";
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
@@ -153,7 +158,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis and design.
         /// </summary>
-        internal static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, string bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             // get mode
             switch (mode)
