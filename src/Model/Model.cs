@@ -191,7 +191,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
+        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<ModellingTools.ConnectedLines> connectedLines, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -229,6 +229,14 @@ namespace FemDesign
                 foreach (ModellingTools.FictitiousBar fictBar in fictitiousBars)
                 {
                     this.AddFictBar(fictBar, overwrite);
+                }
+            }
+
+            if (connectedLines != null) 
+            {
+                foreach(ModellingTools.ConnectedLines connLine in connectedLines) 
+                {
+                    this.AddConnectedLine(connLine, overwrite);
                 }
             }
 
@@ -2269,9 +2277,8 @@ namespace FemDesign
             }
         }
 
-
-
         #endregion
+        
         #region dynamo
         /// <summary>
         /// Add elements to model. Nested lists are not supported, use flatten.
@@ -2331,7 +2338,7 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<ModellingTools.ConnectedLines> connectedLines, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
             //
             if (countryCode == null)
@@ -2341,7 +2348,7 @@ namespace FemDesign
 
             // create model
             Model _model = new Model(countryCode);
-            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, false);
+            _model.AddEntities(bars, fictitiousBars, connectedLines, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, false);
             return _model;
         }
         /// <summary>
