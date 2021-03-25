@@ -23,6 +23,8 @@ namespace FemDesign.Calculate
         public string OutFile { get; set; } // string
         [XmlAttribute("regional")]
         public int Regional { get; set; } // bool // int (0,1)?
+        [XmlAttribute("headers")]
+        public int Headers { get; set; } // bool // int (0,1)?
         [XmlAttribute("fillcells")]
         public int FillCells { get; set; } // bool // int (0,1)?
         private string FileName { get; set; }
@@ -51,6 +53,7 @@ namespace FemDesign.Calculate
             this.OutFile = outputDir + @"\" + this.FileName + @".csv";
             this.Regional = 0;
             this.FillCells = 0;
+            this.Headers = 1;
         }
     }
 }
