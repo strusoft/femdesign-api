@@ -6,10 +6,9 @@ namespace FemDesign.Calculate
 {
 
     /// <summary>
-    /// fdscript.xsd
-    /// bsc root
+    /// doctable
     /// </summary>
-    [XmlRoot("doctable")]
+    [XmlElement("doctable")]
     public class DocTable
     {
         [XmlIgnore]
