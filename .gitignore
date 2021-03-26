@@ -6,7 +6,7 @@ Properties
 Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
-src/Calculate/@*
+*notImplemented*
 FdApiSource.csproj
 FdApiSource.sln
 packages.config
