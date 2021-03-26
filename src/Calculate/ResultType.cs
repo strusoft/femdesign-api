@@ -4,8 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+
 namespace FemDesign.Calculate
 {
+    [System.Serializable]
+    [IsVisibleInDynamoLibrary(true)]
     public enum ResultType 
     {
         /* LOADCASES*/

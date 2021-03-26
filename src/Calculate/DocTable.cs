@@ -1,6 +1,9 @@
 ﻿// https://strusoft.com/
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
 
 namespace FemDesign.Calculate
 {
@@ -9,6 +12,7 @@ namespace FemDesign.Calculate
     /// cmddoctable
     /// </summary>
     [System.Serializable]
+    [IsVisibleInDynamoLibrary(false)]
     public class CmdDocTable
     {   
         [XmlElement("doctable", Order = 1)]

@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
 
 namespace FemDesign.Calculate
 {
@@ -11,6 +14,7 @@ namespace FemDesign.Calculate
     /// fdscript root
     /// </summary>
     [XmlRoot("fdscript")]
+    [IsVisibleInDynamoLibrary(false)]
     public class Bsc
     {
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
