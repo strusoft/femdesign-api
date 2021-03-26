@@ -15,7 +15,7 @@ namespace FemDesign.Calculate
         public DocTable DocTable { get; set; }
 
         [XmlAttribute("command")]
-        public string Command { get; set; }
+        public string _command = "; CXL $MODULE DOCTABLE";
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -32,7 +32,6 @@ namespace FemDesign.Calculate
         public CmdDocTable(DocTable docTable)
         {
             this.DocTable = docTable;
-            this.Command = "";
         }
     }
     
