@@ -18,7 +18,7 @@ namespace FemDesign.Calculate
         [XmlElement("fdscriptheader", Order = 1)]
         public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
         [XmlElement("cmddoctable", Order = 2)]
-        public DocTable DocTable { get; set; } // CMDDOCKTABLE
+        public DocTable DocTable { get; set; } // CMDDOCTABLE
         [XmlElement("cmdendsession", Order = 3)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
         [XmlIgnore]
