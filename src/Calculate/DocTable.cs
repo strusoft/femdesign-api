@@ -14,10 +14,15 @@ namespace FemDesign.Calculate
     {
         [XmlIgnore]
         private const int ALL = -65536;
+        
         [XmlElement("listproc")]
         public ResultType ListProc { get; set; }
+        
         [XmlElement("index")]
         public int CaseIndex { get; set; }
+        
+        [XmlAttribute("command")]
+        public string Command { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -36,6 +41,8 @@ namespace FemDesign.Calculate
         {
             ListProc = resultType;
             CaseIndex = caseIndex;
+            Command = "";
+            
         }
     }
 }
