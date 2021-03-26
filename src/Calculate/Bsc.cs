@@ -17,8 +17,23 @@ namespace FemDesign.Calculate
         public const string XmlAttrib = "fdscript.xsd";
         [XmlElement("fdscriptheader", Order = 1)]
         public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
+
         [XmlElement("cmddoctable", Order = 2)]
-        public DocTable DocTable { get; set; } // CMDDOCTABLE
+        public CmdDocTable _cmdDocTable;  // CMDDOCTABLE
+
+        [XmlIgnore]
+        public DocTable DocTable
+        {
+            get
+            {
+                return _cmdDocTable.DocTable;
+            }
+            set
+            {
+                this._cmdDocTable = new CmdDocTable(value);
+            }
+        }
+
         [XmlElement("cmdendsession", Order = 3)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
         [XmlIgnore]
