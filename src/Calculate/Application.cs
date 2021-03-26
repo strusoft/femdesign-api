@@ -35,7 +35,7 @@ namespace FemDesign.Calculate
         /// </summary>
         internal string FdTargetVersion = "20";
 
-        internal Application()
+        public Application()
         {
             this.GetProcessInformation();
         }
@@ -87,11 +87,27 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
+        /// Check if a fd3dstruct process is running.
+        /// </summary>
+        public static bool IsRunning()
+        {
+            try
+            {
+                CheckProcess();
+                return true;
+            }
+            catch (System.ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Open a .struxml file in fd3dstruct.
         /// </summary>
         /// <param name="struxmlPath"></param>
         /// <param name="killProcess"></param>
-        internal void OpenStruxml(string struxmlPath, bool killProcess)
+        public void OpenStruxml(string struxmlPath, bool killProcess)
         {
             // kill processes
             if (killProcess)
@@ -122,7 +138,7 @@ namespace FemDesign.Calculate
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <returns></returns>
-        internal bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession)
+        public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession)
         {
             // serialize script
             fdScript.SerializeFdScript();
@@ -159,12 +175,12 @@ namespace FemDesign.Calculate
             }
         }
 
-        internal bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);
         }
-        internal bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        public bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession);

@@ -43,7 +43,7 @@ namespace FemDesign.Calculate
         {
             
         }
-        internal CombItem(int _ImpfRqd = 0, int _StabRqd = 0, bool _NLE = false, bool _PL = false, bool _NLS = false, bool _Cr = false, bool _f2nd = false, bool _Im = false, int _Waterlevel = 0)
+        public CombItem(int _ImpfRqd = 0, int _StabRqd = 0, bool _NLE = false, bool _PL = false, bool _NLS = false, bool _Cr = false, bool _f2nd = false, bool _Im = false, int _Waterlevel = 0)
         {
             this.NLE = Convert.ToInt32(_NLE);
             this.PL = Convert.ToInt32(_PL);

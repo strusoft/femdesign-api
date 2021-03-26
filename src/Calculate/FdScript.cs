@@ -110,7 +110,7 @@ namespace FemDesign.Calculate
         }
 
         /// Create fdscript to read a str-model.
-        internal static FdScript ReadStr(string strPath, List<string> bscPath = null)
+        public static FdScript ReadStr(string strPath, List<string> bscPath = null)
         {
             //
             FdScript obj = new FdScript();
@@ -151,7 +151,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis.
         /// </summary>
-        internal static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
+        public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             string mode = "RESMODE";
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
@@ -162,7 +162,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis and design.
         /// </summary>
-        internal static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
+        public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             // get mode
             switch (mode)
@@ -188,7 +188,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Serialize fdscript.
         /// </summary>
-        internal void SerializeFdScript()
+        public void SerializeFdScript()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FdScript));
             using (TextWriter writer = new StreamWriter(this.FdScriptPath))
