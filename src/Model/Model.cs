@@ -106,7 +106,7 @@ namespace FemDesign
         /// <summary>
         /// Internal constructor used by GH components and Dynamo nodes to initialize a model.
         /// </summary>
-        internal Model(string country)
+        public Model(string country)
         {
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";
@@ -123,7 +123,7 @@ namespace FemDesign
         /// <summary>
         /// Deserialize model from file (.struxml).
         /// </summary>
-        internal static Model DeserializeFromFilePath(string filePath)
+        public static Model DeserializeFromFilePath(string filePath)
         {
             // check file extension
             if (Path.GetExtension(filePath) != ".struxml")
@@ -170,7 +170,7 @@ namespace FemDesign
         /// Serialize Model to file (.struxml).
         /// </summary>
         /// <param name="filePath"></param>
-        internal void SerializeModel(string filePath)
+        public void SerializeModel(string filePath)
         {
             // check file extension
             if (Path.GetExtension(filePath) != ".struxml")
@@ -189,9 +189,9 @@ namespace FemDesign
 
         #region addEntities
         /// <summary>
-        /// Add entities to Model. Internal method used by GH components and Dynamo nodes.
+        /// Add entities to Model.
         /// </summary>
-        internal Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
