@@ -36,9 +36,16 @@ namespace FemDesign.Calculate
         {
             
         }
-        public CmdListGen(string bscPath, string outputDir)
+
+        public CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
-            //
+            Initialize(bscPath, outputDir);
+            this.Regional = regional ? 1 : 0;
+            this.FillCells = fillCells ? 1 : 0;
+            this.Headers = headers ? 1 : 0;
+        }
+
+        private void Initialize(string bscPath, string outputDir) {
             string _fileName = Path.GetFileNameWithoutExtension(bscPath);
             string _extension = Path.GetExtension(bscPath);
 
@@ -47,13 +54,9 @@ namespace FemDesign.Calculate
                 throw new System.ArgumentException("Incorrect file-extension. Expected .bsc. CmdListGen failed.");
             }
 
-            //
             this.BscFile = bscPath;
             this.FileName = _fileName;
             this.OutFile = outputDir + @"\" + this.FileName + @".csv";
-            this.Regional = 0;
-            this.FillCells = 0;
-            this.Headers = 1;
         }
     }
 }
