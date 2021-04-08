@@ -26,6 +26,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Labelled sections, internal forces
         /// </summary>
-        frCombIntfResSection_ListProc
+        frCombIntfBarEnd_ListProc,
+        frCombIntfResSection_ListProc,
     }
 }
