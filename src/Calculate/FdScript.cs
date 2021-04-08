@@ -185,6 +185,23 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
+        public static FdScript CreateDocumentation(string strPath, string docxTemplatePath, bool endSession = true)
+        {
+            FdScript fdScript = FdScript.ReadStr(strPath, null);
+            fdScript.CmdSave = null;
+            
+            fdScript.DocxTemplatePath = docxTemplatePath;
+            fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
+
+            // set endsession
+            if (endSession)
+            {
+                fdScript.CmdEndSession = new CmdEndSession();
+            }
+            
+            return fdScript;
+        }
+
         /// <summary>
         /// Serialize fdscript.
         /// </summary>
