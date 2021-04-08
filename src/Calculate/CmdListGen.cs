@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System;
 using System.IO;
 using System.Xml.Serialization;
 #region dynamo
@@ -22,11 +23,47 @@ namespace FemDesign.Calculate
         [XmlAttribute("outfile")]
         public string OutFile { get; set; } // string
         [XmlAttribute("regional")]
-        public int Regional { get; set; } // bool // int (0,1)?
+        public int _regional { get; set; }
+        [XmlIgnore]
+        public bool Regional
+        {
+            get
+            {
+                return Convert.ToBoolean(this._regional);
+            }
+            set
+            {
+                this._regional = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("headers")]
-        public int Headers { get; set; } // bool // int (0,1)?
+        public int _headers { get; set; }
+        [XmlIgnore]
+        public bool Headers
+        {
+            get
+            {
+                return Convert.ToBoolean(this._headers);
+            }
+            set
+            {
+                this._headers = Convert.ToInt32(value);
+            }
+        }
         [XmlAttribute("fillcells")]
-        public int FillCells { get; set; } // bool // int (0,1)?
+        public int _fillCells { get; set; }
+        [XmlIgnore]
+        public bool FillCells
+        {
+            get
+            {
+                return Convert.ToBoolean(this._fillCells);
+            }
+            set
+            {
+                this._fillCells = Convert.ToInt32(value);
+            }
+        }
         private string FileName { get; set; }
         
         /// <summary>
@@ -40,9 +77,9 @@ namespace FemDesign.Calculate
         public CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             Initialize(bscPath, outputDir);
-            this.Regional = regional ? 1 : 0;
-            this.FillCells = fillCells ? 1 : 0;
-            this.Headers = headers ? 1 : 0;
+            this.Regional = regional;
+            this.FillCells = fillCells;
+            this.Headers = headers;
         }
 
         private void Initialize(string bscPath, string outputDir) {
