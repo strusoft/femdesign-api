@@ -80,7 +80,7 @@ namespace FemDesign.Calculate
             obj.CmdUser = new CmdUser(mode);
 
             // listgen
-            if (bscPath != null || !bscPath.Any())
+            if (bscPath != null && bscPath.Any())
             {
                 obj.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
@@ -129,7 +129,7 @@ namespace FemDesign.Calculate
             obj.CmdOpen = new CmdOpen(strPath);
 
             // listgen
-            if (bscPath != null || !bscPath.Any())
+            if (bscPath != null && bscPath.Any())
             {
                 obj.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
