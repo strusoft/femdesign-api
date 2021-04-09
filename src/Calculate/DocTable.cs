@@ -1,4 +1,5 @@
 ﻿// https://strusoft.com/
+using System;
 using System.Xml.Serialization;
 
 #region dynamo
@@ -46,13 +47,18 @@ namespace FemDesign.Calculate
     public class DocTable
     {
         [XmlIgnore]
-        private const int ALL = -65536;
+        private const int ALL = -1;
         
+        [XmlElement("version")]
+        public string FemDesignVersion { get; set; } = "2000";
         [XmlElement("listproc")]
         public ResultType ListProc { get; set; }
         
         [XmlElement("index")]
         public int CaseIndex { get; set; }
+        
+        [XmlElement("restype")]
+        public int ResType { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -70,7 +76,26 @@ namespace FemDesign.Calculate
         public DocTable(ResultType resultType, int caseIndex = ALL)
         {
             ListProc = resultType;
-            CaseIndex = caseIndex;            
+            CaseIndex = caseIndex;
+            ResType = GetResType(resultType);
+        }
+
+        private int GetResType(ResultType resultType)
+        {
+            /*
+            LT_CASE = 1,
+            LT_CS = 2,  (construction stage)
+            LT_COMB = 3,
+            ...
+            */
+
+            string r = resultType.ToString();
+            if (r.StartsWith("frCas"))
+                return 1;
+            if (r.StartsWith("frComb"))
+                return 3;
+
+            throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
     }
 }
