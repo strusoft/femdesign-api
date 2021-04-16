@@ -24,9 +24,16 @@ namespace FemDesign.Calculate
         /* LOADCOMBINATIONS*/
 
         /// <summary>
-        /// Labelled sections, internal forces
+        /// Bars, End forces
         /// </summary>
         frCombIntfBarEnd_ListProc,
+        /// <summary>
+        /// Labelled sections, internal forces
+        /// </summary>
         frCombIntfResSection_ListProc,
+        /// <summary>
+        /// Labelled sections, Resultants
+        /// </summary>
+        frCombResResSection,
     }
 }
