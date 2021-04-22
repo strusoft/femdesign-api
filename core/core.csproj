@@ -1,0 +1,217 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ClassLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedFem\AdvancedFem.cs" />
+    <Compile Include="AdvancedFem\Cover.cs" />
+    <Compile Include="AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="Bars\Bar.cs" />
+    <Compile Include="Bars\BarPart.cs" />
+    <Compile Include="Bars\Buckling\BucklingData.cs" />
+    <Compile Include="Bars\Buckling\BucklingLength.cs" />
+    <Compile Include="Bars\Buckling\Position.cs" />
+    <Compile Include="Bars\ColumnCorbel.cs" />
+    <Compile Include="Bars\Connectivity.cs" />
+    <Compile Include="Bars\Eccentricity.cs" />
+    <Compile Include="Bars\ModelEccentricity.cs" />
+    <Compile Include="Calculate\Analysis.cs" />
+    <Compile Include="Calculate\Application.cs" />
+    <Compile Include="Calculate\Bsc.cs" />
+    <Compile Include="Calculate\CmdCalculation.cs" />
+    <Compile Include="Calculate\CmdEndSession.cs" />
+    <Compile Include="Calculate\CmdListGen.cs" />
+    <Compile Include="Calculate\CmdOpen.cs" />
+    <Compile Include="Calculate\CmdSave.cs" />
+    <Compile Include="Calculate\CmdSaveDocx.cs" />
+    <Compile Include="Calculate\CmdUser.cs" />
+    <Compile Include="Calculate\Comb.cs" />
+    <Compile Include="Calculate\CombItem.cs" />
+    <Compile Include="Calculate\Design.cs" />
+    <Compile Include="Calculate\DocTable.cs" />
+    <Compile Include="Calculate\FdScript.cs" />
+    <Compile Include="Calculate\FdScriptHeader.cs" />
+    <Compile Include="Calculate\Font.cs" />
+    <Compile Include="Calculate\Freq.cs" />
+    <Compile Include="Calculate\LoadCombination.cs" />
+    <Compile Include="Calculate\ResultType.cs" />
+    <Compile Include="Calculate\Stage.cs" />
+    <Compile Include="Deconstruct\Deconstruct.cs" />
+    <Compile Include="GenericClasses\Camber.cs" />
+    <Compile Include="GenericClasses\DummyXmlObject.cs" />
+    <Compile Include="GenericClasses\EntityBase.cs" />
+    <Compile Include="GenericClasses\ExtensionMethods.cs" />
+    <Compile Include="GenericClasses\GuidListType.cs" />
+    <Compile Include="GenericClasses\LibraryBase.cs" />
+    <Compile Include="GenericClasses\LocationValue.cs" />
+    <Compile Include="GenericClasses\RestrictedDouble.cs" />
+    <Compile Include="GenericClasses\RestrictedInteger.cs" />
+    <Compile Include="GenericClasses\RestrictedObject.cs" />
+    <Compile Include="GenericClasses\RestrictedString.cs" />
+    <Compile Include="GenericClasses\StartEndType.cs" />
+    <Compile Include="GenericClasses\Tolerance.cs" />
+    <Compile Include="Geometry\Contour.cs" />
+    <Compile Include="Geometry\Degree.cs" />
+    <Compile Include="Geometry\Edge.cs" />
+    <Compile Include="Geometry\FdCoordinateSystem.cs" />
+    <Compile Include="Geometry\FdPoint2d.cs" />
+    <Compile Include="Geometry\FdPoint3d.cs" />
+    <Compile Include="Geometry\FdVector2d.cs" />
+    <Compile Include="Geometry\FdVector3d.cs" />
+    <Compile Include="Geometry\RectangleType.cs" />
+    <Compile Include="Geometry\Region.cs" />
+    <Compile Include="Geometry\RegionGroup.cs" />
+    <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Loads\ForceLoadBase.cs" />
+    <Compile Include="Loads\GenericLoadObject.cs" />
+    <Compile Include="Loads\LineLoad.cs" />
+    <Compile Include="Loads\LineStressLoad.cs" />
+    <Compile Include="Loads\LineTemperatureLoad.cs" />
+    <Compile Include="Loads\LoadBase.cs" />
+    <Compile Include="Loads\LoadCase.cs" />
+    <Compile Include="Loads\LoadCombination.cs" />
+    <Compile Include="Loads\LoadLocationValue.cs" />
+    <Compile Include="Loads\Loads.cs" />
+    <Compile Include="Loads\MassConversionTable.cs" />
+    <Compile Include="Loads\ModelLoadCase.cs" />
+    <Compile Include="Loads\PointLoad.cs" />
+    <Compile Include="Loads\PressureLoad.cs" />
+    <Compile Include="Loads\SurfaceLoad.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
+    <Compile Include="Loads\TopBotLocationValue.cs" />
+    <Compile Include="Materials\CltDataType.cs" />
+    <Compile Include="Materials\CltPanelLibraryType.cs" />
+    <Compile Include="Materials\Concrete.cs" />
+    <Compile Include="Materials\Custom.cs" />
+    <Compile Include="Materials\GlcDataType.cs" />
+    <Compile Include="Materials\GlcPanelLibraryType.cs" />
+    <Compile Include="Materials\LimitStresses.cs" />
+    <Compile Include="Materials\Material.cs" />
+    <Compile Include="Materials\MaterialBase.cs" />
+    <Compile Include="Materials\MaterialDatabase.cs" />
+    <Compile Include="Materials\Materials.cs" />
+    <Compile Include="Materials\MaterialTypeEnum.cs" />
+    <Compile Include="Materials\MechProps.cs" />
+    <Compile Include="Materials\ReinforcingMaterials.cs" />
+    <Compile Include="Materials\ReinforcingSteel.cs" />
+    <Compile Include="Materials\Steel.cs" />
+    <Compile Include="Materials\Timber.cs" />
+    <Compile Include="Materials\TimberApplicationData.cs" />
+    <Compile Include="Materials\TimberFactors.cs" />
+    <Compile Include="Materials\TimberPanelData.cs" />
+    <Compile Include="Materials\TimberPanelLibraryType.cs" />
+    <Compile Include="Materials\TimberPanelStiffness.cs" />
+    <Compile Include="Materials\TimberPanelStrength.cs" />
+    <Compile Include="Materials\TimberServiceClassFactors.cs" />
+    <Compile Include="Materials\TimberServiceClassKdefs.cs" />
+    <Compile Include="ModellingTools\ConnectedLines.cs" />
+    <Compile Include="ModellingTools\ConnectedPoints.cs" />
+    <Compile Include="ModellingTools\Diaphragm.cs" />
+    <Compile Include="ModellingTools\FictitiousBar.cs" />
+    <Compile Include="ModellingTools\FictitiousShell.cs" />
+    <Compile Include="ModellingTools\StiffnessMatrix2Type.cs" />
+    <Compile Include="ModellingTools\StiffnessMatrix4Type.cs" />
+    <Compile Include="ModellingTools\SurfaceConnection.cs" />
+    <Compile Include="Model\Entities.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Reinforcement\BarReinforcement.cs" />
+    <Compile Include="Reinforcement\Center.cs" />
+    <Compile Include="Reinforcement\Centric.cs" />
+    <Compile Include="Reinforcement\HiddenBar.cs" />
+    <Compile Include="Reinforcement\LongitudinalBar.cs" />
+    <Compile Include="Reinforcement\NoShear.cs" />
+    <Compile Include="Reinforcement\Ptc.cs" />
+    <Compile Include="Reinforcement\PunchingArea.cs" />
+    <Compile Include="Reinforcement\PunchingReinforcement.cs" />
+    <Compile Include="Reinforcement\Stirrups.cs" />
+    <Compile Include="Reinforcement\Straight.cs" />
+    <Compile Include="Reinforcement\SurfaceReinforcement.cs" />
+    <Compile Include="Reinforcement\SurfaceReinforcementParameters.cs" />
+    <Compile Include="Reinforcement\Wire.cs" />
+    <Compile Include="Releases\DetachTypeEnum.cs" />
+    <Compile Include="Releases\Motions.cs" />
+    <Compile Include="Releases\PlasticityType3d.cs" />
+    <Compile Include="Releases\RigidityDataLibType1.cs" />
+    <Compile Include="Releases\RigidityDataLibType2.cs" />
+    <Compile Include="Releases\RigidityDataLibType3.cs" />
+    <Compile Include="Releases\RigidityDataType1.cs" />
+    <Compile Include="Releases\RigidityDataType2.cs" />
+    <Compile Include="Releases\RigidityDataType3.cs" />
+    <Compile Include="Releases\Rotations.cs" />
+    <Compile Include="Releases\SimpleStiffnessType.cs" />
+    <Compile Include="Releases\StiffBaseType.cs" />
+    <Compile Include="Releases\StiffnessType.cs" />
+    <Compile Include="Releases\StiffnessWithFriction.cs" />
+    <Compile Include="RevitTools\ProjectSettings.cs" />
+    <Compile Include="Sections\ComplexSection.cs" />
+    <Compile Include="Sections\DatabaseSections.cs" />
+    <Compile Include="Sections\ModelSection.cs" />
+    <Compile Include="Sections\ModelSections.cs" />
+    <Compile Include="Sections\Section.cs" />
+    <Compile Include="Sections\SectionDatabase.cs" />
+    <Compile Include="Shells\EdgeConnectionBase.cs" />
+    <Compile Include="Shells\InternalPanel.cs" />
+    <Compile Include="Shells\Panel.cs" />
+    <Compile Include="Shells\ShellBucklingType.cs" />
+    <Compile Include="Shells\ShellEccentricity.cs" />
+    <Compile Include="Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Shells\ShellOrthotropy.cs" />
+    <Compile Include="Shells\Slab.cs" />
+    <Compile Include="Shells\SlabPart.cs" />
+    <Compile Include="Shells\Thickness.cs" />
+    <Compile Include="Shells\WallCorbel.cs" />
+    <Compile Include="StructureGrid\Axes.cs" />
+    <Compile Include="StructureGrid\Axis.cs" />
+    <Compile Include="StructureGrid\Storey.cs" />
+    <Compile Include="StructureGrid\Storeys.cs" />
+    <Compile Include="Supports\GenericSupportObject.cs" />
+    <Compile Include="Supports\Group.cs" />
+    <Compile Include="Supports\LineSupport.cs" />
+    <Compile Include="Supports\PointSupport.cs" />
+    <Compile Include="Supports\Supports.cs" />
+    <Compile Include="Supports\SurfaceSupport.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
