@@ -123,7 +123,7 @@ namespace FemDesign.GH
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                bar.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                bar.LocalY = v.FromRhino();
             }
 
             // else orient coordinate system to GCS
@@ -143,7 +143,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return FemDesign.Properties.Resources.FictBar;
+                return null;
            }
        }
        public override Guid ComponentGuid

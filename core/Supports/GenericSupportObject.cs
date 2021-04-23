@@ -8,14 +8,27 @@ namespace FemDesign.Supports
     /// Object to contain support instances in GH when passing generic objects.
     /// </summary>
     [System.Serializable]
-    public class GenericSupportObject
+    public partial class GenericSupportObject
     {
         public PointSupport PointSupport { get; set; }
         public LineSupport LineSupport { get; set; }
         public SurfaceSupport SurfaceSupport { get; set; }
-        internal GenericSupportObject()
+        public GenericSupportObject()
         {
             
+        }
+
+        public GenericSupportObject(PointSupport obj)
+        {
+            this.PointSupport = obj;
+        }
+        public GenericSupportObject(LineSupport obj)
+        {
+            this.LineSupport = obj;
+        }
+        public GenericSupportObject(SurfaceSupport obj)
+        {
+            this.SurfaceSupport = obj;
         }
 
         public static List<object> ToObjectList(List<GenericSupportObject> objs)

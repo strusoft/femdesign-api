@@ -1,0 +1,211 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04F35658-7446-4513-AA4D-17B4782D3D00}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ClassLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>grasshopper</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GH_IO">
+      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Grasshopper">
+      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RhinoCommon">
+      <HintPath>..\..\..\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedFem\CoverOneWay.cs" />
+    <Compile Include="AdvancedFem\CoverTwoWay.cs" />
+    <Compile Include="Bars\BarsBeam.cs" />
+    <Compile Include="Bars\BarsBeamSimple.cs" />
+    <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsColumnSimple.cs" />
+    <Compile Include="Bars\BarsConnectivityDefine.cs" />
+    <Compile Include="Bars\BarsConnectivityDefineSemiRigid.cs" />
+    <Compile Include="Bars\BarsConnectivityHinged.cs" />
+    <Compile Include="Bars\BarsConnectivityRigid.cs" />
+    <Compile Include="Bars\BarsEccentricityDefine.cs" />
+    <Compile Include="Bars\BarsModify.cs" />
+    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\BarsTrussLimitedCapacity.cs" />
+    <Compile Include="Bars\Buckling\BucklingDataSetOnConcreteBar.cs" />
+    <Compile Include="Bars\Buckling\BucklingDataSetOnSteelBar.cs" />
+    <Compile Include="Bars\Buckling\BucklingDataSetOnTimberBar.cs" />
+    <Compile Include="Bars\Buckling\BucklingLengthFlexuralStiffDefine.cs" />
+    <Compile Include="Bars\Buckling\BucklingLengthFlexuralWeakDefine.cs" />
+    <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
+    <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
+    <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
+    <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
+    <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
+    <Compile Include="Deconstruct\AxisDeconstruct.cs" />
+    <Compile Include="Deconstruct\BarsDeconstruct.cs" />
+    <Compile Include="Deconstruct\CoverDeconstruct.cs" />
+    <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
+    <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
+    <Compile Include="Deconstruct\GenericLoadObjectSortLoads.cs" />
+    <Compile Include="Deconstruct\GenericSupportObjectSortSupports.cs" />
+    <Compile Include="Deconstruct\LineLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+    <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
+    <Compile Include="Deconstruct\PanelContinuousAnalyticalModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\PointLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\PressureLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\RotationsDeconstruct.cs" />
+    <Compile Include="Deconstruct\SectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\ShellEdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\SlabDeconstruct.cs" />
+    <Compile Include="Deconstruct\StiffnessMatrix2TypeDeconstruct.cs" />
+    <Compile Include="Deconstruct\StiffnessMatrix4TypeDeconstruct.cs" />
+    <Compile Include="Deconstruct\StoreyDeconstruct.cs" />
+    <Compile Include="Deconstruct\StraightDeconstruct.cs" />
+    <Compile Include="Deconstruct\SupportDeconstruct.cs" />
+    <Compile Include="Deconstruct\SurfaceLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\SurfaceReinforcementDeconstruct.cs" />
+    <Compile Include="Deconstruct\SurfaceReinforcementParametersDeconstruct.cs" />
+    <Compile Include="Deconstruct\SurfaceTemperatureLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\ThicknessDeconstruct.cs" />
+    <Compile Include="Deconstruct\TopBotLocValDeconstruct.cs" />
+    <Compile Include="Deconstruct\WireDeconstruct.cs" />
+    <Compile Include="Geometry\FromRhino.cs" />
+    <Compile Include="Geometry\ToRhino.cs" />
+    <Compile Include="Loads\LineLoadForce.cs" />
+    <Compile Include="Loads\LineLoadMoment.cs" />
+    <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
+    <Compile Include="Loads\LoadCaseCreate.cs" />
+    <Compile Include="Loads\LoadCaseGetLoadCaseByName.cs" />
+    <Compile Include="Loads\LoadCombinationCreate.cs" />
+    <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Loads\LoadLocationValueDefine.cs" />
+    <Compile Include="Loads\MassConversionTableDefine.cs" />
+    <Compile Include="Loads\PointLoadForce.cs" />
+    <Compile Include="Loads\PointLoadMoment.cs" />
+    <Compile Include="Loads\PressureLoadDefine.cs" />
+    <Compile Include="Loads\SurfaceLoadUniform.cs" />
+    <Compile Include="Loads\SurfaceLoadVariable.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoadDefine.cs" />
+    <Compile Include="Loads\TopBotLocationValueDefine.cs" />
+    <Compile Include="Materials\%40notImplemented_MaterialSetTimberMaterialProperties.cs" />
+    <Compile Include="Materials\MaterialDatabaseDefault.cs" />
+    <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
+    <Compile Include="Materials\MaterialDatabaseListMaterialNames.cs" />
+    <Compile Include="Materials\MaterialGetMaterialByName.cs" />
+    <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
+    <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
+    <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
+    <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
+    <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
+    <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
+    <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelCreate.cs" />
+    <Compile Include="Model\ModelOpen.cs" />
+    <Compile Include="Model\ModelReadStr.cs" />
+    <Compile Include="Model\ModelReadStruxml.cs" />
+    <Compile Include="Model\ModelSave.cs" />
+    <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
+    <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
+    <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
+    <Compile Include="Reinforcement\WireDefine.cs" />
+    <Compile Include="Releases\MotionsDefine.cs" />
+    <Compile Include="Releases\MotionsFree.cs" />
+    <Compile Include="Releases\MotionsRigidLine.cs" />
+    <Compile Include="Releases\MotionsRigidPoint.cs" />
+    <Compile Include="Releases\RotationsDefine.cs" />
+    <Compile Include="Releases\RotationsFree.cs" />
+    <Compile Include="Releases\RotationsRigidLine.cs" />
+    <Compile Include="Releases\RotationsRigidPoint.cs" />
+    <Compile Include="Sections\SectionDatabaseAddSection.cs" />
+    <Compile Include="Sections\SectionDatabaseDefault.cs" />
+    <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
+    <Compile Include="Sections\SectionDatabaseListSectionNames.cs" />
+    <Compile Include="Sections\SectionDatabaseSave.cs" />
+    <Compile Include="Sections\SectionDefine.cs" />
+    <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
+    <Compile Include="Shells\ProfiledPlateDefine.cs" />
+    <Compile Include="Shells\ShellEccentricityDefine.cs" />
+    <Compile Include="Shells\ShellEdgeConnectionDefine.cs" />
+    <Compile Include="Shells\ShellEdgeConnectionHinged.cs" />
+    <Compile Include="Shells\ShellEdgeConnectionRigid.cs" />
+    <Compile Include="Shells\ShellOrthotropyDefine.cs" />
+    <Compile Include="Shells\SlabPlate.cs" />
+    <Compile Include="Shells\SlabPlateVariableThickness.cs" />
+    <Compile Include="Shells\SlabSetAverageMeshSize.cs" />
+    <Compile Include="Shells\SlabSetShellEdgeConnection.cs" />
+    <Compile Include="Shells\SlabWall.cs" />
+    <Compile Include="Shells\SlabWallVariableThickness.cs" />
+    <Compile Include="Shells\ThicknessDefine.cs" />
+    <Compile Include="StructureGrid\AxisDefine.cs" />
+    <Compile Include="StructureGrid\StoreyDefine.cs" />
+    <Compile Include="Supports\LineSupportDefine.cs" />
+    <Compile Include="Supports\LineSupportHinged.cs" />
+    <Compile Include="Supports\LineSupportRigid.cs" />
+    <Compile Include="Supports\PointSupportDefine.cs" />
+    <Compile Include="Supports\PointSupportHinged.cs" />
+    <Compile Include="Supports\PointSupportRigid.cs" />
+    <Compile Include="Supports\SurfaceSupportDefine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\grasshopper\v16\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\core\core.csproj">
+      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
+      <Name>core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

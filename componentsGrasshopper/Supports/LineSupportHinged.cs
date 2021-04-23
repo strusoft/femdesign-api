@@ -69,7 +69,7 @@ namespace FemDesign.GH
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                obj.LineSupport.Group.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                obj.LineSupport.Group.LocalY = v.FromRhino();
             }
 
             // else orient coordinate system to GCS
@@ -89,7 +89,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.LineSupportHinged;
+                return null;
             }
         }
         public override Guid ComponentGuid

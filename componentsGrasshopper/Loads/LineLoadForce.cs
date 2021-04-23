@@ -74,7 +74,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.LineLoadForce;
+                return null;
             }
         }
         public override Guid ComponentGuid

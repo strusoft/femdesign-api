@@ -88,7 +88,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.CoverOneWay;
+                return null;
             }
         }
         public override Guid ComponentGuid

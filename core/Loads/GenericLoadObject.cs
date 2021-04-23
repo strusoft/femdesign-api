@@ -21,38 +21,38 @@ namespace FemDesign.Loads
         {
             
         }
-        internal GenericLoadObject(PointLoad obj)
+        public GenericLoadObject(PointLoad obj)
         {
             this.PointLoad = obj;
         }
-        internal GenericLoadObject(LineLoad obj)
+        public GenericLoadObject(LineLoad obj)
         {
             this.LineLoad = obj;
         }
 
-        internal GenericLoadObject(LineStressLoad obj)
+        public GenericLoadObject(LineStressLoad obj)
         {
             this.LineStressLoad = obj;
         }
 
-        internal GenericLoadObject(LineTemperatureLoad obj)
+        public GenericLoadObject(LineTemperatureLoad obj)
         {
             this.LineTemperatureLoad = obj;
         }
-        internal GenericLoadObject(SurfaceLoad obj)
+        public GenericLoadObject(SurfaceLoad obj)
         {
             this.SurfaceLoad = obj;
         }
 
-        internal GenericLoadObject(SurfaceTemperatureLoad obj)
+        public GenericLoadObject(SurfaceTemperatureLoad obj)
         {
             this.SurfaceTemperatureLoad = obj;
         }
-        internal GenericLoadObject(PressureLoad obj)
+        public GenericLoadObject(PressureLoad obj)
         {
             this.PressureLoad = obj;
         }
-        internal GenericLoadObject(MassConversionTable obj)
+        public GenericLoadObject(MassConversionTable obj)
         {
             this.MassConversionTable = obj;
         }

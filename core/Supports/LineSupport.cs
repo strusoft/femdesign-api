@@ -38,7 +38,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// LineSupport along edge with rigidity (motions, rotations). Group LCS aligned with edge LCS.
         /// </summary>
-        internal LineSupport(Geometry.Edge edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal, string identifier)
+        public LineSupport(Geometry.Edge edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal, string identifier)
         {
             PointSupport._instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
@@ -50,11 +50,11 @@ namespace FemDesign.Supports
             this.Edge = edge;
             this.EdgeNormal = edge.Normal;
         }
-
+        
         /// <summary>
         /// Rigid LineSupport along edge.
         /// </summary>
-        internal static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier)
+        public static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.RigidLine();
@@ -64,7 +64,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Hinged LineSupport along edge.
         /// </summary>
-        internal static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier)
+        public static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier)
         {
             Releases.Motions motions = Releases.Motions.RigidLine();
             Releases.Rotations rotations = Releases.Rotations.Free();

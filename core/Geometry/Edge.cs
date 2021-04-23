@@ -120,7 +120,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc1 type.
         /// </summary>
-        internal Edge(double radius, double startAngle, double endAngle, Geometry.FdPoint3d centerPoint, Geometry.FdVector3d xAxis, Geometry.FdCoordinateSystem coordinateSystem)
+        public Edge(double radius, double startAngle, double endAngle, Geometry.FdPoint3d centerPoint, Geometry.FdVector3d xAxis, Geometry.FdCoordinateSystem coordinateSystem)
         {
             this.Type = "arc";
             this.Radius = radius;
@@ -135,7 +135,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc2 type.
         /// </summary>
-        internal Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _midPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _midPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
             this.Type = "arc";
             this.Points.Add(_startPoint);
@@ -147,7 +147,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of circle type.
         /// </summary>
-        internal Edge(double _radius, Geometry.FdPoint3d _centerPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(double _radius, Geometry.FdPoint3d _centerPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
             this.Type = "circle";
             this.Radius = _radius;
@@ -159,7 +159,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of line type by points and coordinate system.
         /// </summary>
-        internal Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
         {
             this.Type = "line";
             this.Points.Add(_startPoint);
@@ -171,7 +171,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of line type by points and normal (localY).
         /// </summary>
-        internal Edge(FdPoint3d startPoint, FdPoint3d endPoint, FdVector3d localY)
+        public Edge(FdPoint3d startPoint, FdPoint3d endPoint, FdVector3d localY)
         {
             this.Type = "line";
             this.Points.Add(startPoint);

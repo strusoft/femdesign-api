@@ -33,7 +33,7 @@ namespace FemDesign
         /// <summary>
         /// Convert coordinates of LocationValue to FdPoint.
         /// </summary>
-        internal Geometry.FdPoint3d GetFdPoint()
+        public Geometry.FdPoint3d GetFdPoint()
         {
             return new Geometry.FdPoint3d(this.X, this.Y, this.Z);
         }

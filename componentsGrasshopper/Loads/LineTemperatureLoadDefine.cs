@@ -79,7 +79,7 @@ namespace FemDesign.GH
         {
             get
             {
-                return FemDesign.Properties.Resources.LineTempLoad;
+                return null;
             }
         }
         public override Guid ComponentGuid

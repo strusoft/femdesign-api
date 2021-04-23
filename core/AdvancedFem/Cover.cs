@@ -68,7 +68,7 @@ namespace FemDesign
         /// <param name="region">Region of cover.</param>
         /// <param name="supportingStructures">Guidlist of supporting structure.</param>
         /// <param name="loadBearingDirection">Vector, if null a TwoWay cover is defined.</param>
-        private Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
         {
             this.EntityCreated();
             this.Identifier = identifier;
@@ -78,7 +78,7 @@ namespace FemDesign
         }
 
         /// Create OneWayCover.
-        internal static Cover OneWayCover(Geometry.Region region, List<object> supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        public static Cover OneWayCover(Geometry.Region region, List<object> supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
         {
             // get supportingStructures.guid
             CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);
@@ -90,7 +90,7 @@ namespace FemDesign
         }
 
         /// Create TwoWayCover.
-        internal static Cover TwoWayCover(Geometry.Region region, List<object> supportingStructures, string identifier)
+        public static Cover TwoWayCover(Geometry.Region region, List<object> supportingStructures, string identifier)
         {
             // get supportingStructures.guid
             CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);

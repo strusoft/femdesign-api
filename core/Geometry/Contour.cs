@@ -120,7 +120,7 @@ namespace FemDesign.Geometry
         /// 
         /// Edges should form a closed contour.
         /// </summary>
-        internal Contour(List<Edge> edges)
+        public Contour(List<Edge> edges)
         {
             this.Edges = edges;
         }

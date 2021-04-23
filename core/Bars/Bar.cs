@@ -186,19 +186,19 @@ namespace FemDesign.Bars
         }
 
         /// Create a bar of type beam.
-        internal static Bar BeamDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public static Bar BeamDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            return new Bar(edge, BarType.Beam, material, sections, connectivities, eccentricities, identifier);
         }
 
         /// Create a bar of type column.
-        internal static Bar ColumnDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public static Bar ColumnDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
         {
            return new Bar(edge, BarType.Column, material, sections, connectivities, eccentricities, identifier);            
         }
 
         /// Create a bar of type truss without compression or tension limits.
-        internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
+        public static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
            return new Bar(edge, BarType.Truss, material, section, identifier);            
         }

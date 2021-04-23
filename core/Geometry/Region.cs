@@ -60,12 +60,12 @@ namespace FemDesign.Geometry
             
         }
 
-        internal Region(List<Contour> contours)
+        public Region(List<Contour> contours)
         {
             this.Contours = contours;
         }
 
-        internal Region(List<Contour> contours, FdCoordinateSystem coordinateSystem)
+        public Region(List<Contour> contours, FdCoordinateSystem coordinateSystem)
         {
             this.Contours = contours;
             this.CoordinateSystem = coordinateSystem;
@@ -76,7 +76,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="points">List of sorted points defining the outer perimeter of the region.</param>
         /// <param name="coordinateSystem">Coordinate system of the region</param>
-        internal Region(List<FdPoint3d> points, FdCoordinateSystem coordinateSystem)
+        public Region(List<FdPoint3d> points, FdCoordinateSystem coordinateSystem)
         {
             // edge normal
             FdVector3d edgeLocalY = coordinateSystem.LocalZ;

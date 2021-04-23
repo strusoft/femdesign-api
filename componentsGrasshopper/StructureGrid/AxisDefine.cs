@@ -70,7 +70,7 @@ namespace FemDesign.GH
         {
             get
             {
-               return FemDesign.Properties.Resources.AxisDefine;
+               return null;
             }
         }
         public override Guid ComponentGuid

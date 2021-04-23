@@ -89,7 +89,7 @@ namespace FemDesign.GH
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                bar.BarPart.LocalY = v.FromRhino();
             }
 
             // else orient coordinate system to GCS
@@ -109,7 +109,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return FemDesign.Properties.Resources.ColumnDefine;
+                return null;
            }
        }
        public override Guid ComponentGuid

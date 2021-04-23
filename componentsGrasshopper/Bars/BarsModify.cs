@@ -95,7 +95,7 @@ namespace FemDesign.GH
             Vector3d v = Vector3d.Zero;
             if (DA.GetData(7, ref v))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromRhino(v);
+                bar.BarPart.LocalY = v.FromRhino();
             }
 
             bool orientLCS = true;
@@ -119,7 +119,7 @@ namespace FemDesign.GH
        {
            get
            {
-                return FemDesign.Properties.Resources.BarModify;
+                return null;
            }
        }
        public override Guid ComponentGuid
