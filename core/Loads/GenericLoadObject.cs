@@ -17,7 +17,7 @@ namespace FemDesign.Loads
         public SurfaceTemperatureLoad SurfaceTemperatureLoad { get; set; }
         public PressureLoad PressureLoad { get; set; }
         public MassConversionTable MassConversionTable { get; set; }
-        internal GenericLoadObject()
+        public GenericLoadObject()
         {
             
         }

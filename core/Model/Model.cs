@@ -16,7 +16,7 @@ namespace FemDesign
     public class Model
     {
         [XmlIgnore]
-        internal Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
+        public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
         /// </summary>

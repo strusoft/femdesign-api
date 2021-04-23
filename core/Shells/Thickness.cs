@@ -19,7 +19,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct Thickness object at point with value.
         /// </summary>
-        internal Thickness(Geometry.FdPoint3d point, double val)
+        public Thickness(Geometry.FdPoint3d point, double val)
         {
             this.X = point.X;
             this.Y = point.Y;

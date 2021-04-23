@@ -43,7 +43,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        internal LoadCase(string name, string type, string durationClass)
+        public LoadCase(string name, string type, string durationClass)
         {
             this.EntityCreated();
             this.Type = type;

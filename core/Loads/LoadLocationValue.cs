@@ -19,7 +19,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor accessed by GH components and Dynamo nodes.
         /// </summary>
-        internal LoadLocationValue(Geometry.FdPoint3d loadPosition, double val)
+        public LoadLocationValue(Geometry.FdPoint3d loadPosition, double val)
         {
             this.X = loadPosition.X;
             this.Y = loadPosition.Y;

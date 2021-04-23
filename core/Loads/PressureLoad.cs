@@ -86,7 +86,7 @@ namespace FemDesign.Loads
         
         /// Define new PressureLoad.
         /// Internal method used for GH components and Dynamo nodes.
-        internal static PressureLoad Define(Geometry.Region region, Geometry.FdVector3d loadDirection, LoadCase loadCase,  double z0, double q0, double qh, string comment)
+        public static PressureLoad Define(Geometry.Region region, Geometry.FdVector3d loadDirection, LoadCase loadCase,  double z0, double q0, double qh, string comment)
         {
             //
             bool loadProjection = false;

@@ -50,7 +50,7 @@ namespace FemDesign.Loads
 
         /// Create uniform SurfaceLoad.
         /// Internal static method used by GH components and Dynamo nodes.
-        internal static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, string comment = "")
+        public static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, string comment = "")
         {
             // create load as list of loads
             List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.CoordinateSystem.Origin, force.Length())};
@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         
         /// Create variable SurfaceLoad.
         /// Internal static method used by GH components and Dynamo nodes.
-        internal static SurfaceLoad Variable(Geometry.Region region, Geometry.FdVector3d direction, List<LoadLocationValue> loadLocationValue, LoadCase loadCase, string comment = "")
+        public static SurfaceLoad Variable(Geometry.Region region, Geometry.FdVector3d direction, List<LoadLocationValue> loadLocationValue, LoadCase loadCase, string comment = "")
         {
             if (loadLocationValue.Count != 3)
             {

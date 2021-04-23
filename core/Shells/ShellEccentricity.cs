@@ -28,7 +28,7 @@ namespace FemDesign.Shells
 
         }
         
-        internal ShellEccentricity(string alignment, double eccentricity, bool eccentricityCalculation, bool eccentricityByCracking)
+        public ShellEccentricity(string alignment, double eccentricity, bool eccentricityCalculation, bool eccentricityByCracking)
         {
             this.Alignment = alignment;
             this.Eccentricity = eccentricity;

@@ -204,7 +204,7 @@ namespace FemDesign.Bars
         }
 
         /// Create a bar of type truss.
-        internal static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
+        public static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
         {
             Bar bar = new Bar(edge, BarType.Truss, material, section, identifier);
             bar.MaxCompression = maxCompression;
@@ -215,7 +215,7 @@ namespace FemDesign.Bars
         }
 
         /// Update entities if this bar should be "reconstructed"
-        internal void UpdateEntities()
+        public void UpdateEntities()
         {
             if (this.Type == BarType.Truss)
             {

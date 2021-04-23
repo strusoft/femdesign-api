@@ -37,7 +37,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        internal LoadCombination(string name, string type, List<LoadCase> loadCase, List<double> gamma)
+        public LoadCombination(string name, string type, List<LoadCase> loadCase, List<double> gamma)
         {
             this.EntityCreated();
             this.Name = name;
@@ -70,7 +70,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Get LoadCase guids of LoadCases in LoadCombination.
         /// </summary>
-        internal List<string> GetLoadCaseGuidsAsString()
+        public List<string> GetLoadCaseGuidsAsString()
         {
             var loadCaseGuids = new List<string>();
             foreach (ModelLoadCase item in this.ModelLoadCase)
@@ -83,7 +83,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Get gamma values of LoadCases in LoadCombanation.
         /// </summary>
-        internal List<double> GetGammas()
+        public List<double> GetGammas()
         {
             var gammas = new List<double>();
             foreach (ModelLoadCase item in this.ModelLoadCase)

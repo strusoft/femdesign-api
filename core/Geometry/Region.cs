@@ -15,7 +15,7 @@ namespace FemDesign.Geometry
     public class Region
     {
         [XmlIgnore]
-        internal Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>
         /// Used for panels and sections
@@ -114,7 +114,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Reverse the contours in this region
         /// </summary>
-        internal void Reverse()
+        public void Reverse()
         {
             foreach (Contour contour in this.Contours)
             {
@@ -125,7 +125,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Get region from a Slab.
         /// </summary>
-        internal static Region FromSlab(Shells.Slab slab)
+        public static Region FromSlab(Shells.Slab slab)
         {
             return slab.SlabPart.Region;
         }
@@ -133,7 +133,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set EdgeConnection on Edge in region by index.
         /// </summary>
-        internal void SetEdgeConnection(Shells.ShellEdgeConnection edgeConnection, int index)
+        public void SetEdgeConnection(Shells.ShellEdgeConnection edgeConnection, int index)
         {
             int edgeIdx = 0;
             foreach (Contour contour in this.Contours)
@@ -174,7 +174,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set EdgeConnection on all Edges in Region.
         /// </summary>
-        internal void SetEdgeConnections(Shells.ShellEdgeConnection edgeConnection)
+        public void SetEdgeConnections(Shells.ShellEdgeConnection edgeConnection)
         {
             if (edgeConnection.Release)
             {
@@ -206,7 +206,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Get all EdgeConnection from all Edges in Region.
         /// </summary>
-        internal List<Shells.ShellEdgeConnection> GetEdgeConnections()
+        public List<Shells.ShellEdgeConnection> GetEdgeConnections()
         {
             var edgeConnections = new List<Shells.ShellEdgeConnection>();
             foreach (Contour contour in this.Contours)
@@ -223,7 +223,7 @@ namespace FemDesign.Geometry
         /// Get all PredefinedRigidities from all Edges in Region
         /// </summary>
         /// <returns></returns>
-        internal List<Releases.RigidityDataLibType3> GetPredefinedRigidities()
+        public List<Releases.RigidityDataLibType3> GetPredefinedRigidities()
         {
             List<Releases.RigidityDataLibType3> predefRigidities = new List<Releases.RigidityDataLibType3>();
             foreach (Contour contour in this.Contours)
@@ -246,7 +246,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set line connection types (i.e predefined line connection type) on region edges
         /// </summary>
-        internal void SetPredefinedRigidities(List<Releases.RigidityDataLibType3> predefinedTypes)
+        public void SetPredefinedRigidities(List<Releases.RigidityDataLibType3> predefinedTypes)
         {
             foreach (Geometry.Contour contour in this.Contours)
             {
@@ -274,7 +274,7 @@ namespace FemDesign.Geometry
         /// Returns a new instance of region, without any EdgeConnections.
         /// </summary>
         /// <returns></returns>
-        internal Region RemoveEdgeConnections()
+        public Region RemoveEdgeConnections()
         {
             Region newRegion = this.DeepClone();
             foreach (Contour newContour in newRegion.Contours)

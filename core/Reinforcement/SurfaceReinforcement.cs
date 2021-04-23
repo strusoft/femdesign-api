@@ -54,7 +54,7 @@ namespace FemDesign.Reinforcement
         /// Create straight lay-out surface reinforcement.
         /// Internal static method used by GH components and Dynamo nodes.
         /// </summary>
-        internal static SurfaceReinforcement DefineStraightSurfaceReinforcement(Geometry.Region region, Straight straight, Wire wire)
+        public static SurfaceReinforcement DefineStraightSurfaceReinforcement(Geometry.Region region, Straight straight, Wire wire)
         {
             // set straight (e.g. centric == null)
             Centric centric = null;
@@ -70,7 +70,7 @@ namespace FemDesign.Reinforcement
         /// Add SurfaceReinforcement to slab.
         /// Internal method use by GH components and Dynamo nodes.
         /// </summary>
-        internal static Shells.Slab AddStraightReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> _surfaceReinforcement)
+        public static Shells.Slab AddStraightReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> _surfaceReinforcement)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.

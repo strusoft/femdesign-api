@@ -58,7 +58,7 @@ namespace FemDesign.StructureGrid
         /// <param name="dimensionX">Dimension in x'-direction.</param>
         /// <param name="dimensionY">Dimension in y'-direction.</param>
         /// <param name="name">Name of storey.</param>
-        internal Storey(Geometry.FdPoint3d origo, Geometry.FdVector3d direction, double dimensionX, double dimensionY, string name)
+        public Storey(Geometry.FdPoint3d origo, Geometry.FdVector3d direction, double dimensionX, double dimensionY, string name)
         {
             this.EntityCreated();
             this.Origo = origo;

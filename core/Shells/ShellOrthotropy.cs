@@ -33,7 +33,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <param name="orthoAlfa">Degrees</param>
         /// <param name="orthoRatio">Double</param>
-        internal ShellOrthotropy(double orthoAlfa, double orthoRatio)
+        public ShellOrthotropy(double orthoAlfa, double orthoRatio)
         {
             this.OrthoAlfa = FemDesign.Geometry.Degree.ToRadians(orthoAlfa);
             this.OrthoRatio = orthoRatio;

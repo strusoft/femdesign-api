@@ -34,7 +34,7 @@ namespace FemDesign
         /// 
         /// Creates a new guid, adds timestamp and changes action.
         /// </summary>
-        internal void EntityCreated()
+        public void EntityCreated()
         {
             this.Guid = System.Guid.NewGuid();
             this.LastChange = System.DateTime.UtcNow;
@@ -46,7 +46,7 @@ namespace FemDesign
         /// 
         /// Changes timestamp and action.
         /// </summary>
-        internal void EntityModified()
+        public void EntityModified()
         {
             this.LastChange = System.DateTime.UtcNow;
             this.Action = "modified";

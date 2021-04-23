@@ -35,13 +35,13 @@ namespace FemDesign.Calculate
         [XmlElement("cmdendsession", Order = 9)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
         [XmlIgnore]
-        internal string StruxmlPath {get; set; } // path to struxml file, string 259
+        public string StruxmlPath {get; set; } // path to struxml file, string 259
         [XmlIgnore]
-        internal string FileName { get; set; } // file name of struxlm file, string 259
+        public string FileName { get; set; } // file name of struxlm file, string 259
         [XmlIgnore]
-        internal string Cwd { get; set; } // current work directory, string
+        public string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
-        internal string FdScriptPath { get; set; } // path to fdscript file, string
+        public string FdScriptPath { get; set; } // path to fdscript file, string
 
         
         /// <summary>

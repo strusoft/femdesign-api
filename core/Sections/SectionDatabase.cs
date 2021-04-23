@@ -62,7 +62,7 @@ namespace FemDesign.Sections
         /// <summary>
         /// Add a section to this section database
         /// </summary>
-        internal void AddNewSection(Section obj)
+        public void AddNewSection(Section obj)
         {
             if (this.SectionInDatabase(obj))
             {
@@ -150,7 +150,7 @@ namespace FemDesign.Sections
         /// <summary>
         /// Serialize section database to file
         /// </summary>
-        internal void SerializeSectionDatabase(string filePath)
+        public void SerializeSectionDatabase(string filePath)
         {
             // check file extension
             if (Path.GetExtension(filePath) != ".struxml")

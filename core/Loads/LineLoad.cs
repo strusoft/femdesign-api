@@ -89,7 +89,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        internal LineLoad(Geometry.Edge edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, string loadType)
+        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, string loadType)
         {
             this.EntityCreated();
             this.LoadCase = loadCase.Guid;
