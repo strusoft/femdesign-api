@@ -5,7 +5,7 @@
     <ProjectGuid>{04F35658-7446-4513-AA4D-17B4782D3D00}</ProjectGuid>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>ClassLibrary</AssemblyName>
+    <AssemblyName>FemDesign.Grasshopper</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -26,8 +26,10 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>1</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>grasshopper</RootNamespace>
@@ -35,13 +37,16 @@
   <ItemGroup>
     <Reference Include="GH_IO">
       <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -135,7 +140,6 @@
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoadDefine.cs" />
     <Compile Include="Loads\TopBotLocationValueDefine.cs" />
-    <Compile Include="Materials\%40notImplemented_MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabaseListMaterialNames.cs" />
@@ -208,4 +212,7 @@
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>echo F | xcopy "$(TargetPath)" "FemDesign.gha" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
