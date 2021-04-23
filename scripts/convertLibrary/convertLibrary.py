@@ -69,6 +69,7 @@ def parseCsContentDyn(csContent):
 
 def parseCsContentDll(csContent):
     csContent = parseCsContentGH(csContent)
+    csContent = csContent.splitlines(True)
     content = parseCsContentDyn(csContent)
     return content
 
@@ -104,8 +105,8 @@ def makeDir(destPath):
 def copyCommonFiles(srcDir, dstDir):
     files = ["LICENSE", "README.md"]
     for _file in files:
-        src = srcDir + "\\" + _file
-        dst = dstDir + "\\" + _file
+        src = srcDir + "/" + _file
+        dst = dstDir + "/" + _file
         shutil.copyfile(src, dst)
 
 def wrapper(srcDir, destDir, parse):
@@ -117,6 +118,8 @@ def wrapper(srcDir, destDir, parse):
         # parse content
         if parse == "GH":
             content = parseCsContentGH(csContent)
+        elif parse == "GH-regions":
+            parseCsContentGHRegions(csContent)
         elif parse == "Dyn":
             content = parseCsContentDyn(csContent)
         elif parse == "DLL":
@@ -129,17 +132,30 @@ def wrapper(srcDir, destDir, parse):
     srcPaths.clear()
 
 def convertGH(srcDir, dstDir):
-    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "GH")
-    wrapper(srcDir + "\\componentsGrasshopper", dstDir + "\\componentsGrasshopper", parse = "GH")
+    wrapper(srcDir + "/src", dstDir, parse = "GH-regions")
+    wrapper(srcDir + "/componentsGrasshopper", dstDir, parse = "GH")
     copyCommonFiles(srcDir, dstDir)
 
 def convertDynamo(srcDir, dstDir):
-    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "Dyn")
+    wrapper(srcDir + "/src", dstDir, parse = "Dyn")
     copyCommonFiles(srcDir, dstDir)
 
 def convertDLL(srcDir, dstDir):
-    wrapper(srcDir + "\\src", dstDir + "\\src", parse = "DLL")
+    wrapper(srcDir + "/src", dstDir, parse = "DLL")
     copyCommonFiles(srcDir, dstDir)
 
 if __name__ == "__main__":
-    pass
+    print("Converting to separate projects")
+    src_dir = "."
+    dll_dir = os.path.abspath("core")
+    gh_dir = os.path.abspath("grasshopper")
+    dynamo_dir = os.path.abspath("dynamo")
+    
+    # convertDLL(src_dir, dll_dir)
+    # print(f"➕ Core project at {dll_dir}")
+
+    convertGH(src_dir, gh_dir)
+    print(f"➕ Grasshopper project at {gh_dir}")
+
+    # convertDynamo(src_dir, dynamo_dir)
+    # print(f"➕ Dynamo project at {dynamo_dir}")
