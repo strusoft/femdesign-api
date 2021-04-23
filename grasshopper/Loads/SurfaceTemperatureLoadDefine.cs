@@ -64,8 +64,8 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            Geometry.Region region = Geometry.Region.FromRhino(brep);
-            Geometry.FdVector3d dir = Geometry.FdVector3d.FromRhino(direction);
+            Geometry.Region region = brep.FromRhino();
+            Geometry.FdVector3d dir = direction.FromRhino();
 
             // create obj
             Loads.GenericLoadObject obj = new Loads.GenericLoadObject(new Loads.SurfaceTemperatureLoad(region, dir, vals, lc, comment));

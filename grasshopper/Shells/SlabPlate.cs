@@ -85,7 +85,7 @@ namespace FemDesign.GH
             if (surface == null || material == null || eccentricity == null || orthotropy == null || edgeConnection == null || identifier == null) { return; }
 
             //
-            FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
+            FemDesign.Geometry.Region region = surface.FromRhino();
 
             //
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();

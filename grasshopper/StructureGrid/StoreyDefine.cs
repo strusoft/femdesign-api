@@ -64,8 +64,8 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d p = FemDesign.Geometry.FdPoint3d.FromRhino(origo);
-            FemDesign.Geometry.FdVector3d v = FemDesign.Geometry.FdVector3d.FromRhino(direction);
+            FemDesign.Geometry.FdPoint3d p = origo.FromRhino();
+            FemDesign.Geometry.FdVector3d v = direction.FromRhino();
 
             // return
             FemDesign.StructureGrid.Storey obj = new FemDesign.StructureGrid.Storey(p, v, dimX, dimY, name);

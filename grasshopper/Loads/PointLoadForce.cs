@@ -41,8 +41,8 @@ namespace FemDesign.GH
             if (force == null || loadCase == null) { return; };
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = FemDesign.Geometry.FdPoint3d.FromRhino(point);
-            FemDesign.Geometry.FdVector3d _force = FemDesign.Geometry.FdVector3d.FromRhino(force);
+            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.FdVector3d _force = force.FromRhino();
 
             //
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();

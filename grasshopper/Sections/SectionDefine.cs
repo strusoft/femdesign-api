@@ -72,7 +72,7 @@ namespace FemDesign.GH
             List<FemDesign.Geometry.Region> regions = new List<FemDesign.Geometry.Region>();
             foreach (Rhino.Geometry.Brep brep in breps)
             {
-                regions.Add(Geometry.Region.FromRhino(brep));
+                regions.Add(brep.FromRhino());
             }
 
             // create region group

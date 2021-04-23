@@ -31,7 +31,7 @@ namespace FemDesign.GH
             if (point == null) { return; }
 
             //  transform geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = FemDesign.Geometry.FdPoint3d.FromRhino(point);
+            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
 
             //
             FemDesign.Loads.LoadLocationValue obj = new FemDesign.Loads.LoadLocationValue(fdPoint, val);

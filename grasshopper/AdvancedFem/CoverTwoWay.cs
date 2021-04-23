@@ -66,7 +66,7 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(brep);
+            FemDesign.Geometry.Region region = brep.FromRhino();
 
             //
             FemDesign.Cover obj = FemDesign.Cover.TwoWayCover(region, structures, identifier);

@@ -78,7 +78,7 @@ namespace FemDesign.GH
             if (curve == null || material == null || sections == null || connectivities == null || eccentricities == null || identifier == null) { return; }
 
             // convert geometry
-            FemDesign.Geometry.Edge edge = FemDesign.Geometry.Edge.FromRhinoLineOrArc2(curve);
+            FemDesign.Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // create bar
             FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.BeamDefine(edge, material, new FemDesign.Sections.Section[]{sections}, new FemDesign.Bars.Connectivity[]{connectivities}, new FemDesign.Bars.Eccentricity[]{eccentricities}, identifier);

@@ -43,7 +43,7 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            Geometry.FdPoint3d p = Geometry.FdPoint3d.FromRhino(point);
+            Geometry.FdPoint3d p = point.FromRhino();
 
             // create obj
             Loads.TopBotLocationValue obj = new Loads.TopBotLocationValue(p, topVal, bottomVal);

@@ -138,7 +138,7 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            Geometry.Region region = Geometry.Region.FromRhino(brep);
+            Geometry.Region region = brep.FromRhino();
 
             // add edge connection
             region.SetEdgeConnections(edgeConnection);

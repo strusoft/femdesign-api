@@ -62,8 +62,8 @@ namespace FemDesign.GH
 
             //
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
-            FemDesign.Geometry.FdVector3d _startForce = FemDesign.Geometry.FdVector3d.FromRhino(startForce);
-            FemDesign.Geometry.FdVector3d _endForce = FemDesign.Geometry.FdVector3d.FromRhino(endForce);
+            FemDesign.Geometry.FdVector3d _startForce = startForce.FromRhino();
+            FemDesign.Geometry.FdVector3d _endForce = endForce.FromRhino();
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
             obj.LineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
 

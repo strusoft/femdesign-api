@@ -104,7 +104,7 @@ namespace FemDesign.GH
             }
 
             
-            FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
+            FemDesign.Geometry.Region region = surface.FromRhino();
 
             //
             FemDesign.Shells.Panel obj = FemDesign.Shells.Panel.DefaultContreteContinuous(region, edgeConnection, material, section, identifier, orthoRatio, eccentricity);

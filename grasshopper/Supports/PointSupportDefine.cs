@@ -52,7 +52,7 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = FemDesign.Geometry.FdPoint3d.FromRhino(point);
+            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
             
             //
             FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();

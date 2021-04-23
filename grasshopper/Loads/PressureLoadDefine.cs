@@ -48,8 +48,8 @@ namespace FemDesign.GH
             if (surface == null || loadCase == null ) { return; }
 
             // transform geometry
-            FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
-            FemDesign.Geometry.FdVector3d fdVector = FemDesign.Geometry.FdVector3d.FromRhino(direction).Normalize();
+            FemDesign.Geometry.Region region = surface.FromRhino();
+            FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
 
             //
             FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();

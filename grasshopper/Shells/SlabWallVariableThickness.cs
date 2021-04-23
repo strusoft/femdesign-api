@@ -89,7 +89,7 @@ namespace FemDesign.GH
             }
 
             // convert geometry
-            FemDesign.Geometry.Region region = FemDesign.Geometry.Region.FromRhino(surface);
+            FemDesign.Geometry.Region region = surface.FromRhino();
 
             //
             FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, edgeConnection, eccentricity, orthotropy, thickness);
