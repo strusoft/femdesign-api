@@ -57,9 +57,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AdvancedFem\CoverOneWay.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
