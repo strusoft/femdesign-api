@@ -119,8 +119,7 @@
     <Compile Include="Deconstruct\ThicknessDeconstruct.cs" />
     <Compile Include="Deconstruct\TopBotLocValDeconstruct.cs" />
     <Compile Include="Deconstruct\WireDeconstruct.cs" />
-    <Compile Include="Geometry\FromRhino.cs" />
-    <Compile Include="Geometry\ToRhino.cs" />
+    <Compile Include="Geometry\Convert.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
