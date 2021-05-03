@@ -147,7 +147,7 @@ namespace FemDesign.Calculate
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <returns></returns>
-        public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession)
+        public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true)
         {
             // serialize script
             fdScript.SerializeFdScript();
@@ -159,19 +159,21 @@ namespace FemDesign.Calculate
             }
 
             // Check if files are already open
-            var openFiles = GetOpenFileNames();
-            var filename = fdScript.CmdOpen?.Filename;
-            filename = Path.GetFileName(filename);
-            if (filename != null && openFiles.Contains(filename))
-            {
-                throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
-            }
-            
-            filename = fdScript.CmdSave?.FilePath;
-            filename = Path.GetFileName(filename);
-            if (filename != null && openFiles.Contains(filename))
-            {
-                throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
+            if (checkOpenFiles) {
+                var openFiles = GetOpenFileNames();
+                var filename = fdScript.CmdOpen?.Filename;
+                filename = Path.GetFileName(filename);
+                if (filename != null && openFiles.Contains(filename))
+                {
+                    throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
+                }
+
+                filename = fdScript.CmdSave?.FilePath;
+                filename = Path.GetFileName(filename);
+                if (filename != null && openFiles.Contains(filename))
+                {
+                    throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
+                }
             }
 
             string arguments = "/s " + fdScript.FdScriptPath;
@@ -203,12 +205,12 @@ namespace FemDesign.Calculate
         public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
-            return this.RunFdScript(fdScript, closeOpenWindows, endSession);
+            return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
         public bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);
-            return this.RunFdScript(fdScript, closeOpenWindows, endSession);
+            return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
 
         #region dynamo
