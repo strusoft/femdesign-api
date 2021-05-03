@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 #region dynamo
 using Autodesk.DesignScript.Runtime;
@@ -101,6 +102,14 @@ namespace FemDesign.Calculate
                 return false;
             }
         }
+        /// <summary>
+        /// Get a list of all files open in a fd3dstruct process.
+        /// </summary>
+        public static List<string> GetOpenFileNames()
+        {
+            Process[] processes = Process.GetProcessesByName("fd3dstruct");
+            return processes.Select(p => p.MainWindowTitle.Split(new string[] { " - " }, System.StringSplitOptions.None)[2]).ToList();
+        }
 
         /// <summary>
         /// Open a .struxml file in fd3dstruct.
@@ -147,6 +156,22 @@ namespace FemDesign.Calculate
             if (killProcess)
             {
                 this.KillProcesses();
+            }
+
+            // Check if files are already open
+            var openFiles = GetOpenFileNames();
+            var filename = fdScript.CmdOpen?.Filename;
+            filename = Path.GetFileName(filename);
+            if (filename != null && openFiles.Contains(filename))
+            {
+                throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
+            }
+            
+            filename = fdScript.CmdSave?.FilePath;
+            filename = Path.GetFileName(filename);
+            if (filename != null && openFiles.Contains(filename))
+            {
+                throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
             }
 
             string arguments = "/s " + fdScript.FdScriptPath;
