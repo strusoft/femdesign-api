@@ -2387,11 +2387,11 @@ namespace FemDesign
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "HasExited"})]
-        public static Dictionary<string, object> ReadStr(string strPath,[DefaultArgument("[]")] List<string> bscPath)
+        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPath)
         {
             Calculate.FdScript fdScript = Calculate.FdScript.ReadStr(strPath, bscPath);
             Calculate.Application fdApp = new Calculate.Application();
-            bool hasExited =  fdApp.RunFdScript(fdScript, false, true);
+            bool hasExited =  fdApp.RunFdScript(fdScript, false, true, false);
             if (hasExited)
             {
                 return new Dictionary<string, object>
