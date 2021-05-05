@@ -67,6 +67,28 @@ def parseCsContentDyn(csContent):
             skipLine = False
     return content
 
+def parseCsContentDynRegions(csContent):
+    content = ""
+    ghRegion = False
+    skipRegion = False
+    skipLine = False
+    for line in csContent:
+        if "#region grasshopper" in line:
+            ghRegion = True
+            skipRegion = True
+        elif "#endregion" in line and ghRegion:
+            ghRegion = False
+            skipRegion = False
+            skipLine = True
+        if skipRegion:
+            pass
+        elif skipLine:
+            skipLine = False
+        else:
+            content += line
+            skipLine = False
+    return content
+
 def parseCsContentDll(csContent):
     csContent = parseCsContentGH(csContent)
     csContent = csContent.splitlines(True)
@@ -118,8 +140,8 @@ def wrapper(srcDir, destDir, parse):
         # parse content
         if parse == "GH":
             content = parseCsContentGH(csContent)
-        elif parse == "GH-regions":
-            parseCsContentGHRegions(csContent)
+        elif parse == "Dyn-regions":
+            parseCsContentDynRegions(csContent)
         elif parse == "Dyn":
             content = parseCsContentDyn(csContent)
         elif parse == "DLL":
@@ -132,12 +154,12 @@ def wrapper(srcDir, destDir, parse):
     srcPaths.clear()
 
 def convertGH(srcDir, dstDir):
-    wrapper(srcDir + "/src", dstDir, parse = "GH-regions")
     wrapper(srcDir + "/componentsGrasshopper", dstDir, parse = "GH")
     copyCommonFiles(srcDir, dstDir)
 
 def convertDynamo(srcDir, dstDir):
-    wrapper(srcDir + "/src", dstDir, parse = "Dyn")
+    # wrapper(srcDir + "/src", dstDir, parse = "Dyn")
+    wrapper(srcDir + "/src", dstDir, parse = "Dyn-regions")
     copyCommonFiles(srcDir, dstDir)
 
 def convertDLL(srcDir, dstDir):
@@ -154,8 +176,8 @@ if __name__ == "__main__":
     # convertDLL(src_dir, dll_dir)
     # print(f"➕ Core project at {dll_dir}")
 
-    convertGH(src_dir, gh_dir)
-    print(f"➕ Grasshopper project at {gh_dir}")
+    # convertGH(src_dir, gh_dir)
+    # print(f"➕ Grasshopper project at {gh_dir}")
 
-    # convertDynamo(src_dir, dynamo_dir)
-    # print(f"➕ Dynamo project at {dynamo_dir}")
+    convertDynamo(src_dir, dynamo_dir)
+    print(f"➕ Dynamo project at {dynamo_dir}")

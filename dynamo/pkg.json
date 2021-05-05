@@ -1,0 +1,16 @@
+{
+  "license": "",
+  "file_hash": null,
+  "name": "FemDesign 2",
+  "version": "1.0.0",
+  "description": "FemDesign Api",
+  "group": "",
+  "keywords": null,
+  "dependencies": [],
+  "contents": "",
+  "engine_version": "1.3.0.0",
+  "engine": "dynamo",
+  "node_libraries": [
+    "FemDesign.Dynamo, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
