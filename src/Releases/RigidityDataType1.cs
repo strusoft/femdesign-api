@@ -34,6 +34,7 @@ namespace FemDesign.Releases
         /// </summary>
         public RigidityDataType1()
         {
+            
         }
 
         /// <summary>

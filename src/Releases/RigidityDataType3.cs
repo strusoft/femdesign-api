@@ -44,8 +44,9 @@ namespace FemDesign.Releases
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private RigidityDataType3() : base()
+        private RigidityDataType3()
         {
+            
         }
 
         /// <summary>
