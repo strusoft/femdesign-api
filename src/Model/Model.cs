@@ -565,6 +565,39 @@ namespace FemDesign
             this.Entities.AdvancedFem.ConnectedLines.Add(obj);
         }
 
+        private void AddConnectedPoints(ModellingTools.ConnectedPoints obj, bool overwrite)
+        {
+            // advanced fem null?
+            if (this.Entities.AdvancedFem == null)
+            {
+                this.Entities.AdvancedFem = new AdvancedFem();
+            }
+
+            // connected points null?
+            if (this.Entities.AdvancedFem.ConnectedPoints == null)
+            {
+                this.Entities.AdvancedFem.ConnectedPoints = new List<ModellingTools.ConnectedPoints>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.AdvancedFem.ConnectedPoints.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.AdvancedFem.ConnectedPoints.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add connected point
+            this.Entities.AdvancedFem.ConnectedPoints.Add(obj);
+        }
+
 
         /// <summary>
         /// Add Load to Model.
@@ -2272,6 +2305,7 @@ namespace FemDesign
 
 
         #endregion
+
         #region dynamo
         /// <summary>
         /// Add elements to model. Nested lists are not supported, use flatten.
@@ -2300,6 +2334,12 @@ namespace FemDesign
             return model;
         }
 
+        /// <summary>
+        /// Add ConnectedLines elements to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <param name="fdModel">Model to add elements to.</param>
+        /// <param name="connectedLines">Single connected lines element or list of connected lines to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
         public static Model ModelAddConnectedLine(Model fdModel, List<ModellingTools.ConnectedLines> connectedLines, bool overwrite = false)
@@ -2313,6 +2353,27 @@ namespace FemDesign
             // return
             return fdModel;
             
+        }
+
+        /// <summary>
+        /// Add ConnectedPoints elements to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <param name="fdModel">Model to add elements to.</param>
+        /// <param name="connectedPoints">Single connected points element or list of connected lines to add. Nested points are not supported, use flatten.</param>
+        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
+        [IsLacingDisabled()]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Model ModelAddConnectedPoints(Model fdModel, List<ModellingTools.ConnectedPoints> connectedPoints, bool overwrite = false)
+        {
+            // add connectedLines
+            foreach (ModellingTools.ConnectedPoints item in connectedPoints)
+            {
+                fdModel.AddConnectedPoints(item, overwrite);
+            }
+
+            // return
+            return fdModel;
+
         }
 
         /// <summary>
