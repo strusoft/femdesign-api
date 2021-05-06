@@ -16,7 +16,7 @@ namespace FemDesign
     public class AdvancedFem
     {        
         [XmlElement("connected_points", Order = 1)]
-        public ModellingTools.ConnectedPoints[] ConnectedPoints { get; set; }
+        public List<ModellingTools.ConnectedPoints> ConnectedPoints { get; set; }
 
         [XmlElement("connected_lines", Order = 2)]
         public List<ModellingTools.ConnectedLines> ConnectedLines { get; set; }
