@@ -30,44 +30,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "FemDesign.Dynamo.PointSupportNodeModel, FemDesign.Dynamo",
-      "NodeType": "ExtensionNode",
-      "Id": "629f088ae3b747718f19bd4c84996297",
-      "Inputs": [
-        {
-          "Id": "432b06d2d6be460db839a65d9949ad8f",
-          "Name": "inputPoint",
-          "Description": "Input Point3d",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ba379cabccf64438a23f49ba1f53026d",
-          "Name": "inputString",
-          "Description": "Input string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "6cfda657ff8a4f6a8cbf5e943fd402ad",
-          "Name": "outputString",
-          "Description": "Output string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Testing to write custom Dynamo node"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "FemDesign.DynamoZeroTouch.PointSupport.Hinged@Autodesk.DesignScript.Geometry.Point,string",
@@ -95,8 +57,8 @@
       "Outputs": [
         {
           "Id": "5f3ca62fcc5a4db1966eb00257d4122b",
-          "Name": "var",
-          "Description": "var",
+          "Name": "PointSupport",
+          "Description": "PointSupport",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -104,7 +66,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "PointSupport.Hinged (point: Point, identifier: string = S): var"
+      "Description": "PointSupport.Hinged (point: Point, identifier: string = S): PointSupport"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -153,14 +115,66 @@
       ],
       "Replication": "Auto",
       "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "FemDesign.Dynamo.TestMethodNodeModel, FemDesign.Dynamo",
+      "NodeType": "ExtensionNode",
+      "Id": "48fb9938f1ab48c8947010d7d5615aa7",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "657b969564ac44378bd4e9f27cff1d6e",
+          "Name": "outputString",
+          "Description": "Output string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Testing to write custom Dynamo node"
+    },
+    {
+      "ConcreteType": "FemDesign.Dynamo.PointSupportNodeModel, FemDesign.Dynamo",
+      "NodeType": "ExtensionNode",
+      "Id": "e101084c69c9468598f3f2451b60865b",
+      "Inputs": [
+        {
+          "Id": "7a3881c9be214abfbf4f10eb6c40ddda",
+          "Name": "point",
+          "Description": "Input FdPoint3d",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "80c276b17b6948dca4919796a5134b13",
+          "Name": "identifier",
+          "Description": "Input string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "54eacb40eef64c1a8df559427fa1236e",
+          "Name": "PointSupport",
+          "Description": "PointSupport",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Testing to write custom Dynamo node"
     }
   ],
   "Connectors": [
-    {
-      "Start": "05c695a4bea94b07b7f21a8bed95e0ce",
-      "End": "ba379cabccf64438a23f49ba1f53026d",
-      "Id": "e26458bb346d4544b36b67b35b7ab59d"
-    },
     {
       "Start": "05c695a4bea94b07b7f21a8bed95e0ce",
       "End": "e7b37d85125542c395b09bdc51bc8f8a",
@@ -173,26 +187,32 @@
     },
     {
       "Start": "05e96d28750142e0a3b9ea17236b1777",
-      "End": "432b06d2d6be460db839a65d9949ad8f",
-      "Id": "bdd3b79d32804964babae41f9186af8d"
+      "End": "80c276b17b6948dca4919796a5134b13",
+      "Id": "64a37eeaa0c24e49852223575fd96021"
+    },
+    {
+      "Start": "657b969564ac44378bd4e9f27cff1d6e",
+      "End": "7a3881c9be214abfbf4f10eb6c40ddda",
+      "Id": "fb8b241ab2324bafbe83520dc2e709fa"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [
-    {
-      "Name": "FemDesign 2",
-      "Version": "1.0.0",
-      "ReferenceType": "Package",
-      "Nodes": [
-        "629f088ae3b747718f19bd4c84996297"
-      ]
-    },
     {
       "Name": "FemDesign ZeroTouch",
       "Version": "1.0.0",
       "ReferenceType": "Package",
       "Nodes": [
         "e85921ce7c0f4fa39a0fc459fe3deddf"
+      ]
+    },
+    {
+      "Name": "FemDesign 2",
+      "Version": "1.0.0",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "48fb9938f1ab48c8947010d7d5615aa7",
+        "e101084c69c9468598f3f2451b60865b"
       ]
     }
   ],
@@ -231,16 +251,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "PointSupport",
-        "Id": "629f088ae3b747718f19bd4c84996297",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 442.01995465814366,
-        "Y": 44.323491017344111
-      },
-      {
-        "ShowGeometry": true,
         "Name": "PointSupport.Hinged",
         "Id": "e85921ce7c0f4fa39a0fc459fe3deddf",
         "IsSetAsInput": false,
@@ -258,6 +268,26 @@
         "Excluded": false,
         "X": 69.390576849379613,
         "Y": 33.748751362681446
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "TestMethod",
+        "Id": "48fb9938f1ab48c8947010d7d5615aa7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 129.70890159288712,
+        "Y": -221.29601175564545
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "PointSupport.Hinged",
+        "Id": "e101084c69c9468598f3f2451b60865b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 539.77563123923312,
+        "Y": -144.21782273752592
       }
     ],
     "Annotations": [],

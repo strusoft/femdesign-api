@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Core", "FemDesign
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Grasshopper", "FemDesign.Grasshopper\FemDesign.Grasshopper.csproj", "{04F35658-7446-4513-AA4D-17B4782D3D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.DynamoShared\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
