@@ -170,13 +170,13 @@
     <Folder Include=".vs\dynamo\v16\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\core\FemDesign.Core.csproj">
+    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Geometry\ToDynamo.cs" />
     <Compile Include="Geometry\FromDynamo.cs" />
     <Compile Include="NodeModels\TestMethod.cs" />
@@ -200,8 +200,20 @@
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)*.*" "$(AppData)\Dynamo\Dynamo Core\2.10\packages\FemDesign2\bin\"
-xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Core\2.10\packages\FemDesign2"</PostBuildEvent>
-  </PropertyGroup>
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <Dlls Include="$(OutDir)*.dll" />
+      <Pdbs Include="$(OutDir)*.pdb" />
+      <Xmls Include="$(OutDir)*.xml" />
+      <Configs Include="$(OutDir)*.config" />
+      <Pkg Include="$(ProjectDir)pkg.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\bin\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\bin\" />
+    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\bin\" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\bin\" />
+    <Copy SourceFiles="@(Pkg)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\dyf" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign-Dynamo\extra" />
+  </Target>
 </Project>

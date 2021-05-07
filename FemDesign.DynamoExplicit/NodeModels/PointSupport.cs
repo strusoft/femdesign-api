@@ -14,7 +14,7 @@ using Dynamo.Wpf;
 
 namespace FemDesign.Dynamo
 {
-    [NodeName("PointSupport")]
+    [NodeName("PointSupport.Hinged")]
     [NodeCategory("FemDesign.Supports")]
     [NodeDescription("Testing to write custom Dynamo node", typeof(Properties.Resources))]
     [InPortNames("point", "identifier")]
@@ -28,12 +28,10 @@ namespace FemDesign.Dynamo
     {
         public PointSupportNodeModel()
         {
-            InPorts.Add(new PortModel(PortType.Input, this, new PortData("inputPoint", "Input FdPoint3d")));
-            InPorts.Add(new PortModel(PortType.Input, this, new PortData("inputString", "Input string")));
+            InPorts.Add(new PortModel(PortType.Input, this, new PortData("point", "Input FdPoint3d")));
+            InPorts.Add(new PortModel(PortType.Input, this, new PortData("identifier", "Input string")));
 
-            // Nodes can have an arbitrary number of inputs and outputs.
-            // If you want more ports, just create more PortData objects.
-            OutPorts.Add(new PortModel(PortType.Output, this, new PortData("outputString", "Output string")));
+            OutPorts.Add(new PortModel(PortType.Output, this, new PortData("PointSupport", "PointSupport")));
 
             RegisterAllPorts();
         }
@@ -45,10 +43,9 @@ namespace FemDesign.Dynamo
                 return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
             }
 
-            var functionCall =
-              AstFactory.BuildFunctionCall(
-                new Func<Geometry.FdPoint3d, string, FemDesign.Supports.PointSupport>(FemDesign.Supports.PointSupport.Rigid),
-                new List<AssociativeNode> { inputAstNodes[0], inputAstNodes[1] });
+            var arguments = new List<AssociativeNode> { inputAstNodes[0], inputAstNodes[1] };
+
+            var functionCall = AstFactory.BuildFunctionCall("FemDesign.Supports.PointSupport", "Rigid", arguments);
 
             return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), functionCall) };
         }

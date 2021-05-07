@@ -199,7 +199,7 @@
     <Folder Include=".vs\grasshopper\v16\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\core\FemDesign.Core.csproj">
+    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
