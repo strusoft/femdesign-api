@@ -11,8 +11,10 @@ namespace FemDesign.Calculate
     [IsVisibleInDynamoLibrary(false)]
     public partial class CmdDocTable
     {
+
     }
-    
+
+    [IsVisibleInDynamoLibrary(false)]
     public partial class DocTable
     {
         

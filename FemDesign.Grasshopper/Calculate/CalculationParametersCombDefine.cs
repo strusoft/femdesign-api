@@ -105,7 +105,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Calculate.Comb obj = FemDesign.Calculate.Comb.Define(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
+            FemDesign.Calculate.Comb obj = new FemDesign.Calculate.Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
 
             // return
             DA.SetData(0, obj);

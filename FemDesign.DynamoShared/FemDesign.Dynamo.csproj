@@ -7,8 +7,8 @@
     <ProjectGuid>{419CA97B-DCA5-40EF-A640-7691622E3BE5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FemDesign.DynamoShared</RootNamespace>
-    <AssemblyName>FemDesign.DynamoShared</AssemblyName>
+    <RootNamespace>FemDesign</RootNamespace>
+    <AssemblyName>FemDesign.Dynamo</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamoServices, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamoVisualProgramming.DynamoServices.2.10.1.3976\lib\net48\DynamoServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DynamoUnits, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\DynamoUnits.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ProtoGeometry, Version=2.9.0.3355, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\ProtoGeometry.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dynamo\" />
+    <Content Include="PackageData\FemDesign.Dynamo_DynamoCustomization.xml" />
+    <Content Include="images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -546,5 +559,188 @@
     <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
       <Link>FemDesign.Core\Supports\SurfaceSupport.cs</Link>
     </Compile>
+    <Compile Include="Dynamo\AdvancedFem\AdvancedFem.cs" />
+    <Compile Include="Dynamo\AdvancedFem\Cover.cs" />
+    <Compile Include="Dynamo\AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="Dynamo\Bars\Bar.cs" />
+    <Compile Include="Dynamo\Bars\BarPart.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\BucklingData.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\BucklingLength.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\Position.cs" />
+    <Compile Include="Dynamo\Bars\ColumnCorbel.cs" />
+    <Compile Include="Dynamo\Bars\Connectivity.cs" />
+    <Compile Include="Dynamo\Bars\Eccentricity.cs" />
+    <Compile Include="Dynamo\Bars\ModelEccentricity.cs" />
+    <Compile Include="Dynamo\Calculate\Analysis.cs" />
+    <Compile Include="Dynamo\Calculate\Application.cs" />
+    <Compile Include="Dynamo\Calculate\Bsc.cs" />
+    <Compile Include="Dynamo\Calculate\CmdCalculation.cs" />
+    <Compile Include="Dynamo\Calculate\CmdEndSession.cs" />
+    <Compile Include="Dynamo\Calculate\CmdListGen.cs" />
+    <Compile Include="Dynamo\Calculate\CmdOpen.cs" />
+    <Compile Include="Dynamo\Calculate\CmdSave.cs" />
+    <Compile Include="Dynamo\Calculate\CmdSaveDocx.cs" />
+    <Compile Include="Dynamo\Calculate\CmdUser.cs" />
+    <Compile Include="Dynamo\Calculate\Comb.cs" />
+    <Compile Include="Dynamo\Calculate\CombItem.cs" />
+    <Compile Include="Dynamo\Calculate\Design.cs" />
+    <Compile Include="Dynamo\Calculate\DocTable.cs" />
+    <Compile Include="Dynamo\Calculate\FdScript.cs" />
+    <Compile Include="Dynamo\Calculate\FdScriptHeader.cs" />
+    <Compile Include="Dynamo\Calculate\Font.cs" />
+    <Compile Include="Dynamo\Calculate\Freq.cs" />
+    <Compile Include="Dynamo\Calculate\LoadCombination.cs" />
+    <Compile Include="Dynamo\Calculate\ResultType.cs" />
+    <Compile Include="Dynamo\Calculate\Stage.cs" />
+    <Compile Include="Dynamo\Deconstruct\Deconstruct.cs" />
+    <Compile Include="Dynamo\GenericClasses\Camber.cs" />
+    <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
+    <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
+    <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\LocationValue.cs" />
+    <Compile Include="Dynamo\GenericClasses\RestrictedObject.cs" />
+    <Compile Include="Dynamo\GenericClasses\StartEndType.cs" />
+    <Compile Include="Dynamo\GenericClasses\Tolerance.cs" />
+    <Compile Include="Dynamo\Geometry\Contour.cs" />
+    <Compile Include="Dynamo\Geometry\Edge.cs" />
+    <Compile Include="Dynamo\Geometry\FdCoordinateSystem.cs" />
+    <Compile Include="Dynamo\Geometry\FdPoint2d.cs" />
+    <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
+    <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
+    <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\RectangleType.cs" />
+    <Compile Include="Dynamo\Geometry\Region.cs" />
+    <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
+    <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Dynamo\Loads\ForceLoadBase.cs" />
+    <Compile Include="Dynamo\Loads\GenericLoadObject.cs" />
+    <Compile Include="Dynamo\Loads\LineLoad.cs" />
+    <Compile Include="Dynamo\Loads\LineStressLoad.cs" />
+    <Compile Include="Dynamo\Loads\LineTemperatureLoad.cs" />
+    <Compile Include="Dynamo\Loads\LoadBase.cs" />
+    <Compile Include="Dynamo\Loads\LoadCase.cs" />
+    <Compile Include="Dynamo\Loads\LoadCombination.cs" />
+    <Compile Include="Dynamo\Loads\LoadLocationValue.cs" />
+    <Compile Include="Dynamo\Loads\Loads.cs" />
+    <Compile Include="Dynamo\Loads\MassConversionTable.cs" />
+    <Compile Include="Dynamo\Loads\ModelLoadCase.cs" />
+    <Compile Include="Dynamo\Loads\PointLoad.cs" />
+    <Compile Include="Dynamo\Loads\PressureLoad.cs" />
+    <Compile Include="Dynamo\Loads\SurfaceLoad.cs" />
+    <Compile Include="Dynamo\Loads\SurfaceTemperatureLoad.cs" />
+    <Compile Include="Dynamo\Loads\TopBotLocationValue.cs" />
+    <Compile Include="Dynamo\Materials\CltDataType.cs" />
+    <Compile Include="Dynamo\Materials\CltPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\Concrete.cs" />
+    <Compile Include="Dynamo\Materials\Custom.cs" />
+    <Compile Include="Dynamo\Materials\GlcDataType.cs" />
+    <Compile Include="Dynamo\Materials\GlcPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\LimitStresses.cs" />
+    <Compile Include="Dynamo\Materials\Material.cs" />
+    <Compile Include="Dynamo\Materials\MaterialBase.cs" />
+    <Compile Include="Dynamo\Materials\MaterialDatabase.cs" />
+    <Compile Include="Dynamo\Materials\Materials.cs" />
+    <Compile Include="Dynamo\Materials\MaterialTypeEnum.cs" />
+    <Compile Include="Dynamo\Materials\MechProps.cs" />
+    <Compile Include="Dynamo\Materials\ReinforcingMaterials.cs" />
+    <Compile Include="Dynamo\Materials\ReinforcingSteel.cs" />
+    <Compile Include="Dynamo\Materials\Steel.cs" />
+    <Compile Include="Dynamo\Materials\Timber.cs" />
+    <Compile Include="Dynamo\Materials\TimberApplicationData.cs" />
+    <Compile Include="Dynamo\Materials\TimberFactors.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelData.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelStiffness.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelStrength.cs" />
+    <Compile Include="Dynamo\Materials\TimberServiceClassFactors.cs" />
+    <Compile Include="Dynamo\Materials\TimberServiceClassKdefs.cs" />
+    <Compile Include="Dynamo\Model\Entities.cs" />
+    <Compile Include="Dynamo\Model\Model.cs" />
+    <Compile Include="Dynamo\ModellingTools\ConnectedLines.cs" />
+    <Compile Include="Dynamo\ModellingTools\ConnectedPoints.cs" />
+    <Compile Include="Dynamo\ModellingTools\Diaphragm.cs" />
+    <Compile Include="Dynamo\ModellingTools\FictitiousBar.cs" />
+    <Compile Include="Dynamo\ModellingTools\FictitiousShell.cs" />
+    <Compile Include="Dynamo\ModellingTools\StiffnessMatrix2Type.cs" />
+    <Compile Include="Dynamo\ModellingTools\StiffnessMatrix4Type.cs" />
+    <Compile Include="Dynamo\ModellingTools\SurfaceConnection.cs" />
+    <Compile Include="Dynamo\Reinforcement\BarReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\Center.cs" />
+    <Compile Include="Dynamo\Reinforcement\Centric.cs" />
+    <Compile Include="Dynamo\Reinforcement\HiddenBar.cs" />
+    <Compile Include="Dynamo\Reinforcement\LongitudinalBar.cs" />
+    <Compile Include="Dynamo\Reinforcement\NoShear.cs" />
+    <Compile Include="Dynamo\Reinforcement\Ptc.cs" />
+    <Compile Include="Dynamo\Reinforcement\PunchingArea.cs" />
+    <Compile Include="Dynamo\Reinforcement\PunchingReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\Stirrups.cs" />
+    <Compile Include="Dynamo\Reinforcement\Straight.cs" />
+    <Compile Include="Dynamo\Reinforcement\SurfaceReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />
+    <Compile Include="Dynamo\Reinforcement\Wire.cs" />
+    <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
+    <Compile Include="Dynamo\Releases\Motions.cs" />
+    <Compile Include="Dynamo\Releases\PlasticityType3d.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType1.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType2.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType3.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType1.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType2.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType3.cs" />
+    <Compile Include="Dynamo\Releases\Rotations.cs" />
+    <Compile Include="Dynamo\Releases\SimpleStiffnessType.cs" />
+    <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
+    <Compile Include="Dynamo\Releases\StiffnessType.cs" />
+    <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Sections\ComplexSection.cs" />
+    <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
+    <Compile Include="Dynamo\Sections\ModelSection.cs" />
+    <Compile Include="Dynamo\Sections\ModelSections.cs" />
+    <Compile Include="Dynamo\Sections\Section.cs" />
+    <Compile Include="Dynamo\Sections\SectionDatabase.cs" />
+    <Compile Include="Dynamo\Shells\EdgeConnectionBase.cs" />
+    <Compile Include="Dynamo\Shells\InternalPanel.cs" />
+    <Compile Include="Dynamo\Shells\Panel.cs" />
+    <Compile Include="Dynamo\Shells\ShellBucklingType.cs" />
+    <Compile Include="Dynamo\Shells\ShellEccentricity.cs" />
+    <Compile Include="Dynamo\Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Dynamo\Shells\ShellOrthotropy.cs" />
+    <Compile Include="Dynamo\Shells\Slab.cs" />
+    <Compile Include="Dynamo\Shells\SlabPart.cs" />
+    <Compile Include="Dynamo\Shells\Thickness.cs" />
+    <Compile Include="Dynamo\Shells\WallCorbel.cs" />
+    <Compile Include="Dynamo\StructureGrid\Axes.cs" />
+    <Compile Include="Dynamo\StructureGrid\Axis.cs" />
+    <Compile Include="Dynamo\StructureGrid\Storey.cs" />
+    <Compile Include="Dynamo\StructureGrid\Storeys.cs" />
+    <Compile Include="Dynamo\Supports\GenericSupportObject.cs" />
+    <Compile Include="Dynamo\Supports\Group.cs" />
+    <Compile Include="Dynamo\Supports\LineSupport.cs" />
+    <Compile Include="Dynamo\Supports\PointSupport.cs" />
+    <Compile Include="Dynamo\Supports\Supports.cs" />
+    <Compile Include="Dynamo\Supports\SurfaceSupport.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="PackageData\pkg.json" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <Dlls Include="$(OutDir)*.dll" />
+      <Pdbs Include="$(OutDir)*.pdb" />
+      <Xmls Include="$(OutDir)*.xml" />
+      <Configs Include="$(OutDir)*.config" />
+      <DynamoCustomization Include="$(ProjectDir)PackageData\FemDesign.Dynamo_DynamoCustomization.xml" />
+      <Pkg Include="$(ProjectDir)PackageData\pkg.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoCustomization)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pkg)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\dyf" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\extra" />
+  </Target>
 </Project>

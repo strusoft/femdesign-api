@@ -9,58 +9,9 @@ namespace FemDesign.Bars
     /// This class called Eccentricity as it is the Dynamo facing class.
     [IsVisibleInDynamoLibrary(false)]
     public partial class Eccentricity
-    {
+    {   
+        // [IsVisibleInDynamoLibrary(true)]
 
-        {
-            {
-            }
-            {
-            }
-        }
-        
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            
-        }
-
-        {
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            {
-            }
-        }
-
-        {
-        }
-        
-        [IsVisibleInDynamoLibrary(true)]
-        {
-        }
-
-        [IsVisibleInDynamoLibrary(false)]
-        {
-        }
+        // [IsVisibleInDynamoLibrary(false)]
     }
 }

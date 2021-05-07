@@ -55,7 +55,7 @@ namespace FemDesign.GH
             }
 
             
-            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
+            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.GetDefault();
             if (!DA.GetData(1, ref comb))
             {
                 // pass

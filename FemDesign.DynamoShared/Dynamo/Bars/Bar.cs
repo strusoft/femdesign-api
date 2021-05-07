@@ -8,8 +8,6 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Bars
 {
-    {
-
     [IsVisibleInDynamoLibrary(false)]
     public partial class Bar: EntityBase
     {

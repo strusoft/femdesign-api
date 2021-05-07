@@ -12,8 +12,6 @@ namespace FemDesign.Bars
         
 
         // [IsVisibleInDynamoLibrary(true)]
-        // {
-        // }
 
         #region dynamo
         /// <summary>

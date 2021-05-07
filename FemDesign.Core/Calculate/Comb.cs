@@ -49,7 +49,7 @@ namespace FemDesign.Calculate
         {
             
         }
-        private Comb(int _NLEmaxiter, int _PLdefloadstep, int _PLminloadstep, int _PLmaxeqiter, bool _NLSMohr, int _NLSinitloadstep, int _NLSminloadstep, int _NLSactiveelemratio, int _NLSplasticelemratio, int _CRloadstep, int _CRmaxiter, int _CRstifferror)
+        public Comb(int _NLEmaxiter = 30, int _PLdefloadstep = 20, int _PLminloadstep = 2, int _PLmaxeqiter = 30, bool _NLSMohr = true, int _NLSinitloadstep = 10, int _NLSminloadstep = 10, int _NLSactiveelemratio = 5, int _NLSplasticelemratio = 5, int _CRloadstep = 20, int _CRmaxiter = 30, int _CRstifferror = 2)
         {
             this.NLEmaxiter = _NLEmaxiter;
             this.PLdefloadstep = _PLdefloadstep;
@@ -70,7 +70,7 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static Comb Default()
+        public static Comb GetDefault()
         {
             int NLEmaxiter = 30;
             int PLdefloadstep = 20;
@@ -84,25 +84,6 @@ namespace FemDesign.Calculate
             int CRloadstep = 20;
             int CRmaxiter = 30;
             int CRstifferror = 2;
-            return new Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
-        }
-
-        /// <summary>Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation (found under the Calculate category).</summary>
-        /// <remarks>Create</remarks>
-        /// <param name="NLEmaxiter">Non-linear elastic analysis: Maximum iteration number.</param>
-        /// <param name="PLdefloadstep">Plastic analysis: Default load step in % of the total load.</param>
-        /// <param name="PLminloadstep">Plastic analysis: Minimal load step [%]</param>
-        /// <param name="PLmaxeqiter">Plastic analysis: Maximum equilibrium iteration number.</param>
-        /// <param name="NLSMohr">Non-linear soil: Consider Mohr-Coulomb criteria.</param>
-        /// <param name="NLSinitloadstep">Non-linear soil: Initial load step [%]</param>
-        /// <param name="NLSminloadstep">Non-linear soil: Minimal load step [%]</param>
-        /// <param name="NLSactiveelemratio">Non-linear soil: Volume ratio of nonlinearly active elements in one step [%]</param>
-        /// <param name="NLSplasticelemratio">Non-linear soil: Volume ratio of plastic elements in one step [%]</param>
-        /// <param name="CRloadstep">Cracked section analysis: One load step in % of the total load.</param>
-        /// <param name="CRmaxiter">Cracked section analysis: Maximum iteration number.</param>
-        /// <param name="CRstifferror">Cracked section analysis: Allowed stiffness change error [%]</param>
-        public static Comb Define(int NLEmaxiter = 30, int PLdefloadstep = 20, int PLminloadstep = 2, int PLmaxeqiter = 30, bool NLSMohr = true, int NLSinitloadstep = 10, int NLSminloadstep = 10, int NLSactiveelemratio = 5, int NLSplasticelemratio = 5, int CRloadstep = 20, int CRmaxiter = 30, int CRstifferror = 2)
-        {
             return new Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
         }
 

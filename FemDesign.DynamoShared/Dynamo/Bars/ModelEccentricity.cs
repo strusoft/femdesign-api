@@ -11,69 +11,6 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public partial class ModelEccentricity
     {
-
-        {
-            {
-            }
-            {
-                {
-                }
-                {
-                }
-                {
-                }
-            }
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            {
-            }
-            {
-                {
-                }
-                {
-                }
-                {
-                }
-            }
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
-
-        {
-            {
-            }
-            {
-            }
-        }
         
-        {
-            
-        }
-
-        {
-        }
-
-        {
-        }
     }
 }

@@ -66,24 +66,5 @@ namespace FemDesign
         }
 
         #endregion
-
-        #region grasshopper
-        /// <summary>
-        /// Create Rhino brep from underlying Region of Cover.
-        /// </summary>
-        internal Rhino.Geometry.Brep GetRhinoSurface()
-        {
-            return this.Region.ToRhinoBrep();
-        }
-
-        /// <summary>
-        /// Create Rhino curves from underlying Edges in Region of Cover.
-        /// </summary>
-        internal List<Rhino.Geometry.Curve> GetRhinoCurves()
-        {
-            return this.Region.ToRhinoCurves();
-        }
-
-        #endregion
     }
 }

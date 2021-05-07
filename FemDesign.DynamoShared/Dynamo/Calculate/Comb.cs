@@ -8,9 +8,9 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Calculate
 {
 
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public partial class Comb
     {
-        // [IsVisibleInDynamoLibrary(false)]
+
     }
 }
