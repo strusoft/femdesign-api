@@ -9,7 +9,7 @@ namespace FemDesign
     /// cover_referencelist_type
     /// </summary>
     [System.Serializable]
-    public class CoverReferenceList
+    public partial class CoverReferenceList
     {
         [XmlElement("ref")]
         public List<GuidListType> RefGuid = new List<GuidListType>(); // guidtype

@@ -9,7 +9,7 @@ namespace FemDesign.Geometry
     /// region_group_type
     /// </summary>
     [System.Serializable]
-    public class RegionGroup
+    public partial class RegionGroup
     {
         [XmlElement("region")]
         public List<Region> Regions = new List<Region>(); // sequence: region_type

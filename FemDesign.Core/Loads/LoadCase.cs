@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// load_case_type
     /// </summary>
     [System.Serializable]
-    public class LoadCase: EntityBase
+    public partial class LoadCase: EntityBase
     {
         // attributes
         [XmlAttribute("name")]

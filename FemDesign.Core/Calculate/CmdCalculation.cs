@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDCALCULATION
     /// </summary>
-    public class CmdCalculation
+    public partial class CmdCalculation
     {
         [XmlElement("analysis")]
         public Analysis Analysis { get; set; } // ANALYSIS

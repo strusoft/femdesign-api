@@ -13,7 +13,7 @@ namespace FemDesign
     /// </summary>
     [System.Serializable]
     [XmlRoot("database", Namespace = "urn:strusoft")]
-    public class Model
+    public partial class Model
     {
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.

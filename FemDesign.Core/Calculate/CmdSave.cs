@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDSAVE
     /// </summary>
-    public class CmdSave
+    public partial class CmdSave
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL SAVE"; // token, fixed

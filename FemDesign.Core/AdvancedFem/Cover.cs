@@ -10,7 +10,7 @@ namespace FemDesign
     /// cover_type
     /// </summary>
     [System.Serializable]
-    public class Cover: EntityBase
+    public partial class Cover: EntityBase
     {
         /// <summary>
         /// Cover instance number

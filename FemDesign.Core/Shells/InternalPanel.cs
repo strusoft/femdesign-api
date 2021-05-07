@@ -8,7 +8,7 @@ namespace FemDesign
     /// internal_panels. List of internal_panel_type, used for struxml heirarchy.
     /// </summary>
     [System.Serializable]
-    public class InternalPanels
+    public partial class InternalPanels
     {
         [XmlElement("item")]
         public List<InternalPanel> IntPanels { get; set; }
@@ -42,7 +42,7 @@ namespace FemDesign
     /// internal_panel_type
     /// </summary>
     [System.Serializable]
-    public class InternalPanel
+    public partial class InternalPanel
     {
         [XmlElement("region")]
         public Geometry.Region Region { get; set; }

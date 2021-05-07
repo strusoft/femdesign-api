@@ -11,7 +11,7 @@ namespace FemDesign.Bars
     /// This class is called ModelEccentricity as Eccentricity (ecc_value_type) is the Dynamo facing class and thus need to be named accordingly.
     /// </summary>
     [System.Serializable]
-    public class ModelEccentricity
+    public partial class ModelEccentricity
     {
         // attributes
         [XmlAttribute("use_default_physical_alignment")]

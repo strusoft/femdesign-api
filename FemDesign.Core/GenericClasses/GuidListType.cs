@@ -7,7 +7,7 @@ namespace FemDesign
     /// guid_list_type
     /// </summary>
     [System.Serializable]
-    public class GuidListType
+    public partial class GuidListType
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; }
@@ -29,7 +29,7 @@ namespace FemDesign
     /// two_guid_list_type
     /// </summary>
     [System.Serializable]
-    public class TwoGuidListType
+    public partial class TwoGuidListType
     {
         [XmlAttribute("first")]
         public System.Guid First { get; set; }
@@ -55,7 +55,7 @@ namespace FemDesign
     /// three_guid_list_type
     /// </summary>
     [System.Serializable]
-    public class ThreeGuidListType
+    public partial class ThreeGuidListType
     {
         [XmlAttribute("first")]
         public System.Guid First { get; set; }

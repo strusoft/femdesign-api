@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class NoShearAutoType
+    public partial class NoShearAutoType
     {
         [XmlAttribute("connected_structure")]
         public Guid ConnectedStructure { get; set; }
@@ -18,7 +18,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class NoShearRegionType: EntityBase
+    public partial class NoShearRegionType: EntityBase
     {
         [XmlElement("automatic", Order = 1)]
         public NoShearAutoType Automatic { get; set; }

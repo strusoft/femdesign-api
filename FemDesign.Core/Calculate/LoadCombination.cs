@@ -7,7 +7,7 @@ namespace FemDesign.Calculate
     /// Dummy class to put node at correct heirarchy in Dynamo.
     /// </summary>
     [System.Serializable]
-    public class LoadCombination
+    public partial class LoadCombination
     {
     }
 }

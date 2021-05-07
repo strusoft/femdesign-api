@@ -8,7 +8,7 @@ namespace FemDesign.Loads
     /// topbottom_value
     /// </summary>
     [System.Serializable]
-    public class TopBotLocationValue: Geometry.FdPoint3d
+    public partial class TopBotLocationValue: Geometry.FdPoint3d
     {
         /// <summary>
         /// Top value

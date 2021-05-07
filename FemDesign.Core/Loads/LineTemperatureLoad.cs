@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Loads
 {
     [System.Serializable]
-    public class LineTemperatureLoad: LoadBase
+    public partial class LineTemperatureLoad: LoadBase
     {
         /// <summary>
         /// Edge defining the geometry of the load

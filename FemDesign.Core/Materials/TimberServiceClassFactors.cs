@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// service_class_factors
     /// </summary>
     [System.Serializable]
-    public class ServiceClassFactors
+    public partial class ServiceClassFactors
     {
         [XmlAttribute("kdef")]
         public double _kdef;

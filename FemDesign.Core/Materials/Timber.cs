@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// material_type --> timber
     /// </summary>
     [System.Serializable]
-    public class Timber: MaterialBase
+    public partial class Timber: MaterialBase
     {
         [XmlAttribute("type")]
         public string Type { get; set; } // integer

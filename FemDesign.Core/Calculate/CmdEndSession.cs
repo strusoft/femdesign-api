@@ -3,5 +3,5 @@
 
 namespace FemDesign.Calculate
 {
-    public class CmdEndSession{}
+    public partial class CmdEndSession{}
 }

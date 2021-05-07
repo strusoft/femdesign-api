@@ -10,7 +10,7 @@ namespace FemDesign.Sections
     /// Section.
     /// </summary>
     [System.Serializable]
-    public class Section: EntityBase
+    public partial class Section: EntityBase
     {
         [XmlElement("region_group", Order = 1)]
         public Geometry.RegionGroup _regionGroup;

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign
 {
     [System.Serializable]
-    public class ForceLoadBase: LoadBase
+    public partial class ForceLoadBase: LoadBase
     {
         [XmlAttribute("load_type")]
         public string _loadType; // force_load_type

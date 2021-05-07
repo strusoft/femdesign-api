@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// material_type --> custom
     /// </summary>
     [System.Serializable]
-    public class Custom: MaterialBase
+    public partial class Custom: MaterialBase
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class FictitiousBar: EntityBase
+    public partial class FictitiousBar: EntityBase
     {
         [XmlIgnore]
         private static int Instance = 0;

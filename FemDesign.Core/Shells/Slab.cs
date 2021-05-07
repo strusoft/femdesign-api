@@ -10,7 +10,7 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public class Slab: EntityBase
+    public partial class Slab: EntityBase
     {
         private static int _plateInstance = 0;
         private static int _wallInstance = 0;

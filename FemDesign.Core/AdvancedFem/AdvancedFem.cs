@@ -9,7 +9,7 @@ namespace FemDesign
     /// Connections and virtual objects
     /// </summary>
     [System.Serializable]
-    public class AdvancedFem
+    public partial class AdvancedFem
     {        
         [XmlElement("connected_points", Order = 1)]
         public ModellingTools.ConnectedPoints[] ConnectedPoints { get; set; }

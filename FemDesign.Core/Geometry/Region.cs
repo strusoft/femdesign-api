@@ -12,7 +12,7 @@ namespace FemDesign.Geometry
     /// Surfaces in FEM-Design are expressed as regions of contours (outlines). This extended region also contains a LCS to keep track of directions.
     /// </summary>
     [System.Serializable]
-    public class Region
+    public partial class Region
     {
         [XmlIgnore]
         public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }

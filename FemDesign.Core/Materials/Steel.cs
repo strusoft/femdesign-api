@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// material_type --> steel
     /// </summary>
     [System.Serializable]
-    public class Steel: MaterialBase
+    public partial class Steel: MaterialBase
     {
         [XmlAttribute("Fyk16")]
         public string Fyk16 { get; set; } // material_base_value

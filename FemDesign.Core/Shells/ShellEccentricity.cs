@@ -3,7 +3,7 @@
 
 namespace FemDesign.Shells
 {
-    public class ShellEccentricity
+    public partial class ShellEccentricity
     {
         private string _alignment; // ver_align
         public string Alignment

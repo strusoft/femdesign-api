@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    public class CltDataType
+    public partial class CltDataType
     {
         [XmlElement("default_kdef", Order = 1)]
         public TimberServiceClassKdfes DefaultKdef { get; set; }

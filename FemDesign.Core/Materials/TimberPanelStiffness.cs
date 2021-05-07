@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// stiffness
     /// </summary>
     [System.Serializable]
-    public class TimberPanelStiffness
+    public partial class TimberPanelStiffness
     {
         [XmlAttribute("Em_k0")]
         public double _em_k0;

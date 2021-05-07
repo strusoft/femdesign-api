@@ -9,7 +9,7 @@ namespace FemDesign
     /// 
     /// Restrictions are defined by strusoft.xsd
     /// </summary>
-    public class RestrictedObject
+    public partial class RestrictedObject
     {
         /// <summary>
         /// Check if val is a non zero 3d vector.

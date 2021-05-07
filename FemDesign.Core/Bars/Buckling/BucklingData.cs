@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Bars.Buckling
 {
     [System.Serializable]
-    public class BucklingData
+    public partial class BucklingData
     {
         [XmlElement("buckling_length")]
         public List<BucklingLength> BucklingLength = new List<BucklingLength>();

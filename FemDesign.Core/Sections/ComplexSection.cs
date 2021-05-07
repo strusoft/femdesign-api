@@ -10,7 +10,7 @@ namespace FemDesign.Sections
     /// strusoft.xsd: complex_section_type
     /// </summary>
     [System.Serializable]
-    public class ComplexSection: EntityBase
+    public partial class ComplexSection: EntityBase
     {
         [XmlElement("section")]
         public List<ModelSection> Section = new List<ModelSection>();

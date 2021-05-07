@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.StructureGrid
 {
     [System.Serializable]
-    public class Storey: EntityBase
+    public partial class Storey: EntityBase
     {
         [XmlElement("origo", Order=1)]
         public Geometry.FdPoint3d Origo { get; set; }

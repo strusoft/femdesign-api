@@ -9,7 +9,7 @@ namespace FemDesign.Loads
     /// line_stress_load_type
     /// </summary>
     [System.Serializable]
-    public class LineStressLoad: LoadBase
+    public partial class LineStressLoad: LoadBase
     {
         /// <summary>
         /// Edge defining the geometry of the load

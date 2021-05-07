@@ -8,7 +8,7 @@ namespace FemDesign.Loads
     /// load_case (child of load_combination_type)
     /// </summary>
     [System.Serializable]
-    public class ModelLoadCase
+    public partial class ModelLoadCase
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; } // common_load_case --> guidtype indexed_guid

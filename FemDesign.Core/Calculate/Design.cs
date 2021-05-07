@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// DESIGNCALC
     /// </summary>
-    public class Design
+    public partial class Design
     {
         [XmlElement("cmax")]
         public string CMax { get; set; } // choice?

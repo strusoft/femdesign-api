@@ -7,7 +7,7 @@ namespace FemDesign.Loads
     /// Object to contain load instances in GH when passing generic objects.
     /// </summary>
     [System.Serializable]
-    public class GenericLoadObject
+    public partial class GenericLoadObject
     {
         public PointLoad PointLoad { get; set; }
         public LineLoad LineLoad { get; set; }

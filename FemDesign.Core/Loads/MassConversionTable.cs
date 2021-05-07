@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace FemDesign.Loads
 {
     [System.Serializable]
-    public class MassConversion
+    public partial class MassConversion
     {
         [XmlAttribute("factor")]
         public double _factor;
@@ -45,7 +45,7 @@ namespace FemDesign.Loads
     }
 
     [System.Serializable]
-    public class MassConversionTable
+    public partial class MassConversionTable
     {
         [XmlElement("conversion", Order = 1)]
         public List<MassConversion> MassConversions = new List<MassConversion>();

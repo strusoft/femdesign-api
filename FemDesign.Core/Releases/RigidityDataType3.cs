@@ -10,7 +10,7 @@ namespace FemDesign.Releases
     /// rigidity_data_type3
     /// </summary>
     [System.Serializable]
-    public class RigidityDataType3: RigidityDataType2
+    public partial class RigidityDataType3: RigidityDataType2
     {
         /// <summary>
         /// Type string in order to make field nullable. When null FEM-Design will load default value.

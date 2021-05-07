@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class StiffnessMatrix4Type
+    public partial class StiffnessMatrix4Type
     {
         [XmlAttribute("xx")]
         public double _xx;

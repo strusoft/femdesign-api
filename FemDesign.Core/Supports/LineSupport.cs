@@ -9,7 +9,7 @@ namespace FemDesign.Supports
     /// line_support_type
     /// </summary>
     [System.Serializable]
-    public class LineSupport: EntityBase
+    public partial class LineSupport: EntityBase
     {
         // serialization properties
         [XmlAttribute("name")]

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Materials
 {
     [System.Serializable]
-    public class MaterialBase
+    public partial class MaterialBase
     {
         // material_type_attribs
         [XmlAttribute("mass")]

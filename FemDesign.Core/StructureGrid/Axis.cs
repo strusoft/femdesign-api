@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.StructureGrid
 {
     [System.Serializable]
-    public class Axis: EntityBase
+    public partial class Axis: EntityBase
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint2d _startPoint; // point_type_2d

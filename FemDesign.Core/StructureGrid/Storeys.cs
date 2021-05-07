@@ -8,7 +8,7 @@ namespace FemDesign.StructureGrid
     /// Class to contain list in entities. For serialization purposes only.
     /// </summary>
     [System.Serializable]
-    public class Storeys
+    public partial class Storeys
     {
         [XmlElement("storey", Order = 1)]
         public List<Storey> Storey = new List<Storey>();

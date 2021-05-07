@@ -8,7 +8,7 @@ namespace FemDesign.Releases
     /// stiffness_with_friction
     /// </summary>
     [System.Serializable]
-    public class StiffnessWithFriction: SimpleStiffnessType
+    public partial class StiffnessWithFriction: SimpleStiffnessType
     {
         [XmlAttributeAttribute("friction")]
         public double _friction;

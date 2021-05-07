@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public class RectangleType
+    public partial class RectangleType
     {
         [XmlElement("base_corner", Order = 1)]
         public FdPoint3d BaseCorner { get; set; }

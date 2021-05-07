@@ -8,7 +8,7 @@ namespace FemDesign.StructureGrid
     /// Class to contain list in entities. For serialization purposes only.
     /// </summary>
     [System.Serializable]
-    public class Axes
+    public partial class Axes
     {
         [XmlElement("axis", Order = 1)]
         public List<Axis> Axis = new List<Axis>();

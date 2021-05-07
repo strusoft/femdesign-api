@@ -12,7 +12,7 @@ namespace FemDesign.Geometry
     /// Curves in FEM-Design are expressed as edges. This extended edge also contains a LCS to keep track of directions.
     /// </summary>
     [System.Serializable]
-    public class Edge
+    public partial class Edge
     {         
         [XmlIgnore]
         private FdCoordinateSystem _coordinateSystem;

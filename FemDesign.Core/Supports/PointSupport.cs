@@ -8,7 +8,7 @@ namespace FemDesign.Supports
     /// point_support_type
     /// </summary>
     [System.Serializable]
-    public class PointSupport: EntityBase
+    public partial class PointSupport: EntityBase
     {
         [XmlIgnore]
         public static int _instance = 0; // used for PointSupports and LineSupports

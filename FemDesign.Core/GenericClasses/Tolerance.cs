@@ -5,7 +5,7 @@ namespace FemDesign
     /// <summary>
     /// Tolerance. This class contains definitions for different project specific tolerances.
     /// </summary>
-    public class Tolerance
+    public partial class Tolerance
     {
         /// <summary>
         /// Predefined brep tolerance.

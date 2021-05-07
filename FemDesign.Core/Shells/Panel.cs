@@ -10,7 +10,7 @@ namespace FemDesign.Shells
     /// panel_type
     /// </summary>
     [System.Serializable]
-    public class Panel: EntityBase
+    public partial class Panel: EntityBase
     {
         /// <summary>
         /// Panel instance counter

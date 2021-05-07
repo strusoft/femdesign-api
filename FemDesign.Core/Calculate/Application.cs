@@ -12,7 +12,7 @@ namespace FemDesign.Calculate
     /// Start and run processes (open, analysis, design etc.
     /// </summary>
     [System.Serializable]
-    public class Application
+    public partial class Application
     {
         /// <summary>
         /// Path to fd3dstruct.

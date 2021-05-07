@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class PtcLosses
+    public partial class PtcLosses
     {
         [XmlAttribute("curvature_coefficient")]
         public double CurvatureCoefficient { get; set; }
@@ -29,7 +29,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcShapeType
+    public partial class PtcShapeType
     {
         [XmlElement("start_point", Order = 1)]
         public PtcShapeStart StartPoint { get; set; }
@@ -47,7 +47,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcShapeStart
+    public partial class PtcShapeStart
     {
         [XmlAttribute("z")]
         public double Z { get; set; }
@@ -57,7 +57,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcShapeInner
+    public partial class PtcShapeInner
     {
         [XmlAttribute("pos")]
         public double Position { get; set; }
@@ -70,7 +70,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcShapeEnd
+    public partial class PtcShapeEnd
     {
         [XmlAttribute("z")]
         public double Z { get; set; }
@@ -81,7 +81,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcManufacturingType
+    public partial class PtcManufacturingType
     {
         private double[] _positions;
 
@@ -131,7 +131,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class Ptc: EntityBase
+    public partial class Ptc: EntityBase
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint3d StartPoint { get; set; }
@@ -171,21 +171,21 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PtcStrandType
+    public partial class PtcStrandType
     {
         [XmlElement("predefined_type")]
         public PtcStrandLibType[] PtcStrandLibTypes { get; set; }
     }
 
     [System.Serializable]
-    public class PtcStrandLibType: LibraryBase
+    public partial class PtcStrandLibType: LibraryBase
     {
         [XmlElement("ptc_strand_data", Order = 1)]
         public PtcStrandData PtcStrandData { get; set; }
     }
 
     [System.Serializable]
-    public class PtcStrandData
+    public partial class PtcStrandData
     {
         [XmlAttribute("f_pk")]
         public double f_pk { get; set; }

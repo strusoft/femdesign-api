@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
     /// straight (child of surface_rf_type)
     /// </summary>
     [System.Serializable]
-    public class Straight
+    public partial class Straight
     {
         [XmlAttribute("direction")]
         public string _direction; // direction_type. Required

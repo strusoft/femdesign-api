@@ -4,7 +4,7 @@
 namespace FemDesign.Releases
 {
     [System.Serializable]
-    public class Motions: StiffnessType
+    public partial class Motions: StiffnessType
     {
         /// <summary>
         /// Parameterless constructor for serialization.

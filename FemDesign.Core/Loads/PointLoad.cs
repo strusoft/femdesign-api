@@ -8,7 +8,7 @@ namespace FemDesign.Loads
     /// point_load_type
     /// </summary>
     [System.Serializable]
-    public class PointLoad: ForceLoadBase
+    public partial class PointLoad: ForceLoadBase
     {
         [XmlElement("direction")]
         public Geometry.FdVector3d Direction { get; set; } // point_type_3d

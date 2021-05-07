@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class ConnectedLines: EntityBase
+    public partial class ConnectedLines: EntityBase
     {
         [XmlIgnore]
         private static int _instance = 0;

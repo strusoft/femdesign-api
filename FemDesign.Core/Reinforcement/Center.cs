@@ -9,7 +9,7 @@ namespace FemDesign.Reinforcement
     /// center (child of shell_rf_params_type)
     /// </summary>
     [System.Serializable]
-    public class Center
+    public partial class Center
     {
         [XmlAttribute("x")]
         public double X { get; set; } // double

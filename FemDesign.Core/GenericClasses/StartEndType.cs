@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign
 {
     [System.Serializable]
-    public class StartEndType
+    public partial class StartEndType
     {
         [XmlAttribute("start")]
         public double Start { get; set; }

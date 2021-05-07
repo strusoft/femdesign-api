@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class PunchingReinforcement: EntityBase
+    public partial class PunchingReinforcement: EntityBase
     {
         [XmlElement("base_shell", Order = 1)]
         public GuidListType BaseShell { get; set; }
@@ -30,7 +30,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class BendedBar
+    public partial class BendedBar
     {
         [XmlElement("local_center", Order = 1)]
         public Geometry.FdPoint3d LocalCenter { get; set; }
@@ -55,7 +55,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class OpenStirrups
+    public partial class OpenStirrups
     {
         [XmlElement("wire", Order = 1)]
         public Wire Wire { get; set; }
@@ -80,7 +80,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class ReinforcingRing
+    public partial class ReinforcingRing
     {
         [XmlElement("auxiliary_reinforcement", Order = 1)]
         public AuxiliaryReinforcement AuxiliaryReinforcement { get; set; }
@@ -90,7 +90,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class AuxiliaryReinforcement
+    public partial class AuxiliaryReinforcement
     {
         [XmlElement("wire", Order = 1)]
         public Wire Wire { get; set; }
@@ -103,7 +103,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class ReinforcingRingStirrups
+    public partial class ReinforcingRingStirrups
     {
         [XmlElement("wire", Order = 1)]
         public Wire Wire { get; set; }
@@ -119,7 +119,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class StudRails
+    public partial class StudRails
     {
         // choice general_product
         [XmlElement("general_product", Order = 1)]
@@ -194,14 +194,14 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class GeneralProduct
+    public partial class GeneralProduct
     {
         [XmlElement("wire", Order = 1)]
         public Wire Wire { get; set; }
     }
 
     [System.Serializable]
-    public class PeikkoPsbProduct
+    public partial class PeikkoPsbProduct
     {
         [XmlElement("psh", Order = 1)]
         public PshData Psh { get; set; }
@@ -211,7 +211,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public class PshData
+    public partial class PshData
     {
         [XmlAttribute("diameter")]
         public double Diameter { get; set; }

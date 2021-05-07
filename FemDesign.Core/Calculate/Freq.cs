@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALFREQ
     /// </summary>
-    public class Freq
+    public partial class Freq
     {
         [XmlAttribute("Numshapes")]
         public int NumShapes { get; set; } // int

@@ -12,7 +12,7 @@ namespace FemDesign.Reinforcement
     /// Surface reinforcement
     /// </summary>
     [System.Serializable]
-    public class SurfaceReinforcement: EntityBase
+    public partial class SurfaceReinforcement: EntityBase
     {
         [XmlElement("base_shell", Order=1)]
         public GuidListType BaseShell { get; set; } // guid_list_type // reference to slabPart of slab

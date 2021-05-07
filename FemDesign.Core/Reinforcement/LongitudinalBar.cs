@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class LongitudinalBar
+    public partial class LongitudinalBar
     {
         [XmlElement("cross-sectional_position", Order = 1)]
         public Geometry.FdPoint2d Position2d { get; set; }

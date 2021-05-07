@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Shells
 {
     [System.Serializable]
-    public class WallCorbel: EntityBase
+    public partial class WallCorbel: EntityBase
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint3d StartPoint { get; set; }

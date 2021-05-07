@@ -10,7 +10,7 @@ namespace FemDesign.Bars
     /// Connectivity / End-condition releases
     /// </summary>
     [System.Serializable]
-    public class Connectivity
+    public partial class Connectivity
     {
         
         [XmlIgnore]

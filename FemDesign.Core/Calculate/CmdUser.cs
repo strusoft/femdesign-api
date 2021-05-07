@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Calculate
 {
-    public class CmdUser
+    public partial class CmdUser
     {
         [XmlAttribute("command")]
         public string _command; // token

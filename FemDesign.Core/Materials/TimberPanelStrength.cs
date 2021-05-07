@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// strength
     /// </summary>
     [System.Serializable]
-    public class TimberPanelStrength
+    public partial class TimberPanelStrength
     {
         [XmlAttribute("fm_k0")]
         public double _fm_k0;

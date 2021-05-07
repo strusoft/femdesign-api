@@ -11,7 +11,7 @@ namespace FemDesign.Calculate
     /// fdscript root
     /// </summary>
     [XmlRoot("fdscript")]
-    public class Bsc
+    public partial class Bsc
     {
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
         public const string XmlAttrib = "fdscript.xsd";

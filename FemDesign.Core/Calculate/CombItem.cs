@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// ANALCOMBITEM
     /// </summary>
     [System.Serializable]
-    public class CombItem
+    public partial class CombItem
     {
         [XmlAttribute("NLE")]
         public int NLE { get; set; } // bool

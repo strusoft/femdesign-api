@@ -10,7 +10,7 @@ namespace FemDesign.Shells
     /// ec_type
     /// </summary>
     [System.Serializable]
-    public class ShellEdgeConnection: EdgeConnectionBase
+    public partial class ShellEdgeConnection: EdgeConnectionBase
     {
         [XmlIgnore]
         public bool Release { get; set; }

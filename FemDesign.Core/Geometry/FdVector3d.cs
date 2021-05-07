@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public class FdVector3d
+    public partial class FdVector3d
     {
         [XmlAttribute("x")]
         public double X { get; set; }

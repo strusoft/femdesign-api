@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDLISTGEN
     /// </summary>
-    public class CmdListGen
+    public partial class CmdListGen
     {
         [XmlAttribute("command")]
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.

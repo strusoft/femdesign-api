@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// timber_factors_type
     /// </summary>
     [System.Serializable]
-    public class TimberFactors
+    public partial class TimberFactors
     {
         /// <summary>
         /// gamma_m_u

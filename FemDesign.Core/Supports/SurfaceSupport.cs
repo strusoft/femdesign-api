@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public class SurfaceSupport: EntityBase
+    public partial class SurfaceSupport: EntityBase
     {
         [XmlAttribute("name")]
         public string _name;

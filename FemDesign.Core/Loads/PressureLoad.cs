@@ -8,7 +8,7 @@ namespace FemDesign.Loads
     /// pressure_load_type.
     /// </summary>
     [System.Serializable]
-    public class PressureLoad: ForceLoadBase
+    public partial class PressureLoad: ForceLoadBase
     {
         // attributes
         [XmlAttribute("load_projection")]

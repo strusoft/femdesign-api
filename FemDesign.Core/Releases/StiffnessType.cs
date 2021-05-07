@@ -8,7 +8,7 @@ namespace FemDesign.Releases
     /// stiffness_type
     /// </summary>
     [System.Serializable]
-    public class StiffnessType
+    public partial class StiffnessType
     {
         [XmlAttribute("x_neg")]
         public double _xNeg; // stiffnessdata_type: stiffness_data_range // non_neg_max_1e15

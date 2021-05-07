@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDSAVEDOCX
     /// </summary>
-    public class CmdSaveDocx
+    public partial class CmdSaveDocx
     {
         [XmlAttribute("command")]
         public string Command = "$ DOC SAVEDOCX"; // token, fixed

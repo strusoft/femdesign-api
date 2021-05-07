@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class Stirrups
+    public partial class Stirrups
     {
         [XmlElement("region", Order = 1)]
         public Geometry.Region[] Regions { get; set; }

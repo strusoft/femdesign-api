@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDOPEN
     /// </summary>
-    public class CmdOpen
+    public partial class CmdOpen
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL OPEN"; // token, fixed

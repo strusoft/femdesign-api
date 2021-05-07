@@ -11,7 +11,7 @@ namespace FemDesign.Geometry
     /// contour_type
     /// </summary>
     [System.Serializable]
-    public class Contour
+    public partial class Contour
     {
 
         /// <summary>

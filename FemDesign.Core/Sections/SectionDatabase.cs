@@ -13,7 +13,7 @@ namespace FemDesign.Sections
     /// </summary>
     [System.Serializable]
     [XmlRoot("database", Namespace="urn:strusoft")]
-    public class SectionDatabase
+    public partial class SectionDatabase
     {
         [XmlIgnore]
         public string FilePath {get; set; }

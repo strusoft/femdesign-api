@@ -8,7 +8,7 @@ namespace FemDesign.Releases
     /// stiff_base_type
     /// </summary>
     [System.Serializable]
-    public class StiffBaseType
+    public partial class StiffBaseType
     {
         [XmlAttribute("neg")]
         public double _neg;

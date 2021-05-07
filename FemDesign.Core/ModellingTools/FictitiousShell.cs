@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class FictitiousShell: EntityBase
+    public partial class FictitiousShell: EntityBase
     {
         
         [XmlIgnore]

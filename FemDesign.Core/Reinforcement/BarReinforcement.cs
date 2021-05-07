@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class BarReinforcement: EntityBase
+    public partial class BarReinforcement: EntityBase
     {
         [XmlElement("base_bar", Order = 1)]
         public GuidListType BaseBar { get; set; }

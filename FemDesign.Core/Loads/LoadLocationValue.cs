@@ -6,7 +6,7 @@ namespace FemDesign.Loads
     /// location_value_type
     /// </summary>
     [System.Serializable]
-    public class LoadLocationValue: LocationValue
+    public partial class LoadLocationValue: LocationValue
     {
         /// <summary>
         /// Parameterless constructor for serialization.

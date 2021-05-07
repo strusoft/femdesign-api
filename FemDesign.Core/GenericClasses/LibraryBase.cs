@@ -8,7 +8,7 @@ namespace FemDesign
     /// entity_attribs
     /// </summary>
     [System.Serializable]
-    public class LibraryBase: EntityBase
+    public partial class LibraryBase: EntityBase
     {
         [XmlIgnore]
         private string _name;

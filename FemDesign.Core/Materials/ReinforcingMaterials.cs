@@ -9,7 +9,7 @@ namespace FemDesign.Materials
     /// reinforcing_materials.
     /// </summary>
     [System.Serializable]
-    public class ReinforcingMaterials
+    public partial class ReinforcingMaterials
     {
         [XmlElement("material", Order = 1)]
         public List<Material> Material = new List<Material>(); // sequence: rfmaterial_type

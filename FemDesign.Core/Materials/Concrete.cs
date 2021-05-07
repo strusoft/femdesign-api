@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// material_type --> concrete
     /// </summary>
     [System.Serializable]
-    public class Concrete: MaterialBase
+    public partial class Concrete: MaterialBase
     {
         [XmlAttribute("Fck")]
         public string Fck { get; set; } // material_base_value

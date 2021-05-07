@@ -8,7 +8,7 @@ namespace FemDesign.Bars.Buckling
     /// segmentposition_type
     /// </summary>
     [System.Serializable]
-    public class Position
+    public partial class Position
     {
         [XmlAttribute("start")]
         public double _start; // position_type

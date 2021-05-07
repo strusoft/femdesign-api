@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
     /// Shell reinforcement parameters
     /// </summary>
     [System.Serializable]
-    public class SurfaceReinforcementParameters: EntityBase
+    public partial class SurfaceReinforcementParameters: EntityBase
     {
         [XmlAttribute("single_layer_reinforcement")]
         public bool SingleLayerReinforcement { get; set; } // bool. Default = false

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Materials
 {
     [System.Serializable()]
-    public class LimitStresses: MechProps
+    public partial class LimitStresses: MechProps
     {
         [XmlAttribute("fm0k")]
         public double fm0k { get; set; }

@@ -8,7 +8,7 @@ namespace FemDesign
     /// entity_attribs
     /// </summary>
     [System.Serializable]
-    public class EntityBase
+    public partial class EntityBase
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; }

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign
 {
     [System.Serializable]
-    public class Camber
+    public partial class Camber
     {
         [XmlAttribute("force")]
         public double _force;

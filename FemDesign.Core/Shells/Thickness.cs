@@ -6,7 +6,7 @@ namespace FemDesign.Shells
     /// location_value_type
     /// </summary>
     [System.Serializable]
-    public class Thickness: LocationValue
+    public partial class Thickness: LocationValue
     {
         /// <summary>
         /// Parameterless constructor for serialization.

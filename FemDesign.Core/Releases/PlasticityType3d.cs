@@ -7,7 +7,7 @@ namespace FemDesign.Releases
     /// plasticity_type_3d
     /// </summary>
     [System.Serializable]
-    public class PlasticityType3d: StiffnessType
+    public partial class PlasticityType3d: StiffnessType
     {
         /// <summary>
         /// Parameterless constructor for serialization.

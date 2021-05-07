@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// rfmaterial_type --> reinforcing_steel.
     /// </summary>
     [System.Serializable]
-    public class ReinforcingSteel
+    public partial class ReinforcingSteel
     {
         [XmlAttribute("fyk")]
         public string Fyk {get; set;} // non_neg_max_1e10

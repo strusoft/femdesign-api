@@ -8,7 +8,7 @@ namespace FemDesign.Supports
     /// support_rigidity_data_type --> group
     /// </summary>
     [System.Serializable]
-    public class Group
+    public partial class Group
     {
         [XmlIgnore]
         private Geometry.FdCoordinateSystem _coordinateSystem;

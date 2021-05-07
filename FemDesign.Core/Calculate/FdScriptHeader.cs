@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd    
     /// FDSCRIPTHEADER
     /// </summary>
-    public class FdScriptHeader
+    public partial class FdScriptHeader
     {
         [XmlElement("title")]
         public string Title { get; set; } // SZBUF

@@ -11,7 +11,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALCOMB
     /// </summary>
-    public class Comb
+    public partial class Comb
     {
         [XmlAttribute("NLEmaxiter")]
         public int NLEmaxiter { get; set; } // int

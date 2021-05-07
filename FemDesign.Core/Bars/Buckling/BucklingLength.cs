@@ -8,7 +8,7 @@ namespace FemDesign.Bars.Buckling
     /// buckling_record
     /// </summary>
     [System.Serializable]
-    public class BucklingLength
+    public partial class BucklingLength
     {
         [XmlAttribute("type")]
         public string Type { get; set; } // bar_buckling_type

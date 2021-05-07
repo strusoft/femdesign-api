@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// timber_application_data
     /// </summary>
     [System.Serializable]
-    public class TimberApplicationData
+    public partial class TimberApplicationData
     {
         /// <summary>
         /// factors

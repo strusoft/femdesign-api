@@ -7,7 +7,7 @@ namespace FemDesign.Reinforcement
     /// centric (child of surface_rf_type)
     /// </summary>
     [System.Serializable]
-    public class Centric
+    public partial class Centric
     {
 
     }

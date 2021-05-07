@@ -6,6 +6,6 @@ namespace FemDesign
     /// Dummy object to allow for ordered deserialization.
     /// </summary>
     [System.Serializable]
-    public class DummyXmlObject
+    public partial class DummyXmlObject
     {}
 }

@@ -9,7 +9,7 @@ namespace FemDesign.Sections
     /// strusoft.xsd: complex_section_type (child of)
     /// </summary>
     [System.Serializable]
-    public class ModelSection
+    public partial class ModelSection
     {
         [XmlAttribute("pos")]
         public string Pos { get; set; }

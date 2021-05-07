@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// cmddoctable
     /// </summary>
     [System.Serializable]
-    public class CmdDocTable
+    public partial class CmdDocTable
     {   
         [XmlElement("doctable", Order = 1)]
         public DocTable DocTable { get; set; }
@@ -40,7 +40,7 @@ namespace FemDesign.Calculate
     /// doctable
     /// </summary>
     [System.Serializable]
-    public class DocTable
+    public partial class DocTable
     {
         [XmlIgnore]
         private const int ALL = -1;

@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// FONT
     /// </summary>
-    public class Font
+    public partial class Font
     {
         [XmlElement("name")]
         public string Name = "Tahoma"; // SZID

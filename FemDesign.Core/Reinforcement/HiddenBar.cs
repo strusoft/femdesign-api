@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class HiddenBar: EntityBase
+    public partial class HiddenBar: EntityBase
     {   
         
         private static int _instance = 0;

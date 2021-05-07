@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public class PunchingArea: EntityBase
+    public partial class PunchingArea: EntityBase
     {
         [XmlElement("base_shell", Order = 1)]
         public GuidListType BaseShell { get; set; }

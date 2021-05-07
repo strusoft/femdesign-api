@@ -8,7 +8,7 @@ namespace FemDesign
     /// location_value_type
     /// </summary>
     [System.Serializable]
-    public class LocationValue: Geometry.FdPoint3d
+    public partial class LocationValue: Geometry.FdPoint3d
     {
         /// <summary>
         /// Value.

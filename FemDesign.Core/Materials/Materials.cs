@@ -9,7 +9,7 @@ namespace FemDesign.Materials
     /// materials
     /// </summary>
     [System.Serializable]
-    public class Materials
+    public partial class Materials
     {
         [XmlElement("material", Order = 1)]
         public List<Material> Material = new List<Material>(); // sequence: material_type

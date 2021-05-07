@@ -8,7 +8,7 @@ namespace FemDesign.Releases
     /// stiffness_type
     /// </summary>
     [System.Serializable]
-    public class SimpleStiffnessType
+    public partial class SimpleStiffnessType
     {
         [XmlElement("mov_x", Order = 1)]
         public StiffBaseType MovX { get; set; }

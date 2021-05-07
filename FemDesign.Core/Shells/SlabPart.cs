@@ -11,7 +11,7 @@ namespace FemDesign.Shells
     /// slab_part_type
     /// </summary>
     [System.Serializable]
-    public class SlabPart: EntityBase
+    public partial class SlabPart: EntityBase
     { 
         /// <summary>
         /// Get ShellEccentricity

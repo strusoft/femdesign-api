@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALYSIS
     /// </summary>
-    public class Analysis
+    public partial class Analysis
     {
         // elements
         [XmlElement("stage")]

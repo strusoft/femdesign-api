@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Shells
 {
     [System.Serializable]
-    public class ShellBucklingType: EntityBase
+    public partial class ShellBucklingType: EntityBase
     {
         [XmlElement("direction", Order = 1)]
         public Geometry.FdVector3d LocalX { get; set; }

@@ -9,7 +9,7 @@ namespace FemDesign.Releases
     /// rigidity_data_type1
     /// </summary>
     [System.Serializable]
-    public class RigidityDataType1
+    public partial class RigidityDataType1
     {
         [XmlElement("motions", Order=1)]
         public Releases.Motions Motions { get; set; }

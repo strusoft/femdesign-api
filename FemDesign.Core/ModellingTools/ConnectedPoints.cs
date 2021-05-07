@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class ConnectedPoints: EntityBase
+    public partial class ConnectedPoints: EntityBase
     {
         [XmlIgnore]
         private static int _instance = 0;

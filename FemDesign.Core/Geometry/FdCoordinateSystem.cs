@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public class FdCoordinateSystem
+    public partial class FdCoordinateSystem
     {
         [XmlElement("local_pos", Order=1)]
         public FdPoint3d Origin { get; set; }

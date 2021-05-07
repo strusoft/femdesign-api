@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public class SurfaceConnection: EntityBase
+    public partial class SurfaceConnection: EntityBase
     {
         [XmlIgnore]
         private static int _instance = 0;

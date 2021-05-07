@@ -6,7 +6,7 @@ namespace FemDesign.Shells
     /// <summary>
     /// Not a strusoft.xsd type.
     /// </summary>
-    public class ShellOrthotropy
+    public partial class ShellOrthotropy
     {
         private double _orthoAlfa; // two_quadrants.
         public double OrthoAlfa

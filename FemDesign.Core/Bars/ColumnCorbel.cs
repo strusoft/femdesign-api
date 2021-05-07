@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Bars
 {
     [System.Serializable]
-    public class ColumnCorbel: EntityBase
+    public partial class ColumnCorbel: EntityBase
     {
         [XmlElement("connectable_parts", Order = 1)]
         public ThreeGuidListType ConnectableParts { get; set; }

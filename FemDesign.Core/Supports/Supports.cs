@@ -9,7 +9,7 @@ namespace FemDesign.Supports
     /// supports
     /// </summary>
     [System.Serializable]
-    public class Supports
+    public partial class Supports
     {
         [XmlElement("point_support", Order = 1)]
         public List<PointSupport> PointSupport = new List<PointSupport>(); // point_support_type

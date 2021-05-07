@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FemDesign
 {
     [System.Serializable()]
-    public class MechProps
+    public partial class MechProps
     {  
         [XmlIgnore]
         public string _material;

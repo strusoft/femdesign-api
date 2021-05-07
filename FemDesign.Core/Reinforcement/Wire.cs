@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
     /// Reinforcement wire
     /// </summary>
     [System.Serializable]
-    public class Wire
+    public partial class Wire
     {
         [XmlIgnore]
         private Materials.Material _reinforcingMaterial;

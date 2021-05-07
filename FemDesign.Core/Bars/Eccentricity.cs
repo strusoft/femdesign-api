@@ -10,7 +10,7 @@ namespace FemDesign.Bars
     /// This class called Eccentricity as it is the Dynamo facing class.
     /// </summary>
     [System.Serializable]
-    public class Eccentricity
+    public partial class Eccentricity
     {
         /// <summary>
         /// Private field for eccentricity of local-x.

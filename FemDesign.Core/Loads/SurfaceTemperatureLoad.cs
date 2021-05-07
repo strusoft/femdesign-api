@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace FemDesign.Loads
 {
     [System.Serializable]
-    public class SurfaceTemperatureLoad: LoadBase
+    public partial class SurfaceTemperatureLoad: LoadBase
     {
         [XmlElement("region", Order=1)]
         public Geometry.Region Region { get; set; }

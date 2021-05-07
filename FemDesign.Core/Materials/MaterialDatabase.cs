@@ -11,7 +11,7 @@ namespace FemDesign.Materials
     /// Material database.
     /// </summary>
     [XmlRoot("database", Namespace="urn:strusoft")]
-    public class MaterialDatabase
+    public partial class MaterialDatabase
     {
         [XmlIgnore]
         public string FilePath {get; set; }

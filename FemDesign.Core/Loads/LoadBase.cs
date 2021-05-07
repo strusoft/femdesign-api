@@ -8,7 +8,7 @@ namespace FemDesign
     /// load_base_attribs
     /// </summary>
     [System.Serializable]
-    public class LoadBase: EntityBase
+    public partial class LoadBase: EntityBase
     {
         [XmlAttribute("load_case")]
         public System.Guid LoadCase { get; set; } // load_case_id

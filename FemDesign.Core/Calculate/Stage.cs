@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALSTAGE
     /// </summary>
-    public class Stage
+    public partial class Stage
     {
         [XmlAttribute("ghost")]
         public int Ghost { get; set; } // bool // int(?)

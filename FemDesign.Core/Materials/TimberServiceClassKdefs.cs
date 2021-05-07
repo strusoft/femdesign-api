@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// service_class_kdefs
     /// </summary>
     [System.Serializable]
-    public class TimberServiceClassKdfes
+    public partial class TimberServiceClassKdfes
     {
         [XmlAttribute("service_class_0")]
         public double ServiceClass0 {get; set;}

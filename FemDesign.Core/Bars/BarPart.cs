@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Underlying representation of a Bar-element.
     /// </summary>
     [System.Serializable]
-    public class BarPart: EntityBase
+    public partial class BarPart: EntityBase
     {
         /// <summary>
         /// Edge field
