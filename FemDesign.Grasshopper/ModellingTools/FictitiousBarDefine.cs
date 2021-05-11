@@ -66,8 +66,8 @@ namespace FemDesign.GH
                 // pass
             }
 
-            Bars.Connectivity startConnectivity = Bars.Connectivity.Default();
-            Bars.Connectivity endConnectivity = Bars.Connectivity.Default();
+            Bars.Connectivity startConnectivity = Bars.Connectivity.GetDefault();
+            Bars.Connectivity endConnectivity = Bars.Connectivity.GetDefault();
             List<Bars.Connectivity> connectivity = new List<Bars.Connectivity>();
             if (!DA.GetDataList(5, connectivity))
             {

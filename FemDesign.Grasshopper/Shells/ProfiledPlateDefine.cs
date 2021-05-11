@@ -56,7 +56,7 @@ namespace FemDesign.GH
                 return;
             }
 
-            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default();
+            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
             if(!DA.GetData(3, ref eccentricity))
             {
                 // pass
@@ -68,7 +68,7 @@ namespace FemDesign.GH
                 // pass
             }
             
-            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Hinged();
+            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.GetHinged();
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass

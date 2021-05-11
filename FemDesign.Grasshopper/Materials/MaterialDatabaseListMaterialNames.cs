@@ -33,7 +33,7 @@ namespace FemDesign.GH
             if (materialDatabase == null) { return; }
 
             //
-            List<string> materialNames = materialDatabase.ListMaterialNames();
+            List<string> materialNames = materialDatabase.MaterialNames();
 
             // output
             DA.SetDataList(0, materialNames);

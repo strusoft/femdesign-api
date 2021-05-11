@@ -30,7 +30,7 @@ namespace FemDesign.GH
             if (motions == null || rotations == null) { return; }
 
             //
-            FemDesign.Shells.ShellEdgeConnection obj = FemDesign.Shells.ShellEdgeConnection.Define(motions, rotations);
+            FemDesign.Shells.ShellEdgeConnection obj = new FemDesign.Shells.ShellEdgeConnection(motions, rotations);
 
             // return
             DA.SetData(0, obj);

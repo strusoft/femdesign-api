@@ -45,7 +45,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.ModellingTools.FictitiousShell obj = FemDesign.ModellingTools.FictitiousShell.SetShellEdgeConnection(fictShell, shellEdgeConnection, indices);
+            FemDesign.ModellingTools.FictitiousShell obj = FemDesign.ModellingTools.FictitiousShell.UpdateShellEdgeConnection(fictShell, shellEdgeConnection, indices);
 
             //
             DA.SetData(0, obj);

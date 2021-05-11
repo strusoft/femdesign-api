@@ -6,12 +6,20 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Bars
 {
-    /// This class called Eccentricity as it is the Dynamo facing class.
     [IsVisibleInDynamoLibrary(false)]
     public partial class Eccentricity
-    {   
-        // [IsVisibleInDynamoLibrary(true)]
-
-        // [IsVisibleInDynamoLibrary(false)]
+    {
+        /// <summary>
+        /// Define the eccentricity of bar-element along its local axes.
+        /// Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="y">Eccentricity local-y.</param>
+        /// <param name="z">Eccentricity local-z.</param>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Eccentricity Define(double y = 0, double z = 0)
+        {
+            return new Eccentricity(y, z);
+        }
     }
 }

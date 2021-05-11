@@ -13,9 +13,18 @@ namespace FemDesign
     [IsVisibleInDynamoLibrary(false)]
     public partial class Model
     {
-        // [IsVisibleInDynamoLibrary(true)]
+        // Attribute getters
+        [IsVisibleInDynamoLibrary(true)]
+        public string GetStandard()
+        {
+            return Standard;
+        }
 
-        // [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(true)]
+        public string GetCountry()
+        {
+            return Country;
+        }
 
         #region dynamo
         /// <summary>

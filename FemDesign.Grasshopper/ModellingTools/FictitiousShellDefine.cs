@@ -107,7 +107,7 @@ namespace FemDesign.GH
                 // pass
             }
 
-            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.Default();
+            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.GetDefault();
             if (!DA.GetData(10, ref edgeConnection))
             {
                 // pass

@@ -61,7 +61,7 @@ namespace FemDesign.GH
             if (material == null) { return; }
 
             //
-            FemDesign.Materials.Material modifiedMaterial = FemDesign.Materials.Material.SetConcreteMaterialProperties(material, creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
+            FemDesign.Materials.Material modifiedMaterial = FemDesign.Materials.Material.ConcreteMaterialProperties(material, creepUls, creepSlq, creepSlf, creepSlc, shrinkage);
             modifiedMaterial.EntityModified();
 
             // set output

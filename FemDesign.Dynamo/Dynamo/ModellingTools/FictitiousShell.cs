@@ -10,7 +10,18 @@ namespace FemDesign.ModellingTools
     [IsVisibleInDynamoLibrary(false)]
     public partial class FictitiousShell: EntityBase
     {
-        // [IsVisibleInDynamoLibrary(true)]
+        /// <summary>
+        /// Set ShellEdgeConnection by indices.
+        /// </summary>
+        /// <param name="fictShell">Fictitious Shell</param>
+        /// <param name="edgeConnection">ShellEdgeConnection</param>
+        /// <param name="indices">Index. List of items. Deconstruct fictitious shell to extract index for each respective edge.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static FictitiousShell SetShellEdgeConnection(FictitiousShell fictShell, Shells.ShellEdgeConnection edgeConnection, List<int> indices)
+        {
+            return UpdateShellEdgeConnection(fictShell, edgeConnection, indices);
+        }
 
         #region dynamo
         /// <summary>

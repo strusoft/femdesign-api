@@ -52,7 +52,7 @@ namespace FemDesign.Materials
         /// Lists the names of all Materials in MaterialDatabase.
         /// </summary>
         /// <returns>List of material names.</returns>
-        public List<string> ListMaterialNames()
+        public List<string> MaterialNames()
         {
             // empty list
             List<string> list = new List<string>();
@@ -90,7 +90,7 @@ namespace FemDesign.Materials
         /// </summary>
         /// <param name="filePath">File path to .struxml file.</param>
         /// <returns></returns>
-        public static MaterialDatabase FromStruxml(string filePath)
+        public static MaterialDatabase DeserializeStruxml(string filePath)
         {
             MaterialDatabase materialDatabase = MaterialDatabase.DeserializeFromFilePath(filePath);
             materialDatabase.End = "";
@@ -100,7 +100,7 @@ namespace FemDesign.Materials
         /// <summary>
         /// Deserialize MaterialDatabase from embedded resource.
         /// </summary>
-        private static MaterialDatabase DeserializeFromResource(string countryCode)
+        private static MaterialDatabase DeserializeResource(string countryCode)
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(MaterialDatabase));
 
@@ -127,10 +127,10 @@ namespace FemDesign.Materials
         /// <remarks>Create</remarks>
         /// <param name="countryCode">National annex of calculation code (D/DK/EST/FIN/GB/H/N/PL/RO/S/TR)</param>
         /// <returns></returns>
-        public static MaterialDatabase Default(string countryCode = "S")
+        public static MaterialDatabase GetDefault(string countryCode = "S")
         {
             string code = RestrictedString.EurocodeType(countryCode);
-            MaterialDatabase materialDatabase = MaterialDatabase.DeserializeFromResource(code);
+            MaterialDatabase materialDatabase = MaterialDatabase.DeserializeResource(code);
             materialDatabase.End = "";
             return materialDatabase;
         }
@@ -138,7 +138,7 @@ namespace FemDesign.Materials
         /// <summary>
         /// Serialize MaterialDatabase to file (.struxml).
         /// </summary>
-        private void SerializeMaterialDatabase(string filepath)
+        private void Serialize(string filepath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(MaterialDatabase));
             using (TextWriter writer = new StreamWriter(filepath))

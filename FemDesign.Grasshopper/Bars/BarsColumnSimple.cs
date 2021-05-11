@@ -44,13 +44,13 @@ namespace FemDesign.GH
             FemDesign.Sections.Section sections = null;
             if (!DA.GetData(2, ref sections)) { return; }
 
-            FemDesign.Bars.Connectivity connectivities = FemDesign.Bars.Connectivity.Rigid();
+            FemDesign.Bars.Connectivity connectivities = FemDesign.Bars.Connectivity.GetRigid();
             if (!DA.GetData(3, ref connectivities))
             {
                 // pass
             }
 
-            FemDesign.Bars.Eccentricity eccentricities = FemDesign.Bars.Eccentricity.Default();
+            FemDesign.Bars.Eccentricity eccentricities = FemDesign.Bars.Eccentricity.GetDefault();
             if (!DA.GetData(4, ref eccentricities))
             {
                 // pass

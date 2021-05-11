@@ -59,4 +59,9 @@
       <category>FemDesign.Supports</category>
     </namespace>
   </namespaces>
+	<classes>
+		<class name="FemDesign.Bars.DynamoEccentricity">
+			<category>FemDesign.Bars.DynamoEccentricity</category>
+		</class>
+	</classes>
 </doc>

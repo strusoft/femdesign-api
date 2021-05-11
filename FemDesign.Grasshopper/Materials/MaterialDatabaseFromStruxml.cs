@@ -27,7 +27,7 @@ namespace FemDesign.GH
            if (filePath == null) { return; }
 
            //
-           FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.FromStruxml(filePath);
+           FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.DeserializeStruxml(filePath);
 
            // set output
            DA.SetData(0, materialDatabase);

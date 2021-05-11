@@ -47,7 +47,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Reinforcement.Wire obj = FemDesign.Reinforcement.Wire.Define(diameter, material, profile);
+            FemDesign.Reinforcement.Wire obj = new FemDesign.Reinforcement.Wire(diameter, material, profile);
 
             // return
             DA.SetData(0, obj);

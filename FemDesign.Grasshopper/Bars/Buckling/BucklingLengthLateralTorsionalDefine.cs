@@ -44,7 +44,7 @@ namespace FemDesign.GH
             {
                 return;
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.LateralTorsionalDefine(loadPosition, continuouslyRestrained, cantilever));
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.LateralTorsional(loadPosition, continuouslyRestrained, cantilever));
         }
         protected override System.Drawing.Bitmap Icon
         {

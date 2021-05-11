@@ -50,7 +50,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Reinforcement.Straight obj = FemDesign.Reinforcement.Straight.ReinforcementLayout(direction, space, face, cover);
+            FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(direction, space, face, cover);
 
             // return
             DA.SetData(0, obj);

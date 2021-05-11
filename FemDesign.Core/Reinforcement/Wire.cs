@@ -63,25 +63,12 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Private constructor accessed by static methods.
         /// </summary>
-        private Wire(double diameter, Materials.Material reinforcingMaterial, string profile)
+        public Wire(double diameter, Materials.Material reinforcingMaterial, string profile)
         {
             this.ReinforcingMaterial = reinforcingMaterial;
             this.Diameter = diameter;
             this.ReinforcingMaterialGuid = reinforcingMaterial.Guid;
             this.Profile = profile;
-        }
-        
-        /// <summary>
-        /// Define a reinforcement bar (wire) for a normal reinforcement layout.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="diameter">Diameter of reinforcement bar.</param>
-        /// <param name="reinforcingMaterial">Material. Material of reinforcement bar.</param>
-        /// <param name="profile">"smooth"/"ribbed"</param>
-        /// <returns></returns>
-        public static Wire Define(double diameter, Materials.Material reinforcingMaterial, string profile = "ribbed")
-        {
-            return new Wire(diameter, reinforcingMaterial, profile);
         }
     }
 }

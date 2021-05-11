@@ -9,11 +9,25 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public partial class Connectivity
     {
-        
 
-        // [IsVisibleInDynamoLibrary(true)]
+        /// <summary>
+        /// Define releases for a bar-element.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="mx">Translation local-x axis. True if rigid, false if free.</param>
+        /// <param name="my">Translation local-y axis. True if rigid, false if free.</param>
+        /// <param name="mz">Translation local-z axis. True if rigid, false if free.</param>
+        /// <param name="rx">Rotation around local-x axis. True if rigid, false if free.</param>
+        /// <param name="ry">Rotation around local-y axis. True if rigid, false if free.</param>
+        /// <param name="rz">Rotation around local-z axis. True if rigid, false if free.</param>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Connectivity Define(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
+        {
+            return new Connectivity(mx, my, mz, rx, ry, rz);
+        }
 
         #region dynamo
+
         /// <summary>
         /// Define releases for a bar-element.
         /// </summary>
@@ -66,17 +80,26 @@ namespace FemDesign.Bars
 
             return new Connectivity(releases[0], releases[1], releases[2], releases[3], releases[4], releases[5], stiffnesses[0], stiffnesses[1], stiffnesses[2], stiffnesses[3], stiffnesses[4], stiffnesses[5]);
         }
+
         #endregion
 
-        // [IsVisibleInDynamoLibrary(false)]
-        // {
-        // }
-
-        // [IsVisibleInDynamoLibrary(true)]
-        // {
-        // }
-        // [IsVisibleInDynamoLibrary(true)]
-        // {
-        // }
+        /// <summary>
+        /// Define hinged releases for a bar-element.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Connectivity Hinged()
+        {
+            return GetHinged();
+        }
+        /// <summary>
+        /// Define rigid releases for a bar-element.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Connectivity Rigid()
+        {
+            return GetRigid();
+        }
     }
 }

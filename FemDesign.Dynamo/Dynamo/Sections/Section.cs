@@ -11,10 +11,21 @@ namespace FemDesign.Sections
     [IsVisibleInDynamoLibrary(false)]
     public partial class Section: EntityBase
     {
-        // [IsVisibleInDynamoLibrary(true)]
-
         #region dynamo
-        
+
+        /// <summary>
+        /// Get a Section from a SectionDatabase by name.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <param name="sectionDatabase">SectionDatabase.</param>
+        /// <param name="sectionName">Name of Section.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Section GetSectionByName(SectionDatabase sectionDatabase, string sectionName)
+        {
+            return SectionByName(sectionDatabase, sectionName);
+        }
+
         /// <summary>
         /// Define a new custom section.
         /// </summary>

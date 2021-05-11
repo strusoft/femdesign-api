@@ -5,5 +5,8 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Calculate
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class CmdEndSession{}
+    public partial class CmdEndSession
+    {
+
+    }
 }

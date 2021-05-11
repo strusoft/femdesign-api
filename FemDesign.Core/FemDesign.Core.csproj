@@ -78,7 +78,6 @@
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ResultType.cs" />
     <Compile Include="Calculate\Stage.cs" />
-    <Compile Include="Deconstruct\Deconstruct.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\DummyXmlObject.cs" />
     <Compile Include="GenericClasses\EntityBase.cs" />

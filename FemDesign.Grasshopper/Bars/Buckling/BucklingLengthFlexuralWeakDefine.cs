@@ -33,7 +33,7 @@ namespace FemDesign.GH
             {
                 // pass
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.FlexuralWeakDefine(beta, sway));
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.FlexuralWeak(beta, sway));
         }
         protected override System.Drawing.Bitmap Icon
         {

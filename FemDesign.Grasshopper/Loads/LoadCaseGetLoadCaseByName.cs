@@ -31,7 +31,7 @@ namespace FemDesign.GH
             if (loadCases == null || name == null) { return; }
 
             //
-            FemDesign.Loads.LoadCase obj = FemDesign.Loads.LoadCase.GetLoadCaseFromListByName(loadCases, name);
+            FemDesign.Loads.LoadCase obj = FemDesign.Loads.LoadCase.LoadCaseFromListByName(loadCases, name);
 
             // return
             DA.SetData(0, obj);

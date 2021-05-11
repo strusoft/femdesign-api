@@ -29,7 +29,7 @@ namespace FemDesign.GH
             if (materialDatabase == null || materialName == null) { return; }
 
             //
-            FemDesign.Materials.Material material = FemDesign.Materials.Material.GetMaterialByName(materialDatabase, materialName);
+            FemDesign.Materials.Material material = FemDesign.Materials.Material.MaterialByName(materialDatabase, materialName);
 
             // set output
             DA.SetData(0, material);

@@ -45,7 +45,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.SetShellEdgeConnection(slab, shellEdgeConnection, indices);
+            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnection, indices);
 
             //
             DA.SetData(0, obj);

@@ -45,7 +45,7 @@ namespace FemDesign.GH
             {
                 return;
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredTopFlangeDefine(beta, loadPosition, continuouslyRestrained));
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredTopFlange(beta, loadPosition, continuouslyRestrained));
         }
         protected override System.Drawing.Bitmap Icon
         {

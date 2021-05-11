@@ -11,12 +11,31 @@ namespace FemDesign.Shells
     [IsVisibleInDynamoLibrary(false)]
     public partial class Slab: EntityBase
     {
-        // [IsVisibleInDynamoLibrary(true)]
-     
-        // [IsVisibleInDynamoLibrary(true)]
-     
         #region dynamo
-     
+
+        /// <summary>
+        /// Set ShellEdgeConnections by indices.
+        /// </summary>
+        /// <param name="slab">Slab.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
+        public static Slab SetShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        {
+            return ShellEdgeConnection(slab, shellEdgeConnection, indices);
+        }
+
+        /// <summary>
+        /// Set average mesh size to slab.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <param name="slab">Slab.</param>
+        /// <param name="avgMeshSize">Average mesh size.</param>
+        /// <returns></returns>
+        public static Slab SetAverageSurfaceElementSize(Slab slab, double avgMeshSize)
+        {
+            return AverageSurfaceElementSize(slab, avgMeshSize);
+        }
+
         /// <summary>
         /// Create a plate element.
         /// </summary>

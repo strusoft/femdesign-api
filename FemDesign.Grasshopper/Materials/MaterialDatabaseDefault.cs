@@ -33,7 +33,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.Default(countryCode);
+            FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault(countryCode);
 
             // set output
             DA.SetData(0, materialDatabase);

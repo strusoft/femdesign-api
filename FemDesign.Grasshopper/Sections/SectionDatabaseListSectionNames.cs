@@ -27,7 +27,7 @@ namespace FemDesign.GH
             if (sectionDatabase == null) { return; }
 
             //
-            List<string> sectionNames = sectionDatabase.ListSectionNames();
+            List<string> sectionNames = sectionDatabase.SectionNames();
 
             // output
             DA.SetDataList(0, sectionNames);

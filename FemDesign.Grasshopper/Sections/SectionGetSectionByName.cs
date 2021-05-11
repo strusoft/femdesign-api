@@ -30,7 +30,7 @@ namespace FemDesign.GH
             if (sectionDatabase == null || sectionName == null) { return; }
 
             //
-            FemDesign.Sections.Section section = FemDesign.Sections.Section.GetSectionByName(sectionDatabase, sectionName);
+            FemDesign.Sections.Section section = FemDesign.Sections.Section.SectionByName(sectionDatabase, sectionName);
 
             // set output
             DA.SetData(0, section);

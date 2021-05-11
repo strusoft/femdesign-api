@@ -95,7 +95,7 @@ namespace FemDesign.Bars
         /// </summary>
         /// <param name="y">Eccentricity local-y.</param>
         /// <param name="z">Eccentricity local-z.</param>
-        internal Eccentricity(double y = 0, double z = 0)
+        public Eccentricity(double y = 0, double z = 0)
         {
             this.X = 0;
             this.Y = y;
@@ -129,25 +129,13 @@ namespace FemDesign.Bars
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
-        
-        /// <summary>
-        /// Define the eccentricity of bar-element along its local axes.
-        /// Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="y">Eccentricity local-y.</param>
-        /// <param name="z">Eccentricity local-z.</param>
-        public static Eccentricity Define(double y = 0, double z = 0)
-        {
-            return new Eccentricity(y, z);
-        }
 
         /// <summary>
         /// Create a default eccentricity, i.e. no ecceentricity (y=z=0).
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static Eccentricity Default()
+        public static Eccentricity GetDefault()
         {
             return new Eccentricity(0, 0);
         }

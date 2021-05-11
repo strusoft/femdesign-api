@@ -87,7 +87,7 @@ namespace FemDesign.Shells
         /// <param name="slab">Slab.</param>
         /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
         /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
-        public static Slab SetShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        public static Slab ShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
@@ -119,7 +119,7 @@ namespace FemDesign.Shells
         /// <param name="slab">Slab.</param>
         /// <param name="avgMeshSize">Average mesh size.</param>
         /// <returns></returns>
-        public static Slab SetAverageSurfaceElementSize(Slab slab, double avgMeshSize)
+        public static Slab AverageSurfaceElementSize(Slab slab, double avgMeshSize)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.

@@ -38,7 +38,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.SetAverageSurfaceElementSize(slab, avgMeshSize);
+            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.AverageSurfaceElementSize(slab, avgMeshSize);
 
             //
             DA.SetData(0, obj);

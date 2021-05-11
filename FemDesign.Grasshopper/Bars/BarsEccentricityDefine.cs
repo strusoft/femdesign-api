@@ -36,7 +36,7 @@ namespace FemDesign.GH
             }
 
             // return
-            DA.SetData(0, FemDesign.Bars.Eccentricity.Define(y, z));
+            DA.SetData(0, new FemDesign.Bars.Eccentricity(y, z));
         }
         protected override System.Drawing.Bitmap Icon
         {

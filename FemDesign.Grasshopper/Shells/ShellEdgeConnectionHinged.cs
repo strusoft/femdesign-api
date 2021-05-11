@@ -20,7 +20,7 @@ namespace FemDesign.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            FemDesign.Shells.ShellEdgeConnection obj = FemDesign.Shells.ShellEdgeConnection.Hinged();
+            FemDesign.Shells.ShellEdgeConnection obj = FemDesign.Shells.ShellEdgeConnection.GetHinged();
 
             // return
             DA.SetData(0, obj);

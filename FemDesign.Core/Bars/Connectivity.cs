@@ -218,7 +218,7 @@ namespace FemDesign.Bars
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="rz"></param>
-        private Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
+        public Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
         {
             this.Mx = mx;
             this.My = my;
@@ -260,35 +260,19 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Define releases for a bar-element.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="mx">Translation local-x axis. True if rigid, false if free.</param>
-        /// <param name="my">Translation local-y axis. True if rigid, false if free.</param>
-        /// <param name="mz">Translation local-z axis. True if rigid, false if free.</param>
-        /// <param name="rx">Rotation around local-x axis. True if rigid, false if free.</param>
-        /// <param name="ry">Rotation around local-y axis. True if rigid, false if free.</param>
-        /// <param name="rz">Rotation around local-z axis. True if rigid, false if free.</param>
-        public static Connectivity Define(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
-        {
-            return new Connectivity(mx, my, mz, rx, ry, rz);
-        }
-
-
-        /// <summary>
         /// Define default (rigid) releases for a bar-element.
         /// </summary>
         /// <returns></returns>
-        public static Connectivity Default()
+        public static Connectivity GetDefault()
         {
-            return Connectivity.Rigid();
+            return Connectivity.GetRigid();
         }
 
         /// <summary>
         /// Define hinged releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity Hinged()
+        public static Connectivity GetHinged()
         {
             Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
             return connectivity;
@@ -297,7 +281,7 @@ namespace FemDesign.Bars
         /// Define rigid releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity Rigid()
+        public static Connectivity GetRigid()
         {
             Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
             return connectivity;

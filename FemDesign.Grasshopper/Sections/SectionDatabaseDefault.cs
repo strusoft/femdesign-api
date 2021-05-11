@@ -21,7 +21,7 @@ namespace FemDesign.GH
        protected override void SolveInstance(IGH_DataAccess DA)
        {
            //
-            FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.Default();
+            FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.GetDefault();
 
             // set output
             DA.SetData(0, sectionDatabase);

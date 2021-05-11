@@ -39,7 +39,7 @@ namespace FemDesign.Materials
         /// <param name="materialDatabase">MaterialDatabase</param>
         /// <param name="materialName">Name of Material</param>
         /// <returns></returns>
-        public static Material GetMaterialByName(MaterialDatabase materialDatabase, string materialName)
+        public static Material MaterialByName(MaterialDatabase materialDatabase, string materialName)
         {
             if (materialDatabase.Materials != null)
             {
@@ -84,7 +84,7 @@ namespace FemDesign.Materials
         /// <param name="creepSlc">Creep SLS Characteristic</param>
         /// <param name="shrinkage">Shrinkage.</param>
         /// <returns></returns>
-        public static Material SetConcreteMaterialProperties(Material material, double creepUls = 0, double creepSlq = 0, double creepSlf = 0, double creepSlc = 0, double shrinkage = 0)
+        public static Material ConcreteMaterialProperties(Material material, double creepUls = 0, double creepSlq = 0, double creepSlf = 0, double creepSlc = 0, double shrinkage = 0)
         {
             if (material.Concrete != null)
             {

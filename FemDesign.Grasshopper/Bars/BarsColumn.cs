@@ -47,13 +47,13 @@ namespace FemDesign.GH
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivities))
             {
-                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.Rigid()};
+                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.GetRigid()};
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (!DA.GetDataList(4, eccentricities))
             {
-                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.Default()};
+                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.GetDefault()};
             }
 
             Vector3d v = Vector3d.Zero;

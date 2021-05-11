@@ -13,11 +13,40 @@ namespace FemDesign.Sections
     [IsVisibleInDynamoLibrary(false)]
     public partial class SectionDatabase
     {
-        // [IsVisibleInDynamoLibrary(true)]
-     
-        // [IsVisibleInDynamoLibrary(true)]
+        /// <summary>
+        /// List the names of all Sections in SectionDatabase.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public List<string> ListSectionNames()
+        {
+            return SectionNames();
+        }
 
-        // [IsVisibleInDynamoLibrary(true)]
+        /// <summary>
+        /// Load a custom SectionDatabase from a .struxml file.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="filePath">File path to .struxml file.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static SectionDatabase FromStruxml(string filePath)
+        {
+            return DeserializeStruxml(filePath);
+
+        }
+
+        /// <summary>
+        /// Load the default SectionDatabase.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static SectionDatabase Default()
+        {
+            return GetDefault();
+        }
 
         #region dynamo
 

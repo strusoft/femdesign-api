@@ -75,26 +75,24 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
-        /// Define a new ShellEdgeConnection
+        /// ShellEdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
-        public static ShellEdgeConnection Define(Releases.Motions motions, Releases.Rotations rotations)
+        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(Releases.RigidityDataType3.Define(motions, rotations))
         {
-            ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.Define(motions, rotations));
-            _shellEdgeConnection.Release = true;
-            return _shellEdgeConnection;
+
         }
 
         /// <summary>
         /// Create a default (rigid) ShellEdgeConnection.
         /// </summary>
         /// <returns></returns>
-        public static ShellEdgeConnection Default()
+        public static ShellEdgeConnection GetDefault()
         {
-            return ShellEdgeConnection.Rigid();
+            return ShellEdgeConnection.GetRigid();
         }
 
         /// <summary>
@@ -102,7 +100,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellEdgeConnection Hinged()
+        public static ShellEdgeConnection GetHinged()
         {
             ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.HingedLine());
             _shellEdgeConnection.Release = true;
@@ -114,7 +112,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellEdgeConnection Rigid()
+        public static ShellEdgeConnection GetRigid()
         {
             ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.RigidLine());
             _shellEdgeConnection.Release = false;

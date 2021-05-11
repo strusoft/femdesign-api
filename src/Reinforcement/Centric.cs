@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
     /// centric (child of surface_rf_type)
     /// </summary>
     [System.Serializable]
-    [IsVisibleInDynamoLibrary(false)]
+    
     public class Centric
     {
 

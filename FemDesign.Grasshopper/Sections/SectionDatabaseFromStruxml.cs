@@ -27,7 +27,7 @@ namespace FemDesign.GH
            if (filePath == null) { return; }
 
            //
-           FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.FromStruxml(filePath);
+           FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.DeserializeStruxml(filePath);
 
            // set output
            DA.SetData(0, sectionDatabase);

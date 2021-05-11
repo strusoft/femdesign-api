@@ -46,19 +46,19 @@ namespace FemDesign.GH
             FemDesign.Materials.Material material = null;
             if(!DA.GetData(2, ref material)) { return; }
 
-            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default();
+            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
             if(!DA.GetData(3, ref eccentricity))
             {
                 // pass
             }
             
-            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default();
+            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.GetDefault();
             if(!DA.GetData(4, ref orthotropy))
             {
                 // pass
             }
             
-            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.Rigid();
+            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.GetRigid();
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass

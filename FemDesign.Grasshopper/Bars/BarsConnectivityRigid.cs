@@ -20,7 +20,7 @@ namespace FemDesign.GH
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            DA.SetData(0, FemDesign.Bars.Connectivity.Rigid());
+            DA.SetData(0, FemDesign.Bars.Connectivity.GetRigid());
         }
         protected override System.Drawing.Bitmap Icon
         {

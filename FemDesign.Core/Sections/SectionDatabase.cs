@@ -49,7 +49,7 @@ namespace FemDesign.Sections
         /// </summary>
         /// <remarks>Action</remarks>
         /// <returns></returns>
-        public List<string> ListSectionNames()
+        public List<string> SectionNames()
         {
             List<string> list = new List<string>();
             foreach (Section section in this.Sections.Section)
@@ -103,7 +103,7 @@ namespace FemDesign.Sections
         /// <remarks>Create</remarks>
         /// <param name="filePath">File path to .struxml file.</param>
         /// <returns></returns>
-        public static SectionDatabase FromStruxml(string filePath)
+        public static SectionDatabase DeserializeStruxml(string filePath)
         {
             SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromFilePath(filePath);
             sectionDatabase.End = "";
@@ -140,7 +140,7 @@ namespace FemDesign.Sections
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static SectionDatabase Default()
+        public static SectionDatabase GetDefault()
         {
             SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromResource();
             sectionDatabase.End = "";

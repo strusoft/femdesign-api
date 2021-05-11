@@ -107,7 +107,7 @@ namespace FemDesign.Sections
         /// <param name="sectionDatabase">SectionDatabase.</param>
         /// <param name="sectionName">Name of Section.</param>
         /// <returns></returns>
-        public static Section GetSectionByName(SectionDatabase sectionDatabase, string sectionName)
+        public static Section SectionByName(SectionDatabase sectionDatabase, string sectionName)
         {
             foreach (Section section in sectionDatabase.Sections.Section)
             {

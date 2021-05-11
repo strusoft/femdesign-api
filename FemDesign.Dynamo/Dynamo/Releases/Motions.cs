@@ -5,15 +5,11 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Releases
 {
-    [IsVisibleInDynamoLibrary(false)]
+    [IsVisibleInDynamoLibrary(true)]
     public partial class Motions: StiffnessType
     {
-        // [IsVisibleInDynamoLibrary(true)]
+        #region dynamo
 
-        // [IsVisibleInDynamoLibrary(true)]
-
-        // [IsVisibleInDynamoLibrary(true)]
-
-        // [IsVisibleInDynamoLibrary(true)]
+        #endregion
     }
 }

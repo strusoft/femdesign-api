@@ -38,23 +38,14 @@ namespace FemDesign.Shells
             this.OrthoAlfa = FemDesign.Geometry.Degree.ToRadians(orthoAlfa);
             this.OrthoRatio = orthoRatio;
         }
-        /// <summary>
-        /// Create a definition for ShellOrthotropy.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <param name="orthoAlfa">Alpha in degrees.</param>
-        /// <param name="orthoRatio">E2/E1</param>
-        /// <returns></returns>
-        public static ShellOrthotropy Create(double orthoAlfa = 0, double orthoRatio = 1)
-        {
-            return new ShellOrthotropy(orthoAlfa, orthoRatio);
-        }
+        
+
         /// <summary>
         /// Create a default definition for ShellOrthotropy.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellOrthotropy Default()
+        public static ShellOrthotropy GetDefault()
         {
             return new ShellOrthotropy(0, 1);
         }

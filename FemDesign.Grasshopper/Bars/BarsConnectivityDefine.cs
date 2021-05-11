@@ -36,7 +36,7 @@ namespace FemDesign.GH
             if (!DA.GetData(5, ref r_z)) { return; }
 
             // return
-            DA.SetData(0, FemDesign.Bars.Connectivity.Define(m_x, m_y, m_z, r_x, r_y, r_z));
+            DA.SetData(0, new FemDesign.Bars.Connectivity(m_x, m_y, m_z, r_x, r_y, r_z));
         }
         protected override System.Drawing.Bitmap Icon
         {
