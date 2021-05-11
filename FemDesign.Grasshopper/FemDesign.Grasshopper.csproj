@@ -207,6 +207,6 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>echo F | xcopy "$(TargetPath)" "FemDesign.gha" /Y</PostBuildEvent>
+    <PostBuildEvent>echo F | xcopy "$(TargetPath)" "FemDesign.Grasshopper.gha" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
