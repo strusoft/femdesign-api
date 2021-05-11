@@ -212,6 +212,20 @@
     <Compile Include="Supports\Supports.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\materialLibrary\materials_D.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_DK.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_EST.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_FIN.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_GB.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_H.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_N.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_PL.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_RO.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
+    <EmbeddedResource Include="Resources\materialLibrary\materials_TR.struxml" />
+    <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
