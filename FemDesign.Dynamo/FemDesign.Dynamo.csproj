@@ -551,6 +551,7 @@
     <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
       <Link>Core\Supports\SurfaceSupport.cs</Link>
     </Compile>
+    <Compile Include="Dynamo\Bars\BarType.cs" />
     <Compile Include="Dynamo\AdvancedFem\AdvancedFem.cs" />
     <Compile Include="Dynamo\AdvancedFem\Cover.cs" />
     <Compile Include="Dynamo\AdvancedFem\CoverReferenceList.cs" />

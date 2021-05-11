@@ -53,6 +53,7 @@
     <Compile Include="Bars\Buckling\BucklingData.cs" />
     <Compile Include="Bars\Buckling\BucklingLength.cs" />
     <Compile Include="Bars\Buckling\Position.cs" />
+    <Compile Include="Bars\BarType.cs" />
     <Compile Include="Bars\ColumnCorbel.cs" />
     <Compile Include="Bars\Connectivity.cs" />
     <Compile Include="Bars\Eccentricity.cs" />

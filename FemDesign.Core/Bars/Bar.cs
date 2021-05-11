@@ -7,20 +7,6 @@ using System.Xml.Serialization;
 namespace FemDesign.Bars
 {
     /// <summary>
-    /// BarType enum
-    /// </summary>
-    [System.Serializable]
-    public enum BarType 
-    {
-        [XmlEnum("beam")]
-        Beam, 
-        [XmlEnum("column")]
-        Column, 
-        [XmlEnum("truss")]
-        Truss
-    };
-
-    /// <summary>
     /// bar_type
     /// 
     /// Bar-element
@@ -37,7 +23,7 @@ namespace FemDesign.Bars
 
         /// <summary>
         /// Truss only.
-        /// </summary>
+        /// </summary>enum
         [XmlAttribute("maxforce")]
         public double _maxCompression; // non_neg_max_1e30
         [XmlIgnore]
