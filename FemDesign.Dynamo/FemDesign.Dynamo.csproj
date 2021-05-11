@@ -712,6 +712,7 @@
     <Compile Include="Dynamo\Supports\PointSupport.cs" />
     <Compile Include="Dynamo\Supports\Supports.cs" />
     <Compile Include="Dynamo\Supports\SurfaceSupport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -725,6 +726,7 @@
       <Xmls Include="$(OutDir)*.xml" />
       <Configs Include="$(OutDir)*.config" />
       <DynamoCustomization Include="$(ProjectDir)PackageData\FemDesign.Dynamo_DynamoCustomization.xml" />
+      <DynamoMigrations Include="$(ProjectDir)PackageData\FemDesign.Dynamo.migrations.xml" />
       <Pkg Include="$(ProjectDir)PackageData\pkg.json" />
     </ItemGroup>
     <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
@@ -732,6 +734,7 @@
     <Copy SourceFiles="@(Xmls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
     <Copy SourceFiles="@(Configs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
     <Copy SourceFiles="@(DynamoCustomization)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoMigrations)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
     <Copy SourceFiles="@(Pkg)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\" />
     <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\dyf" />
     <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\extra" />
