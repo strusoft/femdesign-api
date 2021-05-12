@@ -3,7 +3,7 @@
 </p>
 
 # femdesign-api
-This repository contains source code for the FEM-Design API wrapper. 
+This repository contains source code for the FEM-Design API wrapper. This repo consists of the `C#`-Core together with `Dynamo` and the `Grasshopper` plugins. 
 
 ## Contents
 * [Contributing](#contributing)
