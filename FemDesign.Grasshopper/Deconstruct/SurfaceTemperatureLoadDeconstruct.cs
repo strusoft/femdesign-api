@@ -18,6 +18,7 @@ namespace FemDesign.GH
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
            pManager.AddSurfaceParameter("Surface", "Surface", "Surface." , GH_ParamAccess.item);
+           pManager.AddVectorParameter("Direction", "Dir", "Direction.", GH_ParamAccess.item);
            pManager.AddGenericParameter("TopBottomLocationValue1", "TopBotVal1", "Top bottom location value.", GH_ParamAccess.item);
            pManager.AddGenericParameter("TopBottomLocationValue2", "TopBotVal2", "Top bottom location value.", GH_ParamAccess.item);
            pManager.AddGenericParameter("TopBottomLocaitonValue3", "TopBotVal3", "Top bottom location value.", GH_ParamAccess.item);
@@ -43,21 +44,22 @@ namespace FemDesign.GH
             {
                 DA.SetData(0, obj.SurfaceTemperatureLoad.Guid);
                 DA.SetData(1, obj.SurfaceTemperatureLoad.Region.ToRhinoBrep());
+                DA.SetData(2, obj.SurfaceTemperatureLoad.LocalZ.ToRhino());
                 
                 // if uniform
                 if (obj.SurfaceTemperatureLoad.TopBotLocVal.Count == 1)
                 {
-                    DA.SetData(2, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
                     DA.SetData(3, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
                     DA.SetData(4, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(5, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
                 }
 
                 // if variable
                 else if (obj.SurfaceTemperatureLoad.TopBotLocVal.Count == 3)
                 {
-                    DA.SetData(2, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
-                    DA.SetData(3, obj.SurfaceTemperatureLoad.TopBotLocVal[1]);
-                    DA.SetData(4, obj.SurfaceTemperatureLoad.TopBotLocVal[2]);
+                    DA.SetData(3, obj.SurfaceTemperatureLoad.TopBotLocVal[0]);
+                    DA.SetData(4, obj.SurfaceTemperatureLoad.TopBotLocVal[1]);
+                    DA.SetData(5, obj.SurfaceTemperatureLoad.TopBotLocVal[2]);
                 }
 
                 // else
@@ -66,8 +68,8 @@ namespace FemDesign.GH
                     throw new System.ArgumentException("Length of load should be 1 or 3.");
                 }
 
-                DA.SetData(5, obj.SurfaceTemperatureLoad.LoadCase);
-                DA.SetData(6, obj.SurfaceTemperatureLoad.Comment);
+                DA.SetData(6, obj.SurfaceTemperatureLoad.LoadCase);
+                DA.SetData(7, obj.SurfaceTemperatureLoad.Comment);
             }
             else
             {
