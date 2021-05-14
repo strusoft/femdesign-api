@@ -239,7 +239,7 @@ namespace FemDesign
         /// <param name="srfTmpLoad">SurfaceTemperatureLoad.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "Surface", "TopBotLocVal1", "TopBotLocVal2", "TopBotLocVal3", "LoadCaseGuid", "Comment"})]
+        [MultiReturn(new[]{"Guid", "Surface", "Direction", "TopBotLocVal1", "TopBotLocVal2", "TopBotLocVal3", "LoadCaseGuid", "Comment"})]
         public static Dictionary<string, object> SurfaceTemperatureLoadDeconstruct(FemDesign.Loads.SurfaceTemperatureLoad srfTmpLoad)
         {
             if (srfTmpLoad.TopBotLocVal.Count == 1)
@@ -248,6 +248,7 @@ namespace FemDesign
                 {
                     {"Guid", srfTmpLoad.Guid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
+                    {"Direction", srfTmpLoad.LocalZ.ToDynamo()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[0]},
@@ -261,6 +262,7 @@ namespace FemDesign
                 {
                     {"Guid", srfTmpLoad.Guid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
+                    {"Direction", srfTmpLoad.LocalZ.ToDynamo()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[1]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[2]},
