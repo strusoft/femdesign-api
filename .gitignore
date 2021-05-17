@@ -3,13 +3,11 @@
 bin
 obj
 packages
-Properties
 Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
 *notImplemented*
 FdApiSource.csproj
 FdApiSource.sln
-packages.config
 strusoft.xsd
 fdscript.xsd
