@@ -103,9 +103,53 @@ namespace FemDesign.ModellingTools
             }
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         private ConnectedPoints()
         {
 
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ConnectedPoints(Geometry.FdPoint3d firstPoint, Geometry.FdPoint3d secondPoint, Releases.RigidityDataType2 rigidity, GuidListType[] references, string identifier)
+        {
+            this.EntityCreated();
+            this.Points = new Geometry.FdPoint3d[2]
+            {
+                firstPoint,
+                secondPoint
+            };
+            this.LocalX = Geometry.FdVector3d.UnitX();
+            this.LocalY = Geometry.FdVector3d.UnitY();
+            this.Rigidity = rigidity;
+            this.References = references;
+            this.Identifier = identifier;
+        }
+
+        #region dynamo
+
+        [IsVisibleInDynamoLibrary(true)]
+        public static ConnectedPoints Define(Autodesk.DesignScript.Geometry.Point firstPoint, Autodesk.DesignScript.Geometry.Point secondPoint, Releases.Motions motions, Releases.Rotations rotations, System.Guid[] references, string identifier)
+        {
+            // convert geometry
+            Geometry.FdPoint3d p1 = Geometry.FdPoint3d.FromDynamo(firstPoint);
+            Geometry.FdPoint3d p2 = Geometry.FdPoint3d.FromDynamo(secondPoint);
+
+            // rigidity
+            Releases.RigidityDataType2 rigidity = new Releases.RigidityDataType2(motions, rotations);
+
+            // references
+            GuidListType[] refs = new GuidListType[references.Length];
+            for (int idx = 0; idx < refs.Length; idx++)
+            {
+                refs[idx] = new GuidListType(references[idx]);
+            }
+
+            return new ConnectedPoints(p1, p2, rigidity, refs, identifier);
+        }
+        #endregion 
     }
 }

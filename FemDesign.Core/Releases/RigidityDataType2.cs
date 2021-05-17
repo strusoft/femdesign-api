@@ -15,5 +15,15 @@ namespace FemDesign.Releases
         public Releases.Rotations Rotations { get; set; }
         [XmlElement("plastic_limit_moments", Order=4)]
         public Releases.PlasticityType3d PlasticLimitMoments { get; set; }
+
+        public RigidityDataType2()
+        {
+            
+        }
+
+        public RigidityDataType2(Motions motions, Rotations rotations) : base(motions)
+        {
+            Rotations = rotations;
+        }
     }
 }

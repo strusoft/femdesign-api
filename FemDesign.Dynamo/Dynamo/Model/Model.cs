@@ -54,6 +54,12 @@ namespace FemDesign
             return model;
         }
 
+        /// <summary>
+        /// Add ConnectedLines elements to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <param name="fdModel">Model to add elements to.</param>
+        /// <param name="connectedLines">Single connected lines element or list of connected lines to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
         public static Model ModelAddConnectedLine(Model fdModel, List<ModellingTools.ConnectedLines> connectedLines, bool overwrite = false)
@@ -67,6 +73,26 @@ namespace FemDesign
             // return
             return fdModel;
             
+        }
+
+        /// <summary>
+        /// Add ConnectedPoints elements to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <param name="fdModel">Model to add elements to.</param>
+        /// <param name="connectedPoints">Single connected points element or list of connected lines to add. Nested points are not supported, use flatten.</param>
+        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
+        [IsLacingDisabled()]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Model ModelAddConnectedPoints(Model fdModel, List<ModellingTools.ConnectedPoints> connectedPoints, bool overwrite = false)
+        {
+            // add connectedLines
+            foreach (ModellingTools.ConnectedPoints item in connectedPoints)
+            {
+                fdModel.AddConnectedPoints(item, overwrite);
+            }
+
+            // return
+            return fdModel;
         }
 
         /// <summary>
@@ -141,11 +167,11 @@ namespace FemDesign
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "HasExited"})]
-        public static Dictionary<string, object> ReadStr(string strPath,[DefaultArgument("[]")] List<string> bscPath)
+        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPath)
         {
             Calculate.FdScript fdScript = Calculate.FdScript.ReadStr(strPath, bscPath);
             Calculate.Application fdApp = new Calculate.Application();
-            bool hasExited =  fdApp.RunFdScript(fdScript, false, true);
+            bool hasExited =  fdApp.RunFdScript(fdScript, false, true, false);
             if (hasExited)
             {
                 return new Dictionary<string, object>
@@ -172,6 +198,6 @@ namespace FemDesign
             fdModel.SerializeModel(struxmlPath);
             return true;
         }
-        #endregion 
+        #endregion
     }
 }
