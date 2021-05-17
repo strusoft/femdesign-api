@@ -2,7 +2,7 @@
 using System;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class MotionsRigidPoint: GH_Component
     {
