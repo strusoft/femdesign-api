@@ -27,9 +27,6 @@ namespace FemDesign.Shells
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellOrthotropy Default()
-        {
-            return GetDefault();
-        }
+        public static ShellOrthotropy Default() => GetDefault();
     }
 }
