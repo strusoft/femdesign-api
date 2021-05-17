@@ -1,0 +1,743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{419CA97B-DCA5-40EF-A640-7691622E3BE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FemDesign</RootNamespace>
+    <AssemblyName>FemDesign.Dynamo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DynamoServices, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamoVisualProgramming.DynamoServices.2.10.1.3976\lib\net48\DynamoServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DynamoUnits, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\DynamoUnits.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ProtoGeometry, Version=2.9.0.3355, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\ProtoGeometry.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PackageData\FemDesign.Dynamo.migrations.xml" />
+    <Content Include="PackageData\FemDesign.Dynamo_DynamoCustomization.xml" />
+    <Content Include="images\logo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="..\FemDesign.Core\AdvancedFem\AdvancedFem.cs">
+      <Link>Core\AdvancedFem\AdvancedFem.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\AdvancedFem\Cover.cs">
+      <Link>Core\AdvancedFem\Cover.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\AdvancedFem\CoverReferenceList.cs">
+      <Link>Core\AdvancedFem\CoverReferenceList.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Bar.cs">
+      <Link>Core\Bars\Bar.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\BarPart.cs">
+      <Link>Core\Bars\BarPart.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\ColumnCorbel.cs">
+      <Link>Core\Bars\ColumnCorbel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Connectivity.cs">
+      <Link>Core\Bars\Connectivity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Eccentricity.cs">
+      <Link>Core\Bars\Eccentricity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\ModelEccentricity.cs">
+      <Link>Core\Bars\ModelEccentricity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Buckling\BucklingData.cs">
+      <Link>Core\Bars\Buckling\BucklingData.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Buckling\BucklingLength.cs">
+      <Link>Core\Bars\Buckling\BucklingLength.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Buckling\Position.cs">
+      <Link>Core\Bars\Buckling\Position.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Analysis.cs">
+      <Link>Core\Calculate\Analysis.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Application.cs">
+      <Link>Core\Calculate\Application.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Bsc.cs">
+      <Link>Core\Calculate\Bsc.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdCalculation.cs">
+      <Link>Core\Calculate\CmdCalculation.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdEndSession.cs">
+      <Link>Core\Calculate\CmdEndSession.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdListGen.cs">
+      <Link>Core\Calculate\CmdListGen.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdOpen.cs">
+      <Link>Core\Calculate\CmdOpen.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdSave.cs">
+      <Link>Core\Calculate\CmdSave.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdSaveDocx.cs">
+      <Link>Core\Calculate\CmdSaveDocx.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdUser.cs">
+      <Link>Core\Calculate\CmdUser.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Comb.cs">
+      <Link>Core\Calculate\Comb.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CombItem.cs">
+      <Link>Core\Calculate\CombItem.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Design.cs">
+      <Link>Core\Calculate\Design.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\DocTable.cs">
+      <Link>Core\Calculate\DocTable.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\FdScript.cs">
+      <Link>Core\Calculate\FdScript.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\FdScriptHeader.cs">
+      <Link>Core\Calculate\FdScriptHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Font.cs">
+      <Link>Core\Calculate\Font.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Freq.cs">
+      <Link>Core\Calculate\Freq.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\LoadCombination.cs">
+      <Link>Core\Calculate\LoadCombination.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\ResultType.cs">
+      <Link>Core\Calculate\ResultType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
+      <Link>Core\Calculate\Stage.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
+      <Link>Core\GenericClasses\Camber.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\DummyXmlObject.cs">
+      <Link>Core\GenericClasses\DummyXmlObject.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\EntityBase.cs">
+      <Link>Core\GenericClasses\EntityBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\ExtensionMethods.cs">
+      <Link>Core\GenericClasses\ExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\GuidListType.cs">
+      <Link>Core\GenericClasses\GuidListType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\LibraryBase.cs">
+      <Link>Core\GenericClasses\LibraryBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\LocationValue.cs">
+      <Link>Core\GenericClasses\LocationValue.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\RestrictedDouble.cs">
+      <Link>Core\GenericClasses\RestrictedDouble.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\RestrictedInteger.cs">
+      <Link>Core\GenericClasses\RestrictedInteger.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\RestrictedObject.cs">
+      <Link>Core\GenericClasses\RestrictedObject.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\RestrictedString.cs">
+      <Link>Core\GenericClasses\RestrictedString.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\StartEndType.cs">
+      <Link>Core\GenericClasses\StartEndType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\Tolerance.cs">
+      <Link>Core\GenericClasses\Tolerance.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Contour.cs">
+      <Link>Core\Geometry\Contour.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Degree.cs">
+      <Link>Core\Geometry\Degree.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Edge.cs">
+      <Link>Core\Geometry\Edge.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\FdCoordinateSystem.cs">
+      <Link>Core\Geometry\FdCoordinateSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\FdPoint2d.cs">
+      <Link>Core\Geometry\FdPoint2d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\FdPoint3d.cs">
+      <Link>Core\Geometry\FdPoint3d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\FdVector2d.cs">
+      <Link>Core\Geometry\FdVector2d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\FdVector3d.cs">
+      <Link>Core\Geometry\FdVector3d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\RectangleType.cs">
+      <Link>Core\Geometry\RectangleType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Region.cs">
+      <Link>Core\Geometry\Region.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\RegionGroup.cs">
+      <Link>Core\Geometry\RegionGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\LibraryItems\ConnectionTypes.cs">
+      <Link>Core\LibraryItems\ConnectionTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\ForceLoadBase.cs">
+      <Link>Core\Loads\ForceLoadBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\GenericLoadObject.cs">
+      <Link>Core\Loads\GenericLoadObject.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LineLoad.cs">
+      <Link>Core\Loads\LineLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LineStressLoad.cs">
+      <Link>Core\Loads\LineStressLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LineTemperatureLoad.cs">
+      <Link>Core\Loads\LineTemperatureLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadBase.cs">
+      <Link>Core\Loads\LoadBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCase.cs">
+      <Link>Core\Loads\LoadCase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCombination.cs">
+      <Link>Core\Loads\LoadCombination.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadLocationValue.cs">
+      <Link>Core\Loads\LoadLocationValue.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\Loads.cs">
+      <Link>Core\Loads\Loads.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\MassConversionTable.cs">
+      <Link>Core\Loads\MassConversionTable.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\ModelLoadCase.cs">
+      <Link>Core\Loads\ModelLoadCase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\PointLoad.cs">
+      <Link>Core\Loads\PointLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\PressureLoad.cs">
+      <Link>Core\Loads\PressureLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\SurfaceLoad.cs">
+      <Link>Core\Loads\SurfaceLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\SurfaceTemperatureLoad.cs">
+      <Link>Core\Loads\SurfaceTemperatureLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\TopBotLocationValue.cs">
+      <Link>Core\Loads\TopBotLocationValue.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\CltDataType.cs">
+      <Link>Core\Materials\CltDataType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\CltPanelLibraryType.cs">
+      <Link>Core\Materials\CltPanelLibraryType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Concrete.cs">
+      <Link>Core\Materials\Concrete.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Custom.cs">
+      <Link>Core\Materials\Custom.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\GlcDataType.cs">
+      <Link>Core\Materials\GlcDataType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\GlcPanelLibraryType.cs">
+      <Link>Core\Materials\GlcPanelLibraryType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\LimitStresses.cs">
+      <Link>Core\Materials\LimitStresses.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Material.cs">
+      <Link>Core\Materials\Material.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\MaterialBase.cs">
+      <Link>Core\Materials\MaterialBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\MaterialDatabase.cs">
+      <Link>Core\Materials\MaterialDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Materials.cs">
+      <Link>Core\Materials\Materials.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\MaterialTypeEnum.cs">
+      <Link>Core\Materials\MaterialTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\MechProps.cs">
+      <Link>Core\Materials\MechProps.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\ReinforcingMaterials.cs">
+      <Link>Core\Materials\ReinforcingMaterials.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\ReinforcingSteel.cs">
+      <Link>Core\Materials\ReinforcingSteel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Steel.cs">
+      <Link>Core\Materials\Steel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\Timber.cs">
+      <Link>Core\Materials\Timber.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberApplicationData.cs">
+      <Link>Core\Materials\TimberApplicationData.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberFactors.cs">
+      <Link>Core\Materials\TimberFactors.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelData.cs">
+      <Link>Core\Materials\TimberPanelData.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelLibraryType.cs">
+      <Link>Core\Materials\TimberPanelLibraryType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelStiffness.cs">
+      <Link>Core\Materials\TimberPanelStiffness.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelStrength.cs">
+      <Link>Core\Materials\TimberPanelStrength.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassFactors.cs">
+      <Link>Core\Materials\TimberServiceClassFactors.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassKdefs.cs">
+      <Link>Core\Materials\TimberServiceClassKdefs.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Model\Entities.cs">
+      <Link>Core\Model\Entities.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Model\Model.cs">
+      <Link>Core\Model\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\ConnectedLines.cs">
+      <Link>Core\ModellingTools\ConnectedLines.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\ConnectedPoints.cs">
+      <Link>Core\ModellingTools\ConnectedPoints.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\Diaphragm.cs">
+      <Link>Core\ModellingTools\Diaphragm.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\FictitiousBar.cs">
+      <Link>Core\ModellingTools\FictitiousBar.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\FictitiousShell.cs">
+      <Link>Core\ModellingTools\FictitiousShell.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\StiffnessMatrix2Type.cs">
+      <Link>Core\ModellingTools\StiffnessMatrix2Type.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\StiffnessMatrix4Type.cs">
+      <Link>Core\ModellingTools\StiffnessMatrix4Type.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\ModellingTools\SurfaceConnection.cs">
+      <Link>Core\ModellingTools\SurfaceConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\BarReinforcement.cs">
+      <Link>Core\Reinforcement\BarReinforcement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Center.cs">
+      <Link>Core\Reinforcement\Center.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Centric.cs">
+      <Link>Core\Reinforcement\Centric.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\HiddenBar.cs">
+      <Link>Core\Reinforcement\HiddenBar.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\LongitudinalBar.cs">
+      <Link>Core\Reinforcement\LongitudinalBar.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\NoShear.cs">
+      <Link>Core\Reinforcement\NoShear.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Ptc.cs">
+      <Link>Core\Reinforcement\Ptc.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\PunchingArea.cs">
+      <Link>Core\Reinforcement\PunchingArea.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\PunchingReinforcement.cs">
+      <Link>Core\Reinforcement\PunchingReinforcement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Stirrups.cs">
+      <Link>Core\Reinforcement\Stirrups.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Straight.cs">
+      <Link>Core\Reinforcement\Straight.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\SurfaceReinforcement.cs">
+      <Link>Core\Reinforcement\SurfaceReinforcement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\SurfaceReinforcementParameters.cs">
+      <Link>Core\Reinforcement\SurfaceReinforcementParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\Wire.cs">
+      <Link>Core\Reinforcement\Wire.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\Motions.cs">
+      <Link>Core\Releases\Motions.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\PlasticityType3d.cs">
+      <Link>Core\Releases\PlasticityType3d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataLibType1.cs">
+      <Link>Core\Releases\RigidityDataLibType1.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataLibType2.cs">
+      <Link>Core\Releases\RigidityDataLibType2.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataLibType3.cs">
+      <Link>Core\Releases\RigidityDataLibType3.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataType1.cs">
+      <Link>Core\Releases\RigidityDataType1.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataType2.cs">
+      <Link>Core\Releases\RigidityDataType2.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataType3.cs">
+      <Link>Core\Releases\RigidityDataType3.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\Rotations.cs">
+      <Link>Core\Releases\Rotations.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\SimpleStiffnessType.cs">
+      <Link>Core\Releases\SimpleStiffnessType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\StiffBaseType.cs">
+      <Link>Core\Releases\StiffBaseType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\StiffnessType.cs">
+      <Link>Core\Releases\StiffnessType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\StiffnessWithFriction.cs">
+      <Link>Core\Releases\StiffnessWithFriction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
+      <Link>Core\Sections\ComplexSection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\DatabaseSections.cs">
+      <Link>Core\Sections\DatabaseSections.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\ModelSection.cs">
+      <Link>Core\Sections\ModelSection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\ModelSections.cs">
+      <Link>Core\Sections\ModelSections.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\Section.cs">
+      <Link>Core\Sections\Section.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Sections\SectionDatabase.cs">
+      <Link>Core\Sections\SectionDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\EdgeConnectionBase.cs">
+      <Link>Core\Shells\EdgeConnectionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\InternalPanel.cs">
+      <Link>Core\Shells\InternalPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\Panel.cs">
+      <Link>Core\Shells\Panel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\ShellBucklingType.cs">
+      <Link>Core\Shells\ShellBucklingType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\ShellEccentricity.cs">
+      <Link>Core\Shells\ShellEccentricity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\ShellEdgeConnection.cs">
+      <Link>Core\Shells\ShellEdgeConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\ShellOrthotropy.cs">
+      <Link>Core\Shells\ShellOrthotropy.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\Slab.cs">
+      <Link>Core\Shells\Slab.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\SlabPart.cs">
+      <Link>Core\Shells\SlabPart.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\Thickness.cs">
+      <Link>Core\Shells\Thickness.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
+      <Link>Core\Shells\WallCorbel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
+      <Link>Core\StructureGrid\Axes.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\StructureGrid\Axis.cs">
+      <Link>Core\StructureGrid\Axis.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\StructureGrid\Storey.cs">
+      <Link>Core\StructureGrid\Storey.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
+      <Link>Core\StructureGrid\Storeys.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\GenericSupportObject.cs">
+      <Link>Core\Supports\GenericSupportObject.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\Group.cs">
+      <Link>Core\Supports\Group.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\LineSupport.cs">
+      <Link>Core\Supports\LineSupport.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\PointSupport.cs">
+      <Link>Core\Supports\PointSupport.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\Supports.cs">
+      <Link>Core\Supports\Supports.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
+      <Link>Core\Supports\SurfaceSupport.cs</Link>
+    </Compile>
+    <Compile Include="Dynamo\Bars\BarType.cs" />
+    <Compile Include="Dynamo\AdvancedFem\AdvancedFem.cs" />
+    <Compile Include="Dynamo\AdvancedFem\Cover.cs" />
+    <Compile Include="Dynamo\AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="Dynamo\Bars\Bar.cs" />
+    <Compile Include="Dynamo\Bars\BarPart.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\BucklingData.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\BucklingLength.cs" />
+    <Compile Include="Dynamo\Bars\Buckling\Position.cs" />
+    <Compile Include="Dynamo\Bars\ColumnCorbel.cs" />
+    <Compile Include="Dynamo\Bars\Connectivity.cs" />
+    <Compile Include="Dynamo\Bars\Eccentricity.cs" />
+    <Compile Include="Dynamo\Bars\ModelEccentricity.cs" />
+    <Compile Include="Dynamo\Calculate\Analysis.cs" />
+    <Compile Include="Dynamo\Calculate\Application.cs" />
+    <Compile Include="Dynamo\Calculate\Bsc.cs" />
+    <Compile Include="Dynamo\Calculate\CmdCalculation.cs" />
+    <Compile Include="Dynamo\Calculate\CmdEndSession.cs" />
+    <Compile Include="Dynamo\Calculate\CmdListGen.cs" />
+    <Compile Include="Dynamo\Calculate\CmdOpen.cs" />
+    <Compile Include="Dynamo\Calculate\CmdSave.cs" />
+    <Compile Include="Dynamo\Calculate\CmdSaveDocx.cs" />
+    <Compile Include="Dynamo\Calculate\CmdUser.cs" />
+    <Compile Include="Dynamo\Calculate\Comb.cs" />
+    <Compile Include="Dynamo\Calculate\CombItem.cs" />
+    <Compile Include="Dynamo\Calculate\Design.cs" />
+    <Compile Include="Dynamo\Calculate\DocTable.cs" />
+    <Compile Include="Dynamo\Calculate\FdScript.cs" />
+    <Compile Include="Dynamo\Calculate\FdScriptHeader.cs" />
+    <Compile Include="Dynamo\Calculate\Font.cs" />
+    <Compile Include="Dynamo\Calculate\Freq.cs" />
+    <Compile Include="Dynamo\Calculate\LoadCombination.cs" />
+    <Compile Include="Dynamo\Calculate\ResultType.cs" />
+    <Compile Include="Dynamo\Calculate\Stage.cs" />
+    <Compile Include="Dynamo\Deconstruct\Deconstruct.cs" />
+    <Compile Include="Dynamo\GenericClasses\Camber.cs" />
+    <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
+    <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
+    <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\LocationValue.cs" />
+    <Compile Include="Dynamo\GenericClasses\RestrictedObject.cs" />
+    <Compile Include="Dynamo\GenericClasses\StartEndType.cs" />
+    <Compile Include="Dynamo\GenericClasses\Tolerance.cs" />
+    <Compile Include="Dynamo\Geometry\Contour.cs" />
+    <Compile Include="Dynamo\Geometry\Edge.cs" />
+    <Compile Include="Dynamo\Geometry\FdCoordinateSystem.cs" />
+    <Compile Include="Dynamo\Geometry\FdPoint2d.cs" />
+    <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
+    <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
+    <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\RectangleType.cs" />
+    <Compile Include="Dynamo\Geometry\Region.cs" />
+    <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
+    <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Dynamo\Loads\ForceLoadBase.cs" />
+    <Compile Include="Dynamo\Loads\GenericLoadObject.cs" />
+    <Compile Include="Dynamo\Loads\LineLoad.cs" />
+    <Compile Include="Dynamo\Loads\LineStressLoad.cs" />
+    <Compile Include="Dynamo\Loads\LineTemperatureLoad.cs" />
+    <Compile Include="Dynamo\Loads\LoadBase.cs" />
+    <Compile Include="Dynamo\Loads\LoadCase.cs" />
+    <Compile Include="Dynamo\Loads\LoadCombination.cs" />
+    <Compile Include="Dynamo\Loads\LoadLocationValue.cs" />
+    <Compile Include="Dynamo\Loads\Loads.cs" />
+    <Compile Include="Dynamo\Loads\MassConversionTable.cs" />
+    <Compile Include="Dynamo\Loads\ModelLoadCase.cs" />
+    <Compile Include="Dynamo\Loads\PointLoad.cs" />
+    <Compile Include="Dynamo\Loads\PressureLoad.cs" />
+    <Compile Include="Dynamo\Loads\SurfaceLoad.cs" />
+    <Compile Include="Dynamo\Loads\SurfaceTemperatureLoad.cs" />
+    <Compile Include="Dynamo\Loads\TopBotLocationValue.cs" />
+    <Compile Include="Dynamo\Materials\CltDataType.cs" />
+    <Compile Include="Dynamo\Materials\CltPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\Concrete.cs" />
+    <Compile Include="Dynamo\Materials\Custom.cs" />
+    <Compile Include="Dynamo\Materials\GlcDataType.cs" />
+    <Compile Include="Dynamo\Materials\GlcPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\LimitStresses.cs" />
+    <Compile Include="Dynamo\Materials\Material.cs" />
+    <Compile Include="Dynamo\Materials\MaterialBase.cs" />
+    <Compile Include="Dynamo\Materials\MaterialDatabase.cs" />
+    <Compile Include="Dynamo\Materials\Materials.cs" />
+    <Compile Include="Dynamo\Materials\MaterialTypeEnum.cs" />
+    <Compile Include="Dynamo\Materials\MechProps.cs" />
+    <Compile Include="Dynamo\Materials\ReinforcingMaterials.cs" />
+    <Compile Include="Dynamo\Materials\ReinforcingSteel.cs" />
+    <Compile Include="Dynamo\Materials\Steel.cs" />
+    <Compile Include="Dynamo\Materials\Timber.cs" />
+    <Compile Include="Dynamo\Materials\TimberApplicationData.cs" />
+    <Compile Include="Dynamo\Materials\TimberFactors.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelData.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelLibraryType.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelStiffness.cs" />
+    <Compile Include="Dynamo\Materials\TimberPanelStrength.cs" />
+    <Compile Include="Dynamo\Materials\TimberServiceClassFactors.cs" />
+    <Compile Include="Dynamo\Materials\TimberServiceClassKdefs.cs" />
+    <Compile Include="Dynamo\Model\Entities.cs" />
+    <Compile Include="Dynamo\Model\Model.cs" />
+    <Compile Include="Dynamo\ModellingTools\ConnectedLines.cs" />
+    <Compile Include="Dynamo\ModellingTools\ConnectedPoints.cs" />
+    <Compile Include="Dynamo\ModellingTools\Diaphragm.cs" />
+    <Compile Include="Dynamo\ModellingTools\FictitiousBar.cs" />
+    <Compile Include="Dynamo\ModellingTools\FictitiousShell.cs" />
+    <Compile Include="Dynamo\ModellingTools\StiffnessMatrix2Type.cs" />
+    <Compile Include="Dynamo\ModellingTools\StiffnessMatrix4Type.cs" />
+    <Compile Include="Dynamo\ModellingTools\SurfaceConnection.cs" />
+    <Compile Include="Dynamo\Reinforcement\BarReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\Center.cs" />
+    <Compile Include="Dynamo\Reinforcement\Centric.cs" />
+    <Compile Include="Dynamo\Reinforcement\HiddenBar.cs" />
+    <Compile Include="Dynamo\Reinforcement\LongitudinalBar.cs" />
+    <Compile Include="Dynamo\Reinforcement\NoShear.cs" />
+    <Compile Include="Dynamo\Reinforcement\Ptc.cs" />
+    <Compile Include="Dynamo\Reinforcement\PunchingArea.cs" />
+    <Compile Include="Dynamo\Reinforcement\PunchingReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\Stirrups.cs" />
+    <Compile Include="Dynamo\Reinforcement\Straight.cs" />
+    <Compile Include="Dynamo\Reinforcement\SurfaceReinforcement.cs" />
+    <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />
+    <Compile Include="Dynamo\Reinforcement\Wire.cs" />
+    <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
+    <Compile Include="Dynamo\Releases\Motions.cs" />
+    <Compile Include="Dynamo\Releases\PlasticityType3d.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType1.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType2.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataLibType3.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType1.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType2.cs" />
+    <Compile Include="Dynamo\Releases\RigidityDataType3.cs" />
+    <Compile Include="Dynamo\Releases\Rotations.cs" />
+    <Compile Include="Dynamo\Releases\SimpleStiffnessType.cs" />
+    <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
+    <Compile Include="Dynamo\Releases\StiffnessType.cs" />
+    <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Sections\ComplexSection.cs" />
+    <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
+    <Compile Include="Dynamo\Sections\ModelSection.cs" />
+    <Compile Include="Dynamo\Sections\ModelSections.cs" />
+    <Compile Include="Dynamo\Sections\Section.cs" />
+    <Compile Include="Dynamo\Sections\SectionDatabase.cs" />
+    <Compile Include="Dynamo\Shells\EdgeConnectionBase.cs" />
+    <Compile Include="Dynamo\Shells\InternalPanel.cs" />
+    <Compile Include="Dynamo\Shells\Panel.cs" />
+    <Compile Include="Dynamo\Shells\ShellBucklingType.cs" />
+    <Compile Include="Dynamo\Shells\ShellEccentricity.cs" />
+    <Compile Include="Dynamo\Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Dynamo\Shells\ShellOrthotropy.cs" />
+    <Compile Include="Dynamo\Shells\Slab.cs" />
+    <Compile Include="Dynamo\Shells\SlabPart.cs" />
+    <Compile Include="Dynamo\Shells\Thickness.cs" />
+    <Compile Include="Dynamo\Shells\WallCorbel.cs" />
+    <Compile Include="Dynamo\StructureGrid\Axes.cs" />
+    <Compile Include="Dynamo\StructureGrid\Axis.cs" />
+    <Compile Include="Dynamo\StructureGrid\Storey.cs" />
+    <Compile Include="Dynamo\StructureGrid\Storeys.cs" />
+    <Compile Include="Dynamo\Supports\GenericSupportObject.cs" />
+    <Compile Include="Dynamo\Supports\Group.cs" />
+    <Compile Include="Dynamo\Supports\LineSupport.cs" />
+    <Compile Include="Dynamo\Supports\PointSupport.cs" />
+    <Compile Include="Dynamo\Supports\Supports.cs" />
+    <Compile Include="Dynamo\Supports\SurfaceSupport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="PackageData\pkg.json" />
+  </ItemGroup>
+  <ItemGroup />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <Dlls Include="$(OutDir)*.dll" />
+      <Pdbs Include="$(OutDir)*.pdb" />
+      <Xmls Include="$(OutDir)*.xml" />
+      <Configs Include="$(OutDir)*.config" />
+      <DynamoCustomization Include="$(ProjectDir)PackageData\FemDesign.Dynamo_DynamoCustomization.xml" />
+      <DynamoMigrations Include="$(ProjectDir)PackageData\FemDesign.Dynamo.migrations.xml" />
+      <Pkg Include="$(ProjectDir)PackageData\pkg.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoCustomization)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoMigrations)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pkg)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\dyf" />
+    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\extra" />
+  </Target>
+</Project>

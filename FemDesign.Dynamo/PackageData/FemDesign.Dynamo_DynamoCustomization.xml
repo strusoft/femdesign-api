@@ -1,0 +1,67 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>FemDesign.Dynamo</name>
+  </assembly>
+  <namespaces>
+    <namespace name="FemDesign">
+      <category>FemDesign</category>
+    </namespace>
+    <namespace name="FemDesign.Bars">
+      <category>FemDesign.Bars</category>
+    </namespace>
+    <namespace name="FemDesign.Bars.Buckling">
+      <category>FemDesign.Bars.Buckling</category>
+    </namespace>
+    <namespace name="FemDesign.Calculate">
+      <category>FemDesign.Calculate</category>
+    </namespace>
+    <namespace name="FemDesign.Cover">
+      <category>FemDesign.Cover</category>
+    </namespace>
+    <namespace name="FemDesign.Deconstruct">
+      <category>FemDesign.Deconstruct</category>
+    </namespace>
+    <namespace name="FemDesign.Loads">
+      <category>FemDesign.Loads</category>
+    </namespace>
+    <namespace name="FemDesign.Materials">
+      <category>FemDesign.Materials</category>
+    </namespace>
+    <namespace name="FemDesign.Model">
+      <category>FemDesign.Model</category>
+    </namespace>
+    <namespace name="FemDesign.Model.CalculationParameters">
+      <category>FemDesign.Model.CalculationParameters</category>
+    </namespace>
+	<namespace name="FemDesign.ModellingTools">
+		<category>FemDesign.ModellingTools</category>
+    </namespace>
+    <namespace name="FemDesign.Releases">
+      <category>FemDesign.Releases</category>
+    </namespace>
+    <namespace name="FemDesign.Reinforcement">
+      <category>FemDesign.Reinforcement</category>
+    </namespace>
+    <namespace name="FemDesign.RevitTools">
+      <category>FemDesign.RevitTools</category>
+    </namespace>
+    <namespace name="FemDesign.Sections">
+      <category>FemDesign.Sections</category>
+    </namespace>
+    <namespace name="FemDesign.Shells">
+      <category>FemDesign.Shells</category>
+    </namespace>
+    <namespace name="FemDesign.StructureGrid">
+      <category>FemDesign.StructureGrid</category>
+    </namespace>
+    <namespace name="FemDesign.Supports">
+      <category>FemDesign.Supports</category>
+    </namespace>
+  </namespaces>
+	<classes>
+		<class name="FemDesign.Bars.DynamoEccentricity">
+			<category>FemDesign.Bars.DynamoEccentricity</category>
+		</class>
+	</classes>
+</doc>

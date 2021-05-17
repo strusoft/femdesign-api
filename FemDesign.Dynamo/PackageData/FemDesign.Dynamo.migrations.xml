@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<migrations>
+	<priorNameHint>
+		<oldName>FemDesign.Model.Model.FromStruxml</oldName>
+		<newName>FemDesign.Model.Model.ReadStruxml</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Model.Model.RunAnalysis</oldName>
+		<newName>FemDesign.Calculate.Application.RunAnalysis</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Model.Model.RunDesign</oldName>
+		<newName>FemDesign.Calculate.Application.RunAnalysis</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Loads.LineLoad.ForceUniform</oldName>
+		<newName>FemDesign.Loads.LineLoad.Force</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Loads.LineLoad.MomentUniform</oldName>
+		<newName>FemDesign.Loads.LineLoad.Moment</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Model.Standard</oldName>
+		<newName>FemDesign.Model.GetStandard</newName>
+	</priorNameHint>
+	<priorNameHint>
+		<oldName>FemDesign.Model.Country</oldName>
+		<newName>FemDesign.Model.GetCountry</newName>
+	</priorNameHint>
+</migrations>
