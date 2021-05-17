@@ -7,6 +7,5 @@ Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
 *notImplemented*
-packages.config
 strusoft.xsd
 fdscript.xsd

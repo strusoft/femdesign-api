@@ -12,6 +12,13 @@ namespace FemDesign.Shells
     public partial class ShellEdgeConnection: EdgeConnectionBase
     {
         /// <summary>
+        /// Create a default (rigid) ShellEdgeConnection.
+        /// </summary>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static ShellEdgeConnection Default() => GetDefault();
+
+        /// <summary>
         /// Define a new ShellEdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>

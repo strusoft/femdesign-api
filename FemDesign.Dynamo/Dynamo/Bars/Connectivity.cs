@@ -9,6 +9,12 @@ namespace FemDesign.Bars
     [IsVisibleInDynamoLibrary(false)]
     public partial class Connectivity
     {
+        /// <summary>
+        /// Define default (rigid) releases for a bar-element.
+        /// </summary>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Connectivity Default() => GetDefault();
 
         /// <summary>
         /// Define releases for a bar-element.

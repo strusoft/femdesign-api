@@ -1,3 +1,4 @@
+
 using System.Xml.Serialization;
 
 #region dynamo
@@ -21,5 +22,13 @@ namespace FemDesign.Bars
         {
             return new Eccentricity(y, z);
         }
+
+        /// <summary>
+        /// Create a default eccentricity, i.e. no ecceentricity (y=z=0).
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static Eccentricity Default() => GetDefault();
     }
 }

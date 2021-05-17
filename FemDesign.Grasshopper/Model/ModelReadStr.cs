@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class ModelReadStr: GH_Component
     {
@@ -52,7 +52,7 @@ namespace FemDesign.GH
             //
             FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPath);
             FemDesign.Calculate.Application app = new FemDesign.Calculate.Application();
-            bool hasExited = app.RunFdScript(fdScript, false, true);
+            bool hasExited = app.RunFdScript(fdScript, false, true, false);
 
             //
             if (hasExited)

@@ -559,6 +559,39 @@ namespace FemDesign
             this.Entities.AdvancedFem.ConnectedLines.Add(obj);
         }
 
+        private void AddConnectedPoints(ModellingTools.ConnectedPoints obj, bool overwrite)
+        {
+            // advanced fem null?
+            if (this.Entities.AdvancedFem == null)
+            {
+                this.Entities.AdvancedFem = new AdvancedFem();
+            }
+
+            // connected points null?
+            if (this.Entities.AdvancedFem.ConnectedPoints == null)
+            {
+                this.Entities.AdvancedFem.ConnectedPoints = new List<ModellingTools.ConnectedPoints>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.AdvancedFem.ConnectedPoints.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.AdvancedFem.ConnectedPoints.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add connected point
+            this.Entities.AdvancedFem.ConnectedPoints.Add(obj);
+        }
+
 
         /// <summary>
         /// Add Load to Model.

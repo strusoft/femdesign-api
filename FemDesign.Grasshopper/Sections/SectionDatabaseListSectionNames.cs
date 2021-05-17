@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseListSectionNames: GH_Component
     {

@@ -2,7 +2,7 @@
 using System;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class TopBotLocValDeconstruct: GH_Component
     {

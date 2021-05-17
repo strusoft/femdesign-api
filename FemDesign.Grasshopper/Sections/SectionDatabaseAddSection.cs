@@ -3,7 +3,7 @@ using System;
 using Grasshopper.Kernel;
 
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseAddSection: GH_Component
     {

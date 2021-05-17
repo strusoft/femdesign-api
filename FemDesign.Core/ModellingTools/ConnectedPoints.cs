@@ -103,9 +103,30 @@ namespace FemDesign.ModellingTools
             }
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         private ConnectedPoints()
         {
 
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ConnectedPoints(Geometry.FdPoint3d firstPoint, Geometry.FdPoint3d secondPoint, Releases.RigidityDataType2 rigidity, GuidListType[] references, string identifier)
+        {
+            this.EntityCreated();
+            this.Points = new Geometry.FdPoint3d[2]
+            {
+                firstPoint,
+                secondPoint
+            };
+            this.LocalX = Geometry.FdVector3d.UnitX();
+            this.LocalY = Geometry.FdVector3d.UnitY();
+            this.Rigidity = rigidity;
+            this.References = references;
+            this.Identifier = identifier;
         }
     }
 }

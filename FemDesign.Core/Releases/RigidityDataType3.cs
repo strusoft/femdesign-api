@@ -42,25 +42,21 @@ namespace FemDesign.Releases
         /// </summary>
         private RigidityDataType3()
         {
-
+            
         }
 
         /// <summary>
         /// Construct RigidityDataType3 with default friction
         /// </summary>
-        public RigidityDataType3(Motions motions, Rotations rotations)
+        public RigidityDataType3(Motions motions, Rotations rotations) : base(motions, rotations)
         {
-            this.Motions = motions;
-            this.Rotations = rotations;
         }
 
         /// <summary>
         /// Construct RigidityDataType3 with defined friction
         /// </summary>
-        public RigidityDataType3(Motions motions, Rotations rotations, double friction)
+        public RigidityDataType3(Motions motions, Rotations rotations, double friction) : base(motions, rotations)
         {
-            this.Motions = motions;
-            this.Rotations = rotations;
             this.Friction = friction;
         }
 

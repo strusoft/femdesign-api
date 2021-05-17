@@ -29,9 +29,6 @@ namespace FemDesign.Shells
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEccentricity Default()
-        {
-            return GetDefault();
-        }
+        public static ShellEccentricity Default() => GetDefault();
     }
 }

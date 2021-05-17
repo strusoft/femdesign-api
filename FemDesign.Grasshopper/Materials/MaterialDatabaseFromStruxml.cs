@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class MaterialDatabaseFromStruxml: GH_Component
     {
