@@ -1,4 +1,6 @@
 // https://strusoft.com/
+using System.Globalization;
+using System.Xml;
 using System.Xml.Serialization;
 
 
@@ -12,28 +14,81 @@ namespace FemDesign.Bars.Buckling
     {
         [XmlAttribute("type")]
         public string Type { get; set; } // bar_buckling_type
+
         [XmlAttribute("beta")]
-        public double _beta; // non_neg_max_100
+        public string _beta; // non_neg_max_100
+
         [XmlIgnore]
         public double Beta
         {
-            get {return this._beta;}
-            set {this._beta = RestrictedDouble.NonNegMax_100(value);}
-        } 
+            get
+            {
+                return double.Parse(this._beta, CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                this._beta = RestrictedDouble.NonNegMax_100(value).ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
         [XmlAttribute("sway")]
-        public bool Sway { get; set; } // boolean
+        public string _sway;
+
+        [XmlIgnore]
+        public bool Sway
+        {
+            get
+            {
+                return bool.Parse(this._sway);
+            }
+            set
+            {
+                this._sway = value.ToString();
+            }
+        }
+
         [XmlAttribute("load_position")]
         public string _loadPosition;  // ver_align
+
         [XmlIgnore]
         public string LoadPosition
         {
             get{return this._loadPosition;}
             set{this._loadPosition = RestrictedString.VerticalAlign(value);}
         }
+
         [XmlAttribute("continously_restrained")]
-        public bool ContinouslyRestrained { get; set; } // bool
+        public string _continouslyRestrained;
+        
+        [XmlIgnore]
+        public bool ContinouslyRestrained
+        {
+            get
+            {
+                return bool.Parse(this._continouslyRestrained);
+            }
+            set
+            {
+                this._continouslyRestrained = value.ToString();
+            }
+        }
+
         [XmlAttribute("cantilever")]
-        public bool Cantilever { get; set; } // bool
+        public string _cantilever;
+
+        [XmlIgnore]
+        public bool Cantilever
+        {
+            get
+            {
+                return bool.Parse(this._cantilever);
+            }
+            set
+            {
+                this._cantilever = value.ToString();
+            }
+        }
+
         [XmlElement("position")]
         public Position Position { get; set; } // segmentposition_type
 
