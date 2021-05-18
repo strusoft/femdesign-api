@@ -35,7 +35,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Calculate.Design _obj = FemDesign.Calculate.Design.Define(autoDesign, check);
+            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check);
 
             // return
             DA.SetData(0, _obj);

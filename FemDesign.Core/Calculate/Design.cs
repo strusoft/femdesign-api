@@ -28,20 +28,11 @@ namespace FemDesign.Calculate
 
         }
         
-        private Design(bool autoDesign, bool check)
+        public Design(bool autoDesign, bool check)
         {
             this.CMax = "";
             this.AutoDesign = autoDesign;
             this.Check = check;
-        }
-
-        /// <summary>Set parameters for design.</summary>
-        /// <remarks>Create</remarks>
-        /// <param name="autoDesign">Auto-design elements.</param>
-        /// <param name="check">Check elements.</param>
-        public static Design Define(bool autoDesign, bool check)
-        {
-            return new Design(autoDesign, check);
         }
     }
 }
