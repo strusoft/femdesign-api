@@ -2,6 +2,7 @@
 .vscode
 bin
 obj
+*.nupkg
 packages
 Resources
 scripts/convertLibrary/run*.*
