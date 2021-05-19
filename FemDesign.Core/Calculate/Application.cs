@@ -49,17 +49,13 @@ namespace FemDesign.Calculate
                 Process firstProcess = processes[0];
                 this.FdPath = firstProcess.MainModule.FileName;
                 this.FdVersion = firstProcess.MainModule.FileVersionInfo.FileVersion.Split(new char[] { '.' })[0];
-
-                // check if process inforamtion matches target version
-                if (this.FdVersion != null && this.FdVersion == this.FdTargetVersion && this.FdPath != null)
-                {
-                    return;
-                }
             }
-            else
+            
+            // Check if process information matches target version
+            if (this.FdVersion == null || this.FdVersion != this.FdTargetVersion || this.FdPath == null)
             {
                 throw new System.ArgumentException("FEM-Design " + this.FdTargetVersion + " - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script.");
-            } 
+            }
         }
 
         /// <summary>
