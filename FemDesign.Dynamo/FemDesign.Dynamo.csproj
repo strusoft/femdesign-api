@@ -173,6 +173,15 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\GuidListType.cs">
       <Link>Core\GenericClasses\GuidListType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IFemDesignEntity.cs">
+      <Link>Core\GenericClasses\IFemDesignEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\ILoadElement.cs">
+      <Link>Core\GenericClasses\ILoadElement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IStructureElement.cs">
+      <Link>Core\GenericClasses\IStructureElement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\LibraryBase.cs">
       <Link>Core\GenericClasses\LibraryBase.cs</Link>
     </Compile>

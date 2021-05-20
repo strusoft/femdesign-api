@@ -1,10 +1,11 @@
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.StructureGrid
 {
     [System.Serializable]
-    public partial class Storey: EntityBase
+    public partial class Storey: EntityBase, IStructureElement
     {
         [XmlElement("origo", Order=1)]
         public Geometry.FdPoint3d Origo { get; set; }

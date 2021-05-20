@@ -1,11 +1,12 @@
 using System;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public partial class BarReinforcement: EntityBase
+    public partial class BarReinforcement: EntityBase, IStructureElement
     {
         [XmlElement("base_bar", Order = 1)]
         public GuidListType BaseBar { get; set; }

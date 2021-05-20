@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Reinforcement
@@ -131,7 +132,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public partial class Ptc: EntityBase
+    public partial class Ptc : EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint3d StartPoint { get; set; }

@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Supports
@@ -9,7 +10,7 @@ namespace FemDesign.Supports
     /// line_support_type
     /// </summary>
     [System.Serializable]
-    public partial class LineSupport: EntityBase
+    public partial class LineSupport: EntityBase, IStructureElement
     {
         // serialization properties
         [XmlAttribute("name")]

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign
@@ -10,7 +11,7 @@ namespace FemDesign
     /// cover_type
     /// </summary>
     [System.Serializable]
-    public partial class Cover: EntityBase
+    public partial class Cover: EntityBase, IStructureElement
     {
         /// <summary>
         /// Cover instance number

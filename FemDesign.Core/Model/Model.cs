@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
@@ -1993,7 +1994,84 @@ namespace FemDesign
             return false;
         }
         #endregion
+
+        #region AddElements and AddLoads
+
+        /// <summary>
+        /// Add entities to Model.
+        /// </summary>
+        public Model AddElements<T>(List<T> elements, bool overwrite = true) where T : IStructureElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
+            }
+
+            return this;
+        }
+
+        public Model AddLoads<T>(List<T> elements, bool overwrite = true) where T : ILoadElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                AddEntity(item as dynamic, overwrite);
+            }
+
+            return this;
+        }
+
+        private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
+        private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
+        private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
         
+        private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
+        
+        private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
+        private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
+        private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
+        private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
+        //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+
+        private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
+        private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
+        private void AddEntity(Supports.SurfaceSupport obj, bool overwrite) => AddSurfaceSupport(obj, overwrite);
+
+        private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
+        private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
+
+        private void AddEntity(Loads.PointLoad obj, bool overwrite) => AddPointLoad(obj, overwrite);
+        private void AddEntity(Loads.SurfaceTemperatureLoad obj, bool overwrite) => AddSurfaceTemperatureLoad(obj, overwrite);
+        private void AddEntity(Loads.SurfaceLoad obj, bool overwrite) => AddSurfaceLoad(obj, overwrite);
+        private void AddEntity(Loads.PressureLoad obj, bool overwrite) => AddPressureLoad(obj, overwrite);
+        private void AddEntity(Loads.LineTemperatureLoad obj, bool overwrite) => AddLineTemperatureLoad(obj, overwrite);
+        private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
+        private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
+
+        private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
+        private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
+
+
+        #endregion
+
         #region deconstruct
         /// <summary>
         /// Get Bars from Model. 

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class SurfaceConnection: EntityBase
+    public partial class SurfaceConnection: EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int _instance = 0;

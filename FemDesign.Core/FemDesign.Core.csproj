@@ -84,6 +84,9 @@
     <Compile Include="GenericClasses\EntityBase.cs" />
     <Compile Include="GenericClasses\ExtensionMethods.cs" />
     <Compile Include="GenericClasses\GuidListType.cs" />
+    <Compile Include="GenericClasses\IFemDesignEntity.cs" />
+    <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
     <Compile Include="GenericClasses\LocationValue.cs" />
     <Compile Include="GenericClasses\RestrictedDouble.cs" />

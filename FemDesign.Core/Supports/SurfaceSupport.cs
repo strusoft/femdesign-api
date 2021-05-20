@@ -1,12 +1,13 @@
 // https://strusoft.com/
 
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public partial class SurfaceSupport: EntityBase
+    public partial class SurfaceSupport: EntityBase, IStructureElement
     {
         [XmlAttribute("name")]
         public string _name;

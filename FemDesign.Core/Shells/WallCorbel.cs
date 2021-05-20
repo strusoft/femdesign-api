@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Shells
 {
     [System.Serializable]
-    public partial class WallCorbel: EntityBase
+    public partial class WallCorbel: EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint3d StartPoint { get; set; }
