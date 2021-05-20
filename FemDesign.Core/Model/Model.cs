@@ -1993,6 +1993,55 @@ namespace FemDesign
             }
             return false;
         }
+
+        /// <summary>
+        /// Add LabelledSection to Model
+        /// </summary>
+        private void AddLabelledSection(AuxiliaryResults.LabelledSection obj, bool overwrite)
+        {
+            if (this.Entities.LabelledSections == null)
+            {
+                this.Entities.LabelledSections = new AuxiliaryResults.LabelledSectionsGeometry();
+            }
+
+            // in model?
+            bool inModel = this.LabelledSectionInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.LabelledSections.LabelledSections.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.LabelledSections.LabelledSections.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Entities.LabelledSections.LabelledSections.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if LabelledSection in Model
+        /// </summary>
+        private bool LabelledSectionInModel(AuxiliaryResults.LabelledSection obj)
+        {
+            foreach (AuxiliaryResults.LabelledSection elem in this.Entities.LabelledSections.LabelledSections)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
         #region AddElements and AddLoads
@@ -2050,6 +2099,8 @@ namespace FemDesign
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
         //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+
+        private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
 
         private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
         private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);

@@ -48,6 +48,8 @@
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
     <Compile Include="AdvancedFem\Cover.cs" />
     <Compile Include="AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="AuxiliaryResults\LabelledSectionsGeometry.cs" />
+    <Compile Include="AuxiliaryResults\LabelledSections.cs" />
     <Compile Include="Bars\Bar.cs" />
     <Compile Include="Bars\BarPart.cs" />
     <Compile Include="Bars\Buckling\BucklingData.cs" />
@@ -95,6 +97,8 @@
     <Compile Include="GenericClasses\RestrictedString.cs" />
     <Compile Include="GenericClasses\StartEndType.cs" />
     <Compile Include="GenericClasses\Tolerance.cs" />
+    <Compile Include="Geometry\LineSegment.cs" />
+    <Compile Include="Geometry\Polyline.cs" />
     <Compile Include="Geometry\Contour.cs" />
     <Compile Include="Geometry\Degree.cs" />
     <Compile Include="Geometry\Edge.cs" />

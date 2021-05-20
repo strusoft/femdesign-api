@@ -15,7 +15,7 @@ namespace FemDesign
         // if dummy elements are not used for undefined types deserialization will not work properly
         // when serializing these dummy elements must be nulled. 
         [XmlElement("foundations", Order = 1)]
-        public List<DummyXmlObject> Foundations {get {return null;} set {value = null;}}
+        public List<DummyXmlObject> Foundations { get { return null; } set { value = null; } }
 
         [XmlElement("bar", Order = 2)]
         public List<Bars.Bar> Bars = new List<Bars.Bar>();
@@ -70,9 +70,12 @@ namespace FemDesign
 
         [XmlElement("storeys", Order = 19)]
         public StructureGrid.Storeys Storeys { get; set; }
-        
+
         [XmlElement("axes", Order = 20)]
         public StructureGrid.Axes Axes { get; set; }
+
+        [XmlElement("labelled_sections_geometry", Order = 21)]
+        public AuxiliaryResults.LabelledSectionsGeometry LabelledSections;
 
         // axes
         // ref planes
