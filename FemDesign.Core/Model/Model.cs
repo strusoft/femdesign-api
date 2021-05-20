@@ -53,7 +53,7 @@ namespace FemDesign
         [XmlAttribute("xmlns")]
         public string Xmlns { get; set; }
         [XmlElement("entities", Order = 1)]
-        public Entities Entities { get; set; } 
+        public Entities Entities { get; set; }
         [XmlElement("sections", Order = 2)]
         public Sections.ModelSections Sections { get; set; }
         [XmlElement("materials", Order = 3)]
@@ -61,19 +61,19 @@ namespace FemDesign
         [XmlElement("reinforcing_materials", Order = 4)]
         public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
         [XmlElement("composites", Order = 5)]
-        public List<DummyXmlObject> Composites {get {return null;} set {value = null;}}
+        public List<DummyXmlObject> Composites { get { return null; } set { value = null; } }
         [XmlElement("point_connection_types", Order = 6)]
-        public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set;}
+        public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set; }
         [XmlElement("point_support_group_types", Order = 7)]
-        public LibraryItems.PointSupportGroupTypes PointSupportGroupTypes { get; set;}
+        public LibraryItems.PointSupportGroupTypes PointSupportGroupTypes { get; set; }
         [XmlElement("line_connection_types", Order = 8)]
-        public LibraryItems.LineConnectionTypes LineConnectionTypes {get; set; }
+        public LibraryItems.LineConnectionTypes LineConnectionTypes { get; set; }
         [XmlElement("line_support_group_types", Order = 9)]
-        public LibraryItems.LineSupportGroupTypes LineSupportGroupTypes { get; set;}
+        public LibraryItems.LineSupportGroupTypes LineSupportGroupTypes { get; set; }
         [XmlElement("surface_connection_types", Order = 10)]
-        public LibraryItems.SurfaceConnectionTypes SurfaceConnectionTypes { get; set;}
+        public LibraryItems.SurfaceConnectionTypes SurfaceConnectionTypes { get; set; }
         [XmlElement("surface_support_types", Order = 11)]
-        public LibraryItems.SurfaceSupportTypes SurfaceSupportTypes { get; set;}
+        public LibraryItems.SurfaceSupportTypes SurfaceSupportTypes { get; set; }
         [XmlElement("timber_panel_types", Order = 12)]
         public Materials.TimberPanelTypes TimberPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 13)]
@@ -132,7 +132,7 @@ namespace FemDesign
             // catch inner exception
             object obj;
             try
-            {    
+            {
                 obj = deserializer.Deserialize(reader);
             }
             catch (System.InvalidOperationException ex)
@@ -157,7 +157,7 @@ namespace FemDesign
 
             // return
             return model;
-            
+
         }
 
         /// <summary>
@@ -182,10 +182,11 @@ namespace FemDesign
         #endregion
 
         #region addEntities
+
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels ,List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite) 
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -265,7 +266,7 @@ namespace FemDesign
                     this.AddLoad(load, overwrite);
                 }
             }
-            
+
             if (loadCases != null)
             {
                 foreach (Loads.LoadCase loadCase in loadCases)
@@ -368,14 +369,14 @@ namespace FemDesign
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            
+
             else if (inModel && overwrite == true)
             {
                 this.Entities.AdvancedFem.FictitiousBars.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add fictitious bar
-            this.Entities.AdvancedFem.FictitiousBars.Add(obj);  
+            this.Entities.AdvancedFem.FictitiousBars.Add(obj);
         }
 
         /// <summary>
@@ -412,7 +413,7 @@ namespace FemDesign
             {
                 this.Entities.AdvancedFem.FictitiousShells.RemoveAll(x => x.Guid == obj.Guid);
             }
-    
+
             // add line connection types (predefined rigidity)
             foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
             {
@@ -420,7 +421,7 @@ namespace FemDesign
             }
 
             // add shell
-            this.Entities.AdvancedFem.FictitiousShells.Add(obj);  
+            this.Entities.AdvancedFem.FictitiousShells.Add(obj);
         }
 
         /// <summary>
@@ -442,7 +443,7 @@ namespace FemDesign
         /// Add ComplexSection (from Bar) to Model.
         /// </summary>
         private void AddComplexSection(Bars.Bar bar, bool overwrite)
-        {   
+        {
             if (bar.BarPart.ComplexSectionIsNull)
             {
                 // pass
@@ -469,7 +470,7 @@ namespace FemDesign
 
                 // add complex section
                 this.Sections.ComplexSection.Add(obj);
-            }     
+            }
         }
 
         /// <summary>
@@ -497,7 +498,7 @@ namespace FemDesign
 
             // in model, don't overwrite
             if (inModel && overwrite == false)
-            {    
+            {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
@@ -508,7 +509,7 @@ namespace FemDesign
             }
 
             // add cover
-            this.Entities.AdvancedFem.Covers.Add(obj);  
+            this.Entities.AdvancedFem.Covers.Add(obj);
         }
 
         /// <summary>
@@ -535,7 +536,7 @@ namespace FemDesign
             }
 
             // connected lines null?
-            if ( this.Entities.AdvancedFem.ConnectedLines == null)
+            if (this.Entities.AdvancedFem.ConnectedLines == null)
             {
                 this.Entities.AdvancedFem.ConnectedLines = new List<ModellingTools.ConnectedLines>();
             }
@@ -663,12 +664,12 @@ namespace FemDesign
 
             // add panel properties
             if (obj.Material != null)
-            {   
+            {
                 this.AddMaterial(obj.Material, overwrite);
             }
 
             if (obj.Section != null)
-            {    
+            {
                 this.AddSection(obj.Section, overwrite);
             }
 
@@ -678,7 +679,7 @@ namespace FemDesign
                 // add library types
                 if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
                 {
-                    this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData, overwrite); 
+                    this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData, overwrite);
                 }
                 else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
                 {
@@ -751,7 +752,7 @@ namespace FemDesign
             }
 
             // add point load
-            this.Entities.Loads.PointLoads.Add(obj);   
+            this.Entities.Loads.PointLoads.Add(obj);
         }
 
         /// <summary>
@@ -886,13 +887,13 @@ namespace FemDesign
             }
 
             // in model, overwrite
-            else if(inModel && overwrite)
+            else if (inModel && overwrite)
             {
                 this.Entities.Loads.PressureLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add pressure load
-            this.Entities.Loads.PressureLoads.Add(obj); 
+            this.Entities.Loads.PressureLoads.Add(obj);
         }
 
         /// <summary>
@@ -923,7 +924,7 @@ namespace FemDesign
             {
                 throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
-            
+
             // in model, overwrite
             else if (inModel && overwrite)
             {
@@ -931,7 +932,7 @@ namespace FemDesign
             }
 
             // add surface load
-            this.Entities.Loads.SurfaceLoads.Add(obj); 
+            this.Entities.Loads.SurfaceLoads.Add(obj);
         }
 
         /// <summary>
@@ -994,7 +995,7 @@ namespace FemDesign
         /// </summary>
         private void AddMassConversionTable(Loads.MassConversionTable obj)
         {
-            this.Entities.Loads.LoadCaseMassConversionTable = obj;  
+            this.Entities.Loads.LoadCaseMassConversionTable = obj;
         }
 
         /// <summary>
@@ -1132,7 +1133,7 @@ namespace FemDesign
             {
                 this.Entities.Slabs.RemoveAll(x => x.Guid == obj.Guid);
             }
- 
+
             // add shell properties
             this.AddMaterial(obj.Material, overwrite);
             this.AddSurfaceReinforcementParameters(obj, overwrite);
@@ -1141,13 +1142,13 @@ namespace FemDesign
             this.AddSurfaceReinforcements(obj, overwrite);
 
             // add line connection types (predefined rigidity)
-            foreach(Releases.RigidityDataLibType3 predef in obj.SlabPart.Region.GetPredefinedRigidities())
-            {   
+            foreach (Releases.RigidityDataLibType3 predef in obj.SlabPart.Region.GetPredefinedRigidities())
+            {
                 this.AddPredefinedRigidity(predef, overwrite);
             }
-            
+
             // add shell
-            this.Entities.Slabs.Add(obj); 
+            this.Entities.Slabs.Add(obj);
         }
 
         /// <summary>
@@ -1190,7 +1191,7 @@ namespace FemDesign
             else if (!inModel)
             {
                 this.ReinforcingMaterials.Material.Add(obj);
-            }  
+            }
         }
 
         /// <summary>
@@ -1207,7 +1208,7 @@ namespace FemDesign
             }
             return false;
         }
-        
+
 
         /// <summary>
         /// Add predefined rigidity
@@ -1302,7 +1303,7 @@ namespace FemDesign
             {
                 this.Entities.Axes.Axis.RemoveAll(x => x.Guid == obj.Guid);
             }
-            
+
             // add obj
             this.Entities.Axes.Axis.Add(obj);
         }
@@ -1408,7 +1409,7 @@ namespace FemDesign
             }
         }
 
-        
+
 
         /// <summary>
         /// Add SurfaceReinforcement to Model.
@@ -1432,7 +1433,7 @@ namespace FemDesign
 
             // add obj
             this.Entities.SurfaceReinforcement.Add(obj);
-  
+
         }
 
         /// <summary>
@@ -1478,7 +1479,7 @@ namespace FemDesign
 
                 // add obj
                 this.Entities.SurfaceReinforcementParameters.Add(obj);
-            } 
+            }
         }
 
         /// <summary>
@@ -1660,7 +1661,7 @@ namespace FemDesign
                 this.LineSupportGroupTypes = new LibraryItems.LineSupportGroupTypes();
                 this.LineSupportGroupTypes.PredefinedTypes = new List<Releases.RigidityDataLibType2>();
             }
-            
+
             // in model?
             bool inModel = this.LineSupportGroupTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
 
@@ -1736,7 +1737,7 @@ namespace FemDesign
                 this.SurfaceSupportTypes = new LibraryItems.SurfaceSupportTypes();
                 this.SurfaceSupportTypes.PredefinedTypes = new List<Releases.RigidityDataLibType1>();
             }
-            
+
             // in model?
             bool inModel = this.SurfaceSupportTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
 
@@ -2056,14 +2057,14 @@ namespace FemDesign
                         {
                             item.BarPart.StartSection = section;
                         }
-                        
+
                         if (section.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
                         {
                             item.BarPart.EndSection = section;
                         }
-                    }  
+                    }
                 }
-                
+
                 // check if section found
                 if (item.BarPart.StartSection == null || item.BarPart.EndSection == null)
                 {
@@ -2089,7 +2090,7 @@ namespace FemDesign
                         item.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                     }
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -2192,7 +2193,7 @@ namespace FemDesign
                             }
                         }
                     }
-                    
+
 
                     // clt panel types
                     if (this.CltPanelTypes != null && this.CltPanelTypes.CltPanelLibraryTypes != null)
@@ -2205,8 +2206,8 @@ namespace FemDesign
                             }
                         }
                     }
-                    
-                    
+
+
                     // glc panel types
                     if (this.GlcPanelTypes != null && this.GlcPanelTypes.GlcPanelLibraryTypes != null)
                     {
@@ -2218,7 +2219,7 @@ namespace FemDesign
                             }
                         }
                     }
-                    
+
 
                     // check if libItem found
                     if (panel.TimberPanelLibraryData == null && panel.CltPanelLibraryData == null && panel.GlcPanelLibraryData == null)
@@ -2237,7 +2238,7 @@ namespace FemDesign
                         {
                             internalPanel.Region.SetPredefinedRigidities(this.LineConnectionTypes.PredefinedTypes);
                         }
-                    }                        
+                    }
                 }
             }
         }
