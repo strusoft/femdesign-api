@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System.Globalization;
 using System.Xml.Serialization;
 
 
@@ -23,7 +24,7 @@ namespace FemDesign
             }
             set
             {
-                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
         }
         [XmlAttribute("action")]
