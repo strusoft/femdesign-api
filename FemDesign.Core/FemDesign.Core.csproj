@@ -61,6 +61,7 @@
     <Compile Include="Calculate\Analysis.cs" />
     <Compile Include="Calculate\Application.cs" />
     <Compile Include="Calculate\Bsc.cs" />
+    <Compile Include="Calculate\Footfall.cs" />
     <Compile Include="Calculate\CmdCalculation.cs" />
     <Compile Include="Calculate\CmdEndSession.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />

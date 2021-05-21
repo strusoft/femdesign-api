@@ -45,9 +45,9 @@ namespace FemDesign.Loads
         
         [XmlElement("seismic_load", Order = 14)]
         public List<DummyXmlObject> SeismicLoads {get {return null;} set {value = null;}} // seismic_load_type
-        
+
         [XmlElement("footfall_analysis_data", Order = 15)]
-        public List<DummyXmlObject> FootfallAnalysisData {get {return null;} set {value = null;}} // footfall_type
+        public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
         
         [XmlElement("moving_load", Order = 16)]
         public List<DummyXmlObject> MovingLoads {get {return null;} set {value = null;}} // moving_load_type

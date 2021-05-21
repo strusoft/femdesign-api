@@ -89,8 +89,8 @@ namespace FemDesign.Loads
         private void InitializeFullExcitation(FdPoint3d position, string identifier, string comment)
         {
             Position = position;
-            Footfall.selfExcitationInstances++;
-            Name = $"{identifier}.{selfExcitationInstances}";
+            Footfall.fullExcitationInstances++;
+            Name = $"{identifier}.{fullExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;
             this.EntityCreated();
         }
