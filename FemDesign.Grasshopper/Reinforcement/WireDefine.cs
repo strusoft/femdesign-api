@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class WireDefine: GH_Component
     {

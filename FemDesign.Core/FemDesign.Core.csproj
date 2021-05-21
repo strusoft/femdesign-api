@@ -84,6 +84,9 @@
     <Compile Include="GenericClasses\EntityBase.cs" />
     <Compile Include="GenericClasses\ExtensionMethods.cs" />
     <Compile Include="GenericClasses\GuidListType.cs" />
+    <Compile Include="GenericClasses\IFemDesignEntity.cs" />
+    <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
     <Compile Include="GenericClasses\LocationValue.cs" />
     <Compile Include="GenericClasses\RestrictedDouble.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="ModellingTools\SurfaceConnection.cs" />
     <Compile Include="Model\Entities.cs" />
     <Compile Include="Model\Model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reinforcement\BarReinforcement.cs" />
     <Compile Include="Reinforcement\Center.cs" />
     <Compile Include="Reinforcement\Centric.cs" />

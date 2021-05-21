@@ -1,6 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
@@ -8,7 +8,7 @@ namespace FemDesign
     /// load_base_attribs
     /// </summary>
     [System.Serializable]
-    public partial class LoadBase: EntityBase
+    public partial class LoadBase: EntityBase, ILoadElement
     {
         [XmlAttribute("load_case")]
         public System.Guid LoadCase { get; set; } // load_case_id

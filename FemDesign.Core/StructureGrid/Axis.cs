@@ -1,10 +1,11 @@
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.StructureGrid
 {
     [System.Serializable]
-    public partial class Axis: EntityBase
+    public partial class Axis: EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.FdPoint2d _startPoint; // point_type_2d

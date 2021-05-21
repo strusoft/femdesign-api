@@ -1,7 +1,7 @@
 // https://strusoft.com/
 using System.Globalization;
 using System.Xml.Serialization;
-
+using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
@@ -9,7 +9,7 @@ namespace FemDesign
     /// entity_attribs
     /// </summary>
     [System.Serializable]
-    public partial class EntityBase
+    public partial class EntityBase : IFemDesignEntity
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; }

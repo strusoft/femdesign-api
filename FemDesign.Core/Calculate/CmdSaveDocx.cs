@@ -27,7 +27,7 @@ namespace FemDesign.Calculate
         {
             //
             string extension = Path.GetExtension(filePath);
-            if (extension != ".docx")
+            if (extension != ".dsc")
             {
                 throw new System.ArgumentException("Incorrect file-extension. Expected .dsc. CmdSaveDocx failed.");
             }

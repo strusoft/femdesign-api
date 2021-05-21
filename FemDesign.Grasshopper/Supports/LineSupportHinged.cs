@@ -3,7 +3,7 @@ using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class LineSupportHinged: GH_Component
     {

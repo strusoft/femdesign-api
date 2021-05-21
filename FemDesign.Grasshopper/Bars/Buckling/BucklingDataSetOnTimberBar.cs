@@ -2,7 +2,7 @@
 using System;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class Bars_BucklingDataSetOnTimberBar: GH_Component
     {

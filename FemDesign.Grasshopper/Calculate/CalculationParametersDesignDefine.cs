@@ -2,7 +2,7 @@
 using System;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class CalculationParametersDesignDefine: GH_Component
     {
@@ -35,7 +35,7 @@ namespace FemDesign.GH
             }
 
             //
-            FemDesign.Calculate.Design _obj = FemDesign.Calculate.Design.Define(autoDesign, check);
+            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check);
 
             // return
             DA.SetData(0, _obj);

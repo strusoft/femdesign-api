@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Bars
@@ -12,7 +13,7 @@ namespace FemDesign.Bars
     /// Bar-element
     /// </summary>
     [System.Serializable]
-    public partial class Bar: EntityBase
+    public partial class Bar: EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int _barInstance = 0; // used for counter of name)

@@ -3,7 +3,7 @@
 using System;
 using Grasshopper.Kernel;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class StiffnessMatrix2TypeDefine: GH_Component
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     public class BarsBeam: GH_Component
     {

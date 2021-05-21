@@ -6,7 +6,7 @@ using FemDesign.Geometry;
 using FemDesign.Loads;
 using FemDesign.Supports;
 
-namespace FemDesign.GH
+namespace FemDesign.Grasshopper
 {
     internal static class Convert
     {

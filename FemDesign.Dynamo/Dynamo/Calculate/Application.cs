@@ -7,7 +7,8 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Calculate
 {
-    public partial class Analysis
+    [IsVisibleInDynamoLibrary(false)]
+    public partial class Application
     {
         #region dynamo
         /// <summary>

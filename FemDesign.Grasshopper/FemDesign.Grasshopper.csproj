@@ -19,6 +19,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <StartAction>Program</StartAction>
+    <StartProgram>${ProgramFiles}\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartArguments>/nosplash</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -209,6 +212,19 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>echo F | xcopy "$(TargetPath)" "FemDesign.Grasshopper.gha" /Y</PostBuildEvent>
+    <PostBuildEvent> move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="AfterBuild">
+    <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <ItemGroup>
+      <Dlls Include="$(OutDir)*.dll" />
+      <Ghas Include="$(OutDir)*.gha" />
+      <Pdbs Include="$(OutDir)*.pdb" />
+      <Xmls Include="$(OutDir)*.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(Ghas)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+  </Target>
 </Project>
