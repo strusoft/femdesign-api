@@ -104,6 +104,7 @@
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
     <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Loads\Footfall.cs" />
     <Compile Include="Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\GenericLoadObject.cs" />
     <Compile Include="Loads\LineLoad.cs" />
