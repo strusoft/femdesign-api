@@ -1,11 +1,12 @@
 using System;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public partial class HiddenBar: EntityBase
+    public partial class HiddenBar: EntityBase, IStructureElement
     {   
         
         private static int _instance = 0;

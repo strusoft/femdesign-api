@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Shells
@@ -10,7 +11,7 @@ namespace FemDesign.Shells
     /// panel_type
     /// </summary>
     [System.Serializable]
-    public partial class Panel: EntityBase
+    public partial class Panel: EntityBase, IStructureElement
     {
         /// <summary>
         /// Panel instance counter

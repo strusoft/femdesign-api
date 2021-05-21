@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
@@ -154,6 +155,8 @@ namespace FemDesign
             model.GetPointSupports();
             model.GetSlabs();
             model.GetSurfaceSupports();
+            model.GetPointConnections();
+            model.GetLineConnections();
 
             // return
             return model;
@@ -558,6 +561,40 @@ namespace FemDesign
 
             // add connected line
             this.Entities.AdvancedFem.ConnectedLines.Add(obj);
+
+            // add predefined rigidity
+            if (obj.PredefRigidity != null)
+            {
+                this.AddConnectedLinesLibItem(obj.PredefRigidity, overwrite);
+            }
+        }
+
+        private void AddConnectedLinesLibItem(Releases.RigidityDataLibType3 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
+
+            // in model?
+            bool inModel = this.LineConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.LineConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.LineConnectionTypes.PredefinedTypes.Add(obj);
         }
 
         private void AddConnectedPoints(ModellingTools.ConnectedPoints obj, bool overwrite)
@@ -591,6 +628,40 @@ namespace FemDesign
 
             // add connected point
             this.Entities.AdvancedFem.ConnectedPoints.Add(obj);
+
+            // add predefined rigidity
+            if (obj.PredefRigidity != null)
+            {
+                this.AddConnectedPointsLibItem(obj.PredefRigidity, overwrite);
+            }
+        }
+
+        private void AddConnectedPointsLibItem(Releases.RigidityDataLibType2 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.PointConnectionTypes == null)
+            {
+                this.PointConnectionTypes = new LibraryItems.PointConnectionTypes();
+                this.PointConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType2>();
+            }
+
+            // in model?
+            bool inModel = this.PointConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.PointConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.PointConnectionTypes.PredefinedTypes.Add(obj);
         }
 
 
@@ -1993,7 +2064,84 @@ namespace FemDesign
             return false;
         }
         #endregion
+
+        #region AddElements and AddLoads
+
+        /// <summary>
+        /// Add entities to Model.
+        /// </summary>
+        public Model AddElements<T>(List<T> elements, bool overwrite = true) where T : IStructureElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
+            }
+
+            return this;
+        }
+
+        public Model AddLoads<T>(List<T> elements, bool overwrite = true) where T : ILoadElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                AddEntity(item as dynamic, overwrite);
+            }
+
+            return this;
+        }
+
+        private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
+        private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
+        private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
         
+        private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
+        
+        private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
+        private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
+        private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
+        private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
+        //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+
+        private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
+        private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
+        private void AddEntity(Supports.SurfaceSupport obj, bool overwrite) => AddSurfaceSupport(obj, overwrite);
+
+        private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
+        private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
+
+        private void AddEntity(Loads.PointLoad obj, bool overwrite) => AddPointLoad(obj, overwrite);
+        private void AddEntity(Loads.SurfaceTemperatureLoad obj, bool overwrite) => AddSurfaceTemperatureLoad(obj, overwrite);
+        private void AddEntity(Loads.SurfaceLoad obj, bool overwrite) => AddSurfaceLoad(obj, overwrite);
+        private void AddEntity(Loads.PressureLoad obj, bool overwrite) => AddPressureLoad(obj, overwrite);
+        private void AddEntity(Loads.LineTemperatureLoad obj, bool overwrite) => AddLineTemperatureLoad(obj, overwrite);
+        private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
+        private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
+
+        private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
+        private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
+
+
+        #endregion
+
         #region deconstruct
         /// <summary>
         /// Get Bars from Model. 
@@ -2291,6 +2439,42 @@ namespace FemDesign
                         if (surfaceSupport._predefRigidityRef != null && predefinedType.Guid == surfaceSupport._predefRigidityRef.Guid)
                         {
                             surfaceSupport.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetPointConnections()
+        {
+            foreach (ModellingTools.ConnectedPoints connectedPoint in this.Entities.AdvancedFem.ConnectedPoints)
+            {
+                // predefined rigidity
+                if (this.PointConnectionTypes != null && this.PointConnectionTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType2 predefinedType in this.PointConnectionTypes.PredefinedTypes)
+                    {
+                        if (connectedPoint._predefRigidityRef != null && predefinedType.Guid == connectedPoint._predefRigidityRef.Guid)
+                        {
+                            connectedPoint.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetLineConnections()
+        {
+            foreach (ModellingTools.ConnectedLines connectedLine in this.Entities.AdvancedFem.ConnectedLines)
+            {
+                // predefined rigidity
+                if (this.LineConnectionTypes != null && this.LineConnectionTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType3 predefinedType in this.LineConnectionTypes.PredefinedTypes)
+                    {
+                        if (connectedLine._predefRigidityRef != null && predefinedType.Guid == connectedLine._predefRigidityRef.Guid)
+                        {
+                            connectedLine.PredefRigidity = predefinedType;
                         }
                     }
                 }

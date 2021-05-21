@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Shells
 {
@@ -10,7 +11,7 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public partial class Slab: EntityBase
+    public partial class Slab: EntityBase, IStructureElement
     {
         private static int _plateInstance = 0;
         private static int _wallInstance = 0;

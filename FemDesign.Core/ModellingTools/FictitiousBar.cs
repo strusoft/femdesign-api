@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class FictitiousBar: EntityBase
+    public partial class FictitiousBar: EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int Instance = 0;

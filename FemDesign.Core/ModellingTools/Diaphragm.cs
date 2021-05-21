@@ -1,10 +1,10 @@
 using System.Xml.Serialization;
-
+using FemDesign.GenericClasses;
 
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class Diaphragm: EntityBase
+    public partial class Diaphragm: EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int _instance = 0;
