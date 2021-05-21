@@ -559,6 +559,40 @@ namespace FemDesign
 
             // add connected line
             this.Entities.AdvancedFem.ConnectedLines.Add(obj);
+
+            // add predefined rigidity
+            if (obj.PredefRigidity != null)
+            {
+                this.AddConnectedLinesLibItem(obj.PredefRigidity, overwrite);
+            }
+        }
+
+        private void AddConnectedLinesLibItem(Releases.RigidityDataLibType3 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
+
+            // in model?
+            bool inModel = this.LineConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.LineConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.LineConnectionTypes.PredefinedTypes.Add(obj);
         }
 
         private void AddConnectedPoints(ModellingTools.ConnectedPoints obj, bool overwrite)
@@ -592,6 +626,40 @@ namespace FemDesign
 
             // add connected point
             this.Entities.AdvancedFem.ConnectedPoints.Add(obj);
+
+            // add predefined rigidity
+            if (obj.PredefRigidity != null)
+            {
+                this.AddConnectedPointsLibItem(obj.PredefRigidity, overwrite);
+            }
+        }
+
+        private void AddConnectedPointsLibItem(Releases.RigidityDataLibType2 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.PointConnectionTypes == null)
+            {
+                this.PointConnectionTypes = new LibraryItems.PointConnectionTypes();
+                this.PointConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType2>();
+            }
+
+            // in model?
+            bool inModel = this.PointConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.PointConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.PointConnectionTypes.PredefinedTypes.Add(obj);
         }
 
 
@@ -2369,6 +2437,42 @@ namespace FemDesign
                         if (surfaceSupport._predefRigidityRef != null && predefinedType.Guid == surfaceSupport._predefRigidityRef.Guid)
                         {
                             surfaceSupport.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetPointConnections()
+        {
+            foreach (ModellingTools.ConnectedPoints connectedPoint in this.Entities.AdvancedFem.ConnectedPoints)
+            {
+                // predefined rigidity
+                if (this.PointConnectionTypes != null && this.PointConnectionTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType2 predefinedType in this.PointConnectionTypes.PredefinedTypes)
+                    {
+                        if (connectedPoint._predefRigidityRef != null && predefinedType.Guid == connectedPoint._predefRigidityRef.Guid)
+                        {
+                            connectedPoint.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetLineConnections()
+        {
+            foreach (ModellingTools.ConnectedLines connectedLine in this.Entities.AdvancedFem.ConnectedLines)
+            {
+                // predefined rigidity
+                if (this.LineConnectionTypes != null && this.LineConnectionTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType3 predefinedType in this.LineConnectionTypes.PredefinedTypes)
+                    {
+                        if (connectedLine._predefRigidityRef != null && predefinedType.Guid == connectedLine._predefRigidityRef.Guid)
+                        {
+                            connectedLine.PredefRigidity = predefinedType;
                         }
                     }
                 }
