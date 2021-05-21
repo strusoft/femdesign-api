@@ -155,6 +155,8 @@ namespace FemDesign
             model.GetPointSupports();
             model.GetSlabs();
             model.GetSurfaceSupports();
+            model.GetPointConnections();
+            model.GetLineConnections();
 
             // return
             return model;
