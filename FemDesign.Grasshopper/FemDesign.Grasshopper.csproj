@@ -125,7 +125,6 @@
     <Compile Include="Deconstruct\WireDeconstruct.cs" />
     <Compile Include="Geometry\Convert.cs" />
     <Compile Include="Loads\FootfallSelfExcitation.cs" />
-    <Compile Include="Loads\GenericLoadObject.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
