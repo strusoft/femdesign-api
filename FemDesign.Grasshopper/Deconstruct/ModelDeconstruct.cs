@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(4, model.Entities.AdvancedFem.FictitiousShells);
             DA.SetDataList(5, model.Entities.Panels);
             DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
-            DA.SetDataList(7, model.Entities.Loads.GetGenericLoadObjects());
+            DA.SetDataList(7, model.Entities.Loads.GetLoads());
             DA.SetDataList(8, model.Entities.Loads.LoadCases);
             DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
             DA.SetDataList(10, model.Entities.Supports.GetGenericSupportObjects());

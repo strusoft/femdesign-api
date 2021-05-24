@@ -61,6 +61,11 @@ namespace FemDesign.Loads
         {
             this.Footfall = obj;
         }
+        public static GenericLoadObject FromLoadElement(FemDesign.GenericClasses.ILoadElement loadElement)
+        {
+            return new GenericLoadObject(loadElement as dynamic);
+        }
+
         public static List<object> ToObjectList(List<GenericLoadObject> objs)
         {
             List<object> list = new List<object>();
@@ -103,5 +108,15 @@ namespace FemDesign.Loads
             // return
             return list;
         }
+
+        public static implicit operator GenericLoadObject(PointLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(LineLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(LineStressLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(LineTemperatureLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(SurfaceLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(SurfaceTemperatureLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(PressureLoad obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(MassConversionTable obj) => new GenericLoadObject(obj);
+        public static implicit operator GenericLoadObject(Footfall obj) => new GenericLoadObject(obj);
     } 
 }
