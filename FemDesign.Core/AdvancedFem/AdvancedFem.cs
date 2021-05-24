@@ -10,12 +10,12 @@ namespace FemDesign
     /// </summary>
     [System.Serializable]
     public partial class AdvancedFem
-    {        
+    {
         [XmlElement("connected_points", Order = 1)]
-        public List<ModellingTools.ConnectedPoints> ConnectedPoints { get; set; }
+        public List<ModellingTools.ConnectedPoints> ConnectedPoints { get; set; } = new List<ModellingTools.ConnectedPoints>();
 
         [XmlElement("connected_lines", Order = 2)]
-        public List<ModellingTools.ConnectedLines> ConnectedLines { get; set; }
+        public List<ModellingTools.ConnectedLines> ConnectedLines { get; set; } = new List<ModellingTools.ConnectedLines>();
 
         [XmlElement("surface_connection", Order = 3)]
         public ModellingTools.SurfaceConnection[] SurfaceConnections { get; set; }
