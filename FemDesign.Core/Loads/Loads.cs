@@ -64,7 +64,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads.
         /// </summary>
-        internal List<object> GetLoads()
+        public List<object> GetLoads()
         {
             var objs = new List<object>();
             objs.AddRange(this.PointLoads);
