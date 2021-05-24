@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
@@ -93,7 +94,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
   
-            List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
+            List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
             if (!DA.GetDataList(7, loads))
             {
                 // pass
@@ -136,7 +137,7 @@ namespace FemDesign.Grasshopper
             }
 
             // supports
-            List<object> _loads = FemDesign.Loads.GenericLoadObject.ToObjectList(loads);
+            List<object> _loads = loads.Cast<object>().ToList();
             List<object> _supports = FemDesign.Supports.GenericSupportObject.ToObjectList(supports);
             
             //

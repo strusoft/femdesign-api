@@ -87,6 +87,7 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Deconstruct\TopBotLocValDeconstruct.cs" />
     <Compile Include="Deconstruct\WireDeconstruct.cs" />
     <Compile Include="Geometry\Convert.cs" />
+    <Compile Include="Loads\FootfallSelfExcitation.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
     <Compile Include="Loads\LoadLocationValueDefine.cs" />
     <Compile Include="Loads\MassConversionTableDefine.cs" />
+    <Compile Include="Loads\FootfallFullExcitation.cs" />
     <Compile Include="Loads\PointLoadForce.cs" />
     <Compile Include="Loads\PointLoadMoment.cs" />
     <Compile Include="Loads\PressureLoadDefine.cs" />

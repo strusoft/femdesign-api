@@ -18,6 +18,8 @@ namespace FemDesign.Calculate
         public Comb Comb { get; set; } // ANALCOMB
         [XmlElement("freq")]
         public Freq Freq { get; set; } // ANALFREQ
+        [XmlElement("footfall")]
+        public Footfall Footfall { get; set; }
 
         // attributes
         [XmlAttribute("calcCase")]
@@ -146,6 +148,23 @@ namespace FemDesign.Calculate
                 this._calcDesign = Convert.ToInt32(value);
             }
         }
+
+        [XmlAttribute("calcFootfall")]
+        public int _calcFootfall; // bool as int
+        [XmlIgnore]
+        public bool CalcFootfall
+        {
+            get
+            {
+                return Convert.ToBoolean(this._calcFootfall);
+            }
+            set
+            {
+                this._calcFootfall = Convert.ToInt32(value);
+            }
+        }
+
+
         [XmlAttribute("elemfine")]
         public int _elemFine; // bool as int
         [XmlIgnore]
@@ -196,11 +215,12 @@ namespace FemDesign.Calculate
         {
             
         }
-        public Analysis(Stage stage, Comb comb, Freq freq, bool calcCase, bool calcCStage, bool calcImpf, bool calcComb, bool calcGMax, bool calcStab, bool calcFreq, bool calcSeis, bool calcDesign, bool elemFine, bool diaphragm, bool peakSmoothing)
+        public Analysis(Stage stage, Comb comb, Freq freq, Footfall footfall, bool calcCase, bool calcCStage, bool calcImpf, bool calcComb, bool calcGMax, bool calcStab, bool calcFreq, bool calcSeis, bool calcDesign, bool calcFootfall, bool elemFine, bool diaphragm, bool peakSmoothing)
         {
             this.Stage = stage;
             this.Comb = comb;
             this.Freq = freq;
+            this.Footfall = footfall;
             this.CalcCase = calcCase;
             this.CalcCStage = calcCStage;
             this.CalcCImpf = calcImpf;
@@ -210,6 +230,7 @@ namespace FemDesign.Calculate
             this.CalcFreq = calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;
+            this.CalcFootfall = calcFootfall;
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
             this.PeakSmoothing = peakSmoothing;

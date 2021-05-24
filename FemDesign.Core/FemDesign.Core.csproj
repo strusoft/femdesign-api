@@ -61,6 +61,7 @@
     <Compile Include="Calculate\Analysis.cs" />
     <Compile Include="Calculate\Application.cs" />
     <Compile Include="Calculate\Bsc.cs" />
+    <Compile Include="Calculate\Footfall.cs" />
     <Compile Include="Calculate\CmdCalculation.cs" />
     <Compile Include="Calculate\CmdEndSession.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
     <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Loads\Footfall.cs" />
     <Compile Include="Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\GenericLoadObject.cs" />
     <Compile Include="Loads\LineLoad.cs" />
