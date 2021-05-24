@@ -114,7 +114,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.CombDefine;
             }
         }
         public override Guid ComponentGuid

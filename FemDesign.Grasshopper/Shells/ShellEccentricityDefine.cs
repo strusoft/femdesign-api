@@ -64,7 +64,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ShellEccentricityDefine;
             }
         }
         public override Guid ComponentGuid

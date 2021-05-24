@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PointSupportRigid;
             }
         }
         public override Guid ComponentGuid

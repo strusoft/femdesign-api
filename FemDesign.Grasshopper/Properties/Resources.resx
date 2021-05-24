@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AnalysisDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\AnalysisDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AxisDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\AxisDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AxisDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\AxisDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BarDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BarDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BarEccentricityDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BarEccentricityDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BarEccentricityDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BarEccentricityDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BarModify" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BarModify.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BeamDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BeamDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BeamDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BeamDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BucklingDataSetOnConcreteBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BucklingDataSetOnConcreteBar.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BucklingDataSetOnSteelBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BucklingDataSetOnSteelBar.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BucklingDataSetOnTimberBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\BucklingDataSetOnTimberBar.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColumnDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ColumnDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColumnDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ColumnDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CombDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\CombDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConnectivityDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ConnectivityDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConnectivityHinged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ConnectivityHinged.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConnectivityRigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ConnectivityRigid.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoverDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\CoverDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoverOneWay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\CoverOneWay.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoverTwoWay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\CoverTwoWay.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DesignDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\DesignDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fdlogo_00101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\fdlogo_00101.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FictBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FictBar.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FictBarDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FictBarDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FictShell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FictShell.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FictShellDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FictShellDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FlexuralStiff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FlexuralStiff.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FlexuralWeak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FlexuralWeak.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Force" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Force.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FreqDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FreqDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LateralTorsional" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LateralTorsional.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineLoadDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineLoadForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineLoadForce.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineLoadMoment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineLoadMoment.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineSupportDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineSupportDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineSupportFixed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineSupportFixed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineSupportHinged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineSupportHinged.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineSupportPinned" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineSupportPinned.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineSupportRigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineSupportRigid.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineTempLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineTempLoad.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineTempLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineTempLoadDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCaseDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCaseDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCaseDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCaseDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCaseGetLoadCaseByName" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCaseGetLoadCaseByName.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCombinationDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCombinationDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCombinationDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCombinationDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadCombinationSetCalculationParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadCombinationSetCalculationParameters.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoadsDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LoadsDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MassConversionTableDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MassConversionTableDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialDatabaseDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialDatabaseDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialDatabaseFromStruxml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialDatabaseFromStruxml.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialDatabaseListMaterialNames" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialDatabaseListMaterialNames.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialDeconstrut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialDeconstrut.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialGetMaterialByName" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialGetMaterialByName.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialSetConcreteMaterialProperties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialSetConcreteMaterialProperties.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialSetCreepAndShrinkage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialSetCreepAndShrinkage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MaterialSetTimberMaterialProperties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MaterialSetTimberMaterialProperties.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelAddElements" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelAddElements.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelCreate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelCreate.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelFromStruxml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelFromStruxml.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelOpen.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelReadStr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelReadStr.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelReadStr1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelReadStr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelRunAnalysis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelRunAnalysis.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelRunDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelRunDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelRunRcDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelRunRcDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelRunSteelDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelRunSteelDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelRunTimberDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelRunTimberDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModelSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ModelSave.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Moment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Moment.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MotionsDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MotionsDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MotionsDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MotionsDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MotionsFree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MotionsFree.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MotionsRigidLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MotionsRigidLine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MotionsRigidPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\MotionsRigidPoint.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Plate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Plate.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlateDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PlateDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlateVariableThickness" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PlateVariableThickness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointLoadForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointLoadForce.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointLoadMoment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointLoadMoment.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointSupportDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointSupportDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointSupportFixed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointSupportFixed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointSupportHinged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointSupportHinged.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointSupportPinned" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointSupportPinned.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointSupportRigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointSupportRigid.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PressuredFlangeBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PressuredFlangeBottom.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PressuredFlangeTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PressuredFlangeTop.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PressureLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PressureLoadDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProfiledPlateDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ProfiledPlateDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReinforcementParametersDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ReinforcementParametersDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RotationsDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\RotationsDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RotationsDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\RotationsDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RotationsFree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\RotationsFree.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RotationsRigidLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\RotationsRigidLine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RotationsRigidPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\RotationsRigidPoint.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Section" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Section.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDatabaseAddSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDatabaseAddSection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDatabaseDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDatabaseDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDatabaseFromStruxml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDatabaseFromStruxml.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDatabaseListSectionNames" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDatabaseListSectionNames.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDatabaseSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDatabaseSave.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SectionGetSectionByName" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SectionGetSectionByName.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEccentricityDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEccentricityDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEccentricityDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEccentricityDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionFixed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionFixed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionHinged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionHinged.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionPinned" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionPinned.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellEdgeConnectionRigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellEdgeConnectionRigid.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellOrthotropyDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellOrthotropyDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShellOrthotropyDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ShellOrthotropyDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SlabDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SlabDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SlabSetAverageElementSize" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SlabSetAverageElementSize.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SlabSetShellEdgeConnection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SlabSetShellEdgeConnection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StageDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StageDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StiffnessMatrix2Type" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StiffnessMatrix2Type.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StiffnessMatrix2TypeDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StiffnessMatrix2TypeDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StiffnessMatrix4Type" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StiffnessMatrix4Type.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StiffnessMatrix4TypeDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StiffnessMatrix4TypeDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StoreyDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StoreyDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StoreyDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StoreyDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StraightDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StraightDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StraightReinforcementLayout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StraightReinforcementLayout.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SupportsDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SupportsDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceLoadDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceLoadPressureLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceLoadPressureLoad.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceLoadUniform" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceLoadUniform.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceLoadVariable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceLoadVariable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceReinforcementAddToSlab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceReinforcementAddToSlab.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceReinforcementBySurface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceReinforcementBySurface.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceReinforcementDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceReinforcementDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceSupport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceSupport.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceSupportDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceSupportDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceTempLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceTempLoad.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceTempLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceTempLoadDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThicknessDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ThicknessDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThicknessDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ThicknessDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottomValue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TopBottomValue.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottomValueDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TopBottomValueDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TrussDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TrussDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TrussDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TrussDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TrussLimitedCapacity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TrussLimitedCapacity.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Wall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Wall.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WallDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\WallDefault.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WallVariableThickness" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\WallVariableThickness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WireDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\WireDeconstruct.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WireDefine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\WireDefine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>
