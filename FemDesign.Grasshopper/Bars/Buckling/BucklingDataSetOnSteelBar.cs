@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.BucklingDataSetOnSteelBar;
             }
         }
         public override Guid ComponentGuid

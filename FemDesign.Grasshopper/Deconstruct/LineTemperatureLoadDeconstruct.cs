@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LineTempLoadDeconstruct;
             }
         }
         public override Guid ComponentGuid

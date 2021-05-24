@@ -8,7 +8,6 @@ packages
 .vs
 .vscode
 .csproj.user
-Resources
 scripts/convertLibrary/run*.*
 scripts/convertLibrary/__pycache__
 *notImplemented*
