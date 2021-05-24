@@ -17,6 +17,7 @@ namespace FemDesign.Loads
         public SurfaceTemperatureLoad SurfaceTemperatureLoad { get; set; }
         public PressureLoad PressureLoad { get; set; }
         public MassConversionTable MassConversionTable { get; set; }
+        public Footfall Footfall { get; set; }
         public GenericLoadObject()
         {
             
@@ -56,6 +57,10 @@ namespace FemDesign.Loads
         {
             this.MassConversionTable = obj;
         }
+        public GenericLoadObject(Footfall obj)
+        {
+            this.Footfall = obj;
+        }
         public static List<object> ToObjectList(List<GenericLoadObject> objs)
         {
             List<object> list = new List<object>();
@@ -88,6 +93,10 @@ namespace FemDesign.Loads
                 else if (obj.MassConversionTable != null)
                 {
                     list.Add(obj.MassConversionTable);
+                }
+                else if (obj.Footfall != null)
+                {
+                    list.Add(obj.Footfall);
                 }
             }
             

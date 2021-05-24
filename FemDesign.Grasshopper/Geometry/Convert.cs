@@ -827,6 +827,19 @@ namespace FemDesign.Grasshopper
         }
 
         /// <summary>
+        /// Get Footfall in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetFootfalls(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (Footfall obj in loads.FootfallAnalysisData)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads as GenericLoadObjects.
         /// </summary>
         internal static List<GenericLoadObject> GetGenericLoadObjects(this Loads.Loads loads)
@@ -857,6 +870,10 @@ namespace FemDesign.Grasshopper
                 list.Add(obj);
             }
             foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForPressureLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetFootfalls())
             {
                 list.Add(obj);
             }
