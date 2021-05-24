@@ -103,7 +103,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LineSupportDefine;
             }
         }
         public override Guid ComponentGuid

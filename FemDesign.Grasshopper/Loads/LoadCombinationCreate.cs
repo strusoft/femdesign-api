@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
             get
             {
 
-                return null;
+                return FemDesign.Properties.Resources.LoadCombinationDefine;
             }
         }
         public override Guid ComponentGuid

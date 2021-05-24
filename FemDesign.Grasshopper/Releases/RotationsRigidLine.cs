@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.RotationsRigidLine;
             }
         }
         public override Guid ComponentGuid

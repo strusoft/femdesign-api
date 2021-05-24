@@ -51,7 +51,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PressuredFlangeTop;
             }
         }
         public override Guid ComponentGuid

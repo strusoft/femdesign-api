@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ShellOrthotropyDefine;
             }
         }
         public override Guid ComponentGuid
