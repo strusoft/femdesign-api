@@ -707,6 +707,10 @@ namespace FemDesign
             {
                 this.AddMassConversionTable((Loads.MassConversionTable)obj);
             }
+            else if (obj.GetType() == typeof(Loads.Footfall))
+            {
+                this.AddFootfall((Loads.Footfall)obj, overwrite);
+            }
             else
             {
                 throw new System.ArgumentException("Passed object must be PointLoad, LineLoad, SurfaceLoad or PressureLoad");
@@ -1067,6 +1071,45 @@ namespace FemDesign
         private void AddMassConversionTable(Loads.MassConversionTable obj)
         {
             this.Entities.Loads.LoadCaseMassConversionTable = obj;
+        }
+
+        /// <summary>
+        /// Add Footfall to Model.
+        /// </summary>
+        private void AddFootfall(Loads.Footfall obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.FootfallInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Loads.FootfallAnalysisData.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add footfall
+            this.Entities.Loads.FootfallAnalysisData.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if Footfall in Model.
+        /// </summary>
+        private bool FootfallInModel(Loads.Footfall obj)
+        {
+            foreach (Loads.Footfall elem in this.Entities.Loads.FootfallAnalysisData)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -2135,6 +2178,7 @@ namespace FemDesign
         private void AddEntity(Loads.LineTemperatureLoad obj, bool overwrite) => AddLineTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
         private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
+        private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

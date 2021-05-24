@@ -74,6 +74,7 @@ namespace FemDesign.Loads
             objs.AddRange(this.PressureLoads);
             objs.AddRange(this.SurfaceLoads);
             objs.AddRange(this.SurfaceTemperatureLoads);
+            objs.AddRange(this.FootfallAnalysisData);
             return objs;
         }
         

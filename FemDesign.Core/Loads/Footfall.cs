@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.Geometry;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Loads
@@ -10,7 +11,7 @@ namespace FemDesign.Loads
     /// footfall_analysis_data
     /// </summary>
     [System.Serializable]
-    public partial class Footfall : EntityBase
+    public partial class Footfall : EntityBase, ILoadElement
     {
         [XmlAttribute("name")]
         public string Name;
