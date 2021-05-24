@@ -5,15 +5,15 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class GenericLoadObjectSortLoads : GH_Component
+    public class SortLoads : GH_Component
     {
-        public GenericLoadObjectSortLoads() : base("GenericLoadObject.SortLoads", "SortLoads", "Sort a list of GenericLoadObject into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
+        public SortLoads() : base("Loads.SortLoads", "SortLoads", "Sort a list of Loads (List<ILoadElement>) into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GenericLoadObject", "GenericLoadObject", "GenericLoadObject.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Loads", "Loads", "List of Loads (List<ILoadElement>).", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
-            List<FemDesign.Loads.GenericLoadObject> objs = new List<FemDesign.Loads.GenericLoadObject>();
+            List<FemDesign.GenericClasses.ILoadElement> objs = new List<FemDesign.GenericClasses.ILoadElement>();
             if (!DA.GetDataList(0, objs))
             {
                 return;
@@ -39,54 +39,54 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            var r0 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r1 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r2 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r3 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r4 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r5 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r6 = new List<FemDesign.Loads.GenericLoadObject>();
-            var r7 = new List<FemDesign.Loads.GenericLoadObject>();
+            var r0 = new List<FemDesign.Loads.PointLoad>();
+            var r1 = new List<FemDesign.Loads.LineLoad>();
+            var r2 = new List<FemDesign.Loads.LineStressLoad>();
+            var r3 = new List<FemDesign.Loads.LineTemperatureLoad>();
+            var r4 = new List<FemDesign.Loads.SurfaceLoad>();
+            var r5 = new List<FemDesign.Loads.SurfaceTemperatureLoad>();
+            var r6 = new List<FemDesign.Loads.PressureLoad>();
+            var r7 = new List<FemDesign.Loads.Footfall>();
 
-            foreach (FemDesign.Loads.GenericLoadObject obj in objs)
+            foreach (FemDesign.GenericClasses.ILoadElement load in objs)
             {
-                if (obj.PointLoad != null)
+                if (load.GetType() == typeof(Loads.PointLoad))
                 {
-                    r0.Add(obj);
+                    r0.Add((Loads.PointLoad)load);
                 }
 
-                else if (obj.LineLoad != null)
+                else if (load.GetType() == typeof(Loads.LineLoad))
                 {
-                    r1.Add(obj);
+                    r1.Add((Loads.LineLoad)load);
                 }
 
-                else if (obj.LineStressLoad != null)
+                else if (load.GetType() == typeof(Loads.LineStressLoad))
                 {
-                    r2.Add(obj);
+                    r2.Add((Loads.LineStressLoad)load);
                 }
 
-                else if (obj.LineTemperatureLoad != null)
+                else if (load.GetType() == typeof(Loads.LineTemperatureLoad))
                 {
-                    r3.Add(obj);
+                    r3.Add((Loads.LineTemperatureLoad)load);
                 }
 
-                else if (obj.SurfaceLoad != null)
+                else if (load.GetType() == typeof(Loads.SurfaceLoad))
                 {
-                    r4.Add(obj);
+                    r4.Add((Loads.SurfaceLoad)load);
                 }
 
-                else if (obj.SurfaceTemperatureLoad != null)
+                else if (load.GetType() == typeof(Loads.SurfaceTemperatureLoad))
                 {
-                    r5.Add(obj);
+                    r5.Add((Loads.SurfaceTemperatureLoad)load);
                 }
 
-                else if (obj.PressureLoad != null)
+                else if (load.GetType() == typeof(Loads.PressureLoad))
                 {
-                    r6.Add(obj);
-                }
-                else if (obj.Footfall != null)
+                    r6.Add((Loads.PressureLoad)load);
+                 }
+                else if (load.GetType() == typeof(Loads.Footfall))
                 {
-                    r7.Add(obj);
+                    r7.Add((Loads.Footfall)load);
                 }
                 else
                 {
