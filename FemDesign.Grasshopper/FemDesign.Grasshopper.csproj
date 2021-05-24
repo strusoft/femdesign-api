@@ -35,7 +35,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>grasshopper</RootNamespace>
+    <RootNamespace>FemDesign</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GH_IO">
