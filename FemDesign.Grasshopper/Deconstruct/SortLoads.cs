@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class GenericLoadObjectSortLoads : GH_Component
+    public class SortLoads : GH_Component
     {
-        public GenericLoadObjectSortLoads() : base("GenericLoadObject.SortLoads", "SortLoads", "Sort a list of GenericLoadObject into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
+        public SortLoads() : base("Loads.SortLoads", "SortLoads", "Sort a list of Loads (List<ILoadElement>) into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
         {
 
         }

@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("PressureLoad", "PressureLoad", "PressureLoad.  Use GenericLoadObject.SortLoads to extract PointLoads", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PressureLoad", "PressureLoad", "PressureLoad.  Use SortLoads to extract PointLoads", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
