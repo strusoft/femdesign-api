@@ -86,7 +86,7 @@ namespace FemDesign.Calculate
             }
 
             // set save docx
-            if (docxTemplatePath != "")
+            if (docxTemplatePath != "" || docxTemplatePath != null)
             {
                 obj.DocxTemplatePath = docxTemplatePath;
                 obj.CmdSaveDocx = new CmdSaveDocx(obj.FileName + ".docx");
