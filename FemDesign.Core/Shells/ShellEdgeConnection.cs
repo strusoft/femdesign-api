@@ -81,7 +81,7 @@ namespace FemDesign.Shells
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
-        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(Releases.RigidityDataType3.Define(motions, rotations))
+        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(new Releases.RigidityDataType3(motions, rotations))
         {
 
         }

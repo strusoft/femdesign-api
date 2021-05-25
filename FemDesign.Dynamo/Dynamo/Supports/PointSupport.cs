@@ -1,15 +1,14 @@
 
 using System.Xml.Serialization;
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
+using FemDesign.Releases;
+
 
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
     public partial class PointSupport: EntityBase
     {
-        #region dynamo
         /// <summary>
         /// Create a rigid point support element.
         /// </summary>
@@ -42,11 +41,13 @@ namespace FemDesign.Supports
         /// <remarks>Create</remarks>
         /// <param name="point"></param>
         /// <param name="motions">Motions. Translation releases.</param>
+        /// <param name="motionsPlasticLimits">Motions plastic limits. Translation releases.</param>
         /// <param name="rotations">Rotations. Rotation releases.</param>
+        /// <param name="rotationsPlasticLimits">Rotations plastic limits. Rotation releases.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("S")] string identifier)
+        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Motions motions, [DefaultArgument("MotionsPlasticLimits()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("S")] string identifier)
         {
             return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, rotations, identifier);
         }
@@ -55,7 +56,5 @@ namespace FemDesign.Supports
         {
             return this.Position.ToDynamo();
         }
-
-        #endregion
     }
 }
