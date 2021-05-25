@@ -52,8 +52,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
 
             //
-            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.PressureLoad = FemDesign.Loads.PressureLoad.Define(region, fdVector, loadCase, z0, q0, qh, comment);
+            FemDesign.Loads.PressureLoad obj = FemDesign.Loads.PressureLoad.Define(region, fdVector, loadCase, z0, q0, qh, comment);
 
             // return
             DA.SetData(0, obj);
