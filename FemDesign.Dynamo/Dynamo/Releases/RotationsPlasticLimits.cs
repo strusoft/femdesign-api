@@ -29,7 +29,7 @@ namespace FemDesign.Releases
         [IsVisibleInDynamoLibrary(true)]
         public static RotationsPlasticLimits Default()
         {
-            return new RotationsPlasticLimits();
+            return RotationsPlasticLimits.Define();
         }
     }
 }
