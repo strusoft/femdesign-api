@@ -2,7 +2,6 @@
 using System;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
-using FemDesign.Releases;
 
 
 namespace FemDesign.Supports
@@ -22,10 +21,6 @@ namespace FemDesign.Supports
         public Group Group { get; set; } // support_rigidity_data_type
         [XmlElement("edge", Order = 2)]
         public Geometry.Edge Edge { get; set; } // edge_type
-        public Motions Motions { get { return Group?.Rigidity?.Motions; } }
-        public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
-        public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }
-        public RotationsPlasticLimits RotationsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitMoments; } }
 
         /// <summary>
         /// This property only reflects the edge normal. If this normal is changed arcs may transform.
@@ -44,30 +39,15 @@ namespace FemDesign.Supports
         /// <summary>
         /// LineSupport along edge with rigidity (motions, rotations). Group LCS aligned with edge LCS.
         /// </summary>
-        public LineSupport(Geometry.Edge edge, Motions motions, Rotations rotations, bool movingLocal, string identifier = "S")
-        {
-            var group = new Group(edge.CoordinateSystem, motions, rotations);
-            Initialize(edge, group, movingLocal, identifier);
-        }
-
-        /// <summary>
-        /// LineSupport along edge with rigidity (motions, rotations) and plastic limits (forces, moments). Group LCS aligned with edge LCS.
-        /// </summary>
-        public LineSupport(Geometry.Edge edge, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, bool movingLocal, string identifier = "S")
-        {
-            var group = new Group(edge.CoordinateSystem, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
-            Initialize(edge, group, movingLocal, identifier);
-        }
-
-        private void Initialize(Geometry.Edge edge, Group group, bool movingLocal, string identifier)
+        public LineSupport(Geometry.Edge edge, Releases.Motions motions, Releases.Rotations rotations, bool movingLocal, string identifier)
         {
             PointSupport._instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.Name = identifier + "." + PointSupport._instance.ToString();
+            this.Name =  identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
             // set edge specific properties
-            this.Group = group;
+            this.Group = new Group(edge.CoordinateSystem, motions, rotations);
             this.Edge = edge;
             this.EdgeNormal = edge.Normal;
         }
@@ -75,20 +55,20 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid LineSupport along edge.
         /// </summary>
-        public static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier = "S")
+        public static LineSupport Rigid(Geometry.Edge edge, bool movingLocal, string identifier)
         {
-            Motions motions = Motions.RigidLine();
-            Rotations rotations = Rotations.RigidLine();
+            Releases.Motions motions = Releases.Motions.RigidLine();
+            Releases.Rotations rotations = Releases.Rotations.RigidLine();
             return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 
         /// <summary>
         /// Hinged LineSupport along edge.
         /// </summary>
-        public static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier = "S")
+        public static LineSupport Hinged(Geometry.Edge edge, bool movingLocal, string identifier)
         {
-            Motions motions = Motions.RigidLine();
-            Rotations rotations = Rotations.Free();
+            Releases.Motions motions = Releases.Motions.RigidLine();
+            Releases.Rotations rotations = Releases.Rotations.Free();
             return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
 

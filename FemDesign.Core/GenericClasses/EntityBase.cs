@@ -1,5 +1,4 @@
 // https://strusoft.com/
-using System;
 using System.Globalization;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -9,19 +8,19 @@ namespace FemDesign
     /// <summary>
     /// entity_attribs
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public partial class EntityBase : IFemDesignEntity
     {
         [XmlAttribute("guid")]
-        public Guid Guid { get; set; }
+        public System.Guid Guid { get; set; }
         [XmlAttribute("last_change")]
         public string _lastChange;
         [XmlIgnore]
-        internal DateTime LastChange
+        internal System.DateTime LastChange
         {
             get
             {
-                return DateTime.Parse(this._lastChange);
+                return System.DateTime.Parse(this._lastChange);
             }
             set
             {
@@ -38,8 +37,8 @@ namespace FemDesign
         /// </summary>
         public void EntityCreated()
         {
-            this.Guid = Guid.NewGuid();
-            this.LastChange = DateTime.UtcNow;
+            this.Guid = System.Guid.NewGuid();
+            this.LastChange = System.DateTime.UtcNow;
             this.Action = "added";
         }
 
@@ -50,10 +49,8 @@ namespace FemDesign
         /// </summary>
         public void EntityModified()
         {
-            this.LastChange = DateTime.UtcNow;
+            this.LastChange = System.DateTime.UtcNow;
             this.Action = "modified";
         }
-
-        public static implicit operator Guid(EntityBase entity) => entity.Guid;
     }
 }

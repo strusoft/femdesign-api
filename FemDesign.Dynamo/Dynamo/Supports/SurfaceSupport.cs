@@ -1,14 +1,17 @@
 
 using System.Xml.Serialization;
-using Autodesk.DesignScript.Runtime;
-using FemDesign.Releases;
 
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
 
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
     public partial class SurfaceSupport: EntityBase
     {
+        #region dynamo
+        
         /// <summary>
         /// Create a SurfaceSupport element.
         /// </summary>
@@ -18,7 +21,7 @@ namespace FemDesign.Supports
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static SurfaceSupport SurfaceSupportDefine(Autodesk.DesignScript.Geometry.Surface surface, Motions motions, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("S")] string identifier)
+        public static SurfaceSupport SurfaceSupportDefine(Autodesk.DesignScript.Geometry.Surface surface, Releases.Motions motions, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, [DefaultArgument("S")] string identifier)
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -38,7 +41,10 @@ namespace FemDesign.Supports
                 obj.CoordinateSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
             }
 
+            // return
             return obj;
         }
+
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace FemDesign.Releases
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        internal PlasticityType3d()
+        private PlasticityType3d()
         {
 
         }

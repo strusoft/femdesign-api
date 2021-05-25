@@ -1,7 +1,6 @@
 // https://strusoft.com/
 
 using System.Xml.Serialization;
-using FemDesign.Releases;
 
 namespace FemDesign.Supports
 {
@@ -77,7 +76,7 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("rigidity", Order = 3)]
-        public RigidityDataType2 Rigidity { get; set; }
+        public Releases.RigidityDataType2 Rigidity { get; set; }
 
         [XmlElement("predefined_rigidity", Order = 4)]
         public GuidListType _predefRigidityRef; // reference_type
@@ -110,40 +109,20 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for line support
         /// </summary>
-        internal Group(Geometry.FdCoordinateSystem coordSystem, Motions motions, Rotations rotations)
+        internal Group(Geometry.FdCoordinateSystem coordSystem, Releases.Motions motions, Releases.Rotations rotations)
         {
             this.CoordinateSystem = coordSystem;
-            this.Rigidity = new RigidityDataType3(motions, rotations);
-        }
-
-        /// <summary>
-        /// Constructor by edge and rigidity. Used to create group for line support
-        /// </summary>
-        internal Group(Geometry.FdCoordinateSystem coordSystem, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
-        {
-            this.CoordinateSystem = coordSystem;
-            this.Rigidity = new RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
-        }
-
-
-        /// <summary>
-        /// Constructor by edge and rigidity. Used to create group for point support
-        /// </summary>
-        internal Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
-        {
-            this._localX = localX;
-            this._localY = localY;
-            this.Rigidity = new RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            this.Rigidity = Releases.RigidityDataType3.Define(motions, rotations);
         }
 
         /// <summary>
         /// Constructor by vectors and rigidity. Used to create group for point support
         /// </summary>
-        public Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Motions motions, Rotations rotations)
+        public Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Releases.Motions motions, Releases.Rotations rotations)
         {
             this._localX = localX;
             this._localY = localY;
-            this.Rigidity = new RigidityDataType3(motions, rotations);
+            this.Rigidity = Releases.RigidityDataType3.Define(motions, rotations);
         }
 
         /// <summary>

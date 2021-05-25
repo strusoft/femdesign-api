@@ -1,19 +1,16 @@
 // https://strusoft.com/
-using System;
 using System.Xml.Serialization;
-using System.Linq;
-
 
 namespace FemDesign
 {
     /// <summary>
     /// guid_list_type
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public partial class GuidListType
     {
         [XmlAttribute("guid")]
-        public Guid Guid { get; set; }
+        public System.Guid Guid { get; set; }
 
         /// <summary>
         /// Parameterless constructor.
@@ -22,30 +19,23 @@ namespace FemDesign
         {
             
         }
-        public GuidListType(Guid guid)
+        public GuidListType(System.Guid guid)
         {
             this.Guid = guid;
         }
-
-
-        /// <summary>
-        /// Implicit conversion of a Entity to its Global Unique Identifier.
-        /// </summary>
-        /// <param name="entity"></param>
-        public static implicit operator GuidListType(EntityBase entity) => new GuidListType(entity.Guid);
     }
 
     /// <summary>
     /// two_guid_list_type
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public partial class TwoGuidListType
     {
         [XmlAttribute("first")]
-        public Guid First { get; set; }
+        public System.Guid First { get; set; }
 
         [XmlAttribute("second")]
-        public Guid Second { get; set; }
+        public System.Guid Second { get; set; }
 
         /// <summary>
         /// Parameterless constructor.
@@ -54,7 +44,7 @@ namespace FemDesign
         {
             
         }
-        public TwoGuidListType(Guid first, Guid second)
+        public TwoGuidListType(System.Guid first, System.Guid second)
         {
             this.First = first;
             this.Second = second;
@@ -64,17 +54,17 @@ namespace FemDesign
     /// <summary>
     /// three_guid_list_type
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public partial class ThreeGuidListType
     {
         [XmlAttribute("first")]
-        public Guid First { get; set; }
+        public System.Guid First { get; set; }
 
         [XmlAttribute("second")]
-        public Guid Second { get; set; }
+        public System.Guid Second { get; set; }
 
         [XmlAttribute("third")]
-        public Guid Third { get; set; }
+        public System.Guid Third { get; set; }
 
         /// <summary>
         /// Parameterless constructor.
@@ -83,7 +73,7 @@ namespace FemDesign
         {
             
         }
-        public ThreeGuidListType(Guid first, Guid second, Guid third)
+        public ThreeGuidListType(System.Guid first, System.Guid second, System.Guid third)
         {
             this.First = first;
             this.Second = second;
