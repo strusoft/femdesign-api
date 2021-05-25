@@ -54,10 +54,7 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            if (!DA.GetData(3, ref motionsPlasticLimit))
-            {
-                return;
-            }
+            DA.GetData(3, ref motionsPlasticLimit);
             DA.GetData(4, ref rotationsPlasticLimit);
             DA.GetData(5, ref movingLocal);
             Vector3d v = Vector3d.Zero;
