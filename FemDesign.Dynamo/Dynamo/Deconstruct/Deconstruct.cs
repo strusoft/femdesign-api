@@ -763,7 +763,7 @@ namespace FemDesign
         /// <param name="support">PointSupport or LineSupport</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "AnalyticalID", "Geometry", "MovingLocal", "LocalX", "LocalY", "Motions", "Rotations"})]
+        [MultiReturn(new[]{"Guid", "AnalyticalID", "Geometry", "MovingLocal", "LocalX", "LocalY", "Motions", "Rotations", "MotionsPlasticLimits", "RotationsPlasticLimits"})]
         public static Dictionary<string, object> SupportDeconstruct(object support)
         {
             if (support.GetType() == typeof(FemDesign.Supports.PointSupport))
@@ -773,15 +773,21 @@ namespace FemDesign
                 // catch pre-defined rigidity
                 Releases.Motions motions;
                 Releases.Rotations rotations;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
+                Releases.RotationsPlasticLimits rotationsPlasticLimits;
                 if (obj.Group.Rigidity != null)
                 {
                     motions = obj.Group.Rigidity.Motions;
                     rotations = obj.Group.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.Rigidity.PlasticLimitMoments;
                 }
                 else
                 {
                     motions = obj.Group.PredefRigidity.Rigidity.Motions;
                     rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitMoments;
                 }
 
                 return new Dictionary<string, object>
@@ -793,7 +799,9 @@ namespace FemDesign
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", rotations}
+                    {"Rotations", rotations},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", rotationsPlasticLimits}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.LineSupport))
@@ -803,15 +811,21 @@ namespace FemDesign
                 // catch pre-defined rigidity
                 Releases.Motions motions;
                 Releases.Rotations rotations;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
+                Releases.RotationsPlasticLimits rotationsPlasticLimits;
                 if (obj.Group.Rigidity != null)
                 {
                     motions = obj.Group.Rigidity.Motions;
                     rotations = obj.Group.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.Rigidity.PlasticLimitMoments;
                 }
                 else
                 {
                     motions = obj.Group.PredefRigidity.Rigidity.Motions;
                     rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitMoments;
                 }
 
                 return new Dictionary<string, object>
@@ -823,7 +837,9 @@ namespace FemDesign
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", rotations}
+                    {"Rotations", rotations},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", rotationsPlasticLimits}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.SurfaceSupport))
@@ -832,13 +848,16 @@ namespace FemDesign
 
                 // catch pre-defined rigidity
                 Releases.Motions motions;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
                 if (obj.Rigidity != null)
                 {
                     motions = obj.Rigidity.Motions;
+                    motionsPlasticLimits = obj.Rigidity.PlasticLimitForces;
                 }
                 else
                 {
                     motions = obj.PredefRigidity.Rigidity.Motions;
+                    motionsPlasticLimits = obj.PredefRigidity.Rigidity.PlasticLimitForces;
                 }
 
                 return new Dictionary<string, object>
@@ -850,7 +869,9 @@ namespace FemDesign
                     {"LocalX", obj.CoordinateSystem.LocalX.ToDynamo()},
                     {"LocalY", obj.CoordinateSystem.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", "SurfaceSupport has no rotations property."}
+                    {"Rotations", "SurfaceSupport has no rotations property."},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", "SurfaceSupport has no rotations plastic limits property."}
                 };
             }
             else
