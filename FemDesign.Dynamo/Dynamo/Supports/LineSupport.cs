@@ -1,16 +1,14 @@
 using System;
 using System.Xml.Serialization;
-
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
+using FemDesign.Releases;
+
 
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
     public partial class LineSupport: EntityBase
     {
-        #region dynamo
         /// <summary>
         /// Create a rigid line support element.
         /// </summary>
@@ -92,10 +90,10 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Releases.Motions motions, Releases.Rotations rotations, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Motions motions, [DefaultArgument("MotionsPlasticLimits()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, rotations, movingLocal, identifier);
+            FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, movingLocal, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -119,7 +117,5 @@ namespace FemDesign.Supports
         {
             return this.Edge.ToDynamo();
         }
-        
-        #endregion
     }
 }
