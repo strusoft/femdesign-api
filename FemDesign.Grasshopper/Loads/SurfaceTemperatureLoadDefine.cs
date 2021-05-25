@@ -68,7 +68,7 @@ namespace FemDesign.Grasshopper
             Geometry.FdVector3d dir = direction.FromRhino();
 
             // create obj
-            Loads.SurfaceTemperatureLoad obj = new Loads.SurfaceTemperatureLoad(region, dir, vals, lc, comment);
+            Loads.GenericLoadObject obj = new Loads.GenericLoadObject(new Loads.SurfaceTemperatureLoad(region, dir, vals, lc, comment));
 
             // return
             DA.SetData(0, obj);

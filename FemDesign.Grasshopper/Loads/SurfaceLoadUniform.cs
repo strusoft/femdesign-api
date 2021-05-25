@@ -45,7 +45,8 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d _force = force.FromRhino();
 
             //
-            FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Uniform(region, _force, loadCase, comment);
+            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
+            obj.SurfaceLoad = FemDesign.Loads.SurfaceLoad.Uniform(region, _force, loadCase, comment);
 
             // return
             DA.SetData(0, obj);

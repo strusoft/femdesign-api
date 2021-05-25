@@ -251,6 +251,9 @@
     <Compile Include="..\FemDesign.Core\Loads\ForceLoadBase.cs">
       <Link>Core\Loads\ForceLoadBase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\GenericLoadObject.cs">
+      <Link>Core\Loads\GenericLoadObject.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LineLoad.cs">
       <Link>Core\Loads\LineLoad.cs</Link>
     </Compile>
@@ -621,6 +624,7 @@
     <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
     <Compile Include="Dynamo\Loads\Footfall.cs" />
     <Compile Include="Dynamo\Loads\ForceLoadBase.cs" />
+    <Compile Include="Dynamo\Loads\GenericLoadObject.cs" />
     <Compile Include="Dynamo\Loads\LineLoad.cs" />
     <Compile Include="Dynamo\Loads\LineStressLoad.cs" />
     <Compile Include="Dynamo\Loads\LineTemperatureLoad.cs" />

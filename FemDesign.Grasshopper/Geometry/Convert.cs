@@ -734,6 +734,153 @@ namespace FemDesign.Grasshopper
 
         #endregion
 
+        #region Loads
+        /// <summary>
+        /// Get PointLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForPointLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (PointLoad obj in loads.PointLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get LineLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForLineLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (LineLoad obj in loads.LineLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get LineTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForLineStressLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (LineStressLoad obj in loads.LineStressLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get LineTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForLineTemperatureLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (LineTemperatureLoad obj in loads.LineTemperatureLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get SurfaceLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForSurfaceLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (SurfaceLoad obj in loads.SurfaceLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get SurfaceTemperatureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForSurfaceTemperatureLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (SurfaceTemperatureLoad obj in loads.SurfaceTemperatureLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get PressureLoads in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjectsForPressureLoads(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (PressureLoad obj in loads.PressureLoads)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get Footfall in Loads as GenericLoadObject.
+        /// </summary>
+        internal static List<GenericLoadObject> GetFootfalls(this Loads.Loads loads)
+        {
+            var objs = new List<GenericLoadObject>();
+            foreach (Footfall obj in loads.FootfallAnalysisData)
+            {
+                objs.Add(new GenericLoadObject(obj));
+            }
+            return objs;
+        }
+
+        /// <summary>
+        /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads as GenericLoadObjects.
+        /// </summary>
+        internal static List<GenericLoadObject> GetGenericLoadObjects(this Loads.Loads loads)
+        {
+            var list = new List<GenericLoadObject>();
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForPointLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForLineLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForLineStressLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForLineTemperatureLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForSurfaceLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForSurfaceTemperatureLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetGenericLoadObjectsForPressureLoads())
+            {
+                list.Add(obj);
+            }
+            foreach (GenericLoadObject obj in loads.GetFootfalls())
+            {
+                list.Add(obj);
+            }
+            return list;
+        }
+        #endregion
+
         #region PointLoad
 
         /// <summary>

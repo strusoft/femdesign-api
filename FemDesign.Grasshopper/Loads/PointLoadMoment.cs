@@ -45,7 +45,8 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d _moment = moment.FromRhino();
 
             //
-            FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, "moment");
+            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
+            obj.PointLoad = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, "moment");
         
             // return 
             DA.SetData(0, obj);

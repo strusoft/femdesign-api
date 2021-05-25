@@ -39,7 +39,8 @@ namespace FemDesign.Grasshopper
             if (loadCases == null || factors == null) { return; }
             
             //
-            FemDesign.Loads.MassConversionTable obj = new FemDesign.Loads.MassConversionTable(factors, loadCases);
+            FemDesign.Loads.MassConversionTable massConversionTable = new FemDesign.Loads.MassConversionTable(factors, loadCases);
+            FemDesign.Loads.GenericLoadObject obj = new Loads.GenericLoadObject(massConversionTable);
 
             // return
             DA.SetData(0, obj);

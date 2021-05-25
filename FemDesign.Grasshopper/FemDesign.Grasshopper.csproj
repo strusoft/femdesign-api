@@ -95,6 +95,7 @@
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
+    <Compile Include="Deconstruct\GenericLoadObjectSortLoads.cs" />
     <Compile Include="Deconstruct\GenericSupportObjectSortSupports.cs" />
     <Compile Include="Deconstruct\LineLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Deconstruct\SectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ShellEdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\SlabDeconstruct.cs" />
-    <Compile Include="Deconstruct\SortLoads.cs" />
     <Compile Include="Deconstruct\StiffnessMatrix2TypeDeconstruct.cs" />
     <Compile Include="Deconstruct\StiffnessMatrix4TypeDeconstruct.cs" />
     <Compile Include="Deconstruct\StoreyDeconstruct.cs" />
