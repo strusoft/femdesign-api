@@ -111,7 +111,6 @@
     <Compile Include="LibraryItems\ConnectionTypes.cs" />
     <Compile Include="Loads\Footfall.cs" />
     <Compile Include="Loads\ForceLoadBase.cs" />
-    <Compile Include="Loads\GenericLoadObject.cs" />
     <Compile Include="Loads\LineLoad.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
     <Compile Include="Loads\LineTemperatureLoad.cs" />
