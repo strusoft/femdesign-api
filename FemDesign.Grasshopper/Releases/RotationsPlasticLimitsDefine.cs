@@ -12,18 +12,17 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            FemDesign.Releases.RotationsPlasticLimits obj = new FemDesign.Releases.RotationsPlasticLimits(); // Get default values
-            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m or kN/m/m].", GH_ParamAccess.item, obj.XNeg);
+            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m or kN/m/m].", GH_ParamAccess.item, obj.XPos);
+            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m or kN/m/m].", GH_ParamAccess.item, obj.YNeg);
+            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m or kN/m/m].", GH_ParamAccess.item, obj.YPos);
+            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m or kN/m/m].", GH_ParamAccess.item, obj.ZNeg);
+            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m or kN/m/m].", GH_ParamAccess.item, obj.ZPos);
+            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m or kN/m/m].", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,12 +33,13 @@ namespace FemDesign.Grasshopper
         {
             FemDesign.Releases.RotationsPlasticLimits obj = new FemDesign.Releases.RotationsPlasticLimits();
 
-            double x_neg = obj.XNeg, x_pos = obj.XPos, y_neg = obj.YNeg, y_pos = obj.YPos, z_neg = obj.ZNeg, z_pos = obj.ZPos;
+            double? x_neg = obj.XNeg, x_pos = obj.XPos, y_neg = obj.YNeg, y_pos = obj.YPos, z_neg = obj.ZNeg, z_pos = obj.ZPos;
             if(DA.GetData(0, ref x_neg))
             {
                 obj.XNeg = x_neg;
             }
-            if(DA.GetData(1, ref x_pos))
+
+            if (DA.GetData(1, ref x_pos))
             {
                 obj.XPos = x_pos;
             }

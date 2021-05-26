@@ -47,9 +47,9 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Motions motions, [DefaultArgument("MotionsPlasticLimits()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("S")] string identifier)
+        public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Motions motions, [DefaultArgument("MotionsPlasticLimits.Default()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits.Default()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("S")] string identifier)
         {
-            return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, rotations, identifier);
+            return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, identifier);
         }
 
         internal Autodesk.DesignScript.Geometry.Point GetDynamoGeometry()

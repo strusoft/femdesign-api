@@ -90,7 +90,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Identifier. Optional, default value if undefined.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Motions motions, [DefaultArgument("MotionsPlasticLimits()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
+        public static LineSupport Define(Autodesk.DesignScript.Geometry.Curve curve, Motions motions, [DefaultArgument("MotionsPlasticLimits.Default()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits.Default()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("false")] bool movingLocal, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("true")] bool orientLCS, [DefaultArgument("S")] string identifier)
         {
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
             FemDesign.Supports.LineSupport obj = new LineSupport(edge, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, movingLocal, identifier);
