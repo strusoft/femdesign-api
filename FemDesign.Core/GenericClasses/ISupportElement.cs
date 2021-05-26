@@ -9,7 +9,7 @@ namespace FemDesign.GenericClasses
     /// <summary>
     /// Support elements. Elements found in the Supports section under the Structure tab in FEM-Design 3D Structure. 
     /// </summary>
-    interface ISupportElement : IFemDesignEntity
+    public interface ISupportElement : IFemDesignEntity
     {
     }
 }

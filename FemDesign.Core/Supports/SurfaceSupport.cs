@@ -8,7 +8,7 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public partial class SurfaceSupport: EntityBase, IStructureElement
+    public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement
     {
         [XmlAttribute("name")]
         public string _name;

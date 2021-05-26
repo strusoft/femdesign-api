@@ -11,7 +11,7 @@ namespace FemDesign.Supports
     /// line_support_type
     /// </summary>
     [System.Serializable]
-    public partial class LineSupport: EntityBase, IStructureElement
+    public partial class LineSupport: EntityBase, IStructureElement, ISupportElement
     {
         // serialization properties
         [XmlAttribute("name")]

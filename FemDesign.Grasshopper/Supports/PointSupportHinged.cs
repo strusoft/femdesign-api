@@ -42,9 +42,7 @@ namespace FemDesign.Grasshopper
             // convert geometry
             FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
             
-            //
-            FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.PointSupport = FemDesign.Supports.PointSupport.Hinged(fdPoint, identifier);
+            var obj = FemDesign.Supports.PointSupport.Hinged(fdPoint, identifier);
 
             // return
             DA.SetData(0, obj);

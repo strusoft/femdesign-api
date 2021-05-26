@@ -72,19 +72,18 @@ namespace FemDesign.Grasshopper
             }
 
             Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
-            Supports.GenericSupportObject obj = new Supports.GenericSupportObject();
-            obj.LineSupport = new Supports.LineSupport(edge, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, movingLocal, identifier);
+            var obj = new Supports.LineSupport(edge, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, movingLocal, identifier);
 
             // Set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                obj.LineSupport.Group.LocalY = v.FromRhino();
+                obj.Group.LocalY = v.FromRhino();
             }
             else // Orient coordinate system to GCS
             {
                 if (orientLCS)
                 {
-                    obj.LineSupport.Group.OrientCoordinateSystemToGCS();
+                    obj.Group.OrientCoordinateSystemToGCS();
                 }
             }
 

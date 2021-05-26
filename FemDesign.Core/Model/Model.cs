@@ -189,7 +189,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<object> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite)
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -288,7 +288,7 @@ namespace FemDesign
 
             if (supports != null)
             {
-                foreach (object support in supports)
+                foreach (ISupportElement support in supports)
                 {
                     this.AddSupport(support, overwrite);
                 }
@@ -1616,8 +1616,8 @@ namespace FemDesign
         /// <summary>
         /// Add Support to Model
         /// </summary>
-        /// <param name="obj">PointSupport, LineSupport</param>
-        private void AddSupport(object obj, bool overwrite)
+        /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        private void AddSupport(ISupportElement obj, bool overwrite)
         {
             if (obj == null)
             {
@@ -1637,7 +1637,7 @@ namespace FemDesign
             }
             else
             {
-                throw new System.ArgumentException("Passed object must be PointSupport or LineSupport");
+                throw new System.ArgumentException("Passed object must be PointSupport, LineSupport or SurfaceSupport");
             }
         }
 

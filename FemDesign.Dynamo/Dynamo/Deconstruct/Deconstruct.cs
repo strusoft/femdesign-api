@@ -395,7 +395,7 @@ namespace FemDesign
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},
                 {"LoadCombinations", model.Entities.Loads.LoadCombinations},
-                {"Supports", model.Entities.Supports.ListSupports()},
+                {"Supports", model.Entities.Supports.GetSupports()},
                 {"Axes", axes},
                 {"Storeys", storeys}
             };

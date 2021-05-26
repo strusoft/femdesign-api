@@ -58,8 +58,7 @@ namespace FemDesign.Grasshopper
             // Convert geometry
             Geometry.FdPoint3d fdPoint = point.FromRhino();
 
-            Supports.GenericSupportObject obj = new Supports.GenericSupportObject();
-            obj.PointSupport = new Supports.PointSupport(fdPoint, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, identifier);
+            var obj = new Supports.PointSupport(fdPoint, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, identifier);
 
             DA.SetData(0, obj);
         }

@@ -112,7 +112,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
+            List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
             if (!DA.GetDataList(10, supports))
             {
                 // pass
@@ -135,17 +135,11 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-
-            // supports
             List<object> _loads = loads.Cast<object>().ToList();
-            List<object> _supports = FemDesign.Supports.GenericSupportObject.ToObjectList(supports);
             
-            //
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
 
-            // return
             DA.SetData(0, model);
-
         }
         protected override System.Drawing.Bitmap Icon
         {

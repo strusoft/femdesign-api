@@ -71,10 +71,7 @@ namespace FemDesign.Grasshopper
                 obj.CoordinateSystem.SetZAroundX(z.FromRhino());
             }
 
-            // Generic support object
-            FemDesign.Supports.GenericSupportObject genericObj = new FemDesign.Supports.GenericSupportObject(obj);
-
-            DA.SetData(0, genericObj);
+            DA.SetData(0, obj);
         }
         protected override System.Drawing.Bitmap Icon
         {

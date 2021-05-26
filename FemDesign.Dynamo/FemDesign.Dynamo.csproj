@@ -554,9 +554,6 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Supports\GenericSupportObject.cs">
-      <Link>Core\Supports\GenericSupportObject.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Group.cs">
       <Link>Core\Supports\Group.cs</Link>
     </Compile>
@@ -695,9 +692,8 @@
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />
     <Compile Include="Dynamo\Reinforcement\Wire.cs" />
     <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
-    <Compile Include="Dynamo\Releases\RotationsPlasticLimits.cs" />
-    <Compile Include="Dynamo\Releases\MotionsPlasticLimits.cs" />
     <Compile Include="Dynamo\Releases\Motions.cs" />
+    <Compile Include="Dynamo\Releases\MotionsPlasticLimits.cs" />
     <Compile Include="Dynamo\Releases\PlasticityType3d.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType1.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType2.cs" />
@@ -706,6 +702,7 @@
     <Compile Include="Dynamo\Releases\RigidityDataType2.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataType3.cs" />
     <Compile Include="Dynamo\Releases\Rotations.cs" />
+    <Compile Include="Dynamo\Releases\RotationsPlasticLimits.cs" />
     <Compile Include="Dynamo\Releases\SimpleStiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
