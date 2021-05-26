@@ -810,55 +810,5 @@ namespace FemDesign.Grasshopper
         }
 
         #endregion
-
-        #region Supports
-        internal static List<GenericSupportObject> GetGenericSupportObjectsForPointSupport(this Supports.Supports supports)
-        {
-            var objs = new List<GenericSupportObject>();
-            foreach (PointSupport obj in supports.PointSupport)
-            {
-                objs.Add(new GenericSupportObject(obj));
-            }
-            return objs;
-        }
-
-        internal static List<GenericSupportObject> GetGenericSupportObjectsForLineSupport(this Supports.Supports supports)
-        {
-            var objs = new List<GenericSupportObject>();
-            foreach (LineSupport obj in supports.LineSupport)
-            {
-                objs.Add(new GenericSupportObject(obj));
-            }
-            return objs;
-        }
-
-        internal static List<GenericSupportObject> GetGenericSupportObjectsForSurfaceSupport(this Supports.Supports supports)
-        {
-            var objs = new List<GenericSupportObject>();
-            foreach (SurfaceSupport obj in supports.SurfaceSupport)
-            {
-                objs.Add(new GenericSupportObject(obj));
-            }
-            return objs;
-        }
-
-        internal static List<GenericSupportObject> GetGenericSupportObjects(this Supports.Supports supports)
-        {
-            var list = new List<GenericSupportObject>();
-            foreach (GenericSupportObject obj in supports.GetGenericSupportObjectsForPointSupport())
-            {
-                list.Add(obj);
-            }
-            foreach (GenericSupportObject obj in supports.GetGenericSupportObjectsForLineSupport())
-            {
-                list.Add(obj);
-            }
-            foreach (GenericSupportObject obj in supports.GetGenericSupportObjectsForSurfaceSupport())
-            {
-                list.Add(obj);
-            }
-            return list;
-        }
-        #endregion
     }
 }

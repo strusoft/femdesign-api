@@ -20,7 +20,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <StartAction>Program</StartAction>
-    <StartProgram>${ProgramFiles}\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartProgram>C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
     <StartArguments>/nosplash</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -167,6 +167,8 @@
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
     <Compile Include="Reinforcement\WireDefine.cs" />
+    <Compile Include="Releases\RotationsPlasticLimitsDefine.cs" />
+    <Compile Include="Releases\MotionsPlasticLimitsDefine.cs" />
     <Compile Include="Releases\MotionsDefine.cs" />
     <Compile Include="Releases\MotionsFree.cs" />
     <Compile Include="Releases\MotionsRigidLine.cs" />
@@ -679,6 +681,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icons\MotionsPlasticLimitsDefine.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icons\RotationsPlasticLimitsDefine.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

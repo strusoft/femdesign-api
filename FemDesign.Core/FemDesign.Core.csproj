@@ -88,6 +88,7 @@
     <Compile Include="GenericClasses\GuidListType.cs" />
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
     <Compile Include="GenericClasses\LocationValue.cs" />
@@ -177,6 +178,8 @@
     <Compile Include="Reinforcement\SurfaceReinforcementParameters.cs" />
     <Compile Include="Reinforcement\Wire.cs" />
     <Compile Include="Releases\DetachTypeEnum.cs" />
+    <Compile Include="Releases\RotationsPlasticLimits.cs" />
+    <Compile Include="Releases\MotionsPlasticLimits.cs" />
     <Compile Include="Releases\Motions.cs" />
     <Compile Include="Releases\PlasticityType3d.cs" />
     <Compile Include="Releases\RigidityDataLibType1.cs" />
@@ -212,7 +215,6 @@
     <Compile Include="StructureGrid\Axis.cs" />
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
-    <Compile Include="Supports\GenericSupportObject.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
     <Compile Include="Supports\PointSupport.cs" />

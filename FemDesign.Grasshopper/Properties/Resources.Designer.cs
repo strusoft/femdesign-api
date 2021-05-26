@@ -823,6 +823,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MotionsPlasticLimitsDefine {
+            get {
+                object obj = ResourceManager.GetObject("MotionsPlasticLimitsDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MotionsRigidLine {
             get {
                 object obj = ResourceManager.GetObject("MotionsRigidLine", resourceCulture);
@@ -1016,6 +1026,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap RotationsFree {
             get {
                 object obj = ResourceManager.GetObject("RotationsFree", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RotationsPlasticLimitsDefine {
+            get {
+                object obj = ResourceManager.GetObject("RotationsPlasticLimitsDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

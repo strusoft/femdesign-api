@@ -14,7 +14,7 @@ namespace FemDesign.Releases
         [XmlElement("motions", Order=1)]
         public Releases.Motions Motions { get; set; }
         [XmlElement("plastic_limit_forces", Order=2)]
-        public Releases.PlasticityType3d PlasticLimitForces { get; set; }
+        public Releases.MotionsPlasticLimits PlasticLimitForces { get; set; }
         [XmlAttribute("detach")]
         public string _detach; // detach_type
         [XmlIgnore]
@@ -39,6 +39,15 @@ namespace FemDesign.Releases
         public RigidityDataType1(Motions motions)
         {
             this.Motions = motions;
+        }
+
+        /// <summary>
+        /// Construct RigidityDataType1 with motions and plastic limits forces only
+        /// </summary>
+        public RigidityDataType1(Motions motions, MotionsPlasticLimits motionsPlasticLimits)
+        {
+            this.Motions = motions;
+            this.PlasticLimitForces = motionsPlasticLimits;
         }
     }
 }

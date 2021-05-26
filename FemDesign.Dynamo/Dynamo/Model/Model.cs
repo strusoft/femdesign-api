@@ -46,11 +46,12 @@ namespace FemDesign
         [IsVisibleInDynamoLibrary(true)]
         public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes, bool overwrite = false)
         {
-            // deep clone model
+            // Deep clone model
             Model model = fdModel.DeepClone();
 
-            // add entities
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
+            // Add entities
+            var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
             return model;
         }
 
@@ -120,9 +121,10 @@ namespace FemDesign
             }
 
             // create model
-            Model _model = new Model(countryCode);
-            _model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, supports, storeys, axes, false);
-            return _model;
+            Model model = new Model(countryCode);
+            var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
+            return model;
         }
         /// <summary>
         /// Open model in FEM-Design.

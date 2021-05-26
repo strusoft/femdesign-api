@@ -77,7 +77,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(7, model.Entities.Loads.GetLoads());
             DA.SetDataList(8, model.Entities.Loads.LoadCases);
             DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
-            DA.SetDataList(10, model.Entities.Supports.GetGenericSupportObjects());
+            DA.SetDataList(10, model.Entities.Supports.GetSupports());
             DA.SetDataList(11, axes);
             DA.SetDataList(12, storeys);
         }

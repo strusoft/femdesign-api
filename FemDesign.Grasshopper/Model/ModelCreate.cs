@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreate: GH_Component
+    public class ModelCreate : GH_Component
     {
-        public ModelCreate(): base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
+        public ModelCreate() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
         {
 
         }
@@ -48,13 +48,13 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get indata
+            // Get indata
             string countryCode = "S";
             if (!DA.GetData(0, ref countryCode))
             {
                 // pass
             }
- 
+
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
             if (!DA.GetDataList(1, bars))
             {
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
- 
+
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
             if (!DA.GetDataList(3, slabs))
             {
@@ -86,19 +86,19 @@ namespace FemDesign.Grasshopper
                     // pass
                 }
             }
-  
+
             List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
             if (!DA.GetDataList(6, covers))
             {
                 // pass
             }
-  
+
             List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
             if (!DA.GetDataList(7, loads))
             {
                 // pass
             }
- 
+
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
             if (!DA.GetDataList(8, loadCases))
             {
@@ -111,7 +111,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
+            List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
             if (!DA.GetDataList(10, supports))
             {
                 // pass
@@ -128,18 +128,14 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-
-            // supports
-            List<object> _loads = loads.Cast<object>().ToList();
-            List<object> _supports = FemDesign.Supports.GenericSupportObject.ToObjectList(supports);
             
-            //
-            FemDesign.Model _obj = new FemDesign.Model(countryCode);
-            _obj.AddEntities(bars,fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes, false);
+            // Create model
+            List<object> _loads = loads.Cast<object>().ToList();
 
-            // return
-            DA.SetData(0, _obj);
+            Model model = new Model(countryCode);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, false);
 
+            DA.SetData(0, model);
         }
         protected override System.Drawing.Bitmap Icon
         {

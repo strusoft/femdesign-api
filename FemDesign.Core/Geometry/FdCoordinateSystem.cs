@@ -8,9 +8,9 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class FdCoordinateSystem
     {
-        [XmlElement("local_pos", Order=1)]
+        [XmlElement("local_pos", Order = 1)]
         public FdPoint3d Origin { get; set; }
-        [XmlElement("local_x", Order=2)]
+        [XmlElement("local_x", Order = 2)]
         public FdVector3d _localX;
         [XmlIgnore]
         public FdVector3d LocalX
@@ -26,8 +26,9 @@ namespace FemDesign.Geometry
                     return this._localX;
                 }
             }
-        }        
-        [XmlElement("local_y", Order=3)]
+        }
+
+        [XmlElement("local_y", Order = 3)]
         public FdVector3d _localY;
         [XmlIgnore]
         public FdVector3d LocalY
@@ -42,8 +43,9 @@ namespace FemDesign.Geometry
                 {
                     return this._localY;
                 }
-            } 
+            }
         }
+
         [XmlIgnore]
         public FdVector3d _localZ;
         [XmlIgnore]
@@ -56,7 +58,7 @@ namespace FemDesign.Geometry
                     throw new System.ArgumentException("Impossible to get z-axis as either this.localX or this.localY is null.");
                 }
                 else
-                {     
+                {
                     return this.LocalX.Cross(LocalY).Normalize();
                 }
             }
@@ -79,10 +81,10 @@ namespace FemDesign.Geometry
             this._localX = localX;
             this._localY = localY;
             this._localZ = localX.Cross(localY);
-            
+
             if (!this.IsComplete())
             {
-                throw new System.ArgumentException("The defined coordinate system is not complete!");  
+                throw new System.ArgumentException("The defined coordinate system is not complete!");
             }
 
             if (!this.IsOrthogonal())
@@ -110,6 +112,14 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
             }
+        }
+
+        /// <summary>
+        /// Global coordinate system
+        /// </summary>
+        public static FdCoordinateSystem Global()
+        {
+            return new FdCoordinateSystem(FdPoint3d.Origin(), FdVector3d.UnitX(), FdVector3d.UnitY());
         }
 
         /// <summary>
@@ -187,7 +197,7 @@ namespace FemDesign.Geometry
                 this._localY = val;
                 this._localX = val.Cross(z); // follows right-hand-rule
             }
-            
+
             else
             {
                 throw new System.ArgumentException($"Y-axis is not perpendicular to Z-axis. The dot-product is {dot}, but should be 0");
@@ -209,7 +219,7 @@ namespace FemDesign.Geometry
                 this._localZ = val;
                 this._localY = val.Cross(x); // follows right-hand-rule
             }
-            
+
             else
             {
                 throw new System.ArgumentException($"Z-axis is not perpendicular to X-axis. The dot-product is {dot}, but should be 0");
@@ -240,7 +250,7 @@ namespace FemDesign.Geometry
             else
             {
                 throw new System.ArgumentException("Impossible to orient axes as the passed coordinate system is incomplete.");
-            }            
+            }
         }
 
         /// <summary>
@@ -298,8 +308,5 @@ namespace FemDesign.Geometry
                 throw new System.ArgumentException($"Impossible to orient axes. Dot product, {dot}, should be between -1 and 1");
             }
         }
-
-
-
     }
 }
