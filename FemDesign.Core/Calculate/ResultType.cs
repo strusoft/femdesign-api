@@ -16,6 +16,10 @@ namespace FemDesign.Calculate
         /// Bars, internal forces
         /// </summary>
         frCaseIntfBar_ListProc,
+        /// <summary>
+        /// Point support group, Reactions
+        /// </summary>
+        frCaseReacPtGroup_ListProc,
 
         /* LOADCOMBINATIONS*/
 
@@ -31,5 +35,9 @@ namespace FemDesign.Calculate
         /// Labelled sections, Resultants
         /// </summary>
         frCombResResSection,
+        /// <summary>
+        /// Point support group, Reactions
+        /// </summary>
+        frCombReacPtGroup_ListProc,
     }
 }

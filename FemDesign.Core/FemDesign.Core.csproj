@@ -88,6 +88,7 @@
     <Compile Include="GenericClasses\GuidListType.cs" />
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="GenericClasses\IResult.cs" />
     <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
@@ -193,6 +194,8 @@
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Results\PointSupportReaction.cs" />
+    <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />
