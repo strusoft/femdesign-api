@@ -39,7 +39,7 @@ namespace FemDesign.Results
 
             if (type == typeof(Results.PointSupportReaction))
                 RowParser = PointSupportReaction.Parse;
-            else if (type == typeof(Results.PointSupportReaction))
+            else if (type == typeof(Results.LineSupportReaction))
                 RowParser = LineSupportReaction.Parse;
             else
                 throw new NotImplementedException($"Parser for {type} has not yet been implemented.");
@@ -70,7 +70,7 @@ namespace FemDesign.Results
         internal Dictionary<string, string> HeaderData = new Dictionary<string, string>();
         public bool IsDone { get { return File.Peek() == -1; } }
 
-        protected CsvReader(string filePath, char delimiter = ',', Func<string[], CsvReader, object> rowParser = null, Func<string, CsvReader, bool> headerParser = null)
+        protected CsvReader(string filePath, char delimiter = ',', Func<string[], CsvReader, Dictionary<string, string>, object> rowParser = null, Func<string, CsvReader, bool> headerParser = null)
         {
             File = new System.IO.StreamReader(filePath);
             Delimiter = delimiter;
@@ -94,7 +94,7 @@ namespace FemDesign.Results
         protected T ParseRow<T>()
         {
             var row = ReadRow();
-            return row == null ? default(T) : (T)RowParser(row, this);
+            return row == null ? default(T) : (T)RowParser(row, this, HeaderData);
         }
 
         public List<T> ParseAll<T>(bool skipNull = true)

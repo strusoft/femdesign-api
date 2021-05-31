@@ -11,5 +11,9 @@ namespace FemDesign.GenericClasses
     /// </summary>
     interface IResult
     {
+        /*
+         * Interface cannot have a static method in language version below 8.0
+         */
+        //internal static IResult Parse(string[] row, Results.CsvReader reader, Dictionary<string, string> HeaderData)
     }
 }
