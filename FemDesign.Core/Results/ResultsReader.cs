@@ -11,10 +11,7 @@ namespace FemDesign.Results
     /// </summary>
     public class ResultsReader : CsvReader
     {
-        public FemDesign.Calculate.ResultType ResultType;
-        private Regex HeaderExpression = new Regex(@"(?'type'[\w\ ]+), (?'result'[\w\ ]+), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)");
-        private Regex IsHeaderExpression = new Regex(@"([\w\ ,-]+|(ID)|(\[.*\])");
-        private Regex LabelledSectionIdExpresstion = new Regex(@"(?'id'.*\.\d+)( - Part (?'part'\d+))?");
+        private Regex HeaderExpression = new Regex(@"(?'type'[\w\ ]+), (?'result'[\w\ ]+), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|(ID)|(\[.*\])");
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
 
@@ -35,16 +32,41 @@ namespace FemDesign.Results
             double mz = Double.Parse(row[10], CultureInfo.InvariantCulture);
             double fr = Double.Parse(row[11], CultureInfo.InvariantCulture);
             double mr = Double.Parse(row[12], CultureInfo.InvariantCulture);
-            string lc = row[13];
+            string lc = HeaderData["casename"];
             return new PointSupportReaction(supportname, x, y, z, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
+        }
+
+        private LineSupportReaction parseLineSupportReaction(string[] row, CsvReader reader)
+        {
+            string supportname = row[0];
+            int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
+            int nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
+            double fx = Double.Parse(row[3], CultureInfo.InvariantCulture);
+            double fy = Double.Parse(row[4], CultureInfo.InvariantCulture);
+            double fz = Double.Parse(row[5], CultureInfo.InvariantCulture);
+            double mx = Double.Parse(row[6], CultureInfo.InvariantCulture);
+            double my = Double.Parse(row[7], CultureInfo.InvariantCulture);
+            double mz = Double.Parse(row[8], CultureInfo.InvariantCulture);
+            double fr = Double.Parse(row[9], CultureInfo.InvariantCulture);
+            double mr = Double.Parse(row[10], CultureInfo.InvariantCulture);
+            string lc = HeaderData["casename"];
+            return new LineSupportReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
         }
 
         private bool parseHeaderDefault(string line, CsvReader reader)
         {
-            bool isHeader = IsHeaderExpression.IsMatch(line);
-            if (isHeader)
-                Header = line;
-            return isHeader;
+            var match = HeaderExpression.Match(line);
+
+            if (match.Success)
+            {
+                foreach (Group group in match.Groups)
+                {
+                    if (!string.IsNullOrEmpty(group.Value))
+                        HeaderData[group.Name] = group.Value;
+                }
+            }
+
+            return HeaderExpression.IsMatch(line);
         }
 
         protected sealed override void BeforeParse(Type type)
@@ -53,26 +75,35 @@ namespace FemDesign.Results
 
             if (type == typeof(Results.PointSupportReaction))
                 RowParser = parsePointSupportReaction;
+            else if (type == typeof(Results.PointSupportReaction))
+                RowParser = parseLineSupportReaction;
             else
                 throw new NotImplementedException($"Parser for {type} has not yet been implemented.");
-            
+
             base.BeforeParse(type);
         }
     }
 
     /// <summary>
-    /// Base class for ResultsReader
+    /// CSV reader. Reads a comma (or other char) delimited file, line by line and parses each line to a new object. Header lines can be handled with the HeaderParser. 
     /// </summary>
     public class CsvReader
     {
         public StreamReader File;
         private char Delimiter;
+        /// <summary>
+        /// Returns a boolean representing wether the current line is a Header.
+        /// </summary>
         protected Func<string, CsvReader, bool> HeaderParser;
+        /// <summary>
+        /// Parses a split line to a new object. Applied on every line not a header.
+        /// </summary>
         protected Func<string[], CsvReader, object> RowParser;
         /// <summary>
         /// Last header row read by the header parser.
         /// </summary>
         internal string Header;
+        internal Dictionary<string, string> HeaderData = new Dictionary<string, string>();
         public bool IsDone { get { return File.Peek() == -1; } }
 
         protected CsvReader(string filePath, char delimiter = ',', Func<string[], CsvReader, object> rowParser = null, Func<string, CsvReader, bool> headerParser = null)
@@ -90,6 +121,8 @@ namespace FemDesign.Results
             if (HeaderParser != null)
             {
                 isHeader = HeaderParser(line, this);
+                if (isHeader)
+                    Header = line;
             }
             return isHeader || string.IsNullOrEmpty(line) ? null : line.Split(new char[] { Delimiter });
         }

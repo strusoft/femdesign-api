@@ -194,6 +194,7 @@
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="RevitTools\ProjectSettings.cs" />
