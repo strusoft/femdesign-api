@@ -17,42 +17,6 @@ namespace FemDesign.Results
 
         }
 
-        private PointSupportReaction parsePointSupportReaction(string[] row, CsvReader reader)
-        {
-            string supportname = row[0];
-            double x = Double.Parse(row[1], CultureInfo.InvariantCulture);
-            double y = Double.Parse(row[2], CultureInfo.InvariantCulture);
-            double z = Double.Parse(row[3], CultureInfo.InvariantCulture);
-            int nodeId = int.Parse(row[4], CultureInfo.InvariantCulture);
-            double fx = Double.Parse(row[5], CultureInfo.InvariantCulture);
-            double fy = Double.Parse(row[6], CultureInfo.InvariantCulture);
-            double fz = Double.Parse(row[7], CultureInfo.InvariantCulture);
-            double mx = Double.Parse(row[8], CultureInfo.InvariantCulture);
-            double my = Double.Parse(row[9], CultureInfo.InvariantCulture);
-            double mz = Double.Parse(row[10], CultureInfo.InvariantCulture);
-            double fr = Double.Parse(row[11], CultureInfo.InvariantCulture);
-            double mr = Double.Parse(row[12], CultureInfo.InvariantCulture);
-            string lc = HeaderData["casename"];
-            return new PointSupportReaction(supportname, x, y, z, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
-        }
-
-        private LineSupportReaction parseLineSupportReaction(string[] row, CsvReader reader)
-        {
-            string supportname = row[0];
-            int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-            int nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
-            double fx = Double.Parse(row[3], CultureInfo.InvariantCulture);
-            double fy = Double.Parse(row[4], CultureInfo.InvariantCulture);
-            double fz = Double.Parse(row[5], CultureInfo.InvariantCulture);
-            double mx = Double.Parse(row[6], CultureInfo.InvariantCulture);
-            double my = Double.Parse(row[7], CultureInfo.InvariantCulture);
-            double mz = Double.Parse(row[8], CultureInfo.InvariantCulture);
-            double fr = Double.Parse(row[9], CultureInfo.InvariantCulture);
-            double mr = Double.Parse(row[10], CultureInfo.InvariantCulture);
-            string lc = HeaderData["casename"];
-            return new LineSupportReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
-        }
-
         private bool parseHeaderDefault(string line, CsvReader reader)
         {
             var match = HeaderExpression.Match(line);
@@ -74,9 +38,9 @@ namespace FemDesign.Results
             HeaderParser = parseHeaderDefault;
 
             if (type == typeof(Results.PointSupportReaction))
-                RowParser = parsePointSupportReaction;
+                RowParser = PointSupportReaction.Parse;
             else if (type == typeof(Results.PointSupportReaction))
-                RowParser = parseLineSupportReaction;
+                RowParser = LineSupportReaction.Parse;
             else
                 throw new NotImplementedException($"Parser for {type} has not yet been implemented.");
 
@@ -98,7 +62,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Parses a split line to a new object. Applied on every line not a header.
         /// </summary>
-        protected Func<string[], CsvReader, object> RowParser;
+        protected Func<string[], CsvReader, Dictionary<string, string>, object> RowParser;
         /// <summary>
         /// Last header row read by the header parser.
         /// </summary>

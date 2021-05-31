@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 using FemDesign.GenericClasses;
 
 namespace FemDesign.Results
@@ -80,6 +81,23 @@ namespace FemDesign.Results
         public override string ToString()
         {
             return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+        }
+
+        internal static LineSupportReaction Parse(string[] row, CsvReader reader, Dictionary<string, string> HeaderData)
+        {
+            string supportname = row[0];
+            int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
+            int nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
+            double fx = Double.Parse(row[3], CultureInfo.InvariantCulture);
+            double fy = Double.Parse(row[4], CultureInfo.InvariantCulture);
+            double fz = Double.Parse(row[5], CultureInfo.InvariantCulture);
+            double mx = Double.Parse(row[6], CultureInfo.InvariantCulture);
+            double my = Double.Parse(row[7], CultureInfo.InvariantCulture);
+            double mz = Double.Parse(row[8], CultureInfo.InvariantCulture);
+            double fr = Double.Parse(row[9], CultureInfo.InvariantCulture);
+            double mr = Double.Parse(row[10], CultureInfo.InvariantCulture);
+            string lc = HeaderData["casename"];
+            return new LineSupportReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
         }
     }
 }
