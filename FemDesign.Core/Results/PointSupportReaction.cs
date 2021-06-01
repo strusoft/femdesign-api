@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
+
 
 namespace FemDesign.Results
 {
@@ -91,6 +93,14 @@ namespace FemDesign.Results
         public override string ToString()
         {
             return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Point support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|(ID)|(\[.*\])");
+            }
         }
 
         internal static PointSupportReaction Parse(string[] row, CsvReader reader, Dictionary<string, string> HeaderData)
