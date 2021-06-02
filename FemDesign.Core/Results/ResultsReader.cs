@@ -17,8 +17,8 @@ namespace FemDesign.Results
     /// </summary>
     public class ResultsReader : CsvParser
     {
-        private Regex HeaderExpression = new Regex(@"(?'type'[\w\ ]+), (?'result'[\w\ ]+), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|(ID)|(\[.*\])");
-        private Dictionary<Type, Regex> ResultTypesHeaderExpressions;
+        private Regex HeaderExpression;
+        private Dictionary<Type, Regex> ResultTypesIdentificationExpressions;
         private Dictionary<Type, ResultParserType> ResultTypesRowParsers;
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
@@ -28,8 +28,9 @@ namespace FemDesign.Results
                 .SelectMany(s => s.GetTypes())
                 .Where(p => iResultType.IsAssignableFrom(p) && p.IsClass);
 
-            ResultTypesHeaderExpressions = resultTypes.ToDictionary(t => t, t => GetHeaderExpression(t));
-            ResultTypesRowParsers = resultTypes.ToDictionary(t => t, t => GetRowParser(t));
+            HeaderExpression = new Regex(string.Join("|", resultTypes.Select(GetHeaderExpression).Select(r => r.ToString())));
+            ResultTypesIdentificationExpressions = resultTypes.ToDictionary(t => t, GetIdentificationExpression);
+            ResultTypesRowParsers = resultTypes.ToDictionary(t => t, GetRowParser);
         }
 
         protected sealed override void BeforeParse(Type type)
@@ -105,8 +106,6 @@ namespace FemDesign.Results
             return reader.ParseAll();
         }
 
-
-
         /// <summary>
         /// Tries to figure out the corresponding type of the upcoming lines that are being read.
         /// </summary>
@@ -114,14 +113,17 @@ namespace FemDesign.Results
         private Type SniffResultType()
         {
             Type resultType = null;
-            while (!IsDone && resultType == null)
+            while (CanPeek && resultType == null)
             {
                 string line = PeekNextLine();
+                if (line == null)
+                    continue;
+
                 Match match = HeaderExpression.Match(line);
                 if (match.Success)
-                    foreach (var type in ResultTypesHeaderExpressions.Keys)
+                    foreach (var type in ResultTypesIdentificationExpressions.Keys)
                     {
-                        if (ResultTypesHeaderExpressions[type].IsMatch(line))
+                        if (ResultTypesIdentificationExpressions[type].IsMatch(line))
                         {
                             resultType = type;
                             break;
@@ -130,9 +132,20 @@ namespace FemDesign.Results
             }
 
             if (resultType == null)
-                throw new ApplicationException($"Could not identify the result type of the file {FilePath}. At: {Stream.BaseStream.Position}");
+                throw new ApplicationException($"Could not identify the result type of the file {FilePath}.");
 
             return resultType;
+        }
+
+        private Regex GetIdentificationExpression(Type type)
+        {
+            if (!typeof(GenericClasses.IResult).IsAssignableFrom(type))
+                throw new Exception();
+
+            PropertyInfo propertyInfo = type.GetProperty("IdentificationExpression", BindingFlags.Static | BindingFlags.NonPublic);
+            Regex identificationExpression = (Regex)propertyInfo.GetValue(null, null);
+
+            return identificationExpression;
         }
 
         private Regex GetHeaderExpression(Type type)
@@ -180,6 +193,7 @@ namespace FemDesign.Results
         protected string Header;
         protected Dictionary<string, string> HeaderData = new Dictionary<string, string>();
         public bool IsDone { get { return Stream.Peek() == -1 && BufferedLines.Count == 0; } }
+        public bool CanPeek { get { return Stream.Peek() != -1; } }
 
         protected CsvParser(string filePath, char delimiter = ',', Func<string[], CsvParser, Dictionary<string, string>, object> rowParser = null, Func<string, CsvParser, bool> headerParser = null)
         {
@@ -253,7 +267,15 @@ namespace FemDesign.Results
                     continue;
                 }
 
-                T parsed = ParseRow<T>();
+                T parsed;
+                try
+                {
+                    parsed = ParseRow<T>();
+                }
+                catch (Exception)
+                {
+                    throw new ParseException($"Could not parse line '{line}' to type {typeof(T).FullName}");
+                }
                 if (parsed == null && skipNull)
                     continue;
                 else if (parsed == null && breakOnNull)
@@ -278,5 +300,19 @@ namespace FemDesign.Results
         {
             return parsed;
         }
+    }
+
+    /// <summary>
+    /// Parsing related exceptions
+    /// </summary>
+    [Serializable]
+    public class ParseException : ApplicationException
+    {
+        public ParseException() { }
+        public ParseException(string message) : base(message) { }
+        public ParseException(string message, Exception inner) : base(message, inner) { }
+        protected ParseException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

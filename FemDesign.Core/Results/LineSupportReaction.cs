@@ -85,11 +85,19 @@ namespace FemDesign.Results
             return $"{base.ToString()}, {Id}, {CaseIdentifier}";
         }
 
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Line support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)");
+            }
+        }
+
         internal static Regex HeaderExpression
         {
             get
             {
-                return new Regex(@"(?'type'Line support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|(ID)|(\[.*\])");
+                return new Regex(@"(?'type'Line support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|ID|\[.*\]");
             }
         }
 
