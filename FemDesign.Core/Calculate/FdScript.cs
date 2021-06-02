@@ -86,7 +86,7 @@ namespace FemDesign.Calculate
             }
 
             // set save docx
-            if (docxTemplatePath != "" || docxTemplatePath != null)
+            if (docxTemplatePath != "" && docxTemplatePath != null)
             {
                 // path to .dsc-file (template file)
                 obj.DocxTemplatePath = docxTemplatePath;
