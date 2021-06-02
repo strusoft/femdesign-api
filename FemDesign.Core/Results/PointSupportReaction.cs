@@ -103,7 +103,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static PointSupportReaction Parse(string[] row, CsvReader reader, Dictionary<string, string> HeaderData)
+        internal static PointSupportReaction Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string supportname = row[0];
             double x = Double.Parse(row[1], CultureInfo.InvariantCulture);

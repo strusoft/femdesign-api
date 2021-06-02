@@ -10,12 +10,12 @@ using System.Reflection;
 
 namespace FemDesign.Results
 {
-    using ResultParserType = Func<string[], CsvReader, Dictionary<string, string>, GenericClasses.IResult>;
+    using ResultParserType = Func<string[], CsvParser, Dictionary<string, string>, GenericClasses.IResult>;
 
     /// <summary>
     /// Reads FEM-Design results from list tables text files.
     /// </summary>
-    public class ResultsReader : CsvReader
+    public class ResultsReader : CsvParser
     {
         private Regex HeaderExpression = new Regex(@"(?'type'[\w\ ]+), (?'result'[\w\ ]+), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|(ID)|(\[.*\])");
         private Dictionary<Type, Regex> ResultTypesHeaderExpressions;
@@ -45,7 +45,7 @@ namespace FemDesign.Results
             base.BeforeParse(type);
         }
 
-        private bool parseHeaderDefault(string line, CsvReader reader)
+        private bool parseHeaderDefault(string line, CsvParser reader)
         {
             var match = HeaderExpression.Match(line);
 
@@ -160,7 +160,7 @@ namespace FemDesign.Results
     /// <summary>
     /// CSV reader. Reads a comma (or other char) delimited file, line by line and parses each line to a new object. Header lines can be handled with the HeaderParser. 
     /// </summary>
-    public class CsvReader
+    public class CsvParser
     {
         public char Delimiter { get; }
         public string FilePath { get; }
@@ -169,11 +169,11 @@ namespace FemDesign.Results
         /// <summary>
         /// Returns a boolean representing wether the current line is a Header.
         /// </summary>
-        protected Func<string, CsvReader, bool> HeaderParser;
+        protected Func<string, CsvParser, bool> HeaderParser;
         /// <summary>
         /// Parses a split line to a new object. Applied on every line not a header.
         /// </summary>
-        protected Func<string[], CsvReader, Dictionary<string, string>, object> RowParser;
+        protected Func<string[], CsvParser, Dictionary<string, string>, object> RowParser;
         /// <summary>
         /// Last header row read by the header parser.
         /// </summary>
@@ -181,10 +181,10 @@ namespace FemDesign.Results
         protected Dictionary<string, string> HeaderData = new Dictionary<string, string>();
         public bool IsDone { get { return Stream.Peek() == -1 && BufferedLines.Count == 0; } }
 
-        protected CsvReader(string filePath, char delimiter = ',', Func<string[], CsvReader, Dictionary<string, string>, object> rowParser = null, Func<string, CsvReader, bool> headerParser = null)
+        protected CsvParser(string filePath, char delimiter = ',', Func<string[], CsvParser, Dictionary<string, string>, object> rowParser = null, Func<string, CsvParser, bool> headerParser = null)
         {
             FilePath = filePath;
-            Stream = new System.IO.StreamReader(filePath);
+            Stream = new StreamReader(filePath);
             Delimiter = delimiter;
             RowParser = rowParser;
             HeaderParser = headerParser;
