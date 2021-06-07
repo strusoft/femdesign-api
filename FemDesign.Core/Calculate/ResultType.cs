@@ -13,43 +13,52 @@ namespace FemDesign.Calculate
     {
         /* LOADCASES*/
         /// <summary>
-        /// Nodal displacements
+        /// Load case: Nodal displacements
         /// </summary>
-        frCaseDispNodal_ListProc,
+        [XmlEnum("frCaseDispNodal_ListProc")]
+        NodalDisplacementsLoadCase,
         /// <summary>
-        /// Bars, internal forces
+        /// Load case: Bars, internal forces
         /// </summary>
-        frCaseIntfBar_ListProc,
+        [XmlEnum("frCaseIntfBar_ListProc")]
+        BarsInternalForcesLoadCase,
         /// <summary>
-        /// Point support group, Reactions
+        /// Load case: Point support group, Reactions
         /// </summary>
-        frCaseReacPtGroup_ListProc,
+        [XmlEnum("frCaseReacPtGroup_ListProc")]
+        PointSupportReactionsLoadCase,
         /// <summary>
-        /// Line support group, Reactions
+        /// Load case: Line support group, Reactions
         /// </summary>
-        frCaseReacLnGroup_ListProc,
+        [XmlEnum("frCaseReacLnGroup_ListProc")]
+        LineSupportReactionsLoadCase,
 
         /* LOADCOMBINATIONS*/
 
         /// <summary>
-        /// Nodal displacements
+        /// Load combination: Nodal displacements
         /// </summary>
-        frCombDispNodal_ListProc,
+        [XmlEnum("frCombDispNodal_ListProc")]
+        NodalDisplacementsLoadCombination,
         /// <summary>
-        /// Bars, End forces
+        /// Load combination: Bars, End forces
         /// </summary>
-        frCombIntfBarEnd_ListProc,
+        [XmlEnum("frCombIntfBarEnd_ListProc")]
+        BarsEndForcesLoadCombination,
         /// <summary>
-        /// Labelled sections, internal forces
+        /// Load combination: Labelled sections, internal forces
         /// </summary>
-        frCombIntfResSection_ListProc,
+        [XmlEnum("frCombIntfResSection_ListProc")]
+        LabelledSectionsInternalForcesLoadCombination,
         /// <summary>
-        /// Labelled sections, Resultants
+        /// Load combination: Labelled sections, Resultants
         /// </summary>
-        frCombResResSection,
+        [XmlEnum("frCombResResSection")]
+        LabelledSectionsResultantsLoadCombination,
         /// <summary>
-        /// Point support group, Reactions
+        /// Load combination: Point support group, Reactions
         /// </summary>
-        frCombReacPtGroup_ListProc,
+        [XmlEnum("frCombReacPtGroup_ListProc")]
+        PointSupportReactionsLoadCombination,
     }
 }

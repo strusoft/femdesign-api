@@ -60,6 +60,7 @@ namespace FemDesign.Calculate
             DocTable = new DocTable(resultType);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
+            SerializeBsc();
         }
 
         public Bsc(ResultType resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
