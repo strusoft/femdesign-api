@@ -92,6 +92,9 @@ namespace FemDesign.Results
                 mixedResults.AddRange(obj);
             }
 
+            if (mixedResults.Count == 0)
+                throw new ApplicationException($"No results read. Are there any results in the file? ({FilePath})");
+
             return mixedResults;
         }
 

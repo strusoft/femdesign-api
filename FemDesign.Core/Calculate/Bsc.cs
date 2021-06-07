@@ -55,8 +55,8 @@ namespace FemDesign.Calculate
             {
                 throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
             }
-            BscPath = bscPath;
-            Cwd = Path.GetDirectoryName(bscPath);
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
             DocTable = new DocTable(resultType);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
@@ -66,6 +66,11 @@ namespace FemDesign.Calculate
         public Bsc(ResultType resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
         {
             DocTable.CaseIndex = caseIndex;
+        }
+
+        public static implicit operator string(Bsc bsc)
+        {
+            return bsc.BscPath;
         }
 
         /// <summary>
