@@ -147,6 +147,7 @@
     <Compile Include="Materials\MaterialDatabaseListMaterialNames.cs" />
     <Compile Include="Materials\MaterialGetMaterialByName.cs" />
     <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
+    <Compile Include="Materials\TimberPlateMaterialDefine.cs" />
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessDefine.cs" />
+    <Compile Include="Shells\TimberPlateDefine.cs" />
     <Compile Include="StructureGrid\AxisDefine.cs" />
     <Compile Include="StructureGrid\StoreyDefine.cs" />
     <Compile Include="Supports\LineSupportDefine.cs" />
