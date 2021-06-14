@@ -18,7 +18,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase">LoadCase to include in load combination. Single LoadCase or list of LoadCases. Nested lists are not supported - use flatten.</param>
         /// <param name="gamma">Gamma value for respective LoadCase. Single value or list of values. Nested lists are not supported - use flatten.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static LoadCombination CreateLoadCombination(string name, [DefaultArgument("ultimate_ordinary")] string type, List<LoadCase> loadCase, List<double> gamma)
+        public static LoadCombination CreateLoadCombination(string name, [DefaultArgument("\"ultimate_ordinary\"")] string type, List<LoadCase> loadCase, List<double> gamma)
         {
             LoadCombination loadCombination = new LoadCombination(name, type, loadCase, gamma);
             return loadCombination;
