@@ -24,7 +24,7 @@ To be added
 To be added
 
 ## Versioning
-Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version, .
+Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.
 
 ## Authors
 The FEM-Design API repository is developed and maintained by StruSoft. The main developers are:
