@@ -748,25 +748,33 @@ namespace FemDesign
                 this.AddSection(obj.Section, overwrite);
             }
 
-            // add timber application data
-            if (obj.TimberApplicationData != null)
+            // Add timber application data
+            if (obj.TimberPlateMaterialData != null)
             {
-                // add library types
-                if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                // Add library types
+                if (obj.TimberPlateMaterialData.PanelType != null)
                 {
-                    this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData, overwrite);
-                }
-                else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                {
-                    this.AddCltPanelLibraryType(obj.CltPanelLibraryData, overwrite);
-                }
-                else if (obj.GlcPanelLibraryData != null && obj.GlcPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                {
-                    this.AddGlcPanelLibraryType(obj.GlcPanelLibraryData, overwrite);
+                    var panelType = obj.TimberPlateMaterialData.PanelType;
+                    if (panelType.GetType() == typeof(FemDesign.Materials.CltPanelLibraryType))
+                    {
+                        this.AddCltPanelLibraryType((FemDesign.Materials.CltPanelLibraryType)panelType, overwrite);
+                    }
+                    else if (panelType.GetType() == typeof(FemDesign.Materials.TimberPanelLibraryType))
+                    {
+                        this.AddTimberPanelLibraryType((FemDesign.Materials.TimberPanelLibraryType)panelType, overwrite);
+                    }
+                    else if (panelType.GetType() == typeof(FemDesign.Materials.GlcPanelLibraryType))
+                    {
+                        this.AddGlcPanelLibraryType((FemDesign.Materials.GlcPanelLibraryType)panelType, overwrite);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"The type {panelType.GetType()} is a member of {typeof(Materials.IPanelLibraryType)} but don't have a method for adding library data to the model.");
+                    }
                 }
                 else
                 {
-                    throw new System.ArgumentException($"Could not find the related lirbary data with guid: {obj.TimberApplicationData.PanelType}. Failed to add panel library data.");
+                    throw new System.ArgumentException($"Could not find the related library data with guid: {obj.TimberPlateMaterialData._panelTypeReference}. Failed to add panel library data.");
                 }
             }
             // add line connection types from border
@@ -2372,14 +2380,14 @@ namespace FemDesign
                 }
 
                 // get timber application data
-                if (panel.TimberApplicationData != null)
+                if (panel.TimberPlateMaterialData != null)
                 {
                     // timber panel types
                     if (this.TimberPanelTypes != null && this.TimberPanelTypes.TimberPanelLibraryTypes != null)
                     {
                         foreach (FemDesign.Materials.TimberPanelLibraryType libItem in this.TimberPanelTypes.TimberPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPlateMaterialData._panelTypeReference)
                             {
                                 panel.TimberPanelLibraryData = libItem;
                             }
@@ -2392,7 +2400,7 @@ namespace FemDesign
                     {
                         foreach (FemDesign.Materials.CltPanelLibraryType libItem in this.CltPanelTypes.CltPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPlateMaterialData._panelTypeReference)
                             {
                                 panel.CltPanelLibraryData = libItem;
                             }
@@ -2405,7 +2413,7 @@ namespace FemDesign
                     {
                         foreach (FemDesign.Materials.GlcPanelLibraryType libItem in this.GlcPanelTypes.GlcPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPlateMaterialData._panelTypeReference)
                             {
                                 panel.GlcPanelLibraryData = libItem;
                             }

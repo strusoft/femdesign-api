@@ -152,5 +152,22 @@ namespace FemDesign.Materials
                 this._systemFactor = RestrictedDouble.NonNegMax_1e10(value);
             }
         }
+
+        private TimberFactors()
+        {
+
+        }
+
+        public TimberFactors(double gammaMU, double gammaMAs, double kdefU, double kdefSq, double kdefSf, double kdefSc, int serviceClass, double systemFactor)
+        {
+            GammaMU = gammaMU;
+            GammaMAs = gammaMAs;
+            KdefU = kdefU;
+            KdefSq = kdefSq;
+            KdefSf = kdefSf;
+            KdefSc = kdefSc;
+            ServiceClass = serviceClass;
+            SystemFactor = systemFactor;
+        }
     }
 }

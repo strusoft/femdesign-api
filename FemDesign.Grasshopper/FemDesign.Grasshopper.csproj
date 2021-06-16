@@ -87,6 +87,8 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Materials\MaterialTimberFactorsDefine - Copy.cs" />
+    <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
@@ -145,9 +147,9 @@
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabaseListMaterialNames.cs" />
+    <Compile Include="Materials\MaterialGetCltPanelTypeByName.cs" />
     <Compile Include="Materials\MaterialGetMaterialByName.cs" />
     <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
-    <Compile Include="Materials\TimberPlateMaterialDefine.cs" />
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />

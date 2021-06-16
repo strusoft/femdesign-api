@@ -87,6 +87,7 @@
     <Compile Include="GenericClasses\ExtensionMethods.cs" />
     <Compile Include="GenericClasses\GuidListType.cs" />
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
+    <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
     <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Materials\Custom.cs" />
     <Compile Include="Materials\GlcDataType.cs" />
     <Compile Include="Materials\GlcPanelLibraryType.cs" />
+    <Compile Include="Materials\IPanelLibraryType.cs" />
     <Compile Include="Materials\LimitStresses.cs" />
     <Compile Include="Materials\Material.cs" />
     <Compile Include="Materials\MaterialBase.cs" />
@@ -144,12 +146,12 @@
     <Compile Include="Materials\ReinforcingSteel.cs" />
     <Compile Include="Materials\Steel.cs" />
     <Compile Include="Materials\Timber.cs" />
-    <Compile Include="Materials\TimberApplicationData.cs" />
     <Compile Include="Materials\TimberFactors.cs" />
     <Compile Include="Materials\TimberPanelData.cs" />
     <Compile Include="Materials\TimberPanelLibraryType.cs" />
     <Compile Include="Materials\TimberPanelStiffness.cs" />
     <Compile Include="Materials\TimberPanelStrength.cs" />
+    <Compile Include="Materials\TimberPlateMaterial.cs" />
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
     <Compile Include="Materials\TimberServiceClassKdefs.cs" />
     <Compile Include="ModellingTools\ConnectedLines.cs" />

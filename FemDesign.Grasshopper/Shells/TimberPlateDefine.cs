@@ -13,8 +13,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "Srf", "Surface.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TimberPlateMaterial", "Mat", "Timber plate material.", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TimberPlateMaterial", "Material", "Timber plate material.", GH_ParamAccess.item);
             pManager.AddNumberParameter("PanelWidth", "PanelWidth", "Width of each individual CLT panel in region. 1.5m if undefined.", GH_ParamAccess.item); 
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
@@ -32,87 +32,52 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("TimberPlate", "PP", "-", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TimberPlate", "PP", "Timber plate.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
             Brep surface = null;
-            if (!DA.GetData(0, ref surface))
-            {
-                return;
-            }
+            if (!DA.GetData("Surface", ref surface)) return;
 
-            FemDesign.Materials.TimberApplicationData timberAppData = null;
-            if (!DA.GetData(1, ref timberAppData))
-            {
-                return;
-            }
+            Materials.TimberPlateMaterial timberPlateMaterialData = null;
+            if (!DA.GetData("TimberPlateMaterial", ref timberPlateMaterialData)) return;
 
             double panelWidth = 1.5;
-            if (!DA.GetData(2, ref panelWidth))
-            {
-                // pass
-            }
+            DA.GetData("PanelWidth", ref panelWidth);
 
-            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
-            if(!DA.GetData(2, ref eccentricity))
-            {
-                // pass
-            }
+            Shells.ShellEccentricity eccentricity = Shells.ShellEccentricity.GetDefault();
+            DA.GetData("ShellEccentricity", ref eccentricity);
             
-            FemDesign.Shells.ShellEdgeConnection edgeConnection = FemDesign.Shells.ShellEdgeConnection.GetHinged();
-            if(!DA.GetData(5, ref edgeConnection))
-            {
-                // pass
-            }
+            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.GetHinged();
+            DA.GetData("BorderShellEdgeConnection", ref edgeConnection);
 
             Rhino.Geometry.Vector3d x = Vector3d.Zero;
-            if (!DA.GetData(6, ref x))
-            {
-                // pass
-            }
+            DA.GetData("LocalX", ref x);
 
             Rhino.Geometry.Vector3d z = Vector3d.Zero;
-            if (!DA.GetData(7, ref z))
-            {
-                // pass
-            }
+            DA.GetData("LocalZ", ref z);
 
             double meshSize = 0;
-            if (!DA.GetData(8, ref meshSize))
-            {
-                // pass
-            }
+            DA.GetData("AvgMeshSize", ref meshSize);
             
             string identifier = "PP";
-            if (!DA.GetData(9, ref identifier))
-            {
-                // pass
-            }
+            DA.GetData("Identifier", ref identifier);
 
-            if (surface == null || timberAppData == null || eccentricity == null || edgeConnection == null || identifier == null)
-            {
+            if (surface == null || timberPlateMaterialData == null || eccentricity == null || edgeConnection == null || identifier == null)
                 return;
-            }
 
             
-            FemDesign.Geometry.Region region = surface.FromRhino();
-
-            //
-            FemDesign.Shells.Panel obj = FemDesign.Shells.Panel.DefaultTimberContinuous(region,timberAppData, edgeConnection, identifier, eccentricity,  panelWidth);
+            Geometry.Region region = surface.FromRhino();
+            Shells.Panel obj = Shells.Panel.DefaultTimberContinuous(region, timberPlateMaterialData, edgeConnection, identifier, eccentricity,  panelWidth);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
-            {
                 obj.LocalX = x.FromRhino();
-            }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
-            {
                 obj.LocalZ = z.FromRhino();
-            }
 
             // set uniform average mesh size
             obj.UniformAvgMeshSize = meshSize;
