@@ -158,6 +158,17 @@ namespace FemDesign.Materials
 
         }
 
+        /// <summary>
+        /// Factors for Orthotropic shell and CLT timber materials.
+        /// </summary>
+        /// <param name="gammaMU">Gamma M (U)</param>
+        /// <param name="gammaMAs">Gamma M (Ua, Us)</param>
+        /// <param name="kdefU">kdef (U, Ua, Us)</param>
+        /// <param name="kdefSq">kdef (Sq)</param>
+        /// <param name="kdefSf">kdef (Sf)</param>
+        /// <param name="kdefSc">kdef (Sc)</param>
+        /// <param name="serviceClass">Service Class</param>
+        /// <param name="systemFactor">System Factor</param>
         public TimberFactors(double gammaMU, double gammaMAs, double kdefU, double kdefSq, double kdefSf, double kdefSc, int serviceClass, double systemFactor)
         {
             GammaMU = gammaMU;

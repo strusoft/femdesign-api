@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FemDesign.GenericClasses
 {
     /// <summary>
-    /// 
+    /// Interface for LibraryBase
     /// </summary>
     public interface ILibraryBase
     {
