@@ -99,9 +99,25 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Internal constructor used by GH components and Dynamo nodes to initialize a model.
+        /// Initialize a model with elements.
         /// </summary>
-        public Model(string country)
+        /// <param name="country">Country/Annex of the FEM-Design model.</param>
+        /// <param name="elements">Structural elements.</param>
+        /// <param name="loads">Load elements</param>
+        /// <param name="supports">Support elements</param>
+        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<ISupportElement> supports = null)
+        {
+            Initialize(country);
+
+            if (elements != null)
+                AddElements(elements);
+            if (loads != null)
+                AddLoads(loads);
+            if (supports != null)
+                AddSupports(supports);
+        }
+
+        private void Initialize(string country)
         {
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";
@@ -2160,6 +2176,29 @@ namespace FemDesign
             return this;
         }
 
+        /// <summary>
+        /// Add supports to the model.
+        /// </summary>
+        /// <typeparam name="T">ISuppotElement is any support object.</typeparam>
+        /// <param name="elements"></param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddSupports<T>(List<T> elements, bool overwrite = true) where T : ISupportElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                AddEntity(item as dynamic, overwrite);
+            }
+
+            return this;
+        }
+
         private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
         private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
         private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
@@ -2190,7 +2229,6 @@ namespace FemDesign
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
-
 
         #endregion
 
