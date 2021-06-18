@@ -145,7 +145,7 @@ namespace FemDesign.Shells
         public InternalPanels InternalPanels { get; set; }
 
         [XmlElement("timber_application_data", Order = 6)]
-        public Materials.TimberApplicationData TimberApplicationData { get; set; }
+        public Materials.TimberPlateMaterial TimberPlateMaterialData { get; set; }
 
         [XmlIgnore]
         public Materials.TimberPanelLibraryType TimberPanelLibraryData { get; set; }
@@ -481,7 +481,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberApplicationData timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPlateMaterial timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -490,7 +490,7 @@ namespace FemDesign.Shells
             this.CoordinateSystem = region.CoordinateSystem;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
-            this.TimberApplicationData = timberApplicationData;
+            this.TimberPlateMaterialData = timberApplicationData;
 
             // set external rigidity
             this.SetExternalEdgeConnections(externalEdgeConnection);
@@ -529,7 +529,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default timber shell with panels using a continuous analytical model.
         /// </summary>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberApplicationData timberApplicationData,  ShellEdgeConnection externalEdgeConnection, string identifier, ShellEccentricity ecc, double panelWidth)
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPlateMaterial timberApplicationData,  ShellEdgeConnection externalEdgeConnection, string identifier, ShellEccentricity ecc, double panelWidth)
         {
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);

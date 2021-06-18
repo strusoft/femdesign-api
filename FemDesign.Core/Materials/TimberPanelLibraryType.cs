@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.Materials;
 
 
 namespace FemDesign.Materials
@@ -17,7 +18,7 @@ namespace FemDesign.Materials
     /// timberpanel_lib_type
     /// </summary>
     [System.Serializable]
-    public partial class TimberPanelLibraryType: LibraryBase
+    public partial class TimberPanelLibraryType: LibraryBase, IPanelLibraryType
     {
         [XmlElement("timber_panel_data", Order = 1)]
         public TimberPanelData TimberPanelData { get; set; }

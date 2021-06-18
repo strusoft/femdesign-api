@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// timber_application_data
     /// </summary>
     [System.Serializable]
-    public partial class TimberApplicationData
+    public partial class TimberPlateMaterial
     {
         /// <summary>
         /// factors
@@ -36,7 +36,27 @@ namespace FemDesign.Materials
         }
 
         [XmlAttribute("panel_type")]
-        public System.Guid PanelType;
+        public System.Guid _panelTypeReference;
+
+        [XmlIgnore]
+        private IPanelLibraryType _panelType;
+        /// <summary>
+        ///  Can be either timberPanelLibraryData, glcDataLibraryType, cltDataLibraryType
+        /// </summary>
+        /// <value></value>
+        [XmlIgnore]
+        public IPanelLibraryType PanelType
+        {
+            get
+            {
+                return this._panelType;
+            }
+            set
+            {
+                this._panelTypeReference = value.Guid;
+                this._panelType = value;
+            }
+        }
 
         /// <summary>
         /// shear_coupling
@@ -72,6 +92,31 @@ namespace FemDesign.Materials
             {
                 this._gluedNarrowSides = value;
             }
+        }
+
+        private TimberPlateMaterial()
+        {
+            
+        }
+
+        public TimberPlateMaterial(IPanelLibraryType panelType)
+        {
+            PanelType = panelType;
+        }
+
+        /// <summary>
+        /// Create a TimberPlateMaterial
+        /// </summary>
+        /// <param name="cltPanelLibraryType"></param>
+        /// <param name="factors">TimberFactors</param>
+        /// <param name="shearCoupling">Consider shear coupling between layers</param>
+        /// <param name="gluedNarrowSides">Glue at narrow sides</param>
+        public TimberPlateMaterial(CltPanelLibraryType cltPanelLibraryType, TimberFactors factors, bool shearCoupling, bool gluedNarrowSides)
+        {
+            PanelType = cltPanelLibraryType;
+            TimberFactors = factors;
+            ShearCoupling = shearCoupling;
+            GluedNarrowSides = gluedNarrowSides;
         }
     }
 }
