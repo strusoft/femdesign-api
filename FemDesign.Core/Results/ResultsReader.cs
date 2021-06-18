@@ -176,7 +176,7 @@ namespace FemDesign.Results
     /// <summary>
     /// CSV reader. Reads a comma (or other char) delimited file, line by line and parses each line to a new object. Header lines can be handled with the HeaderParser. 
     /// </summary>
-    public class CsvParser
+    public class CsvParser : IDisposable
     {
         public char Delimiter { get; }
         public string FilePath { get; }
@@ -302,6 +302,15 @@ namespace FemDesign.Results
         protected virtual List<T> AfterParse<T>(List<T> parsed)
         {
             return parsed;
+        }
+
+             
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources
+        /// </summary>
+        public void Dispose()
+        {
+            Stream.Dispose();
         }
     }
 

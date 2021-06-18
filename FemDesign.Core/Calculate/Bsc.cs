@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 
 namespace FemDesign.Calculate
@@ -39,7 +40,7 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         internal string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
-        internal string BscPath { get; set; } // path to fdscript file, string
+        public string BscPath { get; set; } // path to fdscript file, string
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -71,6 +72,11 @@ namespace FemDesign.Calculate
         public static implicit operator string(Bsc bsc)
         {
             return bsc.BscPath;
+        }
+
+        public static implicit operator List<string>(Bsc bsc)
+        {
+            return new List<string>() {bsc.BscPath};
         }
 
         /// <summary>
