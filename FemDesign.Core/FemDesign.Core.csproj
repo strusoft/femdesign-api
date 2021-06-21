@@ -153,6 +153,7 @@
     <Compile Include="Materials\TimberPanelStiffness.cs" />
     <Compile Include="Materials\TimberPanelStrength.cs" />
     <Compile Include="Materials\TimberPlateMaterial.cs" />
+    <Compile Include="Materials\TimberServiceClassEnum.cs" />
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
     <Compile Include="Materials\TimberServiceClassKdefs.cs" />
     <Compile Include="ModellingTools\ConnectedLines.cs" />

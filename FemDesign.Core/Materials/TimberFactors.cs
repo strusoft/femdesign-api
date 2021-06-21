@@ -121,19 +121,7 @@ namespace FemDesign.Materials
         /// service_class
         /// </summary>
         [XmlAttribute("service_class")]
-        public int _serviceClass;
-        [XmlIgnore]
-        public int ServiceClass
-        {
-            get
-            {
-                return this._serviceClass;
-            }
-            set
-            {
-                this._serviceClass = RestrictedInteger.TimberServiceClass(value);
-            }
-        }
+        public TimberServiceClassEnum ServiceClass { get; set; }
 
         /// <summary>
         /// system_factor
@@ -169,7 +157,7 @@ namespace FemDesign.Materials
         /// <param name="kdefSc">kdef (Sc)</param>
         /// <param name="serviceClass">Service Class</param>
         /// <param name="systemFactor">System Factor</param>
-        public TimberFactors(double gammaMU, double gammaMAs, double kdefU, double kdefSq, double kdefSf, double kdefSc, int serviceClass, double systemFactor)
+        public TimberFactors(double gammaMU, double gammaMAs, double kdefU, double kdefSq, double kdefSf, double kdefSc, TimberServiceClassEnum serviceClass, double systemFactor)
         {
             GammaMU = gammaMU;
             GammaMAs = gammaMAs;
