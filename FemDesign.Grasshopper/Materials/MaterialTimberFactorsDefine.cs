@@ -55,7 +55,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("b0a30079-81b6-4a7c-b9b6-3c659a62a13f"); }
+            get { return new Guid("31d14871-70d6-43ba-98fe-ae870ca1efb9"); }
         }
     }
 }
