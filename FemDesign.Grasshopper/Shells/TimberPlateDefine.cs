@@ -32,7 +32,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("TimberPlate", "PP", "Timber plate.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TimberPlate", "TP", "Timber plate.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
