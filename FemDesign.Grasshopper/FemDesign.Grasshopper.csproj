@@ -155,7 +155,9 @@
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
+    <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStr.cs" />

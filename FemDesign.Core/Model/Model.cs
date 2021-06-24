@@ -104,17 +104,20 @@ namespace FemDesign
         /// <param name="country">Country/Annex of the FEM-Design model.</param>
         /// <param name="elements">Structural elements.</param>
         /// <param name="loads">Load elements</param>
-        /// <param name="supports">Support elements</param>
-        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<ISupportElement> supports = null)
+        /// <param name="loadCases">Load cases</param>
+        /// <param name="loadCombinations">Load combinations</param>
+        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
         {
             Initialize(country);
 
             if (elements != null)
-                AddElements(elements);
+                AddElements(elements, overwrite: false);
             if (loads != null)
-                AddLoads(loads);
-            if (supports != null)
-                AddSupports(supports);
+                AddLoads(loads, overwrite: false);
+            if (loadCases != null)
+                AddLoadCases(loadCases, overwrite: false);
+            if (loadCombinations != null)
+                AddLoadCombinations(loadCombinations, overwrite: false);
         }
 
         private void Initialize(string country)
@@ -1136,6 +1139,13 @@ namespace FemDesign
             return false;
         }
 
+        public void AddLoadCases(List<Loads.LoadCase> loadCases, bool overwrite = true)
+        {
+            if (loadCases != null)
+                foreach (Loads.LoadCase loadCase in loadCases)
+                    this.AddLoadCase(loadCase, overwrite);
+        }
+
         /// <summary>
         /// Add LoadCase to Model.
         /// </summary>
@@ -1192,6 +1202,13 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        public void AddLoadCombinations(List<Loads.LoadCombination> loadCombinations, bool overwrite = true)
+        {
+            if (loadCombinations != null)
+                foreach (Loads.LoadCombination loadCombination in loadCombinations)
+                    this.AddLoadCombination(loadCombination, overwrite);
         }
 
         /// <summary>
@@ -2135,15 +2152,17 @@ namespace FemDesign
         #region AddElements and AddLoads
 
         /// <summary>
-        /// Add entities to Model.
+        /// Add structural elements to Model. 
         /// </summary>
+        /// <typeparam name="T">Structural elements (IStructureElement).</typeparam>
+        /// <param name="elements">Structural elements to be added.</param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
         public Model AddElements<T>(List<T> elements, bool overwrite = true) where T : IStructureElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
-            {
                 this.Entities = new Entities();
-            }
 
             foreach (var item in elements)
             {
@@ -2160,6 +2179,13 @@ namespace FemDesign
             return this;
         }
 
+        /// <summary>
+        /// Adds loads to the model.
+        /// </summary>
+        /// <typeparam name="T">ILoadElement is any load object in FEM-Design.</typeparam>
+        /// <param name="elements">Load elements to be added.</param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
         public Model AddLoads<T>(List<T> elements, bool overwrite = true) where T : ILoadElement
         {
             // check if model contains entities, sections and materials
@@ -2180,7 +2206,7 @@ namespace FemDesign
         /// Add supports to the model.
         /// </summary>
         /// <typeparam name="T">ISuppotElement is any support object.</typeparam>
-        /// <param name="elements"></param>
+        /// <param name="elements">Support elements to be added.</param>
         /// <param name="overwrite"></param>
         /// <returns></returns>
         public Model AddSupports<T>(List<T> elements, bool overwrite = true) where T : ISupportElement
