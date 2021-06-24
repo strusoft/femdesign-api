@@ -374,6 +374,9 @@
     <Compile Include="..\FemDesign.Core\Materials\TimberPlateMaterial.cs">
       <Link>Core\Materials\TimberPlateMaterial.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassEnum.cs">
+      <Link>Core\Materials\TimberServiceClassEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassFactors.cs">
       <Link>Core\Materials\TimberServiceClassFactors.cs</Link>
     </Compile>
