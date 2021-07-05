@@ -4,32 +4,32 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-   public class MaterialGetMaterialByName: GH_Component
+   public class MaterialGetCltPanelTypeByName : GH_Component
     {
-        public MaterialGetMaterialByName(): base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", "FemDesign", "Materials")
+        public MaterialGetCltPanelTypeByName() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", "FemDesign", "Materials")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("MaterialDatabase", "MaterialDatabase", "MaterialDatabase.", GH_ParamAccess.item);
-            pManager.AddTextParameter("MaterialName", "MaterialName", "Name of Material to retreive.", GH_ParamAccess.item);
+            pManager.AddTextParameter("CltTypeName", "CltTypeName", "Name of CltType to retreive.", GH_ParamAccess.item);
         } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("CltType", "CltType", "CltPanelLibraryType.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Materials.MaterialDatabase materialDatabase = null;
             string materialName = null;
-            if (!DA.GetData(0, ref materialDatabase)) return;
-            if (!DA.GetData(1, ref materialName)) return;
-            if (materialDatabase == null || materialName == null) return;
+            if (!DA.GetData(0, ref materialDatabase)) { return; }
+            if (!DA.GetData(1, ref materialName)) { return; }
+            if (materialDatabase == null || materialName == null) { return; }
 
-            FemDesign.Materials.Material material = materialDatabase.MaterialByName(materialName);
+            Materials.CltPanelLibraryType cltPaneltype = materialDatabase.GetCltPanelLibraryTypeByName(materialName);
 
-            DA.SetData(0, material);
+            DA.SetData(0, cltPaneltype);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -40,7 +40,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("4f28cdd5-2078-458a-b55b-98e9c449a26d"); }
+            get { return new Guid("fefcac8c-6d7a-473d-9264-c75c66807a71"); }
         }
     } 
 }

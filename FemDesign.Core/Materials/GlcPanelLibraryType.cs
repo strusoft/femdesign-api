@@ -17,7 +17,7 @@ namespace FemDesign.Materials
     }
 
     [System.Serializable()]
-    public partial class GlcPanelLibraryType: LibraryBase
+    public partial class GlcPanelLibraryType: LibraryBase, IPanelLibraryType
     {
         [XmlElement("glc_panel_data", Order = 1)]
         public GlcDataType GlcPanelData {get; set;}

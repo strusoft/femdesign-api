@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FemDesign.Dynamo")]
-[assembly: AssemblyDescription("The FemDesign Dynamo plugin")]
+[assembly: AssemblyTitle("FemDesign.Grasshopper")]
+[assembly: AssemblyDescription("The FemDesign Grasshopper plugin")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StruSoft AB")]
-[assembly: AssemblyProduct("FemDesign.Dynamo")]
+[assembly: AssemblyProduct("FemDesign.Grasshopper")]
 [assembly: AssemblyCopyright("Copyright © 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e4213d7a-1eaf-434c-a0a5-2b472d778712")]
+[assembly: Guid("9c02286a-fd18-47a6-8cc2-f5b0e822d35a")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -3,6 +3,8 @@ bin
 obj
 *.nupkg
 packages
+*.str
+*.strFEM
 
 # Local files
 .vs
@@ -13,3 +15,4 @@ scripts/convertLibrary/__pycache__
 *notImplemented*
 strusoft.xsd
 fdscript.xsd
+FemDesign.Samples/**/Local/**

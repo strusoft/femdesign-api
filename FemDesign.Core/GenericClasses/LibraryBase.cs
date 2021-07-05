@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign
@@ -8,7 +9,7 @@ namespace FemDesign
     /// entity_attribs
     /// </summary>
     [System.Serializable]
-    public partial class LibraryBase: EntityBase
+    public partial class LibraryBase : EntityBase, ILibraryBase
     {
         [XmlIgnore]
         private string _name;

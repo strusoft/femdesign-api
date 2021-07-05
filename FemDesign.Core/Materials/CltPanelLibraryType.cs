@@ -16,7 +16,7 @@ namespace FemDesign.Materials
     }
 
     [System.Serializable()]
-    public partial class CltPanelLibraryType: LibraryBase
+    public partial class CltPanelLibraryType: LibraryBase, IPanelLibraryType
     {
         [XmlElement("clt_panel_data")]
         public CltDataType CltPanelData { get; set; }

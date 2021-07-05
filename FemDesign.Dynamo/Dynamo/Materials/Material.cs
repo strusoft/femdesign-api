@@ -20,7 +20,7 @@ namespace FemDesign.Materials
         [IsVisibleInDynamoLibrary(true)]
         public static Material GetMaterialByName(MaterialDatabase materialDatabase, string materialName)
         {
-            return MaterialByName(materialDatabase, materialName);
+            return materialDatabase.MaterialByName(materialName);
         }
 
         /// <summary>
