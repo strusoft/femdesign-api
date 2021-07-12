@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.MaterialTimberPlateMaterial;
             }
         }
         public override Guid ComponentGuid
