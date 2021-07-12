@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.RotationsPlasticLimitsDefine;
+                return FemDesign.Properties.Resources.RotationsDefine;
             }
         }
         public override Guid ComponentGuid
