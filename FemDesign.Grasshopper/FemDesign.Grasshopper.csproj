@@ -689,12 +689,6 @@
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\MotionsPlasticLimitsDefine.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\RotationsPlasticLimitsDefine.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
