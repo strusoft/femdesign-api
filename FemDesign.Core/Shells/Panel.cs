@@ -113,6 +113,11 @@ namespace FemDesign.Shells
             set
             {
                 this.Region.LocalZ = value;
+                
+                foreach (InternalPanel intPanel in this.InternalPanels.IntPanels)
+                {
+                    intPanel.Region.LocalZ = value;
+                }
             }
         }
 
