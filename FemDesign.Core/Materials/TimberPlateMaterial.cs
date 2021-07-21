@@ -8,7 +8,7 @@ namespace FemDesign.Materials
     /// timber_application_data
     /// </summary>
     [System.Serializable]
-    public partial class TimberPlateMaterial
+    public partial class TimberPanelType
     {
         /// <summary>
         /// factors
@@ -94,12 +94,12 @@ namespace FemDesign.Materials
             }
         }
 
-        private TimberPlateMaterial()
+        private TimberPanelType()
         {
             
         }
 
-        public TimberPlateMaterial(IPanelLibraryType panelType)
+        public TimberPanelType(IPanelLibraryType panelType)
         {
             PanelType = panelType;
         }
@@ -111,7 +111,7 @@ namespace FemDesign.Materials
         /// <param name="factors">TimberFactors</param>
         /// <param name="shearCoupling">Consider shear coupling between layers</param>
         /// <param name="gluedNarrowSides">Glue at narrow sides</param>
-        public TimberPlateMaterial(CltPanelLibraryType cltPanelLibraryType, TimberFactors factors, bool shearCoupling = true, bool gluedNarrowSides = true)
+        public TimberPanelType(CltPanelLibraryType cltPanelLibraryType, TimberFactors factors, bool shearCoupling = true, bool gluedNarrowSides = true)
         {
             PanelType = cltPanelLibraryType;
             TimberFactors = factors;

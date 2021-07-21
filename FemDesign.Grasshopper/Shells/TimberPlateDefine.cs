@@ -15,6 +15,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddGenericParameter("TimberPlateMaterial", "Material", "Timber plate material.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("SpanDirection", "Direction", "Span direction of the timber plate.", GH_ParamAccess.item);
             pManager.AddNumberParameter("PanelWidth", "PanelWidth", "Width of each individual CLT panel in region. 1.5m if undefined.", GH_ParamAccess.item); 
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
@@ -40,8 +41,11 @@ namespace FemDesign.Grasshopper
             Brep surface = null;
             if (!DA.GetData("Surface", ref surface)) return;
 
-            Materials.TimberPlateMaterial timberPlateMaterialData = null;
+            Materials.TimberPanelType timberPlateMaterialData = null;
             if (!DA.GetData("TimberPlateMaterial", ref timberPlateMaterialData)) return;
+
+            Vector3d spanDirection = new Vector3d();
+            if (!DA.GetData("SpanDirection", ref spanDirection)) return;
 
             double panelWidth = 1.5;
             DA.GetData("PanelWidth", ref panelWidth);
@@ -69,7 +73,8 @@ namespace FemDesign.Grasshopper
 
             
             Geometry.Region region = surface.FromRhino();
-            Shells.Panel obj = Shells.Panel.DefaultTimberContinuous(region, timberPlateMaterialData, edgeConnection, identifier, eccentricity,  panelWidth);
+            Geometry.FdVector3d dir = spanDirection.FromRhino();
+            Shells.Panel obj = Shells.Panel.DefaultTimberContinuous(region, timberPlateMaterialData, dir, edgeConnection, identifier, eccentricity,  panelWidth);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))

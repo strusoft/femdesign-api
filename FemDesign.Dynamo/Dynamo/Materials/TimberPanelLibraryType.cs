@@ -9,13 +9,13 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Materials
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class TimberPanelTypes
+    public partial class OrthotropicPanelTypes
     {
         
     }
 
     [IsVisibleInDynamoLibrary(false)]
-    public partial class TimberPanelLibraryType: LibraryBase
+    public partial class OrthotropicPanelLibraryType: LibraryBase
     {
 
     }

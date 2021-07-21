@@ -33,7 +33,7 @@ namespace FemDesign.Grasshopper
             DA.GetData("ShearCoupling", ref shearCoupling);
             DA.GetData("GluedNarrowSides", ref gluedNarrowSides);
 
-            FemDesign.Materials.TimberPlateMaterial obj = new Materials.TimberPlateMaterial(cltPanelLibraryType, factors, shearCoupling, gluedNarrowSides);
+            FemDesign.Materials.TimberPanelType obj = new Materials.TimberPanelType(cltPanelLibraryType, factors, shearCoupling, gluedNarrowSides);
 
             DA.SetData(0, obj);
         }
