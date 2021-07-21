@@ -76,7 +76,7 @@ namespace FemDesign
         [XmlElement("surface_support_types", Order = 11)]
         public LibraryItems.SurfaceSupportTypes SurfaceSupportTypes { get; set; }
         [XmlElement("timber_panel_types", Order = 12)]
-        public Materials.TimberPanelTypes TimberPanelTypes { get; set; }
+        public Materials.OrthotropicPanelTypes OrthotropicPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 13)]
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
         [XmlElement("clt_panel_types", Order = 14)]
@@ -99,9 +99,28 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Internal constructor used by GH components and Dynamo nodes to initialize a model.
+        /// Initialize a model with elements.
         /// </summary>
-        public Model(string country)
+        /// <param name="country">Country/Annex of the FEM-Design model.</param>
+        /// <param name="elements">Structural elements.</param>
+        /// <param name="loads">Load elements</param>
+        /// <param name="loadCases">Load cases</param>
+        /// <param name="loadCombinations">Load combinations</param>
+        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
+        {
+            Initialize(country);
+
+            if (elements != null)
+                AddElements(elements, overwrite: false);
+            if (loads != null)
+                AddLoads(loads, overwrite: false);
+            if (loadCases != null)
+                AddLoadCases(loadCases, overwrite: false);
+            if (loadCombinations != null)
+                AddLoadCombinations(loadCombinations, overwrite: false);
+        }
+
+        private void Initialize(string country)
         {
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";
@@ -748,25 +767,33 @@ namespace FemDesign
                 this.AddSection(obj.Section, overwrite);
             }
 
-            // add timber application data
-            if (obj.TimberApplicationData != null)
+            // Add timber application data
+            if (obj.TimberPanelData != null)
             {
-                // add library types
-                if (obj.TimberPanelLibraryData != null && obj.TimberPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
+                // Add library types
+                if (obj.TimberPanelData.PanelType != null)
                 {
-                    this.AddTimberPanelLibraryType(obj.TimberPanelLibraryData, overwrite);
-                }
-                else if (obj.CltPanelLibraryData != null && obj.CltPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                {
-                    this.AddCltPanelLibraryType(obj.CltPanelLibraryData, overwrite);
-                }
-                else if (obj.GlcPanelLibraryData != null && obj.GlcPanelLibraryData.Guid == obj.TimberApplicationData.PanelType)
-                {
-                    this.AddGlcPanelLibraryType(obj.GlcPanelLibraryData, overwrite);
+                    var panelType = obj.TimberPanelData.PanelType;
+                    if (panelType.GetType() == typeof(FemDesign.Materials.CltPanelLibraryType))
+                    {
+                        this.AddCltPanelLibraryType((FemDesign.Materials.CltPanelLibraryType)panelType, overwrite);
+                    }
+                    else if (panelType.GetType() == typeof(FemDesign.Materials.OrthotropicPanelLibraryType))
+                    {
+                        this.AddTimberPanelLibraryType((FemDesign.Materials.OrthotropicPanelLibraryType)panelType, overwrite);
+                    }
+                    else if (panelType.GetType() == typeof(FemDesign.Materials.GlcPanelLibraryType))
+                    {
+                        this.AddGlcPanelLibraryType((FemDesign.Materials.GlcPanelLibraryType)panelType, overwrite);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"The type {panelType.GetType()} is a member of {typeof(Materials.IPanelLibraryType)} but don't have a method for adding library data to the model.");
+                    }
                 }
                 else
                 {
-                    throw new System.ArgumentException($"Could not find the related lirbary data with guid: {obj.TimberApplicationData.PanelType}. Failed to add panel library data.");
+                    throw new System.ArgumentException($"Could not find the related library data with guid: {obj.TimberPanelData._panelTypeReference}. Failed to add panel library data.");
                 }
             }
             // add line connection types from border
@@ -1112,6 +1139,13 @@ namespace FemDesign
             return false;
         }
 
+        public void AddLoadCases(List<Loads.LoadCase> loadCases, bool overwrite = true)
+        {
+            if (loadCases != null)
+                foreach (Loads.LoadCase loadCase in loadCases)
+                    this.AddLoadCase(loadCase, overwrite);
+        }
+
         /// <summary>
         /// Add LoadCase to Model.
         /// </summary>
@@ -1168,6 +1202,13 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        public void AddLoadCombinations(List<Loads.LoadCombination> loadCombinations, bool overwrite = true)
+        {
+            if (loadCombinations != null)
+                foreach (Loads.LoadCombination loadCombination in loadCombinations)
+                    this.AddLoadCombination(loadCombination, overwrite);
         }
 
         /// <summary>
@@ -1917,13 +1958,13 @@ namespace FemDesign
         /// <summary>
         /// Add Timber panel library type to Model.
         /// </summary>
-        private void AddTimberPanelLibraryType(Materials.TimberPanelLibraryType obj, bool overwrite)
+        private void AddTimberPanelLibraryType(Materials.OrthotropicPanelLibraryType obj, bool overwrite)
         {
             // if null create new element
-            if (this.TimberPanelTypes == null)
+            if (this.OrthotropicPanelTypes == null)
             {
-                this.TimberPanelTypes = new Materials.TimberPanelTypes();
-                this.TimberPanelTypes.TimberPanelLibraryTypes = new List<Materials.TimberPanelLibraryType>();
+                this.OrthotropicPanelTypes = new Materials.OrthotropicPanelTypes();
+                this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes = new List<Materials.OrthotropicPanelLibraryType>();
             }
 
             // in model?
@@ -1938,23 +1979,23 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.TimberPanelTypes.TimberPanelLibraryTypes.RemoveAll(x => x.Guid == obj.Guid);
-                this.TimberPanelTypes.TimberPanelLibraryTypes.Add(obj);
+                this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes.Add(obj);
             }
 
             // not in model
             else if (!inModel)
             {
-                this.TimberPanelTypes.TimberPanelLibraryTypes.Add(obj);
+                this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes.Add(obj);
             }
         }
 
         /// <summary>
         /// Check if Timber panel library type in Model.
         /// </summary>
-        private bool TimberPanelLibraryTypeInModel(Materials.TimberPanelLibraryType obj)
+        private bool TimberPanelLibraryTypeInModel(Materials.OrthotropicPanelLibraryType obj)
         {
-            foreach (Materials.TimberPanelLibraryType elem in this.TimberPanelTypes.TimberPanelLibraryTypes)
+            foreach (Materials.OrthotropicPanelLibraryType elem in this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -2111,15 +2152,17 @@ namespace FemDesign
         #region AddElements and AddLoads
 
         /// <summary>
-        /// Add entities to Model.
+        /// Add structural elements to Model. 
         /// </summary>
-        public Model AddElements<T>(List<T> elements, bool overwrite = true) where T : IStructureElement
+        /// <typeparam name="T">Structural elements (IStructureElement).</typeparam>
+        /// <param name="elements">Structural elements to be added.</param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddElements<T>(IEnumerable<T> elements, bool overwrite = true) where T : IStructureElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
-            {
                 this.Entities = new Entities();
-            }
 
             foreach (var item in elements)
             {
@@ -2136,7 +2179,37 @@ namespace FemDesign
             return this;
         }
 
-        public Model AddLoads<T>(List<T> elements, bool overwrite = true) where T : ILoadElement
+        /// <summary>
+        /// Adds loads to the model.
+        /// </summary>
+        /// <typeparam name="T">ILoadElement is any load object in FEM-Design.</typeparam>
+        /// <param name="elements">Load elements to be added.</param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddLoads<T>(IEnumerable<T> elements, bool overwrite = true) where T : ILoadElement
+        {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+
+            foreach (var item in elements)
+            {
+                AddEntity(item as dynamic, overwrite);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add supports to the model.
+        /// </summary>
+        /// <typeparam name="T">ISuppotElement is any support object.</typeparam>
+        /// <param name="elements">Support elements to be added.</param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddSupports<T>(IEnumerable<T> elements, bool overwrite = true) where T : ISupportElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -2182,7 +2255,6 @@ namespace FemDesign
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
-
 
         #endregion
 
@@ -2372,51 +2444,48 @@ namespace FemDesign
                 }
 
                 // get timber application data
-                if (panel.TimberApplicationData != null)
+                if (panel.TimberPanelData != null)
                 {
                     // timber panel types
-                    if (this.TimberPanelTypes != null && this.TimberPanelTypes.TimberPanelLibraryTypes != null)
+                    if (this.OrthotropicPanelTypes != null && this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes != null)
                     {
-                        foreach (FemDesign.Materials.TimberPanelLibraryType libItem in this.TimberPanelTypes.TimberPanelLibraryTypes)
+                        foreach (FemDesign.Materials.OrthotropicPanelLibraryType libItem in this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPanelData._panelTypeReference)
                             {
-                                panel.TimberPanelLibraryData = libItem;
+                                panel.TimberPanelData.PanelType = libItem;
                             }
                         }
                     }
-
 
                     // clt panel types
                     if (this.CltPanelTypes != null && this.CltPanelTypes.CltPanelLibraryTypes != null)
                     {
                         foreach (FemDesign.Materials.CltPanelLibraryType libItem in this.CltPanelTypes.CltPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPanelData._panelTypeReference)
                             {
-                                panel.CltPanelLibraryData = libItem;
+                                panel.TimberPanelData.PanelType = libItem;
                             }
                         }
                     }
-
 
                     // glc panel types
                     if (this.GlcPanelTypes != null && this.GlcPanelTypes.GlcPanelLibraryTypes != null)
                     {
                         foreach (FemDesign.Materials.GlcPanelLibraryType libItem in this.GlcPanelTypes.GlcPanelLibraryTypes)
                         {
-                            if (libItem.Guid == panel.TimberApplicationData.PanelType)
+                            if (libItem.Guid == panel.TimberPanelData._panelTypeReference)
                             {
-                                panel.GlcPanelLibraryData = libItem;
+                                panel.TimberPanelData.PanelType = libItem;
                             }
                         }
                     }
 
-
                     // check if libItem found
-                    if (panel.TimberPanelLibraryData == null && panel.CltPanelLibraryData == null && panel.GlcPanelLibraryData == null)
+                    if (panel.TimberPanelData.PanelType == null)
                     {
-                        throw new System.ArgumentException("A timber/clt/glc library item was expected but not found. Can't construct Panel. Model.GetPanels() failed.");
+                        throw new System.ArgumentException("An orthotropic/clt/glc library item was expected but not found. Can't construct Panel. Model.GetPanels() failed.");
                     }
                 }
 

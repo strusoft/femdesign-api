@@ -12,7 +12,7 @@ namespace FemDesign.Calculate
         /// <param name="autoDesign">Auto-design elements.</param>
         /// <param name="check">Check elements.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Design Define(bool autoDesign, bool check)
+        public static Design Define(bool autoDesign = false, bool check = true)
         {
             return new Design(autoDesign, check);
         }

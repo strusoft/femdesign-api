@@ -179,6 +179,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\IFemDesignEntity.cs">
       <Link>Core\GenericClasses\IFemDesignEntity.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\ILibraryBase.cs">
+      <Link>Core\GenericClasses\ILibraryBase.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\ILoadElement.cs">
       <Link>Core\GenericClasses\ILoadElement.cs</Link>
     </Compile>
@@ -317,6 +320,9 @@
     <Compile Include="..\FemDesign.Core\Materials\GlcPanelLibraryType.cs">
       <Link>Core\Materials\GlcPanelLibraryType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\IPanelLibraryType.cs">
+      <Link>Core\Materials\IPanelLibraryType.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\LimitStresses.cs">
       <Link>Core\Materials\LimitStresses.cs</Link>
     </Compile>
@@ -350,9 +356,6 @@
     <Compile Include="..\FemDesign.Core\Materials\Timber.cs">
       <Link>Core\Materials\Timber.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Materials\TimberApplicationData.cs">
-      <Link>Core\Materials\TimberApplicationData.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberFactors.cs">
       <Link>Core\Materials\TimberFactors.cs</Link>
     </Compile>
@@ -367,6 +370,12 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelStrength.cs">
       <Link>Core\Materials\TimberPanelStrength.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPlateMaterial.cs">
+      <Link>Core\Materials\TimberPlateMaterial.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassEnum.cs">
+      <Link>Core\Materials\TimberServiceClassEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassFactors.cs">
       <Link>Core\Materials\TimberServiceClassFactors.cs</Link>

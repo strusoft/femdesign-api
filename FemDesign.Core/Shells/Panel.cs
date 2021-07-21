@@ -113,6 +113,11 @@ namespace FemDesign.Shells
             set
             {
                 this.Region.LocalZ = value;
+                
+                foreach (InternalPanel intPanel in this.InternalPanels.IntPanels)
+                {
+                    intPanel.Region.LocalZ = value;
+                }
             }
         }
 
@@ -144,15 +149,28 @@ namespace FemDesign.Shells
         [XmlElement("internal_panels", Order = 5)]
         public InternalPanels InternalPanels { get; set; }
 
+        /// <summary>
+        /// This property describes the material of the panel (if the panel is a timber panel).
+        /// The PanelLibraryData referenced in this property can be either Orthotropic, CLT or GLC.
+        /// </summary>
         [XmlElement("timber_application_data", Order = 6)]
-        public Materials.TimberApplicationData TimberApplicationData { get; set; }
+        public Materials.TimberPanelType TimberPanelData { get; set; }
 
+        /// <summary>
+        /// This is a placeholder for the PanelLibraryData which is referenced in TimberPanelData
+        /// </summary>
         [XmlIgnore]
-        public Materials.TimberPanelLibraryType TimberPanelLibraryData { get; set; }
+        public Materials.OrthotropicPanelLibraryType OrthotropicPanelLibraryData { get; set; }
 
+        /// <summary>
+        /// This is a placeholder for the PanelLibraryData which is referenced in TimberPanelData
+        /// </summary>
         [XmlIgnore]
         public Materials.CltPanelLibraryType CltPanelLibraryData { get; set; }
 
+        /// <summary>
+        /// This is a placeholder for the PanelLibraryData which is referenced in TimberPanelData
+        /// </summary>
         [XmlIgnore]
         public Materials.GlcPanelLibraryType GlcPanelLibraryData { get; set; }
 
@@ -481,7 +499,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberApplicationData timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -490,7 +508,7 @@ namespace FemDesign.Shells
             this.CoordinateSystem = region.CoordinateSystem;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
-            this.TimberApplicationData = timberApplicationData;
+            this.TimberPanelData = timberApplicationData;
 
             // set external rigidity
             this.SetExternalEdgeConnections(externalEdgeConnection);
@@ -529,8 +547,22 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default timber shell with panels using a continuous analytical model.
         /// </summary>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberApplicationData timberApplicationData,  ShellEdgeConnection externalEdgeConnection, string identifier, ShellEccentricity ecc, double panelWidth)
+        /// <param name="region">Panel region.</param>
+        /// <param name="timberPlateMaterial">FemDesign.Materials.TimberPlateMaterial</param>
+        /// <param name="direction">Timber panel span direction.</param>
+        /// <param name="externalEdgeConnection"></param>
+        /// <param name="identifier"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="panelWidth"></param>
+        /// <returns></returns>
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.FdVector3d direction, ShellEdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
         {
+            if (externalEdgeConnection == null)
+                externalEdgeConnection = ShellEdgeConnection.GetDefault();
+
+            if (eccentricity == null)
+                eccentricity = ShellEccentricity.GetDefault();
+            
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
@@ -540,7 +572,11 @@ namespace FemDesign.Shells
             double orthotropy = 1;
             bool externalMovingLocal = externalEdgeConnection.MovingLocal;
 
-            return new Panel(region, anchorPoint, internalPanels, timberApplicationData, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal, panelWidth);
+            var panel = new Panel(region, anchorPoint, internalPanels, timberPlateMaterial, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, eccentricity, externalMovingLocal, panelWidth);
+
+            panel.LocalX = direction; // Set timber panel span direction
+            
+            return panel;
         }
 
     }

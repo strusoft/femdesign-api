@@ -88,13 +88,14 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>Add load combination parameters to calculation options.</summary>
-        /// <remarks>Private</remarks>
         /// <param name="loadCombination">LoadCombination</param>
         public void AddLoadCombinationParameters(Loads.LoadCombination loadCombination)
         {
             if (loadCombination.CombItem == null)
             {
-                // pass
+                // Note: If CombItem was null, the analysis will be run without any load combination settings set up.
+
+                //throw new NullReferenceException($"LoadCombination {loadCombination.Name} has no CombItem meaning the neccessary settings have not been set.");
             }
             else
             {

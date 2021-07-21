@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.FootfallFullExcitation;
             }
         }
         public override Guid ComponentGuid

@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.PanelDeconstruct;
            }
        }
        public override Guid ComponentGuid

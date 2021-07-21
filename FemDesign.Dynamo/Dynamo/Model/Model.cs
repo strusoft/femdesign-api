@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 #region dynamo
 using Autodesk.DesignScript.Runtime;
 #endregion
@@ -50,49 +51,32 @@ namespace FemDesign
             Model model = fdModel.DeepClone();
 
             // Add entities
-            var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
+            var _supports = supports.Cast<ISupportElement>().ToList();
             model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
             return model;
         }
 
         /// <summary>
-        /// Add ConnectedLines elements to model. Nested lists are not supported, use flatten.
+        /// Add elements to model. Nested lists are not supported, use flatten.
         /// </summary>
-        /// <param name="fdModel">Model to add elements to.</param>
-        /// <param name="connectedLines">Single connected lines element or list of connected lines to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="fdModel"> Model to add elements to.</param>
+        /// <param name="elements">Structure elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loads">Load elements to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loadCases">Load cases to add. Nested lists are not supported, use flatten.</param>
+        /// <param name="loadCombinations">Load combinations to add. Nested lists are not supported, use flatten.</param>
         /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model ModelAddConnectedLine(Model fdModel, List<ModellingTools.ConnectedLines> connectedLines, bool overwrite = false)
+        public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, bool overwrite = false)
         {
-            // add connectedLines
-            foreach (ModellingTools.ConnectedLines item in connectedLines)
-            {
-                fdModel.AddConnectedLine(item, overwrite);
-            }
+            var _elements = elements.Cast<IStructureElement>().ToList();
+            var _loads = loads.Cast<ILoadElement>().ToList();
 
-            // return
-            return fdModel;
-            
-        }
+            fdModel.AddElements(_elements, overwrite);
+            fdModel.AddLoads(_loads, overwrite);
+            fdModel.AddLoadCases(loadCases, overwrite);
+            fdModel.AddLoadCombinations(loadCombinations, overwrite);
 
-        /// <summary>
-        /// Add ConnectedPoints elements to model. Nested lists are not supported, use flatten.
-        /// </summary>
-        /// <param name="fdModel">Model to add elements to.</param>
-        /// <param name="connectedPoints">Single connected points element or list of connected lines to add. Nested points are not supported, use flatten.</param>
-        /// <param name="overwrite">Overwrite elements sharing GUID and mark as modified?</param>
-        [IsLacingDisabled()]
-        [IsVisibleInDynamoLibrary(true)]
-        public static Model ModelAddConnectedPoints(Model fdModel, List<ModellingTools.ConnectedPoints> connectedPoints, bool overwrite = false)
-        {
-            // add connectedLines
-            foreach (ModellingTools.ConnectedPoints item in connectedPoints)
-            {
-                fdModel.AddConnectedPoints(item, overwrite);
-            }
-
-            // return
             return fdModel;
         }
 
@@ -126,6 +110,26 @@ namespace FemDesign
             model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
             return model;
         }
+
+        /// <summary>
+        /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
+        /// </summary>
+        /// <param name="countryCode">National annex of calculation code ("D"/"DK"/"EST"/"FIN"/"GB"/"H"/"N"/"PL"/"RO"/"S"/"TR")</param>
+        /// <param name="elements">Elements found under the Structure tab in FEM-Design.</param>
+        /// <param name="loads">Loads found under the Loads tab in FEM-Design.</param>
+        /// <param name="loadCases">Load cases.</param>
+        /// <param name="loadCombinations">Load combinations.</param>
+        [IsLacingDisabled()]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations)
+        {
+            var _elements = elements.Cast<IStructureElement>().ToList();
+            var _loads = loads.Cast<ILoadElement>().ToList();
+            Model fdModel = new Model(countryCode, _elements, _loads, loadCases, loadCombinations);
+
+            return fdModel;
+        }
+
         /// <summary>
         /// Open model in FEM-Design.
         /// </summary>
