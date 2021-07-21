@@ -534,8 +534,22 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default timber shell with panels using a continuous analytical model.
         /// </summary>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPlateMaterial timberApplicationData,  ShellEdgeConnection externalEdgeConnection, string identifier, ShellEccentricity ecc, double panelWidth)
+        /// <param name="region">Panel region.</param>
+        /// <param name="timberPlateMaterial">FemDesign.Materials.TimberPlateMaterial</param>
+        /// <param name="direction">Timber panel span direction.</param>
+        /// <param name="externalEdgeConnection"></param>
+        /// <param name="identifier"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="panelWidth"></param>
+        /// <returns></returns>
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPlateMaterial timberPlateMaterial, Geometry.FdVector3d direction, ShellEdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
         {
+            if (externalEdgeConnection == null)
+                externalEdgeConnection = ShellEdgeConnection.GetDefault();
+
+            if (eccentricity == null)
+                eccentricity = ShellEccentricity.GetDefault();
+            
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
@@ -545,7 +559,11 @@ namespace FemDesign.Shells
             double orthotropy = 1;
             bool externalMovingLocal = externalEdgeConnection.MovingLocal;
 
-            return new Panel(region, anchorPoint, internalPanels, timberApplicationData, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal, panelWidth);
+            var panel = new Panel(region, anchorPoint, internalPanels, timberPlateMaterial, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, eccentricity, externalMovingLocal, panelWidth);
+
+            panel.LocalX = direction; // Set timber panel span direction
+            
+            return panel;
         }
 
     }
