@@ -39,10 +39,13 @@ namespace FemDesign.Loads
         {
 
         }
-        
+
         /// <summary>
-        /// Internal constructor.
+        /// Create a LoadCase
         /// </summary>
+        /// <param name="name">Name/Identifier of LoadCase.</param>
+        /// <param name="type">One of "static", "dead_load", "shrinkage", "seis_max", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym", "soil_dead_load", "prestressing", "fire", "deviation", "notional".</param>
+        /// <param name="durationClass">One of "permanent", "long-term", "medium-term", "short-term", "instantaneous".</param>
         public LoadCase(string name, string type, string durationClass)
         {
             this.EntityCreated();

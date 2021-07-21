@@ -2158,7 +2158,7 @@ namespace FemDesign
         /// <param name="elements">Structural elements to be added.</param>
         /// <param name="overwrite"></param>
         /// <returns></returns>
-        public Model AddElements<T>(List<T> elements, bool overwrite = true) where T : IStructureElement
+        public Model AddElements<T>(IEnumerable<T> elements, bool overwrite = true) where T : IStructureElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -2186,7 +2186,7 @@ namespace FemDesign
         /// <param name="elements">Load elements to be added.</param>
         /// <param name="overwrite"></param>
         /// <returns></returns>
-        public Model AddLoads<T>(List<T> elements, bool overwrite = true) where T : ILoadElement
+        public Model AddLoads<T>(IEnumerable<T> elements, bool overwrite = true) where T : ILoadElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -2209,7 +2209,7 @@ namespace FemDesign
         /// <param name="elements">Support elements to be added.</param>
         /// <param name="overwrite"></param>
         /// <returns></returns>
-        public Model AddSupports<T>(List<T> elements, bool overwrite = true) where T : ISupportElement
+        public Model AddSupports<T>(IEnumerable<T> elements, bool overwrite = true) where T : ISupportElement
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
