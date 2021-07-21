@@ -93,7 +93,9 @@ namespace FemDesign.Calculate
         {
             if (loadCombination.CombItem == null)
             {
-                throw new NullReferenceException($"LoadCombination {loadCombination.Name} has no CombItem meaning the neccessary settings have not been set.");
+                // Note: If CombItem was null, the analysis will be run without any load combination settings set up.
+
+                //throw new NullReferenceException($"LoadCombination {loadCombination.Name} has no CombItem meaning the neccessary settings have not been set.");
             }
             else
             {
