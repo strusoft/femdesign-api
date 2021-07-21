@@ -18,7 +18,20 @@ This repository contains source code for the FEM-Design API wrapper. It consists
 Feel free to fork this repo as you seem fit. Please let us know with an issue what feature you want and how you plan on implement it and we (the [authors](#Authors)) will guide you. 
 
 ## Installation
-To be added
+See installation for your framework below. 
+All releases can also be found on the [releases page](https://github.com/strusoft/femdesign-api/releases).
+### C#
+The C# package can be installed in two ways:
+1. Adding as a `NuGet` package. (See the package on [nuget.org](https://www.nuget.org/packages/FemDesign.Core/) for reference)
+2. Download this repo and compile it from source.
+
+Please note that for some C# applications the setting `Prefer 32-Bit` might have to be unchecked for your program to work properly with this API.
+
+### Grasshopper
+Download the grasshopper package from [food4rhino.com](https://www.food4rhino.com/en/app/fem-design-api-toolbox)
+
+### Dynamo
+Install it from within Dynamo using Online Package Search. Search for `FemDesign`. (Guide on [installing dynamo package](https://www.dynamonow.com/downloading-installing-packages/))
 
 ## Examples
 To be added
