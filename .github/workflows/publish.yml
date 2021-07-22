@@ -32,7 +32,7 @@ jobs:
           dotnet build .\FemDesign.Core\FemDesign.Core.csproj -c Release
       
       - name: Get current tag
-        run: echo "RELEASE_VERSION=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=`echo $(git describe --tags --abbrev=0)` " >> $GITHUB_ENV
       
       - name: Show current tag
         run: echo "${env.RELEASE_VERSION}"
