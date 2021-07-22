@@ -30,16 +30,10 @@ jobs:
       - name: Build Solution
         run: |
           dotnet build .\FemDesign.Core\FemDesign.Core.csproj -c Release
-      
-      - name: Get current tag
-        run: echo "RELEASE_VERSION=`echo $(git describe --tags --abbrev=0)` " >> $GITHUB_ENV
-      
-      - name: Show current tag
-        run: echo "${env.RELEASE_VERSION}"
 
       - name: Pack nuget
         run: |
-          nuget pack FemDesign.Core\ -Properties Configuration=Release -Version ${{ env.RELEASE_VERSION }}
+          nuget pack FemDesign.Core\ -Properties Configuration=Release
       
       - name: Publish nuget
         run: |
