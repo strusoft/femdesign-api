@@ -34,7 +34,7 @@ Download the grasshopper package from [food4rhino.com](https://www.food4rhino.co
 Install it from within Dynamo using Online Package Search. Search for `FemDesign`. (Guide on [installing dynamo package](https://www.dynamonow.com/downloading-installing-packages/))
 
 ## Examples
-To be added
+Examples can be found in the folder [FemDesign.Samples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Samples). More examples are planned to be added in the future.
 
 ## Versioning
 Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.
