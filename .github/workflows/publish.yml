@@ -1,8 +1,9 @@
 name: publish to nuget
 on:
   push:
-    branches:
-      - master # Default release branch
+    # Pattern matched against refs/tags
+    tags:        
+      - '*'           # Push events to every tag not containing a /
 jobs:
   publish:
     name: build, pack & publish
