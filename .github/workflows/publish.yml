@@ -5,58 +5,34 @@ on:
     tags:        
       - '*'           # Push events to every tag not containing a /
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Build
-      run: dotnet build FemDesign.Core --configuration Release
-
   publish:
-    name: build, pack & publish
-    runs-on: ubuntu-latest
+    name: build, pack & publish to nuget.org
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
-      # Setup dotnet
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.200
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.2
 
-      # Publish
-      - name: publish on version change
-        id: publish_nuget
-        uses: rohith/publish-nuget@v2
-        with:
-          # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: FemDesign.Core/FemDesign.Core.csproj
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
 
-          # NuGet package id, used for version detection & defaults to project name
-          PACKAGE_NAME: FemDesign.Core
-          
-          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: FemDesign.Core/FemDesign.Core.nuspec
+      - name: Create Build Directory
+        run: mkdir _build
 
-          # Regex pattern to extract version info in a capturing group
-          VERSION_REGEX: ^\s*<version>(.*)<\/version>\s*$
+      - name: Restore Packages
+        run: nuget restore FemDesign.Core/FemDesign.Core.csproj
 
-          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
-          # VERSION_STATIC: 1.0.0
+      - name: Build Solution
+        run: |
+          dotnet build .\FemDesign.Core\FemDesign.Core.csproj -c Release
 
-          # Flag to toggle git tagging, enabled by default
-          TAG_COMMIT: true
-
-          # Format of the git tag, [*] gets replaced with actual version
-          TAG_FORMAT: "*"
-
-          # API key to authenticate with NuGet server
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          NUGET_SOURCE: https://api.nuget.org
-
-          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
-          INCLUDE_SYMBOLS: false
+      - name: Pack nuget
+        run: |
+          nuget pack .\FemDesign.Core\
+      
+      - name: Publish nuget
+        run: |
+          nuget push *.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{secrets.NUGET_API_KEY}}
