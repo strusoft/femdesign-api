@@ -33,7 +33,7 @@ jobs:
 
       - name: Pack nuget
         run: |
-          nuget pack .\FemDesign.Core\
+          nuget pack .\FemDesign.Core\FemDesign.Core.csproj Configuration=Release
       
       - name: Publish nuget
         run: |
