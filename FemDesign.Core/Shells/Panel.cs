@@ -343,7 +343,7 @@ namespace FemDesign.Shells
             }
             set
             {
-                this._panelWidth = RestrictedDouble.NonNegMax_100(value).ToString();
+                this._panelWidth = RestrictedDouble.NonNegMax_100(value).ToString(CultureInfo.InvariantCulture);
             }
         }
         [XmlIgnore]
