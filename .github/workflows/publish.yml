@@ -13,14 +13,16 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.2
-
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
 
       - name: Create Build Directory
         run: mkdir _build
+
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+          nuget-version: '5.x'
 
       - name: Restore Packages
         run: nuget restore FemDesign.Core/FemDesign.Core.csproj
@@ -35,4 +37,4 @@ jobs:
       
       - name: Publish nuget
         run: |
-          nuget push *.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{secrets.NUGET_API_KEY}}
+          nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
