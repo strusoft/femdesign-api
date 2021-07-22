@@ -31,10 +31,11 @@ jobs:
         run: |
           dotnet build .\FemDesign.Core\FemDesign.Core.csproj -c Release
       
-      - name: Get release version from tag
-        run: |
-          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-          echo ${{ env.RELEASE_VERSION }}
+      - name: Get current tag
+        run: echo '::set-env name=RELEASE_VERSION::${(("${env:GITHUB_REF}" -split "/")[-1] -replace " ","")}'
+      
+      - name: Show current tag
+        run: echo "${env.RELEASE_VERSION}"
 
       - name: Pack nuget
         run: |
