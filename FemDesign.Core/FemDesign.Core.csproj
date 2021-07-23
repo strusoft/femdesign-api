@@ -82,6 +82,7 @@
     <Compile Include="Calculate\ResultType.cs" />
     <Compile Include="Calculate\Stage.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
+    <Compile Include="GenericClasses\EnumHelpers.cs" />
     <Compile Include="GenericClasses\DummyXmlObject.cs" />
     <Compile Include="GenericClasses\EntityBase.cs" />
     <Compile Include="GenericClasses\ExtensionMethods.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="ModellingTools\StiffnessMatrix2Type.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4Type.cs" />
     <Compile Include="ModellingTools\SurfaceConnection.cs" />
+    <Compile Include="Model\CountryEnum.cs" />
     <Compile Include="Model\Entities.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

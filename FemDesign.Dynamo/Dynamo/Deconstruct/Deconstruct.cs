@@ -385,7 +385,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", model.Guid},
-                {"CountryCode", model.Country},
+                {"CountryCode", model.Country.ToString()},
                 {"Bars", model.Entities.Bars},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
                 {"Shells", model.Entities.Slabs},

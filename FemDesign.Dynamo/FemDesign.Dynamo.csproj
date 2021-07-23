@@ -170,6 +170,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\EntityBase.cs">
       <Link>Core\GenericClasses\EntityBase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\EnumHelpers.cs">
+      <Link>Core\GenericClasses\EnumHelpers.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\ExtensionMethods.cs">
       <Link>Core\GenericClasses\ExtensionMethods.cs</Link>
     </Compile>
@@ -382,6 +385,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassKdefs.cs">
       <Link>Core\Materials\TimberServiceClassKdefs.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Model\CountryEnum.cs">
+      <Link>Dynamo\Model\CountryEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Model\Entities.cs">
       <Link>Core\Model\Entities.cs</Link>
