@@ -4,7 +4,7 @@
 namespace FemDesign.Releases
 {
     [System.Serializable]
-    public partial class Motions: StiffnessType
+    public partial class Motions : StiffnessType
     {
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -23,7 +23,7 @@ namespace FemDesign.Releases
         /// <param name="yPos">Ky' tension.</param>
         /// <param name="zNeg">Kz' compression.</param>
         /// <param name="zPos">Kz' tension.</param>
-        private Motions(double xNeg, double xPos, double yNeg, double yPos, double zNeg, double zPos)
+        public Motions(double xNeg = 0, double xPos = 0, double yNeg = 0, double yPos = 0, double zNeg = 0, double zPos = 0)
         {
             this.XNeg = xNeg;
             this.XPos = xPos;
@@ -65,7 +65,7 @@ namespace FemDesign.Releases
         /// </summary>
         public static Motions Free()
         {
-            return new Motions(0,0,0,0,0,0);
+            return new Motions(0, 0, 0, 0, 0, 0);
         }
     }
 }

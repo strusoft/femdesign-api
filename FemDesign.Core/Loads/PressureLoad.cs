@@ -58,6 +58,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Private constructor.
         /// </summary>
+        /// <param name="region"></param>
         /// <param name="loadDirection">Vector. Direction of force.</param>
         /// <param name="z0">Surface level of soil/water (on the global Z axis).</param>
         /// <param name="q0">Load intensity at the surface level.</param>

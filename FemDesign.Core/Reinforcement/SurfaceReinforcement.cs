@@ -38,16 +38,16 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Private constructor accessed by static methods.
         /// </summary>        
-        private SurfaceReinforcement(Geometry.Region _region, Straight _straight, Centric _centric, Wire _wire)
+        private SurfaceReinforcement(Geometry.Region region, Straight straight, Centric centric, Wire wire)
         {
             // object information
             this.EntityCreated();
 
             // other properties
-            this.Straight = _straight;
-            this.Centric = _centric;
-            this.Wire = _wire;
-            this.Region = _region;
+            this.Straight = straight;
+            this.Centric = centric;
+            this.Wire = wire;
+            this.Region = region;
         }
 
         /// <summary>
