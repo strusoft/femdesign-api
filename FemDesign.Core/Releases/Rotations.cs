@@ -23,7 +23,7 @@ namespace FemDesign.Releases
         /// <param name="yPos">Cy' tension.</param>
         /// <param name="zNeg">Cz' compression.</param>
         /// <param name="zPos">Cz' tension.</param>
-        public Rotations(double xNeg, double xPos, double yNeg, double yPos, double zNeg, double zPos)
+        public Rotations(double xNeg = 0, double xPos = 0, double yNeg = 0, double yPos = 0, double zNeg = 0, double zPos = 0)
         {
             this.XNeg = xNeg;
             this.XPos = xPos;
