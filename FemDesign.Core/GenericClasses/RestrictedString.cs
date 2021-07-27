@@ -129,33 +129,6 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// loadcasetype_type
-        /// </summary>
-        internal static string LoadCaseType(string val)
-        {
-            List<string> items = new List<string>(){"static", "dead_load", "shrinkage", "seis_max", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym", "soil_dead_load", "prestressing", "fire", "deviation", "notional"};
-            return RestrictedString.RestrictionItems(val, items);
-        }
-
-        /// <summary>
-        /// loadcasedurationtype
-        /// </summary>
-        internal static string LoadCaseDurationType(string val)
-        {
-            List<string> items = new List<string>(){"permanent", "long-term", "medium-term", "short-term", "instantaneous"};
-            return RestrictedString.RestrictionItems(val, items);
-        }
-
-        /// <summary>
-        /// loadcombtype
-        /// </summary>
-        internal static string LoadCombType(string val)
-        {
-            List<string> items = new List<string>(){"ultimate_ordinary", "ultimate_accidental", "ultimate_seismic","serviceability_characteristic", "serviceability_quasi_permanent", "serviceability_frequent","serviceability"};
-            return RestrictedString.RestrictionItems(val, items);
-        }
-
-        /// <summary>
         /// load_dir_type
         /// </summary>
         internal static string LoadDirType(string val)

@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace FemDesign.GenericClasses
 {
+    /// <summary>
+    /// Represents strings that can be parsed to the enum by the <seealso cref="EnumParser"/>
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class ParseableAttribute : Attribute
     {
         public readonly string[] Names;
 
+        /// <summary>
+        /// Represents strings that can be parsed to the enum by the <seealso cref="EnumParser"/>
+        /// </summary>
+        /// <param name="name">Alternative name to be parsed to the enum</param>
         public ParseableAttribute(string name)
         {
             if (name == null)
@@ -21,6 +28,10 @@ namespace FemDesign.GenericClasses
             Names = new[] { name };
         }
 
+        /// <summary>
+        /// Represents strings that can be parsed to the enum by the <seealso cref="EnumParser"/>
+        /// </summary>
+        /// <param name="names">Alternative names to be parsed to the enum</param>
         public ParseableAttribute(params string[] names)
         {
             if (names == null || names.Any(x => x == null))

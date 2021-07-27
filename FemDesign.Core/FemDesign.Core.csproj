@@ -113,6 +113,9 @@
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
     <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Loads\LoadCaseDurationEnum.cs" />
+    <Compile Include="Loads\LoadCombTypeEnum.cs" />
+    <Compile Include="Loads\LoadCaseTypeEnum.cs" />
     <Compile Include="Loads\Footfall.cs" />
     <Compile Include="Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\LineLoad.cs" />

@@ -38,6 +38,11 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Create vector from v2 to v1
+        /// </summary>
+        public static FdVector3d operator -(FdPoint3d v1, FdPoint3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+
+        /// <summary>
         /// Construct FdPoint3d in origin
         /// </summary>
         public static FdPoint3d Origin()

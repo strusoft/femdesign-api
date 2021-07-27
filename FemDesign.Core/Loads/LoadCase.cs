@@ -16,21 +16,9 @@ namespace FemDesign.Loads
         [XmlAttribute("name")]
         public string Name { get; set; } // name79
         [XmlAttribute("type")]
-        public string _type; // loadcasetype_type
-        [XmlIgnore]
-        public string Type
-        {
-            get {return this._type;}
-            set {this._type = RestrictedString.LoadCaseType(value);}
-        }
+        public LoadCaseType Type { get; set; } // loadcasetype_type
         [XmlAttribute("duration_class")]
-        public string _durationClass; // loadcasedurationtype
-        [XmlIgnore]
-        public string DurationClass
-        {
-            get {return this._durationClass;}
-            set {this._durationClass = RestrictedString.LoadCaseDurationType(value);}
-        }
+        public LoadCaseDuration DurationClass { get; set; } // loadcasedurationtype
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -46,12 +34,12 @@ namespace FemDesign.Loads
         /// <param name="name">Name/Identifier of LoadCase.</param>
         /// <param name="type">One of "static", "dead_load", "shrinkage", "seis_max", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym", "soil_dead_load", "prestressing", "fire", "deviation", "notional".</param>
         /// <param name="durationClass">One of "permanent", "long-term", "medium-term", "short-term", "instantaneous".</param>
-        public LoadCase(string name, string type, string durationClass)
+        public LoadCase(string name, LoadCaseType type, LoadCaseDuration durationClass)
         {
             this.EntityCreated();
+            this.Name = name;
             this.Type = type;
             this.DurationClass = durationClass;
-            this.Name = name;
         }
 
         /// <summary>

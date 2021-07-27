@@ -275,8 +275,17 @@
     <Compile Include="..\FemDesign.Core\Loads\LoadCase.cs">
       <Link>Core\Loads\LoadCase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCaseDurationEnum.cs">
+      <Link>Core\Loads\LoadCaseDurationEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCaseTypeEnum.cs">
+      <Link>Core\Loads\LoadCaseTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadCombination.cs">
       <Link>Core\Loads\LoadCombination.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCombTypeEnum.cs">
+      <Link>Core\Loads\LoadCombTypeEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadLocationValue.cs">
       <Link>Core\Loads\LoadLocationValue.cs</Link>
