@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
@@ -32,7 +33,7 @@ namespace FemDesign.Grasshopper
             // get data
             Brep surface = null;
             Vector3d direction = Vector3d.Zero;            
-            FemDesign.Loads.LoadCase loadCase = null;
+            LoadCase loadCase = null;
             double z0 = 0, q0 = 0, qh = 0;
             string comment = null;
             if (!DA.GetData(0, ref surface)) { return; }
@@ -49,10 +50,9 @@ namespace FemDesign.Grasshopper
 
             // transform geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
+            FemDesign.Geometry.FdVector3d loadDirection = direction.FromRhino().Normalize();
 
-            //
-            FemDesign.Loads.PressureLoad obj = FemDesign.Loads.PressureLoad.Define(region, fdVector, loadCase, z0, q0, qh, comment);
+            PressureLoad obj = new PressureLoad(region, loadDirection, z0, q0, qh, loadCase, comment, false, ForceLoadType.Force);
 
             // return
             DA.SetData(0, obj);

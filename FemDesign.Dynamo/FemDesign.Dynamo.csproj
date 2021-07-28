@@ -125,6 +125,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\CmdUser.cs">
       <Link>Core\Calculate\CmdUser.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdUserModuleEnum.cs">
+      <Link>Dynamo\Calculate\CmdUserModuleEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Comb.cs">
       <Link>Core\Calculate\Comb.cs</Link>
     </Compile>
@@ -649,6 +652,7 @@
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
     <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Dynamo\Loads\ForceLoadType.cs" />
     <Compile Include="Dynamo\Loads\Footfall.cs" />
     <Compile Include="Dynamo\Loads\ForceLoadBase.cs" />
     <Compile Include="Dynamo\Loads\LineLoad.cs" />

@@ -55,7 +55,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
-        internal static FdScript CalculateStruxml(string struxmlPath, string mode, List<string> bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             FdScript obj = new FdScript();
 
@@ -152,7 +152,7 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            string mode = "RESMODE";
+            CmdUserModule mode = CmdUserModule.RESMODE;
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis);
             return fdScript;
@@ -163,23 +163,32 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            // get mode
+            CmdUserModule _mode = CmdUserModule.RCDESIGN;
             switch (mode)
             {
                 case "rc":
-                    mode = "RCDESIGN";
+                case "Rc":
+                case "RC":
+                case "RCDESIGN":
+                    _mode = CmdUserModule.RCDESIGN;
                     break;
                 case "steel":
-                    mode = "STEELDESIGN";
+                case "Steel":
+                case "STEEL":
+                case "STEELDESIGN":
+                    _mode = CmdUserModule.STEELDESIGN;
                     break;
                 case "timber":
-                    mode = "TIMBERDESIGN";
+                case "Timber":
+                case "TIMBER":
+                case "TIMBERDESIGN":
+                    _mode = CmdUserModule.TIMBERDESIGN;
                     break;
                 default:
                     throw new System.ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
             
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
+            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             return fdScript;
         }

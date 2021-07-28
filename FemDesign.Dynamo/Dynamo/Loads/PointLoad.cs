@@ -23,7 +23,7 @@ namespace FemDesign.Loads
         {
             var p0 = Geometry.FdPoint3d.FromDynamo(point);
             var v0 = Geometry.FdVector3d.FromDynamo(force);
-            PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, "force");
+            PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, ForceLoadType.Force);
             return pointLoad;
         }
         /// <summary>
@@ -39,7 +39,7 @@ namespace FemDesign.Loads
         {
             var p0 = Geometry.FdPoint3d.FromDynamo(point);
             var v0 = Geometry.FdVector3d.FromDynamo(moment);
-            PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, "moment");
+            PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, ForceLoadType.Moment);
             return pointLoad;
         }
 

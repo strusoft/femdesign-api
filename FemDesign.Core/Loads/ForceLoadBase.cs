@@ -7,13 +7,10 @@ namespace FemDesign
     [System.Serializable]
     public partial class ForceLoadBase: LoadBase
     {
-        [XmlAttribute("load_type")]
-        public string _loadType; // force_load_type
-        [XmlIgnore]
-        public string LoadType
-        {
-            get {return this._loadType;}
-            set {this._loadType = RestrictedString.ForceLoadType(value);}
-        }
+        /// <summary>
+        /// Specifies if the load vector describes a force or a moment
+        /// </summary>
+        [XmlAttribute("load_type")] // force_load_type
+        public Loads.ForceLoadType LoadType { get; set; }
     }
 }

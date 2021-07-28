@@ -23,14 +23,11 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static SurfaceLoad Uniform(Autodesk.DesignScript.Geometry.Surface surface, Autodesk.DesignScript.Geometry.Vector force, LoadCase loadCase, string comment = "")
         {
-            // get fdGeometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
             Geometry.FdVector3d _force = Geometry.FdVector3d.FromDynamo(force);
 
-            // create SurfaceLoad
             SurfaceLoad surfaceLoad = SurfaceLoad.Uniform(region, _force, loadCase, comment);
 
-            // return
             return surfaceLoad;
         }
 
@@ -53,13 +50,11 @@ namespace FemDesign.Loads
                 throw new System.ArgumentException("loads must contain 3 items");
             }
 
-            // get fdGeometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
             Geometry.FdVector3d loadDirection = Geometry.FdVector3d.FromDynamo(direction).Normalize();
 
-            // create SurfaceLoad
-            SurfaceLoad _surfaceLoad = SurfaceLoad.Variable(region, loadDirection, loadLocationValue, loadCase, comment);
-            return _surfaceLoad;
+            SurfaceLoad surfaceLoad = SurfaceLoad.Variable(region, loadDirection, loadLocationValue, loadCase, comment);
+            return surfaceLoad;
         }
 
         /// <summary>

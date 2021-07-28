@@ -120,15 +120,6 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// force_load_type
-        /// </summary>
-        internal static string ForceLoadType(string val)
-        {
-            List<string> items = new List<string>(){"force", "moment"};
-            return RestrictedString.RestrictionItems(val, items);
-        }
-
-        /// <summary>
         /// load_dir_type
         /// </summary>
         internal static string LoadDirType(string val)

@@ -10,7 +10,6 @@ namespace FemDesign.Loads
     [IsVisibleInDynamoLibrary(false)]
     public partial class LineLoad: ForceLoadBase
     {
-        #region dynamo
         /// <summary>
         /// Create a uniform force line load.
         /// </summary>
@@ -35,7 +34,7 @@ namespace FemDesign.Loads
             }
 
             //
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "force");
+            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Force);
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace FemDesign.Loads
             Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
 
             //
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "force");
+            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Force);
         }
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace FemDesign.Loads
             }
 
             // 
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
+            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Moment);
         }
 
         /// <summary>
@@ -106,7 +105,7 @@ namespace FemDesign.Loads
             Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
 
             // 
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
+            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Moment);
         }
 
         /// <summary>
@@ -116,7 +115,5 @@ namespace FemDesign.Loads
         {
             return this.Edge.ToDynamo();
         }
-
-        #endregion
     }
 }
