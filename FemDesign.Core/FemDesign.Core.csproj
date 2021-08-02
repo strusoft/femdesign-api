@@ -53,6 +53,7 @@
     <Compile Include="Bars\BarPart.cs" />
     <Compile Include="Bars\Buckling\BucklingData.cs" />
     <Compile Include="Bars\Buckling\BucklingLength.cs" />
+    <Compile Include="Bars\Buckling\BucklingTypeEnum.cs" />
     <Compile Include="Bars\Buckling\Position.cs" />
     <Compile Include="Bars\BarType.cs" />
     <Compile Include="Bars\ColumnCorbel.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Calculate\ResultType.cs" />
     <Compile Include="Calculate\Stage.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
+    <Compile Include="GenericClasses\FaceEnum.cs" />
+    <Compile Include="GenericClasses\VerticalAlignmentEnum.cs" />
     <Compile Include="GenericClasses\EnumHelpers.cs" />
     <Compile Include="GenericClasses\DummyXmlObject.cs" />
     <Compile Include="GenericClasses\EntityBase.cs" />
@@ -126,6 +129,7 @@
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
+    <Compile Include="Loads\LoadDirTypeEnum.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
@@ -177,6 +181,8 @@
     <Compile Include="Reinforcement\BarReinforcement.cs" />
     <Compile Include="Reinforcement\Center.cs" />
     <Compile Include="Reinforcement\Centric.cs" />
+    <Compile Include="Reinforcement\WireProfileTypeEnum.cs" />
+    <Compile Include="Reinforcement\ReinforcementDirectionEnum.cs" />
     <Compile Include="Reinforcement\HiddenBar.cs" />
     <Compile Include="Reinforcement\LongitudinalBar.cs" />
     <Compile Include="Reinforcement\NoShear.cs" />
@@ -216,6 +222,8 @@
     <Compile Include="Sections\ModelSections.cs" />
     <Compile Include="Sections\Section.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
+    <Compile Include="Shells\SlabTypeEnum.cs" />
+    <Compile Include="Shells\PanelTypeEnum.cs" />
     <Compile Include="Shells\EdgeConnectionBase.cs" />
     <Compile Include="Shells\InternalPanel.cs" />
     <Compile Include="Shells\Panel.cs" />

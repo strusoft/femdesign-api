@@ -45,6 +45,12 @@ namespace FemDesign.GenericClasses
 
     public static class EnumParser
     {
+        /// <summary>
+        /// Parse a string to <typeparamref name="TEnum"/>. String must be one of the values of <see cref="ParseableAttribute"/> on the enum.
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static TEnum Parse<TEnum>(string value) where TEnum : struct
         {
             try

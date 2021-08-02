@@ -12,17 +12,17 @@ namespace FemDesign.Loads
     public partial class LineLoad: ForceLoadBase
     {
         [XmlAttribute("load_dir")]
-        public string _constantLoadDirection; // load_dir_type
+        private LoadDirType _constantLoadDirection; // load_dir_type
         [XmlIgnore]
         public bool ConstantLoadDirection
         {
             get
             {
-                return RestrictedString.LoadDirTypeToBool(this._constantLoadDirection);
+                return this._constantLoadDirection == LoadDirType.Constant;
             }
             set
             {
-                this._constantLoadDirection = RestrictedString.LoadDirTypeFromBool(value);
+                this._constantLoadDirection = value ? LoadDirType.Constant : LoadDirType.Changing;
             }
         }
         [XmlAttribute("load_projection")]

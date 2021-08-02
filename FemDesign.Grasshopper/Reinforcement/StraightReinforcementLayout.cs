@@ -1,6 +1,8 @@
 // https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
+using FemDesign.GenericClasses;
+using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
@@ -49,8 +51,9 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            //
-            FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(direction, space, face, cover);
+            Face _face = EnumParser.Parse<Face>(face);
+            ReinforcementDirection _direction = EnumParser.Parse<ReinforcementDirection>(direction);
+            FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(_direction, space, _face, cover);
 
             // return
             DA.SetData(0, obj);
