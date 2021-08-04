@@ -18,9 +18,18 @@ namespace FemDesign.Supports
         public string Name { get; set; } // identifier. Default = S
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
+        
+        [XmlIgnore]
+        private Group group;
         [XmlElement("group", Order = 1)]
-        public Group Group { get; set; } // support_rigidity_data_type
-        [XmlElement("edge", Order = 2)]
+        public Group Group { get => group; set { group = value; directed = null; } }
+
+        [XmlIgnore]
+        private Directed directed;
+        [XmlElement("directed", Order = 2)]
+        public Directed Directed { get => directed; set { directed = value; group = null; } }
+        
+        [XmlElement("directed", Order = 3)]
         public Geometry.Edge Edge { get; set; } // edge_type
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
@@ -30,7 +39,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// This property only reflects the edge normal. If this normal is changed arcs may transform.
         /// </summary>
-        [XmlElement("normal", Order = 3)]
+        [XmlElement("normal", Order = 4)]
         public Geometry.FdVector3d EdgeNormal;
         
         /// <summary>

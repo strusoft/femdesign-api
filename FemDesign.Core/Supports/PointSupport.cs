@@ -16,9 +16,30 @@ namespace FemDesign.Supports
         public static int _instance = 0; // used for PointSupports and LineSupports
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
+
+        [XmlIgnore]
+        private Group group;
         [XmlElement("group", Order = 1)]
-        public Group Group { get; set; }  // support_rigidity_data_type
-        [XmlElement("position", Order = 2)]
+        public Group Group { 
+            get => group; 
+            set { 
+                group = value;
+                if (value != null) directed = null; 
+            } 
+        }
+        
+        [XmlIgnore]
+        private Directed directed;
+        [XmlElement("directed", Order = 2)]
+        public Directed Directed { 
+            get => directed; 
+            set { 
+                directed = value;
+                if (value != null) group = null;
+            } 
+        }
+        
+        [XmlElement("position", Order = 3)]
         public Geometry.FdPoint3d Position { get; set; } // point_type_3d
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }

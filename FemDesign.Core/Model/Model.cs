@@ -1706,7 +1706,7 @@ namespace FemDesign
             this.Entities.Supports.PointSupport.Add(obj);
 
             // add predefined rigidity
-            if (obj.Group.PredefRigidity != null)
+            if (obj.Group?.PredefRigidity != null)
             {
                 this.AddPointSupportGroupLibItem(obj.Group.PredefRigidity, overwrite);
             }
