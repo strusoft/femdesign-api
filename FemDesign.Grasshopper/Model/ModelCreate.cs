@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
+using FemDesign.GenericClasses;
+
 
 namespace FemDesign.Grasshopper
 {
@@ -132,7 +134,7 @@ namespace FemDesign.Grasshopper
             // Create model
             List<object> _loads = loads.Cast<object>().ToList();
 
-            Model model = new Model(countryCode);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode));
             model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, false);
 
             DA.SetData(0, model);

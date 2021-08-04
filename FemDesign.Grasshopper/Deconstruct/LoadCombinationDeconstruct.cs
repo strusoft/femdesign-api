@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, obj.Guid);
             DA.SetData(1, obj.Name);
-            DA.SetData(2, obj.Type);
+            DA.SetData(2, obj.Type.ToString());
             DA.SetDataList(3, obj.GetLoadCaseGuidsAsString());
             DA.SetDataList(4, obj.GetGammas());
             

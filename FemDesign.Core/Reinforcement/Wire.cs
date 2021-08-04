@@ -44,13 +44,7 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("reinforcing_material")]
         public System.Guid ReinforcingMaterialGuid { get; set; } // guidtype
         [XmlAttribute("profile")]
-        public string _profile; // wire_profile_type
-        [XmlIgnore]
-        public string Profile
-        {
-            get {return this._profile;}
-            set {this._profile = RestrictedString.WireProfileType(value);}
-        }
+        public WireProfileType Profile { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -61,9 +55,9 @@ namespace FemDesign.Reinforcement
         }
 
         /// <summary>
-        /// Private constructor accessed by static methods.
+        /// Reinforcement wire.
         /// </summary>
-        public Wire(double diameter, Materials.Material reinforcingMaterial, string profile)
+        public Wire(double diameter, Materials.Material reinforcingMaterial, WireProfileType profile)
         {
             this.ReinforcingMaterial = reinforcingMaterial;
             this.Diameter = diameter;

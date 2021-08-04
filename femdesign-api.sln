@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Grasshopper", "Fe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{15E9D801-DC46-4CB1-81E3-60F91D835DB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{15E9D801-DC46-4CB1-81E3-60F91D835DB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesign.Tests\FemDesign.Tests.csproj", "{CCADA385-E5FB-4F08-BC50-1826BBEF9794}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{15E9D801-DC46-4CB1-81E3-60F91D835DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E9D801-DC46-4CB1-81E3-60F91D835DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E9D801-DC46-4CB1-81E3-60F91D835DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

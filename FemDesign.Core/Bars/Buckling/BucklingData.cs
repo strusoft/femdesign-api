@@ -28,11 +28,11 @@ namespace FemDesign.Bars.Buckling
             {
                 throw new System.ArgumentException("Material of bar element must be concrete!");
             }
-            if (flexuralStiff.Type != "flexural_stiff")
+            if (flexuralStiff.Type != BucklingType.FlexuralStiff)
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.Type != "flexural_weak")
+            if (flexuralWeak.Type != BucklingType.FlexuralWeak)
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
@@ -62,19 +62,19 @@ namespace FemDesign.Bars.Buckling
             {
                 throw new System.ArgumentException("Material of bar element must be steel!");
             }
-            if (flexuralStiff.Type != "flexural_stiff")
+            if (flexuralStiff.Type != BucklingType.FlexuralStiff)
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.Type != "flexural_weak")
+            if (flexuralWeak.Type != BucklingType.FlexuralWeak)
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
-            if (pressuredFlange.Type != "pressured_flange")
+            if (pressuredFlange.Type != BucklingType.PressuredTopFlange)
             {
                 throw new System.ArgumentException("pressuredFlange is not of type PressuredFlange!");
             }
-            if (pressuredBottomFlange.Type != "pressured_bottom_flange")
+            if (pressuredBottomFlange.Type != BucklingType.PressuredBottomFlange)
             {
                 throw new System.ArgumentException("pressuredBottomFlange is not of type PressuredBottomFlange!");
             }
@@ -105,15 +105,15 @@ namespace FemDesign.Bars.Buckling
             {
                 throw new System.ArgumentException("Material of bar element must be timber!");
             }
-            if (flexuralStiff.Type != "flexural_stiff")
+            if (flexuralStiff.Type != BucklingType.FlexuralStiff)
             {
                 throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
             }
-            if (flexuralWeak.Type != "flexural_weak")
+            if (flexuralWeak.Type != BucklingType.FlexuralWeak)
             {
                 throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
             }
-            if (lateralTorsional.Type != "lateral_torsional")
+            if (lateralTorsional.Type != BucklingType.LateralTorsional)
             {
                 throw new System.ArgumentException("lateralTorsional is not of type LateralTorsional!");
             }

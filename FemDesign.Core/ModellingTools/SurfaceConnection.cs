@@ -58,8 +58,8 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                SurfaceConnection._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + SurfaceConnection._instance.ToString();
+                _instance++;
+                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 

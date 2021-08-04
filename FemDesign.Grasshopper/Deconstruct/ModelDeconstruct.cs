@@ -67,7 +67,7 @@ namespace FemDesign.Grasshopper
             }        
 
             // return data
-            DA.SetData(0, model.Country);
+            DA.SetData(0, model.Country.ToString());
             DA.SetDataList(1, model.Entities.Bars);
             DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBars);
             DA.SetDataList(3, model.Entities.Slabs);

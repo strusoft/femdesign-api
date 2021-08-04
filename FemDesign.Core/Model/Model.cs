@@ -50,7 +50,7 @@ namespace FemDesign
         public string Standard { get; set; } // standardtype
         /// <summary>National annex of calculation code</summary>
         [XmlAttribute("country")]
-        public string Country { get; set; } // eurocodetype
+        public Country Country { get; set; } // eurocodetype
         [XmlAttribute("xmlns")]
         public string Xmlns { get; set; }
         [XmlElement("entities", Order = 1)]
@@ -106,7 +106,7 @@ namespace FemDesign
         /// <param name="loads">Load elements</param>
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
-        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
         {
             Initialize(country);
 
@@ -120,7 +120,7 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
         }
 
-        private void Initialize(string country)
+        private void Initialize(Country country)
         {
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";

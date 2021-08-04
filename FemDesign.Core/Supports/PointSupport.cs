@@ -24,7 +24,7 @@ namespace FemDesign.Supports
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
         public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }
         public RotationsPlasticLimits RotationsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitMoments; } }
-
+        
         public PointSupport()
         {
             // parameterless constructor for serialization

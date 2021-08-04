@@ -86,8 +86,8 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                ConnectedPoints._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + ConnectedPoints._instance.ToString();
+                _instance++;
+                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 

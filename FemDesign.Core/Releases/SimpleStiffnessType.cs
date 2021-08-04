@@ -30,7 +30,7 @@ namespace FemDesign.Releases
         public StiffBaseType RotZ { get; set; }
 
         [XmlAttribute("detach")]
-        public DetachType Detach;
+        public DetachType Detach { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
