@@ -195,6 +195,7 @@
     <Compile Include="Reinforcement\SurfaceReinforcement.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementParameters.cs" />
     <Compile Include="Reinforcement\Wire.cs" />
+    <Compile Include="Releases\MotionTypeEnum.cs" />
     <Compile Include="Releases\DetachTypeEnum.cs" />
     <Compile Include="Releases\RotationsPlasticLimits.cs" />
     <Compile Include="Releases\MotionsPlasticLimits.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Releases\RigidityDataType3.cs" />
     <Compile Include="Releases\Rotations.cs" />
     <Compile Include="Releases\SimpleStiffnessType.cs" />
+    <Compile Include="Releases\PlasticityType.cs" />
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
@@ -240,6 +242,7 @@
     <Compile Include="StructureGrid\Axis.cs" />
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
+    <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
     <Compile Include="Supports\PointSupport.cs" />
