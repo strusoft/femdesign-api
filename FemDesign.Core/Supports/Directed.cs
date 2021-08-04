@@ -1,12 +1,13 @@
 // https://strusoft.com/
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.Geometry;
 using FemDesign.Releases;
 
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public class SimpleRegidityGroup
+    public partial class SimpleRegidityGroup
     {
         [XmlAttribute("type")]
         public MotionType MotionType;
@@ -34,7 +35,7 @@ namespace FemDesign.Supports
     public partial class Directed
     {
         [XmlElement("direction", Order = 1)]
-        public Geometry.FdVector3d Direction;
+        public FdVector3d Direction;
 
         [XmlIgnore]
         private StiffBaseType movement;
@@ -46,7 +47,9 @@ namespace FemDesign.Supports
                 if (value != null && (value.Pos != 0.0 || value.Neg != 0.0))
                 {
                     rotation = new StiffBaseType() { Pos = 0, Neg = 0 };
-                    regidityGroup = null; 
+                    regidityGroup = null;
+                    plasticLimitForces = new PlasticityType();
+                    plasticLimitMoments = null;
                 }
             } 
         }
@@ -62,12 +65,14 @@ namespace FemDesign.Supports
                 {
                     movement = new StiffBaseType() { Pos = 0, Neg = 0 };
                     regidityGroup = null;
+                    plasticLimitForces = null;
+                    plasticLimitMoments = new PlasticityType();
                 }
             }
         }
 
         [XmlIgnore]
-        private PlasticityType plasticLimitForces = new PlasticityType();
+        private PlasticityType plasticLimitForces;
         [XmlElement("plastic_limit_forces", Order = 4)]
         public PlasticityType PlasticLimitForces
         {
@@ -106,6 +111,35 @@ namespace FemDesign.Supports
                     plasticLimitMoments = null;
                 }
             } 
+        }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private Directed()
+        {
+
+        }
+
+        internal Directed(FdVector3d direction, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0)
+        {
+            Direction = direction;
+            if (type == MotionType.Motion)
+            {
+                Movement = new StiffBaseType() { Pos = pos, Neg = neg };
+                PlasticLimitForces = new PlasticityType() { Pos = posPlastic, Neg = negPlastic };
+            }
+            else if (type == MotionType.Rotation)
+            {
+                Rotation = new StiffBaseType() { Pos = pos, Neg = neg };
+                PlasticLimitMoments = new PlasticityType() { Pos = posPlastic, Neg = negPlastic };
+            }
+        }
+
+        internal Directed(FdVector3d direction, SimpleRegidityGroup regidityGroup)
+        {
+            Direction = direction;
+            RegidityGroup = regidityGroup;
         }
     }
 }
