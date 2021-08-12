@@ -25,6 +25,7 @@ namespace FemDesign.Results
 
             Type iResultType = typeof(GenericClasses.IResult);
             var resultTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.GetName().FullName.StartsWith("FemDesign"))
                 .SelectMany(s => s.GetTypes())
                 .Where(p => iResultType.IsAssignableFrom(p) && p.IsClass);
 
@@ -88,8 +89,15 @@ namespace FemDesign.Results
 
                 MethodInfo parseAllMethod = method.MakeGenericMethod(resultType);
 
-                dynamic obj = parseAllMethod.Invoke(this, new object[] { false, true });
-                mixedResults.AddRange(obj);
+                try
+                {
+                    dynamic obj = parseAllMethod.Invoke(this, new object[] { false, true });
+                    mixedResults.AddRange(obj);
+                }
+                catch (Exception e)
+                {
+                    throw new ParseException($"{e.Message}\n{e.InnerException.Message}");
+                }
             }
 
             if (mixedResults.Count == 0)
@@ -135,7 +143,7 @@ namespace FemDesign.Results
             }
 
             if (resultType == null)
-                throw new ApplicationException($"Could not identify the result type of the file {FilePath}.");
+                throw new ApplicationException($"Could not identify all result types of the file {FilePath}.");
 
             return resultType;
         }
@@ -277,7 +285,7 @@ namespace FemDesign.Results
                 }
                 catch (Exception)
                 {
-                    throw new ParseException($"Could not parse line '{line}' to type {typeof(T).FullName}");
+                    throw new ParseException($"Could not parse line '{line.Replace("\t", "  ")}' to type {typeof(T).FullName}");
                 }
                 if (parsed == null && skipNull)
                     continue;
