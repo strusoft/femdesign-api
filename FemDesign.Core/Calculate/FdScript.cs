@@ -62,7 +62,7 @@ namespace FemDesign.Calculate
             //
             obj.XmlAttrib = "fdscript.xsd";
             obj.StruxmlPath = struxmlPath;
-            obj.FileName = Path.GetFileName(obj.StruxmlPath).Split('.')[0];
+            obj.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
             obj.Cwd = Path.GetDirectoryName(obj.StruxmlPath);
             obj.FdScriptPath = obj.Cwd + @"\" + obj.FileName + ".fdscript";
 
