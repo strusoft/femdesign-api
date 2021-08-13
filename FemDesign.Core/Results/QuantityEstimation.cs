@@ -18,27 +18,27 @@ namespace FemDesign.Results
         /// <summary>
         /// Element name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Storey identifier
         /// </summary>
-        public readonly string Storey;
+        public string Storey { get; }
         /// <summary>
         /// Structural element type
         /// </summary>
-        public readonly string Structure;
+        public string Structure { get; }
         /// <summary>
         /// Material quality identifier
         /// </summary>
-        public readonly string Quality;
+        public string Quality { get; }
         /// <summary>
         /// Volume quantity [m3]
         /// </summary>
-        public readonly double Volume;
+        public double Volume { get; }
         /// <summary>
         /// Formwork quantity [m2]
         /// </summary>
-        public readonly double Formwork;
+        public double Formwork { get; }
 
         internal QuantityEstimationConcrete(string id, string storey, string structure, string quality, double volume, double formwork)
         {
@@ -91,27 +91,27 @@ namespace FemDesign.Results
         /// <summary>
         /// Element name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Storey identifier
         /// </summary>
-        public readonly string Storey;
+        public string Storey { get; }
         /// <summary>
         /// Structural element type
         /// </summary>
-        public readonly string Structure;
+        public string Structure { get; }
         /// <summary>
         /// Material quality identifier
         /// </summary>
-        public readonly string Quality;
+        public string Quality { get; }
         /// <summary>
         /// Diameter [mm]
         /// </summary>
-        public readonly double Diameter;
+        public double Diameter { get; }
         /// <summary>
         /// Quantity [t]
         /// </summary>
-        public readonly double Quantity;
+        public double Quantity { get; }
 
         internal QuantityEstimationReinforcement(string id, string storey, string structure, string quality, double diameter, double quantity)
         {
@@ -164,39 +164,39 @@ namespace FemDesign.Results
         /// <summary>
         /// Element name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Storey identifier
         /// </summary>
-        public readonly string Storey;
+        public string Storey { get; }
         /// <summary>
         /// Structural element type
         /// </summary>
-        public readonly string Structure;
+        public string Structure { get; }
         /// <summary>
         /// Material quality identifier
         /// </summary>
-        public readonly string Quality;
+        public string Quality { get; }
         /// <summary>
         /// Section/Thickness identifier
         /// </summary>
-        public readonly string Section;
+        public string Section { get; }
         /// <summary>
         /// Weight per length [t/m, t/m2]
         /// </summary>
-        public readonly double UnitWeight;
+        public double UnitWeight { get; }
         /// <summary>
         /// Subtotal [m, m2]
         /// </summary>
-        public readonly double Subtotal;
+        public double Subtotal { get; }
         /// <summary>
         /// Total weight [t]
         /// </summary>
-        public readonly double TotalWeight;
+        public double TotalWeight { get; }
         /// <summary>
         /// Painted area [m2]
         /// </summary>
-        public readonly double PaintedArea;
+        public double PaintedArea { get; }
         internal QuantityEstimationSteel(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
         {
             Storey = storey;
@@ -254,39 +254,39 @@ namespace FemDesign.Results
         /// <summary>
         /// Element name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Storey identifier
         /// </summary>
-        public readonly string Storey;
+        public string Storey { get; }
         /// <summary>
         /// Structural element type
         /// </summary>
-        public readonly string Structure;
+        public string Structure { get; }
         /// <summary>
         /// Material quality identifier
         /// </summary>
-        public readonly string Quality;
+        public string Quality { get; }
         /// <summary>
         /// Section/Thickness identifier
         /// </summary>
-        public readonly string Section;
+        public string Section { get; }
         /// <summary>
         /// Weight per length [t/m, t/m2]
         /// </summary>
-        public readonly double UnitWeight;
+        public double UnitWeight { get; }
         /// <summary>
         /// Subtotal [m, m2]
         /// </summary>
-        public readonly double Subtotal;
+        public double Subtotal { get; }
         /// <summary>
         /// Total weight [t]
         /// </summary>
-        public readonly double TotalWeight;
+        public double TotalWeight { get; }
         /// <summary>
         /// Painted area [m2]
         /// </summary>
-        public readonly double PaintedArea;
+        public double PaintedArea { get; }
         internal QuantityEstimationTimber(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
         {
             Storey = storey;

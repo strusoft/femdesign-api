@@ -18,59 +18,59 @@ namespace FemDesign.Results
         /// <summary>
         /// Support name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// X-coordinate
         /// </summary>
-        public readonly double X;
+        public double X { get; }
         /// <summary>
         /// Y-coordinate
         /// </summary>
-        public readonly double Y;
+        public double Y { get; }
         /// <summary>
         /// Z-coordinate
         /// </summary>
-        public readonly double Z;
+        public double Z { get; }
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public readonly int NodeId;
+        public int NodeId { get; }
         /// <summary>
         /// Local Fx'
         /// </summary>
-        public readonly double Fx;
+        public double Fx { get; }
         /// <summary>
         /// Local Fy'
         /// </summary>
-        public readonly double Fy;
+        public double Fy { get; }
         /// <summary>
         /// Local Fz'
         /// </summary>
-        public readonly double Fz;
+        public double Fz { get; }
         /// <summary>
         /// Local Mx'
         /// </summary>
-        public readonly double Mx;
+        public double Mx { get; }
         /// <summary>
         /// Local My'
         /// </summary>
-        public readonly double My;
+        public double My { get; }
         /// <summary>
         /// Local Mz'
         /// </summary>
-        public readonly double Mz;
+        public double Mz { get; }
         /// <summary>
         /// Force resultant
         /// </summary>
-        public readonly double Fr;
+        public double Fr { get; }
         /// <summary>
         /// Moment resultant
         /// </summary>
-        public readonly double Mr;
+        public double Mr { get; }
         /// <summary>
         /// Load case or combination name
         /// </summary>
-        public readonly string CaseIdentifier;
+        public string CaseIdentifier { get; }
 
         internal PointSupportReaction(string id, double x, double y, double z, int nodeId, double fx, double fy, double fz, double mx, double my, double mz, double fr, double mr, string resultCase)
         {
