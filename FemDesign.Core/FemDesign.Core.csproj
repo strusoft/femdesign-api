@@ -196,6 +196,8 @@
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Results\ShelllnternalForce.cs" />
+    <Compile Include="Results\BarEndForce.cs" />
     <Compile Include="Results\NodalDisplacement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
