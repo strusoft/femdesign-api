@@ -134,6 +134,7 @@
     <Compile Include="Materials\Custom.cs" />
     <Compile Include="Materials\GlcDataType.cs" />
     <Compile Include="Materials\GlcPanelLibraryType.cs" />
+    <Compile Include="Materials\IMaterial.cs" />
     <Compile Include="Materials\IPanelLibraryType.cs" />
     <Compile Include="Materials\LimitStresses.cs" />
     <Compile Include="Materials\Material.cs" />
@@ -148,10 +149,10 @@
     <Compile Include="Materials\Timber.cs" />
     <Compile Include="Materials\TimberFactors.cs" />
     <Compile Include="Materials\TimberPanelData.cs" />
-    <Compile Include="Materials\TimberPanelLibraryType.cs" />
+    <Compile Include="Materials\OrthotropicPanelLibraryType.cs" />
     <Compile Include="Materials\TimberPanelStiffness.cs" />
     <Compile Include="Materials\TimberPanelStrength.cs" />
-    <Compile Include="Materials\TimberPlateMaterial.cs" />
+    <Compile Include="Materials\TimberPanelType.cs" />
     <Compile Include="Materials\TimberServiceClassEnum.cs" />
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
     <Compile Include="Materials\TimberServiceClassKdefs.cs" />

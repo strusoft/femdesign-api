@@ -339,15 +339,24 @@ namespace FemDesign
         /// <summary>
         /// Deconstruct basic material information
         /// </summary>
+        /// <param name="material">FemDesign.Materials.Material or a timber panel type timberPanelLibraryData or cltDataLibraryType.</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
-        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.IMaterial material)
         {
+            string standard = null;
+            string country = null;
+            if (material is Materials.Material mat)
+            {
+                standard = mat.Standard;
+                country = mat.Country;
+            }
+
             return new Dictionary<string, object>
             {
                 {"Guid", material.Guid},
-                {"Standard", material.Standard},
-                {"Country", material.Country},
+                {"Standard", standard},
+                {"Country", country},
                 {"Name", material.Name}
             };
         }
