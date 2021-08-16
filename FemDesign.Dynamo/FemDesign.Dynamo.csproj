@@ -347,6 +347,9 @@
     <Compile Include="..\FemDesign.Core\Materials\GlcPanelLibraryType.cs">
       <Link>Core\Materials\GlcPanelLibraryType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\IMaterial.cs">
+      <Link>Core\Materials\IMaterial.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\IPanelLibraryType.cs">
       <Link>Core\Materials\IPanelLibraryType.cs</Link>
     </Compile>
@@ -371,6 +374,9 @@
     <Compile Include="..\FemDesign.Core\Materials\MechProps.cs">
       <Link>Core\Materials\MechProps.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\OrthotropicPanelLibraryType.cs">
+      <Link>Core\Materials\OrthotropicPanelLibraryType.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\ReinforcingMaterials.cs">
       <Link>Core\Materials\ReinforcingMaterials.cs</Link>
     </Compile>
@@ -389,17 +395,14 @@
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelData.cs">
       <Link>Core\Materials\TimberPanelData.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Materials\TimberPanelLibraryType.cs">
-      <Link>Core\Materials\TimberPanelLibraryType.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelStiffness.cs">
       <Link>Core\Materials\TimberPanelStiffness.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelStrength.cs">
       <Link>Core\Materials\TimberPanelStrength.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Materials\TimberPlateMaterial.cs">
-      <Link>Core\Materials\TimberPlateMaterial.cs</Link>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelType.cs">
+      <Link>Core\Materials\TimberPanelType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassEnum.cs">
       <Link>Core\Materials\TimberServiceClassEnum.cs</Link>
