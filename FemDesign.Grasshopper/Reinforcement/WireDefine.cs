@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.GenericClasses;
+using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
@@ -25,31 +27,19 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
             double diameter = 0;
             FemDesign.Materials.Material material = null;
             string profile = "ribbed";
-            if (!DA.GetData(0, ref diameter))
-            {
-                return;
-            }
-            if (!DA.GetData(1, ref material))
-            {
-                return;
-            }
-            if (!DA.GetData(2, ref profile))
-            {
-                // pass
-            }
+            if (!DA.GetData("Diameter", ref diameter)) return;
+            if (!DA.GetData("Material", ref material)) return;
+            DA.GetData("Profile", ref profile);
+            
             if (material == null || profile == null)
-            {
                 return;
-            }
 
-            //
-            FemDesign.Reinforcement.Wire obj = new FemDesign.Reinforcement.Wire(diameter, material, profile);
+            WireProfileType _profile = EnumParser.Parse<WireProfileType>(profile);
+            FemDesign.Reinforcement.Wire obj = new FemDesign.Reinforcement.Wire(diameter, material, _profile);
 
-            // return
             DA.SetData(0, obj);
         }
         protected override System.Drawing.Bitmap Icon

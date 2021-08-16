@@ -56,7 +56,7 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Private constructor.
+        /// Pressure load
         /// </summary>
         /// <param name="region"></param>
         /// <param name="loadDirection">Vector. Direction of force.</param>
@@ -67,7 +67,7 @@ namespace FemDesign.Loads
         /// <param name="comment">Comment.</param>
         /// <param name="loadProjection"></param>
         /// <param name="loadType"></param>
-        private PressureLoad(Geometry.Region region, Geometry.FdVector3d loadDirection, double z0, double q0, double qh, LoadCase loadCase, string comment, bool loadProjection, string loadType)
+        public PressureLoad(Geometry.Region region, Geometry.FdVector3d loadDirection, double z0, double q0, double qh, LoadCase loadCase, string comment, bool loadProjection, ForceLoadType loadType)
         {
             // base
             this.EntityCreated();
@@ -83,20 +83,5 @@ namespace FemDesign.Loads
             this.Q0 = q0;
             this.Qh = qh;
         }
-
-        
-        /// Define new PressureLoad.
-        /// Internal method used for GH components and Dynamo nodes.
-        public static PressureLoad Define(Geometry.Region region, Geometry.FdVector3d loadDirection, LoadCase loadCase,  double z0, double q0, double qh, string comment)
-        {
-            //
-            bool loadProjection = false;
-            string loadType = "force";            
-
-            // return
-            return new PressureLoad(region, loadDirection, z0, q0, qh, loadCase, comment, loadProjection, loadType);
-        }
-
-
     }
 }

@@ -596,25 +596,22 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlAttribute("made")]
-        public string _made; // steelmadetype
+
 
         [XmlIgnore]
-        public string Made
+        public SteelMadeType? SteelMadeType;
+
+        [XmlAttribute("made")]
+        [System.ComponentModel.Browsable(false), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public SteelMadeType steelMadeType
         {
-            get {return this._made;}
-            set
-            {
-                if (value == null)
-                {
-                    this._made = value;
-                }
-                else
-                {
-                    this._made = RestrictedString.SteelMadeType(value);
-                }
-            }
+            get { return SteelMadeType.Value; }
+            set { SteelMadeType = value; }
         }
+
+        [System.ComponentModel.Browsable(false), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public bool ShouldSerializesteelMadeType() => SteelMadeType.HasValue;
+
         [XmlAttribute("ecc_calc")]
         public bool EccentricityCalc { get; set; } // bool
 

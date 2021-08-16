@@ -311,10 +311,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCase.Guid},
+                {"Guid", loadCase.Guid.ToString()},
                 {"Name", loadCase.Name},
-                {"Type", loadCase.Type},
-                {"DurationClass", loadCase.DurationClass}
+                {"Type", loadCase.Type.ToString()},
+                {"DurationClass", loadCase.DurationClass.ToString()}
             };
         }
         
@@ -324,13 +324,14 @@ namespace FemDesign
         /// <param name="loadCombination">LoadCombination.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "Name", "LoadCases", "Gammas"})]
+        [MultiReturn(new[]{"Guid", "Name", "Type", "LoadCases", "Gammas"})]
         public static Dictionary<string, object> LoadCombinationDeconstruct(FemDesign.Loads.LoadCombination loadCombination)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", loadCombination.Guid},
                 {"Name", loadCombination.Name},
+                {"Type", loadCombination.Type.ToString()},
                 {"LoadCases", loadCombination.GetLoadCaseGuidsAsString()},
                 {"Gammas", loadCombination.GetGammas()}
             };
@@ -339,15 +340,24 @@ namespace FemDesign
         /// <summary>
         /// Deconstruct basic material information
         /// </summary>
+        /// <param name="material">FemDesign.Materials.Material or a timber panel type timberPanelLibraryData or cltDataLibraryType.</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
-        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.IMaterial material)
         {
+            string standard = null;
+            string country = null;
+            if (material is Materials.Material mat)
+            {
+                standard = mat.Standard;
+                country = mat.Country;
+            }
+
             return new Dictionary<string, object>
             {
                 {"Guid", material.Guid},
-                {"Standard", material.Standard},
-                {"Country", material.Country},
+                {"Standard", standard},
+                {"Country", country},
                 {"Name", material.Name}
             };
         }
@@ -385,7 +395,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", model.Guid},
-                {"CountryCode", model.Country},
+                {"CountryCode", model.Country.ToString()},
                 {"Bars", model.Entities.Bars},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
                 {"Shells", model.Entities.Slabs},

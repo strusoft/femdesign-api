@@ -71,8 +71,8 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                ConnectedLines._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + ConnectedLines._instance.ToString();
+                _instance++;
+                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 

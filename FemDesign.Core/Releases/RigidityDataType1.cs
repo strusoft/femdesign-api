@@ -16,14 +16,7 @@ namespace FemDesign.Releases
         [XmlElement("plastic_limit_forces", Order=2)]
         public Releases.MotionsPlasticLimits PlasticLimitForces { get; set; }
         [XmlAttribute("detach")]
-        public string _detach; // detach_type
-        [XmlIgnore]
-        public string Detach
-        {
-            get {return this._detach;}
-            set {this._detach = RestrictedString.DetachType(value);}
-
-        }
+        public DetachType Detach { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Globalization;
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Reinforcement
 {
@@ -22,7 +21,7 @@ namespace FemDesign.Reinforcement
         /// <param name="face">"top"/"bottom"</param>
         /// <param name="cover">Reinforcement concrete cover.</param>
         /// <returns></returns>
-        public static Straight ReinforcementLayout(string direction, double space, string face, double cover)
+        public static Straight ReinforcementLayout(ReinforcementDirection direction, double space, Face face, double cover)
         {
             return new Straight(direction, space, face, cover);
         }

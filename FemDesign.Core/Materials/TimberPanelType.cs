@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -8,7 +9,7 @@ namespace FemDesign.Materials
     /// timber_application_data
     /// </summary>
     [System.Serializable]
-    public partial class TimberPanelType
+    public partial class TimberPanelType : IMaterial
     {
         /// <summary>
         /// factors
@@ -92,6 +93,24 @@ namespace FemDesign.Materials
             {
                 this._gluedNarrowSides = value;
             }
+        }
+
+        public string Name {
+            get {
+                if (PanelType is CltPanelLibraryType clt) return clt.Name;
+                else if (PanelType is TimberPanelData timber) return timber.Name;
+                else throw new NotImplementedException();
+            }
+            set {
+                if (PanelType is CltPanelLibraryType clt) clt.Name = value;
+                else if (PanelType is TimberPanelData timber) timber.Name = value;
+                else throw new NotImplementedException();
+            }
+        }
+        
+        public Guid Guid { 
+            get => PanelType.Guid; 
+            set => PanelType.Guid = value;
         }
 
         private TimberPanelType()

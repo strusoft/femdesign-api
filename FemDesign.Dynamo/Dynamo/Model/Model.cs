@@ -24,7 +24,7 @@ namespace FemDesign
         [IsVisibleInDynamoLibrary(true)]
         public string GetCountry()
         {
-            return Country;
+            return Country.ToString();
         }
 
         #region dynamo
@@ -96,16 +96,10 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model CreateNewModel([DefaultArgument("\"S\"")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
-            //
-            if (countryCode == null)
-            {
-                countryCode = "S";
-            }
-
-            // create model
-            Model model = new Model(countryCode);
+            // Create model
+            Model model = new Model(EnumParser.Parse<Country>(countryCode));
             var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
             model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
             return model;
@@ -121,11 +115,11 @@ namespace FemDesign
         /// <param name="loadCombinations">Load combinations.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations)
+        public static Model CreateNewModel([DefaultArgument("\"S\"")] string countryCode, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations)
         {
             var _elements = elements.Cast<IStructureElement>().ToList();
             var _loads = loads.Cast<ILoadElement>().ToList();
-            Model fdModel = new Model(countryCode, _elements, _loads, loadCases, loadCombinations);
+            Model fdModel = new Model(EnumParser.Parse<Country>(countryCode), _elements, _loads, loadCases, loadCombinations);
 
             return fdModel;
         }
