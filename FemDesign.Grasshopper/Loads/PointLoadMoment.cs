@@ -45,8 +45,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d _moment = moment.FromRhino();
 
             //
-            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.PointLoad = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, "moment");
+            FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, Loads.ForceLoadType.Moment);
         
             // return 
             DA.SetData(0, obj);
@@ -56,7 +55,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PointLoadMoment;
             }
         }
         public override Guid ComponentGuid

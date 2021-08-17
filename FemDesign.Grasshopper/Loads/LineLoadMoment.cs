@@ -64,8 +64,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
             FemDesign.Geometry.FdVector3d _startForce = startForce.FromRhino();
             FemDesign.Geometry.FdVector3d _endForce = endForce.FromRhino();
-            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.LineLoad = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, "moment");
+            FemDesign.Loads.LineLoad obj = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, Loads.ForceLoadType.Moment);
 
             // return
             DA.SetData(0, obj);
@@ -74,7 +73,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LineLoadMoment;
             }
         }
         public override Guid ComponentGuid

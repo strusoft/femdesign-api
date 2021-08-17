@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
@@ -93,7 +94,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
   
-            List<FemDesign.Loads.GenericLoadObject> loads = new List<FemDesign.Loads.GenericLoadObject>();
+            List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
             if (!DA.GetDataList(7, loads))
             {
                 // pass
@@ -111,7 +112,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.Supports.GenericSupportObject> supports = new List<FemDesign.Supports.GenericSupportObject>();
+            List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
             if (!DA.GetDataList(10, supports))
             {
                 // pass
@@ -134,23 +135,17 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-
-            // supports
-            List<object> _loads = FemDesign.Loads.GenericLoadObject.ToObjectList(loads);
-            List<object> _supports = FemDesign.Supports.GenericSupportObject.ToObjectList(supports);
+            List<object> _loads = loads.Cast<object>().ToList();
             
-            //
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
 
-            // return
             DA.SetData(0, model);
-
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ModelAddElements;
             }
         }
         public override Guid ComponentGuid

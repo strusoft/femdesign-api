@@ -69,7 +69,7 @@ namespace FemDesign.Grasshopper
             Geometry.FdVector3d v = dir.FromRhino();
 
             // create obj
-            Loads.GenericLoadObject obj = new Loads.GenericLoadObject(new Loads.LineTemperatureLoad(edge, v, vals, lc, comment));
+            Loads.LineTemperatureLoad obj = new Loads.LineTemperatureLoad(edge, v, vals, lc, comment);
 
 
             // return
@@ -79,7 +79,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LineTempLoad;
             }
         }
         public override Guid ComponentGuid

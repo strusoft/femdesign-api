@@ -13,6 +13,10 @@ namespace FemDesign.Calculate
     {
         [XmlAttribute("command")]
         public string Command = "$ DOC SAVEDOCX"; // token, fixed
+        
+        /// <summary>
+        /// Filepath to where to save generated .docx. Extension should be .docx.
+        /// </summary>
         [XmlElement("filename")]
         public string FilePath { get; set; } // SZPATH
         
@@ -27,9 +31,9 @@ namespace FemDesign.Calculate
         {
             //
             string extension = Path.GetExtension(filePath);
-            if (extension != ".dsc")
+            if (extension != ".docx")
             {
-                throw new System.ArgumentException("Incorrect file-extension. Expected .dsc. CmdSaveDocx failed.");
+                throw new System.ArgumentException("Incorrect file-extension. Expected .docx. CmdSaveDocx failed.");
             }
 
             //

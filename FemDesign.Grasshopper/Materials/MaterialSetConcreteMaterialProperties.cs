@@ -71,7 +71,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.MaterialSetConcreteMaterialProperties;
             }
         }
         public override Guid ComponentGuid

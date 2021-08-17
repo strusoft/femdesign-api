@@ -38,6 +38,23 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Move a point p along vector v
+        /// </summary>
+        public static FdPoint3d operator +(FdPoint3d p, FdVector3d v) => new FdPoint3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
+        /// <summary>
+        /// Move a point p along vector v
+        /// </summary>
+        public static FdPoint3d operator +(FdVector3d v, FdPoint3d p) => new FdPoint3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
+        /// <summary>
+        /// Move a point p along vector -v
+        /// </summary>
+        public static FdPoint3d operator -(FdPoint3d p, FdVector3d v) => new FdPoint3d(p.X - v.X, p.Y - v.Y, p.Z - v.Z);
+        /// <summary>
+        /// Create vector from v2 to v1
+        /// </summary>
+        public static FdVector3d operator -(FdPoint3d v1, FdPoint3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+
+        /// <summary>
         /// Construct FdPoint3d in origin
         /// </summary>
         public static FdPoint3d Origin()

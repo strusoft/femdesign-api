@@ -52,8 +52,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
 
             //
-            FemDesign.Loads.GenericLoadObject obj = new FemDesign.Loads.GenericLoadObject();
-            obj.SurfaceLoad = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, comment);
+            FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, comment);
 
             // return
             DA.SetData(0, obj);
@@ -62,7 +61,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.SurfaceLoadVariable;
             }
         }
         public override Guid ComponentGuid

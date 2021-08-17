@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.SectionDatabaseDefault;
            }
        }
        public override Guid ComponentGuid

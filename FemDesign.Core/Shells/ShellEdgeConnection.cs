@@ -81,7 +81,20 @@ namespace FemDesign.Shells
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
-        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(Releases.RigidityDataType3.Define(motions, rotations))
+        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(new Releases.RigidityDataType3(motions, rotations))
+        {
+
+        }
+
+        /// <summary>
+        /// ShellEdgeConnection
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="motions">Motions.</param>
+        /// <param name="motionsPlasticLimits">Motions plastic limit forces</param>
+        /// <param name="rotations">Rotations.</param>
+        /// <param name="rotationsPlasticLimits">Rotations plastic limit forces</param>
+        public ShellEdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits))
         {
 
         }

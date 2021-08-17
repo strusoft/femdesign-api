@@ -25,13 +25,14 @@ namespace FemDesign.Calculate
         /// <param name="calcFreq">Eigenfrequencies.</param>
         /// <param name="calcSeis">Seismic analysis.</param>
         /// <param name="calcDesign">Design calculations.</param>
+        /// <param name="calcFootfall">Footfall analysis.</param>
         /// <param name="elemfine">Fine or standard elements.</param>
         /// <param name="diaphragm">Diaphragm calculation</param>
         /// <param name="peaksmoothing">Peak smoothing of internal forces</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Analysis Define([DefaultArgument("Stage.Default()")] Stage stage, [DefaultArgument("Comb.Default()")] Comb comb, [DefaultArgument("Freq.Default()")] Freq freq, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGmax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool elemfine = false, bool diaphragm = false, bool peaksmoothing = false)
+        public static Analysis Define([DefaultArgument("Stage.Default()")] Stage stage, [DefaultArgument("Comb.Default()")] Comb comb, [DefaultArgument("Freq.Default()")] Freq freq, [DefaultArgument("Footfall.Default()")] Footfall footfall, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGmax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemfine = false, bool diaphragm = false, bool peaksmoothing = false)
         {
-            return new Analysis(stage, comb, freq, calcCase, calcCStage, calcImpf, calcComb, calcGmax, calcStab, calcFreq, calcSeis, calcDesign, elemfine, diaphragm, peaksmoothing);
+            return new Analysis(stage, comb, freq, footfall, calcCase, calcCStage, calcImpf, calcComb, calcGmax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemfine, diaphragm, peaksmoothing);
         }
         #endregion
     }

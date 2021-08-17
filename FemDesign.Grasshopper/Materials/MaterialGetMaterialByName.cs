@@ -21,24 +21,21 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get input
             FemDesign.Materials.MaterialDatabase materialDatabase = null;
             string materialName = null;
-            if (!DA.GetData(0, ref materialDatabase)) { return; }
-            if (!DA.GetData(1, ref materialName)) { return; }
-            if (materialDatabase == null || materialName == null) { return; }
+            if (!DA.GetData(0, ref materialDatabase)) return;
+            if (!DA.GetData(1, ref materialName)) return;
+            if (materialDatabase == null || materialName == null) return;
 
-            //
-            FemDesign.Materials.Material material = FemDesign.Materials.Material.MaterialByName(materialDatabase, materialName);
+            FemDesign.Materials.Material material = materialDatabase.MaterialByName(materialName);
 
-            // set output
             DA.SetData(0, material);
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.MaterialGetMaterialByName;
             }
         }
         public override Guid ComponentGuid

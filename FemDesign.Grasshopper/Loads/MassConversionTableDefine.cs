@@ -39,8 +39,7 @@ namespace FemDesign.Grasshopper
             if (loadCases == null || factors == null) { return; }
             
             //
-            FemDesign.Loads.MassConversionTable massConversionTable = new FemDesign.Loads.MassConversionTable(factors, loadCases);
-            FemDesign.Loads.GenericLoadObject obj = new Loads.GenericLoadObject(massConversionTable);
+            FemDesign.Loads.MassConversionTable obj = new FemDesign.Loads.MassConversionTable(factors, loadCases);
 
             // return
             DA.SetData(0, obj);
@@ -49,7 +48,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.MassConversionTableDefine;
             }
         }
         public override Guid ComponentGuid

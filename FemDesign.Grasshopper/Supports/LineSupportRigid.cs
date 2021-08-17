@@ -62,14 +62,12 @@ namespace FemDesign.Grasshopper
             // convert geometry
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
             
-            //
-            FemDesign.Supports.GenericSupportObject obj = new FemDesign.Supports.GenericSupportObject();
-            obj.LineSupport = FemDesign.Supports.LineSupport.Rigid(edge, movingLocal, identifier);
+            var obj = FemDesign.Supports.LineSupport.Rigid(edge, movingLocal, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
-                obj.LineSupport.Group.LocalY = v.FromRhino();
+                obj.Group.LocalY = v.FromRhino();
             }
 
             // else orient coordinate system to GCS
@@ -77,7 +75,7 @@ namespace FemDesign.Grasshopper
             {
                 if (orientLCS)
                 {  
-                    obj.LineSupport.Group.OrientCoordinateSystemToGCS();
+                    obj.Group.OrientCoordinateSystemToGCS();
                 }
             }
 
@@ -89,7 +87,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LineSupportRigid;
             }
         }
         public override Guid ComponentGuid

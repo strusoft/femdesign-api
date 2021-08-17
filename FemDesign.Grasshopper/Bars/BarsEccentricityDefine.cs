@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.BarEccentricityDefine;
             }
         }
         public override Guid ComponentGuid

@@ -69,10 +69,16 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
-        public DocTable(ResultType resultType, int caseIndex = ALL)
+        public DocTable(ResultType resultType, int? caseIndex = null)
         {
+            int cIndex;
+            if (caseIndex == null)
+                cIndex = GetDefaultCaseIndex(resultType);
+            else
+                cIndex = (int)caseIndex;
+
             ListProc = resultType;
-            CaseIndex = caseIndex;
+            CaseIndex = cIndex;
             ResType = GetResType(resultType);
         }
 
@@ -86,12 +92,22 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("frCas"))
+            if (r.EndsWith("LoadCase"))
                 return 1;
-            if (r.StartsWith("frComb"))
+            if (r.EndsWith("LoadCombination"))
                 return 3;
 
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
+        }
+
+        private int GetDefaultCaseIndex(ResultType resultType)
+        {
+            if (resultType.ToString().EndsWith("LoadCase"))
+                return -65536; // All load cases
+            if (resultType.ToString().EndsWith("LoadCombination"))
+                return -1; // All load combinations
+
+            throw new FormatException($"Default case index of ResultType.{resultType} not known.");
         }
     }
 }

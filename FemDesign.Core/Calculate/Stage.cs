@@ -37,7 +37,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Construction stages method.
         /// </summary>
-        /// <param name="method">Ghost construction method. True/false. If false incremental method is used.</param>
+        /// <param name="ghost">Ghost construction method. True/false. If false incremental method is used.</param>
         public static Stage Define(bool ghost = false)
         {
             return new Stage(ghost);

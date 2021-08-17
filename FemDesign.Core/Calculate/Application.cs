@@ -199,6 +199,7 @@ namespace FemDesign.Calculate
             FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
+
         public bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
         {
             FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);

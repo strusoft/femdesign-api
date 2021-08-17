@@ -37,15 +37,15 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, obj.Guid);
             DA.SetData(1, obj.Name);
-            DA.SetData(2, obj.Type);
-            DA.SetData(3, obj.DurationClass);
+            DA.SetData(2, obj.Type.ToString());
+            DA.SetData(3, obj.DurationClass.ToString());
             
        }
        protected override System.Drawing.Bitmap Icon
        {
            get
            {
-                return null;
+                return FemDesign.Properties.Resources.LoadCaseDeconstruct;
            }
        }
        public override Guid ComponentGuid

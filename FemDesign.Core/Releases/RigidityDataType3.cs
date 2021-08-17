@@ -42,7 +42,6 @@ namespace FemDesign.Releases
         /// </summary>
         private RigidityDataType3()
         {
-            
         }
 
         /// <summary>
@@ -53,19 +52,18 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
+        /// Construct RigidityDataType3 with default friction
+        /// </summary>
+        public RigidityDataType3(Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits) : base(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits)
+        {
+        }
+
+        /// <summary>
         /// Construct RigidityDataType3 with defined friction
         /// </summary>
         public RigidityDataType3(Motions motions, Rotations rotations, double friction) : base(motions, rotations)
         {
             this.Friction = friction;
-        }
-
-        /// <summary>
-        /// Construct simple RigidityDataType3 (linear stiffness).
-        /// </summary>
-        public static RigidityDataType3 Define(Motions motions, Rotations rotations)
-        {
-            return new RigidityDataType3(motions, rotations);
         }
 
         /// <summary>

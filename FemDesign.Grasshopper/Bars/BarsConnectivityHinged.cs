@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ConnectivityHinged;
             }
         }
         public override Guid ComponentGuid

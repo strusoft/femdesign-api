@@ -113,7 +113,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.WallVariableThickness;
             }
         }
         public override Guid ComponentGuid

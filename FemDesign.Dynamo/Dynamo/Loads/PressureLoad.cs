@@ -33,7 +33,7 @@ namespace FemDesign.Loads
             Geometry.FdVector3d _loadDirection = Geometry.FdVector3d.FromDynamo(direction).Normalize();
 
             // create SurfaceLoad
-            PressureLoad _pressureLoad = PressureLoad.Define(region, _loadDirection, loadCase, z0, q0, qh, comment);
+            PressureLoad _pressureLoad = new PressureLoad(region, _loadDirection, z0, q0, qh, loadCase, comment, false, ForceLoadType.Force);
             return _pressureLoad;
         }
 

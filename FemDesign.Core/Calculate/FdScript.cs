@@ -55,14 +55,14 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
-        internal static FdScript CalculateStruxml(string struxmlPath, string mode, List<string> bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             FdScript obj = new FdScript();
 
             //
             obj.XmlAttrib = "fdscript.xsd";
             obj.StruxmlPath = struxmlPath;
-            obj.FileName = Path.GetFileName(obj.StruxmlPath).Split('.')[0];
+            obj.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
             obj.Cwd = Path.GetDirectoryName(obj.StruxmlPath);
             obj.FdScriptPath = obj.Cwd + @"\" + obj.FileName + ".fdscript";
 
@@ -86,9 +86,12 @@ namespace FemDesign.Calculate
             }
 
             // set save docx
-            if (docxTemplatePath != "")
+            if (docxTemplatePath != "" && docxTemplatePath != null)
             {
+                // path to .dsc-file (template file)
                 obj.DocxTemplatePath = docxTemplatePath;
+
+                // object containing command to generate .docx and path to generated .docx
                 obj.CmdSaveDocx = new CmdSaveDocx(obj.FileName + ".docx");
             }
 
@@ -149,7 +152,7 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            string mode = "RESMODE";
+            CmdUserModule mode = CmdUserModule.RESMODE;
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis);
             return fdScript;
@@ -160,23 +163,32 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            // get mode
+            CmdUserModule _mode = CmdUserModule.RCDESIGN;
             switch (mode)
             {
                 case "rc":
-                    mode = "RCDESIGN";
+                case "Rc":
+                case "RC":
+                case "RCDESIGN":
+                    _mode = CmdUserModule.RCDESIGN;
                     break;
                 case "steel":
-                    mode = "STEELDESIGN";
+                case "Steel":
+                case "STEEL":
+                case "STEELDESIGN":
+                    _mode = CmdUserModule.STEELDESIGN;
                     break;
                 case "timber":
-                    mode = "TIMBERDESIGN";
+                case "Timber":
+                case "TIMBER":
+                case "TIMBERDESIGN":
+                    _mode = CmdUserModule.TIMBERDESIGN;
                     break;
                 default:
                     throw new System.ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
             
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
+            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             return fdScript;
         }

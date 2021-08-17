@@ -45,9 +45,9 @@ namespace FemDesign.Loads
         
         [XmlElement("seismic_load", Order = 14)]
         public List<DummyXmlObject> SeismicLoads {get {return null;} set {value = null;}} // seismic_load_type
-        
+
         [XmlElement("footfall_analysis_data", Order = 15)]
-        public List<DummyXmlObject> FootfallAnalysisData {get {return null;} set {value = null;}} // footfall_type
+        public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
         
         [XmlElement("moving_load", Order = 16)]
         public List<DummyXmlObject> MovingLoads {get {return null;} set {value = null;}} // moving_load_type
@@ -64,7 +64,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads.
         /// </summary>
-        internal List<object> GetLoads()
+        public List<object> GetLoads()
         {
             var objs = new List<object>();
             objs.AddRange(this.PointLoads);
@@ -74,6 +74,7 @@ namespace FemDesign.Loads
             objs.AddRange(this.PressureLoads);
             objs.AddRange(this.SurfaceLoads);
             objs.AddRange(this.SurfaceTemperatureLoads);
+            objs.AddRange(this.FootfallAnalysisData);
             return objs;
         }
         

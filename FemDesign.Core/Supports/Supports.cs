@@ -18,9 +18,9 @@ namespace FemDesign.Supports
         [XmlElement("surface_support", Order = 3)] 
         public List<SurfaceSupport> SurfaceSupport = new List<SurfaceSupport>(); // surface_support
 
-        internal List<object> ListSupports()
+        public List<GenericClasses.ISupportElement> GetSupports()
         {
-            var objs = new List<object>();
+            var objs = new List<GenericClasses.ISupportElement>();
             objs.AddRange(this.PointSupport);
             objs.AddRange(this.LineSupport);
             objs.AddRange(this.SurfaceSupport);

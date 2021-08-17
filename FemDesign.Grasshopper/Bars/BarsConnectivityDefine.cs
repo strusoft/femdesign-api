@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ConnectivityDefine;
             }
         }
         public override Guid ComponentGuid

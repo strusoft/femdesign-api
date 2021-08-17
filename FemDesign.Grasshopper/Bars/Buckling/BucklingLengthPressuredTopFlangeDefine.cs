@@ -2,6 +2,7 @@
 using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
@@ -45,13 +46,14 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredTopFlange(beta, loadPosition, continuouslyRestrained));
+            VerticalAlignment alignment = EnumParser.Parse<VerticalAlignment>(loadPosition);
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredTopFlange(beta, alignment, continuouslyRestrained));
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PressuredFlangeTop;
             }
         }
         public override Guid ComponentGuid

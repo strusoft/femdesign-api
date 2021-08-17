@@ -15,12 +15,12 @@ namespace FemDesign.Grasshopper
 
         }
 
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("MaterialDatabase", "MaterialDatabase", "MaterialDatabase.", GH_ParamAccess.item);
         }
 
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("MaterialNames", "MaterialNames", "List of material names.", GH_ParamAccess.list);
         }
@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.MaterialDatabaseListMaterialNames;
             }
         }
 

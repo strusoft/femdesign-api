@@ -10,10 +10,10 @@ namespace FemDesign.Releases
     [System.Serializable]
     public partial class StiffBaseType
     {
-        [XmlAttribute("neg")]
-        public double _neg;
-
         [XmlIgnore]
+        private double _neg;
+
+        [XmlAttribute("neg")]
         public double Neg
         {
             get
@@ -26,10 +26,10 @@ namespace FemDesign.Releases
             }
         }
 
-        [XmlAttribute("pos")]
-        public double _pos;
-
         [XmlIgnore]
+        private double _pos;
+
+        [XmlAttribute("pos")]
         public double Pos
         {
             get

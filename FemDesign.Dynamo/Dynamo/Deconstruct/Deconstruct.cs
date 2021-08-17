@@ -311,10 +311,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCase.Guid},
+                {"Guid", loadCase.Guid.ToString()},
                 {"Name", loadCase.Name},
-                {"Type", loadCase.Type},
-                {"DurationClass", loadCase.DurationClass}
+                {"Type", loadCase.Type.ToString()},
+                {"DurationClass", loadCase.DurationClass.ToString()}
             };
         }
         
@@ -324,13 +324,14 @@ namespace FemDesign
         /// <param name="loadCombination">LoadCombination.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "Name", "LoadCases", "Gammas"})]
+        [MultiReturn(new[]{"Guid", "Name", "Type", "LoadCases", "Gammas"})]
         public static Dictionary<string, object> LoadCombinationDeconstruct(FemDesign.Loads.LoadCombination loadCombination)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", loadCombination.Guid},
                 {"Name", loadCombination.Name},
+                {"Type", loadCombination.Type.ToString()},
                 {"LoadCases", loadCombination.GetLoadCaseGuidsAsString()},
                 {"Gammas", loadCombination.GetGammas()}
             };
@@ -339,15 +340,24 @@ namespace FemDesign
         /// <summary>
         /// Deconstruct basic material information
         /// </summary>
+        /// <param name="material">FemDesign.Materials.Material or a timber panel type timberPanelLibraryData or cltDataLibraryType.</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
-        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.IMaterial material)
         {
+            string standard = null;
+            string country = null;
+            if (material is Materials.Material mat)
+            {
+                standard = mat.Standard;
+                country = mat.Country;
+            }
+
             return new Dictionary<string, object>
             {
                 {"Guid", material.Guid},
-                {"Standard", material.Standard},
-                {"Country", material.Country},
+                {"Standard", standard},
+                {"Country", country},
                 {"Name", material.Name}
             };
         }
@@ -385,7 +395,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", model.Guid},
-                {"CountryCode", model.Country},
+                {"CountryCode", model.Country.ToString()},
                 {"Bars", model.Entities.Bars},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
                 {"Shells", model.Entities.Slabs},
@@ -395,7 +405,7 @@ namespace FemDesign
                 {"Loads", model.Entities.Loads.GetLoads()},
                 {"LoadCases", model.Entities.Loads.LoadCases},
                 {"LoadCombinations", model.Entities.Loads.LoadCombinations},
-                {"Supports", model.Entities.Supports.ListSupports()},
+                {"Supports", model.Entities.Supports.GetSupports()},
                 {"Axes", axes},
                 {"Storeys", storeys}
             };
@@ -763,7 +773,7 @@ namespace FemDesign
         /// <param name="support">PointSupport or LineSupport</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "AnalyticalID", "Geometry", "MovingLocal", "LocalX", "LocalY", "Motions", "Rotations"})]
+        [MultiReturn(new[]{"Guid", "AnalyticalID", "Geometry", "MovingLocal", "LocalX", "LocalY", "Motions", "Rotations", "MotionsPlasticLimits", "RotationsPlasticLimits"})]
         public static Dictionary<string, object> SupportDeconstruct(object support)
         {
             if (support.GetType() == typeof(FemDesign.Supports.PointSupport))
@@ -773,15 +783,21 @@ namespace FemDesign
                 // catch pre-defined rigidity
                 Releases.Motions motions;
                 Releases.Rotations rotations;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
+                Releases.RotationsPlasticLimits rotationsPlasticLimits;
                 if (obj.Group.Rigidity != null)
                 {
                     motions = obj.Group.Rigidity.Motions;
                     rotations = obj.Group.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.Rigidity.PlasticLimitMoments;
                 }
                 else
                 {
                     motions = obj.Group.PredefRigidity.Rigidity.Motions;
                     rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitMoments;
                 }
 
                 return new Dictionary<string, object>
@@ -793,7 +809,9 @@ namespace FemDesign
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", rotations}
+                    {"Rotations", rotations},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", rotationsPlasticLimits}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.LineSupport))
@@ -803,15 +821,21 @@ namespace FemDesign
                 // catch pre-defined rigidity
                 Releases.Motions motions;
                 Releases.Rotations rotations;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
+                Releases.RotationsPlasticLimits rotationsPlasticLimits;
                 if (obj.Group.Rigidity != null)
                 {
                     motions = obj.Group.Rigidity.Motions;
                     rotations = obj.Group.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.Rigidity.PlasticLimitMoments;
                 }
                 else
                 {
                     motions = obj.Group.PredefRigidity.Rigidity.Motions;
                     rotations = obj.Group.PredefRigidity.Rigidity.Rotations;
+                    motionsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitForces;
+                    rotationsPlasticLimits = obj.Group.PredefRigidity.Rigidity.PlasticLimitMoments;
                 }
 
                 return new Dictionary<string, object>
@@ -823,7 +847,9 @@ namespace FemDesign
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
                     {"LocalY", obj.Group.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", rotations}
+                    {"Rotations", rotations},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", rotationsPlasticLimits}
                 };
             }
             else if (support.GetType() == typeof(FemDesign.Supports.SurfaceSupport))
@@ -832,13 +858,16 @@ namespace FemDesign
 
                 // catch pre-defined rigidity
                 Releases.Motions motions;
+                Releases.MotionsPlasticLimits motionsPlasticLimits;
                 if (obj.Rigidity != null)
                 {
                     motions = obj.Rigidity.Motions;
+                    motionsPlasticLimits = obj.Rigidity.PlasticLimitForces;
                 }
                 else
                 {
                     motions = obj.PredefRigidity.Rigidity.Motions;
+                    motionsPlasticLimits = obj.PredefRigidity.Rigidity.PlasticLimitForces;
                 }
 
                 return new Dictionary<string, object>
@@ -850,7 +879,9 @@ namespace FemDesign
                     {"LocalX", obj.CoordinateSystem.LocalX.ToDynamo()},
                     {"LocalY", obj.CoordinateSystem.LocalY.ToDynamo()},
                     {"Motions", motions},
-                    {"Rotations", "SurfaceSupport has no rotations property."}
+                    {"Rotations", "SurfaceSupport has no rotations property."},
+                    {"MotionsPlasticLimits", motionsPlasticLimits},
+                    {"RotationsPlasticLimits", "SurfaceSupport has no rotations plastic limits property."}
                 };
             }
             else
