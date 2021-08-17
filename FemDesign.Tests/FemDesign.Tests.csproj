@@ -57,6 +57,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

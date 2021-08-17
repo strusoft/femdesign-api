@@ -68,6 +68,12 @@
     <Compile Include="..\FemDesign.Core\AdvancedFem\CoverReferenceList.cs">
       <Link>Core\AdvancedFem\CoverReferenceList.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSection.cs">
+      <Link>Core\AuxiliaryResults\LabelledSection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSectionsGeometry.cs">
+      <Link>Core\AuxiliaryResults\LabelledSectionsGeometry.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Bar.cs">
       <Link>Core\Bars\Bar.cs</Link>
     </Compile>
@@ -256,6 +262,12 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\FdVector3d.cs">
       <Link>Core\Geometry\FdVector3d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\LineSegment.cs">
+      <Link>Core\Geometry\LineSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Polyline.cs">
+      <Link>Core\Geometry\Polyline.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\RectangleType.cs">
       <Link>Core\Geometry\RectangleType.cs</Link>
