@@ -14,7 +14,7 @@ namespace FemDesign.Materials
         /// <summary>
         /// factors
         /// </summary>
-        [XmlElement("factors", Order = 1)]
+        [XmlElement("factors")]
         public List<TimberFactors> _timberFactors;
         [XmlIgnore]
         public TimberFactors TimberFactors

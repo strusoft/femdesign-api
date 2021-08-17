@@ -47,7 +47,14 @@ namespace FemDesign.Calculate
             {
                 // get process information
                 Process firstProcess = processes[0];
-                this.FdPath = firstProcess.MainModule.FileName;
+                try
+                {
+                    this.FdPath = firstProcess.MainModule.FileName;
+                }
+                catch (System.Exception e)
+                {
+                    throw e;
+                }
                 this.FdVersion = firstProcess.MainModule.FileVersionInfo.FileVersion.Split(new char[] { '.' })[0];
             }
             

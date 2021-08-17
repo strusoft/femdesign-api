@@ -7,7 +7,7 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public partial class SimpleRegidityGroup
+    public partial class SimpleRigidityGroup
     {
         [XmlAttribute("type")]
         public MotionType MotionType;
@@ -22,7 +22,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private SimpleRegidityGroup()
+        private SimpleRigidityGroup()
         {
 
         }
@@ -47,7 +47,7 @@ namespace FemDesign.Supports
                 if (value != null && (value.Pos != 0.0 || value.Neg != 0.0))
                 {
                     rotation = new StiffBaseType() { Pos = 0, Neg = 0 };
-                    regidityGroup = null;
+                    rigidityGroup = null;
                     plasticLimitForces = new PlasticityType();
                     plasticLimitMoments = null;
                 }
@@ -64,7 +64,7 @@ namespace FemDesign.Supports
                 if (value != null && (value.Pos != 0.0 || value.Neg != 0.0))
                 {
                     movement = new StiffBaseType() { Pos = 0, Neg = 0 };
-                    regidityGroup = null;
+                    rigidityGroup = null;
                     plasticLimitForces = null;
                     plasticLimitMoments = new PlasticityType();
                 }
@@ -80,7 +80,7 @@ namespace FemDesign.Supports
             set {
                 plasticLimitForces = value;
                 if (value != null)
-                    regidityGroup = null;
+                    rigidityGroup = null;
             }
         }
 
@@ -92,17 +92,17 @@ namespace FemDesign.Supports
             set { 
                 plasticLimitMoments = value;
                 if (value != null)
-                    regidityGroup = null; 
+                    rigidityGroup = null; 
             } 
         }
 
         [XmlIgnore]
-        private SimpleRegidityGroup regidityGroup;
+        private SimpleRigidityGroup rigidityGroup;
         [XmlElement("rigidity_group", Order = 6)]
-        public SimpleRegidityGroup RegidityGroup { 
-            get => regidityGroup; 
+        public SimpleRigidityGroup RigidityGroup { 
+            get => rigidityGroup; 
             set { 
-                regidityGroup = value;
+                rigidityGroup = value;
                 if (value != null)
                 {
                     movement = null;
@@ -136,10 +136,10 @@ namespace FemDesign.Supports
             }
         }
 
-        internal Directed(FdVector3d direction, SimpleRegidityGroup regidityGroup)
+        internal Directed(FdVector3d direction, SimpleRigidityGroup rigidityGroup)
         {
             Direction = direction;
-            RegidityGroup = regidityGroup;
+            RigidityGroup = rigidityGroup;
         }
     }
 }
