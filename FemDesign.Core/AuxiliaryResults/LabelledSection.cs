@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign;
@@ -7,6 +8,9 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.AuxiliaryResults
 {
+    /// <summary>
+    /// Labelled section. Used for extracting detailed results along a section line or polyline.
+    /// </summary>
     [System.Serializable]
     public class LabelledSection : EntityBase, IStructureElement
     {
@@ -15,8 +19,12 @@ namespace FemDesign.AuxiliaryResults
         public static void ResetInstanceCount() => instances = 0;
         [XmlElement("line_segment")]
         public LineSegment _lineSegment;
-        [XmlElement("line_segment")]
+        [XmlElement("polyline")]
         public Polyline _polyline;
+        /// <summary>
+        /// The verticies of the labelled section. 2 verticies for line geometry and 3 or more for polyline geometry.
+        /// </summary>
+        [XmlIgnore]
         public List<FdPoint3d> Verticies { 
             get
             {
@@ -51,13 +59,24 @@ namespace FemDesign.AuxiliaryResults
         public string Name { get; set; }
         
         /// <summary>
-        /// Construct labelled section
+        /// Parameterless contructor for serialization
         /// </summary>
-        /// <param name="verticies"></param>
-        /// <param name="identifier"></param>
+        private LabelledSection() { }
+
+        /// <summary>
+        /// Construct a labelled section
+        /// </summary>
+        /// <param name="verticies">Verticies</param>
+        /// <param name="identifier">Identifier</param>
         public LabelledSection(List<FdPoint3d> verticies, string identifier = "LS")
         {
             Initialize(verticies, identifier);
+        }
+
+        /// <inheritdoc cref="LabelledSection(List{FdPoint3d}, string)"/>
+        public LabelledSection(string identifier = "LS", params FdPoint3d[] verticies)
+        {
+            Initialize(verticies.ToList(), identifier);
         }
 
         private void Initialize(List<FdPoint3d> verticies, string identifier)
@@ -66,7 +85,7 @@ namespace FemDesign.AuxiliaryResults
             this.EntityCreated();
 
             Verticies = verticies;
-            Name = identifier + "." + instances.ToString();
+            Name = $"{identifier}.{instances}";
         }
     }
 }

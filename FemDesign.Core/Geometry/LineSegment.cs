@@ -18,6 +18,7 @@ namespace FemDesign.Geometry
         [XmlElement("end_point")]
         public FdPoint3d EndPoint;
 
+        [XmlIgnore]
         public List<FdPoint3d> Verticies { 
             get {
                 return new List<FdPoint3d>() { StartPoint, EndPoint };

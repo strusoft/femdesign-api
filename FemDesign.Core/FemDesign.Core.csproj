@@ -49,7 +49,7 @@
     <Compile Include="AdvancedFem\Cover.cs" />
     <Compile Include="AdvancedFem\CoverReferenceList.cs" />
     <Compile Include="AuxiliaryResults\LabelledSectionsGeometry.cs" />
-    <Compile Include="AuxiliaryResults\LabelledSections.cs" />
+    <Compile Include="AuxiliaryResults\LabelledSection.cs" />
     <Compile Include="Bars\Bar.cs" />
     <Compile Include="Bars\BarPart.cs" />
     <Compile Include="Bars\Buckling\BucklingData.cs" />
