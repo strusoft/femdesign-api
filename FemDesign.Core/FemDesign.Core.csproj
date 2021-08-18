@@ -83,7 +83,7 @@
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />
     <Compile Include="Calculate\LoadCombination.cs" />
-    <Compile Include="Calculate\ResultType.cs" />
+    <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Stage.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />
@@ -96,7 +96,9 @@
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
-    <Compile Include="GenericClasses\IResult.cs" />
+    <Compile Include="Results\ResultAttribute.cs" />
+    <Compile Include="Results\ResultTypeEnum.cs" />
+    <Compile Include="Results\IResult.cs" />
     <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />

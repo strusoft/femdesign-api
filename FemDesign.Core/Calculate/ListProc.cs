@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Calculate
 {
     [System.Serializable]
-    public enum ResultType 
+    public enum ListProc 
     {
         /* LOADCASES*/
         /// <summary>

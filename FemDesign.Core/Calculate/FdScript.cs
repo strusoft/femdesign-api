@@ -1,8 +1,10 @@
 // https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.Results;
 
 
 namespace FemDesign.Calculate
@@ -185,7 +187,7 @@ namespace FemDesign.Calculate
                     _mode = CmdUserModule.TIMBERDESIGN;
                     break;
                 default:
-                    throw new System.ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
+                    throw new ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
             
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
@@ -193,6 +195,13 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
+        /// <summary>
+        /// Generate a FEM-Design documentation.
+        /// </summary>
+        /// <param name="strPath">The .str file to generate base the documentation on.</param>
+        /// <param name="docxTemplatePath">The .docx template path for the documentation.</param>
+        /// <param name="endSession">Close the FEM-Design program after successfully generating documentation.</param>
+        /// <returns>An <see cref="FdScript"/> for generating documentation.</returns>
         public static FdScript CreateDocumentation(string strPath, string docxTemplatePath, bool endSession = true)
         {
             FdScript fdScript = FdScript.ReadStr(strPath, null);
@@ -208,6 +217,24 @@ namespace FemDesign.Calculate
             }
             
             return fdScript;
+        }
+
+        /// <summary>
+        /// Create fdscript to open and extract results from a FEM-Design .str model.
+        /// </summary>
+        /// <param name="strPath">Path to model with results to be extracted.</param>
+        /// <param name="results">Results to be extracted.</param>
+        public static FdScript ExtractResults(string strPath, params Results.ResultType[] results)
+        {
+            var caseListProcs = results.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
+            var combinationListProcs = results.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
+            var listProcs = caseListProcs.Concat(combinationListProcs);
+
+            var dir = Path.GetDirectoryName(strPath);
+            var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var bscPaths = batchResults.Select(bsc => bsc.BscPath).ToList();
+
+            return ReadStr(strPath, bscPaths);
         }
 
         /// <summary>

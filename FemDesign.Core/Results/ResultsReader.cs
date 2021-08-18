@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace FemDesign.Results
 {
-    using ResultParserType = Func<string[], CsvParser, Dictionary<string, string>, GenericClasses.IResult>;
+    using ResultParserType = Func<string[], CsvParser, Dictionary<string, string>, Results.IResult>;
 
     /// <summary>
     /// Reads FEM-Design results from list tables text files.
@@ -23,7 +23,7 @@ namespace FemDesign.Results
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
 
-            Type iResultType = typeof(GenericClasses.IResult);
+            Type iResultType = typeof(Results.IResult);
             var resultTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.GetName().FullName.StartsWith("FemDesign"))
                 .SelectMany(s => s.GetTypes())
@@ -36,8 +36,8 @@ namespace FemDesign.Results
 
         protected sealed override void BeforeParse(Type type)
         {
-            if (!typeof(GenericClasses.IResult).IsAssignableFrom(type))
-                throw new ArgumentException($"{type.FullName} is not a result type of {typeof(GenericClasses.IResult).FullName}.");
+            if (!typeof(Results.IResult).IsAssignableFrom(type))
+                throw new ArgumentException($"{type.FullName} is not a result type of {typeof(Results.IResult).FullName}.");
             if (!ResultTypesRowParsers.ContainsKey(type))
                 throw new NotImplementedException($"Parser for {type} has not yet been implemented.");
 
@@ -67,10 +67,10 @@ namespace FemDesign.Results
         /// Parses all of a results file. Returns a mixed list of all results in file.
         /// </summary>
         /// <returns></returns>
-        public List<GenericClasses.IResult> ParseAll()
+        public List<Results.IResult> ParseAll()
         {
             Type resultType;
-            List<GenericClasses.IResult> mixedResults = new List<GenericClasses.IResult>();
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
 
             MethodInfo method = typeof(ResultsReader).GetMethod(
                 "ParseAll",
@@ -111,7 +111,7 @@ namespace FemDesign.Results
         /// </summary>
         /// <param name="resultsFilePath">Results file.</param>
         /// <returns></returns>
-        public static List<GenericClasses.IResult> Parse(string resultsFilePath)
+        public static List<Results.IResult> Parse(string resultsFilePath)
         {
             var reader = new ResultsReader(resultsFilePath);
             return reader.ParseAll();
@@ -150,7 +150,7 @@ namespace FemDesign.Results
 
         private Regex GetIdentificationExpression(Type type)
         {
-            if (!typeof(GenericClasses.IResult).IsAssignableFrom(type))
+            if (!typeof(Results.IResult).IsAssignableFrom(type))
                 throw new Exception();
 
             PropertyInfo propertyInfo = type.GetProperty("IdentificationExpression", BindingFlags.Static | BindingFlags.NonPublic);
@@ -161,7 +161,7 @@ namespace FemDesign.Results
 
         private Regex GetHeaderExpression(Type type)
         {
-            if (!typeof(GenericClasses.IResult).IsAssignableFrom(type))
+            if (!typeof(Results.IResult).IsAssignableFrom(type))
                 throw new Exception();
 
             PropertyInfo propertyInfo = type.GetProperty("HeaderExpression", BindingFlags.Static | BindingFlags.NonPublic);
@@ -172,7 +172,7 @@ namespace FemDesign.Results
 
         private ResultParserType GetRowParser(Type type)
         {
-            if (!typeof(GenericClasses.IResult).IsAssignableFrom(type))
+            if (!typeof(Results.IResult).IsAssignableFrom(type))
                 throw new Exception();
 
             MethodInfo mathodInfo = type.GetMethod("Parse", BindingFlags.Static | BindingFlags.NonPublic);

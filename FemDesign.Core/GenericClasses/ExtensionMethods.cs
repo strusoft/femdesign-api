@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Generic;
 
 namespace FemDesign
 {
@@ -15,9 +16,14 @@ namespace FemDesign
                 formatter.Serialize(ms, obj);
                 ms.Position = 0;
 
-                // return
                 return (T) formatter.Deserialize(ms);
             }
+        }
+
+        public static void GetListProc(this Results.ResultType result) 
+        {
+            
+
         }
     }
 }

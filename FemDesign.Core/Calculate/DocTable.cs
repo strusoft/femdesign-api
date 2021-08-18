@@ -48,7 +48,7 @@ namespace FemDesign.Calculate
         [XmlElement("version")]
         public string FemDesignVersion { get; set; } = "2000";
         [XmlElement("listproc")]
-        public ResultType ListProc { get; set; }
+        public ListProc ListProc { get; set; }
         
         [XmlElement("index")]
         public int CaseIndex { get; set; }
@@ -69,7 +69,7 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
-        public DocTable(ResultType resultType, int? caseIndex = null)
+        public DocTable(ListProc resultType, int? caseIndex = null)
         {
             int cIndex;
             if (caseIndex == null)
@@ -82,7 +82,7 @@ namespace FemDesign.Calculate
             ResType = GetResType(resultType);
         }
 
-        private int GetResType(ResultType resultType)
+        private int GetResType(ListProc resultType)
         {
             /*
             LT_CASE = 1,
@@ -100,7 +100,7 @@ namespace FemDesign.Calculate
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
 
-        private int GetDefaultCaseIndex(ResultType resultType)
+        private int GetDefaultCaseIndex(ListProc resultType)
         {
             if (resultType.ToString().EndsWith("LoadCase"))
                 return -65536; // All load cases

@@ -167,11 +167,11 @@
     <Compile Include="..\FemDesign.Core\Calculate\Freq.cs">
       <Link>Core\Calculate\Freq.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\ListProc.cs">
+      <Link>Core\Calculate\ListProc.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\LoadCombination.cs">
       <Link>Core\Calculate\LoadCombination.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\ResultType.cs">
-      <Link>Core\Calculate\ResultType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
@@ -559,6 +559,36 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Releases\StiffnessWithFriction.cs">
       <Link>Core\Releases\StiffnessWithFriction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarEndForce.cs">
+      <Link>Core\Results\BarEndForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\IResult.cs">
+      <Link>Core\Results\IResult.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
+      <Link>Core\Results\LineSupportReaction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\NodalDisplacement.cs">
+      <Link>Core\Results\NodalDisplacement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\PointSupportReaction.cs">
+      <Link>Core\Results\PointSupportReaction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\QuantityEstimation.cs">
+      <Link>Core\Results\QuantityEstimation.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultAttribute.cs">
+      <Link>Core\Results\ResultAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultsReader.cs">
+      <Link>Core\Results\ResultsReader.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
+      <Link>Core\Results\ResultTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
+      <Link>Core\Results\ShelllnternalForce.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
       <Link>Core\Sections\ComplexSection.cs</Link>
