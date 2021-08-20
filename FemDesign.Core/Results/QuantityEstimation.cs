@@ -335,4 +335,110 @@ namespace FemDesign.Results
             return new QuantityEstimationTimber(id, storey, structure, quality, section, unitWeight, subtotal, totalWeight, paintedArea);
         }
     }
+
+    /// <summary>
+    /// FemDesign "Quantity estimation, Timber" result
+    /// </summary>
+    public class QuantityEstimationProfiledPlate : IResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        public string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        public string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        public string Quality { get; }
+        /// <summary>
+        /// Section/Thickness identifier
+        /// </summary>
+        public string Section { get; }
+
+        public double Type { get; }
+        /// <summary>
+        /// Length of plate [m]
+        /// </summary>
+        public double Length { get; }
+        /// <summary>
+        /// Width of plate [m]
+        /// </summary>
+        public double Width { get; }
+        /// <summary>
+        /// Height of plate [m]
+        /// </summary>
+        public double Height { get; }
+        /// <summary>
+        /// Area of the plate [m2]
+        /// </summary>
+        public double Area { get; }
+        /// <summary>
+        /// Total weight [t]
+        /// </summary>
+        public double TotalWeight { get; }
+        /// <summary>
+        /// Count/Sum of sections
+        /// </summary>
+        public int Sum { get; }
+        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, double type, double length, double width, double height, double area, double totalWeight, int count)
+        {
+            Storey = storey;
+            Structure = structure;
+            Id = id;
+            Quality = quality;
+            Section = section;
+            Type = type;
+            Length = length;
+            Width = width;
+            Height = height;
+            Area = area;
+            TotalWeight = totalWeight;
+            Sum = count;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, {Id}";
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Profiled panel)");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"Quantity estimation, Profiled panel|Storey\t|\t*\[.+\]|TOTAL\t");
+            }
+        }
+
+        internal static QuantityEstimationProfiledPlate Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string storey = row[0] == "-" ? null : row[0];
+            string structure = row[1];
+            string id = row[2];
+            string quality = row[3];
+            string section = row[4];
+            double type = double.Parse(row[5], CultureInfo.InvariantCulture);
+            double length = double.Parse(row[6], CultureInfo.InvariantCulture);
+            double width = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double height = double.Parse(row[8], CultureInfo.InvariantCulture);
+            double area = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double weight = double.Parse(row[10], CultureInfo.InvariantCulture);
+            int count = int.Parse(row[11], CultureInfo.InvariantCulture);
+            return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, height, area, weight, count);
+        }
+    }
 }
