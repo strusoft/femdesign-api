@@ -8,7 +8,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Shells
 {
-    internal enum SlabType
+    public enum SlabType
     {
         [XmlEnum("plate")]
         Plate,
