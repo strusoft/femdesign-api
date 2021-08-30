@@ -15,7 +15,6 @@ namespace FemDesign.Loads
     {
         // TODO:
         //"seis_max",
-        //"deviation",
         //"notional"
 
         /// <summary>
@@ -87,5 +86,12 @@ namespace FemDesign.Loads
         [Parseable("seis_sym", "Seis_sym", "SEIS_SYM")]
         [XmlEnum("seis_sym")]
         Seis_sym,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parseable("deviation", "Deviation", "DEVIATION")]
+        [XmlEnum("deviation")]
+        Deviation,
     }
 }
