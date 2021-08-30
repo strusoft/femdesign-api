@@ -1583,11 +1583,11 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.SurfaceReinforcement.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.SurfaceReinforcements.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add obj
-            this.Entities.SurfaceReinforcement.Add(obj);
+            this.Entities.SurfaceReinforcements.Add(obj);
 
         }
 
@@ -1598,7 +1598,7 @@ namespace FemDesign
         /// <returns></returns>
         private bool SurfaceReinforcementInModel(Reinforcement.SurfaceReinforcement obj)
         {
-            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcement)
+            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcements)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -2445,7 +2445,7 @@ namespace FemDesign
                 }
 
                 // get surface reinforcement
-                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcement)
+                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcements)
                 {
                     if (surfaceReinforcement.BaseShell.Guid == item.SlabPart.Guid)
                     {
