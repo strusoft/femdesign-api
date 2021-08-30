@@ -13,10 +13,6 @@ namespace FemDesign.Loads
     /// </summary>
     public enum LoadCaseType
     {
-        // TODO:
-        //"seis_max",
-        //"notional"
-
         /// <summary>
         /// "Ordinary" load type
         /// </summary>
@@ -88,10 +84,24 @@ namespace FemDesign.Loads
         Seis_sym,
 
         /// <summary>
-        /// 
+        /// (Macro generated) "Deviation" load type
         /// </summary>
         [Parseable("deviation", "Deviation", "DEVIATION")]
         [XmlEnum("deviation")]
         Deviation,
+
+        /// <summary>
+        /// (Macro generated) "Notional" load type
+        /// </summary>
+        [Parseable("notional", "Notional", "NOTIONAL")]
+        [XmlEnum("notional")]
+        Notional,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parseable("seis_max", "Seis_max", "SeisMax", "SEIS_MAX")]
+        [XmlEnum("seis_max")]
+        Seis_max,
     }
 }
