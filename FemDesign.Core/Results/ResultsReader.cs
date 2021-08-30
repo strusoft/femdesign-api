@@ -20,6 +20,9 @@ namespace FemDesign.Results
         private Regex HeaderExpression;
         private Dictionary<Type, Regex> ResultTypesIdentificationExpressions;
         private Dictionary<Type, ResultParserType> ResultTypesRowParsers;
+
+        /// <inheritdoc cref="ResultsReader"/>
+        /// <param name="filePath">Path to a .txt/.csv file with listed results from FEM-Design</param>
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
 

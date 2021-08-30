@@ -10,10 +10,30 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Results
 {
+    public interface IQuantityEstimationResult : IResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        string Quality { get; }
+    }
+
     /// <summary>
     /// FemDesign "Quantity estimation, Concrete" result
     /// </summary>
-    public class QuantityEstimationConcrete : IResult
+    public class QuantityEstimationConcrete : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -32,11 +52,11 @@ namespace FemDesign.Results
         /// </summary>
         public string Quality { get; }
         /// <summary>
-        /// Volume quantity [m3]
+        /// Volume quantity [mm3]
         /// </summary>
         public double Volume { get; }
         /// <summary>
-        /// Formwork quantity [m2]
+        /// Formwork quantity [mm2]
         /// </summary>
         public double Formwork { get; }
 
@@ -86,7 +106,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Reinforcement" result
     /// </summary>
-    public class QuantityEstimationReinforcement : IResult
+    public class QuantityEstimationReinforcement : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -159,7 +179,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Steel" result
     /// </summary>
-    public class QuantityEstimationSteel : IResult
+    public class QuantityEstimationSteel : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -249,7 +269,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
-    public class QuantityEstimationTimber : IResult
+    public class QuantityEstimationTimber : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -339,7 +359,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
-    public class QuantityEstimationProfiledPlate : IResult
+    public class QuantityEstimationProfiledPlate : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier

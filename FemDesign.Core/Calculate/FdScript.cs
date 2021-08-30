@@ -219,13 +219,15 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
-        /// <summary>
         /// Create fdscript to open and extract results from a FEM-Design .str model.
         /// </summary>
         /// <param name="strPath">Path to model with results to be extracted.</param>
         /// <param name="results">Results to be extracted.</param>
-        public static FdScript ExtractResults(string strPath, params Results.ResultType[] results)
+        public static FdScript ExtractResults(string strPath, IEnumerable<ResultType> results = null)
         {
+            if (results == null)
+                return ReadStr(strPath);
+         
             var caseListProcs = results.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
             var combinationListProcs = results.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
             var listProcs = caseListProcs.Concat(combinationListProcs);
@@ -233,7 +235,7 @@ namespace FemDesign.Calculate
             var dir = Path.GetDirectoryName(strPath);
             var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
             var bscPaths = batchResults.Select(bsc => bsc.BscPath).ToList();
-
+                
             return ReadStr(strPath, bscPaths);
         }
 

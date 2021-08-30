@@ -14,13 +14,8 @@ namespace FemDesign.Results
         public readonly Type ResultType;
         public readonly ListProc CaseListProc;
         public readonly ListProc CombinationListProc;
-
-        public static int Instances = 0;
-
         public ResultAttribute(Type resultType, ListProc caseListProc, ListProc combinationListProc)
         {
-            Instances++;
-
             if (resultType == null)
                 throw new ArgumentNullException();
 
