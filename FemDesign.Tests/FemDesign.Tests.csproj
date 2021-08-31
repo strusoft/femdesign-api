@@ -66,9 +66,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
+    <ProjectReference Include="..\FemDesign.Core\ent.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
-      <Name>FemDesign.Core</Name>
+      <Name>ent</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

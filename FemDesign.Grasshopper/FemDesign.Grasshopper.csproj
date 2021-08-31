@@ -182,6 +182,7 @@
     <Compile Include="Releases\RotationsFree.cs" />
     <Compile Include="Releases\RotationsRigidLine.cs" />
     <Compile Include="Releases\RotationsRigidPoint.cs" />
+    <Compile Include="Results\ResultsRead.cs" />
     <Compile Include="Sections\SectionDatabaseAddSection.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
@@ -220,7 +221,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
-      <Name>FemDesign.Core</Name>
+      <Name>ent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
