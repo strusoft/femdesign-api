@@ -45,6 +45,24 @@ namespace FemDesign.Sections
         }
 
         /// <summary>
+        /// Get a Section from a SectionDatabase by name.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <param name="sectionName">Name of Section.</param>
+        /// <returns></returns>
+        public Section SectionByName(string sectionName)
+        {
+            foreach (Section section in this.Sections.Section)
+            {
+                if (section.Name == sectionName)
+                {
+                    return section;
+                }
+            }
+            throw new System.ArgumentException("Section was not found. Incorrect section name or empty section database.");
+        }
+
+        /// <summary>
         /// List the names of all Sections in SectionDatabase.
         /// </summary>
         /// <remarks>Action</remarks>
