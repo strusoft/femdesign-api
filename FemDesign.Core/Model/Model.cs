@@ -131,6 +131,29 @@ namespace FemDesign
             this.Standard = "EC";
             this.Country = country;
             this.End = "";
+
+            // Check if model contains entities, sections and materials, else these needs to be initialized.
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+            if (this.Sections == null)
+            {
+                this.Sections = new Sections.ModelSections();
+            }
+            if (this.Materials == null)
+            {
+                this.Materials = new Materials.Materials();
+            }
+            if (this.ReinforcingMaterials == null)
+            {
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            }
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
         }
 
         #region serialization

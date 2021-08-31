@@ -9,6 +9,16 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
+        /// <summary>
+        /// NOTE: CHANGE THIS TO YOUR LOCAL MATERIALS
+        /// </summary>
+        static readonly string MaterialsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "materialLibrary", "materials_S.struxml");
+
+        /// <summary>
+        /// NOTE: CHANGE THIS TO YOUR LOCAL SECTIONS
+        /// </summary>
+        static readonly string SectionsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "sectionLibrary", "sections.struxml");
+
         private static void Main(string[] args)
         {
             string samplesDir = System.IO.Directory.GetCurrentDirectory();
@@ -18,7 +28,8 @@ namespace FemDesign.Samples
 
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
-            TestGetResults();
+            CreateSimpleModel();
+            //TestGetResults();
         }
 
         private static void TestGetResults()
