@@ -29,7 +29,7 @@ namespace FemDesign.Samples
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
             CreatePostTensionedCable();
-            CreateSimpleModel();
+            //CreateSimpleModel();
             //TestGetResults();
         }
 

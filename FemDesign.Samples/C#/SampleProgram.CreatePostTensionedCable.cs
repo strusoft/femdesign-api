@@ -10,25 +10,37 @@ namespace FemDesign.Samples
     {
         private static void CreatePostTensionedCable()
         {
-            var edge = new Geometry.Edge(new Geometry.FdPoint3d(0, 0, 0), new Geometry.FdPoint3d(10, 0, 0), Geometry.FdVector3d.UnitZ());
+            // Define geometry
+            var p1 = new Geometry.FdPoint3d(0.0, 2.0, 0);
+            var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
+            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitY());
 
+            // Create beam
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml(MaterialsPath);
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml(SectionsPath);
 
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var bar = new Bars.Bar(edge, Bars.BarType.Beam, material, section, "B");
+            var bar = Bars.Bar.BeamDefine(
+                edge,
+                material,
+                sections: new Sections.Section[] { section },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                identifier: "B");
 
+            // Create Post-tensioned cable
             var shape = new Reinforcement.PtcShapeType(
-                start: new Reinforcement.PtcShapeStart() { Z= -0.3, Tangent = 0.0 },
+                start: new Reinforcement.PtcShapeStart() { Z= 0.0, Tangent = 0.0 },
                 intermediates: new List<Reinforcement.PtcShapeInner>()
                 {
-                    new Reinforcement.PtcShapeInner() { Position = 0.11, Z = 0.0, Tangent = 0.0 },
-                    new Reinforcement.PtcShapeInner() { Position = 0.22, Z = 0.1, Tangent = 0.0 },
-                    new Reinforcement.PtcShapeInner() { Position = 0.67, Z = 0.2, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.2, Z = -0.15, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.4, Z = -0.20, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.6, Z = -0.20, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.8, Z = -0.15, Tangent = 0.0 },
                 },
-                end: new Reinforcement.PtcShapeEnd() { Z = -0.12, Tangent = 0.0}
+                end: new Reinforcement.PtcShapeEnd() { Z = 0.0, Tangent = 0.0}
                 );
 
             var losses = new Reinforcement.PtcLosses(
@@ -41,10 +53,9 @@ namespace FemDesign.Samples
                 relaxationStress: 0.0);
 
             var manufacturing = new Reinforcement.PtcManufacturingType(
-                positions: new List<double>() { 0.0, 2.0, 4.0, 6.0, 8.0, 10.0 }, 
+                positions: new List<double>() { 0.3, 0.7 }, 
                 shiftX: 0.0,
-                shiftZ: 0.1
-                );
+                shiftZ: 0.1);
 
             var strandData = new Reinforcement.PtcStrandLibType(
                 name: "Custom ptc material",
@@ -53,23 +64,34 @@ namespace FemDesign.Samples
                 e_p: 195000.0,
                 density: 7.810,
                 relaxationClass: 2,
-                rho_1000: 0.0
-                );
+                rho_1000: 0.1);
 
-            var ptc = new Reinforcement.Ptc(bar, shape, losses, manufacturing, strandData, numberOfStrands: 3, identifier: "PTC");
+            var ptc = new Reinforcement.Ptc(
+                bar, 
+                shape, 
+                losses, 
+                manufacturing, 
+                strandData, 
+                jackingSide: Reinforcement.JackingSide.Start,
+                jackingStress: 1000.0,
+                numberOfStrands: 3, 
+                identifier: "PTC");
 
             var elements = new List<GenericClasses.IStructureElement>() { 
                 bar,
                 ptc
             };
 
+            // Create model
             Model model = new Model(Country.S, elements);
-            
-            string path = System.IO.Path.GetTempFileName() + ".struxml";
+
+            // Save model then open in FEM-Design
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string path = System.IO.Path.Combine(directory, "post_tensioned_cable.struxml");
             model.SerializeModel(path);
 
-            //var app = new Calculate.Application();
-            //app.OpenStruxml(path, false);
+            var app = new Calculate.Application();
+            app.OpenStruxml(path, true);
         }
     }
 }

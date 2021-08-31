@@ -7,6 +7,18 @@ using FemDesign.Bars;
 
 namespace FemDesign.Reinforcement
 {
+    public enum JackingSide
+    {
+        [XmlEnum("start")]
+        Start,
+        [XmlEnum("end")]
+        End,
+        [XmlEnum("start_then_end")]
+        StartThenEnd,
+        [XmlEnum("end_then_start")]
+        EndThenStart,
+    }
+
     [System.Serializable]
     public partial class PtcLosses
     {
@@ -106,7 +118,19 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("tangent")]
         public double Tangent { get; set; }
         [XmlAttribute("prior_inflection_pos")]
-        public double PriorInflectionPosition { get; set; }
+        public string _priorInflectionPosition;
+        [XmlIgnore]
+        public double? PriorInflectionPosition
+        {
+            get
+            {
+                return _priorInflectionPosition == null ? (double?)null : (double?)double.Parse(_priorInflectionPosition, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null; 
+            }
+        }
     }
 
     [System.Serializable]
@@ -117,7 +141,19 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("tangent")]
         public double Tangent { get; set; }
         [XmlAttribute("prior_inflection_pos")]
-        public double PriorInflectionPosition { get; set; }
+        public string _priorInflectionPosition;
+        [XmlIgnore]
+        public double? PriorInflectionPosition
+        {
+            get
+            {
+                return _priorInflectionPosition == null ? (double?)null : (double?)double.Parse(_priorInflectionPosition, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null;
+            }
+        }
     }
 
     [System.Serializable]
@@ -128,29 +164,29 @@ namespace FemDesign.Reinforcement
         [XmlElement("positions", Order = 1)]
         public string Positions
         {
-             get
-             {
-                 string str = "";
-                 
-                 for (int idx = 0; idx < this._positions.Length; idx++)
-                 {
-                     if (idx == 0)
-                     {
+            get
+            {
+                string str = "";
 
-                     }
-                     else
-                     {
-                         str = str + " ";
-                     }
+                for (int idx = 0; idx < this._positions.Length; idx++)
+                {
+                    if (idx == 0)
+                    {
 
-                     str = str + _positions[idx].ToString(System.Globalization.CultureInfo.InvariantCulture);
-                 }
+                    }
+                    else
+                    {
+                        str = str + " ";
+                    }
 
-                 return str;
-             }
-             set
-             {
-                 
+                    str = str + _positions[idx].ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                return str;
+            }
+            set
+            {
+
                 string[] vals = value.Split(' ');
                 double[] dbls = new double[vals.Length];
 
@@ -160,7 +196,7 @@ namespace FemDesign.Reinforcement
                 }
 
                 this._positions = dbls;
-             }
+            }
         }
 
         [XmlAttribute("shift_x")]
@@ -196,7 +232,7 @@ namespace FemDesign.Reinforcement
 
         [XmlElement("local_z", Order = 3)]
         public Geometry.FdVector3d LocalZ { get; set; }
-        
+
         [XmlElement("losses", Order = 4)]
         public PtcLosses Losses { get; set; }
 
@@ -222,7 +258,7 @@ namespace FemDesign.Reinforcement
         public int NumberOfStrands { get; set; }
 
         [XmlAttribute("jacking_side")]
-        public string JackingSide { get; set; }
+        public JackingSide JackingSide { get; set; }
 
         [XmlAttribute("jacking_stress")]
         public double JackingStress { get; set; }
@@ -247,17 +283,16 @@ namespace FemDesign.Reinforcement
         /// <param name="strand"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
-        public Ptc(Bars.Bar bar, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands = 3, string identifier = "PTC")
+        public Ptc(Bars.Bar bar, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
         {
             if (bar.BarPart.Edge.Type == "line")
             {
                 var start = bar.BarPart.Edge.Points[0];
                 var end = bar.BarPart.Edge.Points[1];
-                Initialize(start, end, bar.BarPart.Guid, shape, losses, manufacturing, strand, numberOfStrands, identifier);
+                Initialize(start, end, bar.BarPart.Guid, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
             }
             else
                 throw new ArgumentException($"Bar must be of type line but got '{bar.BarPart.Edge.Type}'", "bar");
-
         }
         /// <summary>
         /// Construct post-tension cable
@@ -270,12 +305,12 @@ namespace FemDesign.Reinforcement
         /// <param name="strand"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
-        public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands = 3, string identifier="PTC")
+        public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
         {
-            Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, numberOfStrands, identifier);
+            Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
         }
 
-        private void Initialize(Geometry.FdPoint3d start, Geometry.FdPoint3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands, string identifier)
+        private void Initialize(Geometry.FdPoint3d start, Geometry.FdPoint3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands, string identifier)
         {
             StartPoint = start;
             EndPoint = end;
@@ -287,9 +322,12 @@ namespace FemDesign.Reinforcement
 
             Losses = losses;
             NumberOfStrands = numberOfStrands;
-
+            JackingSide = jackingSide;
+            JackingStress = jackingStress;
             ShapeBasePoints = shape;
             Manufacturing = manufacturing;
+
+            EntityCreated();
         }
     }
 
@@ -301,7 +339,7 @@ namespace FemDesign.Reinforcement
     }
 
     [System.Serializable]
-    public partial class PtcStrandLibType: LibraryBase
+    public partial class PtcStrandLibType : LibraryBase
     {
         [XmlElement("ptc_strand_data", Order = 1)]
         public PtcStrandData PtcStrandData { get; set; }
@@ -327,6 +365,7 @@ namespace FemDesign.Reinforcement
         {
             Name = name;
             PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, density, relaxationClass, rho_1000);
+            EntityCreated();
         }
     }
 
@@ -347,7 +386,7 @@ namespace FemDesign.Reinforcement
 
         [XmlAttribute("E_p")]
         public double E_p { get; set; }
-        
+
         [XmlAttribute("density")]
         public double Density { get; set; }
 
