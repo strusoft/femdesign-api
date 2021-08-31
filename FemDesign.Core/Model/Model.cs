@@ -131,6 +131,33 @@ namespace FemDesign
             this.Standard = "EC";
             this.Country = country;
             this.End = "";
+
+            // Check if model contains entities, sections and materials
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+            if (this.Sections == null)
+            {
+                this.Sections = new Sections.ModelSections();
+            }
+            if (this.Materials == null)
+            {
+                this.Materials = new Materials.Materials();
+            }
+            if (this.ReinforcingMaterials == null)
+            {
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            }
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
+            if (this.PtcStrandTypes == null)
+            {
+                this.PtcStrandTypes = new Reinforcement.PtcStrandType();
+            }
         }
 
         #region serialization
@@ -370,6 +397,45 @@ namespace FemDesign
         private bool BarInModel(Bars.Bar obj)
         {
             foreach (Bars.Bar elem in this.Entities.Bars)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add Post-tensioned cable to Model.
+        /// </summary>
+        private void AddPtc(Reinforcement.Ptc obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PtcInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.PostTensionedCables.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add material
+            this.AddPtcStrandType(obj.StrandType, overwrite);
+
+            // add ptc
+            this.Entities.PostTensionedCables.Add(obj);
+        }
+
+        private bool PtcInModel(Reinforcement.Ptc obj)
+        {
+            foreach (Reinforcement.Ptc elem in this.Entities.PostTensionedCables)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1955,6 +2021,34 @@ namespace FemDesign
             return false;
         }
 
+        private void AddPtcStrandType(Reinforcement.PtcStrandLibType obj, bool overwrite)
+        {
+            bool inModel = this.PtcStrandTypeInModel(obj);
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else if (inModel && overwrite)
+            {
+                this.PtcStrandTypes.PtcStrandLibTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.PtcStrandTypes.PtcStrandLibTypes.Add(obj);
+            }
+            else if (!inModel)
+                this.PtcStrandTypes.PtcStrandLibTypes.Add(obj);
+        }
+
+        private bool PtcStrandTypeInModel(Reinforcement.PtcStrandLibType obj)
+        {
+            foreach (Reinforcement.PtcStrandLibType elem in this.PtcStrandTypes.PtcStrandLibTypes)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Add Timber panel library type to Model.
         /// </summary>
@@ -2277,7 +2371,9 @@ namespace FemDesign
         private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
         private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
         private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
-        
+        private void AddEntity(Reinforcement.Ptc obj, bool overwrite) => AddPtc(obj, overwrite);
+
+
         private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
         
         private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);

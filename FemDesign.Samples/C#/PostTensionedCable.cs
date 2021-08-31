@@ -10,14 +10,26 @@ namespace FemDesign.Samples
     {
         private static void CreatePostTensionedCable()
         {
-
             var edge = new Geometry.Edge(new Geometry.FdPoint3d(0, 0, 0), new Geometry.FdPoint3d(10, 0, 0), Geometry.FdVector3d.UnitZ());
 
-            var material = new Materials.Material();
-            var section = new Sections.Section();
+            Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml(MaterialsPath);
+            Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml(SectionsPath);
+
+            var material = materialsDB.MaterialByName("C35/45");
+            var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
+
             var bar = new Bars.Bar(edge, Bars.BarType.Beam, material, section, "B");
 
-            var shape = new Reinforcement.PtcShapeType();
+            var shape = new Reinforcement.PtcShapeType(
+                start: new Reinforcement.PtcShapeStart() { Z= -0.3, Tangent = 0.0 },
+                intermediates: new List<Reinforcement.PtcShapeInner>()
+                {
+                    new Reinforcement.PtcShapeInner() { Position = 0.11, Z = 0.0, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.22, Z = 0.1, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner() { Position = 0.67, Z = 0.2, Tangent = 0.0 },
+                },
+                end: new Reinforcement.PtcShapeEnd() { Z = -0.12, Tangent = 0.0}
+                );
 
             var losses = new Reinforcement.PtcLosses(
                 curvatureCoefficient: 0.05, 
@@ -34,7 +46,8 @@ namespace FemDesign.Samples
                 shiftZ: 0.1
                 );
 
-            var strand = new Reinforcement.PtcStrandData(
+            var strandData = new Reinforcement.PtcStrandLibType(
+                name: "Custom ptc material",
                 f_pk: 1860.0,
                 a_p: 150.0,
                 e_p: 195000.0,
@@ -43,11 +56,20 @@ namespace FemDesign.Samples
                 rho_1000: 0.0
                 );
 
-            var ptc = new Reinforcement.Ptc(bar, shape, losses, manufacturing, strand, numberOfStrands: 3, identifier: "PTC");
+            var ptc = new Reinforcement.Ptc(bar, shape, losses, manufacturing, strandData, numberOfStrands: 3, identifier: "PTC");
 
-            var elements = new List<GenericClasses.IStructureElement>() { bar, ptc };
+            var elements = new List<GenericClasses.IStructureElement>() { 
+                bar,
+                ptc
+            };
 
             Model model = new Model(Country.S, elements);
+            
+            string path = System.IO.Path.GetTempFileName() + ".struxml";
+            model.SerializeModel(path);
+
+            //var app = new Calculate.Application();
+            //app.OpenStruxml(path, false);
         }
     }
 }

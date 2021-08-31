@@ -23,7 +23,7 @@ namespace FemDesign.Sections
         [IsVisibleInDynamoLibrary(true)]
         public static Section GetSectionByName(SectionDatabase sectionDatabase, string sectionName)
         {
-            return SectionByName(sectionDatabase, sectionName);
+            return sectionDatabase.SectionByName(sectionName);
         }
 
         /// <summary>

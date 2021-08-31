@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
-
+using FemDesign.Bars;
 
 namespace FemDesign.Reinforcement
 {
@@ -78,11 +78,11 @@ namespace FemDesign.Reinforcement
 
         }
 
-        public PtcShapeType(IEnumerable<ShapeBasePoint>)
+        public PtcShapeType(PtcShapeStart start, PtcShapeEnd end, IEnumerable<PtcShapeInner> intermediates = null)
         {
-            StartPoint = new PtcShapeStart() { };
-            IntermediatePoint = new PtcShapeInner() { };
-            EndPoint = new PtcShapeEnd() { };
+            StartPoint = start;
+            EndPoint = end;
+            IntermediatePoint = intermediates.ToArray();
         }
     }
 
@@ -212,8 +212,11 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("name")]
         public string Name { get; set; }
 
+
         [XmlAttribute("strand_type")]
-        public Guid StrandType { get; set; }
+        public Guid _StrandType { get; set; }
+        [XmlIgnore]
+        public PtcStrandLibType StrandType { get; set; }
 
         [XmlAttribute("number_of_strands")]
         public int NumberOfStrands { get; set; }
@@ -237,44 +240,51 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Construct post-tension cable
         /// </summary>
-        /// <param name="slab"></param>
+        /// <param name="bar">Reference bar element</param>
+        /// <param name="shape"></param>
+        /// <param name="losses"></param>
+        /// <param name="manufacturing"></param>
+        /// <param name="strand"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
-        public Ptc(Bars.Bar bar, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandData strand, int numberOfStrands = 3, string identifier = "PTC")
+        public Ptc(Bars.Bar bar, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands = 3, string identifier = "PTC")
         {
-            BaseObject = bar.BarPart.Guid;
-            StrandType = strand.Guid;
-            Name = $"{identifier}.{++instances}";
-
             if (bar.BarPart.Edge.Type == "line")
             {
-                StartPoint = bar.BarPart.Edge.Points[0];
-                EndPoint = bar.BarPart.Edge.Points[1];
-            } 
+                var start = bar.BarPart.Edge.Points[0];
+                var end = bar.BarPart.Edge.Points[1];
+                Initialize(start, end, bar.BarPart.Guid, shape, losses, manufacturing, strand, numberOfStrands, identifier);
+            }
             else
                 throw new ArgumentException($"Bar must be of type line but got '{bar.BarPart.Edge.Type}'", "bar");
 
-            Losses = losses;
-            NumberOfStrands = numberOfStrands;
-
-            ShapeBasePoints = shape;
-            Manufacturing = manufacturing;
         }
-
         /// <summary>
         /// Construct post-tension cable
         /// </summary>
-        /// <param name="slab"></param>
+        /// <param name="slab">Reference slab element</param>
+        /// <param name="line">Cable line</param>
+        /// <param name="shape"></param>
+        /// <param name="losses"></param>
+        /// <param name="manufacturing"></param>
+        /// <param name="strand"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
-        public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandData strand, int numberOfStrands = 3, string identifier="PTC")
+        public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands = 3, string identifier="PTC")
         {
-            BaseObject = slab.SlabPart.Guid;
-            StrandType = strand.Guid;
+            Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, numberOfStrands, identifier);
+        }
+
+        private void Initialize(Geometry.FdPoint3d start, Geometry.FdPoint3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, int numberOfStrands, string identifier)
+        {
+            StartPoint = start;
+            EndPoint = end;
+
+            BaseObject = baseObject;
+            StrandType = strand;
+            _StrandType = strand.Guid;
             Name = $"{identifier}.{++instances}";
-            
-            StartPoint = line.StartPoint;
-            EndPoint = line.EndPoint;
+
             Losses = losses;
             NumberOfStrands = numberOfStrands;
 
@@ -287,7 +297,7 @@ namespace FemDesign.Reinforcement
     public partial class PtcStrandType
     {
         [XmlElement("predefined_type")]
-        public PtcStrandLibType[] PtcStrandLibTypes { get; set; }
+        public List<PtcStrandLibType> PtcStrandLibTypes { get; set; } = new List<PtcStrandLibType>();
     }
 
     [System.Serializable]
@@ -295,6 +305,29 @@ namespace FemDesign.Reinforcement
     {
         [XmlElement("ptc_strand_data", Order = 1)]
         public PtcStrandData PtcStrandData { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private PtcStrandLibType()
+        {
+
+        }
+
+        /// <summary>
+        /// Create a custom PTC-strand.
+        /// </summary>
+        /// <param name="f_pk">f pk [N/mm2]</param>
+        /// <param name="a_p">A p [mm2]</param>
+        /// <param name="e_p">E p [N/mm2]</param>
+        /// <param name="density">Rho [t/mm3]</param>
+        /// <param name="relaxationClass">Relaxation class [1, 2, 3] </param>
+        /// <param name="rho_1000">Rho 1000 [%]</param>
+        public PtcStrandLibType(string name, double f_pk, double a_p, double e_p, double density, int relaxationClass, double rho_1000)
+        {
+            Name = name;
+            PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, density, relaxationClass, rho_1000);
+        }
     }
 
     /// <summary>

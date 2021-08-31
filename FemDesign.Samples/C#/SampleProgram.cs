@@ -9,6 +9,16 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
+        /// <summary>
+        /// Change this to your path!
+        /// </summary>
+        static readonly string MaterialsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "materialLibrary", "materials_S.struxml");
+
+        /// <summary>
+        /// Change this to your path!
+        /// </summary>
+        static readonly string SectionsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "sectionLibrary", "sections.struxml");
+
         private static void Main(string[] args)
         {
             string samplesDir = System.IO.Directory.GetCurrentDirectory();
