@@ -10,12 +10,12 @@ namespace FemDesign.Samples
     public partial class SampleProgram
     {
         /// <summary>
-        /// Change this to your path!
+        /// NOTE: CHANGE THIS TO YOUR LOCAL MATERIALS
         /// </summary>
         static readonly string MaterialsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "materialLibrary", "materials_S.struxml");
 
         /// <summary>
-        /// Change this to your path!
+        /// NOTE: CHANGE THIS TO YOUR LOCAL SECTIONS
         /// </summary>
         static readonly string SectionsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StruSoft", "FEM-Design Api", "sectionLibrary", "sections.struxml");
 
@@ -28,8 +28,9 @@ namespace FemDesign.Samples
 
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
-            //TestGetResults();
             CreatePostTensionedCable();
+            CreateSimpleModel();
+            //TestGetResults();
         }
 
         private static void TestGetResults()

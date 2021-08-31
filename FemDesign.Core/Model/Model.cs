@@ -132,7 +132,7 @@ namespace FemDesign
             this.Country = country;
             this.End = "";
 
-            // Check if model contains entities, sections and materials
+            // Check if model contains entities, sections and materials, else these needs to be initialized.
             if (this.Entities == null)
             {
                 this.Entities = new Entities();
