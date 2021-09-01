@@ -168,6 +168,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
+    <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
@@ -182,7 +187,6 @@
     <Compile Include="Releases\RotationsFree.cs" />
     <Compile Include="Releases\RotationsRigidLine.cs" />
     <Compile Include="Releases\RotationsRigidPoint.cs" />
-    <Compile Include="Results\ResultsRead.cs" />
     <Compile Include="Sections\SectionDatabaseAddSection.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
@@ -221,7 +225,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
-      <Name>ent</Name>
+      <Name>FemDesign.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

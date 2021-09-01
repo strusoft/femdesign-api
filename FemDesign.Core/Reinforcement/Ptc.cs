@@ -9,12 +9,16 @@ namespace FemDesign.Reinforcement
 {
     public enum JackingSide
     {
+        [Parseable("start", "Start", "START")]
         [XmlEnum("start")]
         Start,
+        [Parseable("end", "End", "END")]
         [XmlEnum("end")]
         End,
+        [Parseable("start_then_end", "start then end", "Start then end", "StartThenEnd", "START_THEN_END")]
         [XmlEnum("start_then_end")]
         StartThenEnd,
+        [Parseable("end_then_start", "end then start", "End then start", "EndThenStart", "END_THEN_START")]
         [XmlEnum("end_then_start")]
         EndThenStart,
     }
