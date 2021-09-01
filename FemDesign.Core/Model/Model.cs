@@ -131,6 +131,29 @@ namespace FemDesign
             this.Standard = "EC";
             this.Country = country;
             this.End = "";
+
+            // Check if model contains entities, sections and materials, else these needs to be initialized.
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+            if (this.Sections == null)
+            {
+                this.Sections = new Sections.ModelSections();
+            }
+            if (this.Materials == null)
+            {
+                this.Materials = new Materials.Materials();
+            }
+            if (this.ReinforcingMaterials == null)
+            {
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            }
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
         }
 
         #region serialization
@@ -1583,11 +1606,11 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.SurfaceReinforcement.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.SurfaceReinforcements.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add obj
-            this.Entities.SurfaceReinforcement.Add(obj);
+            this.Entities.SurfaceReinforcements.Add(obj);
 
         }
 
@@ -1598,7 +1621,7 @@ namespace FemDesign
         /// <returns></returns>
         private bool SurfaceReinforcementInModel(Reinforcement.SurfaceReinforcement obj)
         {
-            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcement)
+            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcements)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -2445,7 +2468,7 @@ namespace FemDesign
                 }
 
                 // get surface reinforcement
-                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcement)
+                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcements)
                 {
                     if (surfaceReinforcement.BaseShell.Guid == item.SlabPart.Guid)
                     {

@@ -19,34 +19,34 @@ namespace FemDesign.Loads
         /// </summary>
         [Parseable("permanent", "Permanent", "PERMANENT")]
         [XmlEnum("permanent")]
-        PERMANENT,
+        Permanent,
 
         /// <summary>
         /// "Long-term" load case duration
         /// </summary>
-        [Parseable("long-term", "Long-term", "LONG_TERM")]
+        [Parseable("long-term", "Long-term", "ShortTerm", "LONG_TERM")]
         [XmlEnum("long-term")]
-        LONG_TERM,
+        LongTerm,
 
         /// <summary>
         /// "Medium-term" load case duration
         /// </summary>
-        [Parseable("medium-term", "Medium-term", "MEDIUM_TERM")]
+        [Parseable("medium-term", "Medium-term", "MediumTerm", "MEDIUM_TERM")]
         [XmlEnum("medium-term")]
-        MEDIUM_TERM,
+        MediumTerm,
 
         /// <summary>
         /// "Short-term" load case duration
         /// </summary>
-        [Parseable("short-term", "Short-term", "SHORT_TERM")]
+        [Parseable("short-term", "Short-term", "ShortTerm", "SHORT_TERM")]
         [XmlEnum("short-term")]
-        SHORT_TERM,
+        ShortTerm,
 
         /// <summary>
         /// "Instantaneous" load case duration
         /// </summary>
         [Parseable("instantaneous", "Instantaneous", "INSTANTANEOUS")]
         [XmlEnum("instantaneous")]
-        INSTANTANEOUS,
+        Instantaneous,
     }
 }

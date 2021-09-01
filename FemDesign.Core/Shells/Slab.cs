@@ -24,7 +24,7 @@ namespace FemDesign.Shells
         [XmlAttribute("name")]
         public string Name {get; set;} // identifier
         [XmlAttribute("type")]
-        internal SlabType Type { get; set; }
+        public SlabType Type { get; set; }
         [XmlElement("slab_part", Order=1)]
         public SlabPart SlabPart {get; set;}
         [XmlElement("end", Order=2)]
