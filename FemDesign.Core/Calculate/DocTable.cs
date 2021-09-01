@@ -42,16 +42,17 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public partial class DocTable
     {
-        [XmlIgnore]
-        private const int ALL = -1;
-        
         [XmlElement("version")]
         public string FemDesignVersion { get; set; } = "2000";
+        
         [XmlElement("listproc")]
-        public ResultType ListProc { get; set; }
+        public ListProc ListProc { get; set; }
         
         [XmlElement("index")]
         public int CaseIndex { get; set; }
+        
+        [XmlElement("options")]
+        public DummyXmlObject options { get; set; } = new DummyXmlObject();
         
         [XmlElement("restype")]
         public int ResType { get; set; }
@@ -69,20 +70,20 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
-        public DocTable(ResultType resultType, int? caseIndex = null)
+        public DocTable(ListProc resultType, int? caseIndex = null)
         {
             int cIndex;
-            if (caseIndex == null)
-                cIndex = GetDefaultCaseIndex(resultType);
+            if (caseIndex.HasValue)
+                cIndex = caseIndex.Value;
             else
-                cIndex = (int)caseIndex;
+                cIndex = GetDefaultCaseIndex(resultType);
 
             ListProc = resultType;
             CaseIndex = cIndex;
             ResType = GetResType(resultType);
         }
 
-        private int GetResType(ResultType resultType)
+        private int GetResType(ListProc resultType)
         {
             /*
             LT_CASE = 1,
@@ -92,6 +93,8 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
+            if (r.StartsWith("QuantityEstimation"))
+                return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
             if (r.EndsWith("LoadCombination"))
@@ -100,11 +103,14 @@ namespace FemDesign.Calculate
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
 
-        private int GetDefaultCaseIndex(ResultType resultType)
+        private int GetDefaultCaseIndex(ListProc resultType)
         {
-            if (resultType.ToString().EndsWith("LoadCase"))
+            string r = resultType.ToString();
+            if (r.StartsWith("QuantityEstimation"))
+                return 0;
+            if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
-            if (resultType.ToString().EndsWith("LoadCombination"))
+            if (r.EndsWith("LoadCombination"))
                 return -1; // All load combinations
 
             throw new FormatException($"Default case index of ResultType.{resultType} not known.");

@@ -37,7 +37,7 @@ namespace FemDesign.Samples
         {
             // Create batch file to extract the results with
             string bscPath = "Local/Nodal displacements.bsc";
-            var bsc = new FemDesign.Calculate.Bsc(Calculate.ResultType.NodalDisplacementsLoadCombination, bscPath);
+            var bsc = new FemDesign.Calculate.Bsc(Calculate.ListProc.NodalDisplacementsLoadCombination, bscPath);
 
             // Run FEM-Design script to extract results
             string modelPath = System.IO.Path.GetFullPath("Local/Sample.str");
