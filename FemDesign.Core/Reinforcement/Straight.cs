@@ -59,6 +59,38 @@ namespace FemDesign.Reinforcement
             set {this._cover = RestrictedDouble.Positive(value);}
         }
 
+        [XmlIgnore]
+        public bool MultiLayer
+        {
+            get
+            {
+                if (this.Face == GenericClasses.Face.Mid)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public bool SingleLayer
+        {
+            get
+            {
+                if (this.Face == GenericClasses.Face.Mid)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
