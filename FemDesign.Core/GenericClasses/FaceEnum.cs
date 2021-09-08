@@ -12,6 +12,10 @@ namespace FemDesign.GenericClasses
         [Parseable("top", "Top", "TOP", "up", "Up", "UP")]
         [XmlEnum("top")]
         Top,
+
+        [Parseable("mid", "Mid", "MID", "middle", "Middle", "MIDDLE")]
+        [XmlEnum("mid")]
+        Mid,
         
         [Parseable("bottom", "Bottom", "BOTTOM", "down", "Down", "DOWN")]
         [XmlEnum("bottom")]

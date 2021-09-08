@@ -23,7 +23,33 @@ namespace FemDesign.Reinforcement
             set {this._space = RestrictedDouble.Positive(value);}
         }
         [XmlAttribute("face")]
-        public GenericClasses.Face Face { get; set; }
+        public string _face;
+        [XmlIgnore]
+        public GenericClasses.Face Face
+        {
+            set
+            {
+                if (value == GenericClasses.Face.Mid)
+                {
+                    this._face = null;
+                }
+                else
+                {
+                    this._face = value.ToString().ToLower();
+                }
+            }
+            get
+            {
+                if (this._face == null)
+                {
+                    return GenericClasses.Face.Mid;
+                }
+                else
+                {
+                    return GenericClasses.EnumParser.Parse<GenericClasses.Face>(this._face);
+                }
+            }
+        }
         [XmlAttribute("cover")]
         public double _cover; // positive_double. Default = 0.02
         [XmlIgnore]
