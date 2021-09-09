@@ -67,6 +67,10 @@ namespace FemDesign.Reinforcement
             return obj;
         }
 
+        /// <summary>
+        /// Add SurfaceReinforcement to slab.
+        /// Internal method use by GH components and Dynamo nodes.
+        /// </summary>
         public static Shells.Slab AddReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
@@ -76,7 +80,7 @@ namespace FemDesign.Reinforcement
             // check if slab material is concrete
             if (clone.Material.Concrete == null)
             {
-                throw new System.ArgumentException("material of slab must be concrete");
+                throw new System.ArgumentException("Material of slab must be concrete");
             }
 
             // check if mixed layers
@@ -177,98 +181,12 @@ namespace FemDesign.Reinforcement
         {
             if (SurfaceReinforcement.AllCentric(srfReinfs))
             {
-
+                throw new System.ArgumentException("Method to add centric surface reinforcement is not implemented yet.");
             }
             else
             {
                 throw new System.ArgumentException("Not all passed surface reinforcement objects are of layout type centric");
             }
-            return null;
-        }
-
-        /// <summary>
-        /// Add SurfaceReinforcement to slab.
-        /// Internal method use by GH components and Dynamo nodes.
-        /// </summary>
-        public static Shells.Slab AddStraightReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
-        {
-            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
-            // downstream and uppstream objs will share guid.
-            Shells.Slab clone = slab.DeepClone();
-
-            // check if slab material is concrete
-            if (clone.Material.Concrete == null)
-            {
-                throw new System.ArgumentException("material of slab must be concrete");
-            }
-
-            // check if input srfReinfs is of same type (multi/single layer)
-            if (SurfaceReinforcement.MixedLayers(srfReinfs))
-            {
-                throw new System.ArgumentException("Passed surface reinforcement objects are mixed multi and single layer. Must be either or.");
-            }
-
-            // check if input srfReinfs is of same type (straight or centric)
-            if (SurfaceReinforcement.MixedLayout(srfReinfs))
-            {
-                throw new System.ArgumentException("Passed surface reinforcement objects are of mixed layout types. Must be either or.");
-            }          
-
-            // get guid
-            GuidListType baseShell = new GuidListType(clone.SlabPart.Guid);
-
-            // check if surfaceReinforcementParameters are not set to slab
-            SurfaceReinforcementParameters srfReinfParams;
-            if (clone.SurfaceReinforcementParameters == null)
-            { 
-                // set straight parameters
-                srfReinfParams = SurfaceReinforcementParameters.Straight(clone);
-                clone.SurfaceReinforcementParameters = srfReinfParams;
-            }
-
-            // check if the parameters that are set are centric.
-            // any surfaceReinforcementParameter set to slab will be overwritten
-            // any surfaceReinforcement with option "centric" will be removed
-            else if (clone.SurfaceReinforcementParameters.Center.PolarSystem == true)
-            {
-                srfReinfParams = SurfaceReinforcementParameters.Straight(clone);
-                clone.SurfaceReinforcementParameters = srfReinfParams;
-
-                foreach (SurfaceReinforcement item in clone.SurfaceReinforcement)
-                {
-                    if (item.Centric != null)
-                    {
-                        clone.SurfaceReinforcement.Remove(item);
-                    }
-                }
-            }
-
-            // use surface parameters already set to slab
-            else
-            { 
-                srfReinfParams = clone.SurfaceReinforcementParameters;
-            }
-
-            // add surface reinforcement
-            FemDesign.GuidListType surfaceReinforcementParametersGuidReference = new FemDesign.GuidListType(clone.SurfaceReinforcementParameters.Guid);
-            foreach (SurfaceReinforcement item in srfReinfs)
-            {
-                // add references to item
-                item.BaseShell = baseShell;
-                item.SurfaceReinforcementParametersGuid = surfaceReinforcementParametersGuidReference;
-
-                // check if region item exists
-                if (item.Region == null)
-                {
-                    item.Region = Geometry.Region.FromSlab(clone);
-                }
-
-                // add item to slab  
-                clone.SurfaceReinforcement.Add(item);
-            }
-
-            // return
-            return clone;
         }
 
         // check if surface reinforcement objects in list are mixed.
