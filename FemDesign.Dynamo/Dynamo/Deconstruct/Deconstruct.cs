@@ -368,7 +368,7 @@ namespace FemDesign
         /// <param name="model">Model.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Panels", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
+        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Diaphragms", "Panels", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             List<StructureGrid.Axis> axes;
@@ -400,6 +400,7 @@ namespace FemDesign
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
                 {"Shells", model.Entities.Slabs},
                 {"FictitiousShells", model.Entities.AdvancedFem.FictitiousShells},
+                {"Diaphragms", model.Entities.AdvancedFem.Diaphragms},
                 {"Panels", model.Entities.Panels},
                 {"Covers", model.Entities.AdvancedFem.Covers},
                 {"Loads", model.Entities.Loads.GetLoads()},
@@ -556,6 +557,23 @@ namespace FemDesign
                 {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
                 {"LocalX", fictitiousShell.LocalX.ToDynamo()},
                 {"LocalY", fictitiousShell.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a diaphragm element.
+        /// </summary>
+        /// <param name="diaphragm">Diaphragm</param>
+        /// <returns></returns>
+        [MultiReturn(new[]{"Guid", "Surface", "Identifier"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> DiaphragmDeconstruct(FemDesign.ModellingTools.Diaphragm diaphragm)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", diaphragm.Guid},
+                {"Surface", diaphragm.Region.ToDynamoSurface()},
+                {"Identifier", diaphragm.Identifier}
             };
         }
 

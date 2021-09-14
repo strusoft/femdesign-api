@@ -23,6 +23,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Shells", "Shells", "Single shell element or list of shell elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("FictitiousShells", "FictShells", "Single fictitious shell element or list of fictitious shell elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Diaphragms", "Diaphragms", "Single diaphragm element or list of diaphragm elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Panels", "Panels", "Single panel element or list of panel elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Covers", "Covers", "Single cover element or list of cover elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Loads", "Loads", "Single load element or list of load elements.", GH_ParamAccess.list);
@@ -37,7 +38,7 @@ namespace FemDesign.Grasshopper
         {
             // set references
             FemDesign.Model model = null;
-            if (!DA.GetData(0, ref model))
+            if (!DA.GetData("FdModel", ref model))
             {
                 return;
             }
@@ -67,19 +68,20 @@ namespace FemDesign.Grasshopper
             }        
 
             // return data
-            DA.SetData(0, model.Country.ToString());
-            DA.SetDataList(1, model.Entities.Bars);
-            DA.SetDataList(2, model.Entities.AdvancedFem.FictitiousBars);
-            DA.SetDataList(3, model.Entities.Slabs);
-            DA.SetDataList(4, model.Entities.AdvancedFem.FictitiousShells);
-            DA.SetDataList(5, model.Entities.Panels);
-            DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
-            DA.SetDataList(7, model.Entities.Loads.GetLoads());
-            DA.SetDataList(8, model.Entities.Loads.LoadCases);
-            DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
-            DA.SetDataList(10, model.Entities.Supports.GetSupports());
-            DA.SetDataList(11, axes);
-            DA.SetDataList(12, storeys);
+            DA.SetData("CountryCode", model.Country.ToString());
+            DA.SetDataList("Bars", model.Entities.Bars);
+            DA.SetDataList("FictitiousBars", model.Entities.AdvancedFem.FictitiousBars);
+            DA.SetDataList("Shells", model.Entities.Slabs);
+            DA.SetDataList("FictitiousShells", model.Entities.AdvancedFem.FictitiousShells);
+            DA.SetDataList("Diaphragms", model.Entities.AdvancedFem.Diaphragms);
+            DA.SetDataList("Panels", model.Entities.Panels);
+            DA.SetDataList("Covers", model.Entities.AdvancedFem.Covers);
+            DA.SetDataList("Loads", model.Entities.Loads.GetLoads());
+            DA.SetDataList("LoadCases", model.Entities.Loads.LoadCases);
+            DA.SetDataList("LoadCombinations", model.Entities.Loads.LoadCombinations);
+            DA.SetDataList("Supports", model.Entities.Supports.GetSupports());
+            DA.SetDataList("Axes", axes);
+            DA.SetDataList("Storeys", storeys);
         }
         protected override System.Drawing.Bitmap Icon
         {
