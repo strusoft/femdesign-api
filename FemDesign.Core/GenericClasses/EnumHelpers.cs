@@ -89,9 +89,10 @@ namespace FemDesign.GenericClasses
                     x => x.Names.SelectMany(y => y.Names),
                     (x, y) => new { Value = x.Value, Name = y });
 
-                Values = degrouped.ToDictionary(
-                    x => x.Name,
-                    x => (TEnum)x.Value.GetValue(null));
+                foreach (var x in degrouped)
+                {
+                    Values.Add(x.Name, (TEnum)x.Value.GetValue(x));
+                }
             }
         }
     }

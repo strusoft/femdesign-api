@@ -24,7 +24,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Long-term" load case duration
         /// </summary>
-        [Parseable("long-term", "Long-term", "ShortTerm", "LONG_TERM")]
+        [Parseable("long-term", "Long-term", "LongTerm", "LONG_TERM")]
         [XmlEnum("long-term")]
         LongTerm,
 
