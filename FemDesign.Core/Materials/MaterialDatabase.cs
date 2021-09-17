@@ -187,11 +187,17 @@ namespace FemDesign.Materials
                         object obj = deserializer.Deserialize(reader);
                         MaterialDatabase materialDatabase = (MaterialDatabase)obj;
                         reader.Close();
+
+                        if (materialDatabase.Materials.Material.Count == 0)
+                        {
+                            throw new System.ArgumentException("The project was compiled without any materials. Add materials to your project and re-compile or use another method to construct the material database (i.e DeserializeStruxml).");
+                        }
+
                         return materialDatabase;
                     }
                 }
             }
-            throw new System.ArgumentException("Material library resource not in assembly! Was solution compiled without embedded resources?");
+            throw new System.ArgumentException("Material library resource not in assembly! Was project compiled without embedded resources?");
         }
         /// <summary>
         /// Load the default MaterialDatabase for each respective country.

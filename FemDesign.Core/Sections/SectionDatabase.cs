@@ -146,11 +146,17 @@ namespace FemDesign.Sections
                         object obj = deserializer.Deserialize(reader);
                         SectionDatabase sectionDatabase = (SectionDatabase)obj;
                         reader.Close();
+
+                        if (sectionDatabase.Sections.Section.Count == 0)
+                        {
+                            throw new System.ArgumentException("The project was compiled without any sections. Add sections to your project and re-compile or use another method to construct the section database (i.e DeserializeStruxml).");
+                        }
+
                         return sectionDatabase;
                     }
                 }
             }
-            throw new System.ArgumentException("Section library resource not in assembly! Was solution compiled without embedded resource?");
+            throw new System.ArgumentException("Section library resource not in assembly! Was project compiled without embedded resource?");
         }
 
         /// <summary>
