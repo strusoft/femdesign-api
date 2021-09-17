@@ -91,11 +91,11 @@ namespace FemDesign.Reinforcement
 
             if (SurfaceReinforcement.AllStraight(srfReinfs))
             {
-                return SurfaceReinforcement.AddStraightReinfToSlab(slab, srfReinfs);
+                return SurfaceReinforcement.AddStraightReinfToSlab(clone, srfReinfs);
             }
             else if (SurfaceReinforcement.AllCentric(srfReinfs))
             {
-                return SurfaceReinforcement.AddCentricReinfToSlab(slab, srfReinfs);
+                return SurfaceReinforcement.AddCentricReinfToSlab(clone, srfReinfs);
             }
             else
             {
