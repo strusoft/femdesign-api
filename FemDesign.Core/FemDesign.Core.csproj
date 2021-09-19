@@ -119,6 +119,8 @@
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
+    <Compile Include="Loads\Loadenums.cs" />
+    <Compile Include="Loads\LoadGroup.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />

@@ -9,6 +9,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,17 +41,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GH_IO">
-      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RhinoCommon">
-      <HintPath>..\..\..\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,6 +87,8 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Loads\CombineLoadGroups.cs" />
+    <Compile Include="Loads\LoadGroupCreate.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
@@ -213,9 +215,6 @@
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
     <Compile Include="Supports\SurfaceSupportDefine.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
@@ -689,6 +688,7 @@
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -705,6 +705,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\CalculateFootfall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
@@ -725,5 +728,12 @@
     <Copy SourceFiles="@(Ghas)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+  </Target>
+  <Import Project="..\packages\Grasshopper.7.10.21256.17001\build\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.7.10.21256.17001\build\Grasshopper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Grasshopper.7.10.21256.17001\build\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.7.10.21256.17001\build\Grasshopper.targets'))" />
   </Target>
 </Project>
