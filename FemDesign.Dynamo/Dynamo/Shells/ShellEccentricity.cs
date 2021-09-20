@@ -16,7 +16,7 @@ namespace FemDesign.Shells
         /// <param name="eccentricityByCracking">Consider eccentricity caused by cracking in cracked section analysis? True/false.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEccentricity Create(VerticalAlignment alignment = VerticalAlignment.Center, double eccentricity = 0, bool eccentricityCalculation = false, bool eccentricityByCracking = false)
+        public static ShellEccentricity Create(VerticalAlignment alignment, double eccentricity = 0, bool eccentricityCalculation = false, bool eccentricityByCracking = false)
         {
             return new ShellEccentricity(alignment, eccentricity, eccentricityCalculation, eccentricityByCracking);
         }

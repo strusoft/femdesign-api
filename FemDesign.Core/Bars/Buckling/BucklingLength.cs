@@ -173,7 +173,7 @@ namespace FemDesign.Bars.Buckling
         /// <param name="loadPosition">"top"/"center"/"bottom"</param>
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength PressuredTopFlange(double beta = 1, VerticalAlignment loadPosition = VerticalAlignment.Top, bool continuouslyRestrained = false)
+        public static BucklingLength PressuredTopFlange(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
             BucklingType _type = BucklingType.PressuredTopFlange;
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
@@ -186,7 +186,7 @@ namespace FemDesign.Bars.Buckling
         /// <param name="loadPosition">"top"/"center"/"bottom"</param>
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength PressuredBottomFlange(double beta = 1, VerticalAlignment loadPosition = VerticalAlignment.Top, bool continuouslyRestrained = false)
+        public static BucklingLength PressuredBottomFlange(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
             BucklingType _type = BucklingType.PressuredBottomFlange;
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
@@ -199,7 +199,7 @@ namespace FemDesign.Bars.Buckling
         /// <param name="continouslyRestrained">Continously restrained. True/false.</param>
         /// <param name="cantilever">Cantilever. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength LateralTorsional(VerticalAlignment loadPosition = VerticalAlignment.Top, bool continouslyRestrained = false, bool cantilever = false)
+        public static BucklingLength LateralTorsional(VerticalAlignment loadPosition, bool continouslyRestrained = false, bool cantilever = false)
         {
             BucklingType _type = BucklingType.LateralTorsional;
             return new BucklingLength(Position.AlongBar(), _type, loadPosition, continouslyRestrained, cantilever);

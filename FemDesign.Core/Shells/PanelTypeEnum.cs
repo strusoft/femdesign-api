@@ -8,7 +8,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Shells
 {
-    internal enum PanelType
+    public enum PanelType
     {
         [XmlEnum("concrete")]
         Concrete,
