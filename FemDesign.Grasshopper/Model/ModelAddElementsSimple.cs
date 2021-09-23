@@ -40,8 +40,6 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            model = model.DeepClone();
-
             List<FemDesign.GenericClasses.IStructureElement> elements = new List<FemDesign.GenericClasses.IStructureElement>();
             DA.GetDataList("Structure Elements", elements);
 
@@ -57,12 +55,13 @@ namespace FemDesign.Grasshopper
             bool overwrite = false;
             DA.GetData("Overwrite", ref overwrite);
 
-            model.AddElements(elements, overwrite);
-            model.AddLoads(loads, overwrite);
-            model.AddLoadCases(loadCases, overwrite);
-            model.AddLoadCombinations(loadCombinations, overwrite);
+            var clone = model.DeepClone();
+            clone.AddElements(elements, overwrite);
+            clone.AddLoads(loads, overwrite);
+            clone.AddLoadCases(loadCases, overwrite);
+            clone.AddLoadCombinations(loadCombinations, overwrite);
 
-            DA.SetData("FdModel", model);
+            DA.SetData("FdModel", clone);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -135,11 +135,16 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
+            // cast ILoads
             List<object> _loads = loads.Cast<object>().ToList();
             
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
+            // clone model
+            var clone = model.DeepClone();
 
-            DA.SetData(0, model);
+            clone.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
+
+            DA.SetData(0, clone);
         }
         protected override System.Drawing.Bitmap Icon
         {
