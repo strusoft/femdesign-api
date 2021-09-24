@@ -103,6 +103,7 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+    <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Deconstruct\StraightDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\StirrupDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementParametersDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceTemperatureLoadDeconstruct.cs" />
@@ -170,6 +172,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
+    <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
