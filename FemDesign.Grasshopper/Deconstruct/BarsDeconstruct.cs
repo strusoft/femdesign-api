@@ -25,6 +25,7 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity", GH_ParamAccess.list);
            pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
            pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
@@ -48,7 +49,8 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(4, bar.BarPart.Connectivities);
             DA.SetDataList(5, bar.BarPart.Eccentricities);
             DA.SetData(6, bar.BarPart.LocalY.ToRhino());
-            DA.SetData(7, bar.Identifier);
+            DA.SetDataList(7, bar.Stirrups);
+            DA.SetData(8, bar.Identifier);
        }
        protected override System.Drawing.Bitmap Icon
        {
