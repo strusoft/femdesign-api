@@ -146,6 +146,14 @@ namespace FemDesign.Bars
                 return this.Reinforcement.Where( x => x.Stirrups != null).ToList();
             }
         }
+        [XmlIgnore]
+        public List<Reinforcement.BarReinforcement> LongitudinalBars
+        {
+            get
+            {
+                return this.Reinforcement.Where( x => x.LongitudinalBar != null).ToList();
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
