@@ -60,6 +60,34 @@ namespace FemDesign.Reinforcement
             }
         }
 
+        [XmlIgnore]
+        public bool IsStirrups
+        {
+            get
+            {
+                if (this._longitudinalBar == null && this._stirrups == null)
+                {
+                    throw new System.ArgumentException($"No stirrups or longitudinal bars are defined on this bar reinforcement object {this.Guid}. This object is not correctly constructed.");
+                }
+                else if (this._longitudinalBar != null && this._stirrups != null)
+                {
+                    throw new System.ArgumentException($"Both stirrups and longitudinal bars are defined on this bar reinforcement object {this.Guid}. This is not allowed.");
+                }
+                else if (this._longitudinalBar != null && this._stirrups == null)
+                {
+                    return false;
+                }
+                else if (this._longitudinalBar == null && this._stirrups != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Ambiguous object {this.Guid}. Can't decide if stirrups or longitudinal bars");
+                }
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
