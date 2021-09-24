@@ -135,6 +135,18 @@ namespace FemDesign.Bars
         [XmlElement("end", Order = 2)]
         public string End = "";
 
+        [XmlIgnore]
+        public List<Reinforcement.BarReinforcement> Reinforcement = new List<Reinforcement.BarReinforcement>();
+
+        [XmlIgnore]
+        public List<Reinforcement.BarReinforcement> Stirrups
+        {
+            get
+            {
+                return this.Reinforcement.Where( x => x.Stirrups != null).ToList();
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
