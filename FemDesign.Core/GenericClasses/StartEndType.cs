@@ -12,5 +12,14 @@ namespace FemDesign
 
         [XmlAttribute("end")]
         public double End { get; set; }
+        private StartEndType()
+        {
+
+        }
+        public StartEndType(double start, double end)
+        {
+            this.Start = start;
+            this.End = end;
+        }
     }
 }
