@@ -383,6 +383,9 @@ namespace FemDesign
             this.AddSection(obj.BarPart.StartSection, overwrite);
             this.AddSection(obj.BarPart.EndSection, overwrite);
 
+            // add reinforcement
+            this.AddBarReinforcements(obj, overwrite);
+
             // add bar
             this.Entities.Bars.Add(obj);
         }
@@ -1619,6 +1622,59 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add BarReinforcement(s) from Bar to Model.
+        /// </summary>
+        private void AddBarReinforcements(Bars.Bar obj, bool overwrite)
+        {
+            foreach (Reinforcement.BarReinforcement barReinf in obj.Reinforcement)
+            {
+                this.AddReinforcingMaterial(barReinf.Wire.ReinforcingMaterial, overwrite);
+                this.AddBarReinforcement(barReinf, overwrite);
+            }
+        }
+
+        /// <summary>
+        /// Add BarReinforcement to Model.
+        /// </summary>
+        private void AddBarReinforcement(Reinforcement.BarReinforcement obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.BarReinforcementInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Did you add the same {obj.GetType().FullName} to different Bars?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.BarReinforcements.RemoveAll(x => x.Guid == obj.Guid);
+            } 
+
+            // add obj
+            this.Entities.BarReinforcements.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if BarReinforcement in Model.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private bool BarReinforcementInModel(Reinforcement.BarReinforcement obj)
+        {
+            foreach (Reinforcement.BarReinforcement elem in this.Entities.BarReinforcements)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="obj"></param>
@@ -1630,7 +1686,6 @@ namespace FemDesign
                 this.AddSurfaceReinforcement(surfaceReinforcement, overwrite);
             }
         }
-
 
 
         /// <summary>
@@ -2423,6 +2478,25 @@ namespace FemDesign
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
 
+                // get bar reinforcement
+                foreach (Reinforcement.BarReinforcement barReinf in this.Entities.BarReinforcements)
+                {
+                    if (barReinf.BaseBar.Guid == item.BarPart.Guid)
+                    {
+                        // get wire material
+                        foreach (Materials.Material material in this.ReinforcingMaterials.Material)
+                        {
+                            if (barReinf.Wire.ReinforcingMaterialGuid == material.Guid)
+                            {
+                                barReinf.Wire.ReinforcingMaterial = material;
+                            }
+                        }
+
+                        // add bar reinforcement to bar
+                        item.Reinforcement.Add(barReinf);
+                    }
+                }
+
                 // get section
                 foreach (Sections.Section section in this.Sections.Section)
                 {
@@ -2535,7 +2609,7 @@ namespace FemDesign
                 // check if material found
                 if (item.Material == null)
                 {
-                    throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
+                    throw new System.ArgumentException("No matching material found. Model.GeSlabs() failed.");
                 }
             }
         }
