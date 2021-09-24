@@ -24,5 +24,13 @@ namespace FemDesign.Reinforcement
 
         [XmlAttribute("auxiliary")]
         public bool Auxiliary { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public LongitudinalBar()
+        {
+
+        }
     }
 }
