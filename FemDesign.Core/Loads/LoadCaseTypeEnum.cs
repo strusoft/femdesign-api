@@ -23,14 +23,14 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Struc. dead load" load type
         /// </summary>
-        [Parseable("dead_load", "Dead_load", "DEAD_LOAD")]
+        [Parseable("dead_load", "DeadLoad", "Dead_load", "DEAD_LOAD")]
         [XmlEnum("dead_load")]
         DeadLoad,
 
         /// <summary>
         /// "Soil dead load" load type
         /// </summary>
-        [Parseable("soil", "soil_dead_load", "Soil_dead_load", "SOIL_DEAD_LOAD")]
+        [Parseable("soil", "SoilDeadLoad", "soil_dead_load", "Soil_dead_load", "SOIL_DEAD_LOAD")]
         [XmlEnum("soil_dead_load")]
         SoilDeadLoad,
 
