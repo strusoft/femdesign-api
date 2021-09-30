@@ -118,6 +118,7 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
+    <Compile Include="Loads\LoadCaseCombiner.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\Loadenums.cs" />
     <Compile Include="Loads\LoadGroup.cs" />
@@ -241,9 +242,14 @@
     <EmbeddedResource Include="Resources\materialLibrary\materials_N.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_PL.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_RO.struxml" />
-    <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_TR.struxml" />
-    <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\materialLibrary\materials_S.struxml" />
+    <None Include="Resources\sectionLibrary\sections.struxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\loadCoefficients\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

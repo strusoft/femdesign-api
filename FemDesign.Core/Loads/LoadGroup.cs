@@ -10,28 +10,44 @@ namespace FemDesign.Loads
     /// </summary>
     public class LoadGroup
     {
-        // attributes
+        // Attributes
+        /// Name of the group
         public string Name { get; set; }
+        /// Load group type, permanent or temporary
         public ELoadGroupType Type { get; set; }
-        public List<double> Psi_values = new List<double>();
+        /// Values used to combine load cases
+        public List<double> PsiValues = new List<double>();
+        /// List of load cases that belong to the group
         public List<LoadCase> LoadCases = new List<LoadCase>();
+        /// Partial coefficient used to account for the safety class
         public double Gamma_d { get; set; }
+        /// The general coefficient used when combining the load cases
         public double SafetyFactor { get; set; }
+        /// Coefficient used when combining permanent load cases
         public double Xi { get; set; }
+        /// How to combine the load cases in the group
         public ELoadGroupRelation LoadCaseRelation { get; set; }
 
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public LoadGroup() { }
 
         /// <summary>
         /// Constructor for permanent load group
         /// </summary>
-        /// <param name="name">Name/Identifier of LoadGroup.</param>
-        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, List<double> psi, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation, double xi)
+        /// <param name="name">Name of load group</param>
+        /// <param name="type">Type of loads in group, permanent or temporary</param>
+        /// <param name="loadCases">List of load cases in the group</param>
+        /// <param name="gamma_d">Partial coefficient used to account for the safety class</param>
+        /// <param name="safetyFactor">The general coefficient used when combining the load cases</param>
+        /// <param name="loadCaseRelation">How to combine the load cases in the group</param>
+        /// <param name="xi">Coefficient used when combining permanent load cases</param>
+        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation, double xi)
         {
             Name = name;
             Type = type;
             LoadCases = loadCases;
-            Psi_values = psi;
             Gamma_d = gamma_d;
             SafetyFactor = safetyFactor;
             Xi = xi;
@@ -40,15 +56,21 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Constructor for variable load group
+        /// Constructor for temporary load group
         /// </summary>
-        /// <param name="name">Name/Identifier of LoadGroup.</param>
+        /// <param name="name">Name of load group</param>
+        /// <param name="type">Type of loads in group, permanent or temporary</param>
+        /// <param name="loadCases">List of load cases in the group</param>
+        /// <param name="psi">Values used to combine load cases</param>
+        /// <param name="gamma_d">Partial coefficient used to account for the safety class</param>
+        /// <param name="safetyFactor">The general coefficient used when combining the load cases</param>
+        /// <param name="loadCaseRelation">How to combine the load cases in the group</param>
         public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, List<double> psi, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation)
         {
             Name = name;
             Type = type;
             LoadCases = loadCases;
-            Psi_values = psi;
+            PsiValues = psi;
             Gamma_d = gamma_d;
             SafetyFactor = safetyFactor;
             LoadCaseRelation = loadCaseRelation;

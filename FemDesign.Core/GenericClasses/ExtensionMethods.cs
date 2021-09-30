@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Generic;
 
 namespace FemDesign
 {
@@ -18,6 +19,13 @@ namespace FemDesign
                 // return
                 return (T) formatter.Deserialize(ms);
             }
+        }
+
+        public static void Swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
         }
     }
 }

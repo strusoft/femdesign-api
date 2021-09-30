@@ -708,6 +708,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\CombineLoadGroups.bmp" />
+    <None Include="Resources\iconCombineLoadGroups.bmp" />
+    <None Include="Resources\CombineLoadGroups.ico" />
+    <None Include="Resources\iconLoadGroup.bmp" />
+    <None Include="Resources\LoadGroupDefine.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
