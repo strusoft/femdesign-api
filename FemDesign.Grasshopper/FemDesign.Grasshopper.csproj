@@ -89,6 +89,7 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Loads\CombineLoadGroups.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
+    <Compile Include="Loads\LoadCoefficientsDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
