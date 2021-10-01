@@ -12,7 +12,7 @@ Read more about Python.NET (clr) at http://pythonnet.github.io/
 # Needs the file C# assembly FemDesign.Samples\\Python\\bin\\FemDesign.Core.dll.
 # Download FemDesign.Core.dll from https://github.com/strusoft/femdesign-api/releases
 # and place in the folder.
-import os, sys, clr
+import os, sys, clr, math
 sys.path.append(os.path.abspath("FemDesign.Samples\\Python\\bin"))
 clr.AddReference("FemDesign.Core")
 import FemDesign
@@ -20,13 +20,19 @@ import FemDesign
 # Create a new model with country specified
 model = FemDesign.Model(FemDesign.Country.S)
 
+# Import List from .NET
 clr.AddReference("System.Collections")
 from System.Collections.Generic import List
 
 # Add elements to model
+points = List[FemDesign.Geometry.FdPoint3d]()
 supports = List[FemDesign.Supports.PointSupport]()
 for i in range(11):
-    p = FemDesign.Geometry.FdPoint3d(float(i), float(10-i), 0.0)
+    x = float(i)
+    y = math.cos(2 * math.pi * i / 10) + 2
+    z = 0.0
+    p = FemDesign.Geometry.FdPoint3d(x, y, z)
+    points.Add(p)
     support = FemDesign.Supports.PointSupport.Hinged(point=p)
     supports.Add(support)
 
@@ -35,16 +41,16 @@ model.AddElements[FemDesign.Supports.PointSupport](supports)
 # Add loadcases to model
 loadcases = List[FemDesign.Loads.LoadCase]()
 
-LC1 = FemDesign.Loads.LoadCase("LC1", FemDesign.Loads.LoadCaseType.DEAD_LOAD, FemDesign.Loads.LoadCaseDuration.PERMANENT)
+LC1 = FemDesign.Loads.LoadCase("LC1", FemDesign.Loads.LoadCaseType.DeadLoad, FemDesign.Loads.LoadCaseDuration.Permanent)
 loadcases.Add(LC1)
-LC2 = FemDesign.Loads.LoadCase("LC2", FemDesign.Loads.LoadCaseType.STATIC, FemDesign.Loads.LoadCaseDuration.PERMANENT)
+LC2 = FemDesign.Loads.LoadCase("LC2", FemDesign.Loads.LoadCaseType.Static, FemDesign.Loads.LoadCaseDuration.Permanent)
 loadcases.Add(LC2)
 
 model.AddLoadCases(loadcases)
 
 # Add loads to model
 loads = List[FemDesign.GenericClasses.ILoadElement]()
-p1 = FemDesign.Geometry.FdPoint3d(5.0, 5.0, 0.0)
+p1 = points[5]
 v1 = FemDesign.Geometry.FdVector3d(0.0, 0.0, -5.0)
 load = FemDesign.Loads.PointLoad(p1, v1, LC2, "", FemDesign.Loads.ForceLoadType.Force)
 loads.Add(load)

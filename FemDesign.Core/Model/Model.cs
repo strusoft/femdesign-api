@@ -706,6 +706,50 @@ namespace FemDesign
             this.PointConnectionTypes.PredefinedTypes.Add(obj);
         }
 
+        /// <summary>
+        /// Add Fictitious Shell to Model.
+        /// </summary>
+        private void AddDiaphragm(ModellingTools.Diaphragm obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.DiaphragmInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.AdvancedFem.Diaphragms.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line connection types (predefined rigidity)
+            foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
+            {
+                this.AddPredefinedRigidity(predef, overwrite);
+            }
+
+            this.Entities.AdvancedFem.Diaphragms.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool DiaphragmInModel(ModellingTools.Diaphragm obj)
+        {
+            foreach (ModellingTools.Diaphragm elem in this.Entities.AdvancedFem.Diaphragms)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Add Load to Model.
@@ -2308,6 +2352,7 @@ namespace FemDesign
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
         //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+        private void AddEntity(ModellingTools.Diaphragm obj, bool overwrite) => AddDiaphragm(obj, overwrite);
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
 
@@ -2326,6 +2371,7 @@ namespace FemDesign
         private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
         private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
         private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
+        private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

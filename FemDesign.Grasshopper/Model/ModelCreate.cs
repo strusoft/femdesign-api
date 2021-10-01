@@ -38,10 +38,11 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -119,17 +120,19 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(11, storeys))
+            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
+            if (!DA.GetDataList(11, axes))
             {
                 // pass
             }
 
-            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(12, axes))
+            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
+            if (!DA.GetDataList(12, storeys))
             {
                 // pass
             }
+
+            
             
             // Create model
             List<object> _loads = loads.Cast<object>().ToList();

@@ -87,6 +87,7 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Materials\MaterialGetMaterialByName.cs" />
     <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
+    <Compile Include="ModellingTools\DiaphragmDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />

@@ -48,7 +48,7 @@ namespace FemDesign.Grasshopper
             }
 
             VerticalAlignment alignment = EnumParser.Parse<VerticalAlignment>(loadPosition);
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredBottomFlange(beta, alignment, continuouslyRestrained));
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredBottomFlange(alignment, beta, continuouslyRestrained));
         }
         protected override System.Drawing.Bitmap Icon
         {

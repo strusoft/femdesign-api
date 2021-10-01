@@ -48,12 +48,12 @@ namespace FemDesign
         public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes, bool overwrite = false)
         {
             // Deep clone model
-            Model model = fdModel.DeepClone();
+            var clone = fdModel.DeepClone();
 
             // Add entities
             var _supports = supports.Cast<ISupportElement>().ToList();
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
-            return model;
+            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            return clone;
         }
 
         /// <summary>
@@ -69,15 +69,18 @@ namespace FemDesign
         [IsVisibleInDynamoLibrary(true)]
         public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, bool overwrite = false)
         {
+            // Deep clone model
+            var clone = fdModel.DeepClone();
+
             var _elements = elements.Cast<IStructureElement>().ToList();
             var _loads = loads.Cast<ILoadElement>().ToList();
 
-            fdModel.AddElements(_elements, overwrite);
-            fdModel.AddLoads(_loads, overwrite);
-            fdModel.AddLoadCases(loadCases, overwrite);
-            fdModel.AddLoadCombinations(loadCombinations, overwrite);
+            clone.AddElements(_elements, overwrite);
+            clone.AddLoads(_loads, overwrite);
+            clone.AddLoadCases(loadCases, overwrite);
+            clone.AddLoadCombinations(loadCombinations, overwrite);
 
-            return fdModel;
+            return clone;
         }
 
         /// <summary>

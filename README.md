@@ -25,7 +25,7 @@ The C# package can be installed in two ways:
 1. Adding as a `NuGet` package. (See the package on [nuget.org](https://www.nuget.org/packages/FemDesign.Core/) for reference)
 2. Download this repo and compile it from source.
 
-Please note that for some C# applications the setting `Prefer 32-Bit` might have to be unchecked for your program to work properly with this API.
+**Note** that for some C# applications the setting `Prefer 32-Bit` might have to be unchecked for your program to work properly with this API. The package have been developed and tested for `.NET Framework 4.7.2`.
 
 ### Grasshopper
 Download the grasshopper package from [food4rhino.com](https://www.food4rhino.com/en/app/fem-design-api-toolbox)
