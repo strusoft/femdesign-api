@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Globalization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Reinforcement
 {
@@ -107,6 +108,22 @@ namespace FemDesign.Reinforcement
             this.Direction = direction;
             this.Space = space;
             this.Face = face;
+            this.Cover = cover;
+        }
+
+        /// <summary>
+        /// Define straight reinforcement layout for surface reinforcement.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="direction">"x"/"y"</param>
+        /// <param name="space">Spacing between bars.</param>
+        /// <param name="face">"top"/"bottom"</param>
+        /// <param name="cover">Reinforcement concrete cover.</param>
+        public Straight(string direction, double space, string face, double cover)
+        {
+            this.Direction = EnumParser.Parse<ReinforcementDirection>(direction);
+            this.Space = space;
+            this.Face = EnumParser.Parse<Face>(face);
             this.Cover = cover;
         }
     }
