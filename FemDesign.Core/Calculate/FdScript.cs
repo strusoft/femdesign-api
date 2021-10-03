@@ -190,7 +190,7 @@ namespace FemDesign.Calculate
             fdScript.CmdSave = null;
             
             fdScript.DocxTemplatePath = docxTemplatePath;
-            fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
+            fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.StruxmlPath.Replace(".struxml", ".docx"));
 
             // set endsession
             if (endSession)
