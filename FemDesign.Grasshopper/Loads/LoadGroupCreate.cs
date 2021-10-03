@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
             type.AddNamedValue("temporary", 1);
             pManager[1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in LoadGroup. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Psi", "Psi", "Psi values to apply when combining loads (not needed for permanent group).", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadCategory", "LoadCategory", "Psi values to apply when combining loads (not needed for permanent group).", GH_ParamAccess.item);
             pManager[3].Optional = true;
             pManager.AddNumberParameter("Gamma_d", "Gamma_d", "Partialkoefficient för säkerhetsklass.", GH_ParamAccess.item);
             pManager.AddNumberParameter("SafetyFactor", "SafetyFactor", "Safety factor to multiply load with.", GH_ParamAccess.item);
@@ -31,7 +31,12 @@ namespace FemDesign.Grasshopper
             loadCaseRelation.AddNamedValue("entire", 0);
             loadCaseRelation.AddNamedValue("alternative", 1);
             pManager.AddNumberParameter("Xi", "Xi", "Factor to multiply permanent load with (only needed for permanent loads).", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager[7].Optional = true;
+            pManager.AddIntegerParameter("PotentiallyLeadingAction", "PotentiallyLeadingAction", "True if the load cases in the group can be leading actions", GH_ParamAccess.item, 1);
+            Param_Integer potentiallyLeadingAction = pManager[8] as Param_Integer;
+            potentiallyLeadingAction.AddNamedValue("False", 0);
+            potentiallyLeadingAction.AddNamedValue("True", 1);
+            pManager[8].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -42,12 +47,17 @@ namespace FemDesign.Grasshopper
             // get data
             string name = null;
             double gamma_d = 0, safetyFactor = 0, xi = 0;
-            int loadCaseRelation = 0, type = 0;
+            int loadCaseRelation = 0, type = 0, potentiallyLeadingAction = 1;
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            List<double> psi = new List<double>();
+            FemDesign.Loads.LoadCategory psi = new FemDesign.Loads.LoadCategory();
 
             if (!DA.GetData(0, ref name)) { return; }
             if (!DA.GetData(1, ref type))
+            {
+                // pass
+            }
+            if (!DA.GetDataList(2, loadCases)) { return; }
+            if (!DA.GetData(3, ref psi))
             {
                 // pass
             }
@@ -59,11 +69,12 @@ namespace FemDesign.Grasshopper
                 if(type == 0)
                     throw new System.ArgumentException("Must provide Xi value for permanent load group");                   
             }
-            if (!DA.GetDataList(2, loadCases)) { return; }
-            if (!DA.GetDataList(3, psi))
+            if(!DA.GetData(8, ref potentiallyLeadingAction))
             {
-                // pass
+                if (type == 1)
+                    throw new System.ArgumentException("Must specify if group is potentially leading action for temporary load group");
             }
+
             if (name == null)
                 if(psi == null || type != 0){ return; }
 
@@ -73,14 +84,19 @@ namespace FemDesign.Grasshopper
                 loadCaseRelationEnum = Loads.ELoadGroupRelation.Entire;
             else if(loadCaseRelation == 1)
                 loadCaseRelationEnum = Loads.ELoadGroupRelation.Alternative;
+
+            // Convert 0 and 1 to booleans
+            Boolean potentiallyLeadingActionBool = true;
+            if (potentiallyLeadingAction == 0)
+                potentiallyLeadingActionBool = false;
                 
 
             // Create load group object
-            FemDesign.Loads.LoadGroup obj = new Loads.LoadGroup();
+            Loads.LoadGroup obj = new Loads.LoadGroup();
             if (type == 0)
-                obj = new FemDesign.Loads.LoadGroup(name, Loads.ELoadGroupType.Permanent, loadCases, gamma_d, safetyFactor, loadCaseRelationEnum, xi);
+                obj = new Loads.LoadGroup(name, Loads.ELoadGroupType.Permanent, loadCases, gamma_d, safetyFactor, loadCaseRelationEnum, xi);
             else if (type == 1)
-                obj = new FemDesign.Loads.LoadGroup(name, Loads.ELoadGroupType.Variable, loadCases, psi, gamma_d, safetyFactor, loadCaseRelationEnum);
+                obj = new Loads.LoadGroup(name, Loads.ELoadGroupType.Variable, loadCases, psi, gamma_d, safetyFactor, loadCaseRelationEnum, potentiallyLeadingActionBool);
             else
                 throw new System.ArgumentException("Load group type not yet implemented");
 
@@ -91,7 +107,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.LoadGroupDefine;
+                return FemDesign.Properties.Resources.LoadGroup;
             }
         }
         public override Guid ComponentGuid

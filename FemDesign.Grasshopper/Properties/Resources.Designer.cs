@@ -553,6 +553,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadCoefficientsDataBase {
+            get {
+                object obj = ResourceManager.GetObject("LoadCoefficientsDataBase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadCombinationDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadCombinationDeconstruct", resourceCulture);
@@ -593,9 +603,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LoadGroupDefine {
+        internal static System.Drawing.Bitmap LoadGroup {
             get {
-                object obj = ResourceManager.GetObject("LoadGroupDefine", resourceCulture);
+                object obj = ResourceManager.GetObject("LoadGroup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -90,6 +90,8 @@
     <Compile Include="Loads\CombineLoadGroups.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
     <Compile Include="Loads\LoadCoefficientsDatabaseDefault.cs" />
+    <Compile Include="Loads\LoadCoefficientsDatabaseListLoadCategoryNames.cs" />
+    <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
@@ -709,11 +711,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
+    <Content Include="Resources\icons\LoadGroup.bmp" />
     <None Include="Resources\CombineLoadGroups.bmp" />
-    <None Include="Resources\iconCombineLoadGroups.bmp" />
-    <None Include="Resources\CombineLoadGroups.ico" />
-    <None Include="Resources\iconLoadGroup.bmp" />
-    <None Include="Resources\LoadGroupDefine.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

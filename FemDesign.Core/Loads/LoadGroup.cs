@@ -16,9 +16,9 @@ namespace FemDesign.Loads
         /// Load group type, permanent or temporary
         public ELoadGroupType Type { get; set; }
         /// Values used to combine load cases
-        public List<double> PsiValues = new List<double>();
+        public LoadCategory LoadCategory { get; set; }
         /// List of load cases that belong to the group
-        public List<LoadCase> LoadCases = new List<LoadCase>();
+        public List<LoadCase> LoadCases { get; set; }
         /// Partial coefficient used to account for the safety class
         public double Gamma_d { get; set; }
         /// The general coefficient used when combining the load cases
@@ -27,6 +27,8 @@ namespace FemDesign.Loads
         public double Xi { get; set; }
         /// How to combine the load cases in the group
         public ELoadGroupRelation LoadCaseRelation { get; set; }
+        /// Specifies if load cases in group can be leading actions
+        public bool PotentiallyLeadingAction { get; set; }
 
         /// <summary>
         /// Empty constructor
@@ -61,19 +63,21 @@ namespace FemDesign.Loads
         /// <param name="name">Name of load group</param>
         /// <param name="type">Type of loads in group, permanent or temporary</param>
         /// <param name="loadCases">List of load cases in the group</param>
-        /// <param name="psi">Values used to combine load cases</param>
+        /// <param name="loadCategory">Load category with psi values used to combine load cases</param>
         /// <param name="gamma_d">Partial coefficient used to account for the safety class</param>
         /// <param name="safetyFactor">The general coefficient used when combining the load cases</param>
         /// <param name="loadCaseRelation">How to combine the load cases in the group</param>
-        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, List<double> psi, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation)
+        /// <param name="potentiallyLeadingAction">Specifies if load cases in group can be leading actions</param> 
+        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, LoadCategory loadCategory, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation, bool potentiallyLeadingAction)
         {
             Name = name;
             Type = type;
             LoadCases = loadCases;
-            PsiValues = psi;
+            LoadCategory = loadCategory;
             Gamma_d = gamma_d;
             SafetyFactor = safetyFactor;
             LoadCaseRelation = loadCaseRelation;
+            PotentiallyLeadingAction = potentiallyLeadingAction;
         }
 
 

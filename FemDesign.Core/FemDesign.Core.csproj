@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -124,8 +125,8 @@
     <Compile Include="Loads\LoadGroup.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
-    <Compile Include="Loads\LoadType.cs" />
-    <Compile Include="Loads\LoadTypes.cs" />
+    <Compile Include="Loads\LoadCategory.cs" />
+    <Compile Include="Loads\LoadCategories.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
     <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\PointLoad.cs" />
@@ -260,7 +261,9 @@
     <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\LoadGroup.bmp" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
   </ItemGroup>

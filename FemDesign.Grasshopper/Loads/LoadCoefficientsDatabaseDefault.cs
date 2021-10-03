@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.MaterialDatabaseDefault;
+                return FemDesign.Properties.Resources.LoadCoefficientsDataBase;
             }
         }
         public override Guid ComponentGuid

@@ -70,46 +70,11 @@ namespace FemDesign.Loads
         {
             string loadCombinationNameTag = combinationType.ToString();
 
-            List<FemDesign.Loads.LoadCombination> loadCombinations = new List<LoadCombination>();
+            List<LoadCombination> loadCombinations;
+            List<LoadCase> usedLoadCases;
 
-            // Separate out the permanent load groups and the temporary
-            IEnumerable<LoadGroup> permanentLoadGroups = loadGroups.Where(lg => lg.Type == ELoadGroupType.Permanent);
-            List<LoadGroup> temporaryLoadGroups = loadGroups.Where(lg => lg.Type == ELoadGroupType.Variable).ToList();
+            (loadCombinations, usedLoadCases) = LoadCaseCombiner.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
 
-            // Initiate lists for storing load cases and groups for each combination
-            int loadCombCounter = 1;
-            List<LoadCase> loadCasesInComb = new List<LoadCase>();
-            List<double> loadCombGammas = new List<double>();
-            List<List<LoadCase>> loadCasePermutations = new List<List<LoadCase>>();
-            List<List<LoadGroup>> associatedLoadGroups = new List<List<LoadGroup>>();
-            List<List<LoadCase>> loadCasePermutationsTemp = new List<List<LoadCase>>();
-            List<List<LoadGroup>> associatedLoadGroupsTemp = new List<List<LoadGroup>>();
-
-            // Find all combinations of temporary load groups, such that all groups are leading action once (order of accompyaning actions not included)
-            for (int i = 0; i < temporaryLoadGroups.Count(); i++)
-            {
-                ExtensionMethods.Swap(temporaryLoadGroups, i, 0);
-                (loadCasePermutationsTemp, associatedLoadGroupsTemp) = LoadCaseCombiner.PermuteLoadCases(temporaryLoadGroups);
-                loadCasePermutations.AddRange(loadCasePermutationsTemp);
-                associatedLoadGroups.AddRange(associatedLoadGroupsTemp);
-            }
-
-            // Create a load combination for each permutation of temporary loads
-            for (int i = 0; i < loadCasePermutations.Count; i++)
-            {
-                loadCombinations.Add(LoadCaseCombiner.CreateLoadCombination(loadCasePermutations[i], loadCombCounter, 
-                                                                            loadCombinationNameTag, permanentLoadGroups.ToList(), 
-                                                                            associatedLoadGroups[i], combinationType));
-                loadCombCounter++;
-            }
-
-            // Find all unique load cases
-            List<LoadCase> usedLoadCases = new List<LoadCase>();
-
-            foreach (LoadGroup loadGroup in loadGroups)
-                usedLoadCases.AddRange(loadGroup.LoadCases);
-            usedLoadCases = usedLoadCases.Distinct().ToList();
-            
             return (loadCombinations, usedLoadCases);
         }
 

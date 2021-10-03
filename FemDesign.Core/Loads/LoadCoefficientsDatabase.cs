@@ -32,8 +32,8 @@ namespace FemDesign.Loads
         public string Standard { get; set; }
         [XmlAttribute("country")]
         public string Country { get; set; }
-        [XmlElement("load_types")]
-        public LoadTypes LoadTypes { get; set;}
+        [XmlElement("load_categories")]
+        public LoadCategories LoadCategories { get; set;}
         [XmlElement("end")]
         public string End { get; set; }
 
@@ -46,20 +46,20 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Lists the names of all Load Types in LoadCoefficientsDatabase.
+        /// Lists the names of all Load Categories in LoadCoefficientsDatabase.
         /// </summary>
-        /// <returns>List of load type names.</returns>
-        public List<string> LoadTypeNames()
+        /// <returns>List of load category names.</returns>
+        public List<string> LoadCategoryNames()
         {
             // empty list
             List<string> list = new List<string>();
 
             // list material names
-            if (this.LoadTypes != null)
+            if (this.LoadCategories != null)
             {
-                foreach (LoadType loadType in this.LoadTypes.LoadType)
+                foreach (LoadCategory loadCategory in this.LoadCategories.LoadCategory)
                 {
-                    list.Add(loadType.Name);
+                    list.Add(loadCategory.Name);
                 }
             }
             // return
@@ -67,28 +67,28 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Get load type from LoadCoefficientDatabase by name.
+        /// Get load category from LoadCoefficientDatabase by name.
         /// </summary>
-        /// <param name="loadTypeName">Name of load type</param>
+        /// <param name="loadCategoryName">Name of load type</param>
         /// <returns></returns>
-        public LoadType LoadTypeByName(string loadTypeName)
+        public LoadCategory LoadCategoryByName(string loadCategoryName)
         {
-            if (this.LoadTypes != null)
+            if (this.LoadCategories != null)
             {
-                foreach (LoadType loadType in this.LoadTypes.LoadType)
+                foreach (LoadCategory loadCategory in this.LoadCategories.LoadCategory)
                 {
-                    if (loadType.Name == loadTypeName)
+                    if (loadCategory.Name == loadCategoryName)
                     {
                         // update object information
-                        loadType.Guid = System.Guid.NewGuid();
-                        loadType.EntityModified();
+                        loadCategory.Guid = System.Guid.NewGuid();
+                        loadCategory.EntityModified();
 
                         // return
-                        return loadType;
+                        return loadCategory;
                     }
                 }
             }
-            throw new System.ArgumentException($"Load type was not found. Incorrect material name ({loadTypeName}) or empty load coefficient database.");
+            throw new System.ArgumentException($"Load category was not found. Incorrect material name ({loadCategoryName}) or empty load coefficient database.");
         }
 
         /*
