@@ -56,6 +56,20 @@ namespace FemDesign.Loads
             else if (combType == 4)
                 combTypeEnum = ELoadCombinationType.QuasiPermanent;
 
+            // Raise error if 6.10a and no permanent load group
+            int permanentGroupsCount = 0;
+            if(combTypeEnum == ELoadCombinationType.SixTenA)
+            {
+                foreach (LoadGroup loadGroup in loadGroups)
+                {
+                    if (loadGroup.Type == ELoadGroupType.Permanent)
+                        permanentGroupsCount += 1;
+                }
+                if(permanentGroupsCount == 0)
+                    throw new System.ArgumentException("6.10a requires at least one permanent load group");
+            }
+
+
             // Create load combinations
             List<FemDesign.Loads.LoadCombination> loadCombinations;
             List<LoadCase> loadCases;
