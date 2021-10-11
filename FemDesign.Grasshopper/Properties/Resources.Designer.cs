@@ -403,6 +403,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Help {
+            get {
+                object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LateralTorsional {
             get {
                 object obj = ResourceManager.GetObject("LateralTorsional", resourceCulture);
@@ -1406,6 +1416,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StraightReinforcementLayout {
             get {
                 object obj = ResourceManager.GetObject("StraightReinforcementLayout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StruSoftlogo {
+            get {
+                object obj = ResourceManager.GetObject("StruSoftlogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
