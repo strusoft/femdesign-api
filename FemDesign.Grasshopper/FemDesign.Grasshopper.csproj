@@ -88,6 +88,7 @@
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
+    <Compile Include="Info\Info.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
@@ -707,6 +708,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\CalculateFootfall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icons\StruSoftlogo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\Help.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
