@@ -119,7 +119,14 @@ namespace FemDesign.Geometry
                 }
                 else if (this.Type == "arc")
                 {
-                    return (this.EndAngle - this.StartAngle) * this.Radius;
+                    if (this.Points.Count == 3)
+                    {
+                        throw new System.ArgumentException("Can't calculate length of edge for arc2 type. Calculation of sweep angle is not implemented.");
+                    }
+                    else
+                    {
+                        return (this.EndAngle - this.StartAngle) * this.Radius;
+                    }
                 }
                 else if (this.Type == "circle")
                 {
