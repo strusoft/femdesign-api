@@ -40,8 +40,8 @@ namespace FemDesign.Geometry.Tests
             var mid = new FdPoint3d(0,1,0);
             var end = new FdPoint3d(1,0,0);
             var arc2 = new Edge(start, mid, end, cs);
-            Assert.ThrowsException<ArgumentException>(() => arc2.Length, "Should throw exception stating that method to calculate sweep angle is not implemented yet.");
-            //Assert.IsTrue(Math.Abs(arc1.Length - Math.PI) <= 1e-10);
+            //Assert.ThrowsException<ArgumentException>(() => arc2.Length, "Should throw exception stating that method to calculate sweep angle is not implemented yet.");
+            Assert.IsTrue(Math.Abs(arc2.Length - Math.PI) <= 1e-10); // test should fail here 
         }
     }
 }
