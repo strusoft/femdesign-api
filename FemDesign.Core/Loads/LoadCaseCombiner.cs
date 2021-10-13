@@ -219,7 +219,7 @@ namespace FemDesign.Loads
                     if (combinationType == ELoadCombinationType.SixTenB)
                         loadCombGammas.Add(temporaryLoadGroups[i].Gamma_d * temporaryLoadGroups[i].SafetyFactor * temporaryLoadGroups[i].LoadCategory.Psi0);
                     else if (combinationType == ELoadCombinationType.Characteristic)
-                        loadCombGammas.Add(0);
+                        loadCombGammas.Add(temporaryLoadGroups[i].LoadCategory.Psi0);
                     else if (combinationType == ELoadCombinationType.Frequent)
                         loadCombGammas.Add(temporaryLoadGroups[i].LoadCategory.Psi2);
                     else if (combinationType == ELoadCombinationType.QuasiPermanent)

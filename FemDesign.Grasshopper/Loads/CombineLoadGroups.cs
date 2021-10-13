@@ -82,7 +82,14 @@ namespace FemDesign.Loads
 
         private (List<LoadCombination>, List<LoadCase>) CreateCombinations(List<LoadGroup> loadGroups, ELoadCombinationType combinationType)
         {
-            string loadCombinationNameTag = combinationType.ToString();
+            // Fix how the combination type is printed
+            string loadCombinationNameTag;
+            if (combinationType == ELoadCombinationType.SixTenA)
+                loadCombinationNameTag = "6.10a";
+            else if (combinationType == ELoadCombinationType.SixTenB)
+                loadCombinationNameTag = "6.10b";
+            else
+                loadCombinationNameTag = combinationType.ToString();
 
             List<LoadCombination> loadCombinations;
             List<LoadCase> usedLoadCases;
