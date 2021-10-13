@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 #region dynamo
 using Autodesk.DesignScript.Runtime;
@@ -36,18 +37,22 @@ namespace FemDesign
         /// <param name="bar">Bar.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "StructuralID", "AnalyticalID", "Type", "Curve", "Material", "Section"})]
+        [MultiReturn(new[]{"Guid", "Curve", "Type", "Material", "Section", "Connectivity", "Eccentricity", "LocalY", "Stirrups", "LongitudinalBars", "Identifier"})]
         public static Dictionary<string, object> BarDeconstruct(FemDesign.Bars.Bar bar)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", bar.Guid},
-                {"AnalyticalID", bar.Identifier},
-                {"StructuralID", bar.BarPart.Identifier},
-                {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},
+                {"Type", bar.Type},
                 {"Material", bar.BarPart.Material},
-                {"Section", bar.BarPart.Sections}
+                {"Section", bar.BarPart.Sections},
+                {"Connectivity", bar.BarPart.Connectivities},
+                {"Eccentricity", bar.BarPart.Eccentricities},
+                {"LocalY", bar.BarPart.LocalY.ToDynamo()},
+                {"Stirrups", bar.Stirrups},
+                {"LongitudinalBars", bar.LongitudinalBars},
+                {"Identifier", bar.Identifier}
             };
         }
 
@@ -155,6 +160,38 @@ namespace FemDesign
                 {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
                 {"Comment", lineTemperatureLoad.Comment}
             };
+        }
+
+        /// <summary>
+        /// Deconstruct a LongitudinalBar
+        /// </summary>
+        /// <param name="longBar">LongitudinalBar of a bar element..</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "YPos", "ZPos", "StartAnchorage", "EndAnchorage", "Start", "End", "AuxBar"})]
+        public static Dictionary<string, object> LongitudinalBarDeconstruct(FemDesign.Reinforcement.BarReinforcement longBar)
+        {
+            if (longBar.IsStirrups)
+            {
+                throw new System.ArgumentException($"Passed object {longBar.Guid} is not a longitudinal bar reinforcement object. Did you pass a stirrups bar?");
+            }
+            else
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", longBar.Guid},
+                    {"BaseBar", longBar.BaseBar.Guid},
+                    {"Wire", longBar.Wire},
+                    {"YPos", longBar.LongitudinalBar.Position2d.X},
+                    {"ZPos", longBar.LongitudinalBar.Position2d.Y},
+                    {"StartAnchorage", longBar.LongitudinalBar.Anchorage.Start},
+                    {"EndAnchorage", longBar.LongitudinalBar.Anchorage.End},
+                    {"Start", longBar.LongitudinalBar.Start},
+                    {"End", longBar.LongitudinalBar.End},
+                    {"AuxBar", longBar.LongitudinalBar.Auxiliary}
+                };
+
+            }
         }
 
         /// <summary>
@@ -735,6 +772,35 @@ namespace FemDesign
                 {"YY", stiffnessMatrix.YY},
                 {"GXY", stiffnessMatrix.GXY}
             };
+        }
+
+        /// <summary>
+        /// Deconstruct a distribution of stirrups
+        /// </summary>
+        /// <param name="stirrups">Stirrups along a distribution of a bar element.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "Profiles", "Start", "End", "Spacing"})]
+        public static Dictionary<string, object> StirrupDeconstruct(FemDesign.Reinforcement.BarReinforcement stirrups)
+        {
+            if (!stirrups.IsStirrups)
+            {
+                throw new System.ArgumentException($"Passed object {stirrups.Guid} is not a stirrup bar reinforcement object. Did you pass a longitudinal bar?");
+            }
+            else
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", stirrups.Guid},
+                    {"BaseBar", stirrups.BaseBar.Guid},
+                    {"Wire", stirrups.Wire},
+                    {"Profiles", stirrups.Stirrups.Regions.Select(x => x.ToDynamoSurface())},
+                    {"Start", stirrups.Stirrups.Start},
+                    {"End", stirrups.Stirrups.End},
+                    {"Spacing", stirrups.Stirrups.Distance}
+                };
+
+            }
         }
 
         /// <summary>

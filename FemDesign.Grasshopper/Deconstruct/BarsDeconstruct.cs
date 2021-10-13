@@ -20,6 +20,7 @@ namespace FemDesign.Grasshopper
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Type", "Type", "Bar type", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
            pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
@@ -45,14 +46,15 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, bar.Guid);
             DA.SetData(1, bar.GetRhinoCurve());
-            DA.SetData(2, bar.BarPart.Material);
-            DA.SetDataList(3, bar.BarPart.Sections);
-            DA.SetDataList(4, bar.BarPart.Connectivities);
-            DA.SetDataList(5, bar.BarPart.Eccentricities);
-            DA.SetData(6, bar.BarPart.LocalY.ToRhino());
-            DA.SetDataList(7, bar.Stirrups);
-            DA.SetDataList(8, bar.LongitudinalBars);
-            DA.SetData(9, bar.Identifier);
+            DA.SetData(2, bar.Type);
+            DA.SetData(3, bar.BarPart.Material);
+            DA.SetDataList(4, bar.BarPart.Sections);
+            DA.SetDataList(5, bar.BarPart.Connectivities);
+            DA.SetDataList(6, bar.BarPart.Eccentricities);
+            DA.SetData(7, bar.BarPart.LocalY.ToRhino());
+            DA.SetDataList(8, bar.Stirrups);
+            DA.SetDataList(9, bar.LongitudinalBars);
+            DA.SetData(10, bar.Identifier);
        }
        protected override System.Drawing.Bitmap Icon
        {

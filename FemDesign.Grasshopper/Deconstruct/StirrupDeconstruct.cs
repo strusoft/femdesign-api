@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class StirrupDeconstruct: GH_Component
     {
-       public StirrupDeconstruct(): base("Stirrups.Deconstruct", "Deconstruct", "Deconstruct a bar stirrup.", "FemDesign", "Deconstruct")
+       public StirrupDeconstruct(): base("Stirrups.Deconstruct", "Deconstruct", "Deconstruct a distribution of stirrups.", "FemDesign", "Deconstruct")
        {
 
        }

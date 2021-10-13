@@ -26,6 +26,7 @@ namespace FemDesign.Grasshopper
             pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Anchorage mesaure at end in meters", GH_ParamAccess.item);
             pManager.AddNumberParameter("Start", "Start", "Start of LongitudinalBar distribution expressed as distance along the reference bar from start of bar", GH_ParamAccess.item);
             pManager.AddNumberParameter("End", "End", "End of LongitudinalBar distribution expressed as a distance along the reference bar from start of bar", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("AuxBar", "AuxBar", "Is bar auxiliary?", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
@@ -50,6 +51,7 @@ namespace FemDesign.Grasshopper
                 DA.SetData("EndAnchorage", barReinf.LongitudinalBar.Anchorage.End);
                 DA.SetData("Start", barReinf.LongitudinalBar.Start);
                 DA.SetData("End", barReinf.LongitudinalBar.End);
+                DA.SetData("AuxBar", barReinf.LongitudinalBar.Auxiliary);
             }
        }
        protected override System.Drawing.Bitmap Icon

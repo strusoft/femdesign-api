@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarReinforcementStirrups: GH_Component
     {
-        public BarReinforcementStirrups(): base("BarReinforcement.AddStirrups", "AddStirrups", "Add stirrup reinforcement to a bar.", "FemDesign", "Reinforcement")
+        public BarReinforcementStirrups(): base("BarReinforcement.AddStirrups", "AddStirrups", "Add stirrup reinforcement to a bar. Curved bars are not supported.", "FemDesign", "Reinforcement")
         {
 
         }
