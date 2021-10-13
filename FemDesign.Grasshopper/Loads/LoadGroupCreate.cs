@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
             pManager[3].Optional = true;
             pManager.AddNumberParameter("Gamma_d", "Gamma_d", "Partialkoefficient för säkerhetsklass.", GH_ParamAccess.item);
             pManager.AddNumberParameter("SafetyFactor", "SafetyFactor", "Safety factor to multiply load with.", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("LoadCaseRelation", "LoadCaseRelation", "Specifies how the load cases are related", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("LoadCaseRelationship", "LoadCaseRelationship", "Specifies how the load cases are related", GH_ParamAccess.item, 0);
             Param_Integer loadCaseRelation = pManager[6] as Param_Integer;
             loadCaseRelation.AddNamedValue("entire", 0);
             loadCaseRelation.AddNamedValue("alternative", 1);
@@ -79,11 +79,11 @@ namespace FemDesign.Grasshopper
                 if(psi == null || type != 0){ return; }
 
             // Convert the load case relation to an enum
-            Loads.ELoadGroupRelation loadCaseRelationEnum = Loads.ELoadGroupRelation.Entire;
+            Loads.ELoadGroupRelationship loadCaseRelationEnum = Loads.ELoadGroupRelationship.Entire;
             if(loadCaseRelation == 0)
-                loadCaseRelationEnum = Loads.ELoadGroupRelation.Entire;
+                loadCaseRelationEnum = Loads.ELoadGroupRelationship.Entire;
             else if(loadCaseRelation == 1)
-                loadCaseRelationEnum = Loads.ELoadGroupRelation.Alternative;
+                loadCaseRelationEnum = Loads.ELoadGroupRelationship.Alternative;
 
             // Convert 0 and 1 to booleans
             Boolean potentiallyLeadingActionBool = true;

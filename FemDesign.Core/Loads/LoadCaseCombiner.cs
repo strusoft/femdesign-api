@@ -78,14 +78,14 @@ namespace FemDesign.Loads
             List<LoadCase>[] arr = new List<LoadCase>[loadGroups.Count];
             for (int i = 0; i < loadGroups.Count; i++)
             {
-                if(loadGroups[i].LoadCaseRelation == ELoadGroupRelation.Alternative)
+                if(loadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Alternative)
                 {
                     arr[i] = loadGroups[i].LoadCases;
                     loadGroupRef[i] = new List<LoadGroup>();
                     for (int j = 0; j < arr[i].Count; j++)
                         loadGroupRef[i].Add(loadGroups[i]);
                 }
-                else if(loadGroups[i].LoadCaseRelation == ELoadGroupRelation.Entire)
+                else if(loadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
                 {
                     // Just use one of the load cases for now and add all load cases later
                     arr[i] = new List<LoadCase>() { loadGroups[i].LoadCases[0]};
@@ -115,7 +115,7 @@ namespace FemDesign.Loads
                 // Store current combination and associated load group
                 for (int i = 0; i < n; i++)
                 {
-                    if(loadGroupRef[i][indices[i]].LoadCaseRelation == ELoadGroupRelation.Entire)
+                    if(loadGroupRef[i][indices[i]].LoadCaseRelation == ELoadGroupRelationship.Entire)
                     {
                         loadPermutations[combIter].AddRange(loadGroupRef[i][0].LoadCases);
                         for (int j = 0; j < loadGroupRef[i][0].LoadCases.Count; j++)
@@ -199,9 +199,9 @@ namespace FemDesign.Loads
                 // First load case is the leading action
                 if (i == 0)
                 {
-                    if (temporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelation.Alternative)
+                    if (temporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Alternative)
                         leadingActionName = temporaryLoadCases[i].Name;
-                    else if (temporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelation.Entire)
+                    else if (temporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
                         leadingActionName = temporaryLoadGroups[i].Name;
 
                     if (combinationType == ELoadCombinationType.SixTenB)

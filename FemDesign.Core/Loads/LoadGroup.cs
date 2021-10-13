@@ -26,7 +26,7 @@ namespace FemDesign.Loads
         /// Coefficient used when combining permanent load cases
         public double Xi { get; set; }
         /// How to combine the load cases in the group
-        public ELoadGroupRelation LoadCaseRelation { get; set; }
+        public ELoadGroupRelationship LoadCaseRelation { get; set; }
         /// Specifies if load cases in group can be leading actions
         public bool PotentiallyLeadingAction { get; set; }
 
@@ -45,7 +45,7 @@ namespace FemDesign.Loads
         /// <param name="safetyFactor">The general coefficient used when combining the load cases</param>
         /// <param name="loadCaseRelation">How to combine the load cases in the group</param>
         /// <param name="xi">Coefficient used when combining permanent load cases</param>
-        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation, double xi)
+        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, double gamma_d, double safetyFactor, ELoadGroupRelationship loadCaseRelation, double xi)
         {
             Name = name;
             Type = type;
@@ -68,7 +68,7 @@ namespace FemDesign.Loads
         /// <param name="safetyFactor">The general coefficient used when combining the load cases</param>
         /// <param name="loadCaseRelation">How to combine the load cases in the group</param>
         /// <param name="potentiallyLeadingAction">Specifies if load cases in group can be leading actions</param> 
-        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, LoadCategory loadCategory, double gamma_d, double safetyFactor, ELoadGroupRelation loadCaseRelation, bool potentiallyLeadingAction)
+        public LoadGroup(string name, ELoadGroupType type, List<LoadCase> loadCases, LoadCategory loadCategory, double gamma_d, double safetyFactor, ELoadGroupRelationship loadCaseRelation, bool potentiallyLeadingAction)
         {
             Name = name;
             Type = type;

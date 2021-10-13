@@ -121,8 +121,10 @@
     <Compile Include="Loads\LoadCase.cs" />
     <Compile Include="Loads\LoadCaseCombiner.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
-    <Compile Include="Loads\Loadenums.cs" />
+    <Compile Include="Loads\LoadCombinationType.cs" />
     <Compile Include="Loads\LoadGroup.cs" />
+    <Compile Include="Loads\LoadGrouprelationship.cs" />
+    <Compile Include="Loads\LoadGroupType.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
     <Compile Include="Loads\LoadCategory.cs" />
@@ -260,9 +262,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LoadGroup.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
