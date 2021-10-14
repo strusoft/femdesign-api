@@ -20,7 +20,7 @@ namespace FemDesign.Reinforcement
         /// <param name="endParam">Parameter representing start position of stirrups. 0 is start of bar and 1 is end of bar</param>
         /// <param name="spacing">arameter representing spacing of stirrups.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static Bars.Bar AddStirrups(Bars.Bar bar, Autodesk.DesignScript.Geometry.Surface profile, Wire wire, double startParam, double endParam, double spacing)
+        public static Bars.Bar StirrupsByParam(Bars.Bar bar, Autodesk.DesignScript.Geometry.Surface profile, Wire wire, double startParam, double endParam, double spacing)
         {
             // transform profile to region
             var region = Geometry.Region.FromDynamo(profile);

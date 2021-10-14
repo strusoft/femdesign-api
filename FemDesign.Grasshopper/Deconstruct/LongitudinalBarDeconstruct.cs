@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class LongitudinalBarDeconstruct: GH_Component
     {
-       public LongitudinalBarDeconstruct(): base("LongitudinalBars.Deconstruct", "Deconstruct", "Deconstruct a longitudinal bar.", "FemDesign", "Deconstruct")
+       public LongitudinalBarDeconstruct(): base("LongitudinalBar.Deconstruct", "Deconstruct", "Deconstruct a longitudinal bar.", "FemDesign", "Deconstruct")
        {
 
        }
