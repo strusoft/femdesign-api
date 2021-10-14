@@ -15,7 +15,7 @@ namespace FemDesign.Reinforcement
         {
             pManager.AddNumberParameter("z'", "z'", "Height", GH_ParamAccess.item);
             pManager.AddNumberParameter("Tangent", "Tangent", "Tangent of cable at end", GH_ParamAccess.item);
-            pManager.AddNumberParameter("PriorInflectionParam", "PriorInflectionParam", "Parameter of prior inflection point. Optional", GH_ParamAccess.item);
+            pManager.AddNumberParameter("PriorInflection x'", "PriorInflection x'", "Parameter of prior inflection point. Parameter between 0-1 along parent element. Optional", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
 
@@ -33,7 +33,7 @@ namespace FemDesign.Reinforcement
             if (!DA.GetData("Tangent", ref tangent)) return;
 
             double? priorInflectionParam = null;
-            DA.GetData("PriorInflectionParam", ref priorInflectionParam);
+            DA.GetData("PriorInflection x'", ref priorInflectionParam);
             
             PtcShapeEnd end = new PtcShapeEnd(z, tangent, priorInflectionParam);
 

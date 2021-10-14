@@ -99,9 +99,53 @@ namespace FemDesign.Reinforcement
         /// </summary>
         public PtcShapeType(PtcShapeStart start, PtcShapeEnd end, IEnumerable<PtcShapeInner> intermediates)
         {
+            DenormalizePriorInflectionParameters(ref end, ref intermediates);
+
             StartPoint = start;
             EndPoint = end;
             IntermediatePoint = intermediates.ToArray();
+        }
+
+        /// <summary>
+        /// Change normalization on PriorInflectionPosition from normalized along parent element to be normalized between ptc shape base points.
+        /// </summary>
+        /// <param name="end"></param>
+        /// <param name="intermediates"></param>
+        private void DenormalizePriorInflectionParameters(ref PtcShapeEnd end, ref IEnumerable<PtcShapeInner> intermediates)
+        {
+            var sortedInner = intermediates.OrderBy(i => i.Position).ToList();
+            List<PtcShapeInner> newIntermediates = new List<PtcShapeInner>();
+
+            double Denormalize(double t, double x1, double x2)
+            {
+                if (t < x1 || t > x2)
+                    throw new ArgumentException($"PriorInflectionPosition must be a parameter between prior end next basepoint but got (position: {t}, prior: {x1}, next: {x2})");
+                return (t - x1) / (x2 - x1);
+            }
+
+            // Normalize inner
+            for (int i = 0; i < sortedInner.Count; i++)
+            {
+                var next = sortedInner[i];
+                double x1 = 0.0;
+                if (i > 0)
+                    x1 = sortedInner[i - 1].Position;
+                double x2 = next.Position;
+                double t = next.PriorInflectionPosition.Value;
+
+                newIntermediates.Add(new PtcShapeInner(next.Position, next.Z, next.Tangent, Denormalize(t, x1, x2)));
+            }
+            intermediates = newIntermediates;
+
+            // Normalize end
+            if (sortedInner.Any() && end.PriorInflectionPosition.HasValue && end.NormalizedInflectionPosition)
+            {
+                double x1 = sortedInner.Last().Position;
+                double x2 = 1.0;
+                double t = end.PriorInflectionPosition.Value;
+
+                end = new PtcShapeEnd(end.Z, end.Tangent, Denormalize(t, x1, x2)) { NormalizedInflectionPosition = false };
+            }
         }
     }
 
@@ -155,7 +199,17 @@ namespace FemDesign.Reinforcement
                 _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null; 
             }
         }
-        
+
+        /// <summary>
+        /// Internal property to reflect whether or not the PriorInflectionPosition is been normalized along the parent element or not. <br/><br/>
+        /// 
+        /// true: <see cref="PriorInflectionPosition"/> is normalized (0-1) along parant element. <br/>
+        /// false: <see cref="PriorInflectionPosition"/> is normalized (0-1) between prior and next basepoints. <br/><br/>
+        /// 
+        /// When serializing to struxml this shold have been set to false by <see cref="PtcShapeType.DenormalizePriorInflectionParameters(ref PtcShapeEnd, ref IEnumerable{PtcShapeInner})"/>.
+        /// </summary>
+        internal bool NormalizedInflectionPosition = true;
+
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
@@ -198,6 +252,16 @@ namespace FemDesign.Reinforcement
                 _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null;
             }
         }
+
+        /// <summary>
+        /// Internal property to reflect whether or not the PriorInflectionPosition is been normalized along the parent element or not. <br/><br/>
+        /// 
+        /// true: <see cref="PriorInflectionPosition"/> is normalized (0-1) along parant element. <br/>
+        /// false: <see cref="PriorInflectionPosition"/> is normalized (0-1) between prior and next basepoints. <br/><br/>
+        /// 
+        /// When serializing to struxml this shold have been set to false by <see cref="PtcShapeType.DenormalizePriorInflectionParameters(ref PtcShapeEnd, ref IEnumerable{PtcShapeInner})"/>.
+        /// </summary>
+        internal bool NormalizedInflectionPosition = true;
 
         /// <summary>
         /// Parameterless constructor for serialization
