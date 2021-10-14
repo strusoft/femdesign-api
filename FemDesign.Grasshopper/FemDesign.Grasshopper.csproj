@@ -170,6 +170,9 @@
     </Compile>
     <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
     <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeInner.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeEnd.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeStart.cs" />
     <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
     <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
     <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />

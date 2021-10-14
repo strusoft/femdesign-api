@@ -94,7 +94,10 @@ namespace FemDesign.Reinforcement
 
         }
 
-        public PtcShapeType(PtcShapeStart start, PtcShapeEnd end, IEnumerable<PtcShapeInner> intermediates = null)
+        /// <summary>
+        /// Defines the shape of a Post Tensioned Cable.
+        /// </summary>
+        public PtcShapeType(PtcShapeStart start, PtcShapeEnd end, IEnumerable<PtcShapeInner> intermediates)
         {
             StartPoint = start;
             EndPoint = end;
@@ -110,13 +113,30 @@ namespace FemDesign.Reinforcement
 
         [XmlAttribute("tangent")]
         public double Tangent { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private PtcShapeStart() { }
+
+        public PtcShapeStart(double z = 0.0, double tangent = 0.0)
+        {
+            Z = z;
+            Tangent = tangent;
+        }
     }
 
     [System.Serializable]
     public partial class PtcShapeInner
     {
+        /// <summary>
+        /// x'
+        /// </summary>
         [XmlAttribute("pos")]
         public double Position { get; set; }
+        /// <summary>
+        /// z'
+        /// </summary>
         [XmlAttribute("z")]
         public double Z { get; set; }
         [XmlAttribute("tangent")]
@@ -134,6 +154,26 @@ namespace FemDesign.Reinforcement
             {
                 _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null; 
             }
+        }
+        
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private PtcShapeInner() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x">Parameter along axis of element.</param>
+        /// <param name="z">Height</param>
+        /// <param name="tangent">Tangent of cable at the inner point</param>
+        /// <param name="priorInflectionPosition">Parameter of prior inflection point, if any. Optional</param>
+        public PtcShapeInner(double x, double z = 0.0, double tangent = 0.0, double? priorInflectionPosition = null)
+        {
+            Position = x;
+            Z = z;
+            Tangent = tangent;
+            PriorInflectionPosition = priorInflectionPosition;
         }
     }
 
@@ -157,6 +197,18 @@ namespace FemDesign.Reinforcement
             {
                 _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null;
             }
+        }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private PtcShapeEnd() { }
+
+        public PtcShapeEnd(double z = 0.0, double tangent = 0.0, double? priorInflectionPosition = null)
+        {
+            Z = z;
+            Tangent = tangent;
+            PriorInflectionPosition = priorInflectionPosition;
         }
     }
 
