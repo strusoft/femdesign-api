@@ -15,9 +15,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bar", "Bar", "Bar to add longitudinal rebars to", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Wire", "Wire", "Longitudinal rebar material and type.", GH_ParamAccess.item);
             pManager.AddNumberParameter("YPos", "YPos", "YPos", GH_ParamAccess.item);
             pManager.AddNumberParameter("ZPos", "ZPos", "ZPos", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Wire", "Wire", "Longitudinal rebar material and type.", GH_ParamAccess.item);
             pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Measure representing start anchorage of longitudinal rebar in meter.", GH_ParamAccess.item);
             pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Measure representing end anchorage of longitudinal rebar in meter.", GH_ParamAccess.item);
             pManager.AddNumberParameter("StartParameter", "StartParam", "Parameter representing start position of longitudinal rebar. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
@@ -37,6 +37,12 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            FemDesign.Reinforcement.Wire wire = null;
+            if (!DA.GetData("Wire", ref wire))
+            {
+                return;
+            }
+
             double yPos = 0;
             if (!DA.GetData("YPos", ref yPos))
             {
@@ -45,12 +51,6 @@ namespace FemDesign.Grasshopper
 
             double zPos = 0;
             if (!DA.GetData("ZPos", ref zPos))
-            {
-                return;
-            }
-
-            FemDesign.Reinforcement.Wire wire = null;
-            if (!DA.GetData("Wire", ref wire))
             {
                 return;
             }

@@ -168,7 +168,7 @@ namespace FemDesign
         /// <param name="longBar">LongitudinalBar of a bar element..</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "YPos", "ZPos", "StartAnchorage", "EndAnchorage", "Start", "End", "AuxBar"})]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "YPos", "ZPos", "StartAnchorage", "EndAnchorage", "StartMeasurement", "EndMeasurement", "AuxBar"})]
         public static Dictionary<string, object> LongitudinalBarDeconstruct(FemDesign.Reinforcement.BarReinforcement longBar)
         {
             if (longBar.IsStirrups)
@@ -186,8 +186,8 @@ namespace FemDesign
                     {"ZPos", longBar.LongitudinalBar.Position2d.Y},
                     {"StartAnchorage", longBar.LongitudinalBar.Anchorage.Start},
                     {"EndAnchorage", longBar.LongitudinalBar.Anchorage.End},
-                    {"Start", longBar.LongitudinalBar.Start},
-                    {"End", longBar.LongitudinalBar.End},
+                    {"StartMeasurement", longBar.LongitudinalBar.Start},
+                    {"EndMeasurement", longBar.LongitudinalBar.End},
                     {"AuxBar", longBar.LongitudinalBar.Auxiliary}
                 };
 
@@ -780,7 +780,7 @@ namespace FemDesign
         /// <param name="stirrups">Stirrups along a distribution of a bar element.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "Profiles", "Start", "End", "Spacing"})]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "Profiles", "StartMeasurement", "EndMeasurement", "Spacing"})]
         public static Dictionary<string, object> StirrupDeconstruct(FemDesign.Reinforcement.BarReinforcement stirrups)
         {
             if (!stirrups.IsStirrups)
@@ -795,8 +795,8 @@ namespace FemDesign
                     {"BaseBar", stirrups.BaseBar.Guid},
                     {"Wire", stirrups.Wire},
                     {"Profiles", stirrups.Stirrups.Regions.Select(x => x.ToDynamoSurface())},
-                    {"Start", stirrups.Stirrups.Start},
-                    {"End", stirrups.Stirrups.End},
+                    {"StartMeasurement", stirrups.Stirrups.Start},
+                    {"EndMeasurement", stirrups.Stirrups.End},
                     {"Spacing", stirrups.Stirrups.Distance}
                 };
 

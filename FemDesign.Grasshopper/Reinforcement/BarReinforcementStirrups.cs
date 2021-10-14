@@ -15,8 +15,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bar", "Bar", "Bar to add stirrups to", GH_ParamAccess.item);
-            pManager.AddBrepParameter("Profile", "Profile", "Surface representing the profile of the stirrup.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Wire", "Wire", "Stirrup rebar material and type.", GH_ParamAccess.item);
+            pManager.AddBrepParameter("Profile", "Profile", "Surface representing the profile of the stirrup.", GH_ParamAccess.item);
             pManager.AddNumberParameter("StartParameter", "StartParam", "Parameter representing start position of stirrups. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
             pManager.AddNumberParameter("EndParameter", "EndParam", "Parameter representing start position of stirrups. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
             pManager.AddNumberParameter("Spacing", "Spacing", "Parameter representing spacing of stirrups.", GH_ParamAccess.item);
@@ -34,14 +34,14 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            Rhino.Geometry.Brep profile = null;
-            if (!DA.GetData("Profile", ref profile))
+            FemDesign.Reinforcement.Wire wire = null;
+            if (!DA.GetData("Wire", ref wire))
             {
                 return;
             }
 
-            FemDesign.Reinforcement.Wire wire = null;
-            if (!DA.GetData("Wire", ref wire))
+            Rhino.Geometry.Brep profile = null;
+            if (!DA.GetData("Profile", ref profile))
             {
                 return;
             }

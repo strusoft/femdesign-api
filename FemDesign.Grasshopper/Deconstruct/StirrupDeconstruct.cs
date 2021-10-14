@@ -21,8 +21,8 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("BaseBar", "BaseBar", "Guid of bar part of bar on which these stirrups are distributed.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Wire", "Wire", "Wire of stirrups.", GH_ParamAccess.item);
            pManager.AddBrepParameter("Profiles", "Profiles", "Profiles of stirrups", GH_ParamAccess.list);
-           pManager.AddNumberParameter("Start", "Start", "Start of stirrup distribution expressed as distance along the reference bar from start of bar", GH_ParamAccess.item);
-           pManager.AddNumberParameter("End", "End", "End of stirrup distribution expressed as a distance along the reference bar from start of bar", GH_ParamAccess.item);
+           pManager.AddNumberParameter("StartMeasurement", "StartMeasurement", "Start of stirrup distribution expressed as distance along the reference bar from start of bar", GH_ParamAccess.item);
+           pManager.AddNumberParameter("EndMeasurement", "EndMeasurement", "End of stirrup distribution expressed as a distance along the reference bar from start of bar", GH_ParamAccess.item);
            pManager.AddNumberParameter("Spacing", "Spacing", "Spacing of stirrups along distribution.", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
@@ -43,8 +43,8 @@ namespace FemDesign.Grasshopper
                 DA.SetData("BaseBar", barReinf.BaseBar.Guid);
                 DA.SetData("Wire", barReinf.Wire);
                 DA.SetDataList("Profiles", barReinf.Stirrups.Regions.Select(x => x.ToRhinoBrep()));
-                DA.SetData("Start", barReinf.Stirrups.Start);
-                DA.SetData("End", barReinf.Stirrups.End);
+                DA.SetData("StartMeasurement", barReinf.Stirrups.Start);
+                DA.SetData("EndMeasurement", barReinf.Stirrups.End);
                 DA.SetData("Spacing", barReinf.Stirrups.Distance);
             }
        }
