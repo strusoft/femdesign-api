@@ -127,13 +127,20 @@ namespace FemDesign.Reinforcement
             for (int i = 0; i < sortedInner.Count; i++)
             {
                 var next = sortedInner[i];
-                double x1 = 0.0;
-                if (i > 0)
-                    x1 = sortedInner[i - 1].Position;
-                double x2 = next.Position;
-                double t = next.PriorInflectionPosition.Value;
+                if (next.PriorInflectionPosition.HasValue)
+                {
+                    double x1 = 0.0;
+                    if (i > 0)
+                        x1 = sortedInner[i - 1].Position;
+                    double x2 = next.Position;
+                    double t = next.PriorInflectionPosition.Value;
 
-                newIntermediates.Add(new PtcShapeInner(next.Position, next.Z, next.Tangent, Denormalize(t, x1, x2)));
+                    newIntermediates.Add(new PtcShapeInner(next.Position, next.Z, next.Tangent, Denormalize(t, x1, x2)));
+                }
+                else
+                {
+                    newIntermediates.Add(next);
+                }
             }
             intermediates = newIntermediates;
 
@@ -196,7 +203,7 @@ namespace FemDesign.Reinforcement
             }
             set
             {
-                _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null; 
+                _priorInflectionPosition = value.HasValue ? ((double)value).ToString(System.Globalization.CultureInfo.InvariantCulture) : null;
             }
         }
 
@@ -478,13 +485,13 @@ namespace FemDesign.Reinforcement
         /// <param name="f_pk">f pk [N/mm2]</param>
         /// <param name="a_p">A p [mm2]</param>
         /// <param name="e_p">E p [N/mm2]</param>
-        /// <param name="density">Rho [t/mm3]</param>
+        /// <param name="rho">Rho [t/mm3]</param>
         /// <param name="relaxationClass">Relaxation class [1, 2, 3] </param>
         /// <param name="rho_1000">Rho 1000 [%]</param>
-        public PtcStrandLibType(string name, double f_pk, double a_p, double e_p, double density, int relaxationClass, double rho_1000)
+        public PtcStrandLibType(string name, double f_pk, double a_p, double e_p, double rho, int relaxationClass, double rho_1000)
         {
             Name = name;
-            PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, density, relaxationClass, rho_1000);
+            PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, rho, relaxationClass, rho_1000);
             EntityCreated();
         }
     }

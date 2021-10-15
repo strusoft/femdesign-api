@@ -32,15 +32,13 @@ namespace FemDesign.Samples
 
             // Create Post-tensioned cable
             var shape = new Reinforcement.PtcShapeType(
-                start: new Reinforcement.PtcShapeStart() { Z= 0.0, Tangent = 0.0 },
+                start: new Reinforcement.PtcShapeStart(0.0, 0.0),
                 intermediates: new List<Reinforcement.PtcShapeInner>()
                 {
-                    new Reinforcement.PtcShapeInner() { Position = 0.2, Z = -0.15, Tangent = 0.0 },
-                    new Reinforcement.PtcShapeInner() { Position = 0.4, Z = -0.20, Tangent = 0.0 },
-                    new Reinforcement.PtcShapeInner() { Position = 0.6, Z = -0.20, Tangent = 0.0 },
-                    new Reinforcement.PtcShapeInner() { Position = 0.8, Z = -0.15, Tangent = 0.0 },
+                    new Reinforcement.PtcShapeInner(0.4, -0.20, 0.0, 0.1),
+                    new Reinforcement.PtcShapeInner(0.6, -0.20, 0.0),
                 },
-                end: new Reinforcement.PtcShapeEnd() { Z = 0.0, Tangent = 0.0}
+                end: new Reinforcement.PtcShapeEnd(0.0, 0.0, 0.9)
                 );
 
             var losses = new Reinforcement.PtcLosses(
@@ -62,7 +60,7 @@ namespace FemDesign.Samples
                 f_pk: 1860.0,
                 a_p: 150.0,
                 e_p: 195000.0,
-                density: 7.810,
+                rho: 7.810,
                 relaxationClass: 2,
                 rho_1000: 0.1);
 
