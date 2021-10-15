@@ -19,18 +19,18 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("bar", "bar", "FemDesign.Bars.Bar", GH_ParamAccess.item);
-            pManager.AddGenericParameter("shape", "shape", "FemDesign.Reinforcement.PtcShapeType", GH_ParamAccess.item);
-            pManager.AddGenericParameter("losses", "losses", "FemDesign.Reinforcement.PtcLosses", GH_ParamAccess.item);
-            pManager.AddGenericParameter("manufacturing", "manufacturing", "FemDesign.Reinforcement.PtcManufacturingType", GH_ParamAccess.item);
-            pManager.AddGenericParameter("strandData", "strandData", "FemDesign.Reinforcement.PtcStrandLibType", GH_ParamAccess.item);
-            pManager.AddTextParameter("jackingSide", "jackingSide", "FemDesign.Reinforcement.JackingSide", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bar", "Bar", "FemDesign.Bars.Bar", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Shape", "Shape", "FemDesign.Reinforcement.PtcShapeType", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Losses", "Losses", "FemDesign.Reinforcement.PtcLosses", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Manufacturing", "Manufacturing", "FemDesign.Reinforcement.PtcManufacturingType", GH_ParamAccess.item);
+            pManager.AddGenericParameter("StrandData", "StrandData", "FemDesign.Reinforcement.PtcStrandLibType", GH_ParamAccess.item);
+            pManager.AddTextParameter("JackingSide", "JackingSide", "FemDesign.Reinforcement.JackingSide. Should be one of [start, end, start_then_end, end_then_start]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("jackingStress", "jackingStress", "Stress", GH_ParamAccess.item);
+            pManager.AddNumberParameter("JackingStress", "JackingStress", "Stress", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("numberOfStrands", "numberOfStrands", "Number of strands", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("NumberOfStrands", "NumberOfStrands", "Number of strands", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("identifier", "identifier", "", GH_ParamAccess.item);
+            pManager.AddTextParameter("Identifier", "Identifier", "", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
 
@@ -39,7 +39,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("cable", "cable", "Post-tensioned cable.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Cable", "Cable", "Post-tensioned cable.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -58,15 +58,15 @@ namespace FemDesign.Reinforcement
             int numberOfStrands = 3;
             string identifier = "PTC";
 
-            DA.GetData("bar", ref bar);
-            DA.GetData("shape", ref shape);
-            DA.GetData("losses", ref losses);
-            DA.GetData("manufacturing", ref manufacturing);
-            DA.GetData("strandData", ref strandData);
-            DA.GetData("jackingSide", ref jackingSide);
-            DA.GetData("jackingStress", ref jackingStress);
-            DA.GetData("numberOfStrands", ref numberOfStrands);
-            DA.GetData("identifier", ref identifier);
+            DA.GetData("Bar", ref bar);
+            DA.GetData("Shape", ref shape);
+            DA.GetData("Losses", ref losses);
+            DA.GetData("Manufacturing", ref manufacturing);
+            DA.GetData("StrandData", ref strandData);
+            DA.GetData("JackingSide", ref jackingSide);
+            DA.GetData("JackingStress", ref jackingStress);
+            DA.GetData("NumberOfStrands", ref numberOfStrands);
+            DA.GetData("Identifier", ref identifier);
 
             if (bar == null || shape == null || losses == null || manufacturing == null || strandData == null)
                 return;
@@ -75,7 +75,7 @@ namespace FemDesign.Reinforcement
 
             var ptc = new Ptc(bar, shape, losses, manufacturing, strandData, side, jackingStress, numberOfStrands, identifier);
 
-            DA.SetData("cable", ptc);
+            DA.SetData("Cable", ptc);
         }
 
         /// <summary>

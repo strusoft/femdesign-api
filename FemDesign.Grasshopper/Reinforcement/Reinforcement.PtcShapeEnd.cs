@@ -21,7 +21,7 @@ namespace FemDesign.Reinforcement
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("end", "end", "FemDesign.Reinforcement.PtcShapeEnd", GH_ParamAccess.item);
+            pManager.AddGenericParameter("End", "End", "FemDesign.Reinforcement.PtcShapeEnd", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -37,7 +37,7 @@ namespace FemDesign.Reinforcement
             
             PtcShapeEnd end = new PtcShapeEnd(z, tangent, priorInflectionParam);
 
-            DA.SetData("end", end);
+            DA.SetData("End", end);
         }
 
         protected override System.Drawing.Bitmap Icon => null;

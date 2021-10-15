@@ -20,9 +20,9 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("positions", "positions", "", GH_ParamAccess.list);
-            pManager.AddNumberParameter("shiftX", "shiftX", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("shiftZ", "shiftZ", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Positions", "Positions", "", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ShiftX", "ShiftX", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ShiftZ", "ShiftZ", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("manufacturing", "manufacturing", "FemDesign.Reinforcement.PtcManufacturingType", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Manufacturing", "Manufacturing", "FemDesign.Reinforcement.PtcManufacturingType", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -42,13 +42,13 @@ namespace FemDesign.Reinforcement
             List<double> positions = new List<double>();
             double shiftX = 0.0;
             double shiftZ = 0.0;
-            DA.GetDataList("positions", positions);
-            DA.GetData("shiftX", ref shiftX);
-            DA.GetData("shiftZ", ref shiftZ);
+            DA.GetDataList("Positions", positions);
+            DA.GetData("ShiftX", ref shiftX);
+            DA.GetData("ShiftZ", ref shiftZ);
 
             var manufacturing = new PtcManufacturingType(positions, shiftX, shiftZ);
 
-            DA.SetData("manufacturing", manufacturing);
+            DA.SetData("Manufacturing", manufacturing);
         }
 
         /// <summary>

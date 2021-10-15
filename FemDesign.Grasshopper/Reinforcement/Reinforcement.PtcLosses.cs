@@ -20,13 +20,13 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("curvatureCoefficient", "curvatureCoefficient", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("wobbleCoefficient", "wobbleCoefficient", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("anchorageSetSlip", "anchorageSetSlip", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("elasticShortening", "elasticShortening", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("creepStress", "creepStress", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("shrinkageStress", "shrinkageStress", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("relaxationStress", "relaxationStress", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("CurvatureCoefficient", "CurvatureCoefficient", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("WobbleCoefficient", "WobbleCoefficient", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("AnchorageSetSlip", "AnchorageSetSlip", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ElasticShortening", "ElasticShortening", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("CreepStress", "CreepStress", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ShrinkageStress", "ShrinkageStress", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("RelaxationStress", "RelaxationStress", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -50,13 +50,13 @@ namespace FemDesign.Reinforcement
             double creepStress = 0.0;
             double shrinkageStress = 0.0;
             double relaxationStress = 0.0;
-            DA.GetData("curvatureCoefficient", ref curvatureCoefficient);
-            DA.GetData("wobbleCoefficient", ref wobbleCoefficient);
-            DA.GetData("anchorageSetSlip", ref anchorageSetSlip);
-            DA.GetData("elasticShortening", ref elasticShortening);
-            DA.GetData("creepStress", ref creepStress);
-            DA.GetData("shrinkageStress", ref shrinkageStress);
-            DA.GetData("relaxationStress", ref relaxationStress);
+            DA.GetData("CurvatureCoefficient", ref curvatureCoefficient);
+            DA.GetData("WobbleCoefficient", ref wobbleCoefficient);
+            DA.GetData("AnchorageSetSlip", ref anchorageSetSlip);
+            DA.GetData("ElasticShortening", ref elasticShortening);
+            DA.GetData("CreepStress", ref creepStress);
+            DA.GetData("ShrinkageStress", ref shrinkageStress);
+            DA.GetData("RelaxationStress", ref relaxationStress);
 
             var losses = new PtcLosses(curvatureCoefficient, wobbleCoefficient, anchorageSetSlip, elasticShortening, creepStress, shrinkageStress, relaxationStress);
 

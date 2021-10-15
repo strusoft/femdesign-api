@@ -20,13 +20,13 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("name", "name", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("f_pk", "f_pk", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("a_p", "a_p", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("e_p", "e_p", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("density", "density", "", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("relaxationClass", "relaxationClass", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("rho_1000", "rho_1000", "", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "Name", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("f pk", "f pk", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("A p", "A p", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("E p", "E p", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Rho", "Rho", "Density", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("RelaxationClass", "RelaxationClass", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Rho 1000", "Rho 1000", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -50,13 +50,13 @@ namespace FemDesign.Reinforcement
             double density = 0.0;
             int relaxationClass = 2;
             double rho_1000 = 0.0;
-            DA.GetData("name", ref name);
-            DA.GetData("f_pk", ref f_pk);
-            DA.GetData("a_p", ref a_p);
-            DA.GetData("e_p", ref e_p);
-            DA.GetData("density", ref density);
-            DA.GetData("relaxationClass", ref relaxationClass);
-            DA.GetData("rho_1000", ref rho_1000);
+            DA.GetData("Name", ref name);
+            DA.GetData("f pk", ref f_pk);
+            DA.GetData("A p", ref a_p);
+            DA.GetData("E p", ref e_p);
+            DA.GetData("Rho", ref density);
+            DA.GetData("RelaxationClass", ref relaxationClass);
+            DA.GetData("Rho 1000", ref rho_1000);
 
             var strand = new PtcStrandLibType(name, f_pk, a_p, e_p, density, relaxationClass, rho_1000);
 

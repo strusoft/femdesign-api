@@ -22,7 +22,7 @@ namespace FemDesign.Reinforcement
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("shape", "shape", "FemDesign.Reinforcement.PtcShapeType", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Shape", "Shape", "FemDesign.Reinforcement.PtcShapeType", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -38,7 +38,7 @@ namespace FemDesign.Reinforcement
 
             PtcShapeType shape = new PtcShapeType(start, end, intermediates);
 
-            DA.SetData("shape", shape);
+            DA.SetData("Shape", shape);
         }
 
         protected override System.Drawing.Bitmap Icon

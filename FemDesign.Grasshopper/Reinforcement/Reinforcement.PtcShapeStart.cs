@@ -19,7 +19,7 @@ namespace FemDesign.Reinforcement
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("start", "start", "FemDesign.Reinforcement.PtcShapeStart", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Start", "Start", "FemDesign.Reinforcement.PtcShapeStart", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -31,7 +31,7 @@ namespace FemDesign.Reinforcement
 
             PtcShapeStart start = new PtcShapeStart(z, tangent);
 
-            DA.SetData("start", start);
+            DA.SetData("Start", start);
         }
 
         protected override System.Drawing.Bitmap Icon => null;
