@@ -17,11 +17,11 @@
 		</load_category>
 		<load_category guid="f1eca0fb-b4ea-4385-910f-85a8f66796b7" last_change="2021-10-02T14:50:42.000" action="added" standard="EC" country="S" name="H" psi_0 = "0" psi_1 = "0" psi_2 = "0">
 		</load_category>
-		<load_category guid="aaf43a2c-4010-416b-8978-9d23336539dc" last_change="2021-10-02T14:51:42.000" action="added" standard="EC" country="S" name="Snow_Sk>3 kN/m^2" psi_0 = "0.8" psi_1 = "0.6" psi_2 = "0.2">
+		<load_category guid="aaf43a2c-4010-416b-8978-9d23336539dc" last_change="2021-10-02T14:51:42.000" action="added" standard="EC" country="S" name="Snow when Sk >= 3 kN/m^2" psi_0 = "0.8" psi_1 = "0.6" psi_2 = "0.2">
 		</load_category>
-		<load_category guid="20915a7b-5d0d-4527-9b5b-0395af3d9f02" last_change="2021-10-02T14:52:42.000" action="added" standard="EC" country="S" name="Snow_Sk=2-3 kN/m^2" psi_0 = "0.7" psi_1 = "0.4" psi_2 = "0.2">
+		<load_category guid="20915a7b-5d0d-4527-9b5b-0395af3d9f02" last_change="2021-10-02T14:52:42.000" action="added" standard="EC" country="S" name="Snow when 3 > Sk >= 2 kN/m^2" psi_0 = "0.7" psi_1 = "0.4" psi_2 = "0.2">
 		</load_category>
-		<load_category guid="254613f1-4d4c-4878-b301-647a3bd10830" last_change="2021-10-02T14:53:42.000" action="added" standard="EC" country="S" name="Snow_Sk=0-2 kN/m^2" psi_0 = "0.6" psi_1 = "0.3" psi_2 = "0.1">
+		<load_category guid="254613f1-4d4c-4878-b301-647a3bd10830" last_change="2021-10-02T14:53:42.000" action="added" standard="EC" country="S" name="Snow when 2 > Sk >= 1 kN/m^2" psi_0 = "0.6" psi_1 = "0.3" psi_2 = "0.1">
 		</load_category>
 		<load_category guid="f94664a6-1d82-402a-8a0e-daece3d6cca7" last_change="2021-10-02T14:54:42.000" action="added" standard="EC" country="S" name="Wind" psi_0 = "0.3" psi_1 = "0.2" psi_2 = "0">
 		</load_category>

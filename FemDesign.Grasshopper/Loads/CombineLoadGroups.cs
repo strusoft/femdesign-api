@@ -94,8 +94,8 @@ namespace FemDesign.Loads
             List<LoadCombination> loadCombinations;
             List<LoadCase> usedLoadCases;
 
-            (loadCombinations, usedLoadCases) = LoadCaseCombiner.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
-
+            LoadCombinationCollection loadCombinationCollection = new LoadCombinationCollection();
+            (loadCombinations, usedLoadCases) = loadCombinationCollection.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
             return (loadCombinations, usedLoadCases);
         }
 

@@ -81,7 +81,7 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Get gamma values of LoadCases in LoadCombanation.
+        /// Get gamma values of LoadCases in LoadCombination.
         /// </summary>
         public List<double> GetGammas()
         {

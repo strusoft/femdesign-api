@@ -10,7 +10,6 @@ namespace FemDesign.Loads
     /// </summary>
     public class LoadGroup
     {
-        // Attributes
         /// Name of the group
         public string Name { get; set; }
         /// Load group type, permanent or temporary

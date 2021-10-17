@@ -78,8 +78,11 @@ namespace FemDesign.Grasshopper
             if (name == null)
                 if(psi == null || type != 0){ return; }
 
-            // Convert the load case relation to an enum
-            Loads.ELoadGroupRelationship loadCaseRelationEnum = Loads.ELoadGroupRelationship.Entire;
+            if (loadCaseRelation == 1 && type == 0)
+                throw new System.ArgumentException("Alternative relationsship not yet implemented for permanent groups!");
+
+        // Convert the load case relation to an enum
+        Loads.ELoadGroupRelationship loadCaseRelationEnum = Loads.ELoadGroupRelationship.Entire;
             if(loadCaseRelation == 0)
                 loadCaseRelationEnum = Loads.ELoadGroupRelationship.Entire;
             else if(loadCaseRelation == 1)

@@ -94,6 +94,7 @@
     <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
     <Compile Include="GenericClasses\LocationValue.cs" />
+    <Compile Include="GenericClasses\ModelLoadCaseComparer.cs" />
     <Compile Include="GenericClasses\RestrictedDouble.cs" />
     <Compile Include="GenericClasses\RestrictedInteger.cs" />
     <Compile Include="GenericClasses\RestrictedObject.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
-    <Compile Include="Loads\LoadCaseCombiner.cs" />
+    <Compile Include="Loads\LoadCombinationCollection.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\LoadCombinationType.cs" />
     <Compile Include="Loads\LoadGroup.cs" />
