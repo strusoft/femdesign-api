@@ -171,8 +171,7 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-
-            // catch inner exception
+            
             object obj;
             try
             {
@@ -180,7 +179,7 @@ namespace FemDesign
             }
             catch (System.InvalidOperationException ex)
             {
-                throw ex.InnerException.InnerException;
+                throw ex;
             }
 
             // close reader
