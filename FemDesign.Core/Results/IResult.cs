@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace FemDesign.GenericClasses
+namespace FemDesign.Results
 {
     /// <summary>
     /// FEM-Design list tables result types

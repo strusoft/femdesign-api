@@ -175,6 +175,14 @@
     </Compile>
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeInner.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeEnd.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeStart.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
+    <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
@@ -729,6 +737,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StirrupsDeconstruct.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ptc.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcManufacturing.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShape.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeEnd.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeInner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeStart.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcLosses.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcStrand.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
