@@ -108,6 +108,36 @@ namespace FemDesign.Geometry
         public double StartAngle { get; set; } // optional. double
         [XmlAttribute("end_angle")]
         public double EndAngle { get; set; } // optional. double
+        [XmlIgnore]
+        public double Length
+        {
+            get
+            {
+                if (this.Type == "line")
+                {
+                    return (new FdVector3d(this.Points[0], this.Points[1]).Length());
+                }
+                else if (this.Type == "arc")
+                {
+                    if (this.Points.Count == 3)
+                    {
+                        throw new System.ArgumentException("Can't calculate length of edge for arc2 type. Calculation of sweep angle is not implemented.");
+                    }
+                    else
+                    {
+                        return (this.EndAngle - this.StartAngle) * this.Radius;
+                    }
+                }
+                else if (this.Type == "circle")
+                {
+                    return 2 * Math.PI * this.Radius;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Edge type {this.Type} is not supported for length evaluation.");
+                }
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.

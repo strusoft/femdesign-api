@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
+    <Compile Include="Geometry\EdgeTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

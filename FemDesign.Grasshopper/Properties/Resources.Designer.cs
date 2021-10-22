@@ -623,6 +623,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LongitudinalBar {
+            get {
+                object obj = ResourceManager.GetObject("LongitudinalBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LongitudinalBarDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LongitudinalBarDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MassConversionTableDefine {
             get {
                 object obj = ResourceManager.GetObject("MassConversionTableDefine", resourceCulture);
@@ -1396,6 +1416,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StiffnessMatrix4TypeDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("StiffnessMatrix4TypeDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stirrups {
+            get {
+                object obj = ResourceManager.GetObject("Stirrups", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StirrupsDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("StirrupsDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,17 +12,22 @@ namespace FemDesign.Grasshopper
     {
 
         #region Vector
-
+        internal static FemDesign.Geometry.FdPoint2d FromRhino(this Rhino.Geometry.Point2d point)
+        {
+            return new FemDesign.Geometry.FdPoint2d(point.X, point.Y);
+        }
+        internal static Rhino.Geometry.Point2d ToRhino(this FemDesign.Geometry.FdPoint2d point)
+        {
+            return new Rhino.Geometry.Point2d(point.X, point.Y);
+        }
         internal static FemDesign.Geometry.FdPoint3d FromRhino(this Rhino.Geometry.Point3d point)
         {
             return new FemDesign.Geometry.FdPoint3d(point.X, point.Y, point.Z);
         }
-
         internal static Rhino.Geometry.Point3d ToRhino(this FemDesign.Geometry.FdPoint3d point)
         {
             return new Rhino.Geometry.Point3d(point.X, point.Y, point.Z);
-        }
-
+        } 
         internal static FemDesign.Geometry.FdVector3d FromRhino(this Rhino.Geometry.Vector3d vector)
         {
             return new FemDesign.Geometry.FdVector3d(vector.X, vector.Y, vector.Z);
