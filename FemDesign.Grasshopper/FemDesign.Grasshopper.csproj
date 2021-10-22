@@ -714,6 +714,30 @@
   <ItemGroup>
     <None Include="Resources\icons\CalculateFootfall.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ptc.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcManufacturing.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShape.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeEnd.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeInner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcShapeStart.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcLosses.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PtcStrand.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

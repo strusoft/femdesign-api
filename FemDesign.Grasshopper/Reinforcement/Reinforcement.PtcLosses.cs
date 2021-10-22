@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FemDesign", "Reinforcement")
+        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FemDesign", "Ptc")
         {
         }
 
@@ -72,7 +72,7 @@ namespace FemDesign.Reinforcement
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return FemDesign.Properties.Resources.PtcLosses;
             }
         }
 

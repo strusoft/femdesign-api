@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the PtcStrand class.
         /// </summary>
-        public PtcStrand(): base("PtcStrand", "Strand", "Description", "FemDesign", "Reinforcement")
+        public PtcStrand(): base("PtcStrand", "Strand", "Description", "FemDesign", "Ptc")
         {
         }
 
@@ -72,7 +72,7 @@ namespace FemDesign.Reinforcement
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return FemDesign.Properties.Resources.PtcStrand;
             }
         }
 

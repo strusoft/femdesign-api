@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.
         /// </summary>
-        public ReinforcementPtc(): base("Post-Tensioned Cable", "PTC", "Description", "FemDesign", "Reinforcement")
+        public ReinforcementPtc(): base("Post-Tensioned Cable", "PTC", "Description", "FemDesign", "Ptc")
         {
         }
 
@@ -87,7 +87,7 @@ namespace FemDesign.Reinforcement
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return FemDesign.Properties.Resources.Ptc;
             }
         }
 

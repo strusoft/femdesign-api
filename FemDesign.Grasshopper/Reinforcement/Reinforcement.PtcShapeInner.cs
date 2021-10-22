@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeInnerComponent : GH_Component
     {
-        public PtcShapeInnerComponent() : base("PtcShapeInner", "PtcInner", "FemDesign.Reinforcement.PtcShapeInner", "FemDesign", "Reinforcement")
+        public PtcShapeInnerComponent() : base("PtcShapeInner", "PtcInner", "FemDesign.Reinforcement.PtcShapeInner", "FemDesign", "Ptc")
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -44,7 +44,7 @@ namespace FemDesign.Reinforcement
             DA.SetData("Inner", inner);
         }
 
-        protected override System.Drawing.Bitmap Icon => null;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.PtcShapeInner;
 
         public override Guid ComponentGuid => new Guid("0c0d9f85-c235-4eea-84c9-b6fe15603582");
     }
