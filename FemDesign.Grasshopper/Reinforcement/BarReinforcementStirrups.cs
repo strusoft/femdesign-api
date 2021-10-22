@@ -64,11 +64,6 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-
-            // check profile (consider moving these assertions to Core)
-            //if (!profile.IsClosed){throw new System.ArgumentException("Profile must be closed.");}
-            // if (!profile.IsPlanar()){throw new System.ArgumentException("Profile must be planar.");}
-
             // transform profile to region
             var region = profile.FromRhino();
 
@@ -89,7 +84,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.Stirrups;
             }
         }
         public override Guid ComponentGuid

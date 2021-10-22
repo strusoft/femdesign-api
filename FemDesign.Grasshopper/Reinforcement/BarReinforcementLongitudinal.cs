@@ -102,7 +102,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LongitudinalBar;
             }
         }
         public override Guid ComponentGuid
