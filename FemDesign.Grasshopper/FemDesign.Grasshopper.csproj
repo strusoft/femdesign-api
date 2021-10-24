@@ -91,8 +91,8 @@
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Loads\CombineLoadGroups.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
-    <Compile Include="Loads\LoadCoefficientsDatabaseDefault.cs" />
-    <Compile Include="Loads\LoadCoefficientsDatabaseListLoadCategoryNames.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
     <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
@@ -714,7 +714,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
     <None Include="Resources\icons\CombineLoadGroups.bmp" />
+    <None Include="Resources\icons\LoadCategory.bmp" />
+    <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>

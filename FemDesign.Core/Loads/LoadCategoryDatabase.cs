@@ -12,7 +12,7 @@ namespace FemDesign.Loads
     /// Material database.
     /// </summary>
     [XmlRoot("database", Namespace="urn:strusoft")]
-    public partial class LoadCoefficientsDatabase
+    public partial class LoadCategoryDatabase
     {
         [XmlIgnore]
         public string FilePath {get; set; }
@@ -40,13 +40,13 @@ namespace FemDesign.Loads
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private LoadCoefficientsDatabase()
+        private LoadCategoryDatabase()
         {
 
         }
 
         /// <summary>
-        /// Lists the names of all Load Categories in LoadCoefficientsDatabase.
+        /// Lists the names of all Load Categories in LoadCategoryDatabase.
         /// </summary>
         /// <returns>List of load category names.</returns>
         public List<string> LoadCategoryNames()
@@ -67,7 +67,7 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Get load category from LoadCoefficientDatabase by name.
+        /// Get load category from LoadCategoryDatabase by name.
         /// </summary>
         /// <param name="loadCategoryName">Name of load type</param>
         /// <returns></returns>
@@ -88,7 +88,7 @@ namespace FemDesign.Loads
                     }
                 }
             }
-            throw new System.ArgumentException($"Load category was not found. Incorrect material name ({loadCategoryName}) or empty load coefficient database.");
+            throw new System.ArgumentException($"Load category was not found. Incorrect material name ({loadCategoryName}) or empty load category database.");
         }
 
         /*
@@ -117,11 +117,11 @@ namespace FemDesign.Loads
         */
 
         /// <summary>
-        /// Deserialize LoadcoefficientDatabase from embedded resource.
+        /// Deserialize LoadCategoryDatabase from embedded resource.
         /// </summary>
-        private static LoadCoefficientsDatabase DeserializeResource(string countryCode)
+        private static LoadCategoryDatabase DeserializeResource(string countryCode)
         {
-            XmlSerializer deserializer = new XmlSerializer(typeof(LoadCoefficientsDatabase));
+            XmlSerializer deserializer = new XmlSerializer(typeof(LoadCategoryDatabase));
 
             Assembly assembly = Assembly.GetExecutingAssembly();
             foreach (string resourceName in assembly.GetManifestResourceNames())
@@ -132,9 +132,9 @@ namespace FemDesign.Loads
                     {
                         TextReader reader = new StreamReader(stream);
                         object obj = deserializer.Deserialize(reader);
-                        LoadCoefficientsDatabase loadCoefficientDatabase = (LoadCoefficientsDatabase)obj;
+                        LoadCategoryDatabase loadCategoryDatabase = (LoadCategoryDatabase)obj;
                         reader.Close();
-                        return loadCoefficientDatabase;
+                        return loadCategoryDatabase;
                     }
                 }
             }
@@ -146,12 +146,12 @@ namespace FemDesign.Loads
         /// <remarks>Create</remarks>
         /// <param name="countryCode">National annex of calculation code (D/DK/EST/FIN/GB/H/N/PL/RO/S/TR)</param>
         /// <returns></returns>
-        public static LoadCoefficientsDatabase GetDefault(string countryCode = "S")
+        public static LoadCategoryDatabase GetDefault(string countryCode = "S")
         {
             string code = RestrictedString.EurocodeType(countryCode);
-            LoadCoefficientsDatabase loadCoefficientDatabase = LoadCoefficientsDatabase.DeserializeResource(code);
-            loadCoefficientDatabase.End = "";
-            return loadCoefficientDatabase;
+            LoadCategoryDatabase loadCategoryDatabase = LoadCategoryDatabase.DeserializeResource(code);
+            loadCategoryDatabase.End = "";
+            return loadCategoryDatabase;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace FemDesign.Loads
         /// </summary>
         private void Serialize(string filepath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(LoadCoefficientsDatabase));
+            XmlSerializer serializer = new XmlSerializer(typeof(LoadCategoryDatabase));
             using (TextWriter writer = new StreamWriter(filepath))
             {
                 serializer.Serialize(writer, this);

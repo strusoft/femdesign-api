@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
        {
            get
            {
-                return FemDesign.Properties.Resources.LoadCaseDeconstruct;
+                return FemDesign.Properties.Resources.LoadGroupDeconstruct;
            }
        }
        public override Guid ComponentGuid

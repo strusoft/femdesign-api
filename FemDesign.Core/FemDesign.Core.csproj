@@ -147,7 +147,7 @@
     <Compile Include="Materials\LimitStresses.cs" />
     <Compile Include="Materials\Material.cs" />
     <Compile Include="Materials\MaterialBase.cs" />
-    <Compile Include="Loads\LoadCoefficientsDatabase.cs" />
+    <Compile Include="Loads\LoadCategoryDatabase.cs" />
     <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\Materials.cs" />
     <Compile Include="Materials\MaterialTypeEnum.cs" />

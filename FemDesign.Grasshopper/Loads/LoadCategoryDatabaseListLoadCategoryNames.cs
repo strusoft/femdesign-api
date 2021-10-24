@@ -5,11 +5,11 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCoefficientsDatabaseListLoadCategoryNames : GH_Component
+    public class LoadCategoryDatabaseListLoadCategoryNames : GH_Component
     {
-        public LoadCoefficientsDatabaseListLoadCategoryNames()
-          : base("LoadCoefficientsDatabase.ListLoadCategoryNames", "ListLoadCategoryNames",
-              "Lists the names of all LoadCategories in LoadCoefficientsDatabase.",
+        public LoadCategoryDatabaseListLoadCategoryNames()
+          : base("LoadCategoryDatabase.ListLoadCategoryNames", "ListLoadCategoryNames",
+              "Lists the names of all LoadCategories in LoadCategoryDatabase.",
               "FemDesign", "Loads")
         { 
 
@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadCoefficientsDatabase", "LoadCoefficientsDatabase", "LoadCoefficientsDatabase.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("LoadCategoryDatabase", "LoadCategoryDatabase", "LoadCategoryDatabase.", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -28,12 +28,12 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
-            FemDesign.Loads.LoadCoefficientsDatabase loadCoefficientsDatabase  = null;
-            if (!DA.GetData(0, ref loadCoefficientsDatabase )) { return; }
-            if (loadCoefficientsDatabase  == null) { return; }
+            FemDesign.Loads.LoadCategoryDatabase loadCategoryDatabase  = null;
+            if (!DA.GetData(0, ref loadCategoryDatabase )) { return; }
+            if (loadCategoryDatabase  == null) { return; }
 
             //
-            List<string> loadCategoryNames = loadCoefficientsDatabase.LoadCategoryNames();
+            List<string> loadCategoryNames = loadCategoryDatabase.LoadCategoryNames();
 
             // output
             DA.SetDataList(0, loadCategoryNames);
@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.LoadCoefficientsDataBase;
+                return FemDesign.Properties.Resources.LoadCategory;
             }
         }
 

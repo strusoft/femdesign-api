@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCoefficientsDefault: GH_Component
+    public class LoadCategoryDefault: GH_Component
     {
-        public LoadCoefficientsDefault(): base("LoadCoefficientsDatabase.Default", "Default", "Load the default LoadCoefficientsDatabase for each respective country.", "FemDesign", "Loads")
+        public LoadCategoryDefault(): base("LoadCategoryDatabase.Default", "Default", "Load the default LoadCategoryDatabase for each respective country.", "FemDesign", "Loads")
         {
 
         }
@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadCoefficientsDefault", "LoadCoefficientsDefault", "Default LoadCoefficientsDefault.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("LoadCategoryDefault", "LoadCategoryDefault", "Default LoadCategoryDefault.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -33,16 +33,16 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Loads.LoadCoefficientsDatabase loadCoefficientsDatabase = FemDesign.Loads.LoadCoefficientsDatabase.GetDefault(countryCode);
+            FemDesign.Loads.LoadCategoryDatabase loadCategoryDatabase = FemDesign.Loads.LoadCategoryDatabase.GetDefault(countryCode);
 
             // set output
-            DA.SetData(0, loadCoefficientsDatabase);
+            DA.SetData(0, loadCategoryDatabase);
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return FemDesign.Properties.Resources.LoadCoefficientsDataBase;
+                return FemDesign.Properties.Resources.LoadCategory;
             }
         }
         public override Guid ComponentGuid
