@@ -563,6 +563,36 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseDefault {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseDefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseGetCategoryByName {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseGetCategoryByName", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseListCategoryNames {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseListCategoryNames", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadCategoryDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadCategoryDeconstruct", resourceCulture);

@@ -718,6 +718,9 @@
     <None Include="Resources\icons\CombineLoadGroups.bmp" />
     <None Include="Resources\icons\LoadCategory.bmp" />
     <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>
