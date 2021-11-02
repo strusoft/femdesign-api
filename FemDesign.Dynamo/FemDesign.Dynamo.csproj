@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\FemDesign.Dynamo.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DynamoServices, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
@@ -716,6 +717,7 @@
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
     <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\ExtensionMethods.cs" />
     <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
     <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
     <Compile Include="Dynamo\GenericClasses\LocationValue.cs" />
@@ -803,6 +805,7 @@
     <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
     <Compile Include="Dynamo\Releases\Motions.cs" />
     <Compile Include="Dynamo\Releases\MotionsPlasticLimits.cs" />
+    <Compile Include="Dynamo\Releases\PlasticityType.cs" />
     <Compile Include="Dynamo\Releases\PlasticityType3d.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType1.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType2.cs" />
