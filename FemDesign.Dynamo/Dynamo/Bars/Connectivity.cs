@@ -13,7 +13,7 @@ namespace FemDesign.Bars
         /// Define default (rigid) releases for a bar-element.
         /// </summary>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public static Connectivity Default() => GetDefault();
 
         /// <summary>

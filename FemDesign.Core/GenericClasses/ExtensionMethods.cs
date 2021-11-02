@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace FemDesign
 {
     // Extension method used to clone instances of objects.
-    public static class ExtensionMethods
+    public static partial class ExtensionMethods
     {
         public static T DeepClone<T>(this T obj)
         {

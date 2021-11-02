@@ -5,7 +5,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Releases
 {
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public partial class Rotations: StiffnessType
     {
 

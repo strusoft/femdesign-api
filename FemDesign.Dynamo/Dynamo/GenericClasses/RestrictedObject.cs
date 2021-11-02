@@ -4,7 +4,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign
 {
-    //[IsVisibleInDynamoLibrary(false)]
+    [IsVisibleInDynamoLibrary(false)]
     public partial class RestrictedObject
     {
         
