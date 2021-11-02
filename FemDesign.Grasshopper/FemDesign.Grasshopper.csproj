@@ -726,6 +726,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\Help.bmp" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LongitudinalBar.bmp" />
   </ItemGroup>
