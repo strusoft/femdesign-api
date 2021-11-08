@@ -91,31 +91,6 @@ namespace FemDesign.Loads
             throw new System.ArgumentException($"Load category was not found. Incorrect material name ({loadCategoryName}) or empty load category database.");
         }
 
-        /*
-        private static MaterialDatabase DeserializeFromFilePath(string filePath)
-        {
-            XmlSerializer deserializer = new XmlSerializer(typeof(MaterialDatabase));
-            TextReader reader = new StreamReader(filePath);
-            object obj = deserializer.Deserialize(reader);
-            MaterialDatabase materialDatabase = (MaterialDatabase)obj;
-            reader.Close();
-            return materialDatabase;
-        }
-        
-
-        /// <summary>
-        /// Load a custom MaterialDatabase from a .struxml file.
-        /// </summary>
-        /// <param name="filePath">File path to .struxml file.</param>
-        /// <returns></returns>
-        public static MaterialDatabase DeserializeStruxml(string filePath)
-        {
-            MaterialDatabase materialDatabase = MaterialDatabase.DeserializeFromFilePath(filePath);
-            materialDatabase.End = "";
-            return materialDatabase;
-        }
-        */
-
         /// <summary>
         /// Deserialize LoadCategoryDatabase from embedded resource.
         /// </summary>

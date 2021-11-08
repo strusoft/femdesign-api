@@ -39,7 +39,8 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="LoadCombination">LoadCombination</see>, includes all permanent loads in all combinations.
+        /// Creates an instance of <see cref="LoadCombination">LoadCombination</see> from the load cases in <paramref name="temporaryLoadCases"/>, 
+        /// the first load case is the leading action.
         /// </summary>
         /// <param name="temporaryLoadCases">List of permanent load cases to be included in the combination</param>
         /// <param name="loadCombNumber">The index of the combination</param>
@@ -52,85 +53,19 @@ namespace FemDesign.Loads
                                                             List<LoadGroup> permanentLoadGroups,
                                                             List<LoadGroup> associatedTemporaryLoadGroups, ELoadCombinationType combinationType)
         {
-
             List<double> loadCombGammas = new List<double>();
             List<LoadCase> loadCases = new List<LoadCase>();
 
-            // Add permanent load cases
-            foreach (LoadGroup loadGroup in permanentLoadGroups)
-            {
-                foreach (LoadCase loadCase in loadGroup.LoadCases)
-                {
-                    loadCases.Add(loadCase);
-                    if (combinationType == ELoadCombinationType.SixTenA)
-                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.SafetyFactor);
-                    else if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.Xi * loadGroup.SafetyFactor);
-                    else if (combinationType == ELoadCombinationType.Characteristic)
-                        loadCombGammas.Add(1);
-                    else if (combinationType == ELoadCombinationType.Frequent)
-                        loadCombGammas.Add(1);
-                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                        loadCombGammas.Add(1);
-                }
-            }
+            // Add permanent load cases and coefficients
+            (loadCases, loadCombGammas) = AddPermanentLoadCases(permanentLoadGroups, loadCases, combinationType, loadCombGammas);
 
-            string leadingActionName = "";
-
-            // Find out which load cases are leading actions
-            List<int> indicesLeadingCases = new List<int>();
-            // If relationship is entire the whole group is leading action
-            if (associatedTemporaryLoadGroups[0].LoadCaseRelation == ELoadGroupRelationship.Entire)
-                indicesLeadingCases.AddRange(Enumerable.Range(0, associatedTemporaryLoadGroups[0].LoadCases.Count));
-            else if (associatedTemporaryLoadGroups[0].LoadCaseRelation == ELoadGroupRelationship.Alternative)
-                indicesLeadingCases.Add(0);
+            // Get the indices of the leading action (or actions)
+            List<int> indicesLeadingCases = GetLeadingLoadCaseIndices(associatedTemporaryLoadGroups);
 
             // Add variable load cases
-            for (int i = 0; i < temporaryLoadCases.Count; i++)
-            {
-                // If combination type is not 6.10a, include load case
-                if (combinationType != ELoadCombinationType.SixTenA)
-                    loadCases.Add(temporaryLoadCases[i]);
-
-                // If leading action
-                if (indicesLeadingCases.Contains(i))
-                {
-                    // Find a suitable name for the leading action
-                    if (associatedTemporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Alternative)
-                        leadingActionName = temporaryLoadCases[i].Name;
-                    else if (associatedTemporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
-                        leadingActionName = associatedTemporaryLoadGroups[i].Name;
-
-                    // Assign the combination factors
-                    if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor);
-                    else if (combinationType == ELoadCombinationType.Characteristic)
-                        loadCombGammas.Add(1);
-                    else if (combinationType == ELoadCombinationType.Frequent)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi1);
-                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
-                }
-                else
-                { //Else accompanying action
-                    if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor * associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
-                    else if (combinationType == ELoadCombinationType.Characteristic)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
-                    else if (combinationType == ELoadCombinationType.Frequent)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
-                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
-                }
-
-                // Remove the load case if gamma is zero
-                if (loadCombGammas[loadCombGammas.Count - 1] == 0)
-                {
-                    loadCombGammas.RemoveAt(loadCombGammas.Count - 1);
-                    loadCases.RemoveAt(loadCases.Count - 1);
-                
-                }
-            }
+            string leadingActionName;
+            (loadCases, loadCombGammas, leadingActionName) = AddTemporaryLoadCases(temporaryLoadCases, combinationType, loadCases,
+                                                                                   indicesLeadingCases, associatedTemporaryLoadGroups, loadCombGammas);
 
             string loadCombinationType = "ultimate_ordinary";
 
@@ -143,53 +78,34 @@ namespace FemDesign.Loads
             else if (combinationType == ELoadCombinationType.QuasiPermanent)
                 loadCombinationType = "serviceability_quasi_permanent";
 
-            string loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
+            // Create load combination
+            string loadCombName;
+            if (combinationType == ELoadCombinationType.SixTenA)
+                loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag;
+            else
+                loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
             LoadCombination loadCombination = new LoadCombination(loadCombName, loadCombinationType, loadCases, loadCombGammas);
 
             return loadCombination;
         }
 
         /// <summary>
-        /// Finds all combinations from the provided load groups by selecting one case from each group
+        /// Finds all combinations, where load cases from the first group are leading actions, from the provided <paramref name="loadGroups"/>, 
+        /// by selecting one case from each group
         /// </summary>
         /// <param name="loadGroups"></param>
-        /// <returns></returns>
+        /// <returns>Two nested lists with load cases and their associated load groups, where each element in the out list is a list with load cases or groups</returns>
         private (List<List<LoadCase>>, List<List<LoadGroup>>) PermuteLoadCases(List<LoadGroup> loadGroups)
         {
-            //Save load group index associated to each element in arr
-            List<LoadGroup>[] loadGroupRef = new List<LoadGroup>[loadGroups.Count];
-
-            // Put all load cases in in an array, each array item is a list with load cases
-            List<LoadCase>[] arr = new List<LoadCase>[loadGroups.Count];
-            for (int i = 0; i < loadGroups.Count; i++)
-            {
-                if (loadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Alternative)
-                {
-                    arr[i] = loadGroups[i].LoadCases;
-                    loadGroupRef[i] = new List<LoadGroup>();
-                    for (int j = 0; j < arr[i].Count; j++)
-                        loadGroupRef[i].Add(loadGroups[i]);
-                }
-                else if (loadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
-                {
-                    // Just use one of the load cases for now and add all load cases later
-                    arr[i] = new List<LoadCase>() { loadGroups[i].LoadCases[0] };
-                    loadGroupRef[i] = new List<LoadGroup>() { loadGroups[i] };
-                }
-            }
-
-            // Number of arrays
-            int n = arr.Length;
-
             List<List<LoadCase>> loadPermutations = new List<List<LoadCase>>();
             List<List<LoadGroup>> associatedloadGroups = new List<List<LoadGroup>>();
 
-            // To keep track of next element in each of the n arrays
-            int[] indices = new int[n];
+            // To keep track of next load case in each of the load groups
+            int[] indices = new int[loadGroups.Count];
             int combIter = 0;
 
-            // Initialize with first element's index
-            for (int i = 0; i < n; i++)
+            // Start with first load case in each load group
+            for (int i = 0; i < loadGroups.Count; i++)
                 indices[i] = 0;
 
             while (true)
@@ -198,38 +114,38 @@ namespace FemDesign.Loads
                 associatedloadGroups.Add(new List<LoadGroup>());
 
                 // Store current combination and associated load group
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < loadGroups.Count; i++)
                 {
-                    if (loadGroupRef[i][indices[i]].LoadCaseRelation == ELoadGroupRelationship.Entire)
+                    if (loadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
                     {
-                        loadPermutations[combIter].AddRange(loadGroupRef[i][0].LoadCases);
-                        for (int j = 0; j < loadGroupRef[i][0].LoadCases.Count; j++)
-                            associatedloadGroups[combIter].Add(loadGroupRef[i][0]);
+                        loadPermutations[combIter].AddRange(loadGroups[i].LoadCases);
+                        for (int j = 0; j < loadGroups[i].LoadCases.Count; j++)
+                            associatedloadGroups[combIter].Add(loadGroups[i]);
                     }
                     else
                     {
-                        loadPermutations[combIter].Add(arr[i][indices[i]]);
-                        associatedloadGroups[combIter].Add(loadGroupRef[i][indices[i]]);
+                        loadPermutations[combIter].Add(loadGroups[i].LoadCases[indices[i]]);
+                        associatedloadGroups[combIter].Add(loadGroups[i]);
                     }
                 }
 
-                // Find the rightmost array that has more elements
-                // left after the current element in that array
-                int next = n - 1;
+                // Find the last load group that has more load cases
+                // left after the current load case in that group
+                int next = loadGroups.Count - 1;
                 while (next >= 0 &&
                       (indices[next] + 1 >=
-                       arr[next].Count))
+                       loadGroups[next].LoadCases.Count))
                     next--;
 
-                // No such array is found so no more combinations left
+                // No such load group is found so no more combinations left
                 if (next < 0)
                     return (loadPermutations, associatedloadGroups);
 
-                // If found move to next element in that array
+                // If sucg load group found, move to next load case in that group
                 indices[next]++;
 
-                // For all arrays to the right of this array current index again points to first element
-                for (int i = next + 1; i < n; i++)
+                // For all load groups to the right of this load groups current index again points to first element
+                for (int i = next + 1; i < loadGroups.Count; i++)
                     indices[i] = 0;
 
                 combIter++;
@@ -242,7 +158,7 @@ namespace FemDesign.Loads
         /// <param name="loadGroups"></param>
         /// <param name="loadCombinationNameTag"></param>
         /// <param name="combinationType"></param>
-        /// <returns></returns>
+        /// <returns>Returns a list of instances of load combinations and the set of all load cases used</returns>
         public (List<LoadCombination>, List<LoadCase>) GenerateLoadCombinations(List<LoadGroup> loadGroups, string loadCombinationNameTag, ELoadCombinationType combinationType)
         {
             // Separate out the permanent load groups and the temporary
@@ -295,6 +211,108 @@ namespace FemDesign.Loads
             usedLoadCases = usedLoadCases.Distinct().ToList();
 
             return (LoadCombinations, usedLoadCases);
+        }
+
+        /// <summary>
+        /// Adds the load cases in <paramref name="permanentLoadGroups"/> to <paramref name="loadCases"/> and computes associated load coefficients
+        /// </summary>
+        /// <param name="permanentLoadGroups"></param>
+        /// <param name="loadCases"></param>
+        /// <param name="combinationType"></param>
+        /// <param name="loadCombGammas"></param>
+        /// <returns>Returns the updated lists <paramref name="loadCases"/> and <paramref name="loadCombGammas"/></returns>
+        private (List<LoadCase>, List<double>) AddPermanentLoadCases(List<LoadGroup> permanentLoadGroups, List<LoadCase> loadCases, 
+                                                                     ELoadCombinationType combinationType, List<double> loadCombGammas)
+        {
+            foreach (LoadGroup loadGroup in permanentLoadGroups)
+            {
+                foreach (LoadCase loadCase in loadGroup.LoadCases)
+                {
+                    loadCases.Add(loadCase);
+                    if (combinationType == ELoadCombinationType.SixTenA)
+                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.SafetyFactor);
+                    else if (combinationType == ELoadCombinationType.SixTenB)
+                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.Xi * loadGroup.SafetyFactor);
+                    else if (combinationType == ELoadCombinationType.Characteristic)
+                        loadCombGammas.Add(1);
+                    else if (combinationType == ELoadCombinationType.Frequent)
+                        loadCombGammas.Add(1);
+                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
+                        loadCombGammas.Add(1);
+                }
+            }
+            return (loadCases, loadCombGammas);
+        }
+
+        private (List<LoadCase>, List<Double>, string) AddTemporaryLoadCases(List<LoadCase> temporaryLoadCases, ELoadCombinationType combinationType,
+                                                                     List<LoadCase> loadCases, List<int> indicesLeadingCases,
+                                                                     List<LoadGroup> associatedTemporaryLoadGroups, List<double> loadCombGammas)
+        {
+            string leadingActionName = "";
+
+            for (int i = 0; i < temporaryLoadCases.Count; i++)
+            {
+                // If combination type is not 6.10a, include load case
+                if (combinationType != ELoadCombinationType.SixTenA)
+                    loadCases.Add(temporaryLoadCases[i]);
+
+                // If leading action
+                if (indicesLeadingCases.Contains(i))
+                {
+                    // Find a suitable name for the leading action
+                    if (associatedTemporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Alternative)
+                        leadingActionName = temporaryLoadCases[i].Name;
+                    else if (associatedTemporaryLoadGroups[i].LoadCaseRelation == ELoadGroupRelationship.Entire)
+                        leadingActionName = associatedTemporaryLoadGroups[i].Name;
+
+                    // Assign the combination factors
+                    if (combinationType == ELoadCombinationType.SixTenB)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor);
+                    else if (combinationType == ELoadCombinationType.Characteristic)
+                        loadCombGammas.Add(1);
+                    else if (combinationType == ELoadCombinationType.Frequent)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi1);
+                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
+                }
+                else
+                { //Else accompanying action
+                    if (combinationType == ELoadCombinationType.SixTenB)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor * associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
+                    else if (combinationType == ELoadCombinationType.Characteristic)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
+                    else if (combinationType == ELoadCombinationType.Frequent)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
+                    else if (combinationType == ELoadCombinationType.QuasiPermanent)
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi2);
+                }
+
+                // Remove the load case if gamma is zero
+                if (loadCombGammas[loadCombGammas.Count - 1] == 0)
+                {
+                    loadCombGammas.RemoveAt(loadCombGammas.Count - 1);
+                    loadCases.RemoveAt(loadCases.Count - 1);
+
+                }
+            }
+            return (loadCases, loadCombGammas, leadingActionName);
+        }
+
+        /// <summary>
+        /// Gets the indices of the leading action (0) if load case relation is entire or the whole groups indices if load case relation is entire
+        /// </summary>
+        /// <param name="associatedTemporaryLoadGroups"></param>
+        /// <returns>Returns a list of indices</returns>
+        private List<int> GetLeadingLoadCaseIndices(List<LoadGroup> associatedTemporaryLoadGroups)
+        {
+            List<int> indicesLeadingCases = new List<int>();
+            // If relationship is entire the whole group is leading action
+            if (associatedTemporaryLoadGroups[0].LoadCaseRelation == ELoadGroupRelationship.Entire)
+                indicesLeadingCases.AddRange(Enumerable.Range(0, associatedTemporaryLoadGroups[0].LoadCases.Count));
+            else if (associatedTemporaryLoadGroups[0].LoadCaseRelation == ELoadGroupRelationship.Alternative)
+                indicesLeadingCases.Add(0);
+
+            return indicesLeadingCases;
         }
     }
 }
