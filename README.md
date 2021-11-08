@@ -3,7 +3,7 @@
 </p>
 
 # femdesign-api
-This repository contains source code for the FEM-Design API wrapper. It consists of the `C#`-Core together with `Dynamo` and the `Grasshopper` plugins. 
+This repository contains source code for the FEM-Design API wrapper. It consists of the `C#`-Core together with the `Dynamo` and `Grasshopper` plugins. 
 
 ## Contents
 * [Contributing](#contributing)
@@ -40,9 +40,7 @@ Examples can be found in the folder [FemDesign.Samples/](https://github.com/stru
 Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.
 
 ## Authors
-The FEM-Design API repository is developed and maintained by StruSoft. The main developers are:
-* [Andreas Oscarsson](https://github.com/andosca)
-* [Alexander Radne](https://github.com/xradne)
+The FEM-Design API repository is developed and maintained by StruSoft. 
 
 ## Disclaimer
 In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package.
