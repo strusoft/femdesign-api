@@ -30,9 +30,9 @@ namespace FemDesign.Loads
         public bool PotentiallyLeadingAction { get; set; }
 
         /// <summary>
-        /// Empty constructor
+        /// Parameterless constructor for serialization.
         /// </summary>
-        public LoadGroup() { }
+        private LoadGroup() { }
 
         /// <summary>
         /// Constructor for permanent load group

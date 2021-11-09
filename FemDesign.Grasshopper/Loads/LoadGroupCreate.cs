@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadGroupCreate : GH_Component
     {
-        public LoadGroupCreate() : base("CreateLoadGroup", "CreateLoadGroup", "Creates a load group.", "FemDesign", "Loads")
+        public LoadGroupCreate() : base("LoadGroup.Create", "Create", "Creates a load group.", "FemDesign", "Loads")
         {
 
         }
@@ -95,7 +95,7 @@ namespace FemDesign.Grasshopper
                 
 
             // Create load group object
-            Loads.LoadGroup obj = new Loads.LoadGroup();
+            Loads.LoadGroup obj = null;
             if (type == 0)
                 obj = new Loads.LoadGroup(name, Loads.ELoadGroupType.Permanent, loadCases, gamma_d, safetyFactor, loadCaseRelationEnum, xi);
             else if (type == 1)
