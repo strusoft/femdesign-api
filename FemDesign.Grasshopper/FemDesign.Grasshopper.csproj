@@ -87,7 +87,9 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Deconstruct\BarsDeconstructOBSOLETE.cs" />
     <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModelDeconstructOBSOLETE.cs" />
     <Compile Include="Info\Info.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
     <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
