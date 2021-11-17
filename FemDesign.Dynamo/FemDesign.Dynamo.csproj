@@ -510,6 +510,9 @@
     <Compile Include="..\FemDesign.Core\Reinforcement\WireProfileTypeEnum.cs">
       <Link>Core\Reinforcement\WireProfileTypeEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\DetachTypeEnum.cs">
+      <Link>Core\Releases\DetachTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Releases\Motions.cs">
       <Link>Core\Releases\Motions.cs</Link>
     </Compile>
@@ -802,7 +805,6 @@
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcement.cs" />
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />
     <Compile Include="Dynamo\Reinforcement\Wire.cs" />
-    <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
     <Compile Include="Dynamo\Releases\Motions.cs" />
     <Compile Include="Dynamo\Releases\MotionsPlasticLimits.cs" />
     <Compile Include="Dynamo\Releases\PlasticityType.cs" />
