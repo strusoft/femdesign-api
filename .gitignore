@@ -1,18 +1,14 @@
 # Binaries
-bin
-obj
+bin/
+obj/
+packages/
 *.nupkg
-packages
 *.str
 *.strFEM
 
 # Local files
-.vs
-.vscode
-.csproj.user
-scripts/convertLibrary/run*.*
-scripts/convertLibrary/__pycache__
-*notImplemented*
-strusoft.xsd
+.vs/
+.vscode/
+*.csproj.user
 fdscript.xsd
 FemDesign.Samples/**/Local/**
