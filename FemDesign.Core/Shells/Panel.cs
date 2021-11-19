@@ -208,7 +208,7 @@ namespace FemDesign.Shells
         public GuidListType ExternalPredefinedRigidity { get; set; }
 
         [XmlAttribute("type")]
-        internal PanelType Type { get; set; }
+        public PanelType Type { get; set; }
 
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterial { get; set; }
