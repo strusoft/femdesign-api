@@ -26,6 +26,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Panels", "Panels", "Single panel element or list of panel elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Covers", "Covers", "Single cover element or list of cover elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Loads", "Loads", "Single load element or list of load elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCases", "LoadCases", "Single LoadCase element or list of LoadCase elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Supports", "Supports", "Single Support element or list of Support elements.", GH_ParamAccess.list);
@@ -75,6 +76,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(5, model.Entities.Panels);
             DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
             DA.SetDataList(7, model.Entities.Loads.GetLoads());
+            //DA.SetDataList(8, model.Entities.Loads.GetLoadGroups());
             DA.SetDataList(8, model.Entities.Loads.LoadCases);
             DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
             DA.SetDataList(10, model.Entities.Supports.GetSupports());

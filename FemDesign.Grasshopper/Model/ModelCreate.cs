@@ -40,6 +40,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -128,12 +130,33 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
+            List<FemDesign.Loads.LoadGroup> loadGroups = new List<FemDesign.Loads.LoadGroup>();
+            if (!DA.GetDataList(13, loadGroups))
+            {
+                // pass
+            }
+
+            // Ensure that the component recieves the load cases that are included in the load groups
+            bool loadCasesProvided = true;
+            if (loadGroups.Any())
+            {
+                foreach (Loads.LoadGroup loadGroup in loadGroups)
+                {
+                    loadCasesProvided = loadGroup.LoadCases.All(i => loadCases.Contains(i));
+                    if (!loadCasesProvided)
+                    {
+                        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Must provide all load cases used in load groups");
+                        return;
+                    }
+                }
+            }
             
             // Create model
             List<object> _loads = loads.Cast<object>().ToList();
 
             Model model = new Model(countryCode);
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, false);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, false);
 
             DA.SetData(0, model);
         }

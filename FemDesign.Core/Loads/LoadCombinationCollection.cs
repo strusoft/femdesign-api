@@ -163,7 +163,7 @@ namespace FemDesign.Loads
         {
             // Separate out the permanent load groups and the temporary
             IEnumerable<LoadGroup> permanentLoadGroups = loadGroups.Where(lg => lg.Type == ELoadGroupType.Permanent);
-            List<LoadGroup> temporaryLoadGroups = loadGroups.Where(lg => lg.Type == ELoadGroupType.Variable).ToList();
+            List<LoadGroup> temporaryLoadGroups = loadGroups.Where(lg => lg.Type == ELoadGroupType.Temporary).ToList();
 
             // Initiate lists for storing load cases and groups for each combination
             int loadCombCounter = 1;
@@ -204,12 +204,7 @@ namespace FemDesign.Loads
             }
 
             // Find all unique load cases
-            List<LoadCase> usedLoadCases = new List<LoadCase>();
-
-            foreach (LoadGroup loadGroup in loadGroups)
-                usedLoadCases.AddRange(loadGroup.LoadCases);
-            usedLoadCases = usedLoadCases.Distinct().ToList();
-
+            List<LoadCase> usedLoadCases = GetLoadCaseSet(loadGroups);
             return (LoadCombinations, usedLoadCases);
         }
 
@@ -230,9 +225,9 @@ namespace FemDesign.Loads
                 {
                     loadCases.Add(loadCase);
                     if (combinationType == ELoadCombinationType.SixTenA)
-                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.SafetyFactor);
+                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.SafetyFactorUnfavourable);
                     else if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.Xi * loadGroup.SafetyFactor);
+                        loadCombGammas.Add(loadGroup.Gamma_d * loadGroup.Xi * loadGroup.SafetyFactorUnfavourable);
                     else if (combinationType == ELoadCombinationType.Characteristic)
                         loadCombGammas.Add(1);
                     else if (combinationType == ELoadCombinationType.Frequent)
@@ -245,7 +240,7 @@ namespace FemDesign.Loads
         }
 
         private (List<LoadCase>, List<Double>, string) AddTemporaryLoadCases(List<LoadCase> temporaryLoadCases, ELoadCombinationType combinationType,
-                                                                     List<LoadCase> loadCases, List<int> indicesLeadingCases,
+                                                                     List<LoadCase> loadCases, List<int> indicesLeadingCases, 
                                                                      List<LoadGroup> associatedTemporaryLoadGroups, List<double> loadCombGammas)
         {
             string leadingActionName = "";
@@ -267,7 +262,7 @@ namespace FemDesign.Loads
 
                     // Assign the combination factors
                     if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor);
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactorUnfavourable);
                     else if (combinationType == ELoadCombinationType.Characteristic)
                         loadCombGammas.Add(1);
                     else if (combinationType == ELoadCombinationType.Frequent)
@@ -278,7 +273,7 @@ namespace FemDesign.Loads
                 else
                 { //Else accompanying action
                     if (combinationType == ELoadCombinationType.SixTenB)
-                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactor * associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
+                        loadCombGammas.Add(associatedTemporaryLoadGroups[i].Gamma_d * associatedTemporaryLoadGroups[i].SafetyFactorUnfavourable * associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
                     else if (combinationType == ELoadCombinationType.Characteristic)
                         loadCombGammas.Add(associatedTemporaryLoadGroups[i].LoadCategory.Psi0);
                     else if (combinationType == ELoadCombinationType.Frequent)
@@ -313,6 +308,15 @@ namespace FemDesign.Loads
                 indicesLeadingCases.Add(0);
 
             return indicesLeadingCases;
+        }
+
+        private List<LoadCase> GetLoadCaseSet(List<LoadGroup> loadGroups)
+        {
+            List<LoadCase> usedLoadCases = new List<LoadCase>();
+            foreach (LoadGroup loadGroup in loadGroups)
+                usedLoadCases.AddRange(loadGroup.LoadCases);
+            usedLoadCases = usedLoadCases.Distinct().ToList();
+            return usedLoadCases;
         }
     }
 }

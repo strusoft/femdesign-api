@@ -59,7 +59,8 @@ namespace FemDesign.Loads
         public List<LoadCombination> LoadCombinations = new List<LoadCombination>(); // load_combination_type
         
         [XmlElement("load_group_table", Order = 19)]
-        public List<DummyXmlObject> LoadGroupTables {get {return null;} set {value = null;}} // load_group_table_type
+        public LoadGroupTable LoadGroupTable { get; set; } // load_group_table_type
+
         
         /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads.
@@ -77,6 +78,38 @@ namespace FemDesign.Loads
             objs.AddRange(this.FootfallAnalysisData);
             return objs;
         }
-        
+
+        /*
+        public List<LoadGroup> GetLoadGroups()
+        {
+            List<LoadGroup> loadGroups = new List<LoadGroup>();
+
+            foreach (ModelGeneralLoadGroup generalLoadGroup in LoadGroupTable.GeneralLoadGroups)
+            {
+                LoadGroup loadGroup;
+
+                ModelLoadGroupPermanent loadGroupPermanent = generalLoadGroup.ModelLoadGroupPermanent;
+                if (loadGroupPermanent != null)
+                {
+                    // Convert ModelLoadCase to LoadCase
+                    List<LoadCase> loadCases = GetLoadCases(loadGroupPermanent.ModelLoadCase);
+
+                    //loadGroup = new LoadGroup(generalLoadGroup.Name, ELoadGroupType.Permanent, loadCases, )
+                }
+            }
+        }
+        */
+
+        private List<LoadCase> GetLoadCases(List<ModelLoadCaseInGroup> modelLoadCases)
+        {
+            List<LoadCase> loadCases = new List<LoadCase>();
+            foreach (ModelLoadCaseInGroup modelLoadCase in modelLoadCases)
+            {
+                LoadCase loadCase = LoadCases.Find(x => x.Guid == modelLoadCase.Guid);
+                loadCases.Add(loadCase);
+            }
+            return loadCases;
+        }
+       
     }
 }

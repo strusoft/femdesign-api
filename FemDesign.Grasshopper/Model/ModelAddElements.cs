@@ -41,7 +41,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -135,9 +136,33 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
+            List<FemDesign.Loads.LoadGroup> loadGroups = new List<FemDesign.Loads.LoadGroup>();
+            if (!DA.GetDataList(14, loadGroups))
+            {
+                // pass
+            }
+
+            // Ensure that the component recieves the load cases that are included in the load groups
+            bool loadCasesProvided = true;
+            if (loadGroups.Any())
+            {
+                foreach (Loads.LoadGroup loadGroup in loadGroups)
+                {
+                    loadCasesProvided = loadGroup.LoadCases.All(i => loadCases.Contains(i));
+                    if (!loadCasesProvided)
+                    {
+                        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Must provide all load cases used in load groups");
+                        return;
+                    }
+                }
+            }
+
             List<object> _loads = loads.Cast<object>().ToList();
-            
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
+
+            //Create LoadGroupTable
+            //
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, overwrite);
 
             DA.SetData(0, model);
         }
