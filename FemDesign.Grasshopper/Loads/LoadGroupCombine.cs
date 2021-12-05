@@ -8,10 +8,10 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Loads
 {
-    public class CombineLoadGroups : GH_Component
+    public class LoadGroupCombine : GH_Component
     {
-        public CombineLoadGroups()
-          : base("CombineLoadGroups", "CombineLoadGroups", "Combines the load cases in each load group into load combinations", "FemDesign", "Loads")
+        public LoadGroupCombine()
+          : base("LoadGroup.Combine", "Combine", "Combines the load cases in each load group into load combinations", "FemDesign", "Loads")
         {
         }
 

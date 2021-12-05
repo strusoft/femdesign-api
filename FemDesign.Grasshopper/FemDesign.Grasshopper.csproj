@@ -89,7 +89,7 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
-    <Compile Include="Loads\CombineLoadGroups.cs" />
+    <Compile Include="Loads\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
