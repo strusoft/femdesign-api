@@ -2522,9 +2522,10 @@ namespace FemDesign
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
+                        var complexSectionClone = complexSection.DeepClone();
                         if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.ComplexSection = complexSection;
+                            item.BarPart.ComplexSection = complexSectionClone;
                         }
                     }
 
@@ -2573,24 +2574,26 @@ namespace FemDesign
                 // get section
                 foreach (Sections.Section section in this.Sections.Section)
                 {
+                    var sectionClone = section.DeepClone();
+                    
                     if (item.BarPart.Type == Bars.BarType.Truss)
                     {
-                        if (section.Guid == item.BarPart.ComplexSectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.StartSection = section;
-                            item.BarPart.EndSection = section;
+                            item.BarPart.StartSection = sectionClone;
+                            item.BarPart.EndSection = sectionClone;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
                         {
-                            item.BarPart.StartSection = section;
+                            item.BarPart.StartSection = sectionClone;
                         }
 
-                        if (section.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
                         {
-                            item.BarPart.EndSection = section;
+                            item.BarPart.EndSection = sectionClone;
                         }
                     }
                 }

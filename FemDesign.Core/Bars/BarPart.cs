@@ -172,7 +172,7 @@ namespace FemDesign.Bars
                 }
 
                 // get eccentricities from complex section
-                else if (AnyEccentricityIsNull)
+                else if (this.AnyEccentricityIsNull)
                 {
                     this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
@@ -473,7 +473,8 @@ namespace FemDesign.Bars
             set
             {
                 this._complexSection = value;
-                this.ComplexSectionRef = this._complexSection.Guid;
+                this.ComplexSectionRef = value.Guid;
+                this.Eccentricities = value.Section.Select(x => x.Eccentricity).ToArray();
             }
         }
 
