@@ -377,7 +377,8 @@ namespace FemDesign.Reinforcement
 
 
         [XmlAttribute("strand_type")]
-        public Guid _StrandType { get; set; }
+        public Guid StrandTypeGuid { get; set; }
+        
         [XmlIgnore]
         public PtcStrandLibType StrandType { get; set; }
 
@@ -444,7 +445,7 @@ namespace FemDesign.Reinforcement
 
             BaseObject = baseObject;
             StrandType = strand;
-            _StrandType = strand.Guid;
+            StrandTypeGuid = strand.Guid;
             Name = $"{identifier}.{++instances}";
 
             Losses = losses;
