@@ -409,6 +409,17 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add BarReinforcement(s) from Bar to Model.
+        /// </summary>
+        private void AddBarPtcs(Bars.Bar obj, bool overwrite)
+        {
+            foreach (Reinforcement.Ptc ptc in obj.Ptc)
+            {
+                    this.AddPtc(ptc, overwrite);
+            }
+        }
+
+        /// <summary>
         /// Add Post-tensioned cable to Model.
         /// </summary>
         private void AddPtc(Reinforcement.Ptc obj, bool overwrite)
@@ -2565,8 +2576,44 @@ namespace FemDesign
                             }
                         }
 
-                        // add bar reinforcement to bar
-                        item.Reinforcement.Add(barReinf);
+                        // check if material found
+                        if (barReinf.Wire.ReinforcingMaterial == null)
+                        {
+                            throw new System.ArgumentException("No matching reinforcement wire material found. Model.GetBars() failed.");
+                        }
+                        else
+                        {
+                            // add bar reinforcement to bar
+                            item.Reinforcement.Add(barReinf);
+                        }
+
+                    }
+                }
+
+                // get ptc
+                foreach (Reinforcement.Ptc ptc in this.Entities.PostTensionedCables)
+                {
+                    if (ptc.BaseObject == item.BarPart.Guid)
+                    {
+                        // get strand material
+                        foreach (Reinforcement.PtcStrandLibType material in this.PtcStrandTypes.PtcStrandLibTypes)
+                        {
+                            if (ptc.StrandTypeGuid == material.Guid)
+                            {
+                                ptc.StrandType = material;
+                            }
+                        }
+
+                        // check if material found
+                        if (ptc.StrandType == null)
+                        {
+                            throw new System.ArgumentException("No matching ptc strand found. Model.GetBars() failed.");
+                        }
+                        else
+                        {
+                            // add ptc to bar
+                            item.Ptc.Add(ptc);
+                        }
                     }
                 }
 
