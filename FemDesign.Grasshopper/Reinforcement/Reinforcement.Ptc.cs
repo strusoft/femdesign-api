@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.
         /// </summary>
-        public ReinforcementPtc(): base("Post-Tensioned Cable", "PTC", "Description", "FemDesign", "Ptc")
+        public ReinforcementPtc(): base("Bar Post-Tensioned Cable", "BarPTC", "Add PTC to a bar. Curved bars are not supported.", "FemDesign", "Ptc")
         {
         }
 
@@ -39,7 +39,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Cable", "Cable", "Post-tensioned cable.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bar", "Bar", "Bar with post-tension cable added.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -75,7 +75,11 @@ namespace FemDesign.Reinforcement
 
             var ptc = new Ptc(bar, shape, losses, manufacturing, strandData, side, jackingStress, numberOfStrands, identifier);
 
-            DA.SetData("Cable", ptc);
+            // add to bar
+            var clone = bar.DeepClone();
+            clone.Ptc.Add(ptc);
+
+            DA.SetData("Bar", clone);
         }
 
         /// <summary>

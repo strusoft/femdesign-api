@@ -136,6 +136,9 @@ namespace FemDesign.Bars
         public string End = "";
 
         [XmlIgnore]
+        public List<Reinforcement.Ptc> Ptc = new List<Reinforcement.Ptc>();
+
+        [XmlIgnore]
         public List<Reinforcement.BarReinforcement> Reinforcement = new List<Reinforcement.BarReinforcement>();
 
         [XmlIgnore]
