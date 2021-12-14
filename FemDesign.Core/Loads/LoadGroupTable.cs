@@ -9,26 +9,10 @@ namespace FemDesign.Loads
     /// load_group_table
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupTable: GenericClasses.IFemDesignEntity
+    public partial class LoadGroupTable: EntityBase
     {
         [XmlAttribute("simple_combination_method")]
         public bool SimpleCombinationMethod { get; set; } = false;
-        [XmlAttribute("last_change")]
-        public string _lastChange;
-        [XmlIgnore]
-        internal DateTime LastChange
-        {
-            get
-            {
-                return DateTime.Parse(this._lastChange);
-            }
-            set
-            {
-                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
-            }
-        }
-        [XmlAttribute("action")]
-        public string Action { get; set; }
         [XmlElement("group")]
         public List<ModelGeneralLoadGroup> GeneralLoadGroups = new List<ModelGeneralLoadGroup>(); // sequence: ModelGeneralLoadGroup
 

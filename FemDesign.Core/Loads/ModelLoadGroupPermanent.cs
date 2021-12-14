@@ -41,7 +41,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// parameterless constructor for serialization
         /// </summary>
-        public ModelLoadGroupPermanent() { }
+        private ModelLoadGroupPermanent() { }
 
         /// <summary>
         /// Public constructor.
