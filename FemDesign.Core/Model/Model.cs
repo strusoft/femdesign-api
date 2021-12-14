@@ -1149,6 +1149,10 @@ namespace FemDesign
 
         public void AddLoadCases(List<Loads.LoadCase> loadCases, bool overwrite = true)
         {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
             if (loadCases != null)
                 foreach (Loads.LoadCase loadCase in loadCases)
                     this.AddLoadCase(loadCase, overwrite);
@@ -1214,6 +1218,10 @@ namespace FemDesign
 
         public void AddLoadCombinations(List<Loads.LoadCombination> loadCombinations, bool overwrite = true)
         {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
             if (loadCombinations != null)
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                     this.AddLoadCombination(loadCombination, overwrite);
@@ -1224,6 +1232,10 @@ namespace FemDesign
         /// </summary>
         private void AddLoadGroupTable(List<Loads.LoadGroup> obj)
         {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
             // Create sequence of general_load_group
             List<Loads.ModelGeneralLoadGroup> generalLoadGroups = new List<Loads.ModelGeneralLoadGroup>();
             foreach (Loads.LoadGroup loadGroup in obj)
@@ -2213,11 +2225,9 @@ namespace FemDesign
         /// <returns></returns>
         public Model AddLoads<T>(IEnumerable<T> elements, bool overwrite = true) where T : ILoadElement
         {
-            // check if model contains entities, sections and materials
+            // check if model contains entities
             if (this.Entities == null)
-            {
                 this.Entities = new Entities();
-            }
 
             foreach (var item in elements)
             {

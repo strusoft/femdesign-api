@@ -57,9 +57,9 @@ namespace FemDesign.Loads
         
         [XmlElement("load_combination", Order = 18)]
         public List<LoadCombination> LoadCombinations = new List<LoadCombination>(); // load_combination_type
-        
+
         [XmlElement("load_group_table", Order = 19)]
-        public LoadGroupTable LoadGroupTable { get; set; } // load_group_table_type
+        public LoadGroupTable LoadGroupTable { get; set; } = new LoadGroupTable(new List<ModelGeneralLoadGroup>()); // load_group_table_type
 
         
         /// <summary>
