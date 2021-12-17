@@ -389,6 +389,9 @@ namespace FemDesign
             // add reinforcement
             this.AddBarReinforcements(obj, overwrite);
 
+            // add ptc
+            this.AddBarPtcs(obj, overwrite);
+
             // add bar
             this.Entities.Bars.Add(obj);
         }
