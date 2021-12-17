@@ -37,7 +37,7 @@ namespace FemDesign
         /// <param name="bar">Bar.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "Curve", "Type", "Material", "Section", "Connectivity", "Eccentricity", "LocalY", "Stirrups", "LongitudinalBars", "Identifier"})]
+        [MultiReturn(new[]{"Guid", "Curve", "Type", "Material", "Section", "Connectivity", "Eccentricity", "LocalY", "Stirrups", "LongitudinalBars", "PTC", "Identifier"})]
         public static Dictionary<string, object> BarDeconstruct(FemDesign.Bars.Bar bar)
         {
             return new Dictionary<string, object>
@@ -52,6 +52,7 @@ namespace FemDesign
                 {"LocalY", bar.BarPart.LocalY.ToDynamo()},
                 {"Stirrups", bar.Stirrups},
                 {"LongitudinalBars", bar.LongitudinalBars},
+                {"PTC", bar.Ptc},
                 {"Identifier", bar.Identifier}
             };
         }

@@ -28,6 +28,7 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
            pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal bars.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
            pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
@@ -54,7 +55,8 @@ namespace FemDesign.Grasshopper
             DA.SetData(7, bar.BarPart.LocalY.ToRhino());
             DA.SetDataList(8, bar.Stirrups);
             DA.SetDataList(9, bar.LongitudinalBars);
-            DA.SetData(10, bar.Identifier);
+            DA.SetDataList(10, bar.Ptc);
+            DA.SetData(11, bar.Identifier);
        }
        protected override System.Drawing.Bitmap Icon
        {
