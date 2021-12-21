@@ -311,6 +311,16 @@ namespace FemDesign.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fdlogo {
+            get {
+                object obj = ResourceManager.GetObject("fdlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon fdlogo_00101 {
@@ -1556,16 +1566,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StraightReinforcementLayout {
             get {
                 object obj = ResourceManager.GetObject("StraightReinforcementLayout", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StruSoftlogo {
-            get {
-                object obj = ResourceManager.GetObject("StruSoftlogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

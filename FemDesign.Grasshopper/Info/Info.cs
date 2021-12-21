@@ -168,8 +168,8 @@ namespace FemDesign.Info
 
 
                 textRectangle.Y += 25;
-                textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.26);
-                Image image = FemDesign.Properties.Resources.StruSoftlogo;
+                textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
+                Image image = FemDesign.Properties.Resources.fdlogo;
 
                 graphics.DrawImage(image, textRectangle);
 
