@@ -92,14 +92,5 @@ namespace FemDesign.Tests
             Assert.IsNotNull(model, "Can construct model");
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
-
-        [TestMethod("Serialize empty Model")]
-        public void ModelSerializeTest()
-        {
-            Model model = new Model(Country.S);
-            Model copy = Clone(model);
-
-            Assert.IsTrue(AreEqual(model, copy), "Original and serialized-deserialized models should be equal.");
-        }
     }
 }
