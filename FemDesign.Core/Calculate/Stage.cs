@@ -23,7 +23,6 @@ namespace FemDesign.Calculate
 
         private Stage(bool ghost = false)
         {
-            //
             this.Ghost = Convert.ToInt32(ghost);
         }
 

@@ -24,5 +24,42 @@ namespace FemDesign.Reinforcement
 
         [XmlAttribute("auxiliary")]
         public bool Auxiliary { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public LongitudinalBar()
+        {
+
+        }
+
+        /// <summary>
+        /// Construct longitudinal bar using start and end distance from bar start
+        /// </summary>
+        /// <param name="startAnchorage">Start anchorage in meters.</param>
+        /// <param name="endAnchorage">End anchorage in meters.</param>
+        public LongitudinalBar(Geometry.FdPoint2d position, double startAnchorage, double endAnchorage, double start, double end, bool auxiliary)
+        {
+            this.Position2d = position;
+            this.Anchorage = new StartEndType(startAnchorage, endAnchorage);
+            this.Start = start;
+            this.End = end;
+            this.Auxiliary = auxiliary;
+        }
+
+        /// <summary>
+        /// Construct longitudinal bar using start and end param from bar start
+        /// </summary>
+        /// <param name="startAnchorage">Start anchorage in meters.</param>
+        /// <param name="endAnchorage">End anchorage in meters.</param>
+        public LongitudinalBar(Bars.Bar bar, Geometry.FdPoint2d position, double startAnchorage, double endAnchorage, double startParam, double endParam, bool auxiliary)
+        {
+            this.Position2d = position;
+            this.Anchorage = new StartEndType(startAnchorage, endAnchorage);
+            var len = bar.BarPart.Edge.Length;
+            this.Start = startParam * len;
+            this.End = endParam * len;
+            this.Auxiliary = auxiliary;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿// https://strusoft.com/
 using System;
+using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace FemDesign.Calculate
 
         }
 
-        public Bsc(ResultType resultType, string bscPath)
+        public Bsc(ListProc resultType, string bscPath)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
@@ -64,7 +65,7 @@ namespace FemDesign.Calculate
             SerializeBsc();
         }
 
-        public Bsc(ResultType resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
+        public Bsc(ListProc resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
         {
             DocTable.CaseIndex = caseIndex;
         }

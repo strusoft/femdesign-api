@@ -24,13 +24,7 @@ namespace FemDesign.Shells
         [XmlAttribute("name")]
         public string Name {get; set;} // identifier
         [XmlAttribute("type")]
-        public string _type; // slabtype
-        [XmlIgnore]
-        public string Type
-        {
-            get {return this._type;}
-            set {this._type = RestrictedString.SlabType(value);}
-        }
+        public SlabType Type { get; set; }
         [XmlElement("slab_part", Order=1)]
         public SlabPart SlabPart {get; set;}
         [XmlElement("end", Order=2)]
@@ -47,7 +41,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct Slab.
         /// </summary>
-        private Slab(string type, string name, SlabPart slabPart, Materials.Material material)
+        private Slab(SlabType type, string name, SlabPart slabPart, Materials.Material material)
         {
             this.EntityCreated();
             this.Name = name;
@@ -60,7 +54,7 @@ namespace FemDesign.Shells
         public static Slab Plate(string identifier, Materials.Material material, Geometry.Region region, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             Slab._plateInstance++;
-            string type = "plate";
+            SlabType type = SlabType.Plate;
             string name = identifier + "." + Slab._plateInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, name, slabPart, material);
@@ -75,7 +69,7 @@ namespace FemDesign.Shells
             }
             
             Slab._wallInstance++;
-            string type = "wall";
+            SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, name, slabPart, material);

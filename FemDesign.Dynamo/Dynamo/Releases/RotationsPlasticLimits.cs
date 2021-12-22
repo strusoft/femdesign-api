@@ -26,7 +26,7 @@ namespace FemDesign.Releases
         /// <summary>
         /// Default rotations release plastic limit. [kN/m or kN/m/m]. Default input gives no plastic limit.
         /// </summary>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public static RotationsPlasticLimits Default()
         {
             return RotationsPlasticLimits.Define();

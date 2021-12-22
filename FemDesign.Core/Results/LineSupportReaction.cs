@@ -18,51 +18,51 @@ namespace FemDesign.Results
         /// <summary>
         /// Support name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Finite element identifier
         /// </summary>
-        public readonly int ElementId;
+        public int ElementId { get; }
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public readonly int NodeId;
+        public int NodeId { get; }
         /// <summary>
         /// Local Fx'
         /// </summary>
-        public readonly double Fx;
+        public double Fx { get; }
         /// <summary>
         /// Local Fy'
         /// </summary>
-        public readonly double Fy;
+        public double Fy { get; }
         /// <summary>
         /// Local Fz'
         /// </summary>
-        public readonly double Fz;
+        public double Fz { get; }
         /// <summary>
         /// Local Mx'
         /// </summary>
-        public readonly double Mx;
+        public double Mx { get; }
         /// <summary>
         /// Local My'
         /// </summary>
-        public readonly double My;
+        public double My { get; }
         /// <summary>
         /// Local Mz'
         /// </summary>
-        public readonly double Mz;
+        public double Mz { get; }
         /// <summary>
         /// Force resultant
         /// </summary>
-        public readonly double Fr;
+        public double Fr { get; }
         /// <summary>
         /// Moment resultant
         /// </summary>
-        public readonly double Mr;
+        public double Mr { get; }
         /// <summary>
         /// Load case or combination name
         /// </summary>
-        public readonly string CaseIdentifier;
+        public string CaseIdentifier { get; }
 
         internal LineSupportReaction(string id, int elementId, int nodeId, double fx, double fy, double fz, double mx, double my, double mz, double fr, double mr, string resultCase)
         {

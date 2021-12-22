@@ -39,7 +39,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Shells.Slab obj = FemDesign.Reinforcement.SurfaceReinforcement.AddStraightReinforcementToSlab(slab, surfaceReinforcement);
+            FemDesign.Shells.Slab obj = FemDesign.Reinforcement.SurfaceReinforcement.AddReinforcementToSlab(slab, surfaceReinforcement);
 
             // return
             DA.SetData(0, obj);

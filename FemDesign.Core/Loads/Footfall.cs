@@ -17,21 +17,21 @@ namespace FemDesign.Loads
         public string Name;
         [XmlAttribute("comment")]
         public string Comment;
-        [XmlElement("contour")] 
-        public List<Contour> Contours;
+        [XmlElement("region")] 
+        public Region Region;
         [XmlElement("position")]
         public FdPoint3d Position;
 
         [XmlIgnore]
         public bool IsSelfExcitation
         {
-            get { return Contours != null && Contours.Count > 0 && Position == null; }
+            get { return Region != null && Position == null; }
         }
 
         [XmlIgnore]
         public bool IsFullExcitation
         {
-            get { return Position != null && Contours == null; }
+            get { return Position != null && Region == null; }
         }
 
         private static int selfExcitationInstances = 0;
@@ -48,23 +48,12 @@ namespace FemDesign.Loads
         /// <summary>
         /// Create a Footfall self excitation
         /// </summary>
-        /// <param name="contours">Contours defining a region to apply footfall analysis on. </param>
+        /// <param name="region">Contours defining a region to apply footfall analysis on. </param>
         /// <param name="identifier"></param>
         /// <param name="comment"></param>
-        public Footfall(List<Contour> contours, string identifier = "SE", string comment = null)
+        public Footfall(Region region, string identifier = "SE", string comment = null)
         {
-            InitializeSelfExcitation(contours, identifier, comment);
-        }
-
-        /// <summary>
-        /// Create a Footfall self excitation
-        /// </summary>
-        /// <param name="region">Region to apply footfall analysis on. </param>
-        /// <param name="identifier"></param>
-        /// <param name="comment"></param>
-        public Footfall(Geometry.Region region, string identifier = "SE", string comment = null)
-        {
-            InitializeSelfExcitation(region.Contours, identifier, comment);
+            InitializeSelfExcitation(region, identifier, comment);
         }
 
         /// <summary>
@@ -78,9 +67,9 @@ namespace FemDesign.Loads
             InitializeFullExcitation(position, identifier, comment);
         }
 
-        private void InitializeSelfExcitation(List<Contour> contours, string identifier, string comment)
+        private void InitializeSelfExcitation(Region region, string identifier, string comment)
         {
-            Contours = contours;
+            Region = region;
             Footfall.selfExcitationInstances++;
             Name = $"{identifier}.{selfExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;

@@ -24,7 +24,7 @@ namespace FemDesign
         [IsVisibleInDynamoLibrary(true)]
         public string GetCountry()
         {
-            return Country;
+            return Country.ToString();
         }
 
         #region dynamo
@@ -48,12 +48,12 @@ namespace FemDesign
         public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes, bool overwrite = false)
         {
             // Deep clone model
-            Model model = fdModel.DeepClone();
+            var clone = fdModel.DeepClone();
 
             // Add entities
             var _supports = supports.Cast<ISupportElement>().ToList();
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
-            return model;
+            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            return clone;
         }
 
         /// <summary>
@@ -69,15 +69,18 @@ namespace FemDesign
         [IsVisibleInDynamoLibrary(true)]
         public static Model AddElements(Model fdModel, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, bool overwrite = false)
         {
+            // Deep clone model
+            var clone = fdModel.DeepClone();
+
             var _elements = elements.Cast<IStructureElement>().ToList();
             var _loads = loads.Cast<ILoadElement>().ToList();
 
-            fdModel.AddElements(_elements, overwrite);
-            fdModel.AddLoads(_loads, overwrite);
-            fdModel.AddLoadCases(loadCases, overwrite);
-            fdModel.AddLoadCombinations(loadCombinations, overwrite);
+            clone.AddElements(_elements, overwrite);
+            clone.AddLoads(_loads, overwrite);
+            clone.AddLoadCases(loadCases, overwrite);
+            clone.AddLoadCombinations(loadCombinations, overwrite);
 
-            return fdModel;
+            return clone;
         }
 
         /// <summary>
@@ -96,16 +99,10 @@ namespace FemDesign
         /// <param name="axes"> Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
+        public static Model CreateNewModel([DefaultArgument("\"S\"")] string countryCode, [DefaultArgument("[]")] List<Bars.Bar> bars, [DefaultArgument("[]")] List<ModellingTools.FictitiousBar> fictitiousBars, [DefaultArgument("[]")] List<Shells.Slab> shells, [DefaultArgument("[]")] List<ModellingTools.FictitiousShell> fictitiousShells, [DefaultArgument("[]")] List<Shells.Panel> panels, [DefaultArgument("[]")] List<Cover> covers, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations, [DefaultArgument("[]")] List<object> supports, [DefaultArgument("[]")] List<StructureGrid.Storey> storeys, [DefaultArgument("[]")] List<StructureGrid.Axis> axes)
         {
-            //
-            if (countryCode == null)
-            {
-                countryCode = "S";
-            }
-
-            // create model
-            Model model = new Model(countryCode);
+            // Create model
+            Model model = new Model(EnumParser.Parse<Country>(countryCode));
             var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
             model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
             return model;
@@ -121,11 +118,11 @@ namespace FemDesign
         /// <param name="loadCombinations">Load combinations.</param>
         [IsLacingDisabled()]
         [IsVisibleInDynamoLibrary(true)]
-        public static Model CreateNewModel([DefaultArgument("S")] string countryCode, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations)
+        public static Model CreateNewModel([DefaultArgument("\"S\"")] string countryCode, [DefaultArgument("[]")] List<object> elements, [DefaultArgument("[]")] List<object> loads, [DefaultArgument("[]")] List<Loads.LoadCase> loadCases, [DefaultArgument("[]")] List<Loads.LoadCombination> loadCombinations)
         {
             var _elements = elements.Cast<IStructureElement>().ToList();
             var _loads = loads.Cast<ILoadElement>().ToList();
-            Model fdModel = new Model(countryCode, _elements, _loads, loadCases, loadCombinations);
+            Model fdModel = new Model(EnumParser.Parse<Country>(countryCode), _elements, _loads, loadCases, loadCombinations);
 
             return fdModel;
         }

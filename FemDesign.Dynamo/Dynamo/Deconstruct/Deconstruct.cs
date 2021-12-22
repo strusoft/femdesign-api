@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 #region dynamo
 using Autodesk.DesignScript.Runtime;
@@ -36,18 +37,23 @@ namespace FemDesign
         /// <param name="bar">Bar.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "StructuralID", "AnalyticalID", "Type", "Curve", "Material", "Section"})]
+        [MultiReturn(new[]{"Guid", "Curve", "Type", "Material", "Section", "Connectivity", "Eccentricity", "LocalY", "Stirrups", "LongitudinalBars", "PTC", "Identifier"})]
         public static Dictionary<string, object> BarDeconstruct(FemDesign.Bars.Bar bar)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", bar.Guid},
-                {"AnalyticalID", bar.Identifier},
-                {"StructuralID", bar.BarPart.Identifier},
-                {"Type", bar.Type},
                 {"Curve", bar.GetDynamoCurve()},
+                {"Type", bar.Type},
                 {"Material", bar.BarPart.Material},
-                {"Section", bar.BarPart.Sections}
+                {"Section", bar.BarPart.Sections},
+                {"Connectivity", bar.BarPart.Connectivities},
+                {"Eccentricity", bar.BarPart.Eccentricities},
+                {"LocalY", bar.BarPart.LocalY.ToDynamo()},
+                {"Stirrups", bar.Stirrups},
+                {"LongitudinalBars", bar.LongitudinalBars},
+                {"PTC", bar.Ptc},
+                {"Identifier", bar.Identifier}
             };
         }
 
@@ -155,6 +161,38 @@ namespace FemDesign
                 {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
                 {"Comment", lineTemperatureLoad.Comment}
             };
+        }
+
+        /// <summary>
+        /// Deconstruct a LongitudinalBar
+        /// </summary>
+        /// <param name="longBar">LongitudinalBar of a bar element..</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "YPos", "ZPos", "StartAnchorage", "EndAnchorage", "StartMeasurement", "EndMeasurement", "AuxBar"})]
+        public static Dictionary<string, object> LongitudinalBarDeconstruct(FemDesign.Reinforcement.BarReinforcement longBar)
+        {
+            if (longBar.IsStirrups)
+            {
+                throw new System.ArgumentException($"Passed object {longBar.Guid} is not a longitudinal bar reinforcement object. Did you pass a stirrups bar?");
+            }
+            else
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", longBar.Guid},
+                    {"BaseBar", longBar.BaseBar.Guid},
+                    {"Wire", longBar.Wire},
+                    {"YPos", longBar.LongitudinalBar.Position2d.X},
+                    {"ZPos", longBar.LongitudinalBar.Position2d.Y},
+                    {"StartAnchorage", longBar.LongitudinalBar.Anchorage.Start},
+                    {"EndAnchorage", longBar.LongitudinalBar.Anchorage.End},
+                    {"StartMeasurement", longBar.LongitudinalBar.Start},
+                    {"EndMeasurement", longBar.LongitudinalBar.End},
+                    {"AuxBar", longBar.LongitudinalBar.Auxiliary}
+                };
+
+            }
         }
 
         /// <summary>
@@ -311,10 +349,10 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCase.Guid},
+                {"Guid", loadCase.Guid.ToString()},
                 {"Name", loadCase.Name},
-                {"Type", loadCase.Type},
-                {"DurationClass", loadCase.DurationClass}
+                {"Type", loadCase.Type.ToString()},
+                {"DurationClass", loadCase.DurationClass.ToString()}
             };
         }
         
@@ -324,13 +362,14 @@ namespace FemDesign
         /// <param name="loadCombination">LoadCombination.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "Name", "LoadCases", "Gammas"})]
+        [MultiReturn(new[]{"Guid", "Name", "Type", "LoadCases", "Gammas"})]
         public static Dictionary<string, object> LoadCombinationDeconstruct(FemDesign.Loads.LoadCombination loadCombination)
         {
             return new Dictionary<string, object>
             {
                 {"Guid", loadCombination.Guid},
                 {"Name", loadCombination.Name},
+                {"Type", loadCombination.Type.ToString()},
                 {"LoadCases", loadCombination.GetLoadCaseGuidsAsString()},
                 {"Gammas", loadCombination.GetGammas()}
             };
@@ -339,15 +378,24 @@ namespace FemDesign
         /// <summary>
         /// Deconstruct basic material information
         /// </summary>
+        /// <param name="material">FemDesign.Materials.Material or a timber panel type timberPanelLibraryData or cltDataLibraryType.</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Guid", "Standard", "Country", "Name"})]
-        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.Material material)
+        public static Dictionary<string, object> MaterialDeconstruct(FemDesign.Materials.IMaterial material)
         {
+            string standard = null;
+            string country = null;
+            if (material is Materials.Material mat)
+            {
+                standard = mat.Standard;
+                country = mat.Country;
+            }
+
             return new Dictionary<string, object>
             {
                 {"Guid", material.Guid},
-                {"Standard", material.Standard},
-                {"Country", material.Country},
+                {"Standard", standard},
+                {"Country", country},
                 {"Name", material.Name}
             };
         }
@@ -358,7 +406,7 @@ namespace FemDesign
         /// <param name="model">Model.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Panels", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
+        [MultiReturn(new[]{"Guid", "CountryCode", "Bars", "FictitiousBars", "Shells", "FictitiousShells", "Diaphragms", "Panels", "Covers", "Loads", "LoadCases", "LoadCombinations", "Supports", "Axes", "Storeys"})]
         public static Dictionary<string, object> ModelDeconstruct(FemDesign.Model model)
         {
             List<StructureGrid.Axis> axes;
@@ -385,11 +433,12 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", model.Guid},
-                {"CountryCode", model.Country},
+                {"CountryCode", model.Country.ToString()},
                 {"Bars", model.Entities.Bars},
                 {"FictitiousBars", model.Entities.AdvancedFem.FictitiousBars},
                 {"Shells", model.Entities.Slabs},
                 {"FictitiousShells", model.Entities.AdvancedFem.FictitiousShells},
+                {"Diaphragms", model.Entities.AdvancedFem.Diaphragms},
                 {"Panels", model.Entities.Panels},
                 {"Covers", model.Entities.AdvancedFem.Covers},
                 {"Loads", model.Entities.Loads.GetLoads()},
@@ -546,6 +595,23 @@ namespace FemDesign
                 {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
                 {"LocalX", fictitiousShell.LocalX.ToDynamo()},
                 {"LocalY", fictitiousShell.LocalY.ToDynamo()}
+            };
+        }
+
+        /// <summary>
+        /// Deconstruct a diaphragm element.
+        /// </summary>
+        /// <param name="diaphragm">Diaphragm</param>
+        /// <returns></returns>
+        [MultiReturn(new[]{"Guid", "Surface", "Identifier"})]
+        [IsVisibleInDynamoLibrary(true)]
+        public static Dictionary<string, object> DiaphragmDeconstruct(FemDesign.ModellingTools.Diaphragm diaphragm)
+        {
+            return new Dictionary<string, object>
+            {
+                {"Guid", diaphragm.Guid},
+                {"Surface", diaphragm.Region.ToDynamoSurface()},
+                {"Identifier", diaphragm.Identifier}
             };
         }
 
@@ -707,6 +773,35 @@ namespace FemDesign
                 {"YY", stiffnessMatrix.YY},
                 {"GXY", stiffnessMatrix.GXY}
             };
+        }
+
+        /// <summary>
+        /// Deconstruct a distribution of stirrups
+        /// </summary>
+        /// <param name="stirrups">Stirrups along a distribution of a bar element.</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[]{"Guid", "BaseBar", "Wire", "Profiles", "StartMeasurement", "EndMeasurement", "Spacing"})]
+        public static Dictionary<string, object> StirrupDeconstruct(FemDesign.Reinforcement.BarReinforcement stirrups)
+        {
+            if (!stirrups.IsStirrups)
+            {
+                throw new System.ArgumentException($"Passed object {stirrups.Guid} is not a stirrup bar reinforcement object. Did you pass a longitudinal bar?");
+            }
+            else
+            {
+                return new Dictionary<string, object>
+                {
+                    {"Guid", stirrups.Guid},
+                    {"BaseBar", stirrups.BaseBar.Guid},
+                    {"Wire", stirrups.Wire},
+                    {"Profiles", stirrups.Stirrups.Regions.Select(x => x.ToDynamoSurface())},
+                    {"StartMeasurement", stirrups.Stirrups.Start},
+                    {"EndMeasurement", stirrups.Stirrups.End},
+                    {"Spacing", stirrups.Stirrups.Distance}
+                };
+
+            }
         }
 
         /// <summary>

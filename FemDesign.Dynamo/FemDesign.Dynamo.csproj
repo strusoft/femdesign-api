@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\FemDesign.Dynamo.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DynamoServices, Version=2.10.1.3976, Culture=neutral, processorArchitecture=MSIL">
@@ -68,11 +69,20 @@
     <Compile Include="..\FemDesign.Core\AdvancedFem\CoverReferenceList.cs">
       <Link>Core\AdvancedFem\CoverReferenceList.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSection.cs">
+      <Link>Core\AuxiliaryResults\LabelledSection.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSectionsGeometry.cs">
+      <Link>Core\AuxiliaryResults\LabelledSectionsGeometry.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Bar.cs">
       <Link>Core\Bars\Bar.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\BarPart.cs">
       <Link>Core\Bars\BarPart.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Buckling\BucklingTypeEnum.cs">
+      <Link>Core\Bars\Buckling\BucklingTypeEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\ColumnCorbel.cs">
       <Link>Core\Bars\ColumnCorbel.cs</Link>
@@ -94,6 +104,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Buckling\Position.cs">
       <Link>Core\Bars\Buckling\Position.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\SteelMadeTypeEnum.cs">
+      <Link>Core\Bars\SteelMadeTypeEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Analysis.cs">
       <Link>Core\Calculate\Analysis.cs</Link>
@@ -125,6 +138,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\CmdUser.cs">
       <Link>Core\Calculate\CmdUser.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdUserModuleEnum.cs">
+      <Link>Dynamo\Calculate\CmdUserModuleEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Comb.cs">
       <Link>Core\Calculate\Comb.cs</Link>
     </Compile>
@@ -152,11 +168,11 @@
     <Compile Include="..\FemDesign.Core\Calculate\Freq.cs">
       <Link>Core\Calculate\Freq.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\ListProc.cs">
+      <Link>Core\Calculate\ListProc.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\LoadCombination.cs">
       <Link>Core\Calculate\LoadCombination.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\ResultType.cs">
-      <Link>Core\Calculate\ResultType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
@@ -170,8 +186,14 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\EntityBase.cs">
       <Link>Core\GenericClasses\EntityBase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\EnumHelpers.cs">
+      <Link>Core\GenericClasses\EnumHelpers.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\ExtensionMethods.cs">
       <Link>Core\GenericClasses\ExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\FaceEnum.cs">
+      <Link>Core\GenericClasses\FaceEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\GuidListType.cs">
       <Link>Core\GenericClasses\GuidListType.cs</Link>
@@ -215,6 +237,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\Tolerance.cs">
       <Link>Core\GenericClasses\Tolerance.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\VerticalAlignmentEnum.cs">
+      <Link>Core\GenericClasses\VerticalAlignmentEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\Contour.cs">
       <Link>Core\Geometry\Contour.cs</Link>
     </Compile>
@@ -238,6 +263,12 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\FdVector3d.cs">
       <Link>Core\Geometry\FdVector3d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\LineSegment.cs">
+      <Link>Core\Geometry\LineSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Polyline.cs">
+      <Link>Core\Geometry\Polyline.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\RectangleType.cs">
       <Link>Core\Geometry\RectangleType.cs</Link>
@@ -272,8 +303,20 @@
     <Compile Include="..\FemDesign.Core\Loads\LoadCase.cs">
       <Link>Core\Loads\LoadCase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCaseDurationEnum.cs">
+      <Link>Core\Loads\LoadCaseDurationEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCaseTypeEnum.cs">
+      <Link>Core\Loads\LoadCaseTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadCombination.cs">
       <Link>Core\Loads\LoadCombination.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCombTypeEnum.cs">
+      <Link>Core\Loads\LoadCombTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadDirTypeEnum.cs">
+      <Link>Core\Loads\LoadDirTypeEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadLocationValue.cs">
       <Link>Core\Loads\LoadLocationValue.cs</Link>
@@ -320,6 +363,9 @@
     <Compile Include="..\FemDesign.Core\Materials\GlcPanelLibraryType.cs">
       <Link>Core\Materials\GlcPanelLibraryType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\IMaterial.cs">
+      <Link>Core\Materials\IMaterial.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\IPanelLibraryType.cs">
       <Link>Core\Materials\IPanelLibraryType.cs</Link>
     </Compile>
@@ -344,6 +390,9 @@
     <Compile Include="..\FemDesign.Core\Materials\MechProps.cs">
       <Link>Core\Materials\MechProps.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Materials\OrthotropicPanelLibraryType.cs">
+      <Link>Core\Materials\OrthotropicPanelLibraryType.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\ReinforcingMaterials.cs">
       <Link>Core\Materials\ReinforcingMaterials.cs</Link>
     </Compile>
@@ -362,17 +411,14 @@
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelData.cs">
       <Link>Core\Materials\TimberPanelData.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Materials\TimberPanelLibraryType.cs">
-      <Link>Core\Materials\TimberPanelLibraryType.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelStiffness.cs">
       <Link>Core\Materials\TimberPanelStiffness.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberPanelStrength.cs">
       <Link>Core\Materials\TimberPanelStrength.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Materials\TimberPlateMaterial.cs">
-      <Link>Core\Materials\TimberPlateMaterial.cs</Link>
+    <Compile Include="..\FemDesign.Core\Materials\TimberPanelType.cs">
+      <Link>Core\Materials\TimberPanelType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassEnum.cs">
       <Link>Core\Materials\TimberServiceClassEnum.cs</Link>
@@ -382,6 +428,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Materials\TimberServiceClassKdefs.cs">
       <Link>Core\Materials\TimberServiceClassKdefs.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Model\CountryEnum.cs">
+      <Link>Dynamo\Model\CountryEnum.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Model\Entities.cs">
       <Link>Core\Model\Entities.cs</Link>
@@ -440,6 +489,9 @@
     <Compile Include="..\FemDesign.Core\Reinforcement\PunchingReinforcement.cs">
       <Link>Core\Reinforcement\PunchingReinforcement.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\ReinforcementDirectionEnum.cs">
+      <Link>Core\Reinforcement\ReinforcementDirectionEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Reinforcement\Stirrups.cs">
       <Link>Core\Reinforcement\Stirrups.cs</Link>
     </Compile>
@@ -455,11 +507,23 @@
     <Compile Include="..\FemDesign.Core\Reinforcement\Wire.cs">
       <Link>Core\Reinforcement\Wire.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\WireProfileTypeEnum.cs">
+      <Link>Core\Reinforcement\WireProfileTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\DetachTypeEnum.cs">
+      <Link>Core\Releases\DetachTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Releases\Motions.cs">
       <Link>Core\Releases\Motions.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Releases\MotionsPlasticLimits.cs">
       <Link>Core\Releases\MotionsPlasticLimits.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\MotionTypeEnum.cs">
+      <Link>Core\Releases\MotionTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\PlasticityType.cs">
+      <Link>Core\Releases\PlasticityType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Releases\PlasticityType3d.cs">
       <Link>Core\Releases\PlasticityType3d.cs</Link>
@@ -500,6 +564,36 @@
     <Compile Include="..\FemDesign.Core\Releases\StiffnessWithFriction.cs">
       <Link>Core\Releases\StiffnessWithFriction.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarEndForce.cs">
+      <Link>Core\Results\BarEndForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\IResult.cs">
+      <Link>Core\Results\IResult.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
+      <Link>Core\Results\LineSupportReaction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\NodalDisplacement.cs">
+      <Link>Core\Results\NodalDisplacement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\PointSupportReaction.cs">
+      <Link>Core\Results\PointSupportReaction.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\QuantityEstimation.cs">
+      <Link>Core\Results\QuantityEstimation.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultAttribute.cs">
+      <Link>Core\Results\ResultAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultsReader.cs">
+      <Link>Core\Results\ResultsReader.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
+      <Link>Core\Results\ResultTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
+      <Link>Core\Results\ShelllnternalForce.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
       <Link>Core\Sections\ComplexSection.cs</Link>
     </Compile>
@@ -527,6 +621,9 @@
     <Compile Include="..\FemDesign.Core\Shells\Panel.cs">
       <Link>Core\Shells\Panel.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\PanelTypeEnum.cs">
+      <Link>Core\Shells\PanelTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Shells\ShellBucklingType.cs">
       <Link>Core\Shells\ShellBucklingType.cs</Link>
     </Compile>
@@ -545,6 +642,9 @@
     <Compile Include="..\FemDesign.Core\Shells\SlabPart.cs">
       <Link>Core\Shells\SlabPart.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\SlabTypeEnum.cs">
+      <Link>Core\Shells\SlabTypeEnum.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Shells\Thickness.cs">
       <Link>Core\Shells\Thickness.cs</Link>
     </Compile>
@@ -562,6 +662,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
+      <Link>Core\Supports\Directed.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Group.cs">
       <Link>Core\Supports\Group.cs</Link>
@@ -617,6 +720,7 @@
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
     <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\ExtensionMethods.cs" />
     <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
     <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
     <Compile Include="Dynamo\GenericClasses\LocationValue.cs" />
@@ -634,6 +738,7 @@
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
     <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="Dynamo\Loads\ForceLoadType.cs" />
     <Compile Include="Dynamo\Loads\Footfall.cs" />
     <Compile Include="Dynamo\Loads\ForceLoadBase.cs" />
     <Compile Include="Dynamo\Loads\LineLoad.cs" />
@@ -700,9 +805,9 @@
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcement.cs" />
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />
     <Compile Include="Dynamo\Reinforcement\Wire.cs" />
-    <Compile Include="Dynamo\Releases\DetachTypeEnum.cs" />
     <Compile Include="Dynamo\Releases\Motions.cs" />
     <Compile Include="Dynamo\Releases\MotionsPlasticLimits.cs" />
+    <Compile Include="Dynamo\Releases\PlasticityType.cs" />
     <Compile Include="Dynamo\Releases\PlasticityType3d.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType1.cs" />
     <Compile Include="Dynamo\Releases\RigidityDataLibType2.cs" />

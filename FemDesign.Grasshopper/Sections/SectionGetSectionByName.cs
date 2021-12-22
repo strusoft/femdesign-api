@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
             if (sectionDatabase == null || sectionName == null) { return; }
 
             //
-            FemDesign.Sections.Section section = FemDesign.Sections.Section.SectionByName(sectionDatabase, sectionName);
+            FemDesign.Sections.Section section = sectionDatabase.SectionByName(sectionName);
 
             // set output
             DA.SetData(0, section);

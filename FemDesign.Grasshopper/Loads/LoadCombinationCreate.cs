@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
@@ -28,7 +29,7 @@ namespace FemDesign.Grasshopper
         {
             // get data
             string name = null, type = "ultimate_ordinary";
-            List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
+            List<LoadCase> loadCases = new List<LoadCase>();
             List<double> gammas = new List<double>();
             if (!DA.GetData(0, ref name)) { return; }
             if (!DA.GetData(1, ref type))
@@ -38,11 +39,10 @@ namespace FemDesign.Grasshopper
             if (!DA.GetDataList(2, loadCases)) { return; }
             if (!DA.GetDataList(3, gammas)) { return; }
             if (name == null || type == null || loadCases == null || gammas == null) { return; }
-            
-            //
-            FemDesign.Loads.LoadCombination obj = new FemDesign.Loads.LoadCombination(name, type, loadCases, gammas);
 
-            // return
+            var _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCombType>(type);
+            LoadCombination obj = new LoadCombination(name, _type, loadCases, gammas);
+
             DA.SetData(0, obj);
         }
         protected override System.Drawing.Bitmap Icon

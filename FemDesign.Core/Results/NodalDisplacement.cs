@@ -18,39 +18,39 @@ namespace FemDesign.Results
         /// <summary>
         /// Support name identifier
         /// </summary>
-        public readonly string Id;
+        public string Id { get; }
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public readonly int NodeId;
+        public int NodeId { get; }
         /// <summary>
         /// Displacement in global x
         /// </summary>
-        public readonly double Ex;
+        public double Ex { get; }
         /// <summary>
         /// Displacement in global y
         /// </summary>
-        public readonly double Ey;
+        public double Ey { get; }
         /// <summary>
         /// Displacement in global z
         /// </summary>
-        public readonly double Ez;
+        public double Ez { get; }
         /// <summary>
         /// Rotation around global x
         /// </summary>
-        public readonly double Fix;
+        public double Fix { get; }
         /// <summary>
         /// Rotation around global y
         /// </summary>
-        public readonly double Fiy;
+        public double Fiy { get; }
         /// <summary>
         /// Rotation around global z
         /// </summary>
-        public readonly double Fiz;
+        public double Fiz { get; }
         /// <summary>
         /// Load case or combination name
         /// </summary>
-        public readonly string CaseIdentifier;
+        public string CaseIdentifier { get; }
 
         internal NodalDisplacement(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
         {

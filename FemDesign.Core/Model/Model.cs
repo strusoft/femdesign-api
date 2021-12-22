@@ -50,7 +50,7 @@ namespace FemDesign
         public string Standard { get; set; } // standardtype
         /// <summary>National annex of calculation code</summary>
         [XmlAttribute("country")]
-        public string Country { get; set; } // eurocodetype
+        public Country Country { get; set; } // eurocodetype
         [XmlAttribute("xmlns")]
         public string Xmlns { get; set; }
         [XmlElement("entities", Order = 1)]
@@ -106,7 +106,7 @@ namespace FemDesign
         /// <param name="loads">Load elements</param>
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
-        public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
         {
             Initialize(country);
 
@@ -120,7 +120,7 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
         }
 
-        private void Initialize(string country)
+        private void Initialize(Country country)
         {
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = "FEM-Design 18.00.004";
@@ -131,6 +131,33 @@ namespace FemDesign
             this.Standard = "EC";
             this.Country = country;
             this.End = "";
+
+            // Check if model contains entities, sections and materials, else these needs to be initialized.
+            if (this.Entities == null)
+            {
+                this.Entities = new Entities();
+            }
+            if (this.Sections == null)
+            {
+                this.Sections = new Sections.ModelSections();
+            }
+            if (this.Materials == null)
+            {
+                this.Materials = new Materials.Materials();
+            }
+            if (this.ReinforcingMaterials == null)
+            {
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            }
+            if (this.LineConnectionTypes == null)
+            {
+                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            }
+            if (this.PtcStrandTypes == null)
+            {
+                this.PtcStrandTypes = new Reinforcement.PtcStrandType();
+            }
         }
 
         #region serialization
@@ -148,8 +175,7 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-
-            // catch inner exception
+            
             object obj;
             try
             {
@@ -157,7 +183,7 @@ namespace FemDesign
             }
             catch (System.InvalidOperationException ex)
             {
-                throw ex.InnerException.InnerException;
+                throw ex;
             }
 
             // close reader
@@ -360,6 +386,12 @@ namespace FemDesign
             this.AddSection(obj.BarPart.StartSection, overwrite);
             this.AddSection(obj.BarPart.EndSection, overwrite);
 
+            // add reinforcement
+            this.AddBarReinforcements(obj, overwrite);
+
+            // add ptc
+            this.AddBarPtcs(obj, overwrite);
+
             // add bar
             this.Entities.Bars.Add(obj);
         }
@@ -370,6 +402,56 @@ namespace FemDesign
         private bool BarInModel(Bars.Bar obj)
         {
             foreach (Bars.Bar elem in this.Entities.Bars)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Add BarReinforcement(s) from Bar to Model.
+        /// </summary>
+        private void AddBarPtcs(Bars.Bar obj, bool overwrite)
+        {
+            foreach (Reinforcement.Ptc ptc in obj.Ptc)
+            {
+                    this.AddPtc(ptc, overwrite);
+            }
+        }
+
+        /// <summary>
+        /// Add Post-tensioned cable to Model.
+        /// </summary>
+        private void AddPtc(Reinforcement.Ptc obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PtcInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.PostTensionedCables.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add material
+            this.AddPtcStrandType(obj.StrandType, overwrite);
+
+            // add ptc
+            this.Entities.PostTensionedCables.Add(obj);
+        }
+
+        private bool PtcInModel(Reinforcement.Ptc obj)
+        {
+            foreach (Reinforcement.Ptc elem in this.Entities.PostTensionedCables)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -681,6 +763,50 @@ namespace FemDesign
 
             // add lib item
             this.PointConnectionTypes.PredefinedTypes.Add(obj);
+        }
+
+        /// <summary>
+        /// Add Fictitious Shell to Model.
+        /// </summary>
+        private void AddDiaphragm(ModellingTools.Diaphragm obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.DiaphragmInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.AdvancedFem.Diaphragms.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line connection types (predefined rigidity)
+            foreach (Releases.RigidityDataLibType3 predef in obj.Region.GetPredefinedRigidities())
+            {
+                this.AddPredefinedRigidity(predef, overwrite);
+            }
+
+            this.Entities.AdvancedFem.Diaphragms.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if Fictitious Bar in Model.
+        /// </summary>
+        private bool DiaphragmInModel(ModellingTools.Diaphragm obj)
+        {
+            foreach (ModellingTools.Diaphragm elem in this.Entities.AdvancedFem.Diaphragms)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -1552,6 +1678,59 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Add BarReinforcement(s) from Bar to Model.
+        /// </summary>
+        private void AddBarReinforcements(Bars.Bar obj, bool overwrite)
+        {
+            foreach (Reinforcement.BarReinforcement barReinf in obj.Reinforcement)
+            {
+                this.AddReinforcingMaterial(barReinf.Wire.ReinforcingMaterial, overwrite);
+                this.AddBarReinforcement(barReinf, overwrite);
+            }
+        }
+
+        /// <summary>
+        /// Add BarReinforcement to Model.
+        /// </summary>
+        private void AddBarReinforcement(Reinforcement.BarReinforcement obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.BarReinforcementInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Did you add the same {obj.GetType().FullName} to different Bars?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.BarReinforcements.RemoveAll(x => x.Guid == obj.Guid);
+            } 
+
+            // add obj
+            this.Entities.BarReinforcements.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if BarReinforcement in Model.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private bool BarReinforcementInModel(Reinforcement.BarReinforcement obj)
+        {
+            foreach (Reinforcement.BarReinforcement elem in this.Entities.BarReinforcements)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="obj"></param>
@@ -1563,7 +1742,6 @@ namespace FemDesign
                 this.AddSurfaceReinforcement(surfaceReinforcement, overwrite);
             }
         }
-
 
 
         /// <summary>
@@ -1583,11 +1761,11 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.SurfaceReinforcement.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.SurfaceReinforcements.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add obj
-            this.Entities.SurfaceReinforcement.Add(obj);
+            this.Entities.SurfaceReinforcements.Add(obj);
 
         }
 
@@ -1598,7 +1776,7 @@ namespace FemDesign
         /// <returns></returns>
         private bool SurfaceReinforcementInModel(Reinforcement.SurfaceReinforcement obj)
         {
-            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcement)
+            foreach (Reinforcement.SurfaceReinforcement elem in this.Entities.SurfaceReinforcements)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -1706,7 +1884,7 @@ namespace FemDesign
             this.Entities.Supports.PointSupport.Add(obj);
 
             // add predefined rigidity
-            if (obj.Group.PredefRigidity != null)
+            if (obj.Group?.PredefRigidity != null)
             {
                 this.AddPointSupportGroupLibItem(obj.Group.PredefRigidity, overwrite);
             }
@@ -1955,6 +2133,34 @@ namespace FemDesign
             return false;
         }
 
+        private void AddPtcStrandType(Reinforcement.PtcStrandLibType obj, bool overwrite)
+        {
+            bool inModel = this.PtcStrandTypeInModel(obj);
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+            else if (inModel && overwrite)
+            {
+                this.PtcStrandTypes.PtcStrandLibTypes.RemoveAll(x => x.Guid == obj.Guid);
+                this.PtcStrandTypes.PtcStrandLibTypes.Add(obj);
+            }
+            else if (!inModel)
+                this.PtcStrandTypes.PtcStrandLibTypes.Add(obj);
+        }
+
+        private bool PtcStrandTypeInModel(Reinforcement.PtcStrandLibType obj)
+        {
+            foreach (Reinforcement.PtcStrandLibType elem in this.PtcStrandTypes.PtcStrandLibTypes)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Add Timber panel library type to Model.
         /// </summary>
@@ -2147,6 +2353,55 @@ namespace FemDesign
             }
             return false;
         }
+
+        /// <summary>
+        /// Add LabelledSection to Model
+        /// </summary>
+        private void AddLabelledSection(AuxiliaryResults.LabelledSection obj, bool overwrite)
+        {
+            if (this.Entities.LabelledSections == null)
+            {
+                this.Entities.LabelledSections = new AuxiliaryResults.LabelledSectionsGeometry();
+            }
+
+            // in model?
+            bool inModel = this.LabelledSectionInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.LabelledSections.LabelledSections.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.LabelledSections.LabelledSections.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Entities.LabelledSections.LabelledSections.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if LabelledSection in Model
+        /// </summary>
+        private bool LabelledSectionInModel(AuxiliaryResults.LabelledSection obj)
+        {
+            foreach (AuxiliaryResults.LabelledSection elem in this.Entities.LabelledSections.LabelledSections)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
         #region AddElements and AddLoads
@@ -2228,7 +2483,9 @@ namespace FemDesign
         private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
         private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
         private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
-        
+        private void AddEntity(Reinforcement.Ptc obj, bool overwrite) => AddPtc(obj, overwrite);
+
+
         private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
         
         private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
@@ -2236,6 +2493,9 @@ namespace FemDesign
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
         //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+        private void AddEntity(ModellingTools.Diaphragm obj, bool overwrite) => AddDiaphragm(obj, overwrite);
+
+        private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
 
         private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
         private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
@@ -2252,6 +2512,7 @@ namespace FemDesign
         private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
         private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
         private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
+        private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
@@ -2275,9 +2536,10 @@ namespace FemDesign
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
+                        var complexSectionClone = complexSection.DeepClone();
                         if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.ComplexSection = complexSection;
+                            item.BarPart.ComplexSection = complexSectionClone;
                         }
                     }
 
@@ -2304,27 +2566,84 @@ namespace FemDesign
                     throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
                 }
 
+                // get bar reinforcement
+                foreach (Reinforcement.BarReinforcement barReinf in this.Entities.BarReinforcements)
+                {
+                    if (barReinf.BaseBar.Guid == item.BarPart.Guid)
+                    {
+                        // get wire material
+                        foreach (Materials.Material material in this.ReinforcingMaterials.Material)
+                        {
+                            if (barReinf.Wire.ReinforcingMaterialGuid == material.Guid)
+                            {
+                                barReinf.Wire.ReinforcingMaterial = material;
+                            }
+                        }
+
+                        // check if material found
+                        if (barReinf.Wire.ReinforcingMaterial == null)
+                        {
+                            throw new System.ArgumentException("No matching reinforcement wire material found. Model.GetBars() failed.");
+                        }
+                        else
+                        {
+                            // add bar reinforcement to bar
+                            item.Reinforcement.Add(barReinf);
+                        }
+
+                    }
+                }
+
+                // get ptc
+                foreach (Reinforcement.Ptc ptc in this.Entities.PostTensionedCables)
+                {
+                    if (ptc.BaseObject == item.BarPart.Guid)
+                    {
+                        // get strand material
+                        foreach (Reinforcement.PtcStrandLibType material in this.PtcStrandTypes.PtcStrandLibTypes)
+                        {
+                            if (ptc.StrandTypeGuid == material.Guid)
+                            {
+                                ptc.StrandType = material;
+                            }
+                        }
+
+                        // check if material found
+                        if (ptc.StrandType == null)
+                        {
+                            throw new System.ArgumentException("No matching ptc strand found. Model.GetBars() failed.");
+                        }
+                        else
+                        {
+                            // add ptc to bar
+                            item.Ptc.Add(ptc);
+                        }
+                    }
+                }
+
                 // get section
                 foreach (Sections.Section section in this.Sections.Section)
                 {
+                    var sectionClone = section.DeepClone();
+                    
                     if (item.BarPart.Type == Bars.BarType.Truss)
                     {
-                        if (section.Guid == item.BarPart.ComplexSectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.StartSection = section;
-                            item.BarPart.EndSection = section;
+                            item.BarPart.StartSection = sectionClone;
+                            item.BarPart.EndSection = sectionClone;
                         }
                     }
                     else
                     {
-                        if (section.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
                         {
-                            item.BarPart.StartSection = section;
+                            item.BarPart.StartSection = sectionClone;
                         }
 
-                        if (section.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
+                        if (sectionClone.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
                         {
-                            item.BarPart.EndSection = section;
+                            item.BarPart.EndSection = sectionClone;
                         }
                     }
                 }
@@ -2394,7 +2713,7 @@ namespace FemDesign
                 }
 
                 // get surface reinforcement
-                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcement)
+                foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in this.Entities.SurfaceReinforcements)
                 {
                     if (surfaceReinforcement.BaseShell.Guid == item.SlabPart.Guid)
                     {
@@ -2416,7 +2735,7 @@ namespace FemDesign
                 // check if material found
                 if (item.Material == null)
                 {
-                    throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
+                    throw new System.ArgumentException("No matching material found. Model.GeSlabs() failed.");
                 }
             }
         }

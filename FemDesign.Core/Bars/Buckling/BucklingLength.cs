@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.Bars.Buckling
@@ -13,7 +14,7 @@ namespace FemDesign.Bars.Buckling
     public partial class BucklingLength
     {
         [XmlAttribute("type")]
-        public string Type { get; set; } // bar_buckling_type
+        public BucklingType Type { get; set; } // bar_buckling_type
 
         [XmlAttribute("beta")]
         public string _beta; // non_neg_max_100
@@ -48,14 +49,7 @@ namespace FemDesign.Bars.Buckling
         }
 
         [XmlAttribute("load_position")]
-        public string _loadPosition;  // ver_align
-
-        [XmlIgnore]
-        public string LoadPosition
-        {
-            get{return this._loadPosition;}
-            set{this._loadPosition = RestrictedString.VerticalAlign(value);}
-        }
+        public VerticalAlignment LoadPosition { get; set; }
 
         [XmlAttribute("continously_restrained")]
         public string _continouslyRestrained;
@@ -103,7 +97,7 @@ namespace FemDesign.Bars.Buckling
         /// <summary>
         /// Constructor for flexural buckling length.
         /// </summary>
-        internal BucklingLength(Position position, string type, double beta = 1, bool sway = false)
+        internal BucklingLength(Position position, BucklingType type, double beta = 1, bool sway = false)
         {
             this.Position = position;
             this.Type = type;
@@ -117,7 +111,7 @@ namespace FemDesign.Bars.Buckling
         /// <summary>
         /// Constructor for pressured flange buckling length.
         /// </summary>
-        internal BucklingLength(Position position, string type, double beta, string loadPosition, bool continouslyRestrained)
+        internal BucklingLength(Position position, BucklingType type, double beta, VerticalAlignment loadPosition, bool continouslyRestrained)
         {
             this.Position = position;
             this.Type = type;
@@ -132,7 +126,7 @@ namespace FemDesign.Bars.Buckling
         /// <summary>
         /// Constructor for lateral torsional buckling length.
         /// </summary>
-        internal BucklingLength(Position position, string type, string loadPosition, bool continouslyRestrained, bool cantilever)
+        internal BucklingLength(Position position, BucklingType type, VerticalAlignment loadPosition, bool continouslyRestrained, bool cantilever)
         {
             this.Position = position;
             this.Type = type;
@@ -156,7 +150,7 @@ namespace FemDesign.Bars.Buckling
         /// <returns></returns>
         public static BucklingLength FlexuralStiff(double beta = 1, bool sway = false)
         {
-            string _type = "flexural_stiff";
+            BucklingType _type = BucklingType.FlexuralStiff;
             return new BucklingLength(Position.AlongBar(), _type, beta, sway);
         }
         /// <summary>
@@ -168,7 +162,7 @@ namespace FemDesign.Bars.Buckling
         /// <returns></returns>
         public static BucklingLength FlexuralWeak(double beta = 1, bool sway = false)
         {
-            string _type = "flexural_weak";
+            BucklingType _type = BucklingType.FlexuralWeak;
             return new BucklingLength(Position.AlongBar(), _type, beta, sway);
         }
         /// <summary>
@@ -179,9 +173,9 @@ namespace FemDesign.Bars.Buckling
         /// <param name="loadPosition">"top"/"center"/"bottom"</param>
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength PressuredTopFlange(double beta = 1, string loadPosition = "top", bool continuouslyRestrained = false)
+        public static BucklingLength PressuredTopFlange(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
-            string _type = "pressured_flange";
+            BucklingType _type = BucklingType.PressuredTopFlange;
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
         }
         /// <summary>
@@ -192,9 +186,9 @@ namespace FemDesign.Bars.Buckling
         /// <param name="loadPosition">"top"/"center"/"bottom"</param>
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength PressuredBottomFlange(double beta = 1, string loadPosition = "top", bool continuouslyRestrained = false)
+        public static BucklingLength PressuredBottomFlange(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
-            string _type = "pressured_bottom_flange";
+            BucklingType _type = BucklingType.PressuredBottomFlange;
             return new BucklingLength(Position.AlongBar(), _type, beta, loadPosition, continuouslyRestrained);
         }
         /// <summary>
@@ -205,9 +199,9 @@ namespace FemDesign.Bars.Buckling
         /// <param name="continouslyRestrained">Continously restrained. True/false.</param>
         /// <param name="cantilever">Cantilever. True/false.</param>
         /// <returns></returns>
-        public static BucklingLength LateralTorsional(string loadPosition = "top", bool continouslyRestrained = false, bool cantilever = false)
+        public static BucklingLength LateralTorsional(VerticalAlignment loadPosition, bool continouslyRestrained = false, bool cantilever = false)
         {
-            string _type = "lateral_torsional";
+            BucklingType _type = BucklingType.LateralTorsional;
             return new BucklingLength(Position.AlongBar(), _type, loadPosition, continouslyRestrained, cantilever);
         }
     }

@@ -208,20 +208,7 @@ namespace FemDesign.Shells
         public GuidListType ExternalPredefinedRigidity { get; set; }
 
         [XmlAttribute("type")]
-        public string _type; // paneltype
-        
-        [XmlIgnore]
-        public string Type
-        {
-            get
-            {
-                return this._type;
-            }
-            set
-            {
-                this._type = RestrictedString.PanelType(value);
-            }
-        }
+        public PanelType Type { get; set; }
 
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterial { get; set; }
@@ -307,19 +294,7 @@ namespace FemDesign.Shells
         [XmlAttribute("thickness")]
         public double Thickness { get; set; }
         [XmlAttribute("alignment")]
-        public string _alignment; // ver_align
-        [XmlIgnore]
-        public string Alignment
-        {
-            get
-            {
-                return this._alignment;
-            }
-            set
-            {
-                this._alignment = RestrictedString.VerticalAlign(value);
-            }
-        }
+        public VerticalAlignment Alignment { get; set; }
         [XmlAttribute("align_offset")]
         public double AlignOffset { get; set; }
         [XmlAttribute("ecc_calc")]
@@ -454,7 +429,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, ShellEdgeConnection externalEdgeConnection, string type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
+        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, ShellEdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
 
@@ -487,19 +462,18 @@ namespace FemDesign.Shells
         /// Construct timber panel with "Continuous" analytical model.
         /// </summary>
         /// <param name="region">Region of shell containing panels.</param>
-        /// <param name="localX">Direction of panels.</param>
         /// <param name="anchorPoint"></param>
-        /// <param name="externalRigidity">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
+        /// <param name="internalPanels"></param>
+        /// <param name="externalEdgeConnection">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
+        /// <param name="timberApplicationData"></param>
         /// <param name="type">Type of panel.</param>
-        /// <param name="complexMaterial">Guid reference to material.</param>
-        /// <param name="complexSection">Guid reference to complex section.</param>
         /// <param name="identifier">Name of shell.</param>
         /// <param name="panelName">Name of panel.</param>
         /// <param name="gap">Gap between panels.</param>
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        public Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, ShellEdgeConnection externalEdgeConnection, string type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, ShellEdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -531,12 +505,20 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default concrete shell with panels using a continuous analytical model.
         /// </summary>
+        /// <param name="region">Panel region.</param>
+        /// <param name="externalEdgeConnection"></param>
+        /// <param name="material"></param>
+        /// <param name="section"></param>
+        /// <param name="identifier">Name of shell.</param>
+        /// <param name="orthotropy"></param>
+        /// <param name="ecc"></param>
+        /// <returns></returns>
         public static Panel DefaultContreteContinuous(Geometry.Region region, ShellEdgeConnection externalEdgeConnection, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
         {
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
-            string type = "concrete";
+            PanelType type = PanelType.Concrete;
             string panelName = "A";
             double gap = 0.003;
             bool externalMovingLocal = externalEdgeConnection.MovingLocal;
@@ -548,10 +530,10 @@ namespace FemDesign.Shells
         /// Create a default timber shell with panels using a continuous analytical model.
         /// </summary>
         /// <param name="region">Panel region.</param>
-        /// <param name="timberPlateMaterial">FemDesign.Materials.TimberPlateMaterial</param>
+        /// <param name="timberPlateMaterial">Timber material. See <see cref="FemDesign.Materials.TimberPanelType"/>.</param>
         /// <param name="direction">Timber panel span direction.</param>
         /// <param name="externalEdgeConnection"></param>
-        /// <param name="identifier"></param>
+        /// <param name="identifier">Name of shell.</param>
         /// <param name="eccentricity"></param>
         /// <param name="panelWidth"></param>
         /// <returns></returns>
@@ -566,7 +548,7 @@ namespace FemDesign.Shells
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
-            string type = "timber";
+            PanelType type = PanelType.Timber;
             string panelName = "A";
             double gap = 0.01;
             double orthotropy = 1;
@@ -578,6 +560,5 @@ namespace FemDesign.Shells
             
             return panel;
         }
-
     }
 }

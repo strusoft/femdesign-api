@@ -27,7 +27,7 @@ namespace FemDesign
         public List<ModellingTools.FictitiousShell> FictitiousShells = new List<ModellingTools.FictitiousShell>();
 
         [XmlElement("diaphragm", Order = 6)]
-        public ModellingTools.Diaphragm[] Diaphragms { get; set; }
+        public List<ModellingTools.Diaphragm> Diaphragms { get; set; } = new List<ModellingTools.Diaphragm>();
 
         // steel_joint
 
