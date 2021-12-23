@@ -79,37 +79,18 @@ namespace FemDesign.Loads
             return objs;
         }
 
-        /*
-        public List<LoadGroup> GetLoadGroups()
+        /// <summary>
+        /// Gets the <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects of the LoadGroupTable.
+        /// </summary>
+        /// <returns>List of <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects</returns>
+        public List<ModelGeneralLoadGroup> GetLoadGroups()
         {
-            List<LoadGroup> loadGroups = new List<LoadGroup>();
+            List<ModelGeneralLoadGroup> loadGroups = new List<ModelGeneralLoadGroup>();
 
             foreach (ModelGeneralLoadGroup generalLoadGroup in LoadGroupTable.GeneralLoadGroups)
-            {
-                LoadGroup loadGroup;
-
-                ModelLoadGroupPermanent loadGroupPermanent = generalLoadGroup.ModelLoadGroupPermanent;
-                if (loadGroupPermanent != null)
-                {
-                    // Convert ModelLoadCase to LoadCase
-                    List<LoadCase> loadCases = GetLoadCases(loadGroupPermanent.ModelLoadCase);
-
-                    //loadGroup = new LoadGroup(generalLoadGroup.Name, ELoadGroupType.Permanent, loadCases, )
-                }
-            }
-        }
-        */
-
-        private List<LoadCase> GetLoadCases(List<ModelLoadCaseInGroup> modelLoadCases)
-        {
-            List<LoadCase> loadCases = new List<LoadCase>();
-            foreach (ModelLoadCaseInGroup modelLoadCase in modelLoadCases)
-            {
-                LoadCase loadCase = LoadCases.Find(x => x.Guid == modelLoadCase.Guid);
-                loadCases.Add(loadCase);
-            }
-            return loadCases;
-        }
-       
+                loadGroups.Add(generalLoadGroup);
+            return loadGroups;
+ 
+        }    
     }
 }

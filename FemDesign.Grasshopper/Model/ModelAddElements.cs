@@ -137,7 +137,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.Loads.LoadGroup> loadGroups = new List<FemDesign.Loads.LoadGroup>();
+            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
             if (!DA.GetDataList(14, loadGroups))
             {
                 // pass
@@ -147,9 +147,9 @@ namespace FemDesign.Grasshopper
             bool loadCasesProvided = true;
             if (loadGroups.Any())
             {
-                foreach (Loads.LoadGroup loadGroup in loadGroups)
+                foreach (Loads.ModelGeneralLoadGroup loadGroup in loadGroups)
                 {
-                    loadCasesProvided = loadGroup.LoadCases.All(i => loadCases.Contains(i));
+                    loadCasesProvided = loadGroup.GetLoadCases().All(i => loadCases.Contains(i));
                     if (!loadCasesProvided)
                     {
                         this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Must provide all load cases used in load groups");
@@ -160,8 +160,6 @@ namespace FemDesign.Grasshopper
 
             List<object> _loads = loads.Cast<object>().ToList();
 
-            //Create LoadGroupTable
-            //
             model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, overwrite);
 
             DA.SetData(0, model);

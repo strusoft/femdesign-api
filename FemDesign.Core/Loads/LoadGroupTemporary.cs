@@ -2,6 +2,7 @@
 
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Loads
 {
@@ -9,7 +10,7 @@ namespace FemDesign.Loads
     /// temporary_load_group (child of general_load_group)
     /// </summary>
     [System.Serializable]
-    public partial class ModelLoadGroupTemporary: GenericClasses.IFemDesignEntity
+    public partial class LoadGroupTemporary: LoadGroupBase ,IFemDesignEntity
     {
         [XmlAttribute("safety_factor")]
         public double _safetyFactor;
@@ -71,21 +72,15 @@ namespace FemDesign.Loads
         public bool LeadingCases { get; set; }
         [XmlAttribute("ignore_sls")]
         public bool IgnoreSls { get; set; } = false;
-        [XmlElement("load_case")]
-        public List<ModelLoadCaseInGroup> ModelLoadCase { get; set; }// sequence: ModelLoadCaseInGroup
-        [XmlAttribute("relationship")]
-        public ELoadGroupRelationship Relationship { get; set; }
 
-        public ModelLoadGroupTemporary()
-        {
-            // parameterless constructor for serialization
-        }
+        /// parameterless constructor for serialization///
+        public LoadGroupTemporary() { }
 
         /// <summary>
         /// Public constructor.
         /// </summary>
         /// <param name="guid">LoadCase guid reference.</param>
-        public ModelLoadGroupTemporary(double safetyFactor,
+        public LoadGroupTemporary(double safetyFactor,
                                        double psi0, double psi1,double psi2, 
                                        bool potentiallyLeadingAction, List<LoadCase> loadCases,
                                        ELoadGroupRelationship relationsship)
@@ -95,49 +90,10 @@ namespace FemDesign.Loads
             this.Psi1 = psi1;
             this.Psi2 = psi2;
             this.LeadingCases = potentiallyLeadingAction;
-            this.Relationship = relationsship;
-
-            ModelLoadCase = new List<ModelLoadCaseInGroup>();
+            this.Relationship = relationsship;          
+            //this.ModelLoadCase = new List<ModelLoadCaseInGroup>();
             for (int i = 0; i < loadCases.Count; i++)
                 AddLoadCase(loadCases[i]);
-        }
-
-        /// <summary>
-        /// Add LoadCase to group.
-        /// </summary>
-        private void AddLoadCase(LoadCase loadCase)
-        {
-            if (LoadCaseInLoadGroup(loadCase))
-            {
-                // pass
-            }
-            else
-            {
-                ModelLoadCase.Add(new ModelLoadCaseInGroup(loadCase.Guid));
-            }
-        }
-
-        /// <summary>
-        /// Check if LoadCase in LoadGroup.
-        /// </summary>
-        private bool LoadCaseInLoadGroup(LoadCase loadCase)
-        {
-            foreach (ModelLoadCaseInGroup elem in this.ModelLoadCase)
-            {
-                if (elem.Guid == loadCase.Guid)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Adds attributes for serialization
-        /// </summary>
-        public void EntityCreated()
-        {
-            //pass
         }
     }
 }

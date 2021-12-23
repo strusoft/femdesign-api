@@ -13,10 +13,8 @@ namespace FemDesign.Loads
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; } // common_load_case --> guidtype indexed_guid
-        public ModelLoadCaseInGroup()
-        {
-            // parameterless constructor for serialization
-        }
+        /// parameterless constructor for serialization
+        public ModelLoadCaseInGroup() { }
 
         /// <summary>
         /// Public constructor.

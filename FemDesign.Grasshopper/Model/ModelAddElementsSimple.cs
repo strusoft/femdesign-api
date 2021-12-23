@@ -23,6 +23,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single LoadGroup element or list of LoadGroup elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
 
@@ -54,6 +56,9 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
             DA.GetDataList("LoadCombinations", loadCombinations);
 
+            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
+            DA.GetDataList("LoadGroups", loadGroups);
+
             bool overwrite = false;
             DA.GetData("Overwrite", ref overwrite);
 
@@ -61,6 +66,7 @@ namespace FemDesign.Grasshopper
             model.AddLoads(loads, overwrite);
             model.AddLoadCases(loadCases, overwrite);
             model.AddLoadCombinations(loadCombinations, overwrite);
+            model.AddLoadGroupTable(loadGroups);
 
             DA.SetData("FdModel", model);
         }

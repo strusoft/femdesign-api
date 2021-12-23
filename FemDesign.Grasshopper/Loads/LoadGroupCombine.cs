@@ -36,7 +36,7 @@ namespace FemDesign.Loads
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get data
-            List<FemDesign.Loads.LoadGroup> loadGroups = new List<FemDesign.Loads.LoadGroup>();
+            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
             if (!DA.GetDataList(0, loadGroups)) { return; }
             if (loadGroups == null) { return; }
 
@@ -60,9 +60,9 @@ namespace FemDesign.Loads
             int permanentGroupsCount = 0;
             if(combTypeEnum == ELoadCombinationType.SixTenA)
             {
-                foreach (LoadGroup loadGroup in loadGroups)
+                foreach (ModelGeneralLoadGroup loadGroup in loadGroups)
                 {
-                    if (loadGroup.Type == ELoadGroupType.Permanent)
+                    if (loadGroup.GetSpecificLoadGroup() is LoadGroupPermanent)
                         permanentGroupsCount += 1;
                 }
                 if(permanentGroupsCount == 0)
@@ -73,14 +73,15 @@ namespace FemDesign.Loads
             // Create load combinations
             List<FemDesign.Loads.LoadCombination> loadCombinations;
             List<LoadCase> loadCases;
-            (loadCombinations, loadCases) = CreateCombinations(loadGroups, combTypeEnum);
+            List<LoadGroupBase> specificLoadGroups = loadGroups.Select(lg => lg.GetSpecificLoadGroup()).ToList();
+            (loadCombinations, loadCases) = CreateCombinations(specificLoadGroups, combTypeEnum);
 
             DA.SetDataList(0, loadCombinations);
             DA.SetDataList(1, loadCases);
 
         }
 
-        private (List<LoadCombination>, List<LoadCase>) CreateCombinations(List<LoadGroup> loadGroups, ELoadCombinationType combinationType)
+        private (List<LoadCombination>, List<LoadCase>) CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType)
         {
             // Fix how the combination type is printed
             string loadCombinationNameTag;

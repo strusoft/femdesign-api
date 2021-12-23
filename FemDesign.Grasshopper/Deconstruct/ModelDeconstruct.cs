@@ -76,12 +76,12 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(5, model.Entities.Panels);
             DA.SetDataList(6, model.Entities.AdvancedFem.Covers);
             DA.SetDataList(7, model.Entities.Loads.GetLoads());
-            //DA.SetDataList(8, model.Entities.Loads.GetLoadGroups());
-            DA.SetDataList(8, model.Entities.Loads.LoadCases);
-            DA.SetDataList(9, model.Entities.Loads.LoadCombinations);
-            DA.SetDataList(10, model.Entities.Supports.GetSupports());
-            DA.SetDataList(11, axes);
-            DA.SetDataList(12, storeys);
+            DA.SetDataList(8, model.Entities.Loads.GetLoadGroups());
+            DA.SetDataList(9, model.Entities.Loads.LoadCases);
+            DA.SetDataList(10, model.Entities.Loads.LoadCombinations);
+            DA.SetDataList(11, model.Entities.Supports.GetSupports());
+            DA.SetDataList(12, axes);
+            DA.SetDataList(13, storeys);
         }
         protected override System.Drawing.Bitmap Icon
         {

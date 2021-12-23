@@ -222,12 +222,6 @@
     <Compile Include="Supports\SurfaceSupportDefine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
-      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
-      <Name>FemDesign.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -723,6 +717,12 @@
     <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
+      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
+      <Name>FemDesign.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

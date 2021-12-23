@@ -123,7 +123,7 @@
     <Compile Include="Loads\LoadCombinationCollection.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\LoadCombinationType.cs" />
-    <Compile Include="Loads\LoadGroup.cs" />
+    <Compile Include="Loads\LoadGroupBase.cs" />
     <Compile Include="Loads\LoadGroupRelationship.cs" />
     <Compile Include="Loads\LoadGroupTable.cs" />
     <Compile Include="Loads\LoadGroupType.cs" />
@@ -135,9 +135,8 @@
     <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
     <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\ModelGeneralLoadGroup.cs" />
-    <Compile Include="Loads\ModelLoadGroupPermanent.cs" />
-    <Compile Include="Loads\ModelLoadGroupTemporary.cs" />
-    <Compile Include="Loads\ModelSpecificLoadGroup.cs" />
+    <Compile Include="Loads\LoadGroupPermanent.cs" />
+    <Compile Include="Loads\LoadGroupTemporary.cs" />
     <Compile Include="Loads\PointLoad.cs" />
     <Compile Include="Loads\PressureLoad.cs" />
     <Compile Include="Loads\SurfaceLoad.cs" />

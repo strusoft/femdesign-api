@@ -12,20 +12,23 @@ namespace FemDesign.Samples
     {
         public static void CreateLoadGroups()
         {
-            LoadCase deadLoad = new LoadCase("Deadload", "dead_load", "permanent");
-            LoadCase liveLoad = new LoadCase("Liveload", "static", "permanent");
+            LoadCase deadLoad1 = new LoadCase("Deadload1", "dead_load", "permanent");
+            LoadCase deadLoad2 = new LoadCase("Deadload2", "dead_loda", "permanent");
+            LoadCase liveLoad1 = new LoadCase("Liveload1", "static", "permanent");
+            LoadCase liveLoad2 = new LoadCase("Liveload2", "static", "permanent");
 
-            List<LoadCase> loadCases = new List<LoadCase>() { deadLoad, liveLoad };
+            List<LoadCase> loadCasesDeadLoads = new List<LoadCase>() { deadLoad1, deadLoad2 };
+            List<LoadCase> loadCaseLiveLoads = new List<LoadCase>() { liveLoad1, liveLoad2 };
 
             var loadCategoryDatabase = LoadCategoryDatabase.GetDefault();
             LoadCategory loadCategory = loadCategoryDatabase.LoadCategoryByName("A");
 
-            var LG1 = new LoadGroup("LG-1", ELoadGroupType.Permanent, loadCases, 0.5, 1.35, 0.9, ELoadGroupRelationship.Simultaneous, 0.89);
-            var LG2 = new LoadGroup("LG-2", ELoadGroupType.Temporary, loadCases, loadCategory, 0.5, 1.35, 0.9, ELoadGroupRelationship.Alternative, true);
+            var LG1 = new ModelGeneralLoadGroup(new LoadGroupPermanent(1, 1.35, 1, 1, loadCasesDeadLoads, ELoadGroupRelationship.Simultaneous, 0.89), "LG1");
+            var LG2 = new ModelGeneralLoadGroup(new LoadGroupTemporary(1.5, loadCategory.Psi0, loadCategory.Psi1, loadCategory.Psi2, true, loadCaseLiveLoads, ELoadGroupRelationship.Alternative), "LG2");
 
-            var loadGroups = new List<LoadGroup> { LG1 };
+            var loadGroups = new List<ModelGeneralLoadGroup>() { LG1, LG2 };
 
-            var model2 = new Model("S", null, null, loadCases, null, loadGroups);
+            var model2 = new Model("S", null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
 
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LoadGroups.struxml");
             model2.SerializeModel(path);

@@ -19,9 +19,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private LoadGroupTable()
-        {
-        }
+        private LoadGroupTable() { }
 
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.

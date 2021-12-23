@@ -19,9 +19,9 @@ namespace FemDesign.Loads
         [XmlAttribute("consider_in_gmax")]
         public bool ConsiderInGmax { get; set; } = true;
         [XmlElement("permanent")]
-        public ModelLoadGroupPermanent ModelLoadGroupPermanent { get; set; }
+        public LoadGroupPermanent ModelLoadGroupPermanent { get; set; }
         [XmlElement("temporary")]
-        public ModelLoadGroupTemporary ModelLoadGroupTemporary { get; set; }  //Ändra när temporary group finns!!!
+        public LoadGroupTemporary ModelLoadGroupTemporary { get; set; }
 
         /// <summary>
         /// parameterless constructor for serialization
@@ -32,13 +32,14 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Public constructor.
+        /// Public constructor
         /// </summary>
-
-        public ModelGeneralLoadGroup(LoadGroup LoadGroup, string name)
+        /// <param name="LoadGroup">Specific load group object</param>
+        /// <param name="name">Name of the load group</param>
+        public ModelGeneralLoadGroup(LoadGroupBase LoadGroup, string name)
         {
             EntityCreated();
-            AddSpecificLoadGroup(LoadGroup);
+            AddSpecificLoadGroup(LoadGroup, false);
             Name = name;
         }
 
@@ -51,26 +52,84 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="ModelSpecificLoadGroup">ModelSpecificLoadGroup</see> and assigne it to the corresponding field
+        /// Gets the load cases of the specific load group that the general load group owns
         /// </summary>
-        /// <param name="loadGroup"><see cref="LoadGroup">Instance of LoadGroup</see></param>
-        public void AddSpecificLoadGroup(LoadGroup loadGroup)
+        /// <returns>List of load cases</returns>
+        public List<LoadCase> GetLoadCases()
         {
-            if (loadGroup.Type == ELoadGroupType.Permanent)
-            {
-                
-                this.ModelLoadGroupPermanent = new ModelLoadGroupPermanent(loadGroup.SafetyFactorFavourable, loadGroup.SafetyFactorUnfavourable,
-                                                                   loadGroup.SafetyFactorAccidentalFavourable, loadGroup.SafetyFactorAccidentalUnfavourable,
-                                                                   loadGroup.LoadCases, loadGroup.LoadCaseRelation, loadGroup.Xi);
-            }
-            else if (loadGroup.Type == ELoadGroupType.Temporary)
-            {
-                this.ModelLoadGroupTemporary = new ModelLoadGroupTemporary(loadGroup.SafetyFactorUnfavourable, loadGroup.LoadCategory.Psi0,
-                                                                   loadGroup.LoadCategory.Psi1, loadGroup.LoadCategory.Psi2, loadGroup.PotentiallyLeadingAction,
-                                                                   loadGroup.LoadCases, loadGroup.LoadCaseRelation);
-            }
+            List<LoadCase> loadCases =  new List<LoadCase>();
+            if (ModelLoadGroupPermanent != null)
+                loadCases = ModelLoadGroupPermanent.LoadCase;
+            else if (ModelLoadGroupTemporary != null)
+                loadCases = ModelLoadGroupTemporary.LoadCase;
+
+            return loadCases;
+        }
+
+        /// <summary>
+        /// Get LoadCase guids of LoadCases in LoadCombination.
+        /// </summary>
+        /// <returns>List of load case guids</returns>
+        public List<string> GetLoadCaseGuidsAsString()
+        {
+            var loadCaseGuids = new List<string>();
+            if (ModelLoadGroupPermanent != null)
+                foreach (ModelLoadCaseInGroup item in ModelLoadGroupPermanent.ModelLoadCase)
+                    loadCaseGuids.Add(item.Guid.ToString());
+            else if (ModelLoadGroupTemporary != null)
+                foreach (ModelLoadCaseInGroup item in ModelLoadGroupTemporary.ModelLoadCase)
+                    loadCaseGuids.Add(item.Guid.ToString());
+            return loadCaseGuids;
+        }
+
+        /// <summary>
+        /// Gets the load group type of the specific load group that the general load group owns
+        /// </summary>
+        /// <returns>The type pf the load group</returns>
+        public ELoadGroupType GetLoadGroupType()
+        {
+            LoadGroupBase specificLoadGroup = GetSpecificLoadGroup();
+            ELoadGroupType type = ELoadGroupType.Permanent;
+            if (specificLoadGroup is LoadGroupPermanent)
+                type = ELoadGroupType.Permanent;
+            else if (specificLoadGroup is LoadGroupTemporary)
+                type = ELoadGroupType.Temporary;
+            return type;
+        }
+
+        /// <summary>
+        /// Assignes the load group to the correct field depending on its type
+        /// </summary>
+        /// <param name="loadGroup"><see cref="LoadGroupBase">A specific load group instance, derived from LoadGroupBase</see></param>
+        /// <param name="replaceExisting">True if the general load group already contains a specific load group</param>
+        public void AddSpecificLoadGroup(LoadGroupBase loadGroup, bool replaceExisting)
+        {
+            if (loadGroup is LoadGroupPermanent)
+                if ((GetSpecificLoadGroup() == null) || replaceExisting)
+                    this.ModelLoadGroupPermanent = (LoadGroupPermanent)loadGroup;
+                else
+                    throw new System.ArgumentException("There already exists a specific load group in the general load group");
+            else if (loadGroup is LoadGroupTemporary)
+                if ((GetSpecificLoadGroup() == null) || replaceExisting)
+                    this.ModelLoadGroupTemporary = (LoadGroupTemporary)loadGroup;
             else
                 throw new System.ArgumentException("Load group type not yet implemented");
+        }
+
+        /// <summary>
+        /// Gets the specific load group from one of the general load groups fields 
+        /// </summary>
+        /// <returns></returns>
+        public LoadGroupBase GetSpecificLoadGroup()
+        {
+            LoadGroupBase specificLoadGroup = null;
+
+            if (ModelLoadGroupPermanent != null)
+                specificLoadGroup = ModelLoadGroupPermanent;
+            else if (ModelLoadGroupTemporary != null)
+                specificLoadGroup = ModelLoadGroupTemporary;
+
+            return specificLoadGroup;
         }
     }
 }
