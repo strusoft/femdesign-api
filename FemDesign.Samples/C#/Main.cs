@@ -21,7 +21,8 @@ namespace FemDesign.Samples
             //TestGetResults();
             //ChangeLengthOfBeam();
             //RunAnalysis();
-            CreateLoadGroups();
+            //CreateLoadGroups();
+            LoadGroupsCombine();
         }
     }
 }

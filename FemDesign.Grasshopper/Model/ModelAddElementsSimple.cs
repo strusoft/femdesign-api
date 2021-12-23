@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             model.AddLoads(loads, overwrite);
             model.AddLoadCases(loadCases, overwrite);
             model.AddLoadCombinations(loadCombinations, overwrite);
-            model.AddLoadGroupTable(loadGroups);
+            model.AddLoadGroupTable(loadGroups, overwrite);
 
             DA.SetData("FdModel", model);
         }

@@ -106,6 +106,7 @@ namespace FemDesign
         /// <param name="loads">Load elements</param>
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
+        /// <param name="loadGroups">Load groups</param>
         public Model(string country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null)
         {
             Initialize(country);
@@ -119,7 +120,7 @@ namespace FemDesign
             if (loadCombinations != null)
                 AddLoadCombinations(loadCombinations, overwrite: false);
             if (loadGroups != null)
-                AddLoadGroupTable(loadGroups);
+                AddLoadGroupTable(loadGroups, overwrite: false);
 
         }
 
@@ -310,7 +311,7 @@ namespace FemDesign
 
             if(loadGroups != null)
             {
-                this.AddLoadGroupTable(loadGroups);
+                this.AddLoadGroupTable(loadGroups, overwrite);
             }
 
             if (supports != null)
@@ -1230,7 +1231,7 @@ namespace FemDesign
         /// <summary>
         /// Add LoadGroupTable to Model.
         /// </summary>
-        public void AddLoadGroupTable(List<Loads.ModelGeneralLoadGroup> obj)
+        public void AddLoadGroupTable(List<Loads.ModelGeneralLoadGroup> obj, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -1244,8 +1245,18 @@ namespace FemDesign
             // Create load group table with the sequenced general_load_group_type
             Loads.LoadGroupTable loadGroupTable = new Loads.LoadGroupTable(generalLoadGroups);
 
-            // Only one load group table in model, no need to check if already in model
-            this.Entities.Loads.LoadGroupTable = loadGroupTable;
+            // in model?
+            bool inModel = this.LoadGroupTableInModel();
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException("The model already contains a load group table");
+            }
+
+            // not in model or, overwrite
+            if (generalLoadGroups != null)
+                this.Entities.Loads.LoadGroupTable = loadGroupTable;
         }
 
         /// <summary>
@@ -1289,6 +1300,17 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Check if the model already has a load group table
+        /// </summary>
+        private bool LoadGroupTableInModel()
+        {
+            if (this.Entities.Loads.LoadGroupTable == null)
+                return false;
+            else
+                return true;
         }
 
         /// <summary>
