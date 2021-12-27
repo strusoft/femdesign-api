@@ -106,14 +106,15 @@ namespace FemDesign.Grasshopper
             // Create load group object
             Loads.LoadGroupBase obj = null;
             if (type == 0)
-                //obj = new Loads.LoadGroup(name, Loads.ELoadGroupType.Permanent, loadCases, gamma_d, unfavourableSafetyFactor, favourableSafetyFactor, loadCaseRelationEnum, xi);
-                obj = new Loads.LoadGroupPermanent(favourableSafetyFactor, unfavourableSafetyFactor, favourableSafetyFactorAccidental, unfavourableSafetyFactorAccidental, loadCases, loadCaseRelationEnum, xi);
+                obj = new Loads.LoadGroupPermanent(favourableSafetyFactor, unfavourableSafetyFactor, favourableSafetyFactorAccidental, 
+                                                   unfavourableSafetyFactorAccidental, loadCases, loadCaseRelationEnum, xi, name);
             else if (type == 1)
-                obj = new Loads.LoadGroupTemporary(unfavourableSafetyFactor, psi.Psi0, psi.Psi1, psi.Psi2, potentiallyLeadingActionBool, loadCases, loadCaseRelationEnum);
+                obj = new Loads.LoadGroupTemporary(unfavourableSafetyFactor, psi.Psi0, psi.Psi1, psi.Psi2, potentiallyLeadingActionBool, 
+                                                   loadCases, loadCaseRelationEnum, name);
             else
                 throw new System.ArgumentException("Load group type not yet implemented");
 
-            Loads.ModelGeneralLoadGroup loadGroup = new Loads.ModelGeneralLoadGroup(obj, name);
+            Loads.ModelGeneralLoadGroup loadGroup = new Loads.ModelGeneralLoadGroup(obj);
             // return
             DA.SetData(0, loadGroup);
         }

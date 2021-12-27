@@ -53,8 +53,9 @@ namespace FemDesign.Loads
         public LoadGroupPermanent(double standardFavourable, 
                                        double standardUnfavourable, double accidentalFavourable,
                                        double accidentalUnfavourable, List<LoadCase> loadCases, 
-                                       ELoadGroupRelationship relationsship, double xi)
+                                       ELoadGroupRelationship relationsship, double xi, string name)
         {
+            this.Name = name;
             this.StandardFavourable = standardFavourable;
             this.StandardUnfavourable = standardUnfavourable;
             this.AccidentalFavourable = accidentalFavourable;

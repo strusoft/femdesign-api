@@ -11,6 +11,8 @@ namespace FemDesign.Loads
     [System.Serializable]
     public partial class LoadGroupBase : EntityBase
     {
+        [XmlIgnore]
+        public string Name { get; set; }
         [XmlElement("load_case")]
         public List<ModelLoadCaseInGroup> ModelLoadCase = new List<ModelLoadCaseInGroup>();// sequence: ModelLoadCaseInGroup
         [XmlAttribute("relationship")]
@@ -29,9 +31,20 @@ namespace FemDesign.Loads
             }
             else
             {
-                ModelLoadCase.Add(new ModelLoadCaseInGroup(loadCase.Guid));
+                ModelLoadCase.Add(new ModelLoadCaseInGroup(loadCase.Guid, this));
                 LoadCase.Add(loadCase);
             }
+        }
+
+        /// <summary>
+        /// Find the corresponding LoadCase instance stored in the load group based on the guid of the modelLoadCaseInGroup instance
+        /// </summary>
+        /// <param name="modelLoadCaseInGroup">Model load case to find corresponding complete LoadCase instance of</param>
+        /// <returns>The LoadCase that has the same guid</returns>
+        public LoadCase GetCorrespondingCompleteLoadCase(ModelLoadCaseInGroup modelLoadCaseInGroup)
+        {
+            LoadCase correspodningLoadCase = LoadCase.Find(i => i.Guid == modelLoadCaseInGroup.Guid);
+            return correspodningLoadCase;
         }
 
         /// <summary>

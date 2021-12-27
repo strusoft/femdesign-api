@@ -13,16 +13,20 @@ namespace FemDesign.Loads
     {
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; } // common_load_case --> guidtype indexed_guid
+        [XmlIgnore]
+        public LoadGroupBase LoadGroup { get; set; }
+
         /// parameterless constructor for serialization
-        public ModelLoadCaseInGroup() { }
+        private ModelLoadCaseInGroup() { }
 
         /// <summary>
         /// Public constructor.
         /// </summary>
         /// <param name="guid">LoadCase guid reference.</param>
-        public ModelLoadCaseInGroup(System.Guid guid)
+        public ModelLoadCaseInGroup(System.Guid guid, LoadGroupBase parentLoadGroup)
         {
             this.Guid = guid;
+            LoadGroup = parentLoadGroup;
         }     
     }
 }

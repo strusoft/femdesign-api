@@ -83,8 +83,9 @@ namespace FemDesign.Loads
         public LoadGroupTemporary(double safetyFactor,
                                        double psi0, double psi1,double psi2, 
                                        bool potentiallyLeadingAction, List<LoadCase> loadCases,
-                                       ELoadGroupRelationship relationsship)
+                                       ELoadGroupRelationship relationsship, string name)
         {
+            this.Name = name;
             this.SafetyFactor = safetyFactor;
             this.Psi0 = psi0;
             this.Psi1 = psi1;

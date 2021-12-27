@@ -30,7 +30,6 @@ namespace FemDesign.Loads
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "List of load combinations", GH_ParamAccess.list);
-            pManager.AddGenericParameter("LoadCases", "LoadCases", "List of load cases used in the combinatoins", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -72,16 +71,13 @@ namespace FemDesign.Loads
 
             // Create load combinations
             List<FemDesign.Loads.LoadCombination> loadCombinations;
-            List<LoadCase> loadCases;
             List<LoadGroupBase> specificLoadGroups = loadGroups.Select(lg => lg.GetSpecificLoadGroup()).ToList();
-            (loadCombinations, loadCases) = CreateCombinations(specificLoadGroups, combTypeEnum);
+            loadCombinations = CreateCombinations(specificLoadGroups, combTypeEnum);
 
             DA.SetDataList(0, loadCombinations);
-            DA.SetDataList(1, loadCases);
-
         }
 
-        private (List<LoadCombination>, List<LoadCase>) CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType)
+        private List<LoadCombination> CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType)
         {
             // Fix how the combination type is printed
             string loadCombinationNameTag;
@@ -92,12 +88,9 @@ namespace FemDesign.Loads
             else
                 loadCombinationNameTag = combinationType.ToString();
 
-            List<LoadCombination> loadCombinations;
-            List<LoadCase> usedLoadCases;
-
-            LoadCombinationCollection loadCombinationCollection = new LoadCombinationCollection();
-            (loadCombinations, usedLoadCases) = loadCombinationCollection.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
-            return (loadCombinations, usedLoadCases);
+            LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
+            loadCombinationTable.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
+            return loadCombinationTable.LoadCombinations;
         }
 
         protected override System.Drawing.Bitmap Icon

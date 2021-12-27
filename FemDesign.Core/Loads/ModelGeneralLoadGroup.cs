@@ -35,12 +35,11 @@ namespace FemDesign.Loads
         /// Public constructor
         /// </summary>
         /// <param name="LoadGroup">Specific load group object</param>
-        /// <param name="name">Name of the load group</param>
-        public ModelGeneralLoadGroup(LoadGroupBase LoadGroup, string name)
+        public ModelGeneralLoadGroup(LoadGroupBase LoadGroup)
         {
             EntityCreated();
             AddSpecificLoadGroup(LoadGroup, false);
-            Name = name;
+            Name = LoadGroup.Name;
         }
 
         /// <summary>

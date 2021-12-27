@@ -120,7 +120,7 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
-    <Compile Include="Loads\LoadCombinationCollection.cs" />
+    <Compile Include="Loads\LoadCombinationTable.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\LoadCombinationType.cs" />
     <Compile Include="Loads\LoadGroupBase.cs" />

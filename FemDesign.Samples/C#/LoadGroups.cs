@@ -23,8 +23,8 @@ namespace FemDesign.Samples
             var loadCategoryDatabase = LoadCategoryDatabase.GetDefault();
             LoadCategory loadCategory = loadCategoryDatabase.LoadCategoryByName("A");
 
-            var LG1 = new ModelGeneralLoadGroup(new LoadGroupPermanent(1, 1.35, 1, 1, loadCasesDeadLoads, ELoadGroupRelationship.Simultaneous, 0.89), "LG1");
-            var LG2 = new ModelGeneralLoadGroup(new LoadGroupTemporary(1.5, loadCategory.Psi0, loadCategory.Psi1, loadCategory.Psi2, true, loadCaseLiveLoads, ELoadGroupRelationship.Alternative), "LG2");
+            var LG1 = new ModelGeneralLoadGroup(new LoadGroupPermanent(1, 1.35, 1, 1, loadCasesDeadLoads, ELoadGroupRelationship.Simultaneous, 0.89, "LG1"));
+            var LG2 = new ModelGeneralLoadGroup(new LoadGroupTemporary(1.5, loadCategory.Psi0, loadCategory.Psi1, loadCategory.Psi2, true, loadCaseLiveLoads, ELoadGroupRelationship.Alternative, "LG2"));
 
             var loadGroups = new List<ModelGeneralLoadGroup>() { LG1, LG2 };
 
