@@ -47,8 +47,6 @@ namespace FemDesign.Samples
             CombineSLS(loadGroups, loadCombinationTable);
             loadCombinations = loadCombinationTable.LoadCombinations;
 
-
-
             // Create model and open file in FEM design
             var model2 = new Model("S", null, null, loadCases, loadCombinations, generalLoadGroups);
 
@@ -58,7 +56,7 @@ namespace FemDesign.Samples
             app.OpenStruxml(path, true);
         }
 
-        private static void CombineULS(List<LoadGroupBase> generalLoadGroups, LoadCombinationTable loadCombinationTable)
+        public static void CombineULS(List<LoadGroupBase> generalLoadGroups, LoadCombinationTable loadCombinationTable)
         {
             //Generate load combinations from the load groups
             List<string> loadCombTypeNames = new() { "6.10a", "6.10b" };
@@ -68,7 +66,7 @@ namespace FemDesign.Samples
                 loadCombinationTable.GenerateLoadCombinations(generalLoadGroups, loadCombTypeNames[i], loadCombTypes[i]);
         }
 
-        private static void CombineSLS(List<LoadGroupBase> generalloadGroups, LoadCombinationTable loadCombinationTable)
+        public static void CombineSLS(List<LoadGroupBase> generalloadGroups, LoadCombinationTable loadCombinationTable)
         {
             //Generate load combinations from the load groups
             List<string> loadCombTypeNames = new() { "Characteristic", "Frequent", "Quasi-permanent" };

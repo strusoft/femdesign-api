@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// permanent_load_group (child of general_load_group)
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupPermanent: LoadGroupBase, IFemDesignEntity
+    public partial class LoadGroupPermanent: LoadGroupBase
     {
         [XmlAttribute("standard_favourable")]
         public double StandardFavourable { get; set; }

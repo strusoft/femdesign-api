@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// temporary_load_group (child of general_load_group)
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupTemporary: LoadGroupBase ,IFemDesignEntity
+    public partial class LoadGroupTemporary: LoadGroupBase
     {
         [XmlAttribute("safety_factor")]
         public double _safetyFactor;
@@ -79,7 +79,6 @@ namespace FemDesign.Loads
         /// <summary>
         /// Public constructor.
         /// </summary>
-        /// <param name="guid">LoadCase guid reference.</param>
         public LoadGroupTemporary(double safetyFactor,
                                        double psi0, double psi1,double psi2, 
                                        bool potentiallyLeadingAction, List<LoadCase> loadCases,
@@ -92,7 +91,6 @@ namespace FemDesign.Loads
             this.Psi2 = psi2;
             this.LeadingCases = potentiallyLeadingAction;
             this.Relationship = relationsship;          
-            //this.ModelLoadCase = new List<ModelLoadCaseInGroup>();
             for (int i = 0; i < loadCases.Count; i++)
                 AddLoadCase(loadCases[i]);
         }

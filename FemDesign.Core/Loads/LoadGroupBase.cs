@@ -1,4 +1,5 @@
 ﻿// https://strusoft.com/
+using System;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace FemDesign.Loads
     /// load_base_attribs
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupBase : EntityBase
+    public partial class LoadGroupBase
     {
         [XmlIgnore]
         public string Name { get; set; }
@@ -60,14 +61,6 @@ namespace FemDesign.Loads
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// Adds attributes for serialization
-        /// </summary>
-        public void EntityCreated()
-        {
-            //pass
         }
     }
 }

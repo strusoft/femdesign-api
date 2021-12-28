@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Loads
 {
@@ -9,8 +10,24 @@ namespace FemDesign.Loads
     /// load_group_table
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupTable: EntityBase
+    public partial class LoadGroupTable: IFemDesignEntity
     {
+        [XmlAttribute("last_change")]
+        public string _lastChange;
+        [XmlIgnore]
+        internal DateTime LastChange
+        {
+            get
+            {
+                return DateTime.Parse(this._lastChange);
+            }
+            set
+            {
+                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
+            }
+        }
+        [XmlAttribute("action")]
+        public string Action { get; set; }
         [XmlAttribute("simple_combination_method")]
         public bool SimpleCombinationMethod { get; set; } = false;
         [XmlElement("group")]
@@ -64,7 +81,7 @@ namespace FemDesign.Loads
 
         /// <summary>
         /// Invoke when an instance is created.
-        /// 
+        /// </summary>
         public void EntityCreated()
         {
             LastChange = DateTime.UtcNow;
