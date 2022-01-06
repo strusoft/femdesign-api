@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
             potentiallyLeadingAction.AddNamedValue("True", 1);
 
             // Set optional parameters
-            List<int> optionalParameters = new List<int>() { 1, 3, 5, 6, 7, 10 };
+            List<int> optionalParameters = new List<int>() { 1, 3, 5, 6, 7, 9, 10 };
             foreach (int parameter in optionalParameters)
                 pManager[parameter].Optional = true;
         }
