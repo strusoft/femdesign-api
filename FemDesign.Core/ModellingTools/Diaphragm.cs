@@ -25,7 +25,7 @@ namespace FemDesign.ModellingTools
             set
             {
                 Diaphragm._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + Diaphragm._instance.ToString();
+                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance}";
             }
         }
 

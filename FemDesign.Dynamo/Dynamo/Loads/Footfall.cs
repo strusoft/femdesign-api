@@ -33,7 +33,7 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static Footfall SelfExcitation(Autodesk.DesignScript.Geometry.Surface region, string identifier = "SE", string comment = "")
         {
-            var p0 = Region.FromDynamo(region);
+            var p0 = Geometry.Region.FromDynamo(region);
             return new Footfall(p0, identifier, comment);
         }
 

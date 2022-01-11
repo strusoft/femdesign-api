@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
@@ -48,7 +49,7 @@ namespace FemDesign.Grasshopper
             DA.GetDataList("LoadCombinations", loadCombinations);
             
             // Create model
-            Model model = new Model(countryCode, elements, loads, loadCases, loadCombinations);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations);
 
             DA.SetData("FdModel", model);
         }

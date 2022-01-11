@@ -9,7 +9,7 @@ namespace FemDesign.Materials
     /// material_type
     /// </summary>
     [System.Serializable]
-    public partial class Material: EntityBase
+    public partial class Material: EntityBase, IMaterial
     {
         [XmlAttribute("standard")]
         public string Standard { get; set; } // standardtype

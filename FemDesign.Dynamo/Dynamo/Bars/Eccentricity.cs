@@ -28,7 +28,7 @@ namespace FemDesign.Bars
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public static Eccentricity Default() => GetDefault();
     }
 }

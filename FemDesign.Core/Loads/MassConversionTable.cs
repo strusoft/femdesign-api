@@ -45,7 +45,7 @@ namespace FemDesign.Loads
     }
 
     [System.Serializable]
-    public partial class MassConversionTable
+    public partial class MassConversionTable : GenericClasses.ILoadElement
     {
         [XmlElement("conversion", Order = 1)]
         public List<MassConversion> MassConversions = new List<MassConversion>();

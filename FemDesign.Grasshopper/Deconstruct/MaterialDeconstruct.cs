@@ -23,18 +23,18 @@ namespace FemDesign.Grasshopper
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
-            FemDesign.Materials.Material obj = null;
-            if (!DA.GetData(0, ref obj))
-            {
-                return;
-            }
+            Materials.IMaterial obj = null;
+            if(!DA.GetData(0, ref obj)) return;
+            DA.SetData("Guid", obj.Guid);
+            DA.SetData("Name", obj.Name);
 
-            DA.SetData(0, obj.Guid);
-            DA.SetData(1, obj.Standard);
-            DA.SetData(2, obj.Country);
-            DA.SetData(3, obj.Name);
-       }
-       protected override System.Drawing.Bitmap Icon
+            if (obj is Materials.Material material)
+            {
+                DA.SetData("Standard", material.Standard);
+                DA.SetData("Country", material.Country);
+            }
+        }
+        protected override System.Drawing.Bitmap Icon
        {
            get
            {

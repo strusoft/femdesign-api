@@ -45,6 +45,24 @@ namespace FemDesign.Sections
         }
 
         /// <summary>
+        /// Get a Section from a SectionDatabase by name.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <param name="sectionName">Name of Section.</param>
+        /// <returns></returns>
+        public Section SectionByName(string sectionName)
+        {
+            foreach (Section section in this.Sections.Section)
+            {
+                if (section.Name == sectionName)
+                {
+                    return section;
+                }
+            }
+            throw new System.ArgumentException("Section was not found. Incorrect section name or empty section database.");
+        }
+
+        /// <summary>
         /// List the names of all Sections in SectionDatabase.
         /// </summary>
         /// <remarks>Action</remarks>
@@ -128,11 +146,17 @@ namespace FemDesign.Sections
                         object obj = deserializer.Deserialize(reader);
                         SectionDatabase sectionDatabase = (SectionDatabase)obj;
                         reader.Close();
+
+                        if (sectionDatabase.Sections.Section.Count == 0)
+                        {
+                            throw new System.ArgumentException("The project was compiled without any sections. Add sections to your project and re-compile or use another method to construct the section database (i.e DeserializeStruxml).");
+                        }
+
                         return sectionDatabase;
                     }
                 }
             }
-            throw new System.ArgumentException("Section library resource not in assembly! Was solution compiled without embedded resource?");
+            throw new System.ArgumentException("Section library resource not in assembly! Was project compiled without embedded resource?");
         }
 
         /// <summary>

@@ -1,7 +1,5 @@
-
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Shells
 {
@@ -18,7 +16,7 @@ namespace FemDesign.Shells
         /// <param name="eccentricityByCracking">Consider eccentricity caused by cracking in cracked section analysis? True/false.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEccentricity Create(string alignment = "center", double eccentricity = 0, bool eccentricityCalculation = false, bool eccentricityByCracking = false)
+        public static ShellEccentricity Create(VerticalAlignment alignment, double eccentricity = 0, bool eccentricityCalculation = false, bool eccentricityByCracking = false)
         {
             return new ShellEccentricity(alignment, eccentricity, eccentricityCalculation, eccentricityByCracking);
         }
@@ -28,7 +26,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public static ShellEccentricity Default() => GetDefault();
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
@@ -38,9 +39,10 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             if (name == null || type == null || durationClass == null) { return; }
-            
-            //
-            FemDesign.Loads.LoadCase obj = new FemDesign.Loads.LoadCase(name, type, durationClass);
+
+            LoadCaseType _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseType>(type);
+            LoadCaseDuration _durationClass = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseDuration>(durationClass);
+            FemDesign.Loads.LoadCase obj = new FemDesign.Loads.LoadCase(name, _type, _durationClass);
 
             // return
             DA.SetData(0, obj);

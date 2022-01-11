@@ -53,6 +53,11 @@ namespace FemDesign.Geometry
         /// Reverse vector
         /// </summary>
         public static FdVector3d operator -(FdVector3d v) => v.Reverse();
+        
+        /// <summary>
+        /// Vector difference
+        /// </summary>
+        public static FdVector3d operator -(FdVector3d v1, FdVector3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
 
         /// <summary>
         /// Scale vector

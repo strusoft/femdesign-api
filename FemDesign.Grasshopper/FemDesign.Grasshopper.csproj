@@ -94,6 +94,10 @@
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
     <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
+    <Compile Include="Deconstruct\BarsDeconstructOBSOLETE.cs" />
+    <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModelDeconstructOBSOLETE.cs" />
+    <Compile Include="Info\Info.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
@@ -109,6 +113,7 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+    <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
@@ -126,6 +131,7 @@
     <Compile Include="Deconstruct\StraightDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\StirrupDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementParametersDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceTemperatureLoadDeconstruct.cs" />
@@ -158,12 +164,14 @@
     <Compile Include="Materials\MaterialGetMaterialByName.cs" />
     <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
+    <Compile Include="ModellingTools\DiaphragmDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
     <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
@@ -175,6 +183,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
+    <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeInner.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeEnd.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeStart.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
+    <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
@@ -723,6 +741,10 @@
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
+    <None Include="Resources\icons\Help.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fem-design.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

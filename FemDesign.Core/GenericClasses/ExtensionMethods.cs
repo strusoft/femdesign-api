@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace FemDesign
 {
     // Extension method used to clone instances of objects.
-    public static class ExtensionMethods
+    public static partial class ExtensionMethods
     {
         public static T DeepClone<T>(this T obj)
         {
@@ -16,7 +16,6 @@ namespace FemDesign
                 formatter.Serialize(ms, obj);
                 ms.Position = 0;
 
-                // return
                 return (T) formatter.Deserialize(ms);
             }
         }

@@ -1,6 +1,8 @@
 // https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
+using FemDesign.GenericClasses;
+using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
@@ -14,7 +16,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("Direction", "Direction", "Reinforcement layout direction. Allowed values: x/y.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Space", "Space", "Spacing between bars.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Face", "Face", "Surface reinforcement face. Allowed values: top/bottom.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Face", "Face", "Surface reinforcement face. Allowed values: top/mid/bottom.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Cover", "Cover", "Reinforcement concrete cover.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -49,8 +51,9 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            //
-            FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(direction, space, face, cover);
+            Face _face = EnumParser.Parse<Face>(face);
+            ReinforcementDirection _direction = EnumParser.Parse<ReinforcementDirection>(direction);
+            FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(_direction, space, _face, cover);
 
             // return
             DA.SetData(0, obj);

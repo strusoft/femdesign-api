@@ -1,8 +1,6 @@
 using System.Xml.Serialization;
-
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Bars.Buckling
 {
@@ -44,9 +42,9 @@ namespace FemDesign.Bars.Buckling
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static BucklingLength PressuredTopFlangeDefine(double beta = 1, string loadPosition = "top", bool continuouslyRestrained = false)
+        public static BucklingLength PressuredTopFlangeDefine(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
-            return PressuredTopFlange(beta, loadPosition, continuouslyRestrained);
+            return PressuredTopFlange(loadPosition, beta, continuouslyRestrained);
         }
 
         /// <summary>
@@ -58,9 +56,9 @@ namespace FemDesign.Bars.Buckling
         /// <param name="continuouslyRestrained">Continuously restrained. True/false.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static BucklingLength PressuredBottomFlangeDefine(double beta = 1, string loadPosition = "top", bool continuouslyRestrained = false)
+        public static BucklingLength PressuredBottomFlangeDefine(VerticalAlignment loadPosition, double beta = 1, bool continuouslyRestrained = false)
         {
-            return PressuredBottomFlange(beta, loadPosition, continuouslyRestrained);
+            return PressuredBottomFlange(loadPosition, beta, continuouslyRestrained);
         }
 
         /// <summary>
@@ -72,7 +70,7 @@ namespace FemDesign.Bars.Buckling
         /// <param name="cantilever">Cantilever. True/false.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static BucklingLength LateralTorsionalDefine(string loadPosition = "top", bool continouslyRestrained = false, bool cantilever = false)
+        public static BucklingLength LateralTorsionalDefine(VerticalAlignment loadPosition, bool continouslyRestrained = false, bool cantilever = false)
         {
             return LateralTorsional(loadPosition, continouslyRestrained, cantilever);
         }

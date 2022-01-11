@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
@@ -70,54 +71,93 @@ namespace FemDesign.Reinforcement
         /// Add SurfaceReinforcement to slab.
         /// Internal method use by GH components and Dynamo nodes.
         /// </summary>
-        public static Shells.Slab AddStraightReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> _surfaceReinforcement)
+        public static Shells.Slab AddReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
-            Shells.Slab slabClone = slab.DeepClone();
+            Shells.Slab clone = slab.DeepClone();
 
             // check if slab material is concrete
-            if (slabClone.Material.Concrete == null)
+            if (clone.Material.Concrete == null)
             {
-                throw new System.ArgumentException("material of slab must be concrete");
+                throw new System.ArgumentException("Material of slab must be concrete");
             }
 
-            //
-            GuidListType baseShell = new GuidListType(slabClone.SlabPart.Guid);
-
-            // check if surfaceReinforcementParameters are set to slab
-            SurfaceReinforcementParameters _surfaceReinforcementParameters;
-            if (slabClone.SurfaceReinforcementParameters == null)
+            // check if mixed layers
+            if (SurfaceReinforcement.MixedLayers(srfReinfs))
             {
-                _surfaceReinforcementParameters = SurfaceReinforcementParameters.Straight(slabClone);
-                slabClone.SurfaceReinforcementParameters = _surfaceReinforcementParameters;
+                throw new System.ArgumentException("Can't add mixed layers to the same slab");
+            }
+
+            if (SurfaceReinforcement.AllStraight(srfReinfs))
+            {
+                return SurfaceReinforcement.AddStraightReinfToSlab(clone, srfReinfs);
+            }
+            else if (SurfaceReinforcement.AllCentric(srfReinfs))
+            {
+                return SurfaceReinforcement.AddCentricReinfToSlab(clone, srfReinfs);
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't add mixed surface reinforcement layouts to the same slab.");
+            }
+        } 
+        
+        private static Shells.Slab AddStraightReinfToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
+        {
+            // assert layout
+            if (SurfaceReinforcement.AllStraight(srfReinfs))
+            {
+                
+            }
+            else
+            {
+                throw new System.ArgumentException("Not all passed surface reinforcement objects are of layout type straight");
+            }
+
+            // assert layers
+            if (SurfaceReinforcement.MixedLayers(srfReinfs))
+            {
+                throw new System.ArgumentException("Can't add mixed layers to the same slab");
+            }
+
+            // single layer?
+            var singleLayer = SurfaceReinforcement.AllSingleLayer(srfReinfs);
+
+            // check if surface reinf parameters are set to slab
+            SurfaceReinforcementParameters srfReinfParams;
+            if (slab.SurfaceReinforcementParameters == null)
+            {
+                srfReinfParams = SurfaceReinforcementParameters.Straight(slab, singleLayer);
+                slab.SurfaceReinforcementParameters = srfReinfParams;
             }
 
             // any surfaceReinforcementParameter set to slab will be overwritten
             // any surfaceReinforcement with option "centric" will be removed
-            else if (slabClone.SurfaceReinforcementParameters.Center.PolarSystem == true)
+            else if (slab.SurfaceReinforcementParameters.Center.PolarSystem == true)
             {
-                _surfaceReinforcementParameters = SurfaceReinforcementParameters.Straight(slabClone);
-                slabClone.SurfaceReinforcementParameters = _surfaceReinforcementParameters;
+                srfReinfParams = SurfaceReinforcementParameters.Straight(slab);
+                slab.SurfaceReinforcementParameters = srfReinfParams;
 
-                foreach (SurfaceReinforcement item in slabClone.SurfaceReinforcement)
+                foreach (SurfaceReinforcement item in slab.SurfaceReinforcement)
                 {
                     if (item.Centric != null)
                     {
-                        slabClone.SurfaceReinforcement.Remove(item);
+                        slab.SurfaceReinforcement.Remove(item);
                     }
                 }
             }
 
             // use surface parameters already set to slab
             else
-            { 
-                _surfaceReinforcementParameters = slabClone.SurfaceReinforcementParameters;
+            {
+                srfReinfParams = slab.SurfaceReinforcementParameters;
             }
 
             // add surface reinforcement
-            FemDesign.GuidListType surfaceReinforcementParametersGuidReference = new FemDesign.GuidListType(slabClone.SurfaceReinforcementParameters.Guid);
-            foreach (SurfaceReinforcement item in _surfaceReinforcement)
+            GuidListType baseShell = new GuidListType(slab.SlabPart.Guid);
+            FemDesign.GuidListType surfaceReinforcementParametersGuidReference = new FemDesign.GuidListType(slab.SurfaceReinforcementParameters.Guid);
+            foreach (SurfaceReinforcement item in srfReinfs)
             {
                 // add references to item
                 item.BaseShell = baseShell;
@@ -126,16 +166,68 @@ namespace FemDesign.Reinforcement
                 // check if region item exists
                 if (item.Region == null)
                 {
-                    item.Region = Geometry.Region.FromSlab(slabClone);
+                    item.Region = Geometry.Region.FromSlab(slab);
                 }
 
                 // add item to slab  
-                slabClone.SurfaceReinforcement.Add(item);
+                slab.SurfaceReinforcement.Add(item);
             }
 
             // return
-            return slabClone;
+            return slab;
         }
 
+        private static Shells.Slab AddCentricReinfToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
+        {
+            if (SurfaceReinforcement.AllCentric(srfReinfs))
+            {
+                throw new System.ArgumentException("Method to add centric surface reinforcement is not implemented yet.");
+            }
+            else
+            {
+                throw new System.ArgumentException("Not all passed surface reinforcement objects are of layout type centric");
+            }
+        }
+
+        // check if surface reinforcement objects in list are mixed.
+        private static bool MixedLayers(List<SurfaceReinforcement> srfReinfs)
+        {
+            return SurfaceReinforcement.AllMultiLayer(srfReinfs) == false && SurfaceReinforcement.AllSingleLayer(srfReinfs) == false;
+        }
+    
+        // check if all surface reinforcement objects in list are multilayer
+        private static bool AllMultiLayer(List<SurfaceReinforcement> srfReinfs)
+        {
+            var items = srfReinfs.Where(x => x.Straight != null).Where(x => x.Straight.MultiLayer == true).ToList();
+            items.AddRange(srfReinfs.Where(x => x.Centric != null).Where(x => x.Centric.MultiLayer == true));
+            return (items.Count() == srfReinfs.Count());
+        }
+
+        // check if all surface reinforcement objects in list are singlelayer
+        private static bool AllSingleLayer(List<SurfaceReinforcement> srfReinfs)
+        {
+            var items = srfReinfs.Where(x => x.Straight != null).Where(x => x.Straight.SingleLayer == true).ToList();
+            items.AddRange(srfReinfs.Where(x => x.Centric != null).Where(x => x.Centric.SingleLayer == true));
+            return (items.Count() == srfReinfs.Count());
+        }
+
+        private static bool MixedLayout(List<SurfaceReinforcement> srfReinfs)
+        {
+            return srfReinfs.Any(x => x.Straight != null) && srfReinfs.Any(x => x.Centric != null);
+        }
+
+        // check if all surface reinforcement objects in list are of layout type straight
+        private static bool AllStraight(List<SurfaceReinforcement> srfReinfs)
+        {
+            var items = srfReinfs.Where(x => x.Straight != null);
+            return (items.Count() == srfReinfs.Count());
+        }
+        
+        // check if all surface reinforcement objects in list are of layout type centric
+        private static bool AllCentric(List<SurfaceReinforcement> srfReinfs)
+        {
+            var items = srfReinfs.Where(x => x.Centric != null);
+            return (items.Count() == srfReinfs.Count());
+        }
     }
 }

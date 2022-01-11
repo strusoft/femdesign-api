@@ -9,8 +9,45 @@ using System.Xml.Serialization;
 namespace FemDesign.Calculate
 {
     [System.Serializable]
-    public enum ResultType 
+    public enum ListProc
     {
+        /* QUANTITY ESTIMATION */
+        /// <summary>
+        /// Quantity estimation, Concrete
+        /// </summary>
+        [XmlEnum("ccQuantityConc_ListProc")]
+        QuantityEstimationConcrete,
+        /// <summary>
+        /// Quantity estimation, Reinforcement
+        /// </summary>
+        [XmlEnum("ccQuantityReinf_ListProc")]
+        QuantityEstimationReinforcement,
+        /// <summary>
+        /// Quantity estimation, Steel
+        /// </summary>
+        [XmlEnum("ccQuantitySteel_ListProc")]
+        QuantityEstimationSteel,
+        /// <summary>
+        /// Quantity estimation, Timber
+        /// </summary>
+        [XmlEnum("ccQuantityTimber_ListProc")]
+        QuantityEstimationTimber,
+        /// <summary>
+        /// Quantity estimation, Masonry
+        /// </summary>
+        [XmlEnum("ccQuantityMasonry_ListProc")]
+        QuantityEstimationMasonry,
+        /// <summary>
+        /// Quantity estimation, General
+        /// </summary>
+        [XmlEnum("ccQuantityGeneral_ListProc")]
+        QuantityEstimationGeneral,
+        /// <summary>
+        /// Quantity estimation, Profiled panel
+        /// </summary>
+        [XmlEnum("ccQuantityProfiledPanel_ListProc")]
+        QuantityEstimationProfiledPanel,
+
         /* LOADCASES*/
         /// <summary>
         /// Load case: Nodal displacements

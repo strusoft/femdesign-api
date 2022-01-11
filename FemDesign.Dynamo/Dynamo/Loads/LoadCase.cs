@@ -22,7 +22,10 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static LoadCase CreateLoadCase(string name, string type = "static", string durationClass = "permanent")
         {
-            LoadCase loadCase = new LoadCase(name, type, durationClass);
+
+            LoadCaseType _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseType>(type);
+            LoadCaseDuration _durationClass = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseDuration>(durationClass);
+            LoadCase loadCase = new LoadCase(name, _type, _durationClass);
             return loadCase;
         }
 

@@ -1,8 +1,10 @@
 // https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using FemDesign.Results;
 
 
 namespace FemDesign.Calculate
@@ -55,14 +57,14 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
-        internal static FdScript CalculateStruxml(string struxmlPath, string mode, List<string> bscPath, string docxTemplatePath, bool endSession)
+        internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
             FdScript obj = new FdScript();
 
             //
             obj.XmlAttrib = "fdscript.xsd";
             obj.StruxmlPath = struxmlPath;
-            obj.FileName = Path.GetFileName(obj.StruxmlPath).Split('.')[0];
+            obj.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
             obj.Cwd = Path.GetDirectoryName(obj.StruxmlPath);
             obj.FdScriptPath = obj.Cwd + @"\" + obj.FileName + ".fdscript";
 
@@ -152,7 +154,7 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            string mode = "RESMODE";
+            CmdUserModule mode = CmdUserModule.RESMODE;
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis);
             return fdScript;
@@ -163,27 +165,43 @@ namespace FemDesign.Calculate
         /// </summary>
         public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            // get mode
+            CmdUserModule _mode = CmdUserModule.RCDESIGN;
             switch (mode)
             {
                 case "rc":
-                    mode = "RCDESIGN";
+                case "Rc":
+                case "RC":
+                case "RCDESIGN":
+                    _mode = CmdUserModule.RCDESIGN;
                     break;
                 case "steel":
-                    mode = "STEELDESIGN";
+                case "Steel":
+                case "STEEL":
+                case "STEELDESIGN":
+                    _mode = CmdUserModule.STEELDESIGN;
                     break;
                 case "timber":
-                    mode = "TIMBERDESIGN";
+                case "Timber":
+                case "TIMBER":
+                case "TIMBERDESIGN":
+                    _mode = CmdUserModule.TIMBERDESIGN;
                     break;
                 default:
-                    throw new System.ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
+                    throw new ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
             
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession);
+            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             return fdScript;
         }
 
+        /// <summary>
+        /// Generate a FEM-Design documentation.
+        /// </summary>
+        /// <param name="strPath">The .str file to generate base the documentation on.</param>
+        /// <param name="docxTemplatePath">The .docx template path for the documentation.</param>
+        /// <param name="endSession">Close the FEM-Design program after successfully generating documentation.</param>
+        /// <returns>An <see cref="FdScript"/> for generating documentation.</returns>
         public static FdScript CreateDocumentation(string strPath, string docxTemplatePath, bool endSession = true)
         {
             FdScript fdScript = FdScript.ReadStr(strPath, null);
@@ -199,6 +217,26 @@ namespace FemDesign.Calculate
             }
             
             return fdScript;
+        }
+
+        /// Create fdscript to open and extract results from a FEM-Design .str model.
+        /// </summary>
+        /// <param name="strPath">Path to model with results to be extracted.</param>
+        /// <param name="results">Results to be extracted.</param>
+        public static FdScript ExtractResults(string strPath, IEnumerable<ResultType> results = null)
+        {
+            if (results == null)
+                return ReadStr(strPath);
+         
+            var caseListProcs = results.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
+            var combinationListProcs = results.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
+            var listProcs = caseListProcs.Concat(combinationListProcs);
+
+            var dir = Path.GetDirectoryName(strPath);
+            var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var bscPaths = batchResults.Select(bsc => bsc.BscPath).ToList();
+                
+            return ReadStr(strPath, bscPaths);
         }
 
         /// <summary>

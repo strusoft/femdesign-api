@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
+using FemDesign.GenericClasses;
+
 
 namespace FemDesign.Grasshopper
 {
@@ -34,14 +36,15 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -119,14 +122,14 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(11, storeys))
+            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
+            if (!DA.GetDataList(11, axes))
             {
                 // pass
             }
 
-            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(12, axes))
+            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
+            if (!DA.GetDataList(12, storeys))
             {
                 // pass
             }
@@ -155,7 +158,7 @@ namespace FemDesign.Grasshopper
             // Create model
             List<object> _loads = loads.Cast<object>().ToList();
 
-            Model model = new Model(countryCode);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode));
             model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, false);
 
             DA.SetData(0, model);
@@ -169,7 +172,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("57879d49-01e5-48a1-a8f8-93d09554858c"); }
+            get { return new Guid("5a444081-be60-43c7-96c1-772378e918a8"); }
         }
     }
 }
