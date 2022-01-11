@@ -87,6 +87,8 @@ namespace FemDesign.Loads
         {
             List<ModelGeneralLoadGroup> loadGroups = new List<ModelGeneralLoadGroup>();
 
+            if (LoadGroupTable == null) return loadGroups;
+
             foreach (ModelGeneralLoadGroup generalLoadGroup in LoadGroupTable.GeneralLoadGroups)
                 loadGroups.Add(generalLoadGroup);
             return loadGroups;

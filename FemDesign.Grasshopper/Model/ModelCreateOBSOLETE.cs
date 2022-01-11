@@ -134,7 +134,7 @@ namespace FemDesign.Grasshopper
 
             Country country = GenericClasses.EnumParser.Parse<Country>(countryCode);
             Model model = new Model(country);
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, false);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, new List<Loads.ModelGeneralLoadGroup> { }, false);
 
             DA.SetData(0, model);
         }

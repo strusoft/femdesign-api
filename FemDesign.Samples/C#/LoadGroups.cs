@@ -12,10 +12,10 @@ namespace FemDesign.Samples
     {
         public static void CreateLoadGroups()
         {
-            LoadCase deadLoad1 = new LoadCase("Deadload1", "dead_load", "permanent");
-            LoadCase deadLoad2 = new LoadCase("Deadload2", "dead_load", "permanent");
-            LoadCase liveLoad1 = new LoadCase("Liveload1", "static", "permanent");
-            LoadCase liveLoad2 = new LoadCase("Liveload2", "static", "permanent");
+            LoadCase deadLoad1 = new LoadCase("Deadload1", LoadCaseType.DeadLoad, LoadCaseDuration.Permanent);
+            LoadCase deadLoad2 = new LoadCase("Deadload2", LoadCaseType.DeadLoad, LoadCaseDuration.Permanent);
+            LoadCase liveLoad1 = new LoadCase("Liveload1", LoadCaseType.Static, LoadCaseDuration.Permanent);
+            LoadCase liveLoad2 = new LoadCase("Liveload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
 
             List<LoadCase> loadCasesDeadLoads = new List<LoadCase>() { deadLoad1, deadLoad2 };
             List<LoadCase> loadCaseLiveLoads = new List<LoadCase>() { liveLoad1, liveLoad2 };
@@ -28,7 +28,7 @@ namespace FemDesign.Samples
 
             var loadGroups = new List<ModelGeneralLoadGroup>() { LG1, LG2 };
 
-            var model2 = new Model("S", null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
+            var model2 = new Model(Country.S, null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
 
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LoadGroups.struxml");
             model2.SerializeModel(path);

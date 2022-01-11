@@ -13,12 +13,12 @@ namespace FemDesign.Samples
         public static void LoadGroupsCombine()
         {
             // Create load cases
-            LoadCase deadLoad1 = new LoadCase("Deadload1", "dead_load", "permanent");
-            LoadCase deadLoad2 = new LoadCase("Deadload2", "dead_load", "permanent");
-            LoadCase liveLoad1 = new LoadCase("Liveload1", "static", "permanent");
-            LoadCase liveLoad2 = new LoadCase("Liveload2", "static", "permanent");
-            LoadCase windLoad1 = new LoadCase("Windload1", "static", "permanent");
-            LoadCase windLoad2 = new LoadCase("Windload2", "static", "permanent");
+            LoadCase deadLoad1 = new LoadCase("Deadload1", LoadCaseType.DeadLoad, LoadCaseDuration.Permanent);
+            LoadCase deadLoad2 = new LoadCase("Deadload2", LoadCaseType.DeadLoad, LoadCaseDuration.Permanent);
+            LoadCase liveLoad1 = new LoadCase("Liveload1", LoadCaseType.Static, LoadCaseDuration.Permanent);
+            LoadCase liveLoad2 = new LoadCase("Liveload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
+            LoadCase windLoad1 = new LoadCase("Windload1", LoadCaseType.Static, LoadCaseDuration.Permanent);
+            LoadCase windLoad2 = new LoadCase("Windload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
             List<LoadCase> loadCasesDeadLoads = new() { deadLoad1, deadLoad2 };
             List<LoadCase> loadCaseCategoryA = new() { liveLoad1, liveLoad2 };
             List<LoadCase> loadCaseCategoryWind = new() { windLoad1, windLoad2 };
@@ -48,7 +48,7 @@ namespace FemDesign.Samples
             loadCombinations = loadCombinationTable.LoadCombinations;
 
             // Create model and open file in FEM design
-            var model2 = new Model("S", null, null, loadCases, loadCombinations, generalLoadGroups);
+            var model2 = new Model(Country.S, null, null, loadCases, loadCombinations, generalLoadGroups);
 
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LoadGroupsAndCombinations.struxml");
             model2.SerializeModel(path);

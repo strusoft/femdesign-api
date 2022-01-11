@@ -67,7 +67,7 @@ namespace FemDesign.Loads
                 loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag;
             else
                 loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
-            LoadCombination loadCombination = new LoadCombination(loadCombName, LoadCombinationTypeToString(combinationType), loadCases, loadCombGammas);
+            LoadCombination loadCombination = new LoadCombination(loadCombName, LoadCombinationType(combinationType), loadCases, loadCombGammas);
 
             return loadCombination;
         }
@@ -77,18 +77,18 @@ namespace FemDesign.Loads
         /// </summary>
         /// <param name="combinationType"></param>
         /// <returns>The combination type as a string</returns>
-        private string LoadCombinationTypeToString(ELoadCombinationType combinationType)
+        private LoadCombType LoadCombinationType(ELoadCombinationType combinationType)
         {
-            string loadCombinationType = "ultimate_ordinary";
+            LoadCombType loadCombinationType = LoadCombType.UltimateOrdinary;
 
             if (combinationType == ELoadCombinationType.SixTenA || combinationType == ELoadCombinationType.SixTenB)
-                loadCombinationType = "ultimate_ordinary";
+                loadCombinationType = LoadCombType.UltimateOrdinary;
             else if (combinationType == ELoadCombinationType.Characteristic)
-                loadCombinationType = "serviceability_characteristic";
+                loadCombinationType = LoadCombType.ServiceabilityCharacteristic;
             else if (combinationType == ELoadCombinationType.Frequent)
-                loadCombinationType = "serviceability_frequent";
+                loadCombinationType = LoadCombType.ServicabilityFrequent;
             else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                loadCombinationType = "serviceability_quasi_permanent";
+                loadCombinationType = LoadCombType.ServicabilityQuasiPermanent;
             return loadCombinationType;
         }
 
