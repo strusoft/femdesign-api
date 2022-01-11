@@ -46,12 +46,23 @@ namespace FemDesign.Results
         //[Result(typeof(BarEndForce))]
         //BarEndForce,
 
+        /// <summary>
+        /// Point support group, Reactions
+        /// </summary>
         [Parseable("PointSupportReaction")]
         [Result(typeof(PointSupportReaction), ListProc.PointSupportReactionsLoadCase, ListProc.PointSupportReactionsLoadCombination)]
         PointSupportReaction,
-
-        //[Parseable("LineSupportReaction")]
-        //[Result(typeof(LineSupportReaction))]
-        //LineSupportReaction,
+        /// <summary>
+        /// Line support group, Reactions
+        /// </summary>
+        [Parseable("LineSupportReaction")]
+        [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
+        LineSupportReaction,
+        /// <summary>
+        /// Line support group, Resultants
+        /// </summary>
+        [Parseable("LineSupportResultant")]
+        [Result(typeof(LineSupportResultant), ListProc.LineSupportResultantsLoadCase, ListProc.LineSupportResultantsLoadCombination)]
+        LineSupportResultant,
     }
 }

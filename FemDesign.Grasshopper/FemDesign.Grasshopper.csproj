@@ -200,6 +200,7 @@
     <Compile Include="Releases\RotationsFree.cs" />
     <Compile Include="Releases\RotationsRigidLine.cs" />
     <Compile Include="Releases\RotationsRigidPoint.cs" />
+    <Compile Include="Results\ResultsType.cs" />
     <Compile Include="Sections\SectionDatabaseAddSection.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />

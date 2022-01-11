@@ -1,0 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using FemDesign.GenericClasses;
+
+
+namespace FemDesign.Results
+{
+    /// <summary>
+    /// FemDesign "Line support group, Resultants" result
+    /// </summary>
+    public class LineSupportResultant : IResult
+    {
+        /// <summary>
+        /// Support name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// l/2 length of support
+        /// </summary>
+        public double HalfLength { get; }
+        /// <summary>
+        /// Local Fx'
+        /// </summary>
+        public double Fx { get; }
+        /// <summary>
+        /// Local Fy'
+        /// </summary>
+        public double Fy { get; }
+        /// <summary>
+        /// Local Fz'
+        /// </summary>
+        public double Fz { get; }
+        /// <summary>
+        /// Local Mx'
+        /// </summary>
+        public double Mx { get; }
+        /// <summary>
+        /// Local My'
+        /// </summary>
+        public double My { get; }
+        /// <summary>
+        /// Local Mz'
+        /// </summary>
+        public double Mz { get; }
+        /// <summary>
+        /// Load case or combination name
+        /// </summary>
+        public string CaseIdentifier { get; }
+
+        internal LineSupportResultant(string id, double halfLength, double fx, double fy, double fz, double mx, double my, double mz, string resultCase)
+        {
+            Id = id;
+            HalfLength = halfLength;
+            Fx = fx;
+            Fy = fy;
+            Fz = fz;
+            My = mx;
+            My = my;
+            Mz = mz;
+            CaseIdentifier = resultCase;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Line support group), (?'result'Resultants), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Line support group), (?'result'Resultants), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[\w\ ]+)|ID|\[.*\]");
+            }
+        }
+
+        internal static LineSupportResultant Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string supportname = row[0];
+            double halfLength = Double.Parse(row[1], CultureInfo.InvariantCulture);
+            double fx = Double.Parse(row[2], CultureInfo.InvariantCulture);
+            double fy = Double.Parse(row[3], CultureInfo.InvariantCulture);
+            double fz = Double.Parse(row[4], CultureInfo.InvariantCulture);
+            double mx = Double.Parse(row[5], CultureInfo.InvariantCulture);
+            double my = Double.Parse(row[6], CultureInfo.InvariantCulture);
+            double mz = Double.Parse(row[7], CultureInfo.InvariantCulture);
+            string lc = HeaderData["casename"];
+            return new LineSupportResultant(supportname, halfLength, fx, fy, fz, mx, my, mz, lc);
+        }
+    }
+}

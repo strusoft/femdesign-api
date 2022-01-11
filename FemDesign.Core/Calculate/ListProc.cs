@@ -48,7 +48,7 @@ namespace FemDesign.Calculate
         [XmlEnum("ccQuantityProfiledPanel_ListProc")]
         QuantityEstimationProfiledPanel,
 
-        /* LOADCASES*/
+        /* LOADCASES */
         /// <summary>
         /// Load case: Nodal displacements
         /// </summary>
@@ -69,9 +69,13 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseReacLnGroup_ListProc")]
         LineSupportReactionsLoadCase,
+        /// <summary>
+        /// Load case: Line support group, Resultants
+        /// </summary>
+        [XmlEnum("frCaseReacLnGroupRes_ListProc")]
+        LineSupportResultantsLoadCase,
 
-        /* LOADCOMBINATIONS*/
-
+        /* LOADCOMBINATIONS */
         /// <summary>
         /// Load combination: Nodal displacements
         /// </summary>
@@ -97,5 +101,15 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacPtGroup_ListProc")]
         PointSupportReactionsLoadCombination,
+        /// <summary>
+        /// Load combination: Line support group, Reactions
+        /// </summary>
+        [XmlEnum("frCombReacLnGroup_ListProc")]
+        LineSupportReactionsLoadCombination,
+        /// <summary>
+        /// Load combination: Line support group, Resultants
+        /// </summary>
+        [XmlEnum("frCombReacLnGroupRes_ListProc")]
+        LineSupportResultantsLoadCombination,
     }
 }

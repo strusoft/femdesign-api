@@ -11,7 +11,7 @@ using FemDesign.GenericClasses;
 namespace FemDesign.Results
 {
     /// <summary>
-    /// FemDesign "Point support group, Reactions" result
+    /// FemDesign "Line support group, Reactions" result
     /// </summary>
     public class LineSupportReaction : IResult
     {
