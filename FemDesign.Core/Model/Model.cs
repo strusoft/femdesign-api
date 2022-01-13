@@ -227,6 +227,41 @@ namespace FemDesign
                 serializer.Serialize(writer, this);
             }
         }
+
+        /// <summary>
+        /// Reads a .str model, then saves and deserialize it from file (.struxml).
+        /// </summary>
+        /// <param name="strPath">FEM-Design model (.str) to be read.</param>
+        /// <param name="resultTypes">Results that should be read. (Might require model to have been analysed)</param>
+        /// <param name="killProcess"></param>
+        /// <param name="endSession"></param>
+        /// <param name="checkOpenFiles"></param>
+        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Results.ResultType> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
+        {
+            var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
+
+            var app = new Calculate.Application();
+            app.RunFdScript(fdScript, killProcess, endSession, checkOpenFiles);
+
+            Model model = Model.DeserializeFromFilePath(fdScript.CmdSave.FilePath);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+            if (resultTypes != null && resultTypes.Any())
+            {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                    try
+                    {
+                        return Results.ResultsReader.Parse(path);
+                    }
+                    catch (System.ApplicationException)
+                    {
+                        return Enumerable.Empty<Results.IResult>();
+                    }
+                });
+            }
+
+            return (model, results);
+        }
         #endregion
 
         #region addEntities

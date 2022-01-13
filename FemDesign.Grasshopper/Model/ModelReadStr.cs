@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
@@ -13,57 +14,33 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("FilePathStr", "FilePathStr", "File path to .str file.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathBsc", "FilePathBsc", "File path to .bsc batch-file. Item or list.", GH_ParamAccess.list);
+            pManager.AddTextParameter("StrPath", "StrPath", "File path to FEM-Design model (.str) file.", GH_ParamAccess.item);
+            pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("HasExited", "HasExited", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // 
             string filePath = null;
-            List<string> bscPath = new List<string>();
+            List<string> resultTypes = new List<string>();
 
-            // get data
-            if (!DA.GetData(0, ref filePath))
-            {
-                return;
-            }
-            if (!DA.GetDataList(1, bscPath))
-            {
-                // pass
-            }
-            else
-            {
-                if (bscPath.Count == 0)
-                {
-                    bscPath = null;
-                }
-            }
+            DA.GetData("StrPath", ref filePath);
+            DA.GetDataList("ResultTypes", resultTypes);
             if (filePath == null)
             {
                 return;
             }
 
-            //
-            FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPath);
-            FemDesign.Calculate.Application app = new FemDesign.Calculate.Application();
-            bool hasExited = app.RunFdScript(fdScript, false, true, false);
+            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
-            //
-            if (hasExited)
-            {
-                DA.SetData(0, FemDesign.Model.DeserializeFromFilePath(fdScript.StruxmlPath));
-                DA.SetData(1, hasExited);
-            }
-            else
-            {
-                return;
-            }
+            var (model, results) = Model.ReadStr(filePath, _resultTypes, false, true, true);
+
+            DA.SetData("FdModel", model);
+            DA.SetDataList("Results", results);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -74,7 +51,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("237b7d25-1a97-4604-9f07-62ef62abf016"); }
+            get { return new Guid("e5d933c4-9217-4ffa-9f82-15a5a26c9967"); }
         }
     } 
 }

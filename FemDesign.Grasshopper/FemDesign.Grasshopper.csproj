@@ -168,6 +168,7 @@
     <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
+    <Compile Include="Model\ModelReadStrOBSOLETE.cs" />
     <Compile Include="Model\ModelReadStr.cs" />
     <Compile Include="Model\ModelReadStruxml.cs" />
     <Compile Include="Model\ModelSave.cs" />
