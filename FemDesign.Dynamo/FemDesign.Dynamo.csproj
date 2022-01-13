@@ -573,6 +573,9 @@
     <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
       <Link>Core\Results\LineSupportReaction.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineSupportResultant.cs">
+      <Link>Core\Results\LineSupportResultant.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\NodalDisplacement.cs">
       <Link>Core\Results\NodalDisplacement.cs</Link>
     </Compile>

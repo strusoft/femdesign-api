@@ -166,29 +166,21 @@ namespace FemDesign
         /// Read model from .str file. Note: Only supported elements will loaded from the .struxml model.
         /// </summary>
         /// <param name="strPath">File path to .str file.</param>
-        /// <param name="bscPath">File path to .bsc batch-file. Item or list.</param>
+        /// <param name="resultTypes">Results to be read together with the model. This might require the analysis to have been run. Item or list.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Model", "HasExited"})]
-        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPath)
+        [MultiReturn(new[]{"Model", "Results"})]
+        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
         {
-            Calculate.FdScript fdScript = Calculate.FdScript.ReadStr(strPath, bscPath);
-            Calculate.Application fdApp = new Calculate.Application();
-            bool hasExited =  fdApp.RunFdScript(fdScript, false, true, false);
-            if (hasExited)
+            var (model, results) = Model.ReadStr(strPath, resultTypes, false, true, true);
+
+            return new Dictionary<string, object>
             {
-                return new Dictionary<string, object>
-                {
-                    {"Model", Model.DeserializeFromFilePath(fdScript.StruxmlPath)},
-                    {"HasExited", hasExited}
-                };
-            }
-            else
-            {
-                throw new System.ArgumentException("Process did not exit, unable to load .struxml.");
-            }
-        }  
-            
+                { "Model", model },
+                { "Results", results }
+            };
+        }
+
         /// <summary>
         /// Save model to .struxml. Returns true if model was serialized.
         /// </summary>
