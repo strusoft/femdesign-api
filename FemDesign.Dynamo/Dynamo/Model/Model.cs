@@ -166,14 +166,49 @@ namespace FemDesign
         /// Read model from .str file. Note: Only supported elements will loaded from the .struxml model.
         /// </summary>
         /// <param name="strPath">File path to .str file.</param>
+        /// <param name="bscPaths">File path to .bsc batch-file. Item or list.</param>
         /// <param name="resultTypes">Results to be read together with the model. This might require the analysis to have been run. Item or list.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "Results"})]
-        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
+        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPaths, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
         {
-            var (model, results) = Model.ReadStr(strPath, resultTypes, false, true, true);
+            // Create Bsc files from resultTypes
+            var caseListProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
+            var combinationListProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
+            var listProcs = caseListProcs.Concat(combinationListProcs);
 
+            var dir = System.IO.Path.GetDirectoryName(strPath);
+            var batchResults = listProcs.Select(lp => new Calculate.Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
+
+            // Create FdScript
+            var allBscPaths = bscPaths.Concat(bscPathsFromResultTypes).ToList();
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(strPath, allBscPaths);
+
+            // Run FdScript
+            var app = new FemDesign.Calculate.Application();
+            bool hasExited = app.RunFdScript(fdScript, false, true, false);
+
+            // Read model and results
+            var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+            if (resultTypes != null && resultTypes.Any())
+            {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                    try
+                    {
+                        return Results.ResultsReader.Parse(path);
+                    }
+                    catch (System.ApplicationException)
+                    {
+                        return Enumerable.Empty<Results.IResult>();
+                    }
+                });
+            }
+
+            // Output
             return new Dictionary<string, object>
             {
                 { "Model", model },

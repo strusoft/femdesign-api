@@ -15,6 +15,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("StrPath", "StrPath", "File path to FEM-Design model (.str) file.", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePathBsc", "FilePathBsc", "File path to .bsc batch-file. Item or list.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -25,10 +27,13 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // Get input
             string filePath = null;
+            List<string> bscPaths = new List<string>();
             List<string> resultTypes = new List<string>();
 
             DA.GetData("StrPath", ref filePath);
+            DA.GetDataList("FilePathBsc", bscPaths);
             DA.GetDataList("ResultTypes", resultTypes);
             if (filePath == null)
             {
@@ -37,8 +42,42 @@ namespace FemDesign.Grasshopper
 
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
-            var (model, results) = Model.ReadStr(filePath, _resultTypes, false, true, true);
+            // Create Bsc files from resultTypes
+            var caseListProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
+            var combinationListProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
+            var listProcs = caseListProcs.Concat(combinationListProcs);
 
+            var dir = System.IO.Path.GetDirectoryName(filePath);
+            var batchResults = listProcs.Select(lp => new Calculate.Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
+
+            // Create FdScript
+            var allBscPaths = bscPaths.Concat(bscPathsFromResultTypes).ToList();
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, allBscPaths);
+
+            // Run FdScript
+            var app = new FemDesign.Calculate.Application();
+            bool hasExited = app.RunFdScript(fdScript, false, true, false);
+
+            // Read model and results
+            var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+            if (resultTypes != null && resultTypes.Any())
+            {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                    try
+                    {
+                        return Results.ResultsReader.Parse(path);
+                    }
+                    catch (System.ApplicationException)
+                    {
+                        return Enumerable.Empty<Results.IResult>();
+                    }
+                });
+            }
+
+            // Set output
             DA.SetData("FdModel", model);
             DA.SetDataList("Results", results);
         }
