@@ -192,6 +192,8 @@ namespace FemDesign
             // cast type
             Model model = (Model)obj;
 
+            if (model.Entities == null) model.Entities = new Entities();
+
             // prepare elements with library references
             model.GetBars();
             model.GetFictitiousShells();
