@@ -115,7 +115,7 @@ namespace FemDesign.Tests
         {
             string input = "Model/global-test-model.struxml";
             string output = "Model/readWriteFile.struxml";
-            Model model = Model.DeserializeFromFilePath("Model/deconstruct model 21.0.0.struxml");
+            Model model = Model.DeserializeFromFilePath(input);
             model.SerializeModel(output);
         }
     }
