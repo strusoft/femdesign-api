@@ -31,10 +31,10 @@ namespace FemDesign.Grasshopper
         {
             // get data
             Curve curve = null;
-            if (!DA.GetData(0, ref curve)) { return; }
+            if (!DA.GetData(0, ref curve)) return;
 
             Vector3d startForce = Vector3d.Zero;
-            if (!DA.GetData(1, ref startForce)) { return; }
+            if (!DA.GetData(1, ref startForce)) return;
 
             Vector3d endForce = Vector3d.Zero;
             if (!DA.GetData(2, ref endForce))
@@ -44,30 +44,30 @@ namespace FemDesign.Grasshopper
             }
 
             FemDesign.Loads.LoadCase loadCase = null;
-            if (!DA.GetData(3, ref loadCase)) { return; }
+            if (!DA.GetData(3, ref loadCase)) return;
 
             bool constLoadDir = true;
-            if (!DA.GetData(4, ref constLoadDir)) 
-            {
-                // pass
-            }
+            DA.GetData(4, ref constLoadDir);
             
             string comment = null;
-            if (!DA.GetData(5, ref comment))
-            {
-                // pass
-            }
+            DA.GetData(5, ref comment);
             
-            if (curve == null || startForce == null || endForce == null || loadCase == null) { return; }
+            if (curve == null || startForce == null || endForce == null || loadCase == null) return;
 
-            //
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
             FemDesign.Geometry.FdVector3d _startForce = startForce.FromRhino();
             FemDesign.Geometry.FdVector3d _endForce = endForce.FromRhino();
-            FemDesign.Loads.LineLoad obj = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, Loads.ForceLoadType.Moment);
 
-            // return
-            DA.SetData(0, obj);
+
+            try
+            {
+                var obj = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, Loads.ForceLoadType.Moment);
+                DA.SetData(0, obj);
+            }
+            catch (ArgumentException e)
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
+            }
         }
         protected override System.Drawing.Bitmap Icon
         {
