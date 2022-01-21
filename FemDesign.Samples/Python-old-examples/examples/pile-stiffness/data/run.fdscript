@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="fdscript.xsd">
+
+  <fdscriptheader>
+    <title>FEM-Design example script</title>
+    <version>1.0</version>
+    <module>SFRAME</module>
+    <logfile>C:\temp\data\logg.log</logfile>
+  </fdscriptheader>
+
+  <cmdopen command="; CXL CS2SHELL OPEN">
+    <filename>C:\temp\data\Model.struxml</filename>
+  </cmdopen>
+
+  <cmduser command="; CXL $MODULE RESMODE" />
+  <cmdcalculation command="; CXL $MODULE CALC">
+    <analysis
+      calcCase = "1"
+      calcComb = "1"
+      elemfine = "1"
+      peaksmoothing = "1">
+      <comb NLEmaxiter = "30">
+        <combitem NLE = "1"/>
+      </comb>
+    </analysis>
+  </cmdcalculation>
+
+
+
+<cmdlistgen command="$ MODULECOM LISTGEN" bscfile="C:\temp\data\reactions.bsc" outfile="C:\temp\data\reac_result.csv" regional="0" fillcells="0" />-->
+  <!-- repeat for additional batches if i.e each has just one table  -->
+
+
+
+
+  <cmdendsession/>
+
+</fdscript>
