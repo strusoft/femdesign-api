@@ -229,6 +229,20 @@ namespace FemDesign
                 serializer.Serialize(writer, this);
             }
         }
+
+        /// <summary>
+        /// Serialize Model to string.
+        /// </summary>
+        public string SerializeToString()
+        {
+            // serialize
+            XmlSerializer serializer = new XmlSerializer(typeof(Model));
+            using (TextWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, this);
+                return writer.ToString();
+            }
+        }
         #endregion
 
         #region addEntities
