@@ -59,7 +59,7 @@ namespace FemDesign.Results
             Fx = fx;
             Fy = fy;
             Fz = fz;
-            My = mx;
+            Mx = mx;
             My = my;
             Mz = mz;
             CaseIdentifier = resultCase;
