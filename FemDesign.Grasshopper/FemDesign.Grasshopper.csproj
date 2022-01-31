@@ -178,6 +178,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
