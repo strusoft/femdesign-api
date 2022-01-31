@@ -146,21 +146,48 @@ namespace FemDesign.Reinforcement
         /// Add reinforcement to bar.
         /// Internal method use by GH components and Dynamo nodes.
         /// </summary>
-        public static Bars.Bar AddReinforcementToBar(Bars.Bar bar, List<BarReinforcement> barReinforcement, bool overWrite)
+        /// <param name="bar"></param>
+        /// <param name="rebar"></param>
+        /// <param name="overwrite">Overwrite rebar on bar if a rebar sharing guid already exists on the bar?</param>
+        public static Bars.Bar AddReinforcementToBar(Bars.Bar bar, List<BarReinforcement> rebar, bool overwrite)
         {
+            // check if bar is curved
+            if (!bar.BarPart.Edge.IsLine())
+            {
+                throw new System.ArgumentException($"Bar with guid: {bar.Guid} is not straight. Reinforcement can only be added to straight bars.");
+            }
+
             // check if bar material is concrete
             if (bar.BarPart.Material.Concrete == null)
             {
                 throw new System.ArgumentException("Material of bar must be concrete");
             }
 
-            // check if reinforcement already in model
-            foreach (BarReinforcement item in barReinforcement)
+            foreach (BarReinforcement item in rebar)
             {
+                // empty base bar - update with current barPart guid
+                if (item.BaseBar.Guid == Guid.Empty)
+                {
+                    item.BaseBar.Guid = bar.BarPart.Guid;
+                }
+
+                // base bar equals current barPart guid 
+                else if (item.BaseBar.Guid == bar.BarPart.Guid)
+                {
+                    // pass
+                }
+
+                // base bar does not equal current barPart guid - reinforcement probably added to another bar already.
+                else if (item.BaseBar.Guid != bar.BarPart.Guid )
+                {
+                    throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has a base bar guid: {item.BaseBar.Guid} that does not correnspond with the current bar");
+                }
+
+                // add reinforcement to current bar
                 bool exists = bar.Reinforcement.Any(x => x.Guid == item.Guid);
                 if (exists)
                 {
-                    if (overWrite)
+                    if (overwrite)
                     {
                         bar.Reinforcement.RemoveAll(x => x.Guid == item.Guid);
                         bar.Reinforcement.Add(item);
