@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
@@ -51,8 +52,11 @@ namespace FemDesign.Grasshopper
             // clone bar
             var clone = bar.DeepClone();
 
+            // clone reinforcement
+            var reinfClone = barReinforcement.Select(x => x.DeepClone()).ToList();
+
             // add reinforcement
-            FemDesign.Bars.Bar obj = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(clone, barReinforcement, overwrite);
+            FemDesign.Bars.Bar obj = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(clone, reinfClone, overwrite);
 
             // return
             DA.SetData(0, obj);
