@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
@@ -138,6 +140,42 @@ namespace FemDesign.Reinforcement
             this.BaseBar = new GuidListType(bar.BarPart.Guid);
             this.Wire = wire;
             this.LongitudinalBar = longBar;
+        }
+
+        /// <summary>
+        /// Add reinforcement to bar.
+        /// Internal method use by GH components and Dynamo nodes.
+        /// </summary>
+        public static Bars.Bar AddReinforcementToBar(Bars.Bar bar, List<BarReinforcement> barReinforcement, bool overWrite)
+        {
+            // check if bar material is concrete
+            if (bar.BarPart.Material.Concrete == null)
+            {
+                throw new System.ArgumentException("Material of bar must be concrete");
+            }
+
+            // check if reinforcement already in model
+            foreach (BarReinforcement item in barReinforcement)
+            {
+                bool exists = bar.Reinforcement.Any(x => x.Guid == item.Guid);
+                if (exists)
+                {
+                    if (overWrite)
+                    {
+                        bar.Reinforcement.RemoveAll(x => x.Guid == item.Guid);
+                        bar.Reinforcement.Add(item);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has already been added to the bar. Are you adding the same element twice?");
+                    }
+                }
+                else
+                {
+                    bar.Reinforcement.Add(item);
+                }
+            }
+            return bar;
         }
     }
 }

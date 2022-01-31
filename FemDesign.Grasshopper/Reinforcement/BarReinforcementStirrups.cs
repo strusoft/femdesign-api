@@ -24,7 +24,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bar", "Bar", "Bar with stirrups added", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Longitudinal bar reinforcement.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -73,12 +73,8 @@ namespace FemDesign.Grasshopper
             // create bar reinforcement
             var barReinf = new FemDesign.Reinforcement.BarReinforcement(bar, wire, stirrups);
 
-            // add to bar
-            var clone = bar.DeepClone();
-            clone.Reinforcement.Add(barReinf);
-
             //
-            DA.SetData("Bar", clone);                
+            DA.SetData("BarReinforcement", barReinf);                
         }
         protected override System.Drawing.Bitmap Icon
         {
