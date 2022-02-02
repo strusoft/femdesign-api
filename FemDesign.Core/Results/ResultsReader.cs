@@ -116,8 +116,8 @@ namespace FemDesign.Results
         /// <returns></returns>
         public static List<Results.IResult> Parse(string resultsFilePath)
         {
-            var reader = new ResultsReader(resultsFilePath);
-            return reader.ParseAll();
+            using (var reader = new ResultsReader(resultsFilePath))
+                return reader.ParseAll();
         }
 
         /// <summary>
