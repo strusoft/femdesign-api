@@ -74,6 +74,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCase,
+        /// <summary>
+        /// Load case: Shells, Displacements (Extract)
+        /// </summary>
+        [XmlEnum("frCaseDispShellExtract_ListProc")]
+        ShellDisplacementExtractLoadCase,
 
         /* LOADCOMBINATIONS */
         /// <summary>
@@ -111,5 +116,22 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCombination,
+        /// <summary>
+        /// Load combination: Shells, Displacements (Extract)
+        /// </summary>
+        [XmlEnum("frCombDispShellExtract_ListProc")]
+        ShellDisplacementExtractLoadCombination,
+
+        /* RC design */
+        /// <summary>
+        /// RC design: Shell, Crack width
+        /// </summary>
+        [XmlEnum("RCShellCrackWidthCmax_ListProc")]
+        RCDesignMaxCombShellCrackWidth,
+        /// <summary>
+        /// RC design: Shell, Crack width
+        /// </summary>
+        [XmlEnum("RCShellUtilizationCmax_ListProc")]
+        RCDesignMaxCombShellUtilization,
     }
 }

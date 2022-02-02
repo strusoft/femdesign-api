@@ -64,5 +64,19 @@ namespace FemDesign.Results
         [Parseable("LineSupportResultant")]
         [Result(typeof(LineSupportResultant), ListProc.LineSupportResultantsLoadCase, ListProc.LineSupportResultantsLoadCombination)]
         LineSupportResultant,
+        /// <summary>
+        /// Shells, Displacements (Extract)
+        /// </summary>
+        [Parseable("ShellDisplacement")]
+        [Result(typeof(ShellsDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
+        ShellDisplacementExtract,
+
+        /* RC design */
+        /// <summary>
+        /// Shell, Utilization
+        /// </summary>
+        [Parseable("RCDesignShellUtilization")]
+        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellUtilization, ListProc.RCDesignMaxCombShellUtilization)]
+        RCDesignShellUtilization,
     }
 }

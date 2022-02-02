@@ -93,12 +93,14 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
             if (r.EndsWith("LoadCombination"))
                 return 3;
+            if (r.EndsWith("Utilization"))
+                return 0;
 
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
@@ -106,7 +108,7 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
