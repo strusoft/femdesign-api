@@ -99,9 +99,13 @@
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
     <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
-    <Compile Include="Deconstruct\BarsDeconstructOBSOLETE.cs" />
+    <Compile Include="Obsolete\BarsDeconstructOBSOLETE.cs" />
     <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
-    <Compile Include="Deconstruct\ModelDeconstructOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelAddElementsSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelAddElementsOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelCreateSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstruct2OBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstructOBSOLETE.cs" />
     <Compile Include="Info\Info.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
@@ -174,9 +178,10 @@
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
+    <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
     <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
-    <Compile Include="Model\ModelCreateOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />

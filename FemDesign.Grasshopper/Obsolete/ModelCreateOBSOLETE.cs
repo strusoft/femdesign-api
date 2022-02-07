@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
-using FemDesign.GenericClasses;
-
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreate : GH_Component
+    public class ModelCreateOBSOLETE : GH_Component
     {
-        public ModelCreate() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
+        public ModelCreateOBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
         {
 
         }
@@ -36,14 +34,13 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -53,69 +50,93 @@ namespace FemDesign.Grasshopper
         {
             // Get indata
             string countryCode = "S";
-            DA.GetData("CountryCode", ref countryCode);
+            if (!DA.GetData(0, ref countryCode))
+            {
+                // pass
+            }
 
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
-            DA.GetDataList("Bars", bars);
+            if (!DA.GetDataList(1, bars))
+            {
+                // pass
+            }
 
             List<FemDesign.ModellingTools.FictitiousBar> fictBars = new List<FemDesign.ModellingTools.FictitiousBar>();
-            DA.GetDataList("FictitiousBars", fictBars);
+            if (!DA.GetDataList(2, fictBars))
+            {
+                // pass
+            }
 
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
-            DA.GetDataList("Shells", slabs);
+            if (!DA.GetDataList(3, slabs))
+            {
+                // pass
+            }
 
             List<FemDesign.ModellingTools.FictitiousShell> fictShells = new List<FemDesign.ModellingTools.FictitiousShell>();
-            DA.GetDataList("FictitiousShells", fictShells);
+            if (!DA.GetDataList(4, fictShells))
+            {
+                // pass
+            }
 
             List<FemDesign.Shells.Panel> panels = new List<Shells.Panel>();
-            DA.GetDataList("Panels", panels);
-
-            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            DA.GetDataList("Covers", covers);
-
-            List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
-            DA.GetDataList("Loads", loads);
-
-            List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            DA.GetDataList("LoadCases", loadCases);
-
-            List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            DA.GetDataList("LoadCombinations", loadCombinations);
-
-            List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
-            DA.GetDataList("Supports", supports);
-
-            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            DA.GetDataList("Axes", axes);
-
-            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            DA.GetDataList("Storeys", storeys);
-
-            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
-            DA.GetDataList("LoadGroups", loadGroups);
-
-            // Ensure that the component recieves the load cases that are included in the load groups
-            bool loadCasesProvided = true;
-            if (loadGroups.Any())
             {
-                foreach (Loads.ModelGeneralLoadGroup loadGroup in loadGroups)
+                if (!DA.GetDataList(5, panels))
                 {
-                    loadCasesProvided = loadGroup.GetLoadCases().All(i => loadCases.Contains(i));
-                    if (!loadCasesProvided)
-                    {
-                        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Must provide all load cases used in load groups");
-                        return;
-                    }
+                    // pass
                 }
             }
-            
+
+            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
+            if (!DA.GetDataList(6, covers))
+            {
+                // pass
+            }
+
+            List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
+            if (!DA.GetDataList(7, loads))
+            {
+                // pass
+            }
+
+            List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
+            if (!DA.GetDataList(8, loadCases))
+            {
+                // pass
+            }
+
+            List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
+            if (!DA.GetDataList(9, loadCombinations))
+            {
+                // pass
+            }
+
+            List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
+            if (!DA.GetDataList(10, supports))
+            {
+                // pass
+            }
+
+            List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
+            if (!DA.GetDataList(11, storeys))
+            {
+                // pass
+            }
+
+            List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
+            if (!DA.GetDataList(12, axes))
+            {
+                // pass
+            }
+
             // Create model
             List<object> _loads = loads.Cast<object>().ToList();
 
-            Model model = new Model(EnumParser.Parse<Country>(countryCode));
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, false);
+            Country country = GenericClasses.EnumParser.Parse<Country>(countryCode);
+            Model model = new Model(country);
+            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, null, false);
 
-            DA.SetData("FdModel", model);
+            DA.SetData(0, model);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -126,7 +147,8 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("75413c19-cdef-4434-bd8f-530b860d3350"); }
+            get { return new Guid("57879d49-01e5-48a1-a8f8-93d09554858c"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

@@ -81,20 +81,20 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
             DA.GetDataList("LoadCombinations", loadCombinations);
 
+            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
+            DA.GetDataList("LoadGroups", loadGroups);
+
             List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
-            DA.GetDataList("LoadGroups", supports);
+            DA.GetDataList("Supports", supports);
 
             List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            DA.GetDataList("Supports", storeys);
+            DA.GetDataList("Storeys", storeys);
 
             List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            DA.GetDataList("Storeys", axes);
-
-            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
-            DA.GetDataList("Axes", loadGroups);
+            DA.GetDataList("Axes", axes);
 
             bool overwrite = false;
-            DA.GetData(13, ref overwrite);
+            DA.GetData("Overwrite", ref overwrite);
 
 
             // Ensure that the component recieves the load cases that are included in the load groups
@@ -131,7 +131,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("17494607-2eff-4988-b887-ac3290e63e3a"); }
+            get { return new Guid("a4273a46-b666-49c2-9236-f8fcb79da75c"); }
         }
     }
 }

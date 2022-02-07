@@ -1373,16 +1373,14 @@ namespace FemDesign
         /// <summary>
         /// Add LoadGroupTable to Model.
         /// </summary>
-        public void AddLoadGroupTable(List<Loads.ModelGeneralLoadGroup> obj, bool overwrite)
+        public void AddLoadGroupTable(List<Loads.ModelGeneralLoadGroup> generalLoadGroups, bool overwrite)
         {
+            // Null or no load groups
+            if (generalLoadGroups == null || generalLoadGroups.Count == 0) return;
+
             // check if model contains entities, sections and materials
             if (this.Entities == null)
                 this.Entities = new Entities();
-
-            // Create sequence of general_load_group
-            List<Loads.ModelGeneralLoadGroup> generalLoadGroups = new List<Loads.ModelGeneralLoadGroup>();
-            foreach (Loads.ModelGeneralLoadGroup loadGroup in obj)
-                generalLoadGroups.Add(loadGroup);
 
             // Create load group table with the sequenced general_load_group_type
             Loads.LoadGroupTable loadGroupTable = new Loads.LoadGroupTable(generalLoadGroups);
@@ -1396,9 +1394,8 @@ namespace FemDesign
                 throw new System.ArgumentException("The model already contains a load group table");
             }
 
-            // not in model or, overwrite
-            if (generalLoadGroups != null)
-                this.Entities.Loads.LoadGroupTable = loadGroupTable;
+            // not in model, or overwrite
+            this.Entities.Loads.LoadGroupTable = loadGroupTable;
         }
 
         /// <summary>
