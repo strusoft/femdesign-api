@@ -19,9 +19,9 @@ namespace FemDesign.Samples
             LoadCase liveLoad2 = new LoadCase("Liveload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
             LoadCase windLoad1 = new LoadCase("Windload1", LoadCaseType.Static, LoadCaseDuration.Permanent);
             LoadCase windLoad2 = new LoadCase("Windload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
-            List<LoadCase> loadCasesDeadLoads = new() { deadLoad1, deadLoad2 };
-            List<LoadCase> loadCaseCategoryA = new() { liveLoad1, liveLoad2 };
-            List<LoadCase> loadCaseCategoryWind = new() { windLoad1, windLoad2 };
+            List<LoadCase> loadCasesDeadLoads = new List<LoadCase>() { deadLoad1, deadLoad2 };
+            List<LoadCase> loadCaseCategoryA = new List<LoadCase>() { liveLoad1, liveLoad2 };
+            List<LoadCase> loadCaseCategoryWind = new List<LoadCase>() { windLoad1, windLoad2 };
             List<LoadCase> loadCases = loadCasesDeadLoads.Concat(loadCaseCategoryA).Concat(loadCaseCategoryWind).ToList();
 
             // Get the load categories that hold the coefficients
@@ -42,7 +42,7 @@ namespace FemDesign.Samples
 
             // Generate ULS and SLS Combinations
             List<LoadCombination> loadCombinations;
-            LoadCombinationTable loadCombinationTable = new();
+            LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
             CombineULS(loadGroups, loadCombinationTable);
             CombineSLS(loadGroups, loadCombinationTable);
             loadCombinations = loadCombinationTable.LoadCombinations;
@@ -59,8 +59,8 @@ namespace FemDesign.Samples
         public static void CombineULS(List<LoadGroupBase> generalLoadGroups, LoadCombinationTable loadCombinationTable)
         {
             //Generate load combinations from the load groups
-            List<string> loadCombTypeNames = new() { "6.10a", "6.10b" };
-            List<ELoadCombinationType> loadCombTypes = new() { ELoadCombinationType.SixTenA, ELoadCombinationType.SixTenB};
+            List<string> loadCombTypeNames = new List<string>() { "6.10a", "6.10b" };
+            List<ELoadCombinationType> loadCombTypes = new List<ELoadCombinationType>() { ELoadCombinationType.SixTenA, ELoadCombinationType.SixTenB};
 
             for (int i = 0; i < loadCombTypes.Count; i++)           
                 loadCombinationTable.GenerateLoadCombinations(generalLoadGroups, loadCombTypeNames[i], loadCombTypes[i]);
@@ -69,8 +69,8 @@ namespace FemDesign.Samples
         public static void CombineSLS(List<LoadGroupBase> generalloadGroups, LoadCombinationTable loadCombinationTable)
         {
             //Generate load combinations from the load groups
-            List<string> loadCombTypeNames = new() { "Characteristic", "Frequent", "Quasi-permanent" };
-            List<ELoadCombinationType> loadCombTypes = new() { ELoadCombinationType.Characteristic, ELoadCombinationType.Frequent, ELoadCombinationType.QuasiPermanent };
+            List<string> loadCombTypeNames = new List<string>() { "Characteristic", "Frequent", "Quasi-permanent" };
+            List<ELoadCombinationType> loadCombTypes = new List<ELoadCombinationType>() { ELoadCombinationType.Characteristic, ELoadCombinationType.Frequent, ELoadCombinationType.QuasiPermanent };
             for (int i = 0; i < loadCombTypes.Count; i++)
                loadCombinationTable.GenerateLoadCombinations(generalloadGroups, loadCombTypeNames[i], loadCombTypes[i]);           
         }
