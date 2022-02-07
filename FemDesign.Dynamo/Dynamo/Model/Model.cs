@@ -52,7 +52,7 @@ namespace FemDesign
 
             // Add entities
             var _supports = supports.Cast<ISupportElement>().ToList();
-            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, new List<Loads.ModelGeneralLoadGroup>(), overwrite);
             return clone;
         }
 
@@ -104,7 +104,7 @@ namespace FemDesign
             // Create model
             Model model = new Model(EnumParser.Parse<Country>(countryCode));
             var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, new List<Loads.ModelGeneralLoadGroup>(), false);
             return model;
         }
 
