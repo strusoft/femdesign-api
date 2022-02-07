@@ -15,7 +15,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC1Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1.35, 1.35 };
+            List<double> gammasExpected = new List<double>() { 1.35, 1.35 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -29,7 +29,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC2Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1.2015, 1.2015, 1.5, 0.44999999999999996 };
+            List<double> gammasExpected = new List<double>() { 1.2015, 1.2015, 1.5, 0.44999999999999996 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -43,7 +43,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC5Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1.2015, 1.2015, 1.5, 1.0499999999999998 };
+            List<double> gammasExpected = new List<double>() { 1.2015, 1.2015, 1.5, 1.0499999999999998 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -57,7 +57,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC9Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1, 1, 1, 0.3 };
+            List<double> gammasExpected = new List<double>() { 1, 1, 1, 0.3 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -71,7 +71,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC13Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1, 1, 1, 0.7 };
+            List<double> gammasExpected = new List<double>() { 1, 1, 1, 0.7 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -85,7 +85,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC17Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1, 1, 0.5 };
+            List<double> gammasExpected = new List<double>() { 1, 1, 0.5 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -99,7 +99,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC19Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1, 1, 0.2, 0.3 };
+            List<double> gammasExpected = new List<double>() { 1, 1, 0.2, 0.3 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -113,7 +113,7 @@ namespace FemDesign.Samples.Tests
         public void GetGammasLC23Test()
         {
             // Arrange
-            List<double> gammasExpected = new() { 1, 1, 0.3 };
+            List<double> gammasExpected = new List<double>() { 1, 1, 0.3 };
 
             // Act
             List<LoadCombination> loadCombinations = CreateLoadCombinations();
@@ -125,14 +125,14 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC1(List<LoadCombination> loadCombinations)
         {
-            List<double> gammasLC1 = new();
+            List<double> gammasLC1 = new List<double>();
             gammasLC1 = loadCombinations[0].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammasLC1;
         }
 
         private static List<double> GetGammasLC2(List<LoadCombination> loadCombinations)
         {
-            List<double> gammasLC2 = new();
+            List<double> gammasLC2 = new List<double>();
             gammasLC2 = loadCombinations[1].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammasLC2;
 
@@ -140,7 +140,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC5(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[5].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -148,7 +148,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC9(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[9].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -156,7 +156,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC13(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[13].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -164,7 +164,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC17(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[17].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -172,7 +172,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC19(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[19].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -180,7 +180,7 @@ namespace FemDesign.Samples.Tests
 
         private static List<double> GetGammasLC23(List<LoadCombination> loadCombinations)
         {
-            List<double> gammas = new();
+            List<double> gammas = new List<double>();
             gammas = loadCombinations[23].ModelLoadCase.Select(o => o.Gamma).ToList();
             return gammas;
 
@@ -195,9 +195,9 @@ namespace FemDesign.Samples.Tests
             LoadCase liveLoad2 = new LoadCase("Liveload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
             LoadCase windLoad1 = new LoadCase("Windload1", LoadCaseType.Static, LoadCaseDuration.Permanent);
             LoadCase windLoad2 = new LoadCase("Windload2", LoadCaseType.Static, LoadCaseDuration.Permanent);
-            List<LoadCase> loadCasesDeadLoads = new() { deadLoad1, deadLoad2 };
-            List<LoadCase> loadCaseCategoryA = new() { liveLoad1, liveLoad2 };
-            List<LoadCase> loadCaseCategoryWind = new() { windLoad1, windLoad2 };
+            List<LoadCase> loadCasesDeadLoads = new List<LoadCase>() { deadLoad1, deadLoad2 };
+            List<LoadCase> loadCaseCategoryA = new List<LoadCase>() { liveLoad1, liveLoad2 };
+            List<LoadCase> loadCaseCategoryWind = new List<LoadCase>() { windLoad1, windLoad2 };
             List<LoadCase> loadCases = loadCasesDeadLoads.Concat(loadCaseCategoryA).Concat(loadCaseCategoryWind).ToList();
 
             // Get the load categories that hold the coefficients
@@ -213,7 +213,7 @@ namespace FemDesign.Samples.Tests
             var loadGroups = new List<LoadGroupBase>() { LGPermanent, LGA, LGWind };
 
             // Generate ULS and SLS Combinations
-            LoadCombinationTable loadCombinationTable = new();
+            LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
             Samples.SampleProgram.CombineULS(loadGroups, loadCombinationTable);
             Samples.SampleProgram.CombineSLS(loadGroups, loadCombinationTable);
             return loadCombinationTable.LoadCombinations;
