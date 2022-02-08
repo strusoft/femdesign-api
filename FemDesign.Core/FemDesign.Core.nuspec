@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>20.2.1</version>
+    <version>21.0.0</version>
     <title>$title$</title>
     <authors>StruSoft</authors>
     <description>The FEM-Design API package</description>
@@ -12,7 +12,7 @@
     <icon>Resources\icons\FemDesignAPI.png</icon>
     <!-- <releaseNotes>Summary of changes made in this release of the package.</releaseNotes> -->
     <copyright>$copyright$</copyright>
-    <tags>StruSoft FemDesign 3D Structure Api StruXML</tags>
+    <tags>StruSoft FemDesign 21 3D Structure Api StruXML</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2" />
     </dependencies>
