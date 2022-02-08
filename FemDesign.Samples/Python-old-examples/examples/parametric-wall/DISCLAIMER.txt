@@ -1,0 +1,2 @@
+Disclaimer: 
+All example files, wrappers and documentation are for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, StruSoft won´t guarantee full support of the API functions since they are customizable by the customer. 

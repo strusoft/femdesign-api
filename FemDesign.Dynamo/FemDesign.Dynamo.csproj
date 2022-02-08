@@ -854,6 +854,47 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\sectionLibrary\sections.struxml">
+      <Link>Core\Resources\sectionLibrary\sections.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_D.struxml">
+      <Link>Core\Resources\materialLibrary\materials_D.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_DK.struxml">
+      <Link>Core\Resources\materialLibrary\materials_DK.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_EST.struxml">
+      <Link>Core\Resources\materialLibrary\materials_EST.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_FIN.struxml">
+      <Link>Core\Resources\materialLibrary\materials_FIN.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_GB.struxml">
+      <Link>Core\Resources\materialLibrary\materials_GB.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_H.struxml">
+      <Link>Core\Resources\materialLibrary\materials_H.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_N.struxml">
+      <Link>Core\Resources\materialLibrary\materials_N.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_PL.struxml">
+      <Link>Core\Resources\materialLibrary\materials_PL.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_RO.struxml">
+      <Link>Core\Resources\materialLibrary\materials_RO.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_S.struxml">
+      <Link>Core\Resources\materialLibrary\materials_S.struxml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_TR.struxml">
+      <Link>Core\Resources\materialLibrary\materials_TR.struxml</Link>
+    </EmbeddedResource>
+    <None Include="..\FemDesign.Core\Resources\sectionLibrary\sections.struxml">
+      <Link>Core\Resources\sectionLibrary\sections.struxml</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
     <None Include="PackageData\pkg.json" />
   </ItemGroup>
