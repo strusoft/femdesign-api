@@ -97,9 +97,9 @@ namespace FemDesign.Results
                     dynamic obj = parseAllMethod.Invoke(this, new object[] { false, true });
                     mixedResults.AddRange(obj);
                 }
-                catch (Exception e)
+                catch (TargetInvocationException e)
                 {
-                    throw new ParseException($"{e.Message}\n{e.InnerException.Message}");
+                    throw new ParseException(e.InnerException.Message);
                 }
             }
 

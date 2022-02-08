@@ -28,7 +28,9 @@ namespace FemDesign.Samples
 
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
-            ChangeLengthOfBeam();
+            var res = Results.ResultsReader.Parse(@"C:\Temp\2202_strangbetong\Output\RCDesignMaxCombShellUtilization.csv");
+
+            //ChangeLengthOfBeam();
             //RunAnalysis();
         }
     }

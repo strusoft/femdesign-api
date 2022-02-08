@@ -97,6 +97,7 @@
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
+    <Compile Include="Results\RC design\ShellUtilization.cs" />
     <Compile Include="Results\ShellsDisplacement.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\ResultTypeEnum.cs" />
@@ -273,6 +274,7 @@
     <EmbeddedResource Include="Resources\materialLibrary\materials_TR.struxml" />
     <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

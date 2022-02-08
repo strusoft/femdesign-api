@@ -65,16 +65,15 @@ namespace FemDesign.Grasshopper
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
             if (resultTypes != null && resultTypes.Any())
             {
-                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                foreach (string path in fdScript.CmdListGen.Select(cmd => cmd.OutFile))
+                {
                     try
                     {
-                        return Results.ResultsReader.Parse(path);
+                        var _results = Results.ResultsReader.Parse(path);
+                        results = results.Concat(_results);
                     }
-                    catch (System.ApplicationException)
-                    {
-                        return Enumerable.Empty<Results.IResult>();
-                    }
-                });
+                    catch (System.ApplicationException) {}
+                };
             }
 
             // Set output
