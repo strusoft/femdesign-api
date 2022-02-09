@@ -78,5 +78,12 @@ namespace FemDesign.Results
         [Parseable("RCDesignShellUtilization")]
         [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellUtilization, ListProc.RCDesignMaxCombShellUtilization)]
         RCDesignShellUtilization,
+
+        /// <summary>
+        /// Shell, Crack width
+        /// </summary>
+        [Parseable("RCDesignShellCrackWidth")]
+        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellCrackWidth, ListProc.RCDesignMaxCombShellCrackWidth)]
+        RCDesignShellCracking,
     }
 }
