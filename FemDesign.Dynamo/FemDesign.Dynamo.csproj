@@ -737,6 +737,7 @@
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
+    <Compile Include="Dynamo\Info\Info.cs" />
     <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
     <Compile Include="Dynamo\Loads\ForceLoadType.cs" />
     <Compile Include="Dynamo\Loads\Footfall.cs" />
