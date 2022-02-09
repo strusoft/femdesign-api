@@ -97,6 +97,7 @@
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
+    <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
     <Compile Include="Results\ShellsDisplacement.cs" />
     <Compile Include="Results\ResultAttribute.cs" />

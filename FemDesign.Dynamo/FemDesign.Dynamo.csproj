@@ -597,6 +597,9 @@
     <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
       <Link>Core\Results\ShelllnternalForce.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ShellsDisplacement.cs">
+      <Link>Core\Results\ShellsDisplacement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
       <Link>Core\Sections\ComplexSection.cs</Link>
     </Compile>
