@@ -84,8 +84,8 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
             {
                 "Shell, Utilization, Load comb.: Lyft",
                 "Max. of load combinations, Shell, Utilization",
-                "Shell   Max.    Combination RBX RBY RTX RTY BU  SC  CWB CWT",
-                "[-] [%] [-] [%] [%] [%] [%] [%] [-] [%] [%]"
+                "Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	SC	CWB	CWT",
+                "[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[-]	[%]	[%]"
             };
 
             foreach (var header in headers)
@@ -93,7 +93,6 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
                 var match = ShellUtilization.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
-
         }
     }
 }

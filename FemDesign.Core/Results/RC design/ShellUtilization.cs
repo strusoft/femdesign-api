@@ -95,7 +95,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Utilization)|(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell|\[.*\]");
+                return new Regex(@"(?'max'Max. of load combinations, Shell, Utilization)|(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t|\[.*\]");
             }
         }
 
