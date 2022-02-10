@@ -72,7 +72,7 @@ namespace FemDesign.Results
         /// <returns></returns>
         public List<Results.IResult> ParseAll()
         {
-            Type resultType;
+            Type resultType = null;
             List<Results.IResult> mixedResults = new List<Results.IResult>();
 
             MethodInfo method = typeof(ResultsReader).GetMethod(
@@ -99,12 +99,12 @@ namespace FemDesign.Results
                 }
                 catch (TargetInvocationException e)
                 {
-                    throw new ParseException(e.InnerException.Message);
+                    throw new ParseException(resultType, "<all>", e.InnerException);
                 }
             }
 
             if (mixedResults.Count == 0)
-                throw new ApplicationException($"No results read. Are there any results in the file? ({FilePath})");
+                throw new ParseException(resultType, null, FilePath);
 
             return mixedResults;
         }
@@ -288,7 +288,7 @@ namespace FemDesign.Results
                 }
                 catch (Exception)
                 {
-                    throw new ParseException($"Could not parse line '{line.Replace("\t", "  ")}' to type {typeof(T).FullName}");
+                    throw new ParseException(typeof(T), line.Replace("\t", "  "));
                 }
                 if (parsed == null && skipNull)
                     continue;
@@ -331,9 +331,25 @@ namespace FemDesign.Results
     [Serializable]
     public class ParseException : ApplicationException
     {
-        public ParseException() { }
-        public ParseException(string message) : base(message) { }
-        public ParseException(string message, Exception inner) : base(message, inner) { }
+        public Type TypeNotParsed;
+        public ParseException(Type typeNotParsed, string lineNotParsed) : base($"Could not parse line '{lineNotParsed}' to type {typeNotParsed.GetType().FullName}")
+        {
+            TypeNotParsed = typeNotParsed;
+        }
+        /// <summary>
+        /// No results in file.
+        /// </summary>
+        /// <param name="typeNotParsed"></param>
+        /// <param name="message"></param>
+        /// <param name="path"></param>
+        public ParseException(Type typeNotParsed, string message, string path) : base($"No results read. Are there any results in the file? ({path})" + (string.IsNullOrEmpty(path) ? "" : ". " + message))
+        {
+            TypeNotParsed = typeNotParsed;
+        }
+        public ParseException(Type typeNotParsed, string lineNotParsed, Exception inner) : base($"Could not parse line '{lineNotParsed}' to type {typeNotParsed.GetType().FullName}", inner)
+        {
+            TypeNotParsed = typeNotParsed;
+        }
         protected ParseException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
