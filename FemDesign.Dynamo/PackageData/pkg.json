@@ -20,5 +20,7 @@
   "site_url": "https://strusoft.com/",
   "repository_url": "https://github.com/strusoft/femdesign-api",
   "contains_binaries": false,
-  "node_libraries": [ "FemDesign.Dynamo", "Version=21.0.1.0", "Culture=neutral", "PublicKeyToken=null" ]
+  "node_libraries": [
+    "FemDesign.Dynamo, Version=21.0.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
 }
