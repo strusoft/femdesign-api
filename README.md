@@ -1,5 +1,5 @@
 <p align="center">
- <img width="400" src="https://strusoft.com/wp-content/uploads/2022/02/MicrosoftTeams-image-69.png">
+ <img src="https://strusoft.com/wp-content/uploads/2022/02/MicrosoftTeams-image-69.png">
 </p>
 
 # femdesign-api
