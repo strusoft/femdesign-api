@@ -20,10 +20,11 @@ namespace FemDesign
             }
         }
 
-        public static void GetListProc(this Results.ResultType result) 
+        public static void Swap<T>(IList<T> list, int indexA, int indexB)
         {
-            
-
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
         }
     }
 }

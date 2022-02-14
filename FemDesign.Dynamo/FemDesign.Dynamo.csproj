@@ -309,6 +309,15 @@
     <Compile Include="..\FemDesign.Core\Loads\LoadCaseTypeEnum.cs">
       <Link>Core\Loads\LoadCaseTypeEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCategories.cs">
+      <Link>Core\Loads\LoadCategories.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCategory.cs">
+      <Link>Core\Loads\LoadCategory.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCategoryDatabase.cs">
+      <Link>Core\Loads\LoadCategoryDatabase.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadCombination.cs">
       <Link>Core\Loads\LoadCombination.cs</Link>
     </Compile>
@@ -317,6 +326,24 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadDirTypeEnum.cs">
       <Link>Core\Loads\LoadDirTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGroupBase.cs">
+      <Link>Core\Loads\LoadGroupBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGroupPermanent.cs">
+      <Link>Core\Loads\LoadGroupPermanent.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGrouprelationship.cs">
+      <Link>Core\Loads\LoadGrouprelationship.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGroupTable.cs">
+      <Link>Core\Loads\LoadGroupTable.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGroupTemporary.cs">
+      <Link>Core\Loads\LoadGroupTemporary.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadGroupType.cs">
+      <Link>Core\Loads\LoadGroupType.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadLocationValue.cs">
       <Link>Core\Loads\LoadLocationValue.cs</Link>
@@ -327,8 +354,14 @@
     <Compile Include="..\FemDesign.Core\Loads\MassConversionTable.cs">
       <Link>Core\Loads\MassConversionTable.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\ModelGeneralLoadGroup.cs">
+      <Link>Core\Loads\ModelGeneralLoadGroup.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\ModelLoadCase.cs">
       <Link>Core\Loads\ModelLoadCase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\ModelLoadCaseInGroup.cs">
+      <Link>Core\Loads\ModelLoadCaseInGroup.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\PointLoad.cs">
       <Link>Core\Loads\PointLoad.cs</Link>

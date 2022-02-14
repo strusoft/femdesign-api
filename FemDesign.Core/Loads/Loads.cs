@@ -57,9 +57,10 @@ namespace FemDesign.Loads
         
         [XmlElement("load_combination", Order = 18)]
         public List<LoadCombination> LoadCombinations = new List<LoadCombination>(); // load_combination_type
-        
+
         [XmlElement("load_group_table", Order = 19)]
-        public List<DummyXmlObject> LoadGroupTables {get {return null;} set {value = null;}} // load_group_table_type
+        public LoadGroupTable LoadGroupTable { get; set; } // load_group_table_type
+
         
         /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads.
@@ -77,6 +78,21 @@ namespace FemDesign.Loads
             objs.AddRange(this.FootfallAnalysisData);
             return objs;
         }
-        
+
+        /// <summary>
+        /// Gets the <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects of the LoadGroupTable.
+        /// </summary>
+        /// <returns>List of <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects</returns>
+        public List<ModelGeneralLoadGroup> GetLoadGroups()
+        {
+            List<ModelGeneralLoadGroup> loadGroups = new List<ModelGeneralLoadGroup>();
+
+            if (LoadGroupTable == null) return loadGroups;
+
+            foreach (ModelGeneralLoadGroup generalLoadGroup in LoadGroupTable.GeneralLoadGroups)
+                loadGroups.Add(generalLoadGroup);
+            return loadGroups;
+ 
+        }    
     }
 }
