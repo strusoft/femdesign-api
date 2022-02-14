@@ -16,21 +16,21 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Ordinary" load type
         /// </summary>
-        [Parseable("static", "Static", "STATIC")]
+        [Parseable("Ordinary", "static", "Static", "STATIC")]
         [XmlEnum("static")]
         Static,
 
         /// <summary>
         /// "Struc. dead load" load type
         /// </summary>
-        [Parseable("dead_load", "DeadLoad", "Dead_load", "DEAD_LOAD")]
+        [Parseable("+Struc. dead load", "dead_load", "DeadLoad", "Dead_load", "DEAD_LOAD")]
         [XmlEnum("dead_load")]
         DeadLoad,
 
         /// <summary>
         /// "Soil dead load" load type
         /// </summary>
-        [Parseable("soil", "SoilDeadLoad", "soil_dead_load", "Soil_dead_load", "SOIL_DEAD_LOAD")]
+        [Parseable("+Soil dead load", "soil", "SoilDeadLoad", "soil_dead_load", "Soil_dead_load", "SOIL_DEAD_LOAD")]
         [XmlEnum("soil_dead_load")]
         SoilDeadLoad,
 
@@ -44,42 +44,42 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Camber sim." load type
         /// </summary>
-        [Parseable("prestressing", "Prestressing", "PRESTRESSING", "camber_sim", "Camber_sim", "CAMBER_SIM")]
+        [Parseable("+Shrinkage", "prestressing", "Prestressing", "PRESTRESSING", "camber_sim", "Camber_sim", "CAMBER_SIM")]
         [XmlEnum("prestressing")]
         Prestressing,
 
         /// <summary>
         /// "Fire" load type
         /// </summary>
-        [Parseable("fire", "Fire", "FIRE")]
+        [Parseable("+Fire", "fire", "Fire", "FIRE")]
         [XmlEnum("fire")]
         Fire,
 
         /// <summary>
         /// Seismic "Seis load, Fx+Mx" load type
         /// </summary>
-        [Parseable("seis_sxp", "Seis_sxp", "SEIS_SXP")]
+        [Parseable("+Seis load, Fx+Mx", "seis_sxp", "Seis_sxp", "SEIS_SXP")]
         [XmlEnum("seis_sxp")]
         Seis_sxp,
 
         /// <summary>
         /// Seismic "Seis load, Fx-Mx" load type
         /// </summary>
-        [Parseable("seis_sxm", "Seis_sxm", "SEIS_SXM")]
+        [Parseable("+Seis load, Fx-Mx", "seis_sxm", "Seis_sxm", "SEIS_SXM")]
         [XmlEnum("seis_sxm")]
         Seis_sxm,
 
         /// <summary>
         /// Seismic "Seis load, Fx+My" load type
         /// </summary>
-        [Parseable("seis_syp", "Seis_syp", "SEIS_SYP")]
+        [Parseable("+Seis load, Fy+My", "seis_syp", "Seis_syp", "SEIS_SYP")]
         [XmlEnum("seis_syp")]
         Seis_syp,
 
         /// <summary>
         /// Seismic "Seis load, Fx-My" load type
         /// </summary>
-        [Parseable("seis_sym", "Seis_sym", "SEIS_SYM")]
+        [Parseable("+Seis load, Fy-My", "seis_sym", "Seis_sym", "SEIS_SYM")]
         [XmlEnum("seis_sym")]
         Seis_sym,
 
@@ -100,7 +100,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// 
         /// </summary>
-        [Parseable("seis_max", "Seis_max", "SeisMax", "SEIS_MAX")]
+        [Parseable("+Seis load, Max", "seis_max", "Seis_max", "SeisMax", "SEIS_MAX")]
         [XmlEnum("seis_max")]
         Seis_max,
     }
