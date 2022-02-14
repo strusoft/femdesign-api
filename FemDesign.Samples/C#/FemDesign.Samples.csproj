@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FemDesign.Samples2</RootNamespace>
-    <AssemblyName>FemDesign.Samples2</AssemblyName>
+    <RootNamespace>FemDesign.Samples</RootNamespace>
+    <AssemblyName>FemDesign.Samples</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
