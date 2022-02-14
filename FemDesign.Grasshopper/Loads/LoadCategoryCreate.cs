@@ -16,9 +16,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of LoadCategory.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Psi0", "Psi0", "𝜓₀ Factor for combination value of a variable action", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Psi1", "Psi1", "𝜓₁ Factor for frequent value of a variable action", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Psi2", "Psi2", "𝜓₂ Factor for quasi-permanent value of a variable action", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Psi0", "Psi0", "\u03A8₀ Factor for combination value of a variable action", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Psi1", "Psi1", "\u03A8₁ Factor for frequent value of a variable action", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Psi2", "Psi2", "\u03A8₂ Factor for quasi-permanent value of a variable action", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -43,8 +43,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-
-                return null;
+                return FemDesign.Properties.Resources.LoadGroup;
             }
         }
         public override Guid ComponentGuid

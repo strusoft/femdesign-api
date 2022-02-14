@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Name", "Name", "Name of LoadGroup.", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Type", "Type", "LoadGroup type.", GH_ParamAccess.item, 0);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in LoadGroup. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("LoadCategory", "LoadCategory", "Psi values to apply when combining loads (not needed for permanent group).", GH_ParamAccess.item);
+            pManager.AddGenericParameter("LoadCategory", "LoadCategory", "Psi (\u03A8) values to apply when combining loads (not needed for permanent group).", GH_ParamAccess.item);
             pManager.AddNumberParameter("StandardUnfavourableSafetyFactor", "StandardUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with.", GH_ParamAccess.item);
             pManager.AddNumberParameter("StandardFavourableSafetyFactor", "StandardFavourableSafetyFactor", "Favourable safety factor to multiply load with  (only needed for permanent loads).", GH_ParamAccess.item, 1);
             pManager.AddNumberParameter("AccidentalUnfavourableSafetyFactor", "AccidentalUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with (for accidental combinations).", GH_ParamAccess.item, 1);
