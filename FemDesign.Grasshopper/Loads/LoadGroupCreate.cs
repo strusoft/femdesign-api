@@ -56,7 +56,7 @@ namespace FemDesign.Grasshopper
             double gamma_d = 0, unfavourableSafetyFactor = 0, favourableSafetyFactor = 0, unfavourableSafetyFactorAccidental = 0, favourableSafetyFactorAccidental = 0, xi = 0.89;
             int loadCaseRelation = 0, type = 0, potentiallyLeadingAction = 1;
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            FemDesign.Loads.LoadCategory psi = new FemDesign.Loads.LoadCategory();
+            FemDesign.Loads.LoadCategory psi = null;
 
             if (!DA.GetData(0, ref name)) { return; }
             if (!DA.GetData(1, ref type))
