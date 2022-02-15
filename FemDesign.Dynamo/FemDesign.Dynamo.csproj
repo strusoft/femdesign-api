@@ -207,6 +207,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\ILoadElement.cs">
       <Link>Core\GenericClasses\ILoadElement.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IndexedGuid.cs">
+      <Link>Core\GenericClasses\IndexedGuid.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\IStructureElement.cs">
       <Link>Core\GenericClasses\IStructureElement.cs</Link>
     </Compile>
@@ -751,6 +754,7 @@
     <Compile Include="Dynamo\Calculate\Stage.cs" />
     <Compile Include="Dynamo\Deconstruct\Deconstruct.cs" />
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
+    <Compile Include="Dynamo\GenericClasses\IndexedGuid.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
     <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
     <Compile Include="Dynamo\GenericClasses\ExtensionMethods.cs" />
