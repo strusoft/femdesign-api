@@ -69,9 +69,9 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             if (!DA.GetData(4, ref unfavourableSafetyFactor)) { return; }
-            if (!DA.GetData(5, ref favourableSafetyFactor)) { return; }
-            if (!DA.GetData(6, ref unfavourableSafetyFactorAccidental)) { return; }
-            if (!DA.GetData(7, ref favourableSafetyFactorAccidental)) { return; }
+            if (!DA.GetData(5, ref favourableSafetyFactor))
+            if (!DA.GetData(6, ref unfavourableSafetyFactorAccidental))
+            if (!DA.GetData(7, ref favourableSafetyFactorAccidental))
             if (!DA.GetData(8, ref loadCaseRelation)) { return; }
             if (!DA.GetData(9, ref xi))
             {
