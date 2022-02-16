@@ -32,7 +32,7 @@ namespace FemDesign.Loads
             }
             else
             {
-                ModelLoadCase.Add(new ModelLoadCaseInGroup(loadCase.Guid, this));
+                ModelLoadCase.Add(new ModelLoadCaseInGroup((Guid)loadCase.IndexedGuid, this));
                 LoadCase.Add(loadCase);
             }
         }
@@ -44,7 +44,7 @@ namespace FemDesign.Loads
         /// <returns>The LoadCase that has the same guid</returns>
         public LoadCase GetCorrespondingCompleteLoadCase(ModelLoadCaseInGroup modelLoadCaseInGroup)
         {
-            LoadCase correspodningLoadCase = LoadCase.Find(i => i.Guid == modelLoadCaseInGroup.Guid);
+            LoadCase correspodningLoadCase = LoadCase.Find(i => i.IndexedGuid == modelLoadCaseInGroup.Guid);
             return correspodningLoadCase;
         }
 
@@ -55,7 +55,7 @@ namespace FemDesign.Loads
         {
             foreach (ModelLoadCaseInGroup elem in this.ModelLoadCase)
             {
-                if (elem.Guid == loadCase.Guid)
+                if (elem.Guid == loadCase.IndexedGuid)
                 {
                     return true;
                 }

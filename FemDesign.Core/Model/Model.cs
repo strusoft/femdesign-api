@@ -1312,13 +1312,13 @@ namespace FemDesign
             // in model, don't overwrite?
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.IndexedGuid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LoadCases.RemoveAll(x => x.IndexedGuid == obj.IndexedGuid);
             }
 
             // add load case
@@ -1336,7 +1336,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.IndexedGuid == obj.IndexedGuid)
                 {
                     return true;
                 }

@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -98,7 +99,7 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma)); 
+               this.ModelLoadCase.Add(new ModelLoadCase((Guid)loadCase.IndexedGuid, gamma)); 
             }         
         }
 
@@ -109,7 +110,7 @@ namespace FemDesign.Loads
         {
             foreach (ModelLoadCase elem in this.ModelLoadCase)
             {
-                if (elem.Guid == loadCase.Guid)
+                if (elem.Guid == loadCase.IndexedGuid)
                 {
                     return true;
                 }

@@ -19,7 +19,7 @@ namespace FemDesign.Loads
         [XmlAttribute("guid")]
         public string _guid { get; set; }
 
-        public IndexedGuid Guid
+        public IndexedGuid IndexedGuid
         {
             get { return new IndexedGuid(_guid); }
             set { _guid = value.ToString(); }
@@ -51,7 +51,7 @@ namespace FemDesign.Loads
         /// </summary>
         public void EntityCreated()
         {
-            this.Guid = System.Guid.NewGuid();
+            this.IndexedGuid = System.Guid.NewGuid();
             this.LastChange = DateTime.UtcNow;
             this.Action = "added";
         }

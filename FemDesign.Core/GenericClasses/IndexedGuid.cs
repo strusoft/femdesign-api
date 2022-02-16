@@ -47,7 +47,27 @@ namespace FemDesign.GenericClasses
         }
         public IndexedGuid(Guid guid, int index): this($"{guid}#{index}") { }
 
+        public override bool Equals(object o)
+        {
+            return (o as IndexedGuid)?.Guid == this.Guid && (o as IndexedGuid)?.Index == this.Index;
+        }
+        public static bool operator ==(IndexedGuid lhs, IndexedGuid rhs)
+        {
+            if (lhs is null)
+            {
+                if (rhs is null)
+                {
+                    return true;
+                }
+
+                // Only the left side is null.
+                return false;
+            }
+            // Equals handles case of null on right side.
+            return lhs.Equals(rhs);
+        }
+        public static bool operator !=(IndexedGuid lhs, IndexedGuid rhs) => !(lhs == rhs);
         public static implicit operator IndexedGuid(Guid guid) => new IndexedGuid(guid);
-        public static implicit operator Guid(IndexedGuid guid) => guid.Guid;
+        public static explicit operator Guid(IndexedGuid guid) => guid.Guid;
     }
 }
