@@ -2,7 +2,7 @@
   "license": "",
   "file_hash": null,
   "name": "FemDesign",
-  "version": "21.0.0",
+  "version": "21.1.1",
   "description": "Toolbox for FEM-Design 21 - 3D Structure. Added compatibility for FEM-Design 21. For full realease notes see: https://github.com/strusoft/femdesign-api/releases/tag/21.0.0. Disclaimer: This package and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft will not guarantee full support of the package.",
   "group": "",
   "keywords": [
@@ -21,6 +21,6 @@
   "repository_url": "https://github.com/strusoft/femdesign-api",
   "contains_binaries": false,
   "node_libraries": [
-    "FemDesign.Dynamo, Version=21.0.0.0, Culture=neutral, PublicKeyToken=null"
+    "FemDesign.Dynamo, Version=21.1.1.0, Culture=neutral, PublicKeyToken=null"
   ]
 }
