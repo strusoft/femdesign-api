@@ -799,12 +799,10 @@
     <Compile Include="Dynamo\Reinforcement\Center.cs" />
     <Compile Include="Dynamo\Reinforcement\Centric.cs" />
     <Compile Include="Dynamo\Reinforcement\HiddenBar.cs" />
-    <Compile Include="Dynamo\Reinforcement\LongitudinalBar.cs" />
     <Compile Include="Dynamo\Reinforcement\NoShear.cs" />
     <Compile Include="Dynamo\Reinforcement\Ptc.cs" />
     <Compile Include="Dynamo\Reinforcement\PunchingArea.cs" />
     <Compile Include="Dynamo\Reinforcement\PunchingReinforcement.cs" />
-    <Compile Include="Dynamo\Reinforcement\Stirrups.cs" />
     <Compile Include="Dynamo\Reinforcement\Straight.cs" />
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcement.cs" />
     <Compile Include="Dynamo\Reinforcement\SurfaceReinforcementParameters.cs" />

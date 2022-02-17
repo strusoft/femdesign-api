@@ -8,35 +8,28 @@ namespace FemDesign.Grasshopper
 {
     public class BarReinforcementLongitudinal: GH_Component
     {
-        public BarReinforcementLongitudinal(): base("BarReinforcement.LongitudinalBar", "LongitudinalBar", "Add longitudinal reinforcement to a bar. Curved bars are not supported.", "FemDesign", "Reinforcement")
+        public BarReinforcementLongitudinal(): base("BarReinforcement.LongitudinalBar", "LongitudinalBar", "Create a longitudinal reinforcement bar.", "FemDesign", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bar", "Bar", "Bar to add longitudinal rebars to", GH_ParamAccess.item);
             pManager.AddGenericParameter("Wire", "Wire", "Longitudinal rebar material and type.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("YPos", "YPos", "YPos", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ZPos", "ZPos", "ZPos", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Measure representing start anchorage of longitudinal rebar in meter.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Measure representing end anchorage of longitudinal rebar in meter.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartParameter", "StartParam", "Parameter representing start position of longitudinal rebar. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndParameter", "EndParam", "Parameter representing start position of longitudinal rebar. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YPos", "YPos", "Y-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZPos", "ZPos", "Z-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Measure representing start anchorage of longitudinal rebar in meters.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Measure representing end anchorage of longitudinal rebar in meters.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Start", "Start", "Start x-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("End", "End", "End x-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("AuxiliaryBar", "AuxBar", "Is bar auxiliary?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bar", "Bar", "Bar with longitudinal rebar added", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Longitudinal reinforcement bar.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Bars.Bar bar = null;
-            if (!DA.GetData("Bar", ref bar))
-            {
-                return;
-            }
-
             FemDesign.Reinforcement.Wire wire = null;
             if (!DA.GetData("Wire", ref wire))
             {
@@ -67,14 +60,14 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            double startParam = 0;
-            if (!DA.GetData("StartParameter", ref startParam))
+            double start = 0;
+            if (!DA.GetData("Start", ref start))
             {
                 return;
             }
 
-            double endParam = 0;
-            if (!DA.GetData("EndParameter", ref endParam))
+            double end = 0;
+            if (!DA.GetData("End", ref end))
             {
                 return;
             }
@@ -86,17 +79,13 @@ namespace FemDesign.Grasshopper
 
             // create Longitudinal
             var pos = new FemDesign.Geometry.FdPoint2d(yPos, zPos);
-            var longBar = new FemDesign.Reinforcement.LongitudinalBar(bar, pos, startAnchorage, endAnchorage, startParam, endParam, auxiliary);
+            var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, startAnchorage, endAnchorage, start, end, auxiliary);
 
-            // create bar reinforcement
-            var barReinf = new FemDesign.Reinforcement.BarReinforcement(bar, wire, longBar);
-
-            // add to bar
-            var clone = bar.DeepClone();
-            clone.Reinforcement.Add(barReinf);
+            // create bar reinforcement without base bar reference
+            var barReinf = new FemDesign.Reinforcement.BarReinforcement(Guid.Empty, wire, longBar);
 
             //
-            DA.SetData("Bar", clone);                
+            DA.SetData("BarReinforcement", barReinf);                
         }
         protected override System.Drawing.Bitmap Icon
         {

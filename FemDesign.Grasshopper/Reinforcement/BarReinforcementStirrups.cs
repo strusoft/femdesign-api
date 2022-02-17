@@ -8,32 +8,25 @@ namespace FemDesign.Grasshopper
 {
     public class BarReinforcementStirrups: GH_Component
     {
-        public BarReinforcementStirrups(): base("BarReinforcement.Stirrups", "Stirrups", "Add stirrup reinforcement to a bar. Curved bars are not supported.", "FemDesign", "Reinforcement")
+        public BarReinforcementStirrups(): base("BarReinforcement.Stirrups", "Stirrups", "Add stirrup reinforcement to a bar.", "FemDesign", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bar", "Bar", "Bar to add stirrups to", GH_ParamAccess.item);
             pManager.AddGenericParameter("Wire", "Wire", "Stirrup rebar material and type.", GH_ParamAccess.item);
-            pManager.AddBrepParameter("Profile", "Profile", "Surface representing the profile of the stirrup.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartParameter", "StartParam", "Parameter representing start position of stirrups. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndParameter", "EndParam", "Parameter representing start position of stirrups. 0 is start of bar and 1 is end of bar", GH_ParamAccess.item);
+            pManager.AddBrepParameter("Profile", "Profile", "Surface representing the profile of the stirrup in the host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Start", "Start", "Start x-position, of stirrup reinforcement, in host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("End", "End", "End x-position, of stirrup reinforcement, in host bar local coordinate system.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Spacing", "Spacing", "Parameter representing spacing of stirrups.", GH_ParamAccess.item);
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bar", "Bar", "Bar with stirrups added", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Longitudinal bar reinforcement.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Bars.Bar bar = null;
-            if (!DA.GetData("Bar", ref bar))
-            {
-                return;
-            }
-
             FemDesign.Reinforcement.Wire wire = null;
             if (!DA.GetData("Wire", ref wire))
             {
@@ -47,13 +40,13 @@ namespace FemDesign.Grasshopper
             }
 
             double startParam = 0;
-            if (!DA.GetData("StartParameter", ref startParam))
+            if (!DA.GetData("Start", ref startParam))
             {
                 return;
             }
 
             double endParam = 0;
-            if (!DA.GetData("EndParameter", ref endParam))
+            if (!DA.GetData("End", ref endParam))
             {
                 return;
             }
@@ -68,17 +61,13 @@ namespace FemDesign.Grasshopper
             var region = profile.FromRhino();
 
             // create stirrups
-            var stirrups = new FemDesign.Reinforcement.Stirrups(bar, region, startParam, endParam, spacing);
+            var stirrups = new FemDesign.Reinforcement.Stirrups(region, startParam, endParam, spacing);
 
             // create bar reinforcement
-            var barReinf = new FemDesign.Reinforcement.BarReinforcement(bar, wire, stirrups);
-
-            // add to bar
-            var clone = bar.DeepClone();
-            clone.Reinforcement.Add(barReinf);
+            var barReinf = new FemDesign.Reinforcement.BarReinforcement(Guid.Empty, wire, stirrups);
 
             //
-            DA.SetData("Bar", clone);                
+            DA.SetData("BarReinforcement", barReinf);                
         }
         protected override System.Drawing.Bitmap Icon
         {
