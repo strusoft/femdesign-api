@@ -63,7 +63,7 @@ P.1.1	fi	39	631	-0.001	0.000	0.001	0.000	-0.007	-0.000	0.002	0.007	LC1
             foreach (var header in headers)
             {
                 var match = ShellsDisplacement.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellUtilization).Name}");
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellsDisplacement).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
                 Assert.IsTrue(match.Groups["casename"].Success);
             }

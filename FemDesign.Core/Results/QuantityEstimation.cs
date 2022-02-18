@@ -52,22 +52,37 @@ namespace FemDesign.Results
         /// </summary>
         public string Quality { get; }
         /// <summary>
-        /// Volume quantity [mm3]
+        /// Length/Area Quantity
+        /// </summary>
+        public double SubTotal { get; }
+        /// <summary>
+        /// Volume quantity
         /// </summary>
         public double Volume { get; }
         /// <summary>
-        /// Formwork quantity [mm2]
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+        /// <summary>
+        /// Formwork quantity
         /// </summary>
         public double Formwork { get; }
+        /// <summary>
+        /// Reinforcement weight per length/area
+        /// </summary>
+        public double Reinforcement { get; }
 
-        internal QuantityEstimationConcrete(string id, string storey, string structure, string quality, double volume, double formwork)
+        internal QuantityEstimationConcrete(string id, string storey, string structure, string quality, double subTotal, double volume, double totalWeight, double formwork, double reinforcement)
         {
             Storey = storey;
             Structure = structure;
             Id = id;
             Quality = quality;
+            SubTotal = subTotal;
             Volume = volume;
+            TotalWeight = totalWeight;
             Formwork = formwork;
+            Reinforcement = reinforcement;
         }
 
         public override string ToString()
@@ -97,9 +112,12 @@ namespace FemDesign.Results
             string structure = row[1];
             string id = row[2];
             string quality = row[3];
-            double volume = double.Parse(row[4], CultureInfo.InvariantCulture);
-            double formwork = double.Parse(row[5], CultureInfo.InvariantCulture);
-            return new QuantityEstimationConcrete(id, storey, structure, quality, volume, formwork);
+            double subTotal = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double volume = double.Parse(row[8], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double formwork = double.Parse(row[10], CultureInfo.InvariantCulture);
+            double reinforcement = double.Parse(row[11], CultureInfo.InvariantCulture);
+            return new QuantityEstimationConcrete(id, storey, structure, quality, subTotal, volume, totalWeight, formwork, reinforcement);
         }
     }
 
@@ -125,11 +143,11 @@ namespace FemDesign.Results
         /// </summary>
         public string Quality { get; }
         /// <summary>
-        /// Diameter [mm]
+        /// Diameter
         /// </summary>
         public double Diameter { get; }
         /// <summary>
-        /// Quantity [t]
+        /// Quantity
         /// </summary>
         public double Quantity { get; }
 
@@ -206,15 +224,15 @@ namespace FemDesign.Results
         /// </summary>
         public double UnitWeight { get; }
         /// <summary>
-        /// Subtotal [m, m2]
+        /// Subtotal
         /// </summary>
         public double Subtotal { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
-        /// Painted area [m2]
+        /// Painted area
         /// </summary>
         public double PaintedArea { get; }
         internal QuantityEstimationSteel(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
@@ -292,19 +310,19 @@ namespace FemDesign.Results
         /// </summary>
         public string Section { get; }
         /// <summary>
-        /// Weight per length [t/m, t/m2]
+        /// Weight per length
         /// </summary>
         public double UnitWeight { get; }
         /// <summary>
-        /// Subtotal [m, m2]
+        /// Subtotal
         /// </summary>
         public double Subtotal { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
-        /// Painted area [m2]
+        /// Painted area
         /// </summary>
         public double PaintedArea { get; }
         internal QuantityEstimationTimber(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
@@ -384,23 +402,23 @@ namespace FemDesign.Results
 
         public double Type { get; }
         /// <summary>
-        /// Length of plate [m]
+        /// Length of plate
         /// </summary>
         public double Length { get; }
         /// <summary>
-        /// Width of plate [m]
+        /// Width of plate
         /// </summary>
         public double Width { get; }
         /// <summary>
-        /// Height of plate [m]
+        /// Height of plate
         /// </summary>
         public double Height { get; }
         /// <summary>
-        /// Area of the plate [m2]
+        /// Area of the plate
         /// </summary>
         public double Area { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
