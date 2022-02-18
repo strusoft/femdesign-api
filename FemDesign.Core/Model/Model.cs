@@ -189,9 +189,11 @@ namespace FemDesign
             {
                 throw ex;
             }
-
-            // close reader
-            reader.Close();
+            finally
+            {
+                // close reader
+                reader.Close();
+            }
 
             // cast type
             Model model = (Model)obj;
