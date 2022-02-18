@@ -16,25 +16,37 @@ namespace FemDesign.Results
         /// Quantity estimation, Concrete
         /// </summary>
         [Parseable("QuantityEstimationConcrete")]
-        [Result(typeof(QuantityEstimationConcrete), ListProc.QuantityEstimationConcrete, ListProc.QuantityEstimationConcrete)]
+        [Result(typeof(QuantityEstimationConcrete), ListProc.QuantityEstimationConcrete)]
         QuantityEstimationConcrete,
         /// <summary>
         /// Quantity estimation, Steel
         /// </summary>
         [Parseable("QuantityEstimationSteel")]
-        [Result(typeof(QuantityEstimationSteel), ListProc.QuantityEstimationSteel, ListProc.QuantityEstimationSteel)]
+        [Result(typeof(QuantityEstimationSteel), ListProc.QuantityEstimationSteel)]
         QuantityEstimationSteel,
         /// <summary>
         /// Quantity estimation, Timber
         /// </summary>
         [Parseable("QuantityEstimationTimber")]
-        [Result(typeof(QuantityEstimationTimber), ListProc.QuantityEstimationTimber, ListProc.QuantityEstimationTimber)]
+        [Result(typeof(QuantityEstimationTimber), ListProc.QuantityEstimationTimber)]
         QuantityEstimationTimber,
+        /// <summary>
+        /// Quantity estimation, Timber panel
+        /// </summary>
+        [Parseable("QuantityEstimationTimberPanel")]
+        [Result(typeof(QuantityEstimationTimberPanel), ListProc.QuantityEstimationTimberPanel)]
+        QuantityEstimationTimberPanel,
+        /// <summary>
+        /// Quantity estimation, Reinforcement
+        /// </summary>
+        [Parseable("QuantityEstimationReinforcement")]
+        [Result(typeof(QuantityEstimationReinforcement), ListProc.QuantityEstimationReinforcement)]
+        QuantityEstimationReinforcement,
         /// <summary>
         /// Quantity estimation, Profiled panel
         /// </summary>
         [Parseable("QuantityEstimationProfiledPanel")]
-        [Result(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel, ListProc.QuantityEstimationProfiledPanel)]
+        [Result(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel)]
         QuantityEstimationProfiledPanel,
 
         /* LOAD CASES AND COMBINATIONS */
@@ -76,14 +88,14 @@ namespace FemDesign.Results
         /// Shell, Utilization
         /// </summary>
         [Parseable("RCDesignShellUtilization")]
-        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellUtilization, ListProc.RCDesignMaxCombShellUtilization)]
+        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellUtilization)]
         RCDesignShellUtilization,
 
         /// <summary>
         /// Shell, Crack width
         /// </summary>
         [Parseable("RCDesignShellCrackWidth")]
-        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellCrackWidth, ListProc.RCDesignMaxCombShellCrackWidth)]
+        [Result(typeof(ShellsDisplacement), ListProc.RCDesignMaxCombShellCrackWidth)]
         RCDesignShellCracking,
     }
 }

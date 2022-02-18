@@ -12,9 +12,8 @@ namespace FemDesign.Results
     public class ResultAttribute : Attribute
     {
         public readonly Type ResultType;
-        public readonly ListProc CaseListProc;
-        public readonly ListProc CombinationListProc;
-        public ResultAttribute(Type resultType, ListProc caseListProc, ListProc combinationListProc)
+        public readonly ListProc[] ListProcs;
+        public ResultAttribute(Type resultType, params ListProc[] listProc)
         {
             if (resultType == null)
                 throw new ArgumentNullException();
@@ -23,8 +22,7 @@ namespace FemDesign.Results
                 throw new ArgumentException();
 
             ResultType = resultType;
-            CaseListProc = caseListProc;
-            CombinationListProc = combinationListProc;
+            ListProcs = listProc;
         }
     }
 
@@ -32,8 +30,7 @@ namespace FemDesign.Results
     {
         public static Dictionary<ResultType, ResultAttribute> ResultAttributes = new Dictionary<ResultType, ResultAttribute>();
         public static Dictionary<ResultType, Type> ResultTypes = new Dictionary<ResultType, Type>();
-        public static Dictionary<ResultType, ListProc> CaseListProcs = new Dictionary<ResultType, ListProc>();
-        public static Dictionary<ResultType, ListProc> CombinationListProcs = new Dictionary<ResultType, ListProc>();
+        public static Dictionary<ResultType, ListProc[]> ListProcs = new Dictionary<ResultType, ListProc[]>();
 
         static ResultAttributeExtentions()
         {
@@ -48,8 +45,7 @@ namespace FemDesign.Results
 
             ResultAttributes = resultAttributes.ToDictionary(v => (ResultType)v.Field.GetValue(null), v => v.ResultAttributes.First());
             ResultTypes = ResultAttributes.ToDictionary(kv => kv.Key, kv => kv.Value.ResultType);
-            CaseListProcs = ResultAttributes.ToDictionary(kv => kv.Key, kv => kv.Value.CaseListProc);
-            CombinationListProcs = ResultAttributes.ToDictionary(kv => kv.Key, kv => kv.Value.CombinationListProc);
+            ListProcs = ResultAttributes.ToDictionary(kv => kv.Key, kv => kv.Value.ListProcs);
         }
     }
 }

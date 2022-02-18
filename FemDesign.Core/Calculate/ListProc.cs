@@ -33,6 +33,11 @@ namespace FemDesign.Calculate
         [XmlEnum("ccQuantityTimber_ListProc")]
         QuantityEstimationTimber,
         /// <summary>
+        /// Quantity estimation, Timber panel
+        /// </summary>
+        [XmlEnum("ccQuantityTmPanel_ListProc")]
+        QuantityEstimationTimberPanel,
+        /// <summary>
         /// Quantity estimation, Masonry
         /// </summary>
         [XmlEnum("ccQuantityMasonry_ListProc")]

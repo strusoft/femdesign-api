@@ -228,9 +228,7 @@ namespace FemDesign.Calculate
             if (results == null)
                 return ReadStr(strPath);
          
-            var caseListProcs = results.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
-            var combinationListProcs = results.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
-            var listProcs = caseListProcs.Concat(combinationListProcs);
+            var listProcs = results.SelectMany(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
             var dir = Path.GetDirectoryName(strPath);
             var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
