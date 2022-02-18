@@ -352,7 +352,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Timber)$");
             }
         }
 
@@ -360,7 +360,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Timber|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Timber$|Storey\t|\t*\[.+\]|TOTAL\t");
             }
         }
 
@@ -436,7 +436,7 @@ namespace FemDesign.Results
         /// Painted area [m2]
         /// </summary>
         public double PaintedArea { get; }
-        internal QuantityEstimationTimberPanel(string id, string storey, string structure, string quality, double thickness, string panelType, double length, double width, double area, double weight, int pcs, double totalWeight)
+        internal QuantityEstimationTimberPanel(string id, string storey, string structure, string quality, double thickness, string panelType, double length, double width, double area, double weight, int count, double totalWeight)
         {
             Storey = storey;
             Structure = structure;
@@ -448,7 +448,7 @@ namespace FemDesign.Results
             Width = width;
             Area = area;
             Weight = weight;
-            Count = pcs;
+            Count = count;
             TotalWeight = totalWeight;
         }
 
@@ -516,8 +516,10 @@ namespace FemDesign.Results
         /// Section/Thickness identifier
         /// </summary>
         public string Section { get; }
-
-        public double Type { get; }
+        /// <summary>
+        /// Panel type
+        /// </summary>
+        public string Type { get; }
         /// <summary>
         /// Length of plate
         /// </summary>
@@ -542,7 +544,7 @@ namespace FemDesign.Results
         /// Count/Sum of sections
         /// </summary>
         public int Count { get; }
-        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, double type, double length, double width, double height, double area, double totalWeight, int count)
+        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, string type, double length, double width, double height, double area, double totalWeight, int count)
         {
             Storey = storey;
             Structure = structure;
@@ -567,7 +569,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Profiled panel)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Profiled panel)$");
             }
         }
 
@@ -575,7 +577,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Profiled panel|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Profiled panel$|Storey\t|\t*\[.+\]|TOTAL\t");
             }
         }
 
@@ -586,13 +588,14 @@ namespace FemDesign.Results
             string id = row[2];
             string quality = row[3];
             string section = row[4];
-            double type = double.Parse(row[5], CultureInfo.InvariantCulture);
-            double length = double.Parse(row[6], CultureInfo.InvariantCulture);
-            double width = double.Parse(row[7], CultureInfo.InvariantCulture);
-            double height = double.Parse(row[8], CultureInfo.InvariantCulture);
-            double area = double.Parse(row[9], CultureInfo.InvariantCulture);
-            double weight = double.Parse(row[10], CultureInfo.InvariantCulture);
+            //double thickness = double.Parse(row[5], CultureInfo.InvariantCulture);
+            string type = row[6];
+            double length = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double width = double.Parse(row[8], CultureInfo.InvariantCulture);
+            double height = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double area = double.Parse(row[10], CultureInfo.InvariantCulture);
             int count = int.Parse(row[11], CultureInfo.InvariantCulture);
+            double weight = double.Parse(row[12], CultureInfo.InvariantCulture);
             return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, height, area, weight, count);
         }
     }

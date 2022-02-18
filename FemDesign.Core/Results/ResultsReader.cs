@@ -25,7 +25,6 @@ namespace FemDesign.Results
         /// <param name="filePath">Path to a .txt/.csv file with listed results from FEM-Design</param>
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
-
             Type iResultType = typeof(Results.IResult);
             var resultTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.GetName().FullName.StartsWith("FemDesign"))

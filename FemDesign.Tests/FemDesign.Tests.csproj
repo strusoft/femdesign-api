@@ -65,6 +65,8 @@
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\QuantityEstimationConcreteTests.cs" />
+    <Compile Include="Results\QuantityEstimationProfiledPlateTests.cs" />
+    <Compile Include="Results\QuantityEstimationTimberPanelTests.cs" />
     <Compile Include="Results\RC design\ShellCrackWidthTests.cs" />
     <Compile Include="Results\RC design\ShellUtilizationTests.cs" />
     <Compile Include="Results\ShellsDisplacementTests.cs" />
