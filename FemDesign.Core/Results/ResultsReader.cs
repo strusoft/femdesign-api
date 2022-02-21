@@ -29,7 +29,9 @@ namespace FemDesign.Results
             var resultTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.GetName().FullName.StartsWith("FemDesign"))
                 .SelectMany(s => s.GetTypes())
-                .Where(p => iResultType.IsAssignableFrom(p) && p.IsClass);
+                .Where(p => iResultType.IsAssignableFrom(p))
+                .Where(p => p.IsClass)
+                .Where(p => p.IsPublic);
 
             HeaderExpression = new Regex(string.Join("|", resultTypes.Select(GetHeaderExpression).Select(r => r.ToString())));
             ResultTypesIdentificationExpressions = resultTypes.ToDictionary(t => t, GetIdentificationExpression);
