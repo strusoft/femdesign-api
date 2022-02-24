@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FemDesign.Tests</RootNamespace>
     <AssemblyName>FemDesign.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -62,6 +62,7 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
+    <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,6 +76,10 @@
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
       <Name>ent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FemDesign.Samples\C#\FemDesign.Samples.csproj">
+      <Project>{127a57e7-22e5-4ec5-933b-effa9fa0715e}</Project>
+      <Name>FemDesign.Samples</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

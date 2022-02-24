@@ -62,7 +62,7 @@ namespace FemDesign.Samples
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
-                        var values = line.Split("\t");
+                        var values = line.Split('\t');
                         if (counter>0 & line!="")
                         {                           
                             Console.WriteLine(string.Format("{0} {1}", values[0], values[7]));

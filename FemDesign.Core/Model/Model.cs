@@ -106,7 +106,8 @@ namespace FemDesign
         /// <param name="loads">Load elements</param>
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null)
+        /// <param name="loadGroups">Load groups</param>
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null)
         {
             Initialize(country);
 
@@ -118,6 +119,9 @@ namespace FemDesign
                 AddLoadCases(loadCases, overwrite: false);
             if (loadCombinations != null)
                 AddLoadCombinations(loadCombinations, overwrite: false);
+            if (loadGroups != null)
+                AddLoadGroupTable(loadGroups, overwrite: false);
+
         }
 
         private void Initialize(Country country)
@@ -185,9 +189,11 @@ namespace FemDesign
             {
                 throw ex;
             }
-
-            // close reader
-            reader.Close();
+            finally
+            {
+                // close reader
+                reader.Close();
+            }
 
             // cast type
             Model model = (Model)obj;
@@ -250,7 +256,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, bool overwrite)
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups,  bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -345,6 +351,11 @@ namespace FemDesign
                 {
                     this.AddLoadCombination(loadCombination, overwrite);
                 }
+            }
+
+            if(loadGroups != null)
+            {
+                this.AddLoadGroupTable(loadGroups, overwrite);
             }
 
             if (supports != null)
@@ -1283,6 +1294,10 @@ namespace FemDesign
 
         public void AddLoadCases(List<Loads.LoadCase> loadCases, bool overwrite = true)
         {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
             if (loadCases != null)
                 foreach (Loads.LoadCase loadCase in loadCases)
                     this.AddLoadCase(loadCase, overwrite);
@@ -1348,9 +1363,41 @@ namespace FemDesign
 
         public void AddLoadCombinations(List<Loads.LoadCombination> loadCombinations, bool overwrite = true)
         {
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
             if (loadCombinations != null)
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                     this.AddLoadCombination(loadCombination, overwrite);
+        }
+
+        /// <summary>
+        /// Add LoadGroupTable to Model.
+        /// </summary>
+        public void AddLoadGroupTable(List<Loads.ModelGeneralLoadGroup> generalLoadGroups, bool overwrite)
+        {
+            // Null or no load groups
+            if (generalLoadGroups == null || generalLoadGroups.Count == 0) return;
+
+            // check if model contains entities, sections and materials
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
+            // Create load group table with the sequenced general_load_group_type
+            Loads.LoadGroupTable loadGroupTable = new Loads.LoadGroupTable(generalLoadGroups);
+
+            // in model?
+            bool inModel = this.LoadGroupTableInModel();
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException("The model already contains a load group table");
+            }
+
+            // not in model, or overwrite
+            this.Entities.Loads.LoadGroupTable = loadGroupTable;
         }
 
         /// <summary>
@@ -1394,6 +1441,17 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Check if the model already has a load group table
+        /// </summary>
+        private bool LoadGroupTableInModel()
+        {
+            if (this.Entities.Loads.LoadGroupTable == null)
+                return false;
+            else
+                return true;
         }
 
         /// <summary>
@@ -2459,11 +2517,9 @@ namespace FemDesign
         /// <returns></returns>
         public Model AddLoads<T>(IEnumerable<T> elements, bool overwrite = true) where T : ILoadElement
         {
-            // check if model contains entities, sections and materials
+            // check if model contains entities
             if (this.Entities == null)
-            {
                 this.Entities = new Entities();
-            }
 
             foreach (var item in elements)
             {

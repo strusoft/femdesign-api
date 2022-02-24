@@ -1,4 +1,4 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
@@ -6,16 +6,15 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreateOBSOLETE : GH_Component
+    public class ModelAddElementsOBSOLETE : GH_Component
     {
-        public ModelCreateOBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
+        public ModelAddElementsOBSOLETE() : base("Model.AddElements", "AddElements", "Add elements to an existing model. Nested lists are not supported.", "FemDesign", "Model")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
-            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to add elements to.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
@@ -40,6 +39,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Axes", "Axes", "Axis element or list of Axis elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -48,9 +49,9 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // Get indata
-            string countryCode = "S";
-            if (!DA.GetData(0, ref countryCode))
+            // get indata
+            FemDesign.Model model = null;
+            if (!DA.GetData(0, ref model))
             {
                 // pass
             }
@@ -129,25 +130,32 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            // Create model
+            bool overwrite = false;
+            if (!DA.GetData(13, ref overwrite))
+            {
+                // pass
+            }
+
+            // cast ILoads
             List<object> _loads = loads.Cast<object>().ToList();
 
-            Country country = GenericClasses.EnumParser.Parse<Country>(countryCode);
-            Model model = new Model(country);
-            model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, false);
+            // clone model
+            var clone = model.DeepClone();
 
-            DA.SetData(0, model);
+            clone.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, null, overwrite);
+
+            DA.SetData(0, clone);
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return FemDesign.Properties.Resources.ModelCreate;
+                return FemDesign.Properties.Resources.ModelAddElements;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("57879d49-01e5-48a1-a8f8-93d09554858c"); }
+            get { return new Guid("17494607-2eff-4988-b887-ac3290e63e3a"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.hidden;
     }

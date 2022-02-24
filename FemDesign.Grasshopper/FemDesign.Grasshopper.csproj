@@ -95,9 +95,21 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
-    <Compile Include="Deconstruct\BarsDeconstructOBSOLETE.cs" />
+    <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Loads\LoadGroupCombine.cs" />
+    <Compile Include="Loads\LoadGroupCreate.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
+    <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
+    <Compile Include="Obsolete\BarsDeconstructOBSOLETE.cs" />
     <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
-    <Compile Include="Deconstruct\ModelDeconstructOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelAddElementsSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelAddElementsOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelCreateSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstruct2OBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstructOBSOLETE.cs" />
     <Compile Include="Info\Info.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
@@ -170,9 +182,10 @@
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
+    <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
     <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
-    <Compile Include="Model\ModelCreateOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
@@ -242,17 +255,9 @@
     <Compile Include="Supports\SurfaceSupportDefine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
-      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
-      <Name>FemDesign.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -716,6 +721,7 @@
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -734,6 +740,22 @@
     <None Include="Resources\icons\CalculateFootfall.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
+    <None Include="Resources\icons\CombineLoadGroups.bmp" />
+    <None Include="Resources\icons\LoadCategory.bmp" />
+    <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
+    <Content Include="Resources\icons\LoadGroup.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
+      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
+      <Name>FemDesign.Core</Name>
+    </ProjectReference>
     <None Include="Resources\icons\Help.bmp" />
   </ItemGroup>
   <ItemGroup>
