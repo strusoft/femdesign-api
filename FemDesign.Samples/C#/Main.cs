@@ -28,8 +28,9 @@ namespace FemDesign.Samples
 
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
-            ChangeLengthOfBeam();
+            //ChangeLengthOfBeam();
             //RunAnalysis();
+            ParametricStudy();
         }
     }
 }
