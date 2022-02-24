@@ -97,6 +97,7 @@
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\ResultTypeEnum.cs" />
     <Compile Include="Results\IResult.cs" />

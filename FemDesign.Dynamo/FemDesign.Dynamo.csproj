@@ -495,6 +495,9 @@
     <Compile Include="..\FemDesign.Core\ModellingTools\SurfaceConnection.cs">
       <Link>Core\ModellingTools\SurfaceConnection.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Reinforcement\BarReinforcement.cs">
       <Link>Core\Reinforcement\BarReinforcement.cs</Link>
     </Compile>
@@ -770,6 +773,7 @@
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
+    <Compile Include="Dynamo\Info\Info.cs" />
     <Compile Include="Dynamo\LibraryItems\ConnectionTypes.cs" />
     <Compile Include="Dynamo\Loads\ForceLoadType.cs" />
     <Compile Include="Dynamo\Loads\Footfall.cs" />
@@ -939,14 +943,14 @@
       <DynamoMigrations Include="$(ProjectDir)PackageData\FemDesign.Dynamo.migrations.xml" />
       <Pkg Include="$(ProjectDir)PackageData\pkg.json" />
     </ItemGroup>
-    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(Configs)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(DynamoCustomization)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(DynamoMigrations)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\bin\" />
-    <Copy SourceFiles="@(Pkg)" DestinationFolder="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\" />
-    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\dyf" />
-    <MakeDir Directories="$(appdata)\Dynamo\Dynamo Core\2.10\packages\FemDesign\extra" />
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoCustomization)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(DynamoMigrations)" DestinationFolder="$(OutDir)\FemDesign\bin\" />
+    <Copy SourceFiles="@(Pkg)" DestinationFolder="$(OutDir)\FemDesign\" />
+    <MakeDir Directories="$(OutDir)\FemDesign\dyf" />
+    <MakeDir Directories="$(OutDir)\FemDesign\extra" />
   </Target>
 </Project>
