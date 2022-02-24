@@ -31,6 +31,7 @@ namespace FemDesign.Samples
             //ChangeLengthOfBeam();
             //RunAnalysis();
             ParametricStudy();
+            //CostOptimizationOfSlab();
         }
     }
 }

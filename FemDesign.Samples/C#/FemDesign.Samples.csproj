@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\FemDesign.Core\FemDesign.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExampleModels\output\" />
+  </ItemGroup>
+
 </Project>
