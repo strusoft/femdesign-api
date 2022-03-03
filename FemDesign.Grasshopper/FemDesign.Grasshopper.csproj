@@ -97,6 +97,8 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Loads\LineLoadForce.cs" />
+    <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
     <Compile Include="Loads\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
@@ -153,8 +155,8 @@
     <Compile Include="Deconstruct\WireDeconstruct.cs" />
     <Compile Include="Geometry\Convert.cs" />
     <Compile Include="Loads\FootfallSelfExcitation.cs" />
-    <Compile Include="Loads\LineLoadForce.cs" />
-    <Compile Include="Loads\LineLoadMoment.cs" />
+    <Compile Include="Obsolete\LineLoadForceOBSOLETE.cs" />
+    <Compile Include="Obsolete\LineLoadMomentOBSOLETE.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
     <Compile Include="Loads\LoadCaseCreate.cs" />
     <Compile Include="Loads\LoadCaseGetLoadCaseByName.cs" />
@@ -193,6 +195,8 @@
     <Compile Include="Model\ModelReadStr.cs" />
     <Compile Include="Model\ModelReadStruxml.cs" />
     <Compile Include="Model\ModelSave.cs" />
+    <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
+    <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

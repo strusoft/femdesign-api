@@ -86,10 +86,7 @@ namespace FemDesign.Loads
             
         }
 
-        /// <summary>
-        /// Internal constructor.
-        /// </summary>
-        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d f0, Geometry.FdVector3d f1, LoadCase loadCase, string comment, bool constLoadDir, bool loadProjection, ForceLoadType loadType)
+        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
             this.LoadCase = loadCase.Guid;
@@ -99,7 +96,23 @@ namespace FemDesign.Loads
             this.LoadType = loadType;
             this.Edge = edge;
             this.Normal = edge.CoordinateSystem.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
-            this.SetStartAndEndForces(f0, f1);
+            this.SetStartAndEndForces(constantForce, constantForce);
+        }
+
+        /// <summary>
+        /// Internal constructor.
+        /// </summary>
+        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d startForce, Geometry.FdVector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            this.EntityCreated();
+            this.LoadCase = loadCase.Guid;
+            this.Comment = comment;
+            this.ConstantLoadDirection = constLoadDir;
+            this.LoadProjection = loadProjection;
+            this.LoadType = loadType;
+            this.Edge = edge;
+            this.Normal = edge.CoordinateSystem.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
+            this.SetStartAndEndForces(startForce, endForce);
         }
 
         internal void SetStartAndEndForces(Geometry.FdVector3d startForce, Geometry.FdVector3d endForce)
@@ -143,8 +156,6 @@ namespace FemDesign.Loads
                     throw new System.ArgumentException($"StartForce and EndForce must be parallel or antiparallel.");
                 }
             }
-        }
-
-        
+        }        
     }
 }

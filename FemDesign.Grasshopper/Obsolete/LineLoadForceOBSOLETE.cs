@@ -6,9 +6,10 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForce: GH_Component
+    public class LineLoadForceOBSOLETE: GH_Component
     {
-        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+        public LineLoadForceOBSOLETE(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
         {
 
         }
@@ -21,8 +22,6 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction of load will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -32,41 +31,39 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // get data
             Curve curve = null;
-            if (!DA.GetData("Curve", ref curve)) return;
+            if (!DA.GetData(0, ref curve)) return;
 
             Vector3d startForce = Vector3d.Zero;
-            if (!DA.GetData("StartForce", ref startForce)) return;
+            if (!DA.GetData(1, ref startForce)) return;
 
             Vector3d endForce = Vector3d.Zero;
-            if (!DA.GetData("EndForce", ref endForce))
+            if (!DA.GetData(2, ref endForce))
             {
                 // if no data set endForce to startForce to create a uniform line load.
                 endForce = startForce;
             }
 
-            Loads.LoadCase loadCase = null;
-            if (!DA.GetData("LoadCase", ref loadCase)) return;
+            FemDesign.Loads.LoadCase loadCase = null;
+            if (!DA.GetData(3, ref loadCase)) return;
 
             bool constLoadDir = true;
-            DA.GetData("ConstLoadDir", ref constLoadDir);
-
-            bool loadProjection = true;
-            DA.GetData("LoadProjection", ref loadProjection);
-
+            DA.GetData(4, ref constLoadDir);
+            
             string comment = null;
-            DA.GetData("Comment", ref comment);
+            DA.GetData(5, ref comment);
 
             if (curve == null || startForce == null || endForce == null || loadCase == null) return;
 
-            Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = startForce.FromRhino();
-            Geometry.FdVector3d _endForce = endForce.FromRhino();
+            FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
+            FemDesign.Geometry.FdVector3d _startForce = startForce.FromRhino();
+            FemDesign.Geometry.FdVector3d _endForce = endForce.FromRhino();
 
             try
             {
-                var obj = new Loads.LineLoad(edge, _startForce, _endForce, loadCase, Loads.ForceLoadType.Force, comment, constLoadDir, loadProjection);
-                DA.SetData("LineLoad", obj);
+                var obj = new FemDesign.Loads.LineLoad(edge, _startForce, _endForce, loadCase, Loads.ForceLoadType.Force, comment, constLoadDir, false);
+                DA.SetData(0, obj);
             }
             catch (ArgumentException e)
             {
@@ -82,7 +79,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("41b4dc32-d3c1-474d-9cfd-843fc18b799f"); }
+            get { return new Guid("5ef58ff2-2480-4df9-923a-ecad75abf2b2"); }
         }
     }
 }
