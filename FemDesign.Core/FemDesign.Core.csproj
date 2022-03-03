@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -100,6 +101,7 @@
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
     <Compile Include="Results\ShellsDisplacement.cs" />
+    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\ResultTypeEnum.cs" />
     <Compile Include="Results\IResult.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="GenericClasses\IStructureElement.cs" />
     <Compile Include="GenericClasses\LibraryBase.cs" />
     <Compile Include="GenericClasses\LocationValue.cs" />
+    <Compile Include="GenericClasses\ModelLoadCaseComparer.cs" />
     <Compile Include="GenericClasses\RestrictedDouble.cs" />
     <Compile Include="GenericClasses\RestrictedInteger.cs" />
     <Compile Include="GenericClasses\RestrictedObject.cs" />
@@ -138,12 +141,24 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
+    <Compile Include="Loads\LoadCombinationTable.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
+    <Compile Include="Loads\LoadCombinationType.cs" />
+    <Compile Include="Loads\LoadGroupBase.cs" />
+    <Compile Include="Loads\LoadGroupRelationship.cs" />
+    <Compile Include="Loads\LoadGroupTable.cs" />
+    <Compile Include="Loads\LoadGroupType.cs" />
     <Compile Include="Loads\LoadDirTypeEnum.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
+    <Compile Include="Loads\LoadCategory.cs" />
+    <Compile Include="Loads\LoadCategories.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
+    <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
     <Compile Include="Loads\ModelLoadCase.cs" />
+    <Compile Include="Loads\ModelGeneralLoadGroup.cs" />
+    <Compile Include="Loads\LoadGroupPermanent.cs" />
+    <Compile Include="Loads\LoadGroupTemporary.cs" />
     <Compile Include="Loads\PointLoad.cs" />
     <Compile Include="Loads\PressureLoad.cs" />
     <Compile Include="Loads\SurfaceLoad.cs" />
@@ -160,6 +175,7 @@
     <Compile Include="Materials\LimitStresses.cs" />
     <Compile Include="Materials\Material.cs" />
     <Compile Include="Materials\MaterialBase.cs" />
+    <Compile Include="Loads\LoadCategoryDatabase.cs" />
     <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\Materials.cs" />
     <Compile Include="Materials\MaterialTypeEnum.cs" />
@@ -189,6 +205,11 @@
     <Compile Include="Model\Entities.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reinforcement\BarReinforcement.cs" />
     <Compile Include="Reinforcement\Center.cs" />
     <Compile Include="Reinforcement\Centric.cs" />
@@ -262,6 +283,10 @@
     <Compile Include="Supports\SurfaceSupport.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\materialLibrary\materials_D.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_DK.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_EST.struxml" />
@@ -271,11 +296,15 @@
     <EmbeddedResource Include="Resources\materialLibrary\materials_N.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_PL.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_RO.struxml" />
-    <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_TR.struxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

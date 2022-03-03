@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace FemDesign.Loads
 {

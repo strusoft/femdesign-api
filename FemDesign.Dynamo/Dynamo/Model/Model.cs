@@ -52,7 +52,7 @@ namespace FemDesign
 
             // Add entities
             var _supports = supports.Cast<ISupportElement>().ToList();
-            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, overwrite);
+            clone.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, null, overwrite);
             return clone;
         }
 
@@ -104,7 +104,7 @@ namespace FemDesign
             // Create model
             Model model = new Model(EnumParser.Parse<Country>(countryCode));
             var _supports = supports.Cast<GenericClasses.ISupportElement>().ToList();
-            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, false);
+            model.AddEntities(bars, fictitiousBars, shells, fictitiousShells, panels, covers, loads, loadCases, loadCombinations, _supports, storeys, axes, null, false);
             return model;
         }
 
@@ -174,12 +174,10 @@ namespace FemDesign
         public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPaths, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
         {
             // Create Bsc files from resultTypes
-            var caseListProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
-            var combinationListProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
-            var listProcs = caseListProcs.Concat(combinationListProcs);
+            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
             var dir = System.IO.Path.GetDirectoryName(strPath);
-            var batchResults = listProcs.Select(lp => new Calculate.Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dir}\\{l}.bsc")));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript

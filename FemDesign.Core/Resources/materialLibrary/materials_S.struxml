@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<database struxml_version="01.00.000" source_software="FEM-Design 19.00.001" start_time="1970-01-01T00:00:00.000" end_time="2018-08-28T10:02:01.000" guid="6d2391ed-8fea-45a7-8da1-e3888f48dd36" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+<!-- (c) StruSoft 2012-2020, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 20.00.003" start_time="1970-01-01T00:00:00.000" end_time="2021-08-19T09:37:19.000" guid="817e29f2-3d94-49f3-8e64-cf6fc73b5760" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
 	<materials>
 	</materials>
 	<reinforcing_materials>
 	</reinforcing_materials>
-	<end></end>
 	<end></end>
 </database>

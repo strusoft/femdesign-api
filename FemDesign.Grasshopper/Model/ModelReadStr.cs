@@ -43,12 +43,10 @@ namespace FemDesign.Grasshopper
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
             // Create Bsc files from resultTypes
-            var caseListProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.CaseListProcs[r]);
-            var combinationListProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.CombinationListProcs[r]);
-            var listProcs = caseListProcs.Concat(combinationListProcs);
+            var listProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
             var dir = System.IO.Path.GetDirectoryName(filePath);
-            var batchResults = listProcs.Select(lp => new Calculate.Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dir}\\{l}.bsc")));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript
