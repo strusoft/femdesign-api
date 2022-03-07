@@ -59,19 +59,13 @@ namespace FemDesign.Grasshopper
             FemDesign.Loads.LoadCategory psi = null;
 
             if (!DA.GetData(0, ref name)) { return; }
-            if (!DA.GetData(1, ref type))
-            {
-                // pass
-            }
+            DA.GetData(1, ref type);
             if (!DA.GetDataList(2, loadCases)) { return; }
-            if (!DA.GetData(3, ref psi))
-            {
-                // pass
-            }
+            DA.GetData(3, ref psi);
             if (!DA.GetData(4, ref unfavourableSafetyFactor)) { return; }
-            if (!DA.GetData(5, ref favourableSafetyFactor))
-            if (!DA.GetData(6, ref unfavourableSafetyFactorAccidental))
-            if (!DA.GetData(7, ref favourableSafetyFactorAccidental))
+            DA.GetData(5, ref favourableSafetyFactor);
+            DA.GetData(6, ref unfavourableSafetyFactorAccidental);
+            DA.GetData(7, ref favourableSafetyFactorAccidental);
             if (!DA.GetData(8, ref loadCaseRelation)) { return; }
             if (!DA.GetData(9, ref xi))
             {
