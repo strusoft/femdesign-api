@@ -593,7 +593,7 @@ namespace FemDesign.Results
             double length = double.Parse(row[7], CultureInfo.InvariantCulture);
             double width = double.Parse(row[8], CultureInfo.InvariantCulture);
             double area = double.Parse(row[9], CultureInfo.InvariantCulture);
-            double weight = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double weight = double.Parse(row[10], CultureInfo.InvariantCulture);
             int count = int.Parse(row[11], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[12], CultureInfo.InvariantCulture);
             return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, weight, area, totalWeight, count);
