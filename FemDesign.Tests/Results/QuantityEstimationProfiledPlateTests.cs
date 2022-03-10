@@ -38,6 +38,9 @@ TOTAL											28	6.679
             Assert.IsTrue(results.Count == 10, "Should read all results");
             Assert.IsTrue(results.All(r => r.GetType() == typeof(QuantityEstimationProfiledPlate)));
 
+            var _results = results.Cast<QuantityEstimationProfiledPlate>().ToList();
+            Assert.AreEqual(_results.First().Area, 2394000, 1e-6);
+            
             File.Delete(path);
         }
 

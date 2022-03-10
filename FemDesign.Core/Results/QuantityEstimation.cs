@@ -529,22 +529,22 @@ namespace FemDesign.Results
         /// </summary>
         public double Width { get; }
         /// <summary>
-        /// Height of plate
+        /// Weight of single plate
         /// </summary>
-        public double Height { get; }
+        public double Weight { get; }
         /// <summary>
         /// Area of the plate
         /// </summary>
         public double Area { get; }
         /// <summary>
-        /// Total weight
+        /// Total weight of all plates
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
         /// Count/Sum of sections
         /// </summary>
         public int Count { get; }
-        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, string type, double length, double width, double height, double area, double totalWeight, int count)
+        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, string type, double length, double width, double weight, double area, double totalWeight, int count)
         {
             Storey = storey;
             Structure = structure;
@@ -554,7 +554,7 @@ namespace FemDesign.Results
             Type = type;
             Length = length;
             Width = width;
-            Height = height;
+            Weight = weight;
             Area = area;
             TotalWeight = totalWeight;
             Count = count;
@@ -592,11 +592,11 @@ namespace FemDesign.Results
             string type = row[6];
             double length = double.Parse(row[7], CultureInfo.InvariantCulture);
             double width = double.Parse(row[8], CultureInfo.InvariantCulture);
-            double height = double.Parse(row[9], CultureInfo.InvariantCulture);
-            double area = double.Parse(row[10], CultureInfo.InvariantCulture);
+            double area = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double weight = double.Parse(row[9], CultureInfo.InvariantCulture);
             int count = int.Parse(row[11], CultureInfo.InvariantCulture);
-            double weight = double.Parse(row[12], CultureInfo.InvariantCulture);
-            return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, height, area, weight, count);
+            double totalWeight = double.Parse(row[12], CultureInfo.InvariantCulture);
+            return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, weight, area, totalWeight, count);
         }
     }
 }
