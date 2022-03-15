@@ -51,7 +51,7 @@ Future versioning will be using the following structure: `major.minor.patch` whe
 The FEM-Design API repository is developed and maintained by StruSoft. 
 
 ## Disclaimer
-In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package.
+In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package. 😊
 
 ## License
 [LICENSE.md](LICENSE)
