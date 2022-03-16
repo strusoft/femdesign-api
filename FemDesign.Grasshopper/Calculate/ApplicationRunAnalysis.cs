@@ -24,7 +24,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("CloseOpenWindows", "CloseOpenWindows", "If true all open windows will be closed without prior warning.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }
@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
             string docxTemplatePath = "";
             bool endSession = false;
             bool closeOpenWindows = false;
-            bool runNode = true;
+            bool runNode = false;
 
             // get data
             if(!DA.GetData(0, ref model))
@@ -77,7 +77,7 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (model == null || filePath == null || analysis == null || runNode == false)
+            if (model == null || filePath == null || analysis == null)
             {
                 return;
             }

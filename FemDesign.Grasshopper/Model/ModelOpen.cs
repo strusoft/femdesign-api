@@ -64,8 +64,6 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-
-                // throw new System.ArgumentException("RunNode is set to false!");
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
             }
         }
