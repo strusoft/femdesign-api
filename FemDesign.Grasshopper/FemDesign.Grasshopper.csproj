@@ -778,8 +778,8 @@
   <Target Name="AfterBuild">
     <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <ItemGroup>
-      <Dlls Include="$(OutDir)*.dll" />
-      <Ghas Include="$(OutDir)*.gha" />
+      <Dlls Include="$(OutDir)FemDesign.*.dll" />
+      <Ghas Include="$(OutDir)FemDesign.*.gha" />
       <Pdbs Include="$(OutDir)*.pdb" />
       <Xmls Include="$(OutDir)*.xml" />
     </ItemGroup>
