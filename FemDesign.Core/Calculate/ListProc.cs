@@ -132,11 +132,22 @@ namespace FemDesign.Calculate
         /// RC design: Shell, Crack width
         /// </summary>
         [XmlEnum("RCShellCrackWidthCmax_ListProc")]
-        RCDesignMaxCombShellCrackWidth,
+        RCDesignShellCrackWidthMaxComb,
+        /// <summary>
+        /// RC design: Shell, Utilization
+        /// </summary>
+        [XmlEnum("RCShellUtilizationCmax_ListProc")]
+        RCDesignShellUtilizationMaxComb,
+
         /// <summary>
         /// RC design: Shell, Crack width
         /// </summary>
-        [XmlEnum("RCShellUtilizationCmax_ListProc")]
-        RCDesignMaxCombShellUtilization,
+        [XmlEnum("RCShellCrackWidthComb_ListProc")]
+        RCDesignShellCrackWidthLoadCombination,
+        /// <summary>
+        /// RC design: Shell, Utilization.
+        /// </summary>
+        [XmlEnum("RCShellUtilizationComb_ListProc")]
+        RCDesignShellUtilizationLoadCombination,
     }
 }
