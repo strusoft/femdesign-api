@@ -96,10 +96,18 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            model.SerializeModel(filePath);
-            analysis.SetLoadCombinationCalculationParameters(model);
-            bool rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows);
-            DA.SetData(0, rtn);
+            if (runNode)
+            {
+                model.SerializeModel(filePath);
+                analysis.SetLoadCombinationCalculationParameters(model);
+                bool rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows);
+                DA.SetData(0, rtn);
+            }
+            else
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+            }
+
         }
         protected override System.Drawing.Bitmap Icon
         {
