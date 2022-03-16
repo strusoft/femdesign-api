@@ -740,6 +740,15 @@
   <ItemGroup>
     <None Include="Resources\fem-design.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fdlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fem-design-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
