@@ -85,7 +85,6 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
         // vehicle_types
         // bolt_types
-        // geometry order
         [XmlElement("geometry", Order = 16)]
         public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
 
