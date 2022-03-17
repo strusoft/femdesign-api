@@ -666,6 +666,9 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>
     </Compile>

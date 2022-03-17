@@ -85,9 +85,14 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
         // vehicle_types
         // bolt_types
-        // geometry
+        // geometry order
+        [XmlElement("geometry", Order = 16)]
+        public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
 
-        [XmlElement("end", Order = 16)]
+        // user_defined_filter
+        // user_defined_views
+
+        [XmlElement("end", Order = 17)]
         public string End { get; set; }
 
         /// <summary>
