@@ -62,7 +62,7 @@ namespace FemDesign
         [XmlElement("reinforcing_materials", Order = 4)]
         public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
         [XmlElement("composites", Order = 5)]
-        public List<StruSoft.Interop.StruXml.Data.Composite_type> Composites { get; set; }
+        public StruSoft.Interop.StruXml.Data.DatabaseComposites Composites { get; set; }
         [XmlElement("point_connection_types", Order = 6)]
         public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set; }
         [XmlElement("point_support_group_types", Order = 7)]
@@ -99,7 +99,7 @@ namespace FemDesign
         public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters{ get; set;}
 
         [XmlElement("user_defined_views", Order = 20)]
-        public List<StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views> UserDefinedViews{ get; set;}
+        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews{ get; set;}
 
         [XmlElement("end", Order = 21)]
         public string End { get; set; }
