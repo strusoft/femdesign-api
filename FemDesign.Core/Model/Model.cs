@@ -90,7 +90,7 @@ namespace FemDesign
         public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes{ get; set;}
 
         [XmlElement("bolt_types", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Bolt_data_type> BoltTypes{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes{ get; set;}
 
         [XmlElement("geometry", Order = 18)]
         public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
