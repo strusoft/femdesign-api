@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Linq;
+
 
 namespace FemDesign.Calculate
 {
@@ -242,11 +244,8 @@ namespace FemDesign.Calculate
         /// <param name="model"></param>
         public void SetLoadCombinationCalculationParameters(FemDesign.Model model)
         {
-            List<Loads.LoadCombination> loadCombinations = model.Entities.Loads.LoadCombinations;
-            foreach(Loads.LoadCombination _loadCombination in loadCombinations)
-            {
-                this.Comb.AddLoadCombinationParameters(_loadCombination);
-            }
+            this.Comb.CombItem.Clear();
+            this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
         }
 
     }

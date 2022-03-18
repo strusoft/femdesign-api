@@ -353,13 +353,7 @@ namespace FemDesign
                 }
             }
 
-            if (loadCombinations != null)
-            {
-                foreach (Loads.LoadCombination loadCombination in loadCombinations)
-                {
-                    this.AddLoadCombination(loadCombination, overwrite);
-                }
-            }
+            this.AddLoadCombinations(loadCombinations, true);
 
             if (supports != null)
             {
@@ -1365,6 +1359,21 @@ namespace FemDesign
             if (loadCombinations != null)
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                     this.AddLoadCombination(loadCombination, overwrite);
+            
+            this.CheckCombItems();
+        }
+
+        /// <summary>
+        /// Check if any load combination has a combItem object.
+        /// if it does throw exception if not all of them has a combItem.
+        /// Either only combItems or no combItems :)
+        /// </summary>
+        private void CheckCombItems()
+        {
+            if (this.Entities.Loads.LoadCombinations.Any(x => x.CombItem != null) && this.Entities.Loads.LoadCombinations.Any(x => x.CombItem == null))
+                {
+                    throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
+                }  
         }
 
         /// <summary>

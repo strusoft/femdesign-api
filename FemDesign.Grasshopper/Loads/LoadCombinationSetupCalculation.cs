@@ -97,10 +97,12 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            loadCombination.CombItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, waterlevel);
+            var clone = loadCombination.DeepClone();
+
+            clone.CombItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, waterlevel);
 
             // return
-            DA.SetData(0, loadCombination);
+            DA.SetData(0, clone);
 
         }
         protected override System.Drawing.Bitmap Icon
