@@ -353,7 +353,7 @@ namespace FemDesign
                 }
             }
 
-            this.AddLoadCombinations(loadCombinations, true);
+            this.AddLoadCombinations(loadCombinations, overwrite);
 
             if (supports != null)
             {
