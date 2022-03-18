@@ -62,7 +62,7 @@ namespace FemDesign
         [XmlElement("reinforcing_materials", Order = 4)]
         public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
         [XmlElement("composites", Order = 5)]
-        public List<DummyXmlObject> Composites { get { return null; } set { value = null; } }
+        public StruSoft.Interop.StruXml.Data.DatabaseComposites Composites { get; set; }
         [XmlElement("point_connection_types", Order = 6)]
         public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set; }
         [XmlElement("point_support_group_types", Order = 7)]
@@ -79,19 +79,29 @@ namespace FemDesign
         public Materials.OrthotropicPanelTypes OrthotropicPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 13)]
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
+        
         [XmlElement("clt_panel_types", Order = 14)]
         public Materials.CltPanelTypes CltPanelTypes { get; set; }
+
         [XmlElement("ptc_strand_types", Order = 15)]
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
-        // vehicle_types
-        // bolt_types
-        [XmlElement("geometry", Order = 16)]
+
+        [XmlElement("vehicle_types", Order = 16)]
+        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes{ get; set;}
+
+        [XmlElement("bolt_types", Order = 17)]
+        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes{ get; set;}
+
+        [XmlElement("geometry", Order = 18)]
         public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
 
-        // user_defined_filter
-        // user_defined_views
+        [XmlElement("user_defined_filter", Order = 19)]
+        public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters{ get; set;}
 
-        [XmlElement("end", Order = 17)]
+        [XmlElement("user_defined_views", Order = 20)]
+        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews{ get; set;}
+
+        [XmlElement("end", Order = 21)]
         public string End { get; set; }
 
         /// <summary>
