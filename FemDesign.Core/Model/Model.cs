@@ -2577,15 +2577,15 @@ namespace FemDesign
                 // set type on barPart
                 item.BarPart.Type = item.Type;
 
-                // get complex section
-                if (item.Type != Bars.BarType.Truss)
+                // get complex section if item has complex section
+                //if (item.Type != Bars.BarType.Truss && item.HasNotCompositeSection)
+                if (item.Type != Bars.BarType.Truss && !item.BarPart.HasComplexCompositeRef)
                 {
                     foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
                     {
-                        var complexSectionClone = complexSection.DeepClone();
                         if (complexSection.Guid == item.BarPart.ComplexSectionRef)
                         {
-                            item.BarPart.ComplexSection = complexSectionClone;
+                            item.BarPart.ComplexSection = complexSection.DeepClone();
                         }
                     }
 
@@ -2594,6 +2594,13 @@ namespace FemDesign
                     {
                         throw new System.ArgumentException("No matching complex section found. Model.GetBars() failed.");
                     }
+                }
+                // get composite section if item has composite section
+                else if (item.BarPart.HasComplexCompositeRef)
+                {
+                    throw new System.Exception("Section is composite complex but no method to get section implemented yet.");
+                    // is composite in db, if composite is not in db throw error
+                    // ask alexander about using dictionary method.
                 }
 
 

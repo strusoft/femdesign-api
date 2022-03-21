@@ -496,6 +496,22 @@ namespace FemDesign.Bars
             }
         }
 
+        [XmlIgnore]
+        public bool HasComplexCompositeRef
+        {
+            get
+            {
+                if (this.ComplexCompositeRef == System.Guid.Empty)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         /// <summary>
         /// Material field
         /// </summary>
@@ -556,6 +572,9 @@ namespace FemDesign.Bars
                 this._type = value;
             }
         }
+
+        [XmlAttribute("complex_composite")]
+        public System.Guid ComplexCompositeRef { get; set; } // guidtype
 
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialRef { get; set; } // guidtype
