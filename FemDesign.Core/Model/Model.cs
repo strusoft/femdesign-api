@@ -197,9 +197,9 @@ namespace FemDesign
             }
             catch (System.InvalidOperationException ex)
             {
-                if (ex.InnerException.GetType() == typeof(System.Reflection.TargetInvocationException))
+                if (ex.InnerException != null && ex.InnerException.GetType() == typeof(System.Reflection.TargetInvocationException))
                 {
-                    if (ex.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(Calculate.ProgramNotStartedException))
+                    if (ex.InnerException.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(Calculate.ProgramNotStartedException))
                     {
                         throw ex.InnerException.InnerException; // FEM-Design 21 - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script
                     }
