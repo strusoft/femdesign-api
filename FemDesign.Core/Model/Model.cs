@@ -193,11 +193,18 @@ namespace FemDesign
             object obj;
             try
             {
-                obj = deserializer.Deserialize(reader);
+                 obj = deserializer.Deserialize(reader);
             }
             catch (System.InvalidOperationException ex)
             {
-                throw ex;
+                if (ex.InnerException.GetType() == typeof(System.Reflection.TargetInvocationException))
+                {
+                    if (ex.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(Calculate.ProgramNotStartedException))
+                    {
+                        throw ex.InnerException.InnerException; // FEM-Design 21 - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script
+                    }
+                }
+                throw ex; // There is an error in XML document (3, 2).
             }
 
             // close reader
