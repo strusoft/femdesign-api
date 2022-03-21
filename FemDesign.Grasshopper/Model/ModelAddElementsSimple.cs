@@ -55,15 +55,6 @@ namespace FemDesign.Grasshopper
             bool overwrite = false;
             DA.GetData("Overwrite", ref overwrite);
 
-            // int LoadCombinationNumber = model.Entities.Loads.LoadCombinations.Count;
-            // int ModelLoadCombinationsNumber = loadCombinations.Count;
-
-            // if(LoadCombinationNumber != ModelLoadCombinationsNumber)
-            // {
-            //     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "make sure to have the same number of load combination");
-            // }
-
-
             var clone = model.DeepClone();
             clone.AddElements(elements, overwrite);
             clone.AddLoads(loads, overwrite);
