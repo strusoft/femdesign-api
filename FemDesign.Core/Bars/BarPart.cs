@@ -576,8 +576,26 @@ namespace FemDesign.Bars
         [XmlAttribute("complex_composite")]
         public System.Guid ComplexCompositeRef { get; set; } // guidtype
 
+        [XmlIgnore]
+        public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexComposite { get; set; }
+
+
+
+        [XmlAttribute("composite_section")]
+        public System.Guid CompositeSectionRef { get; set; } // guidtype
+
+        [XmlIgnore]
+        public List<StruSoft.Interop.StruXml.Data.Composite_section_type> CompositeSection { get; set; }
+
+
+
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialRef { get; set; } // guidtype
+
+
+
+
+        
 
         [XmlIgnore]
         private System.Guid _complexSectionRef;
