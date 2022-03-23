@@ -252,7 +252,6 @@
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
     <Compile Include="Strusoft\Interop\Struxml\Data\FD-21.00.001.cs" />
-    <Compile Include="Strusoft\Interop\Struxml\Data\Composite_part_type.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
