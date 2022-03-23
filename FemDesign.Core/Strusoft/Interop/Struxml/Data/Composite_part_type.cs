@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using System.Collections.Generic;
 using System;
 namespace StruSoft.Interop.StruXml.Data
 {
@@ -7,10 +8,10 @@ namespace StruSoft.Interop.StruXml.Data
     {
 
         [XmlIgnore]
-        public FemDesign.Materials.Material Material;
+        public List<FemDesign.Materials.Material> Material;
         
         [XmlIgnore]
-        public FemDesign.Sections.Section Section;
+        public List<FemDesign.Sections.Section> Section;
     }
 
 }
