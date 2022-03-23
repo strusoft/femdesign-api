@@ -104,6 +104,30 @@ namespace FemDesign
         [XmlElement("end", Order = 21)]
         public string End { get; set; }
 
+
+        //[XmlIgnore]
+        //private Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> _complexCompositeDict; 
+        //public Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict
+        //{
+        //    get
+        //    {
+        //        if (this._complexCompositeDict == null)
+        //        {
+        //           this._complexCompositeDict = this.Composites.Complex_composite.ToDictionary(x => Guid.Parse(x.Guid), x => x);
+        //           return this._complexCompositeDict
+        //        }
+        //        else
+        //        {
+        //            return this._complexCompositeDict;
+        //        }
+        //    }
+        //}
+
+        [XmlIgnore]
+        public var CompositeSectionDict { get; set; }
+
+
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -216,6 +240,9 @@ namespace FemDesign
             if (model.Entities == null) model.Entities = new Entities();
 
             // prepare elements with library references
+
+            model.ComplexCompositeToDict();
+            model.CompositeSectionToDict();
             model.GetBars();
             model.GetFictitiousShells();
             model.GetLineSupports();
@@ -2603,16 +2630,20 @@ namespace FemDesign
                         Guid CompositeGuid = Guid.Parse(complexComposite.Guid);
                         if(CompositeGuid == item.BarPart.ComplexCompositeRef)
                         {
-                            item.BarPart.ComplexComposite = complexComposite;
+                            // item.BarPart.ComplexComposite = complexComposite;
                             item.BarPart.CompositeSection = complexComposite.Composite_section;
                         }
                     }
+                    
+
 
                     if(item.BarPart.ComplexComposite == null)
                     {
                         throw new System.ArgumentException("No matching complex composite section found. Model.GetBars() failed.");
                     }
                 }
+
+                // item.BarPart.Composite_Data.Part = this.Composites.Composite_section;
 
                 // look for composite sections referenced in the complex composite(not complex composite section :))
                 // db: this.Composites.Composite_section
@@ -2745,6 +2776,42 @@ namespace FemDesign
 
             }
         }
+
+
+
+        internal Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeToDict()
+        {
+            Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict = new Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
+            foreach (var complexComposite in this.Composites.Complex_composite)
+            {
+                ComplexCompositeDict.Add(Guid.Parse(complexComposite.Guid), complexComposite);
+            }
+
+            return ComplexCompositeDict;
+        }
+
+
+        //internal void ComplexCompositeToDict()
+        //{
+        //    Dictionary<string, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict = new Dictionary<string, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
+        //    foreach (var complexComposite in this.Composites.Complex_composite)
+        //    {
+        //        ComplexCompositeDict.Add(complexComposite.Guid, complexComposite);
+        //    }
+
+        //}
+
+        internal Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data> CompositeSectionToDict()
+        {
+            Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data> CompositeSectionDict = new Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data>();
+            foreach (var compositeSection in this.Composites.Composite_section)
+            {
+                CompositeSectionDict.Add(Guid.Parse(compositeSection.Guid), compositeSection);
+            }
+
+            return CompositeSectionDict;
+        }
+
 
         /// <summary>
         /// Get FictitiousShells from Model.

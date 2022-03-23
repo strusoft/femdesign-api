@@ -8,10 +8,10 @@ namespace StruSoft.Interop.StruXml.Data
     {
 
         [XmlIgnore]
-        public List<FemDesign.Materials.Material> Material;
+        public FemDesign.Materials.Material Material;
         
         [XmlIgnore]
-        public List<FemDesign.Sections.Section> Section;
+        public FemDesign.Sections.Section Section;
     }
 
 }
