@@ -241,8 +241,6 @@ namespace FemDesign
 
             // prepare elements with library references
 
-            model.ComplexCompositeToDict();
-            model.CompositeSectionToDict();
             model.GetBars();
             model.GetFictitiousShells();
             model.GetLineSupports();
@@ -2599,93 +2597,59 @@ namespace FemDesign
         /// </summary>
         internal void GetBars()
         {
-            foreach (Bars.Bar item in this.Entities.Bars)
+            Dictionary<Guid, Sections.ComplexSection> complexSectionsMap = this.Sections.ComplexSection.ToDictionary(s => s.Guid, s => s.DeepClone());
+
+            Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid);
+
+            Dictionary<Guid, Reinforcement.BarReinforcement> reinforcementMap = this.Entities.BarReinforcements.ToDictionary(b => b.BaseBar.Guid);
+
+            Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
+
+            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
+
+            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> CompositeMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
+
+            foreach (Bars.Bar bar in this.Entities.Bars)
             {
-                // set type on barPart
-                item.BarPart.Type = item.Type;
+                // Set type on barPart
+                bar.BarPart.Type = bar.Type;
 
-                // get complex section if item has complex section
-                //if (item.Type != Bars.BarType.Truss && item.HasNotCompositeSection)
-                if (item.Type != Bars.BarType.Truss && !item.BarPart.HasComplexCompositeRef)
+                // Get complex section
+                if (bar.Type != Bars.BarType.Truss)
                 {
-                    foreach (FemDesign.Sections.ComplexSection complexSection in this.Sections.ComplexSection)
+                    try
                     {
-                        if (complexSection.Guid == item.BarPart.ComplexSectionRef)
-                        {
-                            item.BarPart.ComplexSection = complexSection.DeepClone();
-                        }
+                        bar.BarPart.ComplexSection = complexSectionsMap[bar.BarPart.ComplexSectionRef];
                     }
-
-                    // check if complex section found
-                    if (item.BarPart.ComplexSectionIsNull)
+                    catch (KeyNotFoundException)
                     {
-                        throw new System.ArgumentException("No matching complex section found. Model.GetBars() failed.");
+                        throw new ArgumentException("No matching complex section found. Model.GetBars() failed.");
                     }
-                }
-                // get composite section if item has composite section
-                else if (item.BarPart.HasComplexCompositeRef)
-                {
-                    foreach (var complexComposite in this.Composites.Complex_composite)
+                    catch (ArgumentNullException)
                     {
-                        Guid CompositeGuid = Guid.Parse(complexComposite.Guid);
-                        if(CompositeGuid == item.BarPart.ComplexCompositeRef)
-                        {
-                            // item.BarPart.ComplexComposite = complexComposite;
-                            item.BarPart.CompositeSection = complexComposite.Composite_section;
-                        }
-                    }
-                    
-
-
-                    if(item.BarPart.ComplexComposite == null)
-                    {
-                        throw new System.ArgumentException("No matching complex composite section found. Model.GetBars() failed.");
+                        throw new ArgumentNullException($"BarPart {bar.BarPart.Identifier} BarPart.ComplexSectionRef is null");
                     }
                 }
 
-                // item.BarPart.Composite_Data.Part = this.Composites.Composite_section;
 
-                // look for composite sections referenced in the complex composite(not complex composite section :))
-                // db: this.Composites.Composite_section
-                
-                // this.Composites.Complex_composite;
-                // this.Composites.Composite_section;
-                // item.BarPart.ComplexComposite.Composite_section.Select(x =>  x.Guid);
-                
-
-                // get material
-                foreach (Materials.Material material in this.Materials.Material)
+                // Get material
+                try
                 {
-                    if (material.Guid == item.BarPart.ComplexMaterialRef)
-                    {
-                        item.BarPart.Material = material;
-                    }
-
-                    foreach (var composite_section in item.BarPart.CompositeSection)
-                    {
-                        if (material.Guid == System.Guid.Parse(composite_section.Guid))
-                        {
-                            composite_section.Material = material;
-                        }
-
-                    }
+                    bar.BarPart.Material = materialMap[bar.BarPart.ComplexMaterialRef];
+                }
+                catch (KeyNotFoundException)
+                {
+                    throw new ArgumentException("No matching material found. Model.GetBars() failed.");
+                }
+                catch (ArgumentNullException)
+                {
+                    throw new ArgumentNullException($"BarPart {bar.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
                 }
 
-                // check if material found
-                if (item.BarPart.HasComplexCompositeRef)
-                {
-                    // throw new System.Exception("Section is composite complex but no method to get material part implemented yet.");
-                }
-                else if (item.BarPart.Material == null)
-                {
-                    throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
-                }
-
-
-                // get bar reinforcement
+                // Get bar reinforcement
                 foreach (Reinforcement.BarReinforcement barReinf in this.Entities.BarReinforcements)
                 {
-                    if (barReinf.BaseBar.Guid == item.BarPart.Guid)
+                    if (barReinf.BaseBar.Guid == bar.BarPart.Guid)
                     {
                         // get wire material
                         foreach (Materials.Material material in this.ReinforcingMaterials.Material)
@@ -2704,7 +2668,7 @@ namespace FemDesign
                         else
                         {
                             // add bar reinforcement to bar
-                            item.Reinforcement.Add(barReinf);
+                            bar.Reinforcement.Add(barReinf);
                         }
 
                     }
@@ -2713,7 +2677,7 @@ namespace FemDesign
                 // get ptc
                 foreach (Reinforcement.Ptc ptc in this.Entities.PostTensionedCables)
                 {
-                    if (ptc.BaseObject == item.BarPart.Guid)
+                    if (ptc.BaseObject == bar.BarPart.Guid)
                     {
                         // get strand material
                         foreach (Reinforcement.PtcStrandLibType material in this.PtcStrandTypes.PtcStrandLibTypes)
@@ -2732,84 +2696,31 @@ namespace FemDesign
                         else
                         {
                             // add ptc to bar
-                            item.Ptc.Add(ptc);
+                            bar.Ptc.Add(ptc);
                         }
                     }
                 }
 
-                // get section
-                if(!item.BarPart.HasComplexCompositeRef)
+                // Get section
+                try
                 {
-                    foreach (Sections.Section section in this.Sections.Section)
-                    {
-                        var sectionClone = section.DeepClone();
-                    
-                        if (item.BarPart.Type == Bars.BarType.Truss)
-                        {
-                            if (sectionClone.Guid == item.BarPart.ComplexSectionRef)
-                            {
-                                item.BarPart.StartSection = sectionClone;
-                                item.BarPart.EndSection = sectionClone;
-                            }
-                        }
-                        else
-                        {
-                            if (sectionClone.Guid == item.BarPart.ComplexSection.Section[0].SectionRef)
-                            {
-                                item.BarPart.StartSection = sectionClone;
-                            }
 
-                            if (sectionClone.Guid == item.BarPart.ComplexSection.Section.Last().SectionRef)
-                            {
-                                item.BarPart.EndSection = sectionClone;
-                            }
-                        }
-                    }
-                    // check if section found
-                
-                    if (item.BarPart.StartSection == null || item.BarPart.EndSection == null)
+                    if (bar.BarPart.Type == Bars.BarType.Truss)
                     {
-                        throw new System.ArgumentException("No matching section found. Model.GetBars() failed");
+                        bar.BarPart.StartSection = sectionsMap[bar.BarPart.ComplexSectionRef];
+                        bar.BarPart.EndSection = sectionsMap[bar.BarPart.ComplexSectionRef];
                     }
-
+                    else
+                    {
+                        bar.BarPart.StartSection = sectionsMap[bar.BarPart.ComplexSection.Section[0].SectionRef];
+                        bar.BarPart.EndSection = sectionsMap[bar.BarPart.ComplexSection.Section.Last().SectionRef];
+                    }
                 }
-
+                catch (KeyNotFoundException)
+                {
+                    throw new ArgumentException("No matching section found. Model.GetBars() failed.");
+                }
             }
-        }
-
-
-
-        internal Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeToDict()
-        {
-            Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict = new Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
-            foreach (var complexComposite in this.Composites.Complex_composite)
-            {
-                ComplexCompositeDict.Add(Guid.Parse(complexComposite.Guid), complexComposite);
-            }
-
-            return ComplexCompositeDict;
-        }
-
-
-        //internal void ComplexCompositeToDict()
-        //{
-        //    Dictionary<string, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict = new Dictionary<string, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
-        //    foreach (var complexComposite in this.Composites.Complex_composite)
-        //    {
-        //        ComplexCompositeDict.Add(complexComposite.Guid, complexComposite);
-        //    }
-
-        //}
-
-        internal Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data> CompositeSectionToDict()
-        {
-            Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data> CompositeSectionDict = new Dictionary<System.Guid, StruSoft.Interop.StruXml.Data.Composite_data>();
-            foreach (var compositeSection in this.Composites.Composite_section)
-            {
-                CompositeSectionDict.Add(Guid.Parse(compositeSection.Guid), compositeSection);
-            }
-
-            return CompositeSectionDict;
         }
 
 
