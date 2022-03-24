@@ -85,7 +85,6 @@
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Stage.cs" />
-    <Compile Include="CompositePart\CompositePart.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />
     <Compile Include="GenericClasses\VerticalAlignmentEnum.cs" />
@@ -253,6 +252,7 @@
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
     <Compile Include="Strusoft\Interop\Struxml\Data\FD-21.00.001.cs" />
+    <Compile Include="Strusoft\Interop\Struxml\Data\CompositePart.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
