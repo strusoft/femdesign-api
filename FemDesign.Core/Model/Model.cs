@@ -2634,27 +2634,34 @@ namespace FemDesign
                 }
                 else if(item.BarPart.HasComplexCompositeRef)
                 {
-                    item.BarPart.CompositeSection = complexCompositeMap[item.BarPart.ComplexCompositeRef].Composite_section;
-                    // item.BarPart.ComplexComposite = complexCompositeMap[item.BarPart.ComplexCompositeRef];
-                    foreach (var compSectionType in item.BarPart.CompositeSection)
+                    try
                     {
-                        item.BarPart.Composite_Data = compositeSectionMap[Guid.Parse(compSectionType.Guid)];
+                        item.BarPart.CompositeSection = complexCompositeMap[item.BarPart.ComplexCompositeRef].Composite_section;
+                        item.BarPart.ComplexComposite = complexCompositeMap[item.BarPart.ComplexCompositeRef];
+                        item.BarPart.Composite_Data = compositeSectionMap[Guid.Parse(item.BarPart.CompositeSection[0].Guid)]; // it works if start and end have the same section
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        throw new ArgumentException("No matching complex composite or composite section");
                     }
                 }
 
 
                 // Get material
-                try
+                if (!item.BarPart.ComplexSectionIsNull)
                 {
-                    item.BarPart.Material = materialMap[item.BarPart.ComplexMaterialRef];
-                }
-                catch (KeyNotFoundException)
-                {
-                    throw new ArgumentException("No matching material found. Model.GetBars() failed.");
-                }
-                catch (ArgumentNullException)
-                {
-                    throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
+                    try
+                    {
+                        item.BarPart.Material = materialMap[item.BarPart.ComplexMaterialRef];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        throw new ArgumentException("No matching material found. Model.GetBars() failed.");
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
+                    }
                 }
 
                 // Get bar reinforcement
@@ -2715,13 +2722,12 @@ namespace FemDesign
                 // Get section
                 try
                 {
-
                     if (item.BarPart.Type == Bars.BarType.Truss)
                     {
                         item.BarPart.StartSection = sectionsMap[item.BarPart.ComplexSectionRef];
                         item.BarPart.EndSection = sectionsMap[item.BarPart.ComplexSectionRef];
                     }
-                    else
+                    else if(!item.BarPart.ComplexSectionIsNull)
                     {
                         item.BarPart.StartSection = sectionsMap[item.BarPart.ComplexSection.Section[0].SectionRef];
                         item.BarPart.EndSection = sectionsMap[item.BarPart.ComplexSection.Section.Last().SectionRef];

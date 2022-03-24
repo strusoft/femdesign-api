@@ -577,7 +577,7 @@ namespace FemDesign.Bars
         public System.Guid ComplexCompositeRef { get; set; } // guidtype
 
         [XmlIgnore]
-        public List<StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexComposite { get; set; }
+        public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexComposite { get; set; }
 
 
 
