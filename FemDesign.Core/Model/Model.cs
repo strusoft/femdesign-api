@@ -576,6 +576,7 @@ namespace FemDesign
             return false;
         }
 
+
         /// <summary>
         /// Add ComplexSection (from Bar) to Model.
         /// </summary>
@@ -610,6 +611,7 @@ namespace FemDesign
             }
         }
 
+
         /// <summary>
         /// Check if ComplexSection in Model.
         /// </summary>
@@ -624,6 +626,120 @@ namespace FemDesign
             }
             return false;
         }
+
+
+        /// <summary>
+        /// Check if CompositeSection in Model.
+        /// </summary>
+        private bool CompositeSectionInModel(StruSoft.Interop.StruXml.Data.Composite_section_type obj)
+        {
+            foreach (var compositeSection in this.Composites.Composite_section)
+            {
+                if (compositeSection.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        ///// <summary>
+        ///// Add CompositeSection (from Bar) to Model.
+        ///// if ComplexComposite is present, also compositeSection will be created 
+        ///// </summary>
+        //private void AddCompositeSection(Bars.Bar bar, bool overwrite)
+        //{
+        //    if (!bar.BarPart.HasComplexCompositeRef)
+        //    {
+        //        // pass
+        //    }
+        //    else
+        //    {
+        //        // obj
+        //        var complexComposites = bar.BarPart.ComplexComposite;
+
+        //        // in model?
+        //        bool inModel = this.ComplexCompositeInModel(complexComposites);
+
+        //        // in model, don't overwrite
+        //        if (inModel && overwrite == false)
+        //        {
+        //            throw new System.ArgumentException($"{complexComposites.GetType().FullName} with guid: {complexComposites.Guid} has already been added to model. Are you adding the same element twice?");
+        //        }
+
+        //        // in model, overwrite
+        //        else if (inModel && overwrite == true)
+        //        {
+        //            this.Composites.Complex_composite.RemoveAll(x => x.Guid == complexComposites.Guid);
+        //        }
+
+        //        // add complex composite
+        //        this.Composites.Complex_composite.Add(complexComposites);
+        //    }
+        //}
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// Add ComplexComposite (from Bar) to Model.
+        /// if ComplexComposite is present, also compositeSection will be created 
+        /// </summary>
+        private void AddComplexComposite(Bars.Bar bar, bool overwrite)
+        {
+            if (!bar.BarPart.HasComplexCompositeRef)
+            {
+                // pass
+            }
+            else
+            {
+                // obj
+                var complexComposites = bar.BarPart.ComplexComposite;
+
+                // in model?
+                bool inModel = this.ComplexCompositeInModel(complexComposites);
+
+                // in model, don't overwrite
+                if (inModel && overwrite == false)
+                {
+                    throw new System.ArgumentException($"{complexComposites.GetType().FullName} with guid: {complexComposites.Guid} has already been added to model. Are you adding the same element twice?");
+                }
+
+                // in model, overwrite
+                else if (inModel && overwrite == true)
+                {
+                    this.Composites.Complex_composite.RemoveAll(x => x.Guid == complexComposites.Guid);
+                }
+
+                // add complex composite
+                this.Composites.Complex_composite.Add(complexComposites);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Check if ComplexComposite in Model.
+        /// </summary>
+        private bool ComplexCompositeInModel(StruSoft.Interop.StruXml.Data.Complex_composite_type obj)
+        {
+            foreach (var elem in this.Composites.Complex_composite)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
         /// <summary>
         /// Add Cover to Model.
@@ -2567,6 +2683,7 @@ namespace FemDesign
 
         #endregion
 
+
         #region deconstruct
         /// <summary>
         /// Get Bars from Model. 
@@ -2742,6 +2859,8 @@ namespace FemDesign
                 }
             }
         }
+
+        
 
         /// <summary>
         /// Get Slabs from Model.
