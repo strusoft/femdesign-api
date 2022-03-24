@@ -85,6 +85,7 @@
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Stage.cs" />
+    <Compile Include="CompositePart\CompositePart.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />
     <Compile Include="GenericClasses\VerticalAlignmentEnum.cs" />

@@ -2639,6 +2639,11 @@ namespace FemDesign
                         item.BarPart.CompositeSection = complexCompositeMap[item.BarPart.ComplexCompositeRef].Composite_section;
                         item.BarPart.ComplexComposite = complexCompositeMap[item.BarPart.ComplexCompositeRef];
                         item.BarPart.Composite_Data = compositeSectionMap[Guid.Parse(item.BarPart.CompositeSection[0].Guid)]; // it works if start and end have the same section
+                        foreach(var part in item.BarPart.Composite_Data.Part)
+                        {
+                            part.materialObj = materialMap[Guid.Parse(part.Material)];
+                            part.sectionObj = sectionsMap[Guid.Parse(part.Section)];
+                        }
                     }
                     catch (KeyNotFoundException)
                     {
