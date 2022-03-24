@@ -105,29 +105,6 @@ namespace FemDesign
         public string End { get; set; }
 
 
-        //[XmlIgnore]
-        //private Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> _complexCompositeDict; 
-        //public Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> ComplexCompositeDict
-        //{
-        //    get
-        //    {
-        //        if (this._complexCompositeDict == null)
-        //        {
-        //           this._complexCompositeDict = this.Composites.Complex_composite.ToDictionary(x => Guid.Parse(x.Guid), x => x);
-        //           return this._complexCompositeDict
-        //        }
-        //        else
-        //        {
-        //            return this._complexCompositeDict;
-        //        }
-        //    }
-        //}
-
-        //[XmlIgnore]
-        //public var CompositeSectionDict { get; set; }
-
-
-
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
