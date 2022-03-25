@@ -411,6 +411,12 @@ namespace FemDesign
                 this.Entities.Bars.RemoveAll(x => x.Guid == obj.Guid);
             }
 
+            // add complex Composite
+            if(obj.BarPart.HasComplexCompositeRef)
+            {
+                this.AddComplexComposite(obj.BarPart.ComplexComposite, overwrite);
+            }
+
             // add material
             this.AddMaterial(obj.BarPart.Material, overwrite);
 
@@ -631,114 +637,66 @@ namespace FemDesign
         /// <summary>
         /// Check if CompositeSection in Model.
         /// </summary>
-        private bool CompositeSectionInModel(StruSoft.Interop.StruXml.Data.Composite_section_type obj)
+        private void AddCompositeSection(StruSoft.Interop.StruXml.Data.Complex_composite_type obj, bool overwrite)
         {
-            foreach (var compositeSection in this.Composites.Composite_section)
+            // in model?
+            foreach (var compositeSection in obj.Composite_section)
             {
-                if (compositeSection.Guid == obj.Guid)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+                bool inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
 
-
-
-        ///// <summary>
-        ///// Add CompositeSection (from Bar) to Model.
-        ///// if ComplexComposite is present, also compositeSection will be created 
-        ///// </summary>
-        //private void AddCompositeSection(Bars.Bar bar, bool overwrite)
-        //{
-        //    if (!bar.BarPart.HasComplexCompositeRef)
-        //    {
-        //        // pass
-        //    }
-        //    else
-        //    {
-        //        // obj
-        //        var complexComposites = bar.BarPart.ComplexComposite;
-
-        //        // in model?
-        //        bool inModel = this.ComplexCompositeInModel(complexComposites);
-
-        //        // in model, don't overwrite
-        //        if (inModel && overwrite == false)
-        //        {
-        //            throw new System.ArgumentException($"{complexComposites.GetType().FullName} with guid: {complexComposites.Guid} has already been added to model. Are you adding the same element twice?");
-        //        }
-
-        //        // in model, overwrite
-        //        else if (inModel && overwrite == true)
-        //        {
-        //            this.Composites.Complex_composite.RemoveAll(x => x.Guid == complexComposites.Guid);
-        //        }
-
-        //        // add complex composite
-        //        this.Composites.Complex_composite.Add(complexComposites);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-        /// <summary>
-        /// Add ComplexComposite (from Bar) to Model.
-        /// if ComplexComposite is present, also compositeSection will be created 
-        /// </summary>
-        private void AddComplexComposite(Bars.Bar bar, bool overwrite)
-        {
-            if (!bar.BarPart.HasComplexCompositeRef)
-            {
-                // pass
-            }
-            else
-            {
-                // obj
-                var complexComposites = bar.BarPart.ComplexComposite;
-
-                // in model?
-                bool inModel = this.ComplexCompositeInModel(complexComposites);
 
                 // in model, don't overwrite
                 if (inModel && overwrite == false)
                 {
-                    throw new System.ArgumentException($"{complexComposites.GetType().FullName} with guid: {complexComposites.Guid} has already been added to model. Are you adding the same element twice?");
+                    throw new System.ArgumentException($"{compositeSection.GetType().FullName} with guid: {compositeSection.Guid} has already been added to model. Are you adding the same element twice?");
                 }
 
                 // in model, overwrite
                 else if (inModel && overwrite == true)
                 {
-                    this.Composites.Complex_composite.RemoveAll(x => x.Guid == complexComposites.Guid);
+                    this.Composites.Composite_section.RemoveAll(x => x.Guid == compositeSection.Guid);
                 }
 
                 // add complex composite
-                this.Composites.Complex_composite.Add(complexComposites);
+                this.Composites.Composite_section.Add(compositeSection.compositeSectionDataObj);
+                foreach(var part in compositeSection.compositeSectionDataObj.Part)
+                {
+                    this.AddMaterial(part.materialObj, overwrite);
+                    this.AddSection(part.sectionObj, overwrite);
+                }
             }
         }
 
 
 
         /// <summary>
-        /// Check if ComplexComposite in Model.
+        /// Add ComplexComposite to Model.
+        /// if ComplexComposite is present, also compositeSection will be created 
         /// </summary>
-        private bool ComplexCompositeInModel(StruSoft.Interop.StruXml.Data.Complex_composite_type obj)
+        private void AddComplexComposite(StruSoft.Interop.StruXml.Data.Complex_composite_type obj, bool overwrite)
         {
-            foreach (var elem in this.Composites.Complex_composite)
-            {
-                if (elem.Guid == obj.Guid)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+            // in model?
+            // bool inModel = this.ComplexCompositeInModel(obj);
+            bool inModel = this.Composites.Complex_composite.Any(x => x.Guid == obj.Guid);
 
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Composites.Complex_composite.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add complex composite
+            this.Composites.Complex_composite.Add(obj);
+
+            this.AddCompositeSection(obj, overwrite);
+        }
 
 
         /// <summary>
@@ -2714,7 +2672,7 @@ namespace FemDesign
                 item.BarPart.Type = item.Type;
 
                 // Get complex section
-                if (item.Type != Bars.BarType.Truss && !item.BarPart.ComplexSectionIsNull)
+                if (item.Type != Bars.BarType.Truss && !item.BarPart.HasComplexCompositeRef)
                 {
                     try
                     {
@@ -2743,6 +2701,7 @@ namespace FemDesign
                         }
 
                         // assign the material object to the Composite_part_type
+                        // it might be clever to move this method outside the loop and call it (add compositePart)
                         foreach (var compositeData in this.Composites.Composite_section)
                         {
                             foreach (var compositePart in compositeData.Part)
