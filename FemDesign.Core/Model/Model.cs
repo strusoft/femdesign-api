@@ -2699,11 +2699,14 @@ namespace FemDesign
 
             Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
 
-            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s);
+            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
+            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> compositeSectionMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data>();
 
-            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s);
-
-            // Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_section_type> compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s);
+            if (this.Composites != null)
+            {
+                complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s);
+                compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s);
+            }
 
             foreach (Bars.Bar item in this.Entities.Bars)
             {
@@ -2730,14 +2733,25 @@ namespace FemDesign
                 {
                     try
                     {
-                        item.BarPart.CompositeSection = complexCompositeMap[item.BarPart.ComplexCompositeRef].Composite_section;
+                        // assign the Object Complex Composite to the bar part
                         item.BarPart.ComplexComposite = complexCompositeMap[item.BarPart.ComplexCompositeRef];
-                        item.BarPart.Composite_Data = compositeSectionMap[Guid.Parse(item.BarPart.CompositeSection[0].Guid)]; // it works if start and end have the same section
-                        foreach(var part in item.BarPart.Composite_Data.Part)
+
+                        // iterate over the composite section inside the complex composite and assign the object from the database Composite
+                        foreach (StruSoft.Interop.StruXml.Data.Composite_section_type compositeSection in item.BarPart.ComplexComposite.Composite_section)
                         {
-                            part.materialObj = materialMap[Guid.Parse(part.Material)];
-                            part.sectionObj = sectionsMap[Guid.Parse(part.Section)];
+                            compositeSection.compositeSectionDataObj = compositeSectionMap[Guid.Parse(compositeSection.Guid)];
                         }
+
+                        // assign the material object to the Composite_part_type
+                        foreach (var compositeData in this.Composites.Composite_section)
+                        {
+                            foreach (var compositePart in compositeData.Part)
+                            {
+                                compositePart.materialObj = materialMap[Guid.Parse(compositePart.Material)];
+                                compositePart.sectionObj = sectionsMap[Guid.Parse(compositePart.Section)];
+                            }
+                        }
+
                     }
                     catch (KeyNotFoundException)
                     {
