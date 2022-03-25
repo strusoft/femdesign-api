@@ -111,6 +111,23 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
+        /// Check if any of the files are open in femdesign already.
+        /// </summary>
+        /// <param name="filenames">The files to check if already opened.</param>
+        public static void CheckOpenFiles(List<string> filenames)
+        {
+            var openFiles = GetOpenFileNames();
+            foreach (string filename in filenames)
+            {
+                string fn = Path.GetFileName(filename);
+                if (filename != null && openFiles.Contains(fn))
+                {
+                    throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
+                }
+            }
+        }
+
+        /// <summary>
         /// Open a .struxml file in fd3dstruct.
         /// </summary>
         /// <param name="struxmlPath"></param>
@@ -159,30 +176,38 @@ namespace FemDesign.Calculate
 
             // Check if files are already open
             if (checkOpenFiles) {
-                var openFiles = GetOpenFileNames();
-                var filename = fdScript.CmdOpen?.Filename;
-                filename = Path.GetFileName(filename);
-                if (filename != null && openFiles.Contains(filename))
-                {
-                    throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
-                }
-
-                filename = fdScript.CmdSave?.FilePath;
-                filename = Path.GetFileName(filename);
-                if (filename != null && openFiles.Contains(filename))
-                {
-                    throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
-                }
+                CheckOpenFiles(new List<string> {
+                    fdScript.CmdOpen?.Filename,
+                    fdScript.CmdSave?.FilePath
+                });
             }
 
-            string arguments = "/s " + fdScript.FdScriptPath;
-            string processPath = fdScript.FdScriptPath;
+            return RunFdScript(fdScript.FdScriptPath, killProcess, endSession);
+        }
+
+        /// <summary>
+        /// Run fd3dstruct with a .fdscript.
+        /// </summary>
+        /// <param name="fdScriptPath">Path to an FdScript</param>
+        /// <param name="killProcess"></param>
+        /// <param name="endSession"></param>
+        /// <returns></returns>
+        public bool RunFdScript(string fdScriptPath, bool killProcess, bool endSession)
+        {
+            // kill processes
+            if (killProcess)
+            {
+                this.KillProcesses();
+            }
+
+            string arguments = "/s " + fdScriptPath;
+            string processPath = fdScriptPath;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo(processPath)
             {
                 Arguments = arguments,
                 UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(fdScript.FdScriptPath),
+                WorkingDirectory = Path.GetDirectoryName(fdScriptPath),
                 FileName = this.FdPath,
                 Verb = "open"
             };
