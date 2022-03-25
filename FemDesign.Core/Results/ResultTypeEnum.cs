@@ -79,7 +79,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
-        [Parseable("ShellDisplacement")]
+        [Parseable("ShellDisplacementExtract")]
         [Result(typeof(ShellsDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
         ShellDisplacementExtract,
 
