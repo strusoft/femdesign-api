@@ -418,12 +418,32 @@ namespace FemDesign
             }
 
             // add material
-            this.AddMaterial(obj.BarPart.Material, overwrite);
+            if(!obj.BarPart.HasComplexCompositeRef)
+            {
+                this.AddMaterial(obj.BarPart.Material, overwrite);
+            }
+            // it is a composite section and we add material and section in the same function
+            else if (obj.BarPart.HasComplexCompositeRef)
+            {
+                foreach(StruSoft.Interop.StruXml.Data.Composite_section_type compositeSection in obj.BarPart.ComplexComposite.Composite_section)
+                {
+                    foreach(var part in compositeSection.compositeSectionDataObj.Part)
+                    {
+                        this.AddMaterial(part.materialObj, overwrite);
+                        this.AddSection(part.sectionObj, overwrite);
+                    }
+                }
+            }
 
             // add sections
+            // If it is Composite Complex, the section has been already added when we added a complex composite
             this.AddComplexSection(obj, overwrite);
-            this.AddSection(obj.BarPart.StartSection, overwrite);
-            this.AddSection(obj.BarPart.EndSection, overwrite);
+
+            if (!obj.BarPart.HasComplexCompositeRef)
+            {
+                this.AddSection(obj.BarPart.StartSection, overwrite);
+                this.AddSection(obj.BarPart.EndSection, overwrite);
+            }
 
             // add reinforcement
             this.AddBarReinforcements(obj, overwrite);
@@ -640,9 +660,23 @@ namespace FemDesign
         private void AddCompositeSection(StruSoft.Interop.StruXml.Data.Complex_composite_type obj, bool overwrite)
         {
             // in model?
-            foreach (var compositeSection in obj.Composite_section)
+            // obj.Composite_section.Unique(x => x.Guid);
+            var uniqueCompositeSection = obj.Composite_section.Where(x => x.Guid != null).GroupBy(x => x.Guid).Select(grp => grp.FirstOrDefault());
+
+
+            foreach (var compositeSection in uniqueCompositeSection)
             {
-                bool inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
+                // initialise variable as false
+                bool inModel = false;
+
+                if(this.Composites.Composite_section != null)
+                {
+                    inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
+                }
+                else
+                {
+                    this.Composites.Composite_section = new List<StruSoft.Interop.StruXml.Data.Composite_data>();
+                }
 
 
                 // in model, don't overwrite
@@ -677,7 +711,19 @@ namespace FemDesign
         {
             // in model?
             // bool inModel = this.ComplexCompositeInModel(obj);
-            bool inModel = this.Composites.Complex_composite.Any(x => x.Guid == obj.Guid);
+
+
+            bool inModel = false;
+
+            if(this.Composites != null)
+            {
+                inModel = this.Composites.Complex_composite.Any(x => x.Guid == obj.Guid);
+            }
+            else
+            {   
+                this.Composites = new StruSoft.Interop.StruXml.Data.DatabaseComposites();
+                this.Composites.Complex_composite = new List<StruSoft.Interop.StruXml.Data.Complex_composite_type>();
+            }
 
 
             // in model, don't overwrite
@@ -693,9 +739,10 @@ namespace FemDesign
             }
 
             // add complex composite
+                        
             this.Composites.Complex_composite.Add(obj);
-
             this.AddCompositeSection(obj, overwrite);
+            
         }
 
 
