@@ -176,6 +176,10 @@ namespace FemDesign.Bars
                 {
                     this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
+                else if(this.HasComplexCompositeRef)
+                {
+                    
+                }
 
                 // return
                 return this._eccentricities;
