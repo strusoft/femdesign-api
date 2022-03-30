@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ProfiledPlateDefine: GH_Component
     {
-        public ProfiledPlateDefine(): base("ProfiledPlate.Define", "Define", "Create a profiled plate", "FemDesign", "Shells")
+        public ProfiledPlateDefine(): base("ProfiledPlate.Define", "Define", "Create a profiled plate", "FEM-Design", "Shells")
         {
 
         }

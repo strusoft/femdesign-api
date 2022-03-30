@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsConnectivityDefineSemiRigid: GH_Component
     {
-        public BarsConnectivityDefineSemiRigid(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", "FemDesign", "Bars")
+        public BarsConnectivityDefineSemiRigid(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", "FEM-Design", "Bars")
         {
 
         }

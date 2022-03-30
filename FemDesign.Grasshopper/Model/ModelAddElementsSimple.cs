@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelAddElementsSimple: GH_Component
     {
-        public ModelAddElementsSimple(): base("Model.AddElementsSimple", "AddElements", "Add elements to an existing model. Nested lists are not supported.", "FemDesign", "Model")
+        public ModelAddElementsSimple(): base("Model.AddElementsSimple", "AddElements", "Add elements to an existing model. Nested lists are not supported.", "FEM-Design", "Model")
         {
 
         }

@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeComponent : GH_Component
     {
-        public PtcShapeComponent(): base("PtcShape", "Shape", "Description", "FemDesign", "Ptc")
+        public PtcShapeComponent(): base("PtcShape", "Shape", "Description", "FEM-Design", "Ptc")
         {
         }
 

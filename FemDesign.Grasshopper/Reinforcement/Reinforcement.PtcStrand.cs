@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the PtcStrand class.
         /// </summary>
-        public PtcStrand(): base("PtcStrand", "Strand", "Description", "FemDesign", "Ptc")
+        public PtcStrand(): base("PtcStrand", "Strand", "Description", "FEM-Design", "Ptc")
         {
         }
 

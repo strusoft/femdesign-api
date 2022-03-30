@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsDeconstruct: GH_Component
     {
-       public BarsDeconstruct(): base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FemDesign", "Deconstruct")
+       public BarsDeconstruct(): base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FEM-Design", "Deconstruct")
        {
 
        }

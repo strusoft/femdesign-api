@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseAddSection: GH_Component
     {
-       public SectionDatabaseAddSection(): base("SectionDatabase.AddSection", "AddSection", "Add a section to the SectionDatabase.", "FemDesign", "Sections")
+       public SectionDatabaseAddSection(): base("SectionDatabase.AddSection", "AddSection", "Add a section to the SectionDatabase.", "FEM-Design", "Sections")
        {
 
        }

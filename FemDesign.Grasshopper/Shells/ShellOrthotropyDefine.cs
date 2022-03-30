@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellOrthotropyDefine: GH_Component
     {
-        public ShellOrthotropyDefine(): base("ShellOrthotropy.Define", "Define", "Define a definition for ShellOrthotropy.", "FemDesign", "Shells")
+        public ShellOrthotropyDefine(): base("ShellOrthotropy.Define", "Define", "Define a definition for ShellOrthotropy.", "FEM-Design", "Shells")
         {
 
         }

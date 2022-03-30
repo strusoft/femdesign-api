@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ThicknessValDeconstruct: GH_Component
     {
-       public ThicknessValDeconstruct(): base("Thickness.Deconstruct", "Deconstruct", "Deconstruct a ThicknessLocationValue.", "FemDesign", "Deconstruct")
+       public ThicknessValDeconstruct(): base("Thickness.Deconstruct", "Deconstruct", "Deconstruct a ThicknessLocationValue.", "FEM-Design", "Deconstruct")
        {
 
        }

@@ -17,7 +17,7 @@ namespace FemDesign.Info
 {
     public class Info : GH_Component
     {
-        public Info() : base("Info", "Info", "Information about FEM Design API", "FemDesign", "Help")
+        public Info() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", "Help")
         {
 
         }

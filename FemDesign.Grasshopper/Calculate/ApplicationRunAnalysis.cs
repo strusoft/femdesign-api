@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelRunAnalysis: GH_Component
     {
-        public ModelRunAnalysis(): base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FemDesign", "Calculate")
+        public ModelRunAnalysis(): base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
         {
 
         }

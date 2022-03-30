@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEdgeConnectionHinged: GH_Component
     {
-        public ShellEdgeConnectionHinged(): base("ShellEdgeConnection.Hinged", "Hinged", "Create a Hinged ShellEdgeConnection.", "FemDesign", "Shells")
+        public ShellEdgeConnectionHinged(): base("ShellEdgeConnection.Hinged", "Hinged", "Create a Hinged ShellEdgeConnection.", "FEM-Design", "Shells")
         {
 
         }

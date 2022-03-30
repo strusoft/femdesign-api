@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeamSimple: GH_Component
     {
-       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", "FemDesign", "Bars")
+       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", "FEM-Design", "Bars")
        {
 
        }

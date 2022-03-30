@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ReadResults : GH_Component
     {
-        public ReadResults() : base("Results.Read", "Results", "Read results.", "FemDesign", "Results")
+        public ReadResults() : base("Results.Read", "Results", "Read results.", "FEM-Design", "Results")
         {
 
         }

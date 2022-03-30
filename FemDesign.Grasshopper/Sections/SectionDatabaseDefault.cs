@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseDefault: GH_Component
     {
-       public SectionDatabaseDefault(): base("SectionDatabase.Default", "Default", "Load the default SectionDatabase.", "FemDesign", "Sections")
+       public SectionDatabaseDefault(): base("SectionDatabase.Default", "Default", "Load the default SectionDatabase.", "FEM-Design", "Sections")
        {
 
        }

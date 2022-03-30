@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialDeconstruct: GH_Component
     {
-       public MaterialDeconstruct(): base("Material.Deconstruct", "Deconstruct", "Deconstruct basic Material information.", "FemDesign", "Deconstruct")
+       public MaterialDeconstruct(): base("Material.Deconstruct", "Deconstruct", "Deconstruct basic Material information.", "FEM-Design", "Deconstruct")
        {
 
        }

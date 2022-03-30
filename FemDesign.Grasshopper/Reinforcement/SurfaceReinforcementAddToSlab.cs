@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceReinforcementAddToSlab: GH_Component
     {
-        public SurfaceReinforcementAddToSlab(): base("SurfaceReinforcement.AddToSlab", "AddToSlab", "Add surface reinforcement to slab.", "FemDesign", "Reinforcement")
+        public SurfaceReinforcementAddToSlab(): base("SurfaceReinforcement.AddToSlab", "AddToSlab", "Add surface reinforcement to slab.", "FEM-Design", "Reinforcement")
         {
 
         }

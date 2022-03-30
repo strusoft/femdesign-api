@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class DiaphragmDefine: GH_Component
     {
-        public DiaphragmDefine(): base("Diaphragm.Define", "Define", "Define a fictitious shell", "FemDesign", "ModellingTools")
+        public DiaphragmDefine(): base("Diaphragm.Define", "Define", "Define a fictitious shell", "FEM-Design", "ModellingTools")
         {
 
         }

@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class FictitiousShellSetShellEdgeConnection: GH_Component
     {
-        public FictitiousShellSetShellEdgeConnection(): base("FictitiousShell.SetShellEdgeConnection", "SetEdgeConnection", "Set ShellEdgeConnection by index. Index for each respective edge can be extracted using FictitiousShellDeconstruct.", "FemDesign", "ModellingTools")
+        public FictitiousShellSetShellEdgeConnection(): base("FictitiousShell.SetShellEdgeConnection", "SetEdgeConnection", "Set ShellEdgeConnection by index. Index for each respective edge can be extracted using FictitiousShellDeconstruct.", "FEM-Design", "ModellingTools")
         {
 
         }

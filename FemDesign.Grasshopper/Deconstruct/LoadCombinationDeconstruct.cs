@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadCombinationDeconstruct: GH_Component
     {
-       public LoadCombinationDeconstruct(): base("LoadCombination.Deconstruct", "Deconstruct", "Deconstruct a LoadCombination.", "FemDesign", "Deconstruct")
+       public LoadCombinationDeconstruct(): base("LoadCombination.Deconstruct", "Deconstruct", "Deconstruct a LoadCombination.", "FEM-Design", "Deconstruct")
        {
 
        }

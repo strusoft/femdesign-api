@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class Bars_LateralTorsionalDefine: GH_Component
     {
-        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", "FemDesign", "Bars.Buckling")
+        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", "FEM-Design", "Bars.Buckling")
         {
 
         }

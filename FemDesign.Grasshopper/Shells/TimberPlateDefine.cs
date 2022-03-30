@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class TimberPlateDefine: GH_Component
     {
-        public TimberPlateDefine(): base("TimberPlate.Define", "Define", "Create a timber plate", "FemDesign", "Shells")
+        public TimberPlateDefine(): base("TimberPlate.Define", "Define", "Create a timber plate", "FEM-Design", "Shells")
         {
 
         }

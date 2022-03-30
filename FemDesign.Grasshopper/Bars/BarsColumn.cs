@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsColumn: GH_Component
     {
-       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FemDesign", "Bars")
+       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FEM-Design", "Bars")
        {
 
        }

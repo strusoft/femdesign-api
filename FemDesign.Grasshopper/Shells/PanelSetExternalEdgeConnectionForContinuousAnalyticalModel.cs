@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class PanelSetExternalEdgeConnectionForContinuousAnalycitalModel: GH_Component
     {
-        public PanelSetExternalEdgeConnectionForContinuousAnalycitalModel(): base("Panel.SetExtEdgeConnectionForContAnalModel", "SetExtEdgeConnectionContAnalModel", "Set ShellEdgeConnection by index on a panel with a continuous analytical model. Index for each respective edge can be extracted using PanelDeconstruct.", "FemDesign", "Shells")
+        public PanelSetExternalEdgeConnectionForContinuousAnalycitalModel(): base("Panel.SetExtEdgeConnectionForContAnalModel", "SetExtEdgeConnectionContAnalModel", "Set ShellEdgeConnection by index on a panel with a continuous analytical model. Index for each respective edge can be extracted using PanelDeconstruct.", "FEM-Design", "Shells")
         {
 
         }

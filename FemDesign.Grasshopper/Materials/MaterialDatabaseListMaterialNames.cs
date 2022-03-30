@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
         public MaterialDatabaseListMaterialNames()
           : base("MaterialDatabase.ListMaterialNames", "ListMaterialNames",
               "Lists the names of all Materials in MaterialDatabase.",
-              "FemDesign", "Materials")
+              "FEM-Design", "Materials")
         { 
 
         }

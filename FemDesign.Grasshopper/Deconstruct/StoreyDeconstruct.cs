@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class StoreyDeconstruct: GH_Component
     {
-       public StoreyDeconstruct(): base("Storey.Deconstruct", "Deconstruct", "Deconstruct a storey element.", "FemDesign", "Deconstruct")
+       public StoreyDeconstruct(): base("Storey.Deconstruct", "Deconstruct", "Deconstruct a storey element.", "FEM-Design", "Deconstruct")
        {
 
        }

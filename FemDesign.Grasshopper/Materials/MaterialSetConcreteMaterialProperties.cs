@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialSetConcreteMaterialProperties: GH_Component
     {
-        public MaterialSetConcreteMaterialProperties(): base("Material.SetConcreteMaterialProperties", "SetConcreteMaterialProperties", "Set creep and shrinkage parameters to a concrete Material.", "FemDesign", "Materials")
+        public MaterialSetConcreteMaterialProperties(): base("Material.SetConcreteMaterialProperties", "SetConcreteMaterialProperties", "Set creep and shrinkage parameters to a concrete Material.", "FEM-Design", "Materials")
         {
 
         }
