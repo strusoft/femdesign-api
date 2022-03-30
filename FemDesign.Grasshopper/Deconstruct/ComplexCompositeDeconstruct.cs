@@ -28,14 +28,8 @@ namespace FemDesign.Grasshopper
         {
             // get input
             StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexComposite = null;
-            if (!DA.GetData(0, ref ComplexComposite))
-            {
-                return;
-            }
-            if (ComplexComposite == null)
-            {
-                return;
-            }
+            if (!DA.GetData(0, ref ComplexComposite)) { return; }
+            if (ComplexComposite == null) { return; }
 
             // return
 
