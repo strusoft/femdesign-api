@@ -174,11 +174,14 @@ namespace FemDesign.Bars
                 // get eccentricities from complex section
                 else if (this.AnyEccentricityIsNull)
                 {
-                    this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
-                }
-                else if(this.HasComplexCompositeRef)
-                {
-                    
+                    if(this.HasComplexCompositeRef)
+                    {
+                        this._eccentricities = this._modelEccentricity.Analytical;
+                    }
+                    else
+                    {
+                        this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
+                    }
                 }
 
                 // return
@@ -583,6 +586,8 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexComposite { get; set; }
 
+        //[XmlAttribute("eccentricity")]
+        //public StruSoft.Interop.StruXml.Data.Eccentricity_type EccentricityType { get; set; }
 
 
         [XmlAttribute("composite_section")]
