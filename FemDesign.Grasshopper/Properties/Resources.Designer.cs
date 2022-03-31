@@ -223,6 +223,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CombineLoadGroups {
+            get {
+                object obj = ResourceManager.GetObject("CombineLoadGroups", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConnectivityDefine {
             get {
                 object obj = ResourceManager.GetObject("ConnectivityDefine", resourceCulture);
@@ -583,6 +593,56 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadCategory {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseDefault {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseDefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseGetCategoryByName {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseGetCategoryByName", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseListCategoryNames {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseListCategoryNames", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadCombinationDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadCombinationDeconstruct", resourceCulture);
@@ -616,6 +676,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap LoadDefine {
             get {
                 object obj = ResourceManager.GetObject("LoadDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadGroup {
+            get {
+                object obj = ResourceManager.GetObject("LoadGroup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadGroupDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LoadGroupDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

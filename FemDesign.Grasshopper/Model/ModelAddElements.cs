@@ -33,6 +33,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add. Nested lists are not supported", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Supports", "Supports", "Single PointSupport, LineSupport or SurfaceSupport element or list of PointSupport, LineSupport or SurfaceSupport elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Storeys", "Storeys", "Storey element or list of Storey elements to add. Nested lists are not supported.", GH_ParamAccess.list);
@@ -41,7 +43,6 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -51,100 +52,75 @@ namespace FemDesign.Grasshopper
         {
             // get indata
             FemDesign.Model model = null;
-            if (!DA.GetData(0, ref model))
-            {
-                // pass
-            }
+            DA.GetData("FdModel", ref model);
  
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
-            if (!DA.GetDataList(1, bars))
-            {
-                // pass
-            }
+            DA.GetDataList("Bars", bars);
 
             List<FemDesign.ModellingTools.FictitiousBar> fictBars = new List<FemDesign.ModellingTools.FictitiousBar>();
-            if (!DA.GetDataList(2, fictBars))
-            {
-                // pass
-            }
+            DA.GetDataList("FictitiousBars", fictBars);
  
             List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
-            if (!DA.GetDataList(3, slabs))
-            {
-                // pass
-            }
+            DA.GetDataList("Shells", slabs);
 
             List<FemDesign.ModellingTools.FictitiousShell> fictShells = new List<FemDesign.ModellingTools.FictitiousShell>();
-            if (!DA.GetDataList(4, fictShells))
-            {
-                // pass
-            }
+            DA.GetDataList("FictitiousShells", fictShells);
 
             List<FemDesign.Shells.Panel> panels = new List<Shells.Panel>();
-            {
-                if (!DA.GetDataList(5, panels))
-                {
-                    // pass
-                }
-            }
+            DA.GetDataList("Panels", panels);
   
             List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
-            if (!DA.GetDataList(6, covers))
-            {
-                // pass
-            }
+            DA.GetDataList("Covers", covers);
   
             List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
-            if (!DA.GetDataList(7, loads))
-            {
-                // pass
-            }
+            DA.GetDataList("Loads", loads);
  
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
-            if (!DA.GetDataList(8, loadCases))
-            {
-                // pass
-            }
+            DA.GetDataList("LoadCases", loadCases);
 
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
-            if (!DA.GetDataList(9, loadCombinations))
-            {
-                // pass
-            }
+            DA.GetDataList("LoadCombinations", loadCombinations);
+
+            List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
+            DA.GetDataList("LoadGroups", loadGroups);
 
             List<FemDesign.GenericClasses.ISupportElement> supports = new List<FemDesign.GenericClasses.ISupportElement>();
-            if (!DA.GetDataList(10, supports))
-            {
-                // pass
-            }
+            DA.GetDataList("Supports", supports);
 
             List<FemDesign.StructureGrid.Storey> storeys = new List<StructureGrid.Storey>();
-            if (!DA.GetDataList(11, storeys))
-            {
-                // pass
-            }
+            DA.GetDataList("Storeys", storeys);
 
             List<FemDesign.StructureGrid.Axis> axes = new List<StructureGrid.Axis>();
-            if (!DA.GetDataList(12, axes))
-            {
-                // pass
-            }
+            DA.GetDataList("Axes", axes);
 
             bool overwrite = false;
-            if (!DA.GetData(13, ref overwrite))
+            DA.GetData("Overwrite", ref overwrite);
+
+
+            // Ensure that the component recieves the load cases that are included in the load groups
+            bool loadCasesProvided = true;
+            if (loadGroups.Any())
             {
-                // pass
+                foreach (Loads.ModelGeneralLoadGroup loadGroup in loadGroups)
+                {
+                    loadCasesProvided = loadGroup.GetLoadCases().All(i => loadCases.Contains(i));
+                    if (!loadCasesProvided)
+                    {
+                        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Must provide all load cases used in load groups");
+                        return;
+                    }
+                }
             }
 
             // cast ILoads
             List<object> _loads = loads.Cast<object>().ToList();
-            
+
             // clone model
             var clone = model.DeepClone();
-
-            clone.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, overwrite);
-
-            DA.SetData(0, clone);
+            
+            clone.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, overwrite);
+            
+            DA.SetData("FdModel", clone);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -155,7 +131,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("17494607-2eff-4988-b887-ac3290e63e3a"); }
+            get { return new Guid("a4273a46-b666-49c2-9236-f8fcb79da75c"); }
         }
     }
 }

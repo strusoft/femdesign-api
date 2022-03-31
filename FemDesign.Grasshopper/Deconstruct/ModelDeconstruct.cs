@@ -27,6 +27,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Panels", "Panels", "Single panel element or list of panel elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Covers", "Covers", "Single cover element or list of cover elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Loads", "Loads", "Single load element or list of load elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single load group or list of LoadGroup elements to add", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCases", "LoadCases", "Single LoadCase element or list of LoadCase elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Supports", "Supports", "Single Support element or list of Support elements.", GH_ParamAccess.list);
@@ -65,7 +66,7 @@ namespace FemDesign.Grasshopper
             else
             {
                 storeys = null;
-            }        
+            }
 
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
@@ -79,6 +80,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Loads", model.Entities.Loads.GetLoads());
             DA.SetDataList("LoadCases", model.Entities.Loads.LoadCases);
             DA.SetDataList("LoadCombinations", model.Entities.Loads.LoadCombinations);
+            DA.SetDataList("LoadGroups", model.Entities.Loads.GetLoadGroups());
             DA.SetDataList("Supports", model.Entities.Supports.GetSupports());
             DA.SetDataList("Axes", axes);
             DA.SetDataList("Storeys", storeys);
@@ -92,7 +94,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("54690294-83e5-436e-9dc6-af3575f00206"); }
+            get { return new Guid("fcf74381-24b9-48ad-b006-a999fe020212"); }
         }
     }
 }

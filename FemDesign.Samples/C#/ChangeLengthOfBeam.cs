@@ -17,6 +17,7 @@ namespace FemDesign.Samples
 
             Bars.Bar exbeam = model.Entities.Bars[0];
             exbeam.BarPart.Edge.Points[1].X = 35;
+            
 
             Supports.PointSupport support = model.Entities.Supports.PointSupport[1];
             support.Position.X = 35;
