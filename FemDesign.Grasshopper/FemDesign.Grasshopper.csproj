@@ -95,8 +95,6 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
-    <Compile Include="Deconstruct\ComplexCompositeDeconstruct.cs" />
-    <Compile Include="Deconstruct\BarsDeconstructOBSOLETE_FemDesign_21_0_0.cs" />
     <Compile Include="Deconstruct\BarsDeconstructOBSOLETE.cs" />
     <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstructOBSOLETE.cs" />
@@ -243,7 +241,6 @@
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
     <Compile Include="Supports\SurfaceSupportDefine.cs" />
-    <Compile Include="Info\TabInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -751,9 +748,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Untitled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Fd_TabIcon_24_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

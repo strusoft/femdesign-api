@@ -174,14 +174,7 @@ namespace FemDesign.Bars
                 // get eccentricities from complex section
                 else if (this.AnyEccentricityIsNull)
                 {
-                    if(this.HasComplexCompositeRef)
-                    {
-                        this._eccentricities = this._modelEccentricity.Analytical;
-                    }
-                    else
-                    {
-                        this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
-                    }
+                    this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
                 }
 
                 // return
@@ -503,22 +496,6 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlIgnore]
-        public bool HasComplexCompositeRef
-        {
-            get
-            {
-                if (this.ComplexCompositeRef == System.Guid.Empty)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
         /// <summary>
         /// Material field
         /// </summary>
@@ -580,31 +557,8 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlAttribute("complex_composite")]
-        public System.Guid ComplexCompositeRef { get; set; } // guidtype
-
-        [XmlIgnore]
-        public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexComposite { get; set; }
-
-        //[XmlAttribute("eccentricity")]
-        //public StruSoft.Interop.StruXml.Data.Eccentricity_type EccentricityType { get; set; }
-
-
-        [XmlAttribute("composite_section")]
-        public System.Guid CompositeSectionRef { get; set; } // guidtype
-
-        [XmlIgnore]
-        public List<StruSoft.Interop.StruXml.Data.Composite_section_type> CompositeSection { get; set; }
-
-
-
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialRef { get; set; } // guidtype
-
-
-        [XmlIgnore]
-        public StruSoft.Interop.StruXml.Data.Composite_data Composite_Data { get; set; } // guidtype
-
 
         [XmlIgnore]
         private System.Guid _complexSectionRef;
