@@ -12,8 +12,8 @@ namespace FemDesign.Info
     {
         public override GH_LoadingInstruction PriorityLoad()
         {
-            Instances.ComponentServer.AddCategoryIcon("FemDesign", FemDesign.Properties.Resources.Fd_TabIcon_24_24);
-            Instances.ComponentServer.AddCategorySymbolName("FemDesign", 'F');
+            Instances.ComponentServer.AddCategoryIcon("FEM-Design", FemDesign.Properties.Resources.Fd_TabIcon_24_24);
+            Instances.ComponentServer.AddCategorySymbolName("FEM-Design", 'F');
             return GH_LoadingInstruction.Proceed;
         }
     }
