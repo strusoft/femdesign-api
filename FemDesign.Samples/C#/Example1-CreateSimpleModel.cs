@@ -8,7 +8,7 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
-        private static void CreateSimpleModel()
+        public static Model Example_1_CreateSimpleModel()
         {
             // Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
@@ -31,6 +31,7 @@ namespace FemDesign.Samples
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() }, 
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() }, 
                 identifier: "B");
+            bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
             var elements = new List<GenericClasses.IStructureElement>() { bar };
 
             // Create supports
@@ -60,12 +61,12 @@ namespace FemDesign.Samples
             var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS };
 
             // Create loads
-            var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, "", Loads.ForceLoadType.Force);
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, "", Loads.ForceLoadType.Moment);
+            var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
+            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
 
             var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
             var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
-            var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, "", constLoadDir: true, loadProjection: true, Loads.ForceLoadType.Force);
+            var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, null, constLoadDir: true, loadProjection: true, Loads.ForceLoadType.Force);
 
             var loads = new List<GenericClasses.ILoadElement>() { 
                 pointForce,
@@ -88,6 +89,8 @@ namespace FemDesign.Samples
 
             var app = new Calculate.Application();
             app.OpenStruxml(path, true);
+
+            return model;
         }
     }
 }
