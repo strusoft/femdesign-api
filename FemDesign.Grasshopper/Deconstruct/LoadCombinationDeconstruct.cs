@@ -39,20 +39,17 @@ namespace FemDesign.Grasshopper
             // The following code is to convert 'item' to 'list object'
             // It is required to construct the Load Combination without graftening the data
 
-            List<object> listGuid = new List<object>();
-            listGuid.Add(obj.Guid);
+            var guidList = new List<object> { obj.Guid }; 
 
-            List<object> listName = new List<object>();
-            listName.Add(obj.Name);
+            var nameList = new List<object> { obj.Name }; 
 
-            List<object> listObjectType = new List<object>();
-            listObjectType.Add(obj.Type.ToString());
+            var objectTypeList = new List<object> { obj.Type.ToString() }; 
 
 
             // return
-            DA.SetDataList(0, listGuid);
-            DA.SetDataList(1, listName);
-            DA.SetDataList(2, listObjectType);
+            DA.SetDataList(0, guidList);
+            DA.SetDataList(1, nameList);
+            DA.SetDataList(2, objectTypeList);
             DA.SetDataList(3, obj.GetLoadCaseGuidsAsString());
             DA.SetDataList(4, obj.GetGammas());
             

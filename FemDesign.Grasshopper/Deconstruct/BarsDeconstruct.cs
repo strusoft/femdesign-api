@@ -51,20 +51,15 @@ namespace FemDesign.Grasshopper
             // The following code is to convert 'item' to 'list object'
             // It is required to construct the bar without graftening the data
 
-            List<object> guidList = new List<object>();
-            guidList.Add(bar.Guid);
+            var guidList = new List<object>() { bar.Guid };
 
-            List<object> curveList = new List<object>();
-            curveList.Add(bar.GetRhinoCurve());
+            var curveList = new List<object>() { bar.GetRhinoCurve() };
 
-            List<object> typeList = new List<object>();
-            typeList.Add(bar.Type);
+            var typeList = new List<object>() { bar.Type };
 
-            List<object> materialList = new List<object>();
-            materialList.Add(bar.BarPart.Material);
+            var materialList = new List<object>() { bar.BarPart.Material };
 
-            List<object> localYList = new List<object>();
-            localYList.Add(bar.BarPart.LocalY.ToRhino());
+            var localYList = new List<object>() { bar.BarPart.LocalY.ToRhino() };
 
 
             // return
