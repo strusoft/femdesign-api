@@ -118,6 +118,7 @@
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\BarsDeconstruct.cs" />
+    <Compile Include="Deconstruct\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+        <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
