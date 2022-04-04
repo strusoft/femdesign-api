@@ -41,17 +41,17 @@ namespace FemDesign.Grasshopper
             FemDesign.Materials.Material material = null;
             if (!DA.GetData(1, ref material)) { return; }
 
-            FemDesign.Sections.Section sections = null;
-            if (!DA.GetData(2, ref sections)) { return; }
+            FemDesign.Sections.Section section = null;
+            if (!DA.GetData(2, ref section)) { return; }
 
-            FemDesign.Bars.Connectivity connectivities = FemDesign.Bars.Connectivity.GetRigid();
-            if (!DA.GetData(3, ref connectivities))
+            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.GetRigid();
+            if (!DA.GetData(3, ref connectivity))
             {
                 // pass
             }
 
-            FemDesign.Bars.Eccentricity eccentricities = FemDesign.Bars.Eccentricity.GetDefault();
-            if (!DA.GetData(4, ref eccentricities))
+            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.GetDefault();
+            if (!DA.GetData(4, ref eccentricity))
             {
                 // pass
             }
@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            if (curve == null || material == null || sections == null || connectivities == null || eccentricities == null || identifier == null) { return; }
+            if (curve == null || material == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
 
             // convert geometry
             if (curve.GetType() != typeof(LineCurve))
@@ -84,8 +84,9 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.ColumnDefine(edge, material, new FemDesign.Sections.Section[]{sections}, new FemDesign.Bars.Connectivity[]{connectivities}, new FemDesign.Bars.Eccentricity[]{eccentricities}, identifier);
-
+            var type = FemDesign.Bars.Bar.BarType.Column;
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, eccentricity, connectivity, identifier);
+            
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
