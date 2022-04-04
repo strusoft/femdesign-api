@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace FemDesign.Sections
@@ -10,10 +11,46 @@ namespace FemDesign.Sections
     /// strusoft.xsd: complex_section_type
     /// </summary>
     [System.Serializable]
-    public partial class ComplexSection: EntityBase
+    public partial class ComplexSection : EntityBase
     {
         [XmlElement("section")]
-        public List<ModelSection> Section = new List<ModelSection>();
+        public List<ComplexSectionPart> Parts = new List<ComplexSectionPart>();
+        public Sections.Section[] Sections
+        {
+            get
+            {
+                return this.Parts.Select(x => x.SectionObj).ToArray();
+            }
+            set
+            {
+                if (this.Sections.Length == value.Length)
+                {
+                    for (int idx = 0; idx < value.Length; idx++)
+                    {
+                        this.Parts[idx].SectionRef = value[idx].Guid;
+                        this.Parts[idx].SectionObj = value[idx];
+                    }
+                }
+            }
+        }
+        public double[] Positions
+        {
+            get
+            {
+                return this.Parts.Select(x => x.Pos).ToArray();
+            }
+        }
+        public Bars.Eccentricity[] Eccentricities
+        {
+            get
+            {
+                return this.Parts.Select(x => x.Eccentricity).ToArray();
+            }
+            set
+            {
+
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -31,8 +68,8 @@ namespace FemDesign.Sections
         internal ComplexSection(Section section, Bars.Eccentricity eccentricity)
         {
             this.EntityCreated();
-            this.Section.Add(new ModelSection(0, section, eccentricity));
-            this.Section.Add(new ModelSection(1, section, eccentricity));
+            this.Parts.Add(new ComplexSectionPart(0, section, eccentricity));
+            this.Parts.Add(new ComplexSectionPart(1, section, eccentricity));
         }
 
         /// <summary>
@@ -43,18 +80,40 @@ namespace FemDesign.Sections
         internal ComplexSection(Section startSection, Section endSection, Bars.Eccentricity startEccentricity, Bars.Eccentricity endEccentricity)
         {
             this.EntityCreated();
-            this.Section.Add(new ModelSection(0, startSection, startEccentricity));
-            this.Section.Add(new ModelSection(1, endSection, endEccentricity));
+            this.Parts.Add(new ComplexSectionPart(0, startSection, startEccentricity));
+            this.Parts.Add(new ComplexSectionPart(1, endSection, endEccentricity));
         }
 
         /// <summary>
-        /// Construct a complex sectoin from a list of ModelSections
+        /// Create complex section from section, position and eccentricity. 
         /// </summary>
-        /// <param name="modelSections">List of model sections</param>
-        internal ComplexSection(List<ModelSection> modelSections)
+        /// <param name="sections">Cross-section</param>
+        /// <param name="eccentricities">Eccentricity</param>
+        internal ComplexSection(Section[] sections, double[] positions, Bars.Eccentricity[] eccentricities)
+        {
+            if (sections.Length == positions.Length && positions.Length == eccentricities.Length)
+            {
+                this.EntityCreated();
+                for (int idx = 0; idx < sections.Length; idx++)
+                {
+                    this.Parts.Add(new ComplexSectionPart(positions[idx], sections[idx], eccentricities[idx]));
+                }
+            }
+            else
+            {
+                throw new System.ArgumentException($"Input arguments have different length. sections: {sections.Length}, positions: {positions.Length}, eccentricities: {eccentricities.Length}");
+            }
+        }
+
+
+        /// <summary>
+        /// Construct a complex section from a list of ModelSections
+        /// </summary>
+        /// <param name="complexSectionParts">List of model sections</param>
+        internal ComplexSection(List<ComplexSectionPart> complexSectionParts)
         {
             this.EntityCreated();
-            this.Section = modelSections;
+            this.Parts = complexSectionParts;
         }
     }
 }

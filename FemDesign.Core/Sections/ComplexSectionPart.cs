@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace FemDesign.Sections
@@ -9,12 +10,26 @@ namespace FemDesign.Sections
     /// strusoft.xsd: complex_section_type (child of)
     /// </summary>
     [System.Serializable]
-    public partial class ModelSection
+    public partial class ComplexSectionPart
     {
         [XmlAttribute("pos")]
-        public string Pos { get; set; }
+        public string _pos;
+        [XmlIgnore]
+        public double Pos
+        {
+            get
+            {
+                return double.Parse(this._pos);
+            }
+            set
+            {
+                this._pos = RestrictedDouble.NonNegMax_1(value).ToString(CultureInfo.InvariantCulture);
+            }
+        }
         [XmlAttribute("guid")]
         public System.Guid SectionRef { get; set; }
+        [XmlIgnore]
+        public Sections.Section SectionObj;
         [XmlElement("ecc")]
         public Bars.Eccentricity Eccentricity { get; set; }
         [XmlElement("end")]
@@ -23,7 +38,7 @@ namespace FemDesign.Sections
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private ModelSection()
+        private ComplexSectionPart()
         {
 
         }
@@ -34,9 +49,9 @@ namespace FemDesign.Sections
         /// <param name="pos">Position parameter (0-1).</param>
         /// <param name="section">Cross-section at pos.</param>
         /// <param name="eccentricity">Eccentricity at pos.</param>
-        internal ModelSection(int pos, Section section, Bars.Eccentricity eccentricity)
+        internal ComplexSectionPart(double pos, Section section, Bars.Eccentricity eccentricity)
         {
-            this.Pos = pos.ToString();
+            this.Pos = pos;
             this.SectionRef = section.Guid;
             this.Eccentricity = eccentricity;
             this.End = "";
