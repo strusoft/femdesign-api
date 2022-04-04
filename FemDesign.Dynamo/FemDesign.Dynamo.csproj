@@ -880,6 +880,7 @@
     <Compile Include="Dynamo\StructureGrid\Axis.cs" />
     <Compile Include="Dynamo\StructureGrid\Storey.cs" />
     <Compile Include="Dynamo\StructureGrid\Storeys.cs" />
+    <Compile Include="Dynamo\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs" />
     <Compile Include="Dynamo\Supports\GenericSupportObject.cs" />
     <Compile Include="Dynamo\Supports\Group.cs" />
     <Compile Include="Dynamo\Supports\LineSupport.cs" />
