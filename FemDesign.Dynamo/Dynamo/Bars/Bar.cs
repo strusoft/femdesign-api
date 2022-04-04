@@ -31,7 +31,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
 
             // create bar
-            Bar bar = Bar.BeamDefine(edge, material, section, connectivity, eccentricity, identifier);
+            var type = BarType.Beam;
+            Bar bar = new Bar(edge, type, material, section, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -70,7 +71,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.ColumnDefine(edge, material, section, connectivity, eccentricity, identifier);
+            var type = BarType.Column;
+            Bar bar = new Bar(edge, type, material, section, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -107,7 +109,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.TrussDefine(edge, material, section, identifier);
+            var type = BarType.Truss;
+            Bar bar = new Bar(edge, type, material, section, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -149,8 +152,13 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.TrussDefine(edge, material, section, identifier, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
-
+            var type = BarType.Truss;
+            Bar bar = new Bar(edge, type, material, section, identifier);
+            bar.MaxCompression = maxCompression;
+            bar.MaxTension = maxTension;
+            bar.CompressionPlasticity = compressionPlasticity;
+            bar.TensionPlasticity = tensionPlasticity;
+            
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
@@ -205,7 +213,7 @@ namespace FemDesign.Bars
 
             if (material != null)
             {
-                bar.BarPart.Material = material;
+                bar.BarPart.ComplexMaterialObj = material;
             }
 
             if (section != null)
@@ -215,7 +223,7 @@ namespace FemDesign.Bars
 
             if (connectivity != null)
             {
-                bar.BarPart.Connectivities = connectivity;
+                bar.BarPart.Connectivity = connectivity;
             }
 
             if (eccentricity != null)
