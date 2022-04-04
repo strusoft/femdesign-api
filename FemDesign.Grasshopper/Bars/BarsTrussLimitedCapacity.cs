@@ -81,7 +81,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            var type = FemDesign.Bars.Bar.BarType.Truss;
+            var type = FemDesign.Bars.BarType.Truss;
             FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, identifier);
             bar.MaxCompression = maxCompression;
             bar.MaxTension = maxTension;

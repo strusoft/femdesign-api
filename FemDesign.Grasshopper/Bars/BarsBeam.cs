@@ -81,8 +81,8 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc2(curve);
 
             // create bar
-            var type = FemDesign.Bars.Bar.BarType.Beam;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, sections.ToArray(), eccentricities.ToArray(), connectivities.ToArray(), identifier);
+            var type = FemDesign.Bars.BarType.Beam;
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, sections.ToArray(), eccentricities.ToArray(), connectivities.ToArray(), identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

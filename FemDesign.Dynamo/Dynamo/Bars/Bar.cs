@@ -218,7 +218,7 @@ namespace FemDesign.Bars
 
             if (section != null)
             {
-                bar.BarPart.Sections = section;
+                bar.BarPart.ComplexSectionObj.Sections = section;
             }
 
             if (connectivity != null)
@@ -228,7 +228,7 @@ namespace FemDesign.Bars
 
             if (eccentricity != null)
             {
-                bar.BarPart.Eccentricities = eccentricity;
+                bar.BarPart.ComplexSectionObj.Eccentricities = eccentricity;
             }
 
             if (localY != null)

@@ -24,8 +24,9 @@ namespace FemDesign.Samples
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var bar = Bars.Bar.BeamDefine(
-                edge, 
+            var bar = new Bars.Bar(
+                edge,
+                Bars.BarType.Beam, 
                 material, 
                 sections: new Sections.Section[] { section }, 
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() }, 

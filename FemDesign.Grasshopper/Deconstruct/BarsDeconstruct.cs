@@ -63,24 +63,24 @@ namespace FemDesign.Grasshopper
 
 
             // return
-            DA.SetDataList(0, guidList);
-            DA.SetDataList(1, curveList);
-            DA.SetDataList(2, typeList);
-            DA.SetDataList(3, materialList);
-            DA.SetDataList(4, bar.BarPart.Sections);
-            DA.SetDataList(5, bar.BarPart.Connectivities);
-            DA.SetDataList(6, bar.BarPart.Eccentricities);
-            DA.SetDataList(7, localYList);
-            DA.SetDataList(8, bar.Stirrups);
-            DA.SetDataList(9, bar.LongitudinalBars);
-            DA.SetDataList(10, bar.Ptc);
-            DA.SetDataList(11, bar.Identifier);
-            
-       }
-       protected override System.Drawing.Bitmap Icon
-       {
-           get
-           {
+            DA.SetData(0, bar.Guid);
+            DA.SetData(1, bar.GetRhinoCurve());
+            DA.SetData(2, bar.Type);
+            DA.SetData(3, bar.BarPart.ComplexMaterialObj);
+            DA.SetDataList(4, bar.BarPart.ComplexSectionObj.Sections);
+            DA.SetData(5, bar.BarPart.ComplexCompositeObj);
+            DA.SetDataList(6, bar.BarPart.Connectivity);
+            DA.SetDataList(7, bar.BarPart.ComplexSectionObj.Eccentricities);
+            DA.SetData(8, bar.BarPart.LocalY.ToRhino());
+            DA.SetDataList(9, bar.Stirrups);
+            DA.SetDataList(10, bar.LongitudinalBars);
+            DA.SetDataList(11, bar.Ptc);
+            DA.SetData(12, bar.Identifier);
+        }
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
                 return FemDesign.Properties.Resources.BarDeconstruct;
            }
        }

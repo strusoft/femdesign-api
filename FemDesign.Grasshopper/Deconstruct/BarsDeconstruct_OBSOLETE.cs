@@ -47,16 +47,12 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, bar.Guid);
             DA.SetData(1, bar.GetRhinoCurve());
-            DA.SetData(2, bar.Type);
-            DA.SetData(3, bar.BarPart.Material);
-            DA.SetDataList(4, bar.BarPart.Sections);
-            DA.SetDataList(5, bar.BarPart.Connectivities);
-            DA.SetDataList(6, bar.BarPart.Eccentricities);
-            DA.SetData(7, bar.BarPart.LocalY.ToRhino());
-            DA.SetDataList(8, bar.Stirrups);
-            DA.SetDataList(9, bar.LongitudinalBars);
-            DA.SetDataList(10, bar.Ptc);
-            DA.SetData(11, bar.Identifier);
+            DA.SetData(2, bar.BarPart.ComplexMaterialObj);
+            DA.SetDataList(3, bar.BarPart.ComplexSectionObj.Sections);
+            DA.SetDataList(4, bar.BarPart.Connectivity);
+            DA.SetDataList(5, bar.BarPart.ComplexSectionObj.Eccentricities);
+            DA.SetData(6, bar.BarPart.LocalY.ToRhino());
+            DA.SetData(7, bar.Identifier);
         }
         protected override System.Drawing.Bitmap Icon
         {
