@@ -158,7 +158,7 @@ namespace FemDesign.Reinforcement
             }
 
             // check if bar material is concrete
-            if (bar.BarPart.Material.Concrete == null)
+            if (bar.BarPart.ComplexMaterialObj.Concrete == null)
             {
                 throw new System.ArgumentException("Material of bar must be concrete");
             }

@@ -166,26 +166,41 @@ namespace FemDesign.Bars
             
         }
 
-        private Bar(BarType type, string name)
-        {
-            this.EntityCreated();
-            this.Type = type;
-            this._identifier = name;
-        }
-
         /// <summary>
-        /// Construct bar (beam or column)
+        /// Construct beam or column with uniform section 
         /// </summary>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
            this.EntityCreated();
            this.Type = type;
            this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, sections, connectivities, eccentricities, this.Identifier);
+           this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, startConnectivity, endConnectivity, this.Identifier);
         }
 
         /// <summary>
-        /// Construct bar (truss)
+        /// Construct beam or column with start/end section 
+        /// </summary>
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection,  Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+           this.EntityCreated();
+           this.Type = type;
+           this.Identifier = identifier;
+           this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+        }
+
+        /// <summary>
+        /// Construct beam or column with non-uniform section 
+        /// </summary>
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, double[] positions, Eccentricity[] eccentricities, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+           this.EntityCreated();
+           this.Type = type;
+           this.Identifier = identifier;
+           this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, this.Identifier);
+        }
+
+        /// <summary>
+        /// Construct truss
         /// <summary>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
@@ -236,7 +251,7 @@ namespace FemDesign.Bars
             {
                 this.EntityCreated();
                 this.BarPart.EntityCreated();
-                this.BarPart.ComplexSection.EntityCreated();
+                this.BarPart.ComplexSectionObj.EntityCreated();
             }
         }
 
