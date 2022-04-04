@@ -78,7 +78,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
-      <Name>ent</Name>
+      <Name>FemDesign.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FemDesign.Samples\C#\FemDesign.Samples.csproj">
       <Project>{127a57e7-22e5-4ec5-933b-effa9fa0715e}</Project>

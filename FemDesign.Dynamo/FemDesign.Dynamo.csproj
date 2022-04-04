@@ -46,6 +46,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -699,8 +701,8 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
-      <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
+    <Compile Include="..\FemDesign.Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs">
+      <Link>Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>
@@ -880,7 +882,7 @@
     <Compile Include="Dynamo\StructureGrid\Axis.cs" />
     <Compile Include="Dynamo\StructureGrid\Storey.cs" />
     <Compile Include="Dynamo\StructureGrid\Storeys.cs" />
-    <Compile Include="Dynamo\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs" />
+    <Compile Include="Dynamo\StruSoft\Interop\StruXml\Data\FD_21.00.001.cs" />
     <Compile Include="Dynamo\Supports\GenericSupportObject.cs" />
     <Compile Include="Dynamo\Supports\Group.cs" />
     <Compile Include="Dynamo\Supports\LineSupport.cs" />
@@ -955,4 +957,8 @@
     <MakeDir Directories="$(OutDir)\FemDesign\dyf" />
     <MakeDir Directories="$(OutDir)\FemDesign\extra" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>
