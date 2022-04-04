@@ -251,7 +251,7 @@
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />
-    <Compile Include="Sections\ModelSection.cs" />
+    <Compile Include="Sections\ComplexSectionPart.cs" />
     <Compile Include="Sections\ModelSections.cs" />
     <Compile Include="Sections\Section.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />

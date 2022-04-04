@@ -641,8 +641,8 @@
     <Compile Include="..\FemDesign.Core\Sections\DatabaseSections.cs">
       <Link>Core\Sections\DatabaseSections.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Sections\ModelSection.cs">
-      <Link>Core\Sections\ModelSection.cs</Link>
+    <Compile Include="..\FemDesign.Core\Sections\ComplexSectionPart.cs">
+      <Link>Core\Sections\ComplexSectionPar.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ModelSections.cs">
       <Link>Core\Sections\ModelSections.cs</Link>
@@ -704,8 +704,14 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs">
-      <Link>Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs</Link>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\CompositePart.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\CompositePart.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\CompositeSectionType.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\CompositeSectionType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>
