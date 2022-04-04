@@ -31,6 +31,10 @@ namespace FemDesign.Sections
                         this.Parts[idx].SectionObj = value[idx];
                     }
                 }
+                else
+                {
+                    throw new System.ArgumentException($"Length of input sections: {value.Length}, does not match length of existing sections: {this.Sections.Length}. It is ambigious how the sections should be positioned. Create new copmlex section or match input sections length.");
+                }
             }
         }
         public double[] Positions
@@ -48,7 +52,17 @@ namespace FemDesign.Sections
             }
             set
             {
-
+                if (this.Eccentricities.Length == value.Length)
+                {
+                    for (int idx = 0; idx < value.Length; idx++)
+                    {
+                        this.Parts[idx].Eccentricity = value[idx];
+                    }
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Length of input eccentricities: {value.Length}, does not match length of existing eccentricities: {this.Eccentricities.Length}. It is ambigious how the eccentrictity should be positioned. Create new complex section or match input eccentricities length.");
+                }
             }
         }
 
