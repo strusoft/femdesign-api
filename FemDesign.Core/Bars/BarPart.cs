@@ -758,9 +758,9 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct beam or column with uniform section
+        /// Construct beam or column with uniform section and uniform start/end conditions.
         /// </summary>
-        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity connectivity, string identifier)
         {
             if (type == BarType.Truss)
             {
@@ -773,6 +773,28 @@ namespace FemDesign.Bars
                 this.Edge = edge;
                 this.ComplexMaterialObj = material;
                 this.ComplexSectionObj = new Sections.ComplexSection(section, eccentricity);
+                this.Connectivity = new Connectivity[1] { connectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with uniform section and different start/end conditions.
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(section, section, startEccentricity, endEccentricity);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
@@ -780,7 +802,7 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct beam or column with start/end section
+        /// Construct beam or column with start/end section and different start/end conditions
         /// </summary>
         public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection, Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
@@ -802,7 +824,29 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct beam or column with non-uniform section
+        /// Construct beam or column with non-uniform section and start/end conditions
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(sections, eccentricities);
+                this.Connectivity = connectivities;
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with non-uniform section and start/end conditions
         /// </summary>
         public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, double[] positions, Eccentricity[] eccentricities, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
