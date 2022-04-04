@@ -167,19 +167,56 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct beam or column with uniform section 
+        /// Construct beam or column with uniform section and uniform start/end conditions
         /// </summary>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="section">Section, same at start/end</param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start/end</param>
+        /// <param name="connectivity">Connectivity, same at start/end</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity connectivity, string identifier)
         {
            this.EntityCreated();
            this.Type = type;
            this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, startConnectivity, endConnectivity, this.Identifier);
+           this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Identifier);
         }
 
         /// <summary>
-        /// Construct beam or column with start/end section 
+        /// Construct beam or column with uniform section and different start/end conditions
         /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="section">Section, same at start/end</param>
+        /// <param name="startEccentricity">Analytical start eccentricity</param>
+        /// <param name="endEccentricity">Analytical end eccentricity</param>
+        /// <param name="startConnectivity">Start connectivity</param>
+        /// <param name="endConnectivity">End connectivity</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+           this.EntityCreated();
+           this.Type = type;
+           this.Identifier = identifier;
+           this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+        }
+
+        /// <summary>
+        /// Construct beam or column with start/end section and different start/end conditions
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="startSection">Start section</param>
+        /// <param name="endSection">End section</param>
+        /// <param name="startEccentricity">Analytical start eccentricity</param>
+        /// <param name="endEccentricity">Analytical end eccentricity</param>
+        /// <param name="startConnectivity">Start connectivity</param>
+        /// <param name="endConnectivity">End connectivity</param>
+        /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection,  Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
            this.EntityCreated();
@@ -189,8 +226,35 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
-        /// Construct beam or column with non-uniform section 
+        /// Construct beam or column with start/end section and different start/end conditions
         /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="sections">List of sections, 1 (uniform) or 2 (start/end) items.</param>
+        /// <param name="eccentricities">List of analytical eccentricities, 1 (uniform) or 2 (start/end) items.</param>
+        /// <param name="connectivities">List of connectivities, 1 (uniform) or 2 (start/end) items.</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier)
+        {
+           this.EntityCreated();
+           this.Type = type;
+           this.Identifier = identifier;
+           this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, this.Identifier);
+        }
+
+        /// <summary>
+        /// Construct beam or column with non-uniform section and different start/end conditions
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="sections">List of sections, 2 or more items.</param>
+        /// <param name="positions">List of parametric (0-1) section positions, 2 or more items.</param>
+        /// <param name="eccentricities">List of analytical eccentricities, 2 or more items.</param>
+        /// <param name="startConnectivity">Start connectivity</param>
+        /// <param name="endConnectivity">End connectivity</param>
+        /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, double[] positions, Eccentricity[] eccentricities, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
            this.EntityCreated();
@@ -202,41 +266,17 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct truss
         /// <summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="section">Section (uniform)</param>
+        /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
             this.EntityCreated();
             this.Type = type;
             this.Identifier = identifier;
             this.BarPart = new BarPart(edge, this.Type, material, section, this.Identifier);
-        }
-
-        /// Create a bar of type beam.
-        public static Bar BeamDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
-        {
-           return new Bar(edge, BarType.Beam, material, sections, connectivities, eccentricities, identifier);
-        }
-
-        /// Create a bar of type column.
-        public static Bar ColumnDefine(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
-        {
-           return new Bar(edge, BarType.Column, material, sections, connectivities, eccentricities, identifier);            
-        }
-
-        /// Create a bar of type truss without compression or tension limits.
-        public static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
-        {
-           return new Bar(edge, BarType.Truss, material, section, identifier);            
-        }
-
-        /// Create a bar of type truss.
-        public static Bar TrussDefine(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, double maxCompression,  double maxTension, bool compressionPlasticity, bool tensionPlasticity)
-        {
-            Bar bar = new Bar(edge, BarType.Truss, material, section, identifier);
-            bar.MaxCompression = maxCompression;
-            bar.CompressionPlasticity = compressionPlasticity;
-            bar.MaxTension = maxTension;
-            bar.TensionPlasticity = tensionPlasticity;
-            return bar;
         }
 
         /// Update entities if this bar should be "reconstructed"
