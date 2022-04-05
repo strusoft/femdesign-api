@@ -524,19 +524,15 @@ namespace FemDesign.Bars
                 this._identifier = value + ".1";
             }
         }
-
         [XmlIgnore]
         public BarType Type { get; set; }
 
         [XmlAttribute("complex_composite")]
-        public System.Guid ComplexCompositeRef { get; set; } // guidtype
+        public string ComplexCompositeRef { get; set; } // guidtype
         [XmlIgnore]
-        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != System.Guid.Empty; }
+        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != null; }
         [XmlIgnore]
         public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexCompositeObj { get; set; }
-
-        [XmlAttribute("composite_section")]
-        public System.String _compositeSectionRef { get; set; } // string type
 
         [XmlAttribute("complex_material")]
         public string _complexMaterialRef;
@@ -625,6 +621,8 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public bool HasComplexSectionRef { get => this.ComplexSectionRef != null; }
         [XmlIgnore]
+        public bool HasDeltaBeamComplexSectionRef { get => !System.Guid.TryParse(this.ComplexSectionRef, out System.Guid result); }
+        [XmlIgnore]
         public Sections.ComplexSection ComplexSectionObj;
         [XmlIgnore]
         public Sections.Section TrussUniformSectionObj;
@@ -692,7 +690,7 @@ namespace FemDesign.Bars
                 }
                 // beam and column have eccentricity and analytical eccentricity
                 // must equal complexSectionObj eccentricity
-                else if (this.HasComplexSectionRef)
+                else if (this.HasComplexSectionRef && !this.HasDeltaBeamComplexSectionRef)
                 {
                     var sectionEcc = this.ComplexSectionObj.Eccentricities;
                     this._eccentricityTypeField.StartAnalytical = sectionEcc.First();

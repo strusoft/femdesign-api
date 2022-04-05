@@ -426,13 +426,18 @@ namespace FemDesign
                 this.AddSection(obj.BarPart.TrussUniformSectionObj, overwrite);
                 this.AddMaterial(obj.BarPart.ComplexMaterialObj, overwrite);
             }
-            // if complex composite
+            // if complex composite and not delta beam type
             else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexCompositeRef)
             {
                 this.AddComplexComposite(obj.BarPart.ComplexCompositeObj, overwrite);
             }
+            // if complex composite but delta beam type
+            else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexSectionRef && obj.BarPart.HasDeltaBeamComplexSectionRef)
+            {
+                // do nothing
+            }
             // if complex section
-            else if (obj.BarPart.HasComplexSectionRef)
+            else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexSectionRef && !obj.BarPart.HasDeltaBeamComplexSectionRef)
             {
                 this.AddComplexSection(obj.BarPart.ComplexSectionObj, overwrite);
                 this.AddMaterial(obj.BarPart.ComplexMaterialObj, overwrite);
@@ -2777,8 +2782,13 @@ namespace FemDesign
                         throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
                     }
                 }
-                // get section and material for beam or column with complex section
-                else if (item.Type != Bars.BarType.Truss && item.BarPart.HasComplexSectionRef)
+                // do nothing for beam or column with complex section (delta beam type)
+                else if (item.Type != Bars.BarType.Truss && item.BarPart.HasComplexSectionRef && item.BarPart.HasDeltaBeamComplexSectionRef)
+                {
+                    // pass
+                }
+                // get section and material for beam or column with complex section (not delta beam type)
+                else if (item.Type != Bars.BarType.Truss && item.BarPart.HasComplexSectionRef && !item.BarPart.HasDeltaBeamComplexSectionRef)
                 {
                     // section
                     try
@@ -2829,7 +2839,7 @@ namespace FemDesign
                     try
                     {
                         // assign the Object Complex Composite to the bar part
-                        item.BarPart.ComplexCompositeObj = complexCompositeMap[item.BarPart.ComplexCompositeRef];
+                        item.BarPart.ComplexCompositeObj = complexCompositeMap[new System.Guid(item.BarPart.ComplexCompositeRef)];
 
                         // iterate over the composite section inside the complex composite and assign the object from the database Composite
                         foreach (StruSoft.Interop.StruXml.Data.Composite_section_type compositeSection in item.BarPart.ComplexCompositeObj.Composite_section)
