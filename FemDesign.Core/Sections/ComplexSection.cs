@@ -15,6 +15,7 @@ namespace FemDesign.Sections
     {
         [XmlElement("section")]
         public List<ComplexSectionPart> Parts = new List<ComplexSectionPart>();
+        [XmlIgnore]
         public Sections.Section[] Sections
         {
             get
@@ -37,6 +38,7 @@ namespace FemDesign.Sections
                 }
             }
         }
+        [XmlIgnore]
         public double[] Positions
         {
             get
@@ -44,6 +46,7 @@ namespace FemDesign.Sections
                 return this.Parts.Select(x => x.Pos).ToArray();
             }
         }
+        [XmlIgnore]
         public Bars.Eccentricity[] Eccentricities
         {
             get

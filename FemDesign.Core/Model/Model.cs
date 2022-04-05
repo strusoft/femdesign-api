@@ -2730,7 +2730,7 @@ namespace FemDesign
         {
             Dictionary<Guid, Sections.ComplexSection> complexSectionsMap = this.Sections.ComplexSection.ToDictionary(s => s.Guid, s => s.DeepClone());
             Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid);
-            Dictionary<Guid, Reinforcement.BarReinforcement> reinforcementMap = this.Entities.BarReinforcements.ToDictionary(b => b.BaseBar.Guid);
+            //Dictionary<Guid, Reinforcement.BarReinforcement> reinforcementMap = this.Entities.BarReinforcements.ToDictionary(b => b.BaseBar.Guid);
             Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
             Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
             Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> compositeSectionMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data>();
@@ -2824,7 +2824,7 @@ namespace FemDesign
                 }
 
                 // get section and material for beam or column with complex composite section
-                else if (item.BarPart.HasComplexSectionRef)
+                else if (item.BarPart.HasComplexCompositeRef)
                 {
                     try
                     {

@@ -536,15 +536,12 @@ namespace FemDesign.Bars
         public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexCompositeObj { get; set; }
 
         [XmlAttribute("composite_section")]
-        public System.Guid CompositeSectionRef { get; set; } // guidtype
-        [XmlIgnore]
-        public bool HasComplexSectionRef { get => this.ComplexCompositeRef != System.Guid.Empty; }
-
-        [XmlIgnore]
-        public List<StruSoft.Interop.StruXml.Data.Composite_section_type> CompositeSection { get; set; }
+        public System.String _compositeSectionRef { get; set; } // string type
 
         [XmlAttribute("complex_material")]
         public string _complexMaterialRef;
+
+        [XmlIgnore]
         public System.Guid ComplexMaterialRef
         {
             get
@@ -594,7 +591,7 @@ namespace FemDesign.Bars
                 {
                     if (this.TrussUniformSectionObj == null)
                     {
-                        throw new System.Exception("No trussUniformSectionObj available.");
+                        return this._complexSectionRef;
                     }
                     else
                     {
@@ -608,7 +605,7 @@ namespace FemDesign.Bars
                 {
                     if (this.ComplexSectionObj == null)
                     {
-                        throw new System.Exception("No complexSectionObj available.");
+                        return this._complexSectionRef;
                     }
                     else
                     {
@@ -616,6 +613,7 @@ namespace FemDesign.Bars
                         this._complexSectionRef = r;
                         return r;
                     }
+                    
                 }
             }
             set
@@ -623,6 +621,9 @@ namespace FemDesign.Bars
                 this._complexSectionRef = value;
             }
         }
+
+        [XmlIgnore]
+        public bool HasComplexSectionRef { get => this.ComplexSectionRef != null; }
         [XmlIgnore]
         public Sections.ComplexSection ComplexSectionObj;
         [XmlIgnore]
@@ -708,6 +709,7 @@ namespace FemDesign.Bars
                 this._eccentricityTypeField = value;
             }
         }
+        [XmlIgnore]
         public Eccentricity[] AnalyticalEccentricity
         {
             get
