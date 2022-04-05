@@ -599,4 +599,89 @@ namespace FemDesign.Results
             return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, weight, area, totalWeight, count);
         }
     }
+
+    /// <summary>
+    /// FemDesign "Quantity estimation, Concrete" result
+    /// </summary>
+    public class QuantityEstimationMasonry : IQuantityEstimationResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        public string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        public string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        public string Quality { get; }
+        /// <summary>
+        /// Thickness
+        /// </summary>
+        public double Thickness { get; }
+        /// <summary>
+        /// Weight per length or area unit
+        /// </summary>
+        public double UnitWeight { get; }
+        /// <summary>
+        /// Length/Area Quantity
+        /// </summary>
+        public double SubTotal { get; }
+        /// <summary>
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+
+        internal QuantityEstimationMasonry(string id, string storey, string structure, string quality, double thickness, double unitWeight, double subTotal, double totalWeight)
+        {
+            Storey = storey;
+            Structure = structure;
+            Id = id;
+            Quality = quality;
+            Thickness = thickness;
+            UnitWeight = unitWeight;
+            SubTotal = subTotal;
+            TotalWeight = totalWeight;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, {Id}";
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Masonry)");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"Quantity estimation, Masonry|^Storey\t|^\ttype\t+\[.+\]|TOTAL\t");
+            }
+        }
+
+        internal static QuantityEstimationMasonry Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string storey = row[0] == "-" ? null : row[0];
+            string structure = row[1];
+            string id = row[2];
+            string quality = row[3];
+            double thickness = double.Parse(row[4], CultureInfo.InvariantCulture);
+            double unitWeight = double.Parse(row[5], CultureInfo.InvariantCulture);
+            double subTotal = double.Parse(row[6], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
+            return new QuantityEstimationMasonry(id, storey, structure, quality, thickness, unitWeight, subTotal, totalWeight);
+        }
+    }
 }
