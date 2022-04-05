@@ -71,6 +71,7 @@
     <Compile Include="Results\LineSupportResultantTests.cs" />
     <Compile Include="Results\QuantityEstimationConcreteTests.cs" />
     <Compile Include="Results\QuantityEstimationProfiledPlateTests.cs" />
+    <Compile Include="Results\QuantityEstimationMasonryTests.cs" />
     <Compile Include="Results\QuantityEstimationTimberPanelTests.cs" />
     <Compile Include="Results\RC design\ShellCrackWidthTests.cs" />
     <Compile Include="Results\RC design\ShellUtilizationTests.cs" />
