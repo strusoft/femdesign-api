@@ -48,6 +48,12 @@ namespace FemDesign.Results
         [Parseable("QuantityEstimationProfiledPanel")]
         [Result(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel)]
         QuantityEstimationProfiledPanel,
+        /// <summary>
+        /// Quantity estimation, Masonry
+        /// </summary>
+        [Parseable("QuantityEstimationMasonry")]
+        [Result(typeof(QuantityEstimationMasonry), ListProc.QuantityEstimationMasonry)]
+        QuantityEstimationMasonry,
 
         /* LOAD CASES AND COMBINATIONS */
         [Parseable("NodalDisplacement")]
