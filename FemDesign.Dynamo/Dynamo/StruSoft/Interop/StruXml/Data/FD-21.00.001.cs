@@ -6,7 +6,8 @@ using Autodesk.DesignScript.Runtime;
 #endregion
 
 namespace StruSoft.Interop.StruXml.Data
-{[IsVisibleInDynamoLibrary(false)]
+{
+[IsVisibleInDynamoLibrary(false)]
 public partial class Database
 {
 }
@@ -1903,6 +1904,336 @@ public partial class Fill_type
 
 [IsVisibleInDynamoLibrary(false)]
 public partial class Text_style_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Database
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class DatabaseEntities
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Foundation_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Ptfoundation_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Point_type_3d
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Point_type_2d
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Point_type_1d
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Untested_localsys_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class View_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Userfilter_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Solid_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Region_group_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Region_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Edge_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Ec_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Plasticity_type_3d
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Reference_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_data_type3
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_data_type2
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Stiffness_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_data_type1
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_data_type0
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_group_type3
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_group_type2
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Stiffness_record
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Stiffness_motion_record
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Plasticity3d_record
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Plasticity3d_force_record
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Stiffness_with_friction
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Simple_stiffness_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Stiff_base_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Phe_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Curve_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Point_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Bolt_length_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Bolt_data_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Bolt_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Vehicle_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Caseless_point_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Location_value
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Point_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Caseless_line_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Line_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Caseless_surface_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Surface_load_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Ptc_strand_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Ptc_strand_lib_typePtc_strand_data
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Clt_layer
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Service_class_kdefs
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Clt_datatype
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Cltpanel_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Glc_layer
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Glc_datatype
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Glcpanel_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Service_class_factors
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Tp_datatype
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Tp_datatypeStiffness
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Tp_datatypeStrength
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Timberpanel_lib_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_datalib_type1
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_group_type1
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_group_type0
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_datalib_type3
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Rigidity_datalib_type2
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Composite_section_type
+{
+}
+
+[IsVisibleInDynamoLibrary(false)]
+public partial class Complex_composite_type
 {
 }
 

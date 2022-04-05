@@ -8,12 +8,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Grasshopper", "FemDesign.Grasshopper\FemDesign.Grasshopper.csproj", "{04F35658-7446-4513-AA4D-17B4782D3D00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21} = {81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesign.Tests\FemDesign.Tests.csproj", "{CCADA385-E5FB-4F08-BC50-1826BBEF9794}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.UtilsDevelopment", "FemDesign.Utils\FemDesign.UtilsDevelopment.csproj", "{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FemDesign.UtilsDevelopment", "FemDesign.Utils\FemDesign.UtilsDevelopment.csproj", "{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

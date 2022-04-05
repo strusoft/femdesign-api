@@ -958,7 +958,6 @@
     <MakeDir Directories="$(OutDir)\FemDesign\extra" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)FemDesign.Utils\bin\$(ConfigurationName)\net6.0\FemDesign.UtilsDevelopment.exe</PreBuildEvent>
   </PropertyGroup>
 </Project>
