@@ -5,8 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+
+#if ISDYNAMO
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+#endif
+
 namespace FemDesign.GenericClasses
 {
+    #if ISDYNAMO
+    [IsVisibleInDynamoLibrary(false)]
+    #endif
     public enum VerticalAlignment
     {
         [Parseable("top", "Top", "TOP")]

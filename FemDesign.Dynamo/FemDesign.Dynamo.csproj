@@ -722,6 +722,8 @@
     <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
       <Link>Core\Supports\SurfaceSupport.cs</Link>
     </Compile>
+    <Compile Include="Dynamo\AuxiliaryResults\LabelledSectionsGeometry.cs" />
+    <Compile Include="Dynamo\AuxiliaryResults\LabelledSection.cs" />
     <Compile Include="Dynamo\Bars\BarType.cs" />
     <Compile Include="Dynamo\AdvancedFem\AdvancedFem.cs" />
     <Compile Include="Dynamo\AdvancedFem\Cover.cs" />
@@ -761,6 +763,7 @@
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
     <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\EnumHelpers.cs" />
     <Compile Include="Dynamo\GenericClasses\ExtensionMethods.cs" />
     <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
     <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
@@ -775,6 +778,8 @@
     <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
     <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
     <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\LineSegment.cs" />
+    <Compile Include="Dynamo\Geometry\Polyline.cs" />
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
@@ -861,6 +866,14 @@
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
+    <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\BarEndForce.cs" />
+    <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\QuantityEstimation.cs" />
+    <Compile Include="Dynamo\Results\ResultAttribute.cs" />
+    <Compile Include="Dynamo\Results\ResultReader.cs" />
+    <Compile Include="Dynamo\Results\ShellInternalForce.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
