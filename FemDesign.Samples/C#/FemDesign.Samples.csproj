@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeLengthOfBeam.cs" />
+    <Compile Include="Example4EditExistingModel.cs" />
     <Compile Include="LoadGroups.cs" />
     <Compile Include="LoadGroupsCombine.cs" />
     <Compile Include="Main.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunAnalysis.cs" />
     <Compile Include="SampleProgram.CreatePostTensionedCable.cs" />
-    <Compile Include="SampleProgram.CreateSimpleModel.cs" />
+    <Compile Include="Example1CreateSimpleModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
