@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 namespace StruSoft.Interop.StruXml.Data
 {
     /// <summary>
-    /// Complex section.
-    /// strusoft.xsd: complex_section_type
+    /// Composite Section.
+    /// strusoft.xsd: Composite_section_type
     /// </summary>
     public partial class Composite_section_type
     {

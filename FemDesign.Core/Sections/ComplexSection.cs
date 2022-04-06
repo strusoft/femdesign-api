@@ -23,8 +23,11 @@ namespace FemDesign.Sections
                 return this.Parts.Select(x => x.SectionObj).ToArray();
             }
             set
+            // if value is one item  and number of parts is two items
+            // if value is MORE then ONE item and match number of parts
+            // if value.Count mismatch number of parts throw exception informing the user. It should never happen
             {
-                if (this.Sections.Length == value.Length)
+                if (this.Parts.Count == value.Length)
                 {
                     for (int idx = 0; idx < value.Length; idx++)
                     {
@@ -32,9 +35,17 @@ namespace FemDesign.Sections
                         this.Parts[idx].SectionObj = value[idx];
                     }
                 }
-                else
+                else if (this.Parts.Count == 2 && value.Length == 1)
                 {
-                    throw new System.ArgumentException($"Length of input sections: {value.Length}, does not match length of existing sections: {this.Sections.Length}. It is ambigious how the sections should be positioned. Create new copmlex section or match input sections length.");
+                    this.Parts[0].SectionRef = value[0].Guid;
+                    this.Parts[0].SectionObj = value[0];
+
+                    this.Parts[1].SectionRef = value[0].Guid;
+                    this.Parts[1].SectionObj = value[0];
+                }
+                else if (this.Parts.Count != value.Length)
+                {
+                    throw new System.ArgumentException($"Length of input sections: {value.Length}, does not match length of existing sections: {this.Sections.Length}. It is ambigious how the sections should be positioned. Create new complex section or match input sections length.");
                 }
             }
         }
@@ -55,14 +66,19 @@ namespace FemDesign.Sections
             }
             set
             {
-                if (this.Eccentricities.Length == value.Length)
+                if (this.Parts.Count == value.Length)
                 {
                     for (int idx = 0; idx < value.Length; idx++)
                     {
                         this.Parts[idx].Eccentricity = value[idx];
                     }
                 }
-                else
+                else if(this.Parts.Count == 2 && value.Length == 1)
+                {
+                    this.Parts[0].Eccentricity = value[0];
+                    this.Parts[1].Eccentricity = value[0];
+                }
+                else if (this.Parts.Count != value.Length)
                 {
                     throw new System.ArgumentException($"Length of input eccentricities: {value.Length}, does not match length of existing eccentricities: {this.Eccentricities.Length}. It is ambigious how the eccentrictity should be positioned. Create new complex section or match input eccentricities length.");
                 }

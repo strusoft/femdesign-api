@@ -1,16 +1,14 @@
 // https://strusoft.com/
 
 using System;
+
 using System.Xml.Serialization;
 
 
 
 namespace StruSoft.Interop.StruXml.Data
 {
-    /// <summary>
-    /// Complex section.
-    /// strusoft.xsd: complex_section_type
-    /// </summary>
+
     public partial class Composite_part_type
     {
         [XmlIgnore]

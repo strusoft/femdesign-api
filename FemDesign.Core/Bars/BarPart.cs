@@ -529,8 +529,10 @@ namespace FemDesign.Bars
 
         [XmlAttribute("complex_composite")]
         public string ComplexCompositeRef { get; set; } // guidtype
+
         [XmlIgnore]
         public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != null; }
+
         [XmlIgnore]
         public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexCompositeObj { get; set; }
 
@@ -551,6 +553,7 @@ namespace FemDesign.Bars
         }
         [XmlIgnore]
         public bool HasComplexMaterialRef { get => this.ComplexMaterialRef != System.Guid.Empty; }
+
         /// <summary>
         /// Material field
         /// </summary>
@@ -620,12 +623,16 @@ namespace FemDesign.Bars
 
         [XmlIgnore]
         public bool HasComplexSectionRef { get => this.ComplexSectionRef != null; }
+
         [XmlIgnore]
         public bool HasDeltaBeamComplexSectionRef { get => !System.Guid.TryParse(this.ComplexSectionRef, out System.Guid result); }
+
         [XmlIgnore]
         public Sections.ComplexSection ComplexSectionObj;
+
         [XmlIgnore]
         public Sections.Section TrussUniformSectionObj;
+
         [XmlIgnore]
         public SteelMadeType? SteelMadeType;
 

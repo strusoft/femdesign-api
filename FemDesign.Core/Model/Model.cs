@@ -2742,8 +2742,8 @@ namespace FemDesign
 
             if (this.Composites != null)
             {
-                complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s);
-                compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s);
+                complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
+                compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
             }
 
             foreach (Bars.Bar item in this.Entities.Bars)
