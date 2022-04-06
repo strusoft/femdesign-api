@@ -46,6 +46,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -699,8 +701,8 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
-      <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
+    <Compile Include="..\FemDesign.Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs">
+      <Link>Core\StruSoft\Interop\StruXml\Data\FD-21.00.001.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>
@@ -720,6 +722,8 @@
     <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
       <Link>Core\Supports\SurfaceSupport.cs</Link>
     </Compile>
+    <Compile Include="Dynamo\AuxiliaryResults\LabelledSectionsGeometry.cs" />
+    <Compile Include="Dynamo\AuxiliaryResults\LabelledSection.cs" />
     <Compile Include="Dynamo\Bars\BarType.cs" />
     <Compile Include="Dynamo\AdvancedFem\AdvancedFem.cs" />
     <Compile Include="Dynamo\AdvancedFem\Cover.cs" />
@@ -759,6 +763,7 @@
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />
     <Compile Include="Dynamo\GenericClasses\EntityBase.cs" />
+    <Compile Include="Dynamo\GenericClasses\EnumHelpers.cs" />
     <Compile Include="Dynamo\GenericClasses\ExtensionMethods.cs" />
     <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
     <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
@@ -773,6 +778,8 @@
     <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
     <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
     <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\LineSegment.cs" />
+    <Compile Include="Dynamo\Geometry\Polyline.cs" />
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />
     <Compile Include="Dynamo\Geometry\Region.cs" />
     <Compile Include="Dynamo\Geometry\RegionGroup.cs" />
@@ -859,6 +866,14 @@
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
+    <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\BarEndForce.cs" />
+    <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\QuantityEstimation.cs" />
+    <Compile Include="Dynamo\Results\ResultAttribute.cs" />
+    <Compile Include="Dynamo\Results\ResultReader.cs" />
+    <Compile Include="Dynamo\Results\ShellInternalForce.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
@@ -887,6 +902,16 @@
     <Compile Include="Dynamo\Supports\Supports.cs" />
     <Compile Include="Dynamo\Supports\SurfaceSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\FemDesign.Core\Resources\sectionLibrary\sections.struxml">
@@ -925,8 +950,17 @@
     <EmbeddedResource Include="..\FemDesign.Core\Resources\materialLibrary\materials_TR.struxml">
       <Link>Core\Resources\materialLibrary\materials_TR.struxml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="..\FemDesign.Core\Resources\sectionLibrary\sections.struxml">
       <Link>Core\Resources\sectionLibrary\sections.struxml</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -954,4 +988,10 @@
     <MakeDir Directories="$(OutDir)\FemDesign\dyf" />
     <MakeDir Directories="$(OutDir)\FemDesign\extra" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)FemDesign.Utils\bin\$(ConfigurationName)\net6.0\FemDesign.UtilsDevelopment.exe</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>ISDYNAMO</DefineConstants>
+  </PropertyGroup>
 </Project>

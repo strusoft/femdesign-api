@@ -9,7 +9,7 @@ using FemDesign.Calculate;
 namespace FemDesign.Results
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class ResultAttribute : Attribute
+    public partial class ResultAttribute : Attribute
     {
         public readonly Type ResultType;
         public readonly ListProc CaseListProc;

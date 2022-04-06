@@ -1,3 +1,13 @@
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
+#if ISDYNAMO
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+#endif
+
+
 namespace StruSoft.Interop.StruXml.Data
 {
 
@@ -9,7 +19,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "database")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "database")]
-    public partial class Database
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Database
     {
 
         private DatabaseEntities entitiesField;
@@ -651,7 +664,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseEntities")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseEntities")]
-    public partial class DatabaseEntities
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseEntities
     {
 
         private System.Collections.Generic.List<Foundation_type> foundationsField;
@@ -1152,7 +1168,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "foundation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "foundation_type")]
-    public partial class Foundation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Foundation_type
     {
 
         private System.Collections.Generic.List<Ptfoundation_type> isolated_foundationField;
@@ -1211,7 +1230,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptfoundation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptfoundation_type")]
-    public partial class Ptfoundation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptfoundation_type
     {
 
         private Point_type_3d connection_pointField;
@@ -1497,7 +1519,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_type_3d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_type_3d")]
-    public partial class Point_type_3d : Point_type_2d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_type_3d : Point_type_2d
     {
 
         private double zField;
@@ -1543,7 +1568,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_type_2d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_type_2d")]
-    public partial class Point_type_2d : Point_type_1d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_type_2d : Point_type_1d
     {
 
         private double yField;
@@ -1590,7 +1618,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_type_1d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_type_1d")]
-    public partial class Point_type_1d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_type_1d
     {
 
         private double xField;
@@ -1633,7 +1664,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "untested_localsys_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "untested_localsys_type")]
-    public partial class Untested_localsys_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Untested_localsys_type
     {
 
         private Point_type_3d posField;
@@ -1708,7 +1742,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "view_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "view_type")]
-    public partial class View_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class View_type
     {
 
         private Untested_localsys_type coordinate_system_2dField;
@@ -1845,7 +1882,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "viewtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "viewtype")]
-    public enum Viewtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Viewtype
     {
 
         /// <remarks/>
@@ -1868,7 +1908,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "userfilter_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "userfilter_type")]
-    public partial class Userfilter_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Userfilter_type
     {
 
         private string membersField;
@@ -1927,7 +1970,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "solid_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "solid_type")]
-    public partial class Solid_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Solid_type
     {
 
         private System.Collections.Generic.List<Edge_type> facetsField;
@@ -2010,7 +2056,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "region_group_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "region_group_type")]
-    public partial class Region_group_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Region_group_type
     {
 
         private System.Collections.Generic.List<Region_type> regionField;
@@ -2050,7 +2099,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "region_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "region_type")]
-    public partial class Region_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Region_type
     {
 
         private System.Collections.Generic.List<Contour_type> contourField;
@@ -2092,7 +2144,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "Edge_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "Edge_type")]
-    public partial class Edge_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Edge_type
     {
 
         private System.Collections.Generic.List<Point_type_3d> pointField;
@@ -2314,7 +2369,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ec_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ec_type")]
-    public partial class Ec_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ec_type
     {
 
         private object[] itemsField;
@@ -2522,7 +2580,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "plasticity_type_3d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "plasticity_type_3d")]
-    public partial class Plasticity_type_3d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Plasticity_type_3d
     {
 
         private double x_negField;
@@ -2747,7 +2808,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "reference_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "reference_type")]
-    public partial class Reference_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Reference_type
     {
 
         private string guidField;
@@ -2790,7 +2854,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_data_type3")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_data_type3")]
-    public partial class Rigidity_data_type3 : Rigidity_data_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_data_type3 : Rigidity_data_type2
     {
 
         private double frictionField;
@@ -2840,7 +2907,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_data_type2")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_data_type2")]
-    public partial class Rigidity_data_type2 : Rigidity_data_type1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_data_type2 : Rigidity_data_type1
     {
 
         private Stiffness_type rotationsField;
@@ -2883,7 +2953,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_type")]
-    public partial class Stiffness_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_type
     {
 
         private double x_negField;
@@ -3008,7 +3081,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_data_type1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_data_type1")]
-    public partial class Rigidity_data_type1 : Rigidity_data_type0
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_data_type1 : Rigidity_data_type0
     {
 
         private Detach_type detachField;
@@ -3055,7 +3131,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "detach_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "detach_type")]
-    public enum Detach_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Detach_type
     {
 
         /// <remarks/>
@@ -3097,7 +3176,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_data_type0")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_data_type0")]
-    public partial class Rigidity_data_type0
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_data_type0
     {
 
         private Stiffness_type motionsField;
@@ -3140,7 +3222,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_group_type3")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_group_type3")]
-    public partial class Rigidity_group_type3 : Rigidity_group_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_group_type3 : Rigidity_group_type2
     {
 
         private double frictionField;
@@ -3190,7 +3275,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_group_type2")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_group_type2")]
-    public partial class Rigidity_group_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_group_type2
     {
 
         private System.Collections.Generic.List<Stiffness_record> springsField;
@@ -3271,19 +3359,22 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_record")]
-    public partial class Stiffness_record : Stiffness_motion_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_record : Stiffness_motion_record
     {
 
         private double cx_negField;
-                
+
         private double cx_posField;
-                
+
         private double cy_negField;
-                
+
         private double cy_posField;
-                
+
         private double cz_negField;
-                
+
         private double cz_posField;
 
         private System.Collections.Generic.List<System.Xml.XmlAttribute> anyAttr1Field;
@@ -3395,7 +3486,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_motion_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_motion_record")]
-    public partial class Stiffness_motion_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_motion_record
     {
 
         private double kx_negField;
@@ -3518,7 +3612,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "plasticity3d_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "plasticity3d_record")]
-    public partial class Plasticity3d_record : Plasticity3d_force_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Plasticity3d_record : Plasticity3d_force_record
     {
 
         private double moment_x_negField;
@@ -3744,7 +3841,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "plasticity3d_force_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "plasticity3d_force_record")]
-    public partial class Plasticity3d_force_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Plasticity3d_force_record
     {
 
         private double force_x_negField;
@@ -3969,7 +4069,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_with_friction")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_with_friction")]
-    public partial class Stiffness_with_friction : Simple_stiffness_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_with_friction : Simple_stiffness_type
     {
 
         private double frictionField;
@@ -4019,7 +4122,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_stiffness_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_stiffness_type")]
-    public partial class Simple_stiffness_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_stiffness_type
     {
 
         private Stiff_base_type mov_xField;
@@ -4164,7 +4270,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiff_base_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiff_base_type")]
-    public partial class Stiff_base_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiff_base_type
     {
 
         private double negField;
@@ -4220,7 +4329,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType
     {
 
         /// <remarks/>
@@ -4253,7 +4365,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "modification_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "modification_type")]
-    public enum Modification_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Modification_type
     {
 
         /// <remarks/>
@@ -4272,7 +4387,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "phe_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "phe_type")]
-    public partial class Phe_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Phe_type
     {
 
         private double offsetField;
@@ -4335,7 +4453,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "edgetype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "edgetype")]
-    public enum Edgetype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Edgetype
     {
 
         /// <remarks/>
@@ -4366,7 +4487,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "curve_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "curve_type")]
-    public partial class Curve_type : Edge_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Curve_type : Edge_type
     {
 
         private Style_type styleField;
@@ -4393,7 +4517,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_type")]
-    public partial class Point_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_type
     {
 
         private Point_type_3d locationField;
@@ -4436,7 +4563,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bolt_length_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bolt_length_type")]
-    public partial class Bolt_length_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bolt_length_type
     {
 
         private double lField;
@@ -4511,7 +4641,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bolt_data_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bolt_data_type")]
-    public partial class Bolt_data_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bolt_data_type
     {
 
         private System.Collections.Generic.List<Bolt_length_type> bolt_lengthField;
@@ -4826,7 +4959,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bolt_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bolt_lib_type")]
-    public partial class Bolt_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bolt_lib_type
     {
 
         private Bolt_data_type bolt_dataField;
@@ -4885,7 +5021,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "vehicle_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "vehicle_lib_type")]
-    public partial class Vehicle_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Vehicle_lib_type
     {
 
         private System.Collections.Generic.List<Caseless_point_load_type> point_loadField;
@@ -4977,7 +5116,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "caseless_point_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "caseless_point_load_type")]
-    public partial class Caseless_point_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Caseless_point_load_type
     {
 
         private Point_type_3d directionField;
@@ -5257,7 +5399,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "location_value")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "location_value")]
-    public partial class Location_value : Point_type_3d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Location_value : Point_type_3d
     {
 
         private double valField;
@@ -5298,7 +5443,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "force_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "force_load_type")]
-    public enum Force_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Force_load_type
     {
 
         /// <remarks/>
@@ -5315,7 +5463,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "direction_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "direction_type")]
-    public enum Direction_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Direction_type
     {
 
         /// <remarks/>
@@ -5332,7 +5483,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "auto_force_sign_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "auto_force_sign_type")]
-    public enum Auto_force_sign_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Auto_force_sign_type
     {
 
         /// <remarks/>
@@ -5349,7 +5503,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "auto_force_type_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "auto_force_type_type")]
-    public enum Auto_force_type_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Auto_force_type_type
     {
 
         /// <remarks/>
@@ -5376,7 +5533,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_load_type")]
-    public partial class Point_load_type : Caseless_point_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_load_type : Caseless_point_load_type
     {
 
         private string load_caseField;
@@ -5420,7 +5580,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "caseless_line_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "caseless_line_load_type")]
-    public partial class Caseless_line_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Caseless_line_load_type
     {
 
         private Edge_type edgeField;
@@ -5762,7 +5925,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "load_dir_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "load_dir_type")]
-    public enum Load_dir_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Load_dir_type
     {
 
         /// <remarks/>
@@ -5781,7 +5947,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_load_type")]
-    public partial class Line_load_type : Caseless_line_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_load_type : Caseless_line_load_type
     {
 
         private string load_caseField;
@@ -5825,7 +5994,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "caseless_surface_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "caseless_surface_load_type")]
-    public partial class Caseless_surface_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Caseless_surface_load_type
     {
 
         private Region_type regionField;
@@ -6137,7 +6309,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_load_type")]
-    public partial class Surface_load_type : Caseless_surface_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_load_type : Caseless_surface_load_type
     {
 
         private string load_caseField;
@@ -6180,7 +6355,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_strand_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_strand_lib_type")]
-    public partial class Ptc_strand_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_strand_lib_type
     {
 
         private Ptc_strand_lib_typePtc_strand_data ptc_strand_dataField;
@@ -6239,7 +6417,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "ptc_strand_lib_typePtc_strand_data")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "ptc_strand_lib_typePtc_strand_data")]
-    public partial class Ptc_strand_lib_typePtc_strand_data
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_strand_lib_typePtc_strand_data
     {
 
         private double f_pkField;
@@ -6362,7 +6543,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "clt_layer")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "clt_layer")]
-    public partial class Clt_layer
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Clt_layer
     {
 
         private string materialField;
@@ -6709,7 +6893,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "service_class_kdefs")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "service_class_kdefs")]
-    public partial class Service_class_kdefs
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Service_class_kdefs
     {
 
         private double service_class_0Field;
@@ -6784,7 +6971,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "clt_datatype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "clt_datatype")]
-    public partial class Clt_datatype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Clt_datatype
     {
 
         private Service_class_kdefs default_kdefField;
@@ -6923,7 +7113,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "cltpanel_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "cltpanel_lib_type")]
-    public partial class Cltpanel_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Cltpanel_lib_type
     {
 
         private Clt_datatype clt_panel_dataField;
@@ -6982,7 +7175,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "glc_layer")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "glc_layer")]
-    public partial class Glc_layer
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Glc_layer
     {
 
         private string materialField;
@@ -7169,7 +7365,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "glc_datatype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "glc_datatype")]
-    public partial class Glc_datatype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Glc_datatype
     {
 
         private System.Collections.Generic.List<Glc_layer> layerField;
@@ -7228,7 +7427,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "glcpanel_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "glcpanel_lib_type")]
-    public partial class Glcpanel_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Glcpanel_lib_type
     {
 
         private Glc_datatype glc_panel_dataField;
@@ -7287,7 +7489,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "service_class_factors")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "service_class_factors")]
-    public partial class Service_class_factors
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Service_class_factors
     {
 
         private double kdefField;
@@ -7410,7 +7615,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "tp_datatype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "tp_datatype")]
-    public partial class Tp_datatype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Tp_datatype
     {
 
         private Tp_datatypeStiffness stiffnessField;
@@ -7664,7 +7872,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "tp_datatypeStiffness")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "tp_datatypeStiffness")]
-    public partial class Tp_datatypeStiffness
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Tp_datatypeStiffness
     {
 
         private double em_k0Field;
@@ -7851,7 +8062,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "tp_datatypeStrength")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "tp_datatypeStrength")]
-    public partial class Tp_datatypeStrength
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Tp_datatypeStrength
     {
 
         private double fm_k0Field;
@@ -8022,7 +8236,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "timberpanel_lib_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "timberpanel_lib_type")]
-    public partial class Timberpanel_lib_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Timberpanel_lib_type
     {
 
         private Tp_datatype timber_panel_dataField;
@@ -8151,7 +8368,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_datalib_type1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_datalib_type1")]
-    public partial class Rigidity_datalib_type1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_datalib_type1
     {
 
         private object itemField;
@@ -8281,7 +8501,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_group_type1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_group_type1")]
-    public partial class Rigidity_group_type1 : Rigidity_group_type0
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_group_type1 : Rigidity_group_type0
     {
 
         private Detach_type detachField;
@@ -8331,7 +8554,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_group_type0")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_group_type0")]
-    public partial class Rigidity_group_type0
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_group_type0
     {
 
         private System.Collections.Generic.List<Stiffness_motion_record> springsField;
@@ -8374,7 +8600,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_datalib_type3")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_datalib_type3")]
-    public partial class Rigidity_datalib_type3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_datalib_type3
     {
 
         private object itemField;
@@ -8504,7 +8733,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rigidity_datalib_type2")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rigidity_datalib_type2")]
-    public partial class Rigidity_datalib_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rigidity_datalib_type2
     {
 
         private object itemField;
@@ -8634,7 +8866,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_section_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "composite_section_type")]
-    public partial class Composite_section_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Composite_section_type
     {
 
         private string guidField;
@@ -8693,7 +8928,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "complex_composite_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "complex_composite_type")]
-    public partial class Complex_composite_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Complex_composite_type
     {
 
         private System.Collections.Generic.List<Composite_section_type> composite_sectionField;
@@ -8806,7 +9044,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_prop_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "composite_prop_type")]
-    public partial class Composite_prop_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Composite_prop_type
     {
 
         private Composite_prop_name nameField;
@@ -8863,7 +9104,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_prop_name")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "composite_prop_name")]
-    public enum Composite_prop_name
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Composite_prop_name
     {
 
         /// <remarks/>
@@ -8966,7 +9210,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_part_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "composite_part_type")]
-    public partial class Composite_part_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Composite_part_type
     {
 
         private string materialField;
@@ -9065,7 +9312,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_data")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "composite_data")]
-    public partial class Composite_data
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Composite_data
     {
 
         private System.Collections.Generic.List<Composite_part_type> partField;
@@ -9208,7 +9458,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "composite_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "composite_type")]
-    public enum Composite_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Composite_type
     {
 
         /// <remarks/>
@@ -9255,7 +9508,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rfmaterial_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rfmaterial_type")]
-    public partial class Rfmaterial_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rfmaterial_type
     {
 
         private Rfmaterial_typeReinforcing_steel reinforcing_steelField;
@@ -9416,7 +9672,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "rfmaterial_typeReinforcing_steel")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "rfmaterial_typeReinforcing_steel")]
-    public partial class Rfmaterial_typeReinforcing_steel
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rfmaterial_typeReinforcing_steel
     {
 
         private double fykField;
@@ -9521,7 +9780,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "standardtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "standardtype")]
-    public enum Standardtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Standardtype
     {
 
         /// <remarks/>
@@ -9541,7 +9803,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "eurocodetype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "eurocodetype")]
-    public enum Eurocodetype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Eurocodetype
     {
 
         /// <remarks/>
@@ -9586,10 +9851,10 @@ namespace StruSoft.Interop.StruXml.Data
 
         /// <remarks/>
         NL,
-        
+
         /// <remarks/>
         B,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("n/a")]
         Na,
@@ -9602,7 +9867,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "complex_material_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "complex_material_type")]
-    public partial class Complex_material_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Complex_material_type
     {
 
         private System.Collections.Generic.List<Reference_type> materialField;
@@ -9731,7 +9999,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "material_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "material_type")]
-    public partial class Material_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_type
     {
 
         private object itemField;
@@ -9898,7 +10169,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeBrick")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeBrick")]
-    public partial class Material_typeBrick
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeBrick
     {
 
         private Strength_type strength_forField;
@@ -10417,7 +10691,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "strength_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "strength_type")]
-    public enum Strength_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Strength_type
     {
 
         /// <remarks/>
@@ -10436,7 +10713,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeConcrete")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeConcrete")]
-    public partial class Material_typeConcrete
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeConcrete
     {
 
         private double massField;
@@ -11269,7 +11549,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeCustom")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeCustom")]
-    public partial class Material_typeCustom
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeCustom
     {
 
         private double massField;
@@ -11504,7 +11787,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeMasonry")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeMasonry")]
-    public partial class Material_typeMasonry
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeMasonry
     {
 
         private double fkField;
@@ -12007,7 +12293,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeSteel")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeSteel")]
-    public partial class Material_typeSteel
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeSteel
     {
 
         private double massField;
@@ -12762,7 +13051,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratum")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratum")]
-    public partial class Material_typeStratum
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratum
     {
 
         private Material_typeStratumBehaviour behaviourField;
@@ -12885,7 +13177,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumBehaviour")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumBehaviour")]
-    public partial class Material_typeStratumBehaviour
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumBehaviour
     {
 
         private object itemField;
@@ -12914,7 +13209,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumBehaviourCombined")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumBehaviourCombined")]
-    public partial class Material_typeStratumBehaviourCombined
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumBehaviourCombined
     {
 
         private bool drainedField;
@@ -13043,7 +13341,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumBehaviourDrained")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumBehaviourDrained")]
-    public partial class Material_typeStratumBehaviourDrained
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumBehaviourDrained
     {
 
         private double c_kField;
@@ -13118,7 +13419,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumBehaviourUndrained")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumBehaviourUndrained")]
-    public partial class Material_typeStratumBehaviourUndrained
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumBehaviourUndrained
     {
 
         private double c_ukField;
@@ -13161,7 +13465,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumModel")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumModel")]
-    public partial class Material_typeStratumModel
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumModel
     {
 
         private object itemField;
@@ -13190,7 +13497,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumModelGeneric")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumModelGeneric")]
-    public partial class Material_typeStratumModelGeneric
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumModelGeneric
     {
 
         private System.Collections.Generic.List<Material_typeStratumModelGenericRecord> recordField;
@@ -13249,7 +13559,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumModelGenericRecord")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumModelGenericRecord")]
-    public partial class Material_typeStratumModelGenericRecord
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumModelGenericRecord
     {
 
         private double sigmaField;
@@ -13340,7 +13653,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumModelLinear")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumModelLinear")]
-    public partial class Material_typeStratumModelLinear
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumModelLinear
     {
 
         private bool use_EField;
@@ -13405,7 +13721,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeStratumModelOverconsolidated")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeStratumModelOverconsolidated")]
-    public partial class Material_typeStratumModelOverconsolidated
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeStratumModelOverconsolidated
     {
 
         private double muField;
@@ -13640,7 +13959,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "material_typeTimber")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "material_typeTimber")]
-    public partial class Material_typeTimber
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Material_typeTimber
     {
 
         private double massField;
@@ -14425,7 +14747,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "complex_section_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "complex_section_type")]
-    public partial class Complex_section_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Complex_section_type
     {
 
         private System.Collections.Generic.List<Complex_section_typeSection> sectionField;
@@ -14554,7 +14879,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "complex_section_typeSection")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "complex_section_typeSection")]
-    public partial class Complex_section_typeSection
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Complex_section_typeSection
     {
 
         private Point_type_3d eccField;
@@ -14677,7 +15005,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "empty_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "empty_type")]
-    public partial class Empty_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Empty_type
     {
     }
 
@@ -14688,7 +15019,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "section_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "section_type")]
-    public partial class Section_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Section_type
     {
 
         private Region_group_type region_groupField;
@@ -14929,7 +15263,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sectiontype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "sectiontype")]
-    public enum Sectiontype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Sectiontype
     {
 
         /// <remarks/>
@@ -14956,7 +15293,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "fd_mat_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "fd_mat_type")]
-    public enum Fd_mat_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Fd_mat_type
     {
 
         /// <remarks/>
@@ -14995,7 +15335,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "drawing_region_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "drawing_region_type")]
-    public partial class Drawing_region_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Drawing_region_type
     {
 
         private System.Collections.Generic.List<Edge_type> contourField;
@@ -15077,7 +15420,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "labsecgeom_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "labsecgeom_type")]
-    public partial class Labsecgeom_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Labsecgeom_type
     {
 
         private object itemField;
@@ -15209,7 +15555,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "labsecgeom_typeLine_segment")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "labsecgeom_typeLine_segment")]
-    public partial class Labsecgeom_typeLine_segment
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Labsecgeom_typeLine_segment
     {
 
         private Point_type_3d start_pointField;
@@ -15306,7 +15655,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "labsecgeom_typePolyline")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "labsecgeom_typePolyline")]
-    public partial class Labsecgeom_typePolyline
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Labsecgeom_typePolyline
     {
 
         private System.Collections.Generic.List<Point_type_3d> pointField;
@@ -15333,7 +15685,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "refplane_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "refplane_type")]
-    public partial class Refplane_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Refplane_type
     {
 
         private Region_type regionField;
@@ -15464,7 +15819,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "axis_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "axis_type")]
-    public partial class Axis_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Axis_type
     {
 
         private Point_type_2d start_pointField;
@@ -15643,7 +16001,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "storey_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "storey_type")]
-    public partial class Storey_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Storey_type
     {
 
         private Point_type_3d origoField;
@@ -15820,7 +16181,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "referencelist_type")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "referencelist_type")]
-    public partial class Referencelist_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Referencelist_type
     {
 
         private System.Collections.Generic.List<Reference_type> refField;
@@ -15863,7 +16227,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "building_cover_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "building_cover_type")]
-    public partial class Building_cover_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Building_cover_type
     {
 
         private Rectangle_type base_rectangleField;
@@ -15871,7 +16238,7 @@ namespace StruSoft.Interop.StruXml.Data
         private Referencelist_type supporting_structuresField;
 
         private System.Collections.Generic.List<Coverlist_typeCover> coversField;
-        
+
         private string guidField;
 
         private System.DateTime last_changeField;
@@ -15928,8 +16295,8 @@ namespace StruSoft.Interop.StruXml.Data
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("cover", IsNullable=false)]
-        [System.Xml.Serialization.XmlArrayAttribute(ElementName="covers")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("cover", IsNullable = false)]
+        [System.Xml.Serialization.XmlArrayAttribute(ElementName = "covers")]
         public System.Collections.Generic.List<Coverlist_typeCover> Covers
         {
             get
@@ -15941,7 +16308,7 @@ namespace StruSoft.Interop.StruXml.Data
                 this.coversField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName = "guid")]
         public string Guid
@@ -16072,10 +16439,10 @@ namespace StruSoft.Interop.StruXml.Data
                 this.anyAttrField = value;
             }
         }
-        
+
         public virtual bool ShouldSerializeCovers()
         {
-            return ((this.Covers != null) 
+            return ((this.Covers != null)
                         && (this.Covers.Count > 0));
         }
     }
@@ -16087,7 +16454,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rectangle_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rectangle_type")]
-    public partial class Rectangle_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rectangle_type
     {
 
         private Point_type_3d base_cornerField;
@@ -16171,7 +16541,7 @@ namespace StruSoft.Interop.StruXml.Data
                 this.y_sizeField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAnyAttributeAttribute()]
         public System.Collections.Generic.List<System.Xml.XmlAttribute> AnyAttr
@@ -16186,23 +16556,26 @@ namespace StruSoft.Interop.StruXml.Data
             }
         }
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:strusoft", TypeName="coverlist_typeCover")]
-    [System.Xml.Serialization.XmlRootAttribute(ElementName="coverlist_typeCover")]
-    public partial class Coverlist_typeCover
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "coverlist_typeCover")]
+    [System.Xml.Serialization.XmlRootAttribute(ElementName = "coverlist_typeCover")]
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Coverlist_typeCover
     {
-        
+
         private string guidField;
-        
+
         private System.Collections.Generic.List<System.Xml.XmlAttribute> anyAttrField;
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="guid")]
+        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName = "guid")]
         public string Guid
         {
             get
@@ -16235,7 +16608,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "roof_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "roof_type")]
-    public enum Roof_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Roof_type
     {
 
         /// <remarks/>
@@ -16258,7 +16634,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "cover_referencelist_type")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "cover_referencelist_type")]
-    public partial class Cover_referencelist_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Cover_referencelist_type
     {
 
         private System.Collections.Generic.List<Cover_referencelist_typeRef> refField;
@@ -16301,7 +16680,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "cover_referencelist_typeRef")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "cover_referencelist_typeRef")]
-    public partial class Cover_referencelist_typeRef
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Cover_referencelist_typeRef
     {
 
         private System.Collections.Generic.List<Edge_type> edgeField;
@@ -16360,7 +16742,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "cover_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "cover_type")]
-    public partial class Cover_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Cover_type
     {
 
         private Point_type_3d load_bearing_directionField;
@@ -16523,7 +16908,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_boltline_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_boltline_type")]
-    public partial class Sj_boltline_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_boltline_type
     {
 
         private string distanceField;
@@ -16598,7 +16986,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_data_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_data_type")]
-    public partial class Sj_data_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_data_type
     {
 
         private Sj_datatype_names typeField;
@@ -16655,7 +17046,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_datatype_names")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "sj_datatype_names")]
-    public enum Sj_datatype_names
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Sj_datatype_names
     {
 
         /// <remarks/>
@@ -17098,7 +17492,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_component_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_component_type")]
-    public partial class Sj_component_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_component_type
     {
 
         private System.Collections.Generic.List<Sj_data_type> recordField;
@@ -17201,7 +17598,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_component_values")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "sj_component_values")]
-    public enum Sj_component_values
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Sj_component_values
     {
 
         /// <remarks/>
@@ -17390,7 +17790,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_connected_bar_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "sj_connected_bar_type")]
-    public enum Sj_connected_bar_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Sj_connected_bar_type
     {
 
         /// <remarks/>
@@ -17453,7 +17856,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_3bars_connection_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_3bars_connection_type")]
-    public partial class Sj_3bars_connection_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_3bars_connection_type
     {
 
         private Guid_list_type bar1Field;
@@ -17528,7 +17934,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "guid_list_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "guid_list_type")]
-    public partial class Guid_list_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Guid_list_type
     {
 
         private string guidField;
@@ -17571,7 +17980,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "sj_3bars_connection_typeLoad_combination")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "sj_3bars_connection_typeLoad_combination")]
-    public partial class Sj_3bars_connection_typeLoad_combination
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_3bars_connection_typeLoad_combination
     {
 
         private Sj_force_type bar1_forcesField;
@@ -17684,7 +18096,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_force_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_force_type")]
-    public partial class Sj_force_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_force_type
     {
 
         private double nField;
@@ -17823,7 +18238,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_1bar_connection_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_1bar_connection_type")]
-    public partial class Sj_1bar_connection_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_1bar_connection_type
     {
 
         private Guid_list_type bar1Field;
@@ -17866,7 +18284,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "sj_1bar_connection_typeLoad_combination")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "sj_1bar_connection_typeLoad_combination")]
-    public partial class Sj_1bar_connection_typeLoad_combination
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_1bar_connection_typeLoad_combination
     {
 
         private Sj_force_type bar1_forcesField;
@@ -17947,7 +18368,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sj_2bars_connection_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sj_2bars_connection_type")]
-    public partial class Sj_2bars_connection_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_2bars_connection_type
     {
 
         private Guid_list_type bar1Field;
@@ -18006,7 +18430,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "sj_2bars_connection_typeLoad_combination")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "sj_2bars_connection_typeLoad_combination")]
-    public partial class Sj_2bars_connection_typeLoad_combination
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sj_2bars_connection_typeLoad_combination
     {
 
         private Sj_force_type bar1_forcesField;
@@ -18103,7 +18530,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "steel_joint_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "steel_joint_type")]
-    public partial class Steel_joint_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_type
     {
 
         private object itemField;
@@ -18325,7 +18755,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution1")]
-    public partial class Steel_joint_typeBeam_splice_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution1
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18352,7 +18785,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution2")]
-    public partial class Steel_joint_typeBeam_splice_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution2
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18379,7 +18815,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution3")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution3")]
-    public partial class Steel_joint_typeBeam_splice_solution3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution3
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18406,7 +18845,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution4")]
-    public partial class Steel_joint_typeBeam_splice_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution4
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18433,7 +18875,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution5")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution5")]
-    public partial class Steel_joint_typeBeam_splice_solution5
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution5
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18460,7 +18905,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution6")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution6")]
-    public partial class Steel_joint_typeBeam_splice_solution6
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution6
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18487,7 +18935,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_splice_solution7")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_splice_solution7")]
-    public partial class Steel_joint_typeBeam_splice_solution7
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_splice_solution7
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18514,7 +18965,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_beam_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_beam_solution1")]
-    public partial class Steel_joint_typeBeam_to_beam_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_beam_solution1
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18541,7 +18995,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_beam_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_beam_solution2")]
-    public partial class Steel_joint_typeBeam_to_beam_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_beam_solution2
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18568,7 +19025,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_beam_solution3")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_beam_solution3")]
-    public partial class Steel_joint_typeBeam_to_beam_solution3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_beam_solution3
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18595,7 +19055,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_beam_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_beam_solution4")]
-    public partial class Steel_joint_typeBeam_to_beam_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_beam_solution4
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -18622,7 +19085,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_beam_solution5")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_beam_solution5")]
-    public partial class Steel_joint_typeBeam_to_beam_solution5
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_beam_solution5
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18649,7 +19115,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution1")]
-    public partial class Steel_joint_typeBeam_to_column_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution1
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18676,7 +19145,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution2")]
-    public partial class Steel_joint_typeBeam_to_column_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution2
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18703,7 +19175,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution3")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution3")]
-    public partial class Steel_joint_typeBeam_to_column_solution3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution3
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18730,7 +19205,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution4")]
-    public partial class Steel_joint_typeBeam_to_column_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution4
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18757,7 +19235,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution5a")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution5a")]
-    public partial class Steel_joint_typeBeam_to_column_solution5a
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution5a
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18784,7 +19265,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution5b")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution5b")]
-    public partial class Steel_joint_typeBeam_to_column_solution5b
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution5b
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -18811,7 +19295,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution6")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution6")]
-    public partial class Steel_joint_typeBeam_to_column_solution6
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution6
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -18838,7 +19325,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution7")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution7")]
-    public partial class Steel_joint_typeBeam_to_column_solution7
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution7
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18865,7 +19355,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBeam_to_column_solution8")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBeam_to_column_solution8")]
-    public partial class Steel_joint_typeBeam_to_column_solution8
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBeam_to_column_solution8
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18892,7 +19385,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution1k")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution1k")]
-    public partial class Steel_joint_typeBracing_solution1k
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution1k
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -18919,7 +19415,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution1x")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution1x")]
-    public partial class Steel_joint_typeBracing_solution1x
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution1x
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -18946,7 +19445,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution1y")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution1y")]
-    public partial class Steel_joint_typeBracing_solution1y
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution1y
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -18973,7 +19475,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution2k")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution2k")]
-    public partial class Steel_joint_typeBracing_solution2k
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution2k
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19000,7 +19505,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution2x")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution2x")]
-    public partial class Steel_joint_typeBracing_solution2x
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution2x
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19027,7 +19535,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution2y")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution2y")]
-    public partial class Steel_joint_typeBracing_solution2y
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution2y
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19054,7 +19565,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution3k")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution3k")]
-    public partial class Steel_joint_typeBracing_solution3k
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution3k
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19081,7 +19595,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution3x")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution3x")]
-    public partial class Steel_joint_typeBracing_solution3x
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution3x
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19108,7 +19625,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution3y")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution3y")]
-    public partial class Steel_joint_typeBracing_solution3y
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution3y
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19135,7 +19655,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution4")]
-    public partial class Steel_joint_typeBracing_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution4
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19162,7 +19685,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution5")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution5")]
-    public partial class Steel_joint_typeBracing_solution5
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution5
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19189,7 +19715,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeBracing_solution6")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeBracing_solution6")]
-    public partial class Steel_joint_typeBracing_solution6
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeBracing_solution6
     {
 
         private Sj_3bars_connection_type connecting_barsField;
@@ -19216,7 +19745,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_base_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_base_solution1")]
-    public partial class Steel_joint_typeColumn_base_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_base_solution1
     {
 
         private Sj_1bar_connection_type connecting_barsField;
@@ -19243,7 +19775,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_base_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_base_solution2")]
-    public partial class Steel_joint_typeColumn_base_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_base_solution2
     {
 
         private Sj_1bar_connection_type connecting_barsField;
@@ -19270,7 +19805,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution1")]
-    public partial class Steel_joint_typeColumn_splice_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution1
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19297,7 +19835,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution2")]
-    public partial class Steel_joint_typeColumn_splice_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution2
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19324,7 +19865,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution3")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution3")]
-    public partial class Steel_joint_typeColumn_splice_solution3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution3
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19351,7 +19895,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution4")]
-    public partial class Steel_joint_typeColumn_splice_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution4
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19378,7 +19925,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution5")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution5")]
-    public partial class Steel_joint_typeColumn_splice_solution5
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution5
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19405,7 +19955,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeColumn_splice_solution6")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeColumn_splice_solution6")]
-    public partial class Steel_joint_typeColumn_splice_solution6
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeColumn_splice_solution6
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19432,7 +19985,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution1")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution1")]
-    public partial class Steel_joint_typeKnee_solution1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution1
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19459,7 +20015,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution2")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution2")]
-    public partial class Steel_joint_typeKnee_solution2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution2
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19486,7 +20045,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution3")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution3")]
-    public partial class Steel_joint_typeKnee_solution3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution3
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19513,7 +20075,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution4")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution4")]
-    public partial class Steel_joint_typeKnee_solution4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution4
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19540,7 +20105,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution5a")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution5a")]
-    public partial class Steel_joint_typeKnee_solution5a
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution5a
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19567,7 +20135,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution5b")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution5b")]
-    public partial class Steel_joint_typeKnee_solution5b
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution5b
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19594,7 +20165,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution6a")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution6a")]
-    public partial class Steel_joint_typeKnee_solution6a
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution6a
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19621,7 +20195,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution6b")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution6b")]
-    public partial class Steel_joint_typeKnee_solution6b
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution6b
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19648,7 +20225,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution7")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution7")]
-    public partial class Steel_joint_typeKnee_solution7
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution7
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19675,7 +20255,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "steel_joint_typeKnee_solution8")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "steel_joint_typeKnee_solution8")]
-    public partial class Steel_joint_typeKnee_solution8
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Steel_joint_typeKnee_solution8
     {
 
         private Sj_2bars_connection_type connecting_barsField;
@@ -19702,7 +20285,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "diaphragm_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "diaphragm_type")]
-    public partial class Diaphragm_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Diaphragm_type
     {
 
         private Region_type regionField;
@@ -19833,7 +20419,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_matrix_2_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_matrix_2_type")]
-    public partial class Stiffness_matrix_2_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_matrix_2_type
     {
 
         private double xzField;
@@ -19892,7 +20481,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_matrix_4_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_matrix_4_type")]
-    public partial class Stiffness_matrix_4_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_matrix_4_type
     {
 
         private double xxField;
@@ -19983,7 +20575,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "virtual_shell_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "virtual_shell_type")]
-    public partial class Virtual_shell_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Virtual_shell_type
     {
 
         private Region_type regionField;
@@ -20326,7 +20921,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "virtual_bar_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "virtual_bar_type")]
-    public partial class Virtual_bar_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Virtual_bar_type
     {
 
         private Edge_type edgeField;
@@ -20593,7 +21191,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "connectivity_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "connectivity_type")]
-    public partial class Connectivity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Connectivity_type
     {
 
         private bool m_xField;
@@ -20828,7 +21429,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_connection_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_connection_type")]
-    public partial class Surface_connection_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_connection_type
     {
 
         private Region_type regionField;
@@ -21045,7 +21649,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "opt_localsys_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "opt_localsys_type")]
-    public partial class Opt_localsys_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Opt_localsys_type
     {
 
         private Point_type_3d local_posField;
@@ -21104,7 +21711,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "connected_lines_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "connected_lines_type")]
-    public partial class Connected_lines_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Connected_lines_type
     {
 
         private System.Collections.Generic.List<Edge_type> edgeField;
@@ -21389,7 +21999,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType8
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType8
     {
 
         /// <remarks/>
@@ -21424,7 +22037,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "connected_points_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "connected_points_type")]
-    public partial class Connected_points_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Connected_points_type
     {
 
         private System.Collections.Generic.List<Point_type_3d> pointField;
@@ -21657,7 +22273,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType7
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType7
     {
 
         /// <remarks/>
@@ -21692,7 +22311,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stiffness_point_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stiffness_point_type")]
-    public partial class Stiffness_point_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stiffness_point_type
     {
 
         private object itemField;
@@ -21854,7 +22476,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_support_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_support_type")]
-    public partial class Surface_support_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_support_type
     {
 
         private Region_type regionField;
@@ -22056,7 +22681,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType6
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType6
     {
 
         /// <remarks/>
@@ -22095,7 +22723,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "plasticity_type2")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "plasticity_type2")]
-    public partial class Plasticity_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Plasticity_type2
     {
 
         private double negField;
@@ -22154,7 +22785,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_rigidity_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_rigidity_group")]
-    public partial class Simple_rigidity_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_rigidity_group
     {
 
         private System.Collections.Generic.List<Stiff_base_type> springsField;
@@ -22245,7 +22879,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "plasticity_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "plasticity_type")]
-    public partial class Plasticity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Plasticity_type
     {
 
         private double negField;
@@ -22336,7 +22973,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "motion_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "motion_type")]
-    public enum Motion_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Motion_type
     {
 
         /// <remarks/>
@@ -22357,7 +22997,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "support_rigidity_data_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "support_rigidity_data_type")]
-    public partial class Support_rigidity_data_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Support_rigidity_data_type
     {
 
         private object itemField;
@@ -22385,7 +23028,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "support_rigidity_data_typeDirected")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "support_rigidity_data_typeDirected")]
-    public partial class Support_rigidity_data_typeDirected
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Support_rigidity_data_typeDirected
     {
 
         private Point_type_3d directionField;
@@ -22447,7 +23093,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType4
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType4
     {
 
         /// <remarks/>
@@ -22478,7 +23127,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "support_rigidity_data_typeGroup")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "support_rigidity_data_typeGroup")]
-    public partial class Support_rigidity_data_typeGroup
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Support_rigidity_data_typeGroup
     {
 
         private Point_type_3d local_xField;
@@ -22600,7 +23252,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType5
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType5
     {
 
         /// <remarks/>
@@ -22655,7 +23310,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_support_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_support_type")]
-    public partial class Line_support_type : Support_rigidity_data_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_support_type : Support_rigidity_data_type
     {
 
         private Edge_type edgeField;
@@ -22820,7 +23478,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_support_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_support_type")]
-    public partial class Point_support_type : Support_rigidity_data_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_support_type : Support_rigidity_data_type
     {
 
         private Point_type_3d positionField;
@@ -22951,7 +23612,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_ridge_roof_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_ridge_roof_type")]
-    public partial class Wl_ridge_roof_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_ridge_roof_type
     {
 
         private Wl_t_type at_0_degreeField;
@@ -23128,7 +23792,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_t_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_t_type")]
-    public partial class Wl_t_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_t_type
     {
 
         private double mult_factorField;
@@ -23187,7 +23854,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bs_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bs_type")]
-    public partial class Bs_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bs_type
     {
 
         private string guidField;
@@ -23230,7 +23900,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_st_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_st_type")]
-    public partial class Wl_st_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_st_type
     {
 
         private double suction_factorField;
@@ -23289,7 +23962,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_leanto_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_leanto_type")]
-    public partial class Wl_leanto_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_leanto_type
     {
 
         private Wl_st_type at_0_degreeField;
@@ -23482,7 +24158,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_flat_roof_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_flat_roof_type")]
-    public partial class Wl_flat_roof_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_flat_roof_type
     {
 
         private Wl_t_type at_0_degreeField;
@@ -23691,7 +24370,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_nt_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_nt_type")]
-    public partial class Wl_nt_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_nt_type
     {
 
         private double mult_factorField;
@@ -23734,7 +24416,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wl_external_wall_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wl_external_wall_type")]
-    public partial class Wl_external_wall_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wl_external_wall_type
     {
 
         private Wl_nt_type at_0_degreeField;
@@ -23943,7 +24628,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "temporary_load_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "temporary_load_group")]
-    public partial class Temporary_load_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Temporary_load_group
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -24215,32 +24903,35 @@ namespace StruSoft.Interop.StruXml.Data
                 this.anyAttrField = value;
             }
         }
-        
+
         public virtual bool ShouldSerializeRelations()
         {
-            return ((this.Relations != null) 
+            return ((this.Relations != null)
                         && (this.Relations.Count > 0));
         }
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:strusoft", TypeName="temporary_load_groupLoad_cases_of_moving_load")]
-    [System.Xml.Serialization.XmlRootAttribute(ElementName="temporary_load_groupLoad_cases_of_moving_load")]
-    public partial class Temporary_load_groupLoad_cases_of_moving_load
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "temporary_load_groupLoad_cases_of_moving_load")]
+    [System.Xml.Serialization.XmlRootAttribute(ElementName = "temporary_load_groupLoad_cases_of_moving_load")]
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Temporary_load_groupLoad_cases_of_moving_load
     {
-        
+
         private string guidField;
-        
+
         private string masterField;
-        
+
         private System.Collections.Generic.List<System.Xml.XmlAttribute> anyAttrField;
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="guid")]
+        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName = "guid")]
         public string Guid
         {
             get
@@ -24252,9 +24943,9 @@ namespace StruSoft.Interop.StruXml.Data
                 this.guidField = value;
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="master")]
+        [System.Xml.Serialization.XmlAttributeAttribute(AttributeName = "master")]
         public string Master
         {
             get
@@ -24290,7 +24981,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "load_subgroup")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "load_subgroup")]
-    public partial class Load_subgroup
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Load_subgroup
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -24413,7 +25107,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ldgroup_relation_record_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ldgroup_relation_record_type")]
-    public partial class Ldgroup_relation_record_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ldgroup_relation_record_type
     {
 
         private string nameField;
@@ -24470,7 +25167,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ldgroup_relation")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "ldgroup_relation")]
-    public enum Ldgroup_relation
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Ldgroup_relation
     {
 
         /// <remarks/>
@@ -24501,7 +25201,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stress_load_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stress_load_group")]
-    public partial class Stress_load_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stress_load_group
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -24685,7 +25388,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "seismic_load_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "seismic_load_group")]
-    public partial class Seismic_load_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Seismic_load_group
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -24766,7 +25472,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "permanent_load_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "permanent_load_group")]
-    public partial class Permanent_load_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Permanent_load_group
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -24997,7 +25706,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "accidental_load_group")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "accidental_load_group")]
-    public partial class Accidental_load_group
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Accidental_load_group
     {
 
         private System.Collections.Generic.List<Reference_type> load_caseField;
@@ -25183,7 +25895,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "general_load_group_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "general_load_group_type")]
-    public partial class General_load_group_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class General_load_group_type
     {
 
         private object itemField;
@@ -25284,7 +25999,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "load_group_table")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "load_group_table")]
-    public partial class Load_group_table
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Load_group_table
     {
 
         private System.Collections.Generic.List<General_load_group_type> groupField;
@@ -25365,7 +26083,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "spec_load_case_item")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "spec_load_case_item")]
-    public partial class Spec_load_case_item
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Spec_load_case_item
     {
 
         private double gammaField;
@@ -25408,7 +26129,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "load_combination_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "load_combination_type")]
-    public partial class Load_combination_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Load_combination_type
     {
 
         private System.Collections.Generic.List<Load_combination_typeLoad_case> load_caseField;
@@ -25697,7 +26421,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "load_combination_typeLoad_case")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "load_combination_typeLoad_case")]
-    public partial class Load_combination_typeLoad_case
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Load_combination_typeLoad_case
     {
 
         private string guidField;
@@ -25754,7 +26481,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "loadcombtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "loadcombtype")]
-    public enum Loadcombtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Loadcombtype
     {
 
         /// <remarks/>
@@ -25793,7 +26523,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "load_case_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "load_case_type")]
-    public partial class Load_case_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Load_case_type
     {
 
         private string guidField;
@@ -25954,7 +26687,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "loadcasetype_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "loadcasetype_type")]
-    public enum Loadcasetype_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Loadcasetype_type
     {
 
         /// <remarks/>
@@ -26019,7 +26755,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "loadcasedurationtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "loadcasedurationtype")]
-    public enum Loadcasedurationtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Loadcasedurationtype
     {
 
         /// <remarks/>
@@ -26050,7 +26789,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "moving_load_grid_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "moving_load_grid_type")]
-    public partial class Moving_load_grid_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Moving_load_grid_type
     {
 
         private Point_type_3d local_posField;
@@ -26196,7 +26938,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "path_division_lengt_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "path_division_lengt_type")]
-    public partial class Path_division_lengt_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Path_division_lengt_type
     {
 
         private double valueField;
@@ -26223,7 +26968,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "path_division_number_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "path_division_number_type")]
-    public partial class Path_division_number_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Path_division_number_type
     {
 
         private int valueField;
@@ -26250,7 +26998,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "moving_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "moving_load_type")]
-    public partial class Moving_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Moving_load_type
     {
 
         private object[] itemsField;
@@ -26540,7 +27291,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType3
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType3
     {
 
         /// <remarks/>
@@ -26571,7 +27325,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "moving_load_typeVehicle_positions")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "moving_load_typeVehicle_positions")]
-    public partial class Moving_load_typeVehicle_positions
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Moving_load_typeVehicle_positions
     {
 
         private System.Collections.Generic.List<Point_type_3d> positionField;
@@ -26595,7 +27352,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum Items1ChoiceType
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Items1ChoiceType
     {
 
         /// <remarks/>
@@ -26618,7 +27378,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ef_lcase_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ef_lcase_record")]
-    public partial class Ef_lcase_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ef_lcase_record
     {
 
         private double factorField;
@@ -26693,7 +27456,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ef_combination_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ef_combination_type")]
-    public partial class Ef_combination_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ef_combination_type
     {
 
         private System.Collections.Generic.List<Ef_lcase_record> recordField;
@@ -26768,7 +27534,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ef_diagram_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ef_diagram_type")]
-    public partial class Ef_diagram_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ef_diagram_type
     {
 
         private System.Collections.Generic.List<Th_diagram_record> recordField;
@@ -26859,7 +27628,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "th_diagram_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "th_diagram_record")]
-    public partial class Th_diagram_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Th_diagram_record
     {
 
         private double tField;
@@ -26916,7 +27688,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "direction_2d_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "direction_2d_type")]
-    public enum Direction_2d_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Direction_2d_type
     {
 
         /// <remarks/>
@@ -26935,7 +27710,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "excitation_force_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "excitation_force_type")]
-    public partial class Excitation_force_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Excitation_force_type
     {
 
         private System.Collections.Generic.List<Ef_diagram_type> diagramField;
@@ -27026,7 +27804,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ga_direction_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ga_direction_record")]
-    public partial class Ga_direction_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ga_direction_record
     {
 
         private double factorField;
@@ -27085,7 +27866,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ga_combination_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ga_combination_type")]
-    public partial class Ga_combination_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ga_combination_type
     {
 
         private Ga_direction_record direction_xField;
@@ -27192,7 +27976,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ga_diagram_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ga_diagram_type")]
-    public partial class Ga_diagram_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ga_diagram_type
     {
 
         private System.Collections.Generic.List<Th_diagram_record> recordField;
@@ -27267,7 +28054,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ground_acceleration_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ground_acceleration_type")]
-    public partial class Ground_acceleration_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ground_acceleration_type
     {
 
         private System.Collections.Generic.List<Ga_diagram_type> diagramField;
@@ -27358,7 +28148,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "footfall_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "footfall_type")]
-    public partial class Footfall_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Footfall_type
     {
 
         private object itemField;
@@ -27506,7 +28299,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "contour_type")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "contour_type")]
-    public partial class Contour_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Contour_type
     {
 
         private System.Collections.Generic.List<Edge_type> edgeField;
@@ -27533,7 +28329,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "spectra_record_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "spectra_record_type")]
-    public partial class Spectra_record_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Spectra_record_type
     {
 
         private double tField;
@@ -27592,7 +28391,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "unique_spectra_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "unique_spectra_type")]
-    public partial class Unique_spectra_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Unique_spectra_type
     {
 
         private System.Collections.Generic.List<Spectra_record_type> recordField;
@@ -27651,7 +28453,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ec040_standard_spectra_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ec040_standard_spectra_type")]
-    public partial class Ec040_standard_spectra_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ec040_standard_spectra_type
     {
 
         private double agField;
@@ -27742,7 +28547,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "standard_spectra_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "standard_spectra_type")]
-    public partial class Standard_spectra_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Standard_spectra_type
     {
 
         private double agField;
@@ -27897,7 +28705,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "seismic_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "seismic_load_type")]
-    public partial class Seismic_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Seismic_load_type
     {
 
         private object itemField;
@@ -28046,7 +28857,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "seismic_load_typeCommon_standard_spectra")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "seismic_load_typeCommon_standard_spectra")]
-    public partial class Seismic_load_typeCommon_standard_spectra
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Seismic_load_typeCommon_standard_spectra
     {
 
         private Standard_spectra_type horizontalField;
@@ -28127,7 +28941,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "seismic_load_typeEc040_standard_spectra")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "seismic_load_typeEc040_standard_spectra")]
-    public partial class Seismic_load_typeEc040_standard_spectra
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Seismic_load_typeEc040_standard_spectra
     {
 
         private Ec040_standard_spectra_type horizontalField;
@@ -28154,7 +28971,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "seismic_load_typeUnique_spectra")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "seismic_load_typeUnique_spectra")]
-    public partial class Seismic_load_typeUnique_spectra
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Seismic_load_typeUnique_spectra
     {
 
         private Unique_spectra_type horizontalField;
@@ -28197,7 +29017,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "mass_conversion_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "mass_conversion_type")]
-    public partial class Mass_conversion_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Mass_conversion_type
     {
 
         private System.Collections.Generic.List<Mass_conversion_typeConversion> conversionField;
@@ -28272,7 +29095,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "mass_conversion_typeConversion")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "mass_conversion_typeConversion")]
-    public partial class Mass_conversion_typeConversion
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Mass_conversion_typeConversion
     {
 
         private double factorField;
@@ -28331,7 +29157,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "mass_point_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "mass_point_type")]
-    public partial class Mass_point_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Mass_point_type
     {
 
         private Point_type_3d positionField;
@@ -28513,7 +29342,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_support_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_support_load_type")]
-    public partial class Surface_support_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_support_load_type
     {
 
         private Region_type regionField;
@@ -28708,7 +29540,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_support_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_support_load_type")]
-    public partial class Line_support_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_support_load_type
     {
 
         private Edge_type edgeField;
@@ -28935,7 +29770,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "point_support_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "point_support_load_type")]
-    public partial class Point_support_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Point_support_load_type
     {
 
         private Point_type_3d directionField;
@@ -29098,7 +29936,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_stress_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_stress_load_type")]
-    public partial class Surface_stress_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_stress_load_type
     {
 
         private Region_type regionField;
@@ -29277,7 +30118,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "topbottom_value")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "topbottom_value")]
-    public partial class Topbottom_value : Point_type_3d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Topbottom_value : Point_type_3d
     {
 
         private double top_valField;
@@ -29336,7 +30180,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_stress_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_stress_load_type")]
-    public partial class Line_stress_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_stress_load_type
     {
 
         private Edge_type edgeField;
@@ -29531,7 +30378,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_temperature_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_temperature_load_type")]
-    public partial class Surface_temperature_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_temperature_load_type
     {
 
         private Region_type regionField;
@@ -29694,7 +30544,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_temperature_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_temperature_load_type")]
-    public partial class Line_temperature_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_temperature_load_type
     {
 
         private Edge_type edgeField;
@@ -29889,7 +30742,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pressure_load_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "pressure_load_type")]
-    public partial class Pressure_load_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pressure_load_type
     {
 
         private Region_type regionField;
@@ -30265,7 +31121,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_manufacturing_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_manufacturing_type")]
-    public partial class Ptc_manufacturing_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_manufacturing_type
     {
 
         private string positionsField;
@@ -30340,7 +31199,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_shape_end")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_shape_end")]
-    public partial class Ptc_shape_end
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_shape_end
     {
 
         private double zField;
@@ -30432,7 +31294,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_shape_inner")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_shape_inner")]
-    public partial class Ptc_shape_inner
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_shape_inner
     {
 
         private double posField;
@@ -30540,7 +31405,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_shape_start")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_shape_start")]
-    public partial class Ptc_shape_start
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_shape_start
     {
 
         private double zField;
@@ -30599,7 +31467,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_shape_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_shape_type")]
-    public partial class Ptc_shape_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_shape_type
     {
 
         private Ptc_shape_start start_pointField;
@@ -30706,7 +31577,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_losses")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_losses")]
-    public partial class Ptc_losses
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_losses
     {
 
         private double curvature_coefficientField;
@@ -30845,7 +31719,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptc_type")]
-    public partial class Ptc_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptc_type
     {
 
         private Point_type_3d start_pointField;
@@ -31134,7 +32011,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptc_jacking_side")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "ptc_jacking_side")]
-    public enum Ptc_jacking_side
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Ptc_jacking_side
     {
 
         /// <remarks/>
@@ -31161,7 +32041,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "camber_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "camber_type")]
-    public partial class Camber_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Camber_type
     {
 
         private double forceField;
@@ -31220,7 +32103,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "timber_factors_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "timber_factors_type")]
-    public partial class Timber_factors_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Timber_factors_type
     {
 
         private double gamma_m_uField;
@@ -31375,7 +32261,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "internal_panel_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "internal_panel_type")]
-    public partial class Internal_panel_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Internal_panel_type
     {
 
         private Region_type regionField;
@@ -31456,7 +32345,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "panel_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "panel_type")]
-    public partial class Panel_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Panel_type
     {
 
         private Region_type regionField;
@@ -32077,7 +32969,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "panel_typeTimber_application_data")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "panel_typeTimber_application_data")]
-    public partial class Panel_typeTimber_application_data
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Panel_typeTimber_application_data
     {
 
         private Timber_factors_type factorsField;
@@ -32173,7 +33068,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType2
     {
 
         /// <remarks/>
@@ -32230,7 +33128,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "paneltype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "paneltype")]
-    public enum Paneltype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Paneltype
     {
 
         /// <remarks/>
@@ -32247,7 +33148,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ver_align")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "ver_align")]
-    public enum Ver_align
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Ver_align
     {
 
         /// <remarks/>
@@ -32270,7 +33174,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimtext_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimtext_type")]
-    public partial class Dimtext_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimtext_type
     {
 
         private Dimtext_font_type positionField;
@@ -32541,7 +33448,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "lengthunit_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "lengthunit_type")]
-    public enum Lengthunit_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Lengthunit_type
     {
 
         /// <remarks/>
@@ -32578,7 +33488,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "angleunit_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "angleunit_type")]
-    public enum Angleunit_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Angleunit_type
     {
 
         /// <remarks/>
@@ -32595,7 +33508,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "halign_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "halign_type")]
-    public enum Halign_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Halign_type
     {
 
         /// <remarks/>
@@ -32624,7 +33540,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "valign_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "valign_type")]
-    public enum Valign_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Valign_type
     {
 
         /// <remarks/>
@@ -32643,7 +33562,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_type")]
-    public partial class Line_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_type
     {
 
         private Point_type_3d startField;
@@ -32686,7 +33608,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimangle_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimangle_type")]
-    public partial class Dimangle_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimangle_type
     {
 
         private Fdarc3_type arcField;
@@ -32993,7 +33918,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "fdarc3_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "fdarc3_type")]
-    public partial class Fdarc3_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Fdarc3_type
     {
 
         private Point_type_3d centreField;
@@ -33116,7 +34044,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimdimline_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimdimline_type")]
-    public partial class Dimdimline_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimdimline_type
     {
 
         private double extension_aField;
@@ -33183,7 +34114,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "extline_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "extline_type")]
-    public partial class Extline_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Extline_type
     {
 
         private bool linesField;
@@ -33304,7 +34238,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "arrow_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "arrow_type")]
-    public partial class Arrow_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Arrow_type
     {
 
         private Arrowtype_type typeField;
@@ -33387,7 +34324,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "arrowtype_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "arrowtype_type")]
-    public enum Arrowtype_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Arrowtype_type
     {
 
         /// <remarks/>
@@ -33426,7 +34366,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimradius_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimradius_type")]
-    public partial class Dimradius_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimradius_type
     {
 
         private Fdarc3_type arcField;
@@ -33605,7 +34548,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimdiam_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimdiam_type")]
-    public partial class Dimdiam_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimdiam_type
     {
 
         private Fdarc3_type arcField;
@@ -33784,7 +34730,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimarc_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimarc_type")]
-    public partial class Dimarc_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimarc_type
     {
 
         private Fdarc3_type arcField;
@@ -33979,7 +34928,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimline_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimline_type")]
-    public partial class Dimline_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimline_type
     {
 
         private System.Collections.Generic.List<Point_type_3d> pointField;
@@ -34224,7 +35176,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "noshear_auto_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "noshear_auto_type")]
-    public partial class Noshear_auto_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Noshear_auto_type
     {
 
         private string connected_structureField;
@@ -34305,7 +35260,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "noshear_region_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "noshear_region_type")]
-    public partial class Noshear_region_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Noshear_region_type
     {
 
         private object itemField;
@@ -34435,7 +35393,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "psh_data")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "psh_data")]
-    public partial class Psh_data
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Psh_data
     {
 
         private double diameterField;
@@ -34526,7 +35487,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "punching_reinforcement_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "punching_reinforcement_type")]
-    public partial class Punching_reinforcement_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_type
     {
 
         private Guid_list_type base_shellField;
@@ -34674,7 +35638,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeBended_bar")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeBended_bar")]
-    public partial class Punching_reinforcement_typeBended_bar
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeBended_bar
     {
 
         private Point_type_3d local_centerField;
@@ -34813,7 +35780,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "rf_wire_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "rf_wire_type")]
-    public partial class Rf_wire_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Rf_wire_type
     {
 
         private double diameterField;
@@ -34892,7 +35862,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wire_profile_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "wire_profile_type")]
-    public enum Wire_profile_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Wire_profile_type
     {
 
         /// <remarks/>
@@ -34911,7 +35884,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeOpen_stirrups")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeOpen_stirrups")]
-    public partial class Punching_reinforcement_typeOpen_stirrups
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeOpen_stirrups
     {
 
         private Rf_wire_type wireField;
@@ -35050,7 +36026,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeReinforcing_ring")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeReinforcing_ring")]
-    public partial class Punching_reinforcement_typeReinforcing_ring
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeReinforcing_ring
     {
 
         private Punching_reinforcement_typeReinforcing_ringAuxiliary_reinforcement auxiliary_reinforcementField;
@@ -35093,7 +36072,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeReinforcing_ringAuxiliary_reinforcement")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeReinforcing_ringAuxiliary_reinforcement")]
-    public partial class Punching_reinforcement_typeReinforcing_ringAuxiliary_reinforcement
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeReinforcing_ringAuxiliary_reinforcement
     {
 
         private Rf_wire_type wireField;
@@ -35168,7 +36150,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeReinforcing_ringStirrups")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeReinforcing_ringStirrups")]
-    public partial class Punching_reinforcement_typeReinforcing_ringStirrups
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeReinforcing_ringStirrups
     {
 
         private Rf_wire_type wireField;
@@ -35259,7 +36244,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeStud_rails")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeStud_rails")]
-    public partial class Punching_reinforcement_typeStud_rails
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeStud_rails
     {
 
         private object itemField;
@@ -35466,7 +36454,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeStud_railsGeneral_product")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeStud_railsGeneral_product")]
-    public partial class Punching_reinforcement_typeStud_railsGeneral_product
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeStud_railsGeneral_product
     {
 
         private Rf_wire_type wireField;
@@ -35509,7 +36500,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "punching_reinforcement_typeStud_railsPeikko_psb_product")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "punching_reinforcement_typeStud_railsPeikko_psb_product")]
-    public partial class Punching_reinforcement_typeStud_railsPeikko_psb_product
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_reinforcement_typeStud_railsPeikko_psb_product
     {
 
         private Psh_data pshField;
@@ -35566,7 +36560,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "studrail_patterns")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "studrail_patterns")]
-    public enum Studrail_patterns
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Studrail_patterns
     {
 
         /// <remarks/>
@@ -35589,7 +36586,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wbr_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wbr_type")]
-    public partial class Wbr_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wbr_type
     {
 
         private Guid_list_type connected_wallField;
@@ -35680,7 +36680,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "punching_area_wall_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "punching_area_wall_type")]
-    public partial class Punching_area_wall_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_area_wall_type
     {
 
         private Guid_list_type base_shellField;
@@ -35951,7 +36954,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "punching_area_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "punching_area_type")]
-    public partial class Punching_area_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Punching_area_type
     {
 
         private Guid_list_type base_shellField;
@@ -36214,7 +37220,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "surface_rf_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "surface_rf_type")]
-    public partial class Surface_rf_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_rf_type
     {
 
         private Guid_list_type base_shellField;
@@ -36392,7 +37401,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "surface_rf_typeCentric")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "surface_rf_typeCentric")]
-    public partial class Surface_rf_typeCentric
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_rf_typeCentric
     {
 
         private object itemField;
@@ -36491,7 +37503,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "surface_rf_typeCentricRadial")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "surface_rf_typeCentricRadial")]
-    public partial class Surface_rf_typeCentricRadial
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_rf_typeCentricRadial
     {
 
         private double angleField;
@@ -36534,7 +37549,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "surface_rf_typeCentricTangential")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "surface_rf_typeCentricTangential")]
-    public partial class Surface_rf_typeCentricTangential
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_rf_typeCentricTangential
     {
 
         private double spaceField;
@@ -36575,7 +37593,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sf_rc_face")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "sf_rc_face")]
-    public enum Sf_rc_face
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Sf_rc_face
     {
 
         /// <remarks/>
@@ -36594,7 +37615,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "surface_rf_typeStraight")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "surface_rf_typeStraight")]
-    public partial class Surface_rf_typeStraight
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Surface_rf_typeStraight
     {
 
         private Direction_type directionField;
@@ -36708,7 +37732,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "shell_rf_params_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "shell_rf_params_type")]
-    public partial class Shell_rf_params_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Shell_rf_params_type
     {
 
         private Guid_list_type base_shellField;
@@ -36887,7 +37914,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "shell_rf_params_typeCenter")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "shell_rf_params_typeCenter")]
-    public partial class Shell_rf_params_typeCenter
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Shell_rf_params_typeCenter
     {
 
         private double zField;
@@ -36946,7 +37976,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "two_guid_list_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "two_guid_list_type")]
-    public partial class Two_guid_list_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Two_guid_list_type
     {
 
         private string firstField;
@@ -37005,7 +38038,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "wall_corbel_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "wall_corbel_type")]
-    public partial class Wall_corbel_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Wall_corbel_type
     {
 
         private Point_type_3d start_pointField;
@@ -37316,7 +38352,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "shell_buckling_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "shell_buckling_type")]
-    public partial class Shell_buckling_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Shell_buckling_type
     {
 
         private Point_type_3d directionField;
@@ -37486,7 +38525,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "slab_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "slab_type")]
-    public partial class Slab_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Slab_type
     {
 
         private System.Collections.Generic.List<Slab_part_type> slab_partField;
@@ -37663,7 +38705,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "slab_part_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "slab_part_type")]
-    public partial class Slab_part_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Slab_part_type
     {
 
         private System.Collections.Generic.List<Contour_type> contourField;
@@ -38129,7 +39174,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "slab_stiffness_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "slab_stiffness_record")]
-    public partial class Slab_stiffness_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Slab_stiffness_record
     {
 
         private double bending_1_1Field;
@@ -38282,7 +39330,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "slabtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "slabtype")]
-    public enum Slabtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Slabtype
     {
 
         /// <remarks/>
@@ -38301,7 +39352,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "start_end_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "start_end_type")]
-    public partial class Start_end_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Start_end_type
     {
 
         private double startField;
@@ -38360,7 +39414,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bar_rf_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bar_rf_type")]
-    public partial class Bar_rf_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_rf_type
     {
 
         private Guid_list_type base_barField;
@@ -38506,7 +39563,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "bar_rf_typeLongitudinal_bar")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "bar_rf_typeLongitudinal_bar")]
-    public partial class Bar_rf_typeLongitudinal_bar
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_rf_typeLongitudinal_bar
     {
 
         private Point_type_2d crosssectional_positionField;
@@ -38629,7 +39689,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "bar_rf_typeStirrups")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "bar_rf_typeStirrups")]
-    public partial class Bar_rf_typeStirrups
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_rf_typeStirrups
     {
 
         private Region_type regionField;
@@ -38720,7 +39783,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "hidden_bar_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "hidden_bar_type")]
-    public partial class Hidden_bar_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Hidden_bar_type
     {
 
         private Rectangle_type rectangleField;
@@ -38954,7 +40020,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "buckling_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "buckling_record")]
-    public partial class Buckling_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Buckling_record
     {
 
         private object[] itemsField;
@@ -39127,7 +40196,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "segmentposition_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "segmentposition_type")]
-    public partial class Segmentposition_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Segmentposition_type
     {
 
         private double startField;
@@ -39183,7 +40255,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemsChoiceType1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemsChoiceType1
     {
 
         /// <remarks/>
@@ -39204,7 +40279,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bar_buckling_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "bar_buckling_type")]
-    public enum Bar_buckling_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Bar_buckling_type
     {
 
         /// <remarks/>
@@ -39235,7 +40313,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stbar_siffener_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stbar_siffener_type")]
-    public partial class Stbar_siffener_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stbar_siffener_type
     {
 
         private string guidField;
@@ -39364,7 +40445,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stbar_haunch_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stbar_haunch_type")]
-    public partial class Stbar_haunch_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stbar_haunch_type
     {
 
         private string guidField;
@@ -39605,7 +40689,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "three_guid_list_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "three_guid_list_type")]
-    public partial class Three_guid_list_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Three_guid_list_type
     {
 
         private string firstField;
@@ -39680,7 +40767,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "column_corbel_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "column_corbel_type")]
-    public partial class Column_corbel_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Column_corbel_type
     {
 
         private Three_guid_list_type connectable_partsField;
@@ -40036,7 +41126,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "steelmadetype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "steelmadetype")]
-    public enum Steelmadetype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Steelmadetype
     {
 
         /// <remarks/>
@@ -40059,7 +41152,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "truss_capacity_type")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "truss_capacity_type")]
-    public partial class Truss_capacity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Truss_capacity_type
     {
 
         private System.Collections.Generic.List<Truss_limit_type> limit_forceField;
@@ -40086,7 +41182,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_truss_capacity_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_truss_capacity_type")]
-    public partial class Simple_truss_capacity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_truss_capacity_type
     {
 
         private Truss_limit_type limit_forceField;
@@ -40113,7 +41212,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "truss_limit_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "truss_limit_type")]
-    public partial class Truss_limit_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Truss_limit_type
     {
 
         private double valueField;
@@ -40140,7 +41242,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_truss_behaviour_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_truss_behaviour_type")]
-    public partial class Simple_truss_behaviour_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_truss_behaviour_type
     {
 
         private object itemField;
@@ -40183,7 +41288,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemChoiceType1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemChoiceType1
     {
 
         /// <remarks/>
@@ -40206,7 +41314,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_truss_chr_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_truss_chr_type")]
-    public partial class Simple_truss_chr_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_truss_chr_type
     {
 
         private Simple_truss_behaviour_type compressionField;
@@ -40249,7 +41360,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "truss_behaviour_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "truss_behaviour_type")]
-    public partial class Truss_behaviour_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Truss_behaviour_type
     {
 
         private object itemField;
@@ -40292,7 +41406,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemChoiceType
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemChoiceType
     {
 
         /// <remarks/>
@@ -40315,7 +41432,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "truss_chr_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "truss_chr_type")]
-    public partial class Truss_chr_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Truss_chr_type
     {
 
         private Truss_behaviour_type compressionField;
@@ -40358,7 +41478,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "apex_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "apex_type")]
-    public partial class Apex_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Apex_type
     {
 
         private Point_type_3d centerField;
@@ -40462,7 +41585,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bar_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bar_type")]
-    public partial class Bar_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_type
     {
 
         private System.Collections.Generic.List<object> itemsField;
@@ -40776,7 +41902,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bar_part_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bar_part_type")]
-    public partial class Bar_part_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_part_type
     {
 
         private Edge_type curveField;
@@ -41241,7 +42370,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "eccentricity_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "eccentricity_type")]
-    public partial class Eccentricity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Eccentricity_type
     {
 
         private System.Collections.Generic.List<Ecc_value_type> analyticalField;
@@ -41316,7 +42448,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ecc_value_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ecc_value_type")]
-    public partial class Ecc_value_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ecc_value_type
     {
 
         private double xField;
@@ -41391,7 +42526,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "camber_type_2d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "camber_type_2d")]
-    public partial class Camber_type_2d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Camber_type_2d
     {
 
         private double forceField;
@@ -41466,7 +42604,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "bar_stiffness_factor_record")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "bar_stiffness_factor_record")]
-    public partial class Bar_stiffness_factor_record
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Bar_stiffness_factor_record
     {
 
         private double crosssectional_areaField;
@@ -41601,7 +42742,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "beamtype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "beamtype")]
-    public enum Beamtype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Beamtype
     {
 
         /// <remarks/>
@@ -41622,7 +42766,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "shell_model_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "shell_model_type")]
-    public enum Shell_model_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Shell_model_type
     {
 
         /// <remarks/>
@@ -41645,7 +42792,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pile_rigidity_group_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "pile_rigidity_group_type")]
-    public partial class Pile_rigidity_group_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_rigidity_group_type
     {
 
         private System.Collections.Generic.List<Stiffness_motion_record> springsField;
@@ -41688,7 +42838,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pile_rigidity_group_type2")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "pile_rigidity_group_type2")]
-    public partial class Pile_rigidity_group_type2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_rigidity_group_type2
     {
 
         private System.Collections.Generic.List<Stiff_base_type> springField;
@@ -41731,7 +42884,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pile_rigidity_group_type1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "pile_rigidity_group_type1")]
-    public partial class Pile_rigidity_group_type1
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_rigidity_group_type1
     {
 
         private Stiff_base_type springField;
@@ -41774,7 +42930,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "piles_beam_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "piles_beam_type")]
-    public partial class Piles_beam_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Piles_beam_type
     {
 
         private Edge_type curveField;
@@ -41958,7 +43117,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pile_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "pile_type")]
-    public partial class Pile_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_type
     {
 
         private Piles_beam_type beamField;
@@ -42203,7 +43365,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "pile_typePoint_support")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "pile_typePoint_support")]
-    public partial class Pile_typePoint_support
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_typePoint_support
     {
 
         private object itemField;
@@ -42231,7 +43396,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "pile_typeLine_support")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "pile_typeLine_support")]
-    public partial class Pile_typeLine_support
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Pile_typeLine_support
     {
 
         private object itemField;
@@ -42305,7 +43473,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "piletype_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "piletype_type")]
-    public enum Piletype_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Piletype_type
     {
 
         /// <remarks/>
@@ -42328,7 +43499,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "level_point_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "level_point_type")]
-    public partial class Level_point_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Level_point_type
     {
 
         private double xField;
@@ -42419,7 +43593,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "filling_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "filling_type")]
-    public partial class Filling_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Filling_type
     {
 
         private Horizontal_polygon_2d contourField;
@@ -42612,7 +43789,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "horizontal_polygon_2d")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "horizontal_polygon_2d")]
-    public partial class Horizontal_polygon_2d
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Horizontal_polygon_2d
     {
 
         private System.Collections.Generic.List<Point_type_2d> pointField;
@@ -42661,7 +43841,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "all_levels_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "all_levels_type")]
-    public partial class All_levels_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class All_levels_type
     {
 
         private string strata_top_levelsField;
@@ -42704,7 +43887,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "borehole_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "borehole_type")]
-    public partial class Borehole_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Borehole_type
     {
 
         private All_levels_type whole_level_dataField;
@@ -42881,7 +44067,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "water_level_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "water_level_type")]
-    public partial class Water_level_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Water_level_type
     {
 
         private string colourField;
@@ -42940,7 +44129,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "stratum_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "stratum_type")]
-    public partial class Stratum_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Stratum_type
     {
 
         private string materialField;
@@ -42999,7 +44191,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "strata_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "strata_type")]
-    public partial class Strata_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Strata_type
     {
 
         private Horizontal_polygon_2d contourField;
@@ -43176,7 +44371,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sffoundation_ref_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sffoundation_ref_type")]
-    public partial class Sffoundation_ref_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sffoundation_ref_type
     {
 
         private string ref_slabField;
@@ -43235,7 +44433,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "sffoundation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "sffoundation_type")]
-    public partial class Sffoundation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Sffoundation_type
     {
 
         private Slab_part_type slab_partField;
@@ -43536,7 +44737,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "foundation_insulation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "foundation_insulation_type")]
-    public partial class Foundation_insulation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Foundation_insulation_type
     {
 
         private double e_modulusField;
@@ -43667,7 +44871,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "slabfoundationsystems_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "slabfoundationsystems_type")]
-    public enum Slabfoundationsystems_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Slabfoundationsystems_type
     {
 
         /// <remarks/>
@@ -43686,7 +44893,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "lnfoundation_ref_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "lnfoundation_ref_type")]
-    public partial class Lnfoundation_ref_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Lnfoundation_ref_type
     {
 
         private string ref_wallField;
@@ -43761,7 +44971,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "lnfoundation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "lnfoundation_type")]
-    public partial class Lnfoundation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Lnfoundation_type
     {
 
         private Bar_part_type bar_partField;
@@ -43994,7 +45207,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "foundationsystems_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "foundationsystems_type")]
-    public enum Foundationsystems_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Foundationsystems_type
     {
 
         /// <remarks/>
@@ -44017,7 +45233,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ptfoundation_ref_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ptfoundation_ref_type")]
-    public partial class Ptfoundation_ref_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ptfoundation_ref_type
     {
 
         private string ref_slabField;
@@ -44076,7 +45295,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "foundation_plinth_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "foundation_plinth_type")]
-    public partial class Foundation_plinth_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Foundation_plinth_type
     {
 
         private double aField;
@@ -44151,7 +45373,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "extruded_foundation_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "extruded_foundation_type")]
-    public partial class Extruded_foundation_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Extruded_foundation_type
     {
 
         private Region_type regionField;
@@ -44248,7 +45473,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ts_indexed_vertex_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ts_indexed_vertex_type")]
-    public partial class Ts_indexed_vertex_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ts_indexed_vertex_type
     {
 
         private ushort indexField;
@@ -44291,7 +45519,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ts_visible_edge_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ts_visible_edge_type")]
-    public partial class Ts_visible_edge_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ts_visible_edge_type
     {
 
         private System.Collections.Generic.List<Ts_indexed_vertex_type> vertexField;
@@ -44354,7 +45585,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "visiblelinetype")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "visiblelinetype")]
-    public enum Visiblelinetype
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Visiblelinetype
     {
 
         /// <remarks/>
@@ -44377,7 +45611,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ts_contourline_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ts_contourline_type")]
-    public partial class Ts_contourline_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ts_contourline_type
     {
         private System.Collections.Generic.List<Ts_indexed_vertex_type> vertexField;
 
@@ -44401,7 +45638,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ts_contour_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ts_contour_type")]
-    public partial class Ts_contour_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ts_contour_type
     {
 
         private System.Collections.Generic.List<Ts_contourline_type> contourField;
@@ -44426,7 +45666,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ts_surface_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ts_surface_type")]
-    public partial class Ts_surface_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ts_surface_type
     {
 
         private System.Collections.Generic.List<Ts_contour_type> flat_faceField;
@@ -44452,7 +45695,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "polyhedron_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "polyhedron_type")]
-    public partial class Polyhedron_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Polyhedron_type
     {
 
         private System.Collections.Generic.List<Point_type_3d> vertices_in_index_orderField;
@@ -44568,7 +45814,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseEntitiesSoil_elements")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseEntitiesSoil_elements")]
-    public partial class DatabaseEntitiesSoil_elements
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseEntitiesSoil_elements
     {
 
         private Strata_type strataField;
@@ -44643,7 +45892,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseEntitiesLoads")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseEntitiesLoads")]
-    public partial class DatabaseEntitiesLoads
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseEntitiesLoads
     {
 
         private System.Collections.Generic.List<Point_load_type> point_loadField;
@@ -45054,7 +46306,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseEntitiesSupports")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseEntitiesSupports")]
-    public partial class DatabaseEntitiesSupports
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseEntitiesSupports
     {
 
         private System.Collections.Generic.List<Point_support_type> point_supportField;
@@ -45129,7 +46384,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseEntitiesAdvancedfem")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseEntitiesAdvancedfem")]
-    public partial class DatabaseEntitiesAdvancedfem
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseEntitiesAdvancedfem
     {
 
         private System.Collections.Generic.List<Connected_points_type> connected_pointsField;
@@ -45284,7 +46542,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseSections")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseSections")]
-    public partial class DatabaseSections
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseSections
     {
 
         private System.Collections.Generic.List<Section_type> sectionField;
@@ -45327,7 +46588,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseMaterials")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseMaterials")]
-    public partial class DatabaseMaterials
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseMaterials
     {
 
         private System.Collections.Generic.List<Material_type> materialField;
@@ -45370,7 +46634,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseComposites")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseComposites")]
-    public partial class DatabaseComposites
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseComposites
     {
 
         private System.Collections.Generic.List<Composite_data> composite_sectionField;
@@ -45413,7 +46680,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseGeometry")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseGeometry")]
-    public partial class DatabaseGeometry
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseGeometry
     {
 
         private System.Collections.Generic.List<Curve_type> curveField;
@@ -45630,7 +46900,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "hor_align")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "hor_align")]
-    public enum Hor_align
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Hor_align
     {
 
         /// <remarks/>
@@ -45653,7 +46926,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "databaseUser_defined_views")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "databaseUser_defined_views")]
-    public partial class DatabaseUser_defined_views
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class DatabaseUser_defined_views
     {
 
         private System.Collections.Generic.List<View_type> viewField;
@@ -45750,7 +47026,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "displaymodes")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "displaymodes")]
-    public enum Displaymodes
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Displaymodes
     {
 
         /// <remarks/>
@@ -45777,7 +47056,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "localsys_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "localsys_type")]
-    public partial class Localsys_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Localsys_type
     {
 
         private Point_type_3d centreField;
@@ -45836,7 +47118,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "ec_edge_list_item_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "ec_edge_list_item_type")]
-    public partial class Ec_edge_list_item_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Ec_edge_list_item_type
     {
 
         private Ec_type edge_connectionField;
@@ -45895,7 +47180,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dim_x_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dim_x_type")]
-    public partial class Dim_x_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dim_x_type
     {
 
         private double xField;
@@ -45955,7 +47243,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dim_y_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dim_y_type")]
-    public partial class Dim_y_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dim_y_type
     {
 
         private double yField;
@@ -46015,7 +47306,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_rigidity_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_rigidity_type")]
-    public partial class Simple_rigidity_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_rigidity_type
     {
 
         private Stiff_base_type movField;
@@ -46089,7 +47383,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", IncludeInSchema = false)]
-    public enum ItemChoiceType2
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum ItemChoiceType2
     {
 
         /// <remarks/>
@@ -46108,7 +47405,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "simple_spring_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "simple_spring_type")]
-    public partial class Simple_spring_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Simple_spring_type
     {
 
         private Stiff_base_type mov_xField;
@@ -46251,7 +47551,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "lc_ptc_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "lc_ptc_type")]
-    public enum Lc_ptc_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Lc_ptc_type
     {
 
         /// <remarks/>
@@ -46268,7 +47571,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "lc_pile_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "lc_pile_type")]
-    public enum Lc_pile_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Lc_pile_type
     {
 
         /// <remarks/>
@@ -46283,7 +47589,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "layer_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "layer_type")]
-    public partial class Layer_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Layer_type
     {
 
         private string nameField;
@@ -46386,7 +47695,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "linetype_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "linetype_type")]
-    public partial class Linetype_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Linetype_type
     {
 
         private string nameField;
@@ -46445,7 +47757,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimfloor_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimfloor_type")]
-    public partial class Dimfloor_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimfloor_type
     {
 
         private Point_type_3d positionField;
@@ -46625,7 +47940,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "dimtext_font_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "dimtext_font_type")]
-    public partial class Dimtext_font_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Dimtext_font_type
     {
 
         private string fontField;
@@ -46744,7 +48062,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "script_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "script_type")]
-    public enum Script_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Script_type
     {
 
         /// <remarks/>
@@ -46797,7 +48118,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "font_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "font_type")]
-    public partial class Font_type : Dimtext_font_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Font_type : Dimtext_font_type
     {
 
         private Hor_align h_alignField;
@@ -46864,7 +48188,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "line_type_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "line_type_type")]
-    public partial class Line_type_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_type_type
     {
 
         private Line_type_typeDistance distanceField;
@@ -47026,7 +48353,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:strusoft", TypeName = "line_type_typeDistance")]
     [System.Xml.Serialization.XmlRootAttribute(ElementName = "line_type_typeDistance")]
-    public partial class Line_type_typeDistance
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Line_type_typeDistance
     {
 
         private double valueField;
@@ -47069,7 +48399,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "text_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "text_type")]
-    public partial class Text_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Text_type
     {
 
         private Point_type_3d positionField;
@@ -47192,7 +48525,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "style_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "style_type")]
-    public partial class Style_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Style_type
     {
 
         private Fill_type fillingField;
@@ -47345,7 +48681,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "fill_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "fill_type")]
-    public partial class Fill_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Fill_type
     {
 
         private Fillmode_type modeField;
@@ -47410,7 +48749,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "fillmode_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "fillmode_type")]
-    public enum Fillmode_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Fillmode_type
     {
 
         /// <remarks/>
@@ -47431,7 +48773,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "pointstyle_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = false, ElementName = "pointstyle_type")]
-    public enum Pointstyle_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public enum Pointstyle_type
     {
 
         /// <remarks/>
@@ -47462,7 +48807,10 @@ namespace StruSoft.Interop.StruXml.Data
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:strusoft", TypeName = "text_style_type")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:strusoft", IsNullable = true, ElementName = "text_style_type")]
-    public partial class Text_style_type
+    	#if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+	#endif
+	public partial class Text_style_type
     {
 
         private string guidField;
