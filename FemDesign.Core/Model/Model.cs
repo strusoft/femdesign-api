@@ -2334,9 +2334,12 @@ namespace FemDesign
         {
             foreach (Materials.Material elem in this.Materials.Material)
             {
-                if (elem.Guid == obj.Guid)
+                if(obj != null && elem != null)
                 {
-                    return true;
+                    if (elem.Guid == obj.Guid)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -2555,9 +2558,12 @@ namespace FemDesign
         {
             foreach (FemDesign.Sections.Section elem in this.Sections.Section)
             {
-                if (elem.Guid == obj.Guid)
+                if (obj != null && elem != null)
                 {
-                    return true;
+                    if (elem.Guid == obj.Guid)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -2734,8 +2740,7 @@ namespace FemDesign
         internal void GetBars()
         {
             Dictionary<Guid, Sections.ComplexSection> complexSectionsMap = this.Sections.ComplexSection.ToDictionary(s => s.Guid, s => s.DeepClone());
-            Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid);
-            //Dictionary<Guid, Reinforcement.BarReinforcement> reinforcementMap = this.Entities.BarReinforcements.ToDictionary(b => b.BaseBar.Guid);
+            Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid, d => d.DeepClone());
             Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
             Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
             Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> compositeSectionMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data>();

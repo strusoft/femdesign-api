@@ -45,6 +45,12 @@ namespace FemDesign.Grasshopper
             Bars.Bar bar = null;
             if (DA.GetData(0, ref bar))
             {
+                if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Composite Section in the model.The object has not been implemented yet. Please, get in touch if needed.");
+                    return;
+                }
+
                 bar = bar.DeepClone();
             }
 
@@ -89,7 +95,11 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (DA.GetDataList(6, eccentricities))
             {
-                bar.BarPart.ComplexSectionObj.Eccentricities = eccentricities.ToArray();
+                
+                if(bar.Type.ToString() != "Truss")
+                {
+                    bar.BarPart.ComplexSectionObj.Eccentricities = eccentricities.ToArray();
+                }
             }
             
             Vector3d v = Vector3d.Zero;

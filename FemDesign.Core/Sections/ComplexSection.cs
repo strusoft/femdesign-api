@@ -23,9 +23,6 @@ namespace FemDesign.Sections
                 return this.Parts.Select(x => x.SectionObj).ToArray();
             }
             set
-            // if value is one item  and number of parts is two items
-            // if value is MORE then ONE item and match number of parts
-            // if value.Count mismatch number of parts throw exception informing the user. It should never happen
             {
                 if (this.Parts.Count == value.Length)
                 {

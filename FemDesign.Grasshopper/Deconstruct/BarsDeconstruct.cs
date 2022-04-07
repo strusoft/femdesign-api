@@ -72,9 +72,9 @@ namespace FemDesign.Grasshopper
             {
                 DA.SetDataList(4, bar.BarPart.ComplexSectionObj.Sections);
             }
-            else if(bar.BarPart.HasComplexCompositeRef)
+            else if(bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Composite Section in the model. The object has not been implemented yet. Please, get in touch if needed.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Composite Section in the model. The object has not been implemented yet. Please, get in touch if needed.");
                 DA.SetDataList(4, null);
             }
             else
