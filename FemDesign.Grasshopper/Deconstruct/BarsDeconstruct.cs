@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
 
             var typeList = new List<object>() { bar.Type };
 
-            var materialList = new List<object>() { bar.BarPart.Material };
+            var materialList = new List<object>() { bar.BarPart.ComplexMaterialObj };
 
             var localYList = new List<object>() { bar.BarPart.LocalY.ToRhino() };
 
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(0, bar.Guid);
             DA.SetData(1, bar.GetRhinoCurve());
             DA.SetData(2, bar.Type);
-            DA.SetData(3, bar.BarPart.ComplexMaterialObj);
+            DA.SetDataList(3, materialList);
 
             if(bar.BarPart.ComplexSectionObj != null)
             {

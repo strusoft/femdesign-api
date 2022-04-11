@@ -97,6 +97,7 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Info\TabInfo.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
-        <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
+    <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
@@ -751,6 +752,7 @@
     <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
     <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
     <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <None Include="Resources\Fd_TabIcon_24_24.png" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>

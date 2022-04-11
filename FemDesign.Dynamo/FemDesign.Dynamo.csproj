@@ -746,6 +746,7 @@
     <Compile Include="Dynamo\Bars\Connectivity.cs" />
     <Compile Include="Dynamo\Bars\Eccentricity.cs" />
     <Compile Include="Dynamo\Bars\ModelEccentricity.cs" />
+    <Compile Include="Dynamo\Bars\SectionType.cs" />
     <Compile Include="Dynamo\Calculate\Analysis.cs" />
     <Compile Include="Dynamo\Calculate\Application.cs" />
     <Compile Include="Dynamo\Calculate\Bsc.cs" />

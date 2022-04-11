@@ -1,5 +1,5 @@
 // https://strusoft.com/
-
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -2814,10 +2814,6 @@ namespace FemDesign
                             throw new ArgumentException("No matching section found. Model.GetBars() failed.");
                         }
                     }
-                    catch (KeyNotFoundException)
-                    {
-                        throw new ArgumentException("No matching complex section found. Model.GetBars() failed.");
-                    }
                     catch (ArgumentNullException)
                     {
                         throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexSectionRef is null");
@@ -2830,11 +2826,7 @@ namespace FemDesign
                     }
                     catch (KeyNotFoundException)
                     {
-                        throw new ArgumentException("No matching material found. Model.GetBars() failed.");
-                    }
-                    catch (ArgumentNullException)
-                    {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
+                        throw new ArgumentException("No matching complex material found. Model.GetBars() failed.");
                     }
                 }
 

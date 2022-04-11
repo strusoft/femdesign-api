@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
         public LoadCategoryDatabaseListLoadCategoryNames()
           : base("LoadCategoryDatabase.ListLoadCategoryNames", "ListLoadCategoryNames",
               "Lists the names of all LoadCategories in LoadCategoryDatabase.",
-              "FemDesign", "Loads")
+              "FEM-Design", "Loads")
         { 
 
         }
