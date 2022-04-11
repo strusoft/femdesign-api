@@ -118,5 +118,42 @@ namespace FemDesign.Tests
             Model model = Model.DeserializeFromFilePath(input);
             model.SerializeModel(output);
         }
+
+        /// <summary>
+        /// Test if global test model can be deserialised from path and then serialised to string.
+        /// To check which version the test file was generated in check source software attribute in file.
+        /// </summary>
+        [TestMethod("getBars Regular Beam")]
+        public void testingRegularBeam()
+        {
+            // string input = "Model/global-test-model.struxml";
+            string input = "C:/temp/simpleBeam.struxml";
+            Model model = Model.DeserializeFromFilePath(input);
+            Console.Write(model.SerializeToString());
+        }
+
+        /// <summary>
+        /// Test if global test model can be deserialised from path and then serialised to string.
+        /// To check which version the test file was generated in check source software attribute in file.
+        /// </summary>
+        [TestMethod("getBars Composite and Complex")]
+        public void testingComplexComposite()
+        {
+            // string input = "Model/global-test-model.struxml";
+            string input = "C:/temp/composite.struxml";
+            Model model = Model.DeserializeFromFilePath(input);
+            Console.Write(model.SerializeToString());
+        }
+
+
+        [TestMethod("Read Section Type")]
+        public void testingSectionType()
+        {
+            // string input = "Model/global-test-model.struxml";
+            string input = "C:/temp/BeamType.struxml";
+            Model model = Model.DeserializeFromFilePath(input);
+            Console.Write(model.SerializeToString());
+        }
+
     }
 }

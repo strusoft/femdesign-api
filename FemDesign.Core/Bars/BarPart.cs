@@ -527,6 +527,34 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public BarType Type { get; set; }
 
+        [XmlIgnore]
+        public SectionType SectionType
+        {
+            get
+            {
+                if(this.Type == BarType.Truss)
+                {
+                    return SectionType.Truss;
+                }
+                else if (this.Type != BarType.Truss && this.HasComplexSectionRef && !this.HasDeltaBeamComplexSectionRef)
+                {
+                    return SectionType.RegularBeamColumn;
+                }
+                else if(this.Type != BarType.Truss && this.HasComplexCompositeRef)
+                {
+                    return SectionType.CompositeBeamColumn;
+                }
+                else if(this.Type != BarType.Truss && this.HasComplexSectionRef && this.HasDeltaBeamComplexSectionRef)
+                {
+                    return SectionType.DeltaBeamColumn;
+                }
+                else
+                {
+                    throw new System.ArgumentException("Type of bar is not supported.");
+                }
+            }
+        }
+
         [XmlAttribute("complex_composite")]
         public string ComplexCompositeRef { get; set; } // guidtype
 

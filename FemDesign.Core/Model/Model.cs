@@ -421,23 +421,23 @@ namespace FemDesign
             }
             
             // if truss
-            if (obj.Type == Bars.BarType.Truss)
+            if (obj.BarPart.SectionType == Bars.SectionType.Truss)
             {
                 this.AddSection(obj.BarPart.TrussUniformSectionObj, overwrite);
                 this.AddMaterial(obj.BarPart.ComplexMaterialObj, overwrite);
             }
             // if complex composite and not delta beam type
-            else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexCompositeRef)
+            else if (obj.BarPart.SectionType == Bars.SectionType.CompositeBeamColumn)
             {
                 this.AddComplexComposite(obj.BarPart.ComplexCompositeObj, overwrite);
             }
-            // if complex composite but delta beam type
-            else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexSectionRef && obj.BarPart.HasDeltaBeamComplexSectionRef)
+            // if complex section but delta beam type
+            else if (obj.BarPart.SectionType == Bars.SectionType.DeltaBeamColumn)
             {
                 // do nothing
             }
             // if complex section
-            else if (obj.Type != Bars.BarType.Truss && obj.BarPart.HasComplexSectionRef && !obj.BarPart.HasDeltaBeamComplexSectionRef)
+            else if (obj.BarPart.SectionType == Bars.SectionType.RegularBeamColumn)
             {
                 this.AddComplexSection(obj.BarPart.ComplexSectionObj, overwrite);
                 this.AddMaterial(obj.BarPart.ComplexMaterialObj, overwrite);
@@ -2757,7 +2757,7 @@ namespace FemDesign
                 item.BarPart.Type = item.Type;
 
                 // get section and material for truss
-                if (item.Type == Bars.BarType.Truss)
+                if (item.BarPart.SectionType == Bars.SectionType.Truss)
                 {
                     // section
                     try
@@ -2788,12 +2788,12 @@ namespace FemDesign
                     }
                 }
                 // do nothing for beam or column with complex section (delta beam type)
-                else if (item.Type != Bars.BarType.Truss && item.BarPart.HasComplexSectionRef && item.BarPart.HasDeltaBeamComplexSectionRef)
+                else if (item.BarPart.SectionType == Bars.SectionType.DeltaBeamColumn)
                 {
                     // pass
                 }
                 // get section and material for beam or column with complex section (not delta beam type)
-                else if (item.Type != Bars.BarType.Truss && item.BarPart.HasComplexSectionRef && !item.BarPart.HasDeltaBeamComplexSectionRef)
+                else if (item.BarPart.SectionType == Bars.SectionType.RegularBeamColumn)
                 {
                     // section
                     try
@@ -2839,7 +2839,7 @@ namespace FemDesign
                 }
 
                 // get section and material for beam or column with complex composite section
-                else if (item.BarPart.HasComplexCompositeRef)
+                else if (item.BarPart.SectionType == Bars.SectionType.CompositeBeamColumn)
                 {
                     try
                     {

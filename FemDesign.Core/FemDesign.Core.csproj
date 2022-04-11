@@ -58,6 +58,7 @@
     <Compile Include="Bars\Buckling\BucklingTypeEnum.cs" />
     <Compile Include="Bars\Buckling\Position.cs" />
     <Compile Include="Bars\BarType.cs" />
+    <Compile Include="Bars\SectionTypeEnum.cs" />
     <Compile Include="Bars\SteelMadeTypeEnum.cs" />
     <Compile Include="Bars\ColumnCorbel.cs" />
     <Compile Include="Bars\Connectivity.cs" />
