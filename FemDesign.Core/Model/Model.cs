@@ -2843,7 +2843,7 @@ namespace FemDesign
                 {
                     try
                     {
-                        // assign the Object Complex Composite to the bar part
+                        // assign the Complex Composite Object to the bar part
                         item.BarPart.ComplexCompositeObj = complexCompositeMap[new System.Guid(item.BarPart.ComplexCompositeRef)];
 
                         // iterate over the composite section inside the complex composite and assign the object from the database Composite
@@ -2854,15 +2854,14 @@ namespace FemDesign
 
                         // assign the material object to the Composite_part_type
                         // it might be clever to move this method outside the loop and call it (add compositePart)
-                        foreach (var compositeSection in this.Composites.Composite_section)
+                        foreach (var compositeSection in item.BarPart.ComplexCompositeObj.Composite_section)
                         {
-                            foreach (var compositePart in compositeSection.Part)
+                            foreach (var compositePart in compositeSection.CompositeSectionDataObj.Part)
                             {
                                 compositePart.MaterialObj = materialMap[Guid.Parse(compositePart.Material)];
                                 compositePart.SectionObj = sectionsMap[Guid.Parse(compositePart.Section)];
                             }
                         }
-
                     }
                     catch (KeyNotFoundException)
                     {

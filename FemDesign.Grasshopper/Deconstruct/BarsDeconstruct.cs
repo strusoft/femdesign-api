@@ -77,6 +77,11 @@ namespace FemDesign.Grasshopper
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Composite Section in the model. The object has not been implemented yet. Please, get in touch if needed.");
                 DA.SetDataList(4, null);
             }
+            else if(bar.BarPart.Type == Bars.BarType.Truss)
+            {
+                var truss = new List<Sections.Section> { bar.BarPart.TrussUniformSectionObj };
+                DA.SetDataList(4, truss);
+            }
             else
             {
                 DA.SetDataList(4, null);

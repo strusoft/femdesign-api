@@ -193,61 +193,68 @@ namespace FemDesign.Bars
         [IsVisibleInDynamoLibrary(true)]
         public static Bar Modify(Bar bar, [DefaultArgument("false")] bool newGuid, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("null")] Materials.Material material, [DefaultArgument("null")] Sections.Section[] section, [DefaultArgument("null")] Connectivity[] connectivity, [DefaultArgument("null")] Eccentricity[] eccentricity, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("false")] bool orientLCS, [DefaultArgument("null")] string identifier)
         {
-            // deep clone input bar
-            bar = bar.DeepClone();
 
-            if (newGuid)
+            if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
             {
-                bar.EntityCreated();
-                bar.BarPart.EntityCreated();
+                throw new System.Exception("Composite Section in the model.The object has not been implemented yet. Please, get in touch if needed.");
             }
-
-            if (curve != null)
+            else
             {
-                // convert geometry
-                Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
+                bar = bar.DeepClone();
 
-                // update edge
-                bar.BarPart.Edge = edge;
+                if (newGuid)
+                {
+                    bar.EntityCreated();
+                    bar.BarPart.EntityCreated();
+                }
+
+                if (curve != null)
+                {
+                    // convert geometry
+                    Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
+
+                    // update edge
+                    bar.BarPart.Edge = edge;
+                }
+
+                if (material != null)
+                {
+                    bar.BarPart.ComplexMaterialObj = material;
+                }
+
+                if (section != null)
+                {
+                    bar.BarPart.ComplexSectionObj.Sections = section;
+                }
+
+                if (connectivity != null)
+                {
+                    bar.BarPart.Connectivity = connectivity;
+                }
+
+                if (eccentricity != null)
+                {
+                    bar.BarPart.ComplexSectionObj.Eccentricities = eccentricity;
+                }
+
+                if (localY != null)
+                {
+                    bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
+                }
+
+                if (orientLCS)
+                {
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
+
+                if (identifier != null)
+                {
+                    bar.Identifier = identifier;
+                    bar.BarPart.Identifier = bar.Identifier;
+                }
+
+                return bar;
             }
-
-            if (material != null)
-            {
-                bar.BarPart.ComplexMaterialObj = material;
-            }
-
-            if (section != null)
-            {
-                bar.BarPart.ComplexSectionObj.Sections = section;
-            }
-
-            if (connectivity != null)
-            {
-                bar.BarPart.Connectivity = connectivity;
-            }
-
-            if (eccentricity != null)
-            {
-                bar.BarPart.ComplexSectionObj.Eccentricities = eccentricity;
-            }
-
-            if (localY != null)
-            {
-                bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
-            }
-
-            if (orientLCS)
-            {
-                bar.BarPart.OrientCoordinateSystemToGCS();
-            }
-
-            if (identifier != null)
-            {
-                bar.Identifier = identifier;
-                bar.BarPart.Identifier = bar.Identifier;
-            }
-
-            return bar;
         }
 
         /// <summary>

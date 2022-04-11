@@ -95,8 +95,7 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (DA.GetDataList(6, eccentricities))
             {
-                
-                if(bar.Type.ToString() != "Truss")
+                if(bar.Type != Bars.BarType.Truss)
                 {
                     bar.BarPart.ComplexSectionObj.Eccentricities = eccentricities.ToArray();
                 }

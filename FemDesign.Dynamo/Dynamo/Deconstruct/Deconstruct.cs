@@ -40,21 +40,40 @@ namespace FemDesign
         [MultiReturn(new[]{"Guid", "Curve", "Type", "Material", "Section", "Connectivity", "Eccentricity", "LocalY", "Stirrups", "LongitudinalBars", "PTC", "Identifier"})]
         public static Dictionary<string, object> BarDeconstruct(FemDesign.Bars.Bar bar)
         {
-            return new Dictionary<string, object>
+            Dictionary<string, object> result = new Dictionary<string, object>();
+
+            result.Add("Guid", bar.Guid);
+            result.Add("Curve", bar.GetDynamoCurve());
+            result.Add("Type", bar.Type);
+            result.Add("Material", bar.BarPart.ComplexMaterialObj);
+
+            if (bar.BarPart.ComplexSectionObj != null)
             {
-                {"Guid", bar.Guid},
-                {"Curve", bar.GetDynamoCurve()},
-                {"Type", bar.Type},
-                {"Material", bar.BarPart.ComplexMaterialObj},
-                {"Section", bar.BarPart.ComplexSectionObj.Sections},
-                {"Connectivity", bar.BarPart.Connectivity},
-                {"Eccentricity", bar.BarPart.ComplexSectionObj.Eccentricities},
-                {"LocalY", bar.BarPart.LocalY.ToDynamo()},
-                {"Stirrups", bar.Stirrups},
-                {"LongitudinalBars", bar.LongitudinalBars},
-                {"PTC", bar.Ptc},
-                {"Identifier", bar.Identifier}
-            };
+                result.Add("Section", bar.BarPart.ComplexSectionObj.Sections);
+            }
+            else if (bar.BarPart.Type == Bars.BarType.Truss)
+            {
+                result.Add("Section", new List<Sections.Section> { bar.BarPart.TrussUniformSectionObj });
+            }
+            else if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
+            {
+                result.Add("Section", null);
+                throw new System.Exception("Composite Section in the model. The object has not been implemented yet. Please, get in touch if needed.");
+            }
+
+            result.Add("Connectivity", bar.BarPart.Connectivity);
+
+            var eccentricity = (bar.BarPart.ComplexSectionObj != null) ? bar.BarPart.ComplexSectionObj.Eccentricities : null;
+            result.Add("Eccentricity", eccentricity);
+
+            result.Add("LocalY", bar.BarPart.LocalY.ToDynamo());
+            result.Add("Stirrups", bar.Stirrups);
+            result.Add("LongitudinalBars", bar.LongitudinalBars);
+            result.Add("PTC", bar.Ptc);
+            result.Add("Identifier", bar.Identifier);
+
+
+            return result;
         }
 
         /// <summary>
