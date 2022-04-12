@@ -26,7 +26,7 @@ namespace FemDesign.Samples
                 samplesDir = Path.GetFullPath(Path.Combine(samplesDir, "..\\..\\..\\"));
             System.IO.Directory.SetCurrentDirectory(samplesDir);
 
-            Console.WriteLine("Running some sample code using the FEM-Design api!");
+            Console.WriteLine("Running some sample code using the FEM-Design api!\n");
 
             // ChangeLengthOfBeam();
             // Example1CreateSimpleModel();
