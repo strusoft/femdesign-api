@@ -65,11 +65,15 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
+    <Compile Include="Geometry\RegionTests.cs" />
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Geometry\slabs.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Model\global-test-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
