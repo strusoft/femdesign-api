@@ -113,11 +113,32 @@ namespace FemDesign.Tests
         [TestMethod("ReadWriteFile")]
         public void ReadWriteFile()
         {
-            string input = "Model/global-test-model.struxml";
-            string output = "Model/readWriteFile.struxml";
+            string input = "Model/global-test-model_IN.struxml";
+            string output = @"C:\Users\Marco\Documents\GitHub\femdesign-api\FemDesign.Tests\Model\global-test-model_OUT.struxml";
             Model model = Model.DeserializeFromFilePath(input);
             model.SerializeModel(output);
         }
+
+
+        [TestMethod("ReadWriteTestingFiles")]
+        public void ReadWriteTestingFiles()
+        {
+            var input = new List<string> { @"C:\Users\Marco\Desktop\FEM DESIGN TEST\Struxml\BeamType_IN.struxml",
+                            @"C:\Users\Marco\Desktop\FEM DESIGN TEST\Struxml\composite-with-ecc_IN.struxml",
+                            @"C:\Users\Marco\Desktop\FEM DESIGN TEST\Struxml\global-test-model_IN.struxml",
+                            @"C:\Users\Marco\Desktop\FEM DESIGN TEST\Struxml\simpleBeam_IN.struxml",
+                            @"C:\Users\Marco\Desktop\FEM DESIGN TEST\Struxml\Trusses_IN.struxml"};
+
+            foreach (var file in input)
+            {
+                //string output = @"C:\Users\Marco\Documents\GitHub\femdesign-api\FemDesign.Tests\Model\global-test-model_OUT.struxml";
+                string output = file.Replace("_IN", "_OUT");
+                Model model = Model.DeserializeFromFilePath(file);
+                model.SerializeModel(output);
+                model.FdApp.OpenStruxml(output, false);
+            }
+        }
+
 
         /// <summary>
         /// Test if global test model can be deserialised from path and then serialised to string.

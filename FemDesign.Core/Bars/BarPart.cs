@@ -728,6 +728,13 @@ namespace FemDesign.Bars
                 else if (this.HasComplexSectionRef && !this.HasDeltaBeamComplexSectionRef)
                 {
                     var sectionEcc = this.ComplexSectionObj.Eccentricities;
+
+                    if (this._eccentricityTypeField == null)
+                    {
+                        Eccentricity eccentricity = new Eccentricity();
+                        this._eccentricityTypeField = new ModelEccentricity(eccentricity);
+                    }
+
                     this._eccentricityTypeField.StartAnalytical = sectionEcc.First();
                     this._eccentricityTypeField.EndAnalytical = sectionEcc.Last();
                     return this._eccentricityTypeField;
