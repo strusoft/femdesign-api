@@ -10,18 +10,29 @@ namespace FemDesign.Samples
     {
         private static void Example4EditExistingModel()
         {
-            // Step 1: Read the model
+            // EXAMPLE 4: EDITING AN EXISTING MODEL
+            // In this example, we will edit an existing model by isolating a floor and replacing supporting
+            // walls and pillars with appropriate supports. Using height as a point of comparison we can find
+            // which elements to reuse from the old model, and create a new model with our selected elements.
+
+            // This example was last updated 2022-04-13, using the ver. 21.1.0 FEM-Design API.
+            
+
+            // READ THE MODEL:
+            // Deserialize the current model to access all the data in the .struxml file.
             FemDesign.Model model = FemDesign.Model.DeserializeFromFilePath(@"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\Example 4 - model.struxml");
 
 
+            // ISOLATE A FLOOR:
+            // Choose which floor will be singled out.
             int floor = 3;
 
             FemDesign.StructureGrid.Storey storey = model.Entities.Storeys.Storey[floor];
             double zCoord = storey.Origo.Z;
 
-            int n;
 
-            // POINTSUPPORTS: Find all pillars supporting the floor; place new point supports there
+            // POINT SUPPORTS:
+            // Find all pillars supporting the chosen floor, and place point supports in their place.
             var supports = new List<GenericClasses.ISupportElement>();
             for (int i = 0; i < model.Entities.Bars.Count; i++)
             {
@@ -43,20 +54,27 @@ namespace FemDesign.Samples
             }
             
 
-            // ELEMENTS: Pick out a certain floor. Also add supports if you find any.
+            // ELEMENTS:
+            // The model only contains plates and walls, so we will not be looking for beams etc.
+            // We are looking for the floor plate at the right height, and the walls below it to
+            // replace them with line supports.
             var elements = new List<GenericClasses.IStructureElement>();
+            int n;
 
-            // Testing slabs
+            // TESTING SLABS:
+            // Slabs have a property which indicates if they are floors (plate) or walls (wall).
+            // Based on this, we can sort out if we want to use them as an element or place a
+            // line support in their stead.
             for (int i = 0; i < model.Entities.Slabs.Count; i++)
             {
                 Shells.Slab tempSlab = model.Entities.Slabs[i];
-                if (tempSlab.Type == Shells.SlabType.Plate)
+                if (tempSlab.Type == Shells.SlabType.Plate && tempSlab.SlabPart.LocalPos.Z == zCoord)
                 {
                     elements.Add(tempSlab);
                 }
                 else if (tempSlab.Type == Shells.SlabType.Wall)
                 {
-                    if (tempSlab.SlabPart.Region.Contours[0].Edges[2].Points[0].Z == zCoord)        // Funkar för Walls, men ej för panels
+                    if (tempSlab.SlabPart.Region.Contours[0].Edges[2].Points[0].Z == zCoord)
                     {
                         var tempSupport = new Supports.LineSupport(
                             edge: tempSlab.SlabPart.Region.Contours[0].Edges[2],
@@ -69,7 +87,9 @@ namespace FemDesign.Samples
                 }
             }
 
-            // Testing panels
+            // TESTING PANELS:
+            // Panels do not have the same property as slabs. Instead, we compare the height of all the
+            // edge curves of the panel to discern if it is horizontal or not.
             for (int i = 0; i < model.Entities.Panels.Count; i++)
             {
                 Shells.Panel tempPanel = model.Entities.Panels[i];
@@ -98,7 +118,9 @@ namespace FemDesign.Samples
                 }
             }
 
-            // LOADS
+
+            // LOADS:
+            // Similar to supports and elements, we will reuse loads from the model if they are on the correct height
             var loads = new List<GenericClasses.ILoadElement>();
             for (int i = 0; i < model.Entities.Loads.LineLoads.Count; i++)
             {
@@ -107,32 +129,35 @@ namespace FemDesign.Samples
                     loads.Add(model.Entities.Loads.LineLoads[i]);
                 }
             }
-            for (int i = 0; i < model.Entities.Loads.SurfaceLoads.Count; i++)                                   
-                // ATT GÖRA: Den här måste sålla ut alla irrelevanta laster på något sätt
-                //       .ex på höjd? skulle nog kunna gå att bygga om modellen från tempPanel
+            for (int i = 0; i < model.Entities.Loads.SurfaceLoads.Count; i++)
             {
                 Loads.SurfaceLoad tempLoad = model.Entities.Loads.SurfaceLoads[i];
-                if (tempLoad.Region.Contours[i].Edges[0].Points[0].Z == zCoord)
+                if (tempLoad.Region.Contours[0].Edges[0].Points[0].Z == zCoord)
                 {
                     loads.Add(tempLoad);
                 }
             }
 
-            // Create a new model and add all constructed elements etc. to it
+
+            // CREATE NEW MODEL:
+            // With a new model, we can add all our gathered elements to it. We can also take load cases,
+            // load combinations, and the storey marker directly from the old model.
             FemDesign.Model newModel = new FemDesign.Model(Country.S);
             newModel.AddElements(elements);
             newModel.AddSupports(supports);
+            newModel.AddLoads(loads);
             newModel.AddLoadCases(model.Entities.Loads.LoadCases);
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
-            //newModel.AddLoads(lineLoads, surfaceLoads);
+            // newModel.AddEntities(model.Entities.Storeys.Storey[floor]);                    <------- finns det en motsvarande metod för att bara lägga till en grej?
+            
 
-            string path = @"C:\Users\SamuelNyberg\OneDrive - StruSoft AB\Samuels arbetshörna\14. C#-exempel\edited_model.struxml";
+            // SAVE AND RUN:
+            // Create a file path for the new model, serialize it, and run the script!
+            string path = @"C:\Users\SamuelNyberg\OneDrive - StruSoft AB\Samuels arbetshörna\14. C#-exempel\edited_model.struxml"; //Borde jag spara med samma namn?
             newModel.SerializeModel(path);
 
-            // var app = new Calculate.Application();
-            // app.OpenStruxml(path, true);
-
-            Console.ReadKey();
+            var app = new Calculate.Application();
+            app.OpenStruxml(path, true);
         }
     }
 }
