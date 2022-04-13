@@ -56,13 +56,19 @@ namespace FemDesign.Results
         QuantityEstimationMasonry,
 
         /* LOAD CASES AND COMBINATIONS */
+        /// <summary>
+        /// Node, Displacements
+        /// </summary>
         [Parseable("NodalDisplacement")]
         [Result(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
         NodalDisplacement,
 
-        //[Parseable("BarEndForce")]
-        //[Result(typeof(BarEndForce))]
-        //BarEndForce,
+        /// <summary>
+        /// Bars, Displacements
+        /// </summary>
+        [Parseable("BarDisplacement")]
+        [Result(typeof(BarDisplacement), ListProc.BarsDisplacementsLoadCase, ListProc.BarsDisplacementsLoadCombination)]
+        BarDisplacement,
 
         /// <summary>
         /// Point support group, Reactions
