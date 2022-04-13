@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace FemDesign.Samples
 
             // READ THE MODEL:
             // Deserialize the current model to access all the data in the .struxml file.
-            FemDesign.Model model = FemDesign.Model.DeserializeFromFilePath(@"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\Example 4 - model.struxml");
+            FemDesign.Model model = FemDesign.Model.DeserializeFromFilePath("ExampleModels/Example 4 - model.struxml");
 
 
             // ISOLATE A FLOOR:
@@ -28,11 +29,13 @@ namespace FemDesign.Samples
             int floor = 3;
 
             FemDesign.StructureGrid.Storey storey = model.Entities.Storeys.Storey[floor];
+            List<GenericClasses.IStructureElement> storeyAsList = new List<GenericClasses.IStructureElement> { storey };
             double zCoord = storey.Origo.Z;
 
 
             // POINT SUPPORTS:
             // Find all pillars supporting the chosen floor, and place point supports in their place.
+            // We can use the fact that point [1] of any pillar is always the highest one.
             var supports = new List<GenericClasses.ISupportElement>();
             for (int i = 0; i < model.Entities.Bars.Count; i++)
             {
@@ -42,10 +45,10 @@ namespace FemDesign.Samples
                     continue;
                 }
 
-                if (Math.Abs(tempBar.BarPart.Edge.Points[0].Z-zCoord) < Tolerance.LengthComparison)
+                if (Math.Abs(tempBar.BarPart.Edge.Points[1].Z-zCoord) < Tolerance.LengthComparison)
                 {
                     var tempSupport = new Supports.PointSupport(
-                        point: new Geometry.FdPoint3d(tempBar.BarPart.Edge.Points[0].X, tempBar.BarPart.Edge.Points[0].Y, zCoord),
+                        point: new Geometry.FdPoint3d(tempBar.BarPart.Edge.Points[1].X, tempBar.BarPart.Edge.Points[1].Y, zCoord),
                         motions: Releases.Motions.RigidPoint(),
                         rotations: Releases.Rotations.Free()
                         );
@@ -59,7 +62,6 @@ namespace FemDesign.Samples
             // We are looking for the floor plate at the right height, and the walls below it to
             // replace them with line supports.
             var elements = new List<GenericClasses.IStructureElement>();
-            int n;
 
             // TESTING SLABS:
             // Slabs have a property which indicates if they are floors (plate) or walls (wall).
@@ -68,17 +70,18 @@ namespace FemDesign.Samples
             for (int i = 0; i < model.Entities.Slabs.Count; i++)
             {
                 Shells.Slab tempSlab = model.Entities.Slabs[i];
-                if (tempSlab.Type == Shells.SlabType.Plate && tempSlab.SlabPart.LocalPos.Z == zCoord)
+                if (tempSlab.Type == Shells.SlabType.Plate && Math.Abs(tempSlab.SlabPart.LocalPos.Z - zCoord) < Tolerance.LengthComparison)
                 {
                     elements.Add(tempSlab);
                 }
                 else if (tempSlab.Type == Shells.SlabType.Wall)
                 {
-                    if (tempSlab.SlabPart.Region.Contours[0].Edges[2].Points[0].Z == zCoord)
+                    if (Math.Abs(tempSlab.SlabPart.Region.Contours[0].Edges[2].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                     {
+                        // Creating supports with translational stiffnes in the Z direction only.
                         var tempSupport = new Supports.LineSupport(
                             edge: tempSlab.SlabPart.Region.Contours[0].Edges[2],
-                            motions: new Releases.Motions(0, 0, 0, 0, 10 ^ 7, 10 ^ 7),
+                            motions: new Releases.Motions(0, 0, 0, 0, 10E7, 10E7),
                             rotations: new Releases.Rotations(0, 0, 0, 0, 0, 0),
                             movingLocal: true
                             );
@@ -93,24 +96,24 @@ namespace FemDesign.Samples
             for (int i = 0; i < model.Entities.Panels.Count; i++)
             {
                 Shells.Panel tempPanel = model.Entities.Panels[i];
-                n = 0;
+                bool isSlab = true;
                 for (int j = 0; j < tempPanel.Region.Contours[0].Edges.Count; j++)
                 {
                     if (tempPanel.Region.Contours[0].Edges[j].Points[0].Z != tempPanel.Region.Contours[0].Edges[j].Points[1].Z)
                     {
-                        n++;
-                        return;
+                        isSlab = false;
+                        break;
                     }
                 }
-                if (n == 0 && tempPanel.Region.Contours[0].Edges[0].Points[0].Z == zCoord)
+                if (isSlab && Math.Abs(tempPanel.Region.Contours[0].Edges[0].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                 {
                     elements.Add(tempPanel);
                 }
-                else if (n != 0 && tempPanel.Region.Contours[0].Edges[2].Points[0].Z == zCoord)
+                else if (!isSlab && Math.Abs(tempPanel.Region.Contours[0].Edges[2].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                 {
                     var tempSupport = new Supports.LineSupport(
                             edge: tempPanel.Region.Contours[0].Edges[2],
-                            motions: new Releases.Motions(0, 0, 0, 0, 10 ^ 7, 10 ^ 7),
+                            motions: new Releases.Motions(0, 0, 0, 0, 10E7, 10E7),
                             rotations: new Releases.Rotations(0, 0, 0, 0, 0, 0),
                             movingLocal: true
                             );
@@ -124,7 +127,7 @@ namespace FemDesign.Samples
             var loads = new List<GenericClasses.ILoadElement>();
             for (int i = 0; i < model.Entities.Loads.LineLoads.Count; i++)
             {
-                if (model.Entities.Loads.LineLoads[i].Edge.XAxis.Z == zCoord)
+                if (Math.Abs(model.Entities.Loads.LineLoads[i].Edge.XAxis.Z - zCoord) < Tolerance.LengthComparison)
                 {
                     loads.Add(model.Entities.Loads.LineLoads[i]);
                 }
@@ -132,9 +135,9 @@ namespace FemDesign.Samples
             for (int i = 0; i < model.Entities.Loads.SurfaceLoads.Count; i++)
             {
                 Loads.SurfaceLoad tempLoad = model.Entities.Loads.SurfaceLoads[i];
-                if (tempLoad.Region.Contours[0].Edges[0].Points[0].Z == zCoord)
+                if (Math.Abs(tempLoad.Region.Contours[0].Edges[0].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                 {
-                    loads.Add(tempLoad);
+                    loads.Add(tempLoad); 
                 }
             }
 
@@ -148,16 +151,19 @@ namespace FemDesign.Samples
             newModel.AddLoads(loads);
             newModel.AddLoadCases(model.Entities.Loads.LoadCases);
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
-            // newModel.AddEntities(model.Entities.Storeys.Storey[floor]);                    <------- finns det en motsvarande metod för att bara lägga till en grej?
+            newModel.AddElements(storeyAsList);
             
 
             // SAVE AND RUN:
             // Create a file path for the new model, serialize it, and run the script!
-            string path = @"C:\Users\SamuelNyberg\OneDrive - StruSoft AB\Samuels arbetshörna\14. C#-exempel\edited_model.struxml"; //Borde jag spara med samma namn?
+            string path = Path.GetFullPath("ExampleModels/output/edited_model.struxml");
+            if (!Directory.Exists("ExampleModels/output"))
+                Directory.CreateDirectory("ExampleModels/output");
             newModel.SerializeModel(path);
+            Console.WriteLine($"Opening file at {path}");
 
             var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
+            app.OpenStruxml(path, false);
         }
     }
 }
