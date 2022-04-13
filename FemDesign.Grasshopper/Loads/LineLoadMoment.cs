@@ -14,8 +14,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment). The start force will define the direction of the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment). The start force will define the direction of the line load. [kNm]", GH_ParamAccess.item);
+            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce. [kNm]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);

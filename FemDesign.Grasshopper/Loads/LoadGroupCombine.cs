@@ -11,7 +11,7 @@ namespace FemDesign.Loads
     public class LoadGroupCombine : GH_Component
     {
         public LoadGroupCombine()
-          : base("LoadGroup.Combine", "Combine", "Combines the load cases in each load group into load combinations", "FemDesign", "Loads")
+          : base("LoadGroup.Combine", "Combine", "Combines the load cases in each load group into load combinations.", "FemDesign", "Loads")
         {
         }
 

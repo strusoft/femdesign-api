@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Vector. Direction of force.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("LoadLocationValue", "LoadLocationValue", "LoadLocationValue objects. List of 3 items [q1, q2, q3].", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadLocationValue", "LoadLocationValue", "LoadLocationValue objects. List of 3 items [q1, q2, q3]. [kN/m²]", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[4].Optional = true;

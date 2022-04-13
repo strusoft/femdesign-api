@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Direction.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TopBotLocationValue", "TopBotLocVal", "Temperature at top and bottom of surface. Either 1 value (uniform) or 3 values (variable)", GH_ParamAccess.list);
+            pManager.AddGenericParameter("TopBotLocationValue", "TopBotLocVal", "Temperature at top and bottom of surface. Either 1 value (uniform) or 3 values (variable). [\x00B0C]", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

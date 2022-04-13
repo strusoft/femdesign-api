@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "Point.", GH_ParamAccess.item);
+            pManager.AddPointParameter("Point", "Point", "Point. [m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);

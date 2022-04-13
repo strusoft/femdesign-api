@@ -15,9 +15,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve. Line or Arc.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Direction", "Dir", "Direction of load. If undefined global Z-axis will be used. For more information about direction - see FEM-Design GUI", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Direction", "Dir", "Direction of load. If undefined global Z-axis will be used. For more information about direction - see FEM-Design GUI.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("TopBotLocationValue", "TopBotLocVal", "Temperature at top and bottom of surface. List should contain 2 values - start and end value.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("TopBotLocationValue", "TopBotLocVal", "Temperature at top and bottom of surface. List should contain 2 values - start and end value. [\x00B0C]", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

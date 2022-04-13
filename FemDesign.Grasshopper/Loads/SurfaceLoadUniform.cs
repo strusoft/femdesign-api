@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Force", "Force", "Force.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Force", "Force", "Force. [kN/m²]", GH_ParamAccess.item);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[3].Optional = true;
