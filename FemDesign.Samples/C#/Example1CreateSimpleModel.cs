@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
-        private static void CreateSimpleModel()
+        private static void Example1CreateSimpleModel()
         {
             // 1. Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
@@ -94,7 +95,7 @@ namespace FemDesign.Samples
             if (response.KeyChar == 'y' || response.KeyChar == 'Y')
             {
                 var app = new Calculate.Application();
-                app.OpenStruxml(path, killProcess: false);
+                app.OpenStruxml(Path.GetFullPath(path), killProcess: false);
             }
         }
     }
