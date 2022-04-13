@@ -14,7 +14,10 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Motions", "Motions", "Motions.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotations.", GH_ParamAccess.item);
-
+            pManager.AddGenericParameter("Plastic Limits Forces Motions", "PlaLimM", "Plastic limits forces for motion springs. Optional.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Plastic Limits Moments Rotations", "PlaLimR", "Plastic limits moments for rotation springs. Optional.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -22,29 +25,21 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
-            FemDesign.Releases.Motions motions = null;
-            FemDesign.Releases.Rotations rotations = null;
-            if (!DA.GetData(0, ref motions)) { return; }
-            if (!DA.GetData(1, ref rotations)) { return; }
-            if (motions == null || rotations == null) { return; }
+            Releases.Motions motions = null;
+            Releases.Rotations rotations = null;
+            Releases.MotionsPlasticLimits motionsPlasticLimit = null;
+            Releases.RotationsPlasticLimits rotationsPlasticLimit = null;
+            if (!DA.GetData("Motions", ref motions)) return;
+            if (!DA.GetData("Rotations", ref rotations)) return;
+            if (motions == null || rotations == null) return;
+            DA.GetData("Plastic Limits Forces Motions", ref motionsPlasticLimit);
+            DA.GetData("Plastic Limits Moments Rotations", ref rotationsPlasticLimit);
 
-            //
-            FemDesign.Shells.ShellEdgeConnection obj = new FemDesign.Shells.ShellEdgeConnection(motions, rotations);
+            Shells.ShellEdgeConnection edgeConnection = new Shells.ShellEdgeConnection(motions, motionsPlasticLimit, rotations, rotationsPlasticLimit);
 
-            // return
-            DA.SetData(0, obj);
+            DA.SetData("ShellEdgeConnection", edgeConnection);
         }
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                return FemDesign.Properties.Resources.ShellEdgeConnectionDefine;
-            }
-        }
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("c6088f65-a1ca-4c37-9bca-7f5ef3d41e70"); }
-        }
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ShellEdgeConnectionDefine;
+        public override Guid ComponentGuid => new Guid("c6088f65-a1ca-4c37-9bca-7f5ef3d41e70");
     }
 }
