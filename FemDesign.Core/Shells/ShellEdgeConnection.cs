@@ -12,8 +12,11 @@ namespace FemDesign.Shells
     [System.Serializable]
     public partial class ShellEdgeConnection: EdgeConnectionBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlIgnore]
-        public bool Release { get; set; }
+        public bool Release { get; set; } = true;
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
         [XmlElement("rigidity")]

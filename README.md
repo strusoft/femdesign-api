@@ -15,12 +15,6 @@ This repository contains source code for the FEM-Design API wrapper. It consists
 * [Disclaimer](#disclaimer)
 * [License](#license)
 
-## Contributing
-If you want to contribute please follow our [contribution guide](https://github.com/strusoft/femdesign-api/wiki/Contribute).
-
-## Road-map
-The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
-
 ## Installation
 See installation for your framework below. 
 All releases can also be found on the [releases page](https://github.com/strusoft/femdesign-api/releases).
@@ -44,6 +38,12 @@ Either
 ## Examples
 Examples can be found in the folder [FemDesign.Samples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Samples). More examples are planned to be added in the future.
 
+## Contributing
+If you want to contribute please follow our [contribution guide](https://github.com/strusoft/femdesign-api/wiki/Contribute).
+
+## Road-map
+The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
+
 ## Versioning
 Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.
 
@@ -51,7 +51,7 @@ Future versioning will be using the following structure: `major.minor.patch` whe
 The FEM-Design API repository is developed and maintained by StruSoft. 
 
 ## Disclaimer
-In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package.
+In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package. 😊
 
 ## License
 [LICENSE.md](LICENSE)

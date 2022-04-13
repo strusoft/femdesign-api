@@ -8,7 +8,7 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
-        private static void CreateSimpleModel()
+        private static void Example1CreateSimpleModel()
         {
             // Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
