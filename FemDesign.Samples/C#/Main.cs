@@ -21,11 +21,6 @@ namespace FemDesign.Samples
 
         private static void Main(string[] args)
         {
-            string samplesDir = System.IO.Directory.GetCurrentDirectory();
-            if (samplesDir.EndsWith("bin\\Debug\\net5.0") || samplesDir.EndsWith("bin\\Release\\net5.0"))
-                samplesDir = Path.GetFullPath(Path.Combine(samplesDir, "..\\..\\..\\"));
-            System.IO.Directory.SetCurrentDirectory(samplesDir);
-
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
             // ChangeLengthOfBeam();
