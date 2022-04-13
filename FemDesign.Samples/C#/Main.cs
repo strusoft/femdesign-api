@@ -23,14 +23,13 @@ namespace FemDesign.Samples
         {
             Console.WriteLine("Running some sample code using the FEM-Design api!");
 
-            // ChangeLengthOfBeam();
-            // CreateSimpleModel();
-            // RunAnalysis();
-            // CreatePostTensionedCable();
-            // CreateLoadGroups();
-            // LoadGroupsCombine();
-            ParametricStudy();
-            // CostOptimizationOfSlab();
+            ChangeLengthOfBeam();
+            //CreateSimpleModel();
+            //CreatePostTensionedCable();
+            //CreateLoadGroups();
+            //LoadGroupsCombine();
+            //ParametricStudy();
+            //CostOptimizationOfSlab();
         }
     }
 }

@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ExampleModels\example_beam.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ExampleModels\pointsupportreactions.bsc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
