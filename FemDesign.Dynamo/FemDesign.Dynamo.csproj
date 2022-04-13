@@ -600,6 +600,9 @@
     <Compile Include="..\FemDesign.Core\Releases\StiffnessWithFriction.cs">
       <Link>Core\Releases\StiffnessWithFriction.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarDisplacement.cs">
+      <Link>Core\Results\BarDisplacement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\BarEndForce.cs">
       <Link>Core\Results\BarEndForce.cs</Link>
     </Compile>

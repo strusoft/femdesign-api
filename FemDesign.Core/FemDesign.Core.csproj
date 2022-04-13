@@ -97,6 +97,7 @@
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
