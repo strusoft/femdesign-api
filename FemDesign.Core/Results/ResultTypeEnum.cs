@@ -80,6 +80,13 @@ namespace FemDesign.Results
         BarInternalForce,
 
         /// <summary>
+        /// Bars, Internal Forces
+        /// </summary>
+        [Parseable("BarStresses")]
+        [Result(typeof(BarStress), ListProc.BarsStressesLoadCase, ListProc.BarsStressesLoadCombination)]
+        BarStress,
+
+        /// <summary>
         /// Bars, Displacements
         /// </summary>
         [Parseable("BarDisplacement")]
