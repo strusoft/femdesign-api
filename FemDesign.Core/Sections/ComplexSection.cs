@@ -162,18 +162,18 @@ namespace FemDesign.Sections
             }
 
             // construct complex section
-            var positions = new double[2]{0, 1};
-            if (sections.Length == positions.Length && positions.Length == eccentricities.Length)
+            var _positions = new double[2]{0, 1};
+            if (_sections.Length == _positions.Length && _positions.Length == _eccentricities.Length)
             {
                 this.EntityCreated();
-                for (int idx = 0; idx < sections.Length; idx++)
+                for (int idx = 0; idx < _sections.Length; idx++)
                 {
-                    this.Parts.Add(new ComplexSectionPart(positions[idx], sections[idx], eccentricities[idx]));
+                    this.Parts.Add(new ComplexSectionPart(_positions[idx], _sections[idx], _eccentricities[idx]));
                 }
             }
             else
             {
-                throw new System.ArgumentException($"Input arguments have different length. sections: {sections.Length}, positions: {positions.Length}, eccentricities: {eccentricities.Length}");
+                throw new System.ArgumentException($"Input arguments have different length. sections: {sections.Length}, positions: {_positions.Length}, eccentricities: {eccentricities.Length}");
             }
         }
 
