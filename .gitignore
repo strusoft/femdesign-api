@@ -15,5 +15,5 @@ FemDesign.Samples/**/Local/**
 
 FemDesign.Samples/C#/ExampleModels/**
 FemDesign.Samples/C#/ExampleModels/output/**
-!FemDesign.Samples/C#/ExampleModels/*.struxml
-!FemDesign.Samples/C#/ExampleModels/*.bsc
+!FemDesign.Samples/C#/ExampleModels/**/*.struxml
+!FemDesign.Samples/C#/ExampleModels/**/*.bsc

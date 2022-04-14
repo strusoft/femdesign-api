@@ -51,12 +51,29 @@
     <Compile Include="Main.cs" />
     <Compile Include="ParametricStudy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunAnalysis.cs" />
     <Compile Include="SampleProgram.CreatePostTensionedCable.cs" />
     <Compile Include="Example1CreateSimpleModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ExampleModels\example_beam.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\pointsupportreactions.bsc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\QEconcrete.bsc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\QEreinforcement.bsc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\sample_optimization.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\sample_slab.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ExampleModels\Example 4 - model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

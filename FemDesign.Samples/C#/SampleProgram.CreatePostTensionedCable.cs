@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -84,12 +85,11 @@ namespace FemDesign.Samples
             Model model = new Model(Country.S, elements);
 
             // Save model then open in FEM-Design
-            string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string path = System.IO.Path.Combine(directory, "post_tensioned_cable.struxml");
+            string path = "ExampleModels/output/post_tensioned_cable.struxml";
             model.SerializeModel(path);
 
             var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
+            app.OpenStruxml(Path.GetFullPath(path), false);
         }
     }
 }

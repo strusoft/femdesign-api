@@ -17,7 +17,7 @@ namespace FemDesign.Samples
             // which elements to reuse from the old model, and create a new model with our selected elements.
 
             // This example was last updated 2022-04-13, using the ver. 21.1.0 FEM-Design API.
-            
+
 
             // READ THE MODEL:
             // Deserialize the current model to access all the data in the .struxml file.
@@ -45,7 +45,7 @@ namespace FemDesign.Samples
                     continue;
                 }
 
-                if (Math.Abs(tempBar.BarPart.Edge.Points[1].Z-zCoord) < Tolerance.LengthComparison)
+                if (Math.Abs(tempBar.BarPart.Edge.Points[1].Z - zCoord) < Tolerance.LengthComparison)
                 {
                     var tempSupport = new Supports.PointSupport(
                         point: new Geometry.FdPoint3d(tempBar.BarPart.Edge.Points[1].X, tempBar.BarPart.Edge.Points[1].Y, zCoord),
@@ -55,7 +55,7 @@ namespace FemDesign.Samples
                     supports.Add(tempSupport);
                 }
             }
-            
+
 
             // ELEMENTS:
             // The model only contains plates and walls, so we will not be looking for beams etc.
@@ -111,6 +111,7 @@ namespace FemDesign.Samples
                 }
                 else if (!isSlab && Math.Abs(tempPanel.Region.Contours[0].Edges[2].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                 {
+                    // Creating supports with translational stiffnes in the Z direction only.
                     var tempSupport = new Supports.LineSupport(
                             edge: tempPanel.Region.Contours[0].Edges[2],
                             motions: new Releases.Motions(0, 0, 0, 0, 10E7, 10E7),
@@ -137,7 +138,7 @@ namespace FemDesign.Samples
                 Loads.SurfaceLoad tempLoad = model.Entities.Loads.SurfaceLoads[i];
                 if (Math.Abs(tempLoad.Region.Contours[0].Edges[0].Points[0].Z - zCoord) < Tolerance.LengthComparison)
                 {
-                    loads.Add(tempLoad); 
+                    loads.Add(tempLoad);
                 }
             }
 
@@ -152,7 +153,7 @@ namespace FemDesign.Samples
             newModel.AddLoadCases(model.Entities.Loads.LoadCases);
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
             newModel.AddElements(storeyAsList);
-            
+
 
             // SAVE AND RUN:
             // Create a file path for the new model, serialize it, and run the script!
