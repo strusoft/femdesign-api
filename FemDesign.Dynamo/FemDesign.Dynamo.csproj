@@ -606,6 +606,9 @@
     <Compile Include="..\FemDesign.Core\Results\BarEndForce.cs">
       <Link>Core\Results\BarEndForce.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarInternalForce.cs">
+      <Link>Core\Results\BarInternalForce.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\IResult.cs">
       <Link>Core\Results\IResult.cs</Link>
     </Compile>
