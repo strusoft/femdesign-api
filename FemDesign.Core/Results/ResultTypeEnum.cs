@@ -11,6 +11,7 @@ namespace FemDesign.Results
 {
     public enum ResultType
     {
+        #region QUANTITY ESTIMATION
         /* QUANTITY ESTIMATION */
         /// <summary>
         /// Quantity estimation, Concrete
@@ -18,43 +19,51 @@ namespace FemDesign.Results
         [Parseable("QuantityEstimationConcrete")]
         [Result(typeof(QuantityEstimationConcrete), ListProc.QuantityEstimationConcrete)]
         QuantityEstimationConcrete,
+
         /// <summary>
         /// Quantity estimation, Steel
         /// </summary>
         [Parseable("QuantityEstimationSteel")]
         [Result(typeof(QuantityEstimationSteel), ListProc.QuantityEstimationSteel)]
         QuantityEstimationSteel,
+
         /// <summary>
         /// Quantity estimation, Timber
         /// </summary>
         [Parseable("QuantityEstimationTimber")]
         [Result(typeof(QuantityEstimationTimber), ListProc.QuantityEstimationTimber)]
         QuantityEstimationTimber,
+
         /// <summary>
         /// Quantity estimation, Timber panel
         /// </summary>
         [Parseable("QuantityEstimationTimberPanel")]
         [Result(typeof(QuantityEstimationTimberPanel), ListProc.QuantityEstimationTimberPanel)]
         QuantityEstimationTimberPanel,
+
         /// <summary>
         /// Quantity estimation, Reinforcement
         /// </summary>
         [Parseable("QuantityEstimationReinforcement")]
         [Result(typeof(QuantityEstimationReinforcement), ListProc.QuantityEstimationReinforcement)]
         QuantityEstimationReinforcement,
+
         /// <summary>
         /// Quantity estimation, Profiled panel
         /// </summary>
         [Parseable("QuantityEstimationProfiledPanel")]
         [Result(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel)]
         QuantityEstimationProfiledPanel,
+
         /// <summary>
         /// Quantity estimation, Masonry
         /// </summary>
         [Parseable("QuantityEstimationMasonry")]
         [Result(typeof(QuantityEstimationMasonry), ListProc.QuantityEstimationMasonry)]
         QuantityEstimationMasonry,
+        #endregion
 
+        #region LOAD CASES AND COMBINATIONS
         /* LOAD CASES AND COMBINATIONS */
         /// <summary>
         /// Node, Displacements
@@ -83,25 +92,30 @@ namespace FemDesign.Results
         [Parseable("PointSupportReaction")]
         [Result(typeof(PointSupportReaction), ListProc.PointSupportReactionsLoadCase, ListProc.PointSupportReactionsLoadCombination)]
         PointSupportReaction,
+
         /// <summary>
         /// Line support group, Reactions
         /// </summary>
         [Parseable("LineSupportReaction")]
         [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
         LineSupportReaction,
+
         /// <summary>
         /// Line support group, Resultants
         /// </summary>
         [Parseable("LineSupportResultant")]
         [Result(typeof(LineSupportResultant), ListProc.LineSupportResultantsLoadCase, ListProc.LineSupportResultantsLoadCombination)]
         LineSupportResultant,
+
         /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
         [Parseable("ShellDisplacementExtract")]
         [Result(typeof(ShellsDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
         ShellDisplacementExtract,
+        #endregion
 
+        #region RC design
         /* RC design */
         /// <summary>
         /// Shell, Utilization
@@ -116,5 +130,6 @@ namespace FemDesign.Results
         [Parseable("RCDesignShellCrackWidth")]
         [Result(typeof(ShellsDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
         RCDesignShellCracking,
+        #endregion
     }
 }

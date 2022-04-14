@@ -107,15 +107,15 @@ namespace FemDesign.Calculate
         [XmlEnum("frCombIntfBar_ListProc")]
         BarsInternalForcesLoadCombination,
         /// <summary>
-        /// Load combination: Bars, End forces
-        /// </summary>
-        [XmlEnum("frCombIntfBarEnd_ListProc")]
-        BarsEndForcesLoadCombination,
-        /// <summary>
         /// Load case: Bars, End Displacement
         /// </summary>
         [XmlEnum("frCombDispBar_ListProc")]
         BarsDisplacementsLoadCombination,
+        /// <summary>
+        /// Load combination: Bars, End forces
+        /// </summary>
+        [XmlEnum("frCombIntfBarEnd_ListProc")]
+        BarsEndForcesLoadCombination,
         /// <summary>
         /// Load combination: Labelled sections, internal forces
         /// </summary>
