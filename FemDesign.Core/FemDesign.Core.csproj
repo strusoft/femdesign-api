@@ -100,6 +100,7 @@
     <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
+    <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />

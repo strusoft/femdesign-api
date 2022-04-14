@@ -136,6 +136,15 @@ namespace FemDesign.Results
         ShellDisplacementExtract,
         #endregion
 
+        #region EIGEN FREQUENCIES
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [Parseable("EigenFrequencies")]
+        [Result(typeof(EigenFrequencies), ListProc.EigenFrequencies)]
+        EigenFrequencies,
+        #endregion
+
         #region RC design
         /* RC design */
         /// <summary>

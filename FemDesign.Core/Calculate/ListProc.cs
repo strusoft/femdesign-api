@@ -178,6 +178,16 @@ namespace FemDesign.Calculate
         ShellInternalForceExtractLoadCombination,
         #endregion
 
+        #region EIGEN FREQUENCIES
+        /* EIGEN FREQUENCIES */
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [XmlEnum("frFreqEigen_ListProc")]
+        EigenFrequencies,
+
+        #endregion
+
         #region RC design
         /* RC design */
         /// <summary>
