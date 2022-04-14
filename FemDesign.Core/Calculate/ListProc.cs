@@ -92,6 +92,16 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseDispShellExtract_ListProc")]
         ShellDisplacementExtractLoadCase,
+        /// <summary>
+        /// Load case: Shells, Internal Forces
+        /// </summary>
+        [XmlEnum("frCaseIntfShell_ListProc")]
+        ShellInternalForceLoadCase,
+        /// <summary>
+        /// Load case: Shells, Internal Forces (Extract)
+        /// </summary>
+        [XmlEnum("frCaseIntfShellExtract_ListProc")]
+        ShellInternalForceExtractLoadCase,
         #endregion
 
         #region LOAD COMBINATIONS
@@ -146,6 +156,16 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombDispShellExtract_ListProc")]
         ShellDisplacementExtractLoadCombination,
+        /// <summary>
+        /// Load combination: Shells, Internal Forces
+        /// </summary>
+        [XmlEnum("frCombIntfShell_ListProc")]
+        ShellInternalForceLoadCombination,
+        /// <summary>
+        /// Load combination: Shells, Internal Forces (Extract)
+        /// </summary>
+        [XmlEnum("frCombIntfShellExtract_ListProc")]
+        ShellInternalForceExtractLoadCombination,
         #endregion
 
         #region RC design

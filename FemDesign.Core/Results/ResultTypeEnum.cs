@@ -108,6 +108,20 @@ namespace FemDesign.Results
         LineSupportResultant,
 
         /// <summary>
+        /// Shells, Internal Force
+        /// </summary>
+        [Parseable("ShellInternalForce")]
+        [Result(typeof(ShellInternalForce), ListProc.ShellInternalForceLoadCase, ListProc.ShellInternalForceLoadCombination)]
+        ShellInternalForce,
+
+        /// <summary>
+        /// Shells, Internal Force (Extract)
+        /// </summary>
+        [Parseable("ShellInternalForceExtract")]
+        [Result(typeof(ShellInternalForce), ListProc.ShellInternalForceExtractLoadCase, ListProc.ShellInternalForceExtractLoadCombination)]
+        ShellInternalForceExtract,
+
+        /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
         [Parseable("ShellDisplacementExtract")]
