@@ -64,6 +64,13 @@ namespace FemDesign.Results
         NodalDisplacement,
 
         /// <summary>
+        /// Bars, Internal Forces
+        /// </summary>
+        [Parseable("BarInternalForces")]
+        [Result(typeof(BarInternalForce), ListProc.BarsInternalForcesLoadCase, ListProc.BarsInternalForcesLoadCombination)]
+        BarInternalForce,
+
+        /// <summary>
         /// Bars, Displacements
         /// </summary>
         [Parseable("BarDisplacement")]

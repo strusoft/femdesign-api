@@ -11,6 +11,7 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public enum ListProc
     {
+        #region QUANTITY ESTIMATION
         /* QUANTITY ESTIMATION */
         /// <summary>
         /// Quantity estimation, Concrete
@@ -52,8 +53,10 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("ccQuantityProfiledPanel_ListProc")]
         QuantityEstimationProfiledPanel,
+        #endregion
 
-        /* LOADCASES */
+        #region LOADCASES
+        /* LOAD CASES */
         /// <summary>
         /// Load case: Nodal displacements
         /// </summary>
@@ -89,13 +92,20 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseDispShellExtract_ListProc")]
         ShellDisplacementExtractLoadCase,
+        #endregion
 
-        /* LOADCOMBINATIONS */
+        #region LOAD COMBINATIONS
+        /* LOAD COMBINATIONS */
         /// <summary>
         /// Load combination: Nodal displacements
         /// </summary>
         [XmlEnum("frCombDispNodal_ListProc")]
         NodalDisplacementsLoadCombination,
+        /// <summary>
+        /// Load case: Bars, internal forces
+        /// </summary>
+        [XmlEnum("frCombIntfBar_ListProc")]
+        BarsInternalForcesLoadCombination,
         /// <summary>
         /// Load combination: Bars, End forces
         /// </summary>
@@ -136,7 +146,9 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombDispShellExtract_ListProc")]
         ShellDisplacementExtractLoadCombination,
+        #endregion
 
+        #region RC design
         /* RC design */
         /// <summary>
         /// RC design: Shell, Crack width
@@ -159,5 +171,6 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("RCShellUtilizationComb_ListProc")]
         RCDesignShellUtilizationLoadCombination,
+        #endregion
     }
 }

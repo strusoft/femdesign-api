@@ -17,7 +17,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Bar name identifier
         /// </summary>
-        public string BarId { get; }
+        public string Id { get; }
 
         /// <summary>
         /// Position Result
@@ -59,9 +59,9 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal BarDisplacement(string barId, double pos, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
+        internal BarDisplacement(string id, double pos, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
         {
-            this.BarId = barId;
+            this.Id = id;
             this.Pos = pos;
             this.Ex = ex;
             this.Ey = ey;
@@ -74,7 +74,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {BarId}, {CaseIdentifier}";
+            return $"{base.ToString()}, {Id}, {CaseIdentifier}";
         }
         internal static Regex IdentificationExpression
         {
