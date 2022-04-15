@@ -53,21 +53,21 @@ Shape	Frequency	Period	Modal mass	mx'	my'	mz'
             }
         }
 
-        //[TestMethod]
-        //public void Headers()
-        //{
-        //    var headers = new string[]
-        //    {
-        //        "Eigenfrequencies",
-        //        "Shape  Frequency   Period  Modal   mass    mx' my' mz'",
-        //        "[-] [Hz]   [s] [t] [%] [%] [%]"
-        //    };
+        [TestMethod]
+        public void Headers()
+        {
+            var headers = new string[]
+            {
+                "Eigenfrequencies",
+                "Shape	Frequency	Period	Modal	mass	mx'	my'	mz'",
+                "[-]	[Hz]	[s]	[t]	[%]	[%]	[%]"
+            };
 
-        //    foreach (var header in headers)
-        //    {
-        //        var match = EigenFrequencies.HeaderExpression.Match(header);
-        //        Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-        //    }
-        //}
+            foreach (var header in headers)
+            {
+                var match = EigenFrequencies.HeaderExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
+            }
+        }
     }
 }

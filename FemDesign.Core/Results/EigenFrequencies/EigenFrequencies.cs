@@ -73,7 +73,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Eigenfrequencies)|Shape\tFrequency|\[.*\]");
+                return new Regex(@"(?'type'Eigenfrequencies)$|Shape|\[.*\]");
             }
         }
 
