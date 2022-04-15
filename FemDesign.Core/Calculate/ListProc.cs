@@ -107,6 +107,36 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseIntfShellExtract_ListProc")]
         ShellInternalForceExtractLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Top Side
+        /// </summary>
+        [XmlEnum("frCaseStrsTopShell_ListProc")]
+        ShellStressesTopLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Top Side (Extract)
+        /// </summary>
+        [XmlEnum("frCaseStrsTopShellExtract_ListProc")]
+        ShellStressesTopExtractLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Mid Axis
+        /// </summary>
+        [XmlEnum("frCaseStrsMembShell_ListProc")]
+        ShellStressesMembraneLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Mid Axis (Extract)
+        /// </summary>
+        [XmlEnum("frCaseStrsMembShellExtract_ListProc")]
+        ShellStressesMembraneExtractLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Bottom Side
+        /// </summary>
+        [XmlEnum("frCaseStrsBotShell_ListProc")]
+        ShellStressesBottomLoadCase,
+        /// <summary>
+        /// Load case: Shells, Stresses Bottom Side (Extract)
+        /// </summary>
+        [XmlEnum("frCaseStrsBotShellExtract_ListProc")]
+        ShellStressesBottomExtractLoadCase,
         #endregion
 
         #region LOAD COMBINATIONS
@@ -176,6 +206,37 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombIntfShellExtract_ListProc")]
         ShellInternalForceExtractLoadCombination,
+
+        /// <summary>
+        /// Load case: Shells, Stresses Top Side
+        /// </summary>
+        [XmlEnum("frCombStrsTopShell_ListProc")]
+        ShellStressesTopLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Stresses Top Side (Extract)
+        /// </summary>
+        [XmlEnum("frCombStrsTopShellExtract_ListProc")]
+        ShellStressesTopExtractLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Stresses Mid Axis
+        /// </summary>
+        [XmlEnum("frCombStrsMembShell_ListProc")]
+        ShellStressesMembraneLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Stresses Mid Axis (Extract)
+        /// </summary>
+        [XmlEnum("frCombStrsMembShellExtract_ListProc")]
+        ShellStressesMembraneExtractLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Stresses Bottom Side
+        /// </summary>
+        [XmlEnum("frCombStrsBotShell_ListProc")]
+        ShellStressesBottomLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Stresses Bottom Side (Extract)
+        /// </summary>
+        [XmlEnum("frCombStrsBotShellExtract_ListProc")]
+        ShellStressesBottomExtractLoadCombination,
         #endregion
 
         #region EIGEN FREQUENCIES

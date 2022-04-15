@@ -255,6 +255,7 @@
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
+    <Compile Include="Results\ShellStress.cs" />
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />

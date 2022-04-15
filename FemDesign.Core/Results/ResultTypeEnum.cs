@@ -129,6 +129,20 @@ namespace FemDesign.Results
         ShellInternalForceExtract,
 
         /// <summary>
+        /// Shells, Stress
+        /// </summary>
+        [Parseable("ShellStress")]
+        [Result(typeof(ShellStress), ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination, ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination, ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination)]
+        ShellStress,
+
+        /// <summary>
+        /// Shells, Stress (Extract)
+        /// </summary>
+        [Parseable("ShellStressExtract")]
+        [Result(typeof(ShellStress), ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination)]
+        ShellStressExtract,
+
+        /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
         [Parseable("ShellDisplacementExtract")]
