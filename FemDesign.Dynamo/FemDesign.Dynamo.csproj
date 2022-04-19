@@ -639,6 +639,9 @@
     <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
       <Link>Core\Results\ResultTypeEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ShellDerivedForce.cs">
+      <Link>Core\Results\ShellDerivedForce.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
       <Link>Core\Results\ShelllnternalForce.cs</Link>
     </Compile>

@@ -108,6 +108,16 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseIntfShellExtract_ListProc")]
         ShellInternalForceExtractLoadCase,
         /// <summary>
+        /// Load case: Shells, Derived Forces
+        /// </summary>
+        [XmlEnum("frCaseIntfDerShell_ListProc")]
+        ShellDerivedForceLoadCase,
+        /// <summary>
+        /// Load case: Shells, Derived Forces (Extract)
+        /// </summary>
+        [XmlEnum("frCaseIntfDerShellExtract_ListProc")]
+        ShellDerivedForceExtractLoadCase,
+        /// <summary>
         /// Load case: Shells, Stresses Top Side
         /// </summary>
         [XmlEnum("frCaseStrsTopShell_ListProc")]
@@ -151,6 +161,16 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombIntfBar_ListProc")]
         BarsInternalForcesLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Derived Forces
+        /// </summary>
+        [XmlEnum("frCombIntfDerShell_ListProc")]
+        ShellDerivedForceLoadCombination,
+        /// <summary>
+        /// Load case: Shells, Derived Forces (Extract)
+        /// </summary>
+        [XmlEnum("frCombIntfDerShellExtract_ListProc")]
+        ShellDerivedForceExtractLoadCombination,
         /// <summary>
         /// Load combination: Bars, Stresses
         /// </summary>

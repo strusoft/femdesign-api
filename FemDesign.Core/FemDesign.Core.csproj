@@ -104,6 +104,7 @@
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
+    <Compile Include="Results\ShellDerivedForce.cs" />
     <Compile Include="Results\ShellsDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
