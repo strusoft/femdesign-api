@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
             }
             else if(bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Composite Section in the model. The object has not been implemented yet. Please, get in touch if needed.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar has a Composite Section. The object has not been implemented yet. Please, get in touch if needed.");
                 DA.SetDataList(4, null);
             }
             else if(bar.BarPart.Type == Bars.BarType.Truss)
