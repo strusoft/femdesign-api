@@ -269,6 +269,28 @@ namespace FemDesign.Calculate
 
         #endregion
 
+        #region FOOTFALL
+        /* FOOTFALL */
+        /// <summary>
+        /// Eigen Frequencies: FootFall
+        /// </summary>
+        [XmlEnum("frFootEigen_ListProc")]
+        EigenFrequenciesFootFall,
+
+        /// <summary>
+        /// Nodal Response Factor: FootFall
+        /// </summary>
+        [XmlEnum("frFootRespNodal_ListProc")]
+        NodalResponseFactor,
+
+        /// <summary>
+        /// Nodal Acceleration: FootFall
+        /// </summary>
+        [XmlEnum("frFootAccNodal_ListProc")]
+        NodalAcceleration,
+
+        #endregion
+
         #region RC design
         /* RC design */
         /// <summary>

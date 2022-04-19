@@ -73,6 +73,8 @@
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequenciesTest.cs" />
+    <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
+    <Compile Include="Results\FootFall\NodalResponseFactorTests.cs" />
     <Compile Include="Results\LineSupportResultantTests.cs" />
     <Compile Include="Results\QuantityEstimationConcreteTests.cs" />
     <Compile Include="Results\QuantityEstimationProfiledPlateTests.cs" />

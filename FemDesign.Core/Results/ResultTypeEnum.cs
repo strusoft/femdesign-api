@@ -173,6 +173,23 @@ namespace FemDesign.Results
         EigenFrequencies,
         #endregion
 
+        #region FOOTFALL
+        /// <summary>
+        /// Nodal Response Factor: FootFall
+        /// </summary>
+        [Parseable("NodalResponseFactor")]
+        [Result(typeof(NodalResponseFactor), ListProc.NodalResponseFactor)]
+        NodalResponseFactor,
+
+        /// <summary>
+        /// Nodal Acceleration: FootFall
+        /// </summary>
+        [Parseable("NodalAcceleration")]
+        [Result(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
+        NodalAcceleration,
+
+        #endregion
+
         #region RC design
         /* RC design */
         /// <summary>

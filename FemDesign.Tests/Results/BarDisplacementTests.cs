@@ -20,8 +20,6 @@ namespace FemDesign.Results.Tests
             // string file_path = @"C:\Users\Marco\Desktop\fdScriptUnderstanding\fdBarDisp.csv";
             string file_path = @"C:\Users\Marco\Desktop\fdScriptUnderstanding\fdBarDisp_CaseAndCombo.csv";
             
-
-
             var results = ResultsReader.Parse(file_path);
 
             Console.WriteLine(results);
