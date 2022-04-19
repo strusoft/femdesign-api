@@ -50,12 +50,19 @@
     <Compile Include="LoadGroupsCombine.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ParametricStudy.cs" />
+    <Compile Include="ParametricStudy_SensitivityAnalysis_BoundaryCondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleProgram.CreatePostTensionedCable.cs" />
     <Compile Include="Example1CreateSimpleModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ExampleModels\Bridge\Bridge Model.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExampleModels\Bridge\eigenfreq.bsc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ExampleModels\example_beam.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

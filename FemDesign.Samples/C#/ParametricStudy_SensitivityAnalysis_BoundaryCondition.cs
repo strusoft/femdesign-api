@@ -15,13 +15,12 @@ namespace FemDesign.Samples
         private static void ParametricStudy_SensitivityAnalysis_BoundaryCondition()
         {
             //Set the different paths and folders relevant to the example
-            string struxmlPath = @"C:\Users\ShahoRuhani\source\repos\femdesign-api\FemDesign.Samples\C#\ExampleModels\Bridge\Bridge Model.struxml";
-            string outFolder = @"C:\Users\ShahoRuhani\source\repos\femdesign-api\FemDesign.Samples\C#\ExampleModels\Bridge\";
-            string bscPath= @"C:\Users\ShahoRuhani\source\repos\femdesign-api\FemDesign.Samples\C#\ExampleModels\Bridge\eigenfreq.bsc";
+            string struxmlPath = "ExampleModels/Bridge/Bridge Model.struxml";
+            string outFolder = "ExampleModels/Bridge/";
+            string bscPath = Path.GetFullPath("ExampleModels/Bridge/eigenfreq.bsc");
             List<string> bscPaths = new List<string>();
             bscPaths.Add(bscPath);
 
-            
             //Read original struxml model
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
@@ -45,7 +44,7 @@ namespace FemDesign.Samples
                 model.AddElements(supports);
 
                 //Save struxml
-                string outPathIndividual = outFolder + "Bridge Model_out" + Convert.ToString(alpha,System.Globalization.CultureInfo.InvariantCulture) + ".struxml";
+                string outPathIndividual = Path.GetFullPath(outFolder + "Bridge Model_out" + Convert.ToString(alpha,System.Globalization.CultureInfo.InvariantCulture) + ".struxml");
                 model.SerializeModel(outPathIndividual);
 
 
@@ -59,8 +58,8 @@ namespace FemDesign.Samples
                 //Read results from csv file (general method)
                 int counter = 0;
 
-                using (var printer = new StreamWriter(@"C:\Users\ShahoRuhani\source\repos\femdesign-api\FemDesign.Samples\C#\ExampleModels\Bridge\eigenfreq.txt", true))
-                using (var reader = new StreamReader(@"C:\Users\ShahoRuhani\source\repos\femdesign-api\FemDesign.Samples\C#\ExampleModels\Bridge\eigenfreq.csv"))
+                using (var printer = new StreamWriter("ExampleModels/Bridge/eigenfreq.txt", true))
+                using (var reader = new StreamReader("ExampleModels/Bridge/eigenfreq.csv"))
                 {
                     Console.WriteLine("");
                     Console.WriteLine(string.Format("{0} {1}", "Alpha: ", alpha));

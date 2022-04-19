@@ -29,6 +29,8 @@ namespace FemDesign.Samples
             //CreatePostTensionedCable();
             //CreateLoadGroups();
             //LoadGroupsCombine();
+            //ParametricStudy();
+            //ParametricStudy_SensitivityAnalysis_BoundaryCondition();
         }
     }
 }
