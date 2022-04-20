@@ -1,8 +1,11 @@
 // https://strusoft.com/
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Loads
 {
@@ -10,8 +13,62 @@ namespace FemDesign.Loads
     /// load_case_type
     /// </summary>
     [System.Serializable]
-    public partial class LoadCase: EntityBase
+    public partial class LoadCase
     {
+
+        [XmlAttribute("guid")]
+        public string _guid { get; set; }
+
+        public IndexedGuid IndexedGuid
+        {
+            get { return new IndexedGuid(_guid); }
+            set { _guid = value.ToString(); }
+        }
+
+        #region EntityBase
+
+        [XmlAttribute("last_change")]
+        public string _lastChange;
+        [XmlIgnore]
+        internal DateTime LastChange
+        {
+            get
+            {
+                return DateTime.Parse(this._lastChange);
+            }
+            set
+            {
+                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
+            }
+        }
+        [XmlAttribute("action")]
+        public string Action { get; set; }
+
+        /// <summary>
+        /// Invoke when an instance is created.
+        /// 
+        /// Creates a new guid, adds timestamp and changes action.
+        /// </summary>
+        public void EntityCreated()
+        {
+            this.IndexedGuid = System.Guid.NewGuid();
+            this.LastChange = DateTime.UtcNow;
+            this.Action = "added";
+        }
+
+        /// <summary>
+        /// Invoke when an instance is modified.
+        /// 
+        /// Changes timestamp and action.
+        /// </summary>
+        public void EntityModified()
+        {
+            this.LastChange = DateTime.UtcNow;
+            this.Action = "modified";
+        }
+
+        #endregion
+
         // attributes
         [XmlAttribute("name")]
         public string Name { get; set; } // name79
@@ -19,7 +76,7 @@ namespace FemDesign.Loads
         public LoadCaseType Type { get; set; } // loadcasetype_type
         [XmlAttribute("duration_class")]
         public LoadCaseDuration DurationClass { get; set; } // loadcasedurationtype
-        
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
