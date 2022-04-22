@@ -89,7 +89,7 @@ namespace FemDesign.Results
         internal static NodalDisplacement Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string supportname = row[0];
-            int nodeId = int.Parse(row[1], CultureInfo.InvariantCulture);
+            int nodeId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
             double ex = Double.Parse(row[2], CultureInfo.InvariantCulture);
             double ey = Double.Parse(row[3], CultureInfo.InvariantCulture);
             double ez = Double.Parse(row[4], CultureInfo.InvariantCulture);
