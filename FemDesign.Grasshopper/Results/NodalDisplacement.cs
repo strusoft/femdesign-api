@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<Results.IResult> iResult = new List<Results.IResult>();
+            List<FemDesign.Results.NodalDisplacement> iResult = new List<FemDesign.Results.NodalDisplacement>();
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
