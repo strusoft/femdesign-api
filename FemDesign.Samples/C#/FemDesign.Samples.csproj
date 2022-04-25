@@ -49,6 +49,7 @@
     <Compile Include="LoadGroupsCombine.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ParametricStudy.cs" />
+    <Compile Include="Practical examples\MeshSizeConvergenceStudy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunAnalysis.cs" />
     <Compile Include="SampleProgram.CreatePostTensionedCable.cs" />

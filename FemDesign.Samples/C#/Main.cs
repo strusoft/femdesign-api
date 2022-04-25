@@ -36,6 +36,8 @@ namespace FemDesign.Samples
             //LoadGroupsCombine();
             //ParametricStudy();
             //CostOptimizationOfSlab();
+            //ParametricStudy_SensitivityAnalysis_BoundaryCondition();
+            MeshSizeConvergenceStudy();
         }
     }
 }
