@@ -14,8 +14,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "Position of Load.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Intensity", "Intensity", "Intensity of load", GH_ParamAccess.item);
+            pManager.AddPointParameter("Point", "Point", "Position of Load. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Intensity", "Intensity", "Intensity of load. [kN/m²]", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

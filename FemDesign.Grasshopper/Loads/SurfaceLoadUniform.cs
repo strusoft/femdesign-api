@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Force", "Force", "Force.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Force", "Force", "Force. [kN/m²]", GH_ParamAccess.item);
             pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);

@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in MassConversionTable. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Factor", "Factor", "Factor for mass conversion of each respective LoadCase. Single value or list of values.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Factor", "Factor", "Factor for mass conversion of each respective LoadCase. Single value or list of values. [-]", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
