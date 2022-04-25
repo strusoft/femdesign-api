@@ -2865,12 +2865,6 @@ namespace FemDesign
                     throw new System.ArgumentException("Type of bar is not supported.");
                 }
 
-                // check if material found
-                if (item.BarPart.Material == null)
-                {
-                    throw new System.ArgumentException("No matching material found. Model.GetBars() failed.");
-                }
-
                 // get bar reinforcement
                 foreach (Reinforcement.BarReinforcement barReinf in this.Entities.BarReinforcements)
                 {
