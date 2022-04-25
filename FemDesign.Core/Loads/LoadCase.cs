@@ -17,14 +17,14 @@ namespace FemDesign.Loads
     {
 
         [XmlAttribute("guid")]
-        public string _guid { get; set; }
+        public string _guid 
+        { 
+            get { return IndexedGuid.ToString(); }
+            set { IndexedGuid = new IndexedGuid(value); }
+        }
 
         [XmlIgnore]
-        public IndexedGuid IndexedGuid
-        {
-            get { return new IndexedGuid(_guid); }
-            set { _guid = value.ToString(); }
-        }
+        public IndexedGuid IndexedGuid { get; set; }
 
         #region EntityBase
 
