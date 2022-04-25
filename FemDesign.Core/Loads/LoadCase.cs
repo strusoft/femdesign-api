@@ -19,6 +19,7 @@ namespace FemDesign.Loads
         [XmlAttribute("guid")]
         public string _guid { get; set; }
 
+        [XmlIgnore]
         public IndexedGuid IndexedGuid
         {
             get { return new IndexedGuid(_guid); }
