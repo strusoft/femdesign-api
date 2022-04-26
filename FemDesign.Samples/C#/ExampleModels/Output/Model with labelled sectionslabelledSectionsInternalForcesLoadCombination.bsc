@@ -4,7 +4,7 @@
     <title>Generated script.</title>
     <version>2000</version>
     <module>SFRAME</module>
-    <logfile>C:\Temp\femdesign-api\FemDesign.Samples\C#\ExampleModels\Output\logfile.log</logfile>
+    <logfile>C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\Output\logfile.log</logfile>
   </fdscriptheader>
   <cmddoctable command="; CXL $MODULE DOCTABLE">
     <doctable>

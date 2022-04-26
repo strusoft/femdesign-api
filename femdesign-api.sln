@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FemDesign.Examples", "FemDesign.Examples", "{C68FA42C-7B20-4FE3-AED6-8B6619EE5410}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeshSizeConvergenceStudy", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\MeshSizeConvergenceStudy.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

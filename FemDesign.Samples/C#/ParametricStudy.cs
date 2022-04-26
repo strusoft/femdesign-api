@@ -12,9 +12,9 @@ namespace FemDesign.Samples
         private static void ParametricStudy()
         {
             //Set the different paths and folders relevant to the example
-            string struxmlPath = @"C:\Temp\femdesign-api\FemDesign.Samples\C#\ExampleModels\sample_slab.struxml";
-            string outFolder = @"C:\Temp\femdesign-api\FemDesign.Samples\C#\ExampleModels\output\";
-            string bscPath= @"C:\Temp\femdesign-api\FemDesign.Samples\C#\ExampleModels\pointsupportreactions.bsc";
+            string struxmlPath = @"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\sample_slab.struxml";
+            string outFolder = @"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\output\";
+            string bscPath= @"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\pointsupportreactions.bsc";
             List<string> bscPaths = new List<string>();
             bscPaths.Add(bscPath);
 
@@ -55,7 +55,7 @@ namespace FemDesign.Samples
 
                 //Read results from csv file (general method)
                 int counter = 0; 
-                using (var reader = new StreamReader(@"C:\Temp\femdesign-api\FemDesign.Samples\C#\ExampleModels\output\pointsupportreactions.csv"))
+                using (var reader = new StreamReader(@"C:\Users\SamuelNyberg\Documents\GitHub\femdesign-api\FemDesign.Samples\C#\ExampleModels\output\pointsupportreactions.csv"))
                 {
                     Console.WriteLine("");
                     Console.WriteLine(string.Format("{0} {1}", "Emean: ", new_Ecm));
@@ -71,6 +71,7 @@ namespace FemDesign.Samples
                     }                 
                 }               
             }
+            Console.ReadKey();
         }
     }
 }

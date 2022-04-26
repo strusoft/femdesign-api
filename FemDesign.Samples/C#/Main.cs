@@ -34,10 +34,10 @@ namespace FemDesign.Samples
             //CreatePostTensionedCable();
             //CreateLoadGroups();
             //LoadGroupsCombine();
-            //ParametricStudy();
+            ParametricStudy();
             //CostOptimizationOfSlab();
             //ParametricStudy_SensitivityAnalysis_BoundaryCondition();
-            MeshSizeConvergenceStudy();
+            //MeshSizeConvergenceStudy();
         }
     }
 }

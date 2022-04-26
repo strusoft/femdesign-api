@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}</ProjectGuid>
+    <ProjectGuid>{1E5D535D-C21B-454B-A62E-1DF4D968E677}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FemDesign.Samples</RootNamespace>
-    <AssemblyName>FemDesign.Samples</AssemblyName>
+    <RootNamespace>MeshSizeConvergenceStudy</RootNamespace>
+    <AssemblyName>MeshSizeConvergenceStudy</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,30 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangeLengthOfBeam.cs" />
-    <Compile Include="PracticalExamples\MeshSizeConvergenceStudy.cs" />
-    <Compile Include="SampleProgram.MeshSizeConvergence.cs" />
-    <Compile Include="LoadGroups.cs" />
-    <Compile Include="LoadGroupsCombine.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="ParametricStudy.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunAnalysis.cs" />
-    <Compile Include="SampleProgram.CreatePostTensionedCable.cs" />
-    <Compile Include="Example1-CreateSimpleModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Model with labelled sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FemDesign.Core\FemDesign.Core.csproj">
+    <ProjectReference Include="..\..\..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExampleModels\output\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
