@@ -1,6 +1,5 @@
 // https://strusoft.com/
 
-using System;
 using System.Xml.Serialization;
 
 namespace FemDesign.Loads
@@ -30,7 +29,7 @@ namespace FemDesign.Loads
         public PointLoad(Geometry.FdPoint3d point, Geometry.FdVector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
             this.LoadType = type;
             this.Direction = force.Normalize();

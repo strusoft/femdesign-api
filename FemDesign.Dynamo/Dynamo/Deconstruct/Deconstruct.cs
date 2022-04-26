@@ -368,7 +368,7 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", loadCase.IndexedGuid.ToString()},
+                {"Guid", loadCase.Guid.ToString()},
                 {"Name", loadCase.Name},
                 {"Type", loadCase.Type.ToString()},
                 {"DurationClass", loadCase.DurationClass.ToString()}

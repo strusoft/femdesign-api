@@ -89,7 +89,6 @@
     <Compile Include="Calculate\Stage.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />
-    <Compile Include="GenericClasses\IndexedGuid.cs" />
     <Compile Include="GenericClasses\VerticalAlignmentEnum.cs" />
     <Compile Include="GenericClasses\EnumHelpers.cs" />
     <Compile Include="GenericClasses\DummyXmlObject.cs" />

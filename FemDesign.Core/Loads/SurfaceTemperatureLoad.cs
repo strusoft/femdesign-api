@@ -1,4 +1,3 @@
-using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
@@ -68,7 +67,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = tempLocValue;
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
         }
         
@@ -87,7 +86,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.Origin, topVal, bottomVal)};
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
         }
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -78,7 +77,7 @@ namespace FemDesign.Loads
             this.Edge = edge;
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
         }
 

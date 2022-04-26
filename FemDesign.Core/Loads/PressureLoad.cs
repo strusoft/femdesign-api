@@ -1,6 +1,5 @@
 // https://strusoft.com/
 
-using System;
 using System.Xml.Serialization;
 
 namespace FemDesign.Loads
@@ -72,7 +71,7 @@ namespace FemDesign.Loads
         {
             // base
             this.EntityCreated();
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = loadType;

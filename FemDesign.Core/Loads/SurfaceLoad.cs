@@ -1,5 +1,4 @@
 // https://strusoft.com/
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -37,7 +36,7 @@ namespace FemDesign.Loads
         public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, string comment, bool loadProjection, ForceLoadType loadType)
         {
             this.EntityCreated();
-            this.LoadCase = (Guid)loadCase.IndexedGuid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = loadType;
