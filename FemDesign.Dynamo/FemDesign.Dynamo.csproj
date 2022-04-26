@@ -888,6 +888,7 @@
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
