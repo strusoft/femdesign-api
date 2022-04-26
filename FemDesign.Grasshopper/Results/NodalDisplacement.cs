@@ -59,65 +59,41 @@ namespace FemDesign.Grasshopper
             DA.GetData("LoadCase", ref iLoadCase);
 
 
-            // IResult is a List of Interfaces. It needs to be cast to use the object
-            var nodalDisplacement = iResult.Cast<FemDesign.Results.NodalDisplacement>();
+            // Read Result from Abstract Method
+            Dictionary<string, object> result;
 
 
-            // Return the unique load case - load combination
-            var uniqueLoadCases = nodalDisplacement.Select(n => n.CaseIdentifier).Distinct().ToList();
-
-
-            // Select a Default load case if the user does not provide an input
-            iLoadCase = iLoadCase == null ? uniqueLoadCases.First() : iLoadCase;
-
-
-            // Select the Nodal Displacement for the selected Load Case - Load Combination
-            if (uniqueLoadCases.Contains(iLoadCase, StringComparer.OrdinalIgnoreCase))
+            try
             {
-                nodalDisplacement = nodalDisplacement.Where(n => String.Equals(n.CaseIdentifier, iLoadCase, StringComparison.OrdinalIgnoreCase));
+                result = FemDesign.Results.NodalDisplacement.DeconstructNodalDisplacements(iResult, iLoadCase);
             }
-            else
+            catch (ArgumentException ex)
             {
-                string msg = string.Format("Load Case '{0}' does not exist", iLoadCase);
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, msg);
+                AddRuntimeMessage( GH_RuntimeMessageLevel.Warning, ex.Message);
                 return;
             }
 
 
-            // Parse Results from the object
-            var nodeId = nodalDisplacement.Select(n => n.NodeId);
-            var loadCases = nodalDisplacement.Select(n => n.CaseIdentifier).Distinct().ToList();
-            var transX = nodalDisplacement.Select(n => n.Ex);
-            var transY = nodalDisplacement.Select(n => n.Ey);
-            var transZ = nodalDisplacement.Select(n => n.Ez);
-            var rotationX = nodalDisplacement.Select(n => n.Fix);
-            var rotationY = nodalDisplacement.Select(n => n.Fiy);
-            var rotationZ = nodalDisplacement.Select(n => n.Fiz);
+            var loadCases = (List<string>) result ["CaseIdentifier"];
+            var nodeId = (List<int>) result["NodeId"];
+            var iTranslation = (List<FemDesign.Geometry.FdVector3d>) result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.FdVector3d>) result["Rotation"];
+
+            // Convert the FdVector to Dynamo
+            var oTranslation = iTranslation.Select(x => x.ToRhino());
+            var oRotation = iRotation.Select(x => x.ToRhino());
 
 
-            // Create a Rhino Vector for Displacement and Rotation
-            var translation = new List<Rhino.Geometry.Vector3d>();
-            var rotation = new List<Rhino.Geometry.Vector3d>();
-
-            for (int i = 0; i < nodalDisplacement.Count(); i++)
-            {
-                var transVector = new FemDesign.Geometry.FdVector3d(transX.ElementAt(i), transY.ElementAt(i), transZ.ElementAt(i));
-                translation.Add(transVector.ToRhino());
-
-                var rotVector = new FemDesign.Geometry.FdVector3d(rotationX.ElementAt(i), rotationY.ElementAt(i), rotationZ.ElementAt(i));
-                rotation.Add(rotVector.ToRhino());
-            }
-
-
+            // Collect Output
             var CaseIdentifier = loadCases;
             var NodeId = nodeId;
-            var Translation = translation;
-            var Rotation = rotation;
+            var Translation = oTranslation;
+            var Rotation = oRotation;
 
 
             // Set output
             DA.SetDataList("CaseIdentifier", CaseIdentifier);
-            DA.SetDataList("NodeId", nodeId);
+            DA.SetDataList("NodeId", NodeId);
             DA.SetDataList("Translation", Translation);
             DA.SetDataList("Rotation", Rotation);
         }

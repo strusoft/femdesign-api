@@ -99,5 +99,61 @@ namespace FemDesign.Results
             string lc = row[8];
             return new NodalDisplacement(supportname, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
         }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructNodalDisplacements(List<FemDesign.Results.NodalDisplacement> Result, string LoadCase)
+        {
+            var nodalDisplacements = Result.Cast<FemDesign.Results.NodalDisplacement>();
+
+            // Return the unique load case - load combination
+            var uniqueLoadCases = nodalDisplacements.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
+
+            // Select the Nodal Displacement for the selected Load Case - Load Combination
+            if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
+            {
+                nodalDisplacements = nodalDisplacements.Where(n => String.Equals(n.CaseIdentifier, LoadCase, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Load Case '{LoadCase}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var nodeId = nodalDisplacements.Select(n => n.NodeId).ToList();
+            var loadCases = nodalDisplacements.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Create a Rhino Vector for Displacement and Rotation
+            var translation = new List<FemDesign.Geometry.FdVector3d>();
+            var rotation = new List<FemDesign.Geometry.FdVector3d>();
+
+            foreach (var nodeDisp in nodalDisplacements)
+            {
+                var transVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
+                translation.Add(transVector);
+
+                var rotVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
+                rotation.Add(rotVector);
+            }
+
+            var CaseIdentifier = loadCases;
+            var NodeId = nodeId;
+            var Translation = translation;
+            var Rotation = rotation;
+
+            return new Dictionary<string, dynamic>
+            {
+                {"CaseIdentifier", CaseIdentifier},
+                {"NodeId", NodeId},
+                {"Translation", Translation},
+                {"Rotation", Rotation},
+            };
+        }
     }
 }
