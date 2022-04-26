@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using Grasshopper;
+using Grasshopper.Kernel;
+using System.Linq;
+using Rhino.Geometry;
+using FemDesign.Results;
+
+namespace FemDesign.Grasshopper
+{
+    public class PointSupportReaction : GH_Component
+    {
+        /// <summary>
+        /// Initializes a new instance of the PointSupportReaction class.
+        /// </summary>
+        public PointSupportReaction()
+          : base("Results.PointSupportReaction",
+                "PointSupportReaction",
+                "Read the nodal reaction forces",
+                "FEM-Design",
+                "Results")
+        {
+
+        }
+
+        /// <summary>
+        /// Registers all the input parameters for this component.
+        /// </summary>
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
+            pManager.AddTextParameter("LoadCase", "LoadCase", "Name of Load Case for which to return the results. Default value returns the displacement for the first load case", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+        }
+
+        /// <summary>
+        /// Registers all the output parameters for this component.
+        /// </summary>
+        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
+            pManager.AddPointParameter("SupportPosition", "SupportPosition", "Position Point for the returned reaction forces", GH_ParamAccess.list);
+            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]", GH_ParamAccess.list);
+            pManager.AddVectorParameter("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant [kN]", GH_ParamAccess.list);
+            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant [kNm]", GH_ParamAccess.list);
+        }
+
+        /// <summary>
+        /// This is the method that actually does the work.
+        /// </summary>
+        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            // get indata
+
+            List<FemDesign.Results.PointSupportReaction> iResult = new List<FemDesign.Results.PointSupportReaction>();
+            DA.GetDataList("Result", iResult);
+
+            string iLoadCase = null;
+            DA.GetData("LoadCase", ref iLoadCase);
+
+            // Read Result from Abstract Method
+            Dictionary<string, object> result;
+
+            try
+            {
+                result = FemDesign.Results.PointSupportReaction.DeconstructPointSupportReaction(iResult, iLoadCase);
+            }
+            catch (ArgumentException ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, ex.Message);
+                return;
+            }
+
+            var loadCases = (List<string>)result["CaseIdentifier"];
+            var nodeId = (List<int>)result["NodeId"];
+            var iPos = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
+            var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
+            var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
+            var iForceResultant = (List<double>)result["ForceResultant"];
+            var iMomentResultant = (List<double>)result["MomentResultant"];
+
+            // Convert the FdVector to Grasshopper
+            var oPos = iPos.Select(x => x.ToRhino());
+            var oReactionForce = iReactionForce.Select(x => x.ToRhino());
+            var oReactionMoment = iReactionMoment.Select(x => x.ToRhino());
+
+
+            // Collect Output
+            var CaseIdentifier = loadCases;
+            var NodeId = nodeId;
+            var Pos = oPos;
+            var ReactionForce = oReactionForce;
+            var ReactionMoment = oReactionMoment;
+
+            // Set output
+            DA.SetDataList("CaseIdentifier", CaseIdentifier);
+            DA.SetDataList("NodeId", NodeId);
+            DA.SetDataList("SupportPosition", Pos);
+            DA.SetDataList("ReactionForce", ReactionForce);
+            DA.SetDataList("ReactionMoment", ReactionMoment);
+            DA.SetDataList("ForceResultant", iForceResultant);
+            DA.SetDataList("MomentResultant", iMomentResultant);
+        }
+
+        /// <summary>
+        /// Provides an Icon for the component.
+        /// </summary>
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
+                //You can add image files to your project resources and access them like this:
+                // return Resources.IconForThisComponent;
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the unique ID for this component. Do not change this ID after release.
+        /// </summary>
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("FABF23CD-30DB-4F95-9EBD-9D42FFD57B37"); }
+        }
+    }
+}
