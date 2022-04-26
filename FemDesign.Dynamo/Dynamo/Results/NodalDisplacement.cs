@@ -21,10 +21,6 @@ namespace FemDesign.Results
         [MultiReturn(new[] { "CaseIdentifier", "NodeId", "Translation", "Rotation" })]
         public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.NodalDisplacement> Result, [DefaultArgument("null")] string LoadCase)
         {
-            var translation = new List<Autodesk.DesignScript.Geometry.Vector>();
-            var rotation = new List<Autodesk.DesignScript.Geometry.Vector>();
-
-
             var nodalDisplacement = Result.Cast<FemDesign.Results.NodalDisplacement>();
 
 
@@ -60,10 +56,16 @@ namespace FemDesign.Results
 
 
             // Create a Rhino Vector for Displacement and Rotation
+            var translation = new List<Autodesk.DesignScript.Geometry.Vector>();
+            var rotation = new List<Autodesk.DesignScript.Geometry.Vector>();
+
             for (int i = 0; i < nodalDisplacement.Count(); i++)
             {
-                translation.Add(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(transX.ElementAt(i), transY.ElementAt(i), transZ.ElementAt(i)));
-                rotation.Add(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(rotationX.ElementAt(i), rotationY.ElementAt(i), rotationZ.ElementAt(i)));
+                var transVector = new FemDesign.Geometry.FdVector3d(transX.ElementAt(i), transY.ElementAt(i), transZ.ElementAt(i));
+                translation.Add(transVector.ToDynamo());
+
+                var rotVector = new FemDesign.Geometry.FdVector3d(rotationX.ElementAt(i), rotationY.ElementAt(i), rotationZ.ElementAt(i));
+                rotation.Add(rotVector.ToDynamo());
             }
 
 

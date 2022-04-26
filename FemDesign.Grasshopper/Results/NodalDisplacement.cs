@@ -58,9 +58,6 @@ namespace FemDesign.Grasshopper
             string iLoadCase = null;
             DA.GetData("LoadCase", ref iLoadCase);
 
-            var translation = new List<Rhino.Geometry.Vector3d>();
-            var rotation = new List<Rhino.Geometry.Vector3d>();
-
 
             // IResult is a List of Interfaces. It needs to be cast to use the object
             var nodalDisplacement = iResult.Cast<FemDesign.Results.NodalDisplacement>();
@@ -99,12 +96,20 @@ namespace FemDesign.Grasshopper
 
 
             // Create a Rhino Vector for Displacement and Rotation
+            var translation = new List<Rhino.Geometry.Vector3d>();
+            var rotation = new List<Rhino.Geometry.Vector3d>();
+
             for (int i = 0; i < nodalDisplacement.Count(); i++)
             {
-                translation.Add(new Rhino.Geometry.Vector3d(transX.ElementAt(i), transY.ElementAt(i), transZ.ElementAt(i)));
-                rotation.Add(new Rhino.Geometry.Vector3d(rotationX.ElementAt(i), rotationY.ElementAt(i), rotationZ.ElementAt(i)));
+                var transVector = new FemDesign.Geometry.FdVector3d(transX.ElementAt(i), transY.ElementAt(i), transZ.ElementAt(i));
+                translation.Add(transVector.ToRhino());
+
+                var rotVector = new FemDesign.Geometry.FdVector3d(rotationX.ElementAt(i), rotationY.ElementAt(i), rotationZ.ElementAt(i));
+                rotation.Add(rotVector.ToRhino());
             }
 
+
+            // Convert 
 
             var CaseIdentifier = loadCases;
             var NodeId = nodeId;
