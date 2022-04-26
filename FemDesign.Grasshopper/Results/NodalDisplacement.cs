@@ -109,8 +109,6 @@ namespace FemDesign.Grasshopper
             }
 
 
-            // Convert 
-
             var CaseIdentifier = loadCases;
             var NodeId = nodeId;
             var Translation = translation;
