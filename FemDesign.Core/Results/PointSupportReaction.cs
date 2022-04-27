@@ -156,6 +156,7 @@ namespace FemDesign.Results
             }
 
             // Parse Results from the object
+            var identifier = pointReactions.Select(n => n.Id).ToList();
             var nodeId = pointReactions.Select(n => n.NodeId).ToList();
             var loadCases = pointReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
             var forceResultant = pointReactions.Select(n => n.Fr).ToList();
@@ -179,6 +180,7 @@ namespace FemDesign.Results
             }
 
             var CaseIdentifier = loadCases;
+            var Identifier = identifier;
             var NodeId = nodeId;
             var Position = position;
             var ReactionForce = reactionForceVector;
@@ -189,6 +191,7 @@ namespace FemDesign.Results
             return new Dictionary<string, dynamic>
             {
                 {"CaseIdentifier", CaseIdentifier},
+                {"Identifier", Identifier},
                 {"NodeId", NodeId},
                 {"Position", Position},
                 {"ReactionForce", ReactionForce},

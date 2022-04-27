@@ -75,14 +75,14 @@ namespace FemDesign.Results
         /// <summary>
         /// Bars, Internal Forces
         /// </summary>
-        [Parseable("BarInternalForces")]
+        [Parseable("BarInternalForce")]
         [Result(typeof(BarInternalForce), ListProc.BarsInternalForcesLoadCase, ListProc.BarsInternalForcesLoadCombination)]
         BarInternalForce,
 
         /// <summary>
         /// Bars, Internal Forces
         /// </summary>
-        [Parseable("BarStresses")]
+        [Parseable("BarStress")]
         [Result(typeof(BarStress), ListProc.BarsStressesLoadCase, ListProc.BarsStressesLoadCombination)]
         BarStress,
 
@@ -131,14 +131,14 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Derived Forces
         /// </summary>
-        [Parseable("ShellDerivedForces")]
+        [Parseable("ShellDerivedForce")]
         [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceLoadCase, ListProc.ShellDerivedForceLoadCombination)]
         ShellDerivedForce,
 
         /// <summary>
         /// Shells, Derived Forces
         /// </summary>
-        [Parseable("ShellDerivedForcesExtract")]
+        [Parseable("ShellDerivedForceExtract")]
         [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceExtractLoadCase, ListProc.ShellDerivedForceExtractLoadCombination)]
         ShellDerivedForceExtract,
 
@@ -204,7 +204,7 @@ namespace FemDesign.Results
         /// </summary>
         [Parseable("RCDesignShellCrackWidth")]
         [Result(typeof(ShellsDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
-        RCDesignShellCracking,
+        RCDesignShellCrackWidth,
         #endregion
     }
 }

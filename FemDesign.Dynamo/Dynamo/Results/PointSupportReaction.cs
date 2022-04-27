@@ -18,7 +18,7 @@ namespace FemDesign.Results
         /// <param name="Result">Result to be Parse</param>
         /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the displacement for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[] { "CaseIdentifier", "NodeId", "Position", "ReactionForce", "ReactionMoment", "ForceResultant", "MomentResultant" })]
+        [MultiReturn(new[] { "CaseIdentifier", "Identifier", "NodeId", "Position", "ReactionForce", "ReactionMoment", "ForceResultant", "MomentResultant" })]
         public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.PointSupportReaction> Result, [DefaultArgument("null")] string LoadCase)
         {
             Dictionary<string, object> result;
@@ -33,6 +33,7 @@ namespace FemDesign.Results
             }
 
             var loadCases = (List<string>)result["CaseIdentifier"];
+            var identifier = (List<string>)result["Identifier"];
             var nodeId = (List<int>)result["NodeId"];
             var iPos = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
             var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
@@ -45,20 +46,15 @@ namespace FemDesign.Results
             var oReactionForce = iReactionForce.Select(x => x.ToDynamo());
             var oReactionMoment = iReactionMoment.Select(x => x.ToDynamo());
 
-            // Collect Output
-            var CaseIdentifier = loadCases;
-            var NodeId = nodeId;
-            var Pos = oPos;
-            var ReactionForce = oReactionForce;
-            var ReactionMoment = oReactionMoment;
 
             return new Dictionary<string, dynamic>
             {
-                {"CaseIdentifier", CaseIdentifier},
-                {"NodeId", NodeId},
-                {"SupportPosition", Pos},
-                {"ReactionForce", ReactionForce},
-                {"ReactionMoment", ReactionMoment},
+                {"CaseIdentifier", loadCases},
+                {"Identifier", identifier},
+                {"NodeId", nodeId},
+                {"SupportPosition", oPos},
+                {"ReactionForce", oReactionForce},
+                {"ReactionMoment", oReactionMoment},
                 {"ForceResultant", iForceResultant},
                 {"MomentResultant", iMomentResultant}
             };
