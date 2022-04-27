@@ -24,9 +24,13 @@ namespace MeshSizeConvergenceStudy
             // All inputs used in the program.
             string modelPath = "Model with labelled sections.struxml";
             string outputDirectory = "Output";
-            double maxAllowedDeviation = 0.01; // 1%
+            double maxAllowedDeviation = 0.02;
             string labeledSectionIdentifier = "LS.1";
             List<double> meshSizes = new List<double> { 2.0, 1.0, 0.5, 0.25, 0.20, 0.15, 0.10};
+            int forceIdIndex = 2;
+            // The forces stem from the .bsc file made from FEM-Design, and are ordered like this:
+            // ID		Mx' 	My'	    Mx'y' 	Nx' 	Ny' 	Nx'y'	Tx'z' 	Ty'z'	Comb.
+            // Index    [2]     [3]     [4]     [5]     [6]     [7]     [8]     [9]     [10]
 
 
             // PREPARATIONS:
@@ -74,19 +78,19 @@ namespace MeshSizeConvergenceStudy
                         if (values[0] == labeledSectionIdentifier)
                         {
                             L.Add(double.Parse(values[1], System.Globalization.CultureInfo.InvariantCulture));
-                            currentForces.Add(double.Parse(values[2], System.Globalization.CultureInfo.InvariantCulture));
+                            currentForces.Add(double.Parse(values[forceIdIndex], System.Globalization.CultureInfo.InvariantCulture));
                         }
                     }
                 }
 
                 // Printing results
-                Console.WriteLine($"\nMesh size: {size:##0.0}\n" + $"{"L:",5} | {"Mx':",5}");
+                Console.WriteLine($"\nMesh size: {size:##0.00}\n" + $"{"x:",6} | {"Mx':",6}");
+                Console.WriteLine($"{"[m]",6} | {"[kNm/m]",6}");
                 for (int i = 0; i < currentForces.Count; i++)
                 {
-                    Console.WriteLine($"{L[i],5:##0.0} | {currentForces[i]/1000,5:###.0}");
+                    Console.WriteLine($"{L[i],6:##0.0} | {currentForces[i]/1000,6:##0.0}");
                 }
                 allForces.Add(size, currentForces);
-                Console.WriteLine($"{"[m]",5} | {"[kNm/m]",5}");
             }
 
 
@@ -101,8 +105,9 @@ namespace MeshSizeConvergenceStudy
             List<double> deviationPercentage = new List<double>();
 
             // Results header
-            Console.WriteLine("RESULTS:");
-            Console.WriteLine($"\n{"Mesh size", 10} | {"Nx' tot.",10} | {"Dev.tot.",10} | {"Dev %",10} | Meets crit.");
+            Console.WriteLine("\nRESULTS:");
+            Console.WriteLine($"{"Mesh size", 10} | {"Mx' tot.",10} | {"Dev.tot.",10} | {"Dev %",10} | Meets crit.");
+            Console.WriteLine($"{"[m]",10} | {"[kNm/m]",10} | {"[kNm/m]",10} | {"[-]",10} | {"[-]",10}");
 
 
             // CONVERGENCE CALCULATION LOOP
@@ -132,15 +137,13 @@ namespace MeshSizeConvergenceStudy
                 if (counter > 0 & deviationPercentage[counter] <= maxAllowedDeviation) { critMet = "true"; }
 
                 // Display results
-                Console.WriteLine($"{forcesList.Key,10} | {totalForce[counter] / 1000,10:##0.0} | {totalDeviation[counter] / 1000,10:##0.0} | {deviationPercentage[counter]*100,10:##0} | {critMet, 10}");
+                Console.WriteLine($"{forcesList.Key,10} | {totalForce[counter] / 1000,10:##0.0} | {totalDeviation[counter] / 1000,10:##0.0} | {deviationPercentage[counter]*100,10:##0.0} | {critMet, 10}");
 
                 // Setup for next loop
                 previousForces.Clear();
                 previousForces.AddRange(forcesList.Value);
                 counter++;
             }
-            // Results units
-            Console.WriteLine($"{"[m]",10} | {"[kNm/m]",10} | {"[kNm/m]",10} | {"[-]",10} | {"[-]",10}");
 
 
             // ENDING THE PROGRAM
