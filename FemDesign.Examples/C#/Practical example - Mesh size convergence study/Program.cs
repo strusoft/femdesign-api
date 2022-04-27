@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using FemDesign;
 
-namespace MeshSizeConvergenceStudy
+namespace FemDesign.Examples
 {
     internal class Program
     {
