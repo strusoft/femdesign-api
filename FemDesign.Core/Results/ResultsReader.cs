@@ -89,7 +89,7 @@ namespace FemDesign.Results
                 do
                 {
                     resultType = SniffResultType();
-                } while (resultType == null && !IsDone);
+                } while (resultType is null && !IsDone);
 
                 MethodInfo parseAllMethod = method.MakeGenericMethod(resultType);
 
@@ -103,9 +103,6 @@ namespace FemDesign.Results
                     throw new ParseException(resultType, "<all>", e.InnerException);
                 }
             }
-
-            if (mixedResults.Count == 0)
-                throw new ParseException(resultType, null, FilePath);
 
             return mixedResults;
         }
@@ -146,7 +143,7 @@ namespace FemDesign.Results
                     }
             }
 
-            if (resultType == null)
+            if (resultType is null)
                 throw new ApplicationException($"Could not identify all result types of the file {FilePath}.");
 
             return resultType;
@@ -299,15 +296,15 @@ namespace FemDesign.Results
             }
 
             results = AfterParse(results);
-            
+
             return results;
         }
 
         protected virtual void BeforeParse(Type type)
         {
-            if (RowParser == null)
+            if (RowParser is null)
                 throw new ApplicationException("Row parser was not initialized properly.");
-            if (HeaderParser == null)
+            if (HeaderParser is null)
                 throw new ApplicationException("Header parser was not initialized properly.");
         }
 
@@ -316,7 +313,7 @@ namespace FemDesign.Results
             return parsed;
         }
 
-             
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources
         /// </summary>

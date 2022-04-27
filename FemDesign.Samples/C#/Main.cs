@@ -21,22 +21,13 @@ namespace FemDesign.Samples
 
         private static void Main(string[] args)
         {
-            string samplesDir = System.IO.Directory.GetCurrentDirectory();
-            if (samplesDir.EndsWith("bin\\Debug\\net5.0") || samplesDir.EndsWith("bin\\Release\\net5.0"))
-                samplesDir = Path.GetFullPath(Path.Combine(samplesDir, "..\\..\\..\\"));
-            System.IO.Directory.SetCurrentDirectory(samplesDir);
+            string path = @"C:\Users\AlexanderRadne\OneDrive - StruSoft AB\Desktop\No cracking.str";
+            var (model, results) = Model.ReadStr(path, new List<Results.ResultType> { Results.ResultType.RCDesignShellCracking });
 
-            Console.WriteLine("Running some sample code using the FEM-Design api!\n");
-
-            // ChangeLengthOfBeam();
-            // Example1CreateSimpleModel();
-            Example4EditExistingModel();
-            // RunAnalysis();
-            // CreatePostTensionedCable();
-            // CreateLoadGroups();
-            // LoadGroupsCombine();
-            // ParametricStudy();
-            // CostOptimizationOfSlab();
+            foreach (var result in results)
+            {
+                Console.WriteLine(result);
+            }
         }
     }
 }
