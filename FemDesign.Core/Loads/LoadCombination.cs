@@ -9,7 +9,7 @@ namespace FemDesign.Loads
     /// load_combination_type
     /// </summary>
     [System.Serializable]
-    public partial class LoadCombination: EntityBase
+    public partial class LoadCombination : EntityBase
     {
         [XmlAttribute("name")]
         public string Name { get; set; } // name159
@@ -27,7 +27,7 @@ namespace FemDesign.Loads
         {
 
         }
-        
+
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
@@ -36,7 +36,7 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Name = name;
             this.Type = type;
-            
+
 
             if (loadCase.GetType() == typeof(List<LoadCase>) && gamma.GetType() == typeof(List<double>))
             {
@@ -58,7 +58,7 @@ namespace FemDesign.Loads
             else
             {
                 throw new System.ArgumentException("loadCase must be Loads.LoadCase or List<Loads.LoadCase>, gamma must be double or List<double>");
-            }          
+            }
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma)); 
-            }         
+                this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma));
+            }
         }
 
         /// <summary>
@@ -116,6 +116,6 @@ namespace FemDesign.Loads
             }
             return false;
         }
-        
+
     }
 }

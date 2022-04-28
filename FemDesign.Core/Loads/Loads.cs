@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using StruSoft.Interop.StruXml.Data;
+
 namespace FemDesign.Loads
 {
     /// <summary>
@@ -50,7 +52,7 @@ namespace FemDesign.Loads
         public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
         
         [XmlElement("moving_load", Order = 16)]
-        public List<DummyXmlObject> MovingLoads {get {return null;} set {value = null;}} // moving_load_type
+        public List<Moving_load_type> MovingLoads { get; set; } // moving_load_type
         
         [XmlElement("load_case", Order = 17)]
         public List<LoadCase> LoadCases = new List<LoadCase>(); // load_case_type

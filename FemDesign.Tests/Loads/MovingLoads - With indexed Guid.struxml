@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.002" start_time="1970-01-01T00:00:00.000" end_time="2022-04-26T14:49:48.000" guid="70216fbb-6a1f-4b87-a14e-78d78f12aad7" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<entities>
+		<loads>
+			<moving_load name="MVL" guid="4296b216-9807-465a-826c-644480530a9c" last_change="2022-02-15T18:16:59.000" action="added" vehicle="8dacc1a2-d6af-4719-85e6-d0acc91cbe1d" lock_direction="true">
+				<division_points value="10"></division_points>
+				<path_position x="8.32706076286773" y="28.1488418314609" z="0"></path_position>
+				<path_position x="23.9054756928144" y="1.1669986247307" z="0"></path_position>
+				<path_position x="37.6454119710571" y="15.4113383180267" z="0"></path_position>
+				<path_position x="29.4291411794418" y="38.0599671991" z="0"></path_position>
+				<path_position x="18.0298026058789" y="49.2772345572115" z="0"></path_position>
+				<path_position x="-3.19284511154441" y="40.5588174389577" z="0"></path_position>
+				<path_position x="-3.19284511154442" y="28.6064243217952" z="0"></path_position>
+				<path_position x="14.9639735376486" y="-9.80205368895991" z="0"></path_position>
+				<path_position x="52.8808424665021" y="12.0893226946246" z="0"></path_position>
+				<path_position x="36.2673497616076" y="53.8737983527151" z="0"></path_position>
+				<path_position x="9.4398117353" y="67.5444470595345" z="0"></path_position>
+				<path_position x="-11.3382331156817" y="57.9466355846884" z="0"></path_position>
+				<vehicle_positions>
+					<position x="8.32706076286773" y="28.1488418314609" z="0"></position>
+					<position x="23.8353522881704" y="1.28845249007806" z="0"></position>
+					<position x="33.8652913191561" y="25.8314610162656" z="0"></position>
+					<position x="16.1661755176969" y="48.5116430756968" z="0"></position>
+					<position x="-3.19284511154442" y="30.4717983632179" z="0"></position>
+					<position x="9.2655531926171" y="2.25224154562456" z="0"></position>
+					<position x="30.2775284244911" y="-0.960743652849651" z="0"></position>
+					<position x="51.0645987632849" y="16.6573441308324" z="0"></position>
+					<position x="39.6052371998109" y="45.4787017352553" z="0"></position>
+					<position x="16.6820003454147" y="63.8540071742077" z="0"></position>
+					<position x="-11.3382331156817" y="57.9466355846884" z="0"></position>
+				</vehicle_positions>
+			</moving_load>
+			<load_combination guid="69634780-5a16-4993-ad35-6a2885d4010f" last_change="2022-04-26T14:49:48.000" action="added" name="LComb" type="ultimate_ordinary">
+				<load_case guid="4296b216-9807-465a-826c-644480530a9c#1" gamma="1"></load_case>
+				<load_case guid="4296b216-9807-465a-826c-644480530a9c#3" gamma="1"></load_case>
+				<load_case guid="4296b216-9807-465a-826c-644480530a9c#5" gamma="1"></load_case>
+				<load_case guid="4296b216-9807-465a-826c-644480530a9c#7" gamma="1"></load_case>
+			</load_combination>
+			<load_group_table last_change="2022-02-15T18:16:59.000" action="added">
+				<group name="MVL" guid="66260a8f-98ed-41bc-8402-f0814b52dd31">
+					<temporary safety_factor="1.5" psi_0="0.7" psi_1="0.5" psi_2="0.3" leading_cases="true">
+						<load_cases_of_moving_load guid="4296b216-9807-465a-826c-644480530a9c"></load_cases_of_moving_load>
+					</temporary>
+				</group>
+			</load_group_table>
+		</loads>
+	</entities>
+	<vehicle_types>
+		<predefined_type name="EC LM1 Lane 1. (Truck) [Distributed]" guid="8dacc1a2-d6af-4719-85e6-d0acc91cbe1d" last_change="2020-11-18T12:09:57.000" action="added">
+			<surface_load guid="9a5047ce-4e73-4f74-8c65-007eeb99ef62" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.60000000000099" y="-1.2" z="0"></point>
+							<point x="-1.60000000000072" y="-0.8" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.60000000000072" y="-0.8" z="0"></point>
+							<point x="-1.20000000000072" y="-0.800000000000262" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.20000000000072" y="-0.800000000000262" z="0"></point>
+							<point x="-1.20000000000099" y="-1.2" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.20000000000099" y="-1.2" z="0"></point>
+							<point x="-1.60000000000099" y="-1.2" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.60000000000099" y="-1.2" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="73007830-9b6b-4d9d-9c3a-3cd4903beb28" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.400000000000992" y="-1.2000000000008" z="0"></point>
+							<point x="-0.400000000000722" y="-0.800000000000802" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.400000000000722" y="-0.800000000000802" z="0"></point>
+							<point x="0" y="-0.800000000001072" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-0.800000000001072" z="0"></point>
+							<point x="0" y="-1.20000000000107" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-1.20000000000107" z="0"></point>
+							<point x="-0.400000000000992" y="-1.2000000000008" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.400000000000992" y="-1.2000000000008" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="c518ba36-3ab1-4712-94a1-f0d4ef65d500" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="0.8" z="0"></point>
+							<point x="-1.59999999999937" y="1.2" z="0"></point>
+							<normal x="-1" y="1.5754064719431E-12" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.59999999999937" y="1.2" z="0"></point>
+							<point x="-1.19999999999937" y="1.2" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.19999999999937" y="1.2" z="0"></point>
+							<point x="-1.2" y="0.799999999999737" z="0"></point>
+							<normal x="1" y="-1.57485136042975E-12" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="0.799999999999737" z="0"></point>
+							<point x="-1.6" y="0.8" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="0.8" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="74366c47-0132-43f6-ae12-09a7243079af" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.399999999999642" y="0.799999999999197" z="0"></point>
+							<point x="-0.399999999999372" y="1.1999999999992" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.399999999999372" y="1.1999999999992" z="0"></point>
+							<point x="0" y="1.19999999999893" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="1.19999999999893" z="0"></point>
+							<point x="0" y="0.799999999998927" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="0.799999999998927" z="0"></point>
+							<point x="-0.399999999999642" y="0.799999999999197" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.399999999999642" y="0.799999999999197" z="0" val="937.5"></load>
+			</surface_load>
+		</predefined_type>
+	</vehicle_types>
+	<end></end>
+</database>

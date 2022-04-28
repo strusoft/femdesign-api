@@ -222,7 +222,8 @@ namespace FemDesign
             if (model.Entities == null) model.Entities = new Entities();
 
             // prepare elements with library references
-            model.GetBars();
+            if (model.Entities.Bars.Any())
+                model.GetBars();
             model.GetFictitiousShells();
             model.GetLineSupports();
             model.GetPanels();
