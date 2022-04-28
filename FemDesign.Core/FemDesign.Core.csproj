@@ -85,6 +85,7 @@
     <Compile Include="Calculate\Freq.cs" />
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
+    <Compile Include="Calculate\Options.cs" />
     <Compile Include="Calculate\Stage.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />

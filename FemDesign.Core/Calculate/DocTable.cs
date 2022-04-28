@@ -52,7 +52,7 @@ namespace FemDesign.Calculate
         public int CaseIndex { get; set; }
         
         [XmlElement("options")]
-        public DummyXmlObject options { get; set; } = new DummyXmlObject();
+        public Options Option { get; set; }
         
         [XmlElement("restype")]
         public int ResType { get; set; }
@@ -81,6 +81,7 @@ namespace FemDesign.Calculate
             ListProc = resultType;
             CaseIndex = cIndex;
             ResType = GetResType(resultType);
+            Option = Options.GetOptions(resultType);
         }
 
         private int GetResType(ListProc resultType)
