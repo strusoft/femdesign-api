@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Point support group, Reactions" result
     /// </summary>
-    public class PointSupportReaction : IResult
+    public partial class PointSupportReaction : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -128,6 +128,77 @@ namespace FemDesign.Results
             double mr = Double.Parse(row[12], CultureInfo.InvariantCulture);
             string lc = HeaderData["casename"];
             return new PointSupportReaction(supportname, x, y, z, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
+        }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructPointSupportReaction(List<FemDesign.Results.PointSupportReaction> Result, string LoadCase)
+        {
+            var pointReactions = Result.Cast<FemDesign.Results.PointSupportReaction>();
+
+            // Return the unique load case - load combination
+            var uniqueLoadCases = pointReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
+
+            // Select the Nodal Reactions for the selected Load Case - Load Combination
+            if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
+            {
+                pointReactions = pointReactions.Where(n => String.Equals(n.CaseIdentifier, LoadCase, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Load Case '{LoadCase}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var identifier = pointReactions.Select(n => n.Id).ToList();
+            var nodeId = pointReactions.Select(n => n.NodeId).ToList();
+            var loadCases = pointReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
+            var forceResultant = pointReactions.Select(n => n.Fr).ToList();
+            var momentResultant = pointReactions.Select(n => n.Mr).ToList();
+
+            // Create a Fd Vector/Point for Visualising the Reaction Forces
+            var reactionForceVector = new List<FemDesign.Geometry.FdVector3d>();
+            var reactionMomentVector = new List<FemDesign.Geometry.FdVector3d>();
+
+            var position = new List<FemDesign.Geometry.FdPoint3d>();
+
+            foreach (var reaction in pointReactions)
+            {
+                var forceVector = new FemDesign.Geometry.FdVector3d(reaction.Fx, reaction.Fy, reaction.Fz);
+                var momentVector = new FemDesign.Geometry.FdVector3d(reaction.Mx, reaction.My, reaction.Mz);
+                var pos = new FemDesign.Geometry.FdPoint3d(reaction.X, reaction.Y, reaction.Z);
+
+                reactionForceVector.Add(forceVector);
+                reactionMomentVector.Add(momentVector);
+                position.Add(pos);
+            }
+
+            var CaseIdentifier = loadCases;
+            var Identifier = identifier;
+            var NodeId = nodeId;
+            var Position = position;
+            var ReactionForce = reactionForceVector;
+            var ReactionMoment = reactionMomentVector;
+            var ForceResultant = forceResultant;
+            var MomentResultant = momentResultant;
+
+            return new Dictionary<string, dynamic>
+            {
+                {"CaseIdentifier", CaseIdentifier},
+                {"Identifier", Identifier},
+                {"NodeId", NodeId},
+                {"Position", Position},
+                {"ReactionForce", ReactionForce},
+                {"ReactionMoment", ReactionMoment},
+                {"ForceResultant", ForceResultant},
+                {"MomentResultant", MomentResultant}
+            };
         }
     }
 }
