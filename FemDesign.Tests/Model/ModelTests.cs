@@ -118,5 +118,17 @@ namespace FemDesign.Tests
             Model model = Model.DeserializeFromFilePath(input);
             model.SerializeModel(output);
         }
+
+        /// <summary>
+        /// Test if the global model can be deep cloned.
+        /// </summary>
+        [TestMethod("DeepClone")]
+        public void DeepClone()
+        {
+            string input = "Model/global-test-model_IN.struxml";
+            Model model = Model.DeserializeFromFilePath(input);
+            var clone = model.DeepClone();
+            Console.Write(clone.SerializeToString());
+        }
     }
 }
