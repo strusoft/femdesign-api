@@ -4392,6 +4392,7 @@
 			<style layer="0">
 				<filling mode="auto_fill"></filling>
 			</style>
+		</region>
 		<text guid="447e747f-4868-4e78-9c4f-a5debd6cbda4" text="global-test-model">
 			<position x="10" y="32" z="0"></position>
 			<local_x x="1" y="0" z="0"></local_x>
