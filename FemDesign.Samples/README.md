@@ -13,10 +13,8 @@ The Grasshopper examples can be run without cloning the repository - all you nee
 
 The examples are ready to run out-of-the-box, but you might have to set a file path or file name. You'll know either from instructions in the file, or because some components are orange or red.
 
-### 🐉 Python-old-examples
-The Python-old-examples is an API wrapper with different call functions to make it easier to create the struxml-model and run the analysis. Please see a detailed description in the documentation below.
-
-https://wiki.fem-design.strusoft.com/xwiki/bin/view/FEM-Design%20API/Python/API%20wrapper/
+### 🤖 Dynamo
+_Coming soon_
 
 ### 🐍 Python
 The python example folder contains an example (`using_pythonnet.py`) on how to run the C# (`FemDesign.Core`) API from Python. This example uses the python package Python.NET (clr) (http://pythonnet.github.io/).
@@ -27,8 +25,10 @@ The example have been tested using
 - IronPython 2.7 (pythonnet pre-installed)
 - CPython 3.7 (with [pip package pythonnet](https://pypi.org/project/pythonnet/))
 
-### 🤖 Dynamo
-    TODO
+### 🐉 Python-old-examples
+The Python-old-examples is an API wrapper with different call functions to make it easier to create the struxml-model and run the analysis. Please see a detailed description in the documentation below.
+
+https://wiki.fem-design.strusoft.com/xwiki/bin/view/FEM-Design%20API/Python/API%20wrapper/
 
 ## Maintenance
 The examples and samples here are created and mainatained by StruSoft. However, 
