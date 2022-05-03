@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// This example has been migrated to FemDesign.Samples.
+
 namespace FemDesign.Samples
 {
     public partial class SampleProgram

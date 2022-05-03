@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using FemDesign;
 
+// This example has been migrated to FemDesign.Samples.
 
 namespace FemDesign.Samples
 {

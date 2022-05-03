@@ -28,7 +28,7 @@ namespace FemDesign.Examples
             string labeledSectionIdentifier = "LS.1";
             List<double> meshSizes = new List<double> { 2.0, 1.0, 0.5, 0.25, 0.20, 0.15, 0.10};
             int forceIdIndex = 2;
-            // The forces stem from the .bsc file made from FEM-Design, and are ordered like this:
+            // The force index stem from the .bsc file made from FEM-Design, where they are ordered like this:
             // ID		Mx' 	My'	    Mx'y' 	Nx' 	Ny' 	Nx'y'	Tx'z' 	Ty'z'	Comb.
             // Index    [2]     [3]     [4]     [5]     [6]     [7]     [8]     [9]     [10]
 
