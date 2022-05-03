@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesign.Tests\FemDesign.Tests.csproj", "{CCADA385-E5FB-4F08-BC50-1826BBEF9794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FemDesign.Examples", "FemDesign.Examples", "{C68FA42C-7B20-4FE3-AED6-8B6619EE5410}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Mesh size convergence study", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\Practical example - Mesh size convergence study.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
@@ -57,10 +55,6 @@ Global
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.Build.0 = Release|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.ActiveCfg = Release|Any CPU
