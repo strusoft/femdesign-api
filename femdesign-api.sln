@@ -15,25 +15,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FemDesign.Examples", "FemDesign.Examples", "{C68FA42C-7B20-4FE3-AED6-8B6619EE5410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeshSizeConvergenceStudy", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\MeshSizeConvergenceStudy.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Mesh size convergence study", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\Practical example - Mesh size convergence study.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatingASimpleBeam", "FemDesign.Examples\C#\Example 1 - Creating a simple beam\CreatingASimpleBeam.csproj", "{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 1 - Creating a simple beam", "FemDesign.Examples\C#\Example 1 - Creating a simple beam\Example 1 - Creating a simple beam.csproj", "{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalysingAModel", "FemDesign.Examples\C#\Example 2 - Analysing a model\AnalysingAModel.csproj", "{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 2 - Analysing a model", "FemDesign.Examples\C#\Example 2 - Analysing a model\Example 2 - Analysing a model.csproj", "{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditExistingmodel", "FemDesign.Examples\C#\Example 4 - Edit existing model\EditExistingmodel.csproj", "{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 4 - Edit existing model", "FemDesign.Examples\C#\Example 4 - Edit existing model\Example 4 - Edit existing model.csproj", "{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeLengthOfBeam", "FemDesign.Examples\C#\Practical example - Change length of beam\ChangeLengthOfBeam.csproj", "{79832ABA-4CAB-4106-8321-5B6EE2A32558}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Change length of beam", "FemDesign.Examples\C#\Practical example - Change length of beam\Practical example - Change length of beam.csproj", "{79832ABA-4CAB-4106-8321-5B6EE2A32558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGroups", "FemDesign.Examples\C#\Practical example - Load groups\LoadGroups.csproj", "{3C028AB2-5847-4300-B8A1-C1212A5F767E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Load groups", "FemDesign.Examples\C#\Practical example - Load groups\Practical example - Load groups.csproj", "{3C028AB2-5847-4300-B8A1-C1212A5F767E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGroupsCombine", "FemDesign.Examples\C#\Practical example - Load groups combining\LoadGroupsCombine.csproj", "{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Load groups combining", "FemDesign.Examples\C#\Practical example - Load groups combining\Practical example - Load groups combining.csproj", "{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatePostTensionedCables", "FemDesign.Examples\C#\Practical example - Create post-tensioned cables\CreatePostTensionedCables.csproj", "{64CBB551-DE49-4C17-9141-59F22FEFDC0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Create post-tensioned cables", "FemDesign.Examples\C#\Practical example - Create post-tensioned cables\Practical example - Create post-tensioned cables.csproj", "{64CBB551-DE49-4C17-9141-59F22FEFDC0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParametricStudy_Reactions", "FemDesign.Examples\C#\Practical example - Parametric study - Reactions\ParametricStudy_Reactions.csproj", "{69F49774-655C-4D04-A0CF-9DBC53609749}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Parametric study - Reactions", "FemDesign.Examples\C#\Practical example - Parametric study - Reactions\Practical example - Parametric study - Reactions.csproj", "{69F49774-655C-4D04-A0CF-9DBC53609749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParametricStudy_Sensitivity", "FemDesign.Examples\C#\Practical example - Parametric study - Sensitivity analysis\ParametricStudy_Sensitivity.csproj", "{7EA66312-63D3-4125-8A65-7FA414152F33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Parametric study - Sensitivity analysis", "FemDesign.Examples\C#\Practical example - Parametric study - Sensitivity analysis\Practical example - Parametric study - Sensitivity analysis.csproj", "{7EA66312-63D3-4125-8A65-7FA414152F33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

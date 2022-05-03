@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and how to save it for export to FEM-Design.Before running,
             // make sure you have a window with FEM-Design open.
-            
+
             // This example was last updated 2022-04-27, using the ver. 21.1.0 FEM-Design API.
 
 
@@ -98,7 +98,7 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
-            
+
             // Save model then open in FEM-Design
             string path = System.IO.Path.GetFullPath("simple_model.struxml");
             model.SerializeModel(path);
