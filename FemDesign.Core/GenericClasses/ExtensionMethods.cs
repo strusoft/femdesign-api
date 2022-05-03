@@ -83,7 +83,7 @@ namespace FemDesign
         }
     }
 
-    public class ReferenceEqualityComparer : EqualityComparer<Object>
+    public partial class ReferenceEqualityComparer : EqualityComparer<Object>
     {
         public override bool Equals(object x, object y)
         {
@@ -95,7 +95,7 @@ namespace FemDesign
             return obj.GetHashCode();
         }
     }
-    public static class ArrayExtensions
+    public static partial class ArrayExtensions
     {
         public static void ForEach(this Array array, Action<Array, int[]> action)
         {
