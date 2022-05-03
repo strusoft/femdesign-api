@@ -19,17 +19,20 @@ namespace FemDesign.Examples
 
             // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
 
-            // Loading up the model
+
+            // LOADING UP THE MODEL
             string struxmlPath = "exbeam.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
 
-            // Setup by load combination
+            // SETUP BY LOAD CALCULATION SETTINGS
+            // These settings are found in the FEM-Design calculation window.
             bool NLE = true;
             bool PL = true;
             bool NLS = false;
             bool Cr = false;
             bool _2nd = false;
+
 
             // SETTING UP LOAD COMBINATIONS
             // In this example, we use the same settings (CombItem)
@@ -46,7 +49,9 @@ namespace FemDesign.Examples
             Calculate.Comb comb = new Calculate.Comb();
             comb.CombItem = combItems.ToList();
 
-            // Choosing the analysis settings
+
+            // CHOOSING THE ANALYSIS SETTINGS
+            // These dictate which calculations to run.
             FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(
                 stage: null,
                 comb: comb,
@@ -67,7 +72,8 @@ namespace FemDesign.Examples
                 peakSmoothing: false
                 );
 
-            // Running the analysis using an FdScript
+
+            // RUN THE ANALYSIS VIA AN FDSCRIPT
             FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(Path.GetFullPath(struxmlPath), analysis, null, "", true);
             Calculate.Application app = new Calculate.Application();
             app.RunFdScript(fdScript, false, true, true);
