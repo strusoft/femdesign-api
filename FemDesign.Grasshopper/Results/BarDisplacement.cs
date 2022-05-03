@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
 using System.Linq;
 using Rhino.Geometry;
 using FemDesign.Results;
@@ -38,11 +39,11 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.list);
-            pManager.AddTextParameter("ElementId", "ElementId", "Element Id", GH_ParamAccess.list);
-            pManager.AddNumberParameter("PositionResult", "PositionResult", "Position Result", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]", GH_ParamAccess.list);
+            pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.tree);
+            pManager.AddTextParameter("ElementId", "ElementId", "Element Id", GH_ParamAccess.tree);
+            pManager.AddNumberParameter("PositionResult", "PositionResult", "Position Result", GH_ParamAccess.tree);
+            pManager.AddVectorParameter("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]", GH_ParamAccess.tree);
+            pManager.AddVectorParameter("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]", GH_ParamAccess.tree);
         }
 
         /// <summary>
@@ -82,16 +83,41 @@ namespace FemDesign.Grasshopper
             var oRotation = iRotation.Select(x => x.ToRhino());
 
 
+            // Convert Data in DataTree structure
+            var uniqueId = elementId.Distinct().ToList();
+
+            DataTree<object> elementIdTree = new DataTree<object>();
+            DataTree<object> positionResultTree = new DataTree<object>();
+            DataTree<object> oTranslationTree = new DataTree<object>();
+            DataTree<object> oRotationTree = new DataTree<object>();
 
 
+            var i = 0;
+            var j = 0;
+            foreach (var id in uniqueId)
+            {
+                // find where the index in List where the Id is found
+                var indexes = elementId.Select((value, index) => new { value, index })
+                  .Where(a => string.Equals(a.value, id))
+                  .Select(a => a.index);
 
+                foreach (int index in indexes)
+                {
+                    //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
+                    elementIdTree.Add(elementId.ElementAt(index), new GH_Path(i));
+                    positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(i));
+                    oTranslationTree.Add(oTranslation.ElementAt(index), new GH_Path(i));
+                    oRotationTree.Add(oRotation.ElementAt(index), new GH_Path(i));
+                }
+                i++;
+            }
 
             // Set output
-            DA.SetDataList("CaseIdentifier", loadCases);
-            DA.SetDataList("ElementId", elementId);
-            DA.SetDataList("PositionResult", positionResult);
-            DA.SetDataList("Translation", oTranslation);
-            DA.SetDataList("Rotation", oRotation);
+            DA.SetDataList(0, loadCases);
+            DA.SetDataTree(1, elementIdTree);
+            DA.SetDataTree(2, positionResultTree);
+            DA.SetDataTree(3, oTranslationTree);
+            DA.SetDataTree(4, oRotationTree);
         }
 
         /// <summary>
@@ -112,7 +138,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("A30A0D60-ECBE-4B34-8B38-0F95E9FA2373"); }
+            get { return new Guid("A30A0D60-ECBE-4B34-8B38-0F95E9Fbbbbb"); }
         }
     }
 }
