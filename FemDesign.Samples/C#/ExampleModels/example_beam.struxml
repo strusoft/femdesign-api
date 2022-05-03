@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.002" start_time="1970-01-01T00:00:00.000" end_time="2022-04-13T11:31:39.000" guid="e65cca2b-23ad-420a-af4d-85c297e1c1cd" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<entities>
+		<bar name="B.1" type="beam" guid="679a381f-3689-43a0-9c18-60b4e646ebd9" last_change="2022-04-13T11:26:08.000" action="added">
+			<bar_part guid="91d09c2f-1b4e-4be0-9290-84daef613cc5" last_change="2022-04-13T11:26:08.000" action="added" name="B.1.1" complex_material="a0dbdaf8-5a06-423e-ae6a-e932cd7526b0" complex_section="02bdf98c-7006-4632-9c1b-a7da1e3ebd50" ecc_calc="true">
+				<curve type="line">
+					<point x="3.71943480289311" y="18.4196465683457" z="0"></point>
+					<point x="7.61136605856043" y="18.4196465683457" z="0"></point>
+				</curve>
+				<local-y x="0" y="1" z="0"></local-y>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<eccentricity use_default_physical_alignment="true">
+					<analytical x="0" y="0" z="0"></analytical>
+					<analytical x="0" y="0" z="0"></analytical>
+					<physical x="0" y="0" z="-0.15"></physical>
+					<physical x="0" y="0" z="-0.15"></physical>
+				</eccentricity>
+				<end></end>
+			</bar_part>
+			<end></end>
+		</bar>
+		<loads>
+			<load_case type="dead_load" duration_class="permanent" guid="e48aabe5-aa70-444e-b68e-735a802de4e5" last_change="2022-04-13T11:26:28.000" action="added" name="Self weight"></load_case>
+			<load_case type="static" duration_class="permanent" guid="bcfe1372-6632-4abb-95c3-63f3f5bae0c5" last_change="2022-04-13T11:26:28.000" action="added" name="Live load"></load_case>
+			<load_combination guid="cd9fcd8d-7f49-4648-ba02-6371c9a9b365" last_change="2022-04-13T11:31:39.000" action="added" name="SLS" type="ultimate_ordinary">
+				<load_case guid="e48aabe5-aa70-444e-b68e-735a802de4e5" gamma="1"></load_case>
+				<load_case guid="bcfe1372-6632-4abb-95c3-63f3f5bae0c5" gamma="1"></load_case>
+			</load_combination>
+		</loads>
+		<supports>
+			<point_support guid="b78e0e7f-31cc-4999-98dd-fe327cceaf45" last_change="2022-04-13T09:49:43.000" action="added" name="S.1">
+				<group>
+					<local_x x="1" y="0" z="0"></local_x>
+					<local_y x="0" y="1" z="0"></local_y>
+					<rigidity>
+						<motions x_neg="10000000000" x_pos="10000000000" y_neg="10000000000" y_pos="10000000000" z_neg="10000000000" z_pos="10000000000"></motions>
+						<rotations x_neg="10000000000" x_pos="10000000000" y_neg="10000000000" y_pos="10000000000" z_neg="10000000000" z_pos="10000000000"></rotations>
+					</rigidity>
+				</group>
+				<position x="3.71943480289311" y="18.4196465683457" z="0"></position>
+			</point_support>
+			<point_support guid="5f97b960-47c1-4c50-9952-07f3ed9911c0" last_change="2022-04-13T11:26:08.000" action="added" name="S.2">
+				<group>
+					<local_x x="1" y="0" z="0"></local_x>
+					<local_y x="0" y="1" z="0"></local_y>
+					<rigidity>
+						<motions x_neg="10000000000" x_pos="10000000000" y_neg="10000000000" y_pos="10000000000" z_neg="10000000000" z_pos="10000000000"></motions>
+						<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+					</rigidity>
+				</group>
+				<position x="7.61136605856043" y="18.4196465683457" z="0"></position>
+			</point_support>
+		</supports>
+	</entities>
+	<sections>
+		<section guid="bfe2346e-1766-49f3-a37b-a590707ba4b6" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Rectangle, 200x300" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Rectangle" fd_name_size="200x300">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.1" y="-0.15" z="0"></point>
+							<point x="0.1" y="-0.15" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.1" y="-0.15" z="0"></point>
+							<point x="0.1" y="0.15" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.1" y="0.15" z="0"></point>
+							<point x="-0.1" y="0.15" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.1" y="0.15" z="0"></point>
+							<point x="-0.1" y="-0.15" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<complex_section guid="02bdf98c-7006-4632-9c1b-a7da1e3ebd50" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="bfe2346e-1766-49f3-a37b-a590707ba4b6">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+			<section pos="1" guid="bfe2346e-1766-49f3-a37b-a590707ba4b6">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+		</complex_section>
+	</sections>
+	<materials>
+		<material guid="a0dbdaf8-5a06-423e-ae6a-e932cd7526b0" last_change="2013-07-19T09:18:35.000" action="added" standard="EC" country="common" name="C40/50">
+			<concrete mass="2.54842" E_0="35000000" E_1="35000000" E_2="35000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="14583333.3333333" G_1="14583333.3333333" G_2="14583333.3333333" Fck="40" Fck_cube="50" Fctk="2.5" Fctm="3.5" Ecm="35000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="26.6666666666667" Fcd_1="33.3333333333333" Fctd_0="1.66666666666667" Fctd_1="2.08333333333333" Ecd_0="23333.3333333333" Ecd_1="29166.6666666667" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<end></end>
+</database>

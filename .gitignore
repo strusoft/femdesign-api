@@ -13,7 +13,7 @@ packages/
 fdscript.xsd
 FemDesign.Samples/**/Local/**
 
-FemDesign.Samples/C#/ExampleModels/**
-FemDesign.Samples/C#/ExampleModels/output/**
-!FemDesign.Samples/C#/ExampleModels/*.struxml
-!FemDesign.Samples/C#/ExampleModels/*.bsc
+*/ExampleModels/**/*
+*/ExampleModels/output/**/*
+!*/ExampleModels/**/*.struxml
+!*/ExampleModels/**/*.bsc

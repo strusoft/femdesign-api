@@ -11,11 +11,7 @@ namespace FemDesign.Samples
 {
     public partial class SampleProgram
     {
-<<<<<<<< HEAD:FemDesign.Samples/C#/Example1-CreateSimpleModel.cs
         public static Model Example_1_CreateSimpleModel()
-========
-        private static void Example1CreateSimpleModel()
->>>>>>>> master:FemDesign.Samples/C#/Example1CreateSimpleModel.cs
         {
             // 1. Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
@@ -69,15 +65,9 @@ namespace FemDesign.Samples
             var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
             var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS };
 
-<<<<<<<< HEAD:FemDesign.Samples/C#/Example1-CreateSimpleModel.cs
-            // Create loads
-            var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
-========
             // 7. Create loads
             var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, "", Loads.ForceLoadType.Force);
             var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, "", Loads.ForceLoadType.Moment);
->>>>>>>> master:FemDesign.Samples/C#/Example1CreateSimpleModel.cs
 
             var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
             var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
@@ -101,12 +91,6 @@ namespace FemDesign.Samples
             string path = "ExampleModels/output/simple_model.struxml";
             model.SerializeModel(path);
 
-<<<<<<<< HEAD:FemDesign.Samples/C#/Example1-CreateSimpleModel.cs
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
-
-            return model;
-========
             // 10. Ask if the user wants to open the new model in FEM-Design
             Console.Write("Do you want to open the model? [y/N] ");
             var response = Console.ReadKey();
@@ -116,7 +100,6 @@ namespace FemDesign.Samples
                 var app = new Calculate.Application();
                 app.OpenStruxml(Path.GetFullPath(path), killProcess: false);
             }
->>>>>>>> master:FemDesign.Samples/C#/Example1CreateSimpleModel.cs
         }
     }
 }
