@@ -68,7 +68,6 @@
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleProgramTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Model\global-test-model.struxml">
@@ -80,6 +79,10 @@
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
       <Name>FemDesign.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FemDesign.Examples\C#\Example 1 - Creating a simple beam\CreatingASimpleBeam.csproj">
+      <Project>{fcd2ad4d-00ad-43ac-ad3a-fbf5819554bb}</Project>
+      <Name>CreatingASimpleBeam</Name>
     </ProjectReference>
     <ProjectReference Include="..\FemDesign.Samples\C#\FemDesign.Samples.csproj">
       <Project>{127a57e7-22e5-4ec5-933b-effa9fa0715e}</Project>
