@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2018, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 18.00.004" start_time="1970-01-01T00:00:00.000" end_time="2019-06-25T11:52:31.000" guid="aadd846a-b50a-4b38-888e-f55862ac5f9e" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+	<entities>
+		<slab name="W.1" guid="8ab6bb62-8164-4e69-8525-a0a672953813" last_change="2019-05-06T10:11:25.000" action="added" type="wall">
+			<slab_part guid="28552817-e4cc-4572-8fc4-dd82909b3ba8" last_change="2019-06-25T11:52:31.000" action="added" name="W.1.1" complex_material="bc856c91-310b-4368-b342-61abf344de29" alignment="center" align_offset="0" ortho_alfa="0" ortho_ratio="1">
+				<contour>
+					<edge type="line">
+						<point x="0" y="0" z="0"></point>
+						<point x="3" y="0" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="3" y="0" z="0"></point>
+						<point x="3" y="0" z="2"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="3" y="0" z="2"></point>
+						<point x="4" y="0" z="2"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="4" y="0" z="2"></point>
+						<point x="4" y="0" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="4" y="0" z="0"></point>
+						<point x="6" y="0" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="6" y="0" z="0"></point>
+						<point x="6" y="0" z="3"></point>
+						<normal x="1" y="0" z="0"></normal>
+						<edge_connection guid="d7507832-839a-4e16-8e29-639b3fa2af07" last_change="2019-06-25T11:52:26.000" action="added" name="CE.1" moving_local="true" joined_start_point="true" joined_end_point="true">
+							<!--edge description: "W.1.CE.1" -->
+							<rigidity detach="y_tens">
+								<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="0" z_neg="10000000" z_pos="10000000"></motions>
+								<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+							</rigidity>
+						</edge_connection>
+					</edge>
+					<edge type="line">
+						<point x="6" y="0" z="3"></point>
+						<point x="0" y="0" z="3"></point>
+						<normal x="0" y="-1" z="0"></normal>
+						<edge_connection guid="86670299-797b-45ba-ab08-a81fa94f75c3" last_change="2019-06-25T11:52:31.000" action="added" name="CE.2" moving_local="true" joined_start_point="true" joined_end_point="true">
+							<!--edge description: "W.1.CE.2" -->
+							<rigidity detach="y_tens">
+								<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="0" z_neg="10000000" z_pos="10000000"></motions>
+								<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+							</rigidity>
+						</edge_connection>
+					</edge>
+					<edge type="line">
+						<point x="0" y="0" z="3"></point>
+						<point x="0" y="0" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+				<contour>
+					<edge type="line">
+						<point x="2" y="0" z="1"></point>
+						<point x="1" y="0" z="1"></point>
+						<normal x="0" y="-1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="1" y="0" z="1"></point>
+						<point x="1" y="0" z="2"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="1" y="0" z="2"></point>
+						<point x="2" y="0" z="2"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="2" y="0" z="2"></point>
+						<point x="2" y="0" z="1"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+				<thickness x="6" y="0" z="0" val="0.2"></thickness>
+				<thickness x="0" y="0" z="0" val="0.2"></thickness>
+				<local_pos x="3" y="0" z="2.5"></local_pos>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="0" z="1"></local_y>
+				<end></end>
+			</slab_part>
+			<end></end>
+		</slab>
+		<advanced-fem>
+			<connected_points guid="68d0f1fb-52d3-465f-abdf-b9b88a4c52c7" last_change="2019-05-06T10:13:53.000" action="added" name="CP.1" interface="0">
+				<point x="5.8" y="0" z="0.8"></point>
+				<point x="6.2" y="0" z="0.8"></point>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<rigidity>
+					<motions x_neg="0" x_pos="10000000000" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></motions>
+					<plastic_limit_forces x_pos="150"></plastic_limit_forces>
+					<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+				</rigidity>
+				<ref guid="28552817-e4cc-4572-8fc4-dd82909b3ba8"></ref>
+			</connected_points>
+			<connected_points guid="0a1b53b5-5cc0-45f9-bf95-50d66162a0cf" last_change="2019-05-06T10:13:53.000" action="added" name="CP.2" interface="0">
+				<point x="5.8" y="0" z="2.2"></point>
+				<point x="6.2" y="0" z="2.2"></point>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<rigidity>
+					<motions x_neg="0" x_pos="10000000000" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></motions>
+					<plastic_limit_forces x_pos="150"></plastic_limit_forces>
+					<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+				</rigidity>
+				<ref guid="28552817-e4cc-4572-8fc4-dd82909b3ba8"></ref>
+			</connected_points>
+			<connected_points guid="2a9749aa-927a-424d-be44-c1d0d41160c4" last_change="2019-05-06T10:13:53.000" action="added" name="CP.3" interface="0">
+				<point x="1" y="0" z="2.8"></point>
+				<point x="1" y="0" z="3.2"></point>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<rigidity>
+					<motions x_neg="0" x_pos="10000000000" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></motions>
+					<plastic_limit_forces x_pos="150"></plastic_limit_forces>
+					<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+				</rigidity>
+				<ref guid="28552817-e4cc-4572-8fc4-dd82909b3ba8"></ref>
+			</connected_points>
+			<connected_points guid="55f8c40a-2ad7-492c-9da9-8aa422c04c69" last_change="2019-05-06T10:13:53.000" action="added" name="CP.4" interface="0">
+				<point x="5" y="0" z="2.8"></point>
+				<point x="5" y="0" z="3.2"></point>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<rigidity>
+					<motions x_neg="0" x_pos="10000000000" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></motions>
+					<plastic_limit_forces x_pos="150"></plastic_limit_forces>
+					<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+				</rigidity>
+				<ref guid="28552817-e4cc-4572-8fc4-dd82909b3ba8"></ref>
+			</connected_points>
+		</advanced-fem>
+	</entities>
+	<materials>
+		<material guid="bc856c91-310b-4368-b342-61abf344de29" last_change="2013-07-19T10:01:04.000" action="added" standard="EC" country="S" name="C50/60">
+			<concrete mass="2.54842" E_0="14800000" E_1="14800000" E_2="14800000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="6166666.66666667" G_1="6166666.66666667" G_2="6166666.66666667" Fck="50" Fck_cube="60" Fctk="2.9" Fctm="4.1" Ecm="37000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="33.3333333333333" Fcd_1="41.6666666666667" Fctd_0="1.93333333333333" Fctd_1="2.41666666666667" Ecd_0="24666.6666666667" Ecd_1="30833.3333333333" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="1.5" creep_sls="1.5" shrinkage="0.56" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<end></end>
+</database>

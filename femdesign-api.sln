@@ -29,6 +29,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGroups", "FemDesign.Exa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGroupsCombine", "FemDesign.Examples\C#\Practical example - Load groups combining\LoadGroupsCombine.csproj", "{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatePostTensionedCables", "FemDesign.Examples\C#\Practical example - Create post-tensioned cables\CreatePostTensionedCables.csproj", "{64CBB551-DE49-4C17-9141-59F22FEFDC0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParametricStudy_Reactions", "FemDesign.Examples\C#\Practical example - Parametric study - Reactions\ParametricStudy_Reactions.csproj", "{69F49774-655C-4D04-A0CF-9DBC53609749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParametricStudy_Sensitivity", "FemDesign.Examples\C#\Practical example - Parametric study - Sensitivity analysis\ParametricStudy_Sensitivity.csproj", "{7EA66312-63D3-4125-8A65-7FA414152F33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +89,18 @@ Global
 		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +113,9 @@ Global
 		{79832ABA-4CAB-4106-8321-5B6EE2A32558} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{3C028AB2-5847-4300-B8A1-C1212A5F767E} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{69F49774-655C-4D04-A0CF-9DBC53609749} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{7EA66312-63D3-4125-8A65-7FA414152F33} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

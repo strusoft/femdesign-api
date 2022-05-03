@@ -11,7 +11,7 @@ namespace FemDesign.Examples
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // EXAMPLE 4: EDITING AN EXISTING MODEL
             // In this example, we will edit an existing model by isolating a floor and replacing supporting

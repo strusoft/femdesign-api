@@ -1,0 +1,253 @@
+<materialdatabase>
+<S235>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="235" Fyk40="235" Fyk63="215" Fyk80="215" Fyk100="215" Fyk150="215" Fyk200="215" Fyk250="215" Fyk400="215" Fuk3="360" Fuk40="360" Fuk100="360" Fuk150="360" Fuk250="360" Fuk400="360" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S235>
+
+<S275>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="275" Fyk40="275" Fyk63="255" Fyk80="255" Fyk100="255" Fyk150="255" Fyk200="255" Fyk250="255" Fyk400="255" Fuk3="430" Fuk40="430" Fuk100="410" Fuk150="410" Fuk250="410" Fuk400="410" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S275>
+
+<S355>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="355" Fyk40="355" Fyk63="335" Fyk80="335" Fyk100="335" Fyk150="335" Fyk200="335" Fyk250="335" Fyk400="335" Fuk3="510" Fuk40="510" Fuk100="470" Fuk150="470" Fuk250="470" Fuk400="470" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S355>
+
+<S420>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="420" Fyk40="420" Fyk63="390" Fyk80="390" Fyk100="390" Fyk150="390" Fyk200="390" Fyk250="390" Fyk400="390" Fuk3="520" Fuk40="520" Fuk100="520" Fuk150="520" Fuk250="520" Fuk400="520" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S420>
+
+<S450>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="440" Fyk40="440" Fyk63="410" Fyk80="410" Fyk100="410" Fyk150="410" Fyk200="410" Fyk250="410" Fyk400="410" Fuk3="550" Fuk40="550" Fuk100="550" Fuk150="550" Fuk250="550" Fuk400="550" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S450>
+
+<S460>
+	<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="460" Fyk40="460" Fyk63="430" Fyk80="430" Fyk100="430" Fyk150="430" Fyk200="430" Fyk250="430" Fyk400="430" Fuk3="540" Fuk40="540" Fuk100="540" Fuk150="540" Fuk250="540" Fuk400="540" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+</S460>
+
+
+<C1215>
+<concrete mass="2.54842" E_0="27000000" E_1="27000000" E_2="27000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="11250000" G_1="11250000" G_2="11250000" Fck="12" Fck_cube="15" Fctk="1.1" Fctm="1.6" Ecm="27000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="8" Fcd_1="10" Fctd_0="0.733333333333333" Fctd_1="0.916666666666667" Ecd_0="18000" Ecd_1="22500" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C1215>
+
+<C1620>
+<concrete mass="2.54842" E_0="29000000" E_1="29000000" E_2="29000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="12083333.3333333" G_1="12083333.3333333" G_2="12083333.3333333" Fck="16" Fck_cube="20" Fctk="1.3" Fctm="1.9" Ecm="29000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="10.6666666666667" Fcd_1="13.3333333333333" Fctd_0="0.866666666666667" Fctd_1="1.08333333333333" Ecd_0="19333.3333333333" Ecd_1="24166.6666666667" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C1620>
+
+<C2025>
+<concrete mass="2.54842" E_0="30000000" E_1="30000000" E_2="30000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="12500000" G_1="12500000" G_2="12500000" Fck="20" Fck_cube="25" Fctk="1.5" Fctm="2.2" Ecm="30000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="13.3333333333333" Fcd_1="16.6666666666667" Fctd_0="1" Fctd_1="1.25" Ecd_0="20000" Ecd_1="25000" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C2025>
+
+<C2530>
+<concrete mass="2.54842" E_0="31000000" E_1="31000000" E_2="31000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="12916666.6666667" G_1="12916666.6666667" G_2="12916666.6666667" Fck="25" Fctk="1.8" Fctm="2.6" Ecm="31000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="16.6666666666667" Fcd_1="20.8333333333333" Fctd_0="1.2" Fctd_1="1.5" Ecd_0="20666.6666666667" Ecd_1="25833.3333333333" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C2530>
+
+<C2835>
+<concrete mass="2.54842" E_0="32300000" E_1="32300000" E_2="32300000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="13458333.3333333" G_1="13458333.3333333" G_2="13458333.3333333" Fck="28" Fck_cube="33" Fctk="1.94" Fctm="2.77" Ecm="32300" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="18.6666666666667" Fcd_1="23.3333333333333" Fctd_0="1.29333333333333" Fctd_1="1.61666666666667" Ecd_0="21533.3333333333" Ecd_1="26916.6666666667" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C2835>
+
+<C3037>
+<concrete mass="2.54842" E_0="33000000" E_1="33000000" E_2="33000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="13750000" G_1="13750000" G_2="13750000" Fck="30" Fck_cube="37" Fctk="2" Fctm="2.9" Ecm="33000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="20" Fcd_1="25" Fctd_0="1.33333333333333" Fctd_1="1.66666666666667" Ecd_0="22000" Ecd_1="27500" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C3037>
+
+<C3240>
+<concrete mass="2.54842" E_0="33350000" E_1="33350000" E_2="33350000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="13895833.3333333" G_1="13895833.3333333" G_2="13895833.3333333" Fck="32" Fck_cube="39" Fctk="2.12" Fctm="3.02" Ecm="33350" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="21.3333333333333" Fcd_1="26.6666666666667" Fctd_0="1.41333333333333" Fctd_1="1.76666666666667" Ecd_0="22233.3333333333" Ecd_1="27791.6666666667" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C3240>
+
+<C3545>
+<concrete mass="2.54842" E_0="34000000" E_1="34000000" E_2="34000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="14166666.6666667" G_1="14166666.6666667" G_2="14166666.6666667" Fck="35" Fck_cube="45" Fctk="2.2" Fctm="3.2" Ecm="34000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="23.3333333333333" Fcd_1="29.1666666666667" Fctd_0="1.46666666666667" Fctd_1="1.83333333333333" Ecd_0="22666.6666666667" Ecd_1="28333.3333333333" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C3545>
+
+<C4050>
+<concrete mass="2.54842" E_0="35000000" E_1="35000000" E_2="35000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="14583333.3333333" G_1="14583333.3333333" G_2="14583333.3333333" Fck="40" Fck_cube="50" Fctk="2.5" Fctm="3.5" Ecm="35000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="26.6666666666667" Fcd_1="33.3333333333333" Fctd_0="1.66666666666667" Fctd_1="2.08333333333333" Ecd_0="23333.3333333333" Ecd_1="29166.6666666667" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C4050>
+
+<C4555>
+<concrete mass="2.54842" E_0="36000000" E_1="36000000" E_2="36000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="15000000" G_1="15000000" G_2="15000000" Fck="45" Fck_cube="55" Fctk="2.7" Fctm="3.8" Ecm="36000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="30" Fcd_1="37.5" Fctd_0="1.8" Fctd_1="2.25" Ecd_0="24000" Ecd_1="30000" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C4555>
+
+<C5060>
+<concrete mass="2.54842" E_0="37000000" E_1="37000000" E_2="37000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="15416666.6666667" G_1="15416666.6666667" G_2="15416666.6666667" Fck="50" Fck_cube="60" Fctk="2.9" Fctm="4.1" Ecm="37000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="33.3333333333333" Fcd_1="41.6666666666667" Fctd_0="1.93333333333333" Fctd_1="2.41666666666667" Ecd_0="24666.6666666667" Ecd_1="30833.3333333333" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C5060>
+
+<C5465>
+<concrete mass="2.54842" E_0="38031000" E_1="38031000" E_2="38031000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="15846250" G_1="15846250" G_2="15846250" Fck="54" Fck_cube="64" Fctk="2.93" Fctm="4.18" Ecm="38031" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="36" Fcd_1="45" Fctd_0="1.95333333333333" Fctd_1="2.44166666666667" Ecd_0="25354" Ecd_1="31692.5" Epsc3="0.00101" Epscu3="0.00319" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C5465>
+
+<C5567>
+<concrete mass="2.54842" E_0="38000000" E_1="38000000" E_2="38000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="15833333.3333333" G_1="15833333.3333333" G_2="15833333.3333333" Fck="55" Fck_cube="67" Fctk="3" Fctm="4.2" Ecm="38000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="36.6666666666667" Fcd_1="45.8333333333333" Fctd_0="2" Fctd_1="2.5" Ecd_0="25333.3333333333" Ecd_1="31666.6666666667" Epsc3="0.0018" Epscu3="0.0031" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C5567>
+
+<C5870>
+<concrete mass="2.54842" E_0="38750000" E_1="38750000" E_2="38750000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="16145833.3333333" G_1="16145833.3333333" G_2="16145833.3333333" Fck="58" Fck_cube="70" Fctk="3.01" Fctm="4.3" Ecm="38750" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="38.6666666666667" Fcd_1="48.3333333333333" Fctd_0="2.00666666666667" Fctd_1="2.50833333333333" Ecd_0="25833.3333333333" Ecd_1="32291.6666666667" Epsc3="0.00186" Epscu3="0.00297" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C5870>
+
+<C6075>
+<concrete mass="2.54842" E_0="39000000" E_1="39000000" E_2="39000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="16250000" G_1="16250000" G_2="16250000" Fck="60" Fck_cube="75" Fctk="3.1" Fctm="4.4" Ecm="39000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="40" Fcd_1="50" Fctd_0="2.06666666666667" Fctd_1="2.58333333333333" Ecd_0="26000" Ecd_1="32500" Epsc3="0.0019" Epscu3="0.0029" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C6075>
+
+<C7085>
+<concrete mass="2.54842" E_0="41000000" E_1="41000000" E_2="41000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="17083333.3333333" G_1="17083333.3333333" G_2="17083333.3333333" Fck="70" Fck_cube="85" Fctk="3.2" Fctm="4.6" Ecm="41000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="46.6666666666667" Fcd_1="58.3333333333333" Fctd_0="2.13333333333333" Fctd_1="2.66666666666667" Ecd_0="27333.3333333333" Ecd_1="34166.6666666667" Epsc3="0.002" Epscu3="0.0027" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C7085>
+
+<C8095>
+<concrete mass="2.54842" E_0="42000000" E_1="42000000" E_2="42000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="17500000" G_1="17500000" G_2="17500000" Fck="80" Fck_cube="95" Fctk="3.4" Fctm="4.8" Ecm="42000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="53.3333333333333" Fcd_1="66.6666666666667" Fctd_0="2.26666666666667" Fctd_1="2.83333333333333" Ecd_0="28000" Ecd_1="35000" Epsc3="0.0022" Epscu3="0.0026" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C8095>
+
+<C90105>
+<concrete mass="2.54842" E_0="44000000" E_1="44000000" E_2="44000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="18333333.3333333" G_1="18333333.3333333" G_2="18333333.3333333" Fck="90" Fck_cube="105" Fctk="3.5" Fctm="5" Ecm="44000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="60" Fcd_1="75" Fctd_0="2.33333333333333" Fctd_1="2.91666666666667" Ecd_0="29333.3333333333" Ecd_1="36666.6666666667" Epsc3="0.0023" Epscu3="0.0026" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+</C90105>
+
+<C14>
+<timber mass="0.35" E_0="4375000" E_1="143750" E_2="143750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="275000" G_1="275000" G_2="275000" type="0" quality="0" Fmk0="14" Fmk90="14" Ft0k="8" Ft90k="0.4" Fc0k="16" Fc90k="2" Fvk="3" E0mean="7000" E90mean="230" E0comp="7000" E90comp="230" Gmean="440" E005="4700" G005="294" Rhok="290" Rhomean="350" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C14>
+
+<C16>
+<timber mass="0.37" E_0="5000000" E_1="168750" E_2="168750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="312500" G_1="312500" G_2="312500" type="0" quality="0" Fmk0="16" Fmk90="16" Ft0k="10" Ft90k="0.5" Fc0k="17" Fc90k="2.2" Fvk="3.2" E0mean="8000" E90mean="270" E0comp="8000" E90comp="270" Gmean="500" E005="5400" G005="338" Rhok="310" Rhomean="370" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C16>
+
+<C18>
+<timber mass="0.38" E_0="5625000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="350000" G_1="350000" G_2="350000" type="0" quality="0" Fmk0="18" Fmk90="18" Ft0k="11" Ft90k="0.5" Fc0k="18" Fc90k="2.2" Fvk="3.4" E0mean="9000" E90mean="300" E0comp="9000" E90comp="300" Gmean="560" E005="6000" G005="375" Rhok="320" Rhomean="380" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C18>
+
+<C20>
+<timber mass="0.39" E_0="5937500" E_1="200000" E_2="200000" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="368750" G_1="368750" G_2="368750" type="0" quality="0" Fmk0="20" Fmk90="20" Ft0k="12" Ft90k="0.5" Fc0k="19" Fc90k="2.3" Fvk="3.6" E0mean="9500" E90mean="320" E0comp="9500" E90comp="320" Gmean="590" E005="6400" G005="400" Rhok="330" Rhomean="390" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C20>
+
+<C22>
+<timber mass="0.41" E_0="6250000" E_1="206250" E_2="206250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="393750" G_1="393750" G_2="393750" type="0" quality="0" Fmk0="22" Fmk90="22" Ft0k="13" Ft90k="0.5" Fc0k="20" Fc90k="2.4" Fvk="3.8" E0mean="10000" E90mean="330" E0comp="10000" E90comp="330" Gmean="630" E005="6700" G005="419" Rhok="340" Rhomean="410" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C22>
+
+<C24>
+<timber mass="0.42" E_0="6875000" E_1="231250" E_2="231250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="431250" G_1="431250" G_2="431250" type="0" quality="0" Fmk0="24" Fmk90="24" Ft0k="14" Ft90k="0.5" Fc0k="21" Fc90k="2.5" Fvk="4" E0mean="11000" E90mean="370" E0comp="11000" E90comp="370" Gmean="690" E005="7400" G005="463" Rhok="350" Rhomean="420" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C24>
+
+<C27>
+<timber mass="0.45" E_0="7187500" E_1="237500" E_2="237500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="450000" G_1="450000" G_2="450000" type="0" quality="0" Fmk0="27" Fmk90="27" Ft0k="16" Ft90k="0.6" Fc0k="22" Fc90k="2.6" Fvk="4" E0mean="11500" E90mean="380" E0comp="11500" E90comp="380" Gmean="720" E005="7700" G005="481" Rhok="370" Rhomean="450" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C27>
+
+<C30>
+<timber mass="0.46" E_0="7500000" E_1="250000" E_2="250000" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="468750" G_1="468750" G_2="468750" type="0" quality="0" Fmk0="30" Fmk90="30" Ft0k="18" Ft90k="0.6" Fc0k="23" Fc90k="2.7" Fvk="4" E0mean="12000" E90mean="400" E0comp="12000" E90comp="400" Gmean="750" E005="8000" G005="500" Rhok="380" Rhomean="460" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C30>
+
+<C35>
+<timber mass="0.48" E_0="8125000" E_1="268750" E_2="268750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="506250" G_1="506250" G_2="506250" type="0" quality="0" Fmk0="35" Fmk90="35" Ft0k="21" Ft90k="0.6" Fc0k="25" Fc90k="2.8" Fvk="4" E0mean="13000" E90mean="430" E0comp="13000" E90comp="430" Gmean="810" E005="8700" G005="544" Rhok="400" Rhomean="480" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C35>
+
+<C40>
+<timber mass="0.5" E_0="8750000" E_1="293750" E_2="293750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="550000" G_1="550000" G_2="550000" type="0" quality="0" Fmk0="40" Fmk90="40" Ft0k="24" Ft90k="0.6" Fc0k="26" Fc90k="2.9" Fvk="4" E0mean="14000" E90mean="470" E0comp="14000" E90comp="470" Gmean="880" E005="9400" G005="588" Rhok="420" Rhomean="500" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C40>
+
+<C45>
+<timber mass="0.52" E_0="9375000" E_1="312500" E_2="312500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="587500" G_1="587500" G_2="587500" type="0" quality="0" Fmk0="45" Fmk90="45" Ft0k="27" Ft90k="0.6" Fc0k="27" Fc90k="3.1" Fvk="4" E0mean="15000" E90mean="500" E0comp="15000" E90comp="500" Gmean="940" E005="10000" G005="625" Rhok="440" Rhomean="520" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C45>
+
+<C50>
+<timber mass="0.55" E_0="10000000" E_1="331250" E_2="331250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="625000" G_1="625000" G_2="625000" type="0" quality="0" Fmk0="50" Fmk90="50" Ft0k="30" Ft90k="0.6" Fc0k="29" Fc90k="3.2" Fvk="4" E0mean="16000" E90mean="530" E0comp="16000" E90comp="530" Gmean="1000" E005="10700" G005="669" Rhok="460" Rhomean="550" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</C50>
+
+<D18>
+<timber mass="0.57" E_0="5937500" E_1="393750" E_2="393750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="368750" G_1="368750" G_2="368750" type="0" quality="0" Fmk0="18" Fmk90="18" Ft0k="11" Ft90k="0.6" Fc0k="18" Fc90k="7.5" Fvk="3.4" E0mean="9500" E90mean="630" E0comp="95000" E90comp="630" Gmean="590" E005="8000" G005="500" Rhok="475" Rhomean="570" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D18>
+
+<D24>
+<timber mass="0.58" E_0="6250000" E_1="418750" E_2="418750" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="387500" G_1="387500" G_2="387500" type="0" quality="0" Fmk0="24" Fmk90="24" Ft0k="14" Ft90k="0.6" Fc0k="21" Fc90k="7.8" Fvk="4" E0mean="10000" E90mean="670" E0comp="10000" E90comp="670" Gmean="620" E005="8500" G005="531" Rhok="485" Rhomean="580" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D24>
+
+<D30>
+<timber mass="0.64" E_0="6875000" E_1="456250" E_2="456250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="431250" G_1="431250" G_2="431250" type="0" quality="0" Fmk0="30" Fmk90="30" Ft0k="18" Ft90k="0.6" Fc0k="23" Fc90k="8" Fvk="4" E0mean="11000" E90mean="730" E0comp="11000" E90comp="730" Gmean="690" E005="9200" G005="575" Rhok="530" Rhomean="640" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D30>
+
+<D35>
+<timber mass="0.65" E_0="7500000" E_1="500000" E_2="500000" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="468750" G_1="468750" G_2="468750" type="0" quality="0" Fmk0="35" Fmk90="35" Ft0k="21" Ft90k="0.6" Fc0k="25" Fc90k="8.1" Fvk="4" E0mean="12000" E90mean="800" E0comp="12000" E90comp="800" Gmean="750" E005="10100" G005="631" Rhok="540" Rhomean="650" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D35>
+
+<D40>
+<timber mass="0.66" E_0="8125000" E_1="537500" E_2="537500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="506250" G_1="506250" G_2="506250" type="0" quality="0" Fmk0="40" Fmk90="40" Ft0k="24" Ft90k="0.6" Fc0k="26" Fc90k="8.3" Fvk="4" E0mean="13000" E90mean="860" E0comp="13000" E90comp="860" Gmean="810" E005="10900" G005="681" Rhok="550" Rhomean="660" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D40>
+
+<D50>
+<timber mass="0.75" E_0="8750000" E_1="581250" E_2="581250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="550000" G_1="550000" G_2="550000" type="0" quality="0" Fmk0="50" Fmk90="50" Ft0k="30" Ft90k="0.6" Fc0k="29" Fc90k="9.3" Fvk="4" E0mean="14000" E90mean="930" E0comp="14000" E90comp="930" Gmean="880" E005="11800" G005="738" Rhok="620" Rhomean="750" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D50>
+
+<D60>
+<timber mass="0.84" E_0="10625000" E_1="706250" E_2="706250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="662500" G_1="662500" G_2="662500" type="0" quality="0" Fmk0="60" Fmk90="60" Ft0k="36" Ft90k="0.6" Fc0k="32" Fc90k="10.5" Fvk="4.5" E0mean="17000" E90mean="1130" E0comp="17000" E90comp="1130" Gmean="1060" E005="14300" G005="894" Rhok="700" Rhomean="840" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D60>
+
+<D70>
+<timber mass="1.08" E_0="12500000" E_1="831250" E_2="831250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="781250" G_1="781250" G_2="781250" type="0" quality="0" Fmk0="70" Fmk90="70" Ft0k="42" Ft90k="0.6" Fc0k="34" Fc90k="13.5" Fvk="5" E0mean="20000" E90mean="1330" E0comp="20000" E90comp="1330" Gmean="1250" E005="16800" G005="1050" Rhok="900" Rhomean="1080" gammaM_0="1.3" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</D70>
+
+<L40s>
+<timber mass="0.518" E_0="8250000" E_1="256250" E_2="256250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="475000" G_1="475000" G_2="475000" type="1" quality="0" Fmk0="30" Fmk90="30" Ft0k="22.5" Ft90k="0.4" Fc0k="29" Fc90k="3.5" Fvk="3.5" E0mean="13200" E90mean="410" E0comp="13200" E90comp="410" Gmean="760" E005="11100" G005="678" Rhok="430" Rhomean="518" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</L40s>
+
+<L40c>
+<timber mass="0.48" E_0="8125000" E_1="256250" E_2="256250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="475000" G_1="475000" G_2="475000" type="1" quality="0" Fmk0="30.8" Fmk90="30.8" Ft0k="17.6" Ft90k="0.4" Fc0k="25.4" Fc90k="3.5" Fvk="3.5" E0mean="13000" E90mean="410" E0comp="13000" E90comp="410" Gmean="760" E005="10500" G005="678" Rhok="400" Rhomean="480" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</L40c>
+
+<GL20h>
+<timber mass="0.37" E_0="5250000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="20" Fmk90="20" Ft0k="16" Ft90k="0.5" Fc0k="20" Fc90k="2.5" Fvk="3.5" E0mean="8400" E90mean="300" E0comp="11600" E90comp="390" Gmean="650" E005="7000" G005="540" Rhok="340" Rhomean="370" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL20h>
+
+<GL22h>
+<timber mass="0.41" E_0="6562500" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="22" Fmk90="22" Ft0k="17.6" Ft90k="0.5" Fc0k="22" Fc90k="2.5" Fvk="3.5" E0mean="10500" E90mean="300" E0comp="11600" E90comp="390" Gmean="650" E005="8800" G005="540" Rhok="370" Rhomean="410" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL22h>
+
+<GL24h>
+<timber mass="0.42" E_0="7187500" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="24" Fmk90="24" Ft0k="19.2" Ft90k="0.5" Fc0k="24" Fc90k="2.5" Fvk="3.5" E0mean="11500" E90mean="300" E0comp="11600" E90comp="390" Gmean="650" E005="9600" G005="540" Rhok="385" Rhomean="420" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL24h>
+
+<GL26h>
+<timber mass="0.445" E_0="7562500" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="26" Fmk90="26" Ft0k="20.8" Ft90k="0.5" Fc0k="26" Fc90k="2.5" Fvk="3.5" E0mean="12100" E90mean="300" E0comp="13700" E90comp="460" Gmean="650" E005="10100" G005="540" Rhok="405" Rhomean="445" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL26h>
+
+<GL28h>
+<timber mass="0.46" E_0="7875000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="28" Fmk90="28" Ft0k="22.3" Ft90k="0.5" Fc0k="28" Fc90k="2.5" Fvk="3.5" E0mean="12600" E90mean="300" E0comp="12600" E90comp="420" Gmean="650" E005="10500" G005="540" Rhok="425" Rhomean="460" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL28h>
+
+<GL30h>
+<timber mass="0.48" E_0="8500000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="30" Fmk90="30" Ft0k="24" Ft90k="0.5" Fc0k="30" Fc90k="2.5" Fvk="3.5" E0mean="13600" E90mean="300" E0comp="13700" E90comp="460" Gmean="650" E005="11300" G005="540" Rhok="430" Rhomean="480" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL30h>
+
+<GL32h>
+<timber mass="0.49" E_0="8875000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="32" Fmk90="32" Ft0k="25.6" Ft90k="0.5" Fc0k="32" Fc90k="2.5" Fvk="3.5" E0mean="14200" E90mean="300" E0comp="13700" E90comp="460" Gmean="650" E005="11800" G005="540" Rhok="440" Rhomean="490" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL32h>
+
+<GL36h>
+<timber mass="0.542" E_0="9187500" E_1="306250" E_2="306250" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="568750" G_1="568750" G_2="568750" type="1" quality="0" Fmk0="36" Fmk90="36" Ft0k="26" Ft90k="0.6" Fc0k="31" Fc90k="3.6" Fvk="4.3" E0mean="14700" E90mean="490" E0comp="14700" E90comp="490" Gmean="910" E005="11900" G005="743.75" Rhok="450" Rhomean="542" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL36h>
+
+<GL20c>
+<timber mass="0.39" E_0="6500000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="20" Fmk90="20" Ft0k="15" Ft90k="0.5" Fc0k="18.5" Fc90k="2.5" Fvk="3.5" E0mean="10400" E90mean="300" E0comp="11600" E90comp="320" Gmean="650" E005="8600" G005="540" Rhok="355" Rhomean="390" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL20c>
+
+<GL22c>
+<timber mass="0.39" E_0="6500000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="22" Fmk90="22" Ft0k="16" Ft90k="0.5" Fc0k="20" Fc90k="2.5" Fvk="3.5" E0mean="10400" E90mean="300" E0comp="11600" E90comp="320" Gmean="650" E005="8600" G005="540" Rhok="355" Rhomean="390" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL22c>
+
+<GL24c>
+<timber mass="0.4" E_0="6875000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="24" Fmk90="24" Ft0k="17" Ft90k="0.5" Fc0k="21.5" Fc90k="2.5" Fvk="3.5" E0mean="11000" E90mean="300" E0comp="11600" E90comp="320" Gmean="650" E005="9100" G005="540" Rhok="365" Rhomean="400" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL24c>
+
+<GL26c>
+<timber mass="0.42" E_0="7500000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="26" Fmk90="26" Ft0k="19" Ft90k="0.5" Fc0k="23.5" Fc90k="2.5" Fvk="3.5" E0mean="12000" E90mean="300" E0comp="11600" E90comp="320" Gmean="650" E005="10000" G005="540" Rhok="385" Rhomean="420" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL26c>
+
+<GL28c>
+<timber mass="0.42" E_0="7812500" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="28" Fmk90="28" Ft0k="19.5" Ft90k="0.5" Fc0k="24" Fc90k="2.5" Fvk="3.5" E0mean="12500" E90mean="300" E0comp="12600" E90comp="390" Gmean="650" E005="10400" G005="540" Rhok="390" Rhomean="420" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL28c>
+
+<GL30c>
+<timber mass="0.43" E_0="8125000" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="30" Fmk90="30" Ft0k="19.5" Ft90k="0.5" Fc0k="24.5" Fc90k="2.5" Fvk="3.5" E0mean="13000" E90mean="300" E0comp="13700" E90comp="420" Gmean="650" E005="10800" G005="540" Rhok="390" Rhomean="430" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL30c>
+
+<GL32c>
+<timber mass="0.44" E_0="8437500" E_1="187500" E_2="187500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="406250" G_1="406250" G_2="406250" type="1" quality="0" Fmk0="32" Fmk90="32" Ft0k="19.5" Ft90k="0.5" Fc0k="24.5" Fc90k="2.5" Fvk="3.5" E0mean="13500" E90mean="300" E0comp="13700" E90comp="420" Gmean="650" E005="11200" G005="540" Rhok="400" Rhomean="440" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL32c>
+
+<GL36c>
+<timber mass="0.518" E_0="9187500" E_1="287500" E_2="287500" nu_0="0" nu_1="0" nu_2="0" alfa_0="0" alfa_1="0" alfa_2="0" G_0="531250" G_1="531250" G_2="531250" type="1" quality="0" Fmk0="36" Fmk90="36" Ft0k="22.5" Ft90k="0.5" Fc0k="29" Fc90k="3.3" Fvk="3.8" E0mean="14700" E90mean="460" E0comp="14700" E90comp="460" Gmean="850" E005="11900" G005="743.75" Rhok="430" Rhomean="518" gammaM_0="1.25" gammaM_1="1" ksys="1" k_cr="0.67" service_class="0"></timber>
+</GL36c>
+
+
+
+</materialdatabase>
