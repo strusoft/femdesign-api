@@ -39,11 +39,11 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.tree);
-            pManager.AddTextParameter("ElementId", "ElementId", "Element Id", GH_ParamAccess.tree);
-            pManager.AddNumberParameter("PositionResult", "PositionResult", "Position Result", GH_ParamAccess.tree);
-            pManager.AddVectorParameter("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]", GH_ParamAccess.tree);
-            pManager.AddVectorParameter("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]", GH_ParamAccess.tree);
+            pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
+            pManager.Register_StringParam("ElementId", "ElementId", "Element Id");
+            pManager.Register_DoubleParam("PositionResult", "PositionResult", "Position Result");
+            pManager.Register_VectorParam("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]");
+            pManager.Register_VectorParam("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]");
         }
 
         /// <summary>
@@ -72,6 +72,7 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            // Extract Results from the Dictionary
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<string>)result["ElementId"];
             var positionResult = (List<double>)result["PositionResult"];
@@ -92,11 +93,12 @@ namespace FemDesign.Grasshopper
             DataTree<object> oRotationTree = new DataTree<object>();
 
 
+            var ghPath = DA.Iteration;
             var i = 0;
-            var j = 0;
+
             foreach (var id in uniqueId)
             {
-                // find where the index in List where the Id is found
+                // indexes where the uniqueId matches in the list
                 var indexes = elementId.Select((value, index) => new { value, index })
                   .Where(a => string.Equals(a.value, id))
                   .Select(a => a.index);
@@ -104,10 +106,10 @@ namespace FemDesign.Grasshopper
                 foreach (int index in indexes)
                 {
                     //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
-                    elementIdTree.Add(elementId.ElementAt(index), new GH_Path(i));
-                    positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(i));
-                    oTranslationTree.Add(oTranslation.ElementAt(index), new GH_Path(i));
-                    oRotationTree.Add(oRotation.ElementAt(index), new GH_Path(i));
+                    elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
+                    positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(ghPath, i));
+                    oTranslationTree.Add(oTranslation.ElementAt(index), new GH_Path(ghPath, i));
+                    oRotationTree.Add(oRotation.ElementAt(index), new GH_Path(ghPath, i));
                 }
                 i++;
             }
