@@ -14,7 +14,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesign.Tests\FemDesign.Tests.csproj", "{CCADA385-E5FB-4F08-BC50-1826BBEF9794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Samples", "FemDesign.Samples\C#\FemDesign.Samples.csproj", "{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FemDesign.Examples", "FemDesign.Examples", "{C68FA42C-7B20-4FE3-AED6-8B6619EE5410}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Mesh size convergence study", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\Practical example - Mesh size convergence study.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 1 - Creating a simple beam", "FemDesign.Examples\C#\Example 1 - Creating a simple beam\Example 1 - Creating a simple beam.csproj", "{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 2 - Analysing a model", "FemDesign.Examples\C#\Example 2 - Analysing a model\Example 2 - Analysing a model.csproj", "{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 4 - Edit existing model", "FemDesign.Examples\C#\Example 4 - Edit existing model\Example 4 - Edit existing model.csproj", "{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Change length of beam", "FemDesign.Examples\C#\Practical example - Change length of beam\Practical example - Change length of beam.csproj", "{79832ABA-4CAB-4106-8321-5B6EE2A32558}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Load groups", "FemDesign.Examples\C#\Practical example - Load groups\Practical example - Load groups.csproj", "{3C028AB2-5847-4300-B8A1-C1212A5F767E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Load groups combining", "FemDesign.Examples\C#\Practical example - Load groups combining\Practical example - Load groups combining.csproj", "{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Create post-tensioned cables", "FemDesign.Examples\C#\Practical example - Create post-tensioned cables\Practical example - Create post-tensioned cables.csproj", "{64CBB551-DE49-4C17-9141-59F22FEFDC0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Parametric study - Reactions", "FemDesign.Examples\C#\Practical example - Parametric study - Reactions\Practical example - Parametric study - Reactions.csproj", "{69F49774-655C-4D04-A0CF-9DBC53609749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Parametric study - Sensitivity analysis", "FemDesign.Examples\C#\Practical example - Parametric study - Sensitivity analysis\Practical example - Parametric study - Sensitivity analysis.csproj", "{7EA66312-63D3-4125-8A65-7FA414152F33}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FemDesign.UtilsDevelopment", "FemDesign.Utils\FemDesign.UtilsDevelopment.csproj", "{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}"
 EndProject
@@ -40,17 +60,65 @@ Global
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.Build.0 = Release|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{127A57E7-22E5-4EC5-933B-EFFA9FA0715E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB78433D-BF2A-4133-B1ED-D08EA546F4AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79832ABA-4CAB-4106-8321-5B6EE2A32558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79832ABA-4CAB-4106-8321-5B6EE2A32558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79832ABA-4CAB-4106-8321-5B6EE2A32558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79832ABA-4CAB-4106-8321-5B6EE2A32558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C028AB2-5847-4300-B8A1-C1212A5F767E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C028AB2-5847-4300-B8A1-C1212A5F767E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C028AB2-5847-4300-B8A1-C1212A5F767E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C028AB2-5847-4300-B8A1-C1212A5F767E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F49774-655C-4D04-A0CF-9DBC53609749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA66312-63D3-4125-8A65-7FA414152F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E5D535D-C21B-454B-A62E-1DF4D968E677} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{FB78433D-BF2A-4133-B1ED-D08EA546F4AC} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{5A25D4AF-71F2-4597-9C18-5E496F2E1BC4} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{79832ABA-4CAB-4106-8321-5B6EE2A32558} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{3C028AB2-5847-4300-B8A1-C1212A5F767E} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{6A2CB706-D4BE-4AE8-A165-EC9F9F0D336E} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{64CBB551-DE49-4C17-9141-59F22FEFDC0D} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{69F49774-655C-4D04-A0CF-9DBC53609749} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{7EA66312-63D3-4125-8A65-7FA414152F33} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}
