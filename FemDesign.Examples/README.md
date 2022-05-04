@@ -8,12 +8,12 @@ The _Practical examples_ are all meant to showcase different functions, projects
 ## Running the example files
 
 ### 👩‍💻 C#
-To properly run the C# examples, we recommend that you clone the entirety of the FEM-Design API repository with Git. You can find instructions for this [here](https://github.com/git-guides/git-clone). You can also download the entire repository as a .zip file and unpack it on your computer.
+To properly run the C# examples, we recommend that you clone the entirety of the FEM-Design API repository with Git. You can find instructions for this [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). You can also download the entire repository as a .zip file and unpack it on your computer.
 
 There are two ways to run the C# examples: either find a specific example in the femdesign-api/FemDesign.Examples/C# folder, then open the project file (`.csproj`) found there and run the program. Or, open the main solution (`femdesign-api.sln`) found in the femdesign-api folder, and select which of the example projects you want to run. 
 
 ### 🦗 Grasshopper
-The Grasshopper examples can be run without cloning the repository - all you need is to install the package, instructions for this can be found on the main page. Once installed, you can download any of the files in the femdesign-api/FemDesign.Examples/Grasshopper folder and open them in Grasshopper.
+The Grasshopper examples can be run without cloning the repository - all you need is to install the package, instructions for this can be found on the [main page](https://github.com/strusoft/femdesign-api#-grasshopper). Once installed, you can download any of the files in the femdesign-api/FemDesign.Examples/Grasshopper folder and open them in Grasshopper.
 
 The examples are ready to run out-of-the-box, but you might have to set a file path or file name. You'll know either from instructions in the file, or because some components are orange or red.
 
