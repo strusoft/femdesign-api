@@ -83,10 +83,10 @@ namespace FemDesign.Grasshopper
             var oTranslation = iTranslation.Select(x => x.ToRhino());
             var oRotation = iRotation.Select(x => x.ToRhino());
 
-
-            // Convert Data in DataTree structure
             var uniqueId = elementId.Distinct().ToList();
 
+
+            // Convert Data in DataTree structure
             DataTree<object> elementIdTree = new DataTree<object>();
             DataTree<object> positionResultTree = new DataTree<object>();
             DataTree<object> oTranslationTree = new DataTree<object>();

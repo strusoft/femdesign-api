@@ -12,7 +12,7 @@ namespace FemDesign.Results
     /// FemDesign "Bars, Displacements" result
     /// </summary>
 
-    public class BarDisplacement : IResult
+    public partial class BarDisplacement : IResult
     {
         /// <summary>
         /// Bar name identifier

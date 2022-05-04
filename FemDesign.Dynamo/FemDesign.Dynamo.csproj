@@ -174,6 +174,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\LoadCombination.cs">
       <Link>Core\Calculate\LoadCombination.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Options.cs">
+      <Link>Core\Calculate\Options.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
@@ -888,6 +891,7 @@
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
+    <Compile Include="Dynamo\Results\BarDisplacement.cs" />
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />

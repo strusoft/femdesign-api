@@ -84,18 +84,12 @@ namespace FemDesign.Grasshopper
             var oRotation = iRotation.Select(x => x.ToRhino());
 
 
-            // Collect Output
-            var CaseIdentifier = loadCases;
-            var NodeId = nodeId;
-            var Translation = oTranslation;
-            var Rotation = oRotation;
-
 
             // Set output
-            DA.SetDataList("CaseIdentifier", CaseIdentifier);
-            DA.SetDataList("NodeId", NodeId);
-            DA.SetDataList("Translation", Translation);
-            DA.SetDataList("Rotation", Rotation);
+            DA.SetDataList("CaseIdentifier", loadCases);
+            DA.SetDataList("NodeId", nodeId);
+            DA.SetDataList("Translation", oTranslation);
+            DA.SetDataList("Rotation", oRotation);
         }
 
         /// <summary>

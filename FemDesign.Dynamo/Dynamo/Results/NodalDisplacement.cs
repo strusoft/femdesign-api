@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-#region dynamo
+
 using Autodesk.DesignScript.Runtime;
-#endregion
+
 
 namespace FemDesign.Results
 {
@@ -44,17 +44,12 @@ namespace FemDesign.Results
             var oRotation = iRotation.Select(x => x.ToDynamo());
 
 
-            var CaseIdentifier = loadCases;
-            var NodeId = nodeId;
-            var Translation = oTranslation;
-            var Rotation = oRotation;
-
             return new Dictionary<string, object>
             {
-                {"CaseIdentifier", CaseIdentifier},
-                {"NodeId", NodeId},
-                {"Translation", Translation},
-                {"Rotation", Rotation}
+                {"CaseIdentifier", loadCases},
+                {"NodeId", nodeId},
+                {"Translation", oTranslation},
+                {"Rotation", oRotation}
             };
         }
     }
