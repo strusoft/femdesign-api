@@ -100,6 +100,7 @@
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
