@@ -41,11 +41,10 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_IntegerParam("Identifier", "Identifier", "Node Identifier.");
             pManager.Register_IntegerParam("NodeId", "NodeId", "Node Index");
-            pManager.AddPointParameter("SupportPosition", "SupportPosition", "Position Point for the returned reaction forces", GH_ParamAccess.list);
-            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]", GH_ParamAccess.list);
-            pManager.AddVectorParameter("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant [kN]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant [kNm]", GH_ParamAccess.list);
+            pManager.Register_VectorParam("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]");
+            pManager.Register_VectorParam("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]");
+            pManager.Register_DoubleParam("ForceResultant", "ForceResultant", "Force Resultant [kN]");
+            pManager.Register_DoubleParam("MomentResultant", "MomentResultant", "Moment Resultant [kNm]");
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.PointSupportReaction> iResult = new List<FemDesign.Results.PointSupportReaction>();
+            List<FemDesign.Results.LineSupportReaction> iResult = new List<FemDesign.Results.LineSupportReaction>();
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
@@ -67,7 +66,7 @@ namespace FemDesign.Grasshopper
 
             try
             {
-                result = FemDesign.Results.PointSupportReaction.DeconstructPointSupportReaction(iResult, iLoadCase);
+                result = FemDesign.Results.LineSupportReaction.DeconstructLineSupportReaction(iResult, iLoadCase);
             }
             catch (ArgumentException ex)
             {
@@ -119,7 +118,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("FABF23CD-30DB-4F95-9EBD-9D42FFD57B37"); }
+            get { return new Guid("BFFA23CD-30DB-4F95-9EBD-9D42FFD57B37"); }
         }
     }
 }

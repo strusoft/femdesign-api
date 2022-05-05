@@ -117,5 +117,64 @@ namespace FemDesign.Results
             string lc = HeaderData["casename"];
             return new LineSupportReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
         }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructLineSupportReaction(List<FemDesign.Results.LineSupportReaction> Result, string LoadCase)
+        {
+            var lineSupportReactions = Result.Cast<FemDesign.Results.LineSupportReaction>();
+
+            // Return the unique load case - load combination
+            var uniqueLoadCases = lineSupportReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
+
+            // Select the Nodal Reactions for the selected Load Case - Load Combination
+            if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
+            {
+                lineSupportReactions = lineSupportReactions.Where(n => String.Equals(n.CaseIdentifier, LoadCase, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Load Case '{LoadCase}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var identifier = lineSupportReactions.Select(n => n.Id).ToList();
+            var nodeId = lineSupportReactions.Select(n => n.NodeId).ToList();
+            var loadCases = lineSupportReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
+            var forceResultant = lineSupportReactions.Select(n => n.Fr).ToList();
+            var momentResultant = lineSupportReactions.Select(n => n.Mr).ToList();
+
+            // Create a Fd Vector/Point for Visualising the Reaction Forces
+            var reactionForceVector = new List<FemDesign.Geometry.FdVector3d>();
+            var reactionMomentVector = new List<FemDesign.Geometry.FdVector3d>();
+
+
+            foreach (var reaction in lineSupportReactions)
+            {
+                var forceVector = new FemDesign.Geometry.FdVector3d(reaction.Fx, reaction.Fy, reaction.Fz);
+                var momentVector = new FemDesign.Geometry.FdVector3d(reaction.Mx, reaction.My, reaction.Mz);
+
+                reactionForceVector.Add(forceVector);
+                reactionMomentVector.Add(momentVector);
+            }
+
+
+            return new Dictionary<string, dynamic>
+            {
+                {"CaseIdentifier", loadCases},
+                {"Identifier", identifier},
+                {"NodeId", nodeId},
+                {"ReactionForce", reactionForceVector},
+                {"ReactionMoment", reactionMomentVector},
+                {"ForceResultant", forceResultant},
+                {"MomentResultant", momentResultant}
+            };
+        }
     }
 }
