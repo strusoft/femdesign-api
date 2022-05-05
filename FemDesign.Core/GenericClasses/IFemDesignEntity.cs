@@ -11,5 +11,9 @@ namespace FemDesign.GenericClasses
     /// </summary>
     public interface IFemDesignEntity
     {
+        /// <summary>
+        /// Invoke when an instance is created.
+        /// </summary>
+        void EntityCreated();
     }
 }

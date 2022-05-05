@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceReinforcementBySurface: GH_Component
     {
-        public SurfaceReinforcementBySurface(): base("SurfaceReinforcement.BySurface", "BySurface", "Create straight surface reinforcement for a portion of a slab. This surface reinforcement will cover the passed surface of any slab it is applied to. Note that the surface must be contained within the target slab.", "FemDesign", "Reinforcement")
+        public SurfaceReinforcementBySurface(): base("SurfaceReinforcement.BySurface", "BySurface", "Create straight surface reinforcement for a portion of a slab. This surface reinforcement will cover the passed surface of any slab it is applied to. Note that the surface must be contained within the target slab.", "FEM-Design", "Reinforcement")
         {
 
         }

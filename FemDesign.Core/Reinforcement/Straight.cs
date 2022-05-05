@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Globalization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Reinforcement
 {
@@ -13,13 +14,7 @@ namespace FemDesign.Reinforcement
     public partial class Straight
     {
         [XmlAttribute("direction")]
-        public string _direction; // direction_type. Required
-        [XmlIgnore]
-        public string Direction
-        {
-            get {return this._direction;}
-            set {this._direction = RestrictedString.DirectionType(value);}
-        }
+        public ReinforcementDirection Direction { get; set; }
         [XmlAttribute("space")]
         public double _space; // positive_double. Spacing in meters. Required
         [XmlIgnore]
@@ -29,12 +24,32 @@ namespace FemDesign.Reinforcement
             set {this._space = RestrictedDouble.Positive(value);}
         }
         [XmlAttribute("face")]
-        public string _face; // sf_rc_face. Optional
+        public string _face;
         [XmlIgnore]
-        public string Face
+        public GenericClasses.Face Face
         {
-            get {return this._face;}
-            set {this._face = RestrictedString.SfRcFace(value);}
+            set
+            {
+                if (value == GenericClasses.Face.Mid)
+                {
+                    this._face = null;
+                }
+                else
+                {
+                    this._face = value.ToString().ToLower();
+                }
+            }
+            get
+            {
+                if (this._face == null)
+                {
+                    return GenericClasses.Face.Mid;
+                }
+                else
+                {
+                    return GenericClasses.EnumParser.Parse<GenericClasses.Face>(this._face);
+                }
+            }
         }
         [XmlAttribute("cover")]
         public double _cover; // positive_double. Default = 0.02
@@ -43,6 +58,38 @@ namespace FemDesign.Reinforcement
         {
             get {return this._cover;}
             set {this._cover = RestrictedDouble.Positive(value);}
+        }
+
+        [XmlIgnore]
+        public bool MultiLayer
+        {
+            get
+            {
+                if (this.Face == GenericClasses.Face.Mid)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public bool SingleLayer
+        {
+            get
+            {
+                if (this.Face == GenericClasses.Face.Mid)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         /// <summary>
@@ -56,11 +103,27 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Private constructor accessed by static methods.
         /// </summary>
-        public Straight(string direction, double space, string face, double cover)
+        public Straight(ReinforcementDirection direction, double space, GenericClasses.Face face, double cover)
         {
             this.Direction = direction;
             this.Space = space;
             this.Face = face;
+            this.Cover = cover;
+        }
+
+        /// <summary>
+        /// Define straight reinforcement layout for surface reinforcement.
+        /// </summary>
+        /// <remarks>Create</remarks>
+        /// <param name="direction">"x"/"y"</param>
+        /// <param name="space">Spacing between bars.</param>
+        /// <param name="face">"top"/"bottom"</param>
+        /// <param name="cover">Reinforcement concrete cover.</param>
+        public Straight(string direction, double space, string face, double cover)
+        {
+            this.Direction = EnumParser.Parse<ReinforcementDirection>(direction);
+            this.Space = space;
+            this.Face = EnumParser.Parse<Face>(face);
             this.Cover = cover;
         }
     }

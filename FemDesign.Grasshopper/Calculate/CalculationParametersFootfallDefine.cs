@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersFootfallDefine: GH_Component
     {
-        public CalculationParametersFootfallDefine(): base("Footfall.Define", "Define", "Define calculation parameters for an footfall calculation.", "FemDesign", "Calculate")
+        public CalculationParametersFootfallDefine(): base("Footfall.Define", "Define", "Define calculation parameters for an footfall calculation.", "FEM-Design", "Calculate")
         {
 
         }
@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.CalculateFootfall;
             }
         }
         public override Guid ComponentGuid

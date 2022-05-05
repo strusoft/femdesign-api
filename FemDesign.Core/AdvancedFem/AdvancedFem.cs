@@ -27,14 +27,18 @@ namespace FemDesign
         public List<ModellingTools.FictitiousShell> FictitiousShells = new List<ModellingTools.FictitiousShell>();
 
         [XmlElement("diaphragm", Order = 6)]
-        public ModellingTools.Diaphragm[] Diaphragms { get; set; }
+        public List<ModellingTools.Diaphragm> Diaphragms { get; set; } = new List<ModellingTools.Diaphragm>();
 
-        // steel_joint
+
+        [XmlElement("steel_joint", Order = 7)]
+        public List<StruSoft.Interop.StruXml.Data.Steel_joint_type> SteelJointType { get; set; }
+
 
         /// <summary>
         /// List of Cover (cover_type)
         /// </summary>
-        [XmlElement("cover", Order = 7)]
+        [XmlElement("cover", Order = 8)]
         public List<Cover> Covers = new List<Cover>();
+
     }
 }

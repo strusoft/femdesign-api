@@ -31,7 +31,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
 
             // create bar
-            Bar bar = Bar.BeamDefine(edge, material, section, connectivity, eccentricity, identifier);
+            var type = BarType.Beam;
+            Bar bar = new Bar(edge, type, material, section, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -70,7 +71,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.ColumnDefine(edge, material, section, connectivity, eccentricity, identifier);
+            var type = BarType.Column;
+            Bar bar = new Bar(edge, type, material, section, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -107,7 +109,8 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.TrussDefine(edge, material, section, identifier);
+            var type = BarType.Truss;
+            Bar bar = new Bar(edge, type, material, section, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
@@ -149,8 +152,13 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            Bar bar = Bar.TrussDefine(edge, material, section, identifier, maxCompression,  maxTension, compressionPlasticity, tensionPlasticity);
-
+            var type = BarType.Truss;
+            Bar bar = new Bar(edge, type, material, section, identifier);
+            bar.MaxCompression = maxCompression;
+            bar.MaxTension = maxTension;
+            bar.CompressionPlasticity = compressionPlasticity;
+            bar.TensionPlasticity = tensionPlasticity;
+            
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
@@ -185,61 +193,68 @@ namespace FemDesign.Bars
         [IsVisibleInDynamoLibrary(true)]
         public static Bar Modify(Bar bar, [DefaultArgument("false")] bool newGuid, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Curve curve, [DefaultArgument("null")] Materials.Material material, [DefaultArgument("null")] Sections.Section[] section, [DefaultArgument("null")] Connectivity[] connectivity, [DefaultArgument("null")] Eccentricity[] eccentricity, [DefaultArgument("null")] Autodesk.DesignScript.Geometry.Vector localY, [DefaultArgument("false")] bool orientLCS, [DefaultArgument("null")] string identifier)
         {
-            // deep clone input bar
-            bar = bar.DeepClone();
 
-            if (newGuid)
+            if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
             {
-                bar.EntityCreated();
-                bar.BarPart.EntityCreated();
+                throw new System.Exception("Composite Section in the model.The object has not been implemented yet. Please, get in touch if needed.");
             }
-
-            if (curve != null)
+            else
             {
-                // convert geometry
-                Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
+                bar = bar.DeepClone();
 
-                // update edge
-                bar.BarPart.Edge = edge;
+                if (newGuid)
+                {
+                    bar.EntityCreated();
+                    bar.BarPart.EntityCreated();
+                }
+
+                if (curve != null)
+                {
+                    // convert geometry
+                    Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
+
+                    // update edge
+                    bar.BarPart.Edge = edge;
+                }
+
+                if (material != null)
+                {
+                    bar.BarPart.ComplexMaterialObj = material;
+                }
+
+                if (section != null)
+                {
+                    bar.BarPart.ComplexSectionObj.Sections = section;
+                }
+
+                if (connectivity != null)
+                {
+                    bar.BarPart.Connectivity = connectivity;
+                }
+
+                if (eccentricity != null)
+                {
+                    bar.BarPart.ComplexSectionObj.Eccentricities = eccentricity;
+                }
+
+                if (localY != null)
+                {
+                    bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
+                }
+
+                if (orientLCS)
+                {
+                    bar.BarPart.OrientCoordinateSystemToGCS();
+                }
+
+                if (identifier != null)
+                {
+                    bar.Identifier = identifier;
+                    bar.BarPart.Identifier = bar.Identifier;
+                }
+
+                return bar;
             }
-
-            if (material != null)
-            {
-                bar.BarPart.Material = material;
-            }
-
-            if (section != null)
-            {
-                bar.BarPart.Sections = section;
-            }
-
-            if (connectivity != null)
-            {
-                bar.BarPart.Connectivities = connectivity;
-            }
-
-            if (eccentricity != null)
-            {
-                bar.BarPart.Eccentricities = eccentricity;
-            }
-
-            if (localY != null)
-            {
-                bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
-            }
-
-            if (orientLCS)
-            {
-                bar.BarPart.OrientCoordinateSystemToGCS();
-            }
-
-            if (identifier != null)
-            {
-                bar.Identifier = identifier;
-                bar.BarPart.Identifier = bar.Identifier;
-            }
-
-            return bar;
         }
 
         /// <summary>

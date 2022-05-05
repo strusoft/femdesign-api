@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEdgeConnectionDefine: GH_Component
     {
-        public ShellEdgeConnectionDefine(): base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", "FemDesign", "Shells")
+        public ShellEdgeConnectionDefine(): base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", "FEM-Design", "Shells")
         {
 
         }

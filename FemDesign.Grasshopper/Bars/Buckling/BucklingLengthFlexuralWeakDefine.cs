@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBucklingLengthFlexuralWeakDefine: GH_Component
     {
-        public BarsBucklingLengthFlexuralWeakDefine(): base("BucklingLength.FlexuralWeakDefine", "FlexuralWeakDefine", "Define BucklingLength in Flexural Weak direction.", "FemDesign", "Bars.Buckling")
+        public BarsBucklingLengthFlexuralWeakDefine(): base("BucklingLength.FlexuralWeakDefine", "FlexuralWeakDefine", "Define BucklingLength in Flexural Weak direction.", "FEM-Design", "Bars.Buckling")
         {
 
         }

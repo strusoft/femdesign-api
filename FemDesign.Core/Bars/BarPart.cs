@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Underlying representation of a Bar-element.
     /// </summary>
     [System.Serializable]
-    public partial class BarPart: EntityBase
+    public partial class BarPart : EntityBase
     {
         /// <summary>
         /// Edge field
@@ -33,7 +33,7 @@ namespace FemDesign.Bars
                 {
                     this._edge.Normal = this.LocalY;
                 }
-                
+
                 return this._edge;
             }
             set
@@ -48,7 +48,7 @@ namespace FemDesign.Bars
                     else
                     {
                         throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc.");
-                    }   
+                    }
                 }
                 else if (this.Type == BarType.Column)
                 {
@@ -84,7 +84,7 @@ namespace FemDesign.Bars
                 this.CoordinateSystem = value.CoordinateSystem;
             }
         }
-        
+
         [XmlIgnore]
         private Geometry.FdCoordinateSystem _coordinateSystem;
 
@@ -134,8 +134,8 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public Geometry.FdVector3d LocalY
         {
-            get 
-            { 
+            get
+            {
                 return this._localY;
             }
             set
@@ -154,369 +154,354 @@ namespace FemDesign.Bars
             }
         }
 
-        /// <summary>
-        /// Private field for bar with start and end eccentricity
-        /// </summary>
-        [XmlIgnore]
-        public Eccentricity[] _eccentricities = new Eccentricity[2];
+        // /// <summary>
+        // /// Private field for bar with start and end eccentricity
+        // /// </summary>
+        // [XmlIgnore]
+        // public Eccentricity[] _eccentricities = new Eccentricity[2];
 
-        [XmlIgnore]
-        public Eccentricity[] Eccentricities
-        {
-            get
-            {
-                // truss has no eccentricity
-                if (this.Type == BarType.Truss)
-                {
-                    return null;
-                }
+        // [XmlIgnore]
+        // public Eccentricity[] Eccentricities
+        // {
+        //     get
+        //     {
+        //         // truss has no eccentricity
+        //         if (this.Type == BarType.Truss)
+        //         {
+        //             return null;
+        //         }
 
-                // get eccentricities from complex section
-                else if (AnyEccentricityIsNull)
-                {
-                    this._eccentricities = this.ComplexSection.Section.Select(x => x.Eccentricity).ToArray();
-                }
+        //         // get eccentricities from complex section
+        //         else if (this.AnyEccentricityIsNull)
+        //         {
+        //             if(this.HasComplexCompositeRef)
+        //             {
+        //                 this._eccentricities = this._modelEccentricity.Analytical;
+        //             }
+        //             else
+        //             {
+        //                 this._eccentricities = this.ComplexSection.Parts.Select(x => x.Eccentricity).ToArray();
+        //             }
+        //         }
 
-                // return
-                return this._eccentricities;
-            }
-            set
-            {
-                // truss has no eccentricity
-                if (this.Type == BarType.Truss)
-                {
-                    // pass
-                }
+        //         // return
+        //         return this._eccentricities;
+        //     }
+        //     set
+        //     {
+        //         // truss has no eccentricity
+        //         if (this.Type == BarType.Truss)
+        //         {
+        //             // pass
+        //         }
 
-                else if (value.Length == 1)
-                {
-                    this._eccentricities[0] = value[0];
-                    this._eccentricities[1] = value[0];
-                }
+        //         else if (value.Length == 1)
+        //         {
+        //             this._eccentricities[0] = value[0];
+        //             this._eccentricities[1] = value[0];
+        //         }
 
-                else if (value.Length == 2)
-                {
-                    this._eccentricities[0] = value[0];
-                    this._eccentricities[1] = value[1];
-                }
+        //         else if (value.Length == 2)
+        //         {
+        //             this._eccentricities[0] = value[0];
+        //             this._eccentricities[1] = value[1];
+        //         }
 
-                else
-                {
-                    throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
-                }
-            }
-        }
+        //         else
+        //         {
+        //             throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
+        //         }
+        //     }
+        // }
 
-        /// <summary>
-        /// Check if one or both eccentricities are null
-        /// </summary>
-        public bool AnyEccentricityIsNull
-        {
-            get
-            {
-                return (this._eccentricities[0] == null || this._eccentricities[1] == null);
-            }
-        }
+        // /// <summary>
+        // /// Check if one or both eccentricities are null
+        // /// </summary>
+        // public bool AnyEccentricityIsNull
+        // {
+        //     get
+        //     {
+        //         return (this._eccentricities[0] == null || this._eccentricities[1] == null);
+        //     }
+        // }
 
-        /// <summary>
-        /// Get/set start eccentricity of bar
-        /// </summary>
-        [XmlIgnore]
-        public Eccentricity StartEccentricity
-        {
-            get
-            {
-                return this._eccentricities[0];
-            }
-            set
-            {
-                this._eccentricities[0] = value;
-            }
-        }
+        // /// <summary>
+        // /// Get/set start eccentricity of bar
+        // /// </summary>
+        // [XmlIgnore]
+        // public Eccentricity StartEccentricity
+        // {
+        //     get
+        //     {
+        //         return this._eccentricities[0];
+        //     }
+        //     set
+        //     {
+        //         this._eccentricities[0] = value;
+        //     }
+        // }
 
-        /// <summary>
-        /// Get/set end eccentricity of bar
-        /// </summary>
-        [XmlIgnore]
-        public Eccentricity EndEccentricity
-        {
-            get
-            {
-                return this._eccentricities[1];
-            }
-            set
-            {
-                this._eccentricities[1] = value;
-            }
-        }
+        // /// <summary>
+        // /// Get/set end eccentricity of bar
+        // /// </summary>
+        // [XmlIgnore]
+        // public Eccentricity EndEccentricity
+        // {
+        //     get
+        //     {
+        //         return this._eccentricities[1];
+        //     }
+        //     set
+        //     {
+        //         this._eccentricities[1] = value;
+        //     }
+        // }
 
-        /// <summary>
-        /// Private field for bar with start and end section
-        /// </summary>
-        [XmlIgnore]
-        private Sections.Section[] _sections = new Sections.Section[2];
+        // /// <summary>
+        // /// Private field for bar with start and end section
+        // /// </summary>
+        // [XmlIgnore]
+        // private Sections.Section[] _sections = new Sections.Section[2];
 
-        [XmlIgnore]
-        public Sections.Section[] Sections
-        {
-            get
-            {
-                return this._sections;
-            }
-            set
-            {
-                if (value.Length == 1)
-                {
-                    this._sections[0] = value[0];
-                    this._sections[1] = value[0];
-                }
-                else if (value.Length == 2)
-                {
-                    if (this.Type == BarType.Truss)
-                    {
-                        throw new System.ArgumentException("Truss can only have 1 section");
-                    }
+        // [XmlIgnore]
+        // public Sections.Section[] Sections
+        // {
+        //     get
+        //     {
+        //         return this._sections;
+        //     }
+        //     set
+        //     {
+        //         if (value.Length == 1)
+        //         {
+        //             this._sections[0] = value[0];
+        //             this._sections[1] = value[0];
+        //         }
+        //         else if (value.Length == 2)
+        //         {
+        //             if (this.Type == BarType.Truss)
+        //             {
+        //                 throw new System.ArgumentException("Truss can only have 1 section");
+        //             }
 
-                    this._sections[0] = value[0];
-                    this._sections[1] = value[1];
-                }
-                else
-                {
-                    throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
-                }
-            }
-        }
+        //             this._sections[0] = value[0];
+        //             this._sections[1] = value[1];
+        //         }
+        //         else
+        //         {
+        //             throw new System.ArgumentException($"Incorrect length of Sections: {value.Length}. Length should be 1 or 2");
+        //         }
+        //     }
+        // }
 
-        /// <summary>
-        /// Check if one or both sections are null
-        /// </summary>
-        public bool AnySectionIsNull
-        {
-            get
-            {
-                return (this.Sections[0] == null || this.Sections[1] == null);
-            }
-        }
+        // /// <summary>
+        // /// Check if one or both sections are null
+        // /// </summary>
+        // public bool AnySectionIsNull
+        // {
+        //     get
+        //     {
+        //         return (this.Sections[0] == null || this.Sections[1] == null);
+        //     }
+        // }
 
-        /// <summary>
-        /// Try to get a uniform section. Compares section based on guid.
-        /// </summary>
-        public Sections.Section UniformSection
-        {
-            get
-            {
-                if (this.Sections.Length != 2)
-                {
-                    throw new System.ArgumentException($"Sections should contain 2 items but contains {this.Sections.Length}.");
-                }
+        // /// <summary>
+        // /// Try to get a uniform section. Compares section based on guid.
+        // /// </summary>
+        // public Sections.Section UniformSection
+        // {
+        //     get
+        //     {
+        //         if (this.Sections.Length != 2)
+        //         {
+        //             throw new System.ArgumentException($"Sections should contain 2 items but contains {this.Sections.Length}.");
+        //         }
 
-                if (this.Sections[0].Guid == this.Sections[1].Guid)
-                {
-                    return this.Sections[0];
-                }
-                else
-                {
-                    throw new System.ArgumentException("Sections contain two different sections. Impossible to get a uniform section.");
-                }
-            }
-        }
+        //         if (this.Sections[0].Guid == this.Sections[1].Guid)
+        //         {
+        //             return this.Sections[0];
+        //         }
+        //         else
+        //         {
+        //             throw new System.ArgumentException("Sections contain two different sections. Impossible to get a uniform section.");
+        //         }
+        //     }
+        // }
 
-        /// <summary>
-        /// Get/set start section of bar
-        /// </summary>
-        [XmlIgnore]
-        public Sections.Section StartSection
-        {
-            get
-            {
-                return this._sections[0];
-            }
-            set
-            {
-                // set value
-                this._sections[0] = value;
-            }
-        }
+        // /// <summary>
+        // /// Get/set start section of bar
+        // /// </summary>
+        // [XmlIgnore]
+        // public Sections.Section StartSection
+        // {
+        //     get
+        //     {
+        //         return this._sections[0];
+        //     }
+        //     set
+        //     {
+        //         // set value
+        //         this._sections[0] = value;
+        //     }
+        // }
 
-        /// <summary>
-        /// Get/set end section of bar
-        /// </summary>
-        [XmlIgnore]
-        public Sections.Section EndSection
-        {
-            get
-            {
-                return this._sections[1];
-            }
-            set
-            {
-                // set value
-                this._sections[1] = value;             
-            }
-        }
+        // /// <summary>
+        // /// Get/set end section of bar
+        // /// </summary>
+        // [XmlIgnore]
+        // public Sections.Section EndSection
+        // {
+        //     get
+        //     {
+        //         return this._sections[1];
+        //     }
+        //     set
+        //     {
+        //         // set value
+        //         this._sections[1] = value;
+        //     }
+        // }
 
-        /// <summary>
-        /// Section position field
-        /// </summary>
-        [XmlIgnore]
-        public double[] _sectionPos;
+        // /// <summary>
+        // /// Section position field
+        // /// </summary>
+        // [XmlIgnore]
+        // public double[] _sectionPos;
 
-        /// <summary>
-        /// Section position property. Set position of sections for complex section by defining the parammetric position 0-1.
-        /// </summary>
-        [XmlIgnore]
-        public double[] SectionPos
-        {
-            get
-            {
-                if (this._sectionPos == null)
-                {
-                    double[] val = new double[this.Sections.Length];
+        // /// <summary>
+        // /// Section position property. Set position of sections for complex section by defining the parammetric position 0-1.
+        // /// </summary>
+        // [XmlIgnore]
+        // public double[] SectionPos
+        // {
+        //     get
+        //     {
+        //         if (this._sectionPos == null)
+        //         {
+        //             double[] val = new double[this.Sections.Length];
 
-                    // set start and end pos
-                    val[0] = 0;
-                    val[val.Length - 1] = 1;
+        //             // set start and end pos
+        //             val[0] = 0;
+        //             val[val.Length - 1] = 1;
 
-                    if (val.Length > 2)
-                    {
-                        // set intermediate pos
-                        for (int idx = 1; idx < val.Length - 1; idx++)
-                        {
-                            val[idx] = 1/(val.Length - 1)*idx;
-                        }
-                    }
+        //             if (val.Length > 2)
+        //             {
+        //                 // set intermediate pos
+        //                 for (int idx = 1; idx < val.Length - 1; idx++)
+        //                 {
+        //                     val[idx] = 1 / (val.Length - 1) * idx;
+        //                 }
+        //             }
 
-                    // set
-                    this._sectionPos = val;
+        //             // set
+        //             this._sectionPos = val;
 
-                    // return
-                    return this._sectionPos;
-                }
+        //             // return
+        //             return this._sectionPos;
+        //         }
 
-                else
-                {
-                    // return
-                    return this._sectionPos;
-                }
-            }
-            set
-            {
-                if (value.Length != this.Sections.Length)
-                {
-                    throw new System.ArgumentException($"Length of value: {value.Length} must be equal to length of Sections: {this.Sections.Length}");
-                }
+        //         else
+        //         {
+        //             // return
+        //             return this._sectionPos;
+        //         }
+        //     }
+        //     set
+        //     {
+        //         if (value.Length != this.Sections.Length)
+        //         {
+        //             throw new System.ArgumentException($"Length of value: {value.Length} must be equal to length of Sections: {this.Sections.Length}");
+        //         }
 
-                if (value[0] != 0)
-                {
-                    throw new System.ArgumentException("First item of value must be 0");
-                }
+        //         if (value[0] != 0)
+        //         {
+        //             throw new System.ArgumentException("First item of value must be 0");
+        //         }
 
-                if (value[value.Length - 1] != 1)
-                {
-                    throw new System.ArgumentException("Last item of value must be 1");
-                }
+        //         if (value[value.Length - 1] != 1)
+        //         {
+        //             throw new System.ArgumentException("Last item of value must be 1");
+        //         }
 
-                this._sectionPos = value;
-            }
-        }
+        //         this._sectionPos = value;
+        //     }
+        // }
 
-        /// <summary>
-        /// Private property used for complex section updates
-        /// </summary>
-        [XmlIgnore]
-        private Sections.ModelSection[] ModelSection
-        {
-            get
-            {
-                return new Sections.ModelSection[]
-                {
-                    new Sections.ModelSection(0, this.StartSection, this.StartEccentricity),
-                    new Sections.ModelSection(1, this.EndSection, this.EndEccentricity)
-                };
-            }
-        }
+        // /// <summary>
+        // /// Private property used for complex section updates
+        // /// </summary>
+        // [XmlIgnore]
+        // private Sections.ComplexSectionPart[] ModelSection
+        // {
+        //     get
+        //     {
+        //         return new Sections.ComplexSectionPart[]
+        //         {
+        //             new Sections.ComplexSectionPart(0, this.StartSection, this.StartEccentricity),
+        //             new Sections.ComplexSectionPart(1, this.EndSection, this.EndEccentricity)
+        //         };
+        //     }
+        // }
 
-        /// <summary>
-        /// Complex section field.
-        /// </summary>
-        [XmlIgnore]
-        private Sections.ComplexSection _complexSection;
+        // /// <summary>
+        // /// Complex section field.
+        // /// </summary>
+        // [XmlIgnore]
+        // private Sections.ComplexSection _complexSection;
 
-        /// <summary>
-        /// Complex section property getter. For model deserialization use other property.
-        /// </summary>
-        [XmlIgnore]
-        public Sections.ComplexSection ComplexSection
-        {
-            get
-            {
-                // truss has no ComplexSection
-                if (this.Type == BarType.Truss)
-                {
-                    return null;
-                }
+        // /// <summary>
+        // /// Complex section property getter. For model deserialization use other property.
+        // /// </summary>
+        // [XmlIgnore]
+        // public Sections.ComplexSection ComplexSection
+        // {
+        //     get
+        //     {
+        //         // truss has no ComplexSection
+        //         if (this.Type == BarType.Truss)
+        //         {
+        //             return null;
+        //         }
 
-                // update _complexSection with BarPart sections and eccentricities
-                else if (!this.AnySectionIsNull)
-                {
-                    this._complexSection.Section = this.ModelSection.ToList();
-                }
+        //         // update _complexSection with BarPart sections and eccentricities
+        //         else if (!this.AnySectionIsNull)
+        //         {
+        //             this._complexSection.Parts = this.ModelSection.ToList();
+        //         }
 
-                else
-                {
-                    // pass
-                }
+        //         else
+        //         {
+        //             // pass
+        //         }
 
-                // return
-                return this._complexSection;
-            }
-            set
-            {
-                this._complexSection = value;
-                this.ComplexSectionRef = this._complexSection.Guid;
-            }
-        }
+        //         // return
+        //         return this._complexSection;
+        //     }
+        //     set
+        //     {
+        //         this._complexSection = value;
+        //         this.ComplexSectionRef = value.Guid;
+        //         this.Eccentricities = value.Parts.Select(x => x.Eccentricity).ToArray();
+        //     }
+        // }
 
-        /// <summary>
-        /// Check if ComplexSection is null without updating ComplexSection (check if private field _complexSection is null)
-        [XmlIgnore]
-        public bool ComplexSectionIsNull
-        {
-            get
-            {
-                if (this._complexSection == null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Material field
-        /// </summary>
-        [XmlIgnore]
-        public Materials.Material _material;
-
-        /// <summary>
-        /// Material property. When a new material is set the ComplexMaterialRef is updated.
-        /// </summary>
-        [XmlIgnore]
-        public Materials.Material Material
-        {
-            get
-            {
-                return this._material;
-            }
-            set
-            {
-                this._material = value;
-                this.ComplexMaterialRef = this._material.Guid;
-            }
-        }
+        // /// <summary>
+        // /// Check if ComplexSection is null without updating ComplexSection (check if private field _complexSection is null)
+        // [XmlIgnore]
+        // public bool ComplexSectionIsNull
+        // {
+        //     get
+        //     {
+        //         if (this._complexSection == null)
+        //         {
+        //             return true;
+        //         }
+        //         else
+        //         {
+        //             return false;
+        //         }
+        //     }
+        // }
 
         /// <summary>
         /// Identifier field
@@ -539,55 +524,123 @@ namespace FemDesign.Bars
                 this._identifier = value + ".1";
             }
         }
+        [XmlIgnore]
+        public BarType Type { get; set; }
 
         [XmlIgnore]
-        private BarType _type;
-        
-        [XmlIgnore]
-        public BarType Type
+        public SectionType SectionType
         {
             get
             {
-                return this._type;
-            }
-            set
-            {
-                this._type = value;
+                if(this.Type == BarType.Truss)
+                {
+                    return SectionType.Truss;
+                }
+                else if (this.Type != BarType.Truss && this.HasComplexSectionRef && !this.HasDeltaBeamComplexSectionRef)
+                {
+                    return SectionType.RegularBeamColumn;
+                }
+                else if(this.Type != BarType.Truss && this.HasComplexCompositeRef)
+                {
+                    return SectionType.CompositeBeamColumn;
+                }
+                else if(this.Type != BarType.Truss && this.HasComplexSectionRef && this.HasDeltaBeamComplexSectionRef)
+                {
+                    return SectionType.DeltaBeamColumn;
+                }
+                else
+                {
+                    throw new System.ArgumentException("Type of bar is not supported.");
+                }
             }
         }
 
-        [XmlAttribute("complex_material")]
-        public System.Guid ComplexMaterialRef { get; set; } // guidtype
+        [XmlAttribute("complex_composite")]
+        public string ComplexCompositeRef { get; set; } // guidtype
 
         [XmlIgnore]
-        private System.Guid _complexSectionRef;
+        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != null; }
 
-        [XmlAttribute("complex_section")]
-        public System.Guid ComplexSectionRef
+        [XmlIgnore]
+        public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexCompositeObj { get; set; }
+
+        [XmlAttribute("complex_material")]
+        public string _complexMaterialRef;
+
+        [XmlIgnore]
+        public System.Guid ComplexMaterialRef
         {
             get
             {
-                // used when deserializing only
-                if (this.ComplexSectionIsNull && this.Type != BarType.Truss)
-                {
-                    return this._complexSectionRef;
-                }
+                return System.Guid.Parse(this._complexMaterialRef);
+            }
+            set
+            {
+                this._complexMaterialRef = value.ToString();
+            }
+        }
+        [XmlIgnore]
+        public bool HasComplexMaterialRef { get => this.ComplexMaterialRef != System.Guid.Empty; }
 
-                // used for trusses only
-                else if (this.ComplexSectionIsNull && this.Type == BarType.Truss)
+        /// <summary>
+        /// Material field
+        /// </summary>
+        [XmlIgnore]
+        public Materials.Material _complexMaterialObj;
+
+        /// <summary>
+        /// Material property. When a new material is set the ComplexMaterialRef is updated.
+        /// </summary>
+        [XmlIgnore]
+        public Materials.Material ComplexMaterialObj
+        {
+            get
+            {
+                return this._complexMaterialObj;
+            }
+            set
+            {
+                this._complexMaterialObj = value;
+                this.ComplexMaterialRef = this._complexMaterialObj.Guid;
+            }
+        }
+
+        [XmlIgnore]
+        private string _complexSectionRef;
+
+        [XmlAttribute("complex_section")]
+        public string ComplexSectionRef
+        {
+            get
+            {
+                // if truss --> guid from TrussUniformSectionObj
+                if (this.Type == BarType.Truss)
                 {
-                    if (!this.AnySectionIsNull)
+                    if (this.TrussUniformSectionObj == null)
                     {
-                        this._complexSectionRef = this.UniformSection.Guid;
+                        return this._complexSectionRef;
                     }
-                    return this._complexSectionRef;
+                    else
+                    {
+                        var r = this.TrussUniformSectionObj.Guid.ToString();
+                        this._complexSectionRef = r;
+                        return r;
+                    }
                 }
-
-                // used for all other cases
+                // else --> guid from ComplexSectionObj
                 else
                 {
-                    this._complexSectionRef = this.ComplexSection.Guid;
-                    return this._complexSectionRef;
+                    if (this.ComplexSectionObj == null)
+                    {
+                        return this._complexSectionRef;
+                    }
+                    else
+                    {
+                        var r = this.ComplexSectionObj.Guid.ToString();
+                        this._complexSectionRef = r;
+                        return r;
+                    }
+                    
                 }
             }
             set
@@ -596,53 +649,60 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlAttribute("made")]
-        public string _made; // steelmadetype
+        [XmlIgnore]
+        public bool HasComplexSectionRef { get => this.ComplexSectionRef != null; }
 
         [XmlIgnore]
-        public string Made
+        public bool HasDeltaBeamComplexSectionRef { get => !System.Guid.TryParse(this.ComplexSectionRef, out System.Guid result); }
+
+        [XmlIgnore]
+        public Sections.ComplexSection ComplexSectionObj;
+
+        [XmlIgnore]
+        public Sections.Section TrussUniformSectionObj;
+
+        [XmlIgnore]
+        public SteelMadeType? SteelMadeType;
+
+        [XmlAttribute("made")]
+        [System.ComponentModel.Browsable(false), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public SteelMadeType steelMadeType
         {
-            get {return this._made;}
-            set
-            {
-                if (value == null)
-                {
-                    this._made = value;
-                }
-                else
-                {
-                    this._made = RestrictedString.SteelMadeType(value);
-                }
-            }
+            get { return SteelMadeType.Value; }
+            set { SteelMadeType = value; }
         }
+
+        [System.ComponentModel.Browsable(false), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public bool ShouldSerializesteelMadeType() => SteelMadeType.HasValue;
+
         [XmlAttribute("ecc_calc")]
         public bool EccentricityCalc { get; set; } // bool
 
         [XmlElement("connectivity", Order = 3)]
-        public Connectivity[] _connectivities = new Connectivity[2]; // connectivity_type
-        
+        public Connectivity[] _connectivity = new Connectivity[2]; // connectivity_type
+
         [XmlIgnore]
-        public Connectivity[] Connectivities
+        public Connectivity[] Connectivity
         {
             get
             {
-                return this._connectivities;
+                return this._connectivity;
             }
             set
             {
                 if (this.Type == BarType.Truss)
                 {
-                    // pass
+                    throw new System.Exception("Can't set connectivity to a truss");
                 }
                 else if (value.Length == 1)
                 {
-                    this._connectivities[0] = value[0];
-                    this._connectivities[1] = value[0];
+                    this._connectivity[0] = value[0];
+                    this._connectivity[1] = value[0];
                 }
                 else if (value.Length == 2)
                 {
-                    this._connectivities[0] = value[0];
-                    this._connectivities[1] = value[1];
+                    this._connectivity[0] = value[0];
+                    this._connectivity[1] = value[1];
                 }
                 else
                 {
@@ -650,46 +710,82 @@ namespace FemDesign.Bars
                 }
             }
         }
-           
 
-        [XmlIgnore]  
-        private ModelEccentricity _modelEccentricity;
-
+        [XmlIgnore]
+        public ModelEccentricity _eccentricityTypeField;
         [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity ModelEccentricity
+        public ModelEccentricity _eccentricityTypeProperty
+        {
+            get
+            {
+                // truss has no eccentricity
+                if (this.Type == BarType.Truss)
+                {
+                    return null;
+                }
+                // beam and column have eccentricity and analytical eccentricity
+                // must equal complexSectionObj eccentricity
+                else if (this.HasComplexSectionRef && !this.HasDeltaBeamComplexSectionRef)
+                {
+                    var sectionEcc = this.ComplexSectionObj.Eccentricities;
+
+                    if (this._eccentricityTypeField == null)
+                    {
+                        Eccentricity eccentricity = new Eccentricity();
+                        this._eccentricityTypeField = new ModelEccentricity(eccentricity);
+                    }
+
+                    this._eccentricityTypeField.StartAnalytical = sectionEcc.First();
+                    this._eccentricityTypeField.EndAnalytical = sectionEcc.Last();
+                    return this._eccentricityTypeField;
+                }
+                else
+                {
+                    return this._eccentricityTypeField;
+                }
+            }
+            set
+            {
+                this._eccentricityTypeField = value;
+            }
+        }
+        [XmlIgnore]
+        public Eccentricity[] AnalyticalEccentricity
         {
             get
             {
                 if (this.Type == BarType.Truss)
                 {
-                    return null;
+                    throw new System.Exception("Truss has no eccentricity");
                 }
-                
+                else if (this.HasComplexSectionRef)
+                {
+                    return this.ComplexSectionObj.Eccentricities;
+                }
                 else
                 {
-                    if (this._modelEccentricity == null)
-                    {
-                        // create new model eccentricity
-                        this._modelEccentricity = new ModelEccentricity(this.Eccentricities[0], this.Eccentricities.Last(), true);
-                    }
-                    else if (!this.AnyEccentricityIsNull)
-                    {
-                        // update model eccentricity
-                        this._modelEccentricity.StartAnalytical = this.Eccentricities[0];
-                        this._modelEccentricity.EndAnalytical = this.Eccentricities.Last();
-                        this._modelEccentricity.StartPhysical = this.Eccentricities[0];
-                        this._modelEccentricity.EndPhysical = this.Eccentricities.Last();
-                    }
-
-                    return this._modelEccentricity;
-                } 
+                    return this._eccentricityTypeProperty.Analytical;
+                }
             }
             set
             {
-                this._modelEccentricity = value;
+                if (this.Type == BarType.Truss)
+                {
+                    throw new System.Exception("Truss has no eccentricity");
+                }
+                else if (this.HasComplexSectionRef)
+                {
+                    // create new complex section obj
+                    var sections = this.ComplexSectionObj.Sections;
+                    var pos = this.ComplexSectionObj.Positions;
+                    this.ComplexSectionObj = new Sections.ComplexSection(sections, pos, value);
+                }
+                else if (this.HasComplexCompositeRef)
+                {
+                    this._eccentricityTypeProperty.Analytical = value;
+                }
             }
         }
-
         [XmlElement("buckling_data", Order = 5)]
         public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
         [XmlElement("end", Order = 6)]
@@ -700,34 +796,117 @@ namespace FemDesign.Bars
         /// </summary>
         private BarPart()
         {
-            
-        }
 
-        private BarPart(string name, Geometry.Edge _edge, Materials.Material _material)
-        {
-            this.EntityCreated();
-            this.Identifier = name;
-            this.ComplexMaterialRef = _material.Guid;
-            this.EccentricityCalc = true; // default should be false, but is always true since FD15? should be activated if eccentricity is defined
-            this._edge = _edge;
-            this.LocalY = _edge.CoordinateSystem.LocalY;
         }
 
         /// <summary>
-        /// Construct BarPart (beam or column)
+        /// Construct beam or column with uniform section and uniform start/end conditions.
         /// </summary>
-        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Connectivity[] connectivities, Eccentricity[] eccentricities, string identifier)
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity connectivity, string identifier)
         {
-            this.EntityCreated();
-            this.Type = type;
-            this.Edge = edge;
-            this.Material = material;
-            this.Sections = sections;
-            this.Connectivities = connectivities;
-            this.Eccentricities = eccentricities;
-            this.EccentricityCalc = true;
-            this.ComplexSection = new Sections.ComplexSection(this.ModelSection.ToList());
-            this.Identifier = identifier;
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(section, eccentricity);
+                this.Connectivity = new Connectivity[1] { connectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with uniform section and different start/end conditions.
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(section, section, startEccentricity, endEccentricity);
+                this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with start/end section and different start/end conditions
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection, Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(startSection, endSection, startEccentricity, endEccentricity);
+                this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with non-uniform section and start/end conditions
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(sections, eccentricities);
+                this.Connectivity = connectivities;
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct beam or column with non-uniform section and start/end conditions
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, double[] positions, Eccentricity[] eccentricities, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.ComplexSectionObj = new Sections.ComplexSection(sections, positions, eccentricities);
+                this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
         }
 
         /// <summary>
@@ -735,12 +914,19 @@ namespace FemDesign.Bars
         /// <summary>
         public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
-            this.EntityCreated();
-            this.Type = type;
-            this.Edge = edge;
-            this.Material = material;
-            this.Sections = new Sections.Section[1]{section};
-            this.Identifier = identifier;
+            if (type != BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Truss.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = material;
+                this.TrussUniformSectionObj = section;
+                this.Identifier = identifier;
+            }
         }
 
         /// <summary>

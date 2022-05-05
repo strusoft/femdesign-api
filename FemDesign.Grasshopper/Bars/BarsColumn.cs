@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsColumn: GH_Component
     {
-       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FemDesign", "Bars")
+       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FEM-Design", "Bars")
        {
 
        }
@@ -84,8 +84,9 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.ColumnDefine(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
-
+             var type = FemDesign.Bars.BarType.Column;
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, sections.ToArray(), eccentricities.ToArray(), connectivities.ToArray(), identifier);
+            
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {

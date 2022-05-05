@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceTemperatureLoadDeconstruct : GH_Component
     {
-        public SurfaceTemperatureLoadDeconstruct() : base("SurfaceTemperatureLoad.Deconstruct", "Deconstruct", "Deconstruct a SurfaceTemperatureLoad.", "FemDesign", "Deconstruct")
+        public SurfaceTemperatureLoadDeconstruct() : base("SurfaceTemperatureLoad.Deconstruct", "Deconstruct", "Deconstruct a SurfaceTemperatureLoad.", "FEM-Design", "Deconstruct")
         {
 
         }

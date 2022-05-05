@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabSetShellEdgeConnection: GH_Component
     {
-        public SlabSetShellEdgeConnection(): base("Slab.SetShellEdgeConnection", "SetEdgeConnection", "Set ShellEdgeConnection by index. Index for each respective edge can be extracted using SlabDeconstruct.", "FemDesign", "Shells")
+        public SlabSetShellEdgeConnection(): base("Slab.SetShellEdgeConnection", "SetEdgeConnection", "Set ShellEdgeConnection by index. Index for each respective edge can be extracted using SlabDeconstruct.", "FEM-Design", "Shells")
         {
 
         }

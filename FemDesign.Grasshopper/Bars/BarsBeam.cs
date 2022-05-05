@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeam: GH_Component
     {
-       public BarsBeam(): base("Bars.Beam", "Beam", "Create a bar element of type beam.", "FemDesign", "Bars")
+       public BarsBeam(): base("Bars.Beam", "Beam", "Create a bar element of type beam.", "FEM-Design", "Bars")
        {
 
        }
@@ -81,7 +81,8 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc2(curve);
 
             // create bar
-            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.BeamDefine(edge, material, sections.ToArray(), connectivities.ToArray(), eccentricities.ToArray(), identifier);
+            var type = FemDesign.Bars.BarType.Beam;
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, sections.ToArray(), eccentricities.ToArray(), connectivities.ToArray(), identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

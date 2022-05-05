@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersDesignDefine: GH_Component
     {
-        public CalculationParametersDesignDefine(): base("Design.Define", "Define", "Set parameters for design.", "FemDesign", "Calculate")
+        public CalculationParametersDesignDefine(): base("Design.Define", "Define", "Set parameters for design.", "FEM-Design", "Calculate")
         {
 
         }
@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddBooleanParameter("autoDesign", "autoDesign", "Auto-design elements.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("check", "check", "Check elements.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("check", "check", "Check elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -23,21 +23,12 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            bool autoDesign = false;
-            bool check = false;
-            if (!DA.GetData(0, ref autoDesign))
-            {
-                // pass
-            }
-            if (!DA.GetData(1, ref check))
-            {
-                // pass
-            }
+            bool autoDesign = false, check = true;
+            DA.GetData(0, ref autoDesign);
+            DA.GetData(1, ref check);
 
-            //
             FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check);
 
-            // return
             DA.SetData(0, _obj);
         }
         protected override System.Drawing.Bitmap Icon

@@ -42,7 +42,7 @@ namespace FemDesign.Reinforcement
         public static Shells.Slab AddToSlab(Shells.Slab slab, List<SurfaceReinforcement> surfaceReinforcement)
         {
             // return
-            return SurfaceReinforcement.AddStraightReinforcementToSlab(slab, surfaceReinforcement);
+            return SurfaceReinforcement.AddReinforcementToSlab(slab, surfaceReinforcement);
         }
 
         #endregion

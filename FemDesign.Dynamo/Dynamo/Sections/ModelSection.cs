@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Sections
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ModelSection
+    public partial class ComplexSectionPart
     {
         
     }

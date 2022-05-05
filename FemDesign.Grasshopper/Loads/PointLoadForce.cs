@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
     public class PointLoadForce: GH_Component
     {
-        public PointLoadForce(): base("PointLoad.Force", "Force", "Create force point load.", "FemDesign", "Loads")
+        public PointLoadForce(): base("PointLoad.Force", "Force", "Create force point load.", "FEM-Design", "Loads")
         {
 
         }
@@ -40,16 +41,12 @@ namespace FemDesign.Grasshopper
             }
             if (force == null || loadCase == null) { return; };
 
-            // convert geometry
+            // Convert geometry
             FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
             FemDesign.Geometry.FdVector3d _force = force.FromRhino();
 
-            //
-            FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _force, loadCase, comment, "force");
+            PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _force, loadCase, comment, ForceLoadType.Force);
 
-            //
-        
-            // return 
             DA.SetData(0, obj);
         }
         

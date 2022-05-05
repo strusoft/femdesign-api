@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsDefine: GH_Component
     {
-        public MotionsDefine(): base("Motions.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", "FemDesign", "Releases")
+        public MotionsDefine(): base("Motions.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", "FEM-Design", "Releases")
         {
 
         }

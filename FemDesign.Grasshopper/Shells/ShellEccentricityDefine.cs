@@ -1,12 +1,13 @@
 // https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
     public class ShellEccentricityDefine: GH_Component
     {
-        public ShellEccentricityDefine(): base("ShellEccentricity.Define", "Define", "Define a ShellEccentricity", "FemDesign", "Shells")
+        public ShellEccentricityDefine(): base("ShellEccentricity.Define", "Define", "Define a ShellEccentricity", "FEM-Design", "Shells")
         {
 
         }
@@ -54,8 +55,8 @@ namespace FemDesign.Grasshopper
             }
 
 
-            //
-            FemDesign.Shells.ShellEccentricity shellEcc = new FemDesign.Shells.ShellEccentricity(alignment, ecc, eccCalc, eccByCracking);
+            VerticalAlignment _alignment = EnumParser.Parse<VerticalAlignment>(alignment);
+            FemDesign.Shells.ShellEccentricity shellEcc = new FemDesign.Shells.ShellEccentricity(_alignment, ecc, eccCalc, eccByCracking);
 
             // return
             DA.SetData(0, shellEcc);

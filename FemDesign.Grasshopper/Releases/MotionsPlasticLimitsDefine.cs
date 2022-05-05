@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsPlasticLimitsDefine: GH_Component
     {
-        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", "FemDesign", "Releases")
+        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", "FEM-Design", "Releases")
         {
 
         }
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.MotionsPlasticLimitsDefine;
+                return FemDesign.Properties.Resources.MotionsDefine;
             }
         }
         public override Guid ComponentGuid

@@ -28,7 +28,7 @@ namespace FemDesign.Calculate
 
         }
         
-        public Design(bool autoDesign, bool check)
+        public Design(bool autoDesign = false, bool check = true)
         {
             this.CMax = "";
             this.AutoDesign = autoDesign;

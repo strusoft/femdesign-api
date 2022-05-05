@@ -87,19 +87,5 @@ namespace FemDesign.Calculate
             return new Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
         }
 
-        /// <summary>Add load combination parameters to calculation options.</summary>
-        /// <remarks>Private</remarks>
-        /// <param name="loadCombination">LoadCombination</param>
-        public void AddLoadCombinationParameters(Loads.LoadCombination loadCombination)
-        {
-            if (loadCombination.CombItem == null)
-            {
-                // pass
-            }
-            else
-            {
-                this.CombItem.Add(loadCombination.CombItem);
-            }      
-        }
     }
 }

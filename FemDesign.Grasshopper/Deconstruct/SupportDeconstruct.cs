@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class SupportDeconstruct : GH_Component
     {
-        public SupportDeconstruct() : base("Support.Deconstruct", "Deconstruct", "Deconstruct a PointSupport or LineSupport element.", "FemDesign", "Deconstruct")
+        public SupportDeconstruct() : base("Support.Deconstruct", "Deconstruct", "Deconstruct a PointSupport or LineSupport element.", "FEM-Design", "Deconstruct")
         {
 
         }

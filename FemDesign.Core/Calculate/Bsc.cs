@@ -1,7 +1,9 @@
 ﻿// https://strusoft.com/
 using System;
+using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 
 namespace FemDesign.Calculate
@@ -39,7 +41,7 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         internal string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
-        internal string BscPath { get; set; } // path to fdscript file, string
+        public string BscPath { get; set; } // path to fdscript file, string
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -49,22 +51,33 @@ namespace FemDesign.Calculate
 
         }
 
-        public Bsc(ResultType resultType, string bscPath)
+        public Bsc(ListProc resultType, string bscPath)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
                 throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
             }
-            BscPath = bscPath;
-            Cwd = Path.GetDirectoryName(bscPath);
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
             DocTable = new DocTable(resultType);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
+            SerializeBsc();
         }
 
-        public Bsc(ResultType resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
+        public Bsc(ListProc resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
         {
             DocTable.CaseIndex = caseIndex;
+        }
+
+        public static implicit operator string(Bsc bsc)
+        {
+            return bsc.BscPath;
+        }
+
+        public static implicit operator List<string>(Bsc bsc)
+        {
+            return new List<string>() {bsc.BscPath};
         }
 
         /// <summary>

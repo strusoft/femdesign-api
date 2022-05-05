@@ -9,7 +9,7 @@ namespace FemDesign.Materials
     /// material_type
     /// </summary>
     [System.Serializable]
-    public partial class Material: EntityBase
+    public partial class Material: EntityBase, IMaterial
     {
         [XmlAttribute("standard")]
         public string Standard { get; set; } // standardtype
@@ -31,48 +31,6 @@ namespace FemDesign.Materials
         public Steel Steel { get; set; }
         [XmlElement("reinforcing_steel")]
         public ReinforcingSteel ReinforcingSteel { get; set; }
-
-        /// <summary>
-        /// Get Material from MaterialDatabase by name.
-        /// </summary>
-        /// <remarks>Action</remarks>
-        /// <param name="materialDatabase">MaterialDatabase</param>
-        /// <param name="materialName">Name of Material</param>
-        /// <returns></returns>
-        public static Material MaterialByName(MaterialDatabase materialDatabase, string materialName)
-        {
-            if (materialDatabase.Materials != null)
-            {
-                foreach (Material material in materialDatabase.Materials.Material)
-                {
-                    if (material.Name == materialName)
-                    {
-                        // update object information
-                        material.Guid = System.Guid.NewGuid();
-                        material.EntityModified();
-
-                        // return
-                        return material;
-                    }
-                }
-            }
-            if (materialDatabase.ReinforcingMaterials != null)
-            {
-                foreach (Material material in materialDatabase.ReinforcingMaterials.Material)
-                {
-                    if (material.Name == materialName)
-                    {
-                        // update object information
-                        material.Guid = System.Guid.NewGuid();
-                        material.EntityModified();
-
-                        // return
-                        return material;
-                    }
-                }
-            }
-            throw new System.ArgumentException("Material was not found. Incorrect material name or empty material database.");
-        }
 
         /// <summary>
         /// Set creep and shrinkage parameters to a concrete Material.

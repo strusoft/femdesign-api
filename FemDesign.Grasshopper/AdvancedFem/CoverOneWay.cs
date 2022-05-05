@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class CoverOneWay: GH_Component
     {
-        public CoverOneWay(): base("Cover.OneWay", "OneWay", "Create a one way cover.", "FemDesign", "Cover")
+        public CoverOneWay(): base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "Cover")
         {
 
         }

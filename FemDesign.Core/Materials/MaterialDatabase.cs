@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -37,6 +38,8 @@ namespace FemDesign.Materials
         public Materials Materials { get; set; } // materials
         [XmlElement("reinforcing_materials")]
         public Materials ReinforcingMaterials { get; set; } // reinforcing_materials
+        [XmlElement("clt_panel_types")]
+        public CltPanelTypes CltPanelTypes { get; set; } // clt_panel_types
         [XmlElement("end")]
         public string End { get; set;}
 
@@ -72,10 +75,78 @@ namespace FemDesign.Materials
                     list.Add(material.Name);
                 } 
             }
+            if (this.CltPanelTypes != null)
+            {
+                foreach (CltPanelLibraryType panelType in this.CltPanelTypes.CltPanelLibraryTypes)
+                {
+                    list.Add(panelType.Name);
+                }
+            }
 
             // return
             return list;
         }
+
+        /// <summary>
+        /// Get Material from MaterialDatabase by name.
+        /// </summary>
+        /// <param name="materialName">Name of Material</param>
+        /// <returns></returns>
+        public Material MaterialByName(string materialName)
+        {
+            if (this.Materials != null)
+            {
+                foreach (Material material in this.Materials.Material)
+                {
+                    if (material.Name == materialName)
+                    {
+                        // update object information
+                        material.Guid = System.Guid.NewGuid();
+                        material.EntityModified();
+
+                        // return
+                        return material;
+                    }
+                }
+            }
+            if (this.ReinforcingMaterials != null)
+            {
+                foreach (Material material in this.ReinforcingMaterials.Material)
+                {
+                    if (material.Name == materialName)
+                    {
+                        // update object information
+                        material.Guid = System.Guid.NewGuid();
+                        material.EntityModified();
+
+                        // return
+                        return material;
+                    }
+                }
+            }
+            throw new System.ArgumentException($"Material was not found. Incorrect material name ({materialName}) or empty material database.");
+        }
+
+        public CltPanelLibraryType GetCltPanelLibraryTypeByName(string panelLibraryTypeName)
+        {
+            if (this.CltPanelTypes != null)
+            {
+                foreach (CltPanelLibraryType panelLibraryType in this.CltPanelTypes.CltPanelLibraryTypes)
+                {
+                    if (panelLibraryType.Name == panelLibraryTypeName)
+                    {
+                        // update object information
+                        panelLibraryType.Guid = System.Guid.NewGuid();
+                        panelLibraryType.EntityModified();
+
+                        // return
+                        return panelLibraryType;
+                    }
+                }
+            }
+            throw new System.ArgumentException($"Material was not found. Incorrect material name ({panelLibraryTypeName}) or no CltPanelTypes present in material database.");
+        }
+
         private static MaterialDatabase DeserializeFromFilePath(string filePath)
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(MaterialDatabase));
@@ -85,6 +156,7 @@ namespace FemDesign.Materials
             reader.Close();
             return materialDatabase;
         }
+
         /// <summary>
         /// Load a custom MaterialDatabase from a .struxml file.
         /// </summary>
@@ -115,11 +187,17 @@ namespace FemDesign.Materials
                         object obj = deserializer.Deserialize(reader);
                         MaterialDatabase materialDatabase = (MaterialDatabase)obj;
                         reader.Close();
+
+                        if (materialDatabase.Materials.Material.Count == 0)
+                        {
+                            throw new System.ArgumentException("The project was compiled without any materials. Add materials to your project and re-compile or use another method to construct the material database (i.e DeserializeStruxml).");
+                        }
+
                         return materialDatabase;
                     }
                 }
             }
-            throw new System.ArgumentException("Material library resource not in assembly! Was solution compiled without embedded resources?");
+            throw new System.ArgumentException("Material library resource not in assembly! Was project compiled without embedded resources?");
         }
         /// <summary>
         /// Load the default MaterialDatabase for each respective country.

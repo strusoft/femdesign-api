@@ -15,7 +15,7 @@ namespace FemDesign.Shells
         /// Create a default (rigid) ShellEdgeConnection.
         /// </summary>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
+        [IsVisibleInDynamoLibrary(false)]
         public static ShellEdgeConnection Default() => GetDefault();
 
         /// <summary>

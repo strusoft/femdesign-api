@@ -19,7 +19,7 @@ namespace FemDesign.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -183,6 +183,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CalculateFootfall {
+            get {
+                object obj = ResourceManager.GetObject("CalculateFootfall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ColumnDefault {
             get {
                 object obj = ResourceManager.GetObject("ColumnDefault", resourceCulture);
@@ -206,6 +216,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap CombDefine {
             get {
                 object obj = ResourceManager.GetObject("CombDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CombineLoadGroups {
+            get {
+                object obj = ResourceManager.GetObject("CombineLoadGroups", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -276,6 +296,46 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap DesignDefine {
             get {
                 object obj = ResourceManager.GetObject("DesignDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Diaphragm {
+            get {
+                object obj = ResourceManager.GetObject("Diaphragm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DiaphragmDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("DiaphragmDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fd_TabIcon_24_24 {
+            get {
+                object obj = ResourceManager.GetObject("Fd_TabIcon_24_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fdlogo {
+            get {
+                object obj = ResourceManager.GetObject("fdlogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -353,6 +413,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FootfallFullExcitation {
+            get {
+                object obj = ResourceManager.GetObject("FootfallFullExcitation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FootfallSelfExcitation {
+            get {
+                object obj = ResourceManager.GetObject("FootfallSelfExcitation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Force {
             get {
                 object obj = ResourceManager.GetObject("Force", resourceCulture);
@@ -366,6 +446,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap FreqDefine {
             get {
                 object obj = ResourceManager.GetObject("FreqDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Help {
+            get {
+                object obj = ResourceManager.GetObject("Help", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -513,6 +603,56 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadCategory {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseDefault {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseDefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseGetCategoryByName {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseGetCategoryByName", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDatabaseListCategoryNames {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDatabaseListCategoryNames", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadCategoryDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LoadCategoryDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadCombinationDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadCombinationDeconstruct", resourceCulture);
@@ -553,9 +693,49 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadGroup {
+            get {
+                object obj = ResourceManager.GetObject("LoadGroup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadGroupDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LoadGroupDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadsDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadsDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LongitudinalBar {
+            get {
+                object obj = ResourceManager.GetObject("LongitudinalBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LongitudinalBarDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LongitudinalBarDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -646,6 +826,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap MaterialSetTimberMaterialProperties {
             get {
                 object obj = ResourceManager.GetObject("MaterialSetTimberMaterialProperties", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MaterialTimberPlateMaterial {
+            get {
+                object obj = ResourceManager.GetObject("MaterialTimberPlateMaterial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -823,16 +1013,6 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MotionsPlasticLimitsDefine {
-            get {
-                object obj = ResourceManager.GetObject("MotionsPlasticLimitsDefine", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap MotionsRigidLine {
             get {
                 object obj = ResourceManager.GetObject("MotionsRigidLine", resourceCulture);
@@ -846,6 +1026,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap MotionsRigidPoint {
             get {
                 object obj = ResourceManager.GetObject("MotionsRigidPoint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PanelDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("PanelDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PanelTimberPlateDefine {
+            get {
+                object obj = ResourceManager.GetObject("PanelTimberPlateDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -993,6 +1193,86 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Ptc {
+            get {
+                object obj = ResourceManager.GetObject("Ptc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcLosses {
+            get {
+                object obj = ResourceManager.GetObject("PtcLosses", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcManufacturing {
+            get {
+                object obj = ResourceManager.GetObject("PtcManufacturing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcShape {
+            get {
+                object obj = ResourceManager.GetObject("PtcShape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcShapeEnd {
+            get {
+                object obj = ResourceManager.GetObject("PtcShapeEnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcShapeInner {
+            get {
+                object obj = ResourceManager.GetObject("PtcShapeInner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcShapeStart {
+            get {
+                object obj = ResourceManager.GetObject("PtcShapeStart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PtcStrand {
+            get {
+                object obj = ResourceManager.GetObject("PtcStrand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReinforcementParametersDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("ReinforcementParametersDeconstruct", resourceCulture);
@@ -1026,16 +1306,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap RotationsFree {
             get {
                 object obj = ResourceManager.GetObject("RotationsFree", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap RotationsPlasticLimitsDefine {
-            get {
-                object obj = ResourceManager.GetObject("RotationsPlasticLimitsDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1326,6 +1596,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StiffnessMatrix4TypeDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("StiffnessMatrix4TypeDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stirrups {
+            get {
+                object obj = ResourceManager.GetObject("Stirrups", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StirrupsDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("StirrupsDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

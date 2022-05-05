@@ -45,27 +45,10 @@ namespace FemDesign.Loads
     }
 
     [System.Serializable]
-    public partial class MassConversionTable
+    public partial class MassConversionTable : EntityBase, GenericClasses.ILoadElement
     {
         [XmlElement("conversion", Order = 1)]
         public List<MassConversion> MassConversions = new List<MassConversion>();
-        [XmlAttribute("last_change")]
-        public string _lastChange;
-        [XmlIgnore]
-        internal System.DateTime LastChange
-        {
-            get
-            {
-                return System.DateTime.Parse(this._lastChange);
-            }
-            set
-            {
-                this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff");
-            }
-        }
-
-        [XmlAttribute("action")]
-        public string Action { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -73,17 +56,6 @@ namespace FemDesign.Loads
         private MassConversionTable()
         {
 
-        }
-
-        /// <summary>
-        /// Invoke when an instance is created.
-        /// 
-        /// Creates a new guid, adds timestamp and changes action.
-        /// </summary>
-        internal void EntityCreated()
-        {
-            this.LastChange = System.DateTime.UtcNow;
-            this.Action = "added";
         }
 
         /// <summary>

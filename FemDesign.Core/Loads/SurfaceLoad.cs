@@ -31,9 +31,9 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Private constructor accessed by static methods.
+        /// SurfaceLoad
         /// </summary>
-        private SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, string comment, bool loadProjection, string loadType)
+        public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, string comment, bool loadProjection, ForceLoadType loadType)
         {
             this.EntityCreated();
             this.LoadCase = loadCase.Guid;
@@ -48,29 +48,37 @@ namespace FemDesign.Loads
             }
         }
 
+        /// <summary>
         /// Create uniform SurfaceLoad.
         /// Internal static method used by GH components and Dynamo nodes.
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="force"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         public static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, string comment = "")
         {
-            // create load as list of loads
-            List<LoadLocationValue> load = new List<LoadLocationValue>{new LoadLocationValue(region.CoordinateSystem.Origin, force.Length())};
+            // Create load as list of loads
+            List<LoadLocationValue> load = new List<LoadLocationValue>{ new LoadLocationValue(region.CoordinateSystem.Origin, force.Length()) };
 
-            // create load direction
             Geometry.FdVector3d loadDirection = force.Normalize();
 
-            // presets
-            bool loadProjection = false;
-            string loadType = "force";
+            SurfaceLoad surfaceLoad =  new SurfaceLoad(region, load, loadDirection, loadCase, comment, loadProjection: false, ForceLoadType.Force);
 
-            // create SurfaceLoad
-            SurfaceLoad surfaceLoad =  new SurfaceLoad(region, load, loadDirection, loadCase, comment, loadProjection, loadType);
-
-            // return
             return surfaceLoad;
         }
-        
+
+        /// <summary>
         /// Create variable SurfaceLoad.
         /// Internal static method used by GH components and Dynamo nodes.
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="direction"></param>
+        /// <param name="loadLocationValue"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         public static SurfaceLoad Variable(Geometry.Region region, Geometry.FdVector3d direction, List<LoadLocationValue> loadLocationValue, LoadCase loadCase, string comment = "")
         {
             if (loadLocationValue.Count != 3)
@@ -78,14 +86,8 @@ namespace FemDesign.Loads
                 throw new System.ArgumentException("loadLocationValue must contain 3 items");
             }
 
-            // presets
-            bool loadProjection = false;
-            string loadType = "force";
+            SurfaceLoad surfaceLoad =  new SurfaceLoad(region, loadLocationValue, direction, loadCase, comment, loadProjection: false, ForceLoadType.Force);
 
-            // create SurfaceLoad
-            SurfaceLoad surfaceLoad =  new SurfaceLoad(region, loadLocationValue, direction, loadCase, comment, loadProjection, loadType);
-
-            // return
             return surfaceLoad;
         }
 

@@ -42,13 +42,7 @@ namespace FemDesign.Shells
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterial {get; set;} // guidtype
         [XmlAttribute("alignment")]
-        public string _alignment; // ver_align
-        [XmlIgnore]
-        public string Alignment
-        {
-            get {return this._alignment;}
-            set {this._alignment = RestrictedString.VerticalAlign(value);}
-        }
+        public GenericClasses.VerticalAlignment Alignment { get; set; }
         [XmlAttribute("align_offset")]
         public double _alignOffset; // abs_max_1e20
         [XmlIgnore]

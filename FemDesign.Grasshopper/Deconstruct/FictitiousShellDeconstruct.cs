@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FictitiousShellDeconstruct: GH_Component
     {
-       public FictitiousShellDeconstruct(): base("FictitiousShell.Deconstruct", "Deconstruct", "Deconstruct a fictitious Shell element.", "FemDesign", "Deconstruct")
+       public FictitiousShellDeconstruct(): base("FictitiousShell.Deconstruct", "Deconstruct", "Deconstruct a fictitious Shell element.", "FEM-Design", "Deconstruct")
        {
 
        }

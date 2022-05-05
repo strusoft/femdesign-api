@@ -20,7 +20,7 @@ namespace FemDesign.Reinforcement
         /// <param name="profile">"smooth"/"ribbed"</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Wire Define(double diameter, Materials.Material reinforcingMaterial, string profile = "ribbed")
+        public static Wire Define(double diameter, Materials.Material reinforcingMaterial, WireProfileType profile)
         {
             return new Wire(diameter, reinforcingMaterial, profile);
         }

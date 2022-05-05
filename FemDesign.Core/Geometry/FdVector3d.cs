@@ -50,6 +50,36 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Reverse vector
+        /// </summary>
+        public static FdVector3d operator -(FdVector3d v) => v.Reverse();
+        
+        /// <summary>
+        /// Vector difference
+        /// </summary>
+        public static FdVector3d operator -(FdVector3d v1, FdVector3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+
+        /// <summary>
+        /// Scale vector
+        /// </summary>
+        public static FdVector3d operator *(FdVector3d v, int n) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+
+        /// <summary>
+        /// Scale vector
+        /// </summary>
+        public static FdVector3d operator *(int n, FdVector3d v) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+
+        /// <summary>
+        /// Scale vector
+        /// </summary>
+        public static FdVector3d operator *(FdVector3d v, double n) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+
+        /// <summary>
+        /// Scale vector
+        /// </summary>
+        public static FdVector3d operator *(double n, FdVector3d v) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+
+        /// <summary>
         /// Returns the unit x vector.
         /// </summary>
         /// <returns></returns>

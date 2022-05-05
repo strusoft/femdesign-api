@@ -1,0 +1,48 @@
+name: publish to nuget
+
+on:
+  push:
+    paths: # When the nuspec file changed
+    - 'FemDesign.Core/FemDesign.Core.nuspec'
+    branches: # On push to master or a branch prefixed with pre-release
+      - master
+      - 'pre-release/**'
+
+jobs:
+  publish:
+    name: build, pack & publish to nuget.org
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+          nuget-version: '5.x'
+
+      - name: Restore Packages
+        run: nuget restore FemDesign.Core/FemDesign.Core.csproj
+
+      - name: Build Solution
+        run: |
+          dotnet build .\FemDesign.Core\FemDesign.Core.csproj -c Release
+
+      - name: Pack nuget
+        run: |
+          nuget pack FemDesign.Core\ -Properties Configuration=Release
+
+      # - name: Publish nuget
+      #   run: |
+      #     nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
+
+      - name: Echo file name instead of publish # For debugging
+        run: |
+          ls *.nupkg

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineLoadDeconstruct : GH_Component
     {
-        public LineLoadDeconstruct() : base("LineLoad.Deconstruct", "Deconstruct", "Deconstruct a LineLoad.", "FemDesign", "Deconstruct")
+        public LineLoadDeconstruct() : base("LineLoad.Deconstruct", "Deconstruct", "Deconstruct a LineLoad.", "FEM-Design", "Deconstruct")
         {
 
         }

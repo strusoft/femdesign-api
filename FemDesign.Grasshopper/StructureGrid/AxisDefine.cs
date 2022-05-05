@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class AxisDefine: GH_Component
     {
-        public AxisDefine(): base("Axis.Define", "Define", "Define an Axis.", "FemDesign", "Structure grid")
+        public AxisDefine(): base("Axis.Define", "Define", "Define an Axis.", "FEM-Design", "Structure grid")
         {
 
         }

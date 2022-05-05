@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEdgeConnectionDeconstruct: GH_Component
     {
-       public ShellEdgeConnectionDeconstruct(): base("ShellEdgeConnection.Deconstruct", "Deconstruct", "Deconstruct a ShellEdgeConnection element.", "FemDesign", "Deconstruct")
+       public ShellEdgeConnectionDeconstruct(): base("ShellEdgeConnection.Deconstruct", "Deconstruct", "Deconstruct a ShellEdgeConnection element.", "FEM-Design", "Deconstruct")
        {
 
        }

@@ -14,13 +14,7 @@ namespace FemDesign.Loads
         [XmlAttribute("name")]
         public string Name { get; set; } // name159
         [XmlAttribute("type")]
-        public string _type; // loadcombtype 
-        [XmlIgnore]
-        public string Type
-        {
-            get {return this._type;}
-            set {this._type = RestrictedString.LoadCombType(value);}
-        }
+        public LoadCombType Type { get; set; } // loadcombtype 
         [XmlElement("load_case")]
         public List<ModelLoadCase> ModelLoadCase = new List<ModelLoadCase>(); // sequence: ModelLoadCase
         [XmlIgnore]
@@ -37,7 +31,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        public LoadCombination(string name, string type, List<LoadCase> loadCase, List<double> gamma)
+        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma)
         {
             this.EntityCreated();
             this.Name = name;
@@ -81,7 +75,7 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
-        /// Get gamma values of LoadCases in LoadCombanation.
+        /// Get gamma values of LoadCases in LoadCombination.
         /// </summary>
         public List<double> GetGammas()
         {

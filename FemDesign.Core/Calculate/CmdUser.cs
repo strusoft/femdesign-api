@@ -9,13 +9,12 @@ namespace FemDesign.Calculate
         [XmlAttribute("command")]
         public string _command; // token
         [XmlIgnore]
-        public string Command
+        public CmdUserModule Command
         {
-            get {return this._command;}
-            set {this._command = "; CXL $MODULE " + RestrictedString.CmdUserModule(value);}
+            get { return (CmdUserModule)System.Enum.Parse(typeof(CmdUserModule), this._command.Split(new string[] { "; CXL $MODULE " }, System.StringSplitOptions.None)[0]); }
+            set { this._command = "; CXL $MODULE " + value.ToString(); }
         }
 
-        
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>                          
@@ -23,7 +22,7 @@ namespace FemDesign.Calculate
         {
             
         }
-        public CmdUser(string module)
+        public CmdUser(CmdUserModule module)
         {
             this.Command = module;
         }

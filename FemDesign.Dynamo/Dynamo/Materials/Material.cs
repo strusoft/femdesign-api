@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Materials
 {
-    [IsVisibleInDynamoLibrary(true)]
+    [IsVisibleInDynamoLibrary(false)]
     public partial class Material: EntityBase
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace FemDesign.Materials
         [IsVisibleInDynamoLibrary(true)]
         public static Material GetMaterialByName(MaterialDatabase materialDatabase, string materialName)
         {
-            return MaterialByName(materialDatabase, materialName);
+            return materialDatabase.MaterialByName(materialName);
         }
 
         /// <summary>

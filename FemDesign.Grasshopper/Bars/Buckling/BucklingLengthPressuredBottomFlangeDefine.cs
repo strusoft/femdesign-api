@@ -2,12 +2,13 @@
 using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
     public class BarsPressuredBottomFlangeDefine: GH_Component
     {
-        public BarsPressuredBottomFlangeDefine(): base("BucklingLength.PressuredBottomFlangeDefine", "PressuredBottomFlangeDefine", "Define BucklingLength for Pressured Bottom Flange.", "FemDesign", "Bars.Buckling")
+        public BarsPressuredBottomFlangeDefine(): base("BucklingLength.PressuredBottomFlangeDefine", "PressuredBottomFlangeDefine", "Define BucklingLength for Pressured Bottom Flange.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -45,7 +46,9 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredBottomFlange(beta, loadPosition, continuouslyRestrained));
+
+            VerticalAlignment alignment = EnumParser.Parse<VerticalAlignment>(loadPosition);
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.PressuredBottomFlange(alignment, beta, continuouslyRestrained));
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FictitiousBarDefine: GH_Component
     {
-       public FictitiousBarDefine(): base("FictitiousBar.Define", "Define", "Create a fictitious bar element.", "FemDesign", "ModellingTools")
+       public FictitiousBarDefine(): base("FictitiousBar.Define", "Define", "Create a fictitious bar element.", "FEM-Design", "ModellingTools")
        {
 
        }

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class PointLoadMoment: GH_Component
     {
-        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", "FemDesign", "Loads")
+        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", "FEM-Design", "Loads")
         {
 
         }
@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.FdVector3d _moment = moment.FromRhino();
 
             //
-            FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, "moment");
+            FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, Loads.ForceLoadType.Moment);
         
             // return 
             DA.SetData(0, obj);

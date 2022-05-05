@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class MassConversionTableCreate: GH_Component
     {
-        public MassConversionTableCreate(): base("MassConversionTable.Define", "Define", "Define a MassConversionTable from a LoadCase or a list of LoadCases.", "FemDesign", "Loads")
+        public MassConversionTableCreate(): base("MassConversionTable.Define", "Define", "Define a MassConversionTable from a LoadCase or a list of LoadCases. The MassConversionTable is considered as a load type and should be added to the model as a load.", "FEM-Design", "Loads")
         {
 
         }
@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("MassConversionTable", "MassConversionTable.", "MassConversionTable.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("MassConversionTable", "MassConversionTable.", "MassConversionTable. The MassConversionTable is considered as a load type and should be added to the model as a load.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

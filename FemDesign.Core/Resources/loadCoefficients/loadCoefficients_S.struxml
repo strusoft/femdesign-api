@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<database struxml_version="01.00.000" source_software="FEM-Design 20.00.003" start_time="1970-01-01T00:00:00.000" end_time="2021-08-19T09:37:19.000" guid="817e29f2-3d94-49f3-8e64-cf6fc73b6760" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+	<load_categories>
+		<load_category guid="c7d4e42b-27a2-436a-a59a-6b3b74cd49ae" last_change="2021-10-02T14:43:42.000" action="added" standard="EC" country="S" name="A" psi_0 = "0.7" psi_1 = "0.5" psi_2 = "0.3">			
+		</load_category>
+		<load_category guid="cde456bf-593c-44d2-8903-c75e388386f9" last_change="2021-10-02T14:44:42.000" action="added" standard="EC" country="S" name="B" psi_0 = "0.7" psi_1 = "0.5" psi_2 = "0.3">
+		</load_category>
+		<load_category guid="4e448e33-510e-418f-b873-3f1cfc7f3fbf" last_change="2021-10-02T14:45:42.000" action="added" standard="EC" country="S" name="C" psi_0 = "0.7" psi_1 = "0.7" psi_2 = "0.6">
+		</load_category>
+		<load_category guid="9f430da9-59af-442d-94ef-ada8a40fad5b" last_change="2021-10-02T14:46:42.000" action="added" standard="EC" country="S" name="D" psi_0 = "0.7" psi_1 = "0.7" psi_2 = "0.6">
+		</load_category>
+		<load_category guid="91089208-1a58-4d83-903e-7242933415e0" last_change="2021-10-02T14:47:42.000" action="added" standard="EC" country="S" name="E" psi_0 = "1" psi_1 = "0.9" psi_2 = "0.8">
+		</load_category>
+		<load_category guid="f8ad24c3-7772-4099-bc90-51f5a8d192ea" last_change="2021-10-02T14:48:42.000" action="added" standard="EC" country="S" name="F" psi_0 = "0.7" psi_1 = "0.7" psi_2 = "0.6">
+		</load_category>
+		<load_category guid="87971c7f-feae-401c-8a0e-e20dbd6104c6" last_change="2021-10-02T14:49:42.000" action="added" standard="EC" country="S" name="G" psi_0 = "0.7" psi_1 = "0.5" psi_2 = "0.3">
+		</load_category>
+		<load_category guid="f1eca0fb-b4ea-4385-910f-85a8f66796b7" last_change="2021-10-02T14:50:42.000" action="added" standard="EC" country="S" name="H" psi_0 = "0" psi_1 = "0" psi_2 = "0">
+		</load_category>
+		<load_category guid="aaf43a2c-4010-416b-8978-9d23336539dc" last_change="2021-10-02T14:51:42.000" action="added" standard="EC" country="S" name="Snow when Sk >= 3 kN/m^2" psi_0 = "0.8" psi_1 = "0.6" psi_2 = "0.2">
+		</load_category>
+		<load_category guid="20915a7b-5d0d-4527-9b5b-0395af3d9f02" last_change="2021-10-02T14:52:42.000" action="added" standard="EC" country="S" name="Snow when 3 > Sk >= 2 kN/m^2" psi_0 = "0.7" psi_1 = "0.4" psi_2 = "0.2">
+		</load_category>
+		<load_category guid="254613f1-4d4c-4878-b301-647a3bd10830" last_change="2021-10-02T14:53:42.000" action="added" standard="EC" country="S" name="Snow when 2 > Sk >= 1 kN/m^2" psi_0 = "0.6" psi_1 = "0.3" psi_2 = "0.1">
+		</load_category>
+		<load_category guid="f94664a6-1d82-402a-8a0e-daece3d6cca7" last_change="2021-10-02T14:54:42.000" action="added" standard="EC" country="S" name="Wind" psi_0 = "0.3" psi_1 = "0.2" psi_2 = "0">
+		</load_category>
+		<load_category guid="99f98d47-8156-43c3-8d19-39f859871334" last_change="2021-10-02T14:55:42.000" action="added" standard="EC" country="S" name="Temperature" psi_0 = "0.6" psi_1 = "0.5" psi_2 = "0">
+		</load_category>
+	</load_categories>
+	<end></end>
+</database>

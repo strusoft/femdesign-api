@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FootfallSelfExcitation : GH_Component
     {
-        public FootfallSelfExcitation() : base("Footfall.SelfExcitation", "SelfExcitation", "Create a footfall self excitation region.", "FemDesign", "Loads")
+        public FootfallSelfExcitation() : base("Footfall.SelfExcitation", "SelfExcitation", "Create a footfall self excitation region.", "FEM-Design", "Loads")
         {
 
         }
@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.FootfallSelfExcitation;
             }
         }
         public override Guid ComponentGuid

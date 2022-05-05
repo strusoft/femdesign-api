@@ -9,6 +9,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,18 +40,21 @@
     <RootNamespace>FemDesign</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GH_IO">
-      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper">
-      <HintPath>..\..\..\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="GH_IO, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.35.21222.17001\lib\net45\GH_IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Grasshopper, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.35.21222.17001\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="RhinoCommon">
-      <HintPath>..\..\..\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rhino.UI, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\Rhino.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +65,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AdvancedFem\CoverOneWay.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
@@ -87,11 +95,31 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Info\TabInfo.cs" />
+    <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Utils\LoadGroupCombine.cs" />
+    <Compile Include="Loads\LoadGroupCreate.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
+    <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
+    <Compile Include="Loads\LoadCategoryGetLoadCatergoryByName.cs" />
+    <Compile Include="Obsolete\BarsDeconstructOBSOLETE.cs" />
+    <Compile Include="Deconstruct\DiaphragmDeconstruct.cs" />
+    <Compile Include="Obsolete\ModelAddElementsSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelAddElementsOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelCreateSimpleOBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstruct2OBSOLETE.cs" />
+    <Compile Include="Obsolete\ModelDeconstructOBSOLETE.cs" />
+    <Compile Include="Info\Info.cs" />
+    <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
+    <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\BarsDeconstruct.cs" />
+    <Compile Include="Deconstruct\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
@@ -100,6 +128,8 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
+    <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
@@ -117,6 +147,7 @@
     <Compile Include="Deconstruct\StraightDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceLoadDeconstruct.cs" />
+    <Compile Include="Deconstruct\StirrupDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementParametersDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceTemperatureLoadDeconstruct.cs" />
@@ -145,24 +176,42 @@
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabaseListMaterialNames.cs" />
+    <Compile Include="Materials\MaterialGetCltPanelTypeByName.cs" />
     <Compile Include="Materials\MaterialGetMaterialByName.cs" />
     <Compile Include="Materials\MaterialSetConcreteMaterialProperties.cs" />
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
+    <Compile Include="ModellingTools\DiaphragmDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
+    <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
+    <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
+    <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStr.cs" />
     <Compile Include="Model\ModelReadStruxml.cs" />
     <Compile Include="Model\ModelSave.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
+    <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
+    <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeInner.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeEnd.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShapeStart.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
+    <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
+    <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
@@ -198,6 +247,7 @@
     <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessDefine.cs" />
+    <Compile Include="Shells\TimberPlateDefine.cs" />
     <Compile Include="StructureGrid\AxisDefine.cs" />
     <Compile Include="StructureGrid\StoreyDefine.cs" />
     <Compile Include="Supports\LineSupportDefine.cs" />
@@ -209,17 +259,9 @@
     <Compile Include="Supports\SurfaceSupportDefine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
-      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
-      <Name>FemDesign.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -683,10 +725,55 @@
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\MotionsPlasticLimitsDefine.bmp" />
+    <None Include="packages.config" />
+    <None Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\RotationsPlasticLimitsDefine.bmp" />
+    <None Include="Resources\icons\FootfallSelfExcitation.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\MaterialTimberPlateMaterial.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PanelDeconstruct.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PanelTimberPlateDefine.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\CalculateFootfall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
+    <None Include="Resources\icons\CombineLoadGroups.bmp" />
+    <None Include="Resources\icons\LoadCategory.bmp" />
+    <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
+    <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <None Include="Resources\Fd_TabIcon_24_24.png" />
+    <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
+    <Content Include="Resources\icons\LoadGroup.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
+      <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
+      <Name>FemDesign.Core</Name>
+    </ProjectReference>
+    <None Include="Resources\icons\Help.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fem-design.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fdlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fem-design-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
@@ -708,4 +795,13 @@
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
   </Target>
+  <Import Project="..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets'))" />
+  </Target>
+  <Import Project="..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets')" />
 </Project>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<database struxml_version="01.00.000" source_software="FEM-Design 19.00.001" start_time="1970-01-01T00:00:00.000" end_time="1970-01-01T00:00:00.000" guid="0012fb6e-a4ab-413b-84bf-1c713e5fe5c8" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<sections>
+		<section guid="6d0df268-c1ec-4d03-9d3e-35e504292f36" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Rectangle, 300x900" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Rectangle" fd_name_size="300x900">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.15" y="-0.45" z="0"></point>
+							<point x="0.15" y="-0.45" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.15" y="-0.45" z="0"></point>
+							<point x="0.15" y="0.45" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.15" y="0.45" z="0"></point>
+							<point x="-0.15" y="0.45" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.15" y="0.45" z="0"></point>
+							<point x="-0.15" y="-0.45" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+	</sections>
+	<end></end>
+</database>

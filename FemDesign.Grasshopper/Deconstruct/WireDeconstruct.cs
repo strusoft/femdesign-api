@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class WireDeconstruct: GH_Component
     {
-       public WireDeconstruct(): base("Wire.Deconstruct", "Deconstruct", "Deconstruct a Wire element.", "FemDesign", "Deconstruct")
+       public WireDeconstruct(): base("Wire.Deconstruct", "Deconstruct", "Deconstruct a Wire element.", "FEM-Design", "Deconstruct")
        {
 
        }

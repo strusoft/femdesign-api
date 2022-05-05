@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class StiffnessMatrix4TypeDeconstruct: GH_Component
     {
-       public StiffnessMatrix4TypeDeconstruct(): base("StiffnessMatrix4Type.Deconstruct", "Deconstruct", "Deconstruct a StiffnessMatrix4Type element.", "FemDesign", "Deconstruct")
+       public StiffnessMatrix4TypeDeconstruct(): base("StiffnessMatrix4Type.Deconstruct", "Deconstruct", "Deconstruct a StiffnessMatrix4Type element.", "FEM-Design", "Deconstruct")
        {
 
        }

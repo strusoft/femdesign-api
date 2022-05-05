@@ -1,12 +1,13 @@
 // https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
     public class Bars_LateralTorsionalDefine: GH_Component
     {
-        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", "FemDesign", "Bars.Buckling")
+        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -44,7 +45,8 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.LateralTorsional(loadPosition, continuouslyRestrained, cantilever));
+            VerticalAlignment alignment = EnumParser.Parse<VerticalAlignment>(loadPosition);
+            DA.SetData(0, FemDesign.Bars.Buckling.BucklingLength.LateralTorsional(alignment, continuouslyRestrained, cantilever));
         }
         protected override System.Drawing.Bitmap Icon
         {
