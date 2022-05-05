@@ -620,11 +620,8 @@
     <Compile Include="..\FemDesign.Core\Results\EigenFrequencies\EigenFrequencies.cs">
       <Link>Core\Results\EigenFrequencies.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\Finite Elements\FeaNode.cs">
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaNode.cs">
       <Link>Core\Results\FeaNode.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Results\Finite Elements\FeaShell.cs">
-      <Link>Core\Results\FeaShell.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\FootFall\NodalAcceleration.cs">
       <Link>Core\Results\NodalAcceleration.cs</Link>

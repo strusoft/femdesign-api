@@ -40,11 +40,14 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            _resultTypes.Append(Results.ResultType.FeaNode);
+            resultTypes.Add("FeaNode");
+
+
+            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
+
 
             // Create Bsc files from resultTypes
             var listProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);

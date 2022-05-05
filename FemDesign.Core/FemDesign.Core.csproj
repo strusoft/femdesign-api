@@ -103,8 +103,7 @@
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
-    <Compile Include="Results\Finite Elements\FeaNode.cs" />
-    <Compile Include="Results\Finite Elements\FeaShell.cs" />
+    <Compile Include="Results\FiniteElements\FeaNode.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
