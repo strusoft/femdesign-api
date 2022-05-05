@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsDeconstruct: GH_Component
     {
-       public MotionsDeconstruct(): base("Motions.Deconstruct", "Deconstruct", "Deconstruct a Motions element.", "FemDesign", "Deconstruct")
+       public MotionsDeconstruct(): base("Motions.Deconstruct", "Deconstruct", "Deconstruct a Motions element.", "FEM-Design", "Deconstruct")
        {
 
        }

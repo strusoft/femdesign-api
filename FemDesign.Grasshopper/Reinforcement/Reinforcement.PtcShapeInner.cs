@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeInnerComponent : GH_Component
     {
-        public PtcShapeInnerComponent() : base("PtcShapeInner", "PtcInner", "FemDesign.Reinforcement.PtcShapeInner", "FemDesign", "Ptc")
+        public PtcShapeInnerComponent() : base("PtcShapeInner", "PtcInner", "FemDesign.Reinforcement.PtcShapeInner", "FEM-Design", "Ptc")
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)

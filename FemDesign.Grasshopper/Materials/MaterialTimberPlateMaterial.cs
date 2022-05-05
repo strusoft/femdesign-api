@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialTimberPlateMaterial : GH_Component
     {
-        public MaterialTimberPlateMaterial() : base("Material.TimberPlateMaterial", "Define", "Define timber factor parameters for a timber panel type.", "FemDesign", "Materials")
+        public MaterialTimberPlateMaterial() : base("Material.TimberPlateMaterial", "Define", "Define timber factor parameters for a timber panel type.", "FEM-Design", "Materials")
         {
             
         }

@@ -65,7 +65,7 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
-    <Compile Include="Geometry\RegionTests.cs" />
+    <Compile Include="Loads\LoadCaseTests.cs" />
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,10 +87,7 @@
     <Compile Include="Results\ShellsStressTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Geometry\slabs.struxml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Model\global-test-model.struxml">
+    <None Include="Model\global-test-model_IN.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -98,11 +95,11 @@
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
-      <Name>ent</Name>
+      <Name>FemDesign.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FemDesign.Samples\C#\FemDesign.Samples.csproj">
-      <Project>{127a57e7-22e5-4ec5-933b-effa9fa0715e}</Project>
-      <Name>FemDesign.Samples</Name>
+    <ProjectReference Include="..\FemDesign.Examples\C#\Practical example - Load groups combining\Practical example - Load groups combining.csproj">
+      <Project>{6a2cb706-d4be-4ae8-a165-ec9f9f0d336e}</Project>
+      <Name>Practical example - Load groups combining</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

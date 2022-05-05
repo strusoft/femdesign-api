@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsModify: GH_Component
     {
-       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", "FemDesign", "Bars")
+       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", "FEM-Design", "Bars")
        {
 
        }
@@ -45,6 +45,12 @@ namespace FemDesign.Grasshopper
             Bars.Bar bar = null;
             if (DA.GetData(0, ref bar))
             {
+                if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar has a Composite Section. The object has not been implemented yet. Please, get in touch if needed.");
+                    return;
+                }
+
                 bar = bar.DeepClone();
             }
 
@@ -71,25 +77,28 @@ namespace FemDesign.Grasshopper
             FemDesign.Materials.Material material = null;
             if (DA.GetData(3, ref material))
             {
-                bar.BarPart.Material = material;
+                bar.BarPart.ComplexMaterialObj = material;
             }
 
             List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
             if (DA.GetDataList(4, sections))
             {
-                bar.BarPart.Sections = sections.ToArray();
+                bar.BarPart.ComplexSectionObj.Sections = sections.ToArray();
             }
 
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (DA.GetDataList(5, connectivities))
             {
-                bar.BarPart.Connectivities = connectivities.ToArray();
+                bar.BarPart.Connectivity = connectivities.ToArray();
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (DA.GetDataList(6, eccentricities))
             {
-                bar.BarPart.Eccentricities = eccentricities.ToArray();
+                if(bar.Type != Bars.BarType.Truss)
+                {
+                    bar.BarPart.ComplexSectionObj.Eccentricities = eccentricities.ToArray();
+                }
             }
             
             Vector3d v = Vector3d.Zero;

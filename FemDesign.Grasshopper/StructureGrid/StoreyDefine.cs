@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class StoreyDefine: GH_Component
     {
-        public StoreyDefine(): base("Storey.Define", "Define", "Define a storey.", "FemDesign", "Structure grid")
+        public StoreyDefine(): base("Storey.Define", "Define", "Define a storey.", "FEM-Design", "Structure grid")
         {
 
         }

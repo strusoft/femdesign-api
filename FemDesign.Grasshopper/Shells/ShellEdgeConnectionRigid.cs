@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEdgeConnectionRigid: GH_Component
     {
-        public ShellEdgeConnectionRigid(): base("ShellEdgeConnection.Rigid", "Rigid", "Create a Rigid ShellEdgeConnection.", "FemDesign", "Shells")
+        public ShellEdgeConnectionRigid(): base("ShellEdgeConnection.Rigid", "Rigid", "Create a Rigid ShellEdgeConnection.", "FEM-Design", "Shells")
         {
 
         }

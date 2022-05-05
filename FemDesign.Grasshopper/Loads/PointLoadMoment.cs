@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class PointLoadMoment: GH_Component
     {
-        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", "FemDesign", "Loads")
+        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", "FEM-Design", "Loads")
         {
 
         }

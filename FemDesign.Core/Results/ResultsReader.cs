@@ -15,7 +15,7 @@ namespace FemDesign.Results
     /// <summary>
     /// Reads FEM-Design results from list tables text files.
     /// </summary>
-    public class ResultsReader : CsvParser
+    public partial class ResultsReader : CsvParser
     {
         private Regex HeaderExpression;
         private Dictionary<Type, Regex> ResultTypesIdentificationExpressions;
@@ -185,7 +185,7 @@ namespace FemDesign.Results
     /// <summary>
     /// CSV reader. Reads a comma (or other char) delimited file, line by line and parses each line to a new object. Header lines can be handled with the HeaderParser. 
     /// </summary>
-    public class CsvParser : IDisposable
+    public partial class CsvParser : IDisposable
     {
         public char Delimiter { get; }
         public string FilePath { get; }
@@ -326,8 +326,7 @@ namespace FemDesign.Results
     /// <summary>
     /// Parsing related exceptions
     /// </summary>
-    [Serializable]
-    public class ParseException : ApplicationException
+    public partial class ParseException : ApplicationException
     {
         public Type TypeNotParsed;
         public ParseException(Type typeNotParsed, string lineNotParsed) : base($"Could not parse line '{lineNotParsed}' to type {typeNotParsed.GetType().FullName}")

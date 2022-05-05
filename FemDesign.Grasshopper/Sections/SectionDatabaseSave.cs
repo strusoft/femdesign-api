@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseSave: GH_Component
     {
-       public SectionDatabaseSave(): base("SectionDatabase.Save", "Save", "Save this SectionDatabase to .struxml.", "FemDesign", "Sections")
+       public SectionDatabaseSave(): base("SectionDatabase.Save", "Save", "Save this SectionDatabase to .struxml.", "FEM-Design", "Sections")
        {
 
        }

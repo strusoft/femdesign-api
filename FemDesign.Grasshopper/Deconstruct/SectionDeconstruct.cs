@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDeconstruct: GH_Component
     {
-       public SectionDeconstruct(): base("Section.Deconstruct", "Deconstruct", "Deconstruct a Section.", "FemDesign", "Deconstruct")
+       public SectionDeconstruct(): base("Section.Deconstruct", "Deconstruct", "Deconstruct a Section.", "FEM-Design", "Deconstruct")
        {
 
        }

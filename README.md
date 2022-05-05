@@ -15,6 +15,12 @@ This repository contains source code for the FEM-Design API wrapper. It consists
 * [Disclaimer](#disclaimer)
 * [License](#license)
 
+## Contributing
+Feel free to fork this repo as you seem fit. Please let us know with an issue what feature you want and how you plan on implement it and we (the [authors](#Authors)) will guide you. 
+
+## 🚗 Road-map
+The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
+
 ## Installation
 See installation for your framework below. 
 All releases can also be found on the [releases page](https://github.com/strusoft/femdesign-api/releases).
@@ -42,7 +48,7 @@ Examples can be found in the folder [FemDesign.Samples/](https://github.com/stru
 If you want to contribute please follow our [contribution guide](https://github.com/strusoft/femdesign-api/wiki/Contribute).
 
 ## Road-map
-The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
+The road-map of the project is can be found [here](https://github.com/strusoft/femdesign-api/wiki/Road-map).
 
 ## Versioning
 Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.

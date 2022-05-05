@@ -7,8 +7,17 @@ using FemDesign.GenericClasses;
 using System.Xml.Serialization;
 using FemDesign.Calculate;
 
+#if ISDYNAMO
+#region dynamo
+using Autodesk.DesignScript.Runtime;
+#endregion
+#endif
+
 namespace FemDesign.Results
 {
+    #if ISDYNAMO
+    [IsVisibleInDynamoLibrary(false)]
+    #endif
     public enum ResultType
     {
         #region QUANTITY ESTIMATION

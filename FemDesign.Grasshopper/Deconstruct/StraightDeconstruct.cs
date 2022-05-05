@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class StraightDeconstruct: GH_Component
     {
-       public StraightDeconstruct(): base("Straight.Deconstruct", "Deconstruct", "Deconstruct a Straight element.", "FemDesign", "Deconstruct")
+       public StraightDeconstruct(): base("Straight.Deconstruct", "Deconstruct", "Deconstruct a Straight element.", "FEM-Design", "Deconstruct")
        {
 
        }

@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class SortSupports : GH_Component
     {
-        public SortSupports() : base("Supports.SortSupports", "SortSupports", "Sort a list of Support objects into lists classified by each respective type of support.", "FemDesign", "Deconstruct")
+        public SortSupports() : base("Supports.SortSupports", "SortSupports", "Sort a list of Support objects into lists classified by each respective type of support.", "FEM-Design", "Deconstruct")
         {
 
         }

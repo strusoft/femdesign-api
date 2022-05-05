@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelReadStr: GH_Component
     {
-        public ModelReadStr(): base("Model.ReadStr", "ReadStr", "Read model from .str file.", "FemDesign", "Model")
+        public ModelReadStr(): base("Model.ReadStr", "ReadStr", "Read model from .str file.", "FEM-Design", "Model")
         {
 
         }

@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class PointLoadForce: GH_Component
     {
-        public PointLoadForce(): base("PointLoad.Force", "Force", "Create force point load.", "FemDesign", "Loads")
+        public PointLoadForce(): base("PointLoad.Force", "Force", "Create force point load.", "FEM-Design", "Loads")
         {
 
         }

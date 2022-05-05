@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class Bars_BucklingDataSetOnTimberBar: GH_Component
     {
-        public Bars_BucklingDataSetOnTimberBar(): base("BucklingData.SetOnTimberBar", "SetOnTimberBar", "Set BucklingData on a Timber bar-element.", "FemDesign", "Bars.Buckling")
+        public Bars_BucklingDataSetOnTimberBar(): base("BucklingData.SetOnTimberBar", "SetOnTimberBar", "Set BucklingData on a Timber bar-element.", "FEM-Design", "Bars.Buckling")
         {
 
         }

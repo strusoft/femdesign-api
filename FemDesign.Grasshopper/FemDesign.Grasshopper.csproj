@@ -100,7 +100,7 @@
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
-    <Compile Include="Loads\LoadGroupCombine.cs" />
+    <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
@@ -120,6 +120,7 @@
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\BarsDeconstruct.cs" />
+    <Compile Include="Deconstruct\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
+    <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
@@ -758,6 +760,7 @@
     <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
     <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
     <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <None Include="Resources\Fd_TabIcon_24_24.png" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>
@@ -770,6 +773,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fem-design.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fdlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fem-design-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

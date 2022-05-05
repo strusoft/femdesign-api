@@ -18,11 +18,15 @@ namespace FemDesign.Loads
     {
         #region dynamo
         /// <summary>
-        /// Define a new mass conversion table.
+        /// Define a MassConversionTable from a LoadCase or a list of LoadCases. 
+        /// The MassConversionTable is considered as a load type and should be added to the model as a load.
         /// </summary>
-        /// <param name="loadCases">LoadCase to include in MassConversionTable. Single LoadCase or list of LoadCases.</param>
+        /// <param name="loadCases">LoadCase to include in MassConversionTable. Single LoadCase or list of LoadCases. </param>
         /// <param name="factors">Factor for mass conversion of each respective LoadCase. Single value or list of values.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// MassConversionTable. The MassConversionTable is considered as a load type
+        /// and should be added to the model as a load.
+        /// </returns>
         [IsVisibleInDynamoLibrary(true)]
         public static MassConversionTable Define(List<LoadCase> loadCases, List<double> factors)
         {

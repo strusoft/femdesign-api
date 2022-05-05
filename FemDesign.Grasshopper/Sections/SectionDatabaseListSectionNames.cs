@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseListSectionNames: GH_Component
     {
-       public SectionDatabaseListSectionNames(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", "FemDesign", "Sections")
+       public SectionDatabaseListSectionNames(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", "FEM-Design", "Sections")
        {
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)

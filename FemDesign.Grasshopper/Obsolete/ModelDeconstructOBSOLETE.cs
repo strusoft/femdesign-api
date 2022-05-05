@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelDeconstructOBSOLETE : GH_Component
     {
-        public ModelDeconstructOBSOLETE() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FemDesign", "Deconstruct")
+        public ModelDeconstructOBSOLETE() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
         {
 
         }

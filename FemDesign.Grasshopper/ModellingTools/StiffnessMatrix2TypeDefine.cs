@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class StiffnessMatrix2TypeDefine: GH_Component
     {
-       public StiffnessMatrix2TypeDefine(): base("StiffnessMatrix2Type.Define", "Define", "Defina a shear stiffness matrix H.", "FemDesign", "ModellingTools")
+       public StiffnessMatrix2TypeDefine(): base("StiffnessMatrix2Type.Define", "Define", "Defina a shear stiffness matrix H.", "FEM-Design", "ModellingTools")
        {
 
        }

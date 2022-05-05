@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabWall: GH_Component
     {
-        public SlabWall(): base("Slab.Wall", "Wall", "Create a wall element.", "FemDesign", "Shells")
+        public SlabWall(): base("Slab.Wall", "Wall", "Create a wall element.", "FEM-Design", "Shells")
         {
 
         }

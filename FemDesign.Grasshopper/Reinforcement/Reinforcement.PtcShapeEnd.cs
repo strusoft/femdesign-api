@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeEndComponent : GH_Component
     {
-        public PtcShapeEndComponent() : base("PtcShapeEnd", "PtcEnd", "FemDesign.Reinforcement.PtcShapeEnd", "FemDesign", "Ptc")
+        public PtcShapeEndComponent() : base("PtcShapeEnd", "PtcEnd", "FemDesign.Reinforcement.PtcShapeEnd", "FEM-Design", "Ptc")
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)

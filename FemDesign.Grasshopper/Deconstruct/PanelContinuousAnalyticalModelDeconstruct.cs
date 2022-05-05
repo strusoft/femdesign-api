@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class PanelContinuousAnalyticalModelDeconstruct : GH_Component
     {
-        public PanelContinuousAnalyticalModelDeconstruct() : base("Panel.Deconstruct", "Deconstruct", "Deconstruct a panel of continuous analytical model element.", "FemDesign", "Deconstruct")
+        public PanelContinuousAnalyticalModelDeconstruct() : base("Panel.Deconstruct", "Deconstruct", "Deconstruct a panel of continuous analytical model element.", "FEM-Design", "Deconstruct")
         {
 
         }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
@@ -17,7 +16,7 @@ namespace FemDesign.Info
 {
     public class Info : GH_Component
     {
-        public Info() : base("Info", "Info", "Information about FEM Design API", "FemDesign", "Help")
+        public Info() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", "Help")
         {
 
         }

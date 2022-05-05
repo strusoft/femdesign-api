@@ -12,7 +12,7 @@ namespace FemDesign.AuxiliaryResults
     /// Labelled section. Used for extracting detailed results along a section line or polyline.
     /// </summary>
     [System.Serializable]
-    public class LabelledSection : EntityBase, IStructureElement
+    public partial class LabelledSection : EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int instances = 0;

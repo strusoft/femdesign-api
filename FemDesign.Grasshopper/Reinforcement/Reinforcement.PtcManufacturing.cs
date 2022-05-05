@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the PtcManufacturingType class.
         /// </summary>
-        public ReinforcementPtcManufacturingType() : base("PtcManufacturing", "Manufacturing", "Description", "FemDesign", "Ptc")
+        public ReinforcementPtcManufacturingType() : base("PtcManufacturing", "Manufacturing", "Description", "FEM-Design", "Ptc")
         {
         }
 

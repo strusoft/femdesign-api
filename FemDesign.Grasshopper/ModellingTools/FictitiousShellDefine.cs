@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FictitiousShellDefine: GH_Component
     {
-        public FictitiousShellDefine(): base("FictitiousShell.Define", "Define", "Define a fictitious shell", "FemDesign", "ModellingTools")
+        public FictitiousShellDefine(): base("FictitiousShell.Define", "Define", "Define a fictitious shell", "FEM-Design", "ModellingTools")
         {
 
         }

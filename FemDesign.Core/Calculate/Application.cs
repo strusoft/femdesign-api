@@ -1,9 +1,10 @@
 // https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
+using System.Runtime.Serialization;
 
 namespace FemDesign.Calculate
 {
@@ -61,7 +62,7 @@ namespace FemDesign.Calculate
             // Check if process information matches target version
             if (this.FdVersion == null || this.FdVersion != this.FdTargetVersion || this.FdPath == null)
             {
-                throw new System.ArgumentException("FEM-Design " + this.FdTargetVersion + " - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script.");
+                throw new ProgramNotStartedException("FEM-Design " + this.FdTargetVersion + " - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script.");
             }
         }
 
@@ -239,4 +240,16 @@ namespace FemDesign.Calculate
         }
 
     }
+
+    /// <summary>
+    /// Parsing related exceptions
+    /// </summary>
+    [Serializable]
+    public class ProgramNotStartedException : Exception
+    {
+        public ProgramNotStartedException() { }
+        public ProgramNotStartedException(string message) : base(message) { }
+        public ProgramNotStartedException(string message, Exception inner) : base(message, inner) { }
+    }
+    
 }

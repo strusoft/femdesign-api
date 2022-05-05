@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FemDesign", "Ptc")
+        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FEM-Design", "Ptc")
         {
         }
 

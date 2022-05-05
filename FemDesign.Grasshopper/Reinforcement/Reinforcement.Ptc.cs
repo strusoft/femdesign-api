@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.
         /// </summary>
-        public ReinforcementPtc(): base("Bar Post-Tensioned Cable", "BarPTC", "Add PTC to a bar. Curved bars are not supported.", "FemDesign", "Ptc")
+        public ReinforcementPtc(): base("Bar Post-Tensioned Cable", "BarPTC", "Add PTC to a bar. Curved bars are not supported.", "FEM-Design", "Ptc")
         {
         }
 

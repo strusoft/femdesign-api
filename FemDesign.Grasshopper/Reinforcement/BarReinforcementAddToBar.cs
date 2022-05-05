@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarReinforcementAddToBar: GH_Component
     {
-        public BarReinforcementAddToBar(): base("BarReinforcement.AddToBar", "AddToBar", "Add bar reinforcement to bar.", "FemDesign", "Reinforcement")
+        public BarReinforcementAddToBar(): base("BarReinforcement.AddToBar", "AddToBar", "Add bar reinforcement to bar.", "FEM-Design", "Reinforcement")
         {
 
         }

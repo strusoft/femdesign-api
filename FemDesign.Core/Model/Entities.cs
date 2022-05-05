@@ -15,7 +15,7 @@ namespace FemDesign
         // if dummy elements are not used for undefined types deserialization will not work properly
         // when serializing these dummy elements must be nulled. 
         [XmlElement("foundations", Order = 1)]
-        public List<DummyXmlObject> Foundations { get { return null; } set { value = null; } }
+        public List<StruSoft.Interop.StruXml.Data.Foundation_type> Foundations { get; set; } 
 
         [XmlElement("bar", Order = 2)]
         public List<Bars.Bar> Bars { get; set; } = new List<Bars.Bar>();

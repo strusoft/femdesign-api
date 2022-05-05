@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SortLoads : GH_Component
     {
-        public SortLoads() : base("Loads.SortLoads", "SortLoads", "Sort a list of Loads (List<ILoadElement>) into lists classified by each respective type of load.", "FemDesign", "Deconstruct")
+        public SortLoads() : base("Loads.SortLoads", "SortLoads", "Sort a list of Loads (List<ILoadElement>) into lists classified by each respective type of load.", "FEM-Design", "Deconstruct")
         {
 
         }
