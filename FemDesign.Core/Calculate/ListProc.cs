@@ -11,6 +11,20 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public enum ListProc
     {
+        #region FINITE ELEMENTS
+        /* FINITE ELEMENTS */
+        /// <summary>
+        /// Fea Nodes
+        /// </summary>
+        [XmlEnum("femNode_ListProc")]
+        FeaNode,
+        /// <summary>
+        /// Fea Shell
+        /// </summary>
+        [XmlEnum("stShellElem_ListProc")]
+        FeaShell,
+        #endregion
+
         #region QUANTITY ESTIMATION
         /* QUANTITY ESTIMATION */
         /// <summary>

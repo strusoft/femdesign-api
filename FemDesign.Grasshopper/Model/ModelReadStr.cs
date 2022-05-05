@@ -42,8 +42,13 @@ namespace FemDesign.Grasshopper
 
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
+            // It needs to check if model has been runned
+            // Always Return the FeaNode Result
+            _resultTypes.Append(Results.ResultType.FeaNode);
+
             // Create Bsc files from resultTypes
             var listProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
+            
 
             var dir = System.IO.Path.GetDirectoryName(filePath);
             var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dir}\\{l}.bsc")));

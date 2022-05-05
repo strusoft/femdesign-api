@@ -20,6 +20,23 @@ namespace FemDesign.Results
     #endif
     public enum ResultType
     {
+
+        #region FINITE ELEMENTS
+        /* FINITE ELEMENTS */
+        /// <summary>
+        /// Fea Nodes
+        /// </summary>
+        [Parseable("FeaNode")]
+        [Result(typeof(FeaNode), ListProc.FeaNode)]
+        FeaNode,
+        /// <summary>
+        /// Fea Shell
+        /// </summary>
+        [Parseable("FeaShell")]
+        [Result(typeof(FeaShell), ListProc.FeaShell)]
+        FeaShell,
+        #endregion
+
         #region QUANTITY ESTIMATION
         /* QUANTITY ESTIMATION */
         /// <summary>
