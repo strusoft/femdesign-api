@@ -5,7 +5,7 @@ on:
     paths: # When the nuspec file changed
     - 'FemDesign.Core/FemDesign.Core.nuspec'
     branches: # On push to master or a branch prefixed with pre-release
-      - main
+      - master
       - 'pre-release/**'
 
 jobs:
