@@ -145,6 +145,7 @@ namespace FemDesign.Results
 
             // Parse Results from the object
             var identifier = lineSupportReactions.Select(n => n.Id).ToList();
+            var elementId = lineSupportReactions.Select(n =>n.ElementId).ToList();
             var nodeId = lineSupportReactions.Select(n => n.NodeId).ToList();
             var loadCases = lineSupportReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
             var forceResultant = lineSupportReactions.Select(n => n.Fr).ToList();
@@ -169,6 +170,7 @@ namespace FemDesign.Results
             {
                 {"CaseIdentifier", loadCases},
                 {"Identifier", identifier},
+                {"ElementId", elementId},
                 {"NodeId", nodeId},
                 {"ReactionForce", reactionForceVector},
                 {"ReactionMoment", reactionMomentVector},

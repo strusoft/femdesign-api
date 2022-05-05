@@ -39,7 +39,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
-            pManager.Register_IntegerParam("Identifier", "Identifier", "Node Identifier.");
+            pManager.Register_StringParam("Identifier", "Identifier", "Node Identifier.");
+            pManager.Register_IntegerParam("ElementId", "ElementId", "Element Index");
             pManager.Register_IntegerParam("NodeId", "NodeId", "Node Index");
             pManager.Register_VectorParam("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]");
             pManager.Register_VectorParam("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]");
@@ -76,15 +77,14 @@ namespace FemDesign.Grasshopper
 
             var loadCases = (List<string>)result["CaseIdentifier"];
             var identifier = (List<string>)result["Identifier"];
+            var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int>)result["NodeId"];
-            var iPos = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
             var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
             var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
             var iForceResultant = (List<double>)result["ForceResultant"];
             var iMomentResultant = (List<double>)result["MomentResultant"];
 
             // Convert the FdVector to Grasshopper
-            var oPos = iPos.Select(x => x.ToRhino());
             var oReactionForce = iReactionForce.Select(x => x.ToRhino());
             var oReactionMoment = iReactionMoment.Select(x => x.ToRhino());
 
@@ -92,8 +92,8 @@ namespace FemDesign.Grasshopper
             // Set output
             DA.SetDataList("CaseIdentifier", loadCases);
             DA.SetDataList("Identifier", identifier);
+            DA.SetDataList("ElementId", elementId);
             DA.SetDataList("NodeId", nodeId);
-            DA.SetDataList("SupportPosition", oPos);
             DA.SetDataList("ReactionForce", oReactionForce);
             DA.SetDataList("ReactionMoment", oReactionMoment);
             DA.SetDataList("ForceResultant", iForceResultant);
