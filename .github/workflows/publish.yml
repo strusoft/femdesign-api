@@ -39,9 +39,9 @@ jobs:
         run: |
           nuget pack FemDesign.Core\ -Properties Configuration=Release
 
-      # - name: Publish nuget
-      #   run: |
-      #     nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
+      - name: Publish nuget
+        run: |
+          nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
 
       - name: Echo file name instead of publish # For debugging
         run: |
