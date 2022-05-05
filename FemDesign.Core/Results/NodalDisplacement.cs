@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    public class NodalDisplacement : IResult
+    public partial class NodalDisplacement : IResult
     {
         /// <summary>
         /// Support name identifier

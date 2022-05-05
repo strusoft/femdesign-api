@@ -10,7 +10,7 @@ namespace FemDesign.GenericClasses
     /// Represents strings that can be parsed to the enum by the <seealso cref="EnumParser"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class ParseableAttribute : Attribute
+    public partial class ParseableAttribute : Attribute
     {
         public readonly string[] Names;
 

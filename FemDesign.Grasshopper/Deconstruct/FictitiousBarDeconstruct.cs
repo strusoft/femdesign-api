@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FictitiousBarDeconstruct: GH_Component
     {
-       public FictitiousBarDeconstruct(): base("FictitiousBar.Deconstruct", "Deconstruct", "Deconstruct a fictitious bar element.", "FemDesign", "Deconstruct")
+       public FictitiousBarDeconstruct(): base("FictitiousBar.Deconstruct", "Deconstruct", "Deconstruct a fictitious bar element.", "FEM-Design", "Deconstruct")
        {
 
        }

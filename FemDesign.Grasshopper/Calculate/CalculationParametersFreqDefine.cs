@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersFreqDefine: GH_Component
     {
-        public CalculationParametersFreqDefine(): base("Freq.Define", "Define", "Define calculation parameters for an eigenfrequency calculation.", "FemDesign", "Calculate")
+        public CalculationParametersFreqDefine(): base("Freq.Define", "Define", "Define calculation parameters for an eigenfrequency calculation.", "FEM-Design", "Calculate")
         {
 
         }

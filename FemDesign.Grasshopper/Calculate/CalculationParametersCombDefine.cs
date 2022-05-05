@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersCombDefine: GH_Component
     {
-        public CalculationParametersCombDefine(): base("Comb.Define", "Define", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", "FemDesign", "Calculate")
+        public CalculationParametersCombDefine(): base("Comb.Define", "Define", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", "FEM-Design", "Calculate")
         {
 
         }

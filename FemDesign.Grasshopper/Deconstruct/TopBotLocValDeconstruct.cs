@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class TopBotLocValDeconstruct: GH_Component
     {
-       public TopBotLocValDeconstruct(): base("TopBotLocVal.Deconstruct", "Deconstruct", "Deconstruct a TopBottomLocationValue.", "FemDesign", "Deconstruct")
+       public TopBotLocValDeconstruct(): base("TopBotLocVal.Deconstruct", "Deconstruct", "Deconstruct a TopBottomLocationValue.", "FEM-Design", "Deconstruct")
        {
 
        }

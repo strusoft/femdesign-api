@@ -10,7 +10,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Examples
 {
-    internal class Program
+    public class Program
     {
         static void Main()
         {

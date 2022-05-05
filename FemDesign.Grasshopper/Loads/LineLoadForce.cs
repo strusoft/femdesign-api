@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineLoadForce: GH_Component
     {
-        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")
+        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", "FEM-Design", "Loads")
         {
 
         }

@@ -58,6 +58,7 @@
     <Compile Include="Bars\Buckling\BucklingTypeEnum.cs" />
     <Compile Include="Bars\Buckling\Position.cs" />
     <Compile Include="Bars\BarType.cs" />
+    <Compile Include="Bars\SectionTypeEnum.cs" />
     <Compile Include="Bars\SteelMadeTypeEnum.cs" />
     <Compile Include="Bars\ColumnCorbel.cs" />
     <Compile Include="Bars\Connectivity.cs" />
@@ -250,7 +251,7 @@
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />
-    <Compile Include="Sections\ModelSection.cs" />
+    <Compile Include="Sections\ComplexSectionPart.cs" />
     <Compile Include="Sections\ModelSections.cs" />
     <Compile Include="Sections\Section.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
@@ -271,6 +272,9 @@
     <Compile Include="StructureGrid\Axis.cs" />
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />

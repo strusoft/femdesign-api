@@ -11,6 +11,7 @@ namespace FemDesign.Bars.Buckling
     /// <summary>
     /// Buckling types
     /// </summary>
+    [System.Serializable]
     public enum BucklingType
     {
         /// <summary>

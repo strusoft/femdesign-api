@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelOpen: GH_Component
     {
-        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", "FemDesign", "Model")
+        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", "FEM-Design", "Model")
         {
 
         }
@@ -64,7 +64,7 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-                throw new System.ArgumentException("RunNode is set to false!");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
             }
         }
         protected override System.Drawing.Bitmap Icon

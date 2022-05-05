@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Point support group, Reactions" result
     /// </summary>
-    public class PointSupportReaction : IResult
+    public partial class PointSupportReaction : IResult
     {
         /// <summary>
         /// Support name identifier

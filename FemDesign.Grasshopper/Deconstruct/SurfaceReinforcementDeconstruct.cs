@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceReinforcementDeconstruct: GH_Component
     {
-       public SurfaceReinforcementDeconstruct(): base("SurfaceReinforcement.Deconstruct", "Deconstruct", "Deconstruct a SurfaceReinforcement element.", "FemDesign", "Deconstruct")
+       public SurfaceReinforcementDeconstruct(): base("SurfaceReinforcement.Deconstruct", "Deconstruct", "Deconstruct a SurfaceReinforcement element.", "FEM-Design", "Deconstruct")
        {
 
        }

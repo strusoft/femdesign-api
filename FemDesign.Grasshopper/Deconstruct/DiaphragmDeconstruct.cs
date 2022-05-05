@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class DiaphragmDeconstruct : GH_Component
     {
-       public DiaphragmDeconstruct(): base("Diaphragm.Deconstruct", "Deconstruct", "Deconstruct a slab element.", "FemDesign", "Deconstruct")
+       public DiaphragmDeconstruct(): base("Diaphragm.Deconstruct", "Deconstruct", "Deconstruct a slab element.", "FEM-Design", "Deconstruct")
        {
 
        }

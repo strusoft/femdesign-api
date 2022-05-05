@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class StraightReinforcementLayout: GH_Component
     {
-        public StraightReinforcementLayout(): base("Straight.ReinforcementLayout", "ReinforcementLayout", "Define straight reinforcement layout for surface reinforcement", "FemDesign", "Reinforcement")
+        public StraightReinforcementLayout(): base("Straight.ReinforcementLayout", "ReinforcementLayout", "Define straight reinforcement layout for surface reinforcement", "FEM-Design", "Reinforcement")
         {
 
         }

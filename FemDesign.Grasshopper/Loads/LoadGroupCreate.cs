@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadGroupCreate : GH_Component
     {
-        public LoadGroupCreate() : base("LoadGroup.Create", "Create", "Creates a load group.", "FemDesign", "Loads")
+        public LoadGroupCreate() : base("LoadGroup.Create", "Create", "Creates a load group.", "FEM-Design", "Loads")
         {
 
         }

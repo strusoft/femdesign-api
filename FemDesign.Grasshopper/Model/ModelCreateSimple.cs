@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelCreateSimple : GH_Component
     {
-        public ModelCreateSimple() : base("Model.CreateSimple", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
+        public ModelCreateSimple() : base("Model.CreateSimple", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FEM-Design", "Model")
         {
 
         }

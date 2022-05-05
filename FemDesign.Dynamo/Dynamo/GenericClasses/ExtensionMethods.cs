@@ -13,4 +13,23 @@ namespace FemDesign
     {
         
     }
+
+    [IsVisibleInDynamoLibrary(false)]
+    public static partial class ObjectExtensions
+    {
+
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
+    public partial class ReferenceEqualityComparer
+    {
+
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
+    public static partial class ArrayExtensions
+    {
+
+    }
+
 }

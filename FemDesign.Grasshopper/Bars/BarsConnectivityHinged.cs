@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsConnectivityHinged: GH_Component
     {
-        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", "FemDesign", "Bars")
+        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", "FEM-Design", "Bars")
         {
 
         }

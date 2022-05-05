@@ -33,7 +33,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Concrete" result
     /// </summary>
-    public class QuantityEstimationConcrete : IQuantityEstimationResult
+    public partial class QuantityEstimationConcrete : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -106,7 +106,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Reinforcement" result
     /// </summary>
-    public class QuantityEstimationReinforcement : IQuantityEstimationResult
+    public partial class QuantityEstimationReinforcement : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -179,7 +179,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Steel" result
     /// </summary>
-    public class QuantityEstimationSteel : IQuantityEstimationResult
+    public partial class QuantityEstimationSteel : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -269,7 +269,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
-    public class QuantityEstimationTimber : IQuantityEstimationResult
+    public partial class QuantityEstimationTimber : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -359,7 +359,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
-    public class QuantityEstimationProfiledPlate : IQuantityEstimationResult
+    public partial class QuantityEstimationProfiledPlate : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier

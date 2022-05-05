@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsRigidLine: GH_Component
     {
-        public RotationsRigidLine(): base("Rotations.RigidLine", "RigidLine", "Define a rigid rotations release for a line-type release (1e+07 kNm/m/rad).", "FemDesign", "Releases")
+        public RotationsRigidLine(): base("Rotations.RigidLine", "RigidLine", "Define a rigid rotations release for a line-type release (1e+07 kNm/m/rad).", "FEM-Design", "Releases")
         {
 
         }

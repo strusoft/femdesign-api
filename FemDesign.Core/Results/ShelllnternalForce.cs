@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, End forces" result
     /// </summary>
-    public class ShellInternalForce : IResult
+    public partial class ShellInternalForce : IResult
     {
         /// <summary>
         /// Bar name identifier

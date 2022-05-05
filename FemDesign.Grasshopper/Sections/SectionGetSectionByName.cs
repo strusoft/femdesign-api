@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionGetSectionByName: GH_Component
     {
-        public SectionGetSectionByName(): base("Section.GetSectionByName", "GetSectionByName", "Get a Section from a SectionDatabase by name.", "FemDesign", "Sections")
+        public SectionGetSectionByName(): base("Section.GetSectionByName", "GetSectionByName", "Get a Section from a SectionDatabase by name.", "FEM-Design", "Sections")
         {
 
         }

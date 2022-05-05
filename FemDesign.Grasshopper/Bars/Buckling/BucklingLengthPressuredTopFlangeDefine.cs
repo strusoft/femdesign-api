@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsPressuredTopFlangeDefine: GH_Component
     {
-        public BarsPressuredTopFlangeDefine(): base("BucklingLength.PressuredTopFlangeDefine", "PressuredTopFlangeDefine", "Define BucklingLength for Pressured Top Flange.", "FemDesign", "Bars.Buckling")
+        public BarsPressuredTopFlangeDefine(): base("BucklingLength.PressuredTopFlangeDefine", "PressuredTopFlangeDefine", "Define BucklingLength for Pressured Top Flange.", "FEM-Design", "Bars.Buckling")
         {
 
         }
