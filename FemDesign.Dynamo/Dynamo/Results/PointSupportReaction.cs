@@ -13,7 +13,7 @@ namespace FemDesign.Results
     public partial class PointSupportReaction : IResult
     {
         /// <summary>
-        /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
+        /// 
         /// </summary>
         /// <param name="Result">Result to be Parse</param>
         /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the displacement for the first load case</param>

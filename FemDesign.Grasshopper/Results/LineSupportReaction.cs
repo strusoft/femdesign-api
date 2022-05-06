@@ -100,6 +100,8 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("MomentResultant", iMomentResultant);
         }
 
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
+
         /// <summary>
         /// Provides an Icon for the component.
         /// </summary>
