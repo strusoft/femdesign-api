@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
             Name = "Results.ResultsType";
             NickName = "ResultsType";
             Description = "ResultsType enum.";
-            Category = "FemDesign";
+            Category = "FEM-Design";
             SubCategory = "Results";
 
             ListItems.Clear();
@@ -28,6 +28,9 @@ namespace FemDesign.Grasshopper
                 ListItems.Add(vi);
             }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
+
         protected override System.Drawing.Bitmap Icon
         {
             get
