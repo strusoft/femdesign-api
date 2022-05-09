@@ -3,7 +3,7 @@ name: publish to nuget
 on:
   push:
     paths: # When the nuspec file changed
-    - 'FemDesign.Core/FemDesign.Core.nuspec'
+      - 'FemDesign.Core/FemDesign.Core.nuspec'
     branches: # Only on push to master
       - master
 
