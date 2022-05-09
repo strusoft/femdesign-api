@@ -912,6 +912,7 @@
     <Compile Include="Dynamo\Results\BarDisplacement.cs" />
     <Compile Include="Dynamo\Results\BarInternalForce.cs" />
     <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\FeaNode.cs" />
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
