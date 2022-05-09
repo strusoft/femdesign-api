@@ -11,7 +11,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, Internal Force" result
     /// </summary>
-    public class BarInternalForce : IResult
+    public partial class BarInternalForce : IResult
     {
         /// <summary>
         /// Bar name identifier
@@ -75,7 +75,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+            return $"{base.ToString()}, {Id}, {CaseIdentifier}, Fx: {Fx}, Fy: {Fy}, Fz: {Fz}, Mx: {Mx}, My: {My}, Mz: {Mz}";
         }
 
         internal static Regex IdentificationExpression
@@ -106,6 +106,71 @@ namespace FemDesign.Results
             double mz = Double.Parse(row[7], CultureInfo.InvariantCulture);
             string lc = HeaderData["casename"];
             return new BarInternalForce(barname, pos, fx, fy, fz, mx, my, mz, lc);
+        }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructBarInternalForce(List<FemDesign.Results.BarInternalForce> Result, string LoadCase)
+        {
+            var barInternalForces = Result.Cast<FemDesign.Results.BarInternalForce>();
+
+            // Return the unique load case - load combination
+            var uniqueLoadCases = barInternalForces.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
+
+            // Select the Nodal Displacement for the selected Load Case - Load Combination
+            if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
+            {
+                barInternalForces = barInternalForces.Where(n => String.Equals(n.CaseIdentifier, LoadCase, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Load Case '{LoadCase}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var loadCases = new List<string>();
+            var elementId = new List<string>();
+            var positionResult = new List<double>();
+
+            var forceFx = new List<double>();
+            var forceFy = new List<double>();
+            var forceFz = new List<double>();
+            var forceMx = new List<double>();
+            var forceMy = new List<double>();
+            var forceMz = new List<double>();
+
+            foreach(var resultBar in barInternalForces)
+            {
+                loadCases.Add(resultBar.CaseIdentifier);
+                elementId.Add(resultBar.Id);
+                positionResult.Add(resultBar.Pos);
+
+                forceFx.Add(resultBar.Fx);
+                forceFy.Add(resultBar.Fy);
+                forceFz.Add(resultBar.Fz);
+                forceMx.Add(resultBar.Mx);
+                forceMy.Add(resultBar.My);
+                forceMz.Add(resultBar.Mz);
+            }
+
+            return new Dictionary<string, dynamic>
+            {
+                {"CaseIdentifier", loadCases},
+                {"ElementId", elementId},
+                {"PositionResult",positionResult},
+                {"Fx", forceFx},
+                {"Fy", forceFy},
+                {"Fz", forceFz},
+                {"Mx", forceMx},
+                {"My", forceMy},
+                {"Mz", forceMz}
+            };
         }
     }
 }

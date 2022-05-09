@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 using Autodesk.DesignScript.Runtime;
 
-
 namespace FemDesign.Results
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class BarDisplacement : IResult
+    public partial class BarInternalForce : IResult
     {
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
@@ -18,15 +17,15 @@ namespace FemDesign.Results
         /// <param name="Result">Result to be Parse</param>
         /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the displacement for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[] { "CaseIdentifier", "ElementId", "PositionResult", "Translation", "Rotation" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarDisplacement> Result, [DefaultArgument("null")] string LoadCase)
+        [MultiReturn(new[] { "CaseIdentifier", "ElementId", "PositionResult", "Fx", "Fy", "Fz", "Mx", "My", "Mz" })]
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarInternalForce> Result, [DefaultArgument("null")] string LoadCase)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
 
             try
             {
-                result = FemDesign.Results.BarDisplacement.DeconstructBarDisplacements(Result, LoadCase);
+                result = FemDesign.Results.BarInternalForce.DeconstructBarInternalForce(Result, LoadCase);
             }
             catch (ArgumentException ex)
             {
@@ -37,28 +36,39 @@ namespace FemDesign.Results
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<string>)result["ElementId"];
             var positionResult = (List<double>)result["PositionResult"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var fx = (List<double>)result["Fx"];
+            var fy = (List<double>)result["Fy"];
+            var fz = (List<double>)result["Fz"];
+            var mx = (List<double>)result["Mx"];
+            var my = (List<double>)result["My"];
+            var mz = (List<double>)result["Mz"];
 
-            // Convert the FdVector to Dynamo
-            var oTranslation = iTranslation.Select(x => x.ToDynamo());
-            var oRotation = iRotation.Select(x => x.ToDynamo());
-
+            var uniqueLoadCase = loadCases.Distinct().ToList();
             var uniqueId = elementId.Distinct().ToList();
 
+
             // Convert Data in DataTree structure
-            var elementIdTree = new List<List<string>>();
+            var elementIdTree = new List<List<string>> ();
             var positionResultTree = new List<List<double>>();
-            var oTranslationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
-            var oRotationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
+            var fxTree = new List<List<double>>();
+            var fyTree = new List<List<double>>();
+            var fzTree = new List<List<double>>();
+            var mxTree = new List<List<double>>();
+            var myTree = new List<List<double>>();
+            var mzTree = new List<List<double>>();
+
 
 
             foreach (var id in uniqueId)
             {
                 var elementIdTreeTemp = new List<string>();
                 var positionResultTreeTemp = new List<double>();
-                var oTranslationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
-                var oRotationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
+                var fxTreeTemp = new List<double>();
+                var fyTreeTemp = new List<double>();
+                var fzTreeTemp = new List<double>();
+                var mxTreeTemp = new List<double>();
+                var myTreeTemp = new List<double>();
+                var mzTreeTemp = new List<double>();
 
 
                 // indexes where the uniqueId matches in the list
@@ -68,26 +78,39 @@ namespace FemDesign.Results
 
                 foreach (int index in indexes)
                 {
-                    //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
                     elementIdTreeTemp.Add(elementId.ElementAt(index));
                     positionResultTreeTemp.Add(positionResult.ElementAt(index));
-                    oTranslationTreeTemp.Add(oTranslation.ElementAt(index));
-                    oRotationTreeTemp.Add(oRotation.ElementAt(index));
+
+                    fxTreeTemp.Add(fx.ElementAt(index));
+                    fyTreeTemp.Add(fy.ElementAt(index));
+                    fzTreeTemp.Add(fz.ElementAt(index));
+                    mxTreeTemp.Add(mx.ElementAt(index));
+                    myTreeTemp.Add(my.ElementAt(index));
+                    mzTreeTemp.Add(mz.ElementAt(index));
                 }
 
                 elementIdTree.Add(elementIdTreeTemp);
                 positionResultTree.Add(positionResultTreeTemp);
-                oTranslationTree.Add(oTranslationTreeTemp);
-                oRotationTree.Add(oRotationTreeTemp);
+
+                fxTree.Add(fxTreeTemp);
+                fyTree.Add(fyTreeTemp);
+                fzTree.Add(fzTreeTemp);
+                mxTree.Add(mxTreeTemp);
+                myTree.Add(myTreeTemp);
+                mzTree.Add(mzTreeTemp);
             }
 
             return new Dictionary<string, object>
             {
-                {"CaseIdentifier", loadCases},
+                {"CaseIdentifier", uniqueLoadCase},
                 {"ElementId", elementIdTree},
                 {"PositionResult", positionResultTree},
-                {"Translation", oTranslationTree},
-                {"Rotation", oRotationTree}
+                {"Fx", fxTree},
+                {"Fy", fyTree},
+                {"Fz", fzTree},
+                {"Mx", mxTree},
+                {"My", myTree},
+                {"Mz", mzTree}
             };
         }
     }
