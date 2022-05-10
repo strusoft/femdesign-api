@@ -19,6 +19,9 @@ namespace FemDesign.Calculate
         [XmlElement("step")]
         public double Step { get; set; }
 
+        [XmlElement("surface")]
+        public int SrfValues { get; set; }
+
         [XmlIgnore]
         public ResPosition ResPosition { get; set; }
 
@@ -30,10 +33,6 @@ namespace FemDesign.Calculate
 
         }
 
-        private Options(int bar)
-        {
-            this.Bar = bar;
-        }
 
         private Options(int bar, double step)
         {
@@ -41,20 +40,32 @@ namespace FemDesign.Calculate
             this.Step = step;
         }
 
+        private Options(int srf, string type)
+        {
+            this.SrfValues = srf;
+        }
+
         public Options(ListProc listProc, double step)
         {
-
+            
         }
 
         // Assumption
         // the method is returning the results every 50 cm for bar elements.
         // Future Development...Get the user to decide the step ?
+        // It is RUBBISH code developed to Deconstruct the Results
 
         public static Options GetOptions(ListProc resultType)
         {
             string r = resultType.ToString();
             if (r.StartsWith("BarsInternalForces") || r.StartsWith("BarsStresses") || r.StartsWith("BarsDisplacements"))
+            {
                 return new Options(1, 0.5);
+            }
+            else if (r.StartsWith("ShellDisplacement") || r.StartsWith("ShellStress") || r.StartsWith("ShellInternalForce") || r.StartsWith("ShellDerivedForce"))
+            {
+                return new Options(1, "srf");
+            }
             else
             {
                 return new Options();

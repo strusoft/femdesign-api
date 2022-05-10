@@ -44,8 +44,8 @@ P.1.1	fi	39	631	-0.001	0.000	0.001	0.000	-0.007	-0.000	0.002	0.007	LC1
 ");
 
             var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(ShellsDisplacement), "Shell displacements should be parsed");
-            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(ShellsDisplacement), "Shell displacements (extract) should be parsed");
+            Assert.IsTrue(results[0].GetType() == typeof(ShellDisplacement), "Shell displacements should be parsed");
+            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(ShellDisplacement), "Shell displacements (extract) should be parsed");
             Assert.IsTrue(results.Count == 16, "Should read all results.");
 
             File.Delete(path);
@@ -62,8 +62,8 @@ P.1.1	fi	39	631	-0.001	0.000	0.001	0.000	-0.007	-0.000	0.002	0.007	LC1
 
             foreach (var header in headers)
             {
-                var match = ShellsDisplacement.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellsDisplacement).Name}");
+                var match = ShellDisplacement.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellDisplacement).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
                 Assert.IsTrue(match.Groups["casename"].Success);
             }
@@ -82,7 +82,7 @@ P.1.1	fi	39	631	-0.001	0.000	0.001	0.000	-0.007	-0.000	0.002	0.007	LC1
 
             foreach (var header in headers)
             {
-                var match = ShellsDisplacement.HeaderExpression.Match(header);
+                var match = ShellDisplacement.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

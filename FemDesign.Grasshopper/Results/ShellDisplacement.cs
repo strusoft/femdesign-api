@@ -9,15 +9,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarDisplacement : GH_Component
+    public class ShellDisplacement : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public BarDisplacement()
-          : base("Results.BarDisplacement",
-                "BarDisplacement",
-                "Read the bar displacement for the elements",
+        public ShellDisplacement()
+          : base("Results.ShellDisplacement",
+                "ShellDisplacement",
+                "Read the shell displacement for the entire model",
                 "FEM-Design",
                 "Results")
         {
@@ -40,10 +40,10 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
-            pManager.Register_StringParam("ElementId", "ElementId", "Element Id");
-            pManager.Register_DoubleParam("PositionResult", "PositionResult", "Position Result");
-            pManager.Register_VectorParam("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]");
-            pManager.Register_VectorParam("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]");
+            pManager.Register_GenericParam("ElementId", "ElementId", "Element Index");
+            pManager.Register_GenericParam("NodeId", "NodeId", "Node Index");
+            pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes. [m]");
+            pManager.Register_VectorParam("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes. [rad]");
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
-            List<FemDesign.Results.BarDisplacement> iResult = new List<FemDesign.Results.BarDisplacement>();
+            List<FemDesign.Results.ShellDisplacement> iResult = new List<FemDesign.Results.ShellDisplacement>();
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
@@ -64,7 +64,7 @@ namespace FemDesign.Grasshopper
 
             try
             {
-                result = FemDesign.Results.BarDisplacement.DeconstructBarDisplacements(iResult, iLoadCase);
+                result = FemDesign.Results.ShellDisplacement.DeconstructShellDisplacement(iResult, iLoadCase);
             }
             catch (ArgumentException ex)
             {
@@ -74,8 +74,8 @@ namespace FemDesign.Grasshopper
 
             // Extract Results from the Dictionary
             var loadCases = (List<string>)result["CaseIdentifier"];
-            var elementId = (List<string>)result["ElementId"];
-            var positionResult = (List<double>)result["PositionResult"];
+            var elementId = (List<int>)result["ElementId"];
+            var nodeId = (List<string>)result["NodeId"];
             var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
             var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
 
@@ -83,12 +83,13 @@ namespace FemDesign.Grasshopper
             var oTranslation = iTranslation.Select(x => x.ToRhino());
             var oRotation = iRotation.Select(x => x.ToRhino());
 
+            var uniqueLoadCase = loadCases.Distinct().ToList();
             var uniqueId = elementId.Distinct().ToList();
 
 
             // Convert Data in DataTree structure
             DataTree<object> elementIdTree = new DataTree<object>();
-            DataTree<object> positionResultTree = new DataTree<object>();
+            DataTree<object> nodeIdTree = new DataTree<object>();
             DataTree<object> oTranslationTree = new DataTree<object>();
             DataTree<object> oRotationTree = new DataTree<object>();
 
@@ -103,25 +104,27 @@ namespace FemDesign.Grasshopper
                   .Where(a => string.Equals(a.value, id))
                   .Select(a => a.index);
 
+                elementIdTree.Add(id, new GH_Path(ghPath, i));
+
                 foreach (int index in indexes)
                 {
-                    elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
-                    positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(ghPath, i));
+                    //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
+                    //elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
+                    nodeIdTree.Add(nodeId.ElementAt(index), new GH_Path(ghPath, i));
                     oTranslationTree.Add(oTranslation.ElementAt(index), new GH_Path(ghPath, i));
                     oRotationTree.Add(oRotation.ElementAt(index), new GH_Path(ghPath, i));
                 }
                 i++;
             }
 
-            // Set output
-            DA.SetDataList(0, loadCases);
+            DA.SetDataList("CaseIdentifier", uniqueLoadCase);
             DA.SetDataTree(1, elementIdTree);
-            DA.SetDataTree(2, positionResultTree);
+            DA.SetDataTree(2, nodeIdTree);
             DA.SetDataTree(3, oTranslationTree);
             DA.SetDataTree(4, oRotationTree);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -141,7 +144,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("A30A0D60-ECBE-4B34-8B38-0F95E9Fbbbbb"); }
+            get { return new Guid("DD977169-C380-4DBE-8F39-87448F42BD8D"); }
         }
     }
 }

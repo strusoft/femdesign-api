@@ -78,7 +78,10 @@ namespace FemDesign.Grasshopper
                         var _results = Results.ResultsReader.Parse(path);
                         results = results.Concat(_results);
                     }
-                    catch (System.ApplicationException) {}
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.InnerException.Message);
+                    }
                 };
             }
 
