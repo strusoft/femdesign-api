@@ -93,7 +93,7 @@
         {
           "Id": "9bdbec6dbe5f4bb09ed78bb749b5709b",
           "Name": "countryCode",
-          "Description": "National annex of calculation code (D/DK/EST/FIN/GB/H/N/PL/RO/S/TR)\n\nstring\nDefault value : \"S\"",
+          "Description": "string\nDefault value : \"S\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -112,7 +112,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Load the default MaterialDatabase for each respective country.\n\nMaterialDatabase.Default (countryCode: string = \"S\"): MaterialDatabase"
+      "Description": "MaterialDatabase.Default (countryCode: string = \"S\"): MaterialDatabase"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -123,7 +123,7 @@
         {
           "Id": "c7664292314940d481b76133bf1286ec",
           "Name": "materialDatabase",
-          "Description": "MaterialDatabase\n\nMaterialDatabase",
+          "Description": "MaterialDatabase",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -132,7 +132,7 @@
         {
           "Id": "1510ffc40af34f6e9d080f6c392eeccc",
           "Name": "materialName",
-          "Description": "Name of Material\n\nstring",
+          "Description": "string",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -151,7 +151,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Get Material from MaterialDatabase by name.\n\nMaterial.GetMaterialByName (materialDatabase: MaterialDatabase, materialName: string): Material"
+      "Description": "Material.GetMaterialByName (materialDatabase: MaterialDatabase, materialName: string): Material"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -212,7 +212,7 @@
         {
           "Id": "3fc8a9b06c1849d6b9c9e39ae46b238e",
           "Name": "surface",
-          "Description": "Surface. Surface must be flat.\n\nSurface",
+          "Description": "Surface",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -221,7 +221,7 @@
         {
           "Id": "be44b8410d0b459a88f1fe9233603489",
           "Name": "thickness",
-          "Description": "Thickness.\n\ndouble",
+          "Description": "double",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -230,7 +230,7 @@
         {
           "Id": "488c5724e73c4f7ea34144d6fd2505d2",
           "Name": "material",
-          "Description": "Material.\n\nMaterial",
+          "Description": "Material",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -239,7 +239,7 @@
         {
           "Id": "b7bd484f35424e1983abd3157a508a67",
           "Name": "shellEccentricity",
-          "Description": "ShellEccentricity. Optional, if undefined default value will be used.\n\nShellEccentricity\nDefault value : FemDesign.Shells.ShellEccentricity.Default()",
+          "Description": "ShellEccentricity\nDefault value : FemDesign.Shells.ShellEccentricity.Default()",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -248,7 +248,7 @@
         {
           "Id": "5b295584c0244feda9eb22fd77c040ec",
           "Name": "shellOrthotropy",
-          "Description": "ShellOrthotropy. Optional, if undefined default value will be used.\n\nShellOrthotropy\nDefault value : FemDesign.Shells.ShellOrthotropy.Default()",
+          "Description": "ShellOrthotropy\nDefault value : FemDesign.Shells.ShellOrthotropy.Default()",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -257,7 +257,7 @@
         {
           "Id": "ec4ff78b4b5142f084c7b3a30f77018e",
           "Name": "shellEdgeConnection",
-          "Description": "ShellEdgeConnection. Optional, if undefined rigid.\n\nShellEdgeConnection\nDefault value : FemDesign.Shells.ShellEdgeConnection.Default()",
+          "Description": "ShellEdgeConnection\nDefault value : FemDesign.Shells.ShellEdgeConnection.Default()",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -266,7 +266,7 @@
         {
           "Id": "84b3a0f17f74410f9d2c95b7c1fb0550",
           "Name": "localX",
-          "Description": "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
+          "Description": "Vector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -275,7 +275,7 @@
         {
           "Id": "cc6f4a91b15b4a1ab7a905820472e093",
           "Name": "localZ",
-          "Description": "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.\"\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
+          "Description": "Vector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -284,7 +284,7 @@
         {
           "Id": "e43fd2af25a548b6a91237c256466bf1",
           "Name": "identifier",
-          "Description": "Identifier of plate element. Optional.\n\nstring\nDefault value : \"P\"",
+          "Description": "string\nDefault value : \"P\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -303,7 +303,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a plate element.\n\nSlab.Plate (surface: Surface, thickness: double, material: Material, shellEccentricity: ShellEccentricity = FemDesign.Shells.ShellEccentricity.Default(), shellOrthotropy: ShellOrthotropy = FemDesign.Shells.ShellOrthotropy.Default(), shellEdgeConnection: ShellEdgeConnection = FemDesign.Shells.ShellEdgeConnection.Default(), localX: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), localZ: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), identifier: string = \"P\"): Slab"
+      "Description": "Slab.Plate (surface: Surface, thickness: double, material: Material, shellEccentricity: ShellEccentricity = FemDesign.Shells.ShellEccentricity.Default(), shellOrthotropy: ShellOrthotropy = FemDesign.Shells.ShellOrthotropy.Default(), shellEdgeConnection: ShellEdgeConnection = FemDesign.Shells.ShellEdgeConnection.Default(), localX: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), localZ: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), identifier: string = \"P\"): Slab"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -323,7 +323,7 @@
         {
           "Id": "7b77a301e2e343cca32bf191449db274",
           "Name": "movingLocal",
-          "Description": "LCS changes direction along line?\n\nbool\nDefault value : false",
+          "Description": "bool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -332,7 +332,7 @@
         {
           "Id": "cbd04f8decb8416ea142fd0d8f8172d6",
           "Name": "localY",
-          "Description": "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
+          "Description": "Vector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -341,7 +341,7 @@
         {
           "Id": "ed4e56248a4649aa9611e0f0baaf3eeb",
           "Name": "orientLCS",
-          "Description": "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.\n\nbool\nDefault value : true",
+          "Description": "bool\nDefault value : true",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -350,7 +350,7 @@
         {
           "Id": "2f932c5a0a9b44d7a02c13426b688164",
           "Name": "identifier",
-          "Description": "Identifier. Optional, default value if undefined.\n\nstring\nDefault value : S",
+          "Description": "string\nDefault value : S",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -369,7 +369,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a hinged line support element.\n\nLineSupport.Hinged (curve: Curve, movingLocal: bool = false, localY: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), orientLCS: bool = true, identifier: string = S): LineSupport"
+      "Description": "LineSupport.Hinged (curve: Curve, movingLocal: bool = false, localY: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), orientLCS: bool = true, identifier: string = S): LineSupport"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -388,8 +388,8 @@
         },
         {
           "Id": "cff8fb2b95b842f88670d9c75283978c",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -399,8 +399,8 @@
       "Outputs": [
         {
           "Id": "be49a693e561463ca23a35d1193b8b12",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -408,7 +408,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -419,7 +419,7 @@
         {
           "Id": "aa47d26dfbe0491082775ac17c8ab595",
           "Name": "countryCode",
-          "Description": "National annex of calculation code (\"D\"/\"DK\"/\"EST\"/\"FIN\"/\"GB\"/\"H\"/\"N\"/\"PL\"/\"RO\"/\"S\"/\"TR\")\n\nstring\nDefault value : S",
+          "Description": "string\nDefault value : \"S\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -428,7 +428,7 @@
         {
           "Id": "f8c8cdfbbcc7462eba8835677bae5afe",
           "Name": "bars",
-          "Description": "Single bar element or list of bar elements to add. Nested lists are not supported, use flatten.\n\nBar[]\nDefault value : []",
+          "Description": "Bar[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -446,7 +446,7 @@
         {
           "Id": "bb23dfd427da46d0a22c7637ca25da79",
           "Name": "shells",
-          "Description": "Single shell element or list of shell elements to add. Nested lists are not supported, use flatten.\n\nSlab[]\nDefault value : []",
+          "Description": "Slab[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -473,7 +473,7 @@
         {
           "Id": "1c91efae8a374a29ab327f361e6c6c76",
           "Name": "covers",
-          "Description": "Single cover element or list of cover elements to add. Nested lists are not supported, use flatten.\n\nCover[]\nDefault value : []",
+          "Description": "Cover[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -482,7 +482,7 @@
         {
           "Id": "d6c666ff58644d7d94f9c316a2c19a76",
           "Name": "loads",
-          "Description": "Loads\", \"Single PointLoad, LineLoad, SurfaceLoad or PressureLoad element or list of PointLoad, LineLoad, SurfaceLoad or PressureLoad to add. Nested lists are not supported, use flatten.\n\nvar[]\nDefault value : []",
+          "Description": "var[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -491,7 +491,7 @@
         {
           "Id": "d3ea1a9f91e845c0a325d7e5d947234b",
           "Name": "loadCases",
-          "Description": "Single loadCase element or list of loadCase-elements to add. Nested lists are not supported, use flatten.\n\nLoadCase[]\nDefault value : []",
+          "Description": "LoadCase[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -500,7 +500,7 @@
         {
           "Id": "3c587e80a49242f294681d93436eb9f5",
           "Name": "loadCombinations",
-          "Description": "Single loadCombination element or list of loadCombination elements to add. Nested lists are not supported, use flatten.\n\nLoadCombination[]\nDefault value : []",
+          "Description": "LoadCombination[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -509,7 +509,7 @@
         {
           "Id": "e4dee5ac70e54333a7e61471249acee4",
           "Name": "supports",
-          "Description": "Single support element or list of support elements to add. Nested lists are not supported, use flatten.\n\nvar[]\nDefault value : []",
+          "Description": "var[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -518,7 +518,7 @@
         {
           "Id": "d872ae1bc2cb48feb449d16ffc894ce8",
           "Name": "storeys",
-          "Description": "Single storey element or list of storey elements to add. Nested lists are not supported, use flatten.\n\nStorey[]\nDefault value : []",
+          "Description": "Storey[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -527,7 +527,7 @@
         {
           "Id": "5b769faea205418583f0d13d5cd88b97",
           "Name": "axes",
-          "Description": "Single axis element or list of axis elements to add. Nested lists are not supported, use flatten.\n\nAxis[]\nDefault value : []",
+          "Description": "Axis[]\nDefault value : []",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -546,7 +546,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Create new model. Add entities to model. Nested lists are not supported, use flatten.\n\nModel.CreateNewModel (countryCode: string = S, bars: Bar[] = [], fictitiousBars: FictitiousBar[] = [], shells: Slab[] = [], fictitiousShells: FictitiousShell[] = [], panels: Panel[] = [], covers: Cover[] = [], loads: var[] = [], loadCases: LoadCase[] = [], loadCombinations: LoadCombination[] = [], supports: var[] = [], storeys: Storey[] = [], axes: Axis[] = []): Model"
+      "Description": "Model.CreateNewModel (countryCode: string = \"S\", bars: Bar[] = [], fictitiousBars: FictitiousBar[] = [], shells: Slab[] = [], fictitiousShells: FictitiousShell[] = [], panels: Panel[] = [], covers: Cover[] = [], loads: var[] = [], loadCases: LoadCase[] = [], loadCombinations: LoadCombination[] = [], supports: var[] = [], storeys: Storey[] = [], axes: Axis[] = []): Model"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -569,27 +569,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
-      "HintPath": "C:\\temp\\helloWorld.struxml",
-      "InputValue": "..\\..\\..\\..\\..\\..\\..\\temp\\helloWorld.struxml",
-      "NodeType": "ExtensionNode",
-      "Id": "5a977560e9ba4294929e852a09d7fa4d",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "2e1c263c3b4045e7a99a681a09be3aa1",
-          "Name": "",
-          "Description": "Filename",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Allows you to select a file on the system to get its filename"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "FemDesign.Model.OpenModel@FemDesign.Model,string,bool,bool",
@@ -598,7 +577,7 @@
         {
           "Id": "9a99613c683d4d8e8d7dc98afc35831f",
           "Name": "fdModel",
-          "Description": "FdModel.\n\nModel",
+          "Description": "Model",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -607,7 +586,7 @@
         {
           "Id": "a08edce235d548f7b6bb83f641c3b145",
           "Name": "struxmlPath",
-          "Description": "File path where to save the model as .struxml\n\nstring",
+          "Description": "string",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -616,7 +595,7 @@
         {
           "Id": "c314a535b94942618f30164ceedab2a5",
           "Name": "closeOpenWindows",
-          "Description": "If true all open windows will be closed without prior warning.\n\nbool\nDefault value : false",
+          "Description": "bool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -625,7 +604,7 @@
         {
           "Id": "6ffe2c915fb3476d8c1cdd88fac624cb",
           "Name": "runNode",
-          "Description": "If true node will execute. If false node will not execute.\n\nbool\nDefault value : true",
+          "Description": "bool\nDefault value : true",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -636,7 +615,7 @@
         {
           "Id": "f76f62ff5290465aa9fd987f162885fe",
           "Name": "void",
-          "Description": "Bool. True if session has exited. False if session is still open or was closed manually.",
+          "Description": "void",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -644,7 +623,106 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Open model in FEM-Design.\n\nModel.OpenModel (fdModel: Model, struxmlPath: string, closeOpenWindows: bool = false, runNode: bool = true): void"
+      "Description": "Model.OpenModel (fdModel: Model, struxmlPath: string, closeOpenWindows: bool = false, runNode: bool = true): void"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSVarArgFunction, DynamoCore",
+      "FunctionSignature": "DSCore.String.Concat@string[]",
+      "FunctionType": "VariableArgument",
+      "NodeType": "FunctionNode",
+      "Id": "71495577da8e4d5591ff4872771d7b5c",
+      "Inputs": [
+        {
+          "Id": "f957f3e1b6cb4e9db85075a287a00904",
+          "Name": "string0",
+          "Description": "List of strings to concatenate.\n\nstring[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "241baa7ab86f46d3809912a330b6b30f",
+          "Name": "string1",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c81872ec830e4da898e0f732f856a338",
+          "Name": "string2",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fcffa237638d4ed09e006ade3b15f1fc",
+          "Name": "string",
+          "Description": "String made from list of strings.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Concatenates multiple strings into a single string.\n\nString.Concat (strings: string[]): string"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.Directory, CoreNodeModels",
+      "HintPath": "C:\\Users\\SamuelNyberg\\OneDrive - StruSoft AB\\Samuels arbetshörna\\2. API-exempel",
+      "InputValue": "C:\\Users\\SamuelNyberg\\OneDrive - StruSoft AB\\Samuels arbetshörna\\2. API-exempel",
+      "NodeType": "ExtensionNode",
+      "Id": "90b66c1acdfd40fe8d43d38e89ca78f9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f75e9308faaf4d3bbbd649d35e51f843",
+          "Name": "",
+          "Description": "Directory path",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows you to select a directory on the system to get its path"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"\\\\\";\n\"HelloWorldSupports.struxml\";",
+      "Id": "94c671315d414de7a02ecf151454105c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e3aab971391e4acca015a8891130bb3d",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "286afe12159447fd86bdf84db471c22e",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
     }
   ],
   "Connectors": [
@@ -714,9 +792,24 @@
       "Id": "6f31b6e0c82d4481bdf29dff313859de"
     },
     {
-      "Start": "2e1c263c3b4045e7a99a681a09be3aa1",
+      "Start": "fcffa237638d4ed09e006ade3b15f1fc",
       "End": "a08edce235d548f7b6bb83f641c3b145",
-      "Id": "39db383874144d79ab2d1bc8e3f80fdb"
+      "Id": "613d8ccce5bb4207891386c7b45da711"
+    },
+    {
+      "Start": "f75e9308faaf4d3bbbd649d35e51f843",
+      "End": "f957f3e1b6cb4e9db85075a287a00904",
+      "Id": "28dd73b952f7405d8460c9c93513fb58"
+    },
+    {
+      "Start": "e3aab971391e4acca015a8891130bb3d",
+      "End": "241baa7ab86f46d3809912a330b6b30f",
+      "Id": "95454453ae6d4c0f9838038db5083af1"
+    },
+    {
+      "Start": "286afe12159447fd86bdf84db471c22e",
+      "End": "c81872ec830e4da898e0f732f856a338",
+      "Id": "011f823254a94e2584e503c6b1789d8b"
     }
   ],
   "Dependencies": [
@@ -737,13 +830,14 @@
       ]
     }
   ],
+  "ExtensionWorkspaceData": [],
   "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.10.0.3455",
+      "Version": "2.11.0.4533",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -882,16 +976,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "File Path",
-        "Id": "5a977560e9ba4294929e852a09d7fa4d",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1669.6028302353354,
-        "Y": 315.06186222606834
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Model.OpenModel",
         "Id": "4022ea31d9d648778d117d53a4b71a83",
         "IsSetAsInput": false,
@@ -899,6 +983,36 @@
         "Excluded": false,
         "X": 1931.0817177299455,
         "Y": 285.33897506470032
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String.Concat",
+        "Id": "71495577da8e4d5591ff4872771d7b5c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1744.5791994615915,
+        "Y": -44.489588699007868
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select your directory",
+        "Id": "90b66c1acdfd40fe8d43d38e89ca78f9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1318.3983894940307,
+        "Y": -91.8734020126177
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "94c671315d414de7a02ecf151454105c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1356.8980172849117,
+        "Y": -1.5165060616676556
       }
     ],
     "Annotations": [
@@ -914,7 +1028,7 @@
         "Height": 121.0,
         "FontSize": 36.0,
         "InitialTop": 205.02601793118333,
-        "InitialHeight": 98.0,
+        "InitialHeight": 145.0,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -930,7 +1044,7 @@
         "Height": 146.0,
         "FontSize": 36.0,
         "InitialTop": 204.4910797021123,
-        "InitialHeight": 123.0,
+        "InitialHeight": 145.0,
         "TextblockHeight": 43.0,
         "Background": "#FFBB87C6"
       },
@@ -948,7 +1062,7 @@
         "Height": 254.21333333333394,
         "FontSize": 36.0,
         "InitialTop": 603.86299458510439,
-        "InitialHeight": 231.21333333333394,
+        "InitialHeight": 253.21333333333394,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -965,7 +1079,7 @@
         "Height": 354.0,
         "FontSize": 36.0,
         "InitialTop": 405.5060418837993,
-        "InitialHeight": 331.0,
+        "InitialHeight": 152.09597561166902,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -979,11 +1093,11 @@
         ],
         "Left": 346.66171655167847,
         "Top": -32.772617245906758,
-        "Width": 843.777953701758,
+        "Width": 839.777953701758,
         "Height": 252.16451838180808,
         "FontSize": 36.0,
         "InitialTop": 20.227382754093242,
-        "InitialHeight": 229.16451838180808,
+        "InitialHeight": 225.16451838180808,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -999,7 +1113,7 @@
         "Height": 458.0,
         "FontSize": 36.0,
         "InitialTop": 284.8994355956703,
-        "InitialHeight": 435.0,
+        "InitialHeight": 145.0,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -1007,7 +1121,6 @@
         "Id": "d2f8d03c2c2b496d824c8ae3f0bdf71d",
         "Title": "open",
         "Nodes": [
-          "5a977560e9ba4294929e852a09d7fa4d",
           "73b2229f82e74a9883c6cf9094697a8a",
           "4022ea31d9d648778d117d53a4b71a83"
         ],
@@ -1017,13 +1130,31 @@
         "Height": 300.16572953504306,
         "FontSize": 36.0,
         "InitialTop": 285.33897506470032,
-        "InitialHeight": 277.16572953504306,
+        "InitialHeight": 299.16572953504306,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "b9708726940045d1aff98a60420e2cce",
+        "Title": "directory",
+        "Nodes": [
+          "71495577da8e4d5591ff4872771d7b5c",
+          "90b66c1acdfd40fe8d43d38e89ca78f9",
+          "94c671315d414de7a02ecf151454105c"
+        ],
+        "Left": 1308.3983894940307,
+        "Top": -144.8734020126177,
+        "Width": 645.18080996756089,
+        "Height": 246.35689595095005,
+        "FontSize": 36.0,
+        "InitialTop": -91.8734020126177,
+        "InitialHeight": 235.35689595095005,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       }
     ],
-    "X": 486.05565927717669,
-    "Y": 335.59886559364395,
-    "Zoom": 0.32418005309657788
+    "X": -1811.7306075304466,
+    "Y": 168.22740232154209,
+    "Zoom": 1.5369196987699989
   }
 }
