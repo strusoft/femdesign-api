@@ -41,6 +41,9 @@ Either
 - Install it from within Dynamo using Online Package Search. Search for `FemDesign`. (Guide on [installing dynamo package](https://www.dynamonow.com/downloading-installing-packages/))
 - Or Install it manually by downloading `FemDesign.Dynamo.zip` from [latest release](https://github.com/strusoft/femdesign-api/releases/latest), unblock the file and unzip to the dynamo package folder of the version of Revit/Dynamo of your choice (e.g `C:\Users\USERNAME\AppData\Roaming\Dynamo\Dynamo Revit\2.6\packages` for Dynamo Revit 2.6 etc.)
 
+### 🐍 Python
+There are multiple ways to install Python, but one of them is to download the installer from [Python.org](https://www.python.org/downloads/).
+
 ## Examples
 Examples can be found in the folder [FemDesign.Samples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Samples). More examples are planned to be added in the future.
 
