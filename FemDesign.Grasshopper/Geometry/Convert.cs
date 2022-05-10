@@ -728,6 +728,21 @@ namespace FemDesign.Grasshopper
         }
         #endregion
 
+        #region Face
+        internal static Rhino.Geometry.MeshFace ToRhino(this FemDesign.Geometry.Face face)
+        {
+            if(face.IsQuad())
+            {
+               return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3, face.Node4);
+            }
+            else
+            // it is Triangular Mesh
+            {
+                return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3);
+            }
+        }
+        #endregion
+
         #region LineLoad
         /// <summary>
         /// Convert LineLoad edge to Rhino curve.

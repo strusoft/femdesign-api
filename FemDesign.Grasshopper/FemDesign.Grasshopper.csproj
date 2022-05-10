@@ -101,6 +101,7 @@
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
+    <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />

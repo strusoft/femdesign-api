@@ -44,6 +44,7 @@ namespace FemDesign.Grasshopper
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
             resultTypes.Insert(0, "FeaNode");
+            resultTypes.Insert(1, "FeaShell");
 
 
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));

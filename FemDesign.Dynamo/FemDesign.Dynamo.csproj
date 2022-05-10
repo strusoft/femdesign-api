@@ -254,6 +254,9 @@
     <Compile Include="..\FemDesign.Core\Geometry\Edge.cs">
       <Link>Core\Geometry\Edge.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Face.cs">
+      <Link>Core\Geometry\Face.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\FdCoordinateSystem.cs">
       <Link>Core\Geometry\FdCoordinateSystem.cs</Link>
     </Compile>
@@ -622,6 +625,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaNode.cs">
       <Link>Core\Results\FeaNode.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaShell.cs">
+      <Link>Core\Results\FeaShell.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\FootFall\NodalAcceleration.cs">
       <Link>Core\Results\NodalAcceleration.cs</Link>
