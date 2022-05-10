@@ -242,7 +242,7 @@ namespace FemDesign.Calculate
     }
 
     /// <summary>
-    /// Parsing related exceptions
+    /// Represents errors that occured when FEM-Design is needed to be started.
     /// </summary>
     [Serializable]
     public class ProgramNotStartedException : Exception
