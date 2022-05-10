@@ -15,12 +15,9 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Results
 {
-    #if ISDYNAMO
-    [IsVisibleInDynamoLibrary(false)]
-    #endif
+
     public enum ResultType
     {
-
         #region FINITE ELEMENTS
         /* FINITE ELEMENTS */
         /// <summary>
