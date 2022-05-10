@@ -17,11 +17,33 @@ namespace FemDesign.Results.Tests
         {
             string path = Path.GetTempFileName();
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Shells, Displacements, Ultimate - Load case: LC1
-Shell	Elem	Node	ex'	ey'	ez'	fix'	fiy'	fiz'
-[-]	[-]	[-]	[mm]	[mm]	[mm]	[°]	[°]	[°]
-P.1.1	1	564	0.000	0.000	-10.520	0.308	-0.049	0.000
-P.1.1	2	55	0.000	0.000	-4.396	0.337	0.093	0.000
+            using (var stream = new StreamWriter(path)) stream.Write(@"Shells, Displacements, Ultimate - Load case: DL
+Shell	Elem	Node	ex'	ey'	ez'	fix'	fiy'	fiz'	Case
+[-]	[-]	[-]	[mm]	[mm]	[mm]	[rad]	[rad]	[rad]	[-]
+P.1.1	1859	771	0.000	0.000	-1.180	0.001	-0.001	0.000	DL
+P.1.1	1859	828	0.000	0.000	-1.081	0.001	-0.001	0.000	DL
+P.1.1	1859	858	0.000	0.000	-0.861	0.001	-0.001	0.000	DL
+P.1.1	1859	811	0.000	0.000	-0.919	0.001	-0.001	0.000	DL
+P.1.1	1859	-	0.000	0.000	-1.010	0.001	-0.001	0.000	DL
+P.1.1	1860	1406	0.000	0.000	-0.045	0.000	-0.000	0.000	DL
+P.1.1	1860	1402	0.000	0.000	-0.020	0.000	-0.000	0.000	DL
+P.1.1	1860	1355	0.000	0.000	-0.069	0.000	-0.001	0.000	DL
+P.1.1	1860	1345	0.000	0.000	-0.132	0.000	-0.001	0.000	DL
+P.1.1	1860	-	0.000	0.000	-0.067	0.000	-0.001	0.000	DL
+P.1.1	1861	1373	0.000	0.000	-0.511	0.001	-0.001	0.000	DL
+P.1.1	1861	1339	0.000	0.000	-0.701	0.001	-0.001	0.000	DL
+P.1.1	1861	1387	0.000	0.000	-0.622	0.001	-0.001	0.000	DL
+P.1.1	1861	1414	0.000	0.000	-0.416	0.001	-0.001	0.000	DL
+P.1.1	1861	-	0.000	0.000	-0.562	0.001	-0.001	0.000	DL
+P.1.1	1862	639	0.000	0.000	-2.339	0.001	-0.001	0.000	DL
+P.1.1	1862	588	0.000	0.000	-2.536	0.001	-0.001	0.000	DL
+P.1.1	1862	590	0.000	0.000	-2.709	0.001	-0.002	0.000	DL
+P.1.1	1862	632	0.000	0.000	-2.518	0.001	-0.002	0.000	DL
+P.1.1	1862	-	0.000	0.000	-2.526	0.001	-0.002	0.000	DL
+P.1.1	1863	1368	0.000	0.000	-0.252	0.001	-0.001	0.000	DL
+P.1.1	1863	1377	0.000	0.000	-0.145	0.000	-0.001	0.000	DL
+P.1.1	1863	1323	0.000	0.000	-0.247	0.001	-0.001	0.000	DL
+P.1.1	1863	1306	0.000	0.000	-0.377	0.001	-0.001	0.000	DL
 
 Shells, Displacements (Extract), Load comb.: LC1
 Shell	Max.	Elem	Node	ex'	ey'	ez'	fix'	fiy'	fiz'	e	fi	Comb.
@@ -46,7 +68,6 @@ P.1.1	fi	39	631	-0.001	0.000	0.001	0.000	-0.007	-0.000	0.002	0.007	LC1
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results[0].GetType() == typeof(ShellDisplacement), "Shell displacements should be parsed");
             Assert.IsTrue(results[results.Count - 1].GetType() == typeof(ShellDisplacement), "Shell displacements (extract) should be parsed");
-            Assert.IsTrue(results.Count == 16, "Should read all results.");
 
             File.Delete(path);
         }
