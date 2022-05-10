@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
 
 namespace FemDesign.Calculate
 {
     [System.Serializable]
+    #if ISDYNAMO
+	[IsVisibleInDynamoLibrary(false)]
+    #endif
     public enum ListProc
     {
         #region FINITE ELEMENTS
