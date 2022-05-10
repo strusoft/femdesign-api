@@ -102,6 +102,11 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCase,
         /// <summary>
+        /// Load case: Shells, Displacements
+        /// </summary>
+        [XmlEnum("frCaseDispShell_ListProc")]
+        ShellDisplacementLoadCase,
+        /// <summary>
         /// Load case: Shells, Displacements (Extract)
         /// </summary>
         [XmlEnum("frCaseDispShellExtract_ListProc")]
@@ -220,6 +225,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCombination,
+        /// <summary>
+        /// Load combination: Shells, Displacements
+        /// </summary>
+        [XmlEnum("frCombDispShell_ListProc")]
+        ShellDisplacementLoadCombination,
         /// <summary>
         /// Load combination: Shells, Displacements (Extract)
         /// </summary>

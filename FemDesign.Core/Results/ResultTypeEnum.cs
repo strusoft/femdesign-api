@@ -174,10 +174,17 @@ namespace FemDesign.Results
         ShellStressExtract,
 
         /// <summary>
+        /// Shells, Displacements
+        /// </summary>
+        [Parseable("ShellDisplacement")]
+        [Result(typeof(ShellDisplacement), ListProc.ShellDisplacementLoadCase, ListProc.ShellDisplacementLoadCombination)]
+        ShellDisplacement,
+
+        /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
         [Parseable("ShellDisplacementExtract")]
-        [Result(typeof(ShellsDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
+        [Result(typeof(ShellDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
         ShellDisplacementExtract,
         #endregion
 
@@ -213,14 +220,14 @@ namespace FemDesign.Results
         /// Shell, Utilization
         /// </summary>
         [Parseable("RCDesignShellUtilization")]
-        [Result(typeof(ShellsDisplacement), ListProc.RCDesignShellUtilizationLoadCombination)]
+        [Result(typeof(ShellDisplacement), ListProc.RCDesignShellUtilizationLoadCombination)]
         RCDesignShellUtilization,
 
         /// <summary>
         /// Shell, Crack width
         /// </summary>
         [Parseable("RCDesignShellCrackWidth")]
-        [Result(typeof(ShellsDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
+        [Result(typeof(ShellDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
         RCDesignShellCrackWidth,
         #endregion
     }

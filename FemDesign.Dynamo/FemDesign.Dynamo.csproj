@@ -659,11 +659,11 @@
     <Compile Include="..\FemDesign.Core\Results\ShellDerivedForce.cs">
       <Link>Core\Results\ShellDerivedForce.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\ShellDisplacement.cs">
+      <Link>Core\Results\ShellDisplacement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
       <Link>Core\Results\ShelllnternalForce.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShellsDisplacement.cs">
-      <Link>Core\Results\ShellsDisplacement.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\ShellStress.cs">
       <Link>Core\Results\ShellStress.cs</Link>
@@ -915,6 +915,7 @@
     <Compile Include="Dynamo\Results\FeaNode.cs" />
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\ShellDisplacement.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
