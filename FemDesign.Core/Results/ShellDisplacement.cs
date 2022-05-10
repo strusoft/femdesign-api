@@ -110,7 +110,7 @@ namespace FemDesign.Results
                 fix = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 fiy = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 fiz = Double.Parse(row[9], CultureInfo.InvariantCulture);
-                lc = HeaderData["casename"];
+                lc = row[10];
             }
             else
             {
@@ -124,7 +124,7 @@ namespace FemDesign.Results
                 fix = Double.Parse(row[6], CultureInfo.InvariantCulture);
                 fiy = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 fiz = Double.Parse(row[8], CultureInfo.InvariantCulture);
-                lc = HeaderData["casename"];
+                lc = row[9];
             }
             return new ShellDisplacement(name, elementId, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
         }
