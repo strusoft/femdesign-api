@@ -99,11 +99,13 @@
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="Geometry\Face.cs" />
     <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\FiniteElements\FeaNode.cs" />
+    <Compile Include="Results\FiniteElements\FeaShell.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
