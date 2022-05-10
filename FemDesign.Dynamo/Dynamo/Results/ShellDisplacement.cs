@@ -49,7 +49,7 @@ namespace FemDesign.Results
 
 
             // Convert Data in DataTree structure
-            var elementIdTree = new List<int>();
+            var elementIdTree = new List<List<int>>();
             var nodeIdTree = new List<List<string>>();
             var oTranslationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
             var oRotationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
@@ -58,6 +58,9 @@ namespace FemDesign.Results
             foreach (var id in uniqueId)
             {
                 // temporary List to append
+                var elementIdTreeTemp = new List<int>();
+                elementIdTreeTemp.Add(id);
+
                 var nodeIdTreeTemp = new List<string>();
                 var oTranslationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
                 var oRotationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
@@ -70,14 +73,12 @@ namespace FemDesign.Results
 
                 foreach (int index in indexes)
                 {
-                    //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
-                    //elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
                     nodeIdTreeTemp.Add(nodeId.ElementAt(index));
                     oTranslationTreeTemp.Add(oTranslation.ElementAt(index));
                     oRotationTreeTemp.Add(oRotation.ElementAt(index));
                 }
 
-                elementIdTree.Add(id);
+                elementIdTree.Add(elementIdTreeTemp);
                 nodeIdTree.Add(nodeIdTreeTemp);
                 oTranslationTree.Add(oTranslationTreeTemp);
                 oRotationTree.Add(oRotationTreeTemp);
