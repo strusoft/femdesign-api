@@ -8,14 +8,14 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class FeaNode : GH_Component
+    public class FeaShell : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the FeaNode class.
         /// </summary>
-        public FeaNode()
-          : base("Results.FeaNode", "FeaNode",
-              "Deconstruct an Fea Node in his Part",
+        public FeaShell()
+          : base("Results.FeaShell", "FeaShell",
+              "Deconstruct an Fea Shell in his Part",
               "FEM-Design", "Results")
         {
         }
@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FeaNode", "FeaNode", "Result to be Parse", GH_ParamAccess.list);
+            pManager.AddGenericParameter("FeaShell", "FeaShell", "Result to be Parse", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -33,8 +33,9 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.Register_StringParam("NodeId", "NodeId", "Node Index");
-            pManager.Register_PointParam("Position", "Pos", "Node Geometry [mm]");
+            pManager.Register_StringParam("Identifier", "Id", "Face Name");
+            pManager.Register_IntegerParam("ElementId", "ElementId", "Element Id");
+            pManager.Register_MeshFaceParam("FaceIndex", "FaceIndex", "Face Indexes as per FEM Design Model. FEM Design start counting from 1!");
         }
 
         /// <summary>
@@ -43,23 +44,25 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var FeaNode = new List<FemDesign.Results.FeaNode>();
-            DA.GetDataList("FeaNode", FeaNode);
+            var FeaShell = new List<FemDesign.Results.FeaShell>();
+            DA.GetDataList("FeaShell", FeaShell);
 
             // Read Result from Abstract Method
-            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(FeaNode);
+            var result = FemDesign.Results.FeaShell.DeconstructFeaShell(FeaShell);
 
 
-            var nodeId = (List<int>) result["NodeId"];
-            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>) result["Position"];
+            var id = (List<string>)result["Identifier"];
+            var elementId = (List<int>)result["ElementId"];
+            var feaShellFaces = (List<FemDesign.Geometry.Face>)result["Face"];
 
 
-            // Convert the FdPoint to Rhino
-            var ofeaNodePoint = feaNodePoint.Select(x => x.ToRhino());
+            // Convert the FDface to Rhino
+            var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
 
             // Set output
-            DA.SetDataList("NodeId", nodeId);
-            DA.SetDataList("Position", ofeaNodePoint);
+            DA.SetDataList("Identifier", id);
+            DA.SetDataList("ElementId", elementId);
+            DA.SetDataList("FaceIndex", oFeaShellFaces);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
@@ -82,7 +85,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("E014AD4B-F88D-4D5A-B31B-9558BACB4C9F"); }
+            get { return new Guid("0DA5C6E4-DA66-46CF-8058-4C83F2B27FDE"); }
         }
     }
 }

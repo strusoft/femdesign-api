@@ -10,13 +10,13 @@ namespace FemDesign.Geometry
     public partial class Face
     {
         [XmlIgnore]
-        public double Node1;
+        public int Node1 { get; }
         [XmlIgnore]
-        public double Node2;
+        public int Node2 { get; }
         [XmlIgnore]
-        public double Node3;
+        public int Node3 { get; }
         [XmlIgnore]
-        public double Node4;
+        public int Node4 { get; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -54,5 +54,18 @@ namespace FemDesign.Geometry
             this.Node2 = node2;
             this.Node3 = node3;
         }
+
+        public bool IsTriangle()
+        {
+            bool isTriangle = this.Node4 == 0 ? true : false;
+            return isTriangle;
+        }
+
+        public bool IsQuad()
+        {
+            bool isQuad = this.Node4 != 0 ? true : false;
+            return isQuad;
+        }
+
     }
 }

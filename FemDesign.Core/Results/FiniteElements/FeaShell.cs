@@ -113,10 +113,12 @@ namespace FemDesign.Results
                 // Triangular Shells have node4 specified as 0
                 if(obj.Node4 == 0)
                 {
+                    // Create a Triangular Face
                     face = new FemDesign.Geometry.Face(obj.Node1, obj.Node2, obj.Node3);
                 }
                 else
                 {
+                    // Create a Quadrangular Face
                     face = new FemDesign.Geometry.Face(obj.Node1, obj.Node2, obj.Node3, obj.Node4);
                 }
                 feaShellFaces.Add(face);
