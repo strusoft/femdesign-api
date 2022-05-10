@@ -221,20 +221,28 @@ namespace FemDesign
 
             if (model.Entities == null) model.Entities = new Entities();
 
-            // prepare elements with library references
-            model.GetBars();
-            model.GetFictitiousShells();
-            model.GetLineSupports();
-            model.GetPanels();
-            model.GetPointSupports();
-            model.GetSlabs();
-            model.GetSurfaceSupports();
-            model.GetPointConnections();
-            model.GetLineConnections();
+            // prepare elements with library reference
+            // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
+            if (model.Entities.Bars.Any())
+                model.GetBars();
+            if (model.Entities.AdvancedFem.FictitiousShells.Any()) 
+                model.GetFictitiousShells();
+            if (model.Entities.Supports.LineSupport.Any()) 
+                model.GetLineSupports();
+            if (model.Entities.Panels.Any()) 
+                model.GetPanels();
+            if (model.Entities.Supports.PointSupport.Any()) 
+                model.GetPointSupports();
+            if (model.Entities.Slabs.Any()) 
+                model.GetSlabs();
+            if (model.Entities.Supports.SurfaceSupport.Any()) 
+                model.GetSurfaceSupports();
+            if (model.Entities.AdvancedFem.ConnectedPoints.Any()) 
+                model.GetPointConnections();
+            if (model.Entities.AdvancedFem.ConnectedLines.Any()) 
+                model.GetLineConnections();
 
-            // return
             return model;
-
         }
 
         /// <summary>
