@@ -24,6 +24,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("femNode_ListProc")]
         FeaNode,
+        /// <summary>
+        /// Fea Shell
+        /// </summary>
+        [XmlEnum("stShellElem_ListProc")]
+        FeaShell,
         #endregion
 
         #region QUANTITY ESTIMATION

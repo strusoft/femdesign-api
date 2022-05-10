@@ -21,6 +21,12 @@ namespace FemDesign.Results
         [Parseable("FeaNode")]
         [Result(typeof(FeaNode), ListProc.FeaNode)]
         FeaNode,
+        /// <summary>
+        /// Fea Nodes
+        /// </summary>
+        [Parseable("FeaShell")]
+        [Result(typeof(FeaShell), ListProc.FeaShell)]
+        FeaShell,
         #endregion
 
         #region QUANTITY ESTIMATION
