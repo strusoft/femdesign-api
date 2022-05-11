@@ -11,18 +11,18 @@ namespace FemDesign.Results
         /// <summary>
         /// Fea Nodes Object
         /// </summary>
-        public List<FeaNode> FeaNode { get; }
+        public List<FeaNode> FeaNode { get; set; }
 
         /// <summary>
         /// Fea Shell Object
         /// </summary>
-        public List<FeaShell> FeaShell { get; }
+        public List<FeaShell> FeaShell { get; set; }
 
 
         public FDfea(List<FeaNode> feaNode, List<FeaShell> feaShell)
         {
-            this.FeaNode = FeaNode;
-            this.FeaShell = FeaShell;
+            this.FeaNode = feaNode;
+            this.FeaShell = feaShell;
         }
     }
 }

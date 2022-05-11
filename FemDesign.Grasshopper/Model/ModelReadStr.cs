@@ -23,6 +23,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FdFeaModel.");
             pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -31,6 +32,7 @@ namespace FemDesign.Grasshopper
             string filePath = null;
             List<string> bscPaths = new List<string>();
             List<string> resultTypes = new List<string>();
+            Results.FDfea fdFeaModel = null;
 
             DA.GetData("StrPath", ref filePath);
             DA.GetDataList("FilePathBsc", bscPaths);
@@ -70,24 +72,43 @@ namespace FemDesign.Grasshopper
             var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
 
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+
+            List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
             if (resultTypes != null && resultTypes.Any())
             {
-                foreach (string path in fdScript.CmdListGen.Select(cmd => cmd.OutFile))
+                foreach (var cmd in fdScript.CmdListGen)
                 {
+                    string path = cmd.OutFile;
                     try
                     {
-                        var _results = Results.ResultsReader.Parse(path);
-                        results = results.Concat(_results);
+                        if(path.Contains("FeaNode"))
+                        {
+                            feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                        }
+                        else if (path.Contains("FeaShell"))
+                        {
+                            feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                        }
+                        else
+                        {
+                            var _results = Results.ResultsReader.Parse(path);
+                            results = results.Concat(_results);
+                        }
                     }
                     catch (Exception e)
                     {
                         throw new Exception(e.InnerException.Message);
                     }
-                };
+                }
             }
+
+            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaShellRes);
 
             // Set output
             DA.SetData("FdModel", model);
+            DA.SetData("FdFeaModel", fdFeaModel);
             DA.SetDataList("Results", results);
         }
         protected override System.Drawing.Bitmap Icon
