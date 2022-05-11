@@ -10,15 +10,17 @@ The _Practical examples_ are all meant to showcase different functions, projects
 ### 👩‍💻 C#
 To properly run the C# examples, we recommend that you clone the entirety of the FEM-Design API repository with Git. You can find instructions for this [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). You can also download the entire repository as a .zip file and unpack it on your computer.
 
-There are two ways to run the C# examples: either find a specific example in the femdesign-api/FemDesign.Examples/C# folder, then open the project file (`.csproj`) found there and run the program. Or, open the main solution (`femdesign-api.sln`) found in the femdesign-api folder, and select which of the example projects you want to run. 
+There are two ways to run the C# examples: either find a specific example in the `femdesign-api/FemDesign.Examples/C#` folder, then open the project file (`.csproj`) found there and run the program. Or, open the main solution (`femdesign-api.sln`) found in the `femdesign-api` folder, and select which of the example projects you want to run. 
 
 ### 🦗 Grasshopper
-The Grasshopper examples can be run without cloning the repository - all you need is to install the package, instructions for this can be found on the [main page](https://github.com/strusoft/femdesign-api#-grasshopper). Once installed, you can download any of the files in the femdesign-api/FemDesign.Examples/Grasshopper folder and open them in Grasshopper.
+The Grasshopper examples can be run without cloning the repository - all you need is to install the package, instructions for this can be found on the [main page](https://github.com/strusoft/femdesign-api#-grasshopper). Once installed, you can download any of the files in the `femdesign-api/FemDesign.Examples/Grasshopper` folder and open them in Grasshopper.
 
 The examples are ready to run out-of-the-box, but you might have to set a file path or file name. You'll know either from instructions in the file, or because some components are orange or red.
 
 ### 🤖 Dynamo
-_Coming soon_
+With Dynamo installed, any of the Dynamo examples are ready to run. Download an entire example folder and run the - or one of the - `.dyn` files within. Any `.dyf` files are there to define a cluster of components, but as long as they are in the same folder as the `.dyn` files you run, you don't have to touch them.
+
+The examples are ready to run out-of-the-box, but you might have to set a file path or file name. You'll know either from instructions in the file, or because some components give an error.
 
 ### 🐍 Python
 The python example folder contains an example (`using_pythonnet.py`) on how to run the C# (`FemDesign.Core`) API from Python. This example uses the python package Python.NET (clr) (http://pythonnet.github.io/).
