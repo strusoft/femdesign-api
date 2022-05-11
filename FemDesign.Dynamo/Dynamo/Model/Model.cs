@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 #region dynamo
@@ -173,6 +174,14 @@ namespace FemDesign
         [MultiReturn(new[]{"Model", "Results"})]
         public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPaths, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
         {
+            Results.FDfea fdFeaModel = null;
+
+            // It needs to check if model has been runned
+            // Always Return the FeaNode Result
+            resultTypes.Insert(0, Results.ResultType.FeaNode);
+            resultTypes.Insert(1, Results.ResultType.FeaNode);
+
+
             // Create Bsc files from resultTypes
             var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
@@ -192,24 +201,45 @@ namespace FemDesign
             var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
 
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+
+            List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
             if (resultTypes != null && resultTypes.Any())
             {
-                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                foreach (var cmd in fdScript.CmdListGen)
+                {
+                    string path = cmd.OutFile;
                     try
                     {
-                        return Results.ResultsReader.Parse(path);
+                        if (path.Contains("FeaNode"))
+                        {
+                            feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                        }
+                        else if (path.Contains("FeaShell"))
+                        {
+                            feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                        }
+                        else
+                        {
+                            var _results = Results.ResultsReader.Parse(path);
+                            results = results.Concat(_results);
+                        }
                     }
-                    catch (System.ApplicationException)
+                    catch (Exception e)
                     {
-                        return Enumerable.Empty<Results.IResult>();
+                        throw new Exception(e.InnerException.Message);
                     }
-                });
+                }
             }
+
+            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaShellRes);
 
             // Output
             return new Dictionary<string, object>
             {
                 { "Model", model },
+                { "FdFeaModel", fdFeaModel },
                 { "Results", results }
             };
         }
