@@ -57,7 +57,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Nodes)|No.|\[.*\]");
+                return new Regex(@"(?'type'Nodes)|No\..|\[.*\]");
             }
         }
 
