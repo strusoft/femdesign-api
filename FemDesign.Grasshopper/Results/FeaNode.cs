@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FeaNode", "FeaNode", "Result to be Parse", GH_ParamAccess.list);
+            pManager.AddGenericParameter("FdfeaModel", "FdfeaModel", "Result to be Parse", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.Register_StringParam("NodeId", "NodeId", "Node Index");
-            pManager.Register_PointParam("Position", "Pos", "Node Geometry [mm]");
+            pManager.Register_PointParam("Point", "Point", "Node Geometry [mm]");
         }
 
         /// <summary>
@@ -43,11 +43,12 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var FeaNode = new List<FemDesign.Results.FeaNode>();
-            DA.GetDataList("FeaNode", FeaNode);
+            FemDesign.Results.FDfea fdFeaModel = null;
+            DA.GetData("FdfeaModel", ref fdFeaModel);
+
 
             // Read Result from Abstract Method
-            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(FeaNode);
+            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
 
 
             var nodeId = (List<int>) result["NodeId"];
@@ -59,7 +60,7 @@ namespace FemDesign.Grasshopper
 
             // Set output
             DA.SetDataList("NodeId", nodeId);
-            DA.SetDataList("Position", ofeaNodePoint);
+            DA.SetDataList("Point", ofeaNodePoint);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;

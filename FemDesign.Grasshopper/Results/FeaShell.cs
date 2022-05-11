@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FeaShell", "FeaShell", "Result to be Parse", GH_ParamAccess.list);
+            pManager.AddGenericParameter("FdFeaModel", "FdfeaModel", "Result to be Parse", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,6 +36,7 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("Identifier", "Id", "Face Name");
             pManager.Register_IntegerParam("ElementId", "ElementId", "Element Id");
             pManager.Register_MeshFaceParam("FaceIndex", "FaceIndex", "Face Indexes as per FEM Design Model. FEM Design start counting from 1!");
+            pManager.Register_MeshParam("Mesh", "Mesh Geometry", "Mesh as per Fem Design");
         }
 
         /// <summary>
@@ -44,11 +45,11 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var FeaShell = new List<FemDesign.Results.FeaShell>();
-            DA.GetDataList("FeaShell", FeaShell);
+            FemDesign.Results.FDfea fdFeaModel = null;
+            DA.GetData("FdFeaModel", ref fdFeaModel);
 
             // Read Result from Abstract Method
-            var result = FemDesign.Results.FeaShell.DeconstructFeaShell(FeaShell);
+            var result = FemDesign.Results.FeaShell.DeconstructFeaShell(fdFeaModel.FeaShell);
 
 
             var id = (List<string>)result["Identifier"];
@@ -59,10 +60,35 @@ namespace FemDesign.Grasshopper
             // Convert the FDface to Rhino
             var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
 
+            var nodeData = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
+
+            var nodeId = (List<int>)nodeData["NodeId"];
+
+            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>)nodeData["Position"];
+            var rhinoPoint = feaNodePoint.Select(x => x.ToRhino());
+
+            // Create Rhino Mesh
+            var oMesh = new Rhino.Geometry.Mesh();
+            oMesh.Vertices.AddVertices(rhinoPoint);
+
+            foreach(var obj in feaShellFaces)
+            {
+                if (obj.IsTriangle())
+                {
+                    oMesh.Faces.AddFace(obj.Node1 - 1, obj.Node2 - 1, obj.Node3 - 1);
+                }
+                else
+                {
+                    oMesh.Faces.AddFace(obj.Node1 - 1, obj.Node2 - 1, obj.Node3 - 1, obj.Node4 - 1);
+                }
+            }
+
+
             // Set output
             DA.SetDataList("Identifier", id);
             DA.SetDataList("ElementId", elementId);
             DA.SetDataList("FaceIndex", oFeaShellFaces);
+            DA.SetData("Mesh", oMesh);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
