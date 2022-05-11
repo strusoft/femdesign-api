@@ -48,26 +48,26 @@ namespace FemDesign.Grasshopper
             FemDesign.Results.FDfea fdFeaModel = null;
             DA.GetData("FdFeaModel", ref fdFeaModel);
 
-            // Read Result from Abstract Method
+            // Read the Shell Result
             var result = FemDesign.Results.FeaShell.DeconstructFeaShell(fdFeaModel.FeaShell);
 
-
+            // Extract the results from the Dictionary
             var id = (List<string>)result["Identifier"];
             var elementId = (List<int>)result["ElementId"];
             var feaShellFaces = (List<FemDesign.Geometry.Face>)result["Face"];
 
-
             // Convert the FDface to Rhino
             var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
 
+            // Read the Node Results
             var nodeData = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
 
+            // Extract the results from the Dictionary
             var nodeId = (List<int>)nodeData["NodeId"];
-
             var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>)nodeData["Position"];
-            var rhinoPoint = feaNodePoint.Select(x => x.ToRhino());
 
             // Create Rhino Mesh
+            var rhinoPoint = feaNodePoint.Select(x => x.ToRhino());
             var oMesh = new Rhino.Geometry.Mesh();
             oMesh.Vertices.AddVertices(rhinoPoint);
 
