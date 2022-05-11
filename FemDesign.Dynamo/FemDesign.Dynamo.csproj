@@ -647,10 +647,10 @@
     <Compile Include="..\FemDesign.Core\Results\LineSupportResultant.cs">
       <Link>Core\Results\LineSupportResultant.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\NodalDisplacement.cs">
+    <Compile Include="..\FemDesign.Core\Results\Node\NodalDisplacement.cs">
       <Link>Core\Results\NodalDisplacement.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\PointSupportReaction.cs">
+    <Compile Include="..\FemDesign.Core\Results\Node\PointSupportReaction.cs">
       <Link>Core\Results\PointSupportReaction.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\QuantityEstimation.cs">
@@ -665,16 +665,16 @@
     <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
       <Link>Core\Results\ResultTypeEnum.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShellDerivedForce.cs">
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellDerivedForce.cs">
       <Link>Core\Results\ShellDerivedForce.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShellDisplacement.cs">
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellDisplacement.cs">
       <Link>Core\Results\ShellDisplacement.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShelllnternalForce.cs">
       <Link>Core\Results\ShelllnternalForce.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShellStress.cs">
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellStress.cs">
       <Link>Core\Results\ShellStress.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">

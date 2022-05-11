@@ -112,8 +112,8 @@
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
-    <Compile Include="Results\ShellDerivedForce.cs" />
-    <Compile Include="Results\ShellDisplacement.cs" />
+    <Compile Include="Results\Shell\ShellDerivedForce.cs" />
+    <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\ResultTypeEnum.cs" />
@@ -257,14 +257,14 @@
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
-    <Compile Include="Results\ShelllnternalForce.cs" />
+    <Compile Include="Results\Shell\ShelllnternalForce.cs" />
     <Compile Include="Results\BarEndForce.cs" />
-    <Compile Include="Results\NodalDisplacement.cs" />
+    <Compile Include="Results\Node\NodalDisplacement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
-    <Compile Include="Results\PointSupportReaction.cs" />
+    <Compile Include="Results\Node\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
-    <Compile Include="Results\ShellStress.cs" />
+    <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />
@@ -322,6 +322,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

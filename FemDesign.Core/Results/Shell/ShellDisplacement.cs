@@ -116,7 +116,8 @@ namespace FemDesign.Results
             {
                 name = row[0];
                 elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-                //nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
+                // Depending on the output option, some values are not specified as
+                // integer but as [-].
                 nodeId = row[2];
                 ex = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 ey = Double.Parse(row[4], CultureInfo.InvariantCulture);
@@ -179,7 +180,6 @@ namespace FemDesign.Results
                     translation.Add(new Geometry.FdVector3d(shellResult.Ex, shellResult.Ey, shellResult.Ez));
                     rotation.Add(new Geometry.FdVector3d(shellResult.Fix, shellResult.Fiy, shellResult.Fiz));
                 }
-
             }
 
             return new Dictionary<string, dynamic>
