@@ -11,7 +11,7 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public partial class Slab: EntityBase, IStructureElement
+    public partial class Slab : EntityBase, IStructureElement
     {
         private static int _plateInstance = 0;
         private static int _wallInstance = 0;
@@ -22,13 +22,13 @@ namespace FemDesign.Shells
         [XmlIgnore]
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
         [XmlAttribute("name")]
-        public string Name {get; set;} // identifier
+        public string Name { get; set; } // identifier
         [XmlAttribute("type")]
         public SlabType Type { get; set; }
-        [XmlElement("slab_part", Order=1)]
-        public SlabPart SlabPart {get; set;}
-        [XmlElement("end", Order=2)]
-        public string End {get; set;} // empty_type
+        [XmlElement("slab_part", Order = 1)]
+        public SlabPart SlabPart { get; set; }
+        [XmlElement("end", Order = 2)]
+        public string End { get; set; } // empty_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -67,7 +67,7 @@ namespace FemDesign.Shells
             {
                 throw new System.ArgumentException("Wall is not vertical! Create plate instead.");
             }
-            
+
             Slab._wallInstance++;
             SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
@@ -90,23 +90,35 @@ namespace FemDesign.Shells
 
             foreach (int index in indices)
             {
-                if (index >= 0 & index < slabClone.SlabPart.GetEdgeConnections().Count)
-                {
-                    // pass
-                }
-                else
-                {
+                if (index < 0 & index >= slabClone.SlabPart.GetEdgeConnections().Count)
                     throw new System.ArgumentException("Index is out of bounds.");
-                }
-                
-                //
-                slabClone.SlabPart.Region.SetEdgeConnection(shellEdgeConnection, index);  
 
+                slabClone.SlabPart.Region.SetEdgeConnection(shellEdgeConnection, index);
             }
 
-            //
-            return slabClone;          
+            return slabClone;
         }
+
+        /// <summary>
+        /// Set ShellEdgeConnections by indices.
+        /// </summary>
+        /// <param name="slab">Slab.</param>
+        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="index">Index of edge to set.</param>
+        public static Slab ShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, int index)
+        {
+            // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
+            // downstream and uppstream objs will share guid.
+            Slab slabClone = slab.DeepClone();
+
+            if (index < 0 & index >= slabClone.SlabPart.GetEdgeConnections().Count)
+                throw new System.ArgumentException("Index is out of bounds.");
+
+            slabClone.SlabPart.Region.SetEdgeConnection(shellEdgeConnection, index);
+
+            return slabClone;
+        }
+
         /// <summary>
         /// Set average mesh size to slab.
         /// </summary>

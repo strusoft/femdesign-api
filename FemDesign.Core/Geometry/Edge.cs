@@ -212,7 +212,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line
         /// </summary>
-        internal bool IsLine()
+        public bool IsLine()
         {
             return (this.Type == "line");
         }
@@ -220,7 +220,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line is vertical (i.e. parallel to global Z)
         /// </summary>
-        internal bool IsLineVertical()
+        public bool IsLineVertical()
         {
             if (this.IsLine())
             {
@@ -235,7 +235,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line local x is equal to positive global Z
         /// </summary>
-        internal bool IsLineTangentEqualToGlobalZ()
+        public bool IsLineTangentEqualToGlobalZ()
         {
             if (this.IsLine())
             {
@@ -251,7 +251,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Reverse this edge
         /// </summary>
-        internal void Reverse()
+        public void Reverse()
         {
             // reset coordinate system
             this.CoordinateSystem = null;
@@ -288,6 +288,16 @@ namespace FemDesign.Geometry
             }
         }
 
+        /// <summary>
+        /// Convert an Edge to a LineSegment
+        /// </summary>
+        /// <param name="edge"></param>
+        public static explicit operator LineSegment(Edge edge)
+        {
+            if (!edge.IsLine())
+                throw new ArgumentException("Edge is not a line");
 
+            return new LineSegment(edge.Points[0], edge.Points[1]);
+        }
     }
 }
