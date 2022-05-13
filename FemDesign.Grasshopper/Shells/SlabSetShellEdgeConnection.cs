@@ -14,8 +14,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Index", "Index", "Index for edge.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection or multiple ShellEdgeConnections.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Index", "Index", "Index of the edge or multiple indicies for the edges.", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -23,31 +23,32 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get input
-            FemDesign.Shells.Slab slab = null;
-            FemDesign.Shells.ShellEdgeConnection shellEdgeConnection = null;
+            Shells.Slab slab = null;
+            List<Shells.ShellEdgeConnection> shellEdgeConnections = new List<Shells.ShellEdgeConnection>();
             List<int> indices = new List<int>();
-            if (!DA.GetData(0, ref slab))
+            if (!DA.GetData(0, ref slab)) return;
+            if (!DA.GetDataList(1, shellEdgeConnections)) return;
+            if (!DA.GetDataList(2, indices)) return;
+            if (slab == null) return;
+
+            Shells.Slab obj;
+            if (shellEdgeConnections.Count == 0)
             {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"No shell edge connection added to shell {slab.Name}");
                 return;
             }
-            if (!DA.GetData(1, ref shellEdgeConnection))
+            else if (shellEdgeConnections.Count == 1)
             {
-                return;
+                var shellEdgeConnection = shellEdgeConnections[0];
+                obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnection, indices);
             }
-            if (!DA.GetDataList(2, indices))
+            else
             {
-                return;
-            }
-            if (slab == null)
-            {
-                return;
+                obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[0], indices[0]);
+                for (int i = 1; i < shellEdgeConnections.Count; i++)
+                    obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[i], indices[i]);
             }
 
-            //
-            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnection, indices);
-
-            //
             DA.SetData(0, obj);
         }
         protected override System.Drawing.Bitmap Icon
