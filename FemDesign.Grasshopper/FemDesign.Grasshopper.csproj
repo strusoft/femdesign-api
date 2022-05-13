@@ -793,7 +793,7 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent> move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
+    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />
