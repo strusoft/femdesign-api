@@ -5,7 +5,7 @@ namespace FemDesign
     /// <summary>
     /// Tolerance. This class contains definitions for different project specific tolerances.
     /// </summary>
-    public partial class Tolerance
+    public static partial class Tolerance
     {
         /// <summary>
         /// Predefined brep tolerance.
@@ -22,6 +22,11 @@ namespace FemDesign
         /// Predefined tolernace for length evaluations.
         /// </summary>
         public static double LengthComparison = Math.Pow(10, -5);
+
+        /// <summary>
+        /// Predefined tolernace for length evaluations.
+        /// </summary>
+        public static double LengthSquared = Math.Pow(10, -10);
 
         /// <summary>
         /// Predefined point3d tolerance.
