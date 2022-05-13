@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
+<!-- NOTE: Updating this file will trigger a new release -->
+<package>
   <metadata>
     <id>$id$</id>
     <version>21.1.1</version>
