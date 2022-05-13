@@ -105,7 +105,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'(top \(Extract\)|membrane \(Extract\)|bottom \(Extract\)|top|membrane|bottom)), ((?'loadcasetype'[\w\ ]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
             }
         }
 
@@ -113,7 +113,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'(top \(Extract\)|membrane \(Extract\)|bottom \(Extract\)|top|membrane|bottom)), ((?'loadcasetype'[\w\ ]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell(\tElem|\tMax)|\[.*\]");
+                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell(\tElem|\tMax)|\[-\]");
             }
         }
 
@@ -136,6 +136,7 @@ namespace FemDesign.Results
                 double sigma2 = Double.Parse(row[11], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[12], CultureInfo.InvariantCulture);
                 string caseIdentifier = row[13];
+                //string side = HeaderData["side"];
                 return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
             }
             else
@@ -155,6 +156,7 @@ namespace FemDesign.Results
                 double sigma2 = Double.Parse(row[10], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[11], CultureInfo.InvariantCulture);
                 string caseIdentifier = row[12];
+                string side = HeaderData["side"];
                 return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
             }
         }
