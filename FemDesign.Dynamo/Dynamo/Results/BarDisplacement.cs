@@ -16,17 +16,17 @@ namespace FemDesign.Results
         /// Deconstruct the Bar Displacement Results
         /// </summary>
         /// <param name="Result">Result to be Parse</param>
-        /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the displacement for the first load case</param>
+        /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "ElementId", "PositionResult", "Translation", "Rotation" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarDisplacement> Result, [DefaultArgument("null")] string LoadCase)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarDisplacement> Result, [DefaultArgument("null")] string CaseCombName)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
 
             try
             {
-                result = FemDesign.Results.BarDisplacement.DeconstructBarDisplacements(Result, LoadCase);
+                result = FemDesign.Results.BarDisplacement.DeconstructBarDisplacements(Result, CaseCombName);
             }
             catch (ArgumentException ex)
             {
