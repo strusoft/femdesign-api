@@ -72,7 +72,7 @@
     <Compile Include="Results\BarDisplacementTests.cs" />
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
-    <Compile Include="Results\ShellForceTests.cs" />
+    <Compile Include="Results\ShellInternalForceTests.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequenciesTest.cs" />
     <Compile Include="Results\FeaNodeTests.cs" />
     <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
