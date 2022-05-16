@@ -641,6 +641,9 @@
     <Compile Include="..\FemDesign.Core\Results\IResult.cs">
       <Link>Core\Results\IResult.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineConnectionForce.cs">
+      <Link>Core\Results\LineConnectionForce.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
       <Link>Core\Results\LineSupportReaction.cs</Link>
     </Compile>

@@ -98,6 +98,11 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseDispBar_ListProc")]
         BarsDisplacementsLoadCase,
         /// <summary>
+        /// Load case: Line connection forces
+        /// </summary>
+        [XmlEnum("frCaseConnLn_ListProc")]
+        LineConnectionForceLoadCase,
+        /// <summary>
         /// Load case: Point support group, Reactions
         /// </summary>
         [XmlEnum("frCaseReacPtGroup_ListProc")]
@@ -226,6 +231,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacPtGroup_ListProc")]
         PointSupportReactionsLoadCombination,
+        /// <summary>
+        /// Load combination: Line connection forces
+        /// </summary>
+        [XmlEnum("frCombConnLn_ListProc")]
+        LineConnectionForceLoadCombination,
         /// <summary>
         /// Load combination: Line support group, Reactions
         /// </summary>
