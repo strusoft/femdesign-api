@@ -153,7 +153,7 @@ namespace FemDesign.Results
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructShellStress(List<FemDesign.Results.ShellInternalForce> Result, string LoadCase)
+        public static Dictionary<string, object> DeconstructShellInternalForce(List<FemDesign.Results.ShellInternalForce> Result, string LoadCase)
         {
             var shellForces = Result.Cast<FemDesign.Results.ShellInternalForce>();
 
