@@ -16,16 +16,16 @@ namespace FemDesign.Results
         /// 
         /// </summary>
         /// <param name="Result">Result to be Parse</param>
-        /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the displacement for the first load case</param>
+        /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "Identifier", "NodeId", "SupportPosition", "ReactionForce", "ReactionMoment", "ForceResultant", "MomentResultant" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.PointSupportReaction> Result, [DefaultArgument("null")] string LoadCase)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.PointSupportReaction> Result, [DefaultArgument("null")] string CaseCombName)
         {
             Dictionary<string, object> result;
 
             try
             {
-                result = FemDesign.Results.PointSupportReaction.DeconstructPointSupportReaction(Result, LoadCase);
+                result = FemDesign.Results.PointSupportReaction.DeconstructPointSupportReaction(Result, CaseCombName);
             }
             catch (ArgumentException ex)
             {

@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager.AddTextParameter("LoadCase", "LoadCase", "Name of Load Case for which to return the results. Default value returns the displacement for the first load case", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
 
@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
-            DA.GetData("LoadCase", ref iLoadCase);
+            DA.GetData(1, ref iLoadCase);
 
             // Read Result from Abstract Method
             Dictionary<string, object> result;

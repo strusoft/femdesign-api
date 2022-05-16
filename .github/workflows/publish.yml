@@ -3,10 +3,9 @@ name: publish to nuget
 on:
   push:
     paths: # When the nuspec file changed
-    - 'FemDesign.Core/FemDesign.Core.nuspec'
-    branches: # On push to master or a branch prefixed with pre-release
-      - main
-      - 'pre-release/**'
+      - 'FemDesign.Core/FemDesign.Core.nuspec'
+    branches: # Only on push to master
+      - master
 
 jobs:
   publish:
@@ -39,9 +38,9 @@ jobs:
         run: |
           nuget pack FemDesign.Core\ -Properties Configuration=Release
 
-      # - name: Publish nuget
-      #   run: |
-      #     nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
+      - name: Publish nuget
+        run: |
+          nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
 
       - name: Echo file name instead of publish # For debugging
         run: |

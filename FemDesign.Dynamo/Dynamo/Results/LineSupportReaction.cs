@@ -16,17 +16,17 @@ namespace FemDesign.Results
         /// 
         /// </summary>
         /// <param name="Result">Result to be Parse</param>
-        /// <param name="LoadCase">Name of Load Case for which to return the results. Default value returns the Line Support Reaction for the first load case</param>
+        /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "Identifier", "ElementId", "NodeId", "ReactionForce", "ReactionMoment", "ForceResultant", "MomentResultant" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.LineSupportReaction> Result, [DefaultArgument("null")] string LoadCase)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.LineSupportReaction> Result, [DefaultArgument("null")] string CaseCombName)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
 
             try
             {
-                result = FemDesign.Results.LineSupportReaction.DeconstructLineSupportReaction(Result, LoadCase);
+                result = FemDesign.Results.LineSupportReaction.DeconstructLineSupportReaction(Result, CaseCombName);
             }
             catch (ArgumentException ex)
             {
