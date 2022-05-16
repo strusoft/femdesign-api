@@ -29,27 +29,27 @@ namespace FemDesign.Results
         public string NodeId { get; }
 
         /// <summary>
-        /// Normal Stress in the local X direction [N/mm2]
+        /// Normal Stress in the local X direction
         /// </summary>
         public double SigmaX { get; }
 
         /// <summary>
-        /// Normal Stress in in the local Y direction [N/mm2]
+        /// Normal Stress in in the local Y direction
         /// </summary>
         public double SigmaY { get; }
 
         /// <summary>
-        /// Tangential Stress in XY plane [N/mm2]
+        /// Tangential Stress in XY plane
         /// </summary>
         public double TauXY { get; }
 
         /// <summary>
-        /// Tangential Stress in XZ plane [N/mm2]
+        /// Tangential Stress in XZ plane
         /// </summary>
         public double TauXZ { get; }
 
         /// <summary>
-        /// Tangential Stress in YZ plane [N/mm2]
+        /// Tangential Stress in YZ plane
         /// </summary>
         public double TauYZ { get; }
 
@@ -59,18 +59,18 @@ namespace FemDesign.Results
         public double SigmaVM { get; }
 
         /// <summary>
-        /// Principal Stress Value - First direction [N/mm2]
+        /// Principal Stress Value - First direction
         /// </summary>
         public double Sigma1 { get; }
 
         /// <summary>
-        /// Principal Stress Value - Second direction [N/mm2]
+        /// Principal Stress Value - Second direction
         /// </summary>
         public double Sigma2 { get; }
 
         /// <summary>
         /// Angle between the local X axis and the direction
-        /// of the principla stress Sigma1 [rad]
+        /// of the principle stress Sigma1 [rad]
         /// </summary>
         public double Alpha { get; }
 
@@ -123,8 +123,7 @@ namespace FemDesign.Results
             {
                 string id = row[0];
                 int elementId = Int32.Parse(row[2], CultureInfo.InvariantCulture);
-                // Depending on the output option, some values are not specified as
-                // integer but as [-].
+                // Depending on the output option, some values are not specified as integer but as [-].
                 string nodeId = row[3];
                 double sigmaX = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double sigmaY = Double.Parse(row[5], CultureInfo.InvariantCulture);
@@ -136,6 +135,7 @@ namespace FemDesign.Results
                 double sigma2 = Double.Parse(row[11], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[12], CultureInfo.InvariantCulture);
                 string caseIdentifier = row[13];
+                //to be implemented
                 //string side = HeaderData["side"];
                 return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
             }
@@ -143,8 +143,7 @@ namespace FemDesign.Results
             {
                 string id = row[0];
                 int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
-                // Depending on the output option, some values are not specified as
-                // integer but as [-].
+                // Depending on the output option, some values are not specified as integer but as [-].
                 string nodeId = row[2];
                 double sigmaX = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double sigmaY = Double.Parse(row[4], CultureInfo.InvariantCulture);
@@ -156,7 +155,8 @@ namespace FemDesign.Results
                 double sigma2 = Double.Parse(row[10], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[11], CultureInfo.InvariantCulture);
                 string caseIdentifier = row[12];
-                string side = HeaderData["side"];
+                //to be implemented
+                //string side = HeaderData["side"];
                 return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
             }
         }
