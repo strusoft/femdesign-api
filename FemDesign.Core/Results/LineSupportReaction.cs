@@ -89,7 +89,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Line support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Line support group), (?'result'Reactions),.*Load (?'casecomb'case|comb).*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
             }
         }
 
@@ -97,7 +97,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Line support group), (?'result'Reactions), (?'loadcasetype'[\w\ ]+) - Load (?'casecomb'[\w\ ]+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|ID|\[.*\]");
+                return new Regex(@"^(?'type'Line support group), (?'result'Reactions),.*Load (?'casecomb'case|comb).*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|ID.+|\[.*\]");
             }
         }
 
