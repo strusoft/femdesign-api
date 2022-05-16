@@ -105,6 +105,7 @@
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />
+    <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupCreate.cs" />
