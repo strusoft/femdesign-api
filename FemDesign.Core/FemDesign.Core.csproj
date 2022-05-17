@@ -110,6 +110,7 @@
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineConnectionForce.cs" />
+    <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
