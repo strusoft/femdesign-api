@@ -928,6 +928,7 @@
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
     <Compile Include="Dynamo\Results\ShellDisplacement.cs" />
+    <Compile Include="Dynamo\Results\ShellInternalForce.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
