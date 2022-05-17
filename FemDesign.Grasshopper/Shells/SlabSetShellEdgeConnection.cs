@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);
             pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection or multiple ShellEdgeConnections.", GH_ParamAccess.list);
-            pManager.AddIntegerParameter("Index", "Index", "Index of the edge or multiple indicies for the edges.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Index", "Index", "Index of the edge or multiple indices for the edges.", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -42,11 +42,15 @@ namespace FemDesign.Grasshopper
                 var shellEdgeConnection = shellEdgeConnections[0];
                 obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnection, indices);
             }
-            else
+            else if (shellEdgeConnections.Count == indices.Count)
             {
                 obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[0], indices[0]);
                 for (int i = 1; i < shellEdgeConnections.Count; i++)
                     obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[i], indices[i]);
+            }
+            else
+            {
+                throw new ArgumentException($"The number of shellEdgeConnections must be 1 or eqal to the number of indices provided. Recieved {shellEdgeConnections.Count} and {indices.Count}");
             }
 
             DA.SetData(0, obj);
