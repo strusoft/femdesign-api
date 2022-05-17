@@ -119,6 +119,13 @@ namespace FemDesign.Results
         PointSupportReaction,
 
         /// <summary>
+        /// Line connection forces
+        /// </summary>
+        [Parseable("LineConnectionForce")]
+        [Result(typeof(LineConnectionForce), ListProc.LineConnectionForceLoadCase, ListProc.LineConnectionForceLoadCombination)]
+        LineConnectionForce,
+        
+        /// <summary>
         /// Line support group, Reactions
         /// </summary>
         [Parseable("LineSupportReaction")]
