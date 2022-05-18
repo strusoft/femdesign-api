@@ -40,6 +40,22 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
+        /// Library name of the edge connection.
+        /// </summary>
+        [XmlIgnore]
+        public string LibraryName => PredefRigidity?.Name;
+        /// <summary>
+        /// Should the edge connection be added to the model as a Predefined/Library item or not?
+        /// </summary>
+        [XmlIgnore]
+        public bool IsLibraryItem => !(PredefRigidity is null) && (Rigidity is null);
+        /// <summary>
+        /// Edge connection is a custom item if it is not in the library (predefined line connections library).
+        /// </summary>
+        [XmlIgnore]
+        public bool IsCustomItem => !IsLibraryItem;
+
+        /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
         private EdgeConnection()
@@ -50,13 +66,17 @@ namespace FemDesign.Shells
         /// <summary>
         /// Private constructor.
         /// </summary>
-        private EdgeConnection(Releases.RigidityDataType3 rigidity)
+        private EdgeConnection(Releases.RigidityDataType3 rigidity, string libraryName = null)
         {
             this.EntityCreated();
             this.MovingLocal = false;
             this.JoinedStartPoint = true;
             this.JoinedEndPoint = true;
-            this.Rigidity = rigidity;
+
+            if (libraryName is null)
+                this.Rigidity = rigidity;
+            else
+                this.PredefRigidity = new Releases.RigidityDataLibType3(rigidity, libraryName);
         }
 
         /// <summary>
@@ -83,10 +103,9 @@ namespace FemDesign.Shells
         /// <remarks>Create</remarks>
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
-        /// <returns></returns>
-        public EdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(new Releases.RigidityDataType3(motions, rotations))
+        /// <param name="libraryName">When <paramref name="libraryName"/> is not null or empty, the <see cref="EdgeConnection"/> will be treated as a <em>predefined/library</em> item. Default is to treat is a a unique <em>custom</em> edge connection.</param>
+        public EdgeConnection(Releases.Motions motions, Releases.Rotations rotations, string libraryName = null) : this(new Releases.RigidityDataType3(motions, rotations), libraryName)
         {
-
         }
 
         /// <summary>
@@ -97,7 +116,8 @@ namespace FemDesign.Shells
         /// <param name="motionsPlasticLimits">Motions plastic limit forces</param>
         /// <param name="rotations">Rotations.</param>
         /// <param name="rotationsPlasticLimits">Rotations plastic limit forces</param>
-        public EdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits))
+        /// <param name="libraryName">When <paramref name="libraryName"/> is not null or empty, the <see cref="EdgeConnection"/> will be treated as a <em>predefined/library</em> item. Default is to treat is a a unique <em>custom</em> edge connection.</param>
+        public EdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits, string libraryName = null) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits), libraryName)
         {
 
         }

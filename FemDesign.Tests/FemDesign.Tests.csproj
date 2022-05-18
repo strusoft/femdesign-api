@@ -90,12 +90,16 @@
     <Compile Include="Results\ShellDerivedForceTests.cs" />
     <Compile Include="Results\ShellsDisplacementTests.cs" />
     <Compile Include="Results\ShellsStressTests.cs" />
+    <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Model\global-test-model_IN.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Shells\EdgeConnection-model.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
