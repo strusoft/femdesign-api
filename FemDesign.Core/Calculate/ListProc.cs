@@ -24,6 +24,13 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("femNode_ListProc")]
         FeaNode,
+
+        /// <summary>
+        /// Fea Bars
+        /// </summary>
+        [XmlEnum("stBarElem_ListProc")]
+        FeaBar,
+
         /// <summary>
         /// Fea Shell
         /// </summary>

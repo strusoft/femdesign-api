@@ -72,6 +72,7 @@
     <Compile Include="Results\BarDisplacementTests.cs" />
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
+    <Compile Include="Results\FeaBarTests.cs" />
     <Compile Include="Results\LineConnectionForceTests.cs" />
     <Compile Include="Results\LineConnectionResultantTests.cs" />
     <Compile Include="Results\ShellInternalForceTests.cs" />

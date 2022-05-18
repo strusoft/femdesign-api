@@ -203,6 +203,7 @@ namespace FemDesign
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
             List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
             List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
 
             if (resultTypes != null && resultTypes.Any())
@@ -233,7 +234,7 @@ namespace FemDesign
                 }
             }
 
-            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaShellRes);
+            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
 
             // Output
             return new Dictionary<string, object>

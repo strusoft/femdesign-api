@@ -46,7 +46,8 @@ namespace FemDesign.Grasshopper
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
             resultTypes.Insert(0, "FeaNode");
-            resultTypes.Insert(1, "FeaShell");
+            resultTypes.Insert(1, "FeaBar");
+            resultTypes.Insert(2, "FeaShell");
 
 
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
@@ -74,6 +75,7 @@ namespace FemDesign.Grasshopper
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
             List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
             List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
 
             if (resultTypes != null && resultTypes.Any())
@@ -86,6 +88,10 @@ namespace FemDesign.Grasshopper
                         if(path.Contains("FeaNode"))
                         {
                             feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                        }
+                        else if (path.Contains("FeaBar"))
+                        {
+                            feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
                         }
                         else if (path.Contains("FeaShell"))
                         {
@@ -104,7 +110,7 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaShellRes);
+            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
 
             // Set output
             DA.SetData("FdModel", model);

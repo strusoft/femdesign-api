@@ -626,6 +626,9 @@
     <Compile Include="..\FemDesign.Core\Results\FiniteElements\FDfea.cs">
       <Link>Core\Results\FDfea.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaBar.cs">
+      <Link>Core\Results\FeaBar.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaNode.cs">
       <Link>Core\Results\FeaNode.cs</Link>
     </Compile>
