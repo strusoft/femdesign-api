@@ -11,7 +11,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, Stresses" result
     /// </summary>
-    public class BarStress : IResult
+    public partial class BarStress : IResult
     {
         /// <summary>
         /// Bar name identifier
@@ -85,6 +85,63 @@ namespace FemDesign.Results
             double sigmaVM = Double.Parse(row[4], CultureInfo.InvariantCulture);
             string lc = HeaderData["casename"];
             return new BarStress(barname, pos, sigmaXiMax, sigmaXiMin, sigmaVM, lc);
+        }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructBarStress(List<FemDesign.Results.BarStress> Result, string LoadCase)
+        {
+            var barStress = Result.Cast<FemDesign.Results.BarStress>();
+
+            // Return the unique load case - load combination
+            var uniqueLoadCases = barStress.Select(n => n.CaseIdentifier).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
+
+            // Select the Nodal Displacement for the selected Load Case - Load Combination
+            if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
+            {
+                barStress = barStress.Where(n => String.Equals(n.CaseIdentifier, LoadCase, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Load Case '{LoadCase}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var loadCases = new List<string>();
+            var elementId = new List<string>();
+            var positionResult = new List<double>();
+
+            var sigmaXiMax = new List<double>();
+            var sigmaXiMin = new List<double>();
+            var sigmaVM = new List<double>();
+
+
+            foreach (var resultBar in barStress)
+            {
+                loadCases.Add(resultBar.CaseIdentifier);
+                elementId.Add(resultBar.Id);
+                positionResult.Add(resultBar.Pos);
+
+                sigmaXiMax.Add(resultBar.SigmaXiMax);
+                sigmaXiMin.Add(resultBar.SigmaXiMin);
+                sigmaVM.Add(resultBar.SigmaVM);
+            }
+
+            return new Dictionary<string, dynamic>
+            {
+                {"CaseIdentifier", loadCases},
+                {"ElementId", elementId},
+                {"PositionResult",positionResult},
+                {"SigmaXiMax", sigmaXiMax},
+                {"SigmaXiMin", sigmaXiMin},
+                {"SigmaVM", sigmaVM},
+            };
         }
     }
 }

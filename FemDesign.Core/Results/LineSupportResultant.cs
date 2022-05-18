@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line support group, Resultants" result
     /// </summary>
-    public class LineSupportResultant : IResult
+    public partial class LineSupportResultant : IResult
     {
         /// <summary>
         /// Support name identifier
