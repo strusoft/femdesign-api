@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
             {
                 obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[0], indices[0]);
                 for (int i = 1; i < shellEdgeConnections.Count; i++)
-                    obj = Shells.Slab.ShellEdgeConnection(slab, shellEdgeConnections[i], indices[i]);
+                    obj = Shells.Slab.ShellEdgeConnection(obj, shellEdgeConnections[i], indices[i]);
             }
             else
             {
