@@ -11,7 +11,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, Stresses" result
     /// </summary>
-    public class BarStress : IResult
+    public partial class BarStress : IResult
     {
         /// <summary>
         /// Bar name identifier
