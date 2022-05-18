@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEdgeConnectionDefine: GH_Component
+    public class EdgeConnectionDefine: GH_Component
     {
-        public ShellEdgeConnectionDefine(): base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", "FEM-Design", "Shells")
+        public EdgeConnectionDefine(): base("EdgeConnection.Define", "Define", "Define a new EdgeConnection", "FEM-Design", "Shells")
         {
 
         }
@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -35,11 +35,11 @@ namespace FemDesign.Grasshopper
             DA.GetData("Plastic Limits Forces Motions", ref motionsPlasticLimit);
             DA.GetData("Plastic Limits Moments Rotations", ref rotationsPlasticLimit);
 
-            Shells.ShellEdgeConnection edgeConnection = new Shells.ShellEdgeConnection(motions, motionsPlasticLimit, rotations, rotationsPlasticLimit);
+            Shells.EdgeConnection edgeConnection = new Shells.EdgeConnection(motions, motionsPlasticLimit, rotations, rotationsPlasticLimit);
 
-            DA.SetData("ShellEdgeConnection", edgeConnection);
+            DA.SetData("EdgeConnection", edgeConnection);
         }
-        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ShellEdgeConnectionDefine;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.EdgeConnectionDefine;
         public override Guid ComponentGuid => new Guid("c6088f65-a1ca-4c37-9bca-7f5ef3d41e70");
     }
 }

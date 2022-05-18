@@ -217,7 +217,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "FemDesign.Shells.Slab.Plate@Autodesk.DesignScript.Geometry.Surface,double,FemDesign.Materials.Material,FemDesign.Shells.ShellEccentricity,FemDesign.Shells.ShellOrthotropy,FemDesign.Shells.ShellEdgeConnection,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,string",
+      "FunctionSignature": "FemDesign.Shells.Slab.Plate@Autodesk.DesignScript.Geometry.Surface,double,FemDesign.Materials.Material,FemDesign.Shells.ShellEccentricity,FemDesign.Shells.ShellOrthotropy,FemDesign.Shells.EdgeConnection,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,string",
       "Id": "4ad0b187b984424b8c75ab29af422339",
       "Inputs": [
         {
@@ -268,7 +268,7 @@
         {
           "Id": "f2612cb3e3e14b298afdf04c098f6ca7",
           "Name": "shellEdgeConnection",
-          "Description": "ShellEdgeConnection. Optional, if undefined rigid.\n\nShellEdgeConnection\nDefault value : FemDesign.Shells.ShellEdgeConnection.Default()",
+          "Description": "EdgeConnection. Optional, if undefined rigid.\n\nEdgeConnection\nDefault value : FemDesign.Shells.EdgeConnection.Default()",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -314,7 +314,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a plate element.\n\nSlab.Plate (surface: Surface, thickness: double, material: Material, shellEccentricity: ShellEccentricity = FemDesign.Shells.ShellEccentricity.Default(), shellOrthotropy: ShellOrthotropy = FemDesign.Shells.ShellOrthotropy.Default(), shellEdgeConnection: ShellEdgeConnection = FemDesign.Shells.ShellEdgeConnection.Default(), localX: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), localZ: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), identifier: string = \"P\"): Slab"
+      "Description": "Create a plate element.\n\nSlab.Plate (surface: Surface, thickness: double, material: Material, shellEccentricity: ShellEccentricity = FemDesign.Shells.ShellEccentricity.Default(), shellOrthotropy: ShellOrthotropy = FemDesign.Shells.ShellOrthotropy.Default(), shellEdgeConnection: EdgeConnection = FemDesign.Shells.EdgeConnection.Default(), localX: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), localZ: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 0), identifier: string = \"P\"): Slab"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",

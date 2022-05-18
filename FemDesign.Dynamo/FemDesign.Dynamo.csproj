@@ -701,6 +701,9 @@
     <Compile Include="..\FemDesign.Core\Sections\SectionDatabase.cs">
       <Link>Core\Sections\SectionDatabase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\EdgeConnection.cs">
+      <Link>Core\Shells\EdgeConnection.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Shells\EdgeConnectionBase.cs">
       <Link>Core\Shells\EdgeConnectionBase.cs</Link>
     </Compile>
@@ -718,9 +721,6 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Shells\ShellEccentricity.cs">
       <Link>Core\Shells\ShellEccentricity.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Shells\ShellEdgeConnection.cs">
-      <Link>Core\Shells\ShellEdgeConnection.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Shells\ShellOrthotropy.cs">
       <Link>Core\Shells\ShellOrthotropy.cs</Link>
@@ -942,7 +942,7 @@
     <Compile Include="Dynamo\Shells\Panel.cs" />
     <Compile Include="Dynamo\Shells\ShellBucklingType.cs" />
     <Compile Include="Dynamo\Shells\ShellEccentricity.cs" />
-    <Compile Include="Dynamo\Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Dynamo\Shells\EdgeConnection.cs" />
     <Compile Include="Dynamo\Shells\ShellOrthotropy.cs" />
     <Compile Include="Dynamo\Shells\Slab.cs" />
     <Compile Include="Dynamo\Shells\SlabPart.cs" />

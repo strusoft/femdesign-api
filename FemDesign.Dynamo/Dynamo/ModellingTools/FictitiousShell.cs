@@ -11,16 +11,16 @@ namespace FemDesign.ModellingTools
     public partial class FictitiousShell: EntityBase
     {
         /// <summary>
-        /// Set ShellEdgeConnection by indices.
+        /// Set EdgeConnection by indices.
         /// </summary>
         /// <param name="fictShell">Fictitious Shell</param>
-        /// <param name="edgeConnection">ShellEdgeConnection</param>
+        /// <param name="edgeConnection">EdgeConnection</param>
         /// <param name="indices">Index. List of items. Deconstruct fictitious shell to extract index for each respective edge.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static FictitiousShell SetShellEdgeConnection(FictitiousShell fictShell, Shells.ShellEdgeConnection edgeConnection, List<int> indices)
+        public static FictitiousShell SetEdgeConnection(FictitiousShell fictShell, Shells.EdgeConnection edgeConnection, List<int> indices)
         {
-            return UpdateShellEdgeConnection(fictShell, edgeConnection, indices);
+            return UpdateEdgeConnection(fictShell, edgeConnection, indices);
         }
 
         #region dynamo
@@ -37,13 +37,13 @@ namespace FemDesign.ModellingTools
         /// <param name="alpha1">Alpha1 in 1/°C</param>
         /// <param name="alpha2">Alpha2 in 1/°C</param>
         /// <param name="ignoreInStImpCalc">Ignore in stability/imperfection calculation</param>
-        /// <param name="edgeConnection">ShellEdgeConnection. Optional, if rigid if undefined.</param>
+        /// <param name="edgeConnection">EdgeConnection. Optional, if rigid if undefined.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.</param>
         /// <param name="avgSrfElemSize">Finite element size. Set average surface element size. If set to 0 FEM-Design will automatically caculate the average surface element size.</param>
         /// <param name="identifier">Identifier.</param>
         [IsVisibleInDynamoLibrary(true)]
-        public static FictitiousShell Define(Autodesk.DesignScript.Geometry.Surface surface, StiffnessMatrix4Type d, StiffnessMatrix4Type k, StiffnessMatrix2Type h, double density, double t1, double t2, double alpha1, double alpha2, bool ignoreInStImpCalc, [DefaultArgument("ShellEdgeConnection.Default()")] Shells.ShellEdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, double avgSrfElemSize = 0, string identifier = "FS")
+        public static FictitiousShell Define(Autodesk.DesignScript.Geometry.Surface surface, StiffnessMatrix4Type d, StiffnessMatrix4Type k, StiffnessMatrix2Type h, double density, double t1, double t2, double alpha1, double alpha2, bool ignoreInStImpCalc, [DefaultArgument("EdgeConnection.Default()")] Shells.EdgeConnection edgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, double avgSrfElemSize = 0, string identifier = "FS")
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);

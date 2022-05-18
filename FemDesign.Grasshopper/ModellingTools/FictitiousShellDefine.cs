@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("IgnoreInStImpCalc", "IgnoreInStImpCalc", "Ignore in stability/imperfection calculation", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -107,7 +107,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.GetDefault();
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetDefault();
             if (!DA.GetData(10, ref edgeConnection))
             {
                 // pass

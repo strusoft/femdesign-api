@@ -24,7 +24,7 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            slab.SlabPart.Region.SetEdgeConnections(Shells.ShellEdgeConnection.GetHinged());
+            slab.SlabPart.Region.SetEdgeConnections(Shells.EdgeConnection.GetHinged());
 
             CollectionAssert.AllItemsAreNotNull(slab.SlabPart.GetEdgeConnections(), "Should have edge connections");
         }
@@ -42,8 +42,8 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            slab.SlabPart.Region.SetEdgeConnection(Shells.ShellEdgeConnection.GetHinged(), 0);
-            slab.SlabPart.Region.SetEdgeConnection(Shells.ShellEdgeConnection.GetHinged(), 1);
+            slab.SlabPart.Region.SetEdgeConnection(Shells.EdgeConnection.GetHinged(), 0);
+            slab.SlabPart.Region.SetEdgeConnection(Shells.EdgeConnection.GetHinged(), 1);
 
             Assert.IsTrue(slab.SlabPart.GetEdgeConnections().Where(ec => !(ec is null)).Count() == 2, "Should have edge connections");
         }
@@ -61,10 +61,10 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            slab.SlabPart.Region.SetEdgeConnection(Shells.ShellEdgeConnection.GetRigid(), 0);
-            slab.SlabPart.Region.SetEdgeConnection(Shells.ShellEdgeConnection.GetHinged(), 1);
-            slab.SlabPart.Region.SetEdgeConnection(new Shells.ShellEdgeConnection(Releases.Motions.Free(), Releases.Rotations.Free()), 2);
-            slab.SlabPart.Region.SetEdgeConnection(new Shells.ShellEdgeConnection(Releases.Motions.RigidLine(), Releases.Rotations.RigidLine()), 3);
+            slab.SlabPart.Region.SetEdgeConnection(Shells.EdgeConnection.GetRigid(), 0);
+            slab.SlabPart.Region.SetEdgeConnection(Shells.EdgeConnection.GetHinged(), 1);
+            slab.SlabPart.Region.SetEdgeConnection(new Shells.EdgeConnection(Releases.Motions.Free(), Releases.Rotations.Free()), 2);
+            slab.SlabPart.Region.SetEdgeConnection(new Shells.EdgeConnection(Releases.Motions.RigidLine(), Releases.Rotations.RigidLine()), 3);
 
             var edgeConnections = slab.SlabPart.GetEdgeConnections();
             Assert.IsNull(edgeConnections[0], $"Rigid edge connection 0 should be null");
@@ -86,7 +86,7 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            var newSlab = Shells.Slab.ShellEdgeConnection(slab, Shells.ShellEdgeConnection.GetHinged(), new List<int> { 1, 3 });
+            var newSlab = Shells.Slab.EdgeConnection(slab, Shells.EdgeConnection.GetHinged(), new List<int> { 1, 3 });
 
             Assert.IsTrue(newSlab.SlabPart.GetEdgeConnections().Where(ec => !(ec is null)).Count() == 2, "Should have edge connections");
             Assert.IsNotNull(newSlab.SlabPart.GetEdgeConnections()[1], "Should have edge connection");
@@ -106,7 +106,7 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            var newSlab = Shells.Slab.ShellEdgeConnection(slab, Shells.ShellEdgeConnection.GetRigid(), new List<int> { 1, 3 });
+            var newSlab = Shells.Slab.EdgeConnection(slab, Shells.EdgeConnection.GetRigid(), new List<int> { 1, 3 });
 
             Assert.IsNull(newSlab.SlabPart.GetEdgeConnections()[1], "Should be null if the edge connection is default rigid");
             Assert.IsNull(newSlab.SlabPart.GetEdgeConnections()[3], "Should be null if the edge connection is default rigid");
@@ -126,7 +126,7 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            var newSlab = Shells.Slab.ShellEdgeConnection(slab, Shells.ShellEdgeConnection.GetHinged(), new List<int> { 1, 3 });
+            var newSlab = Shells.Slab.EdgeConnection(slab, Shells.EdgeConnection.GetHinged(), new List<int> { 1, 3 });
 
             model.AddElements(new List<GenericClasses.IStructureElement> { newSlab });
 
@@ -153,7 +153,7 @@ namespace FemDesign.Geometry.Tests
 
 
             // Set the edge connections
-            var newSlab = Shells.Slab.ShellEdgeConnection(slab, Shells.ShellEdgeConnection.GetHinged(), new List<int> { 1, 3 });
+            var newSlab = Shells.Slab.EdgeConnection(slab, Shells.EdgeConnection.GetHinged(), new List<int> { 1, 3 });
 
             model.AddElements(new List<GenericClasses.IStructureElement> { newSlab });
 

@@ -51,7 +51,7 @@ namespace FemDesign.Shells
             this.End = "";
         }
 
-        public static Slab Plate(string identifier, Materials.Material material, Geometry.Region region, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
+        public static Slab Plate(string identifier, Materials.Material material, Geometry.Region region, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             Slab._plateInstance++;
             SlabType type = SlabType.Plate;
@@ -60,7 +60,7 @@ namespace FemDesign.Shells
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
-        public static Slab Wall(string identifier, Materials.Material material, Geometry.Region region, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
+        public static Slab Wall(string identifier, Materials.Material material, Geometry.Region region, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             // check if surface is vertical
             if (Math.Abs(region.CoordinateSystem.LocalZ.Z) > FemDesign.Tolerance.Point3d)
@@ -77,12 +77,12 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
-        /// Set ShellEdgeConnections by indices.
+        /// Set EdgeConnections by indices.
         /// </summary>
         /// <param name="slab">Slab.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
-        public static Slab ShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        public static Slab EdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, List<int> indices)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
@@ -100,12 +100,12 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
-        /// Set ShellEdgeConnections by indices.
+        /// Set EdgeConnections by indices.
         /// </summary>
         /// <param name="slab">Slab.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="index">Index of edge to set.</param>
-        public static Slab ShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, int index)
+        public static Slab EdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, int index)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.

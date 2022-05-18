@@ -93,7 +93,7 @@ namespace FemDesign.Geometry
         [XmlElement("x_axis", Order = 3)]
         public Geometry.FdVector3d XAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
         [XmlElement("edge_connection", Order = 4)]
-        public Shells.ShellEdgeConnection EdgeConnection { get; set; } // optional. ec_type.
+        public Shells.EdgeConnection EdgeConnection { get; set; } // optional. ec_type.
         [XmlAttribute("type")]
         public string _type; // edgetype
         [XmlIgnore]

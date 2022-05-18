@@ -10,7 +10,7 @@ namespace FemDesign.Shells
     /// ec_type
     /// </summary>
     [System.Serializable]
-    public partial class ShellEdgeConnection: EdgeConnectionBase
+    public partial class EdgeConnection: EdgeConnectionBase
     {
         /// <summary>
         /// 
@@ -42,7 +42,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private ShellEdgeConnection()
+        private EdgeConnection()
         {
 
         }
@@ -50,7 +50,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Private constructor.
         /// </summary>
-        private ShellEdgeConnection(Releases.RigidityDataType3 rigidity)
+        private EdgeConnection(Releases.RigidityDataType3 rigidity)
         {
             this.EntityCreated();
             this.MovingLocal = false;
@@ -60,12 +60,12 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
-        /// Copy properties from a ShellEdgeConnection with a new name.
+        /// Copy properties from a EdgeConnection with a new name.
         /// </summary>
-        internal static ShellEdgeConnection CopyExisting(ShellEdgeConnection shellEdgeConnection, string name)
+        internal static EdgeConnection CopyExisting(EdgeConnection shellEdgeConnection, string name)
         {
             // deep clone. downstreams objs contain changes made in this method, upstream objs will not.
-            ShellEdgeConnection ec = shellEdgeConnection.DeepClone();
+            EdgeConnection ec = shellEdgeConnection.DeepClone();
 
             // downstream and uppstream objs will NOT share guid.
             ec.EntityCreated();
@@ -78,59 +78,59 @@ namespace FemDesign.Shells
         }
 
         /// <summary>
-        /// ShellEdgeConnection
+        /// EdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
-        public ShellEdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(new Releases.RigidityDataType3(motions, rotations))
+        public EdgeConnection(Releases.Motions motions, Releases.Rotations rotations) : this(new Releases.RigidityDataType3(motions, rotations))
         {
 
         }
 
         /// <summary>
-        /// ShellEdgeConnection
+        /// EdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="motions">Motions.</param>
         /// <param name="motionsPlasticLimits">Motions plastic limit forces</param>
         /// <param name="rotations">Rotations.</param>
         /// <param name="rotationsPlasticLimits">Rotations plastic limit forces</param>
-        public ShellEdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits))
+        public EdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits))
         {
 
         }
 
         /// <summary>
-        /// Create a default (rigid) ShellEdgeConnection.
+        /// Create a default (rigid) EdgeConnection.
         /// </summary>
         /// <returns></returns>
-        public static ShellEdgeConnection GetDefault()
+        public static EdgeConnection GetDefault()
         {
-            return ShellEdgeConnection.GetRigid();
+            return EdgeConnection.GetRigid();
         }
 
         /// <summary>
-        /// Create a hinged ShellEdgeConnection.
+        /// Create a hinged EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellEdgeConnection GetHinged()
+        public static EdgeConnection GetHinged()
         {
-            ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.HingedLine());
+            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.HingedLine());
             _shellEdgeConnection.Release = true;
             return _shellEdgeConnection;
         }
         
         /// <summary>
-        /// Create a rigid ShellEdgeConnection.
+        /// Create a rigid EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellEdgeConnection GetRigid()
+        public static EdgeConnection GetRigid()
         {
-            ShellEdgeConnection _shellEdgeConnection = new ShellEdgeConnection(Releases.RigidityDataType3.RigidLine());
+            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.RigidLine());
             _shellEdgeConnection.Release = false;
             return _shellEdgeConnection;
         }

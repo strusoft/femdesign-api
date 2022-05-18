@@ -9,48 +9,48 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Shells
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ShellEdgeConnection: EdgeConnectionBase
+    public partial class EdgeConnection: EdgeConnectionBase
     {
         /// <summary>
-        /// Create a default (rigid) ShellEdgeConnection.
+        /// Create a default (rigid) EdgeConnection.
         /// </summary>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(false)]
-        public static ShellEdgeConnection Default() => GetDefault();
+        public static EdgeConnection Default() => GetDefault();
 
         /// <summary>
-        /// Define a new ShellEdgeConnection
+        /// Define a new EdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
         /// <param name="motions">Motions.</param>
         /// <param name="rotations">Rotations.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEdgeConnection Define(Releases.Motions motions, Releases.Rotations rotations)
+        public static EdgeConnection Define(Releases.Motions motions, Releases.Rotations rotations)
         {
-            return new ShellEdgeConnection(motions, rotations);
+            return new EdgeConnection(motions, rotations);
         }
 
         /// <summary>
-        /// Create a hinged ShellEdgeConnection.
+        /// Create a hinged EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEdgeConnection Hinged()
+        public static EdgeConnection Hinged()
         {
-            return ShellEdgeConnection.GetHinged();
+            return EdgeConnection.GetHinged();
         }
 
         /// <summary>
-        /// Create a rigid ShellEdgeConnection.
+        /// Create a rigid EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static ShellEdgeConnection Rigid()
+        public static EdgeConnection Rigid()
         {
-            return ShellEdgeConnection.GetRigid();
+            return EdgeConnection.GetRigid();
         }
     }
 }
