@@ -24,6 +24,12 @@ namespace FemDesign.Results
         /// <summary>
         /// Fea Nodes
         /// </summary>
+        [Parseable("FeaBar")]
+        [Result(typeof(FeaBar), ListProc.FeaBar)]
+        FeaBar,
+        /// <summary>
+        /// Fea Nodes
+        /// </summary>
         [Parseable("FeaShell")]
         [Result(typeof(FeaShell), ListProc.FeaShell)]
         FeaShell,

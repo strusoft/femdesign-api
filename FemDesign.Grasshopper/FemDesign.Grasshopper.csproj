@@ -102,6 +102,7 @@
     <Compile Include="Loads\LoadCategoryCreate.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
+    <Compile Include="Results\FeaBar.cs" />
     <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />

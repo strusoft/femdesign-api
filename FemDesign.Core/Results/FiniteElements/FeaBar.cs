@@ -91,7 +91,7 @@ namespace FemDesign.Results
 
             return new Dictionary<string, dynamic>
             {
-                {"id", id},
+                {"Identifier", id},
                 {"ElementId", elementId},
                 {"Nodei", nodei},
                 {"Nodej", nodej}
