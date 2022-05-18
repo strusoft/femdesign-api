@@ -100,6 +100,7 @@
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\FeaShell.cs" />
@@ -147,7 +148,7 @@
     <Compile Include="Deconstruct\PressureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\RotationsDeconstruct.cs" />
     <Compile Include="Deconstruct\SectionDeconstruct.cs" />
-    <Compile Include="Deconstruct\ShellEdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\SlabDeconstruct.cs" />
     <Compile Include="Deconstruct\SortLoads.cs" />
     <Compile Include="Deconstruct\StiffnessMatrix2TypeDeconstruct.cs" />
@@ -191,7 +192,7 @@
     <Compile Include="ModellingTools\FictitiousBarDefine.cs" />
     <Compile Include="ModellingTools\DiaphragmDefine.cs" />
     <Compile Include="ModellingTools\FictitiousShellDefine.cs" />
-    <Compile Include="ModellingTools\FictitiousShellSetShellEdgeConnection.cs" />
+    <Compile Include="ModellingTools\FictitiousShellSetEdgeConnection.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
     <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
@@ -252,14 +253,14 @@
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
     <Compile Include="Shells\ProfiledPlateDefine.cs" />
     <Compile Include="Shells\ShellEccentricityDefine.cs" />
-    <Compile Include="Shells\ShellEdgeConnectionDefine.cs" />
-    <Compile Include="Shells\ShellEdgeConnectionHinged.cs" />
-    <Compile Include="Shells\ShellEdgeConnectionRigid.cs" />
+    <Compile Include="Shells\EdgeConnectionDefine.cs" />
+    <Compile Include="Shells\EdgeConnectionHinged.cs" />
+    <Compile Include="Shells\EdgeConnectionRigid.cs" />
     <Compile Include="Shells\ShellOrthotropyDefine.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabPlateVariableThickness.cs" />
     <Compile Include="Shells\SlabSetAverageMeshSize.cs" />
-    <Compile Include="Shells\SlabSetShellEdgeConnection.cs" />
+    <Compile Include="Shells\SlabSetEdgeConnection.cs" />
     <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessDefine.cs" />
@@ -609,22 +610,22 @@
     <EmbeddedResource Include="Resources\icons\ShellEccentricityDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionDefine.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionFixed.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionFixed.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionHinged.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionHinged.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionPinned.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionPinned.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\ShellEdgeConnectionRigid.bmp" />
+    <EmbeddedResource Include="Resources\icons\EdgeConnectionRigid.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\icons\ShellOrthotropyDefault.bmp" />
@@ -639,7 +640,7 @@
     <EmbeddedResource Include="Resources\icons\SlabSetAverageElementSize.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\SlabSetShellEdgeConnection.bmp" />
+    <EmbeddedResource Include="Resources\icons\SlabSetEdgeConnection.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\icons\StageDefine.bmp" />
@@ -796,7 +797,7 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent> move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
+    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />

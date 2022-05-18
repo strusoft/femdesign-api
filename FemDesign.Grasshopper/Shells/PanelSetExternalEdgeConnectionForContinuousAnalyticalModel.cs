@@ -7,14 +7,14 @@ namespace FemDesign.Grasshopper
 {
     public class PanelSetExternalEdgeConnectionForContinuousAnalycitalModel: GH_Component
     {
-        public PanelSetExternalEdgeConnectionForContinuousAnalycitalModel(): base("Panel.SetExtEdgeConnectionForContAnalModel", "SetExtEdgeConnectionContAnalModel", "Set ShellEdgeConnection by index on a panel with a continuous analytical model. Index for each respective edge can be extracted using PanelDeconstruct.", "FEM-Design", "Shells")
+        public PanelSetExternalEdgeConnectionForContinuousAnalycitalModel(): base("Panel.SetExtEdgeConnectionForContAnalModel", "SetExtEdgeConnectionContAnalModel", "Set EdgeConnection by index on a panel with a continuous analytical model. Index for each respective edge can be extracted using PanelDeconstruct.", "FEM-Design", "Shells")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Panel", "Panel", "Panel.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection.", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Index", "Index", "Index for edge.", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            FemDesign.Shells.ShellEdgeConnection shellEdgeConnection = null;
+            FemDesign.Shells.EdgeConnection shellEdgeConnection = null;
             if (!DA.GetData(1, ref shellEdgeConnection))
             {
                 return;
@@ -58,7 +58,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.SlabSetShellEdgeConnection;
+                return FemDesign.Properties.Resources.SlabSetEdgeConnection;
             }
         }
         public override Guid ComponentGuid

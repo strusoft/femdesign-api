@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("BorderShellEdgeConnection", "BorderEdgeConnection", "ShellEdgeConnection of the external border of the panel. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BorderEdgeConnection", "BorderEdgeConnection", "EdgeConnection of the external border of the panel. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -53,8 +53,8 @@ namespace FemDesign.Grasshopper
             Shells.ShellEccentricity eccentricity = Shells.ShellEccentricity.GetDefault();
             DA.GetData("ShellEccentricity", ref eccentricity);
             
-            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.GetHinged();
-            DA.GetData("BorderShellEdgeConnection", ref edgeConnection);
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetHinged();
+            DA.GetData("BorderEdgeConnection", ref edgeConnection);
 
             Rhino.Geometry.Vector3d x = Vector3d.Zero;
             DA.GetData("LocalX", ref x);

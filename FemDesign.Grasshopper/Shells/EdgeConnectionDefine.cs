@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEdgeConnectionDefine: GH_Component
+    public class EdgeConnectionDefine: GH_Component
     {
-        public ShellEdgeConnectionDefine(): base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", "FEM-Design", "Shells")
+        public EdgeConnectionDefine(): base("EdgeConnection.Define", "Define", "Define a new EdgeConnection", "FEM-Design", "Shells")
         {
 
         }
@@ -18,10 +18,12 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Plastic Limits Moments Rotations", "PlaLimR", "Plastic limits moments for rotation springs. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("LibraryName", "LibraryName", "When libraryName is not null or empty, the edge connection will be treated as a \"predefined/library\" item. Default is to treat is a a unique \"custom\" edge connection.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -29,17 +31,19 @@ namespace FemDesign.Grasshopper
             Releases.Rotations rotations = null;
             Releases.MotionsPlasticLimits motionsPlasticLimit = null;
             Releases.RotationsPlasticLimits rotationsPlasticLimit = null;
+            string libraryName = null;
             if (!DA.GetData("Motions", ref motions)) return;
             if (!DA.GetData("Rotations", ref rotations)) return;
             if (motions == null || rotations == null) return;
             DA.GetData("Plastic Limits Forces Motions", ref motionsPlasticLimit);
             DA.GetData("Plastic Limits Moments Rotations", ref rotationsPlasticLimit);
+            DA.GetData("LibraryName", ref libraryName);
 
-            Shells.ShellEdgeConnection edgeConnection = new Shells.ShellEdgeConnection(motions, motionsPlasticLimit, rotations, rotationsPlasticLimit);
+            Shells.EdgeConnection edgeConnection = new Shells.EdgeConnection(motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, libraryName);
 
-            DA.SetData("ShellEdgeConnection", edgeConnection);
+            DA.SetData("EdgeConnection", edgeConnection);
         }
-        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ShellEdgeConnectionDefine;
-        public override Guid ComponentGuid => new Guid("c6088f65-a1ca-4c37-9bca-7f5ef3d41e70");
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.EdgeConnectionDefine;
+        public override Guid ComponentGuid => new Guid("d4748927-2190-4444-82a0-82df4593eca6");
     }
 }

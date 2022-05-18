@@ -565,7 +565,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="slab">Slab.</param>
         /// <returns></returns>
-        [MultiReturn(new[]{"Guid", "Surface", "ThicknessItems", "Material", "ShellEccentricity", "ShellOrthotropy", "EdgeCurves", "ShellEdgeConnections", "LocalX", "LocalY", "SurfaceReinforcementParameters", "SurfaceReinforcement", "Identifier"})]
+        [MultiReturn(new[]{"Guid", "Surface", "ThicknessItems", "Material", "ShellEccentricity", "ShellOrthotropy", "EdgeCurves", "EdgeConnections", "LocalX", "LocalY", "SurfaceReinforcementParameters", "SurfaceReinforcement", "Identifier"})]
         [IsVisibleInDynamoLibrary(true)]
         public static Dictionary<string, object> SlabDeconstruct(FemDesign.Shells.Slab slab)
         {
@@ -578,7 +578,7 @@ namespace FemDesign
                 {"ShellEccentricity", slab.SlabPart.ShellEccentricity},
                 {"ShellOrthotropy", slab.SlabPart.ShellOrthotropy},
                 {"EdgeCurves", slab.SlabPart.Region.ToDynamoCurves()},
-                {"ShellEdgeConnections", slab.SlabPart.GetEdgeConnections()},
+                {"EdgeConnections", slab.SlabPart.GetEdgeConnections()},
                 {"LocalX", slab.SlabPart.LocalX.ToDynamo()},
                 {"LocalY", slab.SlabPart.LocalY.ToDynamo()},
                 {"SurfaceReinforcementParameters", slab.SurfaceReinforcementParameters},
@@ -592,7 +592,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="fictitiousShell">FictitiousShell.</param>
         /// <returns></returns>
-        [MultiReturn(new[]{"Guid", "AnalyticalId", "Surface", "MembraneStiffness", "FlexuralStiffness", "ShearStiffness", "Density", "T1", "T2", "Alpha1", "Alpha2", "IgnoreInStImpCalc", "EdgeCurves", "ShellEdgeConnections", "LocalX", "LocalY"})]
+        [MultiReturn(new[]{"Guid", "AnalyticalId", "Surface", "MembraneStiffness", "FlexuralStiffness", "ShearStiffness", "Density", "T1", "T2", "Alpha1", "Alpha2", "IgnoreInStImpCalc", "EdgeCurves", "EdgeConnections", "LocalX", "LocalY"})]
         [IsVisibleInDynamoLibrary(true)]
         public static Dictionary<string, object> FictitiousShellDeconstruct(FemDesign.ModellingTools.FictitiousShell fictitiousShell)
         {
@@ -611,7 +611,7 @@ namespace FemDesign
                 {"Alpha2", fictitiousShell.Alpha2},
                 {"IgnoreInStImpCalc", fictitiousShell.IgnoreInStImpCalculation},
                 {"EdgeCurves", fictitiousShell.Region.ToDynamoCurves()},
-                {"ShellEdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
+                {"EdgeConnections", fictitiousShell.Region.GetEdgeConnections()},
                 {"LocalX", fictitiousShell.LocalX.ToDynamo()},
                 {"LocalY", fictitiousShell.LocalY.ToDynamo()}
             };
@@ -682,13 +682,13 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Deconstruct a ShellEdgeConnection.
+        /// Deconstruct a EdgeConnection.
         /// </summary>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] {"Guid", "AnalyticalID", "PredefinedName", "PredefinedGuid", "Friction", "Motions", "Rotations"})]
-        public static Dictionary<string, object> ShellEdgeConnectionDeconstruct(FemDesign.Shells.ShellEdgeConnection shellEdgeConnection)
+        public static Dictionary<string, object> EdgeConnectionDeconstruct(FemDesign.Shells.EdgeConnection shellEdgeConnection)
         {
             if (shellEdgeConnection == null)
             {

@@ -6,15 +6,15 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEdgeConnectionDeconstruct: GH_Component
+    public class EdgeConnectionDeconstruct: GH_Component
     {
-       public ShellEdgeConnectionDeconstruct(): base("ShellEdgeConnection.Deconstruct", "Deconstruct", "Deconstruct a ShellEdgeConnection element.", "FEM-Design", "Deconstruct")
+       public EdgeConnectionDeconstruct(): base("EdgeConnection.Deconstruct", "Deconstruct", "Deconstruct a EdgeConnection element.", "FEM-Design", "Deconstruct")
        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);           
+           pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection.", GH_ParamAccess.item);           
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
        protected override void SolveInstance(IGH_DataAccess DA)
        {
             // get input
-            FemDesign.Shells.ShellEdgeConnection obj = null;
+            FemDesign.Shells.EdgeConnection obj = null;
             if (!DA.GetData(0, ref obj))
             {
                 return;
@@ -79,7 +79,7 @@ namespace FemDesign.Grasshopper
        {
            get
            {
-                return FemDesign.Properties.Resources.ShellEdgeConnectionDeconstruct;
+                return FemDesign.Properties.Resources.EdgeConnectionDeconstruct;
            }
        }
        public override Guid ComponentGuid

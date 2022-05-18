@@ -110,6 +110,7 @@
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineConnectionForce.cs" />
+    <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
@@ -280,7 +281,7 @@
     <Compile Include="Shells\Panel.cs" />
     <Compile Include="Shells\ShellBucklingType.cs" />
     <Compile Include="Shells\ShellEccentricity.cs" />
-    <Compile Include="Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Shells\EdgeConnection.cs" />
     <Compile Include="Shells\ShellOrthotropy.cs" />
     <Compile Include="Shells\Slab.cs" />
     <Compile Include="Shells\SlabPart.cs" />

@@ -14,14 +14,14 @@ namespace FemDesign.Shells
         #region dynamo
 
         /// <summary>
-        /// Set ShellEdgeConnections by indices.
+        /// Set EdgeConnections by indices.
         /// </summary>
         /// <param name="slab">Slab.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
-        public static Slab SetShellEdgeConnection(Slab slab, ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        public static Slab SetEdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, List<int> indices)
         {
-            return ShellEdgeConnection(slab, shellEdgeConnection, indices);
+            return EdgeConnection(slab, shellEdgeConnection, indices);
         }
 
         /// <summary>
@@ -45,13 +45,13 @@ namespace FemDesign.Shells
         /// <param name="material">Material.</param>
         /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined."</param>
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
+        public static Slab Plate(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("EdgeConnection.Default()")] EdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -86,13 +86,13 @@ namespace FemDesign.Shells
         /// <param name="material">Material.</param>
         /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined."</param>
         /// <param name="identifier">Identifier of plate element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
+        public static Slab PlateVariableThickness(Autodesk.DesignScript.Geometry.Surface surface, List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("EdgeConnection.Default()")] EdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX,  [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "P")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -129,13 +129,13 @@ namespace FemDesign.Shells
         /// <param name="material">Material.</param>
         /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined."</param>
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
+        public static Slab Wall(Autodesk.DesignScript.Geometry.Surface surface, double thickness, Materials.Material material,  [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("EdgeConnection.Default()")] EdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
@@ -176,13 +176,13 @@ namespace FemDesign.Shells
         /// <param name="material">Material.</param>
         /// <param name="shellEccentricity">ShellEccentricity. Optional, if undefined default value will be used.</param>
         /// <param name="shellOrthotropy">ShellOrthotropy. Optional, if undefined default value will be used.</param>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection. Optional, if undefined rigid.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection. Optional, if undefined rigid.</param>
         /// <param name="localX">Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.</param>
         /// <param name="localZ">Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined."</param>
         /// <param name="identifier">Identifier of wall element. Optional.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface,  List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("ShellEdgeConnection.Default()")] ShellEdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
+        public static Slab WallVariableThickness(Autodesk.DesignScript.Geometry.Surface surface,  List<Thickness> thickness, Materials.Material material, [DefaultArgument("ShellEccentricity.Default()")] ShellEccentricity shellEccentricity, [DefaultArgument("ShellOrthotropy.Default()")] ShellOrthotropy shellOrthotropy, [DefaultArgument("EdgeConnection.Default()")] EdgeConnection shellEdgeConnection, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localX, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)")] Autodesk.DesignScript.Geometry.Vector localZ, string identifier = "W")
         {
             // create FlatSurface
             Geometry.Region region = Geometry.Region.FromDynamo(surface);

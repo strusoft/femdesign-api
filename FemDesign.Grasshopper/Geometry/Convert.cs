@@ -8,7 +8,7 @@ using FemDesign.Supports;
 
 namespace FemDesign.Grasshopper
 {
-    internal static class Convert
+    public static class Convert
     {
 
         #region Vector

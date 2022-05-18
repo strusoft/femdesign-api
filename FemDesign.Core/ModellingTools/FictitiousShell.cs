@@ -304,13 +304,13 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Set ShellEdgeConnection by indices.
+        /// Set EdgeConnection by indices.
         /// </summary>
         /// <param name="fictShell">Fictitious Shell</param>
-        /// <param name="edgeConnection">ShellEdgeConnection</param>
+        /// <param name="edgeConnection">EdgeConnection</param>
         /// <param name="indices">Index. List of items. Deconstruct fictitious shell to extract index for each respective edge.</param>
         /// <returns></returns>
-        public static FictitiousShell UpdateShellEdgeConnection(FictitiousShell fictShell, Shells.ShellEdgeConnection edgeConnection, List<int> indices)
+        public static FictitiousShell UpdateEdgeConnection(FictitiousShell fictShell, Shells.EdgeConnection edgeConnection, List<int> indices)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.

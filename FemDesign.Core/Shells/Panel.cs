@@ -337,8 +337,8 @@ namespace FemDesign.Shells
         /// Set external edge connections (i.e. set edge connections around region). 
         /// When this is performed for panels the external rigidity is changed accordingly.
         /// </summary>
-        /// <param name="ec">ShellEdgeConnection</param>
-        public void SetExternalEdgeConnections(ShellEdgeConnection ec)
+        /// <param name="ec">EdgeConnection</param>
+        public void SetExternalEdgeConnections(EdgeConnection ec)
         {
             // set the edge connections of the external edges of the internal panels
             if (this.InternalPanels.IntPanels.Count == 1)
@@ -358,9 +358,9 @@ namespace FemDesign.Shells
         /// <summary>
         /// Set external edge connection at index (i.e. set edge connections at specific edge of region).
         /// </summary>
-        /// <param name="ec">ShellEdgeConnection</param>
+        /// <param name="ec">EdgeConnection</param>
         /// <param name="index">Index of edge to set at region of first (and only) internal panel.</param>
-        public void SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(ShellEdgeConnection ec, int index)
+        public void SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(EdgeConnection ec, int index)
         {
             if (this.InternalPanels.IntPanels.Count != 1)
             {
@@ -380,9 +380,9 @@ namespace FemDesign.Shells
         /// <summary>
         /// Set external edge connection at indices (i.e. set edge connections at specific edges of region).
         /// </summary>
-        /// <param name="shellEdgeConnection">ShellEdgeConnection.</param>
+        /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="indices">Index. List of items</param>
-        public void SetExternalEdgeConnectionsForContinuousAnalyticalModel(ShellEdgeConnection shellEdgeConnection, List<int> indices)
+        public void SetExternalEdgeConnectionsForContinuousAnalyticalModel(EdgeConnection shellEdgeConnection, List<int> indices)
         {
             if (this.InternalPanels.IntPanels.Count != 1)
             {
@@ -429,7 +429,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, ShellEdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
+        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
 
@@ -473,7 +473,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, ShellEdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, EdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -513,7 +513,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="ecc"></param>
         /// <returns></returns>
-        public static Panel DefaultContreteContinuous(Geometry.Region region, ShellEdgeConnection externalEdgeConnection, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
+        public static Panel DefaultContreteContinuous(Geometry.Region region, EdgeConnection externalEdgeConnection, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
         {
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
@@ -537,10 +537,10 @@ namespace FemDesign.Shells
         /// <param name="eccentricity"></param>
         /// <param name="panelWidth"></param>
         /// <returns></returns>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.FdVector3d direction, ShellEdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.FdVector3d direction, EdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
         {
             if (externalEdgeConnection == null)
-                externalEdgeConnection = ShellEdgeConnection.GetDefault();
+                externalEdgeConnection = EdgeConnection.GetDefault();
 
             if (eccentricity == null)
                 eccentricity = ShellEccentricity.GetDefault();

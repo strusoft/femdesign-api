@@ -93,7 +93,7 @@ namespace FemDesign.Geometry
         [XmlElement("x_axis", Order = 3)]
         public Geometry.FdVector3d XAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
         [XmlElement("edge_connection", Order = 4)]
-        public Shells.ShellEdgeConnection EdgeConnection { get; set; } // optional. ec_type.
+        public Shells.EdgeConnection EdgeConnection { get; set; } // optional. ec_type.
         [XmlAttribute("type")]
         public string _type; // edgetype
         [XmlIgnore]
@@ -212,7 +212,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line
         /// </summary>
-        internal bool IsLine()
+        public bool IsLine()
         {
             return (this.Type == "line");
         }
@@ -220,7 +220,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line is vertical (i.e. parallel to global Z)
         /// </summary>
-        internal bool IsLineVertical()
+        public bool IsLineVertical()
         {
             if (this.IsLine())
             {
@@ -235,7 +235,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Check if line local x is equal to positive global Z
         /// </summary>
-        internal bool IsLineTangentEqualToGlobalZ()
+        public bool IsLineTangentEqualToGlobalZ()
         {
             if (this.IsLine())
             {
@@ -251,7 +251,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Reverse this edge
         /// </summary>
-        internal void Reverse()
+        public void Reverse()
         {
             // reset coordinate system
             this.CoordinateSystem = null;
@@ -288,6 +288,16 @@ namespace FemDesign.Geometry
             }
         }
 
+        /// <summary>
+        /// Convert an Edge to a LineSegment
+        /// </summary>
+        /// <param name="edge"></param>
+        public static explicit operator LineSegment(Edge edge)
+        {
+            if (!edge.IsLine())
+                throw new ArgumentException("Edge is not a line");
 
+            return new LineSegment(edge.Points[0], edge.Points[1]);
+        }
     }
 }

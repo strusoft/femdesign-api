@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEdgeConnectionHinged: GH_Component
+    public class EdgeConnectionHinged: GH_Component
     {
-        public ShellEdgeConnectionHinged(): base("ShellEdgeConnection.Hinged", "Hinged", "Create a Hinged ShellEdgeConnection.", "FEM-Design", "Shells")
+        public EdgeConnectionHinged(): base("EdgeConnection.Hinged", "Hinged", "Create a Hinged EdgeConnection.", "FEM-Design", "Shells")
         {
 
         }
@@ -15,12 +15,12 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ShellEdgeConnection", "ShellEdgeConnection", "ShellEdgeConnection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            FemDesign.Shells.ShellEdgeConnection obj = FemDesign.Shells.ShellEdgeConnection.GetHinged();
+            FemDesign.Shells.EdgeConnection obj = FemDesign.Shells.EdgeConnection.GetHinged();
 
             // return
             DA.SetData(0, obj);
@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.ShellEdgeConnectionHinged;
+                return FemDesign.Properties.Resources.EdgeConnectionHinged;
             }
         }
         public override Guid ComponentGuid

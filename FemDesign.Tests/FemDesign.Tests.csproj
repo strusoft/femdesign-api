@@ -73,6 +73,7 @@
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
     <Compile Include="Results\LineConnectionForceTests.cs" />
+    <Compile Include="Results\LineConnectionResultantTests.cs" />
     <Compile Include="Results\ShellInternalForceTests.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequenciesTest.cs" />
     <Compile Include="Results\FeaNodeTests.cs" />
@@ -89,12 +90,16 @@
     <Compile Include="Results\ShellDerivedForceTests.cs" />
     <Compile Include="Results\ShellsDisplacementTests.cs" />
     <Compile Include="Results\ShellsStressTests.cs" />
+    <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Model\global-test-model_IN.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Shells\EdgeConnection-model.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">

@@ -1443,9 +1443,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionDeconstruct {
+        internal static System.Drawing.Bitmap EdgeConnectionDeconstruct {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionDeconstruct", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1453,9 +1453,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionDefine {
+        internal static System.Drawing.Bitmap EdgeConnectionDefine {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionDefine", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1463,9 +1463,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionFixed {
+        internal static System.Drawing.Bitmap EdgeConnectionFixed {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionFixed", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionFixed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1473,9 +1473,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionHinged {
+        internal static System.Drawing.Bitmap EdgeConnectionHinged {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionHinged", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionHinged", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1483,9 +1483,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionPinned {
+        internal static System.Drawing.Bitmap EdgeConnectionPinned {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionPinned", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionPinned", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1493,9 +1493,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShellEdgeConnectionRigid {
+        internal static System.Drawing.Bitmap EdgeConnectionRigid {
             get {
-                object obj = ResourceManager.GetObject("ShellEdgeConnectionRigid", resourceCulture);
+                object obj = ResourceManager.GetObject("EdgeConnectionRigid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1543,9 +1543,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SlabSetShellEdgeConnection {
+        internal static System.Drawing.Bitmap SlabSetEdgeConnection {
             get {
-                object obj = ResourceManager.GetObject("SlabSetShellEdgeConnection", resourceCulture);
+                object obj = ResourceManager.GetObject("SlabSetEdgeConnection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
