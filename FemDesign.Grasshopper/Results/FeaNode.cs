@@ -33,7 +33,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.Register_StringParam("NodeId", "NodeId", "Node Index");
+            pManager.Register_IntegerParam("NodeId", "NodeId", "Node Index");
             pManager.Register_PointParam("Point", "Point", "Node Geometry [mm]");
         }
 
