@@ -100,6 +100,7 @@
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
