@@ -37,8 +37,7 @@ The Python-old-examples is an API wrapper with different call functions to make 
 https://wiki.fem-design.strusoft.com/xwiki/bin/view/FEM-Design%20API/Python/API%20wrapper/
 
 ## Maintenance
-The examples and samples here are created and mainatained by StruSoft. However, 
-
+The examples and samples here are created and mainatained by StruSoft. 
 ## Questions and feedback
 If you have any questions regarding the examples and how they work, feel free to contact us. We also welcome any feedback, as well as suggestions for future examples. You can reach us at femdesign.api@strusoft.com.
 
