@@ -249,7 +249,7 @@ namespace FemDesign.Results
         /// Eigen Frequencies: Structural Model
         /// </summary>
         [Parseable("NodalVibrationShape")]
-        [Result(typeof(NodalDisplacement), ListProc.NodalVibrationShape)]
+        [Result(typeof(NodalVibration), ListProc.NodalVibrationShape)]
         NodalVibrationShape,
         #endregion
 

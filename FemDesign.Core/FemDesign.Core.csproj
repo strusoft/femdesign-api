@@ -104,6 +104,7 @@
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
+    <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
     <Compile Include="Results\FiniteElements\FeaBar.cs" />
     <Compile Include="Results\FiniteElements\FDfea.cs" />
     <Compile Include="Results\FiniteElements\FeaNode.cs" />
