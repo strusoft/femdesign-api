@@ -109,11 +109,11 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("NodalVibrationShape") || r.StartsWith("EigenFrequencies"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
-            if (r.EndsWith("LoadCombination"))
+            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape"))
                 return -1; // All load combinations
 
             throw new FormatException($"Default case index of ResultType.{resultType} not known.");

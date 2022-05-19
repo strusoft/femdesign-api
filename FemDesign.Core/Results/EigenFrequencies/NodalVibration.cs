@@ -100,5 +100,59 @@ namespace FemDesign.Results
             int shapeId = Int32.Parse(HeaderData["shapeid"]);
             return new NodalVibration(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, shapeId);
         }
+
+        /// <summary>
+        /// The method has been created for returning the value for Grasshopper and Dynamo.
+        /// The method can still be use for C# users.
+        /// </summary>
+        public static Dictionary<string, object> DeconstructNodalVibration(List<FemDesign.Results.NodalVibration> Result, string ModeShapeId)
+        {
+            var nodalDisplacements = Result.Cast<FemDesign.Results.NodalVibration>();
+
+            // Return the unique load cases - load combinations
+            var uniqueShapeId = nodalDisplacements.Select(n => n.ShapeId.ToString()).Distinct().ToList();
+
+            // Select a Default load case if the user does not provide an input
+            ModeShapeId = ModeShapeId == null ? uniqueShapeId.First() : ModeShapeId;
+
+            // Select the Nodal Displacement for the selected Load Case - Load Combination
+            if (uniqueShapeId.Contains(ModeShapeId, StringComparer.OrdinalIgnoreCase))
+            {
+                nodalDisplacements = nodalDisplacements.Where(n => String.Equals(n.ShapeId.ToString(), ModeShapeId, StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                var warning = $"Shape Mode '{ModeShapeId}' does not exist";
+                throw new ArgumentException(warning);
+            }
+
+            // Parse Results from the object
+            var identifier = nodalDisplacements.Select(n => n.Id).ToList();
+            var nodeId = nodalDisplacements.Select(n => n.NodeId).ToList();
+            var shapeIds = nodalDisplacements.Select(n => n.ShapeId).Distinct().ToList();
+
+            // Create a Rhino Vector for Displacement and Rotation
+            var translation = new List<FemDesign.Geometry.FdVector3d>();
+            var rotation = new List<FemDesign.Geometry.FdVector3d>();
+
+            foreach (var nodeDisp in nodalDisplacements)
+            {
+                var transVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
+                translation.Add(transVector);
+
+                var rotVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
+                rotation.Add(rotVector);
+            }
+
+
+            return new Dictionary<string, dynamic>
+            {
+                {"ShapeId", shapeIds},
+                {"Id", identifier},
+                {"NodeId", nodeId},
+                {"Translation", translation},
+                {"Rotation", rotation},
+            };
+        }
     }
 }

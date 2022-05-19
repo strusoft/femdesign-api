@@ -623,6 +623,9 @@
     <Compile Include="..\FemDesign.Core\Results\EigenFrequencies\EigenFrequencies.cs">
       <Link>Core\Results\EigenFrequencies.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\EigenFrequencies\NodalVibration.cs">
+      <Link>Core\Results\NodalVibration.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\FiniteElements\FDfea.cs">
       <Link>Core\Results\FDfea.cs</Link>
     </Compile>
@@ -934,6 +937,7 @@
     <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
     <Compile Include="Dynamo\Results\FeaNode.cs" />
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
+    <Compile Include="Dynamo\Results\NodalVibration.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
     <Compile Include="Dynamo\Results\ShellDisplacement.cs" />
     <Compile Include="Dynamo\Results\ShellInternalForce.cs" />

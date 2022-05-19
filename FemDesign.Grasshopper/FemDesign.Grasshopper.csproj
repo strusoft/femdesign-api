@@ -108,6 +108,7 @@
     <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
+    <Compile Include="Results\NodalVibration.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
