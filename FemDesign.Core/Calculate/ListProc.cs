@@ -324,6 +324,11 @@ namespace FemDesign.Calculate
         [XmlEnum("frFreqEigen_ListProc")]
         EigenFrequencies,
 
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [XmlEnum("frFreqDispNodal_ListProc")]
+        NodalVibrationShape,
         #endregion
 
         #region FOOTFALL

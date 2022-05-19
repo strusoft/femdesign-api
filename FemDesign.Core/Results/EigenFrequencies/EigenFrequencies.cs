@@ -8,7 +8,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "EigenFrequencies" result
     /// </summary>
-    public class EigenFrequencies : IResult
+    public partial class EigenFrequencies : IResult
     {
         /// <summary>
         /// Shape Number Identified

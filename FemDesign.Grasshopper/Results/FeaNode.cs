@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Point", ofeaNodePoint);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
 
         /// <summary>
         /// Provides an Icon for the component.

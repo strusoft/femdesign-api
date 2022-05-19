@@ -92,7 +92,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Rotation", oRotation);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
         /// <summary>
         /// Provides an Icon for the component.

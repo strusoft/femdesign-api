@@ -244,6 +244,13 @@ namespace FemDesign.Results
         [Parseable("EigenFrequencies")]
         [Result(typeof(EigenFrequencies), ListProc.EigenFrequencies)]
         EigenFrequencies,
+
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [Parseable("NodalVibrationShape")]
+        [Result(typeof(NodalDisplacement), ListProc.NodalVibrationShape)]
+        NodalVibrationShape,
         #endregion
 
         #region FOOTFALL

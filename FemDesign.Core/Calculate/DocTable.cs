@@ -94,12 +94,14 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
             if (r.EndsWith("LoadCombination"))
                 return 3;
+            if (r.StartsWith("NodalVibrationShape"))
+                return 6;
 
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
@@ -107,7 +109,7 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("NodalVibrationShape") || r.StartsWith("EigenFrequencies"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases

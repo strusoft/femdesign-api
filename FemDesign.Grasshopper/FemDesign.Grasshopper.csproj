@@ -103,6 +103,7 @@
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
+    <Compile Include="Results\EigenFrequencies.cs" />
     <Compile Include="Results\FeaBar.cs" />
     <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />

@@ -141,7 +141,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataTree(8, mzTree);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
         /// <summary>
         /// Provides an Icon for the component.
