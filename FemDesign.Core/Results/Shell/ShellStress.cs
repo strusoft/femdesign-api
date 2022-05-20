@@ -105,7 +105,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -113,7 +113,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell\tElem.+$|Shell\tMax.+$|\[.*\]");
+                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell\tElem.*|\[.*\]");
             }
         }
 

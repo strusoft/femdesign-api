@@ -67,6 +67,7 @@ namespace FemDesign.Results
             double x = Double.Parse(row[1], CultureInfo.InvariantCulture);
             double y = Double.Parse(row[2], CultureInfo.InvariantCulture);
             double z = Double.Parse(row[3], CultureInfo.InvariantCulture);
+            string test = HeaderData["type"];
             return new FeaNode(nodeId, x, y, z);
         }
 

@@ -71,7 +71,7 @@ namespace FemDesign.Results
             int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
             int nodei = Int32.Parse(row[2], CultureInfo.InvariantCulture);
             int nodej = Int32.Parse(row[3], CultureInfo.InvariantCulture);
-
+            string test = HeaderData["type"];
             return new FeaBar(id, elementId, nodei, nodej);
         }
 

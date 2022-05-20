@@ -122,6 +122,7 @@ namespace FemDesign.Results
             double totalWeight = double.Parse(row[9], CultureInfo.InvariantCulture);
             double formwork = double.Parse(row[10], CultureInfo.InvariantCulture);
             double reinforcement = double.Parse(row[11], CultureInfo.InvariantCulture);
+            //string test = HeaderData["result"];
             return new QuantityEstimationConcrete(id, storey, structure, quality, subTotal, volume, totalWeight, formwork, reinforcement);
         }
     }
