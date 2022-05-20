@@ -37,8 +37,8 @@ P.1.1	3	664	-806735.742	-837671.858	-808924.050	0.000	0.000	1624749.589	-13131.8
 P.1.1	3	-	-837403.516	-680727.131	-713160.428	0.000	0.000	1456153.897	-41615.208	-1476515.440	-0.840	DL");
 
             var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(ShellStress), "Shell displacements should be parsed");
-            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(ShellStress), "Shell displacements (extract) should be parsed");
+            Assert.IsTrue(results[0].GetType() == typeof(ShellStress), "Shell Stress should be parsed");
+            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(ShellStress), "Shell Stress (extract) should be parsed");
 
             File.Delete(path);
         }

@@ -65,7 +65,7 @@ P.1.1	26	531	8588.596	13245.039	26754.187	4.951	-5.229	-1.076	39.052	-34.559	lc"
                 var match = ShellInternalForce.IdentificationExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellInternalForce).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
-                Assert.IsTrue(match.Groups["casecomb"].Success);
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 

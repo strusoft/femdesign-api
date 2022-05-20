@@ -26,7 +26,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public int NodeId { get; }
+        public string NodeId { get; }
         /// <summary>
         /// M1 [kNm/m]
         /// </summary>
@@ -54,7 +54,7 @@ namespace FemDesign.Results
 
         public string CaseIdentifier { get; }
 
-        internal ShellDerivedForce(string id, int elementId, int nodeId, double m1, double m2, double alphaM, double n1, double n2, double alphaN, string resultCase)
+        internal ShellDerivedForce(string id, int elementId, string nodeId, double m1, double m2, double alphaM, double n1, double n2, double alphaN, string resultCase)
         {
             this.Id = id;
             this.ElementId = elementId;
@@ -77,7 +77,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\ ]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[\w\ ]+)");
+                return new Regex(@"^(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
             }
         }
 
@@ -85,38 +85,40 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\ ]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[\w\ ]+)|ID(\tElem|\tMax)|\[.*\]");
+                return new Regex(@"^(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|ID[\tElem|\tMax].*|\[.*\]");
             }
         }
 
         internal static ShellDerivedForce Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            if (HeaderData.ContainsKey("extract"))
+            if (row.Count() == 11) // Extract
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
-                int nodeId = int.Parse(row[3], CultureInfo.InvariantCulture);
+                string nodeId = row[3] == "-" ? null : row[3];
                 double m1 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[6], CultureInfo.InvariantCulture);
                 double n1 = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 double n2 = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 double alphaN = Double.Parse(row[9], CultureInfo.InvariantCulture);
-                string lc = HeaderData["casename"];
+                string lc = row[10];
+                //string lc = HeaderData["casename"];
                 return new ShellDerivedForce(shellname, elementId, nodeId, m1, m2, alphaM, n1, n2, alphaN, lc);
             }
             else
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-                int nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
+                string nodeId = row[2] == "-" ? null : row[2];
                 double m1 = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double n1 = Double.Parse(row[6], CultureInfo.InvariantCulture);
                 double n2 = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 double alphaN = Double.Parse(row[8], CultureInfo.InvariantCulture);
-                string lc = HeaderData["casename"];
+                string lc = row[9];
+                //string lc = HeaderData["casename"];
                 return new ShellDerivedForce(shellname, elementId, nodeId, m1, m2, alphaM, n1, n2, alphaN, lc);
             }
         }

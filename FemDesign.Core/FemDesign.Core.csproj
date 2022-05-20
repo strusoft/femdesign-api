@@ -100,7 +100,6 @@
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
     <Compile Include="Geometry\Face.cs" />
-    <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
@@ -113,6 +112,7 @@
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineConnectionForce.cs" />
     <Compile Include="Results\LineConnectionResultant.cs" />
+    <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
