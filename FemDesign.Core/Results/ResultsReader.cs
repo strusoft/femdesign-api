@@ -64,7 +64,7 @@ namespace FemDesign.Results
                 }
             }
 
-            return HeaderExpression.IsMatch(line);
+            return match.Success;
         }
 
         /// <summary>
@@ -284,9 +284,9 @@ namespace FemDesign.Results
                 {
                     parsed = ParseRow<T>();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    throw new ParseException(typeof(T), line.Replace("\t", "  "));
+                    throw new ParseException(typeof(T), line.Replace("\t", "  "), e);
                 }
                 if (parsed == null && skipNull)
                     continue;

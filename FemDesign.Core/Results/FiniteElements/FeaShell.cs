@@ -76,7 +76,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Surface elements)|Shell");
+                return new Regex(@"(?'type'Surface elements)|^Shell\t");
             }
         }
 

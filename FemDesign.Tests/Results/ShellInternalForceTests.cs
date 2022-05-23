@@ -36,7 +36,7 @@ ID	Elem	Node	Mx'	My'	Mx'y'	Nx'	Ny'	Nx'y'	Tx'z'	Ty'z'	Comb.
 [-]	[-]	[-]	[Nmm/mm]	[Nmm/mm]	[Nmm/mm]	[N/mm]	[N/mm]	[N/mm]	[N/mm]	[N/mm]	[-]
 P.1.1	25	338	37193.091	12427.689	42016.373	-1.173	-0.290	0.783	75.687	-17.828	lc
 P.1.1	25	404	29445.055	7583.917	37369.134	-2.086	-0.686	1.776	80.635	-14.914	lc
-P.1.1	25	376	28267.081	19271.497	31212.947	-0.077	-2.064	1.893	32.338	-20.607	lc
+P.1.1	25	-	28267.081	19271.497	31212.947	-0.077	-2.064	1.893	32.338	-20.607	lc
 P.1.1	25	310	33538.213	27206.502	35220.910	-0.402	-1.005	1.079	22.073	-20.143	lc
 P.1.1	25	348	32207.382	16628.731	36099.203	-0.925	-1.027	1.390	43.483	-18.258	lc
 P.1.1	26	448	16607.270	10398.495	29705.477	1.556	-4.430	2.635	45.835	-25.649	lc
@@ -65,7 +65,7 @@ P.1.1	26	531	8588.596	13245.039	26754.187	4.951	-5.229	-1.076	39.052	-34.559	lc"
                 var match = ShellInternalForce.IdentificationExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellInternalForce).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
-                Assert.IsTrue(match.Groups["casecomb"].Success);
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 

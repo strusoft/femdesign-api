@@ -86,6 +86,7 @@ namespace FemDesign.Results
             double massPartXi = Double.Parse(row[4], CultureInfo.InvariantCulture);
             double massPartYi = Double.Parse(row[5], CultureInfo.InvariantCulture);
             double massPartZi = Double.Parse(row[6], CultureInfo.InvariantCulture);
+            string type = HeaderData["type"];
             return new EigenFrequencies(shapeId, frequency, period, modalMass, massPartXi, massPartYi, massPartZi);
         }
     }

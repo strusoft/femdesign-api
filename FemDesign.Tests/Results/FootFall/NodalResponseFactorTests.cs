@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,27 @@ namespace FemDesign.Results.Tests
         [TestMethod]
         public void Parse()
         {
-            string file_path = @"C:\Users\Marco\Desktop\fdScriptUnderstanding\314-footfall\nodal-response.txt";
+            string path = Path.GetTempFileName();
 
-            var results = ResultsReader.Parse(file_path);
+            using (var stream = new StreamWriter(path)) stream.Write(@"Footfall analysis, Nodal response factors, SE.1 - Overall maximum - for selected objects
+ID	Node	x	y	z
+[-]	[-]	[-]	[-]	[-]
+P.1.1	1	0.000	0.000	0.000
+	2	0.000	0.000	0.000
+	3	0.000	0.000	0.000
+	4	0.000	0.000	0.000
+	5	0.000	0.000	0.000
+	6	0.000	0.000	0.000
+	7	0.000	0.000	0.000
+	8	0.000	0.000	0.000
+	9	0.000	0.000	0.000
+");
 
-            Assert.IsTrue(results[0].GetType() == typeof(NodalResponseFactor), "Nodal Response Factor should be parsed");
-            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(NodalResponseFactor), "Nodal Response Factor should be parsed");
+            var results = ResultsReader.Parse(path);
+            Assert.IsTrue(results[0].GetType() == typeof(NodalResponseFactor), "Nodal Acceleration should be parsed");
+            Assert.IsTrue(results.Count == 9, "Should read all results.");
 
-            Console.WriteLine(results);
+            File.Delete(path);
         }
 
 
