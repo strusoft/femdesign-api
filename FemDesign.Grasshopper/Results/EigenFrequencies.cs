@@ -29,7 +29,6 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
         }
 
         /// <summary>

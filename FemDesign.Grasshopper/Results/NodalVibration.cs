@@ -30,7 +30,6 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Vibration Mode", "VibrationMode", "Vibration Mode indexs start from '1' as per FEM-Design", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
         }
 
         /// <summary>

@@ -112,9 +112,6 @@ namespace FemDesign.Results
             // Return the unique load cases - load combinations
             var uniqueShapeId = nodalDisplacements.Select(n => n.ShapeId.ToString()).Distinct().ToList();
 
-            // Select a Default load case if the user does not provide an input
-            ModeShapeId = ModeShapeId == null ? uniqueShapeId.First() : ModeShapeId;
-
             // Select the Nodal Displacement for the selected Load Case - Load Combination
             if (uniqueShapeId.Contains(ModeShapeId, StringComparer.OrdinalIgnoreCase))
             {

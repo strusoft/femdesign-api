@@ -129,9 +129,6 @@ namespace FemDesign.Results
             // Return the unique load case - load combination
             var uniqueLoadCases = lineSupportReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
 
-            // Select a Default load case if the user does not provide an input
-            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
-
             // Select the Nodal Reactions for the selected Load Case - Load Combination
             if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))
             {
