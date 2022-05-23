@@ -88,7 +88,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Bars), (?'result'Displacements), (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Bar.*$|\[.*\]");
+                return new Regex(@"^(?'type'Bars), (?'result'Displacements), (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^Bar\t|\[.*\]");
             }
         }
 
