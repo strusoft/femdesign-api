@@ -58,7 +58,16 @@ namespace FemDesign.Grasshopper
             
 
             var dir = System.IO.Path.GetDirectoryName(filePath);
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dir}\\{l}.bsc")));
+
+            // Create \data folder to store output
+            string dataDir = System.IO.Path.Combine(dir, "data");
+            // If directory does not exist, create it
+            if (!System.IO.Directory.Exists(dataDir))
+            {
+                System.IO.Directory.CreateDirectory(dataDir);
+            }
+
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc")));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript

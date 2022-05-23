@@ -66,7 +66,7 @@ namespace FemDesign.Calculate
             obj.StruxmlPath = struxmlPath;
             obj.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
             obj.Cwd = Path.GetDirectoryName(obj.StruxmlPath);
-            obj.FdScriptPath = obj.Cwd + @"\" + obj.FileName + ".fdscript";
+            obj.FdScriptPath = obj.Cwd + @"\data\" + obj.FileName + ".fdscript";
 
             // set header and logfile
             obj.FdScriptHeader = new FdScriptHeader("Generated script.", obj.Cwd + @"\logfile.log");
@@ -121,7 +121,9 @@ namespace FemDesign.Calculate
             obj.FileName = Path.GetFileName(strPath).Split('.')[0];
             obj.Cwd = Path.GetDirectoryName(strPath);
             obj.StruxmlPath = obj.Cwd + @"\" + obj.FileName + ".struxml";
-            obj.FdScriptPath = obj.Cwd + @"\" + obj.FileName + ".fdscript";
+
+
+            obj.FdScriptPath = obj.Cwd + @"\data\" + obj.FileName + ".fdscript";
 
             // set header and logfile
             obj.FdScriptHeader = new FdScriptHeader("Generated script.", obj.Cwd + @"\logfile.log");
