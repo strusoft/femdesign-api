@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FemDesign.Results;
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FemDesign.Results.Tests
 {
@@ -13,29 +15,41 @@ namespace FemDesign.Results.Tests
         [TestMethod]
         public void Parse()
         {
-            string file_path = @"C:\Users\Marco\Desktop\fdScriptUnderstanding\314-footfall\nodal-acceleration.txt";
+            string path = Path.GetTempFileName();
 
-            var results = ResultsReader.Parse(file_path);
+            using (var stream = new StreamWriter(path)) stream.Write(@"Footfall analysis, Nodal accelerations, SE.1 - Overall maximum - for selected objects
+ID	Node	ax	ay	az
+[-]	[-]	[m/s2]	[m/s2]	[m/s2]
+P.1.1	1	0.000	0.000	0.000
+P.1.1	2	0.000	0.000	0.000
+P.1.1	3	0.000	0.000	0.000
+P.1.1	4	0.000	0.000	0.000
+P.1.1	5	0.000	0.000	0.000
+P.1.1	6	0.000	0.000	0.000
+");
 
-            Assert.IsTrue(results[0].GetType() == typeof(NodalAcceleration), "Nodal Accelerations should be parsed");
-            Assert.IsTrue(results[results.Count - 1].GetType() == typeof(NodalAcceleration), "Nodal Accelerations should be parsed");
+            var results = ResultsReader.Parse(path);
+            Assert.IsTrue(results[0].GetType() == typeof(NodalAcceleration), "Nodal Acceleration should be parsed");
+            Assert.IsTrue(results.Count == 6, "Should read all results.");
 
-            Console.WriteLine(results);
+            File.Delete(path);
         }
-
 
         [TestMethod]
         public void Identification()
         {
             var headers = new string[]
             {
-                "Footfall analysis, Nodal accelerations, SE.1 - Overall maximum - for selected objects"
+                "Footfall analysis, Nodal accelerations, SE.1",
             };
 
             foreach (var header in headers)
             {
                 var match = NodalAcceleration.IdentificationExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalAcceleration).Name}");
+                Assert.IsTrue(match.Groups["type"].Success);
+                Assert.IsTrue(match.Groups["result"].Success);
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 
@@ -44,9 +58,9 @@ namespace FemDesign.Results.Tests
         {
             var headers = new string[]
             {
-                "Footfall analysis, Nodal accelerations, SE.1 - Overall maximum - for selected objects",
+                "Footfall analysis, Nodal accelerations, SE.1",
                 "ID	Node	ax	ay	az",
-                "[-]	[-]	[-]	[-]	[-]"
+                "[-]	[-]	[m/s2]	[m/s2]	[m/s2]"
             };
 
             foreach (var header in headers)

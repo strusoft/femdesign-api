@@ -75,11 +75,17 @@ namespace FemDesign.Results
         public double Alpha { get; }
 
         /// <summary>
+        /// Positional Result for Shell Stress
+        /// Top, Membrane, Bottom
+        /// </summary>
+        public string Side { get; }
+
+        /// <summary>
         /// Load case or combination name
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal ShellStress(string id, int elementId, string nodeId, double sigmaX, double sigmaY, double tauXY, double tauXZ, double tauYZ, double sigmaVM, double sigma1, double sigma2, double alpha, string caseIdentifier)
+        internal ShellStress(string id, int elementId, string nodeId, double sigmaX, double sigmaY, double tauXY, double tauXZ, double tauYZ, double sigmaVM, double sigma1, double sigma2, double alpha, string side, string caseIdentifier)
         {
             this.Id = id;
             this.ElementId = elementId;
@@ -93,12 +99,13 @@ namespace FemDesign.Results
             this.Sigma1 = sigma1;
             this.Sigma2 = sigma2;
             this.Alpha = alpha;
+            this.Side = side;
             this.CaseIdentifier = caseIdentifier;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+            return $"{base.ToString()}, {Id}, {Side}, {CaseIdentifier}";
         }
 
         internal static Regex IdentificationExpression
@@ -134,10 +141,9 @@ namespace FemDesign.Results
                 double sigma1 = Double.Parse(row[10], CultureInfo.InvariantCulture);
                 double sigma2 = Double.Parse(row[11], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[12], CultureInfo.InvariantCulture);
-                string caseIdentifier = row[13];
-                //to be implemented
                 string side = HeaderData["side"];
-                return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
+                string caseIdentifier = row[13];
+                return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, side, caseIdentifier);
             }
             else
             {
@@ -154,10 +160,9 @@ namespace FemDesign.Results
                 double sigma1 = Double.Parse(row[9], CultureInfo.InvariantCulture);
                 double sigma2 = Double.Parse(row[10], CultureInfo.InvariantCulture);
                 double alpha = Double.Parse(row[11], CultureInfo.InvariantCulture);
-                string caseIdentifier = row[12];
-                //to be implemented
                 string side = HeaderData["side"];
-                return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, caseIdentifier);
+                string caseIdentifier = row[12];
+                return new ShellStress(id, elementId, nodeId, sigmaX, sigmaY, tauXY, tauXZ, tauYZ, sigmaVM, sigma1, sigma2, alpha, side, caseIdentifier);
             }
         }
 
@@ -172,9 +177,6 @@ namespace FemDesign.Results
 
             // Return the unique load case - load combination
             var uniqueLoadCases = shellStress.Select(n => n.CaseIdentifier).Distinct().ToList();
-
-            // Select a Default load case if the user does not provide an input
-            LoadCase = LoadCase == null ? uniqueLoadCases.First() : LoadCase;
 
             // Select the Nodal Displacement for the selected Load Case - Load Combination
             if (uniqueLoadCases.Contains(LoadCase, StringComparer.OrdinalIgnoreCase))

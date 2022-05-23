@@ -183,44 +183,16 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Stress
         /// </summary>
-        [Parseable("ShellStressTop")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination)]
-        ShellStressTop,
-
-        /// <summary>
-        /// Shells, Stress
-        /// </summary>
-        [Parseable("ShellStressMembrane")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination)]
-        ShellStressMembrane,
-
-        /// <summary>
-        /// Shells, Stress
-        /// </summary>
-        [Parseable("ShellStressBottom")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination)]
-        ShellStressBottom,
+        [Parseable("ShellStress")]
+        [Result(typeof(ShellStress), ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination, ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination, ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination)]
+        ShellStress,
 
         /// <summary>
         /// Shells, Stress (Extract)
         /// </summary>
-        [Parseable("ShellStressTopExtract")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination)]
-        ShellStressTopExtract,
-
-        /// <summary>
-        /// Shells, Stress (Extract)
-        /// </summary>
-        [Parseable("ShellStressMembraneExtract")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination)]
-        ShellStressMembraneExtract,
-
-        /// <summary>
-        /// Shells, Stress (Extract)
-        /// </summary>
-        [Parseable("ShellStressBottomExtract")]
-        [Result(typeof(ShellStress), ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination)]
-        ShellStressBottomExtract,
+        [Parseable("ShellStressExtract")]
+        [Result(typeof(ShellStress), ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination)]
+        ShellStressExtract,
 
         /// <summary>
         /// Shells, Displacements
