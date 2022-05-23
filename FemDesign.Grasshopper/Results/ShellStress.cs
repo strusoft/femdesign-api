@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public ShellStress()
           : base("Results.ShellStress",
-                "Shell Stresses",
+                "ShellStress",
                 "Read the shell stresses for the entire model",
                 "FEM-Design",
                 "Results")
@@ -31,6 +31,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
+            pManager.AddTextParameter("Side", "Side", "Accepted values are top, bottom or membrane", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -64,6 +65,19 @@ namespace FemDesign.Grasshopper
 
             string iLoadCase = null;
             DA.GetData(1, ref iLoadCase);
+
+            string side = null;
+            DA.GetData(2, ref side);
+            var sideOption= new List<string> { "top", "membrane", "bottom"};
+
+            if (!sideOption.Contains(side))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"Side Input must be 'top', 'membrane', 'bottom'");
+                return;
+            }
+
+            // Select the results only at the specific Side
+            iResult = iResult.Where(x => x.Side == side).ToList();
 
             // Read Result from Abstract Method
             Dictionary<string, object> result;

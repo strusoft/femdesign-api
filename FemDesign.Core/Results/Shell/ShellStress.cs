@@ -203,6 +203,7 @@ namespace FemDesign.Results
             var sigma1 = new List<double>();
             var sigma2 = new List<double>();
             var alpha = new List<double>();
+            var side = new List<string>();
 
 
             var uniqueLoadCase = shellStress.Select(n => n.CaseIdentifier).Distinct().ToList();
@@ -227,6 +228,7 @@ namespace FemDesign.Results
                     sigma1.Add(shellResult.Sigma1);
                     sigma2.Add(shellResult.Sigma2);
                     alpha.Add(shellResult.Alpha);
+                    side.Add(shellResult.Side);
                 }
             }
 
@@ -246,6 +248,7 @@ namespace FemDesign.Results
                 {"Sigma1",sigma1},
                 {"Sigma2",sigma2},
                 {"Alpha",alpha},
+                {"Side", side}
             };
         }
     }

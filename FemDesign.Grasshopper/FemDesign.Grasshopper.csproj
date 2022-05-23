@@ -125,6 +125,7 @@
     <Compile Include="Obsolete\ModelDeconstruct2OBSOLETE.cs" />
     <Compile Include="Obsolete\ModelDeconstructOBSOLETE.cs" />
     <Compile Include="Info\Info.cs" />
+    <Compile Include="Info\TabInfo.cs" />
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsDefine.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
