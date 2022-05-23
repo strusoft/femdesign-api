@@ -103,7 +103,7 @@ namespace FemDesign.Results
                 double n2 = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 double alphaN = Double.Parse(row[9], CultureInfo.InvariantCulture);
                 string lc = row[10];
-                //string test = HeaderData["casename"];
+                string test = HeaderData["casename"];
                 return new ShellDerivedForce(shellname, elementId, nodeId, m1, m2, alphaM, n1, n2, alphaN, lc);
             }
             else
@@ -118,7 +118,7 @@ namespace FemDesign.Results
                 double n2 = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 double alphaN = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 string lc = row[9];
-                //string test = HeaderData["casename"];
+                string test = HeaderData["casename"];
                 return new ShellDerivedForce(shellname, elementId, nodeId, m1, m2, alphaM, n1, n2, alphaN, lc);
             }
         }

@@ -87,7 +87,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t.|\[.*\]");
+                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t.*|\[.*\]");
             }
         }
 
@@ -111,6 +111,7 @@ namespace FemDesign.Results
                 fiy = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 fiz = Double.Parse(row[9], CultureInfo.InvariantCulture);
                 lc = row[10];
+                string test = HeaderData["casename"];
             }
             else
             {
@@ -126,6 +127,7 @@ namespace FemDesign.Results
                 fiy = Double.Parse(row[7], CultureInfo.InvariantCulture);
                 fiz = Double.Parse(row[8], CultureInfo.InvariantCulture);
                 lc = row[9];
+                string test = HeaderData["casename"];
             }
             return new ShellDisplacement(name, elementId, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
         }

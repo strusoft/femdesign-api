@@ -50,7 +50,12 @@ B.1.1	0.563	1.062	0.314	-0.448	0.000	0.000	0.001
             {
                 var match = BarDisplacement.IdentificationExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(BarDisplacement).Name}");
+                Assert.IsTrue(match.Groups["casename"].Success);
                 Assert.IsTrue(match.Groups["type"].Success);
+                Assert.IsTrue(match.Groups["result"].Success);
+                Assert.IsTrue(match.Groups["loadcasetype"].Success);
+                Assert.IsTrue(match.Groups["casecomb"].Success);
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 
