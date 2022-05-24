@@ -58,9 +58,10 @@ namespace FemDesign.Grasshopper
             
 
             var dir = System.IO.Path.GetDirectoryName(filePath);
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
             // Create \data folder to store output
-            string dataDir = System.IO.Path.Combine(dir, "data");
+            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
             // If directory does not exist, create it
             if (!System.IO.Directory.Exists(dataDir))
             {
