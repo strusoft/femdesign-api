@@ -59,32 +59,31 @@ namespace FemDesign.Calculate
         /// </summary>
         internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession)
         {
-            FdScript obj = new FdScript();
+            FdScript fdScript = new FdScript();
 
-            obj.XmlAttrib = "fdscript.xsd";
-            obj.StruxmlPath = struxmlPath;
-            obj.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
-            string cwd = Path.GetDirectoryName(obj.StruxmlPath);
-            obj.Cwd = Path.Combine(cwd, obj.FileName);
-            //obj.Cwd = Path.GetDirectoryName(obj.StruxmlPath);
-            obj.FdScriptPath = obj.Cwd + @"\scripts\" + obj.FileName + ".fdscript";
+            fdScript.XmlAttrib = "fdscript.xsd";
+            fdScript.StruxmlPath = struxmlPath;
+            fdScript.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
+            fdScript.Cwd = Path.GetDirectoryName(fdScript.StruxmlPath);
+            
+            fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "analysis.fdscript");
 
             // set header and logfile
-            obj.FdScriptHeader = new FdScriptHeader("Generated script.", obj.Cwd + @"\logfile.log");
+            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
             
             // set open
-            obj.CmdOpen = new CmdOpen(obj.StruxmlPath);
+            fdScript.CmdOpen = new CmdOpen(fdScript.StruxmlPath);
 
             // set user
-            obj.CmdUser = new CmdUser(mode);
+            fdScript.CmdUser = new CmdUser(mode);
 
             // listgen
             if (bscPath != null && bscPath.Any())
             {
-                obj.CmdListGen = new List<CmdListGen>();
+                fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
                 {
-                    obj.CmdListGen.Add(new CmdListGen(item, obj.Cwd));
+                    fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
                 }  
             }
 
@@ -92,66 +91,65 @@ namespace FemDesign.Calculate
             if (docxTemplatePath != "" && docxTemplatePath != null)
             {
                 // path to .dsc-file (template file)
-                obj.DocxTemplatePath = docxTemplatePath;
+                fdScript.DocxTemplatePath = docxTemplatePath;
 
                 // object containing command to generate .docx and path to generated .docx
-                obj.CmdSaveDocx = new CmdSaveDocx(obj.FileName + ".docx");
+                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
             }
 
             // set save
-            obj.CmdSave = new CmdSave(obj.Cwd + @"\" + obj.FileName + ".str");
+            fdScript.CmdSave = new CmdSave(fdScript.Cwd + @"\" + fdScript.FileName + ".str");
 
             // set endsession
             if (endSession)
             {
-                obj.CmdEndSession = new CmdEndSession();
+                fdScript.CmdEndSession = new CmdEndSession();
             }
 
             // return
-            return obj;
+            return fdScript;
         }
 
         /// Create fdscript to read a str-model.
         public static FdScript ReadStr(string strPath, List<string> bscPath = null)
         {
             //
-            FdScript obj = new FdScript();
+            FdScript fdScript = new FdScript();
 
             //
-            obj.XmlAttrib = "fdscript.xsd";
-            obj.FileName = Path.GetFileName(strPath).Split('.')[0];
+            fdScript.XmlAttrib = "fdscript.xsd";
+            fdScript.FileName = Path.GetFileNameWithoutExtension(strPath);
 
-            string cwd = Path.GetDirectoryName(strPath);
-            obj.Cwd = Path.Combine(cwd, obj.FileName);
-            obj.StruxmlPath = obj.Cwd + ".struxml";
+            fdScript.Cwd = Path.GetDirectoryName(strPath);
+            fdScript.StruxmlPath = fdScript.Cwd + ".struxml";
 
 
-            obj.FdScriptPath = obj.Cwd + @"\scripts\" + obj.FileName + ".fdscript";
+            fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "analysis.fdscript");
 
             // set header and logfile
-            obj.FdScriptHeader = new FdScriptHeader("Generated script.", obj.Cwd + @"\logfile.log");
+            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
 
             // open str
-            obj.CmdOpen = new CmdOpen(strPath);
+            fdScript.CmdOpen = new CmdOpen(strPath);
 
             // listgen
             if (bscPath != null && bscPath.Any())
             {
-                obj.CmdListGen = new List<CmdListGen>();
+                fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
                 {
-                    obj.CmdListGen.Add(new CmdListGen(item, obj.Cwd));
+                    fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
                 }  
             }
 
             // save as .struxml
-            obj.CmdSave = new CmdSave(obj.StruxmlPath);
+            fdScript.CmdSave = new CmdSave(fdScript.StruxmlPath);
 
             // end session
-            obj.CmdEndSession = new CmdEndSession();
+            fdScript.CmdEndSession = new CmdEndSession();
 
             // return
-            return obj;
+            return fdScript;
         }
 
         /// <summary>
@@ -248,6 +246,24 @@ namespace FemDesign.Calculate
         public void SerializeFdScript()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FdScript));
+
+            if (!Directory.Exists(Path.GetDirectoryName(this.FdScriptHeader.LogFile)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(this.FdScriptHeader.LogFile));
+            }
+
+            if(this.CmdListGen != null)
+            {
+                foreach(var cmdListGen in this.CmdListGen)
+                    if (!Directory.Exists(Path.GetDirectoryName(cmdListGen.OutFile)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(cmdListGen.OutFile));
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(this.FdScriptPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(this.FdScriptPath));
+            }
+
             using (TextWriter writer = new StreamWriter(this.FdScriptPath))
             {
                 serializer.Serialize(writer, this);

@@ -87,16 +87,10 @@ namespace FemDesign.Calculate
                 throw new System.ArgumentException("Incorrect file-extension. Expected .bsc. CmdListGen failed.");
             }
 
-            // Create \results folder to store output
-            string resultDir = System.IO.Path.Combine(outputDir, "results");
-            if (!System.IO.Directory.Exists(resultDir))
-            {
-                System.IO.Directory.CreateDirectory(resultDir);
-            }
 
             this.BscFile = bscPath;
             this.FileName = _fileName;
-            this.OutFile = resultDir + @"\" + this.FileName + @".csv";
+            this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
         }
     }
 }
