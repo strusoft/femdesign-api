@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Top", "Top", "Top of substructure. Masses on this level and below are not considered in Footfall calculation.", GH_ParamAccess.item, -0.01);
+            pManager.AddNumberParameter("Top", "Top", "Top of substructure. Masses on this level and below are not considered in Footfall calculation. [m]", GH_ParamAccess.item, -0.01);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }

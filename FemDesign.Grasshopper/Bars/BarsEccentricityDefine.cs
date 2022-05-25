@@ -13,9 +13,9 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("y", "y", "Eccentricity local-y", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y", "y", "Eccentricity local-y [m]", GH_ParamAccess.item, 0.00);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z", "z", "Eccentricity local-z", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z", "z", "Eccentricity local-z [m]", GH_ParamAccess.item, 0.00);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

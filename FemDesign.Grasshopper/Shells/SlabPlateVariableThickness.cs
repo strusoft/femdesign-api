@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Thickness", "Thickness", "Thickness. List of 3 items [t1, t2, t3].", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Thickness", "Thickness", "Thickness. List of 3 items [t1, t2, t3]. [m]", GH_ParamAccess.list);
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddPointParameter("Point", "Point", "Position of thickness value.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Value", "Val", "Value of thickness at position", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Value", "Val", "Value of thickness at position [m]", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

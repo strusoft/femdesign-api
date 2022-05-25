@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Finite element size. Set average surface element size. If set to 0 FEM-Design will automatically caculate the average surface element size.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Finite element size. Set average surface element size. If set to 0 FEM-Design will automatically caculate the average surface element size. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "FS");
             pManager[pManager.ParamCount - 1].Optional = true;
