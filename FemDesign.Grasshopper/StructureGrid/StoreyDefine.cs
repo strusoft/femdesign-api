@@ -16,9 +16,9 @@ namespace FemDesign.Grasshopper
             pManager.AddPointParameter("Origo", "Origo", "Origo of storey. Storeys can only have unique Z-coordinates. If several storeys are placed in a model their origos should share XY-coordinates.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Direction of storey x'-axis in the XY-plane. If several storeys are placed in a model their direction should be identical. Optional, default value is GCS x-axis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("DimensionX", "DimensionX", "Dimension in x'-direction", GH_ParamAccess.item, 50);
+            pManager.AddNumberParameter("DimensionX", "DimensionX", "Dimension in x'-direction. [m]", GH_ParamAccess.item, 50);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("DimensionY", "DimensionY", "Dimension in y'-direction", GH_ParamAccess.item, 30);
+            pManager.AddNumberParameter("DimensionY", "DimensionY", "Dimension in y'-direction. [m]", GH_ParamAccess.item, 30);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
