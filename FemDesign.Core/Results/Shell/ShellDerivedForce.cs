@@ -95,7 +95,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
-                int? nodeId = int.Parse(row[3] == "-" ? null : row[3]);
+                int? nodeId = int.Parse(row[3] == "-" ? "-1" : row[3], CultureInfo.InvariantCulture);
                 double m1 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[6], CultureInfo.InvariantCulture);
@@ -110,7 +110,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-                int? nodeId = int.Parse(row[2] == "-" ? null : row[2]);
+                int? nodeId = int.Parse(row[2] == "-" ? "-1" : row[2], CultureInfo.InvariantCulture);
                 double m1 = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[5], CultureInfo.InvariantCulture);

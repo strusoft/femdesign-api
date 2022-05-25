@@ -99,7 +99,7 @@ namespace FemDesign.Results
                 int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as
                 // integer but as [-].
-                int? nodeId = int.Parse(row[3] == "-" ? null : row[3]);
+                int? nodeId = int.Parse(row[3] == "-" ? "-1" : row[3], CultureInfo.InvariantCulture);
                 double ex = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double ey = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double ez = Double.Parse(row[6], CultureInfo.InvariantCulture);
@@ -116,7 +116,7 @@ namespace FemDesign.Results
                 int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as
                 // integer but as [-].
-                int? nodeId = int.Parse(row[2] == "-" ? null : row[3]);
+                int? nodeId = int.Parse(row[2] == "-" ? "-1" : row[2], CultureInfo.InvariantCulture);
                 double ex = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double ey = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double ez = Double.Parse(row[5], CultureInfo.InvariantCulture);

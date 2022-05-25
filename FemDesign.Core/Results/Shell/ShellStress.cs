@@ -112,7 +112,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, .* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -120,7 +120,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, (?'loadcasetype'[\w\.\-]+).* Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell\t(Elem|Max\.).*|\[.*\]");
+                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell\t(Elem|Max\.).*|\[.*\]");
             }
         }
 
@@ -131,7 +131,7 @@ namespace FemDesign.Results
                 string id = row[0];
                 int elementId = Int32.Parse(row[2], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as integer but as [-].
-                int? nodeId = int.Parse(row[3], CultureInfo.InvariantCulture);
+                int? nodeId = int.Parse(row[3] == "-" ? "-1" : row[3], CultureInfo.InvariantCulture);
                 double sigmaX = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double sigmaY = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double tauXY = Double.Parse(row[6], CultureInfo.InvariantCulture);
@@ -150,7 +150,7 @@ namespace FemDesign.Results
                 string id = row[0];
                 int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as integer but as [-].
-                int? nodeId = int.Parse(row[2], CultureInfo.InvariantCulture);
+                int? nodeId = int.Parse(row[2] == "-" ? "-1" : row[2], CultureInfo.InvariantCulture);
                 double sigmaX = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double sigmaY = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double tauXY = Double.Parse(row[5], CultureInfo.InvariantCulture);
