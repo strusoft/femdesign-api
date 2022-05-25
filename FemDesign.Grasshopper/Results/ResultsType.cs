@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
 
             // It needs to be update when we create new Results Deconstructor
             var values = new List<string>
-            { "NodalDisplacement","PointSupportReaction", "-------------------","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "-------------------", "ShellDisplacement", "ShellInternalForce", "ShellStress", "-------------------", "NodalVibration", "EigenFrequencies" };
+            { "NodalDisplacement","PointSupportReaction","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "NodalVibration", "EigenFrequencies" };
 
             GH_ValueListItem vi;
             foreach (string value in values)
