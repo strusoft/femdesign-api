@@ -20,11 +20,21 @@ namespace FemDesign.Grasshopper
             Category = "FEM-Design";
             SubCategory = "Results";
 
+
             ListItems.Clear();
-            var values = Enum.GetValues(typeof(ResultType)).Cast<ResultType>();
-            foreach (ResultType value in values)
+            ListMode = GH_ValueListMode.CheckList;
+
+            // It needs to be update when we create new Results Deconstructor
+            var values = new List<string>
+            { "NodalDisplacement","PointSupportReaction", "-------------------","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "-------------------", "ShellDisplacement", "ShellInternalForce", "ShellStress", "-------------------", "NodalVibration", "EigenFrequencies" };
+
+            GH_ValueListItem vi;
+            foreach (string value in values)
             {
-                GH_ValueListItem vi = new GH_ValueListItem(value.ToString(), String.Format("\"{0}\"", value.ToString()));
+                if (value.Contains("-"))
+                    vi = new GH_ValueListItem(value, null);
+                else
+                    vi = new GH_ValueListItem(value, String.Format("\"{0}\"", value));
                 ListItems.Add(vi);
             }
         }
