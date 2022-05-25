@@ -26,7 +26,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public string NodeId { get; }
+        public int? NodeId { get; }
         /// <summary>
         /// M1 [kNm/m]
         /// </summary>
@@ -54,7 +54,7 @@ namespace FemDesign.Results
 
         public string CaseIdentifier { get; }
 
-        internal ShellDerivedForce(string id, int elementId, string nodeId, double m1, double m2, double alphaM, double n1, double n2, double alphaN, string resultCase)
+        internal ShellDerivedForce(string id, int elementId, int? nodeId, double m1, double m2, double alphaM, double n1, double n2, double alphaN, string resultCase)
         {
             this.Id = id;
             this.ElementId = elementId;
@@ -95,7 +95,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
-                string nodeId = row[3] == "-" ? null : row[3];
+                int? nodeId = int.Parse(row[3] == "-" ? null : row[3]);
                 double m1 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[6], CultureInfo.InvariantCulture);
@@ -110,7 +110,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-                string nodeId = row[2] == "-" ? null : row[2];
+                int? nodeId = int.Parse(row[2] == "-" ? null : row[2]);
                 double m1 = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double m2 = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double alphaM = Double.Parse(row[5], CultureInfo.InvariantCulture);

@@ -26,7 +26,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public string NodeId { get; }
+        public int? NodeId { get; }
         /// <summary>
         /// Displacement in global x
         /// </summary>
@@ -56,7 +56,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal ShellDisplacement(string id, int elementId, string nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
+        internal ShellDisplacement(string id, int elementId, int? nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
         {
             Id = id;
             ElementId = elementId;
@@ -93,43 +93,40 @@ namespace FemDesign.Results
 
         internal static ShellDisplacement Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            string name, lc;
-            int elementId;
-            string nodeId;
-            double ex, ey, ez, fix, fiy, fiz;
             if (row.Count() == 13) // Extract
             {
-                name = row[0];
-                elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
+                string name = row[0];
+                int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as
                 // integer but as [-].
-                nodeId = row[3];
-                ex = Double.Parse(row[4], CultureInfo.InvariantCulture);
-                ey = Double.Parse(row[5], CultureInfo.InvariantCulture);
-                ez = Double.Parse(row[6], CultureInfo.InvariantCulture);
-                fix = Double.Parse(row[7], CultureInfo.InvariantCulture);
-                fiy = Double.Parse(row[8], CultureInfo.InvariantCulture);
-                fiz = Double.Parse(row[9], CultureInfo.InvariantCulture);
-                lc = row[10];
+                int? nodeId = int.Parse(row[3] == "-" ? null : row[3]);
+                double ex = Double.Parse(row[4], CultureInfo.InvariantCulture);
+                double ey = Double.Parse(row[5], CultureInfo.InvariantCulture);
+                double ez = Double.Parse(row[6], CultureInfo.InvariantCulture);
+                double fix = Double.Parse(row[7], CultureInfo.InvariantCulture);
+                double fiy = Double.Parse(row[8], CultureInfo.InvariantCulture);
+                double fiz = Double.Parse(row[9], CultureInfo.InvariantCulture);
+                string lc = row[10];
                 string test = HeaderData["casename"];
+                return new ShellDisplacement(name, elementId, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
             }
             else
             {
-                name = row[0];
-                elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
+                string name = row[0];
+                int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
                 // Depending on the output option, some values are not specified as
                 // integer but as [-].
-                nodeId = row[2];
-                ex = Double.Parse(row[3], CultureInfo.InvariantCulture);
-                ey = Double.Parse(row[4], CultureInfo.InvariantCulture);
-                ez = Double.Parse(row[5], CultureInfo.InvariantCulture);
-                fix = Double.Parse(row[6], CultureInfo.InvariantCulture);
-                fiy = Double.Parse(row[7], CultureInfo.InvariantCulture);
-                fiz = Double.Parse(row[8], CultureInfo.InvariantCulture);
-                lc = row[9];
+                int? nodeId = int.Parse(row[2] == "-" ? null : row[3]);
+                double ex = Double.Parse(row[3], CultureInfo.InvariantCulture);
+                double ey = Double.Parse(row[4], CultureInfo.InvariantCulture);
+                double ez = Double.Parse(row[5], CultureInfo.InvariantCulture);
+                double fix = Double.Parse(row[6], CultureInfo.InvariantCulture);
+                double fiy = Double.Parse(row[7], CultureInfo.InvariantCulture);
+                double fiz = Double.Parse(row[8], CultureInfo.InvariantCulture);
+                string lc = row[9];
                 string test = HeaderData["casename"];
+                return new ShellDisplacement(name, elementId, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
             }
-            return new ShellDisplacement(name, elementId, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
         }
 
         /// <summary>
@@ -157,7 +154,7 @@ namespace FemDesign.Results
             // Parse Results from the object
             var identifier = new List<string>();
             var elementId = new List<int>();
-            var nodeId = new List<string>();
+            var nodeId = new List<int?>();
 
             // Create an FD Vector for Displacement and Rotation
             var translation = new List<FemDesign.Geometry.FdVector3d>();
@@ -171,7 +168,7 @@ namespace FemDesign.Results
                 // FemDesign Return also a value in the center of the shell
                 // The output is not necessary in this case as the user can compute the value
                 // doing an average.
-                if (shellResult.NodeId != "-")
+                if (shellResult.NodeId != null)
                 {
                     identifier.Add(shellResult.Id);
                     elementId.Add(shellResult.ElementId);

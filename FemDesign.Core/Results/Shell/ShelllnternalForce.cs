@@ -28,7 +28,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public string NodeId { get; }
+        public int? NodeId { get; }
 
         /// <summary>
         /// Mx'
@@ -75,7 +75,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal ShellInternalForce(string id, int elementId, string nodeId, double mx, double my, double mxy, double nx, double ny, double nxy, double txz, double tyz, string resultCase)
+        internal ShellInternalForce(string id, int elementId, int? nodeId, double mx, double my, double mxy, double nx, double ny, double nxy, double txz, double tyz, string resultCase)
         {
             Id = id;
             ElementId = elementId;
@@ -118,7 +118,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
-                string nodeId = row[3] == "-" ? null : row[3];
+                int? nodeId = int.Parse(row[3] == "-" ? null : row[3]);
                 double mx = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double my = Double.Parse(row[5], CultureInfo.InvariantCulture);
                 double mxy = Double.Parse(row[6], CultureInfo.InvariantCulture);
@@ -135,7 +135,7 @@ namespace FemDesign.Results
             {
                 string shellname = row[0];
                 int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
-                string nodeId = row[2] == "-" ? null : row[2];
+                int? nodeId = int.Parse(row[2] == "-" ? null : row[2]);
                 double mx = Double.Parse(row[3], CultureInfo.InvariantCulture);
                 double my = Double.Parse(row[4], CultureInfo.InvariantCulture);
                 double mxy = Double.Parse(row[5], CultureInfo.InvariantCulture);
@@ -176,7 +176,7 @@ namespace FemDesign.Results
             // Parse Results from the object
             var identifier = new List<string>();
             var elementId = new List<int>();
-            var nodeId = new List<string>();
+            var nodeId = new List<int?>();
 
             var mx = new List<double>();
             var my = new List<double>();
