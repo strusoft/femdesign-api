@@ -38,7 +38,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase"></param>
         /// <param name="loadProjection">False: Intensity meant along action line (eg. dead load). True: Intensity meant perpendicular to direction of load (eg. snow load).</param>
         /// <param name="comment"></param>
-        public SurfaceLoad(Geometry.Region region, Geometry.FdVector3d load, LoadCase loadCase, bool loadProjection = false, string comment = "") : this(region, new List<LoadLocationValue> { new LoadLocationValue(region.CoordinateSystem.Origin, load.Length()) }, load.Normalize(), loadCase, loadProjection, comment)
+        public SurfaceLoad(Geometry.Region region, Geometry.FdVector3d load, LoadCase loadCase, bool loadProjection = false, string comment = "") : this(region, new List<LoadLocationValue> { new LoadLocationValue(region.Contours[0].Edges[0].Points[0], load.Length()) }, load.Normalize(), loadCase, loadProjection, comment)
         {
 
         }
