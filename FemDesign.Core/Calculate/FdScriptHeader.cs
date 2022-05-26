@@ -29,8 +29,8 @@ namespace FemDesign.Calculate
         public FdScriptHeader(string title, string logfile)
         {
             this.Title = title;
-            this.Version = "2000";
-            this.Module = "SFRAME";
+            this.Version = "2100";
+            this.Module = "sframe";
             this.LogFile = logfile;
         }
     }

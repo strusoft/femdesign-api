@@ -1,5 +1,7 @@
 ﻿// https://strusoft.com/
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -43,14 +45,17 @@ namespace FemDesign.Calculate
     public partial class DocTable
     {
         [XmlElement("version")]
-        public string FemDesignVersion { get; set; } = "2000";
+        public string FemDesignVersion { get; set; } = "2100";
         
         [XmlElement("listproc")]
         public ListProc ListProc { get; set; }
         
         [XmlElement("index")]
         public int CaseIndex { get; set; }
-        
+
+        [XmlElement("units")]
+        public List<Units> Units { get; set; }
+
         [XmlElement("options")]
         public Options Option { get; set; }
         
@@ -82,6 +87,17 @@ namespace FemDesign.Calculate
             CaseIndex = cIndex;
             ResType = GetResType(resultType);
             Option = Options.GetOptions(resultType);
+        }
+
+        /// <summary>
+        /// DocTable constructor
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
+        /// <param name="unitResult">Units for Results</param>
+        public DocTable(ListProc resultType, UnitResults unitResult, int? caseIndex = null) : this(resultType, caseIndex)
+        {
+            Units = Calculate.Units.GetUnits(unitResult);
         }
 
         private int GetResType(ListProc resultType)

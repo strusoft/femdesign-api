@@ -70,6 +70,25 @@ namespace FemDesign.Calculate
             DocTable.CaseIndex = caseIndex;
         }
 
+        public Bsc(ListProc resultType, string bscPath, UnitResults unitResult)
+        {
+            if (Path.GetExtension(bscPath) != ".bsc")
+            {
+                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
+            }
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
+            DocTable = new DocTable(resultType, unitResult);
+            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
+            CmdEndSession = new CmdEndSession();
+            SerializeBsc();
+        }
+
+        public Bsc(ListProc resultType, int caseIndex, string bscPath, UnitResults unitResult) : this(resultType, bscPath, unitResult)
+        {
+            DocTable.CaseIndex = caseIndex;
+        }
+
         public static implicit operator string(Bsc bsc)
         {
             return bsc.BscPath;
