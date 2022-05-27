@@ -25,16 +25,16 @@ namespace FemDesign.Grasshopper
             ListMode = GH_ValueListMode.CheckList;
 
             // It needs to be update when we create new Results Deconstructor
+            // It should automatically get the name from the Enum
+
+
             var values = new List<string>
-            { "NodalDisplacement","PointSupportReaction","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "NodalVibration", "EigenFrequencies" };
+            { "NodalDisplacement","PointSupportReaction","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "NodalVibrationShape", "EigenFrequencies" };
 
             GH_ValueListItem vi;
             foreach (string value in values)
             {
-                if (value.Contains("-"))
-                    vi = new GH_ValueListItem(value, null);
-                else
-                    vi = new GH_ValueListItem(value, String.Format("\"{0}\"", value));
+                vi = new GH_ValueListItem(value, String.Format("\"{0}\"", value));
                 ListItems.Add(vi);
             }
         }

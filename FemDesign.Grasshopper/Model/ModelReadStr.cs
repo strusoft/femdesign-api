@@ -68,7 +68,10 @@ namespace FemDesign.Grasshopper
                 System.IO.Directory.CreateDirectory(dataDir);
             }
 
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc")));
+            // Units
+            var units = new Calculate.UnitResults(Calculate.Length.m, Calculate.Angle.deg, Calculate.SectionalData.m, Calculate.Force.kN, Calculate.Mass.kg, Calculate.Displacement.m, Calculate.Stress.Pa);
+
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript

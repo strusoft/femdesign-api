@@ -97,7 +97,7 @@ namespace FemDesign.Grasshopper
 
             var identifier = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
-            var nodeId = (List<string>)result["NodeId"];
+            var nodeId = (List<int?>)result["NodeId"];
 
             var sigmaX = (List<double>)result["SigmaX"];
             var sigmaY = (List<double>)result["SigmaY"];

@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
             // Extract Results from the Dictionary
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
-            var nodeId = (List<string>)result["NodeId"];
+            var nodeId = (List<int?>)result["NodeId"];
             var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
             var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
 

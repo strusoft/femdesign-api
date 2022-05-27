@@ -92,7 +92,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public Units()
+        private Units()
         {
 
         }
