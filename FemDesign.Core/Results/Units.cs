@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace FemDesign.Calculate
+namespace FemDesign.Results
 {
     public enum Length
     {
@@ -130,6 +130,8 @@ namespace FemDesign.Calculate
 
             return unitsObj;
         }
+
+        
     }
 
 
@@ -160,6 +162,14 @@ namespace FemDesign.Calculate
             this.Mass = mass;
             this.Displacement = displacement;
             this.Stress = stress;
+        }
+
+        /// <summary>
+        /// Returns the Default UnitResults
+        /// </summary>
+        public static UnitResults Default()
+        {
+            return new UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.m, Results.Force.kN, Results.Mass.kg, Results.Displacement.m, Results.Stress.Pa);
         }
     }
 }

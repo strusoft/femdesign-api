@@ -54,7 +54,7 @@ namespace FemDesign.Calculate
         public int CaseIndex { get; set; }
 
         [XmlElement("units")]
-        public List<Units> Units { get; set; }
+        public List<FemDesign.Results.Units> Units { get; set; }
 
         [XmlElement("options")]
         public Options Option { get; set; }
@@ -95,9 +95,9 @@ namespace FemDesign.Calculate
         /// <param name="resultType"></param>
         /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
         /// <param name="unitResult">Units for Results</param>
-        public DocTable(ListProc resultType, UnitResults unitResult, int? caseIndex = null) : this(resultType, caseIndex)
+        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult, int? caseIndex = null) : this(resultType, caseIndex)
         {
-            Units = Calculate.Units.GetUnits(unitResult);
+            Units = Results.Units.GetUnits(unitResult);
         }
 
         private int GetResType(ListProc resultType)

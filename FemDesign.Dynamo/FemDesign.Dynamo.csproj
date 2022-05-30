@@ -182,9 +182,6 @@
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\Units.cs">
-      <Link>Core\Calculate\Units.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
       <Link>Core\GenericClasses\Camber.cs</Link>
     </Compile>
@@ -691,6 +688,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\Shell\ShellStress.cs">
       <Link>Core\Results\ShellStress.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Units.cs">
+      <Link>Core\Results\Units.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
       <Link>Core\Sections\ComplexSection.cs</Link>

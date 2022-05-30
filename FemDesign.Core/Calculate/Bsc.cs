@@ -70,7 +70,7 @@ namespace FemDesign.Calculate
             DocTable.CaseIndex = caseIndex;
         }
 
-        public Bsc(ListProc resultType, string bscPath, UnitResults unitResult)
+        public Bsc(ListProc resultType, string bscPath, FemDesign.Results.UnitResults unitResult)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
@@ -84,7 +84,7 @@ namespace FemDesign.Calculate
             SerializeBsc();
         }
 
-        public Bsc(ListProc resultType, int caseIndex, string bscPath, UnitResults unitResult) : this(resultType, bscPath, unitResult)
+        public Bsc(ListProc resultType, int caseIndex, string bscPath, FemDesign.Results.UnitResults unitResult) : this(resultType, bscPath, unitResult)
         {
             DocTable.CaseIndex = caseIndex;
         }

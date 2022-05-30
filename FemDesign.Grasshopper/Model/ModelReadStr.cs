@@ -15,9 +15,10 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("StrPath", "StrPath", "File path to FEM-Design model (.str) file.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathBsc", "FilePathBsc", "File path to .bsc batch-file. Item or list.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specifi type. \n" +
+                "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -30,17 +31,21 @@ namespace FemDesign.Grasshopper
         {
             // Get input
             string filePath = null;
-            List<string> bscPaths = new List<string>();
             List<string> resultTypes = new List<string>();
+            
+
             Results.FDfea fdFeaModel = null;
 
             DA.GetData("StrPath", ref filePath);
-            DA.GetDataList("FilePathBsc", bscPaths);
-            DA.GetDataList("ResultTypes", resultTypes);
             if (filePath == null)
             {
                 return;
             }
+            DA.GetDataList("ResultTypes", resultTypes);
+
+            // Units
+            var units = Results.UnitResults.Default();
+            DA.GetData("Units", ref units);
 
 
             // It needs to check if model has been runned
@@ -68,15 +73,12 @@ namespace FemDesign.Grasshopper
                 System.IO.Directory.CreateDirectory(dataDir);
             }
 
-            // Units
-            var units = new Calculate.UnitResults(Calculate.Length.m, Calculate.Angle.deg, Calculate.SectionalData.m, Calculate.Force.kN, Calculate.Mass.kg, Calculate.Displacement.m, Calculate.Stress.Pa);
 
             var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript
-            var allBscPaths = bscPaths.Concat(bscPathsFromResultTypes).ToList();
-            var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, allBscPaths);
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPathsFromResultTypes);
 
             // Run FdScript
             var app = new FemDesign.Calculate.Application();
