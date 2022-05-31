@@ -2,7 +2,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
 
 namespace FemDesign.Grasshopper
 {
@@ -17,7 +19,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("StrPath", "StrPath", "File path to FEM-Design model (.str) file.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specifi type. \n" +
+            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -25,7 +27,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
             pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FdFeaModel.");
-            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.tree);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -127,10 +129,21 @@ namespace FemDesign.Grasshopper
 
             fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
 
+            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+            // Convert Data in DataTree structure
+            var resultsTree = new DataTree<object>();
+
+            var i = 0;
+            foreach(var resGroup in resultGroups)
+            {
+                resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
+                i++;
+            }
+
             // Set output
             DA.SetData("FdModel", model);
             DA.SetData("FdFeaModel", fdFeaModel);
-            DA.SetDataList("Results", results);
+            DA.SetDataTree(2, resultsTree);
         }
         protected override System.Drawing.Bitmap Icon
         {
