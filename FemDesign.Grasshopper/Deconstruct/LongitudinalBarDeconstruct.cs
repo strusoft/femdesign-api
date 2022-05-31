@@ -20,12 +20,12 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Guid", "Guid", "Guid of LongitudinalBars", GH_ParamAccess.item);
             pManager.AddGenericParameter("BaseBar", "BaseBar", "Guid of bar part of bar on which these LongitudinalBars are distributed.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Wire", "Wire", "Wire of LongitudinalBars.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("YPos", "YPos", "YPos", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ZPos", "ZPos", "ZPos", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Anchorage mesaure at start in meters", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Anchorage mesaure at end in meters", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartMeasurement", "StartMeasurement", "Start of LongitudinalBar distribution expressed as distance along the reference bar from start of bar", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndMeasurement", "EndMeasurement", "End of LongitudinalBar distribution expressed as a distance along the reference bar from start of bar", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YPos", "YPos", "YPos. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZPos", "ZPos", "ZPos. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Anchorage mesaure at start. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Anchorage mesaure at end. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartMeasurement", "StartMeasurement", "Start of LongitudinalBar distribution expressed as distance along the reference bar from start of bar.  [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndMeasurement", "EndMeasurement", "End of LongitudinalBar distribution expressed as a distance along the reference bar from start of bar. [m]", GH_ParamAccess.item);
             pManager.AddBooleanParameter("AuxBar", "AuxBar", "Is bar auxiliary?", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)

@@ -19,8 +19,8 @@ namespace FemDesign.Grasshopper
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
            pManager.AddPointParameter("Origo", "Origo", "Origo.", GH_ParamAccess.item);
            pManager.AddVectorParameter("Direction", "Direction" , "Direction.", GH_ParamAccess.item);
-           pManager.AddNumberParameter("DimensionX", "DimensionX", "DimensionX.", GH_ParamAccess.item);
-           pManager.AddNumberParameter("DimensionY", "DimensionY", "DimensionY.", GH_ParamAccess.item);
+           pManager.AddNumberParameter("DimensionX", "DimensionX", "DimensionX. [m]", GH_ParamAccess.item);
+           pManager.AddNumberParameter("DimensionY", "DimensionY", "DimensionY. [m]", GH_ParamAccess.item);
            pManager.AddTextParameter("Name", "Name", "Name.", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)

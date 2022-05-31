@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
-           pManager.AddCurveParameter("Line", "Line", "Line.", GH_ParamAccess.item);
+           pManager.AddCurveParameter("Line", "Line", "Line. [m]", GH_ParamAccess.item);
            pManager.AddTextParameter("Prefix", "Prefix", "Prefix.", GH_ParamAccess.item);
            pManager.AddIntegerParameter("Id", "Id", "Id.", GH_ParamAccess.item);
            pManager.AddBooleanParameter("IdIsLetter", "IdIsLetter", "IdIsLetter.", GH_ParamAccess.item);       

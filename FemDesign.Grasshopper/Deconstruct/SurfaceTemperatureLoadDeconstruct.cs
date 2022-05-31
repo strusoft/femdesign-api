@@ -19,9 +19,9 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Dir", "Direction.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TopBottomLocationValue1", "TopBotVal1", "Top bottom location value.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TopBottomLocationValue2", "TopBotVal2", "Top bottom location value.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TopBottomLocaitonValue3", "TopBotVal3", "Top bottom location value.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TopBottomLocationValue1", "TopBotVal1", "Top bottom location value. [°C]", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TopBottomLocationValue2", "TopBotVal2", "Top bottom location value. [°C]", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TopBottomLocaitonValue3", "TopBotVal3", "Top bottom location value. [°C]", GH_ParamAccess.item);
             pManager.AddTextParameter("LoadCaseGuid", "LoadCaseGuid", "LoadCase guid reference.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
         }

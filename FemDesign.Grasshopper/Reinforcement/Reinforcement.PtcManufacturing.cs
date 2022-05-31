@@ -20,9 +20,9 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Positions", "Positions", "", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ShiftX", "ShiftX", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ShiftZ", "ShiftZ", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Positions", "Positions", "[m]", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ShiftX", "ShiftX", "[m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ShiftZ", "ShiftZ", "[m]", GH_ParamAccess.item);
         }
 
         /// <summary>

@@ -16,9 +16,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Wire", "Wire", "Stirrup rebar material and type.", GH_ParamAccess.item);
             pManager.AddBrepParameter("Profile", "Profile", "Surface representing the profile of the stirrup in the host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Start", "Start", "Start x-position, of stirrup reinforcement, in host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("End", "End", "End x-position, of stirrup reinforcement, in host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Spacing", "Spacing", "Parameter representing spacing of stirrups.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Start", "Start", "Start x-position, of stirrup reinforcement, in host bar local coordinate system. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("End", "End", "End x-position, of stirrup reinforcement, in host bar local coordinate system. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Spacing", "Spacing", "Parameter representing spacing of stirrups. [m]", GH_ParamAccess.item);
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

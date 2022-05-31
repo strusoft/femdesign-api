@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddTextParameter("Direction", "Direction", "Direction.", GH_ParamAccess.item);
-           pManager.AddNumberParameter("Space", "Space", "Space", GH_ParamAccess.item);
+           pManager.AddNumberParameter("Space", "Space", "Space [m]", GH_ParamAccess.item);
            pManager.AddTextParameter("Face", "Face", "Face.", GH_ParamAccess.item);
            pManager.AddNumberParameter("Cover", "Cover", "Cover.", GH_ParamAccess.item);
        }
