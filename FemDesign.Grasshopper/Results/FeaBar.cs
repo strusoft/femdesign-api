@@ -50,6 +50,8 @@ namespace FemDesign.Grasshopper
         {
             FemDesign.Results.FDfea fdFeaModel = null;
             DA.GetData("FdFeaModel", ref fdFeaModel);
+            if (fdFeaModel == null)
+                return;
 
             // Read the Shell Result
             var result = FemDesign.Results.FeaBar.DeconstructFeaBar(fdFeaModel.FeaBar);
