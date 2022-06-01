@@ -21,6 +21,9 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" + 
+                "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documenation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("EndSession", "EndSession", "If true FEM-Design will close after execution.", GH_ParamAccess.item, false);
@@ -34,7 +37,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
-            pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FdFeaModel.");
+            pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FemDesign Finite Element Geometries(nodes, bars, shells).");
             pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("HasExited", "HasExited", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
@@ -46,6 +49,7 @@ namespace FemDesign.Grasshopper
             string filePath = null;
             FemDesign.Calculate.Analysis analysis = null;
             List<string> resultTypes = new List<string>();
+            var units = Results.UnitResults.Default();
             string docxTemplatePath = "";
             bool endSession = false;
             bool closeOpenWindows = false;
@@ -68,19 +72,23 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (!DA.GetData(4, ref docxTemplatePath))
+            if (!DA.GetData(4, ref units))
             {
                 // pass
             }
-            if (!DA.GetData(5, ref endSession))
+            if (!DA.GetData(5, ref docxTemplatePath))
             {
                 // pass
             }
-            if (!DA.GetData(6, ref closeOpenWindows))
+            if (!DA.GetData(6, ref endSession))
             {
                 // pass
             }
-            if (!DA.GetData(7, ref runNode))
+            if (!DA.GetData(7, ref closeOpenWindows))
+            {
+                // pass
+            }
+            if (!DA.GetData(8, ref runNode))
             {
                 // pass
             }
@@ -90,8 +98,6 @@ namespace FemDesign.Grasshopper
             }
 
 
-            // Units
-            var units = Results.UnitResults.Default();
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
