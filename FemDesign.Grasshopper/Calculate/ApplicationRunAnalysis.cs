@@ -105,27 +105,11 @@ namespace FemDesign.Grasshopper
             resultTypes.Insert(1, "FeaBar");
             resultTypes.Insert(2, "FeaShell");
 
-
+            // it should be a method
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
             // Create Bsc files from resultTypes
-            var listProcs = _resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
-
-
-            var dir = System.IO.Path.GetDirectoryName(filePath);
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
-
-            // Create \data folder to store output
-            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
-            // If directory does not exist, create it
-            if (!System.IO.Directory.Exists(dataDir))
-            {
-                System.IO.Directory.CreateDirectory(dataDir);
-            }
-
-
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
-            var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
+            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
 
             bool rtn = false;
             var resultsTree = new DataTree<object>();

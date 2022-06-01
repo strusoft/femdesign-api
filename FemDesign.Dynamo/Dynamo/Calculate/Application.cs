@@ -25,7 +25,8 @@ namespace FemDesign.Calculate
         /// <param name="runNode">If true node will execute. If false node will not execute. </param>
         /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static bool RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, [DefaultArgument("[]")] List<string> bscPath, string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
+        [MultiReturn(new[] { "FdModel", "FdFeaModel", "Results", "HasExited" })]
+        public static Dictionary<string, object> RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, [DefaultArgument("[]")] List<Results.ResultType> resultTypes, [DefaultArgument("[]")] Results.UnitResults units, string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
         {
             if (!runNode)
             {
@@ -33,7 +34,81 @@ namespace FemDesign.Calculate
             }
             fdModel.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(fdModel);
-            return fdModel.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows);
+
+            units = Results.UnitResults.Default();
+            // It needs to check if model has been runned
+            // Always Return the FeaNode Result
+            resultTypes.Insert(0, Results.ResultType.FeaNode);
+            resultTypes.Insert(1, Results.ResultType.FeaBar);
+            resultTypes.Insert(1, Results.ResultType.FeaShell);
+
+            // Create Bsc files from resultTypes
+            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
+            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
+            var rtn = fdModel.FdApp.RunAnalysis(struxmlPath, analysis, bscPathsFromResultTypes, docxTemplatePath, endSession, closeOpenWindows);
+
+
+            // Create FdScript
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(struxmlPath, bscPathsFromResultTypes);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+
+            List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
+            List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
+            if (resultTypes != null && resultTypes.Any())
+            {
+                foreach (var cmd in fdScript.CmdListGen)
+                {
+                    string path = cmd.OutFile;
+                    try
+                    {
+                        if (path.Contains("FeaNode"))
+                        {
+                            feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                        }
+                        else if (path.Contains("FeaBar"))
+                        {
+                            feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                        }
+                        else if (path.Contains("FeaShell"))
+                        {
+                            feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                        }
+                        else
+                        {
+                            var _results = Results.ResultsReader.Parse(path);
+                            results = results.Concat(_results);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.InnerException.Message);
+                    }
+                }
+            }
+
+            var fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+
+            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+
+            // Convert Data in NestedList structure
+            var resultsTree = new List<List<Results.IResult>>();
+            var i = 0;
+            foreach (var resGroup in resultGroups)
+            {
+                resultsTree.Add(resGroup.ToList());
+                i++;
+            }
+
+            return new Dictionary<string, object>
+            {
+                {"FdModel", fdModel },
+                {"FdFeaModel", fdFeaModel },
+                {"Results", resultsTree },
+                {"HasExited", rtn }
+            };
         }
         /// <summary>
         /// Run analysis and design of a model.
