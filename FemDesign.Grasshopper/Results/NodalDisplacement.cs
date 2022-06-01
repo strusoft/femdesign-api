@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public NodalDisplacement()
-          : base("Results.NodalDisplacement",
+          : base("NodalDisplacement",
                 "NodalDisplacement",
                 "Read the nodal displacement for the entire model",
                 "FEM-Design",

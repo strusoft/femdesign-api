@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public BarInternalForce()
-          : base("Results.BarInternalForce",
+          : base("BarInternalForce",
                 "BarInternalForce",
                 "Read the Bar InternalForces for the elements",
                 "FEM-Design",

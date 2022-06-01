@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public EigenFrequencies()
-          : base("Results.EigenFrequencies",
+          : base("EigenFrequencies",
                 "EigenFrequencies",
                 "Read the Eigen Frequencies for the entire model",
                 "FEM-Design",

@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the FeaNode class.
         /// </summary>
         public FeaShell()
-          : base("Results.FdFeaModel.FeaShell", "FeaShell",
+          : base("FdFeaModel.FeaShell", "FeaShell",
               "Deconstruct an Fea Shell in his Part",
               "FEM-Design", "Results")
         {

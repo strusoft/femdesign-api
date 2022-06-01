@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the FeaBar class.
         /// </summary>
         public FeaBar()
-          : base("Results.FdFeaModel.FeaBar", "FeaBar",
+          : base("FdFeaModel.FeaBar", "FeaBar",
               "Deconstruct an Fea Bar in his Part",
               "FEM-Design", "Results")
         {

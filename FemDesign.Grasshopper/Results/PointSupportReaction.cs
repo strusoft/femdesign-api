@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the PointSupportReaction class.
         /// </summary>
         public PointSupportReaction()
-          : base("Results.PointSupportReaction",
+          : base("PointSupportReaction",
                 "PointSupportReaction",
                 "Read the nodal reaction forces",
                 "FEM-Design",

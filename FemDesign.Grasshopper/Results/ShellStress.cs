@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public ShellStress()
-          : base("Results.ShellStress",
+          : base("ShellStress",
                 "ShellStress",
                 "Read the shell stresses for the entire model",
                 "FEM-Design",

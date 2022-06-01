@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public ShellInternalForce()
-          : base("Results.ShellForce",
+          : base("ShellForce",
                 "Shell Forces",
                 "Read the shell forces for the entire model",
                 "FEM-Design",

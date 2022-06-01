@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public BarStress()
-          : base("Results.BarStress",
+          : base("BarStress",
                 "BarStress",
                 "Read the Bar Stress for the elements",
                 "FEM-Design",

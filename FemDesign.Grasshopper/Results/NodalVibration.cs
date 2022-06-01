@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public NodalVibration()
-          : base("Results.NodalVibration",
+          : base("NodalVibration",
                 "NodalVibration",
                 "Read the Nodal Vibration Vector for the entire model",
                 "FEM-Design",

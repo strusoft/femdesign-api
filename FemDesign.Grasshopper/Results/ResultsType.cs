@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
     {
         public ResultsType()
         {
-            Name = "Results.ResultsType";
+            Name = "ResultsType";
             NickName = "ResultsType";
             Description = "ResultsType enum.";
             Category = "FEM-Design";
