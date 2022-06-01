@@ -44,7 +44,12 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Results.FDfea fdFeaModel = null;
+
             DA.GetData("FdfeaModel", ref fdFeaModel);
+            if (fdFeaModel == null)
+            {
+                return;
+            }
 
 
             // Read Result from Abstract Method
