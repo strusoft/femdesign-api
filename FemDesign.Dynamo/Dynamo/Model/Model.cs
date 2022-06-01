@@ -167,31 +167,42 @@ namespace FemDesign
         /// Read model from .str file. Note: Only supported elements will loaded from the .struxml model.
         /// </summary>
         /// <param name="strPath">File path to .str file.</param>
-        /// <param name="bscPaths">File path to .bsc batch-file. Item or list.</param>
         /// <param name="resultTypes">Results to be read together with the model. This might require the analysis to have been run. Item or list.</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "Results"})]
-        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPaths, [DefaultArgument("[]")] List<Results.ResultType> resultTypes)
+        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<Results.ResultType> resultTypes, [DefaultArgument("[]")] Results.UnitResults units)
         {
             Results.FDfea fdFeaModel = null;
-
+            units = Results.UnitResults.Default();
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
             resultTypes.Insert(0, Results.ResultType.FeaNode);
-            resultTypes.Insert(1, Results.ResultType.FeaNode);
+            resultTypes.Insert(1, Results.ResultType.FeaBar);
+            resultTypes.Insert(1, Results.ResultType.FeaShell);
 
 
             // Create Bsc files from resultTypes
             var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
+
             var dir = System.IO.Path.GetDirectoryName(strPath);
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dir}\\{l}.bsc")));
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(strPath);
+
+            // Create \data folder to store output
+            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
+            // If directory does not exist, create it
+            if (!System.IO.Directory.Exists(dataDir))
+            {
+                System.IO.Directory.CreateDirectory(dataDir);
+            }
+
+
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             // Create FdScript
-            var allBscPaths = bscPaths.Concat(bscPathsFromResultTypes).ToList();
-            var fdScript = FemDesign.Calculate.FdScript.ReadStr(strPath, allBscPaths);
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(strPath, bscPathsFromResultTypes);
 
             // Run FdScript
             var app = new FemDesign.Calculate.Application();
@@ -235,6 +246,18 @@ namespace FemDesign
             }
 
             fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+
+
+            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+            // Convert Data in DataTree structure
+            var resultsTree = new List<List<Results.IResult>>();
+
+            var i = 0;
+            foreach (var resGroup in resultGroups)
+            {
+                resultsTree.Add(resGroup.ToList());
+                i++;
+            }
 
             // Output
             return new Dictionary<string, object>
