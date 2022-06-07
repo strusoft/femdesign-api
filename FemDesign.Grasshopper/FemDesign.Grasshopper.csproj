@@ -111,6 +111,11 @@
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\NodalVibration.cs" />
+    <Compile Include="Results\Quantities\TimberPanelQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\ConcreteQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\GeneralQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\SteelQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\TimberQuantityEstimation.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
