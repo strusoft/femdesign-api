@@ -88,6 +88,7 @@
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Options.cs" />
     <Compile Include="Calculate\Stage.cs" />
+    <Compile Include="Results\LabelledSectionResultant.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />

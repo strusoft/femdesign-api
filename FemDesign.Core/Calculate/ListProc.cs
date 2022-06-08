@@ -105,6 +105,16 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseDispBar_ListProc")]
         BarsDisplacementsLoadCase,
         /// <summary>
+        /// Load case: Labelled sections, internal forces
+        /// </summary>
+        [XmlEnum("frCaseIntfResSection_ListProc")]
+        LabelledSectionsInternalForcesLoadCase,
+        /// <summary>
+        /// Load case: Labelled sections, Resultants
+        /// </summary>
+        [XmlEnum("frCaseResResSection")]
+        LabelledSectionsResultantsLoadCase,
+        /// <summary>
         /// Load case: Line connection forces
         /// </summary>
         [XmlEnum("frCaseConnLn_ListProc")]

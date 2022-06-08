@@ -126,6 +126,20 @@ namespace FemDesign.Results
         BarDisplacement,
 
         /// <summary>
+        /// Labelled Sections, Internal Forces
+        /// </summary>
+        //[Parseable("LabelledSectionInternalForce")]
+        //[Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
+        //LabelledSectionInternalForce,
+
+        /// <summary>
+        /// Labelled Sections, Resultants
+        /// </summary>
+        [Parseable("LabelledSectionResultant")]
+        [Result(typeof(LabelledSectionResultant), ListProc.LabelledSectionsResultantsLoadCase, ListProc.LabelledSectionsResultantsLoadCombination)]
+        LabelledSectionResultant,
+
+        /// <summary>
         /// Point support group, Reactions
         /// </summary>
         [Parseable("PointSupportReaction")]
