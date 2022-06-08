@@ -37,6 +37,14 @@ namespace FemDesign.Results
 
         #region QUANTITY ESTIMATION
         /* QUANTITY ESTIMATION */
+
+        /// <summary>
+        /// Quantity estimation, Concrete
+        /// </summary>
+        [Parseable("QuantityEstimationGeneral")]
+        [Result(typeof(QuantityEstimationGeneral), ListProc.QuantityEstimationGeneral)]
+        QuantityEstimationGeneral,
+
         /// <summary>
         /// Quantity estimation, Concrete
         /// </summary>

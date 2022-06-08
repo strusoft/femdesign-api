@@ -182,7 +182,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Reinforcement)");
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Reinforcement)$");
             }
         }
 
@@ -359,7 +359,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)");
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)$");
             }
         }
 
@@ -385,7 +385,6 @@ namespace FemDesign.Results
             return new QuantityEstimationTimber(id, storey, structure, quality, section, unitWeight, subtotal, totalWeight, paintedArea);
         }
     }
-
 
     /// <summary>
     /// FemDesign "Quantity estimation, Timber panel" result

@@ -8,15 +8,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class TimberPanelQuantityEstimation : GH_Component
+    public class ReinforcementQuantityEstimation : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public TimberPanelQuantityEstimation()
-          : base("TimberPanelQuantityEstimation",
-                "TimberPanelQuantityEstimation",
-                "Read the Timber Panel Quantity Estimation results for the entire model",
+        public ReinforcementQuantityEstimation()
+          : base("ReinforcementQuantityEstimation",
+                "ReinforcementQuantityEstimation",
+                "Read the Steel Reinforcement Estimation results for the entire model",
                 "FEM-Design",
                 "Results")
         {
@@ -38,14 +38,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.Register_StringParam("Storey", "Storey", "");
             pManager.Register_StringParam("Structure", "Structure", "");
-            pManager.Register_StringParam("Quality", "Quality", "");
             pManager.Register_StringParam("Id", "Id", "");
-            pManager.Register_StringParam("PanelType", "PanelType", "");
-            pManager.Register_DoubleParam("Thickness", "Thickness", "");
-            pManager.Register_DoubleParam("Length", "Length", "");
-            pManager.Register_DoubleParam("Width", "Width", "");
-            pManager.Register_DoubleParam("Area", "Area", "");
-            pManager.Register_IntegerParam("Pieces", "Pieces", "");
+            pManager.Register_StringParam("Quality", "Quality", "");
+            pManager.Register_StringParam("Diameter", "Diameter", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
         }
 
@@ -57,34 +52,23 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.QuantityEstimationTimberPanel> iResult = new List<FemDesign.Results.QuantityEstimationTimberPanel>();
+            List<FemDesign.Results.QuantityEstimationReinforcement> iResult = new List<FemDesign.Results.QuantityEstimationReinforcement>();
             DA.GetDataList("Result", iResult);
 
-
-            var structure = iResult.Select(x => x.Structure);
             var storey = iResult.Select(x => x.Storey);
+            var structure = iResult.Select(x => x.Structure);
             var id = iResult.Select(x => x.Id);
             var quality = iResult.Select(x => x.Quality);
-            var panelType = iResult.Select(x => x.PanelType);
-            var thickness = iResult.Select(x => x.Thickness);
+            var diameter = iResult.Select(x => x.Diameter);
             var totalWeight = iResult.Select(x => x.TotalWeight);
-            var length = iResult.Select(x => x.Length);
-            var width = iResult.Select(x => x.Width);
-            var area = iResult.Select(x => x.Area);
-            var pieces = iResult.Select(x => x.Count);
 
 
             // Set output
             DA.SetDataList("Storey", storey);
             DA.SetDataList("Structure", structure);
-            DA.SetDataList("Quality", quality);
             DA.SetDataList("Id", id);
-            DA.SetDataList("PanelType", panelType);
-            DA.SetDataList("Thickness", thickness);
-            DA.SetDataList("Length", length);
-            DA.SetDataList("Width", width);
-            DA.SetDataList("Area", area);
-            DA.SetDataList("Pieces", pieces);
+            DA.SetDataList("Quality", quality);
+            DA.SetDataList("Diameter", diameter);
             DA.SetDataList("TotalWeight", totalWeight);
         }
 
@@ -108,7 +92,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{95931DAA-9F3A-4931-8AB3-BBE814587AF8}"); }
+            get { return new Guid("{D97AFC97-B793-4FA8-AF1D-9B614F5E6B06}"); }
         }
     }
 }
