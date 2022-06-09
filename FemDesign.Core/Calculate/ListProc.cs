@@ -112,7 +112,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Load case: Labelled sections, Resultants
         /// </summary>
-        [XmlEnum("frCaseResResSection")]
+        [XmlEnum("frCaseResResSection_ListProc")]
         LabelledSectionsResultantsLoadCase,
         /// <summary>
         /// Load case: Line connection forces
