@@ -29,12 +29,19 @@ namespace FemDesign.Grasshopper
 
 
             var values = new List<string>
-            { "NodalDisplacement","PointSupportReaction","BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
+            { "NodalDisplacement", "PointSupportReaction", "----------------", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "----------------", "ShellDisplacement", "ShellInternalForce", "ShellStress", "----------------", "LabelledSectionInternalForce","LabelledSectionResultant","----------------","NodalVibrationShape", "EigenFrequencies","----------------", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
 
             GH_ValueListItem vi;
             foreach (string value in values)
             {
-                vi = new GH_ValueListItem(value, String.Format("\"{0}\"", value));
+                if (value.Contains("---"))
+                {
+                    vi = new GH_ValueListItem(value, String.Format("\"{0}\"", ""));
+                }
+                else
+                {
+                    vi = new GH_ValueListItem(value, String.Format("\"{0}\"", value));
+                }
                 ListItems.Add(vi);
             }
         }

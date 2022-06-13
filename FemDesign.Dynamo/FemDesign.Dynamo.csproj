@@ -647,6 +647,9 @@
     <Compile Include="..\FemDesign.Core\Results\IResult.cs">
       <Link>Core\Results\IResult.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LabelledSectionInternalForce.cs">
+      <Link>Core\Results\LabelledSectionInternalForce.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\LabelledSectionResultant.cs">
       <Link>Core\Results\LabelledSectionResultant.cs</Link>
     </Compile>

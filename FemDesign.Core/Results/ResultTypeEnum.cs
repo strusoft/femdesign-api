@@ -128,9 +128,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Labelled Sections, Internal Forces
         /// </summary>
-        //[Parseable("LabelledSectionInternalForce")]
-        //[Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
-        //LabelledSectionInternalForce,
+        [Parseable("LabelledSectionInternalForce")]
+        [Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
+        LabelledSectionInternalForce,
 
         /// <summary>
         /// Labelled Sections, Resultants

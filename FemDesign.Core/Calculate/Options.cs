@@ -58,7 +58,7 @@ namespace FemDesign.Calculate
         public static Options GetOptions(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("BarsInternalForces") || r.StartsWith("BarsStresses") || r.StartsWith("BarsDisplacements"))
+            if (r.StartsWith("BarsInternalForces") || r.StartsWith("BarsStresses") || r.StartsWith("BarsDisplacements") || r.StartsWith("LabelledSection"))
             {
                 return new Options(1, 0.5);
             }
@@ -71,7 +71,6 @@ namespace FemDesign.Calculate
                 return new Options();
             }
         }
-
     }
 
     public enum ResPosition
