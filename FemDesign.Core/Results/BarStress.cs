@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}, {CaseIdentifier}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression

@@ -67,7 +67,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}, {NodeId}, {CaseIdentifier}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression

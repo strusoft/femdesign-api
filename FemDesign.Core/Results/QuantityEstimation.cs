@@ -97,7 +97,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -175,7 +175,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -262,7 +262,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -352,7 +352,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -458,7 +458,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}, {PanelType}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -566,7 +566,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -656,7 +656,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -745,7 +745,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression

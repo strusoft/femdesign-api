@@ -67,7 +67,7 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, Mode Shape No. {ShapeId}. Node Id: {NodeId}, x: {Ex}, y: {Ey}, z: {Ez}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         //Nodal vibration shapes, 3
