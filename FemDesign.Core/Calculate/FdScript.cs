@@ -45,32 +45,6 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public string FdScriptPath { get; set; } // path to fdscript file, string
 
-        [XmlIgnore]
-        public bool HasResults
-        {
-            get
-            {
-                bool hasResult;
-                // It needs to check if model has been runned
-                var fileDirectory = System.IO.Path.GetDirectoryName(StruxmlPath);
-                var fileName = System.IO.Path.GetFileNameWithoutExtension(StruxmlPath);
-                //var resultsFile = System.IO.Path.ChangeExtension(StruxmlPath, ".strFEM");
-
-                // Try to find the specified .strFEM file in the working directory
-                var searchPattern = "*" + fileName + ".strFEM";
-                var strFemFiles = System.IO.Directory.GetFiles(fileDirectory, searchPattern, System.IO.SearchOption.TopDirectoryOnly);
-                if (strFemFiles.Length == 0)
-                {
-                    hasResult = false;
-                }
-                else
-                {
-                    hasResult = true;
-                }
-                return hasResult;
-            }
-        }
-
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -160,15 +134,11 @@ namespace FemDesign.Calculate
             // listgen
             if (bscPath != null && bscPath.Any())
             {
-                if (!fdScript.HasResults)
-                {
-                    throw new Exception("Have you previously run the analysis and saved the model? No file with '.strFEM' file extension could be found.");
-                }
                 fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
                 {
                     fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
-                }
+                }  
             }
 
             // save as .struxml
