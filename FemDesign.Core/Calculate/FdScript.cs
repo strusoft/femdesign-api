@@ -162,7 +162,7 @@ namespace FemDesign.Calculate
             {
                 if (!fdScript.HasResults)
                 {
-                    throw new Exception("Have you previously run the analysis and saved the model? A file with '.strFEM' extension couldn't be find");
+                    throw new Exception("Have you previously run the analysis and saved the model? No file with '.strFEM' file extension could be found.");
                 }
                 fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
