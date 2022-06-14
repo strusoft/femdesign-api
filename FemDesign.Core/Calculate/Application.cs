@@ -111,17 +111,23 @@ namespace FemDesign.Calculate
             return processes.Select(p => p.MainWindowTitle.Split(new string[] { " - " }, System.StringSplitOptions.None)[2]).ToList();
         }
 
+
         /// <summary>
         /// Check if any of the files are open in femdesign already.
         /// </summary>
         /// <param name="filenames">The files to check if already opened.</param>
         public static void CheckOpenFiles(List<string> filenames)
         {
-            var openFiles = GetOpenFileNames();
             foreach (string filename in filenames)
             {
-                string fn = Path.GetFileName(filename);
-                if (filename != null && openFiles.Contains(fn))
+                string fileDirectory = Path.GetDirectoryName(filename);
+                string fileName = Path.GetFileName(filename);
+
+                // Try to find the specified .strFEM file in the working directory
+                var searchPattern = "*" + fileName + ".lck";
+                var lckFiles = System.IO.Directory.GetFiles(fileDirectory, searchPattern, System.IO.SearchOption.AllDirectories);
+
+                if (filename != null && lckFiles.Length != 0)
                 {
                     throw new System.Exception($"File {filename} already open in fd3dstruct process. Please close the file and try again. ");
                 }
@@ -176,6 +182,9 @@ namespace FemDesign.Calculate
             }
 
             // Check if files are already open
+            // looking at .str.lck file
+
+            // Check if files are already open
             if (checkOpenFiles) {
                 CheckOpenFiles(new List<string> {
                     fdScript.CmdOpen?.Filename,
@@ -203,7 +212,6 @@ namespace FemDesign.Calculate
 
             string arguments = "/s " + fdScriptPath;
             string processPath = fdScriptPath;
-
             ProcessStartInfo processStartInfo = new ProcessStartInfo(processPath)
             {
                 Arguments = arguments,

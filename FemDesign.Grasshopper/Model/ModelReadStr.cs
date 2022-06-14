@@ -35,7 +35,6 @@ namespace FemDesign.Grasshopper
             string filePath = null;
             List<string> resultTypes = new List<string>();
             
-
             Results.FDfea fdFeaModel = null;
 
             DA.GetData("StrPath", ref filePath);
@@ -50,15 +49,12 @@ namespace FemDesign.Grasshopper
             DA.GetData("Units", ref units);
 
 
-            // It needs to check if model has been runned
             // Always Return the FeaNode Result
             resultTypes.Insert(0, "FeaNode");
             resultTypes.Insert(1, "FeaBar");
             resultTypes.Insert(2, "FeaShell");
 
-
             var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
-
 
             // Create Bsc files from resultTypes
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
@@ -68,7 +64,7 @@ namespace FemDesign.Grasshopper
 
             // Run FdScript
             var app = new FemDesign.Calculate.Application();
-            bool hasExited = app.RunFdScript(fdScript, false, true, false);
+            bool hasExited = app.RunFdScript(fdScript, false, true, true);
 
             // Read model and results
             var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
@@ -79,7 +75,9 @@ namespace FemDesign.Grasshopper
             List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
             List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
 
-            if (resultTypes != null && resultTypes.Any())
+            var resultsTree = new DataTree<object>();
+
+            if (resultTypes != null && resultTypes.Any() && fdScript.HasResults)
             {
                 foreach (var cmd in fdScript.CmdListGen)
                 {
@@ -109,20 +107,21 @@ namespace FemDesign.Grasshopper
                         throw new Exception(e.InnerException.Message);
                     }
                 }
+
+                fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+
+                var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+                // Convert Data in DataTree structure
+                
+
+                var i = 0;
+                foreach(var resGroup in resultGroups)
+                {
+                    resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
+                    i++;
+                }
             }
 
-            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
-
-            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
-            // Convert Data in DataTree structure
-            var resultsTree = new DataTree<object>();
-
-            var i = 0;
-            foreach(var resGroup in resultGroups)
-            {
-                resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
-                i++;
-            }
 
             // Set output
             DA.SetData("FdModel", model);
