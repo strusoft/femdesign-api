@@ -147,8 +147,7 @@ namespace FemDesign.Calculate
             fdScript.FileName = Path.GetFileNameWithoutExtension(strPath);
 
             fdScript.Cwd = Path.GetDirectoryName(strPath);
-            fdScript.StruxmlPath = fdScript.Cwd + ".struxml";
-
+            fdScript.StruxmlPath = Path.Combine(fdScript.Cwd, fdScript.FileName + ".struxml");
 
             fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
 
