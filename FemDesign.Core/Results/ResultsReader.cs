@@ -180,6 +180,24 @@ namespace FemDesign.Results
 
             return (ResultParserType)mathodInfo.CreateDelegate(typeof(ResultParserType));
         }
+
+        public static string ObjectRepresentation(object myObject)
+        {
+
+            Type myType = myObject.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+
+            string objRepr = $"{myType.Name},";
+
+            foreach (PropertyInfo prop in props)
+            {
+                object propValue = prop.GetValue(myObject, null);
+                objRepr += $" {prop.Name}: {propValue},";
+            }
+            var newRepr = objRepr.Remove(objRepr.Length - 1, 1);
+
+            return newRepr;
+        }
     }
 
     /// <summary>

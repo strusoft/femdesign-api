@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
@@ -59,8 +60,9 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {ShapeId}, {Frequency}";
+            return ResultsReader.ObjectRepresentation(this);
         }
+
         internal static Regex IdentificationExpression
         {
             get
