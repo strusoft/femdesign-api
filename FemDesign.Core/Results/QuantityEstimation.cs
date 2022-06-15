@@ -7,9 +7,15 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
 
 namespace FemDesign.Results
 {
+#if ISDYNAMO
+[IsVisibleInDynamoLibrary(false)]
+#endif
     public interface IQuantityEstimationResult : IResult
     {
         /// <summary>
@@ -389,7 +395,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber panel" result
     /// </summary>
-    public class QuantityEstimationTimberPanel : IQuantityEstimationResult
+    public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
@@ -607,7 +613,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Concrete" result
     /// </summary>
-    public class QuantityEstimationMasonry : IQuantityEstimationResult
+    public partial class QuantityEstimationMasonry : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier

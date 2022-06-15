@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FemDesign.Results
 {
-    public class NodalResponseFactor : IResult
+    public partial class NodalResponseFactor : IResult
     {
         /// <summary>
         /// Finite element node id

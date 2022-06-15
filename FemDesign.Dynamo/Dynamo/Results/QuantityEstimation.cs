@@ -23,7 +23,24 @@ namespace FemDesign.Results
     }
 
     [IsVisibleInDynamoLibrary(false)]
+    public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
+    {
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
     public partial class QuantityEstimationProfiledPlate : IQuantityEstimationResult
+    {
+    }
+
+
+    [IsVisibleInDynamoLibrary(false)]
+    public partial class QuantityEstimationMasonry : IQuantityEstimationResult
+    {
+    }
+
+
+    [IsVisibleInDynamoLibrary(false)]
+    public partial class QuantityEstimationGeneral : IQuantityEstimationResult
     {
     }
 }

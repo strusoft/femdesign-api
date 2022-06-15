@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line connection, Resultants" result
     /// </summary>
-    public class LineConnectionResultant : IResult
+    public partial class LineConnectionResultant : IResult
     {
         /// <summary>
         /// Support name identifier

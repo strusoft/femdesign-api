@@ -6,6 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
+
 namespace FemDesign.Results
 {
     public enum Length
@@ -18,13 +22,11 @@ namespace FemDesign.Results
         feet,
         yd
     }
-
     public enum Angle
     {
         rad,
         deg
     }
-
     public enum SectionalData
     {
         mm,
@@ -35,7 +37,6 @@ namespace FemDesign.Results
         feet,
         yd
     }
-
     public enum Force
     {
         N,
@@ -45,7 +46,6 @@ namespace FemDesign.Results
         lbf,
         kips
     }
-
     public enum Mass
     {
         t,
@@ -54,7 +54,6 @@ namespace FemDesign.Results
         tonUK,
         tonUS
     }
-
     public enum Displacement
     {
         mm,
@@ -65,7 +64,6 @@ namespace FemDesign.Results
         feet,
         yd
     }
-
     public enum Stress
     {
         Pa,
@@ -78,6 +76,9 @@ namespace FemDesign.Results
     /// doctable
     /// </summary>
     [System.Serializable]
+    #if ISDYNAMO
+    [IsVisibleInDynamoLibrary(false)]
+    #endif
     public partial class Units
     {
         [XmlElement("num")]
@@ -134,7 +135,9 @@ namespace FemDesign.Results
         
     }
 
-
+    #if ISDYNAMO
+    [IsVisibleInDynamoLibrary(false)]
+    #endif
     public partial class UnitResults
     {
         public Length Length { get; set; }
@@ -153,6 +156,9 @@ namespace FemDesign.Results
 
         }
 
+        #if ISDYNAMO
+        [IsVisibleInDynamoLibrary(true)]
+        #endif
         public UnitResults(Length length, Angle angle, SectionalData sectionalData, Force force, Mass mass, Displacement displacement, Stress stress)
         {
             this.Length = length;
@@ -167,6 +173,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Returns the Default UnitResults
         /// </summary>
+        #if ISDYNAMO
+        [IsVisibleInDynamoLibrary(true)]
+        #endif
         public static UnitResults Default()
         {
             return new UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.m, Results.Force.kN, Results.Mass.kg, Results.Displacement.m, Results.Stress.Pa);

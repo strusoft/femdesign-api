@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace FemDesign.Results
 {
-    public class NodalAcceleration : IResult
+    public partial class NodalAcceleration : IResult
     {
         /// <summary>
         /// Finite element node id

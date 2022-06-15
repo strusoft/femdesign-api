@@ -4,8 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
+
 namespace FemDesign.Results
 {
+    #if ISDYNAMO
+    [IsVisibleInDynamoLibrary(false)]
+    #endif
     public partial class FDfea
     {
         /// <summary>

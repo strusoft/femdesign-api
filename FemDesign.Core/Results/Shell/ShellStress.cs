@@ -11,7 +11,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Shells, Stresses" result
     /// </summary>
-    public class ShellStress : IResult
+    public partial class ShellStress : IResult
     {
         /// <summary>
         /// Shell name identifier
