@@ -389,7 +389,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber panel" result
     /// </summary>
-    public class QuantityEstimationTimberPanel : IQuantityEstimationResult
+    public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
     {
         /// <summary>
         /// Element name identifier
