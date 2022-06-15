@@ -12,7 +12,7 @@ namespace FemDesign.Results
     public partial class BarStress : IResult
     {
         /// <summary>
-        /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
+        /// Read Bar Stress from a previously run model.
         /// </summary>
         /// <param name="Result">Result to be Parse</param>
         /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
