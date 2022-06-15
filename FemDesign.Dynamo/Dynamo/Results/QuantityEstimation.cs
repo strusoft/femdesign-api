@@ -152,8 +152,39 @@ namespace FemDesign.Results
     }
 
     [IsVisibleInDynamoLibrary(false)]
-    public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
+    public partial class QuantityEstimationTimber : IQuantityEstimationResult
     {
+        /// <summary>
+        /// Read Bar Stress from a previously run model.
+        /// </summary>
+        /// <param name="Result">Result to be Parse</param>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[] { "Storey", "Structure", "Id", "Quality", "Section", "UnitWeight", "SubTotal", "PaintedArea", "TotalWeigth" })]
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.QuantityEstimationTimber> Result)
+        {
+            var storey = Result.Select(x => x.Storey);
+            var structure = Result.Select(x => x.Structure);
+            var id = Result.Select(x => x.Id);
+            var quality = Result.Select(x => x.Quality);
+            var section = Result.Select(x => x.Section);
+            var unitWeight = Result.Select(x => x.UnitWeight);
+            var subTotal = Result.Select(x => x.SubTotal);
+            var paintedArea = Result.Select(x => x.PaintedArea);
+            var totalWeight = Result.Select(x => x.TotalWeight);
+
+            return new Dictionary<string, object>
+            {
+                {"Storey", storey},
+                {"Structure", structure},
+                {"Id", id},
+                {"Quality", quality},
+                {"Section", section},
+                {"UnitWeight", unitWeight},
+                {"Subtotal", subTotal},
+                {"PaintedArea", paintedArea},
+                {"TotalWeigth", totalWeight},
+            };
+        }
     }
 
     [IsVisibleInDynamoLibrary(false)]
@@ -171,5 +202,36 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class QuantityEstimationGeneral : IQuantityEstimationResult
     {
+        /// <summary>
+        /// Read Bar Stress from a previously run model.
+        /// </summary>
+        /// <param name="Result">Result to be Parse</param>
+        [IsVisibleInDynamoLibrary(true)]
+        [MultiReturn(new[] { "Storey", "Structure", "Id", "Quality", "Section", "UnitWeight", "SubTotal", "PaintedArea", "TotalWeigth" })]
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.QuantityEstimationGeneral> Result)
+        {
+            var storey = Result.Select(x => x.Storey);
+            var structure = Result.Select(x => x.Structure);
+            var id = Result.Select(x => x.Id);
+            var quality = Result.Select(x => x.Quality);
+            var section = Result.Select(x => x.Section);
+            var unitWeight = Result.Select(x => x.UnitWeight);
+            var subTotal = Result.Select(x => x.SubTotal);
+            var paintedArea = Result.Select(x => x.PaintedArea);
+            var totalWeight = Result.Select(x => x.TotalWeight);
+
+            return new Dictionary<string, object>
+            {
+                {"Storey", storey},
+                {"Structure", structure},
+                {"Id", id},
+                {"Quality", quality},
+                {"Section", section},
+                {"UnitWeight", unitWeight},
+                {"Subtotal", subTotal},
+                {"PaintedArea", paintedArea},
+                {"TotalWeigth", totalWeight},
+            };
+        }
     }
 }
