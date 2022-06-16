@@ -6,7 +6,7 @@ using FemDesign.Loads;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Examples.Tests
+namespace FemDesign.Examples.LoadGroupsCombineTests
 {
     [TestClass()]
     public class LoadGroupsCombineTests

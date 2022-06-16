@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Shells.Tests
+namespace FemDesign.Shells.EdgeConnectionTests
 {
     [TestClass()]
     public class EdgeConnectionTests

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FemDesign.Results.Tests
+namespace FemDesign.Results.NodalResponseFactorTests
 {
     [TestClass()]
     public class NodalResponseFactorTests

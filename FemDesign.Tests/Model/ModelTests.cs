@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 
 
-namespace FemDesign.Tests
+namespace FemDesign.Models
 {
     [TestClass()]
     public class ModelTests
