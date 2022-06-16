@@ -63,6 +63,8 @@ Analyse_example_beam.1.1	15.000	0.000	0.000	0.591");
             {
                     "Bars, Stresses, Ultimate - Load case: Liveload - for selected objects",
                     "Bars, Stresses, Ultimate - Load comb.: Liveload - for selected objects",
+                    "Bars, Stresses, Quasi Permanent - Load comb.: Liveload - for selected objects",
+                    "Bars, Stresses, Quasi-Permanent - Load comb.: Liveload - for selected objects",
             };
 
             foreach (var header in headers)

@@ -79,7 +79,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -87,7 +87,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t.*|\[.*\]");
+                return new Regex(@"(?'type'Shells, Displacements( \(Extract\))?), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t.*|\[.*\]");
             }
         }
 

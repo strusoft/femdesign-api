@@ -80,7 +80,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
             }
         }
 
@@ -88,7 +88,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Bar\t|\[.+\]");
+                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Bar\t|\[.+\]");
             }
         }
 

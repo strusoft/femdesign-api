@@ -44,6 +44,7 @@ B.1.1	0.563	1.062	0.314	-0.448	0.000	0.000	0.001
             var headers = new string[]
             {
                 "Bars, Displacements, Ultimate - Load case: IL",
+                "Bars, Displacements, Quasi-Permanent - Load case: IL",
             };
 
             foreach (var header in headers)
