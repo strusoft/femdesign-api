@@ -111,15 +111,13 @@ namespace FemDesign.Calculate
         }
 
         /// Create fdscript to read a str-model.
-        public static FdScript ReadStr(string strPath, List<string> bscPath = null)
+        public static FdScript ReadStr(string strPath, List<string> bscPaths = null)
         {
-            //
             FdScript fdScript = new FdScript();
-
-            //
             fdScript.XmlAttrib = "fdscript.xsd";
-            fdScript.FileName = Path.GetFileNameWithoutExtension(strPath);
 
+            strPath = Path.GetFullPath(strPath);
+            fdScript.FileName = Path.GetFileNameWithoutExtension(strPath);
             fdScript.Cwd = Path.GetDirectoryName(strPath);
             fdScript.StruxmlPath = Path.Combine(fdScript.Cwd, fdScript.FileName + ".struxml");
 
@@ -132,12 +130,12 @@ namespace FemDesign.Calculate
             fdScript.CmdOpen = new CmdOpen(strPath);
 
             // listgen
-            if (bscPath != null && bscPath.Any())
+            if (bscPaths != null && bscPaths.Any())
             {
                 fdScript.CmdListGen = new List<CmdListGen>();
-                foreach (string item in bscPath)
+                foreach (string bscPath in bscPaths)
                 {
-                    fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    fdScript.CmdListGen.Add(new CmdListGen(Path.GetFullPath(bscPath), Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
                 }  
             }
 
