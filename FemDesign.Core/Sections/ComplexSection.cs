@@ -130,15 +130,15 @@ namespace FemDesign.Sections
         internal ComplexSection(Section[] sections, Bars.Eccentricity[] eccentricities)
         {
             // sections
-            var _sections = new Section[2];
+            var mySections = new Section[2];
             if (sections.Length == 1)
             {
                 // create new list with start/end section
-                _sections = new Section[2]{ sections[0], sections[0] };
+                mySections = new Section[2]{ sections[0], sections[0] };
             }
             else if (sections.Length == 2)
             {
-                _sections = sections;
+                mySections = sections;
             }
             else
             {
@@ -146,15 +146,15 @@ namespace FemDesign.Sections
             }
 
             // eccentricities
-            var _eccentricities = new Bars.Eccentricity[2];
+            var myEccentricities = new Bars.Eccentricity[2];
             if (eccentricities.Length == 1)
             {
                 // create new list with start/end section
-                _eccentricities = new Bars.Eccentricity[2]{ eccentricities[0], eccentricities[0] };
+                myEccentricities = new Bars.Eccentricity[2]{ eccentricities[0], eccentricities[0] };
             }
             else if (eccentricities.Length == 2)
             {
-                _eccentricities = eccentricities;
+                myEccentricities = eccentricities;
             }
             else
             {
@@ -162,18 +162,18 @@ namespace FemDesign.Sections
             }
 
             // construct complex section
-            var _positions = new double[2]{0, 1};
-            if (_sections.Length == _positions.Length && _positions.Length == _eccentricities.Length)
+            var myPositions = new double[2]{0, 1};
+            if (mySections.Length == myPositions.Length && myPositions.Length == myEccentricities.Length)
             {
                 this.EntityCreated();
-                for (int idx = 0; idx < _sections.Length; idx++)
+                for (int idx = 0; idx < mySections.Length; idx++)
                 {
-                    this.Parts.Add(new ComplexSectionPart(_positions[idx], _sections[idx], _eccentricities[idx]));
+                    this.Parts.Add(new ComplexSectionPart(myPositions[idx], mySections[idx], myEccentricities[idx]));
                 }
             }
             else
             {
-                throw new System.ArgumentException($"Input arguments have different length. sections: {sections.Length}, positions: {_positions.Length}, eccentricities: {eccentricities.Length}");
+                throw new System.ArgumentException($"Input arguments have different length. sections: {sections.Length}, positions: {myPositions.Length}, eccentricities: {eccentricities.Length}");
             }
         }
 
