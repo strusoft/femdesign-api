@@ -14,9 +14,6 @@
     <!-- <releaseNotes>Summary of changes made in this release of the package.</releaseNotes> -->
     <copyright>$copyright$</copyright>
     <tags>StruSoft FemDesign 21 3D Structure Api StruXML</tags>
-    <dependencies>
-      <group targetFramework=".NETFramework4.7.2" />
-    </dependencies>
   </metadata>
   <files>
     <file src="Resources\icons\FemDesignAPI.png" target="Resources\icons\" />
