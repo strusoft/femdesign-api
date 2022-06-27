@@ -154,19 +154,6 @@ namespace FemDesign.Models
             return bIdentical;
         }
 
-        public void PatchUp(string originalFile, string diffGramFile, string OutputFile)
-        {
-            XmlDocument sourceDoc = new XmlDocument(new NameTable());
-            sourceDoc.Load(originalFile);
-            XmlTextReader diffgramReader = new XmlTextReader(diffGramFile);
-            var xmlPatch = new XmlPatch();
-            xmlPatch.Patch(sourceDoc, diffgramReader);
-
-            XmlTextWriter output = new XmlTextWriter(OutputFile, Encoding.Unicode);
-            sourceDoc.Save(output);
-            output.Close();
-        }
-
         [TestMethod("CompareInOut")]
         public void CompareInOut()
         {
@@ -196,12 +183,12 @@ namespace FemDesign.Models
             Console.WriteLine($"Master file is {sizeMaster} bytes");
             Console.WriteLine($"Output file is {sizeOut} bytes");
 
-            var diffGramWriter = XmlWriter.Create("Model/diffGram.xml");
-            bool identical = GenerateDiffGram(inputFile, outputFile, diffGramWriter);
-
             int diffLine = fileLineCountOut - fileLineCountMaster;
             int diffCharacter = numberOfCharactersOut - numberOfCharactersMaster;
             long diffSize = sizeOut - sizeMaster;
+
+            var diffGramWriter = XmlWriter.Create("Model/diffGram.xml");
+            bool identical = GenerateDiffGram(inputFile, outputFile, diffGramWriter);
 
             Assert.IsTrue(diffLine == 0);
             Assert.IsTrue(diffCharacter == 0);
