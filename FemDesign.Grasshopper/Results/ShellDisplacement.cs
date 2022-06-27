@@ -78,9 +78,6 @@ namespace FemDesign.Grasshopper
             var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
             var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
 
-            // Convert the FdVector to Dynamo
-            var oTranslation = iTranslation.Select(x => x.ToRhino());
-            var oRotation = iRotation.Select(x => x.ToRhino());
 
             var uniqueLoadCase = loadCases.Distinct().ToList();
             var uniqueId = elementId.Distinct().ToList();
@@ -110,8 +107,8 @@ namespace FemDesign.Grasshopper
                     //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
                     //elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
                     nodeIdTree.Add(nodeId.ElementAt(index), new GH_Path(ghPath, i));
-                    oTranslationTree.Add(oTranslation.ElementAt(index), new GH_Path(ghPath, i));
-                    oRotationTree.Add(oRotation.ElementAt(index), new GH_Path(ghPath, i));
+                    oTranslationTree.Add(iTranslation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
+                    oRotationTree.Add(iRotation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
                 }
                 i++;
             }
