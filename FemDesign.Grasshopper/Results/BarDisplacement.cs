@@ -96,13 +96,14 @@ namespace FemDesign.Grasshopper
             foreach (var id in uniqueId)
             {
                 // indexes where the uniqueId matches in the list
+                elementIdTree.Add(id, new GH_Path(ghPath, i));
+
                 var indexes = elementId.Select((value, index) => new { value, index })
                   .Where(a => string.Equals(a.value, id))
                   .Select(a => a.index);
 
                 foreach (int index in indexes)
                 {
-                    elementIdTree.Add(elementId.ElementAt(index), new GH_Path(ghPath, i));
                     positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(ghPath, i));
                     oTranslationTree.Add(iTranslation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
                     oRotationTree.Add(iRotation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
