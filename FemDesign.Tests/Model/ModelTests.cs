@@ -158,12 +158,12 @@ namespace FemDesign.Models
         public void CompareInOut()
         {
             // The input file "global-test-model_MASTER.struxml" has been previously checked for
-            // equivalence with the .struxml Deserialised from FD taking in consideration that
-            // the FD and the API deserialise in different way.
+            // equivalence with the .struxml serialised from FD taking in consideration that
+            // the FD and the API serialise in different way.
 
             // NOTE
-            // if We implement of add new attribute for the already created object (i.e. some bar attribute)
-            // the test will fail as the file wil not be identical anymore
+            // if We implement of add new attributes for the already created objects (i.e. some bar attributes)
+            // the test will fail as the file will not be identical anymore
 
             string inputFile = "Model/global-test-model_MASTER.struxml";
             Model model = Model.DeserializeFromFilePath(inputFile);
