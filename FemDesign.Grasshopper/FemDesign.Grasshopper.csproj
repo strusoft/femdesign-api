@@ -777,6 +777,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <EmbeddedResource Include="Resources\icons\Units.png" />
+    <EmbeddedResource Include="Resources\icons\ResultType.png" />
+    <EmbeddedResource Include="Resources\icons\results.png" />
+    <EmbeddedResource Include="Resources\icons\quantity.png" />
     <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
     <None Include="Resources\icons\CombineLoadGroups.bmp" />
     <None Include="Resources\icons\LoadCategory.bmp" />
@@ -785,6 +789,9 @@
     <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
     <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
     <None Include="Resources\Fd_TabIcon_24_24.png" />
+    <EmbeddedResource Include="Resources\icons\feabar.png" />
+    <EmbeddedResource Include="Resources\icons\feanode.png" />
+    <EmbeddedResource Include="Resources\icons\feashell.png" />
     <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
     <Content Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>

@@ -981,7 +981,7 @@
         SNqm8JBwd8y0JN+3UOKY4g3FZjpv/JxT3bBpzZqfU7rMLiaZYoZZ6UgnT4o0OUKyWqI4RGQ/XMXf6fln
         xaWLK4UhjnEymGieH/UGv7t14oMDpaSmMNQ9u+57D9RvQ7Hgul9Hrls8Bv8TXFplf+YQRj5EL5S17gNo
         2YTzq7Km78DFFnQ8ZjVb8yS/TF88Dm+n8kyL0H4Djcul3n72ObmHqHQ1fQ17+9CbkOyVKvduqOztz2+8
-        /gh/AzlucpC9UhTTAAAACXBIWXMAAA6/AAAOvwE4BVMkAAAAB3RJTUUH5gMQESgOvHE1mgAATnpJREFU
+        /gh/AzlucpC9UhTTAAAACXBIWXMAAA6+AAAOvgHqQrHAAAAAB3RJTUUH5gMQESgOvHE1mgAATnpJREFU
         eF7tvQWUbAl5aP3CuA+DzTAMMsDgLkGDBwkuwQkSHIJDIBAIEJzwkuAWPLiE4O4yuLvbCw4JhOR////v
         fame3Hvn3NvVp6qrq7v3Xmuvmbm369SRqlnr+/qT/xURERERERERERERERERERERERERERERERERERER
         ERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERER
@@ -2951,7 +2951,7 @@
   <data name="ModelReadStr1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAALiVJREFUeF7tnWlsHNeW32nL1m5btp6fE0yQLxngzQvmIR8SvGCANwiQbYIAM/Mh
+        DwAACw8BkvkDpQAALiVJREFUeF7tnWlsHNeW32nL1m5btp6fE0yQLxngzQvmIR8SvGCANwiQbYIAM/Mh
         2yBBgGSS+ZAMZnlvYu0rRVGyJEqi9n1fqM2SKHFfukmKjzsp7jspkrL2xZJsy5Zkntxzuy91+9apXljd
         7Cr2ucDPFru7qovN+/vfrao6DQAsNDY2wKFDB+Gf/tF/gi9H58OfHL8Dv7OmA975dQvDMC7nH6R3w5+e
         egDFL38Gf/x/VgqlrY4ryAf/fOMZWNb+O/Deb+g3YBjGG7z3dzdhUe8/hrT/nS/Utroe8sNvf1sNL3//
@@ -6526,5 +6526,26 @@
         4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg
         4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg
 </value>
+  </data>
+  <data name="feabar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\feabar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feanode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\feanode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feashell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\feashell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="quantity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\quantity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="results" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\results.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResultType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ResultType.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Units" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Units.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

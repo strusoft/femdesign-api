@@ -323,6 +323,66 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionDefine {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionFixed {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionFixed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionHinged {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionHinged", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionPinned {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionPinned", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EdgeConnectionRigid {
+            get {
+                object obj = ResourceManager.GetObject("EdgeConnectionRigid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fd_TabIcon_24_24 {
             get {
                 object obj = ResourceManager.GetObject("Fd_TabIcon_24_24", resourceCulture);
@@ -347,6 +407,36 @@ namespace FemDesign.Properties {
             get {
                 object obj = ResourceManager.GetObject("fdlogo_00101", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap feabar {
+            get {
+                object obj = ResourceManager.GetObject("feabar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap feanode {
+            get {
+                object obj = ResourceManager.GetObject("feanode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap feashell {
+            get {
+                object obj = ResourceManager.GetObject("feashell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1273,9 +1363,39 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap quantity {
+            get {
+                object obj = ResourceManager.GetObject("quantity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReinforcementParametersDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("ReinforcementParametersDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap results {
+            get {
+                object obj = ResourceManager.GetObject("results", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ResultType {
+            get {
+                object obj = ResourceManager.GetObject("ResultType", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1436,66 +1556,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap ShellEccentricityDefine {
             get {
                 object obj = ResourceManager.GetObject("ShellEccentricityDefine", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionDeconstruct {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionDeconstruct", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionDefine {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionDefine", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionFixed {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionFixed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionHinged {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionHinged", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionPinned {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionPinned", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EdgeConnectionRigid {
-            get {
-                object obj = ResourceManager.GetObject("EdgeConnectionRigid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1846,6 +1906,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap TrussLimitedCapacity {
             get {
                 object obj = ResourceManager.GetObject("TrussLimitedCapacity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Units {
+            get {
+                object obj = ResourceManager.GetObject("Units", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
