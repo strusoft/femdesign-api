@@ -172,10 +172,9 @@ namespace FemDesign
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "FdFeaModel", "Results" })]
-        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<Results.ResultType> resultTypes, Results.UnitResults units)
+        public static Dictionary<string, object> ReadStr(string strPath, List<Results.ResultType> resultTypes, Results.UnitResults units)
         {
             Results.FDfea fdFeaModel = null;
-            units = Results.UnitResults.Default();
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result

@@ -21,7 +21,7 @@ namespace FemDesign.Results
         /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case/combination</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "ElementId", "NodeId", "Mx", "My", "Mxy", "Nx", "Ny", "Nxy", "Txz", "Tyz"})]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.ShellInternalForce> Result, [DefaultArgument("null")] string CaseCombName)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.ShellInternalForce> Result, string CaseCombName)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
@@ -40,7 +40,7 @@ namespace FemDesign.Results
 
             var identifier = (List<string>)result["Identifier"];
             var elementId = (List<int>)result["ElementId"];
-            var nodeId = (List<string>)result["NodeId"];
+            var nodeId = (List<int?>)result["NodeId"];
 
             var mx = (List<double>)result["Mx"];
             var my = (List<double>)result["My"];
@@ -57,7 +57,7 @@ namespace FemDesign.Results
 
             // Convert Data in NestedLst structure
             var elementIdTree = new List<List<int>>();
-            var nodeIdTree = new List<List<string>>();
+            var nodeIdTree = new List<List<int?>>();
 
             var mxTree = new List<List<double>>();
             var myTree = new List<List<double>>();
@@ -78,7 +78,7 @@ namespace FemDesign.Results
                 elementIdTreeTemp.Add(id);
 
 
-                var nodeIdTreeTemp = new List<string>();
+                var nodeIdTreeTemp = new List<int?>();
 
                 var mxTreeTemp = new List<double>();
                 var myTreeTemp = new List<double>();

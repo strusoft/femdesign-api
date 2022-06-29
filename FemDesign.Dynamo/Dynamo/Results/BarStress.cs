@@ -18,7 +18,7 @@ namespace FemDesign.Results
         /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "ElementId", "PositionResult", "SigmaXiMax", "SigmaXiMin", "SigmaVM"})]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarStress> Result, [DefaultArgument("null")] string CaseCombName)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.BarStress> Result, string CaseCombName)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;

@@ -8,6 +8,10 @@ using System.Xml.Serialization;
 using FemDesign.Calculate;
 
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
+
 namespace FemDesign.Results
 {
 
@@ -198,6 +202,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Derived Forces
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("ShellDerivedForceExtract")]
         [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceExtractLoadCase, ListProc.ShellDerivedForceExtractLoadCombination)]
         ShellDerivedForceExtract,
@@ -212,6 +219,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Stress (Extract)
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("ShellStressExtract")]
         [Result(typeof(ShellStress), ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination)]
         ShellStressExtract,
@@ -226,6 +236,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Displacements (Extract)
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("ShellDisplacementExtract")]
         [Result(typeof(ShellDisplacement), ListProc.ShellDisplacementExtractLoadCase, ListProc.ShellDisplacementExtractLoadCombination)]
         ShellDisplacementExtract,
@@ -251,6 +264,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Nodal Response Factor: FootFall
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("NodalResponseFactor")]
         [Result(typeof(NodalResponseFactor), ListProc.NodalResponseFactor)]
         NodalResponseFactor,
@@ -258,6 +274,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Nodal Acceleration: FootFall
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("NodalAcceleration")]
         [Result(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
         NodalAcceleration,
@@ -269,6 +288,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shell, Utilization
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("RCDesignShellUtilization")]
         [Result(typeof(ShellDisplacement), ListProc.RCDesignShellUtilizationLoadCombination)]
         RCDesignShellUtilization,
@@ -276,6 +298,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shell, Crack width
         /// </summary>
+        #if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+        #endif
         [Parseable("RCDesignShellCrackWidth")]
         [Result(typeof(ShellDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
         RCDesignShellCrackWidth,

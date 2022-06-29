@@ -19,7 +19,7 @@ namespace FemDesign.Results
         /// <param name="CaseCombName">Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "CaseIdentifier", "ElementId", "NodeId", "Translation", "Rotation" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.ShellDisplacement> Result, [DefaultArgument("null")] string CaseCombName)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.ShellDisplacement> Result, string CaseCombName)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
@@ -36,7 +36,7 @@ namespace FemDesign.Results
             // Extract Results from the Dictionary
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
-            var nodeId = (List<string>)result["NodeId"];
+            var nodeId = (List<int?>)result["NodeId"];
             var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
             var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
 
@@ -50,7 +50,7 @@ namespace FemDesign.Results
 
             // Convert Data in DataTree structure
             var elementIdTree = new List<List<int>>();
-            var nodeIdTree = new List<List<string>>();
+            var nodeIdTree = new List<List<int?>>();
             var oTranslationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
             var oRotationTree = new List<List<Autodesk.DesignScript.Geometry.Vector>>();
 
@@ -61,7 +61,7 @@ namespace FemDesign.Results
                 var elementIdTreeTemp = new List<int>();
                 elementIdTreeTemp.Add(id);
 
-                var nodeIdTreeTemp = new List<string>();
+                var nodeIdTreeTemp = new List<int?>();
                 var oTranslationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
                 var oRotationTreeTemp = new List<Autodesk.DesignScript.Geometry.Vector>();
 

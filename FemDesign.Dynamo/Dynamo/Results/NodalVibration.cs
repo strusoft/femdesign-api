@@ -19,7 +19,7 @@ namespace FemDesign.Results
         /// <param name="vibrationMode">Number of vibration mode for which to return the results. Default value returns the results for the first load case</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "ShapeId", "Identifier", "NodeId", "Translation", "Rotation" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.NodalVibration> Result, [DefaultArgument("null")] int vibrationMode)
+        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.NodalVibration> Result, int vibrationMode)
         {
             // Read Result from Abstract Method
             Dictionary<string, object> result;
