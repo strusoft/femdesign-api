@@ -15,13 +15,13 @@ namespace FemDesign.Results
         /// <summary>
         /// Deconstruct the Fea Node Element
         /// </summary>
-        /// <param name="Result">Result to be Parse</param>
+        /// <param name="FdFeaModel">Result to be Parse</param>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "NodeId", "Position" })]
-        public static Dictionary<string, object> Deconstruct(List<FemDesign.Results.FeaNode> Result)
+        public static Dictionary<string, object> Deconstruct(FDfea FdFeaModel)
         {
             // Read Result from Abstract Method
-            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(Result);
+            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(FdFeaModel.FeaNode);
 
 
             var nodeId = (List<int>)result["NodeId"];

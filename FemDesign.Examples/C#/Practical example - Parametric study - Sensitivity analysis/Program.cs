@@ -68,28 +68,11 @@ namespace FemDesign.Examples
                 app.RunFdScript(fdScript, false, true, true);
 
                 // Read results from csv file (general method)
-                int counter = 0;
-
-                using (var printer = new StreamWriter("output/eigenfreq.txt", true))
-                using (var reader = new StreamReader("eigenfreq.csv"))
                 {
                     Console.WriteLine("");
-                    Console.WriteLine(string.Format("{0} {1}", "Alpha: ", alpha));
-
-                    printer.WriteLine("");
-                    printer.WriteLine(string.Format("{0} {1}", "Alpha: ", alpha));
-
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var values = line.Split('\t');
-                        if (counter > 0 & line != "")
-                        {
-                            Console.WriteLine(line);
-                            printer.WriteLine(line);
-                        }
-                        counter++;
-                    }
+                    Console.WriteLine(string.Format("Alpha: {0}", alpha));
+                    string text = System.IO.File.ReadAllText(fdScript.CmdListGen[0].OutFile);
+                    Console.WriteLine(text);
                 }
                 alpha = alpha + 0.5;
             }

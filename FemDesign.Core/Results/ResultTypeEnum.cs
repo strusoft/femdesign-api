@@ -22,18 +22,25 @@ namespace FemDesign.Results
         /// <summary>
         /// Fea Nodes
         /// </summary>
+
         [Parseable("FeaNode")]
         [Result(typeof(FeaNode), ListProc.FeaNode)]
         FeaNode,
         /// <summary>
         /// Fea Nodes
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("FeaBar")]
         [Result(typeof(FeaBar), ListProc.FeaBar)]
         FeaBar,
         /// <summary>
         /// Fea Nodes
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("FeaShell")]
         [Result(typeof(FeaShell), ListProc.FeaShell)]
         FeaShell,
@@ -87,6 +94,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Quantity estimation, Profiled panel
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("QuantityEstimationProfiledPanel")]
         [Result(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel)]
         QuantityEstimationProfiledPanel,
@@ -94,6 +104,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Quantity estimation, Masonry
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("QuantityEstimationMasonry")]
         [Result(typeof(QuantityEstimationMasonry), ListProc.QuantityEstimationMasonry)]
         QuantityEstimationMasonry,
@@ -153,6 +166,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Line connection forces
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("LineConnectionForce")]
         [Result(typeof(LineConnectionForce), ListProc.LineConnectionForceLoadCase, ListProc.LineConnectionForceLoadCombination)]
         LineConnectionForce,
@@ -160,10 +176,13 @@ namespace FemDesign.Results
         /// <summary>
         /// Line connection forces
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("LineConnectionResultant")]
         [Result(typeof(LineConnectionResultant), ListProc.LineConnectionResultantLoadCase, ListProc.LineConnectionResultantLoadCombination)]
         LineConnectionResultant,
-        
+
         /// <summary>
         /// Line support group, Reactions
         /// </summary>
@@ -174,6 +193,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Line support group, Resultants
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("LineSupportResultant")]
         [Result(typeof(LineSupportResultant), ListProc.LineSupportResultantsLoadCase, ListProc.LineSupportResultantsLoadCombination)]
         LineSupportResultant,
@@ -188,6 +210,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Internal Force (Extract)
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("ShellInternalForceExtract")]
         [Result(typeof(ShellInternalForce), ListProc.ShellInternalForceExtractLoadCase, ListProc.ShellInternalForceExtractLoadCombination)]
         ShellInternalForceExtract,
@@ -195,6 +220,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shells, Derived Forces
         /// </summary>
+#if ISDYNAMO
+        [IsVisibleInDynamoLibrary(false)]
+#endif
         [Parseable("ShellDerivedForce")]
         [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceLoadCase, ListProc.ShellDerivedForceLoadCombination)]
         ShellDerivedForce,
@@ -298,9 +326,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Shell, Crack width
         /// </summary>
-        #if ISDYNAMO
+#if ISDYNAMO
         [IsVisibleInDynamoLibrary(false)]
-        #endif
+#endif
         [Parseable("RCDesignShellCrackWidth")]
         [Result(typeof(ShellDisplacement), ListProc.RCDesignShellCrackWidthLoadCombination)]
         RCDesignShellCrackWidth,
