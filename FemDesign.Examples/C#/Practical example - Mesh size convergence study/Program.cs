@@ -25,7 +25,7 @@ namespace FemDesign.Examples
             string modelPath = "Model with labelled sections.struxml";
             double maxAllowedDeviation = 0.02;
             string labeledSectionIdentifier = "LS.1";
-            List<double> meshSizes = new List<double> { 2.0, 1.0};
+            List<double> meshSizes = new List<double> { 2.0, 1.0, 0.5, 0.25, 0.15, 0.10 };
             int forceIdIndex = 2;
             // The force index stem from the .bsc file made from FEM-Design, where they are ordered like this:
             // ID		Mx' 	My'	    Mx'y' 	Nx' 	Ny' 	Nx'y'	Tx'z' 	Ty'z'	Comb.

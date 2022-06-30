@@ -23,9 +23,6 @@ namespace FemDesign.Examples
             // FILE PATH SETUP
             // Set the different paths and folders relevant to the example
             string struxmlPath = "Bridge Model.struxml";
-            string outFolder = "output";
-            if (!Directory.Exists(outFolder))
-                Directory.CreateDirectory(outFolder);
             string bscPath = Path.GetFullPath("eigenfreq.bsc");
             List<string> bscPaths = new List<string>();
             bscPaths.Add(bscPath);
@@ -56,7 +53,7 @@ namespace FemDesign.Examples
                 model.AddElements(supports);
 
                 // Save struxml
-                string outPathIndividual = Path.GetFullPath(outFolder + "Bridge Model_out" + Convert.ToString(alpha, System.Globalization.CultureInfo.InvariantCulture) + ".struxml");
+                string outPathIndividual = Path.GetFullPath("Bridge Model_out" + Convert.ToString(alpha, System.Globalization.CultureInfo.InvariantCulture) + ".struxml");
                 model.SerializeModel(outPathIndividual);
 
 
