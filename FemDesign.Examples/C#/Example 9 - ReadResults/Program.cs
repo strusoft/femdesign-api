@@ -19,10 +19,6 @@ namespace FemDesign.Examples
 
             // This example was last updated 2022-07-01, using the ver. 21.2.0 FEM-Design API.
 
-
-            string modelPath = "SimpleBeam.struxml";
-            string fileName = Path.GetFullPath(modelPath);
-
             #region DEFINE GEOMETRY
             // Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
@@ -108,6 +104,10 @@ namespace FemDesign.Examples
 
             #region SETTINGS
 
+            // define the file name
+            string fileName = "SimpleBeam.struxml";
+            fileName = Path.GetFullPath(fileName);
+
             // Define the Units
             // it is an optional operation and it can be omitted
             // Default Units can be seen looking at FemDesign.Results.UnitResults.Default()
@@ -134,11 +134,13 @@ namespace FemDesign.Examples
             var app = new FemDesign.Calculate.Application();
             app.RunFdScript(fdScript, false, true);
             model.SerializeModel(fileName);
-            #endregion
+
             // Read model and results
             model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+            #endregion
 
             #region EXTRACT RESULTS
+
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
             
             foreach (var cmd in fdScript.CmdListGen)
