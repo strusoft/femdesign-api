@@ -98,7 +98,7 @@ namespace FemDesign.Results
 
         }
 
-        public Units(int num, int unit)
+        private Units(int num, int unit)
         {
             this.Num = num;
             this.Unit = unit;
