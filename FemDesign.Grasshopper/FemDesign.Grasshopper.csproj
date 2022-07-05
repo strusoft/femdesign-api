@@ -211,11 +211,11 @@
     <Compile Include="ModellingTools\StiffnessMatrix2TypeDefine.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeDefine.cs" />
     <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
-    <Compile Include="Model\ModelAddElementsSimple.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelAddElements2OBSOLETE.cs" />
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
-    <Compile Include="Model\ModelCreateSimple.cs" />
     <Compile Include="Model\ModelCreate.cs" />
+    <Compile Include="Model\ModelCreate3OBSOLETE.cs" />
     <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStrOBSOLETE.cs" />
     <Compile Include="Model\ModelReadStr.cs" />
