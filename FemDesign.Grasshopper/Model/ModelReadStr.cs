@@ -22,6 +22,8 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -45,89 +47,105 @@ namespace FemDesign.Grasshopper
             }
             DA.GetDataList("ResultTypes", resultTypes);
 
+            bool runNode = true;
+            if (!DA.GetData("RunNode", ref runNode))
+            {
+                // pass
+            }
+
             // Units
             var units = Results.UnitResults.Default();
             DA.GetData("Units", ref units);
-
-
-            // It needs to check if model has been runned
-            // Always Return the FeaNode Result
-            resultTypes.Insert(0, "FeaNode");
-            resultTypes.Insert(1, "FeaBar");
-            resultTypes.Insert(2, "FeaShell");
-
-
-            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
-
-
-            // Create Bsc files from resultTypes
-            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
-
-            // Create FdScript
-            var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPathsFromResultTypes);
-
-            // Run FdScript
-            var app = new FemDesign.Calculate.Application();
-            bool hasExited = app.RunFdScript(fdScript, false, true, false);
-
-            // Read model and results
-            var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
-
-            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
-
-            List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
-            List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
-            List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
-
-            if (resultTypes != null && resultTypes.Any())
+           
+            // RunNode
+            if (runNode)
             {
-                foreach (var cmd in fdScript.CmdListGen)
+
+
+
+                // It needs to check if model has been runned
+                // Always Return the FeaNode Result
+                resultTypes.Insert(0, "FeaNode");
+                resultTypes.Insert(1, "FeaBar");
+                resultTypes.Insert(2, "FeaShell");
+
+
+                var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
+
+
+                // Create Bsc files from resultTypes
+                var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
+
+                // Create FdScript
+                var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPathsFromResultTypes);
+
+                // Run FdScript
+                var app = new FemDesign.Calculate.Application();
+                bool hasExited = app.RunFdScript(fdScript, false, true, false);
+
+                // Read model and results
+                var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+
+                IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+
+                List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+                List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
+                List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
+                if (resultTypes != null && resultTypes.Any())
                 {
-                    string path = cmd.OutFile;
-                    try
+                    foreach (var cmd in fdScript.CmdListGen)
                     {
-                        if(path.Contains("FeaNode"))
+                        string path = cmd.OutFile;
+                        try
                         {
-                            feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                            if(path.Contains("FeaNode"))
+                            {
+                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                            }
+                            else if (path.Contains("FeaBar"))
+                            {
+                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                            }
+                            else if (path.Contains("FeaShell"))
+                            {
+                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                            }
+                            else
+                            {
+                                var _results = Results.ResultsReader.Parse(path);
+                                results = results.Concat(_results);
+                            }
                         }
-                        else if (path.Contains("FeaBar"))
+                        catch (Exception e)
                         {
-                            feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                            throw new Exception(e.InnerException.Message);
                         }
-                        else if (path.Contains("FeaShell"))
-                        {
-                            feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
-                        }
-                        else
-                        {
-                            var _results = Results.ResultsReader.Parse(path);
-                            results = results.Concat(_results);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        throw new Exception(e.InnerException.Message);
                     }
                 }
+
+                fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+
+                var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+                // Convert Data in DataTree structure
+                var resultsTree = new DataTree<object>();
+
+                var i = 0;
+                foreach(var resGroup in resultGroups)
+                {
+                    resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
+                    i++;
+                }
+
+                // Set output
+                DA.SetData("FdModel", model);
+                DA.SetData("FdFeaModel", fdFeaModel);
+                DA.SetDataTree(2, resultsTree);
             }
-
-            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
-
-            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
-            // Convert Data in DataTree structure
-            var resultsTree = new DataTree<object>();
-
-            var i = 0;
-            foreach(var resGroup in resultGroups)
+            else
             {
-                resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
-                i++;
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
             }
-
-            // Set output
-            DA.SetData("FdModel", model);
-            DA.SetData("FdFeaModel", fdFeaModel);
-            DA.SetDataTree(2, resultsTree);
         }
         protected override System.Drawing.Bitmap Icon
         {
