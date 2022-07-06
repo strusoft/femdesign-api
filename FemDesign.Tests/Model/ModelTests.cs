@@ -95,31 +95,7 @@ namespace FemDesign.Models
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
-        /// <summary>
-        /// Test if global test model can be deserialised from path and then serialised to string.
-        /// To check which version the test file was generated in check source software attribute in file.
-        /// </summary>
-        [TestMethod("ReadWriteConsole")]
-        public void ReadWriteConsole()
-        {
-            string input = "Model/global-test-model_IN.struxml";
-            Model model = Model.DeserializeFromFilePath(input);
-            Console.Write(model.SerializeToString());
-        }
 
-        /// <summary>
-        /// Test if global test model can be deserialised from path and then serialised to file.
-        /// The file can then be opened in FEM-Design to look for errors.
-        /// To check which version the test file was generated in check source software attribute in file.
-        /// </summary>
-        [TestMethod("ReadWriteFile")]
-        public void ReadWriteFile()
-        {
-            string input = "Model/global-test-model_IN.struxml";
-            string output = "Model/global-test-model_OUT.struxml";
-            Model model = Model.DeserializeFromFilePath(input);
-            model.SerializeModel(output);
-        }
 
         /// <summary>
         /// Test if the global model can be deep cloned.
