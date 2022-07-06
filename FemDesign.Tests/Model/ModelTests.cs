@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FemDesign;
 using System;
+using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,10 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
+using Microsoft.XmlDiffPatch;
 
 
-namespace FemDesign.Tests
+namespace FemDesign.Models
 {
     [TestClass()]
     public class ModelTests
@@ -93,31 +95,7 @@ namespace FemDesign.Tests
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
-        /// <summary>
-        /// Test if global test model can be deserialised from path and then serialised to string.
-        /// To check which version the test file was generated in check source software attribute in file.
-        /// </summary>
-        [TestMethod("ReadWriteConsole")]
-        public void ReadWriteConsole()
-        {
-            string input = "Model/global-test-model_IN.struxml";
-            Model model = Model.DeserializeFromFilePath(input);
-            Console.Write(model.SerializeToString());
-        }
 
-        /// <summary>
-        /// Test if global test model can be deserialised from path and then serialised to file.
-        /// The file can then be opened in FEM-Design to look for errors.
-        /// To check which version the test file was generated in check source software attribute in file.
-        /// </summary>
-        [TestMethod("ReadWriteFile")]
-        public void ReadWriteFile()
-        {
-            string input = "Model/global-test-model_IN.struxml";
-            string output = "Model/global-test-model_OUT.struxml";
-            Model model = Model.DeserializeFromFilePath(input);
-            model.SerializeModel(output);
-        }
 
         /// <summary>
         /// Test if the global model can be deep cloned.
@@ -129,6 +107,69 @@ namespace FemDesign.Tests
             Model model = Model.DeserializeFromFilePath(input);
             var clone = model.DeepClone();
             Console.Write(clone.SerializeToString());
+        }
+
+        private (int, int, long) GetFileInfo(string filePath)
+        {
+            int fileLineCount = File.ReadLines(filePath).Count();
+            int numberOfCharacters = File.ReadAllLines(filePath).Sum(s => s.Length);
+            FileInfo fileInfo = new FileInfo(filePath);
+            long size = fileInfo.Length;
+
+            return (fileLineCount, numberOfCharacters, size);
+        }
+
+        public bool GenerateDiffGram(string originalFile, string finalFile,
+                                            XmlWriter diffGramWriter)
+        {
+            XmlDiff xmldiff = new XmlDiff(XmlDiffOptions.IgnoreChildOrder |
+                                             XmlDiffOptions.IgnoreNamespaces |
+                                             XmlDiffOptions.IgnorePrefixes);
+            bool bIdentical = xmldiff.Compare(originalFile, finalFile, false, diffGramWriter);
+            diffGramWriter.Close();
+            return bIdentical;
+        }
+
+        [TestMethod("CompareInOut")]
+        public void CompareInOut()
+        {
+            // The input file "global-test-model_MASTER.struxml" has been previously checked for
+            // equivalence with the .struxml serialised from FD taking in consideration that
+            // the FD and the API serialise in different way.
+
+            // NOTE
+            // if We implement of add new attributes for the already created objects (i.e. some bar attributes)
+            // the test will fail as the file will not be identical anymore
+
+            string inputFile = "Model/global-test-model_MASTER.struxml";
+            Model model = Model.DeserializeFromFilePath(inputFile);
+
+            string outputFile = "Model/global-test-model_MASTER_OUT.struxml";
+            model.SerializeModel(outputFile);
+
+            (int fileLineCountMaster, int numberOfCharactersMaster, long sizeMaster) = GetFileInfo(inputFile);
+            (int fileLineCountOut, int numberOfCharactersOut, long sizeOut) = GetFileInfo(outputFile);
+
+            Console.WriteLine($"Master file has {fileLineCountMaster} number of lines");
+            Console.WriteLine($"Output file has {fileLineCountOut} number of lines");
+
+            Console.WriteLine($"Master file has {numberOfCharactersMaster} characters");
+            Console.WriteLine($"Output file has {numberOfCharactersOut} characters");
+
+            Console.WriteLine($"Master file is {sizeMaster} bytes");
+            Console.WriteLine($"Output file is {sizeOut} bytes");
+
+            int diffLine = fileLineCountOut - fileLineCountMaster;
+            int diffCharacter = numberOfCharactersOut - numberOfCharactersMaster;
+            long diffSize = sizeOut - sizeMaster;
+
+            var diffGramWriter = XmlWriter.Create("Model/diffGram.xml");
+            bool identical = GenerateDiffGram(inputFile, outputFile, diffGramWriter);
+
+            Assert.IsTrue(diffLine == 0);
+            Assert.IsTrue(diffCharacter == 0);
+            Assert.IsTrue(diffSize == 0);
+            Assert.IsTrue(identical);
         }
     }
 }

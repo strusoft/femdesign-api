@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Average surface element size.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Average surface element size. [m]", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

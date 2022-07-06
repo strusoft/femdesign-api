@@ -7,9 +7,15 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+#if ISDYNAMO
+using Autodesk.DesignScript.Runtime;
+#endif
 
 namespace FemDesign.Results
 {
+#if ISDYNAMO
+[IsVisibleInDynamoLibrary(false)]
+#endif
     public interface IQuantityEstimationResult : IResult
     {
         /// <summary>
@@ -28,6 +34,11 @@ namespace FemDesign.Results
         /// Material quality identifier
         /// </summary>
         string Quality { get; }
+
+        /// <summary>
+        /// Total weight
+        /// </summary>
+        double TotalWeight { get; }
     }
 
     /// <summary>
@@ -35,10 +46,6 @@ namespace FemDesign.Results
     /// </summary>
     public partial class QuantityEstimationConcrete : IQuantityEstimationResult
     {
-        /// <summary>
-        /// Element name identifier
-        /// </summary>
-        public string Id { get; }
         /// <summary>
         /// Storey identifier
         /// </summary>
@@ -48,31 +55,55 @@ namespace FemDesign.Results
         /// </summary>
         public string Structure { get; }
         /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
         /// Material quality identifier
         /// </summary>
         public string Quality { get; }
         /// <summary>
-        /// Volume quantity [mm3]
+        /// Section
+        /// </summary>
+        public string Section { get; }
+        /// <summary>
+        /// Length/Area Quantity
+        /// </summary>
+        public double SubTotal { get; }
+        /// <summary>
+        /// Volume quantity
         /// </summary>
         public double Volume { get; }
         /// <summary>
-        /// Formwork quantity [mm2]
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+        /// <summary>
+        /// Formwork quantity
         /// </summary>
         public double Formwork { get; }
+        /// <summary>
+        /// Reinforcement weight per length/area
+        /// </summary>
+        public double Reinforcement { get; }
 
-        internal QuantityEstimationConcrete(string id, string storey, string structure, string quality, double volume, double formwork)
+        internal QuantityEstimationConcrete(string id, string storey, string structure, string section, string quality, double subTotal, double volume, double totalWeight, double formwork, double reinforcement)
         {
             Storey = storey;
             Structure = structure;
             Id = id;
+            Section = section;
             Quality = quality;
+            SubTotal = subTotal;
             Volume = volume;
+            TotalWeight = totalWeight;
             Formwork = formwork;
+            Reinforcement = reinforcement;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -97,9 +128,14 @@ namespace FemDesign.Results
             string structure = row[1];
             string id = row[2];
             string quality = row[3];
-            double volume = double.Parse(row[4], CultureInfo.InvariantCulture);
-            double formwork = double.Parse(row[5], CultureInfo.InvariantCulture);
-            return new QuantityEstimationConcrete(id, storey, structure, quality, volume, formwork);
+            string section = row[4];
+            double subTotal = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double volume = double.Parse(row[8], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[9], CultureInfo.InvariantCulture);
+            double formwork = double.Parse(row[10], CultureInfo.InvariantCulture);
+            double reinforcement = double.Parse(row[11], CultureInfo.InvariantCulture);
+            //string test = HeaderData["result"];
+            return new QuantityEstimationConcrete(id, storey, structure, section, quality, subTotal, volume, totalWeight, formwork, reinforcement);
         }
     }
 
@@ -125,13 +161,13 @@ namespace FemDesign.Results
         /// </summary>
         public string Quality { get; }
         /// <summary>
-        /// Diameter [mm]
+        /// Diameter
         /// </summary>
         public double Diameter { get; }
         /// <summary>
-        /// Quantity [t]
+        /// Total weigt
         /// </summary>
-        public double Quantity { get; }
+        public double TotalWeight { get; }
 
         internal QuantityEstimationReinforcement(string id, string storey, string structure, string quality, double diameter, double quantity)
         {
@@ -140,19 +176,19 @@ namespace FemDesign.Results
             Id = id;
             Quality = quality;
             Diameter = diameter;
-            Quantity = quantity;
+            TotalWeight = quantity;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Reinforcement)");
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Reinforcement)$");
             }
         }
 
@@ -206,15 +242,15 @@ namespace FemDesign.Results
         /// </summary>
         public double UnitWeight { get; }
         /// <summary>
-        /// Subtotal [m, m2]
+        /// Subtotal
         /// </summary>
-        public double Subtotal { get; }
+        public double SubTotal { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
-        /// Painted area [m2]
+        /// Painted area
         /// </summary>
         public double PaintedArea { get; }
         internal QuantityEstimationSteel(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
@@ -225,14 +261,14 @@ namespace FemDesign.Results
             Quality = quality;
             Section = section;
             UnitWeight = unitWeight;
-            Subtotal = subtotal;
+            SubTotal = subtotal;
             TotalWeight = totalWeight;
             PaintedArea = paintedArea;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
@@ -296,15 +332,15 @@ namespace FemDesign.Results
         /// </summary>
         public double UnitWeight { get; }
         /// <summary>
-        /// Subtotal [m, m2]
+        /// Subtotal
         /// </summary>
-        public double Subtotal { get; }
+        public double SubTotal { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
-        /// Painted area [m2]
+        /// Painted area
         /// </summary>
         public double PaintedArea { get; }
         internal QuantityEstimationTimber(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
@@ -315,21 +351,21 @@ namespace FemDesign.Results
             Quality = quality;
             Section = section;
             UnitWeight = unitWeight;
-            Subtotal = subtotal;
+            SubTotal = subtotal;
             TotalWeight = totalWeight;
             PaintedArea = paintedArea;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)");
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)$");
             }
         }
 
@@ -353,6 +389,115 @@ namespace FemDesign.Results
             double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
             double paintedArea = double.Parse(row[8], CultureInfo.InvariantCulture);
             return new QuantityEstimationTimber(id, storey, structure, quality, section, unitWeight, subtotal, totalWeight, paintedArea);
+        }
+    }
+
+    /// <summary>
+    /// FemDesign "Quantity estimation, Timber panel" result
+    /// </summary>
+    public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        public string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        public string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        public string Quality { get; }
+        /// <summary>
+        /// Thickness [mm]
+        /// </summary>
+        public double Thickness { get; }
+        /// <summary>
+        /// Panel type
+        /// </summary>
+        public string PanelType { get; }
+        /// <summary>
+        /// Length of panel
+        /// </summary>
+        public double Length { get; }
+        /// <summary>
+        /// Width of panel
+        /// </summary>
+        public double Width { get; }
+        /// <summary>
+        /// Area of panel
+        /// </summary>
+        public double Area { get; }
+        /// <summary>
+        /// Weight per unit
+        /// </summary>
+        public double Weight { get; }
+        /// <summary>
+        /// Number of panels of type
+        /// </summary>
+        public int Count { get; }
+        /// <summary>
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+
+        internal QuantityEstimationTimberPanel(string id, string storey, string structure, string quality, double thickness, string panelType, double length, double width, double area, double weight, int count, double totalWeight)
+        {
+            Storey = storey;
+            Structure = structure;
+            Id = id;
+            Quality = quality;
+            Thickness = thickness;
+            PanelType = panelType;
+            Length = length;
+            Width = width;
+            Area = area;
+            Weight = weight;
+            Count = count;
+            TotalWeight = totalWeight;
+        }
+
+        public override string ToString()
+        {
+            return ResultsReader.ObjectRepresentation(this);
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Timber panel)$");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"Quantity estimation, Timber panel|Storey\t|\t*\[.+\]|TOTAL\t");
+            }
+        }
+
+        internal static QuantityEstimationTimberPanel Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string storey = row[0] == "-" ? null : row[0];
+            string structure = row[1];
+            string id = row[2];
+            string quality = row[3];
+            double thickness = double.Parse(row[4], CultureInfo.InvariantCulture);
+            string panelType = row[5];
+            double length = double.Parse(row[6], CultureInfo.InvariantCulture);
+            double width = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double area = double.Parse(row[8], CultureInfo.InvariantCulture);
+            double weight = double.Parse(row[9], CultureInfo.InvariantCulture);
+            int pcs = int.Parse(row[10], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[11], CultureInfo.InvariantCulture);
+            return new QuantityEstimationTimberPanel(id, storey, structure, quality, thickness, panelType, length, width, area, weight, pcs, totalWeight);
         }
     }
 
@@ -381,33 +526,35 @@ namespace FemDesign.Results
         /// Section/Thickness identifier
         /// </summary>
         public string Section { get; }
-
-        public double Type { get; }
         /// <summary>
-        /// Length of plate [m]
+        /// Panel type
+        /// </summary>
+        public string Type { get; }
+        /// <summary>
+        /// Length of plate
         /// </summary>
         public double Length { get; }
         /// <summary>
-        /// Width of plate [m]
+        /// Width of plate
         /// </summary>
         public double Width { get; }
         /// <summary>
-        /// Height of plate [m]
+        /// Weight of single plate
         /// </summary>
-        public double Height { get; }
+        public double Weight { get; }
         /// <summary>
-        /// Area of the plate [m2]
+        /// Area of the plate
         /// </summary>
         public double Area { get; }
         /// <summary>
-        /// Total weight [t]
+        /// Total weight of all plates
         /// </summary>
         public double TotalWeight { get; }
         /// <summary>
         /// Count/Sum of sections
         /// </summary>
-        public int Sum { get; }
-        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, double type, double length, double width, double height, double area, double totalWeight, int count)
+        public int Count { get; }
+        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, string type, double length, double width, double weight, double area, double totalWeight, int count)
         {
             Storey = storey;
             Structure = structure;
@@ -417,22 +564,22 @@ namespace FemDesign.Results
             Type = type;
             Length = length;
             Width = width;
-            Height = height;
+            Weight = weight;
             Area = area;
             TotalWeight = totalWeight;
-            Sum = count;
+            Count = count;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, {Id}";
+            return ResultsReader.ObjectRepresentation(this);
         }
 
         internal static Regex IdentificationExpression
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Profiled panel)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Profiled panel)$");
             }
         }
 
@@ -440,7 +587,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Profiled panel|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Profiled panel$|Storey\t|\t*\[.+\]|TOTAL\t");
             }
         }
 
@@ -451,14 +598,190 @@ namespace FemDesign.Results
             string id = row[2];
             string quality = row[3];
             string section = row[4];
-            double type = double.Parse(row[5], CultureInfo.InvariantCulture);
-            double length = double.Parse(row[6], CultureInfo.InvariantCulture);
-            double width = double.Parse(row[7], CultureInfo.InvariantCulture);
-            double height = double.Parse(row[8], CultureInfo.InvariantCulture);
+            //double thickness = double.Parse(row[5], CultureInfo.InvariantCulture);
+            string type = row[6];
+            double length = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double width = double.Parse(row[8], CultureInfo.InvariantCulture);
             double area = double.Parse(row[9], CultureInfo.InvariantCulture);
             double weight = double.Parse(row[10], CultureInfo.InvariantCulture);
             int count = int.Parse(row[11], CultureInfo.InvariantCulture);
-            return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, height, area, weight, count);
+            double totalWeight = double.Parse(row[12], CultureInfo.InvariantCulture);
+            return new QuantityEstimationProfiledPlate(id, storey, structure, quality, section, type, length, width, weight, area, totalWeight, count);
+        }
+    }
+
+    /// <summary>
+    /// FemDesign "Quantity estimation, Concrete" result
+    /// </summary>
+    public partial class QuantityEstimationMasonry : IQuantityEstimationResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        public string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        public string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        public string Quality { get; }
+        /// <summary>
+        /// Thickness
+        /// </summary>
+        public double Thickness { get; }
+        /// <summary>
+        /// Weight per length or area unit
+        /// </summary>
+        public double UnitWeight { get; }
+        /// <summary>
+        /// Length/Area Quantity
+        /// </summary>
+        public double SubTotal { get; }
+        /// <summary>
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+
+        internal QuantityEstimationMasonry(string id, string storey, string structure, string quality, double thickness, double unitWeight, double subTotal, double totalWeight)
+        {
+            Storey = storey;
+            Structure = structure;
+            Id = id;
+            Quality = quality;
+            Thickness = thickness;
+            UnitWeight = unitWeight;
+            SubTotal = subTotal;
+            TotalWeight = totalWeight;
+        }
+
+        public override string ToString()
+        {
+            return ResultsReader.ObjectRepresentation(this);
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Quantity estimation), (?'result'Masonry)");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"Quantity estimation, Masonry|^Storey\t|^\ttype\t+\[.+\]|TOTAL\t");
+            }
+        }
+
+        internal static QuantityEstimationMasonry Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string storey = row[0] == "-" ? null : row[0];
+            string structure = row[1];
+            string id = row[2];
+            string quality = row[3];
+            double thickness = double.Parse(row[4], CultureInfo.InvariantCulture);
+            double unitWeight = double.Parse(row[5], CultureInfo.InvariantCulture);
+            double subTotal = double.Parse(row[6], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
+            return new QuantityEstimationMasonry(id, storey, structure, quality, thickness, unitWeight, subTotal, totalWeight);
+        }
+    }
+
+    /// <summary>
+    /// FemDesign "Quantity estimation, General" result
+    /// </summary>
+    public partial class QuantityEstimationGeneral : IQuantityEstimationResult
+    {
+        /// <summary>
+        /// Element name identifier
+        /// </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Storey identifier
+        /// </summary>
+        public string Storey { get; }
+        /// <summary>
+        /// Structural element type
+        /// </summary>
+        public string Structure { get; }
+        /// <summary>
+        /// Material quality identifier
+        /// </summary>
+        public string Quality { get; }
+        /// <summary>
+        /// Section/Thickness identifier
+        /// </summary>
+        public string Section { get; }
+        /// <summary>
+        /// Weight per length [t/m, t/m2]
+        /// </summary>
+        public double UnitWeight { get; }
+        /// <summary>
+        /// Subtotal
+        /// </summary>
+        public double SubTotal { get; }
+        /// <summary>
+        /// Total weight
+        /// </summary>
+        public double TotalWeight { get; }
+        /// <summary>
+        /// Painted area
+        /// </summary>
+        public double PaintedArea { get; }
+        internal QuantityEstimationGeneral(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
+        {
+            Storey = storey;
+            Structure = structure;
+            Id = id;
+            Quality = quality;
+            Section = section;
+            UnitWeight = unitWeight;
+            SubTotal = subtotal;
+            TotalWeight = totalWeight;
+            PaintedArea = paintedArea;
+        }
+
+        public override string ToString()
+        {
+            return ResultsReader.ObjectRepresentation(this);
+        }
+
+        internal static Regex IdentificationExpression
+        {
+            get
+            {
+                return new Regex(@"(?'type'Quantity estimation), (?'result'General)");
+            }
+        }
+
+        internal static Regex HeaderExpression
+        {
+            get
+            {
+                return new Regex(@"Quantity estimation, General|Storey\t|\t*\[.+\]|TOTAL\t");
+            }
+        }
+
+        internal static QuantityEstimationGeneral Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        {
+            string storey = row[0] == "-" ? null : row[0];
+            string structure = row[1];
+            string id = row[2];
+            string quality = row[3];
+            string section = row[4];
+            double unitWeight = double.Parse(row[5], CultureInfo.InvariantCulture);
+            double subtotal = double.Parse(row[6], CultureInfo.InvariantCulture);
+            double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
+            double paintedArea = double.Parse(row[8], CultureInfo.InvariantCulture);
+            return new QuantityEstimationGeneral(id, storey, structure, quality, section, unitWeight, subtotal, totalWeight, paintedArea);
         }
     }
 }

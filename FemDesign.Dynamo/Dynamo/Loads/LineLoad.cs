@@ -34,7 +34,7 @@ namespace FemDesign.Loads
             }
 
             //
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Force);
+            return new LineLoad(edge, _startForce, _endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection: false);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace FemDesign.Loads
             Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
 
             //
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Force);
+            return new LineLoad(edge, _startForce,  _endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection: false);
         }
 
         /// <summary>
@@ -82,8 +82,7 @@ namespace FemDesign.Loads
                 throw new System.ArgumentException($"Force is zero.");
             }
 
-            // 
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Moment);
+            return new LineLoad(edge, _startForce, _endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection: false);
         }
 
         /// <summary>
@@ -104,8 +103,7 @@ namespace FemDesign.Loads
             Geometry.FdVector3d _startForce = Geometry.FdVector3d.FromDynamo(startForce);
             Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
 
-            // 
-            return new LineLoad(edge, _startForce, _endForce, loadCase, comment, constLoadDir, false, ForceLoadType.Moment);
+            return new LineLoad(edge, _startForce, _endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection: false);
         }
 
         /// <summary>

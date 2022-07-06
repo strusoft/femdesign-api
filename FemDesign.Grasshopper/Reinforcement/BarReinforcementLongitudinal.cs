@@ -15,12 +15,12 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Wire", "Wire", "Longitudinal rebar material and type.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("YPos", "YPos", "Y-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ZPos", "ZPos", "Z-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Measure representing start anchorage of longitudinal rebar in meters.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Measure representing end anchorage of longitudinal rebar in meters.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Start", "Start", "Start x-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("End", "End", "End x-position, of longitudinal rebar, in host bar local coordinate system.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YPos", "YPos", "Y-position, of longitudinal rebar, in host bar local coordinate system. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZPos", "ZPos", "Z-position, of longitudinal rebar, in host bar local coordinate system. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartAnchorage", "StartAnchorage", "Measure representing start anchorage of longitudinal rebar. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndAnchorage", "EndAnchorage", "Measure representing end anchorage of longitudinal rebar. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Start", "Start", "Start x-position, of longitudinal rebar, in host bar local coordinate system.  [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("End", "End", "End x-position, of longitudinal rebar, in host bar local coordinate system.  [m]", GH_ParamAccess.item);
             pManager.AddBooleanParameter("AuxiliaryBar", "AuxBar", "Is bar auxiliary?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }

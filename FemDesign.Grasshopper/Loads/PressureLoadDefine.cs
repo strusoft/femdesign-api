@@ -18,9 +18,9 @@ namespace FemDesign.Grasshopper
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LoadDirection", "Direction", "Vector. Direction of force.", GH_ParamAccess.item);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("z0", "z0", "Surface level of soil/water (on the global Z axis).", GH_ParamAccess.item);
-            pManager.AddNumberParameter("q0", "q0", "Load intensity at the surface level.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("qh", "qh", "Increment of load intensity per meter (along the global Z axis).", GH_ParamAccess.item);
+            pManager.AddNumberParameter("z0", "z0", "Surface level of soil/water (on the global Z axis). [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("q0", "q0", "Load intensity at the surface level. [kN/m²]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("qh", "qh", "Increment of load intensity per meter (along the global Z axis). [kN/m²/m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[6].Optional = true;
         }

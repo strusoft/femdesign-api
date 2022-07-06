@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("Alignment", "Alignment", "top/bottom/center", GH_ParamAccess.item, "center");
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("Eccentricity", "Ecc", "Eccentricity.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("Eccentricity", "Ecc", "Eccentricity. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("EccentricityCalculation", "EccCalc", "Consider eccentricity in calculation? True/false.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;

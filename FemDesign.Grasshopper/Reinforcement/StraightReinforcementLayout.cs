@@ -15,9 +15,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Direction", "Direction", "Reinforcement layout direction. Allowed values: x/y.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Space", "Space", "Spacing between bars.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Space", "Space", "Spacing between bars. [m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Face", "Face", "Surface reinforcement face. Allowed values: top/mid/bottom.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Cover", "Cover", "Reinforcement concrete cover.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Cover", "Cover", "Reinforcement concrete cover. [m]", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

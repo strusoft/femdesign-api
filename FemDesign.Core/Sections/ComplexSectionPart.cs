@@ -53,6 +53,7 @@ namespace FemDesign.Sections
         {
             this.Pos = pos;
             this.SectionRef = section.Guid;
+            this.SectionObj = section;
             this.Eccentricity = eccentricity;
             this.End = "";
         }

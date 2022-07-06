@@ -70,6 +70,52 @@ namespace FemDesign.Calculate
             DocTable.CaseIndex = caseIndex;
         }
 
+        public Bsc(ListProc resultType, string bscPath, FemDesign.Results.UnitResults unitResult)
+        {
+            if (Path.GetExtension(bscPath) != ".bsc")
+            {
+                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
+            }
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
+            DocTable = new DocTable(resultType, unitResult);
+            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
+            CmdEndSession = new CmdEndSession();
+            SerializeBsc();
+        }
+
+        public Bsc(ListProc resultType, int caseIndex, string bscPath, FemDesign.Results.UnitResults unitResult) : this(resultType, bscPath, unitResult)
+        {
+            DocTable.CaseIndex = caseIndex;
+        }
+
+
+        public static List<string> BscPathFromResultTypes(IEnumerable<Results.ResultType> resultTypes, string strPath, Results.UnitResults units = null)
+        {
+            // Create Bsc files from resultTypes
+            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
+
+
+            var dir = System.IO.Path.GetDirectoryName(strPath);
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(strPath);
+
+            // Create \data folder to store output
+            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
+            // If directory does not exist, create it
+            if (!System.IO.Directory.Exists(dataDir))
+            {
+                System.IO.Directory.CreateDirectory(dataDir);
+            }
+
+            if(units == null)
+                units = Results.UnitResults.Default();
+
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
+            var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
+            return bscPathsFromResultTypes;
+        }
+
+
         public static implicit operator string(Bsc bsc)
         {
             return bsc.BscPath;

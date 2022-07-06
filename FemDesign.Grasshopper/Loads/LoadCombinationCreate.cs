@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Type", "Type", "LoadCombination type. ultimate_ordinary/ultimate_accidental/ultimate_seismic/serviceability_quasi_permanent/serviceability_frequent/serviceability_characteristic.", GH_ParamAccess.item, "ultimate_ordinary");
             pManager[1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in LoadCombination. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Gamma", "Gamma", "Gamma value for respective LoadCase. Single value or list of values.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Gamma", "Gamma", "Gamma value for respective LoadCase. Single value or list of values. [-]", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

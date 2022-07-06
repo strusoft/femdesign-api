@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity.", GH_ParamAccess.item);
            pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrhotropy", GH_ParamAccess.item);
            pManager.AddCurveParameter("EdgeCurves", "EdgeCurves", "EdgeCurves", GH_ParamAccess.list);
-           pManager.AddGenericParameter("ShellEdgeConnections", "ShellEdgeConnections", "ShellEdgeConnections", GH_ParamAccess.list);
+           pManager.AddGenericParameter("EdgeConnections", "EdgeConnections", "EdgeConnections", GH_ParamAccess.list);
            pManager.AddVectorParameter("LocalX", "LocalX", "LocalX", GH_ParamAccess.item);
            pManager.AddVectorParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("SurfaceReinforcementParameters", "SrfReinfParams", "SurfaceReinforcementParameters", GH_ParamAccess.item);

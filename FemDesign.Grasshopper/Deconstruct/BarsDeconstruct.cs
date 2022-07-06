@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
-            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve [m]", GH_ParamAccess.item);
             pManager.AddGenericParameter("Type", "Type", "Bar type", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
             pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);

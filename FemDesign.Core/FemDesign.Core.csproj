@@ -86,7 +86,11 @@
     <Compile Include="Calculate\Freq.cs" />
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
+    <Compile Include="Calculate\Options.cs" />
     <Compile Include="Calculate\Stage.cs" />
+    <Compile Include="Results\LabelledSectionInternalForce.cs" />
+    <Compile Include="Results\LabelledSectionResultant.cs" />
+    <Compile Include="Results\Units.cs" />
     <Compile Include="GenericClasses\Camber.cs" />
     <Compile Include="GenericClasses\FaceEnum.cs" />
     <Compile Include="GenericClasses\VerticalAlignmentEnum.cs" />
@@ -98,6 +102,25 @@
     <Compile Include="GenericClasses\IFemDesignEntity.cs" />
     <Compile Include="GenericClasses\ILibraryBase.cs" />
     <Compile Include="GenericClasses\ILoadElement.cs" />
+    <Compile Include="Geometry\Face.cs" />
+    <Compile Include="Results\BarInternalForce.cs" />
+    <Compile Include="Results\BarStress.cs" />
+    <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
+    <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
+    <Compile Include="Results\FiniteElements\FeaBar.cs" />
+    <Compile Include="Results\FiniteElements\FDfea.cs" />
+    <Compile Include="Results\FiniteElements\FeaNode.cs" />
+    <Compile Include="Results\FiniteElements\FeaShell.cs" />
+    <Compile Include="Results\FootFall\NodalAcceleration.cs" />
+    <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
+    <Compile Include="Results\LineConnectionForce.cs" />
+    <Compile Include="Results\LineConnectionResultant.cs" />
+    <Compile Include="Results\BarDisplacement.cs" />
+    <Compile Include="Results\LineSupportResultant.cs" />
+    <Compile Include="Results\RC design\ShellCrackWidth.cs" />
+    <Compile Include="Results\RC design\ShellUtilization.cs" />
+    <Compile Include="Results\Shell\ShellDerivedForce.cs" />
+    <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\ResultTypeEnum.cs" />
@@ -241,13 +264,14 @@
     <Compile Include="Releases\StiffBaseType.cs" />
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
-    <Compile Include="Results\ShelllnternalForce.cs" />
+    <Compile Include="Results\Shell\ShelllnternalForce.cs" />
     <Compile Include="Results\BarEndForce.cs" />
-    <Compile Include="Results\NodalDisplacement.cs" />
+    <Compile Include="Results\Node\NodalDisplacement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
-    <Compile Include="Results\PointSupportReaction.cs" />
+    <Compile Include="Results\Node\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
+    <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />
@@ -262,7 +286,7 @@
     <Compile Include="Shells\Panel.cs" />
     <Compile Include="Shells\ShellBucklingType.cs" />
     <Compile Include="Shells\ShellEccentricity.cs" />
-    <Compile Include="Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Shells\EdgeConnection.cs" />
     <Compile Include="Shells\ShellOrthotropy.cs" />
     <Compile Include="Shells\Slab.cs" />
     <Compile Include="Shells\SlabPart.cs" />
@@ -305,6 +329,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

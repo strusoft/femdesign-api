@@ -19,13 +19,13 @@ namespace FemDesign.Grasshopper
             pManager.AddIntegerParameter("Type", "Type", "LoadGroup type.", GH_ParamAccess.item, 0);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in LoadGroup. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
             pManager.AddGenericParameter("LoadCategory", "LoadCategory", "Psi (\u03A8) values to apply when combining loads (not needed for permanent group).", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StandardUnfavourableSafetyFactor", "StandardUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StandardFavourableSafetyFactor", "StandardFavourableSafetyFactor", "Favourable safety factor to multiply load with  (only needed for permanent loads).", GH_ParamAccess.item, 1);
-            pManager.AddNumberParameter("AccidentalUnfavourableSafetyFactor", "AccidentalUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with (for accidental combinations).", GH_ParamAccess.item, 1);
-            pManager.AddNumberParameter("AccidentalFavourableSafetyFactor", "AccidentalFavourableSafetyFactor", "Favourable safety factor to multiply load with (for accidental combinations).", GH_ParamAccess.item, 1);
-            pManager.AddIntegerParameter("LoadCaseRelationship", "LoadCaseRelationship", "Specifies how the load cases are related", GH_ParamAccess.item, 0);
-            pManager.AddNumberParameter("Xi", "Xi", "Factor to multiply permanent load with (only needed for permanent loads).", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("PotentiallyLeadingAction", "PotentiallyLeadingAction", "True if the load cases in the group can be leading actions", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("StandardUnfavourableSafetyFactor", "StandardUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with. [-]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StandardFavourableSafetyFactor", "StandardFavourableSafetyFactor", "Favourable safety factor to multiply load with  (only needed for permanent loads). [-]", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("AccidentalUnfavourableSafetyFactor", "AccidentalUnfavourableSafetyFactor", "Unfavourable safety factor to multiply load with (for accidental combinations). [-]", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("AccidentalFavourableSafetyFactor", "AccidentalFavourableSafetyFactor", "Favourable safety factor to multiply load with (for accidental combinations). [-]", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("LoadCaseRelationship", "LoadCaseRelationship", "Specifies how the load cases are related.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("Xi", "Xi", "Factor to multiply permanent load with (only needed for permanent loads). [-]", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("PotentiallyLeadingAction", "PotentiallyLeadingAction", "True if the load cases in the group can be leading actions.", GH_ParamAccess.item, 1);
 
             // Named values instead of integers
             Param_Integer type = pManager[1] as Param_Integer;

@@ -121,7 +121,7 @@ namespace FemDesign.Supports
             // set edge specific properties
             this.Group = group;
             this.Edge = edge;
-            this.EdgeNormal = edge.Normal;
+            this.EdgeNormal = group.LocalX;
         }
 
         /// <summary>

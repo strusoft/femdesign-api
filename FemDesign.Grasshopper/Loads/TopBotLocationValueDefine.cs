@@ -13,9 +13,9 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "Point of top bottom location value.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("TopVal", "TopVal", "Top value", GH_ParamAccess.item);
-            pManager.AddNumberParameter("BototmVal", "BottomVal", "Bottom value", GH_ParamAccess.item);
+            pManager.AddPointParameter("Point", "Point", "Point of top bottom location value. [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TopVal", "TopVal", "Top value. [\x00B0C]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BottomVal", "BottomVal", "Bottom value.  [\x00B0C]", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

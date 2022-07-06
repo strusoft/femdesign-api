@@ -25,12 +25,13 @@ namespace FemDesign.Results
         /// <param name="filePath">Path to a .txt/.csv file with listed results from FEM-Design</param>
         public ResultsReader(string filePath) : base(filePath, delimiter: '\t')
         {
-
             Type iResultType = typeof(Results.IResult);
             var resultTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.GetName().FullName.StartsWith("FemDesign"))
                 .SelectMany(s => s.GetTypes())
-                .Where(p => iResultType.IsAssignableFrom(p) && p.IsClass);
+                .Where(p => iResultType.IsAssignableFrom(p))
+                .Where(p => p.IsClass)
+                .Where(p => p.IsPublic);
 
             HeaderExpression = new Regex(string.Join("|", resultTypes.Select(GetHeaderExpression).Select(r => r.ToString())));
             ResultTypesIdentificationExpressions = resultTypes.ToDictionary(t => t, GetIdentificationExpression);
@@ -63,7 +64,7 @@ namespace FemDesign.Results
                 }
             }
 
-            return HeaderExpression.IsMatch(line);
+            return match.Success;
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace FemDesign.Results
         /// <returns></returns>
         public List<Results.IResult> ParseAll()
         {
-            Type resultType;
+            Type resultType = null;
             List<Results.IResult> mixedResults = new List<Results.IResult>();
 
             MethodInfo method = typeof(ResultsReader).GetMethod(
@@ -88,7 +89,7 @@ namespace FemDesign.Results
                 do
                 {
                     resultType = SniffResultType();
-                } while (resultType == null && !IsDone);
+                } while (resultType is null && !IsDone);
 
                 MethodInfo parseAllMethod = method.MakeGenericMethod(resultType);
 
@@ -97,14 +98,11 @@ namespace FemDesign.Results
                     dynamic obj = parseAllMethod.Invoke(this, new object[] { false, true });
                     mixedResults.AddRange(obj);
                 }
-                catch (Exception e)
+                catch (TargetInvocationException e)
                 {
-                    throw new ParseException($"{e.Message}\n{e.InnerException.Message}");
+                    throw new ParseException(resultType, "<all>", e.InnerException);
                 }
             }
-
-            if (mixedResults.Count == 0)
-                throw new ApplicationException($"No results read. Are there any results in the file? ({FilePath})");
 
             return mixedResults;
         }
@@ -145,7 +143,7 @@ namespace FemDesign.Results
                     }
             }
 
-            if (resultType == null)
+            if (resultType is null)
                 throw new ApplicationException($"Could not identify all result types of the file {FilePath}.");
 
             return resultType;
@@ -182,6 +180,24 @@ namespace FemDesign.Results
 
             return (ResultParserType)mathodInfo.CreateDelegate(typeof(ResultParserType));
         }
+
+        public static string ObjectRepresentation(object myObject)
+        {
+
+            Type myType = myObject.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+
+            string objRepr = $"{myType.Name},";
+
+            foreach (PropertyInfo prop in props)
+            {
+                object propValue = prop.GetValue(myObject, null);
+                objRepr += $" {prop.Name}: {propValue},";
+            }
+            var newRepr = objRepr.Remove(objRepr.Length - 1, 1);
+
+            return newRepr;
+        }
     }
 
     /// <summary>
@@ -212,7 +228,7 @@ namespace FemDesign.Results
         protected CsvParser(string filePath, char delimiter = ',', Func<string[], CsvParser, Dictionary<string, string>, object> rowParser = null, Func<string, CsvParser, bool> headerParser = null)
         {
             FilePath = filePath;
-            Stream = new StreamReader(filePath);
+            Stream = new StreamReader(filePath, System.Text.Encoding.Default, true);
             Delimiter = delimiter;
             RowParser = rowParser;
             HeaderParser = headerParser;
@@ -286,9 +302,9 @@ namespace FemDesign.Results
                 {
                     parsed = ParseRow<T>();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    throw new ParseException($"Could not parse line '{line.Replace("\t", "  ")}' to type {typeof(T).FullName}");
+                    throw new ParseException(typeof(T), line.Replace("\t", "  "), e);
                 }
                 if (parsed == null && skipNull)
                     continue;
@@ -298,15 +314,15 @@ namespace FemDesign.Results
             }
 
             results = AfterParse(results);
-            
+
             return results;
         }
 
         protected virtual void BeforeParse(Type type)
         {
-            if (RowParser == null)
+            if (RowParser is null)
                 throw new ApplicationException("Row parser was not initialized properly.");
-            if (HeaderParser == null)
+            if (HeaderParser is null)
                 throw new ApplicationException("Header parser was not initialized properly.");
         }
 
@@ -315,7 +331,7 @@ namespace FemDesign.Results
             return parsed;
         }
 
-             
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources
         /// </summary>
@@ -330,9 +346,25 @@ namespace FemDesign.Results
     /// </summary>
     public partial class ParseException : ApplicationException
     {
-        public ParseException() { }
-        public ParseException(string message) : base(message) { }
-        public ParseException(string message, Exception inner) : base(message, inner) { }
+        public Type TypeNotParsed;
+        public ParseException(Type typeNotParsed, string lineNotParsed) : base($"Could not parse line '{lineNotParsed}' to type {typeNotParsed.GetType().FullName}")
+        {
+            TypeNotParsed = typeNotParsed;
+        }
+        /// <summary>
+        /// No results in file.
+        /// </summary>
+        /// <param name="typeNotParsed"></param>
+        /// <param name="message"></param>
+        /// <param name="path"></param>
+        public ParseException(Type typeNotParsed, string message, string path) : base($"No results read. Are there any results in the file? ({path})" + (string.IsNullOrEmpty(path) ? "" : ". " + message))
+        {
+            TypeNotParsed = typeNotParsed;
+        }
+        public ParseException(Type typeNotParsed, string lineNotParsed, Exception inner) : base($"Could not parse line '{lineNotParsed}' to type {typeNotParsed.GetType().FullName}", inner)
+        {
+            TypeNotParsed = typeNotParsed;
+        }
         protected ParseException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context) { }

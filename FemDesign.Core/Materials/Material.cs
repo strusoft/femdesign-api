@@ -31,6 +31,8 @@ namespace FemDesign.Materials
         public Steel Steel { get; set; }
         [XmlElement("reinforcing_steel")]
         public ReinforcingSteel ReinforcingSteel { get; set; }
+        [XmlElement("stratum")]
+        public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
 
         /// <summary>
         /// Set creep and shrinkage parameters to a concrete Material.

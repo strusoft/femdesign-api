@@ -1,15 +1,12 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
-#region dynamo
 using Autodesk.DesignScript.Runtime;
-#endregion
 
 namespace FemDesign.Loads
 {
     [IsVisibleInDynamoLibrary(false)]
     public partial class SurfaceLoad: ForceLoadBase
     {
-        #region dynamo
         /// <summary>
         /// Create a uniform surface load.
         /// Surfaces created by Surface.ByLoft method might cause errors, please use Surface.ByPatch or Surface.ByPerimeterPoints.
@@ -26,7 +23,7 @@ namespace FemDesign.Loads
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
             Geometry.FdVector3d _force = Geometry.FdVector3d.FromDynamo(force);
 
-            SurfaceLoad surfaceLoad = SurfaceLoad.Uniform(region, _force, loadCase, comment);
+            SurfaceLoad surfaceLoad = SurfaceLoad.Uniform(region, _force, loadCase, false, comment);
 
             return surfaceLoad;
         }
@@ -53,7 +50,7 @@ namespace FemDesign.Loads
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
             Geometry.FdVector3d loadDirection = Geometry.FdVector3d.FromDynamo(direction).Normalize();
 
-            SurfaceLoad surfaceLoad = SurfaceLoad.Variable(region, loadDirection, loadLocationValue, loadCase, comment);
+            SurfaceLoad surfaceLoad = SurfaceLoad.Variable(region, loadDirection, loadLocationValue, loadCase, false, comment);
             return surfaceLoad;
         }
 
@@ -64,6 +61,5 @@ namespace FemDesign.Loads
         {
             return this.Region.ToDynamoSurface();
         }
-        #endregion
     }
 }

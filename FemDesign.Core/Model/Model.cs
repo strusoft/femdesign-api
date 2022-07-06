@@ -221,20 +221,28 @@ namespace FemDesign
 
             if (model.Entities == null) model.Entities = new Entities();
 
-            // prepare elements with library references
-            model.GetBars();
-            model.GetFictitiousShells();
-            model.GetLineSupports();
-            model.GetPanels();
-            model.GetPointSupports();
-            model.GetSlabs();
-            model.GetSurfaceSupports();
-            model.GetPointConnections();
-            model.GetLineConnections();
+            // prepare elements with library reference
+            // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
+            if (model.Entities.Bars.Any())
+                model.GetBars();
+            if (model.Entities.AdvancedFem.FictitiousShells.Any()) 
+                model.GetFictitiousShells();
+            if (model.Entities.Supports.LineSupport.Any()) 
+                model.GetLineSupports();
+            if (model.Entities.Panels.Any()) 
+                model.GetPanels();
+            if (model.Entities.Supports.PointSupport.Any()) 
+                model.GetPointSupports();
+            if (model.Entities.Slabs.Any()) 
+                model.GetSlabs();
+            if (model.Entities.Supports.SurfaceSupport.Any()) 
+                model.GetSurfaceSupports();
+            if (model.Entities.AdvancedFem.ConnectedPoints.Any()) 
+                model.GetPointConnections();
+            if (model.Entities.AdvancedFem.ConnectedLines.Any()) 
+                model.GetLineConnections();
 
-            // return
             return model;
-
         }
 
         /// <summary>
@@ -255,6 +263,41 @@ namespace FemDesign
             {
                 serializer.Serialize(writer, this);
             }
+        }
+
+        /// <summary>
+        /// Reads a .str model, then saves and deserialize it from file (.struxml).
+        /// </summary>
+        /// <param name="strPath">FEM-Design model (.str) to be read.</param>
+        /// <param name="resultTypes">Results that should be read. (Might require model to have been analysed)</param>
+        /// <param name="killProcess"></param>
+        /// <param name="endSession"></param>
+        /// <param name="checkOpenFiles"></param>
+        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Results.ResultType> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
+        {
+            var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
+
+            var app = new Calculate.Application();
+            app.RunFdScript(fdScript, killProcess, endSession, checkOpenFiles);
+
+            Model model = Model.DeserializeFromFilePath(fdScript.CmdSave.FilePath);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+            if (resultTypes != null && resultTypes.Any())
+            {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                    try
+                    {
+                        return Results.ResultsReader.Parse(path);
+                    }
+                    catch (System.ApplicationException)
+                    {
+                        return Enumerable.Empty<Results.IResult>();
+                    }
+                });
+            }
+
+            return (model, results);
         }
 
         /// <summary>

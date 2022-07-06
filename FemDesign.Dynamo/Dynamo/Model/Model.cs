@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 #region dynamo
@@ -166,29 +167,96 @@ namespace FemDesign
         /// Read model from .str file. Note: Only supported elements will loaded from the .struxml model.
         /// </summary>
         /// <param name="strPath">File path to .str file.</param>
-        /// <param name="bscPath">File path to .bsc batch-file. Item or list.</param>
+        /// <param name="resultTypes">Results to be read together with the model. This might require the analysis to have been run. Item or list.</param>
+        /// <param name="units">Specify the Result Units for some specific type. Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        [MultiReturn(new[]{"Model", "HasExited"})]
-        public static Dictionary<string, object> ReadStr(string strPath, [DefaultArgument("[]")] List<string> bscPath)
+        [MultiReturn(new[]{"Model", "FdFeaModel", "Results" })]
+        public static Dictionary<string, object> ReadStr(string strPath, List<Results.ResultType> resultTypes, Results.UnitResults units)
         {
-            Calculate.FdScript fdScript = Calculate.FdScript.ReadStr(strPath, bscPath);
-            Calculate.Application fdApp = new Calculate.Application();
-            bool hasExited =  fdApp.RunFdScript(fdScript, false, true, false);
-            if (hasExited)
+            Results.FDfea fdFeaModel = null;
+
+            // It needs to check if model has been runned
+            // Always Return the FeaNode Result
+            resultTypes.Insert(0, Results.ResultType.FeaNode);
+            resultTypes.Insert(1, Results.ResultType.FeaBar);
+            resultTypes.Insert(2, Results.ResultType.FeaShell);
+
+
+            // Create Bsc files from resultTypes
+            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, strPath, units);
+
+            // Create FdScript
+            var fdScript = FemDesign.Calculate.FdScript.ReadStr(strPath, bscPathsFromResultTypes);
+
+            // Run FdScript
+            var app = new FemDesign.Calculate.Application();
+            bool hasExited = app.RunFdScript(fdScript, false, true, false);
+
+            // Read model and results
+            var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+
+            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
+
+            List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+            List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
+            List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
+            if (resultTypes != null && resultTypes.Any())
             {
-                return new Dictionary<string, object>
+                foreach (var cmd in fdScript.CmdListGen)
                 {
-                    {"Model", Model.DeserializeFromFilePath(fdScript.StruxmlPath)},
-                    {"HasExited", hasExited}
-                };
+                    string path = cmd.OutFile;
+                    try
+                    {
+                        if (path.Contains("FeaNode"))
+                        {
+                            feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                        }
+                        else if (path.Contains("FeaBar"))
+                        {
+                            feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                        }
+                        else if (path.Contains("FeaShell"))
+                        {
+                            feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                        }
+                        else
+                        {
+                            var _results = Results.ResultsReader.Parse(path);
+                            results = results.Concat(_results);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.InnerException.Message);
+                    }
+                }
             }
-            else
+
+            fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+
+            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+
+            // Convert Data in DataTree structure
+            var resultsTree = new List<List<Results.IResult>>();
+
+            var i = 0;
+            foreach (var resGroup in resultGroups)
             {
-                throw new System.ArgumentException("Process did not exit, unable to load .struxml.");
+                resultsTree.Add(resGroup.ToList());
+                i++;
             }
-        }  
-            
+
+            // Output
+            return new Dictionary<string, object>
+            {
+                { "Model", model },
+                { "FdFeaModel", fdFeaModel },
+                { "Results", results }
+            };
+        }
+
         /// <summary>
         /// Save model to .struxml. Returns true if model was serialized.
         /// </summary>

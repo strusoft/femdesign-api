@@ -16,10 +16,12 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Vector. Direction of force.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("LoadLocationValue", "LoadLocationValue", "LoadLocationValue objects. List of 3 items [q1, q2, q3].", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadLocationValue", "LoadLocationValue", "LoadLocationValue objects. List of 3 items [q1, q2, q3]. [kN/m²]", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
-            pManager[4].Optional = true;
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -27,35 +29,32 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
             Brep surface = null;
             Vector3d direction = Vector3d.Zero;
             List<FemDesign.Loads.LoadLocationValue> loads = new List<FemDesign.Loads.LoadLocationValue>();
             FemDesign.Loads.LoadCase loadCase = null;
-            string comment = null;
-            if (!DA.GetData(0, ref surface)) { return; }
-            if (!DA.GetData(1, ref direction)) { return; }
-            if (!DA.GetDataList(2, loads)) { return; }
-            if (!DA.GetData(3, ref loadCase)) { return; }
-            if (!DA.GetData(4, ref comment))
-            {
-                // pass
-            }
+            bool loadProjection = false;
+            string comment = "";
+            if (!DA.GetData("Surface", ref surface)) { return; }
+            if (!DA.GetData("Direction", ref direction)) { return; }
+            if (!DA.GetDataList("LoadLocationValue", loads)) { return; }
+            DA.GetData("LoadProjection", ref loadProjection);
+            if (!DA.GetData("LoadCase", ref loadCase)) { return; }
+            DA.GetData("Comment", ref comment);
+            
             if (surface == null || loads == null || loadCase == null) { return; }
             if (loads.Count != 3)
             {
                 throw new System.ArgumentException("Load must contain exactly 3 items");
             }
 
-            // transform geometry
+            // Convert geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
             FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
 
-            //
-            FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, comment);
+            FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, loadProjection, comment);
 
-            // return
-            DA.SetData(0, obj);
+            DA.SetData("SurfaceLoad", obj);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -66,7 +65,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("1a47edc8-1db0-4b85-a372-3f2e55a82b00"); }
+            get { return new Guid("3be4e5aa-63df-4ea9-bbd1-99d59c694b31"); }
         }
     }    
 }

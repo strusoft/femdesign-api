@@ -8,7 +8,7 @@ using FemDesign;
 using FemDesign.AuxiliaryResults;
 using FemDesign.Geometry;
 
-namespace FemDesign.AuxiliaryResults.Tests
+namespace FemDesign.AuxiliaryResults.LabelledSectionTests
 {
     [TestClass()]
     public class LabelledSectionTests

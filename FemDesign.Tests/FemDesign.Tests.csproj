@@ -49,6 +49,13 @@
       <HintPath>..\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XmlDiffPatch, Version=1.0.8.28, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\XMLDiffPatch.1.0.8.28\lib\net\XmlDiffPatch.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlDiffPatch.View, Version=1.0.1493.40755, Culture=neutral">
+      <HintPath>..\packages\XMLDiffPatch.1.0.8.28\lib\net\XmlDiffPatch.View.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -69,12 +76,42 @@
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\BarDisplacementTests.cs" />
+    <Compile Include="Results\BarInternalForcesTest.cs" />
+    <Compile Include="Results\BarStressTests.cs" />
+    <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
+    <Compile Include="Results\FeaBarTests.cs" />
+    <Compile Include="Results\LineConnectionForceTests.cs" />
+    <Compile Include="Results\LineConnectionResultantTests.cs" />
+    <Compile Include="Results\ShellInternalForceTests.cs" />
+    <Compile Include="Results\EigenFrequencies\EigenFrequenciesTest.cs" />
+    <Compile Include="Results\FeaNodeTests.cs" />
+    <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
+    <Compile Include="Results\FootFall\NodalResponseFactorTests.cs" />
+    <Compile Include="Results\LineSupportResultantTests.cs" />
+    <Compile Include="Results\LineSupportReactionTests.cs" />
+    <Compile Include="Results\QuantityEstimationConcreteTests.cs" />
+    <Compile Include="Results\QuantityEstimationProfiledPlateTests.cs" />
+    <Compile Include="Results\QuantityEstimationMasonryTests.cs" />
+    <Compile Include="Results\QuantityEstimationTimberPanelTests.cs" />
+    <Compile Include="Results\RC design\ShellCrackWidthTests.cs" />
+    <Compile Include="Results\RC design\ShellUtilizationTests.cs" />
+    <Compile Include="Results\ShellDerivedForceTests.cs" />
+    <Compile Include="Results\ShellsDisplacementTests.cs" />
+    <Compile Include="Results\ShellsStressTests.cs" />
+    <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Model\global-test-model_IN.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Model\global-test-model_MASTER.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+    <None Include="Shells\EdgeConnection-model.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">

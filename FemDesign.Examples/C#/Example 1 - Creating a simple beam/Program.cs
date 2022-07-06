@@ -82,7 +82,7 @@ namespace FemDesign.Examples
 
             var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
             var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
-            var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, null, constLoadDir: true, loadProjection: true, Loads.ForceLoadType.Force);
+            var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, Loads.ForceLoadType.Force, "", constLoadDir: true, loadProjection: true);
 
             var loads = new List<GenericClasses.ILoadElement>() {
                 pointForce,

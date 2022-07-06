@@ -18,25 +18,25 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("StiffnessMatrix4Type", "D", "Membrane stiffness matrix", GH_ParamAccess.item);
             pManager.AddGenericParameter("StiffnessMatrix4Type", "K", "Flexural stiffness matrix", GH_ParamAccess.item);
             pManager.AddGenericParameter("StiffnessMatrix2Type", "H", "Shear stiffness matrix", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Density", "Density", "Density in t/m2", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("Density", "Density", "Density [t/m2]", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("t1", "t1", "t1 in m", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("t1", "t1", "t1 [m]", GH_ParamAccess.item, 0.1);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("t2", "t2", "t2 in m", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("t2", "t2", "t2 [m]", GH_ParamAccess.item, 0.1);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("Alpha1", "Alpha1", "Alpha1 in 1/°C", GH_ParamAccess.item, 0.00001);
+            pManager.AddNumberParameter("Alpha1", "Alpha1", "Alpha1 [1/°C]", GH_ParamAccess.item, 0.00001);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("Alpha2", "Alpha2", "Alpha2 in 1/°C", GH_ParamAccess.item, 0.00001);
+            pManager.AddNumberParameter("Alpha2", "Alpha2", "Alpha2 [1/°C]", GH_ParamAccess.item, 0.00001);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("IgnoreInStImpCalc", "IgnoreInStImpCalc", "Ignore in stability/imperfection calculation", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ShellEdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Finite element size. Set average surface element size. If set to 0 FEM-Design will automatically caculate the average surface element size.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("AverageSurfaceElementSize", "AvgSrfElemSize", "Finite element size. Set average surface element size. If set to 0 FEM-Design will automatically caculate the average surface element size. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "FS");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -107,7 +107,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            Shells.ShellEdgeConnection edgeConnection = Shells.ShellEdgeConnection.GetDefault();
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetDefault();
             if (!DA.GetData(10, ref edgeConnection))
             {
                 // pass

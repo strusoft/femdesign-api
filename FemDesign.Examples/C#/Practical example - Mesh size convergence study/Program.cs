@@ -23,10 +23,9 @@ namespace FemDesign.Examples
             // INPUTS:
             // All inputs used in the program.
             string modelPath = "Model with labelled sections.struxml";
-            string outputDirectory = "Output";
             double maxAllowedDeviation = 0.02;
             string labeledSectionIdentifier = "LS.1";
-            List<double> meshSizes = new List<double> { 2.0, 1.0, 0.5, 0.25, 0.20, 0.15, 0.10};
+            List<double> meshSizes = new List<double> { 2.0, 1.0, 0.5, 0.25, 0.15, 0.10 };
             int forceIdIndex = 2;
             // The force index stem from the .bsc file made from FEM-Design, where they are ordered like this:
             // ID		Mx' 	My'	    Mx'y' 	Nx' 	Ny' 	Nx'y'	Tx'z' 	Ty'z'	Comb.
@@ -35,8 +34,6 @@ namespace FemDesign.Examples
 
             // PREPARATIONS:
             // Some setup necessary to run the analysis and save the results.
-            if (!Directory.Exists(outputDirectory))
-                Directory.CreateDirectory(outputDirectory);
 
             string fileName = Path.GetFileName(modelPath);
             FemDesign.Calculate.Analysis analysisSettings = new FemDesign.Calculate.Analysis(null, null, null, null, calcCase: true, false, false, calcComb: true, false, false, false, false, false, false, false, false, false);
@@ -51,11 +48,11 @@ namespace FemDesign.Examples
                 model.Entities.Slabs[0].SlabPart.MeshSize = size;
 
                 // Serializing new model
-                string currentPath = Path.GetFullPath(Path.Combine(outputDirectory, fileName.Replace(".struxml", $"_{size.ToString(System.Globalization.CultureInfo.InvariantCulture)}.struxml")));
+                string currentPath = Path.GetFullPath(Path.Combine(fileName.Replace(".struxml", $"_{size.ToString(System.Globalization.CultureInfo.InvariantCulture)}.struxml")));
                 model.SerializeModel(currentPath);
 
                 // Readying the .bsc script
-                string bscPath = Path.Combine(outputDirectory, fileName.Replace(".struxml", $" - LabelledSectionsInternalForcesLoadCombination.bsc"));
+                string bscPath = Path.Combine(fileName.Replace(".struxml", $" - LabelledSectionsInternalForcesLoadCombination.bsc"));
                 var bsc = new FemDesign.Calculate.Bsc(FemDesign.Calculate.ListProc.LabelledSectionsInternalForcesLoadCombination, bscPath);
 
                 // Running the analysis
@@ -64,9 +61,10 @@ namespace FemDesign.Examples
                 app.RunFdScript(fdScript, false, true, true);
 
                 // Preprarations
-                string csvPath = bscPath.Replace(".bsc", ".csv");
+                //string csvPath = bscPath.Replace(".bsc", ".csv");
+                string csvPath = fdScript.CmdListGen[0].OutFile;
                 List<double> currentForces = new List<double>();
-                List<double> L = new List<double>();
+                List<string> L = new List<string>();
 
                 // Reading results
                 using (var reader = new StreamReader(csvPath))
@@ -77,7 +75,7 @@ namespace FemDesign.Examples
                         var values = line.Split('\t');
                         if (values[0] == labeledSectionIdentifier)
                         {
-                            L.Add(double.Parse(values[1], System.Globalization.CultureInfo.InvariantCulture));
+                            L.Add(values[1]);
                             currentForces.Add(double.Parse(values[forceIdIndex], System.Globalization.CultureInfo.InvariantCulture));
                         }
                     }

@@ -8,7 +8,7 @@ using FemDesign.Supports;
 
 namespace FemDesign.Grasshopper
 {
-    internal static class Convert
+    public static class Convert
     {
 
         #region Vector
@@ -522,7 +522,7 @@ namespace FemDesign.Grasshopper
             // check if brep surface is planar
             if (!obj.Surfaces[0].IsPlanar())
             {
-                throw new System.ArgumentException("Brep surface is not planar.");
+                throw new System.ArgumentException("Brep surface is not planar. This problem might occur due to tolerance error - if your model space is in millimeters try to change to meters.");
             }
 
             // get outline curves
@@ -725,6 +725,21 @@ namespace FemDesign.Grasshopper
                 breps.Add(region.ToRhinoBrep());
             }
             return breps;
+        }
+        #endregion
+
+        #region Face
+        internal static Rhino.Geometry.MeshFace ToRhino(this FemDesign.Geometry.Face face)
+        {
+            if(face.IsQuad())
+            {
+               return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3, face.Node4);
+            }
+            else
+            // it is Triangular Mesh
+            {
+                return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3);
+            }
         }
         #endregion
 

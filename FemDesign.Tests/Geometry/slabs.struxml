@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.002" start_time="1970-01-01T00:00:00.000" end_time="2022-04-13T07:13:27.000" guid="e22968fd-0874-4437-8ef8-1cdf02f642bf" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+	<entities>
+		<slab name="P.1" guid="0645197a-cf1d-4a7b-8de5-0fcde8c261a6" last_change="2022-04-12T14:06:37.000" action="added" type="plate">
+			<slab_part guid="96e73869-c6ac-406e-bb1d-7fa3391f1dfb" last_change="2022-04-12T14:06:37.000" action="added" name="P.1.1" complex_material="fda68509-01c3-4611-9cc4-de998b35cebb" alignment="center" align_offset="0" ortho_alfa="0" ortho_ratio="1">
+				<contour>
+					<edge type="line">
+						<point x="0" y="0" z="10"></point>
+						<point x="10" y="0" z="10"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="10" y="0" z="10"></point>
+						<point x="10" y="3" z="10"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="10" y="3" z="10"></point>
+						<point x="2" y="4" z="10"></point>
+						<normal x="-0.124034734589208" y="-0.992277876713668" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="2" y="4" z="10"></point>
+						<point x="0" y="0" z="10"></point>
+						<normal x="0.894427190999916" y="-0.4472135955" z="0"></normal>
+					</edge>
+				</contour>
+				<thickness x="5" y="2" z="10" val="0.2"></thickness>
+				<local_pos x="5" y="2" z="10"></local_pos>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<end></end>
+			</slab_part>
+			<end></end>
+		</slab>
+		<slab name="P.2" guid="9c9588da-8eb2-4c70-82be-635646ae8232" last_change="2022-04-12T14:06:18.000" action="added" type="plate">
+			<slab_part guid="536d9f06-cb6b-493e-a583-3d73ecee1ddc" last_change="2022-04-13T07:13:27.000" action="added" name="P.2.1" complex_material="fda68509-01c3-4611-9cc4-de998b35cebb" alignment="center" align_offset="0" ortho_alfa="0" ortho_ratio="1">
+				<contour>
+					<edge type="line">
+						<point x="0" y="0" z="0"></point>
+						<point x="10" y="0" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="10" y="0" z="0"></point>
+						<point x="10" y="3" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+						<edge_connection guid="a655f61b-4037-4ba3-81c1-a984cfaac291" last_change="2022-04-13T07:13:27.000" action="added" name="CE.1" joined_start_point="true" joined_end_point="true">
+							<!--edge description: "P.2.CE.1" -->
+							<rigidity>
+								<motions x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></motions>
+								<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+							</rigidity>
+						</edge_connection>
+					</edge>
+					<edge type="line">
+						<point x="10" y="3" z="0"></point>
+						<point x="2" y="4" z="0"></point>
+						<normal x="-0.124034734589208" y="-0.992277876713668" z="0"></normal>
+						<edge_connection guid="f5088a4e-2753-4412-a371-57d95c700cdf" last_change="2022-04-13T06:44:27.000" action="added" name="CE.2" joined_start_point="true" joined_end_point="true">
+							<!--edge description: "P.2.CE.2" -->
+							<rigidity>
+								<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="0" z_pos="0"></motions>
+								<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+							</rigidity>
+						</edge_connection>
+					</edge>
+					<edge type="line">
+						<point x="2" y="4" z="0"></point>
+						<point x="0" y="0" z="0"></point>
+						<normal x="0.894427190999916" y="-0.4472135955" z="0"></normal>
+						<edge_connection guid="6df3573f-4c8a-4d16-9647-ba92916dd6ce" last_change="2022-04-13T06:44:22.000" action="added" name="CE.3" joined_start_point="true" joined_end_point="true">
+							<!--edge description: "P.2.CE.3" -->
+							<rigidity>
+								<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+								<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+							</rigidity>
+						</edge_connection>
+					</edge>
+				</contour>
+				<thickness x="5" y="2" z="0" val="0.2"></thickness>
+				<local_pos x="5" y="2" z="0"></local_pos>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<end></end>
+			</slab_part>
+			<end></end>
+		</slab>
+	</entities>
+	<materials>
+		<material guid="fda68509-01c3-4611-9cc4-de998b35cebb" last_change="2022-04-12T14:06:18.000" action="added" standard="EC" country="S" name="C30/37">
+			<concrete mass="2.54842" E_0="33000000" E_1="33000000" E_2="33000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="13750000" G_1="13750000" G_2="13750000" Fck="30" Fck_cube="37" Fctk="2" Fctm="2.9" Ecm="33000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1.15" alfaCc="1" alfaCt="1" Fcd_0="20" Fcd_1="25" Fctd_0="1.33333333333333" Fctd_1="1.66666666666667" Ecd_0="22000" Ecd_1="27500" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<end></end>
+</database>

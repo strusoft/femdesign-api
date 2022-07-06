@@ -176,6 +176,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\LoadCombination.cs">
       <Link>Core\Calculate\LoadCombination.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Options.cs">
+      <Link>Core\Calculate\Options.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
@@ -250,6 +253,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\Edge.cs">
       <Link>Core\Geometry\Edge.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Face.cs">
+      <Link>Core\Geometry\Face.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\FdCoordinateSystem.cs">
       <Link>Core\Geometry\FdCoordinateSystem.cs</Link>
@@ -602,19 +608,67 @@
     <Compile Include="..\FemDesign.Core\Releases\StiffnessWithFriction.cs">
       <Link>Core\Releases\StiffnessWithFriction.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarDisplacement.cs">
+      <Link>Core\Results\BarDisplacement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\BarEndForce.cs">
       <Link>Core\Results\BarEndForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarInternalForce.cs">
+      <Link>Core\Results\BarInternalForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\BarStress.cs">
+      <Link>Core\Results\BarStress.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\EigenFrequencies\EigenFrequencies.cs">
+      <Link>Core\Results\EigenFrequencies.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\EigenFrequencies\NodalVibration.cs">
+      <Link>Core\Results\NodalVibration.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FDfea.cs">
+      <Link>Core\Results\FDfea.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaBar.cs">
+      <Link>Core\Results\FeaBar.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaNode.cs">
+      <Link>Core\Results\FeaNode.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FiniteElements\FeaShell.cs">
+      <Link>Core\Results\FeaShell.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FootFall\NodalAcceleration.cs">
+      <Link>Core\Results\NodalAcceleration.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\FootFall\NodalResponseFactor.cs">
+      <Link>Core\Results\NodalResponseFactor.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\IResult.cs">
       <Link>Core\Results\IResult.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LabelledSectionInternalForce.cs">
+      <Link>Core\Results\LabelledSectionInternalForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LabelledSectionResultant.cs">
+      <Link>Core\Results\LabelledSectionResultant.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineConnectionForce.cs">
+      <Link>Core\Results\LineConnectionForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\LineConnectionResultant.cs">
+      <Link>Core\Results\LineConnectionResultant.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
       <Link>Core\Results\LineSupportReaction.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\NodalDisplacement.cs">
+    <Compile Include="..\FemDesign.Core\Results\LineSupportResultant.cs">
+      <Link>Core\Results\LineSupportResultant.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Node\NodalDisplacement.cs">
       <Link>Core\Results\NodalDisplacement.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\PointSupportReaction.cs">
+    <Compile Include="..\FemDesign.Core\Results\Node\PointSupportReaction.cs">
       <Link>Core\Results\PointSupportReaction.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\QuantityEstimation.cs">
@@ -629,8 +683,20 @@
     <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
       <Link>Core\Results\ResultTypeEnum.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ShelllnternalForce.cs">
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellDerivedForce.cs">
+      <Link>Core\Results\ShellDerivedForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellDisplacement.cs">
+      <Link>Core\Results\ShellDisplacement.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShelllnternalForce.cs">
       <Link>Core\Results\ShelllnternalForce.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Shell\ShellStress.cs">
+      <Link>Core\Results\ShellStress.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Units.cs">
+      <Link>Core\Results\Units.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Sections\ComplexSection.cs">
       <Link>Core\Sections\ComplexSection.cs</Link>
@@ -650,6 +716,9 @@
     <Compile Include="..\FemDesign.Core\Sections\SectionDatabase.cs">
       <Link>Core\Sections\SectionDatabase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\EdgeConnection.cs">
+      <Link>Core\Shells\EdgeConnection.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Shells\EdgeConnectionBase.cs">
       <Link>Core\Shells\EdgeConnectionBase.cs</Link>
     </Compile>
@@ -667,9 +736,6 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Shells\ShellEccentricity.cs">
       <Link>Core\Shells\ShellEccentricity.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Shells\ShellEdgeConnection.cs">
-      <Link>Core\Shells\ShellEdgeConnection.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Shells\ShellOrthotropy.cs">
       <Link>Core\Shells\ShellOrthotropy.cs</Link>
@@ -779,6 +845,7 @@
     <Compile Include="Dynamo\GenericClasses\StartEndType.cs" />
     <Compile Include="Dynamo\GenericClasses\Tolerance.cs" />
     <Compile Include="Dynamo\Geometry\Contour.cs" />
+    <Compile Include="Dynamo\Geometry\Face.cs" />
     <Compile Include="Dynamo\Geometry\Edge.cs" />
     <Compile Include="Dynamo\Geometry\FdCoordinateSystem.cs" />
     <Compile Include="Dynamo\Geometry\FdPoint2d.cs" />
@@ -873,14 +940,32 @@
     <Compile Include="Dynamo\Releases\StiffBaseType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessType.cs" />
     <Compile Include="Dynamo\Releases\StiffnessWithFriction.cs" />
-    <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
-    <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\BarDisplacement.cs" />
     <Compile Include="Dynamo\Results\BarEndForce.cs" />
+    <Compile Include="Dynamo\Results\BarInternalForce.cs" />
+    <Compile Include="Dynamo\Results\BarStress.cs" />
+    <Compile Include="Dynamo\Results\EigenFrequencies.cs" />
+    <Compile Include="Dynamo\Results\FeaBar.cs" />
+    <Compile Include="Dynamo\Results\FeaShell.cs" />
+    <Compile Include="Dynamo\Results\LabelledSectionInternalForce.cs" />
+    <Compile Include="Dynamo\Results\LabelledSectionResultant.cs" />
+    <Compile Include="Dynamo\Results\LineConnectionForce.cs" />
+    <Compile Include="Dynamo\Results\LineConnectionResultant.cs" />
+    <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\FeaNode.cs" />
+    <Compile Include="Dynamo\Results\LineSupportResultant.cs" />
+    <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
+    <Compile Include="Dynamo\Results\NodalAcceleration.cs" />
+    <Compile Include="Dynamo\Results\NodalResponseFactor.cs" />
+    <Compile Include="Dynamo\Results\NodalVibration.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
     <Compile Include="Dynamo\Results\QuantityEstimation.cs" />
     <Compile Include="Dynamo\Results\ResultAttribute.cs" />
     <Compile Include="Dynamo\Results\ResultReader.cs" />
+    <Compile Include="Dynamo\Results\ShellDerivedForce.cs" />
+    <Compile Include="Dynamo\Results\ShellDisplacement.cs" />
     <Compile Include="Dynamo\Results\ShellInternalForce.cs" />
+    <Compile Include="Dynamo\Results\ShellStress.cs" />
     <Compile Include="Dynamo\Sections\ComplexSection.cs" />
     <Compile Include="Dynamo\Sections\DatabaseSections.cs" />
     <Compile Include="Dynamo\Sections\ModelSection.cs" />
@@ -892,7 +977,7 @@
     <Compile Include="Dynamo\Shells\Panel.cs" />
     <Compile Include="Dynamo\Shells\ShellBucklingType.cs" />
     <Compile Include="Dynamo\Shells\ShellEccentricity.cs" />
-    <Compile Include="Dynamo\Shells\ShellEdgeConnection.cs" />
+    <Compile Include="Dynamo\Shells\EdgeConnection.cs" />
     <Compile Include="Dynamo\Shells\ShellOrthotropy.cs" />
     <Compile Include="Dynamo\Shells\Slab.cs" />
     <Compile Include="Dynamo\Shells\SlabPart.cs" />

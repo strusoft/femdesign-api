@@ -86,9 +86,9 @@ namespace FemDesign.Loads
             else if (combinationType == ELoadCombinationType.Characteristic)
                 loadCombinationType = LoadCombType.ServiceabilityCharacteristic;
             else if (combinationType == ELoadCombinationType.Frequent)
-                loadCombinationType = LoadCombType.ServicabilityFrequent;
+                loadCombinationType = LoadCombType.ServiceabilityFrequent;
             else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                loadCombinationType = LoadCombType.ServicabilityQuasiPermanent;
+                loadCombinationType = LoadCombType.ServiceabilityQuasiPermanent;
             return loadCombinationType;
         }
 

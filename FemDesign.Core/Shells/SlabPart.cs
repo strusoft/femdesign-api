@@ -214,7 +214,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart with EdgeConnections.
         /// </summary>
-        public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, ShellEdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy)
+        public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy)
         {
             // add edgeConnections to region
             region.SetEdgeConnections(shellEdgeConnection);
@@ -229,7 +229,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Get EdgeConnections. Used for Deconstruct methods and when redefining EdgeConnections on existing slab. 
         /// </summary>
-        public List<Shells.ShellEdgeConnection> GetEdgeConnections()
+        public List<Shells.EdgeConnection> GetEdgeConnections()
         {
             return this.Region.GetEdgeConnections();
         }

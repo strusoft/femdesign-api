@@ -1,5 +1,7 @@
 ﻿// https://strusoft.com/
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -43,16 +45,19 @@ namespace FemDesign.Calculate
     public partial class DocTable
     {
         [XmlElement("version")]
-        public string FemDesignVersion { get; set; } = "2000";
+        public string FemDesignVersion { get; set; } = "2100";
         
         [XmlElement("listproc")]
         public ListProc ListProc { get; set; }
         
         [XmlElement("index")]
         public int CaseIndex { get; set; }
-        
+
+        [XmlElement("units")]
+        public List<FemDesign.Results.Units> Units { get; set; }
+
         [XmlElement("options")]
-        public DummyXmlObject options { get; set; } = new DummyXmlObject();
+        public Options Option { get; set; }
         
         [XmlElement("restype")]
         public int ResType { get; set; }
@@ -81,6 +86,18 @@ namespace FemDesign.Calculate
             ListProc = resultType;
             CaseIndex = cIndex;
             ResType = GetResType(resultType);
+            Option = Options.GetOptions(resultType);
+        }
+
+        /// <summary>
+        /// DocTable constructor
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
+        /// <param name="unitResult">Units for Results</param>
+        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult, int? caseIndex = null) : this(resultType, caseIndex)
+        {
+            Units = Results.Units.GetUnits(unitResult);
         }
 
         private int GetResType(ListProc resultType)
@@ -93,12 +110,14 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
             if (r.EndsWith("LoadCombination"))
                 return 3;
+            if (r.StartsWith("NodalVibrationShape"))
+                return 6;
 
             throw new NotImplementedException($"'restype' index for {r} is not implemented.");
         }
@@ -106,11 +125,11 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
-            if (r.EndsWith("LoadCombination"))
+            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape"))
                 return -1; // All load combinations
 
             throw new FormatException($"Default case index of ResultType.{resultType} not known.");

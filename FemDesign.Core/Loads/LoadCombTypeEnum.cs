@@ -39,14 +39,14 @@ namespace FemDesign.Loads
         /// </summary>
         [Parseable("sq", "Sq", "serviceability_quasi_permanent", "Serviceability_quasi_permanent", "SERVICEABILITY_QUASI_PERMANENT", "ServicabilityQuasiPermanent")]
         [XmlEnum("serviceability_quasi_permanent")]
-        ServicabilityQuasiPermanent,
+        ServiceabilityQuasiPermanent,
 
         /// <summary>
         /// Serviceability frequent, "Sf", load combination type.
         /// </summary>
         [Parseable("sf", "Sf", "serviceability_frequent", "Serviceability_frequent", "SERVICEABILITY_FREQUENT", "ServicabilityFrequent")]
         [XmlEnum("serviceability_frequent")]
-        ServicabilityFrequent,
+        ServiceabilityFrequent,
 
         /// <summary>
         /// Serviceability characteristic, "Sc", load combination type.

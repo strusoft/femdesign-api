@@ -16,12 +16,12 @@ namespace FemDesign.Grasshopper
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
-           pManager.AddTextParameter("x_neg", "x_neg", "x_neg.", GH_ParamAccess.item);
-           pManager.AddTextParameter("x_pos", "x_pos", "x_pos.", GH_ParamAccess.item);
-           pManager.AddTextParameter("y_neg", "y_neg", "y_neg.", GH_ParamAccess.item);
-           pManager.AddTextParameter("y_pos", "y_pos", "y_pos.", GH_ParamAccess.item);
-           pManager.AddTextParameter("z_neg", "z_neg", "z_neg.", GH_ParamAccess.item);
-           pManager.AddTextParameter("z_pos", "z_pos", "z_pos.", GH_ParamAccess.item);
+           pManager.AddTextParameter("x_neg", "x_neg", "x_neg. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
+           pManager.AddTextParameter("x_pos", "x_pos", "x_pos. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
+           pManager.AddTextParameter("y_neg", "y_neg", "y_neg. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
+           pManager.AddTextParameter("y_pos", "y_pos", "y_pos. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
+           pManager.AddTextParameter("z_neg", "z_neg", "z_neg. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
+           pManager.AddTextParameter("z_pos", "z_pos", "z_pos. [kNm/rad] or [kNm/m/rad]", GH_ParamAccess.item);
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {

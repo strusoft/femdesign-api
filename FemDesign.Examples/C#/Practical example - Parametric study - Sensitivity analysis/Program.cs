@@ -23,9 +23,6 @@ namespace FemDesign.Examples
             // FILE PATH SETUP
             // Set the different paths and folders relevant to the example
             string struxmlPath = "Bridge Model.struxml";
-            string outFolder = "output";
-            if (!Directory.Exists(outFolder))
-                Directory.CreateDirectory(outFolder);
             string bscPath = Path.GetFullPath("eigenfreq.bsc");
             List<string> bscPaths = new List<string>();
             bscPaths.Add(bscPath);
@@ -56,7 +53,7 @@ namespace FemDesign.Examples
                 model.AddElements(supports);
 
                 // Save struxml
-                string outPathIndividual = Path.GetFullPath(outFolder + "Bridge Model_out" + Convert.ToString(alpha, System.Globalization.CultureInfo.InvariantCulture) + ".struxml");
+                string outPathIndividual = Path.GetFullPath("Bridge Model_out" + Convert.ToString(alpha, System.Globalization.CultureInfo.InvariantCulture) + ".struxml");
                 model.SerializeModel(outPathIndividual);
 
 
@@ -68,28 +65,11 @@ namespace FemDesign.Examples
                 app.RunFdScript(fdScript, false, true, true);
 
                 // Read results from csv file (general method)
-                int counter = 0;
-
-                using (var printer = new StreamWriter("output/eigenfreq.txt", true))
-                using (var reader = new StreamReader("eigenfreq.csv"))
                 {
                     Console.WriteLine("");
-                    Console.WriteLine(string.Format("{0} {1}", "Alpha: ", alpha));
-
-                    printer.WriteLine("");
-                    printer.WriteLine(string.Format("{0} {1}", "Alpha: ", alpha));
-
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var values = line.Split('\t');
-                        if (counter > 0 & line != "")
-                        {
-                            Console.WriteLine(line);
-                            printer.WriteLine(line);
-                        }
-                        counter++;
-                    }
+                    Console.WriteLine(string.Format("Alpha: {0}", alpha));
+                    string text = System.IO.File.ReadAllText(fdScript.CmdListGen[0].OutFile);
+                    Console.WriteLine(text);
                 }
                 alpha = alpha + 0.5;
             }

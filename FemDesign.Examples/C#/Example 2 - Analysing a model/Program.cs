@@ -74,7 +74,9 @@ namespace FemDesign.Examples
 
 
             // RUN THE ANALYSIS VIA AN FDSCRIPT
-            FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(Path.GetFullPath(struxmlPath), analysis, null, "", true);
+            var bscPath = new List<string> { @"C:\GitHub\femdesign-api\FemDesign.Examples\C#\Example 2 - Analysing a model\bin\Debug\pointsupportreactions.bsc" };
+
+            FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(Path.GetFullPath(struxmlPath), analysis, bscPath, "", true);
             Calculate.Application app = new Calculate.Application();
             app.RunFdScript(fdScript, false, true, true);
         }

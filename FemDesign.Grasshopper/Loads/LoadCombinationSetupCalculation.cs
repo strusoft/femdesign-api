@@ -16,23 +16,23 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCombination", "LoadCombination", "LoadCombination.", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("ImpfRqd", "ImpfRqd", "Required imperfection shapes", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("ImpfRqd", "ImpfRqd", "Required imperfection shapes.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("StabRqd", "StabRqd", "Required buckling shapes for stability analysis", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("StabRqd", "StabRqd", "Required buckling shapes for stability analysis.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddBooleanParameter("NLS", "NLS", "Consider non-linear behaviour of soil", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("NLS", "NLS", "Consider non-linear behaviour of soil.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
             pManager.AddBooleanParameter("Cr", "Cr", "Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddBooleanParameter("f2nd", "f2nd", "2nd order analysis", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("f2nd", "f2nd", "2nd order analysis.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddBooleanParameter("Im", "Im", "Imperfection shape for 2nd order analysis", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Im", "Im", "Imperfection shape for 2nd order analysis.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddIntegerParameter("Waterlevel", "Waterlevel", "Ground water level", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Waterlevel", "Waterlevel", "Ground water level. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

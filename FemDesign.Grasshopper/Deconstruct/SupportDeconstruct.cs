@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
             pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical ID.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Geometry", "Geometry", "Geometry.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Geometry", "Geometry", "Geometry. [m]", GH_ParamAccess.item);
             pManager.AddGenericParameter("MovingLocal", "MovingLocal", "MovingLocal.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalX", "LocalX", "LocalX.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalY", "LocalY", "LocalY.", GH_ParamAccess.item);

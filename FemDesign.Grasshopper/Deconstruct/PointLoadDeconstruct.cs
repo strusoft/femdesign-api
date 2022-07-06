@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Type", "Type", "Type.", GH_ParamAccess.item);
             pManager.AddPointParameter("Point", "Point", "Point.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Direction.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("q", "q", "Load intensity.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("q", "q", "Load intensity. [kN]", GH_ParamAccess.item);
             pManager.AddTextParameter("LoadCaseGuid", "LoadCaseGuid", "LoadCase guid reference.", GH_ParamAccess.item);
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
         }

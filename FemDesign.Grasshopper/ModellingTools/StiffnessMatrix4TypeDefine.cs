@@ -13,13 +13,13 @@ namespace FemDesign.Grasshopper
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddNumberParameter("XX", "XX", "XX component in kN/m or kN", GH_ParamAccess.item, 10000);
+           pManager.AddNumberParameter("XX", "XX", "XX component [kN/m] or [kN]", GH_ParamAccess.item, 10000);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddNumberParameter("XY", "XY", "XY component in kN/m or kN", GH_ParamAccess.item, 5000);
+           pManager.AddNumberParameter("XY", "XY", "XY component kN/m] or [kN]", GH_ParamAccess.item, 5000);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddNumberParameter("YY", "YY", "YY component in kN/m", GH_ParamAccess.item, 10000);
+           pManager.AddNumberParameter("YY", "YY", "YY component [kN/m]", GH_ParamAccess.item, 10000);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddNumberParameter("GXY", "GXY", "GXY component in kN/m", GH_ParamAccess.item, 10000);
+           pManager.AddNumberParameter("GXY", "GXY", "GXY component [kN/m]", GH_ParamAccess.item, 10000);
            pManager[pManager.ParamCount - 1].Optional = true;
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)

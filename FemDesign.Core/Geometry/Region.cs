@@ -133,7 +133,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set EdgeConnection on Edge in region by index.
         /// </summary>
-        public void SetEdgeConnection(Shells.ShellEdgeConnection edgeConnection, int index)
+        public void SetEdgeConnection(Shells.EdgeConnection edgeConnection, int index)
         {
             int edgeIdx = 0;
             foreach (Contour contour in this.Contours)
@@ -153,7 +153,7 @@ namespace FemDesign.Geometry
                             else
                             { 
                                 string name = "CE." + cInstance.ToString();
-                                Shells.ShellEdgeConnection ec = Shells.ShellEdgeConnection.CopyExisting(edgeConnection, name);
+                                Shells.EdgeConnection ec = Shells.EdgeConnection.CopyExisting(edgeConnection, name);
                                 edge.EdgeConnection = ec;
                             }
                             return;
@@ -174,7 +174,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set EdgeConnection on all Edges in Region.
         /// </summary>
-        public void SetEdgeConnections(Shells.ShellEdgeConnection edgeConnection)
+        public void SetEdgeConnections(Shells.EdgeConnection edgeConnection)
         {
             if (edgeConnection.Release)
             {
@@ -187,7 +187,7 @@ namespace FemDesign.Geometry
                         {
                             cInstance++;
                             string name = "CE." + cInstance.ToString();
-                            Shells.ShellEdgeConnection ec = Shells.ShellEdgeConnection.CopyExisting(edgeConnection, name);
+                            Shells.EdgeConnection ec = Shells.EdgeConnection.CopyExisting(edgeConnection, name);
                             edge.EdgeConnection = ec;
                         }
                     }
@@ -206,9 +206,9 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Get all EdgeConnection from all Edges in Region.
         /// </summary>
-        public List<Shells.ShellEdgeConnection> GetEdgeConnections()
+        public List<Shells.EdgeConnection> GetEdgeConnections()
         {
-            var edgeConnections = new List<Shells.ShellEdgeConnection>();
+            var edgeConnections = new List<Shells.EdgeConnection>();
             foreach (Contour contour in this.Contours)
             {
                 foreach (Edge edge in contour.Edges)
