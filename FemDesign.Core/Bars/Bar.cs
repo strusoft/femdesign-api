@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Bar-element
     /// </summary>
     [System.Serializable]
-    public partial class Bar: EntityBase, IStructureElement
+    public partial class Bar : EntityBase, IStructureElement
     {
         [XmlIgnore]
         private static int _barInstance = 0; // used for counter of name)
@@ -30,15 +30,15 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public double MaxCompression
         {
-            get{return this._maxCompression;}
-            set{this._maxCompression = RestrictedDouble.NonNegMax_1e30(value);}
-        } 
+            get { return this._maxCompression; }
+            set { this._maxCompression = RestrictedDouble.NonNegMax_1e30(value); }
+        }
 
         /// <summary>
         /// Truss only.
         /// </summary>
         [XmlAttribute("compressions_plasticity")]
-        public bool CompressionPlasticity { get; set;} // bool
+        public bool CompressionPlasticity { get; set; } // bool
 
         /// <summary>
         /// Truss only.
@@ -49,8 +49,8 @@ namespace FemDesign.Bars
         [XmlIgnore]
         public double MaxTension
         {
-            get{return this._maxTension;}
-            set{this._maxTension = RestrictedDouble.NonNegMax_1e30(value);}
+            get { return this._maxTension; }
+            set { this._maxTension = RestrictedDouble.NonNegMax_1e30(value); }
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace FemDesign.Bars
                 {
                     Bar._columnInstance++;
                     this._identifier = value + "." + Bar._columnInstance.ToString();
-                    
+
                     // update barpart identifier
                     if (this.BarPart != null)
                     {
@@ -97,7 +97,7 @@ namespace FemDesign.Bars
                 {
                     Bar._trussInstance++;
                     this._identifier = value + "." + Bar._trussInstance.ToString();
-                    
+
                     // update barpart identifier
                     if (this.BarPart != null)
                     {
@@ -146,7 +146,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this.Reinforcement.Where( x => x.Stirrups != null).ToList();
+                return this.Reinforcement.Where(x => x.Stirrups != null).ToList();
             }
         }
         [XmlIgnore]
@@ -154,7 +154,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this.Reinforcement.Where( x => x.LongitudinalBar != null).ToList();
+                return this.Reinforcement.Where(x => x.LongitudinalBar != null).ToList();
             }
         }
 
@@ -163,7 +163,7 @@ namespace FemDesign.Bars
         /// </summary>
         private Bar()
         {
-            
+
         }
 
         /// <summary>
@@ -173,15 +173,20 @@ namespace FemDesign.Bars
         /// <param name="type"></param>
         /// <param name="material"></param>
         /// <param name="section">Section, same at start/end</param>
-        /// <param name="eccentricity">Analytical eccentricity, same at start/end</param>
-        /// <param name="connectivity">Connectivity, same at start/end</param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity, Connectivity connectivity, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
-           this.EntityCreated();
-           this.Type = type;
-           this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Identifier);
+            if(type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+            
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+
+            if(eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
+            if(connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Identifier);
         }
 
         /// <summary>
@@ -198,10 +203,14 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
-           this.EntityCreated();
-           this.Type = type;
-           this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+            
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+
+
+            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
         }
 
         /// <summary>
@@ -217,12 +226,14 @@ namespace FemDesign.Bars
         /// <param name="startConnectivity">Start connectivity</param>
         /// <param name="endConnectivity">End connectivity</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection,  Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section startSection, Sections.Section endSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
-           this.EntityCreated();
-           this.Type = type;
-           this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
         }
 
         /// <summary>
@@ -237,10 +248,12 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier)
         {
-           this.EntityCreated();
-           this.Type = type;
-           this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, this.Identifier);
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, this.Identifier);
         }
 
         /// <summary>
@@ -257,22 +270,28 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section[] sections, double[] positions, Eccentricity[] eccentricities, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
         {
-           this.EntityCreated();
-           this.Type = type;
-           this.Identifier = identifier;
-           this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, this.Identifier);
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, this.Identifier);
         }
 
+
         /// <summary>
-        /// Construct truss
-        /// <summary>
+        /// Construct a truss element. BarType must be specified as Truss.
+        /// </summary>
         /// <param name="edge"></param>
         /// <param name="type"></param>
         /// <param name="material"></param>
-        /// <param name="section">Section (uniform)</param>
-        /// <param name="identifier">Identifier</param>
+        /// <param name="section"></param>
+        /// <param name="identifier"></param>
+        /// <exception cref="System.Exception"></exception>
         public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
+            if (type != BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
             this.EntityCreated();
             this.Type = type;
             this.Identifier = identifier;

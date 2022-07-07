@@ -26,7 +26,6 @@ namespace FemDesign.Examples
             var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
             var mid = p1 + (p2 - p1) * 0.5;
 
-
             // Create elements
             var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
