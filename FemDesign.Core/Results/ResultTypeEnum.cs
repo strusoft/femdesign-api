@@ -186,9 +186,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Line support group, Reactions
         /// </summary>
-        [Parseable("LineSupportReaction")]
-        [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
-        LineSupportReaction,
+        [Parseable("LineSupportGroupReaction")]
+        [Result(typeof(LineSupportGroupReaction), ListProc.LineSupportGroupReactionsLoadCase, ListProc.LineSupportGroupReactionsLoadCombination)]
+        LineSupportGroupReaction,
 
         /// <summary>
         /// Line support group, Resultants
@@ -196,9 +196,9 @@ namespace FemDesign.Results
 #if ISDYNAMO
         [IsVisibleInDynamoLibrary(false)]
 #endif
-        [Parseable("LineSupportResultant")]
-        [Result(typeof(LineSupportResultant), ListProc.LineSupportResultantsLoadCase, ListProc.LineSupportResultantsLoadCombination)]
-        LineSupportResultant,
+        [Parseable("LineSupportGroupResultant")]
+        [Result(typeof(LineSupportGroupResultant), ListProc.LineSupportGroupResultantsLoadCase, ListProc.LineSupportGroupResultantsLoadCombination)]
+        LineSupportGroupResultant,
 
         /// <summary>
         /// Shells, Internal Force

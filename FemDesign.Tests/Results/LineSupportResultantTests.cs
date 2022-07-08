@@ -36,8 +36,8 @@ S.3	500.000	0.000	0.000	-9773.079	0.000	0.000	0.000	6.10a
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.Count == 6);
-            Assert.IsTrue(results.First().GetType() == typeof(LineSupportResultant));
-            Assert.IsTrue(results.Last().GetType() == typeof(LineSupportResultant));
+            Assert.IsTrue(results.First().GetType() == typeof(LineSupportGroupResultant));
+            Assert.IsTrue(results.Last().GetType() == typeof(LineSupportGroupResultant));
 
             File.Delete(path);
         }
@@ -53,8 +53,8 @@ S.3	500.000	0.000	0.000	-9773.079	0.000	0.000	0.000	6.10a
 
             foreach (var header in headers)
             {
-                var match = LineSupportResultant.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(LineSupportResultant).Name}");
+                var match = LineSupportGroupResultant.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(LineSupportGroupResultant).Name}");
             }
         }
 
@@ -71,7 +71,7 @@ S.3	500.000	0.000	0.000	-9773.079	0.000	0.000	0.000	6.10a
 
             foreach (var header in headers)
             {
-                var match = LineSupportResultant.HeaderExpression.Match(header);
+                var match = LineSupportGroupResultant.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

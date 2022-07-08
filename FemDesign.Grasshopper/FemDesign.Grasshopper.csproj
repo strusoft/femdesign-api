@@ -110,7 +110,7 @@
     <Compile Include="Results\FeaShell.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
-    <Compile Include="Results\LineSupportReaction.cs" />
+    <Compile Include="Results\LineSupportGroupReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\NodalVibration.cs" />
     <Compile Include="Results\Quantities\ReinforcementQuantityEstimation.cs" />

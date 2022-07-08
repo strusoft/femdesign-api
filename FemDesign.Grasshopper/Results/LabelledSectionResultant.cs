@@ -15,8 +15,8 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public labelledSectionResultant()
-          : base("labelledSectionResultant",
-                "labelledSectionResultant",
+          : base("LabelledSectionResultant",
+                "LabelledSectionResultant",
                 "Read the Labelled Section Resultant Force for the elements",
                 "FEM-Design",
                 "Results")
