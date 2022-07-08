@@ -217,9 +217,9 @@ namespace FemDesign.Calculate
         {
             
         }
-        public Analysis(Stage stage, Comb comb, Freq freq, Footfall footfall, bool calcCase, bool calcCStage, bool calcImpf, bool calcComb, bool calcGMax, bool calcStab, bool calcFreq, bool calcSeis, bool calcDesign, bool calcFootfall, bool elemFine, bool diaphragm, bool peakSmoothing)
+        public Analysis(Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = true, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
-            this.Stage = stage;
+            this.Stage = stage ?? Stage.Default();
             this.Comb = comb;
             this.Freq = freq;
             this.Footfall = footfall;
