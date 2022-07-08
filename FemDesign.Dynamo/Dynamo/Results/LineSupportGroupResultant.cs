@@ -10,7 +10,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Results
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class LineSupportResultant : IResult
+    public partial class LineSupportGroupResultant : IResult
     {
     }
 }

@@ -8,15 +8,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineSupportReaction : GH_Component
+    public class LineSupportGroupReaction : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the PointSupportReaction class.
         /// </summary>
-        public LineSupportReaction()
-          : base("LineSupportReaction",
-                "LineSupportReaction",
-                "Read the line reaction forces",
+        public LineSupportGroupReaction()
+          : base("LineSupportGroupReaction",
+                "LineSupportGroupReaction",
+                "Read the line group reaction forces",
                 "FEM-Design",
                 "Results")
         {
@@ -55,7 +55,7 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.LineSupportReaction> iResult = new List<FemDesign.Results.LineSupportReaction>();
+            List<FemDesign.Results.LineSupportGroupReaction> iResult = new List<FemDesign.Results.LineSupportGroupReaction>();
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
 
             try
             {
-                result = FemDesign.Results.LineSupportReaction.DeconstructLineSupportReaction(iResult, iLoadCase);
+                result = FemDesign.Results.LineSupportGroupReaction.DeconstructLineSupportReaction(iResult, iLoadCase);
             }
             catch (ArgumentException ex)
             {

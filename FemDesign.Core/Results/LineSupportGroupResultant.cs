@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line support group, Resultants" result
     /// </summary>
-    public partial class LineSupportResultant : IResult
+    public partial class LineSupportGroupResultant : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -52,7 +52,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal LineSupportResultant(string id, double halfLength, double fx, double fy, double fz, double mx, double my, double mz, string resultCase)
+        internal LineSupportGroupResultant(string id, double halfLength, double fx, double fy, double fz, double mx, double my, double mz, string resultCase)
         {
             Id = id;
             HalfLength = halfLength;
@@ -86,7 +86,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static LineSupportResultant Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static LineSupportGroupResultant Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string supportname = row[0];
             double halfLength = Double.Parse(row[1], CultureInfo.InvariantCulture);
@@ -97,7 +97,7 @@ namespace FemDesign.Results
             double my = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double mz = Double.Parse(row[7], CultureInfo.InvariantCulture);
             string lc = HeaderData["casename"];
-            return new LineSupportResultant(supportname, halfLength, fx, fy, fz, mx, my, mz, lc);
+            return new LineSupportGroupResultant(supportname, halfLength, fx, fy, fz, mx, my, mz, lc);
         }
     }
 }

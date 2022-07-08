@@ -133,12 +133,12 @@ namespace FemDesign.Calculate
         /// Load case: Line support group, Reactions
         /// </summary>
         [XmlEnum("frCaseReacLnGroup_ListProc")]
-        LineSupportReactionsLoadCase,
+        LineSupportGroupReactionsLoadCase,
         /// <summary>
         /// Load case: Line support group, Resultants
         /// </summary>
         [XmlEnum("frCaseReacLnGroupRes_ListProc")]
-        LineSupportResultantsLoadCase,
+        LineSupportGroupResultantsLoadCase,
         /// <summary>
         /// Load case: Shells, Displacements
         /// </summary>
@@ -267,12 +267,12 @@ namespace FemDesign.Calculate
         /// Load combination: Line support group, Reactions
         /// </summary>
         [XmlEnum("frCombReacLnGroup_ListProc")]
-        LineSupportReactionsLoadCombination,
+        LineSupportGroupReactionsLoadCombination,
         /// <summary>
         /// Load combination: Line support group, Resultants
         /// </summary>
         [XmlEnum("frCombReacLnGroupRes_ListProc")]
-        LineSupportResultantsLoadCombination,
+        LineSupportGroupResultantsLoadCombination,
         /// <summary>
         /// Load combination: Shells, Displacements
         /// </summary>

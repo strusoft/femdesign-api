@@ -116,7 +116,7 @@
     <Compile Include="Results\LineConnectionForce.cs" />
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\BarDisplacement.cs" />
-    <Compile Include="Results\LineSupportResultant.cs" />
+    <Compile Include="Results\LineSupportGroupResultant.cs" />
     <Compile Include="Results\RC design\ShellCrackWidth.cs" />
     <Compile Include="Results\RC design\ShellUtilization.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
@@ -268,7 +268,7 @@
     <Compile Include="Results\BarEndForce.cs" />
     <Compile Include="Results\Node\NodalDisplacement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
-    <Compile Include="Results\LineSupportReaction.cs" />
+    <Compile Include="Results\LineSupportGroupReaction.cs" />
     <Compile Include="Results\Node\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="Results\Shell\ShellStress.cs" />
