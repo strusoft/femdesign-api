@@ -16,7 +16,7 @@ namespace FemDesign.Info
 {
     public class Info : GH_Component
     {
-        public Info() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", "Help")
+        public Info() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", " Help")
         {
 
         }
@@ -49,7 +49,7 @@ namespace FemDesign.Info
         {
             get
             {
-                return FemDesign.Properties.Resources.Help;
+                return FemDesign.Properties.Resources.Fd_TabIcon_24_24;
             }
         }
     }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabAverageMeshSize: GH_Component
     {
-        public SlabAverageMeshSize(): base("Slab.AverageSurfaceElementSize", "AvgSrfElemSize", "Set average surface element size to slab.", "FEM-Design", "Mesh")
+        public SlabAverageMeshSize(): base("Slab.AverageSurfaceElementSize", "AvgSrfElemSize", "Set average surface element size to slab.", "FEM-Design", "Shells")
         {
 
         }
