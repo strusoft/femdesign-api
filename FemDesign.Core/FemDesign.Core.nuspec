@@ -3,7 +3,7 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <version>21.2.0</version>
+    <version>21.2.1</version>
     <title>$title$</title>
     <authors>StruSoft</authors>
     <description>The FEM-Design API package</description>
