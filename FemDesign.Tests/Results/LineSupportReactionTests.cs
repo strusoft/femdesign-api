@@ -32,8 +32,8 @@ S.6	278	755	8.596	0.221	-55.415	6898.951	162.953	3308.945	56.078	7653.182	dl
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.Count == 7);
-            Assert.IsTrue(results.First().GetType() == typeof(LineSupportGroupReaction));
-            Assert.IsTrue(results.Last().GetType() == typeof(LineSupportGroupReaction));
+            Assert.IsTrue(results.First().GetType() == typeof(LineSupportReaction));
+            Assert.IsTrue(results.Last().GetType() == typeof(LineSupportReaction));
 
             File.Delete(path);
         }
@@ -49,8 +49,8 @@ S.6	278	755	8.596	0.221	-55.415	6898.951	162.953	3308.945	56.078	7653.182	dl
 
             foreach (var header in headers)
             {
-                var match = LineSupportGroupReaction.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(LineSupportGroupReaction).Name}");
+                var match = LineSupportReaction.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(LineSupportReaction).Name}");
             }
         }
 
@@ -68,7 +68,7 @@ S.6	278	755	8.596	0.221	-55.415	6898.951	162.953	3308.945	56.078	7653.182	dl
 
             foreach (var header in headers)
             {
-                var match = LineSupportGroupReaction.HeaderExpression.Match(header);
+                var match = LineSupportReaction.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

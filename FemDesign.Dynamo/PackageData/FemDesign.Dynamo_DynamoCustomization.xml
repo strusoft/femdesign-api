@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
   <assembly>
     <name>FemDesign.Dynamo</name>
@@ -34,17 +34,14 @@
     <namespace name="FemDesign.Model.CalculationParameters">
       <category>FemDesign.Model.CalculationParameters</category>
     </namespace>
-    <namespace name="FemDesign.ModellingTools">
-      <category>FemDesign.ModellingTools</category>
+	<namespace name="FemDesign.ModellingTools">
+		<category>FemDesign.ModellingTools</category>
     </namespace>
     <namespace name="FemDesign.Releases">
       <category>FemDesign.Releases</category>
     </namespace>
     <namespace name="FemDesign.Reinforcement">
       <category>FemDesign.Reinforcement</category>
-    </namespace>
-    <namespace name="FemDesign.Results">
-      <category>FemDesign.Results</category>
     </namespace>
     <namespace name="FemDesign.RevitTools">
       <category>FemDesign.RevitTools</category>
@@ -62,10 +59,9 @@
       <category>FemDesign.Supports</category>
     </namespace>
   </namespaces>
-  <classes>
-    <class name="FemDesign.Bars.DynamoEccentricity">
-      <category>FemDesign.Bars.DynamoEccentricity</category>
-    </class>
-  </classes>
+	<classes>
+		<class name="FemDesign.Bars.DynamoEccentricity">
+			<category>FemDesign.Bars.DynamoEccentricity</category>
+		</class>
+	</classes>
 </doc>
-

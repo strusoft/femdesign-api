@@ -659,11 +659,11 @@
     <Compile Include="..\FemDesign.Core\Results\LineConnectionResultant.cs">
       <Link>Core\Results\LineConnectionResultant.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\LineSupportGroupReaction.cs">
-      <Link>Core\Results\LineSupportGroupReaction.cs</Link>
+    <Compile Include="..\FemDesign.Core\Results\LineSupportReaction.cs">
+      <Link>Core\Results\LineSupportReaction.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\LineSupportGroupResultant.cs">
-      <Link>Core\Results\LineSupportGroupResultant.cs</Link>
+    <Compile Include="..\FemDesign.Core\Results\LineSupportResultant.cs">
+      <Link>Core\Results\LineSupportResultant.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Results\Node\NodalDisplacement.cs">
       <Link>Core\Results\NodalDisplacement.cs</Link>
@@ -951,9 +951,9 @@
     <Compile Include="Dynamo\Results\LabelledSectionResultant.cs" />
     <Compile Include="Dynamo\Results\LineConnectionForce.cs" />
     <Compile Include="Dynamo\Results\LineConnectionResultant.cs" />
-    <Compile Include="Dynamo\Results\LineSupportGroupReaction.cs" />
+    <Compile Include="Dynamo\Results\LineSupportReaction.cs" />
     <Compile Include="Dynamo\Results\FeaNode.cs" />
-    <Compile Include="Dynamo\Results\LineSupportGroupResultant.cs" />
+    <Compile Include="Dynamo\Results\LineSupportResultant.cs" />
     <Compile Include="Dynamo\Results\NodalDisplacement.cs" />
     <Compile Include="Dynamo\Results\NodalAcceleration.cs" />
     <Compile Include="Dynamo\Results\NodalResponseFactor.cs" />

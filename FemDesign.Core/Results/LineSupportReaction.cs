@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line support group, Reactions" result
     /// </summary>
-    public partial class LineSupportGroupReaction : IResult
+    public partial class LineSupportReaction : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -64,7 +64,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal LineSupportGroupReaction(string id, int elementId, int nodeId, double fx, double fy, double fz, double mx, double my, double mz, double fr, double mr, string resultCase)
+        internal LineSupportReaction(string id, int elementId, int nodeId, double fx, double fy, double fz, double mx, double my, double mz, double fr, double mr, string resultCase)
         {
             Id = id;
             ElementId = elementId;
@@ -101,7 +101,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static LineSupportGroupReaction Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static LineSupportReaction Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string supportname = row[0];
             int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
@@ -115,16 +115,16 @@ namespace FemDesign.Results
             double fr = Double.Parse(row[9], CultureInfo.InvariantCulture);
             double mr = Double.Parse(row[10], CultureInfo.InvariantCulture);
             string lc = HeaderData["casename"];
-            return new LineSupportGroupReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
+            return new LineSupportReaction(supportname, elementId, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
         }
 
         /// <summary>
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructLineSupportReaction(List<FemDesign.Results.LineSupportGroupReaction> Result, string LoadCase)
+        public static Dictionary<string, object> DeconstructLineSupportReaction(List<FemDesign.Results.LineSupportReaction> Result, string LoadCase)
         {
-            var lineSupportReactions = Result.Cast<FemDesign.Results.LineSupportGroupReaction>();
+            var lineSupportReactions = Result.Cast<FemDesign.Results.LineSupportReaction>();
 
             // Return the unique load case - load combination
             var uniqueLoadCases = lineSupportReactions.Select(n => n.CaseIdentifier).Distinct().ToList();
