@@ -71,13 +71,13 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Define calculation parameters for an eigenfrequency calculation.
         /// </summary>
-        /// <param name="Numshapes">Number of shapes.</param>
-        /// <param name="MaxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
-        /// <param name="X">Consider masses in global x-direction.</param>
-        /// <param name="Y">Consider masses in global y-direction.</param>
-        /// <param name="Z">Consider masses in global z-direction.</param>
+        /// <param name="numShapes">Number of shapes.</param>
+        /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
+        /// <param name="x">Consider masses in global x-direction.</param>
+        /// <param name="y">Consider masses in global y-direction.</param>
+        /// <param name="z">Consider masses in global z-direction.</param>
         /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.</param>
-        public Freq(int numShapes, int maxSturm, bool x, bool y, bool z, double top)
+        public Freq(int numShapes = 3, int maxSturm = 0, bool x = true, bool y = true, bool z = true, double top = -0.01)
         {
             this.NumShapes = numShapes;
             this.MaxSturm = maxSturm;
@@ -93,7 +93,7 @@ namespace FemDesign.Calculate
         /// <returns></returns>
         public static Freq Default()
         {
-            return new Freq(2, 0, true, true, true, -0.01);
+            return new Freq(3, 0, true, true, true, -0.01);
         }
 
     }

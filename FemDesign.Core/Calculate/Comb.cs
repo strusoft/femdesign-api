@@ -40,7 +40,6 @@ namespace FemDesign.Calculate
 
         [XmlElement("combitem")]
         public List<CombItem> CombItem = new List<CombItem>();
-
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -70,7 +69,7 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static Comb GetDefault()
+        public static Comb Default()
         {
             int NLEmaxiter = 30;
             int PLdefloadstep = 20;

@@ -215,14 +215,13 @@ namespace FemDesign.Calculate
         /// </summary>
         private Analysis()
         {
-            
         }
-        public Analysis(Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = true, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+        public Analysis(Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
             this.Stage = stage ?? Stage.Default();
-            this.Comb = comb;
-            this.Freq = freq;
-            this.Footfall = footfall;
+            this.Comb = comb ?? Comb.Default();
+            this.Freq = freq ?? Freq.Default();
+            this.Footfall = footfall ?? Footfall.Default();
             this.CalcCase = calcCase;
             this.CalcCStage = calcCStage;
             this.CalcCImpf = calcImpf;
@@ -239,6 +238,37 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
+        /// Define a Static Analysis.
+        /// </summary>
+        /// <param name="comb"></param>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public static Analysis StaticAnalysis(Stage stage = null, Comb comb = null, bool calcCase = true, bool calccomb = true)
+        {
+            comb = comb ?? Comb.Default();
+            stage = stage ?? Stage.Default();
+            return new Analysis(comb: comb, calcCase: calcCase, calcComb: calccomb, stage: stage);
+        }
+
+
+        /// <summary>
+        /// Define an EigenFrequencies Analysis
+        /// </summary>
+        /// <param name="numShapes">Number of shapes.</param>
+        /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
+        /// <param name="x">Consider masses in global x-direction.</param>
+        /// <param name="y">Consider masses in global y-direction.</param>
+        /// <param name="z">Consider masses in global z-direction.</param>
+        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency 
+        /// <returns></returns>
+        public static Analysis Eigenfrequencies(int numShapes = 3, int maxSturm = 0, bool x = true, bool y = true, bool z = true, double top = -0.01)
+        {
+            var freqSettings = new Freq(numShapes, maxSturm, x, y, z, top);
+            return new Analysis(freq: freqSettings, calcFreq: true);
+        }
+
+
+        /// <summary>
         /// Internal method to transfer load combination calculation parameters from LoadCombination to Analysis.
         /// </summary>
         /// <param name="model"></param>
@@ -247,6 +277,5 @@ namespace FemDesign.Calculate
             this.Comb.CombItem.Clear();
             this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
         }
-
     }
 }

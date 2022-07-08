@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and read some of the results.
 
-            // This example was last updated 2022-07-01, using the ver. 21.2.0 FEM-Design API.
+            // This example was last updated 2022-07-08, using the ver. 21.3.0 FEM-Design API.
 
             #region DEFINE GEOMETRY
             // Define geometry
@@ -126,10 +126,9 @@ namespace FemDesign.Examples
 
             #region ANALYSIS
             // Running the analysis
-            FemDesign.Calculate.Analysis analysisSettings = new FemDesign.Calculate.Analysis(null, null, null, null, calcCase: true, false, false, calcComb: true, false, false, false, false, false, false, false, false, false);
+            var analysisSettings = FemDesign.Calculate.Analysis.StaticAnalysis();
 
             var fdScript = FemDesign.Calculate.FdScript.Analysis(fileName, analysisSettings, bscPathsFromResultTypes, null, true);
-
 
             var app = new FemDesign.Calculate.Application();
             app.RunFdScript(fdScript, false, true);

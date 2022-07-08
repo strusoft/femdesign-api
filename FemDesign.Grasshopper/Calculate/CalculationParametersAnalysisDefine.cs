@@ -59,7 +59,7 @@ namespace FemDesign.Grasshopper
             }
 
             
-            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.GetDefault();
+            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
             if (!DA.GetData(1, ref comb))
             {
                 // pass

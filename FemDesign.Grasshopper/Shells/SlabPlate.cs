@@ -16,7 +16,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrthotropy. Optional.", GH_ParamAccess.item);
@@ -40,11 +42,11 @@ namespace FemDesign.Grasshopper
             Brep surface = null;
             if(!DA.GetData(0, ref surface)) { return; }
 
-            double thickness = 0;
-            if(!DA.GetData(1, ref thickness)) { return; }
+            double thickness = 0.15;
+            DA.GetData(1, ref thickness);
 
-            FemDesign.Materials.Material material = null;
-            if(!DA.GetData(2, ref material)) { return; }
+            var material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
+            DA.GetData(2, ref material);
 
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
             if(!DA.GetData(3, ref eccentricity))

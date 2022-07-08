@@ -11,14 +11,6 @@ namespace FemDesign.Calculate
     [IsVisibleInDynamoLibrary(false)]
     public partial class Comb
     {
-        /// <summary>
-        /// Set default calculation parameters for load combinations.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(true)]
-        public static Comb Default() => GetDefault();
-
         /// <summary>Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation (found under the Calculate category).</summary>
         /// <remarks>Create</remarks>
         /// <param name="NLEmaxiter">Non-linear elastic analysis: Maximum iteration number.</param>

@@ -58,8 +58,8 @@ namespace FemDesign.Examples
 
 
                 // Run analysis
-                var freq = new Calculate.Freq(5, 0, false, false, true, -0.01);
-                Calculate.Analysis analysis = new Calculate.Analysis(null, null, freq, null, true, false, false, false, false, false, true, false, false, false, false, false, false);
+                var analysis = Calculate.Analysis.Eigenfrequencies(5, 0, false, false, true, -0.01);
+
                 FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(outPathIndividual, analysis, bscPaths, "", true);
                 Calculate.Application app = new Calculate.Application();
                 app.RunFdScript(fdScript, false, true, true);
