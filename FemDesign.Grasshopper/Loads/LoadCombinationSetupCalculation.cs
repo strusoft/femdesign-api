@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadCombinationSetupCalculation: GH_Component
     {
-        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", "FEM-Design", "Calculate")
+        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", "FEM-Design", "Loads")
         {
 
         }
@@ -117,5 +117,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("ffb78f7b-eb88-4309-92e4-0d76d201106b"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
     }
 }
