@@ -97,6 +97,33 @@ namespace FemDesign.Supports
             Initialize(point, group, identifier);
         }
 
+        /// <summary>
+        /// Define a Point Support. The method automatically set the value to both negative and positive value.
+        /// </summary>
+        /// <param name="plane"></param>
+        /// <param name="tx"></param>
+        /// <param name="ty"></param>
+        /// <param name="tz"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="rz"></param>
+        /// <param name="identifier"></param>
+        public PointSupport(FdCoordinateSystem plane, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, string identifier = "S")
+        {
+            double x = tx == true ? 1e10 : 0;
+            double y = ty == true ? 1e10 : 0;
+            double z = tz == true ? 1e10 : 0;
+            double xx = rx == true ? 1e10 : 0;
+            double yy = ry == true ? 1e10 : 0;
+            double zz = rz == true ? 1e10 : 0;
+
+            var motions = new Motions(x, x, y, y, z, z);
+            var rotations = new Rotations(xx, xx, yy, yy, zz, zz);
+
+            var group = new Group(plane.LocalX, plane.LocalY, motions, rotations);
+            Initialize(plane.Origin, group, identifier);
+        }
+
         private void Initialize(FdPoint3d point, Group group, string identifier)
         {
             PointSupport._instance++;
