@@ -149,6 +149,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\CombItem.cs">
       <Link>Core\Calculate\CombItem.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\ConstructionStage.cs">
+      <Link>Core\Calculate\ConstructionStage.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Design.cs">
       <Link>Core\Calculate\Design.cs</Link>
     </Compile>
@@ -178,9 +181,6 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Options.cs">
       <Link>Core\Calculate\Options.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
-      <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
       <Link>Core\GenericClasses\Camber.cs</Link>
@@ -831,7 +831,7 @@
     <Compile Include="Dynamo\Calculate\Freq.cs" />
     <Compile Include="Dynamo\Calculate\LoadCombination.cs" />
     <Compile Include="Dynamo\Calculate\ResultType.cs" />
-    <Compile Include="Dynamo\Calculate\Stage.cs" />
+    <Compile Include="Dynamo\Calculate\ConstructionStage.cs" />
     <Compile Include="Dynamo\Deconstruct\Deconstruct.cs" />
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />

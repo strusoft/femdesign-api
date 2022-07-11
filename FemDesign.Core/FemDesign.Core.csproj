@@ -46,9 +46,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedFem\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
     <Compile Include="AdvancedFem\Cover.cs" />
     <Compile Include="AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="AdvancedFem\ConstructionStages.cs" />
+    <Compile Include="AdvancedFem\Stage.cs" />
     <Compile Include="AuxiliaryResults\LabelledSectionsGeometry.cs" />
     <Compile Include="AuxiliaryResults\LabelledSection.cs" />
     <Compile Include="Bars\Bar.cs" />
@@ -87,7 +90,7 @@
     <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Options.cs" />
-    <Compile Include="Calculate\Stage.cs" />
+    <Compile Include="Calculate\ConstructionStage.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
     <Compile Include="Results\Units.cs" />

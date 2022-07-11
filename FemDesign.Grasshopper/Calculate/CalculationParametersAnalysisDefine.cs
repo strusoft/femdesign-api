@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Calculate.Stage stage = FemDesign.Calculate.Stage.Default();
+            FemDesign.Calculate.ConstructionStage stage = FemDesign.Calculate.ConstructionStage.Default();
             if (!DA.GetData(0, ref stage))
             {
                 // pass
