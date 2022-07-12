@@ -11,10 +11,7 @@ namespace FemDesign
     public partial class ActivatedLoadCase
     {
         [XmlAttribute("case")]
-        public Guid Guid
-        {
-            get { return this.LoadCase.Guid; }
-        }
+        public Guid Guid { get; set; }
 
         [XmlIgnore]
         FemDesign.Loads.LoadCase LoadCase { get; set; }
@@ -42,6 +39,7 @@ namespace FemDesign
             this.LoadCase = loadCase;
             this.Factor = factor;
             this.Type = type;
+            this.Guid = loadCase.Guid;
         }
     }
 

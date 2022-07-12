@@ -30,11 +30,12 @@ namespace FemDesign
 
         }
 
-        public Stage(int id, ActivatedLoadCase loadCase, string description)
+        public Stage(int id, string description, ActivatedLoadCase loadCase, bool initialState = false)
         {
-            this.Id = Id;
+            this.Id = id;
             this.Description = description;
             this.ActivatedLoadCase = loadCase;
+            this.InitialState = initialState;
         }
 
     }

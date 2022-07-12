@@ -42,13 +42,13 @@ namespace FemDesign
         public bool GhostMethod { get; set; } = false;
 
         [XmlElement("stage")]
-        public List<Stage> Stages { get; set; }
+        public List<Stage> Stages { get; set; } = new List<Stage>();
 
 
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private ConstructionStages()
+        public ConstructionStages()
         {
 
         }
@@ -60,7 +60,7 @@ namespace FemDesign
         /// <param name="assignModifedElement"></param>
         /// <param name="assignNewElement"></param>
         /// <param name="ghostMethod"></param>
-        public ConstructionStages(List<Stage> stages, bool assignModifedElement, bool assignNewElement, bool ghostMethod)
+        public ConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
         {
             // it does not required the Guid
             this.LastChange = DateTime.UtcNow;

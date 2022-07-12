@@ -2664,6 +2664,16 @@ namespace FemDesign
             return false;
         }
 
+
+        public void AddConstructionStages(ConstructionStages obj, bool overwrite = false)
+        {
+            if(this.ConstructionStages == null)
+            {
+                this.ConstructionStages = new ConstructionStages();
+            }
+            this.ConstructionStages = obj;
+        }
+
         #endregion
 
         #region AddElements and AddLoads
@@ -2776,6 +2786,7 @@ namespace FemDesign
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
+
 
         #endregion
 
