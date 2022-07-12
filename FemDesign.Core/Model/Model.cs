@@ -2672,6 +2672,17 @@ namespace FemDesign
                 this.ConstructionStages = new ConstructionStages();
             }
             this.ConstructionStages = obj;
+
+            foreach(var stage in obj.Stages)
+            {
+                if(stage.Elements != null)
+                {
+                    foreach(var element in stage.Elements)
+                    {
+                        element.StageId = stage.Id;
+                    }
+                }
+            }
         }
 
         #endregion

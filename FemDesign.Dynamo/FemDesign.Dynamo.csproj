@@ -212,6 +212,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\ILoadElement.cs">
       <Link>Core\GenericClasses\ILoadElement.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IStageElement.cs">
+      <Link>Core\GenericClasses\IStageElement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\IStructureElement.cs">
       <Link>Core\GenericClasses\IStructureElement.cs</Link>
     </Compile>

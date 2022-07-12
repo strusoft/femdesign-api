@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using FemDesign.GenericClasses;
+
 namespace FemDesign
 {
     [System.Serializable]
@@ -22,6 +24,9 @@ namespace FemDesign
         [XmlElement("activated_load_case")]
         public ActivatedLoadCase ActivatedLoadCase { get; set; }
 
+        [XmlIgnore]
+        public List<IStageElement> Elements { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -30,11 +35,12 @@ namespace FemDesign
 
         }
 
-        public Stage(int id, string description, ActivatedLoadCase loadCase, bool initialState = false)
+        public Stage(int id, string description, ActivatedLoadCase loadCase, List<IStageElement> elements, bool initialState = false)
         {
             this.Id = id;
             this.Description = description;
             this.ActivatedLoadCase = loadCase;
+            this.Elements = elements;
             this.InitialState = initialState;
         }
 

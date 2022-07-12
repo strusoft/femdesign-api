@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using Microsoft.XmlDiffPatch;
 
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Models
 {
@@ -90,7 +91,7 @@ namespace FemDesign.Models
         public void ModelTest()
         {
             Model model = new Model(Country.S);
-            
+
             Assert.IsNotNull(model, "Can construct model");
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
@@ -170,38 +171,6 @@ namespace FemDesign.Models
             Assert.IsTrue(diffCharacter == 0);
             Assert.IsTrue(diffSize == 0);
             Assert.IsTrue(identical);
-        }
-
-        [TestMethod("ConstructionStages")]
-        public void ConstructionStageTest()
-        {
-            Model model = new Model(Country.S);
-
-            // Create Load Cases
-            var deadLoadCase = new Loads.LoadCase("DL", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
-            var windCase = new Loads.LoadCase("WIND", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
-
-            //
-            var deadActiveLoadCase = new ActivatedLoadCase(deadLoadCase, 1.0, PartitioningType.only_in_this_stage);
-            var stage1 = new Stage(1, "myStage", deadActiveLoadCase);
-
-
-            var windActiveLoadCase = new ActivatedLoadCase(windCase, 1.0, PartitioningType.only_in_this_stage);
-            var stage2 = new Stage(2, "myStage2", windActiveLoadCase);
-
-
-            var stages = new List<Stage>() { stage1, stage2};
-
-            var constructionStages = new ConstructionStages(
-                stages,
-                assignModifedElement: false,
-                assignNewElement: false,
-                ghostMethod: false);
-
-            model.AddConstructionStages(constructionStages);
-
-            Console.Write(model.SerializeToString());
-
         }
     }
 }

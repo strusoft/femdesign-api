@@ -4,7 +4,7 @@ using FemDesign.GenericClasses;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class Diaphragm: EntityBase, IStructureElement
+    public partial class Diaphragm: EntityBase, IStructureElement, IStageElement
     {
         [XmlIgnore]
         private static int _instance = 0;
@@ -14,6 +14,9 @@ namespace FemDesign.ModellingTools
 
         [XmlAttribute("name")]
         public string _identifier;
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
 
         [XmlIgnore]
         public string Identifier

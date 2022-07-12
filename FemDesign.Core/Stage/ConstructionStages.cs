@@ -65,11 +65,17 @@ namespace FemDesign
             // it does not required the Guid
             this.LastChange = DateTime.UtcNow;
             this.Action = "added";
-            this.Stages = stages;
+            this.Stages = this.SortStages();
             this.AssignModifiedElement = assignModifedElement;
             this.AssignNewElement = assignNewElement;
             this.GhostMethod = ghostMethod;
         }
 
-}
+        private List<Stage> SortStages()
+        {
+            var orderedStages = this.Stages.OrderBy(x => x.Id).ToList();
+            return orderedStages;
+        }
+
+    }
 }

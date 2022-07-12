@@ -11,7 +11,7 @@ namespace FemDesign.Shells
     /// panel_type
     /// </summary>
     [System.Serializable]
-    public partial class Panel: EntityBase, IStructureElement
+    public partial class Panel: EntityBase, IStructureElement, IStageElement
     {
         /// <summary>
         /// Panel instance counter
@@ -332,6 +332,9 @@ namespace FemDesign.Shells
                 }    
             }
         }
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
 
         /// <summary>
         /// Set external edge connections (i.e. set edge connections around region). 

@@ -46,7 +46,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericClasses\IConstructionStage.cs" />
+    <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
     <Compile Include="AdvancedFem\Cover.cs" />

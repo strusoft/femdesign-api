@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Bars
 {
@@ -13,13 +14,16 @@ namespace FemDesign.Bars
     /// Underlying representation of a Bar-element.
     /// </summary>
     [System.Serializable]
-    public partial class BarPart : EntityBase
+    public partial class BarPart : EntityBase, IStageElement
     {
         /// <summary>
         /// Edge field
         /// </summary>
         [XmlElement("curve", Order = 1)]
         public Geometry.Edge _edge;
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
 
         /// <summary>
         /// Edge property
@@ -329,8 +333,6 @@ namespace FemDesign.Bars
         [XmlAttribute("ecc_calc")]
         public bool EccentricityCalc { get; set; } // bool
 
-        [XmlAttribute("stage")]
-        public int StageId { get; set; } = 1;
 
         [XmlElement("connectivity", Order = 3)]
         public Connectivity[] _connectivity = new Connectivity[2]; // connectivity_type

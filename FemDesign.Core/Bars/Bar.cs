@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Bar-element
     /// </summary>
     [System.Serializable]
-    public partial class Bar : EntityBase, IStructureElement
+    public partial class Bar : EntityBase, IStructureElement, IStageElement
     {
         [XmlIgnore]
         private static int _barInstance = 0; // used for counter of name)

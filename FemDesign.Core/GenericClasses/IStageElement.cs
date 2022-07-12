@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace FemDesign.GenericClasses
 {
-    public interface IConstructionStage
+    public interface IStageElement
     {
         //[XmlAttribute("stage")]
         // public int StageId = 1;
+        int StageId { get; set; }
     }
 }
