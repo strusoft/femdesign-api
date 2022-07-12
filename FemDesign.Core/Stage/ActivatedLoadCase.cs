@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FemDesign
 {
+    [System.Serializable]
     public partial class ActivatedLoadCase
     {
         [XmlAttribute("case")]
@@ -19,10 +20,29 @@ namespace FemDesign
         FemDesign.Loads.LoadCase LoadCase { get; set; }
 
         [XmlAttribute("factor")]
-        public double Factor { get; set; }
+        public double _factor { get; set; }
+
+        [XmlIgnore]
+        public double Factor 
+        {
+            get { return this._factor; }
+            set { this._factor = RestrictedDouble.NonNegMax_1e30(value); }
+        }
 
         [XmlAttribute("partitioning")]
         public PartitioningType Type { get; set; }
+
+        private ActivatedLoadCase()
+        {
+
+        }
+
+        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, PartitioningType type)
+        {
+            this.LoadCase = loadCase;
+            this.Factor = factor;
+            this.Type = type;
+        }
     }
 
     public enum PartitioningType

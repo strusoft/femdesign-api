@@ -18,6 +18,9 @@ namespace FemDesign.Supports
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
 
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
+
         [XmlIgnore]
         private Group group;
         [XmlElement("group", Order = 1)]

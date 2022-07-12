@@ -755,6 +755,15 @@
     <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
       <Link>Core\Shells\WallCorbel.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
+      <Link>Core\AdvancedFem\ActivatedLoadCase.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ConstructionStages.cs">
+      <Link>Core\AdvancedFem\ConstructionStages.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\Stage.cs">
+      <Link>Core\AdvancedFem\Stage.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
       <Link>Core\StructureGrid\Axes.cs</Link>
     </Compile>

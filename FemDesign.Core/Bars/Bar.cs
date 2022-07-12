@@ -129,6 +129,9 @@ namespace FemDesign.Bars
             // set {this._type = RestrictedString.BeamType(value);}
         }
 
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
+
         [XmlElement("bar_part", Order = 1)]
         public BarPart BarPart { get; set; } // bar_part_type
 

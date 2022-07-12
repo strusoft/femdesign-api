@@ -89,6 +89,8 @@ namespace FemDesign.Examples
                 lineLoad
             };
 
+            // Create Stages
+            //stage = new FemDesign.Stage(1, )
 
             // Add to model
             Model model = new Model(Country.S);
