@@ -79,5 +79,8 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("43fa13c0-63d5-49ee-9d87-752e51a8c702"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
     }
 }

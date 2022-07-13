@@ -45,5 +45,8 @@ namespace FemDesign.Grasshopper
         }
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.EdgeConnectionDefine;
         public override Guid ComponentGuid => new Guid("d4748927-2190-4444-82a0-82df4593eca6");
+
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
+
     }
 }

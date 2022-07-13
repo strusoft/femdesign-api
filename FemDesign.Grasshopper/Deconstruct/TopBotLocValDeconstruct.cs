@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, obj.GetFdPoint().ToRhino());
             DA.SetData(1, obj.TopVal);
-            DA.SetData(2, obj.BottomVal);            
+            DA.SetData(2, obj.BottomVal);
        }
        protected override System.Drawing.Bitmap Icon
        {

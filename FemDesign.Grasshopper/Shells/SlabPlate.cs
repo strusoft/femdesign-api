@@ -122,5 +122,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("8c85f3e3-c50b-49ef-9cc0-5f90867bc0a1"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
     }
 }
