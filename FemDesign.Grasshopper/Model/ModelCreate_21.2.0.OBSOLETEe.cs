@@ -1,4 +1,4 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
@@ -7,9 +7,9 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreate : GH_Component
+    public class ModelCreate21_2_0_OBSOLETE : GH_Component
     {
-        public ModelCreate() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FEM-Design", "Model")
+        public ModelCreate21_2_0_OBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FEM-Design", "Model")
         {
 
         }
@@ -27,8 +27,6 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single LoadGroup element or list of LoadGroup elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Stages", "Stages", "List of Stages to add. Minimum number of stages is two. Nested lists are not supported.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -39,33 +37,24 @@ namespace FemDesign.Grasshopper
             // Get indata
             string countryCode = "S";
             DA.GetData("CountryCode", ref countryCode);
-
+            
             List<FemDesign.GenericClasses.IStructureElement> elements = new List<FemDesign.GenericClasses.IStructureElement>();
             DA.GetDataList("Structure Elements", elements);
-
+            
             List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();
             DA.GetDataList("Loads", loads);
-
+            
             List<FemDesign.Loads.LoadCase> loadCases = new List<FemDesign.Loads.LoadCase>();
             DA.GetDataList("LoadCases", loadCases);
-
+            
             List<FemDesign.Loads.LoadCombination> loadCombinations = new List<FemDesign.Loads.LoadCombination>();
             DA.GetDataList("LoadCombinations", loadCombinations);
 
             List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
             DA.GetDataList("LoadGroups", loadGroups);
 
-            var stages = new List<FemDesign.Stage>();
-            DA.GetDataList("Stages", stages);
-
-            var constructionStages = new ConstructionStages(
-                stages,
-                assignModifedElement: false,
-                assignNewElement: false,
-                ghostMethod: false);
-
             // Create model
-            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStages);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups);
 
             DA.SetData("FdModel", model);
         }
@@ -78,10 +67,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{8BC26CB8-4497-4817-A412-3C7E3A1F74E0}"); }
+            get { return new Guid("1a368e3a-cf8c-40a2-8b48-4eca8989fe6f"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

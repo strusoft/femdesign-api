@@ -138,11 +138,10 @@ namespace FemDesign.Examples
             var stage2 = new Stage(2, "STAGE_2", windActiveLoadCase, elementsStageTwo);
 
             var stage3 = new Stage(3, "STAGE_3", null, elementsStageThree);
-            var stage4 = new Stage(4, "STAGE_4", null, null);
-            var stage5 = new Stage(5, "STAGE_5", null, null);
-            var stage6 = new Stage(6, "STAGE_6", null, null);
+            var stage4 = new Stage(3, "STAGE_4", null, null);
+            var stage5 = new Stage(3, "STAGE_5", null, null);
 
-            var stages = new List<Stage>() { stage1, stage2, stage3, stage4, stage5, stage6 };
+            var stages = new List<Stage>() { stage1, stage2, stage3, stage4, stage5 };
 
             var constructionStages = new ConstructionStages(
                 stages,

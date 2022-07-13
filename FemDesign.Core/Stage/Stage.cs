@@ -35,13 +35,22 @@ namespace FemDesign
 
         }
 
-        public Stage(int id, string description, ActivatedLoadCase loadCase, List<IStageElement> elements, bool initialState = false)
+        public Stage(int index, string description, ActivatedLoadCase loadCase, List<IStageElement> elements, bool initialState = false)
         {
-            this.Id = id;
+            if(index <= 0)
+            {
+                throw new ArgumentException("index must be >= 1");
+            }
+            this.Id = index;
             this.Description = description;
             this.ActivatedLoadCase = loadCase;
             this.Elements = elements;
             this.InitialState = initialState;
+        }
+
+        public override string ToString()
+        {
+            return $"Stage {this.Description}";
         }
 
     }

@@ -41,6 +41,11 @@ namespace FemDesign
             this.Type = type;
             this.Guid = loadCase.Guid;
         }
+
+        public override string ToString()
+        {
+            return $"ActivatedLoadCase {this.LoadCase.Name} {this.Factor} {this.Type}";
+        }
     }
 
     public enum PartitioningType
