@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Calculate.Stage obj = FemDesign.Calculate.Stage.Define(ghost);
+            FemDesign.Calculate.ConstructionStage obj = FemDesign.Calculate.ConstructionStage.Define(ghost);
 
             // return
             DA.SetData(0, obj);

@@ -53,55 +53,59 @@ namespace FemDesign
         public Country Country { get; set; } // eurocodetype
         [XmlAttribute("xmlns")]
         public string Xmlns { get; set; }
-        [XmlElement("entities", Order = 1)]
+
+        [XmlElement("construction_stages", Order = 1)]
+        public ConstructionStages ConstructionStages { get; set; }
+
+        [XmlElement("entities", Order = 2)]
         public Entities Entities { get; set; }
-        [XmlElement("sections", Order = 2)]
+        [XmlElement("sections", Order = 3)]
         public Sections.ModelSections Sections { get; set; }
-        [XmlElement("materials", Order = 3)]
+        [XmlElement("materials", Order = 4)]
         public Materials.Materials Materials { get; set; }
-        [XmlElement("reinforcing_materials", Order = 4)]
+        [XmlElement("reinforcing_materials", Order = 5)]
         public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
-        [XmlElement("composites", Order = 5)]
+        [XmlElement("composites", Order = 6)]
         public StruSoft.Interop.StruXml.Data.DatabaseComposites Composites { get; set; }
-        [XmlElement("point_connection_types", Order = 6)]
+        [XmlElement("point_connection_types", Order = 7)]
         public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set; }
-        [XmlElement("point_support_group_types", Order = 7)]
+        [XmlElement("point_support_group_types", Order = 8)]
         public LibraryItems.PointSupportGroupTypes PointSupportGroupTypes { get; set; }
-        [XmlElement("line_connection_types", Order = 8)]
+        [XmlElement("line_connection_types", Order = 9)]
         public LibraryItems.LineConnectionTypes LineConnectionTypes { get; set; }
-        [XmlElement("line_support_group_types", Order = 9)]
+        [XmlElement("line_support_group_types", Order = 10)]
         public LibraryItems.LineSupportGroupTypes LineSupportGroupTypes { get; set; }
-        [XmlElement("surface_connection_types", Order = 10)]
+        [XmlElement("surface_connection_types", Order = 11)]
         public LibraryItems.SurfaceConnectionTypes SurfaceConnectionTypes { get; set; }
-        [XmlElement("surface_support_types", Order = 11)]
+        [XmlElement("surface_support_types", Order = 12)]
         public LibraryItems.SurfaceSupportTypes SurfaceSupportTypes { get; set; }
-        [XmlElement("timber_panel_types", Order = 12)]
+        [XmlElement("timber_panel_types", Order = 13)]
         public Materials.OrthotropicPanelTypes OrthotropicPanelTypes { get; set; }
-        [XmlElement("glc_panel_types", Order = 13)]
+        [XmlElement("glc_panel_types", Order = 14)]
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
         
-        [XmlElement("clt_panel_types", Order = 14)]
+        [XmlElement("clt_panel_types", Order = 15)]
         public Materials.CltPanelTypes CltPanelTypes { get; set; }
 
-        [XmlElement("ptc_strand_types", Order = 15)]
+        [XmlElement("ptc_strand_types", Order = 16)]
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
 
-        [XmlElement("vehicle_types", Order = 16)]
+        [XmlElement("vehicle_types", Order = 17)]
         public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes{ get; set;}
 
-        [XmlElement("bolt_types", Order = 17)]
+        [XmlElement("bolt_types", Order = 18)]
         public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes{ get; set;}
 
-        [XmlElement("geometry", Order = 18)]
+        [XmlElement("geometry", Order = 19)]
         public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
 
-        [XmlElement("user_defined_filter", Order = 19)]
+        [XmlElement("user_defined_filter", Order = 20)]
         public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters{ get; set;}
 
-        [XmlElement("user_defined_views", Order = 20)]
+        [XmlElement("user_defined_views", Order = 21)]
         public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews{ get; set;}
 
-        [XmlElement("end", Order = 21)]
+        [XmlElement("end", Order = 22)]
         public string End { get; set; }
 
         /// <summary>
@@ -121,7 +125,7 @@ namespace FemDesign
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null)
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages stages = null)
         {
             Initialize(country);
 
@@ -135,7 +139,8 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
             if (loadGroups != null)
                 AddLoadGroupTable(loadGroups, overwrite: false);
-
+            if (stages != null)
+                AddConstructionStages(stages, overwrite: false);
         }
 
         private void Initialize(Country country)
@@ -2660,6 +2665,27 @@ namespace FemDesign
             return false;
         }
 
+
+        public void AddConstructionStages(ConstructionStages obj, bool overwrite = false)
+        {
+            if(this.ConstructionStages == null)
+            {
+                this.ConstructionStages = new ConstructionStages();
+            }
+            this.ConstructionStages = obj;
+
+            foreach(var stage in obj.Stages)
+            {
+                if(stage.Elements != null)
+                {
+                    foreach(var element in stage.Elements)
+                    {
+                        element.StageId = stage.Id;
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region AddElements and AddLoads
@@ -2772,6 +2798,7 @@ namespace FemDesign
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
+
 
         #endregion
 

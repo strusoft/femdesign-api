@@ -11,7 +11,7 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public partial class Slab : EntityBase, IStructureElement
+    public partial class Slab : EntityBase, IStructureElement, IStageElement
     {
         private static int _plateInstance = 0;
         private static int _wallInstance = 0;
@@ -25,6 +25,10 @@ namespace FemDesign.Shells
         public string Name { get; set; } // identifier
         [XmlAttribute("type")]
         public SlabType Type { get; set; }
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
+
         [XmlElement("slab_part", Order = 1)]
         public SlabPart SlabPart { get; set; }
         [XmlElement("end", Order = 2)]

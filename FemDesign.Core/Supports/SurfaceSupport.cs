@@ -25,6 +25,10 @@ namespace FemDesign.Supports
                 this._name = value + "." + PointSupport._instance.ToString();
             }
         }
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
+
         [XmlElement("region", Order= 1)]
         public Geometry.Region Region { get; set; }
         

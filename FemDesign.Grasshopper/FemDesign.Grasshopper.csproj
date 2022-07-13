@@ -97,11 +97,14 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="ConstructionStages\Stage.cs" />
+    <Compile Include="ConstructionStages\StageLoad.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
+    <Compile Include="Model\ModelCreate.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
@@ -214,7 +217,7 @@
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelAddElements2OBSOLETE.cs" />
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
-    <Compile Include="Model\ModelCreate.cs" />
+    <Compile Include="Model\ModelCreate_21.2.0.OBSOLETEe.cs" />
     <Compile Include="Model\ModelCreate3OBSOLETE.cs" />
     <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStrOBSOLETE.cs" />

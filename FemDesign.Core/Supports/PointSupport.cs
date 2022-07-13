@@ -11,12 +11,15 @@ namespace FemDesign.Supports
     /// point_support_type
     /// </summary>
     [System.Serializable]
-    public partial class PointSupport : EntityBase, IStructureElement, ISupportElement
+    public partial class PointSupport : EntityBase, IStructureElement, ISupportElement, IStageElement
     {
         [XmlIgnore]
         public static int _instance = 0; // used for PointSupports and LineSupports
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
 
         [XmlIgnore]
         private Group group;

@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using Microsoft.XmlDiffPatch;
 
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Models
 {
@@ -90,7 +91,7 @@ namespace FemDesign.Models
         public void ModelTest()
         {
             Model model = new Model(Country.S);
-            
+
             Assert.IsNotNull(model, "Can construct model");
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }

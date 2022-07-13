@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FemDesign.UtilsDevelopment"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 9 - Read Results", "FemDesign.Examples\C#\Example 9 - ReadResults\Example 9 - Read Results.csproj", "{01E764C1-F187-47C5-B083-ADC046F6D11F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example10 - ConstructionStages", "FemDesign.Examples\C#\Example10 - ConstructionStages\Example10 - ConstructionStages.csproj", "{8954D8AD-051F-4B44-87A4-559C00DB1CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{01E764C1-F187-47C5-B083-ADC046F6D11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E764C1-F187-47C5-B083-ADC046F6D11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E764C1-F187-47C5-B083-ADC046F6D11F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8954D8AD-051F-4B44-87A4-559C00DB1CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8954D8AD-051F-4B44-87A4-559C00DB1CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8954D8AD-051F-4B44-87A4-559C00DB1CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8954D8AD-051F-4B44-87A4-559C00DB1CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +132,7 @@ Global
 		{69F49774-655C-4D04-A0CF-9DBC53609749} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{7EA66312-63D3-4125-8A65-7FA414152F33} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{01E764C1-F187-47C5-B083-ADC046F6D11F} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{8954D8AD-051F-4B44-87A4-559C00DB1CD6} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

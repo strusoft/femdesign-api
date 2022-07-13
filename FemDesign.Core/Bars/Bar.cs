@@ -13,7 +13,7 @@ namespace FemDesign.Bars
     /// Bar-element
     /// </summary>
     [System.Serializable]
-    public partial class Bar : EntityBase, IStructureElement
+    public partial class Bar : EntityBase, IStructureElement, IStageElement
     {
         [XmlIgnore]
         private static int _barInstance = 0; // used for counter of name)
@@ -128,6 +128,9 @@ namespace FemDesign.Bars
             // get {return this._type;}
             // set {this._type = RestrictedString.BeamType(value);}
         }
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
 
         [XmlElement("bar_part", Order = 1)]
         public BarPart BarPart { get; set; } // bar_part_type

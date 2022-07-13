@@ -12,14 +12,17 @@ namespace FemDesign.Supports
     /// line_support_type
     /// </summary>
     [System.Serializable]
-    public partial class LineSupport: EntityBase, IStructureElement, ISupportElement
+    public partial class LineSupport: EntityBase, IStructureElement, ISupportElement, IStageElement
     {
         // serialization properties
         [XmlAttribute("name")]
         public string Name { get; set; } // identifier. Default = S
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
-        
+
+        [XmlAttribute("stage")]
+        public int StageId { get; set; } = 1;
+
         [XmlIgnore]
         private Group group;
         [XmlElement("group", Order = 1)]
