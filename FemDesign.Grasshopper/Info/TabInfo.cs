@@ -43,5 +43,7 @@ namespace FemDesign.Info
 
         //Return a string representing your preferred contact details.
         public override string AuthorContact => "femdesign.api@strusoft.com";
+
+        public override string AssemblyVersion => "21.3.0";
     }
 }
