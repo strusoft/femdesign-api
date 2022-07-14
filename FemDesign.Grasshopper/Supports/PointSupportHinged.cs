@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "Point where to place the PointSupport. [m]", GH_ParamAccess.item);
+           pManager.AddPlaneParameter("Plane", "Plane", "Point where to place the PointSupport. [m]", GH_ParamAccess.item);
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
            pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -24,8 +24,8 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            Point3d point = Point3d.Origin;
-            if (!DA.GetData(0, ref point))
+            Plane plane = Plane.WorldXY;
+            if (!DA.GetData(0, ref plane))
             {
                 return;
             }
@@ -34,15 +34,12 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (point == null || identifier == null)
-            {
-                return;
-            }
+
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            var fdPlane = plane.FromRhinoPlane();
             
-            var obj = FemDesign.Supports.PointSupport.Hinged(fdPoint, identifier);
+            var obj = FemDesign.Supports.PointSupport.Hinged(fdPlane, identifier);
 
             // return
             DA.SetData(0, obj);

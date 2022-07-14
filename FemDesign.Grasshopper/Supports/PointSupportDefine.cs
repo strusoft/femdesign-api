@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "Point where to place the PointSupport. [m]", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Point", "Point", "Point where to place the PointSupport. [m]", GH_ParamAccess.item);
             pManager.AddGenericParameter("Motions", "Motions", "Motion springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotation springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Plastic Limits Forces Motions", "PlaLimM", "Plastic limits forces for motion springs. Optional.", GH_ParamAccess.item);
@@ -29,13 +29,13 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Point3d point = Point3d.Origin;
+            Plane plane = Plane.WorldXY;
             Releases.Motions motions = null;
             Releases.Rotations rotations = null;
             Releases.MotionsPlasticLimits motionsPlasticLimit = null;
             Releases.RotationsPlasticLimits rotationsPlasticLimit = null;
             string identifier = "S";
-            if (!DA.GetData(0, ref point))
+            if (!DA.GetData(0, ref plane))
             {
                 return;
             }
@@ -50,15 +50,11 @@ namespace FemDesign.Grasshopper
             DA.GetData(3, ref motionsPlasticLimit);
             DA.GetData(4, ref rotationsPlasticLimit);
             DA.GetData(5, ref identifier);
-            if (point == null || motions == null || rotations == null || identifier == null)
-            {
-                return;
-            }
 
             // Convert geometry
-            Geometry.FdPoint3d fdPoint = point.FromRhino();
+            var fdPlane = plane.FromRhinoPlane();
 
-            var obj = new Supports.PointSupport(fdPoint, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, identifier);
+            var obj = new Supports.PointSupport(fdPlane, motions, motionsPlasticLimit, rotations, rotationsPlasticLimit, identifier);
 
             DA.SetData(0, obj);
         }

@@ -308,5 +308,15 @@ namespace FemDesign.Geometry
                 throw new System.ArgumentException($"Impossible to orient axes. Dot product, {dot}, should be between -1 and 1");
             }
         }
+
+        /// <summary>
+        /// Implicity convert FdPoint to a FdCoordinateSystem. Local axis are set to Global X and Global Y.
+        /// </summary>
+        /// <param name="point"></param>
+        public static implicit operator FdCoordinateSystem(FdPoint3d point)
+        {
+            var plane = new FdCoordinateSystem(point, FdVector3d.UnitX(), FdVector3d.UnitY());
+            return plane;
+        }
     }
 }
