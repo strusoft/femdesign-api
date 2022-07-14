@@ -26,6 +26,5 @@ namespace FemDesign.Shells
             this.Z = point.Z;
             this.Value = val;            
         }
-
     }
 }

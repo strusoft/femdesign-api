@@ -36,15 +36,15 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            var pointSupports = new List<PointSupport>();
+            var pointSupports = new List<Supports.PointSupport>();
             var lineSupports = new List<LineSupport>();
             var surfaceSupports = new List<SurfaceSupport>();
 
             foreach (GenericClasses.ISupportElement obj in objs)
             {
-                if (obj.GetType() == typeof(PointSupport))
+                if (obj.GetType() == typeof(Supports.PointSupport))
                 {
-                    pointSupports.Add((PointSupport)obj);
+                    pointSupports.Add((Supports.PointSupport)obj);
                 }
 
                 else if (obj.GetType() == typeof(LineSupport))

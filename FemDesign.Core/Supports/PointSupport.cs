@@ -70,12 +70,25 @@ namespace FemDesign.Supports
         }
 
         /// <summary>
-        /// PointSupport at point with rigidity (motions, rotations). Group aligned with global coordinate system.
+        /// Create a Support Point oriented along defined FdCoordinateSystem provided.
         /// </summary>
-        /// <param name="point">Position of the support. </param>
-        /// <param name="motions">Motions stiffnessess. </param>
-        /// <param name="rotations">Rotation stiffnessess. </param>
-        /// <param name="identifier">Name.</param>
+        /// <param name="plane"></param>
+        /// <param name="motions"></param>
+        /// <param name="rotations"></param>
+        /// <param name="identifier"></param>
+        public PointSupport(FdCoordinateSystem plane, Motions motions, Rotations rotations, string identifier = "S")
+        {
+            var group = new Group(plane.LocalX, plane.LocalY, motions, rotations);
+            Initialize(plane.Origin, group, identifier);
+        }
+
+        /// <summary>
+        /// Create a Point Support oriented along the Global Axis X and Y.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="motions"></param>
+        /// <param name="rotations"></param>
+        /// <param name="identifier"></param>
         public PointSupport(FdPoint3d point, Motions motions, Rotations rotations, string identifier = "S")
         {
             var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, rotations);
@@ -91,14 +104,15 @@ namespace FemDesign.Supports
         /// <param name="rotations">Rotation stiffnessess. </param>
         /// <param name="rotationsPlasticLimits">Rotation plastic limit moments. </param>
         /// <param name="identifier">Name.</param>
-        public PointSupport(FdPoint3d point, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
+        public PointSupport(FdCoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
             var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
-            Initialize(point, group, identifier);
+            Initialize(plane, group, identifier);
         }
 
         /// <summary>
-        /// Define a Point Support. The method automatically set the value to both negative and positive value.
+        /// Define a Point Support. The method automatically set the motion values to both negative and positive value.
+        /// True = Fixed, False = Free.
         /// </summary>
         /// <param name="plane"></param>
         /// <param name="tx"></param>
@@ -124,7 +138,7 @@ namespace FemDesign.Supports
             Initialize(plane.Origin, group, identifier);
         }
 
-        private void Initialize(FdPoint3d point, Group group, string identifier)
+        private void Initialize(FdCoordinateSystem point, Group group, string identifier)
         {
             PointSupport._instance++;
             this.EntityCreated();
@@ -136,25 +150,25 @@ namespace FemDesign.Supports
         /// <summary>
         /// Rigid PointSupport at point.
         /// </summary>
-        /// <param name="point">Position of the support. </param>
+        /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Rigid(FdPoint3d point, string identifier = "S")
+        public static PointSupport Rigid(FdCoordinateSystem plane, string identifier = "S")
         {
             Motions motions = Motions.RigidPoint();
             Rotations rotations = Rotations.RigidPoint();
-            return new PointSupport(point, motions, rotations, identifier);
+            return new PointSupport(plane, motions, rotations, identifier);
         }
 
         /// <summary>
         /// Hinged PointSupport at point.
         /// </summary>
-        /// <param name="point">Position of the support. </param>
+        /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Hinged(FdPoint3d point, string identifier = "S")
+        public static PointSupport Hinged(FdCoordinateSystem plane, string identifier = "S")
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.Free();
-            return new PointSupport(point, motions, rotations, identifier);
+            return new PointSupport(plane, motions, rotations, identifier);
         }
     }
 }

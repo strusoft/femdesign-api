@@ -118,5 +118,14 @@ namespace FemDesign.Geometry
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
+        public static implicit operator FdPoint3d(FdCoordinateSystem plane)
+        {
+            var x = plane.Origin.X;
+            var y = plane.Origin.Y;
+            var z = plane.Origin.Z;
+            var point = new FdPoint3d(x, y, z);
+            return point;
+        }
+
     }
 }
