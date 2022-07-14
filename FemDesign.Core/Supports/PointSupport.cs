@@ -115,7 +115,7 @@ namespace FemDesign.Supports
 
         /// <summary>
         /// Define a Point Support. The method automatically set the motion values to both negative and positive value.
-        /// True = Fixed, False = Free.
+        /// True = Fixed (1e10 kN/m, 1.745e+08 kNm/deg) False = Free (0.00 kN/m, 0.00 kNm/deg). 
         /// </summary>
         /// <param name="plane"></param>
         /// <param name="tx"></param>
@@ -130,9 +130,9 @@ namespace FemDesign.Supports
             double x = tx == true ? 1e10 : 0;
             double y = ty == true ? 1e10 : 0;
             double z = tz == true ? 1e10 : 0;
-            double xx = rx == true ? 1e10 : 0;
-            double yy = ry == true ? 1e10 : 0;
-            double zz = rz == true ? 1e10 : 0;
+            double xx = rx == true ? 1.745e+08 : 0;
+            double yy = ry == true ? 1.745e+08 : 0;
+            double zz = rz == true ? 1.745e+08 : 0;
 
             var motions = new Motions(x, x, y, y, z, z);
             var rotations = new Rotations(xx, xx, yy, yy, zz, zz);
