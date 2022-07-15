@@ -6,6 +6,8 @@ namespace FemDesign.Releases
     [System.Serializable]
     public partial class Rotations: StiffnessType
     {
+        public static double ValueRigidPoint = 10000000000;
+        public static double ValueRigidLine = 10000000;
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -52,14 +54,16 @@ namespace FemDesign.Releases
         /// </summary>
         public static Rotations RigidPoint()
         {
-            return new Rotations(10000000000, 10000000000, 10000000000, 10000000000, 10000000000, 10000000000);
+            double val = Rotations.ValueRigidPoint;
+            return new Rotations(val, val, val, val, val, val);
         }
         /// <summary>
         /// Define a rigid rotations release for a line-type release (1e+07 kNm/m/rad).
         /// </summary>
         public static Rotations RigidLine()
         {
-            return new Rotations(10000000, 10000000, 10000000, 10000000,  10000000, 10000000);
+            double val = Rotations.ValueRigidLine;
+            return new Rotations(val, val, val, val,  val, val);
         }
         /// <summary>
         /// Define a free rotations release.

@@ -6,6 +6,8 @@ namespace FemDesign.Releases
     [System.Serializable]
     public partial class Motions : StiffnessType
     {
+        public static double ValueRigidPoint = 10000000000;
+        public static double ValueRigidLine = 10000000;
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -51,14 +53,16 @@ namespace FemDesign.Releases
         /// </summary>
         public static Motions RigidPoint()
         {
-            return new Motions(10000000000, 10000000000, 10000000000, 10000000000, 10000000000, 10000000000);
+            double val = Motions.ValueRigidPoint;
+            return new Motions(val, val, val, val, val, val);
         }
         /// <summary>
         /// /// Define a rigid translation release for a line-type release (1.000e+7)
         /// </summary>
         public static Motions RigidLine()
         {
-            return new Motions(10000000, 10000000, 10000000, 10000000, 10000000, 10000000);
+            double val = Motions.ValueRigidLine;
+            return new Motions(val, val, val, val, val, val);
         }
         /// <summary>
         /// Define a free translation release.

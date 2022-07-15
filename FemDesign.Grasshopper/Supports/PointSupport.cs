@@ -20,11 +20,11 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Tz", "Tz", "Motion in z.\nTrue:  Fix, 1e10 kN/m\nFalse: Free, 0.00 kN/m", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("Rx", "Rx", "Rotation in x.\nTrue:  Fix, 1.745e+08 kNm/deg\nFalse: Free, 0.00 kNm/deg", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Rx", "Rx", "Rotation in x.\nTrue:  Fix, 1e10 kNm/rad\nFalse: Free, 0.00 kNm/rad", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("Ry", "Ry", "Rotation in y.\nTrue:  Fix, 1.745e+08 kNm/deg\nFalse: Free, 0.00 kNm/deg", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Ry", "Ry", "Rotation in y.\nTrue:  Fix, 1e10 kNm/rad\nFalse: Free, 0.00 kNm/rad", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("Rz", "Rz", "Rotation in z.\nTrue:  Fix, 1.745e+08 kNm/deg\nFalse: Free, 0.00 kNm/deg", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Rz", "Rz", "Rotation in z.\nTrue:  Fix, 1e10 kNm/rad\nFalse: Free, 0.00 kNm/rad", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
