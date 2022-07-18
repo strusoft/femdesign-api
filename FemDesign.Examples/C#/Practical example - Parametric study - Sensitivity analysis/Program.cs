@@ -32,8 +32,8 @@ namespace FemDesign.Examples
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
             //Read point support number and its stiffness properties
-            var support1 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Name == "S.1");
-            var support2 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Name == "S.2");
+            var support1 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Identifier == "S.1");
+            var support2 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Identifier == "S.2");
             double alpha = 0.5;
 
 

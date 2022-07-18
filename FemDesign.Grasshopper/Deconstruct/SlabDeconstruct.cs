@@ -60,7 +60,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(9, slab.SlabPart.LocalY.ToRhino());
             DA.SetData(10, slab.SurfaceReinforcementParameters);
             DA.SetDataList(11, slab.SurfaceReinforcement);
-            DA.SetData(12, slab.Name);
+            DA.SetData(12, slab.Identifier);
 
        }
        protected override System.Drawing.Bitmap Icon

@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             
             // return
             DA.SetData(0, obj.Guid);
-            DA.SetData(1, obj.Name);
+            DA.SetData(1, obj.Identifier);
             DA.SetData(2, obj.Type.ToString());
             DA.SetData(3, obj.DurationClass.ToString());
             

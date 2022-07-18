@@ -38,7 +38,7 @@ namespace FemDesign.Shells
         }
 
         [XmlAttribute("name")]
-        public string Name {get; set;} // identifier
+        public string Identifier {get; set;} // identifier
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterial {get; set;} // guidtype
         [XmlAttribute("alignment")]
@@ -195,7 +195,7 @@ namespace FemDesign.Shells
         public SlabPart(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
         {
             this.EntityCreated();
-            this.Name = name;
+            this.Identifier = name;
             this.Region = region;
             this.ComplexMaterial = complexMaterial.Guid;
             this.Alignment = alignment.Alignment;

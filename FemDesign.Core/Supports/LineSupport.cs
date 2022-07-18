@@ -16,7 +16,7 @@ namespace FemDesign.Supports
     {
         // serialization properties
         [XmlAttribute("name")]
-        public string Name { get; set; } // identifier. Default = S
+        public string Identifier { get; set; } // identifier.
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
 
@@ -118,7 +118,7 @@ namespace FemDesign.Supports
         {
             PointSupport._instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.Name = identifier + "." + PointSupport._instance.ToString();
+            this.Identifier = identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
             // set edge specific properties

@@ -46,7 +46,7 @@ namespace FemDesign.Shells
         // [XmlElement("rigidity_group", Order = 6)]
 
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
 
         [XmlAttribute("positive_side")]
         public bool PositiveSide { get; set; } = true;

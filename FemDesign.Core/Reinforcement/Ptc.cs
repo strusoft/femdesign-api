@@ -373,7 +373,7 @@ namespace FemDesign.Reinforcement
         public Guid BaseObject { get; set; }
 
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
 
 
         [XmlAttribute("strand_type")]
@@ -446,7 +446,7 @@ namespace FemDesign.Reinforcement
             BaseObject = baseObject;
             StrandType = strand;
             StrandTypeGuid = strand.Guid;
-            Name = $"{identifier}.{++instances}";
+            Identifier = $"{identifier}.{++instances}";
 
             Losses = losses;
             NumberOfStrands = numberOfStrands;
@@ -491,7 +491,7 @@ namespace FemDesign.Reinforcement
         /// <param name="rho_1000">Rho 1000 [%]</param>
         public PtcStrandLibType(string name, double f_pk, double a_p, double e_p, double rho, int relaxationClass, double rho_1000)
         {
-            Name = name;
+            Identifier = name;
             PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, rho, relaxationClass, rho_1000);
             EntityCreated();
         }

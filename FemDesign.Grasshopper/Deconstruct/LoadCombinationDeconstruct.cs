@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
 
             var guidList = new List<object> { obj.Guid }; 
 
-            var nameList = new List<object> { obj.Name }; 
+            var nameList = new List<object> { obj.Identifier }; 
 
             var objectTypeList = new List<object> { obj.Type.ToString() }; 
 

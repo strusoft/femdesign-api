@@ -65,21 +65,21 @@ namespace FemDesign.Materials
             {
                 foreach (Material material in this.Materials.Material)
                 {
-                    list.Add(material.Name);
+                    list.Add(material.Identifier);
                 }
             }
             if (this.ReinforcingMaterials != null)
             {
                 foreach (Material material in this.ReinforcingMaterials.Material)
                 {
-                    list.Add(material.Name);
+                    list.Add(material.Identifier);
                 } 
             }
             if (this.CltPanelTypes != null)
             {
                 foreach (CltPanelLibraryType panelType in this.CltPanelTypes.CltPanelLibraryTypes)
                 {
-                    list.Add(panelType.Name);
+                    list.Add(panelType.Identifier);
                 }
             }
 
@@ -98,7 +98,7 @@ namespace FemDesign.Materials
             {
                 foreach (Material material in this.Materials.Material)
                 {
-                    if (material.Name == materialName)
+                    if (material.Identifier == materialName)
                     {
                         // update object information
                         material.Guid = System.Guid.NewGuid();
@@ -113,7 +113,7 @@ namespace FemDesign.Materials
             {
                 foreach (Material material in this.ReinforcingMaterials.Material)
                 {
-                    if (material.Name == materialName)
+                    if (material.Identifier == materialName)
                     {
                         // update object information
                         material.Guid = System.Guid.NewGuid();
@@ -133,7 +133,7 @@ namespace FemDesign.Materials
             {
                 foreach (CltPanelLibraryType panelLibraryType in this.CltPanelTypes.CltPanelLibraryTypes)
                 {
-                    if (panelLibraryType.Name == panelLibraryTypeName)
+                    if (panelLibraryType.Identifier == panelLibraryTypeName)
                     {
                         // update object information
                         panelLibraryType.Guid = System.Guid.NewGuid();

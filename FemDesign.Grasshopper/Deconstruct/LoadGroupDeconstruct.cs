@@ -80,7 +80,7 @@ namespace FemDesign.Grasshopper
             }
             
             // return
-            DA.SetData(0, obj.Name);
+            DA.SetData(0, obj.Identifier);
             DA.SetData(1, obj.GetLoadGroupType().ToString());
             DA.SetData(2, obj.GetSpecificLoadGroup().Relationship.ToString());
             DA.SetDataList(3, obj.GetLoadCaseGuidsAsString());

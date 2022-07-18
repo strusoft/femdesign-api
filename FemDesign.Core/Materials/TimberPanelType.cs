@@ -96,17 +96,17 @@ namespace FemDesign.Materials
         }
 
         [XmlIgnore]
-        public string Name {
+        public string Identifier {
             get {
-                if (PanelType is CltPanelLibraryType clt) return clt.Name;
-                else if (PanelType is GlcPanelLibraryType glc) return glc.Name;
-                else if (PanelType is OrthotropicPanelLibraryType timber) return timber.Name;
+                if (PanelType is CltPanelLibraryType clt) return clt.Identifier;
+                else if (PanelType is GlcPanelLibraryType glc) return glc.Identifier;
+                else if (PanelType is OrthotropicPanelLibraryType timber) return timber.Identifier;
                 else throw new NotImplementedException();
             }
             set {
-                if (PanelType is CltPanelLibraryType clt) clt.Name = value;
-                else if (PanelType is GlcPanelLibraryType glc) glc.Name = value;
-                else if (PanelType is OrthotropicPanelLibraryType timber) timber.Name = value;
+                if (PanelType is CltPanelLibraryType clt) clt.Identifier = value;
+                else if (PanelType is GlcPanelLibraryType glc) glc.Identifier = value;
+                else if (PanelType is OrthotropicPanelLibraryType timber) timber.Identifier = value;
                 else throw new NotImplementedException();
             }
         }

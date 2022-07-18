@@ -26,12 +26,12 @@ namespace FemDesign.AuxiliaryResults.LabelledSectionTests
             var verticies = new List<FdPoint3d>() { new FdPoint3d(0, 0, 0), new FdPoint3d(1, 0, 0) };
             var LS1 = new LabelledSection(verticies);
             var LS2 = new LabelledSection(verticies);
-            Assert.IsTrue(LS1.Name.EndsWith("1"), $"First instance should be named \"1\". Got {LS1.Name}");
-            Assert.IsTrue(LS2.Name.EndsWith("2"), $"Second instance should be named \"2\". Got {LS2.Name}");
+            Assert.IsTrue(LS1.Identifier.EndsWith("1"), $"First instance should be named \"1\". Got {LS1.Identifier}");
+            Assert.IsTrue(LS2.Identifier.EndsWith("2"), $"Second instance should be named \"2\". Got {LS2.Identifier}");
             
             LabelledSection.ResetInstanceCount();
             var LS3 = new LabelledSection(verticies);
-            Assert.IsTrue(LS3.Name.EndsWith("1"), "Instance should be reset.");
+            Assert.IsTrue(LS3.Identifier.EndsWith("1"), "Instance should be reset.");
         }
 
         [TestMethod("LabelledSection geometry")]

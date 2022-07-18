@@ -25,17 +25,17 @@ namespace FemDesign.Materials
         public ServiceClassFactors ServiceClassFactors2 { get; set;}
 
         [XmlAttribute("description")]
-        public string _name;
+        public string _identifier;
         [XmlIgnore]
-        public string Name
+        public string Identifier
         {
             get
             {
-                return this._name;
+                return this._identifier;
             }
             set
             {
-                this._name = RestrictedString.Length(value, 40);
+                this._identifier = RestrictedString.Length(value, 40);
             }
         }
         

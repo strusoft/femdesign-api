@@ -88,7 +88,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", fictitiousBar.Guid},
-                {"AnalyticalID", fictitiousBar.Name},
+                {"AnalyticalID", fictitiousBar.Identifier},
                 {"Curve", fictitiousBar.Edge.ToDynamo()},
                 {"AE", fictitiousBar.AE},
                 {"ItG", fictitiousBar.ItG},
@@ -369,7 +369,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", loadCase.Guid.ToString()},
-                {"Name", loadCase.Name},
+                {"Name", loadCase.Identifier},
                 {"Type", loadCase.Type.ToString()},
                 {"DurationClass", loadCase.DurationClass.ToString()}
             };
@@ -387,7 +387,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", loadCombination.Guid},
-                {"Name", loadCombination.Name},
+                {"Name", loadCombination.Identifier},
                 {"Type", loadCombination.Type.ToString()},
                 {"LoadCases", loadCombination.GetLoadCaseGuidsAsString()},
                 {"Gammas", loadCombination.GetGammas()}
@@ -415,7 +415,7 @@ namespace FemDesign
                 {"Guid", material.Guid},
                 {"Standard", standard},
                 {"Country", country},
-                {"Name", material.Name}
+                {"Name", material.Identifier}
             };
         }
 
@@ -538,7 +538,7 @@ namespace FemDesign
                 {"Direction", storey.Direction.ToDynamo()},
                 {"DimensionX", storey.DimensionX},
                 {"DimensionY", storey.DimensionY},
-                {"Name", storey.Name}
+                {"Name", storey.Identifier}
             };
         }
 
@@ -583,7 +583,7 @@ namespace FemDesign
                 {"LocalY", slab.SlabPart.LocalY.ToDynamo()},
                 {"SurfaceReinforcementParameters", slab.SurfaceReinforcementParameters},
                 {"SurfaceReinforcement", slab.SurfaceReinforcement},
-                {"Identifier", slab.Name}
+                {"Identifier", slab.Identifier}
             };
         }
 
@@ -671,7 +671,7 @@ namespace FemDesign
             return new Dictionary<string, object>
             {
                 {"Guid", section.Guid},
-                {"Name", section.Name},
+                {"Name", section.Identifier},
                 {"Surfaces", section.RegionGroup.ToDynamo()},
                 {"SectionType", section.Type},
                 {"MaterialType", section.MaterialType},
@@ -710,7 +710,7 @@ namespace FemDesign
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
-                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"AnalyticalID", shellEdgeConnection.Identifier},
                         {"PredefinedName", null},
                         {"PredefinedGuid", null},
                         {"Friction", null},
@@ -723,7 +723,7 @@ namespace FemDesign
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
-                        {"AnalyticalID", shellEdgeConnection.Name},
+                        {"AnalyticalID", shellEdgeConnection.Identifier},
                         {"PredefinedName", null},
                         {"PredefinedGuid", null},
                         {"Friction", shellEdgeConnection.Rigidity.Friction},
@@ -736,8 +736,8 @@ namespace FemDesign
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
-                        {"AnalyticalID", shellEdgeConnection.Name},
-                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"AnalyticalID", shellEdgeConnection.Identifier},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Identifier},
                         {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
                         {"Friction", null},
                         {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
@@ -749,8 +749,8 @@ namespace FemDesign
                     return new Dictionary<string, object>
                     {
                         {"Guid", shellEdgeConnection.Guid},
-                        {"AnalyticalID", shellEdgeConnection.Name},
-                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Name},
+                        {"AnalyticalID", shellEdgeConnection.Identifier},
+                        {"PredefinedName", shellEdgeConnection.PredefRigidity.Identifier},
                         {"PredefinedGuid", shellEdgeConnection.PredefRigidity.Guid},
                         {"Friction", shellEdgeConnection.PredefRigidity.Rigidity.Friction},
                         {"Motions", shellEdgeConnection.PredefRigidity.Rigidity.Motions},
@@ -907,7 +907,7 @@ namespace FemDesign
                 return new Dictionary<string, object>
                 {
                     {"Guid", obj.Guid},
-                    {"AnalyticalID", obj.Name},
+                    {"AnalyticalID", obj.Identifier},
                     {"Geometry", obj.GetDynamoGeometry()},
                     {"MovingLocal", "PointLoad has no moving local property."},
                     {"LocalX", obj.Group.LocalX.ToDynamo()},
@@ -945,7 +945,7 @@ namespace FemDesign
                 return new Dictionary<string, object>
                 {
                     {"Guid", obj.Guid},
-                    {"AnalyticalID", obj.Name},
+                    {"AnalyticalID", obj.Identifier},
                     {"Geometry", obj.GetDynamoGeometry()},
                     {"MovingLocal", obj.MovingLocal},
                     {"LocalX", obj.Group.LocalX.ToDynamo()},

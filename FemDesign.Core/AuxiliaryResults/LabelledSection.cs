@@ -56,7 +56,7 @@ namespace FemDesign.AuxiliaryResults
         /// Identifier
         /// </summary>
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
         
         /// <summary>
         /// Parameterless contructor for serialization
@@ -85,7 +85,7 @@ namespace FemDesign.AuxiliaryResults
             this.EntityCreated();
 
             Verticies = verticies;
-            Name = $"{identifier}.{instances}";
+            Identifier = $"{identifier}.{instances}";
         }
     }
 }

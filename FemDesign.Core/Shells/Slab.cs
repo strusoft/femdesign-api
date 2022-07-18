@@ -22,7 +22,7 @@ namespace FemDesign.Shells
         [XmlIgnore]
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
         [XmlAttribute("name")]
-        public string Name { get; set; } // identifier
+        public string Identifier { get; set; } // identifier
         [XmlAttribute("type")]
         public SlabType Type { get; set; }
 
@@ -48,7 +48,7 @@ namespace FemDesign.Shells
         private Slab(SlabType type, string name, SlabPart slabPart, Materials.Material material)
         {
             this.EntityCreated();
-            this.Name = name;
+            this.Identifier = name;
             this.Type = type;
             this.SlabPart = slabPart;
             this.Material = material;

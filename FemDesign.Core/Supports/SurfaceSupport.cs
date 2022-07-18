@@ -11,18 +11,18 @@ namespace FemDesign.Supports
     public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement
     {
         [XmlAttribute("name")]
-        public string _name;
+        public string _identifier;
         [XmlIgnore]
         public string Identifier
         {
             get
             {
-                return this._name;
+                return this._identifier;
             }
             set
             {
                 PointSupport._instance++;
-                this._name = value + "." + PointSupport._instance.ToString();
+                this._identifier = value + "." + PointSupport._instance.ToString();
             }
         }
 

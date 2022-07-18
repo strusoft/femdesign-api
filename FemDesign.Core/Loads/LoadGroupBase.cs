@@ -13,7 +13,7 @@ namespace FemDesign.Loads
     public partial class LoadGroupBase
     {
         [XmlIgnore]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
         [XmlElement("load_case")]
         public List<ModelLoadCaseInGroup> ModelLoadCase = new List<ModelLoadCaseInGroup>();// sequence: ModelLoadCaseInGroup
         [XmlAttribute("relationship")]

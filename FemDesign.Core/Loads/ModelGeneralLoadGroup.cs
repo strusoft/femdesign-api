@@ -13,7 +13,7 @@ namespace FemDesign.Loads
     public partial class ModelGeneralLoadGroup: GenericClasses.IFemDesignEntity
     {
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; }
         [XmlAttribute("consider_in_gmax")]
@@ -39,7 +39,7 @@ namespace FemDesign.Loads
         {
             EntityCreated();
             AddSpecificLoadGroup(LoadGroup, false);
-            Name = LoadGroup.Name;
+            Identifier = LoadGroup.Identifier;
         }
 
         /// <summary>

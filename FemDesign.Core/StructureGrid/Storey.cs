@@ -41,7 +41,7 @@ namespace FemDesign.StructureGrid
             set { this._dimensionY = RestrictedDouble.Positive(value); }
         }
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization
@@ -66,7 +66,7 @@ namespace FemDesign.StructureGrid
             this.Direction = direction;
             this.DimensionX = dimensionX;
             this.DimensionY = dimensionY;
-            this.Name = name;
+            this.Identifier = name;
         }
 
     }

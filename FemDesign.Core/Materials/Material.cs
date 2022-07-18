@@ -20,7 +20,7 @@ namespace FemDesign.Materials
         /// </summary>
         /// <value></value>
         [XmlAttribute("name")]
-        public string Name { get; set; } // name256
+        public string Identifier { get; set; } // name256
         [XmlElement("timber")]
         public Timber Timber { get; set; }
         [XmlElement("concrete")]

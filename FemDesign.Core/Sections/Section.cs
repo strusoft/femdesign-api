@@ -58,7 +58,7 @@ namespace FemDesign.Sections
         public string _end { get; set; } // enpty_type
 
         [XmlAttribute("name")]
-        public string Name { get; set; } // string
+        public string Identifier { get; set; } // string
 
         [XmlAttribute("type")]
         public string Type { get; set; } // sectiontype
@@ -91,7 +91,7 @@ namespace FemDesign.Sections
         {
             this.EntityCreated();
             this.RegionGroup = regionGroup;
-            this.Name = name;
+            this.Identifier = name;
             this.Type = type;
             this.MaterialType = ((int)materialTypeEnum).ToString();
             this.GroupName = groupName;

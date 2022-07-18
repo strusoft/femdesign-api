@@ -14,7 +14,7 @@ namespace FemDesign.Loads
     public partial class Footfall : EntityBase, ILoadElement
     {
         [XmlAttribute("name")]
-        public string Name;
+        public string Identifier;
         [XmlAttribute("comment")]
         public string Comment;
         [XmlElement("region")] 
@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         {
             Region = region;
             Footfall.selfExcitationInstances++;
-            Name = $"{identifier}.{selfExcitationInstances}";
+            Identifier = $"{identifier}.{selfExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;
             this.EntityCreated();
         }
@@ -80,7 +80,7 @@ namespace FemDesign.Loads
         {
             Position = position;
             Footfall.fullExcitationInstances++;
-            Name = $"{identifier}.{fullExcitationInstances}";
+            Identifier = $"{identifier}.{fullExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;
             this.EntityCreated();
         }

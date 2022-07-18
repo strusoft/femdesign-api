@@ -34,6 +34,6 @@ namespace FemDesign.Reinforcement
         public bool ManualDesign { get; set; }
 
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
     }
 }

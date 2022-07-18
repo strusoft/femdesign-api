@@ -14,7 +14,7 @@ namespace FemDesign.Bars
         public Connectivity Connectivity { get; set; }
 
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string Identifier { get; set; }
 
         [XmlAttribute("base_column")]
         public System.Guid BaseColumn { get; set; }

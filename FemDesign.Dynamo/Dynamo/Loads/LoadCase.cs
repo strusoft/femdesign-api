@@ -41,7 +41,7 @@ namespace FemDesign.Loads
         {
             foreach (LoadCase _loadCase in loadCases)
             {
-                if (_loadCase.Name == name)
+                if (_loadCase.Identifier == name)
                 {
                     return _loadCase;
                 }

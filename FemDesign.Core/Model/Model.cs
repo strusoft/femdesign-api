@@ -1494,7 +1494,7 @@ namespace FemDesign
             // add load case
             if (this.LoadCaseNameTaken(obj))
             {
-                obj.Name = obj.Name + " (1)";
+                obj.Identifier = obj.Identifier + " (1)";
             }
             this.Entities.Loads.LoadCases.Add(obj);
         }
@@ -1521,7 +1521,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.Name == obj.Name)
+                if (elem.Identifier == obj.Identifier)
                 {
                     return true;
                 }
@@ -1606,7 +1606,7 @@ namespace FemDesign
             // add load combination
             if (this.LoadCombinationNameTaken(obj))
             {
-                obj.Name = obj.Name + " (1)";
+                obj.Identifier = obj.Identifier + " (1)";
             }
             this.Entities.Loads.LoadCombinations.Add(obj);
         }
@@ -1644,7 +1644,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCombination elem in this.Entities.Loads.LoadCombinations)
             {
-                if (elem.Name == obj.Name)
+                if (elem.Identifier == obj.Identifier)
                 {
                     return true;
                 }

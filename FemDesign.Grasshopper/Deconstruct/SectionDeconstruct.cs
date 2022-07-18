@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
             }
 
             DA.SetData(0, obj.Guid);
-            DA.SetData(1, obj.Name);
+            DA.SetData(1, obj.Identifier);
             DA.SetDataList(2, obj.RegionGroup.ToRhino());
             DA.SetData(3, obj.Type);
             DA.SetData(4, obj.MaterialType);

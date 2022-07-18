@@ -12,7 +12,7 @@ namespace FemDesign.Loads
     public partial class LoadCombination: EntityBase
     {
         [XmlAttribute("name")]
-        public string Name { get; set; } // name159
+        public string Identifier { get; set; } // name159
         [XmlAttribute("type")]
         public LoadCombType Type { get; set; } // loadcombtype 
         [XmlElement("load_case")]
@@ -34,7 +34,7 @@ namespace FemDesign.Loads
         public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma)
         {
             this.EntityCreated();
-            this.Name = name;
+            this.Identifier = name;
             this.Type = type;
             
 

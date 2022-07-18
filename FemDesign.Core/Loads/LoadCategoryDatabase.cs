@@ -59,7 +59,7 @@ namespace FemDesign.Loads
             {
                 foreach (LoadCategory loadCategory in this.LoadCategories.LoadCategory)
                 {
-                    list.Add(loadCategory.Name);
+                    list.Add(loadCategory.Identifier);
                 }
             }
             // return
@@ -77,7 +77,7 @@ namespace FemDesign.Loads
             {
                 foreach (LoadCategory loadCategory in this.LoadCategories.LoadCategory)
                 {
-                    if (loadCategory.Name == loadCategoryName)
+                    if (loadCategory.Identifier == loadCategoryName)
                     {
                         // update object information
                         loadCategory.Guid = System.Guid.NewGuid();
