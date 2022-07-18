@@ -6,8 +6,14 @@ namespace FemDesign.Releases
     [System.Serializable]
     public partial class Motions : StiffnessType
     {
-        public static double ValueRigidPoint = 10000000000;
-        public static double ValueRigidLine = 10000000;
+        /// <summary>
+        /// Rigid translation/rotation stiffness value for point support. [kN/m or kNm/rad]
+        /// </summary>
+        public static double ValueRigidPoint = 1e10;
+        /// <summary>
+        /// Rigid translation/rotation stiffness value for line support. [kN/m/m or kNm/m/rad]
+        /// </summary>
+        public static double ValueRigidLine = 1e7;
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
