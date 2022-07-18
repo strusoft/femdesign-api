@@ -1613,6 +1613,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StageActivatedLoad {
+            get {
+                object obj = ResourceManager.GetObject("StageActivatedLoad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap StageDefine {
             get {
                 object obj = ResourceManager.GetObject("StageDefine", resourceCulture);

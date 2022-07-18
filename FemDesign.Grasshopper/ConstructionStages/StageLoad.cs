@@ -48,12 +48,12 @@ namespace FemDesign.Grasshopper
             // return
             DA.SetData(0, activatedLoadCase);
         }
+
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-
-                return null;
+                return FemDesign.Properties.Resources.StageActivatedLoad;
             }
         }
         public override Guid ComponentGuid

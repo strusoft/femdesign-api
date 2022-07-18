@@ -781,6 +781,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\Stage_ActivatedLoad.jpg" />
     <EmbeddedResource Include="Resources\icons\Units.png" />
     <EmbeddedResource Include="Resources\icons\ResultType.png" />
     <EmbeddedResource Include="Resources\icons\results.png" />
