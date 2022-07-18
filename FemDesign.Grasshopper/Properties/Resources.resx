@@ -2951,7 +2951,7 @@
   <data name="ModelReadStr1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DQAACw0B7QfALAAALiVJREFUeF7tnWlsHNeW32nL1m5btp6fE0yQLxngzQvmIR8SvGCANwiQbYIAM/Mh
+        DAAACwwBP0AiyAAALiVJREFUeF7tnWlsHNeW32nL1m5btp6fE0yQLxngzQvmIR8SvGCANwiQbYIAM/Mh
         2yBBgGSS+ZAMZnlvYu0rRVGyJEqi9n1fqM2SKHFfukmKjzsp7jspkrL2xZJsy5Zkntxzuy91+9apXljd
         7Cr2ucDPFru7qovN+/vfrao6DQAsNDY2wKFDB+Gf/tF/gi9H58OfHL8Dv7OmA975dQvDMC7nH6R3w5+e
         egDFL38Gf/x/VgqlrY4ryAf/fOMZWNb+O/Deb+g3YBjGG7z3dzdhUe8/hrT/nS/Utroe8sNvf1sNL3//
@@ -6549,6 +6549,9 @@
     <value>..\Resources\icons\Units.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StageActivatedLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons\Stage_ActivatedLoad.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\Stage_ActivatedLoad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stages" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Stages.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
