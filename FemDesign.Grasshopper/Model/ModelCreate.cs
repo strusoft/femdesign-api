@@ -58,11 +58,17 @@ namespace FemDesign.Grasshopper
             var stages = new List<FemDesign.Stage>();
             DA.GetDataList("Stages", stages);
 
-            var constructionStages = new ConstructionStages(
-                stages,
-                assignModifedElement: false,
-                assignNewElement: false,
-                ghostMethod: false);
+            ConstructionStages constructionStages = null;
+
+            if(stages.Count != 0)
+            {
+                constructionStages = new ConstructionStages(
+                    stages,
+                    assignModifedElement: false,
+                    assignNewElement: false,
+                    ghostMethod: false);
+            }
+
 
             // Create model
             Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStages);

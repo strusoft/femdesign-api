@@ -2674,7 +2674,12 @@ namespace FemDesign
             }
             this.ConstructionStages = obj;
 
-            foreach(var stage in obj.Stages)
+            if (obj.Stages.Count == 1)
+            {
+                throw new Exception("Number of Stages must be greater than 2");
+            }
+
+            foreach (var stage in obj.Stages)
             {
                 if(stage.Elements != null)
                 {
