@@ -67,5 +67,14 @@ namespace FemDesign.Geometry.EdgeTests
             //Assert.ThrowsException<ArgumentException>(() => arc2.Length, "Should throw exception stating that method to calculate sweep angle is not implemented yet.");
             Assert.IsTrue(Math.Abs(arc2.Length - Math.PI) <= Tolerance.LengthComparison); // test should fail here 
         }
+
+        [TestMethod("X-Axis")]
+        public void XAxis()
+        {
+            var edge = new Edge(FdPoint3d.Origin(), new FdPoint3d(1, 1, 0), FdVector3d.UnitZ());
+            var direction = edge.XAxis.Normalize(); // This will throw null reference exception
+
+            Console.ReadKey();
+        }
     }
 }
