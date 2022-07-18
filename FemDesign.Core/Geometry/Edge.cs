@@ -195,6 +195,7 @@ namespace FemDesign.Geometry
             this.Points.Add(_startPoint);
             this.Points.Add(_endPoint);
             this.Normal = _coordinateSystem.LocalY;
+            this.XAxis = _coordinateSystem.LocalX;
             this.CoordinateSystem = _coordinateSystem;
         }
 
@@ -207,6 +208,7 @@ namespace FemDesign.Geometry
             this.Points.Add(startPoint);
             this.Points.Add(endPoint);
             this.Normal = localY;
+            this.XAxis = this.CoordinateSystem.LocalX;
         }
 
         /// <summary>
