@@ -125,6 +125,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\CmdEndSession.cs">
       <Link>Core\Calculate\CmdEndSession.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdGlobalCfg.cs">
+      <Link>Core\Calculate\CmdGlobalCfg.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\CmdListGen.cs">
       <Link>Core\Calculate\CmdListGen.cs</Link>
     </Compile>

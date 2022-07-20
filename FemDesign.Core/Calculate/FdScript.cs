@@ -24,17 +24,21 @@ namespace FemDesign.Calculate
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
         [XmlElement("cmduser", Order = 3)]
         public CmdUser CmdUser { get; set;} // CMDUSER
-        [XmlElement("cmdcalculation", Order = 4)]
-        public CmdCalculation CmdCalculation { get; set; } // CMDCALCULATION
-        [XmlElement("cmdlistgen", Order = 5)]
+
+        [XmlElement("cmdglobalcfg", Order = 4)]
+        public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
+
+        [XmlElement("cmdcalculation", Order = 5)]
+        public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
+        [XmlElement("cmdlistgen", Order = 6)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
-        [XmlElement("cmdchild", Order = 6)]
+        [XmlElement("cmdchild", Order = 7)]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
-        [XmlElement("cmdsavedocx", Order = 7)]
+        [XmlElement("cmdsavedocx", Order = 8)]
         public CmdSaveDocx CmdSaveDocx { get; set;} // CMDSAVEDOCX
-        [XmlElement("cmdsave", Order = 8)]
+        [XmlElement("cmdsave", Order = 9)]
         public CmdSave CmdSave { get; set; } // CMDSAVE
-        [XmlElement("cmdendsession", Order = 9)]
+        [XmlElement("cmdendsession", Order = 10)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
         [XmlIgnore]
         public string StruxmlPath {get; set; } // path to struxml file, string 259

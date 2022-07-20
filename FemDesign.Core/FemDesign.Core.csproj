@@ -46,6 +46,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
