@@ -46,15 +46,20 @@ namespace FemDesign.Calculate
 
         public static CmdGlobalCfg Default()
         {
-            var cmdGlobalCfg = new CmdGlobalCfg
-            {
-                MeshGeneral = MeshGeneral.Default(),
-                MeshElements = MeshElements.Default(),
-                Meshfunctions = MeshFunctions.Default(),
-                MeshPrepare = MeshPrepare.Default(),
-                PeaksmMethod = PeaksmMethod.Default(),
-                PeaksmAuto = PeaksmAuto.Default()
-            };
+            var meshGeneral = MeshGeneral.Default();
+            var meshElements = MeshElements.Default();
+            var meshfunctions = MeshFunctions.Default();
+            var meshPrepare = MeshPrepare.Default();
+            var peaksmMethod = PeaksmMethod.Default();
+            var peaksmAuto = PeaksmAuto.Default();
+
+            var cmdGlobalCfg = new CmdGlobalCfg(meshGeneral,
+                                                meshElements,
+                                                meshfunctions,
+                                                meshPrepare,
+                                                peaksmMethod,
+                                                peaksmAuto);
+
             return cmdGlobalCfg;
         }
     }
@@ -64,6 +69,13 @@ namespace FemDesign.Calculate
         [XmlAttribute("fAdjustToLoads")]
         public int _adjustToLoads { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MeshGeneral()
+        {
+
+        }
         public MeshGeneral(bool adjustToLoad = false)
         {
             this._adjustToLoads = System.Convert.ToInt32(adjustToLoad);
@@ -71,7 +83,7 @@ namespace FemDesign.Calculate
 
         public static MeshGeneral Default()
         {
-            return new MeshGeneral();
+            return new MeshGeneral(adjustToLoad : false);
         }
 
     }
@@ -93,6 +105,14 @@ namespace FemDesign.Calculate
         [XmlAttribute("rDefaultAngle")]
         public double DefaultAngle { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MeshElements()
+        {
+
+        }
+
         public MeshElements(bool elemCalcRegion = true, double elemeSizeDiv = 6.0, bool correctToMinDivNum = true, int defaultDiv = 2, double defaultAngle = 15.0)
         {
             this._elemCalcRegion = System.Convert.ToInt32(elemCalcRegion);
@@ -104,7 +124,7 @@ namespace FemDesign.Calculate
 
         public static MeshElements Default()
         {
-            return new MeshElements();
+            return new MeshElements(elemCalcRegion : true);
         }
 
     }
@@ -144,7 +164,15 @@ namespace FemDesign.Calculate
         [XmlAttribute("fCheckMeshTopology")]
         public int _checkMeshTopology { get; set; }
 
-        public MeshFunctions(bool refineLocally = true, int refineMaxStepNum = 5, bool iterWarning = false, bool reduceSize = true, int smoothStepNum = 3, bool checkMeshGeom = true, double checkGeomMinangle = 10.0, double checkGeomMaxangle = 170.0, double checkGeomMaxSideRation = 8.0, bool checkMeshOverlap = true, bool checkMeshTopology = true)
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MeshFunctions()
+        {
+
+        }
+
+        public MeshFunctions(bool refineLocally = true, int refineMaxStepNum = 5, bool iterWarning = false, bool reduceSize = true, int smoothStepNum = 3, bool checkMeshGeom = true, double checkGeomMinangle = 10.0, double checkGeomMaxangle = 170.0, double checkGeomMaxSideRatio = 8.0, bool checkMeshOverlap = true, bool checkMeshTopology = true)
         {
             this._refineLocally = System.Convert.ToInt32(refineLocally);
             this.RefineMaxStepNum = refineMaxStepNum;
@@ -152,16 +180,16 @@ namespace FemDesign.Calculate
             this._reduceSize = System.Convert.ToInt32(reduceSize);
             this.SmoothStepNum = smoothStepNum;
             this._checkMeshGeom = System.Convert.ToInt32(checkMeshGeom);
-            this.CheckGeomMinAngle = CheckGeomMinAngle;
-            this.CheckGeomMaxAngle = CheckGeomMaxAngle;
-            this.CheckGeomMaxSideRatio = CheckGeomMaxSideRatio;
+            this.CheckGeomMinAngle = checkGeomMinangle;
+            this.CheckGeomMaxAngle = checkGeomMaxangle;
+            this.CheckGeomMaxSideRatio = checkGeomMaxSideRatio;
             this._checkMeshOverLap = System.Convert.ToInt32(checkMeshOverlap);
             this._checkMeshTopology = System.Convert.ToInt32(checkMeshTopology);
         }
 
         public static MeshFunctions Default()
         {
-            return new MeshFunctions();
+            return new MeshFunctions(refineLocally : true);
         }
     }
 
@@ -236,7 +264,13 @@ namespace FemDesign.Calculate
         [XmlAttribute("fAutoCheck")]
         public int _autoCheck { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MeshPrepare()
+        {
 
+        }
         public MeshPrepare(bool autoRegen = true, bool thPeak = true, bool thBeam = false, bool thColumn = true, bool thTruss = false, bool thFicBeam = false, bool thFreeEdge = false, bool thRegionBorder = false, bool thSuppPt = true, bool thSuppLn = false, bool thSuppSf = false, bool thEdgeConn = false, bool thConnPt = false, bool thConnLn = false, bool thConnSf = false, bool thLoadPt = false, bool thLoadLn = false, bool thLoadSf = false, bool thFixPt = false, bool thFixLn = false, bool autoRebuild = true, bool autoSmooth = true, bool autoCheck = false)
         {
             this._autoRegen = System.Convert.ToInt32(autoRegen);
@@ -266,7 +300,7 @@ namespace FemDesign.Calculate
 
         public static MeshPrepare Default()
         {
-            return new MeshPrepare();
+            return new MeshPrepare(autoRegen : true);
         }
     }
 
@@ -281,6 +315,14 @@ namespace FemDesign.Calculate
         [XmlAttribute("sPeakFormFunc_V")]
         public int PeakFormV { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private PeaksmMethod()
+        {
+
+        }
+
         public PeaksmMethod(int peakFormM = 1, int peakFormN = 1, int peakFormV = 1)
         {
             this.PeakFormM = peakFormM;
@@ -290,7 +332,7 @@ namespace FemDesign.Calculate
 
         public static PeaksmMethod Default()
         {
-            return new PeaksmMethod();
+            return new PeaksmMethod(peakFormM : 1);
         }
     }
 
@@ -338,6 +380,13 @@ namespace FemDesign.Calculate
         [XmlAttribute("rPeakFactor")]
         public double PeakFactor { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private PeaksmAuto()
+        {
+
+        }
         public PeaksmAuto(bool peakBeam = false, bool peakColumn = true, bool peakTruss = false, bool peakficBeam = false, bool peakPlate = false, bool peakWall = false, bool peakFicShell = false, bool peakSuppPt = true, bool peakSuppLn = false, bool peakSuppSf = false, bool peakConnPt = false, bool peakConnLn = false, bool peakConnSf = false, double peakFactor = 0.5)
         {
             this._peakBeam = System.Convert.ToInt32(peakBeam);
@@ -358,7 +407,7 @@ namespace FemDesign.Calculate
 
         public static PeaksmAuto Default()
         {
-            return new PeaksmAuto();
+            return new PeaksmAuto(peakBeam : false);
         }
     }
 
