@@ -16,7 +16,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Ordinary" load type
         /// </summary>
-        [Parseable("Ordinary", "static", "Static", "STATIC")]
+        [Parseable("ordinary", "Ordinary", "ORDINARY","static", "Static", "STATIC")]
         [XmlEnum("static")]
         Static,
 
@@ -44,7 +44,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// "Camber sim." load type
         /// </summary>
-        [Parseable("+Shrinkage", "prestressing", "Prestressing", "PRESTRESSING", "camber_sim", "Camber_sim", "CAMBER_SIM")]
+        [Parseable("+Shrinkage", "Shrinkage", "shrinkage", "Shrinkage", "SHRINKAGE", "Prestressing", "PRESTRESSING", "camber_sim", "Camber_sim", "CAMBER_SIM")]
         [XmlEnum("prestressing")]
         Prestressing,
 
