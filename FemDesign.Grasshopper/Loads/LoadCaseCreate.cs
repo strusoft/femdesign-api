@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get data
-            string name = null, type = "static", durationClass = "permanent";
+            string name = null, type = "ordinary", durationClass = "permanent";
             if (!DA.GetData(0, ref name)) { return; }
             if (!DA.GetData(1, ref type))
             {
