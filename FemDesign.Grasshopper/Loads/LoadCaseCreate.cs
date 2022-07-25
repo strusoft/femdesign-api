@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of LoadCase.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Type", "Type", "LoadCase type:\nordinary\ndead_load\nsoil_dead_load\nshrinkage\nprestressing\nfire\nseis_sxp\nseis_sxm\nseis_syp\nseis_sym.", GH_ParamAccess.item, "ordinary");
+            pManager.AddTextParameter("Type", "Type", "LoadCase type:\nordinary\ndead_load\nsoil_dead_load\nshrinkage\nprestressing\nfire\nseis_sxp\nseis_sxm\nseis_syp\nseis_sym.", GH_ParamAccess.item, "Ordinary");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("DurationClass", "DurationClass", "LoadCase duration class:\npermanent\nlong-term\nmedium-term\nshort-term\ninstantaneous.", GH_ParamAccess.item, "permanent");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get data
-            string name = null, type = "ordinary", durationClass = "permanent";
+            string name = null, type = "Ordinary", durationClass = "permanent";
             if (!DA.GetData(0, ref name)) { return; }
             if (!DA.GetData(1, ref type))
             {
