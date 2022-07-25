@@ -23,22 +23,26 @@ namespace FemDesign.Calculate
         [XmlElement("cmdopen", Order = 2)]
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
         [XmlElement("cmduser", Order = 3)]
-        public CmdUser CmdUser { get; set;} // CMDUSER
+        public CmdUser CmdUser { get; set; } // CMDUSER
 
         [XmlElement("cmdglobalcfg", Order = 4)]
         public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
         [XmlElement("cmdcalculation", Order = 5)]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
-        [XmlElement("cmdlistgen", Order = 6)]
+
+        [XmlElement("cmduser", Order = 6)]
+        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
+
+        [XmlElement("cmdlistgen", Order = 7)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
-        [XmlElement("cmdchild", Order = 7)]
+        [XmlElement("cmdchild", Order = 8)]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
-        [XmlElement("cmdsavedocx", Order = 8)]
+        [XmlElement("cmdsavedocx", Order = 9)]
         public CmdSaveDocx CmdSaveDocx { get; set;} // CMDSAVEDOCX
-        [XmlElement("cmdsave", Order = 9)]
+        [XmlElement("cmdsave", Order = 10)]
         public CmdSave CmdSave { get; set; } // CMDSAVE
-        [XmlElement("cmdendsession", Order = 10)]
+        [XmlElement("cmdendsession", Order = 11)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
         [XmlIgnore]
         public string StruxmlPath {get; set; } // path to struxml file, string 259
@@ -167,7 +171,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis and design.
         /// </summary>
-        public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession)
+        public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool applyDesignChanges = false)
         {
             CmdUserModule _mode = CmdUserModule.RCDESIGN;
             switch (mode)
@@ -196,6 +200,10 @@ namespace FemDesign.Calculate
             
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
+            if (applyDesignChanges)
+            {
+                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
+            }
             return fdScript;
         }
 
