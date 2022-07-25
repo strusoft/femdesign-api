@@ -141,7 +141,7 @@ namespace FemDesign.Bars
         /// </summary>
         public ModelEccentricity(Eccentricity eccentricity)
         {
-            this.UseDefaultPhysicalAlignment = true;
+            this.UseDefaultPhysicalAlignment = false;
             Eccentricity[] eccentricities = new Eccentricity[2]{eccentricity, eccentricity};
             this._analytical = eccentricities;
             this._physical = eccentricities;
