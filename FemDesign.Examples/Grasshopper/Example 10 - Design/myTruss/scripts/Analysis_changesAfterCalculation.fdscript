@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fdscript xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="fdscript.xsd">
+  <fdscriptheader>
+    <title>Generated script.</title>
+    <version>2100</version>
+    <module>sframe</module>
+    <logfile>C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\logfile.log</logfile>
+  </fdscriptheader>
+  <cmdopen command="; CXL CS2SHELL OPEN">
+    <filename>C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss.struxml</filename>
+  </cmdopen>
+  <cmduser command="; CXL $MODULE STEELDESIGN" />
+  <cmdcalculation command="; CXL $MODULE CALC">
+    <analysis calcCase="1" calcCStage="0" calcCImpf="0" calcComb="1" calcGmax="0" calcStab="0" calcFreq="0" calcSeis="0" calcDesign="0" calcFootfall="0" elemfine="0" diaphragm="0" peaksmoothing="0">
+      <stage ghost="0" />
+      <comb NLEmaxiter="30" PLdefloadstep="20" PLminloadstep="2" PLmaxeqiter="30" CRloadstep="20" CRmaxiter="30" CRstifferror="2" NLSMohr="1" NLSinitloadstep="10" NLSminloadstep="10" NLSactiveelemratio="5" NLSplasticelemratio="5" />
+      <freq X="1" Y="1" Z="1" Numshapes="3" MaxSturm="0" top="-0.01" />
+      <footfall TopOfSubstructure="-0.01" />
+    </analysis>
+    <design>
+      <cmax />
+      <autodesign>true</autodesign>
+      <check>true</check>
+    </design>
+  </cmdcalculation>
+  <cmduser command="; CXL FEM $CODE(DESCHANGESAPPLY)" />
+</fdscript>
