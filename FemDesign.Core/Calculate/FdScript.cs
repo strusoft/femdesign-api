@@ -31,11 +31,11 @@ namespace FemDesign.Calculate
         [XmlElement("cmdglobalcfg", Order = 4)]
         public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
-        [XmlElement("cmduser", Order = 5)]
-        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
-
-        [XmlElement("cmdcalculation", Order = 6)]
+        [XmlElement("cmdcalculation", Order = 5)]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
+
+        [XmlElement("cmduser", Order = 6)]
+        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
