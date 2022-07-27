@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("check", "check", "Check elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("applyChange", "applyChange", "apply Design Changes.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("applyChanges", "applyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process. ", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
