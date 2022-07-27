@@ -17,6 +17,7 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("check", "check", "Check elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("BasedOn", "BasedOn", "Based on analysis of LoadCombination or LoadGroup.\nTrue: Load Combination\nFalse: Load Group", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("applyChanges", "applyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process. ", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -26,13 +27,19 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            bool autoDesign = false, check = true; bool isLoadCombination = true;
+            bool autoDesign = false;
             DA.GetData(0, ref autoDesign);
+
+            bool check = true;
             DA.GetData(1, ref check);
+
+            bool isLoadCombination = true;
             DA.GetData(2, ref isLoadCombination);
+
+            bool applychanges = false;
             DA.GetData(3, ref applychanges);
 
-            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check, isLoadCombination);
+            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check, isLoadCombination, applychanges);
 
             DA.SetData(0, _obj);
         }
