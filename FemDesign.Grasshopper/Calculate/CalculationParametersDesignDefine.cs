@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("BasedOn", "BasedOn", "Based on analysis of LoadCombination or LoadGroup.\nTrue: Load Combination\nFalse: Load Group", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("applyChanges", "applyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process. ", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("applyChanges", "applyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process.\nNOT yet implemented. Contact us at femdesign.api@strusoft.com if you need the function ", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(2, ref isLoadCombination);
 
             bool applychanges = false;
-            DA.GetData(3, ref applychanges);
+            //DA.GetData(3, ref applychanges); uncomment the line when we get response from the developer.
 
             FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check, isLoadCombination, applychanges);
 
