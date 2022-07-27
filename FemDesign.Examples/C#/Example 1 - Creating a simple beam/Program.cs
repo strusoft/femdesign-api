@@ -100,13 +100,8 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
-
-            // Save model then open in FEM-Design
-            string path = System.IO.Path.GetFullPath("simple_model.struxml");
-            model.SerializeModel(path);
-
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
+            System.IO.Directory.GetCurrentDirectory();
+            model.Open();
         }
     }
 }

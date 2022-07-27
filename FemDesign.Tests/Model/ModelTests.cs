@@ -96,7 +96,12 @@ namespace FemDesign.Models
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
-
+        [TestMethod("Open a Model")]
+        public void Open()
+        {
+            Model model = new Model(Country.S);
+            model.Open();
+        }
 
         /// <summary>
         /// Test if the global model can be deep cloned.
