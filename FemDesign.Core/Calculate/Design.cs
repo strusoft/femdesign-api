@@ -28,9 +28,16 @@ namespace FemDesign.Calculate
 
         }
         
-        public Design(bool autoDesign = false, bool check = true)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="autoDesign"></param>
+        /// <param name="check"></param>
+        /// <param name="loadCombination">True if you want the design to be based on Load Combination. False if you want the design to be based on Load Group</param>
+        public Design(bool autoDesign = false, bool check = true, bool loadCombination = true)
         {
-            this.CMax = "";
+            if (loadCombination) this.CMax = "";
+            else this.GMax = "";
             this.AutoDesign = autoDesign;
             this.Check = check;
         }

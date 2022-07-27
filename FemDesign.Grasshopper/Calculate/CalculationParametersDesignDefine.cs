@@ -16,6 +16,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("check", "check", "Check elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("BasedOn", "BasedOn", "Based on analysis of LoadCombination or LoadGroup.\nTrue: Load Combination\nFalse: Load Group", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -23,11 +25,12 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            bool autoDesign = false, check = true;
+            bool autoDesign = false, check = true; bool isLoadCombination = true;
             DA.GetData(0, ref autoDesign);
             DA.GetData(1, ref check);
+            DA.GetData(2, ref isLoadCombination);
 
-            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check);
+            FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check, isLoadCombination);
 
             DA.SetData(0, _obj);
         }
