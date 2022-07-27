@@ -124,7 +124,6 @@ namespace FemDesign.Examples
 
             // Group Element by Stage
             // Not all the element are implemented yet
-            // TO BE FINISHED
             var elementsStageOne = new List<IStageElement>() { s1, s2, bar1 };
             var elementsStageTwo = new List<IStageElement>() { s3, bar2 };
             var elementsStageThree = new List<IStageElement>() { bar3 };

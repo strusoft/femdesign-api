@@ -24,6 +24,7 @@ namespace FemDesign.Examples
             // Define geometry
             var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
             var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
+            var p3 = new Geometry.FdPoint3d(4.0, 2.0, 0);
             var mid = p1 + (p2 - p1) * 0.5;
 
             // Create elements
@@ -59,7 +60,12 @@ namespace FemDesign.Examples
                 rotations: Releases.Rotations.Free()
                 );
 
-            var supports = new List<GenericClasses.ISupportElement>() { s1, s2 };
+            var s3 = new Supports.PointSupport(
+                point: p3,
+                motions: new Releases.Motions(yNeg: 1e10, yPos: 1e10, zNeg: 1e10, zPos: 1e10),
+                rotations: Releases.Rotations.Free()
+                );
+            var supports = new List<GenericClasses.ISupportElement>() { s1, s2, s3 };
 
 
             // Create load cases
@@ -84,10 +90,13 @@ namespace FemDesign.Examples
             var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
             var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, Loads.ForceLoadType.Force, "", constLoadDir: true, loadProjection: true);
 
+            var obj = new FemDesign.Loads.MassConversionTable(new List<double>() { 1.0 }, new List<Loads.LoadCase>() { deadload });
+
             var loads = new List<GenericClasses.ILoadElement>() {
                 pointForce,
                 pointMoment,
-                lineLoad
+                lineLoad,
+                obj
             };
 
 
@@ -98,11 +107,13 @@ namespace FemDesign.Examples
             model.AddLoadCases(loadcases);
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
-            
-
-            model.Open();
 
 
+            var analysisType = Calculate.Analysis.Eigenfrequencies();
+            var config = Calculate.CmdGlobalCfg.Default();
+            config.MeshElements.DefaultDivision = 5;
+
+            model.RunAnalysis(analysisType, cmdGlobalCfg: config);
         }
     }
 }

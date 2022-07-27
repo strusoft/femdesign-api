@@ -256,6 +256,12 @@ namespace FemDesign
         /// <param name="filePath"></param>
         public void SerializeModel(string filePath)
         {
+            if (filePath == null)
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
+            }
+
             // check file extension
             if (Path.GetExtension(filePath) != ".struxml")
             {
@@ -312,14 +318,27 @@ namespace FemDesign
         /// <param name="closeOpenWindows"></param>
         public void Open(string filePath = null, bool closeOpenWindows = false)
         {
-            if (filePath == null)
-            {
-                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-                filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            }
-
             this.SerializeModel(filePath);
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
+        }
+
+        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Results.ResultType> resultTypes = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        {
+            List<string> bscPath = null;
+            if (resultTypes != null)
+            {
+                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath);
+            }
+
+            if (struxmlPath == null)
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                struxmlPath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
+            }
+
+            this.SerializeModel(struxmlPath);
+            analysis.SetLoadCombinationCalculationParameters(this);
+            this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
         /// <summary>
