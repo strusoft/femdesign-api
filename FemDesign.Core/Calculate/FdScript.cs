@@ -18,28 +18,40 @@ namespace FemDesign.Calculate
     {
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
         public string XmlAttrib { get; set; }
+
         [XmlElement("fdscriptheader", Order = 1)]
         public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
+
         [XmlElement("cmdopen", Order = 2)]
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
+
         [XmlElement("cmduser", Order = 3)]
-        public CmdUser CmdUser { get; set;} // CMDUSER
+        public CmdUser CmdUser { get; set; } // CMDUSER
 
         [XmlElement("cmdglobalcfg", Order = 4)]
         public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
         [XmlElement("cmdcalculation", Order = 5)]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
-        [XmlElement("cmdlistgen", Order = 6)]
+
+        [XmlElement("cmduser", Order = 6)]
+        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
+
+        [XmlElement("cmdlistgen", Order = 7)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
-        [XmlElement("cmdchild", Order = 7)]
+
+        [XmlElement("cmdchild", Order = 8)]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
-        [XmlElement("cmdsavedocx", Order = 8)]
+
+        [XmlElement("cmdsavedocx", Order = 9)]
         public CmdSaveDocx CmdSaveDocx { get; set;} // CMDSAVEDOCX
-        [XmlElement("cmdsave", Order = 9)]
+
+        [XmlElement("cmdsave", Order = 10)]
         public CmdSave CmdSave { get; set; } // CMDSAVE
-        [XmlElement("cmdendsession", Order = 10)]
+
+        [XmlElement("cmdendsession", Order = 11)]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
+
         [XmlIgnore]
         public string StruxmlPath {get; set; } // path to struxml file, string 259
         [XmlIgnore]
@@ -196,6 +208,10 @@ namespace FemDesign.Calculate
             
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
+            if (design.ApplyChanges)
+            {
+                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
+            }
             return fdScript;
         }
 

@@ -18,7 +18,8 @@ namespace FemDesign.Calculate
         public bool AutoDesign { get; set; } // bool
         [XmlElement("check")]
         public bool Check { get; set; } // bool
-
+        [XmlIgnore]
+        public bool ApplyChanges { get; set; } // bool
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -40,6 +41,7 @@ namespace FemDesign.Calculate
             else this.GMax = "";
             this.AutoDesign = autoDesign;
             this.Check = check;
+            this.ApplyChanges = applyChanges;
         }
     }
 }
