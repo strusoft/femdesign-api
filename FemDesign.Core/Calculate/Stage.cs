@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// ANALSTAGE
     /// </summary>
-    public partial class ConstructionStage
+    public partial class Stage
     {
         [XmlAttribute("ghost")]
         public int _ghost { get; set; } // bool // int(?)
@@ -16,12 +16,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private ConstructionStage()
+        private Stage()
         {
             
         }
 
-        private ConstructionStage(bool ghost = false)
+        private Stage(bool ghost = false)
         {
             this._ghost = Convert.ToInt32(ghost);
         }
@@ -29,35 +29,35 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Default Construction stages method (incremental).
         /// </summary>
-        public static ConstructionStage Default()
+        public static Stage Default()
         {
-            return new ConstructionStage(false);
+            return new Stage(false);
         }
         /// <summary>
         /// Construction stages method.
         /// </summary>
         /// <param name="ghost">Ghost construction method. True/false. If false incremental method is used.</param>
-        public static ConstructionStage Define(bool ghost = false)
+        public static Stage Define(bool ghost = false)
         {
-            return new ConstructionStage(ghost);
+            return new Stage(ghost);
         }
 
         /// <summary>
         /// Incremental construction stage method.
         /// </summary>
         /// <returns></returns>
-        public static ConstructionStage Ghost()
+        public static Stage Ghost()
         {
-            return new ConstructionStage(true);
+            return new Stage(true);
         }
 
         /// <summary>
         /// Ghost construction stage method.
         /// </summary>
         /// <returns></returns>
-        public static ConstructionStage Tracking()
+        public static Stage Tracking()
         {
-            return new ConstructionStage(false);
+            return new Stage(false);
         }
     }
 }

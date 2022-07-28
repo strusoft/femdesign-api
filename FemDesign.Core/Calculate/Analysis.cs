@@ -15,7 +15,7 @@ namespace FemDesign.Calculate
     {
         // elements
         [XmlElement("stage")]
-        public ConstructionStage Stage { get; set; } // ANALSTAGE
+        public Stage Stage { get; set; } // ANALSTAGE
         [XmlElement("comb")]
         public Comb Comb { get; set; } // ANALCOMB
         [XmlElement("freq")]
@@ -216,9 +216,9 @@ namespace FemDesign.Calculate
         private Analysis()
         {
         }
-        public Analysis(Calculate.ConstructionStage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
-            this.Stage = stage ?? Calculate.ConstructionStage.Default();
+            this.Stage = stage ?? Calculate.Stage.Default();
             this.Comb = comb ?? Comb.Default();
             this.Freq = freq ?? Freq.Default();
             this.Footfall = footfall ?? Footfall.Default();
@@ -243,11 +243,10 @@ namespace FemDesign.Calculate
         /// <param name="comb"></param>
         /// <param name="stage"></param>
         /// <returns></returns>
-        public static Analysis StaticAnalysis(ConstructionStage stage = null, Comb comb = null, bool calcCase = true, bool calccomb = true)
+        public static Analysis StaticAnalysis(Comb comb = null, bool calcCase = true, bool calccomb = true)
         {
             comb = comb ?? Comb.Default();
-            stage = stage ?? ConstructionStage.Default();
-            return new Analysis(comb: comb, calcCase: calcCase, calcComb: calccomb, stage: stage);
+            return new Analysis(comb: comb, calcCase: calcCase, calcComb: calccomb);
         }
 
 
@@ -267,6 +266,19 @@ namespace FemDesign.Calculate
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
+        // TODO
+        private static Analysis ConstructionStages(Stage stage)
+        {
+            var analisys = new Analysis(stage: stage, calcCStage: true);
+            throw new Exception("not implemented yet");
+        }
+
+        // TODO
+        private static Analysis FootFall(Footfall footfall)
+        {
+            var analisys = new Analysis(footfall: footfall, calcFootfall: true);
+            throw new Exception("not implemented yet");
+        }
 
         /// <summary>
         /// Internal method to transfer load combination calculation parameters from LoadCombination to Analysis.

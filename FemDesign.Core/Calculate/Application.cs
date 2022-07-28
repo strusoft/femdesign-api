@@ -229,9 +229,7 @@ namespace FemDesign.Calculate
 
         public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows, Calculate.CmdGlobalCfg cmdglobalconfig = null)
         {
-            FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
-            if(cmdglobalconfig != null)
-                fdScript.CmdGlobalCfg = cmdglobalconfig;
+            FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, cmdglobalconfig);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
 

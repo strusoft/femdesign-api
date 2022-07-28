@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Calculate
 {
-    public partial class ConstructionStage
+    public partial class Stage
     {
         
     }

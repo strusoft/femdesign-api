@@ -322,18 +322,18 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Results.ResultType> resultTypes = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
-            List<string> bscPath = null;
-            if (resultTypes != null)
-            {
-                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath);
-            }
-
             if (struxmlPath == null)
             {
                 var currentDirectory = System.IO.Directory.GetCurrentDirectory();
                 struxmlPath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
+            }
+
+            List<string> bscPath = null;
+            if (resultTypes != null)
+            {
+                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
             }
 
             this.SerializeModel(struxmlPath);

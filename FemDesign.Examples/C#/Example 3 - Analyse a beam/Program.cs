@@ -108,12 +108,25 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
+            // Set up the analysis
+            //var analysisType = Calculate.Analysis.Eigenfrequencies();
+            var analysisType = Calculate.Analysis.StaticAnalysis();
 
-            var analysisType = Calculate.Analysis.Eigenfrequencies();
+            // Optional Settings for the Discretisation
             var config = Calculate.CmdGlobalCfg.Default();
             config.MeshElements.DefaultDivision = 5;
 
-            model.RunAnalysis(analysisType, cmdGlobalCfg: config);
+
+            // Define Result to be extract
+            var results = new List<Results.ResultType>() { Results.ResultType.NodalDisplacement };
+
+            // Run a specific analysis
+            model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);
+
+
+
+            // TO DO
+            //model.ReadResult(ResultType);
         }
     }
 }

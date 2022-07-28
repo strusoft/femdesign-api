@@ -846,7 +846,7 @@
     <Compile Include="Dynamo\Calculate\Freq.cs" />
     <Compile Include="Dynamo\Calculate\LoadCombination.cs" />
     <Compile Include="Dynamo\Calculate\ResultType.cs" />
-    <Compile Include="Dynamo\Calculate\ConstructionStage.cs" />
+    <Compile Include="Dynamo\Calculate\Stage.cs" />
     <Compile Include="Dynamo\Deconstruct\Deconstruct.cs" />
     <Compile Include="Dynamo\GenericClasses\Camber.cs" />
     <Compile Include="Dynamo\GenericClasses\DummyXmlObject.cs" />

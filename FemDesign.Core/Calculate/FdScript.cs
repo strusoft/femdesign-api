@@ -176,7 +176,7 @@ namespace FemDesign.Calculate
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             CmdUserModule mode = CmdUserModule.RESMODE;
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg = null);
+            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
             fdScript.CmdCalculation = new CmdCalculation(analysis);
             return fdScript;
         }
