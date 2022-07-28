@@ -216,19 +216,19 @@ namespace FemDesign.Calculate
         private Analysis()
         {
         }
-        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = true, bool calcCStage = false, bool calcImpf = false, bool calcComb = true, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
             this.Stage = stage ?? Calculate.Stage.Default();
             this.Comb = comb ?? Comb.Default();
             this.Freq = freq ?? Freq.Default();
             this.Footfall = footfall ?? Footfall.Default();
             this.CalcCase = calcCase;
-            this.CalcCStage = calcCStage;
+            this.CalcCStage = stage != null ? true : calcCStage;
             this.CalcCImpf = calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
             this.CalcStab = calcStab;
-            this.CalcFreq = calcFreq;
+            this.CalcFreq = freq != null ? true : calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;
             this.CalcFootfall = calcFootfall;

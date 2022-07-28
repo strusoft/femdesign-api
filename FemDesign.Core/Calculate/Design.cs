@@ -44,5 +44,10 @@ namespace FemDesign.Calculate
             this.Check = check;
             this.ApplyChanges = applyChanges;
         }
+
+        public static Design Default()
+        {
+            return new Design();
+        }
     }
 }

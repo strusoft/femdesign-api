@@ -211,7 +211,7 @@ namespace FemDesign.Calculate
                     throw new ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
             
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg = null);
+            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             if (design.ApplyChanges)
             {

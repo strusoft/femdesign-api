@@ -341,6 +341,25 @@ namespace FemDesign
             this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
+        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        {
+            if (struxmlPath == null)
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                struxmlPath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
+            }
+
+            List<string> bscPath = null;
+            if (resultTypes != null)
+            {
+                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
+            }
+
+            this.SerializeModel(struxmlPath);
+            analysis.SetLoadCombinationCalculationParameters(this);
+            this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
+        }
+
         /// <summary>
         /// Serialize Model to string.
         /// </summary>
