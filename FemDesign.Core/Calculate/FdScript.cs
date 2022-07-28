@@ -34,8 +34,8 @@ namespace FemDesign.Calculate
         [XmlElement("cmdcalculation", Order = 5)]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
 
-        [XmlElement("cmduser", Order = 6)]
-        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
+        //[XmlElement("cmduser", Order = 6)]
+        //public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
@@ -213,10 +213,10 @@ namespace FemDesign.Calculate
             
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
-            if (design.ApplyChanges)
-            {
-                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
-            }
+            //if (design.ApplyChanges)
+            //{
+            //    fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
+            //}
             return fdScript;
         }
 

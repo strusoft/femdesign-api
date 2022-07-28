@@ -218,10 +218,10 @@ namespace FemDesign.Calculate
         }
         public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = true, bool calcCStage = false, bool calcImpf = false, bool calcComb = true, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
-            this.Stage = stage ?? Calculate.Stage.Default();
+            this.Stage = stage;
             this.Comb = comb ?? Comb.Default();
-            this.Freq = freq ?? Freq.Default();
-            this.Footfall = footfall ?? Footfall.Default();
+            this.Freq = freq;
+            this.Footfall = footfall;
             this.CalcCase = calcCase;
             this.CalcCStage = stage != null ? true : calcCStage;
             this.CalcCImpf = calcImpf;
@@ -231,7 +231,7 @@ namespace FemDesign.Calculate
             this.CalcFreq = freq != null ? true : calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;
-            this.CalcFootfall = calcFootfall;
+            this.CalcFootfall = footfall != null ? true : calcFootfall;
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
             this.PeakSmoothing = peakSmoothing;
@@ -241,7 +241,8 @@ namespace FemDesign.Calculate
         /// Define a Static Analysis.
         /// </summary>
         /// <param name="comb"></param>
-        /// <param name="stage"></param>
+        /// <param name="calcCase"></param>
+        /// <param name="calccomb"></param>
         /// <returns></returns>
         public static Analysis StaticAnalysis(Comb comb = null, bool calcCase = true, bool calccomb = true)
         {

@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Calculate.Stage stage = FemDesign.Calculate.Stage.Default();
+            FemDesign.Calculate.Stage stage = null;
             if (!DA.GetData(0, ref stage))
             {
                 // pass
@@ -65,13 +65,13 @@ namespace FemDesign.Grasshopper
                 // pass
             } 
 
-            FemDesign.Calculate.Freq freq = FemDesign.Calculate.Freq.Default();
+            FemDesign.Calculate.Freq freq = null;
             if (!DA.GetData(2, ref freq))
             {
                 // pass
             }
 
-            FemDesign.Calculate.Footfall footfall = FemDesign.Calculate.Footfall.Default();
+            FemDesign.Calculate.Footfall footfall = null;
             if (!DA.GetData(3, ref footfall))
             {
                 // pass
