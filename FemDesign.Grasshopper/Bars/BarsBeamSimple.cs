@@ -82,7 +82,7 @@ namespace FemDesign.Grasshopper
 
             // create bar
             var type = FemDesign.Bars.BarType.Beam;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, eccentricity, connectivity, identifier);
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, section, type, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

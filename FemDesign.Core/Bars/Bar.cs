@@ -179,7 +179,7 @@ namespace FemDesign.Bars
         /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
         /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
             if(type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
             
@@ -193,6 +193,101 @@ namespace FemDesign.Bars
         }
 
         /// <summary>
+        /// Construct beam or column with uniform section and uniform start/end conditions
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="type"></param>
+        /// <param name="material"></param>
+        /// <param name="section">Section, same at start/end</param>
+        /// <param name="localY">Vector to orient the cross section. If null, localY will be set as a cross product between Z-Axis and the local X Axis./end</param>
+        /// <param name="startEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="endEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null/end</param>
+        /// <param name="endConnectivity">Connectivity. Connectivity set to Rigid if null</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(FemDesign.Geometry.FdPoint3d startPoint, FemDesign.Geometry.FdPoint3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.FdVector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
+        {
+            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.FdVector3d.UnitZ());
+            Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, orientY);
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
+            this.EntityCreated();
+            this.Type = type;
+            this.Identifier = identifier;
+
+            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
+            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
+            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+
+            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+        }
+
+
+        /// <summary>
+        /// Construct beam along X with uniform section and uniform start/end conditions
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="localY"></param>
+        /// <param name="material"></param>
+        /// <param name="section">Section, same at start/end</param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
+        /// <param name="identifier">Identifier</param>
+        public static Bar SimpleBeam(double length, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        {
+            var bar = new Bar();
+
+            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
+            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(length, 0.0, 0.0);
+            localY = localY ?? Geometry.FdVector3d.UnitY();
+            Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
+            var type = BarType.Beam;
+
+            bar.EntityCreated();
+            bar.Type = type;
+            bar.Identifier = identifier;
+
+            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
+            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
+            return bar;
+        }
+
+
+        /// <summary>
+        /// Construct a vertical column with uniform section and uniform start/end conditions
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="material"></param>
+        /// <param name="localY"></param>
+        /// <param name="section">Section, same at start/end</param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
+        /// <param name="identifier">Identifier</param>
+        public static Bar SimpleColumn(double height, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        {
+            var bar = new Bar();
+
+            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
+            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(0.0, 0.0, height);
+            localY = localY ?? Geometry.FdVector3d.UnitY();
+            Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
+            var type = BarType.Column;
+
+            bar.EntityCreated();
+            bar.Type = type;
+            bar.Identifier = identifier;
+
+            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
+            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
+            return bar;
+        }
+
+
+        /// <summary>
         /// Construct beam or column with uniform section and different start/end conditions
         /// </summary>
         /// <param name="edge"></param>
@@ -204,10 +299,15 @@ namespace FemDesign.Bars
         /// <param name="startConnectivity">Start connectivity</param>
         /// <param name="endConnectivity">End connectivity</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
+        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
         {
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
-            
+
+            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
+            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
+            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+
             this.EntityCreated();
             this.Type = type;
             this.Identifier = identifier;
@@ -283,22 +383,22 @@ namespace FemDesign.Bars
 
 
         /// <summary>
-        /// Construct a truss element. BarType must be specified as Truss.
+        /// Construct a truss element.
         /// </summary>
         /// <param name="edge"></param>
-        /// <param name="type"></param>
         /// <param name="material"></param>
         /// <param name="section"></param>
         /// <param name="identifier"></param>
         /// <exception cref="System.Exception"></exception>
-        public Bar(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
+        public static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
-            if (type != BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+            var truss = new Bar();
 
-            this.EntityCreated();
-            this.Type = type;
-            this.Identifier = identifier;
-            this.BarPart = new BarPart(edge, this.Type, material, section, this.Identifier);
+            truss.EntityCreated();
+            truss.Type = BarType.Truss;
+            truss.Identifier = identifier;
+            truss.BarPart = new BarPart(edge, truss.Type, material, section, truss.Identifier);
+            return truss;
         }
 
         /// Update entities if this bar should be "reconstructed"

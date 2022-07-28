@@ -318,6 +318,12 @@ namespace FemDesign
         /// <param name="closeOpenWindows"></param>
         public void Open(string filePath = null, bool closeOpenWindows = false)
         {
+            if (filePath == null)
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
+            }
+
             this.SerializeModel(filePath);
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }

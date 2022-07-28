@@ -43,7 +43,12 @@ namespace FemDesign.Examples
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
                 identifier: "B");
             bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
-            var elements = new List<GenericClasses.IStructureElement>() { bar };
+
+
+            var bar1 = Bars.Bar.SimpleBeam(10.0, material, section);
+
+            var column = Bars.Bar.SimpleColumn(3.0, material, section);
+            var elements = new List<GenericClasses.IStructureElement>() { bar, bar1, column };
 
 
             // Create supports
