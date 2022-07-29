@@ -73,12 +73,14 @@ namespace FemDesign.Examples
             var liveload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
             var loadcases = new List<Loads.LoadCase>() { deadload, liveload };
 
+            var combItem = Calculate.CombItem.Default();
+            var combItemNLE = new Calculate.CombItem(_NLE: true);
 
             // Create load combinations
             var slsFactors = new List<double>() { 1.0, 1.0 };
-            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors);
+            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors, combItem);
             var ulsFactors = new List<double>() { 1.35, 1.5 };
-            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
+            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors, combItemNLE);
             var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS };
 
 
@@ -98,7 +100,6 @@ namespace FemDesign.Examples
                 lineLoad,
                 obj
             };
-
 
             // Add to model
             Model model = new Model(Country.S);

@@ -39,7 +39,7 @@ namespace FemDesign.Calculate
         public int NLSplasticelemratio { get; set; } // int
 
         [XmlElement("combitem")]
-        public List<CombItem> CombItem = new List<CombItem>();
+        public List<CombItem> CombItem { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -48,7 +48,7 @@ namespace FemDesign.Calculate
         {
             
         }
-        public Comb(int _NLEmaxiter = 30, int _PLdefloadstep = 20, int _PLminloadstep = 2, int _PLmaxeqiter = 30, bool _NLSMohr = true, int _NLSinitloadstep = 10, int _NLSminloadstep = 10, int _NLSactiveelemratio = 5, int _NLSplasticelemratio = 5, int _CRloadstep = 20, int _CRmaxiter = 30, int _CRstifferror = 2)
+        public Comb(int _NLEmaxiter = 30, int _PLdefloadstep = 20, int _PLminloadstep = 2, int _PLmaxeqiter = 30, bool _NLSMohr = true, int _NLSinitloadstep = 10, int _NLSminloadstep = 10, int _NLSactiveelemratio = 5, int _NLSplasticelemratio = 5, int _CRloadstep = 20, int _CRmaxiter = 30, int _CRstifferror = 2, List<CombItem> CombItem = null)
         {
             this.NLEmaxiter = _NLEmaxiter;
             this.PLdefloadstep = _PLdefloadstep;
@@ -61,7 +61,9 @@ namespace FemDesign.Calculate
             this.NLSplasticelemratio = _NLSplasticelemratio;
             this.CRloadstep = _CRloadstep;
             this.CRmaxiter = _CRmaxiter;
-            this.CRstifferror = _CRstifferror; 
+            this.CRstifferror = _CRstifferror;
+
+            this.CombItem = CombItem ?? new List<CombItem>();
         }
 
         /// <summary>

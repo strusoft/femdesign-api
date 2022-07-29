@@ -31,12 +31,13 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma)
+        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma, Calculate.CombItem combItem = null)
         {
             this.EntityCreated();
             this.Identifier = name;
             this.Type = type;
             
+            this.CombItem = combItem ?? Calculate.CombItem.Default();
 
             if (loadCase.GetType() == typeof(List<LoadCase>) && gamma.GetType() == typeof(List<double>))
             {
