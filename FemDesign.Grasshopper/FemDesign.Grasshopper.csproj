@@ -237,15 +237,15 @@
     <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcManufacturing.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcLosses.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcShapeInner.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcShapeEnd.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcShapeStart.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcStrand.cs" />
-    <Compile Include="Reinforcement\Reinforcement.PtcShape.cs" />
-    <Compile Include="Reinforcement\Reinforcement.Ptc.cs" />
-    <Compile Include="Reinforcement\StraightReinforcementLayout.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcManufacturing.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcLosses.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeInner.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeEnd.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeStart.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShape.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
+    <Compile Include="Reinforcement\SurfaceReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
     <Compile Include="Reinforcement\WireDefine.cs" />
@@ -821,6 +821,7 @@
   <ItemGroup>
     <None Include="Resources\Untitled.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

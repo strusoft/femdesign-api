@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the PtcManufacturingType class.
         /// </summary>
-        public ReinforcementPtcManufacturingType() : base("PtcManufacturing", "Manufacturing", "Description", "FEM-Design", "Ptc")
+        public ReinforcementPtcManufacturingType() : base("PtcManufacturing", "Manufacturing", "Description", "FEM-Design", "Reinforcement")
         {
         }
 
@@ -71,5 +71,7 @@ namespace FemDesign.Reinforcement
         {
             get { return new Guid("6323fbff-e53a-40dd-b368-8d60f04fec3c"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
     }
 }

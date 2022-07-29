@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeEndComponent : GH_Component
     {
-        public PtcShapeEndComponent() : base("PtcShapeEnd", "PtcEnd", "FemDesign.Reinforcement.PtcShapeEnd", "FEM-Design", "Ptc")
+        public PtcShapeEndComponent() : base("PtcShapeEnd", "PtcEnd", "FemDesign.Reinforcement.PtcShapeEnd", "FEM-Design", "Reinforcement")
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -43,5 +43,8 @@ namespace FemDesign.Reinforcement
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.PtcShapeEnd;
 
         public override Guid ComponentGuid => new Guid("0c0d9f85-c235-4eea-84c9-a6fe15603581");
+
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
+
     }
 }

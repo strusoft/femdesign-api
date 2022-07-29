@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
 {
     public class PtcShapeComponent : GH_Component
     {
-        public PtcShapeComponent(): base("PtcShape", "Shape", "Description", "FEM-Design", "Ptc")
+        public PtcShapeComponent(): base("PtcShape", "Shape", "Description", "FEM-Design", "Reinforcement"  )
         {
         }
 
@@ -53,5 +53,8 @@ namespace FemDesign.Reinforcement
         {
             get { return new Guid("6323fbff-e53a-40dd-b368-8d60f04fec3a"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
+
     }
 }

@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.
         /// </summary>
-        public ReinforcementPtc(): base("Bar Post-Tensioned Cable", "BarPTC", "Add PTC to a bar. Curved bars are not supported.", "FEM-Design", "Ptc")
+        public ReinforcementPtc(): base("Bar Post-Tensioned Cable", "BarPTC", "Add PTC to a bar. Curved bars are not supported.", "FEM-Design", "Reinforcement")
         {
         }
 
@@ -102,5 +102,8 @@ namespace FemDesign.Reinforcement
         {
             get { return new Guid("2eb80cef-f25f-47ef-b4be-3bd0254cbd33"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
     }
 }

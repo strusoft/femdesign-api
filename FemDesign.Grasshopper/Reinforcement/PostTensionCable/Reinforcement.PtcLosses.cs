@@ -11,7 +11,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FEM-Design", "Ptc")
+        public ReinforcementPtcLosses() : base("PtcLosses", "Losses", "Description", "FEM-Design", "Reinforcement")
         {
         }
 
@@ -83,5 +83,8 @@ namespace FemDesign.Reinforcement
         {
             get { return new Guid("6323fbff-e53a-40dd-b368-8d60f04fec3b"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
     }
 }
