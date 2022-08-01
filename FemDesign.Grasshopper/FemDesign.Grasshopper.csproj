@@ -104,6 +104,7 @@
     <Compile Include="ConstructionStages\StageLoad.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />

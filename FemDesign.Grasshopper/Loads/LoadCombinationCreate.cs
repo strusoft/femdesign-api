@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Grasshopper.Kernel.Special;
 using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
@@ -16,7 +17,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of LoadCombination.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Type", "Type", "LoadCombination type. ultimate_ordinary/ultimate_accidental/ultimate_seismic/serviceability_quasi_permanent/serviceability_frequent/serviceability_characteristic.", GH_ParamAccess.item, "ultimate_ordinary");
+            pManager.AddTextParameter("Type", "Type", "Connect 'ValueList' to get the options.\nultimate_ordinary\nultimate_accidental\nultimate_seismic\nserviceability_quasi_permanent\nserviceability_frequent\nserviceability_characteristic.", GH_ParamAccess.item, "ultimate_ordinary");
             pManager[1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to include in LoadCombination. Single LoadCase or list of LoadCases.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Gamma", "Gamma", "Gamma value for respective LoadCase. Single value or list of values. [-]", GH_ParamAccess.list);
@@ -32,12 +33,16 @@ namespace FemDesign.Grasshopper
             List<LoadCase> loadCases = new List<LoadCase>();
             List<double> gammas = new List<double>();
             if (!DA.GetData(0, ref name)) { return; }
-            if (!DA.GetData(1, ref type))
-            {
-                // pass
-            }
+
+            DA.GetData(1, ref type);
+            var resultTypes = new List<string>() { "ultimate_ordinary", "ultimate_accidental", "ultimate_seismic", "serviceability_quasi_permanent", "serviceability_frequent", "serviceability_characteristic" };
+            FemDesign.Grasshopper.Extension.ComponentExtensions.SetValueList(this, resultTypes, 1);
+
+
             if (!DA.GetDataList(2, loadCases)) { return; }
             if (!DA.GetDataList(3, gammas)) { return; }
+
+
             if (name == null || type == null || loadCases == null || gammas == null) { return; }
 
             var _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCombType>(type);
@@ -59,6 +64,5 @@ namespace FemDesign.Grasshopper
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
-
     }
 }

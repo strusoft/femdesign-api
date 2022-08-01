@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
 using FemDesign.Loads;
 
@@ -16,9 +17,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of LoadCase.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Type", "Type", "LoadCase type:\nordinary\ndead_load\nsoil_dead_load\nshrinkage\nprestressing\nfire\nseis_sxp\nseis_sxm\nseis_syp\nseis_sym.", GH_ParamAccess.item, "Ordinary");
+            pManager.AddTextParameter("Type", "Type", "Connect 'ValueList' to get the options.\nLoadCase type:\nordinary\ndead_load\nsoil_dead_load\nshrinkage\nprestressing\nfire\nseis_sxp\nseis_sxm\nseis_syp\nseis_sym.", GH_ParamAccess.item, "Ordinary");
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("DurationClass", "DurationClass", "LoadCase duration class:\npermanent\nlong-term\nmedium-term\nshort-term\ninstantaneous.", GH_ParamAccess.item, "permanent");
+            pManager.AddTextParameter("DurationClass", "DurationClass", "Connect 'ValueList' to get the options.\nLoadCase duration class:\npermanent\nlong-term\nmedium-term\nshort-term\ninstantaneous.", GH_ParamAccess.item, "permanent");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,11 +35,17 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
+            var resultTypes = new List<string>() { "ordinary", "dead_load", "soil_dead_load", "shrinkage", "prestressing", "fire", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym" };
+            FemDesign.Grasshopper.Extension.ComponentExtensions.SetValueList(this, resultTypes, 1);
+
+
             if (!DA.GetData(2, ref durationClass))
             {
                 // pass
             }
-            if (name == null || type == null || durationClass == null) { return; }
+            resultTypes = new List<string>() { "permanent", "long-term", "medium-term", "short-term", "instantaneous" };
+            FemDesign.Grasshopper.Extension.ComponentExtensions.SetValueList(this, resultTypes, 2);
 
             LoadCaseType _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseType>(type);
             LoadCaseDuration _durationClass = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseDuration>(durationClass);
@@ -61,6 +68,32 @@ namespace FemDesign.Grasshopper
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
+        //private void SetValueList(List<string> ResultTypes, int inputIndex)
+        //{
+
+        //    if (this.Params.Input[inputIndex].SourceCount == 1)
+        //    {
+        //        if (this.Params.Input[inputIndex]?.Sources[0] is GH_ValueList)
+        //        {
+        //            var valueList = Params.Input[inputIndex].Sources[0] as GH_ValueList;
+        //            valueList.ListMode = GH_ValueListMode.DropDown;
+
+        //            if (valueList.ListItems.Count != ResultTypes.Count)
+        //            {
+        //                valueList.ListItems.Clear();
+        //                for (int i = 0; i < ResultTypes.Count; i++)
+        //                {
+        //                    var name = ResultTypes[i];
+        //                    valueList.ListItems.Add(new GH_ValueListItem(name, String.Format("\"{0}\"", name)));
+        //                }
+        //            }
+        //            valueList.SelectItem(1);
+        //            valueList.Attributes.ExpireLayout();
+        //            valueList.Attributes.PerformLayout();
+        //        }
+        //    }
+        //}
 
     }
 }
