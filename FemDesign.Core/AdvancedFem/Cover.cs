@@ -88,10 +88,32 @@ namespace FemDesign
             Cover _cover = new Cover(region, _supportingStructures, loadBearingDirection, identifier);
 
             return _cover;
+        } 
+
+        public static Cover OneWayCover(Geometry.Region region, List<FemDesign.GenericClasses.IStructureElement> supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        {
+            // get supportingStructures.guid
+            CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);
+
+            // create cover
+            Cover _cover = new Cover(region, _supportingStructures, loadBearingDirection, identifier);
+
+            return _cover;
         }
 
         /// Create TwoWayCover.
         public static Cover TwoWayCover(Geometry.Region region, List<object> supportingStructures, string identifier)
+        {
+            // get supportingStructures.guid
+            CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);
+
+            // create cover
+            Cover _cover = new Cover(region, _supportingStructures, null, identifier);
+
+            return _cover;
+        }
+
+        public static Cover TwoWayCover(Geometry.Region region, List<FemDesign.GenericClasses.IStructureElement> supportingStructures, string identifier)
         {
             // get supportingStructures.guid
             CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);
