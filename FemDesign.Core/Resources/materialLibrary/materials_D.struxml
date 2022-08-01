@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<database struxml_version="01.00.000" source_software="FEM-Design 19.00.001" start_time="1970-01-01T00:00:00.000" end_time="2016-02-26T09:15:09.000" guid="670816f6-ed3c-472e-a650-9450af771789" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="D" xmlns="urn:strusoft">
+	<materials></materials>
+	<reinforcing_materials></reinforcing_materials>
+	<end></end>
+</database>
