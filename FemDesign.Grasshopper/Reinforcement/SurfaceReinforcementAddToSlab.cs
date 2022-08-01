@@ -48,7 +48,8 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.SurfaceReinforcementAddToSlab;
+                return FemDesign.Properties.Resources.RebarAddToElement;
+                ;
             }
         }
         public override Guid ComponentGuid

@@ -782,6 +782,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <EmbeddedResource Include="Resources\icons\RebarAddToElement.jpg" />
     <EmbeddedResource Include="Resources\icons\Stages.png" />
     <EmbeddedResource Include="Resources\icons\Stage_ActivatedLoad.png" />
     <EmbeddedResource Include="Resources\icons\Units.png" />
