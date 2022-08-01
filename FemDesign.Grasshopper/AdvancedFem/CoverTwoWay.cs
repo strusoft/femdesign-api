@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (!DA.GetData(3, ref identifier))
+            if (!DA.GetData(2, ref identifier))
             {
                 // pass
             }
