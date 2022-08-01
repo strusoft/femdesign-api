@@ -133,7 +133,7 @@ namespace FemDesign.Info
                 format.Alignment = StringAlignment.Near;
                 textRectangle.Inflate(-5, 0);
 
-                //API version number               
+                //API version number
                 IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
                 string assemblyVersion = assembly.First().Version?.ToString();
                 Version ver = Version.Parse(assemblyVersion);
