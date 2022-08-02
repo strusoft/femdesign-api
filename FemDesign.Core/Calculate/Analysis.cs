@@ -216,7 +216,7 @@ namespace FemDesign.Calculate
         private Analysis()
         {
         }
-        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = true, bool calcCStage = false, bool calcImpf = false, bool calcComb = true, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
             this.Stage = stage;
             this.Comb = comb ?? Comb.Default();
@@ -267,11 +267,17 @@ namespace FemDesign.Calculate
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
-        // TODO
-        private static Analysis ConstructionStages(Stage stage)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ghost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static Analysis ConstructionStages(bool ghost = false)
         {
-            var analisys = new Analysis(stage: stage, calcCStage: true);
-            throw new Exception("not implemented yet");
+            var stage = ghost == false ? Stage.Tracking() : Stage.Ghost();
+            return new Analysis(stage, calcCStage: true);
         }
 
         // TODO

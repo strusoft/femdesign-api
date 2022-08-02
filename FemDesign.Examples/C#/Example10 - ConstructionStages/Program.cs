@@ -158,17 +158,21 @@ namespace FemDesign.Examples
 
             //Console.Write(model.SerializeToString());
 
-            // SAVE AND RUN:
-            // Create a file path for the new model, serialize it, and run the script!
-            string path = Path.GetFullPath("output/edited_model.struxml");
-            if (!Directory.Exists("output"))
-                Directory.CreateDirectory("output");
-            model.SerializeModel(path);
-            Console.WriteLine($"Opening file at {path}");
+            // Set up the analysis
+            //var analysisType = Calculate.Analysis.Eigenfrequencies();
+            //var analysisType = Calculate.Analysis.StaticAnalysis();
+            var analysisType = Calculate.Analysis.ConstructionStages();
 
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, false);
+            // Optional Settings for the Discretisation
+            var config = Calculate.CmdGlobalCfg.Default();
+            config.MeshElements.DefaultDivision = 5;
 
+
+            // Define Result to be extract
+            var results = new List<Results.ResultType>() { Results.ResultType.NodalDisplacement };
+
+            // Run a specific analysis
+            model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);
         }
     }
 }
