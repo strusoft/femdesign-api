@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
+using System.Linq;
+
 namespace FemDesign.Grasshopper
 {
     public class MaterialDatabaseDefault: GH_Component
@@ -18,7 +20,12 @@ namespace FemDesign.Grasshopper
         } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("MaterialDatabase", "MaterialDatabase", "Default MaterialDatabase.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Steel", "Steel", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Concrete", "Concrete", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Timber", "Timber", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Reinforcement", "Reinforcement", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Stratum", "Stratum", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Custom", "Custom", "", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -32,11 +39,17 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            //
+
             FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault(countryCode);
 
+            (var steel, var concrete, var timber, var reinforcement, var stratum, var custom) = materialDatabase.ByType();
             // set output
-            DA.SetData(0, materialDatabase);
+            DA.SetDataList(0, steel);
+            DA.SetDataList(1, concrete);
+            DA.SetDataList(2, timber);
+            DA.SetDataList(3, reinforcement);
+            DA.SetDataList(4, stratum);
+            DA.SetDataList(5, custom);
         }
         protected override System.Drawing.Bitmap Icon
         {
