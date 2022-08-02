@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseListMaterialNames : GH_Component
+    public class MaterialDatabaseListMaterialNamesOBSOLETE : GH_Component
     {
-        public MaterialDatabaseListMaterialNames()
+        public MaterialDatabaseListMaterialNamesOBSOLETE()
           : base("MaterialDatabase.ListMaterialNames", "ListMaterialNames",
               "Lists the names of all Materials in MaterialDatabase.",
               "FEM-Design", "Materials")
@@ -51,5 +51,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("ce42c6c1-aa5b-4e04-b47e-1b0d31444603"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }   
 }

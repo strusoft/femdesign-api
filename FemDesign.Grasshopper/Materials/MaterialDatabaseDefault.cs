@@ -20,12 +20,13 @@ namespace FemDesign.Grasshopper
         } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Steel", "Steel", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Concrete", "Concrete", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Timber", "Timber", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Reinforcement", "Reinforcement", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Stratum", "Stratum", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Custom", "Custom", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Steel", "Steel", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Concrete", "Concrete", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Timber", "Timber", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Reinforcement", "Reinforcement", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Stratum", "Stratum", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Custom", "Custom", "", GH_ParamAccess.list);
+
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -41,8 +42,8 @@ namespace FemDesign.Grasshopper
 
 
             FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault(countryCode);
-
             (var steel, var concrete, var timber, var reinforcement, var stratum, var custom) = materialDatabase.ByType();
+
             // set output
             DA.SetDataList(0, steel);
             DA.SetDataList(1, concrete);
@@ -60,7 +61,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("9d4b48dd-7b21-4df7-b02a-477a62eefbbd"); }
+            get { return new Guid("{BC3E170C-C4BB-46C9-87BC-F5E23B54AF5D}"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.primary;
     }   
 }

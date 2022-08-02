@@ -1,33 +1,43 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
+using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-   public class MaterialGetMaterialByName: GH_Component
+    public class MaterialGetMaterialByName : GH_Component
     {
-        public MaterialGetMaterialByName(): base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
+        public MaterialGetMaterialByName() : base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("MaterialDatabase", "MaterialDatabase", "MaterialDatabase.", GH_ParamAccess.item);
-            pManager.AddTextParameter("MaterialName", "MaterialName", "Name of Material to retreive.", GH_ParamAccess.item);
-        } 
+            pManager.AddGenericParameter("Material", "Material", ".", GH_ParamAccess.list);
+            pManager.AddTextParameter("MaterialName", "MaterialName", "Name of Material to retrieve.", GH_ParamAccess.item);
+        }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Materials.MaterialDatabase materialDatabase = null;
+            var materials = new List<Materials.Material>();
+            DA.GetDataList(0, materials);
+            
             string materialName = null;
-            if (!DA.GetData(0, ref materialDatabase)) return;
-            if (!DA.GetData(1, ref materialName)) return;
-            if (materialDatabase == null || materialName == null) return;
+            DA.GetData(1, ref materialName);
 
-            FemDesign.Materials.Material material = materialDatabase.MaterialByName(materialName);
+            FemDesign.Materials.Material material = null;
+            try
+            {
+                material = materials.Where(x => x.Identifier == materialName).First();
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!");
+            }
 
             DA.SetData(0, material);
         }
@@ -40,7 +50,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("4f28cdd5-2078-458a-b55b-98e9c449a26d"); }
+            get { return new Guid("{5629FA53-2317-4605-9B01-B95961CD19B9}"); }
         }
-    } 
+
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
+
+    }
 }

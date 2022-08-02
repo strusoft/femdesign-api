@@ -39,24 +39,24 @@ namespace FemDesign.Materials
         {
             get
             {
-                    if (this.Steel != null)
-                        return "Steel";
-                    else if (this.Concrete != null)
-                        return "Concrete";
-                    else if (this.Timber != null)
-                        return "Timber";
-                    else if (this.Stratum != null)
-                        return "Stratum";
-                    else if (this.ReinforcingSteel != null)
-                        return "ReinforcingSteel";
-                    else
-                        return "Custom";
+                if (this.Steel != null)
+                    return "Steel";
+                else if (this.Concrete != null)
+                    return "Concrete";
+                else if (this.Timber != null)
+                    return "Timber";
+                else if (this.Stratum != null)
+                    return "Stratum";
+                else if (this.ReinforcingSteel != null)
+                    return "ReinforcingSteel";
+                else
+                    return "Custom";
             }
         }
 
         public override string ToString()
         {
-            return this.Identifier;
+            return $"Material: Family - {this.Family}, Identifier - {this.Identifier}";
         }
 
         /// <summary>

@@ -128,6 +128,15 @@ namespace FemDesign.Materials
             throw new System.ArgumentException($"Material was not found. Incorrect material name ({materialName}) or empty material database.");
         }
 
+        public List<CltPanelLibraryType> GetCltPanelLibrary()
+        {
+            if (this.CltPanelTypes != null)
+            {
+                return this.CltPanelTypes.CltPanelLibraryTypes;
+            }
+            return null;
+        }
+
         public CltPanelLibraryType GetCltPanelLibraryTypeByName(string panelLibraryTypeName)
         {
             if (this.CltPanelTypes != null)
@@ -227,6 +236,10 @@ namespace FemDesign.Materials
 
             foreach (var material in materialDataBaseList)
             {
+                // update object information
+                material.Guid = System.Guid.NewGuid();
+                material.EntityModified();
+
                 if (material.Family == "Steel")
                 {
                     steel.Add(material);
