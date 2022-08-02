@@ -38,7 +38,7 @@ namespace FemDesign.Calculate
                 this._calcCase = Convert.ToInt32(value);
             }
         }
-        [XmlAttribute("calcCStage")]
+        [XmlAttribute("calcCstage")]
         public int _calcCStage; // bool as int
         [XmlIgnore]
         public bool CalcCStage
