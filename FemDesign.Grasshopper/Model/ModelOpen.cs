@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
                 bool fileExist = OnPingDocument().IsFilePathDefined;
                 if (!fileExist)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Save your .gh script or specfy a FilePath.");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
                     return;
                 }
                 filePath = OnPingDocument().FilePath;
