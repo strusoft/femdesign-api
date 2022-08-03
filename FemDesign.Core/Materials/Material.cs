@@ -33,6 +33,31 @@ namespace FemDesign.Materials
         public ReinforcingSteel ReinforcingSteel { get; set; }
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
+        
+        [XmlIgnore]
+        public string Family
+        {
+            get
+            {
+                if (this.Steel != null)
+                    return "Steel";
+                else if (this.Concrete != null)
+                    return "Concrete";
+                else if (this.Timber != null)
+                    return "Timber";
+                else if (this.Stratum != null)
+                    return "Stratum";
+                else if (this.ReinforcingSteel != null)
+                    return "ReinforcingSteel";
+                else
+                    return "Custom";
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Material: Family - {this.Family}, Identifier - {this.Identifier}";
+        }
 
         /// <summary>
         /// Set creep and shrinkage parameters to a concrete Material.

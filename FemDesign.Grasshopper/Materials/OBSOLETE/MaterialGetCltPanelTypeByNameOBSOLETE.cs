@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-   public class MaterialGetCltPanelTypeByName : GH_Component
+   public class MaterialGetCltPanelTypeByNameOBSOLETE : GH_Component
     {
-        public MaterialGetCltPanelTypeByName() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", "FEM-Design", "Materials")
+        public MaterialGetCltPanelTypeByNameOBSOLETE() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", "FEM-Design", "Materials")
         {
 
         }
@@ -42,5 +42,8 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("fefcac8c-6d7a-473d-9264-c75c66807a71"); }
         }
-    } 
+
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+
+    }
 }
