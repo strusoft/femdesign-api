@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
             //
             if (runNode)
             {
-                model.Open(filePath);
+                model.Open(filePath, closeOpenWindows);
                 //model.SerializeModel(filePath);
                 //model.FdApp.OpenStruxml(filePath, closeOpenWindows);
             }

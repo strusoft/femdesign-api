@@ -214,8 +214,12 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart with EdgeConnections.
         /// </summary>
-        public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy)
+        public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
         {
+            shellEdgeConnection = shellEdgeConnection ?? EdgeConnection.GetDefault();
+            eccentricity = eccentricity ?? ShellEccentricity.GetDefault();
+            orthotropy = orthotropy ?? ShellOrthotropy.GetDefault();
+
             // add edgeConnections to region
             region.SetEdgeConnections(shellEdgeConnection);
             
