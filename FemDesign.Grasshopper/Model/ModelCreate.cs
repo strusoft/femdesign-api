@@ -58,11 +58,11 @@ namespace FemDesign.Grasshopper
             var stages = new List<FemDesign.Stage>();
             DA.GetDataList("Stages", stages);
 
-            ConstructionStages constructionStages = null;
+            ConstructionStages constructionStage = null;
 
             if(stages.Count != 0)
             {
-                constructionStages = new ConstructionStages(
+                constructionStage = new ConstructionStages(
                     stages,
                     assignModifedElement: false,
                     assignNewElement: false,
@@ -71,8 +71,7 @@ namespace FemDesign.Grasshopper
 
 
             // Create model
-            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStages);
-
+            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage);
             DA.SetData("FdModel", model);
         }
         protected override System.Drawing.Bitmap Icon

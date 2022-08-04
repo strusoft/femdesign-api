@@ -125,7 +125,7 @@ namespace FemDesign
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages stages = null)
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null)
         {
             Initialize(country);
 
@@ -139,8 +139,8 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
             if (loadGroups != null)
                 AddLoadGroupTable(loadGroups, overwrite: false);
-            if (stages != null)
-                AddConstructionStages(stages, overwrite: false);
+            if(constructionStage != null)
+                SetConstructionStages(constructionStage);
         }
 
         private void Initialize(Country country)
@@ -2727,7 +2727,14 @@ namespace FemDesign
         }
 
 
-        public void AddConstructionStages(ConstructionStages obj, bool overwrite = false)
+        public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
+        {
+            var obj = new ConstructionStages(stages, assignModifedElement, assignNewElement, ghostMethod);
+            SetConstructionStages(obj);
+        }
+
+
+        private void SetConstructionStages(ConstructionStages obj)
         {
             if(this.ConstructionStages == null)
             {

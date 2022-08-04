@@ -142,19 +142,16 @@ namespace FemDesign.Examples
 
             var stages = new List<Stage>() { stage1, stage2, stage3, stage4, stage5 };
 
-            var constructionStages = new ConstructionStages(
-                stages,
-                assignModifedElement: false,
-                assignNewElement: false,
-                ghostMethod: false);
-
 
             model.AddElements(elements);
             model.AddSupports(supports);
             model.AddLoadCases(loadcases);
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
-            model.AddConstructionStages(constructionStages);
+            model.SetConstructionStages(stages,
+                assignModifedElement: false,
+                assignNewElement: false,
+                ghostMethod: false);
 
             //Console.Write(model.SerializeToString());
 
