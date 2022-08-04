@@ -115,6 +115,27 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Construct FdCoordinateSystem from three points. localX will follow the point1 - point0 direction.
+        /// </summary>
+        public FdCoordinateSystem(FdPoint3d origin, FdPoint3d point1, FdPoint3d point2)
+        {
+            this.Origin = origin;
+            this._localX = point1 - origin;
+            this._localY = point2 - origin;
+            this._localZ = this._localX.Cross(_localY);
+
+            if (!this.IsComplete())
+            {
+                throw new System.ArgumentException("The defined coordinate system is not complete!");
+            }
+
+            if (!this.IsOrthogonal())
+            {
+                throw new System.ArgumentException($"The defined coordinate system is not orthogonal within the tolerance {Tolerance.DotProduct}");
+            }
+        }
+
+        /// <summary>
         /// Global coordinate system
         /// </summary>
         public static FdCoordinateSystem Global()

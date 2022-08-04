@@ -111,6 +111,41 @@ namespace FemDesign.Geometry
             this.CoordinateSystem = coordinateSystem;
         }
 
+        public static Region RectangleXZ(double width, double height)
+        {
+            var points0 = new FdPoint3d(0,0,0);
+            var points1 = new FdPoint3d(width,0,0);
+            var points2 = new FdPoint3d(width,0,height);
+            var points3 = new FdPoint3d(0,0,height);
+
+            var points = new List<FdPoint3d>() { points0, points1, points2, points3 };
+
+            var fdCoordinate = new FdCoordinateSystem(points0, points1, points3);
+
+            // set properties
+            var region = new Region(points, fdCoordinate);
+
+            return region;
+        }
+
+        public static Region RectangleXY(double width, double length)
+        {
+            var points0 = new FdPoint3d(0, 0, 0);
+            var points1 = new FdPoint3d(width, 0, 0);
+            var points2 = new FdPoint3d(width, length, 0);
+            var points3 = new FdPoint3d(0, length, 0);
+
+            var points = new List<FdPoint3d>() { points0, points1, points2, points3 };
+
+            var fdCoordinate = new FdCoordinateSystem(points0, points1, points3);
+
+            // set properties
+            var region = new Region(points, fdCoordinate);
+
+            return region;
+        }
+
+
         /// <summary>
         /// Reverse the contours in this region
         /// </summary>

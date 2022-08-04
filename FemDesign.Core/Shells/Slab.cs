@@ -64,6 +64,104 @@ namespace FemDesign.Shells
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
+
+        /// <summary>
+        /// Construct a rectangular slab in the XY plane
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="thickness"></param>
+        /// <param name="material"></param>
+        /// <param name="shellEdgeConnection"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="orthotropy"></param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public static Slab Plate(double width, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
+        {
+            Slab._plateInstance++;
+            SlabType type = SlabType.Plate;
+            string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
+            var region = Geometry.Region.RectangleXY(width, height);
+
+            List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+
+            SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            Slab shell = new Slab(type, name, slabPart, material);
+            return shell;
+        }
+
+        /// <summary>
+        /// Construct a vertical wall from two points
+        /// </summary>
+        /// <param name="point0"></param>
+        /// <param name="point1"></param>
+        /// <param name="height"></param>
+        /// <param name="thickness"></param>
+        /// <param name="material"></param>
+        /// <param name="shellEdgeConnection"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="orthotropy"></param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public static Slab Wall(Geometry.FdPoint3d point0, Geometry.FdPoint3d point1, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Wall")
+        {
+            Slab._plateInstance++;
+            SlabType type = SlabType.Wall;
+            string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
+
+            var translation = new Geometry.FdVector3d(0, 0, height);
+            var point2 = point1 + translation;
+            var point3 = point0 + translation;
+            var points = new List<FemDesign.Geometry.FdPoint3d>() { point0, point1, point2, point3};
+
+            var fdCoordinate = new Geometry.FdCoordinateSystem(point0, point1, point3);
+
+            // set properties
+            var region = new Geometry.Region(points, fdCoordinate);
+
+            List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+
+            SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            Slab shell = new Slab(type, name, slabPart, material);
+            return shell;
+        }
+
+        /// <summary>
+        /// Construct a slab from four points.
+        /// </summary>
+        /// <param name="point0"></param>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <param name="point3"></param>
+        /// <param name="thickness"></param>
+        /// <param name="material"></param>
+        /// <param name="shellEdgeConnection"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="orthotropy"></param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public static Slab FromFourPoints(Geometry.FdPoint3d point0, Geometry.FdPoint3d point1, Geometry.FdPoint3d point2, Geometry.FdPoint3d point3, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
+        {
+            Slab._plateInstance++;
+            SlabType type = SlabType.Plate;
+            string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
+
+            var points = new List<Geometry.FdPoint3d>() { point0, point1, point2, point3 };
+            var fdCoordinate = new Geometry.FdCoordinateSystem(point0, point1, point3);
+            var region = new Geometry.Region(points, fdCoordinate);
+
+            List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+
+            SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            Slab shell = new Slab(type, name, slabPart, material);
+            return shell;
+        }
+
+
         public static Slab Wall(string identifier, Materials.Material material, Geometry.Region region, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             // check if surface is vertical
@@ -76,6 +174,32 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            Slab shell = new Slab(type, name, slabPart, material);
+            return shell;
+        }
+        /// <summary>
+        /// Construct a Wall Element in XZ plane
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="thickness"></param>
+        /// <param name="material"></param>
+        /// <param name="shellEdgeConnection"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="orthotropy"></param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public static Slab Wall(double width, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Wall")
+        {
+            Slab._wallInstance++;
+            SlabType type = SlabType.Wall;
+            string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
+            var region = Geometry.Region.RectangleXZ(width, height);
+
+            List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+
+            SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
