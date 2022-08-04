@@ -3,6 +3,7 @@
 <package>
   <metadata>
     <id>$id$</id>
+    <!-- Version should be the same as in FemDesign.Core/Properties/GlobalAssemblyInfo.cs -->
     <version>21.2.1</version>
     <title>$title$</title>
     <authors>StruSoft</authors>

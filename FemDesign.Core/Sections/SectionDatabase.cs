@@ -12,11 +12,11 @@ namespace FemDesign.Sections
     /// Section database.
     /// </summary>
     [System.Serializable]
-    [XmlRoot("database", Namespace="urn:strusoft")]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class SectionDatabase
     {
         [XmlIgnore]
-        public string FilePath {get; set; }
+        public string FilePath { get; set; }
         [XmlAttribute("struxml_version")]
         public string StruxmlVersion { get; set; }
         [XmlAttribute("source_software")]
@@ -38,10 +38,15 @@ namespace FemDesign.Sections
         [XmlElement("sections")]
         public DatabaseSections Sections { get; set; }
         [XmlElement("end")]
-        public string End { get; set;}
+        public string End { get; set; }
+        [XmlIgnore]
+        private static SectionDatabase _defaultSectionDatabaseCache = null;
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         private SectionDatabase()
         {
-            // parameterless constructor for serialization
         }
 
         /// <summary>
@@ -134,7 +139,7 @@ namespace FemDesign.Sections
         private static SectionDatabase DeserializeFromResource()
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(SectionDatabase));
-            
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             foreach (string resourceName in assembly.GetManifestResourceNames())
             {
@@ -166,9 +171,12 @@ namespace FemDesign.Sections
         /// <returns></returns>
         public static SectionDatabase GetDefault()
         {
-            SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromResource();
-            sectionDatabase.End = "";
-            return sectionDatabase;
+            if (_defaultSectionDatabaseCache is null)
+            {
+                _defaultSectionDatabaseCache = DeserializeFromResource();
+                _defaultSectionDatabaseCache.End = "";
+            }
+            return _defaultSectionDatabaseCache;
         }
 
         /// <summary>
