@@ -284,7 +284,7 @@ namespace FemDesign.Calculate
         private static Analysis FootFall(Footfall footfall)
         {
             var analisys = new Analysis(footfall: footfall, calcFootfall: true);
-            throw new Exception("not implemented yet");
+            throw new NotImplementedException();
         }
 
         /// <summary>
