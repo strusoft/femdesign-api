@@ -72,9 +72,7 @@ namespace FemDesign.Geometry.EdgeTests
         public void XAxis()
         {
             var edge = new Edge(FdPoint3d.Origin(), new FdPoint3d(1, 1, 0), FdVector3d.UnitZ());
-            var direction = edge.XAxis.Normalize(); // This will throw null reference exception
-
-            Console.ReadKey();
+            var direction = edge.XAxis.Normalize();
         }
     }
 }
