@@ -45,8 +45,11 @@ namespace FemDesign.Grasshopper
             double thickness = 0.15;
             DA.GetData(1, ref thickness);
 
-            var material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
-            DA.GetData(2, ref material);
+            FemDesign.Materials.Material material = null;
+            if(!DA.GetData(2, ref material))
+            {
+                material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
+            };
 
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
             if(!DA.GetData(3, ref eccentricity))
