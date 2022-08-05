@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
+using GH_IO.Serialization;
 using GH = Grasshopper;
 using System.Drawing;
 using Grasshopper.GUI.Canvas;
@@ -14,13 +15,23 @@ using FGH = FemDesign.Grasshopper;
 
 namespace FemDesign.Info
 {
-    public class Info : GH_Component
+    public static class Info
     {
-        public Info() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", " Help")
+        public static string GetCurrentFemDesignApiVersion()
+        {
+            IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
+            string assemblyVersion = assembly.First().Version?.ToString();
+            var ver = Version.Parse(assemblyVersion);
+            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+        }
+    }
+
+    public class InfoComponent : GH_Component
+    {
+        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", " Help")
         {
 
         }
-
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -33,8 +44,10 @@ namespace FemDesign.Info
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            var current = Info.GetCurrentFemDesignApiVersion();
 
-
+            if (current != VersionWhenFirstCreated)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"The version of this script ({current}) is different than the version it was created with ({VersionWhenFirstCreated})");
         }
         public override void CreateAttributes()
         {
@@ -52,15 +65,39 @@ namespace FemDesign.Info
                 return FemDesign.Properties.Resources.Fd_TabIcon_24_24;
             }
         }
+
+        public string VersionWhenFirstCreated = null;
+        public override void AddedToDocument(GH_Document document)
+        {
+            if (VersionWhenFirstCreated is null)
+                VersionWhenFirstCreated = Info.GetCurrentFemDesignApiVersion();
+        }
+
+        public override bool Write(GH_IWriter writer)
+        {
+            // Save the version when this component was created
+            writer.SetString("versionWhenCreated", VersionWhenFirstCreated);
+            return base.Write(writer);
+        }
+
+        public override bool Read(GH_IReader reader)
+        {
+            // Read the version when this component was created
+            try
+            {
+                VersionWhenFirstCreated = reader.GetString("versionWhenCreated");
+            }
+            catch (NullReferenceException) { } // In case the info component was created before the VersionWhenFirstCreated was implemented.
+            return base.Read(reader);
+        }
     }
 
-    
-    public class InfoAttributes : GH_Attributes<Info>
+    public class InfoAttributes : GH_Attributes<InfoComponent>
     {
         RectangleF link1 = new RectangleF();
         RectangleF link2 = new RectangleF();
         RectangleF link3 = new RectangleF();
-        public InfoAttributes(Info owner) : base(owner) { }
+        public InfoAttributes(InfoComponent owner) : base(owner) { }
 
 
         protected override void Layout()
@@ -71,7 +108,7 @@ namespace FemDesign.Info
             int width = 220; //Math.Max(width + 10, 80);
 
             // The height of our object is always 60 pixels
-            int height = 180;
+            int height = 200;
 
             // Assign the width and height to the Bounds property.
             // Also, make sure the Bounds are anchored to the Pivot
@@ -134,20 +171,19 @@ namespace FemDesign.Info
                 textRectangle.Inflate(-5, 0);
 
                 //API version number
-                IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
-                string assemblyVersion = assembly.First().Version?.ToString();
-                Version ver = Version.Parse(assemblyVersion);
-                string major = ver.Major.ToString();
-                string minor = ver.Minor.ToString();
-                string patch = ver.Build.ToString();
+                string currentVersion = Info.GetCurrentFemDesignApiVersion();
+                string creationVersion = this.Owner.VersionWhenFirstCreated;
 
                 Pen pen = new Pen(Brushes.Black, Convert.ToSingle(0.5));
                 PointF pt1 = new PointF(textRectangle.X, textRectangle.Y + 20);
-                PointF pt2 = new PointF(textRectangle.X+textRectangle.Width, textRectangle.Y + 20);
+                PointF pt2 = new PointF(textRectangle.X + textRectangle.Width, textRectangle.Y + 20);
                 graphics.DrawLine(pen, pt1, pt2);
 
                 textRectangle.Y += 25;
-                graphics.DrawString(String.Format("Version: " + major + "." + minor + "." + patch), GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
+                graphics.DrawString($"Current version: {currentVersion}", GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
+
+                textRectangle.Y += 20;
+                graphics.DrawString($"Created with: {creationVersion}", GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
 
                 textRectangle.Y += 20;
                 graphics.DrawString(String.Format("Useful links:"), GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
@@ -156,7 +192,7 @@ namespace FemDesign.Info
                 link1 = textRectangle;
                 Font linkFont = new Font(GH_FontServer.StandardItalic, FontStyle.Underline);
                 graphics.DrawString(String.Format("https://strusoft.freshdesk.com/", 5), linkFont, Brushes.Blue, textRectangle, format);
-                
+
                 textRectangle.Y += 15;
                 link2 = textRectangle;
                 graphics.DrawString(String.Format("https://wiki.fem-design.strusoft.com/"), linkFont, Brushes.Blue, textRectangle, format);
@@ -172,18 +208,17 @@ namespace FemDesign.Info
 
                 graphics.DrawImage(image, textRectangle);
 
-
-
-
-
-
                 // Always dispose of any GDI+ object that implement IDisposable.
                 format.Dispose();
             }
         }
 
-        public override GH.GUI.Canvas.GH_ObjectResponse RespondToMouseDown(GH.GUI.Canvas.GH_Canvas sender, GH.GUI.GH_CanvasMouseEvent e)
+        public override GH.GUI.Canvas.GH_ObjectResponse RespondToMouseUp(GH.GUI.Canvas.GH_Canvas sender, GH.GUI.GH_CanvasMouseEvent e)
         {
+            if (e.Button != System.Windows.Forms.MouseButtons.Left) 
+                return base.RespondToMouseUp(sender, e);
+
+            // Left mouse button up
             if (link1.Contains(e.CanvasLocation))
             {
                 System.Diagnostics.Process.Start("https://strusoft.freshdesk.com/");
@@ -203,7 +238,7 @@ namespace FemDesign.Info
         }
     }
 
-    }
+}
 
 
 
