@@ -2753,7 +2753,8 @@ namespace FemDesign
                 {
                     foreach(var element in stage.Elements)
                     {
-                        element.StageId = stage.Id;
+                        var newElement = element.DeepClone();
+                        newElement.StageId = stage.Id;
                     }
                 }
             }
