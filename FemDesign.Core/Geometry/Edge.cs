@@ -13,7 +13,7 @@ namespace FemDesign.Geometry
     /// </summary>
     [System.Serializable]
     public partial class Edge
-    {         
+    {
         [XmlIgnore]
         private FdCoordinateSystem _coordinateSystem;
         /// <summary>
@@ -34,7 +34,7 @@ namespace FemDesign.Geometry
                 {
                     FdPoint3d origin;
                     FdVector3d localX, localY, localZ;
-                    
+
                     // arc1
                     if (this.Type == "arc" && this.Points.Count == 1)
                     {
@@ -45,7 +45,7 @@ namespace FemDesign.Geometry
                         FdPoint3d p0, p1, p2;
                         FdVector3d v = this.XAxis.Scale(this.Radius);
                         p0 = this.Points[0].Translate(v);
-                        p1 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle/2, this.Normal));
+                        p1 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle / 2, this.Normal));
                         p2 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle, this.Normal));
 
                         origin = p1;
@@ -99,8 +99,8 @@ namespace FemDesign.Geometry
         [XmlIgnore]
         public string Type
         {
-            get {return this._type;}
-            set {this._type = RestrictedString.EdgeType(value);}
+            get { return this._type; }
+            set { this._type = RestrictedString.EdgeType(value); }
         }
         [XmlAttribute("radius")]
         public double Radius { get; set; }   // optional. double
@@ -121,7 +121,24 @@ namespace FemDesign.Geometry
                 {
                     if (this.Points.Count == 3)
                     {
-                        throw new System.ArgumentException("Can't calculate length of edge for arc2 type. Calculation of sweep angle is not implemented.");
+                        // https://github.com/strusoft/femdesign-api/issues/123#issuecomment-1205322334
+                        var v1 = Points[0] - Points[1];
+                        var v2 = Points[2] - Points[1];
+                        var normal = v1.Cross(v2);
+                        var m1 = Points[1] + 0.5 * v1;
+                        var m2 = Points[1] + 0.5 * v2;
+                        var N1 = normal.Cross(v1);
+                        var N2 = normal.Cross(v2);
+
+                        var (t1, t2) = Proximity.LineLineProximity(m1, N1, m2, N2);
+
+                        var centre = m1 + (t1 * N1);
+
+                        var radius = (Points[0] - centre).Length();
+                        var r1 = (Points[0] - centre).Normalize();
+                        var r2 = (Points[2] - centre).Normalize();
+                        var angle = Math.Acos(r1.Dot(r2));
+                        return angle * radius;
                     }
                     else
                     {
@@ -272,7 +289,7 @@ namespace FemDesign.Geometry
             {
                 // get sweep angle
                 double sweepAngle = this.EndAngle - this.StartAngle;
-                
+
                 // set new properties
                 this.XAxis = this.XAxis.RotateAroundAxis(sweepAngle, this.Normal);
                 this.Normal = this.Normal.Reverse();
