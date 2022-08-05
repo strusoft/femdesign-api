@@ -72,6 +72,7 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
+    <Compile Include="Geometry\ProximityTests.cs" />
     <Compile Include="Loads\LoadCaseTests.cs" />
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Model\ModelTests.cs" />

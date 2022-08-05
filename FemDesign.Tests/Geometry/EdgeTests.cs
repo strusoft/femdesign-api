@@ -10,11 +10,11 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthArc()
         {
             // arc by 
-            var center = new FdPoint3d(0,0,0);
+            var center = new FdPoint3d(0, 0, 0);
             var radius = 1;
             var startAngle = 0;
             var endAngle = Math.PI;
-            var xAxis = new FdVector3d(1,0,0);
+            var xAxis = new FdVector3d(1, 0, 0);
             var cs = FdCoordinateSystem.Global();
             var arc1 = new Edge(radius, startAngle, endAngle, center, xAxis, cs);
             Assert.IsTrue(Math.Abs(arc1.Length - Math.PI) <= Tolerance.LengthComparison);
@@ -64,8 +64,8 @@ namespace FemDesign.Geometry.EdgeTests
             var end = new FdPoint3d(1, 0, 0);
             var cs = FdCoordinateSystem.Global();
             var arc2 = new Edge(start, mid, end, cs);
-            //Assert.ThrowsException<ArgumentException>(() => arc2.Length, "Should throw exception stating that method to calculate sweep angle is not implemented yet.");
-            Assert.IsTrue(Math.Abs(arc2.Length - Math.PI) <= Tolerance.LengthComparison); // test should fail here 
+
+            Assert.AreEqual(Math.PI, arc2.Length, Tolerance.LengthComparison);
         }
     }
 }
