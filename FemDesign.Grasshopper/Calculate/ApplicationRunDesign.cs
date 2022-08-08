@@ -203,8 +203,8 @@ namespace FemDesign.Grasshopper
                 {
                     filePath = System.IO.Path.ChangeExtension(filePath, "str");
                     (model, _) = FemDesign.Model.ReadStr(filePath, null);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "It is recommended to run a new analysis when 'design changes' are applied. The model might have a different stress/force distribution due to change in stiffness.");
                 }
-
             }
 
 
