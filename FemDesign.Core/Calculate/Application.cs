@@ -216,15 +216,11 @@ namespace FemDesign.Calculate
             // start process
             Process process = Process.Start(processStartInfo);
 
-            if (endSession)
-            {
-                process.WaitForExit();
-                return process.HasExited;
-            }
-            else
-            {
-                return process.HasExited;
-            }
+
+            process.WaitForExit();
+            return process.HasExited;
+
+
         }
 
         public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows, Calculate.CmdGlobalCfg cmdglobalconfig = null)

@@ -108,9 +108,11 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (!DA.GetData(10, ref runNode))
+            DA.GetData(10, ref runNode);
+            if(runNode == false)
             {
-                // pass
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+                return;
             }
             if (mode == null || model == null || filePath == null || analysis == null)
             {
@@ -139,7 +141,9 @@ namespace FemDesign.Grasshopper
             {
                 model.SerializeModel(filePath);
                 analysis.SetLoadCombinationCalculationParameters(model);
-                rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPathsFromResultTypes, docxTemplatePath, endSession, closeOpenWindows);
+
+                bool endDesignSession = design.ApplyChanges == true ? true : endSession;
+                rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPathsFromResultTypes, docxTemplatePath, endDesignSession, closeOpenWindows);
 
 
                 // Create FdScript
@@ -194,11 +198,15 @@ namespace FemDesign.Grasshopper
                     resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
                     i++;
                 }
+
+                if (design.ApplyChanges)
+                {
+                    filePath = System.IO.Path.ChangeExtension(filePath, "str");
+                    (model, _) = FemDesign.Model.ReadStr(filePath, null);
+                }
+
             }
-            else
-            {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
-            }
+
 
             // Set output
             DA.SetData("FdModel", model);
