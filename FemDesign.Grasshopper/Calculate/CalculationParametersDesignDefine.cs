@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(2, ref isLoadCombination);
 
             bool applychanges = false;
-            //DA.GetData(3, ref applychanges); uncomment the line when we get response from the developer.
+            DA.GetData(3, ref applychanges); //uncomment the line when we get response from the developer.
 
             FemDesign.Calculate.Design _obj = new FemDesign.Calculate.Design(autoDesign, check, isLoadCombination, applychanges);
 
