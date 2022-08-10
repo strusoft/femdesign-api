@@ -90,31 +90,6 @@ namespace FemDesign.Calculate
             DocTable.CaseIndex = caseIndex;
         }
 
-
-        public static List<string> BscPathFromResultTypes(IEnumerable<Results.ResultType> resultTypes, string strPath, Results.UnitResults units = null)
-        {
-            // Create Bsc files from resultTypes
-            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
-
-            var dir = System.IO.Path.GetDirectoryName(strPath);
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(strPath);
-
-            // Create \data folder to store output
-            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
-            // If directory does not exist, create it
-            if (!System.IO.Directory.Exists(dataDir))
-            {
-                System.IO.Directory.CreateDirectory(dataDir);
-            }
-
-            if (units == null)
-                units = Results.UnitResults.Default();
-
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units)));
-            var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
-            return bscPathsFromResultTypes;
-        }
-
         public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null)
         {
             var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();

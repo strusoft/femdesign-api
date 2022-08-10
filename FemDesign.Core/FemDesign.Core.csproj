@@ -130,7 +130,6 @@
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
-    <Compile Include="Results\ResultTypeEnum.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
