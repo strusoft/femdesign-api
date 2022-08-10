@@ -106,9 +106,6 @@
     <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Model\global-test-model_IN.struxml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Model\global-test-model_MASTER.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

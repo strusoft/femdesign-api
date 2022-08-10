@@ -94,8 +94,8 @@
         <referable_parts ref_slab="e6df7f8c-8e1c-4296-be34-2ab105a3c7d3" ref_support="5637e0c4-3377-4bcc-8ddb-0b1e29b82deb" />
       </foundation_slab>
     </foundations>
-    <bar last_change="2022-04-25T10:40:35.000" guid="b9406b84-1e51-4fc6-9db9-01e73fcb1982" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.1">
-      <bar_part last_change="2022-04-25T10:40:35.000" guid="bfb9a3b8-e1a3-47d0-81ea-f3a496ebb8fb" action="added" name="B.1.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" complex_section="237e55c8-ee0d-4e97-8f8c-7d3dbf486869" ecc_calc="true">
+    <bar last_change="2022-04-25T10:40:35.000" guid="b9406b84-1e51-4fc6-9db9-01e73fcb1982" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.1" stage="1">
+      <bar_part last_change="2022-04-25T10:40:35.000" guid="bfb9a3b8-e1a3-47d0-81ea-f3a496ebb8fb" action="added" name="B.1.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" stage="1" complex_section="237e55c8-ee0d-4e97-8f8c-7d3dbf486869" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="6" y="0" z="0" />
           <point x="8" y="2" z="1" />
@@ -121,8 +121,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2020-11-19T11:54:44.000" guid="de7505c5-0411-43b6-a254-9aa98f3ad71a" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.1">
-      <bar_part last_change="2020-11-19T11:54:44.000" guid="a7c82c2e-2fd4-4698-bb30-3b1779828ee7" action="added" name="C.1.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="60aad9ac-84c9-4eb5-908f-7500c5e9f61d" made="rolled" ecc_calc="true">
+    <bar last_change="2020-11-19T11:54:44.000" guid="de7505c5-0411-43b6-a254-9aa98f3ad71a" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.1" stage="1">
+      <bar_part last_change="2020-11-19T11:54:44.000" guid="a7c82c2e-2fd4-4698-bb30-3b1779828ee7" action="added" name="C.1.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="60aad9ac-84c9-4eb5-908f-7500c5e9f61d" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="10" y="0" z="0" />
           <point x="10" y="0" z="3" />
@@ -154,8 +154,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2021-01-13T10:58:21.000" guid="06cb77a6-1a00-40ad-8b37-8f9f86c8a9e3" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.2">
-      <bar_part last_change="2021-01-13T10:58:21.000" guid="914be7f3-35cd-4f46-8016-0a2edd177038" action="added" name="C.2.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="e38d515d-568c-4fa9-ae2c-9770bdcbb7f3" made="rolled" ecc_calc="true">
+    <bar last_change="2021-01-13T10:58:21.000" guid="06cb77a6-1a00-40ad-8b37-8f9f86c8a9e3" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.2" stage="1">
+      <bar_part last_change="2021-01-13T10:58:21.000" guid="914be7f3-35cd-4f46-8016-0a2edd177038" action="added" name="C.2.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="e38d515d-568c-4fa9-ae2c-9770bdcbb7f3" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="77" y="1" z="-3" />
           <point x="77" y="1" z="0" />
@@ -187,8 +187,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2021-01-13T10:58:23.000" guid="b4918c3d-fb0d-4bda-b41b-2e477d5dd5eb" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.3">
-      <bar_part last_change="2021-01-13T10:58:23.000" guid="2337afea-e6ce-4fce-8cd8-ab6102cc4187" action="added" name="C.3.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="a65bc6da-316b-43e9-8e31-870c15a324d5" made="rolled" ecc_calc="true">
+    <bar last_change="2021-01-13T10:58:23.000" guid="b4918c3d-fb0d-4bda-b41b-2e477d5dd5eb" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.3" stage="1">
+      <bar_part last_change="2021-01-13T10:58:23.000" guid="2337afea-e6ce-4fce-8cd8-ab6102cc4187" action="added" name="C.3.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="a65bc6da-316b-43e9-8e31-870c15a324d5" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="79" y="1" z="-3" />
           <point x="79" y="1" z="0" />
@@ -220,8 +220,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2021-01-13T10:58:25.000" guid="f0e21738-225a-440b-905e-dbbfb2aa39b0" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.4">
-      <bar_part last_change="2021-01-13T10:58:25.000" guid="0890f296-e975-47e5-a8dd-a0f4205022b7" action="added" name="C.4.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="79d2b0c4-7dc9-4d1c-b70d-7b07aa35b9cc" made="rolled" ecc_calc="true">
+    <bar last_change="2021-01-13T10:58:25.000" guid="f0e21738-225a-440b-905e-dbbfb2aa39b0" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.4" stage="1">
+      <bar_part last_change="2021-01-13T10:58:25.000" guid="0890f296-e975-47e5-a8dd-a0f4205022b7" action="added" name="C.4.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="79d2b0c4-7dc9-4d1c-b70d-7b07aa35b9cc" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="81" y="1" z="-3" />
           <point x="81" y="1" z="0" />
@@ -253,8 +253,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2021-01-13T10:59:48.000" guid="5cc401df-556a-4d63-aab2-018675824f5a" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.5">
-      <bar_part last_change="2021-01-13T10:59:48.000" guid="147d9994-6f1d-4151-ad59-5934a836c339" action="added" name="C.5.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="a2a848b2-b4b7-4316-9491-479d4fe20abc" made="rolled" ecc_calc="true">
+    <bar last_change="2021-01-13T10:59:48.000" guid="5cc401df-556a-4d63-aab2-018675824f5a" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.5" stage="1">
+      <bar_part last_change="2021-01-13T10:59:48.000" guid="147d9994-6f1d-4151-ad59-5934a836c339" action="added" name="C.5.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="a2a848b2-b4b7-4316-9491-479d4fe20abc" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="83" y="1" z="-3" />
           <point x="83" y="1" z="0" />
@@ -286,8 +286,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2021-01-13T10:59:48.000" guid="b566ddee-6586-4606-9243-674ed8ef83f9" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.6">
-      <bar_part last_change="2021-01-13T10:59:48.000" guid="2df7e1d8-5982-4012-bbe5-31ac29c644db" action="added" name="C.6.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="1aa6c5f0-bc13-436d-8473-ea3eeb7015c8" made="rolled" ecc_calc="true">
+    <bar last_change="2021-01-13T10:59:48.000" guid="b566ddee-6586-4606-9243-674ed8ef83f9" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.6" stage="1">
+      <bar_part last_change="2021-01-13T10:59:48.000" guid="2df7e1d8-5982-4012-bbe5-31ac29c644db" action="added" name="C.6.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="1aa6c5f0-bc13-436d-8473-ea3eeb7015c8" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="85" y="1" z="-3" />
           <point x="85" y="1" z="0" />
@@ -319,8 +319,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-03-17T16:05:19.000" guid="a68eae3a-5a0f-454b-a3fc-188c4b73d52c" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.7">
-      <bar_part last_change="2022-03-17T16:05:19.000" guid="c2d09651-90f3-4ecc-9e9a-dd7d53e74186" action="added" name="C.7.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="76e7aa3b-853b-45aa-ab42-1c966394cb41" made="rolled" ecc_calc="true">
+    <bar last_change="2022-03-17T16:05:19.000" guid="a68eae3a-5a0f-454b-a3fc-188c4b73d52c" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.7" stage="1">
+      <bar_part last_change="2022-03-17T16:05:19.000" guid="c2d09651-90f3-4ecc-9e9a-dd7d53e74186" action="added" name="C.7.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="76e7aa3b-853b-45aa-ab42-1c966394cb41" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="94" y="0" z="-3" />
           <point x="94" y="0" z="0" />
@@ -364,8 +364,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-03-17T16:05:19.000" guid="dbf4876d-cf66-49db-8695-c9ed049fc48c" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.2">
-      <bar_part last_change="2022-03-17T16:05:19.000" guid="783c2796-c6a5-4db6-8950-7f12fba86d11" action="added" name="B.2.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" complex_section="417f829a-5ad8-4a52-b29d-07518b4785b5" ecc_calc="true">
+    <bar last_change="2022-03-17T16:05:19.000" guid="dbf4876d-cf66-49db-8695-c9ed049fc48c" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.2" stage="1">
+      <bar_part last_change="2022-03-17T16:05:19.000" guid="783c2796-c6a5-4db6-8950-7f12fba86d11" action="added" name="B.2.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" stage="1" complex_section="417f829a-5ad8-4a52-b29d-07518b4785b5" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="94" y="0.3" z="0" />
           <point x="94" y="2" z="0" />
@@ -391,8 +391,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-03-17T16:05:19.000" guid="aab66ac5-d604-4c0a-8ee6-84b69704d30c" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.3">
-      <bar_part last_change="2022-03-17T16:05:19.000" guid="a3c83dc1-0e5e-45dd-84d7-c9d5092151d0" action="added" name="B.3.1" complex_material="25d4e835-3856-4d8a-a0ac-68e5279488c7" complex_section="94147100-bc79-441e-afb8-2a17e42dea23" ecc_calc="true">
+    <bar last_change="2022-03-17T16:05:19.000" guid="aab66ac5-d604-4c0a-8ee6-84b69704d30c" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.3" stage="1">
+      <bar_part last_change="2022-03-17T16:05:19.000" guid="a3c83dc1-0e5e-45dd-84d7-c9d5092151d0" action="added" name="B.3.1" complex_material="25d4e835-3856-4d8a-a0ac-68e5279488c7" stage="1" complex_section="94147100-bc79-441e-afb8-2a17e42dea23" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="0" y="28" z="0" />
           <point x="8" y="28" z="0" />
@@ -421,8 +421,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-03-17T16:05:19.000" guid="b25b6ec9-f5f1-4fab-bbbb-e4355f62f5ad" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.4">
-      <bar_part last_change="2022-03-17T16:05:19.000" guid="0c1f2c86-18c2-48cb-b2a2-af8009a2fa89" action="added" name="B.4.1" complex_material="25d4e835-3856-4d8a-a0ac-68e5279488c7" complex_section="7c2ce2af-52ba-4bf4-8b71-2a67de423a59" ecc_calc="true">
+    <bar last_change="2022-03-17T16:05:19.000" guid="b25b6ec9-f5f1-4fab-bbbb-e4355f62f5ad" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.4" stage="1">
+      <bar_part last_change="2022-03-17T16:05:19.000" guid="0c1f2c86-18c2-48cb-b2a2-af8009a2fa89" action="added" name="B.4.1" complex_material="25d4e835-3856-4d8a-a0ac-68e5279488c7" stage="1" complex_section="7c2ce2af-52ba-4bf4-8b71-2a67de423a59" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="0" y="32" z="0" />
           <point x="8" y="32" z="0" />
@@ -451,8 +451,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-03-18T08:18:01.000" guid="7734017f-1286-48d6-a232-afaa8e652dc6" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.8">
-      <bar_part last_change="2022-03-18T08:18:01.000" guid="3b8d4f8e-86a5-4b15-8fbe-a2f92ddf928b" action="added" name="C.8.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="31fbe27d-7c32-4bd1-be06-c5a48532ffd6" made="rolled" ecc_calc="true">
+    <bar last_change="2022-03-18T08:18:01.000" guid="7734017f-1286-48d6-a232-afaa8e652dc6" action="added" maxforce="0" tension="0" type="column" compressions_plasticity="false" tensions_plasticity="false" name="C.8" stage="1">
+      <bar_part last_change="2022-03-18T08:18:01.000" guid="3b8d4f8e-86a5-4b15-8fbe-a2f92ddf928b" action="added" name="C.8.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="31fbe27d-7c32-4bd1-be06-c5a48532ffd6" made="rolled" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="10" y="0" z="3" />
           <point x="10" y="0" z="6" />
@@ -484,8 +484,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-04-25T10:40:06.000" guid="f1d7cf4f-a6aa-494b-b312-6b93a44d9fa0" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.5">
-      <bar_part last_change="2022-04-25T10:40:06.000" guid="f406783c-f76b-44d8-82f3-d2b53a69dcfe" action="added" name="B.5.1" complex_composite="1b72285d-42d1-4265-a68a-c67c643430d1" ecc_calc="true">
+    <bar last_change="2022-04-25T10:40:06.000" guid="f1d7cf4f-a6aa-494b-b312-6b93a44d9fa0" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.5" stage="1">
+      <bar_part last_change="2022-04-25T10:40:06.000" guid="f406783c-f76b-44d8-82f3-d2b53a69dcfe" action="added" name="B.5.1" stage="1" complex_composite="1b72285d-42d1-4265-a68a-c67c643430d1" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="0" y="24" z="0" />
           <point x="8" y="24" z="0" />
@@ -503,8 +503,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2022-04-25T10:40:13.000" guid="7926045f-0639-4465-baa0-319f0203dfb9" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.6">
-      <bar_part last_change="2022-04-25T10:40:13.000" guid="b7596e5f-1887-445f-87ae-c339d83b674d" action="added" name="B.6.1" complex_section="D20-500" ecc_calc="true">
+    <bar last_change="2022-04-25T10:40:13.000" guid="7926045f-0639-4465-baa0-319f0203dfb9" action="added" maxforce="0" tension="0" type="beam" compressions_plasticity="false" tensions_plasticity="false" name="B.6" stage="1">
+      <bar_part last_change="2022-04-25T10:40:13.000" guid="b7596e5f-1887-445f-87ae-c339d83b674d" action="added" name="B.6.1" stage="1" complex_section="D20-500" ecc_calc="true">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="0" y="20" z="0" />
           <point x="8" y="20" z="0" />
@@ -522,8 +522,8 @@
       </bar_part>
       <end />
     </bar>
-    <bar last_change="2020-11-19T11:54:49.000" guid="fbda95f6-44b3-4e57-b0f2-fc547ba0379f" action="added" maxforce="0" tension="0" type="truss" compressions_plasticity="false" tensions_plasticity="false" name="T.1">
-      <bar_part last_change="2020-11-19T11:54:49.000" guid="dd700480-8686-42cb-9e83-41c13e3033ab" action="added" name="T.1.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" complex_section="c768557a-7e27-4153-be0c-d47fe89ef7f2" made="cold_worked" ecc_calc="false">
+    <bar last_change="2020-11-19T11:54:49.000" guid="fbda95f6-44b3-4e57-b0f2-fc547ba0379f" action="added" maxforce="0" tension="0" type="truss" compressions_plasticity="false" tensions_plasticity="false" name="T.1" stage="1">
+      <bar_part last_change="2020-11-19T11:54:49.000" guid="dd700480-8686-42cb-9e83-41c13e3033ab" action="added" name="T.1.1" complex_material="1c22b11f-8e40-4681-9b5a-34d2bbe7179b" stage="1" complex_section="c768557a-7e27-4153-be0c-d47fe89ef7f2" made="cold_worked" ecc_calc="false">
         <curve type="line" radius="0" start_angle="0" end_angle="0">
           <point x="12" y="0" z="0" />
           <point x="14" y="2" z="1" />
@@ -545,7 +545,7 @@
       </rectangle>
       <end />
     </hidden_bar>
-    <slab last_change="2020-11-19T11:58:27.000" guid="9d60fb91-0a54-4399-92b0-170445d9265b" action="added" name="P.1" type="plate">
+    <slab last_change="2020-11-19T11:58:27.000" guid="9d60fb91-0a54-4399-92b0-170445d9265b" action="added" name="P.1" type="plate" stage="1">
       <slab_part last_change="2020-11-19T11:58:27.000" guid="3f05ac6b-09e9-46fa-a851-eb9946b6966f" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.1.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -580,7 +580,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2020-11-19T11:55:25.000" guid="bafc7787-f64c-4c6c-b0fd-b234f8219991" action="added" name="P.2" type="plate">
+    <slab last_change="2020-11-19T11:55:25.000" guid="bafc7787-f64c-4c6c-b0fd-b234f8219991" action="added" name="P.2" type="plate" stage="1">
       <slab_part last_change="2020-11-19T11:55:25.000" guid="811ce472-48f0-4c00-a81e-2fa9b7c52959" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.2.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -614,7 +614,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2020-11-19T11:56:05.000" guid="71b9c534-9c9b-4242-929c-f559cee88eea" action="added" name="W.1" type="wall">
+    <slab last_change="2020-11-19T11:56:05.000" guid="71b9c534-9c9b-4242-929c-f559cee88eea" action="added" name="W.1" type="wall" stage="1">
       <slab_part last_change="2020-11-19T11:56:05.000" guid="0270d821-711f-4f3e-bfdd-4233b4f8a42b" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="W.1.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -647,7 +647,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2020-11-19T11:55:50.000" guid="bd93e132-83f1-40be-928d-6495a5c79575" action="added" name="W.2" type="wall">
+    <slab last_change="2020-11-19T11:55:50.000" guid="bd93e132-83f1-40be-928d-6495a5c79575" action="added" name="W.2" type="wall" stage="1">
       <slab_part last_change="2020-11-19T11:55:50.000" guid="80a10acb-cd58-4991-b6b0-c56d6c1e552c" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="W.2.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -680,7 +680,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2021-01-13T10:59:38.000" guid="1f5f9252-0bf1-4d8d-9377-cba79562ff17" action="added" name="P.3" type="plate">
+    <slab last_change="2021-01-13T10:59:38.000" guid="1f5f9252-0bf1-4d8d-9377-cba79562ff17" action="added" name="P.3" type="plate" stage="1">
       <slab_part last_change="2021-01-13T10:59:38.000" guid="9e1f0102-b16e-499a-bb07-9588d73ded6b" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.3.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -712,7 +712,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2021-01-18T10:34:30.000" guid="e28216e2-15ea-43fc-9f22-fa7b16ca5b35" action="added" name="W.3" type="wall">
+    <slab last_change="2021-01-18T10:34:30.000" guid="e28216e2-15ea-43fc-9f22-fa7b16ca5b35" action="added" name="W.3" type="wall" stage="1">
       <slab_part last_change="2021-01-18T10:34:30.000" guid="732b3026-8ff8-4b06-862b-1cc71cb6920f" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="W.3.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -745,7 +745,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2021-05-21T07:16:48.000" guid="a69c50a8-ed0e-4cfb-a53d-379830c53ebb" action="added" name="P.4" type="plate">
+    <slab last_change="2021-05-21T07:16:48.000" guid="a69c50a8-ed0e-4cfb-a53d-379830c53ebb" action="added" name="P.4" type="plate" stage="1">
       <slab_part last_change="2021-05-21T07:16:48.000" guid="bfc8170e-0341-48ae-bf8d-269895f1925d" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.4.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -777,7 +777,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2021-05-21T07:16:57.000" guid="b89665e7-3100-4e01-a4ca-5812904c9d6b" action="added" name="P.5" type="plate">
+    <slab last_change="2021-05-21T07:16:57.000" guid="b89665e7-3100-4e01-a4ca-5812904c9d6b" action="added" name="P.5" type="plate" stage="1">
       <slab_part last_change="2021-05-21T07:16:57.000" guid="2d523e55-6b08-4e06-b09e-110d35dcbc61" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.5.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -831,7 +831,7 @@
       </slab_part>
       <end />
     </slab>
-    <slab last_change="2021-11-10T09:51:05.000" guid="5435fbb8-8ce4-4129-a0ac-8cd854f7e51f" action="added" name="P.6" type="plate">
+    <slab last_change="2021-11-10T09:51:05.000" guid="5435fbb8-8ce4-4129-a0ac-8cd854f7e51f" action="added" name="P.6" type="plate" stage="1">
       <slab_part last_change="2021-11-10T09:51:05.000" guid="dd9b7abb-0d3b-4df9-8956-2bb07d493a48" action="added" align_offset="0" ortho_alfa="0" ortho_ratio="1" mesh_size="0" name="P.6.1" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" alignment="center" ecc_calc="false" ecc_crack="false">
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -1865,7 +1865,7 @@
         </edge>
       </contour>
     </no-shear_region>
-    <panel last_change="2021-01-05T08:19:01.000" guid="a9dc15d6-e792-43f0-80ba-927fc3b7dedb" action="added" orthotropy="1" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" gap="0.003" panelname="A" complex_material="c26bebcc-34bb-4408-a082-9b884e0ffb16" type="concrete" external_moving_local="true" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.1" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-05T08:19:01.000" guid="a9dc15d6-e792-43f0-80ba-927fc3b7dedb" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" in_situ_fabricated="false" panelname="A" complex_material="c26bebcc-34bb-4408-a082-9b884e0ffb16" type="concrete" forced_plate="false" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.1" gap="0.003" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -1950,7 +1950,7 @@
         <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
       </external_rigidity>
     </panel>
-    <panel last_change="2021-01-05T08:19:01.000" guid="4aa578f8-6699-464c-b11e-2dd017a78744" action="added" orthotropy="1" internal_moving_local="true" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.06" gap="0.01" panelname="A" complex_material="00000000-0000-0000-0000-000000000000" type="timber" external_moving_local="true" complex_section="00000000-0000-0000-0000-000000000000" name="TP.1" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-05T08:19:01.000" guid="4aa578f8-6699-464c-b11e-2dd017a78744" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="true" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.06" in_situ_fabricated="false" panelname="A" complex_material="00000000-0000-0000-0000-000000000000" type="timber" forced_plate="false" complex_section="00000000-0000-0000-0000-000000000000" name="TP.1" gap="0.01" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2092,7 +2092,7 @@
         <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
       </external_rigidity>
     </panel>
-    <panel last_change="2021-01-05T08:19:01.000" guid="3a19a8d3-9437-47a2-b127-8024ed342b8b" action="added" orthotropy="1" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.096217130241494" gap="0.003" panelname="A" complex_material="c26bebcc-34bb-4408-a082-9b884e0ffb16" type="concrete" external_moving_local="true" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.2" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-05T08:19:01.000" guid="3a19a8d3-9437-47a2-b127-8024ed342b8b" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.096217130241494" in_situ_fabricated="false" panelname="A" complex_material="c26bebcc-34bb-4408-a082-9b884e0ffb16" type="concrete" forced_plate="false" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.2" gap="0.003" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2177,7 +2177,7 @@
         <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
       </external_rigidity>
     </panel>
-    <panel last_change="2021-01-05T08:19:01.000" guid="6b0632fc-2b5a-4e58-8722-c29f0d1cca46" action="added" orthotropy="1" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.06" gap="0.01" panelname="A" complex_material="00000000-0000-0000-0000-000000000000" type="timber" external_moving_local="true" complex_section="00000000-0000-0000-0000-000000000000" name="TP.2" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-05T08:19:01.000" guid="6b0632fc-2b5a-4e58-8722-c29f0d1cca46" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.06" in_situ_fabricated="false" panelname="A" complex_material="00000000-0000-0000-0000-000000000000" type="timber" forced_plate="false" complex_section="00000000-0000-0000-0000-000000000000" name="TP.2" gap="0.01" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2265,7 +2265,7 @@
         <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
       </external_rigidity>
     </panel>
-    <panel last_change="2021-01-18T10:34:30.000" guid="24020c13-932d-4c26-8667-e94949c4609a" action="added" orthotropy="1" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" gap="0.003" panelname="A" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" type="concrete" external_moving_local="true" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.3" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-18T10:34:30.000" guid="24020c13-932d-4c26-8667-e94949c4609a" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" in_situ_fabricated="false" panelname="A" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" type="concrete" forced_plate="false" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.3" gap="0.003" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2350,7 +2350,7 @@
         <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
       </external_rigidity>
     </panel>
-    <panel last_change="2021-01-18T10:35:30.000" guid="3f28d7c6-a6db-460c-a71a-13ab99141eac" action="added" orthotropy="1" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" gap="0.003" panelname="A" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" type="concrete" external_moving_local="true" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.4" in_situ_fabricated="false" forced_plate="false">
+    <panel last_change="2021-01-18T10:35:30.000" guid="3f28d7c6-a6db-460c-a71a-13ab99141eac" action="added" orthotropy="1" external_moving_local="true" internal_moving_local="false" ecc_crack="false" ecc_calc="false" align_offset="0" alignment="center" thickness="0.18179125178241" in_situ_fabricated="false" panelname="A" complex_material="faf18244-1177-44d1-bfac-ac9ddd156e19" type="concrete" forced_plate="false" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" name="PP.4" gap="0.003" stage="1">
       <region>
         <contour>
           <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2740,7 +2740,7 @@
       </load_group_table>
     </loads>
     <supports>
-      <point_support last_change="2021-01-05T08:19:01.000" guid="44bd8f44-fee6-42f4-bf4c-f94e8c793ff1" action="added" name="S.1">
+      <point_support last_change="2021-01-05T08:19:01.000" guid="44bd8f44-fee6-42f4-bf4c-f94e8c793ff1" action="added" name="S.1" stage="1">
         <group>
           <local_x x="1" y="0" z="0" />
           <local_y x="0" y="1" z="0" />
@@ -2751,7 +2751,7 @@
         </group>
         <position x="42" y="0" z="0" />
       </point_support>
-      <point_support last_change="2021-01-14T16:09:23.000" guid="2d79b37e-e14b-45da-80c7-c5cfa13f9efd" action="added" name="S.2">
+      <point_support last_change="2021-01-14T16:09:23.000" guid="2d79b37e-e14b-45da-80c7-c5cfa13f9efd" action="added" name="S.2" stage="1">
         <group>
           <local_x x="1" y="0" z="0" />
           <local_y x="0" y="1" z="0" />
@@ -2759,7 +2759,7 @@
         </group>
         <position x="42" y="4" z="0" />
       </point_support>
-      <point_support last_change="2021-05-24T12:35:12.000" guid="0c501b7d-23ed-40f4-bde0-2c0c671335a1" action="added" name="S.3">
+      <point_support last_change="2021-05-24T12:35:12.000" guid="0c501b7d-23ed-40f4-bde0-2c0c671335a1" action="added" name="S.3" stage="1">
         <group>
           <local_x x="1" y="0" z="0" />
           <local_y x="0" y="1" z="0" />
@@ -2772,7 +2772,7 @@
         </group>
         <position x="42" y="8" z="0" />
       </point_support>
-      <line_support last_change="2021-01-05T08:19:01.000" guid="9acb4597-d392-4ccd-b310-a34e8077124f" action="added" name="S.4" moving_local="false">
+      <line_support last_change="2021-01-05T08:19:01.000" guid="9acb4597-d392-4ccd-b310-a34e8077124f" action="added" name="S.4" moving_local="false" stage="1">
         <group>
           <local_x x="-0.235702260395513" y="-0.235702260395516" z="0.942809041582064" />
           <local_y x="-0.707106781186546" y="0.707106781186549" z="0" />
@@ -2788,7 +2788,7 @@
         </edge>
         <normal x="-0.235702260395513" y="-0.235702260395516" z="0.942809041582064" />
       </line_support>
-      <line_support last_change="2021-01-14T16:09:08.000" guid="678a4072-dde1-4756-8a8e-0d5fef8b7d98" action="added" name="S.5" moving_local="false">
+      <line_support last_change="2021-01-14T16:09:08.000" guid="678a4072-dde1-4756-8a8e-0d5fef8b7d98" action="added" name="S.5" moving_local="false" stage="1">
         <group>
           <local_x x="-0.235702260395513" y="-0.235702260395516" z="0.942809041582064" />
           <local_y x="-0.707106781186546" y="0.707106781186549" z="0" />
@@ -2801,7 +2801,7 @@
         </edge>
         <normal x="-0.235702260395513" y="-0.235702260395516" z="0.942809041582064" />
       </line_support>
-      <line_support last_change="2021-05-24T13:39:41.000" guid="1c38c429-d0ae-4fff-aff1-75bdb49e91ce" action="added" name="S.6" moving_local="false">
+      <line_support last_change="2021-05-24T13:39:41.000" guid="1c38c429-d0ae-4fff-aff1-75bdb49e91ce" action="added" name="S.6" moving_local="false" stage="1">
         <group>
           <local_x x="-0.235702260395513" y="-0.235702260395517" z="0.942809041582064" />
           <local_y x="-0.707106781186547" y="0.707106781186548" z="0" />
@@ -2819,7 +2819,7 @@
         </edge>
         <normal x="-0.235702260395513" y="-0.235702260395517" z="0.942809041582064" />
       </line_support>
-      <surface_support last_change="2021-01-05T08:19:01.000" guid="38ac4011-874a-43c8-a195-e2acb1abcf95" action="added" name="S.7">
+      <surface_support last_change="2021-01-05T08:19:01.000" guid="38ac4011-874a-43c8-a195-e2acb1abcf95" action="added" name="S.7" stage="1">
         <region>
           <contour>
             <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2853,7 +2853,7 @@
           <local_y x="0" y="1" z="0" />
         </local_system>
       </surface_support>
-      <surface_support last_change="2021-01-14T16:10:09.000" guid="a367c710-bb11-46e8-99ab-a03f1bba5522" action="added" name="S.8">
+      <surface_support last_change="2021-01-14T16:10:09.000" guid="a367c710-bb11-46e8-99ab-a03f1bba5522" action="added" name="S.8" stage="1">
         <region>
           <contour>
             <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -2885,7 +2885,7 @@
           <local_y x="0" y="1" z="0" />
         </local_system>
       </surface_support>
-      <surface_support last_change="2021-05-24T13:40:15.000" guid="54a4af88-39b7-4e60-9811-13f61ed2eb7f" action="added" name="S.9">
+      <surface_support last_change="2021-05-24T13:40:15.000" guid="54a4af88-39b7-4e60-9811-13f61ed2eb7f" action="added" name="S.9" stage="1">
         <region>
           <contour>
             <edge type="line" radius="0" start_angle="0" end_angle="0">
@@ -3033,7 +3033,7 @@
         <flexural_stiffness xx="10000" xy="5000" yy="10000" gxy="10000" />
         <shear_stiffness xz="10000" yz="10000" />
       </virtual_shell>
-      <diaphragm last_change="2021-01-11T14:14:47.000" guid="cd34e185-c4b7-4613-b689-aa215cd85a2c" action="added" name="D.1">
+      <diaphragm last_change="2021-01-11T14:14:47.000" guid="cd34e185-c4b7-4613-b689-aa215cd85a2c" action="added" name="D.1" stage="1">
         <region>
           <contour>
             <edge type="line" radius="0" start_angle="0" end_angle="0">
