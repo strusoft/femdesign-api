@@ -216,9 +216,15 @@ namespace FemDesign.Calculate
             // start process
             Process process = Process.Start(processStartInfo);
 
-
-            process.WaitForExit();
-            return process.HasExited;
+            if (endSession)
+            {
+                process.WaitForExit();
+                return process.HasExited;
+            }
+            else
+            {
+                return process.HasExited;
+            }
 
 
         }
