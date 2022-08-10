@@ -117,9 +117,9 @@ namespace FemDesign.Results
         /// <summary>
         /// Node, Displacements
         /// </summary>
-        [Parseable("NodalDisplacement")]
-        [Result(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
-        NodalDisplacement,
+        //[Parseable("NodalDisplacement")]
+        //[Result(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
+        //NodalDisplacement,
 
         /// <summary>
         /// Bars, Internal Forces
