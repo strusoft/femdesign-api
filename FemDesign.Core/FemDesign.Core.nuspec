@@ -4,7 +4,7 @@
   <metadata>
     <id>$id$</id>
     <!-- Version should be the same as in FemDesign.Core/Properties/GlobalAssemblyInfo.cs -->
-    <version>21.2.1</version>
+    <version>21.3.0</version>
     <title>$title$</title>
     <authors>StruSoft</authors>
     <description>The FEM-Design API package</description>
