@@ -105,6 +105,8 @@
     <Compile Include="ConstructionStages\StageLoad.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModelDeconstrut.cs" />
+    <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
@@ -157,7 +159,7 @@
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\BarsDeconstruct.cs" />
-    <Compile Include="Deconstruct\BarsDeconstruct_OBSOLETE.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousShellDeconstruct.cs" />
@@ -166,10 +168,10 @@
     <Compile Include="Deconstruct\LineTemperatureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCaseDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCombinationDeconstruct.cs" />
-    <Compile Include="Deconstruct\LoadCombinationDeconstruct_OBSOLETE.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\LoadCombinationDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\LongitudinalBarDeconstruct.cs" />
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
-    <Compile Include="Deconstruct\ModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
     <Compile Include="Deconstruct\PanelContinuousAnalyticalModelDeconstruct.cs" />
     <Compile Include="Deconstruct\PointLoadDeconstruct.cs" />

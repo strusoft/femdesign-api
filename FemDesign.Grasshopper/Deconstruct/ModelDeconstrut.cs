@@ -1,13 +1,13 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelDeconstruct: GH_Component
+    public class ModelDeconstruct : GH_Component
     {
-        public ModelDeconstruct(): base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
+        public ModelDeconstruct() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
         {
 
         }
@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            
+
             pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements.", GH_ParamAccess.list);
@@ -33,6 +33,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Supports", "Supports", "Single Support element or list of Support elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Axes", "Axes", "Single axis element or list of axis elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Storeys", "Storeys", "Single storey element or list of storey elements.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Stages", "Stages", "Single Stage element of list of stage elements.", GH_ParamAccess.list);
 
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -68,6 +69,12 @@ namespace FemDesign.Grasshopper
                 storeys = null;
             }
 
+            List < FemDesign.Stage > stages = null;
+            if(model.ConstructionStages != null)
+            {
+                stages = model.ConstructionStages.Stages;
+            }
+
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
             DA.SetDataList("Bars", model.Entities.Bars);
@@ -84,6 +91,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Supports", model.Entities.Supports.GetSupports());
             DA.SetDataList("Axes", axes);
             DA.SetDataList("Storeys", storeys);
+            DA.SetDataList("Stages", stages);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -94,7 +102,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("fcf74381-24b9-48ad-b006-a999fe020212"); }
+            get { return new Guid("{31A8CF15-A5FE-48F0-98E7-73739F5A1492}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
