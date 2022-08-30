@@ -72,5 +72,10 @@ namespace FemDesign.Releases
         {
 
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} x: (-{this.XNeg}/{this.XPos}), y: (-{this.YNeg}/{this.YPos}), z: (-{this.ZNeg}/{this.ZPos})";
+        }
     }
 }

@@ -159,6 +159,13 @@ namespace FemDesign.Supports
             Rotations rotations = Rotations.Free();
             return new LineSupport(edge, motions, rotations, movingLocal, identifier);
         }
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                hasPlasticLimit = true;
+            return $"{this.GetType().Name} Motion: {this.Group.Rigidity.Motions}, Rotation: {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+        }
 
     }
 }

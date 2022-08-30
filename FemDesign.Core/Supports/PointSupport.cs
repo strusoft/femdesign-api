@@ -173,5 +173,13 @@ namespace FemDesign.Supports
             Releases.Rotations rotations = Releases.Rotations.Free();
             return new PointSupport(plane, motions, rotations, identifier);
         }
+
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                hasPlasticLimit = true;
+            return $"{this.GetType().Name} Pos: {this.Position}, Motion: {this.Group.Rigidity.Motions}, Rotation: {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+        }
     }
 }

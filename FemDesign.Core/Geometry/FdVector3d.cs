@@ -297,5 +297,10 @@ namespace FemDesign.Geometry
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"({this.X}, {this.Y}, {this.Z})";
+        }
     }
 }

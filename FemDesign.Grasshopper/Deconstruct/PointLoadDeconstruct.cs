@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(2, obj.GetRhinoGeometry());
             DA.SetData(3, obj.Direction.ToRhino());
             DA.SetData(4, obj.Load.Value);
-            DA.SetData(5, obj.LoadCase);
+            DA.SetData(5, obj.Guid);
             DA.SetData(6, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

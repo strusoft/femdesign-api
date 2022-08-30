@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(4, obj.Z0);
             DA.SetData(5, obj.Q0);
             DA.SetData(6, obj.Qh);
-            DA.SetData(7, obj.LoadCase);
+            DA.SetData(7, obj.Guid);
             DA.SetData(8, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

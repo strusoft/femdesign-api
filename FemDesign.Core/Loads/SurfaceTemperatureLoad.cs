@@ -67,7 +67,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = tempLocValue;
-            this.LoadCase = loadCase.Guid;
+            this.Guid = loadCase.Guid;
             this.Comment = comment;
         }
         
@@ -86,7 +86,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.Origin, topVal, bottomVal)};
-            this.LoadCase = loadCase.Guid;
+            this.Guid = loadCase.Guid;
             this.Comment = comment;
         }
 

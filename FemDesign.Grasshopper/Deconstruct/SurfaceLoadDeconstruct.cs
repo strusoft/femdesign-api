@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException("Length of load should be 1 or 3.");
             }
 
-            DA.SetData(7, obj.LoadCase);
+            DA.SetData(7, obj.Guid);
             DA.SetData(8, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

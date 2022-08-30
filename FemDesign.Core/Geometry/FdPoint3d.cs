@@ -126,6 +126,9 @@ namespace FemDesign.Geometry
             var point = new FdPoint3d(x, y, z);
             return point;
         }
-
+        public override string ToString()
+        {
+            return $"({this.X}, {this.Y}, {this.Z})";
+        }
     }
 }

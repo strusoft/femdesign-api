@@ -102,5 +102,13 @@ namespace FemDesign.Supports
             this.Rigidity = rigidity;
             this.CoordinateSystem = region.CoordinateSystem;
         }
+
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Rigidity.PlasticLimitForces != null)
+                hasPlasticLimit = true;
+            return $"{this.GetType().Name} Motion: {this.Rigidity.Motions}, PlasticLimit: {hasPlasticLimit}";
+        }
     }
 }

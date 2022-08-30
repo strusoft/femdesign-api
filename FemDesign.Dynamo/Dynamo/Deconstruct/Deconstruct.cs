@@ -134,7 +134,7 @@ namespace FemDesign
                 {"Point", pointLoad.GetDynamoGeometry()},
                 {"Direction", pointLoad.Direction.ToDynamo()},
                 {"q", pointLoad.Load.Value},
-                {"LoadCaseGuid", pointLoad.LoadCase},
+                {"LoadCaseGuid", pointLoad.Guid},
                 {"Comment", pointLoad.Comment}
             };
         }
@@ -156,7 +156,7 @@ namespace FemDesign
                 {"Direction", lineLoad.Direction.ToDynamo()},
                 {"q1", lineLoad.Load[0].Value},
                 {"q2", lineLoad.Load[1].Value},
-                {"LoadCaseGuid", lineLoad.LoadCase},
+                {"LoadCaseGuid", lineLoad.Guid},
                 {"Comment", lineLoad.Comment}
             };
         }
@@ -177,7 +177,7 @@ namespace FemDesign
                 {"Direction", lineTemperatureLoad.Direction.ToDynamo()},
                 {"TopBotLocVal1", lineTemperatureLoad.TopBotLocVal[0]},
                 {"TopBotLocVal2", lineTemperatureLoad.TopBotLocVal[1]},
-                {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
+                {"LoadCaseGuid", lineTemperatureLoad.Guid},
                 {"Comment", lineTemperatureLoad.Comment}
             };
         }
@@ -265,7 +265,7 @@ namespace FemDesign
                     {"q1", surfaceLoad.Loads[0].Value},
                     {"q2", surfaceLoad.Loads[0].Value},
                     {"q3", surfaceLoad.Loads[0].Value},
-                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"LoadCaseGuid", surfaceLoad.Guid},
                     {"Comment", surfaceLoad.Comment}
                 };
             }
@@ -280,7 +280,7 @@ namespace FemDesign
                     {"q1", surfaceLoad.Loads[0].Value},
                     {"q2", surfaceLoad.Loads[1].Value},
                     {"q3", surfaceLoad.Loads[2].Value},
-                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"LoadCaseGuid", surfaceLoad.Guid},
                     {"Comment", surfaceLoad.Comment}
                 };
             }
@@ -309,7 +309,7 @@ namespace FemDesign
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[0]},
-                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"LoadCaseGuid", srfTmpLoad.Guid},
                     {"Comment", srfTmpLoad.Comment}
                 };
             }
@@ -323,7 +323,7 @@ namespace FemDesign
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[1]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[2]},
-                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"LoadCaseGuid", srfTmpLoad.Guid},
                     {"Comment", srfTmpLoad.Comment}
                 };
             }
@@ -352,7 +352,7 @@ namespace FemDesign
                 {"z0", pressureLoad.Z0},
                 {"q0", pressureLoad.Q0},
                 {"qh", pressureLoad.Qh},
-                {"LoadCaseGuid", pressureLoad.LoadCase},
+                {"LoadCaseGuid", pressureLoad.Guid},
                 {"Comment", pressureLoad.Comment}
             };
         }

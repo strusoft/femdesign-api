@@ -31,33 +31,25 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Releases.MotionsPlasticLimits obj = new FemDesign.Releases.MotionsPlasticLimits();
+            double? x_neg = 0.00;
+            double? x_pos = 0.00;
 
-            double? x_neg = obj.XNeg, x_pos = obj.XPos, y_neg = obj.YNeg, y_pos = obj.YPos, z_neg = obj.ZNeg, z_pos = obj.ZPos;
-            if(DA.GetData(0, ref x_neg))
-            {
-                obj.XNeg = x_neg;
-            }
-            if(DA.GetData(1, ref x_pos))
-            {
-                obj.XPos = x_pos;
-            }
-            if (DA.GetData(2, ref y_neg))
-            {
-                obj.YNeg = y_neg;
-            }
-            if(DA.GetData(3, ref y_pos))
-            {
-                obj.YPos = y_pos;
-            }
-            if(DA.GetData(4, ref z_neg))
-            {
-                obj.ZNeg = z_neg;
-            }
-            if(DA.GetData(5, ref z_pos))
-            {
-                obj.ZPos = z_pos;
-            }
+            double? y_neg = 0.00;
+            double? y_pos = 0.00;
+
+            double? z_neg = 0.00;
+            double? z_pos = 0.00;
+
+            DA.GetData(0, ref x_neg);
+            DA.GetData(1, ref x_pos);
+
+            DA.GetData(2, ref y_neg);
+            DA.GetData(3, ref y_pos);
+
+            DA.GetData(4, ref z_neg);
+            DA.GetData(5, ref z_pos);
+
+            FemDesign.Releases.MotionsPlasticLimits obj = new FemDesign.Releases.MotionsPlasticLimits(x_neg, x_pos, y_neg, y_pos, z_neg, z_pos);
 
             DA.SetData(0, obj);
         }
