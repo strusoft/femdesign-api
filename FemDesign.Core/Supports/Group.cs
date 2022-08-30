@@ -99,6 +99,9 @@ namespace FemDesign.Supports
             }
         }
 
+        [XmlElement("rigidity_group", Order = 5)]
+        public StruSoft.Interop.StruXml.Data.Rigidity_group_type2 RigidityGroup { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>

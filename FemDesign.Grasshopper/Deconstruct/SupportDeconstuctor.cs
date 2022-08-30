@@ -1,4 +1,4 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
 
@@ -26,6 +26,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotations.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Plastic Limits Forces Motions", "PlaLimMotions", "Plastic limits forces for motion springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Plastic Limits Forces Rotations", "PlaLimRotations", "Plastic limits forces for rotation springs.", GH_ParamAccess.item);
+            pManager.Register_GenericParam("RigidityGroup", "RigidityGroup", "RigidityGroup");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -57,6 +58,10 @@ namespace FemDesign.Grasshopper
                     DA.SetData(8, obj.Group.Rigidity.PlasticLimitForces);
                     DA.SetData(9, obj.Group.Rigidity.PlasticLimitMoments);
                 }
+                else if(obj.Group.Rigidity == null && obj.Group.RigidityGroup != null)
+                {
+                    DA.SetData(10, obj.Group.RigidityGroup);
+                }
                 else
                 {
                     DA.SetData(6, obj.Group.PredefRigidity.Rigidity.Motions);
@@ -82,6 +87,11 @@ namespace FemDesign.Grasshopper
                     DA.SetData(7, obj.Group.Rigidity.Rotations);
                     DA.SetData(8, obj.Group.Rigidity.PlasticLimitForces);
                     DA.SetData(9, obj.Group.Rigidity.PlasticLimitMoments);
+
+                }
+                else if (obj.Group.Rigidity == null && obj.Group.RigidityGroup != null)
+                {
+                    DA.SetData(10, obj.Group.RigidityGroup);
                 }
                 else
                 {
@@ -89,6 +99,7 @@ namespace FemDesign.Grasshopper
                     DA.SetData(7, obj.Group.PredefRigidity.Rigidity.Rotations);
                     DA.SetData(8, obj.Group.PredefRigidity.Rigidity.PlasticLimitForces);
                     DA.SetData(9, obj.Group.PredefRigidity.Rigidity.PlasticLimitMoments);
+
                 }
             }
             else if (support.GetType() == typeof(Supports.SurfaceSupport))
@@ -100,12 +111,13 @@ namespace FemDesign.Grasshopper
                 DA.SetData(3, "SurfaceSupport has no moving local property.");
                 DA.SetData(4, obj.CoordinateSystem.LocalX.ToRhino());
                 DA.SetData(5, obj.CoordinateSystem.LocalY.ToRhino());
-
+                
                 // Catch pre-defined rigidity
                 if (obj.Rigidity != null)
                 {
                     DA.SetData(6, obj.Rigidity.Motions);
                     DA.SetData(8, obj.Rigidity.PlasticLimitForces);
+
                 }
                 else
                 {
@@ -116,6 +128,7 @@ namespace FemDesign.Grasshopper
                 DA.SetData(7, "SurfaceSupport has no rotations property");
                 DA.SetData(9, "SurfaceSupport has no rotations plastic limit moments property");
             }
+
             else
             {
                 throw new ArgumentException("Type is not supported. LoadsDeconstruct failed.");
@@ -130,7 +143,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("145f6331-bf19-4d29-1e81-9e5e0d137f87"); }
+            get { return new Guid("{6FE0FF0B-97A7-4014-B886-137691B8308B}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

@@ -107,6 +107,7 @@
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstrut.cs" />
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
+    <Compile Include="Deconstruct\SupportDeconstuctor.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
@@ -185,7 +186,7 @@
     <Compile Include="Deconstruct\StiffnessMatrix4TypeDeconstruct.cs" />
     <Compile Include="Deconstruct\StoreyDeconstruct.cs" />
     <Compile Include="Deconstruct\StraightDeconstruct.cs" />
-    <Compile Include="Deconstruct\SupportDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\SupportDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\SurfaceLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\StirrupDeconstruct.cs" />
     <Compile Include="Deconstruct\SurfaceReinforcementDeconstruct.cs" />

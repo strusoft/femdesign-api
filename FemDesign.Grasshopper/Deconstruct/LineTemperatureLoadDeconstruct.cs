@@ -38,12 +38,12 @@ namespace FemDesign.Grasshopper
             }
 
             // return
-            DA.SetData(0, obj.Guid);
+            DA.SetData(0, obj.LoadCase);
             DA.SetData(1, obj.Edge.ToRhino());
             DA.SetData(2, obj.Direction.ToRhino());
             DA.SetData(3, obj.TopBotLocVal[0]);
             DA.SetData(4, obj.TopBotLocVal[1]);
-            DA.SetData(5, obj.Guid);
+            DA.SetData(5, obj.LoadCase);
             DA.SetData(6, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

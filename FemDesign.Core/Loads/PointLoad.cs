@@ -29,18 +29,18 @@ namespace FemDesign.Loads
         public PointLoad(Geometry.FdPoint3d point, Geometry.FdVector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
-            this.Guid = loadCase.Guid;
+            this.LoadCase = loadCase.Guid;
             this.Comment = comment;
             this.LoadType = type;
             this.Direction = force.Normalize();
             this.Load = new LoadLocationValue(point, force.Length());
-            this.LoadCase = loadCase;
+            this.LoadCaseObj = loadCase;
         }
 
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            return $"{this.GetType().Name} Pos: ({this.Load.X}, {this.Load.Y}, {this.Load.Z}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCase.Identifier}";
+            return $"{this.GetType().Name} Pos: ({this.Load.X}, {this.Load.Y}, {this.Load.Z}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCaseObj.Identifier}";
         }
     }
 }

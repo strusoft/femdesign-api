@@ -254,7 +254,7 @@ namespace FemDesign
         /// Serialize Model to file (.struxml).
         /// </summary>
         /// <param name="filePath"></param>
-        public void SerializeModel(string filePath)
+        public void SerializeModel(string filePath = null)
         {
             if (filePath == null)
             {
@@ -1226,13 +1226,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.PointLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.PointLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add point load
@@ -1246,7 +1246,7 @@ namespace FemDesign
         {
             foreach (Loads.PointLoad elem in this.Entities.Loads.PointLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }
@@ -1265,13 +1265,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LineLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add line load
@@ -1285,7 +1285,7 @@ namespace FemDesign
         {
             foreach (Loads.LineLoad elem in this.Entities.Loads.LineLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }
@@ -1302,18 +1302,18 @@ namespace FemDesign
             }
 
             // in model?
-            bool inModel = this.Entities.Loads.LineStressLoads.Any(x => x.Guid == obj.Guid);
+            bool inModel = this.Entities.Loads.LineStressLoads.Any(x => x.LoadCase == obj.LoadCase);
 
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LineStressLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LineStressLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add line stress load
@@ -1331,11 +1331,11 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LineTemperatureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add line temperature load
@@ -1349,7 +1349,7 @@ namespace FemDesign
         {
             foreach (Loads.LineTemperatureLoad elem in this.Entities.Loads.LineTemperatureLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }
@@ -1367,13 +1367,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.PressureLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.PressureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add pressure load
@@ -1387,7 +1387,7 @@ namespace FemDesign
         {
             foreach (Loads.PressureLoad elem in this.Entities.Loads.PressureLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }
@@ -1406,13 +1406,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.SurfaceLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add surface load
@@ -1426,7 +1426,7 @@ namespace FemDesign
         {
             foreach (Loads.SurfaceLoad elem in this.Entities.Loads.SurfaceLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }
@@ -1445,13 +1445,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.SurfaceTemperatureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
             }
 
             // add surface temperature loads
@@ -1465,7 +1465,7 @@ namespace FemDesign
         {
             foreach (Loads.SurfaceTemperatureLoad elem in this.Entities.Loads.SurfaceTemperatureLoads)
             {
-                if (elem.Guid == obj.Guid)
+                if (elem.LoadCase == obj.LoadCase)
                 {
                     return true;
                 }

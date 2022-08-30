@@ -11,11 +11,11 @@ namespace FemDesign
     public partial class LoadBase: EntityBase, ILoadElement
     {
         [XmlAttribute("load_case")]
-        public System.Guid Guid { get; set; } // load_case_id
+        public System.Guid LoadCase { get; set; } // load_case_id
         [XmlAttribute("comment")]
         public string Comment { get; set; } // comment_string
         [XmlIgnore]
-        public FemDesign.Loads.LoadCase LoadCase { get; set; }
+        public FemDesign.Loads.LoadCase LoadCaseObj { get; set; }
 
     }
 }
