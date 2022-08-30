@@ -103,6 +103,7 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="ConstructionStages\StageLoad.cs" />
+    <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstrut.cs" />
@@ -179,7 +180,7 @@
     <Compile Include="Deconstruct\PressureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\RotationsDeconstruct.cs" />
     <Compile Include="Deconstruct\SectionDeconstruct.cs" />
-    <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\SlabDeconstruct.cs" />
     <Compile Include="Deconstruct\SortLoads.cs" />
     <Compile Include="Deconstruct\StiffnessMatrix2TypeDeconstruct.cs" />

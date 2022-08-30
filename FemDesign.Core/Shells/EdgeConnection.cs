@@ -38,6 +38,8 @@ namespace FemDesign.Shells
                 this._predefRigidityRef = new GuidListType(value.Guid);
             }
         }
+        [XmlElement("rigidity_group")]
+        public StruSoft.Interop.StruXml.Data.Rigidity_group_type2 RigidityGroup { get; set; }
 
         /// <summary>
         /// Library name of the edge connection.

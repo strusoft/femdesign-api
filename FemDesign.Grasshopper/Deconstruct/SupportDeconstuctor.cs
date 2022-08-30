@@ -60,7 +60,7 @@ namespace FemDesign.Grasshopper
                 }
                 else if(obj.Group.Rigidity == null && obj.Group.RigidityGroup != null)
                 {
-                    DA.SetData(10, obj.Group.RigidityGroup);
+                    DA.SetDataList(10, obj.Group.RigidityGroup.Springs);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace FemDesign.Grasshopper
                 }
                 else if (obj.Group.Rigidity == null && obj.Group.RigidityGroup != null)
                 {
-                    DA.SetData(10, obj.Group.RigidityGroup);
+                    DA.SetDataList(10, obj.Group.RigidityGroup.Springs);
                 }
                 else
                 {

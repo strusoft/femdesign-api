@@ -184,7 +184,7 @@ namespace FemDesign.Supports
                 return $"{this.GetType().Name} Pos: {this.Position}, Motion: {this.Group.Rigidity.Motions}, Rotation: {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
             }
             else
-                return $"{this.GetType().Name} with RigidityGroup";
+                return $"{this.GetType().Name} with RigidityGroup Pos: {this.Position}";
         }
     }
 }
