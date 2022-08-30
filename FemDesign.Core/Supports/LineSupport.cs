@@ -98,6 +98,22 @@ namespace FemDesign.Supports
             Initialize(edge, group, movingLocal, identifier);
         }
 
+        public LineSupport(Edge edge, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, bool movingLocal, string identifier = "S")
+        {
+            double x = tx == true ? Motions.ValueRigidLine : 0;
+            double y = ty == true ? Motions.ValueRigidLine : 0;
+            double z = tz == true ? Motions.ValueRigidLine : 0;
+            double xx = rx == true ? Rotations.ValueRigidLine : 0;
+            double yy = ry == true ? Rotations.ValueRigidLine : 0;
+            double zz = rz == true ? Rotations.ValueRigidLine : 0;
+
+            var motions = new Motions(x, x, y, y, z, z);
+            var rotations = new Rotations(xx, xx, yy, yy, zz, zz);
+
+            var group = new Group(edge.CoordinateSystem, motions, rotations);
+            Initialize(edge, group, movingLocal, identifier);
+        }
+
         /// <summary>
         /// LineSupport along edge with rigidity (motions, rotations) and plastic limits (forces, moments). Group LCS aligned with edge LCS.
         /// </summary>
