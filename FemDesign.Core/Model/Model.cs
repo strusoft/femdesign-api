@@ -83,7 +83,7 @@ namespace FemDesign
         public Materials.OrthotropicPanelTypes OrthotropicPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 14)]
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
-        
+
         [XmlElement("clt_panel_types", Order = 15)]
         public Materials.CltPanelTypes CltPanelTypes { get; set; }
 
@@ -91,19 +91,19 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
 
         [XmlElement("vehicle_types", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes { get; set; }
 
         [XmlElement("bolt_types", Order = 18)]
-        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes { get; set; }
 
         [XmlElement("geometry", Order = 19)]
-        public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
+        public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry { get; set; }
 
         [XmlElement("user_defined_filter", Order = 20)]
-        public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters { get; set; }
 
         [XmlElement("user_defined_views", Order = 21)]
-        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews{ get; set;}
+        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews { get; set; }
 
         [XmlElement("end", Order = 22)]
         public string End { get; set; }
@@ -139,7 +139,7 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
             if (loadGroups != null)
                 AddLoadGroupTable(loadGroups, overwrite: false);
-            if(constructionStage != null)
+            if (constructionStage != null)
                 SetConstructionStages(constructionStage);
         }
 
@@ -198,11 +198,11 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-            
+
             object obj;
             try
             {
-                 obj = deserializer.Deserialize(reader);
+                obj = deserializer.Deserialize(reader);
             }
             catch (System.InvalidOperationException ex)
             {
@@ -230,21 +230,21 @@ namespace FemDesign
             // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
             if (model.Entities.Bars.Any())
                 model.GetBars();
-            if (model.Entities.AdvancedFem.FictitiousShells.Any()) 
+            if (model.Entities.AdvancedFem.FictitiousShells.Any())
                 model.GetFictitiousShells();
-            if (model.Entities.Supports.LineSupport.Any()) 
+            if (model.Entities.Supports.LineSupport.Any())
                 model.GetLineSupports();
-            if (model.Entities.Panels.Any()) 
+            if (model.Entities.Panels.Any())
                 model.GetPanels();
-            if (model.Entities.Supports.PointSupport.Any()) 
+            if (model.Entities.Supports.PointSupport.Any())
                 model.GetPointSupports();
-            if (model.Entities.Slabs.Any()) 
+            if (model.Entities.Slabs.Any())
                 model.GetSlabs();
-            if (model.Entities.Supports.SurfaceSupport.Any()) 
+            if (model.Entities.Supports.SurfaceSupport.Any())
                 model.GetSurfaceSupports();
-            if (model.Entities.AdvancedFem.ConnectedPoints.Any()) 
+            if (model.Entities.AdvancedFem.ConnectedPoints.Any())
                 model.GetPointConnections();
-            if (model.Entities.AdvancedFem.ConnectedLines.Any()) 
+            if (model.Entities.AdvancedFem.ConnectedLines.Any())
                 model.GetLineConnections();
 
             return model;
@@ -254,7 +254,7 @@ namespace FemDesign
         /// Serialize Model to file (.struxml).
         /// </summary>
         /// <param name="filePath"></param>
-        public void SerializeModel(string filePath = null)
+        public void SerializeModel(string filePath)
         {
             if (filePath == null)
             {
@@ -386,7 +386,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups,  bool overwrite)
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -477,7 +477,7 @@ namespace FemDesign
 
             this.AddLoadCombinations(loadCombinations, overwrite);
 
-            if(loadGroups != null)
+            if (loadGroups != null)
             {
                 this.AddLoadGroupTable(loadGroups, overwrite);
             }
@@ -528,7 +528,7 @@ namespace FemDesign
             {
                 this.Entities.Bars.RemoveAll(x => x.Guid == obj.Guid);
             }
-            
+
             // if truss
             if (obj.BarPart.SectionType == Bars.SectionType.Truss)
             {
@@ -588,7 +588,7 @@ namespace FemDesign
         {
             foreach (Reinforcement.Ptc ptc in obj.Ptc)
             {
-                    this.AddPtc(ptc, overwrite);
+                this.AddPtc(ptc, overwrite);
             }
         }
 
@@ -774,7 +774,7 @@ namespace FemDesign
                 // initialise variable as false
                 bool inModel = false;
 
-                if(this.Composites.Composite_section != null)
+                if (this.Composites.Composite_section != null)
                 {
                     inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
                 }
@@ -798,7 +798,7 @@ namespace FemDesign
 
                 // add complex composite
                 this.Composites.Composite_section.Add(compositeSection.CompositeSectionDataObj);
-                foreach(var part in compositeSection.CompositeSectionDataObj.Part)
+                foreach (var part in compositeSection.CompositeSectionDataObj.Part)
                 {
                     this.AddMaterial(part.MaterialObj, overwrite);
                     this.AddSection(part.SectionObj, overwrite);
@@ -823,7 +823,7 @@ namespace FemDesign
             }
             // if composites not present
             else
-            {   
+            {
                 this.Composites = new StruSoft.Interop.StruXml.Data.DatabaseComposites();
                 this.Composites.Complex_composite = new List<StruSoft.Interop.StruXml.Data.Complex_composite_type>();
             }
@@ -1226,13 +1226,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.PointLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.PointLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add point load
@@ -1246,7 +1246,7 @@ namespace FemDesign
         {
             foreach (Loads.PointLoad elem in this.Entities.Loads.PointLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1265,13 +1265,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.LineLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add line load
@@ -1285,7 +1285,7 @@ namespace FemDesign
         {
             foreach (Loads.LineLoad elem in this.Entities.Loads.LineLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1302,18 +1302,18 @@ namespace FemDesign
             }
 
             // in model?
-            bool inModel = this.Entities.Loads.LineStressLoads.Any(x => x.LoadCase == obj.LoadCase);
+            bool inModel = this.Entities.Loads.LineStressLoads.Any(x => x.Guid == obj.Guid);
 
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LineStressLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.LineStressLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add line stress load
@@ -1331,11 +1331,11 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && overwrite == false)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
             else if (inModel && overwrite == true)
             {
-                this.Entities.Loads.LineTemperatureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.LineTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add line temperature load
@@ -1349,7 +1349,7 @@ namespace FemDesign
         {
             foreach (Loads.LineTemperatureLoad elem in this.Entities.Loads.LineTemperatureLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1367,13 +1367,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.PressureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.PressureLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add pressure load
@@ -1387,7 +1387,7 @@ namespace FemDesign
         {
             foreach (Loads.PressureLoad elem in this.Entities.Loads.PressureLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1406,13 +1406,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.SurfaceLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add surface load
@@ -1426,7 +1426,7 @@ namespace FemDesign
         {
             foreach (Loads.SurfaceLoad elem in this.Entities.Loads.SurfaceLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1445,13 +1445,13 @@ namespace FemDesign
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.LoadCase} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.SurfaceTemperatureLoads.RemoveAll(x => x.LoadCase == obj.LoadCase);
+                this.Entities.Loads.SurfaceTemperatureLoads.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add surface temperature loads
@@ -1465,7 +1465,7 @@ namespace FemDesign
         {
             foreach (Loads.SurfaceTemperatureLoad elem in this.Entities.Loads.SurfaceTemperatureLoads)
             {
-                if (elem.LoadCase == obj.LoadCase)
+                if (elem.Guid == obj.Guid)
                 {
                     return true;
                 }
@@ -1599,7 +1599,7 @@ namespace FemDesign
             if (loadCombinations != null)
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                     this.AddLoadCombination(loadCombination, overwrite);
-            
+
             this.CheckCombItems();
         }
 
@@ -1611,9 +1611,9 @@ namespace FemDesign
         private void CheckCombItems()
         {
             if (this.Entities.Loads.LoadCombinations.Any(x => x.CombItem != null) && this.Entities.Loads.LoadCombinations.Any(x => x.CombItem == null))
-                {
-                    throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
-                }  
+            {
+                throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
+            }
         }
 
         /// <summary>
@@ -2025,7 +2025,7 @@ namespace FemDesign
             else if (inModel && overwrite)
             {
                 this.Entities.BarReinforcements.RemoveAll(x => x.Guid == obj.Guid);
-            } 
+            }
 
             // add obj
             this.Entities.BarReinforcements.Add(obj);
@@ -2443,7 +2443,7 @@ namespace FemDesign
         {
             foreach (Materials.Material elem in this.Materials.Material)
             {
-                if(obj != null && elem != null)
+                if (obj != null && elem != null)
                 {
                     if (elem.Guid == obj.Guid)
                     {
@@ -2736,7 +2736,7 @@ namespace FemDesign
 
         private void SetConstructionStages(ConstructionStages obj)
         {
-            if(this.ConstructionStages == null)
+            if (this.ConstructionStages == null)
             {
                 this.ConstructionStages = new ConstructionStages();
             }
@@ -2749,9 +2749,9 @@ namespace FemDesign
 
             foreach (var stage in obj.Stages)
             {
-                if(stage.Elements != null)
+                if (stage.Elements != null)
                 {
-                    foreach(var element in stage.Elements)
+                    foreach (var element in stage.Elements)
                     {
                         //var newElement = element.DeepClone();
                         element.StageId = stage.Id;
@@ -2843,7 +2843,7 @@ namespace FemDesign
 
 
         private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
-        
+
         private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
         private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
@@ -3322,9 +3322,6 @@ namespace FemDesign
                 }
             }
         }
-
-
-
         #endregion
     }
 }
