@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace FemDesign.Loads
 {
@@ -21,6 +22,17 @@ namespace FemDesign.Loads
         public Geometry.FdVector3d Direction { get; set; } // point_type_3d
         [XmlElement("load", Order = 3)]
         public List<LoadLocationValue> Loads = new List<LoadLocationValue>(); // location_value
+        [XmlIgnore]
+        public bool IsConstant
+        {
+            get
+            {
+                if (this.Loads.Count > 1)
+                    return false;
+                else
+                    return true;
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -50,6 +62,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Identifier;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = ForceLoadType.Force;
@@ -93,6 +106,13 @@ namespace FemDesign.Loads
             }
 
             return new SurfaceLoad(region, loadLocationValue, direction, loadCase, loadProjection, comment);
+        }
+        public override string ToString()
+        {
+            if (IsConstant)
+                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCaseName}";
+            else
+                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m², q2: {this.Loads[1].Value * this.Direction} kN/m², q3: {this.Loads[2].Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCaseName}";
         }
 
 

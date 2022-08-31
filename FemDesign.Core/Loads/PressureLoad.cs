@@ -83,5 +83,10 @@ namespace FemDesign.Loads
             this.Q0 = q0;
             this.Qh = qh;
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

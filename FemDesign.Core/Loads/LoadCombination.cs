@@ -99,8 +99,8 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma)); 
-            }         
+               this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma)); 
+            }
         }
 
         /// <summary>
@@ -117,6 +117,19 @@ namespace FemDesign.Loads
             }
             return false;
         }
-        
+
+        public override string ToString()
+        {
+            const int space = -10;
+            const int caseNameSpace = -12;
+            const int gammaSpace = -3;
+            var repr = "";
+            repr += $"{this.Identifier,space} {this.Type}\n";
+            foreach(var item in this.ModelLoadCase)
+            {
+                repr  += $"{"",space-1}{item.LoadCase.Identifier,caseNameSpace} {item.Gamma,gammaSpace}\n";
+            }
+            return repr;
+        }
     }
 }

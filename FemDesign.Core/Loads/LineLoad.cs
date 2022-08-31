@@ -90,6 +90,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Identifier;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -106,6 +107,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Identifier;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -156,6 +158,12 @@ namespace FemDesign.Loads
                     throw new System.ArgumentException($"StartForce and EndForce must be parallel or antiparallel.");
                 }
             }
-        }        
+        }
+
+        public override string ToString()
+        {
+            var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
+            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCaseName}";
+        }
     }
 }

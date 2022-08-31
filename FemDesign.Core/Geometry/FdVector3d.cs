@@ -300,7 +300,7 @@ namespace FemDesign.Geometry
 
         public override string ToString()
         {
-            return $"({this.X}, {this.Y}, {this.Z})";
+            return $"({this.X.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Z.ToString(FemDesign.TextFormatting.decimalRounding)})";
         }
     }
 }
