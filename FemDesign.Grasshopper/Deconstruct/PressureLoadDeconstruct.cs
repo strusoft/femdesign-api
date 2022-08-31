@@ -40,14 +40,14 @@ namespace FemDesign.Grasshopper
             }
 
             // return
-            DA.SetData(0, obj.LoadCase);
+            DA.SetData(0, obj.LoadCaseGuid);
             DA.SetData(1, obj.LoadType);
             DA.SetData(2, obj.GetRhinoGeometry());
             DA.SetData(3, obj.Direction.ToRhino());
             DA.SetData(4, obj.Z0);
             DA.SetData(5, obj.Q0);
             DA.SetData(6, obj.Qh);
-            DA.SetData(7, obj.LoadCase);
+            DA.SetData(7, obj.LoadCaseGuid);
             DA.SetData(8, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

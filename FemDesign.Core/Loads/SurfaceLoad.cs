@@ -49,7 +49,7 @@ namespace FemDesign.Loads
         public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             this.EntityCreated();
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = ForceLoadType.Force;

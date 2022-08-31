@@ -39,7 +39,7 @@ namespace FemDesign.Grasshopper
             }
 
             // return
-            DA.SetData(0, obj.LoadCase);
+            DA.SetData(0, obj.LoadCaseGuid);
             DA.SetData(1, obj.Region.ToRhinoBrep());
             DA.SetData(2, obj.LocalZ.ToRhino());
 
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException("Length of load should be 1 or 3.");
             }
 
-            DA.SetData(6, obj.LoadCase);
+            DA.SetData(6, obj.LoadCaseGuid);
             DA.SetData(7, obj.Comment);
         }
         protected override System.Drawing.Bitmap Icon

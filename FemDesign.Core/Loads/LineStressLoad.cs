@@ -80,7 +80,7 @@ namespace FemDesign.Loads
             this.Edge = edge;
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
 
