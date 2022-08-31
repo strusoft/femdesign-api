@@ -15,6 +15,8 @@ namespace FemDesign.Loads
         public System.Guid Guid { get; set; } // common_load_case --> guidtype indexed_guid
         [XmlAttribute("gamma")]
         public double Gamma { get; set; } // double
+        [XmlIgnore]
+        public LoadCase LoadCase { get; set; }
         public ModelLoadCase()
         {
             // parameterless constructor for serialization
@@ -23,11 +25,12 @@ namespace FemDesign.Loads
         /// <summary>
         /// Public constructor.
         /// </summary>
-        /// <param name="guid">LoadCase guid reference.</param>
+        /// <param name="loadCase">LoadCase reference.</param>
         /// <param name="gamma">Gamma value.</param>
-        public ModelLoadCase(System.Guid guid, double gamma)
+        public ModelLoadCase(LoadCase loadCase, double gamma)
         {
-            this.Guid = guid;
+            this.Guid = loadCase.Guid;
+            this.LoadCase = loadCase;
             this.Gamma = gamma;
         }     
     }
