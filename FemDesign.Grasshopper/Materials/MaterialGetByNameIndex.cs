@@ -8,14 +8,14 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialGetMaterialByName : GH_Component
     {
-        public MaterialGetMaterialByName() : base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
+        public MaterialGetMaterialByName() : base("Material.GetMaterialByName|Index", "GetMaterialByName|Index", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Material", "Material", ".", GH_ParamAccess.list);
-            pManager.AddTextParameter("MaterialName", "MaterialName", "Name of Material to retrieve.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Materials", "Materials", ".", GH_ParamAccess.list);
+            pManager.AddGenericParameter("MaterialName|Index", "MaterialName|Index", "Name of Material to retrieve or positional index in the list.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -25,19 +25,13 @@ namespace FemDesign.Grasshopper
         {
             var materials = new List<Materials.Material>();
             DA.GetDataList(0, materials);
-            
-            string materialName = null;
-            DA.GetData(1, ref materialName);
 
-            FemDesign.Materials.Material material = null;
-            try
-            {
-                material = materials.Where(x => x.Identifier == materialName).First();
-            }
-            catch (Exception ex)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!");
-            }
+            dynamic materialInput = null;
+            DA.GetData(1, ref materialInput);
+            
+            materialInput = materialInput.Value;
+
+            var material = Materials.Material.GetMaterialByNameOrIndex(materials, materialInput);
 
             DA.SetData(0, material);
         }
@@ -50,7 +44,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{5629FA53-2317-4605-9B01-B95961CD19B9}"); }
+            get { return new Guid("{9D0A102B-29AD-48A8-A51C-459444262E9B}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
