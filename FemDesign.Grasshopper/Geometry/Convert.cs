@@ -187,10 +187,9 @@ namespace FemDesign.Grasshopper
                 {
                     return arcCurve.FromRhinoArc1();
                 }
-
                 else
                 {
-                    throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not Line or Arc.");
+                    return arcCurve.FromRhinoCircle();
                 }
             }
 
@@ -245,7 +244,7 @@ namespace FemDesign.Grasshopper
 
                 else
                 {
-                    throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not Line or Arc.");
+                    return arcCurve.FromRhinoCircle();
                 }
             }
 
