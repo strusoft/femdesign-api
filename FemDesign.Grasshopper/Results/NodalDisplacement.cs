@@ -39,8 +39,8 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Translation", "Translation", "Nodal translations in global x, y, z for all nodes. [m]", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes. [rad]", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Translation", "Translation", "Nodal translations in global x, y, z for all nodes.", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes.", GH_ParamAccess.list);
         }
 
         /// <summary>

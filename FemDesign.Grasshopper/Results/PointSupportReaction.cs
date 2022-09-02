@@ -41,10 +41,10 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Identifier", "Identifier", "Node Identifier.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
             pManager.AddPointParameter("SupportPosition", "SupportPosition", "Position Point for the returned reaction forces", GH_ParamAccess.list);
-            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]", GH_ParamAccess.list);
+            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes.", GH_ParamAccess.list);
             pManager.AddVectorParameter("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant [kN]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant [kNm]", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant", GH_ParamAccess.list);
+            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant", GH_ParamAccess.list);
         }
 
         /// <summary>

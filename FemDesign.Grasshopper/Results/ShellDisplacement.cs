@@ -41,8 +41,8 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_GenericParam("ElementId", "ElementId", "Element Index");
             pManager.Register_GenericParam("NodeId", "NodeId", "Node Index");
-            pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes. [m]");
-            pManager.Register_VectorParam("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes. [rad]");
+            pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes.");
+            pManager.Register_VectorParam("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes.");
         }
 
         /// <summary>
