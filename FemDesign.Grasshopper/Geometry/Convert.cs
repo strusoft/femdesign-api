@@ -213,6 +213,40 @@ namespace FemDesign.Grasshopper
                 }
             }
 
+            // If Nurbs Curve
+            else if(obj.GetType() == typeof(Rhino.Geometry.NurbsCurve))
+            {
+                if (obj.Degree == 1)
+                {
+                    Rhino.Geometry.LineCurve lnCrv = new Rhino.Geometry.LineCurve(obj.PointAtStart, obj.PointAtEnd);
+                    return lnCrv.FromRhinoLineCurve();
+                }
+                else if (obj.Degree == 2)
+                {
+                    bool isArc = obj.TryGetArc(out Rhino.Geometry.Arc arc);
+                    if (isArc == false)
+                    {
+                        throw new Exception("NurbsCurve with degree equal 2 can not be converted to Arc.");
+                    }
+                    else
+                    {
+                        var arcCurve = new Rhino.Geometry.ArcCurve(arc);
+                        // if Arc
+                        if (!obj.IsClosed)
+                        {
+                            return arcCurve.FromRhinoArc1();
+                        }
+                        else
+                        {
+                            return arcCurve.FromRhinoCircle();
+                        }
+
+                    }
+                }
+                else
+                    throw new System.ArgumentException("NurbsCurve Degree greater than 2. Line or Arc cannot be created.");
+            }
+
             else
             {
                 throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not Line or Arc.");
