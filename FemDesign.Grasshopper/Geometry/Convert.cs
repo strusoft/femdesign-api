@@ -6,6 +6,8 @@ using FemDesign.Geometry;
 using FemDesign.Loads;
 using FemDesign.Supports;
 
+using Rhino.Geometry;
+
 namespace FemDesign.Grasshopper
 {
     public static class Convert
@@ -745,12 +747,10 @@ namespace FemDesign.Grasshopper
         }
 
 
-        private static bool CurveSegments(List<Curve> list, Curve curve, bool recursive)
+        private static List<Curve> CurveSegments(Curve curve, bool recursive)
         {
-            if (curve == null)
-            {
-                return false;
-            }
+            List<Curve> list = new List<Curve>();
+
             PolyCurve polyCurve = curve as PolyCurve;
             if (polyCurve != null)
             {
@@ -761,11 +761,11 @@ namespace FemDesign.Grasshopper
                 Curve[] array = polyCurve.Explode();
                 if (array == null)
                 {
-                    return false;
+                    throw new Exception("Can not explore Curve");
                 }
                 if (array.Length == 0)
                 {
-                    return false;
+                    throw new Exception("Can not explore Curve");
                 }
                 if (recursive)
                 {
@@ -773,7 +773,7 @@ namespace FemDesign.Grasshopper
                     for (int i = 0; i < array2.Length; i++)
                     {
                         Curve curve2 = array2[i];
-                        CurveSegments(list, curve2, recursive);
+                        list = CurveSegments(curve2, recursive);
                     }
                 }
                 else
@@ -785,7 +785,7 @@ namespace FemDesign.Grasshopper
                         list.Add(item);
                     }
                 }
-                return true;
+                return list;
             }
             else
             {
@@ -796,7 +796,7 @@ namespace FemDesign.Grasshopper
                     {
                         list.Add(new LineCurve(polylineCurve.Point(k), polylineCurve.Point(k + 1)));
                     }
-                    return true;
+                    return list;
                 }
                 Rhino.Geometry.Polyline polyline;
                 if (curve.TryGetPolyline(out polyline))
@@ -805,29 +805,29 @@ namespace FemDesign.Grasshopper
                     {
                         list.Add(new LineCurve(polyline.ElementAt(l), polyline.ElementAt(l + 1)));
                     }
-                    return true;
+                    return list;
                 }
                 LineCurve lineCurve = curve as LineCurve;
                 if (lineCurve != null)
                 {
                     list.Add(lineCurve.DuplicateCurve());
-                    return true;
+                    return list;
                 }
                 ArcCurve arcCurve = curve as ArcCurve;
                 if (arcCurve != null)
                 {
                     list.Add(arcCurve.DuplicateCurve());
-                    return true;
+                    return list;
                 }
                 return CurveSegments(list, curve.ToNurbsCurve());
             }
         }
-        private static bool CurveSegments(List<Curve> list, NurbsCurve nurbs)
+        private static List<Curve> CurveSegments(List<Curve> list, NurbsCurve nurbs)
         {
             int count = list.Count;
             if (nurbs == null)
             {
-                return false;
+                throw new Exception("Can not explore Curve");
             }
             double num = nurbs.Domain.Min;
             double max = nurbs.Domain.Max;
@@ -858,16 +858,24 @@ namespace FemDesign.Grasshopper
             {
                 list.Add(nurbs);
             }
-            return true;
+            return list;
         }
 
-        #endregion
+        private static List<Curve> Explode(Curve curve, bool recursive = false)
+        {
+            var list = CurveSegments(curve, recursive);
+            return list;
+        }
 
-        #region RegionGroup
-        /// <summary>
-        /// Get rhino breps of underlying regions
-        /// </summary>
-        internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
+
+
+#endregion
+
+#region RegionGroup
+/// <summary>
+/// Get rhino breps of underlying regions
+/// </summary>
+internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         {
             List<Rhino.Geometry.Brep> breps = new List<Rhino.Geometry.Brep>();
             foreach (Region region in regionGroup.Regions)
