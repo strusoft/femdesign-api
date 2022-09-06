@@ -560,6 +560,18 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException("Brep surface is not planar. This problem might occur due to tolerance error - if your model space is in millimeters try to change to meters.");
             }
 
+            // Reconstruct Brep to make sure that boundaries are Atomic.
+            var innerNakedCurves = obj.DuplicateNakedEdgeCurves(true, false);
+            var outerNakedCurves = obj.DuplicateNakedEdgeCurves(false, true);
+            var nakedCurves = innerNakedCurves.Concat(outerNakedCurves);
+            var outerCurves = new List<Rhino.Geometry.Curve>();
+            foreach (var curve in nakedCurves)
+            {
+                var curves = Grasshopper.GeomUtility.Explode(curve);
+                outerCurves.AddRange(curves);
+            }
+            obj = Rhino.Geometry.Brep.CreatePlanarBreps(outerCurves, Tolerance.Brep)[0];
+
             // get outline curves
             var container = new List<List<Rhino.Geometry.Curve>>();
             var loopCurves = new List<Rhino.Geometry.Curve>();
