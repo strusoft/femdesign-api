@@ -110,6 +110,7 @@
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstuctor.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
+    <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryCreate.cs" />
