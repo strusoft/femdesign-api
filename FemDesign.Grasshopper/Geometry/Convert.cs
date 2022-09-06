@@ -675,7 +675,7 @@ namespace FemDesign.Grasshopper
 
                     else
                     {
-                        throw new System.ArgumentException("Can't close outline. Bad outline.");
+                        throw new System.ArgumentException("Can't close outline. Bad outline. Boundary Edge Directions should perform a close loop.");
                     }
                 }
             }
