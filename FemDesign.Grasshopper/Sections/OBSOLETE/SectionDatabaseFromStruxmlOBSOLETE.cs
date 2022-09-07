@@ -1,13 +1,13 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
 
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseFromStruxml : GH_Component
+    public class SectionDatabaseFromStruxml_OBSOLETE : GH_Component
     {
-        public SectionDatabaseFromStruxml() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", "FEM-Design", "Sections")
+        public SectionDatabaseFromStruxml_OBSOLETE() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", "FEM-Design", "Sections")
         {
 
         }
@@ -17,11 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_GenericParam("Steel", "Steel", "");
-            pManager.Register_GenericParam("Concrete", "Concrete", "");
-            pManager.Register_GenericParam("Timber", "Timber", "");
-            pManager.Register_GenericParam("HollowCore", "HollowCore", "");
-            pManager.Register_GenericParam("Custom", "Custom", "");
+            pManager.AddGenericParameter("SectionDatabase", "SectionDatabase", "SectionDatabase representation of .struxml file.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -32,14 +28,9 @@ namespace FemDesign.Grasshopper
 
             //
             FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.DeserializeStruxml(filePath);
-            (var steel, var concrete, var timber, var hollowCore, var custom) = sectionDatabase.ByType();
 
             // set output
-            DA.SetDataList(0, steel);
-            DA.SetDataList(1, concrete);
-            DA.SetDataList(2, timber);
-            DA.SetDataList(3, hollowCore);
-            DA.SetDataList(4, custom);
+            DA.SetData(0, sectionDatabase);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -50,10 +41,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{17C1C6E9-E68F-4AF1-93BD-133CD5DA4275}"); }
+            get { return new Guid("d1d23586-1a46-4e80-9528-0fcc59416daf"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

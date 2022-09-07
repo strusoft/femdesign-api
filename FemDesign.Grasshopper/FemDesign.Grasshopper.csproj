@@ -141,6 +141,8 @@
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
     <Compile Include="Results\Units.cs" />
+    <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
+    <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportDefine.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
@@ -279,8 +281,8 @@
     <Compile Include="Results\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsType.cs" />
     <Compile Include="Sections\SectionDatabaseAddSection.cs" />
-    <Compile Include="Sections\SectionDatabaseDefault.cs" />
-    <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDatabaseDefaultOBSOLETE.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Sections\SectionDatabaseListSectionNames.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />

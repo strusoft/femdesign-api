@@ -82,6 +82,47 @@ namespace FemDesign.Sections
             return list;
         }
 
+        public (List<Section> steel, List<Section> concrete, List<Section> timber, List<Section> hollowCore, List<Section> custom) ByType()
+        {
+            var sectionDatabaseList = this.Sections.Section;
+
+            var steel = new List<Section>();
+            var timber = new List<Section>();
+            var concrete = new List<Section>();
+            var hollowCore = new List<Section>();
+            var custom = new List<Section>();
+
+            foreach (var section in sectionDatabaseList)
+            {
+                // update object information
+                section.Guid = System.Guid.NewGuid();
+                section.EntityModified();
+
+                if (section.MaterialFamily == "Steel")
+                {
+                    steel.Add(section);
+                }
+                else if (section.MaterialFamily == "Concrete")
+                {
+                    concrete.Add(section);
+                }
+                else if (section.MaterialFamily == "Timber")
+                {
+                    timber.Add(section);
+                }
+                else if (section.MaterialFamily == "Hollow")
+                {
+                    hollowCore.Add(section);
+                }
+                else if (section.MaterialFamily == "Custom")
+                {
+                    custom.Add(section);
+                }
+            }
+            return (steel, concrete, timber, hollowCore, custom);
+        }
+
+
         /// <summary>
         /// Add a section to this section database
         /// </summary>
