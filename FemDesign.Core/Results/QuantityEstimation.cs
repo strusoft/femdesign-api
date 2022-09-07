@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
+using FemDesign.Calculate;
 
 #if ISDYNAMO
 using Autodesk.DesignScript.Runtime;
@@ -44,6 +45,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Concrete" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationConcrete), ListProc.QuantityEstimationConcrete)]
     public partial class QuantityEstimationConcrete : IQuantityEstimationResult
     {
         /// <summary>
@@ -142,6 +144,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Reinforcement" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationReinforcement), ListProc.QuantityEstimationReinforcement)]
     public partial class QuantityEstimationReinforcement : IQuantityEstimationResult
     {
         /// <summary>
@@ -215,6 +218,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Steel" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationSteel), ListProc.QuantityEstimationSteel)]
     public partial class QuantityEstimationSteel : IQuantityEstimationResult
     {
         /// <summary>
@@ -305,6 +309,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationTimber), ListProc.QuantityEstimationTimber)]
     public partial class QuantityEstimationTimber : IQuantityEstimationResult
     {
         /// <summary>
@@ -395,6 +400,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber panel" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationTimberPanel), ListProc.QuantityEstimationTimberPanel)]
     public partial class QuantityEstimationTimberPanel : IQuantityEstimationResult
     {
         /// <summary>
@@ -504,6 +510,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Timber" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationProfiledPlate), ListProc.QuantityEstimationProfiledPanel)]
     public partial class QuantityEstimationProfiledPlate : IQuantityEstimationResult
     {
         /// <summary>
@@ -613,6 +620,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, Concrete" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationMasonry), ListProc.QuantityEstimationMasonry)]
     public partial class QuantityEstimationMasonry : IQuantityEstimationResult
     {
         /// <summary>
@@ -698,6 +706,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Quantity estimation, General" result
     /// </summary>
+    [Result2(typeof(QuantityEstimationGeneral), ListProc.QuantityEstimationGeneral)]
     public partial class QuantityEstimationGeneral : IQuantityEstimationResult
     {
         /// <summary>

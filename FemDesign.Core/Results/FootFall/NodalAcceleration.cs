@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
-
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
+    [Result2(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
     public partial class NodalAcceleration : IResult
     {
         /// <summary>

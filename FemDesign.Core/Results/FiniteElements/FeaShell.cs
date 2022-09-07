@@ -7,12 +7,14 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Shell" result
     /// </summary>
+    [Result2(typeof(FeaShell), ListProc.FeaShell)]
     public partial class FeaShell : IResult
     {
         /// <summary>

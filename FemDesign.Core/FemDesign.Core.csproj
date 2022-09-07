@@ -124,8 +124,8 @@
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
-    <Compile Include="Results\RC design\ShellCrackWidth.cs" />
-    <Compile Include="Results\RC design\ShellUtilization.cs" />
+    <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
+    <Compile Include="Results\RC design\RCShellUtilization.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
