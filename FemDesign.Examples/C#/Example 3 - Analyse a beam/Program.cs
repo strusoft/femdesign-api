@@ -119,7 +119,7 @@ namespace FemDesign.Examples
 
 
             // Define Result to be extract
-            var results = new List<Results.ResultType>() { Results.ResultType.NodalDisplacement };
+            var results = new List<Type>() { typeof(Results.BarDisplacement) };
 
             // Run a specific analysis
             model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);

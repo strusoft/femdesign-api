@@ -7,13 +7,15 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using FemDesign.Calculate;
 
-namespace FemDesign.Results
+    namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "RC design: Shell, utilization" result
     /// </summary>
-    public class ShellCrackWidth : IResult
+    [Result2(typeof(RCShellCrackWidth), ListProc.RCDesignShellCrackWidthLoadCombination)]
+    public class RCShellCrackWidth : IResult
     {
         /// <summary>
         /// Shell name identifier
@@ -48,7 +50,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal ShellCrackWidth(string id, int elementId, Face face, double w1, double d1, double w2, double d2, string resultCase)
+        internal RCShellCrackWidth(string id, int elementId, Face face, double w1, double d1, double w2, double d2, string resultCase)
         {
             Id = id;
             ElementId = elementId;
@@ -81,7 +83,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static ShellCrackWidth Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static RCShellCrackWidth Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             // TODO: Read line by line instead of saving to "HeaderData"
             // This is due to a bug where femdesign don't fill in all table values
@@ -107,7 +109,7 @@ namespace FemDesign.Results
 
             string lc = (row.Length > 7) ? row[7] : HeaderData["casename"];
 
-            return new ShellCrackWidth(id, elementId, face, w1, d1, w2, d2, lc);
+            return new RCShellCrackWidth(id, elementId, face, w1, d1, w2, d2, lc);
         }
     }
 }

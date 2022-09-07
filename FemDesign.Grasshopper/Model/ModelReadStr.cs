@@ -60,18 +60,29 @@ namespace FemDesign.Grasshopper
             // RunNode
             if (runNode)
             {
-
-
-
                 // It needs to check if model has been runned
                 // Always Return the FeaNode Result
                 resultTypes.Insert(0, "FeaNode");
                 resultTypes.Insert(1, "FeaBar");
                 resultTypes.Insert(2, "FeaShell");
 
-
-                var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
-
+                var notValidResultTypes = new List<string>();
+                var _resultTypes = resultTypes.Select(r =>
+                {
+                    var sucess = Results.ResultTypes.All.TryGetValue(r, out Type value);
+                    if (sucess)
+                        return value;
+                    else
+                    {
+                        notValidResultTypes.Add(r);
+                        return null;
+                    }
+                });
+                if (notValidResultTypes.Count() != 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
+                    return;
+                }
 
                 // Create Bsc files from resultTypes
                 var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
