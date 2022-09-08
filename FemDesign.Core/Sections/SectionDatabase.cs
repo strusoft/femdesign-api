@@ -95,8 +95,8 @@ namespace FemDesign.Sections
             foreach (var section in sectionDatabaseList)
             {
                 // update object information
-                section.Guid = System.Guid.NewGuid();
-                section.EntityModified();
+                //section.Guid = System.Guid.NewGuid();
+                //section.EntityModified();
 
                 if (section.MaterialFamily == "Steel")
                 {
@@ -220,6 +220,22 @@ namespace FemDesign.Sections
             return _defaultSectionDatabaseCache;
         }
 
+        public static SectionDatabase Empty()
+        {
+            var emptyDatabase = new SectionDatabase();
+            emptyDatabase.StruxmlVersion = "01.00.000";
+            emptyDatabase.SourceSoftware = "FEM-Design API";
+            emptyDatabase.StartTime = "1970-01-01T00:00:00.000";
+            emptyDatabase.EndTime = "1970-01-01T00:00:00.000";
+            emptyDatabase.Guid = System.Guid.NewGuid().ToString();
+            emptyDatabase.ConvertId = "00000000-0000-0000-0000-000000000000";
+            emptyDatabase.Standard = "EC";
+            emptyDatabase.Country = "common";
+            emptyDatabase.Xmlns = "urn:strusoft";
+            emptyDatabase.Sections = new DatabaseSections();
+            emptyDatabase.End = "";
+            return emptyDatabase;
+        }
         /// <summary>
         /// Serialize section database to file
         /// </summary>

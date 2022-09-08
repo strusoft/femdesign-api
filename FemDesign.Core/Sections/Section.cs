@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -58,7 +59,7 @@ namespace FemDesign.Sections
         public string _end { get; set; } // enpty_type
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // string i.e. GroupName, TypeName, SizeName Steel sections, CHS, 20-2.0
+        public string Identifier { get; set; } // string i.e. GroupName, TypeName, SizeName --> "Steel sections, CHS, 20-2.0"
 
         [XmlAttribute("type")]
         public string Type { get; set; } // sectiontype
@@ -117,6 +118,40 @@ namespace FemDesign.Sections
                 else
                     return "Custom";
             }
+        }
+
+        public static Section GetSectionByNameOrIndex(List<Section> sections, dynamic sectionInput)
+        {
+            Section section;
+            var isNumeric = int.TryParse(sectionInput.ToString(), out int n);
+            if (!isNumeric)
+            {
+                try
+                {
+                    section = sections.Where(x => x.Identifier == sectionInput).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"{sectionInput} does not exist!");
+                }
+            }
+            else
+            {
+                try
+                {
+                    section = sections[n];
+                }
+                catch (Exception ex)
+                {
+                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!");
+                }
+            }
+            return section;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Identifier}";
         }
 
     }

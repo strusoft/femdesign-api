@@ -18,11 +18,11 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_GenericParam("Steel", "Steel", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Concrete", "Concrete", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Timber", "Timber", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("HollowCore", "HollowCore", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Custom", "Custom", "", GH_ParamAccess.list);
+            pManager.Register_GenericParam("Steel Section", "Steel Section", "");
+            pManager.Register_GenericParam("Concrete Section", "Concrete Section", "");
+            pManager.Register_GenericParam("Timber Section", "Timber Section", "");
+            pManager.Register_GenericParam("Hollow CoreSection", "HollowCore Section", "");
+            pManager.Register_GenericParam("Custom Section", "Custom Section", "");
 
         }
         protected override void SolveInstance(IGH_DataAccess DA)

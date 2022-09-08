@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseAddSection: GH_Component
+    public class SectionDatabaseAddSectionOBSOLETE: GH_Component
     {
-       public SectionDatabaseAddSection(): base("SectionDatabase.AddSection", "AddSection", "Add a section to the SectionDatabase.", "FEM-Design", "Sections")
+       public SectionDatabaseAddSectionOBSOLETE(): base("SectionDatabase.AddSection", "AddSection", "Add a section to the SectionDatabase.", "FEM-Design", "Sections")
        {
 
        }
@@ -54,6 +54,8 @@ namespace FemDesign.Grasshopper
        {
            get { return new Guid("e85c4f7d-87c8-4021-88dd-4843e4a2ea6b"); }
        }
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+
 
     }
 }
