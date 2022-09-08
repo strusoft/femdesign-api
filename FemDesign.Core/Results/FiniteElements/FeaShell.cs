@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Shell" result
     /// </summary>
-    [Result2(typeof(FeaShell), ListProc.FeaShell)]
+    [Result(typeof(FeaShell), ListProc.FeaShell)]
     public partial class FeaShell : IResult
     {
         /// <summary>

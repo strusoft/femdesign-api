@@ -258,7 +258,7 @@ namespace FemDesign.Calculate
             if (notAResultType != null)
                 throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
          
-            var listProcs = results.SelectMany(r => r.GetCustomAttribute<Result2Attribute>().ListProcs);
+            var listProcs = results.SelectMany(r => r.GetCustomAttribute<ResultAttribute>().ListProcs);
 
             var dir = Path.GetDirectoryName(strPath);
             var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));

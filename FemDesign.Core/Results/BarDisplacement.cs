@@ -12,7 +12,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, Displacements" result
     /// </summary>
-    [Result2(typeof(BarDisplacement), ListProc.BarsDisplacementsLoadCase, ListProc.BarsDisplacementsLoadCombination)]
+    [Result(typeof(BarDisplacement), ListProc.BarsDisplacementsLoadCase, ListProc.BarsDisplacementsLoadCombination)]
     public partial class BarDisplacement : IResult
     {
         /// <summary>

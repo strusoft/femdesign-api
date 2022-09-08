@@ -11,7 +11,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "EigenFrequencies" result
     /// </summary>
-    [Result2(typeof(EigenFrequencies), ListProc.EigenFrequencies)]
+    [Result(typeof(EigenFrequencies), ListProc.EigenFrequencies)]
     public partial class EigenFrequencies : IResult
     {
         /// <summary>

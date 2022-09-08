@@ -10,7 +10,7 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
-    [Result2(typeof(NodalResponseFactor), ListProc.NodalResponseFactor)]
+    [Result(typeof(NodalResponseFactor), ListProc.NodalResponseFactor)]
     public partial class NodalResponseFactor : IResult
     {
         /// <summary>

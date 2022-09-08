@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Shells, displacements" result
     /// </summary>
-    [Result2(typeof(ShellDisplacement), ListProc.ShellDisplacementLoadCase, ListProc.ShellDisplacementLoadCombination)]
+    [Result(typeof(ShellDisplacement), ListProc.ShellDisplacementLoadCase, ListProc.ShellDisplacementLoadCombination)]
     public partial class ShellDisplacement : IResult
     {
         /// <summary>

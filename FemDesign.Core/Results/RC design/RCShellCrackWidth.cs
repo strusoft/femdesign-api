@@ -14,7 +14,7 @@ using FemDesign.Calculate;
     /// <summary>
     /// FemDesign "RC design: Shell, utilization" result
     /// </summary>
-    [Result2(typeof(RCShellCrackWidth), ListProc.RCDesignShellCrackWidthLoadCombination)]
+    [Result(typeof(RCShellCrackWidth), ListProc.RCDesignShellCrackWidthLoadCombination)]
     public class RCShellCrackWidth : IResult
     {
         /// <summary>

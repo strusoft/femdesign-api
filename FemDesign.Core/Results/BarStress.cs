@@ -12,7 +12,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, Stresses" result
     /// </summary>
-    [Result2(typeof(BarStress), ListProc.BarsStressesLoadCase, ListProc.BarsStressesLoadCombination)]
+    [Result(typeof(BarStress), ListProc.BarsStressesLoadCase, ListProc.BarsStressesLoadCombination)]
     public partial class BarStress : IResult
     {
         /// <summary>

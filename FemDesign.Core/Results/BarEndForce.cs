@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Bars, End forces" result
     /// </summary>
-    [Result2(typeof(BarEndForce), ListProc.BarsEndForcesLoadCombination)]
+    [Result(typeof(BarEndForce), ListProc.BarsEndForcesLoadCombination)]
     public partial class BarEndForce : IResult
     {
         /// <summary>

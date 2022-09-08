@@ -8,7 +8,7 @@ using System.Globalization;
 using FemDesign.Calculate;
 namespace FemDesign.Results
 {
-    [Result2(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
+    [Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
     public partial class LabelledSectionInternalForce : IResult
     {
         /// <summary>
