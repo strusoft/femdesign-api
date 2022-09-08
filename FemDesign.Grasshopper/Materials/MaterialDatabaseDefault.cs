@@ -17,15 +17,15 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
-        } 
+        }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_GenericParam("Steel", "Steel", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Concrete", "Concrete", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Timber", "Timber", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Reinforcement", "Reinforcement", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Stratum", "Stratum", "", GH_ParamAccess.list);
-            pManager.Register_GenericParam("Custom", "Custom", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Steel Material", "Steel Material", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Concrete Material", "Concrete Material", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Timber Material", "Timber Material", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Reinforcement Material", "Reinforcement Material", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Stratum Material", "Stratum Material", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Custom Material", "Custom Material", "", GH_ParamAccess.list);
 
         }
         protected override void SolveInstance(IGH_DataAccess DA)
