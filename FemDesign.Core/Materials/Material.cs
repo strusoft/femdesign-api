@@ -87,7 +87,7 @@ namespace FemDesign.Materials
 
         public override string ToString()
         {
-            return $"Material: Family - {this.Family}, Identifier - {this.Identifier}";
+            return $"{this.Identifier}";
         }
 
         /// <summary>
