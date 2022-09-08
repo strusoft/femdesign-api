@@ -181,7 +181,7 @@ namespace FemDesign.Supports
             {
                 if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
                     hasPlasticLimit = true;
-                return $"{this.GetType().Name} Pos: {this.Position}, Motion: {this.Group.Rigidity.Motions}, Rotation: {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                return $"{this.GetType().Name} Pos: {this.Position}, {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
             }
             else
                 return $"{this.GetType().Name} with RigidityGroup Pos: {this.Position}";

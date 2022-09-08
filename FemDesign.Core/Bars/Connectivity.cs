@@ -201,6 +201,28 @@ namespace FemDesign.Bars
             }
         }
 
+        public bool IsRigid
+        {
+            get
+            {
+                if(this.Mx && this.My && this.Mz && this.Rx && this.Ry && this.Rz)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public bool IsHinged
+        {
+            get
+            {
+                if (this.Mx && this.My && this.Mz && this.Rx && this.Ry == false && this.Rz == false)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -285,6 +307,16 @@ namespace FemDesign.Bars
         {
             Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
             return connectivity;
+        }
+
+        public override string ToString()
+        {
+            if(IsRigid)
+                return $"{this.GetType().Name} Rigid";
+            else if(IsHinged)
+                return $"{this.GetType().Name} Hinged";
+            else
+                return $"{this.GetType().Name} Tx: {this.MxRelease} kN/m, Ty: {this.MyRelease} kN/m, Tz: {this.MzRelease} kN/m, Rx: {this.RxRelease} kNm/rad, Ry: {this.RyRelease} kNm/rad, Rz: {this.RzRelease} kNm/rad";
         }
     }
 }
