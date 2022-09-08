@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    [Result2(typeof(NodalVibration), ListProc.NodalVibrationShape)]
+    [Result(typeof(NodalVibration), ListProc.NodalVibrationShape)]
     public partial class NodalVibration : IResult
     {
         /// <summary>

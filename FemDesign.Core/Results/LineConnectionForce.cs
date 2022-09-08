@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line connection forces" result
     /// </summary>
-    [Result2(typeof(LineConnectionForce), ListProc.LineConnectionForceLoadCase, ListProc.LineConnectionForceLoadCombination)]
+    [Result(typeof(LineConnectionForce), ListProc.LineConnectionForceLoadCase, ListProc.LineConnectionForceLoadCombination)]
     public partial class LineConnectionForce : IResult
     {
         /// <summary>

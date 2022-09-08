@@ -99,7 +99,7 @@ namespace FemDesign.Calculate
 
             // Create Bsc files from resultTypes
             var listProcs = resultTypes.Select(r =>
-                r.GetCustomAttribute<Results.Result2Attribute>()?.ListProcs
+                r.GetCustomAttribute<Results.ResultAttribute>()?.ListProcs
                 ?? Enumerable.Empty<ListProc>()
             );
 

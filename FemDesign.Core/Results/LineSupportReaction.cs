@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Line support group, Reactions" result
     /// </summary>
-    [Result2(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
+    [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
     public partial class LineSupportReaction : IResult
     {
         /// <summary>

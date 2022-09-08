@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "RC design: Shell, utilization" result
     /// </summary>
-    [Result2(typeof(RCShellUtilization), ListProc.RCDesignShellUtilizationLoadCombination)]
+    [Result(typeof(RCShellUtilization), ListProc.RCDesignShellUtilizationLoadCombination)]
     public class RCShellUtilization : IResult
     {
         /// <summary>

@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Node" result
     /// </summary>
-    [Result2(typeof(FeaNode), ListProc.FeaNode)]
+    [Result(typeof(FeaNode), ListProc.FeaNode)]
     public partial class FeaNode : IResult
     {
         /// <summary>

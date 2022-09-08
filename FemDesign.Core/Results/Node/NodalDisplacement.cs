@@ -14,7 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    [Result2(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
+    [Result(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
     public partial class NodalDisplacement : IResult
     {
         /// <summary>

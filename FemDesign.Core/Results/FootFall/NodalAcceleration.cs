@@ -6,7 +6,7 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
-    [Result2(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
+    [Result(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
     public partial class NodalAcceleration : IResult
     {
         /// <summary>

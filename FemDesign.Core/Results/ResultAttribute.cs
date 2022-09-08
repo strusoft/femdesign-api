@@ -9,11 +9,11 @@ using FemDesign.Calculate;
 namespace FemDesign.Results
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public partial class Result2Attribute : Attribute
+    public partial class ResultAttribute : Attribute
     {
         public readonly Type ResultType;
         public readonly ListProc[] ListProcs;
-        public Result2Attribute(Type resultType, params ListProc[] listProc)
+        public ResultAttribute(Type resultType, params ListProc[] listProc)
         {
             if (!typeof(IResult).IsAssignableFrom(resultType))
                 throw new ArgumentException();
