@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
           : base("PointSupportReaction",
                 "PointSupportReaction",
                 "Read the nodal reaction forces",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

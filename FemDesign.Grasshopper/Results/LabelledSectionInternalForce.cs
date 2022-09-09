@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
           : base("LabelledSectionInternalForce",
                 "LabelledSectionInternalForce",
                 "Read the Labelled Section Internal Force for the elements",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

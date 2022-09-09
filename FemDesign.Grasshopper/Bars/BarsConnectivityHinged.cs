@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
     public class BarsConnectivityHinged: GH_Component
     {
         public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", CategoryName.Name(),
-            SubCategoryName.Cat2())
+            SubCategoryName.Cat2a())
         {
 
         }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEdgeConnectionDefineOBSOLETE : GH_Component
     {
-        public ShellEdgeConnectionDefineOBSOLETE() : base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", CategoryName.Name(), SubCategoryName.Cat3())
+        public ShellEdgeConnectionDefineOBSOLETE() : base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

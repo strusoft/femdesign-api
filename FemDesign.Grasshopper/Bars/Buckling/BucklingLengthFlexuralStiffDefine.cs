@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBucklingLengthFlexuralStiffDefine: GH_Component
     {
-        public BarsBucklingLengthFlexuralStiffDefine(): base("BucklingLength.FlexuralStiffDefine", "FlexuralStiffDefine", "Define BucklingLength in Flexural Stiff direction.", CategoryName.Name(), SubCategoryName.Cat2())
+        public BarsBucklingLengthFlexuralStiffDefine(): base("BucklingLength.FlexuralStiffDefine", "FlexuralStiffDefine", "Define BucklingLength in Flexural Stiff direction.", CategoryName.Name(), SubCategoryName.Cat2a())
         {
 
         }

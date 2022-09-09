@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineTemperatureLoadDefine: GH_Component
     {
-        public LineTemperatureLoadDefine(): base("LineTemperatureLoad.Define", "Define", "Define a surface temperature load", CategoryName.Name(), SubCategoryName.Cat6())
+        public LineTemperatureLoadDefine(): base("LineTemperatureLoad.Define", "Define", "Define a surface temperature load", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

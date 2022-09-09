@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class Stage : GH_Component
     {
         public Stage() : base("Stage", "Stage", "Creates a construction stage.", CategoryName.Name(),
-            SubCategoryName.CatCalculate())
+            SubCategoryName.Cat7a())
         {
 
         }

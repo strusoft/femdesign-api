@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseListSectionNamesOBSOLETE: GH_Component
     {
-       public SectionDatabaseListSectionNamesOBSOLETE(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4())
+       public SectionDatabaseListSectionNamesOBSOLETE(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4b())
        {
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)

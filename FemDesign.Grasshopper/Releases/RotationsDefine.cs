@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsDefine: GH_Component
     {
-        public RotationsDefine(): base("Rotations.Define", "Define", "Define a new rotations release [kNm/rad or kNm/m/rad].", CategoryName.Name(), SubCategoryName.Cat6a())
+        public RotationsDefine(): base("Rotations.Define", "Define", "Define a new rotations release [kNm/rad or kNm/m/rad].", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }

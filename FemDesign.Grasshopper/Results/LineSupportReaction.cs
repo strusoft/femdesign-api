@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
           : base("LineSupportReaction",
                 "LineSupportReaction",
                 "Read the line reaction forces",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

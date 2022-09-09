@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelCreateOBSOLETE : GH_Component
     {
-        public ModelCreateOBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat7())
+        public ModelCreateOBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }

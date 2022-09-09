@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
           : base("ShellDisplacement",
                 "ShellDisplacement",
                 "Read the shell displacement for the entire model",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

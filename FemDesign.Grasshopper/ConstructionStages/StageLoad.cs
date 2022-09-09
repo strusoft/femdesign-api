@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
     public class StageLoad : GH_Component
     {
         public StageLoad() : base("StageLoad", "StageLoad", "Creates a stage load.", CategoryName.Name(),
-            SubCategoryName.CatCalculate())
+            SubCategoryName.Cat7a())
         {
 
         }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsPlasticLimitsDefine: GH_Component
     {
-        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat6a())
+        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }

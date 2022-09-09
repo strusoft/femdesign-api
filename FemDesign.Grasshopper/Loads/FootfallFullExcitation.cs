@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FootfallFullExcitation : GH_Component
     {
-        public FootfallFullExcitation() : base("Footfall.FullExcitation", "FullExcitation", "Create a footfall full excitation point.", CategoryName.Name(), SubCategoryName.Cat6())
+        public FootfallFullExcitation() : base("Footfall.FullExcitation", "FullExcitation", "Create a footfall full excitation point.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersStageDefine: GH_Component
     {
-        public CalculationParametersStageDefine(): base("StageSetting.Define", "Define", "Define construction stage method", CategoryName.Name(), SubCategoryName.CatCalculate())
+        public CalculationParametersStageDefine(): base("StageSetting.Define", "Define", "Define construction stage method", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }

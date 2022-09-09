@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ShellEccentricityDefine: GH_Component
     {
-        public ShellEccentricityDefine(): base("ShellEccentricity.Define", "Define", "Define a ShellEccentricity", CategoryName.Name(), SubCategoryName.Cat3())
+        public ShellEccentricityDefine(): base("ShellEccentricity.Define", "Define", "Define a ShellEccentricity", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

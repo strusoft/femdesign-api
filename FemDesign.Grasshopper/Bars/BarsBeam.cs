@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     {
         public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
             CategoryName.Name(),
-            SubCategoryName.Cat2())
+            SubCategoryName.Cat2a())
         {
 
         }

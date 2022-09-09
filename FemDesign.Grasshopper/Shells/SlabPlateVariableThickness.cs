@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabPlateVariableThickness: GH_Component
     {
-        public SlabPlateVariableThickness(): base("Slab.PlateVariableThickness", "PlateVariable", "Create a plate element with variable thickness.", CategoryName.Name(), SubCategoryName.Cat3())
+        public SlabPlateVariableThickness(): base("Slab.PlateVariableThickness", "PlateVariable", "Create a plate element with variable thickness.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

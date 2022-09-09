@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseSave : GH_Component
     {
-        public SectionDatabaseSave() : base("SectionDatabase.Save", "Save", "Save these Sections to .struxml.", CategoryName.Name(), SubCategoryName.Cat4())
+        public SectionDatabaseSave() : base("SectionDatabase.Save", "Save", "Save these Sections to .struxml.", CategoryName.Name(), SubCategoryName.Cat4b())
         {
 
         }

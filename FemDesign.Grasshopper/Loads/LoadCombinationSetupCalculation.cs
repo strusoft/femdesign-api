@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadCombinationSetupCalculation: GH_Component
     {
-        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat6())
+        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

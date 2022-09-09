@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FootfallSelfExcitation : GH_Component
     {
-        public FootfallSelfExcitation() : base("Footfall.SelfExcitation", "SelfExcitation", "Create a footfall self excitation region.", CategoryName.Name(), SubCategoryName.Cat6())
+        public FootfallSelfExcitation() : base("Footfall.SelfExcitation", "SelfExcitation", "Create a footfall self excitation region.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

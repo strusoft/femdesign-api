@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
           : base("BarInternalForce",
                 "BarInternalForce",
                 "Read the Bar InternalForces for the elements",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

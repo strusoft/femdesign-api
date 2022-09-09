@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
    public class MaterialGetCltPanelTypeByNameOBSOLETE : GH_Component
     {
-        public MaterialGetCltPanelTypeByNameOBSOLETE() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat5())
+        public MaterialGetCltPanelTypeByNameOBSOLETE() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }

@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
     public class BarsColumnSimple: GH_Component
     {
        public BarsColumnSimple(): base("Bars.ColumnSimple", "ColumnSimple", "Create a bar element of type column with same start/end properties.", CategoryName.Name(),
-            SubCategoryName.Cat2())
+            SubCategoryName.Cat2a())
         {
 
        }

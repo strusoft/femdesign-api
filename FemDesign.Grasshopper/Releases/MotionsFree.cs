@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsFree: GH_Component
     {
-        public MotionsFree(): base("Motions.Free", "Free", "Define a free motions release.", CategoryName.Name(), SubCategoryName.Cat6a())
+        public MotionsFree(): base("Motions.Free", "Free", "Define a free motions release.", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }

@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
           : base("BarDisplacement",
                 "BarDisplacement",
                 "Read the bar displacement for the elements",
-                CategoryName.Name(), SubCategoryName.Cat9())
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

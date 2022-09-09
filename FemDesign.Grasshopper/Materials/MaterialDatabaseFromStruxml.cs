@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialDatabaseFromStruxml : GH_Component
     {
-        public MaterialDatabaseFromStruxml() : base("MaterialDatabase.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat5())
+        public MaterialDatabaseFromStruxml() : base("MaterialDatabase.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }

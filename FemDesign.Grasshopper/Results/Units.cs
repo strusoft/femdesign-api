@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class Units : GH_Component
     {
-        public Units() : base("Units", "Units", "Define output Units", CategoryName.Name(), SubCategoryName.Cat9())
+        public Units() : base("Units", "Units", "Define output Units", CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceTemperatureLoadDefine: GH_Component
     {
-        public SurfaceTemperatureLoadDefine(): base("SurfaceTemperatureLoad.Define", "Define", "Define a surface temperature load. Direction of surface load will be defined by surface normal.", CategoryName.Name(), SubCategoryName.Cat6())
+        public SurfaceTemperatureLoadDefine(): base("SurfaceTemperatureLoad.Define", "Define", "Define a surface temperature load. Direction of surface load will be defined by surface normal.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
