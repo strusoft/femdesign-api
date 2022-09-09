@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("labelledSectionResultant",
                 "labelledSectionResultant",
                 "Read the Labelled Section Resultant Force for the elements",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

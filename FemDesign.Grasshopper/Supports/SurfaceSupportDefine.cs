@@ -9,7 +9,8 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceSupportDefine : GH_Component
     {
-        public SurfaceSupportDefine() : base("SurfaceSupport.Define", "Define", "Create a SurfaceSupport element.", "FEM-Design", "Supports")
+        public SurfaceSupportDefine() : base("SurfaceSupport.Define", "Define", "Create a SurfaceSupport element.", CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

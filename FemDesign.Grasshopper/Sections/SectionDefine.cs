@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDefine : GH_Component
     {
-        public SectionDefine() : base("Section.Define", "Define", "Define a new custom section.", "FEM-Design", "Sections")
+        public SectionDefine() : base("Section.Define", "Define", "Define a new custom section.", CategoryName.Name(), SubCategoryName.Cat4())
         {
 
         }

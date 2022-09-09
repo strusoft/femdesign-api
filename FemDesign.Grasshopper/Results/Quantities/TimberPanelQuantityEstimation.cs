@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("TimberPanelQuantityEstimation",
                 "TimberPanelQuantityEstimation",
                 "Read the Timber Panel Quantity Estimation results for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

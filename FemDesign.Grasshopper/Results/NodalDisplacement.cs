@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("NodalDisplacement",
                 "NodalDisplacement",
                 "Read the nodal displacement for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

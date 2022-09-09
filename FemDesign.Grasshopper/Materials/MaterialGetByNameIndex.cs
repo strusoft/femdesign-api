@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialGetMaterialByName : GH_Component
     {
-        public MaterialGetMaterialByName() : base("Material.GetMaterialByName|Index", "GetMaterialByName|Index", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
+        public MaterialGetMaterialByName() : base("Material.GetMaterialByName|Index", "GetMaterialByName|Index", "Get Material from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }

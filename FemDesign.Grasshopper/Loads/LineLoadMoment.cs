@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineLoadMoment: GH_Component
     {
-        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FEM-Design", "Loads")
+        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }

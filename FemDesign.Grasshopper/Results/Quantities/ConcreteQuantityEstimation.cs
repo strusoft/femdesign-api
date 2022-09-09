@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("ConcreteQuantityEstimation",
                 "ConcreteQuantityEstimation",
                 "Read the Concrete Quantity Estimation results for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class EdgeConnectionRigid: GH_Component
     {
-        public EdgeConnectionRigid(): base("EdgeConnection.Rigid", "Rigid", "Create a Rigid EdgeConnection.", "FEM-Design", "Shells")
+        public EdgeConnectionRigid(): base("EdgeConnection.Rigid", "Rigid", "Create a Rigid EdgeConnection.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

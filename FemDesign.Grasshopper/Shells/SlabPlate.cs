@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabPlate: GH_Component
     {
-        public SlabPlate(): base("Slab.Plate", "Plate", "Create a plate element.", "FEM-Design", "Shells")
+        public SlabPlate(): base("Slab.Plate", "Plate", "Create a plate element.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

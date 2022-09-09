@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseFromStruxml_OBSOLETE : GH_Component
     {
-        public SectionDatabaseFromStruxml_OBSOLETE() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", "FEM-Design", "Sections")
+        public SectionDatabaseFromStruxml_OBSOLETE() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4())
         {
 
         }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersDesignDefineOBSOLETE: GH_Component
     {
-        public CalculationParametersDesignDefineOBSOLETE(): base("Design.Define", "Define", "Set parameters for design.", "FEM-Design", "Calculate")
+        public CalculationParametersDesignDefineOBSOLETE(): base("Design.Define", "Define", "Set parameters for design.", CategoryName.Name(), SubCategoryName.CatCalculate())
         {
 
         }

@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class PointSupportHinged: GH_Component
     {
-        public PointSupportHinged(): base("PointSupport.Hinged", "Hinged", "Create a Hinged PointSupport element.", "FEM-Design", "Supports")
+        public PointSupportHinged(): base("PointSupport.Hinged", "Hinged", "Create a Hinged PointSupport element.", CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

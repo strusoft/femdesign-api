@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class MassConversionTableCreate: GH_Component
     {
-        public MassConversionTableCreate(): base("MassConversionTable.Define", "Define", "Define a MassConversionTable from a LoadCase or a list of LoadCases. The MassConversionTable is considered as a load type and should be added to the model as a load.", "FEM-Design", "Loads")
+        public MassConversionTableCreate(): base("MassConversionTable.Define", "Define", "Define a MassConversionTable from a LoadCase or a list of LoadCases. The MassConversionTable is considered as a load type and should be added to the model as a load.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }

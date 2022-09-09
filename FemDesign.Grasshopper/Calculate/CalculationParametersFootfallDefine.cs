@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersFootfallDefine: GH_Component
     {
-        public CalculationParametersFootfallDefine(): base("Footfall.Define", "Define", "Define calculation parameters for an footfall calculation.", "FEM-Design", "Calculate")
+        public CalculationParametersFootfallDefine(): base("Footfall.Define", "Define", "Define calculation parameters for an footfall calculation.", CategoryName.Name(), SubCategoryName.CatCalculate())
         {
 
         }

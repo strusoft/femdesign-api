@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelSave: GH_Component
     {
-        public ModelSave(): base("Model.Save", "Save", "Save model to .struxml", "FEM-Design", "Model")
+        public ModelSave(): base("Model.Save", "Save", "Save model to .struxml", CategoryName.Name(), SubCategoryName.Cat7())
         {
 
         }

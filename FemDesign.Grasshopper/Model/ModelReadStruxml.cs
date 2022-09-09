@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelReadStruxml: GH_Component
     {
-        public ModelReadStruxml(): base("Model.ReadStruxml", "ReadStruxml", "Read model from .struxml. Add entities to model. Note: Only supported elements will loaded from the .struxml model.", "FEM-Design", "Model")
+        public ModelReadStruxml(): base("Model.ReadStruxml", "ReadStruxml", "Read model from .struxml. Add entities to model. Note: Only supported elements will loaded from the .struxml model.", CategoryName.Name(), SubCategoryName.Cat7())
         {
 
         }

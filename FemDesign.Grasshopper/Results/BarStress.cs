@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("BarStress",
                 "BarStress",
                 "Read the Bar Stress for the elements",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionDatabaseDefault_OBSOLETE : GH_Component
     {
-        public SectionDatabaseDefault_OBSOLETE() : base("SectionDatabase.Default", "Default", "Load the default SectionDatabase.", "FEM-Design", "Sections")
+        public SectionDatabaseDefault_OBSOLETE() : base("SectionDatabase.Default", "Default", "Load the default SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4())
         {
 
         }

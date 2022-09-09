@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         public FeaBar()
           : base("FdFeaModel.FeaBar", "FeaBar",
               "Deconstruct an Fea Bar in his Part",
-              "FEM-Design", "Results")
+              CategoryName.Name(), SubCategoryName.Cat9())
         {
         }
 

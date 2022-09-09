@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionGetSectionByName : GH_Component
     {
-        public SectionGetSectionByName() : base("Section.GetSectionByName|Index", "GetSectionByName|Index", "Get a Section from a SectionDatabase by ByName or Index.", "FEM-Design", "Sections")
+        public SectionGetSectionByName() : base("Section.GetSectionByName|Index", "GetSectionByName|Index", "Get a Section from a SectionDatabase by ByName or Index.", CategoryName.Name(), SubCategoryName.Cat4())
         {
 
         }

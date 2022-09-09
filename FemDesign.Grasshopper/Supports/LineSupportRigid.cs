@@ -7,7 +7,9 @@ namespace FemDesign.Grasshopper
 {
     public class LineSupportRigid: GH_Component
     {
-        public LineSupportRigid(): base("LineSupport.Rigid", "Rigid", "Create a Rigid LineSupport element.", "FEM-Design", "Supports")
+        public LineSupportRigid(): base("LineSupport.Rigid", "Rigid", "Create a Rigid LineSupport element.",
+            CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

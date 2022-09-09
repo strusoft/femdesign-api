@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("ShellForce",
                 "Shell Forces",
                 "Read the shell forces for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class CoverTwoWay : GH_Component
     {
-        public CoverTwoWay() : base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Cover")
+        public CoverTwoWay() : base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Reinforcement")
         {
 
         }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class Bars_BucklingDataSetOnTimberBar: GH_Component
     {
-        public Bars_BucklingDataSetOnTimberBar(): base("BucklingData.SetOnTimberBar", "SetOnTimberBar", "Set BucklingData on a Timber bar-element.", "FEM-Design", "Bars.Buckling")
+        public Bars_BucklingDataSetOnTimberBar(): base("BucklingData.SetOnTimberBar", "SetOnTimberBar", "Set BucklingData on a Timber bar-element.", CategoryName.Name(), SubCategoryName.Cat2())
         {
 
         }
@@ -58,7 +58,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("c7858a5d-08cf-46fc-9c8d-a1334e7a2a63"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
     }
 }

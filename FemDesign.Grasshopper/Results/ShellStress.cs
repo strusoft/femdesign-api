@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("ShellStress",
                 "ShellStress",
                 "Read the shell stresses for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat9())
         {
 
         }

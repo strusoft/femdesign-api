@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsTruss: GH_Component
     {
-        public BarsTruss(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", "FEM-Design", "Bars")
+        public BarsTruss(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", CategoryName.Name(),
+            SubCategoryName.Cat2())
         {
 
         }
