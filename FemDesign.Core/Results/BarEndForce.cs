@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Bars, End forces" result
     /// </summary>
+    [Result(typeof(BarEndForce), ListProc.BarsEndForcesLoadCombination)]
     public partial class BarEndForce : IResult
     {
         /// <summary>

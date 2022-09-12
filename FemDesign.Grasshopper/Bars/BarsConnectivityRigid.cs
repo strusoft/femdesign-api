@@ -6,7 +6,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsConnectivityRigid: GH_Component
     {
-        public BarsConnectivityRigid(): base("Connectivity.Rigid", "Rigid", "Define Rigid end releases for a bar element.", "FEM-Design", "Bars")
+        public BarsConnectivityRigid(): base("Connectivity.Rigid", "Rigid", "Define Rigid end releases for a bar element.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }

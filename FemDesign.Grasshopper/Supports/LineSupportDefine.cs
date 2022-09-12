@@ -9,7 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class LineSupportDefine : GH_Component
     {
-        public LineSupportDefine() : base("LineSupport.Define", "Define", "Define a LineSupport element.", "FEM-Design", "Supports")
+        public LineSupportDefine() : base("LineSupport.Define", "Define", "Define a LineSupport element.",
+            CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

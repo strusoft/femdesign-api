@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 using FemDesign;
 
@@ -115,10 +116,10 @@ namespace FemDesign.Examples
             var units = new FemDesign.Results.UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.mm, Results.Force.daN, Results.Mass.kg, Results.Displacement.cm, Results.Stress.MPa);
 
             // Select the results to extract
-            var resultTypes = new List<Results.ResultType>
+            var resultTypes = new List<Type>
             {
-                Results.ResultType.PointSupportReaction,
-                Results.ResultType.NodalDisplacement
+                typeof(Results.PointSupportReaction),
+                typeof(Results.NodalDisplacement)
             };
 
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, fileName, units);
@@ -128,6 +129,7 @@ namespace FemDesign.Examples
             // Running the analysis
             var analysisSettings = FemDesign.Calculate.Analysis.StaticAnalysis();
 
+            model.SerializeModel(fileName);
             var fdScript = FemDesign.Calculate.FdScript.Analysis(fileName, analysisSettings, bscPathsFromResultTypes, null, true);
 
             var app = new FemDesign.Calculate.Application();

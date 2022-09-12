@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Point support group, Reactions" result
     /// </summary>
+    [Result(typeof(PointSupportReaction), ListProc.PointSupportReactionsLoadCase, ListProc.PointSupportReactionsLoadCombination)]
     public partial class PointSupportReaction : IResult
     {
         /// <summary>

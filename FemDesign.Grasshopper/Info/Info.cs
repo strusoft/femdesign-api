@@ -28,7 +28,7 @@ namespace FemDesign.Info
 
     public class InfoComponent : GH_Component
     {
-        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", "FEM-Design", " Help")
+        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.CatLast())
         {
 
         }

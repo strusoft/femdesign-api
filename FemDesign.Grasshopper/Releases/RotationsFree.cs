@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsFree: GH_Component
     {
-        public RotationsFree(): base("Rotations.Free", "Free", "Define a Free rotations release.", "FEM-Design", "Releases")
+        public RotationsFree(): base("Rotations.Free", "Free", "Define a Free rotations release.", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }

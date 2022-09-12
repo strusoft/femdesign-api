@@ -7,12 +7,14 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Shells, displacements" result
     /// </summary>
+    [Result(typeof(ShellDisplacement), ListProc.ShellDisplacementLoadCase, ListProc.ShellDisplacementLoadCombination)]
     public partial class ShellDisplacement : IResult
     {
         /// <summary>

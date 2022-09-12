@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
-
+using FemDesign.Calculate;
 namespace FemDesign.Results
 {
+    [Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
     public partial class LabelledSectionInternalForce : IResult
     {
         /// <summary>

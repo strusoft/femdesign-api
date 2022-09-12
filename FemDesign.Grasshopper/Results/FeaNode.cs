@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         public FeaNode()
           : base("FdFeaModel.FeaNode", "FeaNode",
               "Deconstruct an Fea Node in his Part",
-              "FEM-Design", "Results")
+              CategoryName.Name(), SubCategoryName.Cat7b())
         {
         }
 
@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Results.FDfea fdFeaModel = null;
-            DA.GetData("FdfeaModel", ref fdFeaModel);
+            DA.GetData("FdFeaModel", ref fdFeaModel);
             if (fdFeaModel == null)
                 return;
 

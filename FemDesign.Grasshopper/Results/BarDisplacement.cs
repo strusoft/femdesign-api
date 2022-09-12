@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("BarDisplacement",
                 "BarDisplacement",
                 "Read the bar displacement for the elements",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -41,8 +40,8 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_StringParam("ElementId", "ElementId", "Element Id");
             pManager.Register_DoubleParam("PositionResult", "PositionResult", "Position Result");
-            pManager.Register_VectorParam("Translation", "Translation", "Element translations in local x, y, z for all nodes. [m]");
-            pManager.Register_VectorParam("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes. [rad]");
+            pManager.Register_VectorParam("Translation", "Translation", "Element translations in local x, y, z for all nodes.");
+            pManager.Register_VectorParam("Rotation", "Rotation", "Element rotations in local x, y, z for all nodes.");
         }
 
         /// <summary>

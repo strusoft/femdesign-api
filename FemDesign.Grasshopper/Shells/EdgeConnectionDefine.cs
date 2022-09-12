@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class EdgeConnectionDefine: GH_Component
     {
-        public EdgeConnectionDefine(): base("EdgeConnection.Define", "Define", "Define a new EdgeConnection", "FEM-Design", "Shells")
+        public EdgeConnectionDefine(): base("EdgeConnection.Define", "Define", "Define a new EdgeConnection", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

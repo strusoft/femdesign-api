@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class TopBotLocationValueDefine: GH_Component
     {
-        public TopBotLocationValueDefine(): base("TopBotLocationValue.Define", "Define", "Define a top bottom location value", "FEM-Design", "Loads")
+        public TopBotLocationValueDefine(): base("TopBotLocationValue.Define", "Define", "Define a top bottom location value", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
