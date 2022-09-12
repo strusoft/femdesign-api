@@ -7,13 +7,15 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "RC design: Shell, utilization" result
     /// </summary>
-    public class ShellUtilization : IResult
+    [Result(typeof(RCShellUtilization), ListProc.RCDesignShellUtilizationLoadCombination)]
+    public class RCShellUtilization : IResult
     {
         /// <summary>
         /// Shell name identifier
@@ -64,7 +66,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal ShellUtilization(string id, double rbx, double rby, double rtx, double rty, double bu, bool sc, double cwb, double cwt, string resultCase)
+        internal RCShellUtilization(string id, double rbx, double rby, double rtx, double rty, double bu, bool sc, double cwb, double cwt, string resultCase)
         {
             Id = id;
             RBX = rbx;
@@ -99,7 +101,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static ShellUtilization Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static RCShellUtilization Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             if (HeaderData.ContainsKey("max"))
             {
@@ -113,7 +115,7 @@ namespace FemDesign.Results
                 double cwb = double.Parse(row[9], CultureInfo.InvariantCulture);
                 double cwt = double.Parse(row[10], CultureInfo.InvariantCulture);
                 string lc = row[2];
-                return new ShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
+                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
             }
 
             {
@@ -127,7 +129,7 @@ namespace FemDesign.Results
                 double cwb = double.Parse(row[8], CultureInfo.InvariantCulture);
                 double cwt = double.Parse(row[9], CultureInfo.InvariantCulture);
                 string lc = HeaderData["casename"];
-                return new ShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
+                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
             }
 
         }

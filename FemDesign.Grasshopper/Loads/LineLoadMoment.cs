@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineLoadMoment: GH_Component
     {
-        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FEM-Design", "Loads")
+        public LineLoadMoment(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Comment", "Comment", "Comment.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
             bool constLoadDir = true;
             DA.GetData("ConstLoadDir", ref constLoadDir);
 
-            bool loadProjection = true;
+            bool loadProjection = false;
             DA.GetData("LoadProjection", ref loadProjection);
 
             string comment = null;

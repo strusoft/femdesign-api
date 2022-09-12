@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialGetMaterialByName : GH_Component
+    public class MaterialGetMaterialByNameOBSOLETE2 : GH_Component
     {
-        public MaterialGetMaterialByName() : base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", "FEM-Design", "Materials")
+        public MaterialGetMaterialByNameOBSOLETE2() : base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
@@ -53,7 +53,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{5629FA53-2317-4605-9B01-B95961CD19B9}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

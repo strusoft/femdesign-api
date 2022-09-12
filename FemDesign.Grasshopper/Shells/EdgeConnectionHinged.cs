@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class EdgeConnectionHinged: GH_Component
     {
-        public EdgeConnectionHinged(): base("EdgeConnection.Hinged", "Hinged", "Create a Hinged EdgeConnection.", "FEM-Design", "Shells")
+        public EdgeConnectionHinged(): base("EdgeConnection.Hinged", "Hinged", "Create a Hinged EdgeConnection.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

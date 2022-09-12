@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("NodalDisplacement",
                 "NodalDisplacement",
                 "Read the nodal displacement for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -29,7 +28,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -39,8 +38,8 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Translation", "Translation", "Nodal translations in global x, y, z for all nodes. [m]", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes. [rad]", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Translation", "Translation", "Nodal translations in global x, y, z for all nodes.", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes.", GH_ParamAccess.list);
         }
 
         /// <summary>

@@ -1,32 +1,33 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDefine: GH_Component
+    public class SectionDefine : GH_Component
     {
-       public SectionDefine(): base("Section.Define", "Define", "Define a new custom section.", "FEM-Design", "Sections")
-       {
+        public SectionDefine() : base("Section.Define", "Define", "Define a new custom section.", CategoryName.Name(), SubCategoryName.Cat4b())
+        {
 
-       }
-       protected override void RegisterInputParams(GH_InputParamManager pManager)
-       {
-           pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0.", GH_ParamAccess.list);
-           pManager.AddTextParameter("Name", "Name", "Name of section", GH_ParamAccess.item);
-           pManager.AddTextParameter("MaterialType", "MatType", "Material type. Choice: SteelRolled/SteelColdWorked/SteelWelded/Concrete/Timber", GH_ParamAccess.item);
-           pManager.AddTextParameter("GroupName","GroupName","Name of section group", GH_ParamAccess.item);
-           pManager.AddTextParameter("TypeName","TypeName","Name of section type", GH_ParamAccess.item);
-           pManager.AddTextParameter("SizeName","SizeName","Name of section size", GH_ParamAccess.item);
-       } 
-       protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-       {
-           pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
-       }
-       protected override void SolveInstance(IGH_DataAccess DA)
-       {
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0.", GH_ParamAccess.list);
+            pManager.AddTextParameter("Name", "Name", "Name of section", GH_ParamAccess.item);
+            pManager.AddTextParameter("MaterialType", "MatType", "Material type. Choice: SteelRolled/SteelColdWorked/SteelWelded/Concrete/Timber", GH_ParamAccess.item);
+            pManager.AddTextParameter("GroupName", "GroupName", "Name of section group", GH_ParamAccess.item);
+            pManager.AddTextParameter("TypeName", "TypeName", "Name of section type", GH_ParamAccess.item);
+            pManager.AddTextParameter("SizeName", "SizeName", "Name of section size", GH_ParamAccess.item);
+        }
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Custom Section", "Custom Section", "CustomSection.", GH_ParamAccess.item);
+        }
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
             List<Rhino.Geometry.Brep> breps = new List<Rhino.Geometry.Brep>();
             if (!DA.GetDataList(0, breps))
             {
@@ -86,18 +87,20 @@ namespace FemDesign.Grasshopper
 
             // return
             DA.SetData(0, section);
-       }
-       protected override System.Drawing.Bitmap Icon
-       {
-           get
-           {
+        }
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
                 return FemDesign.Properties.Resources.SectionDefine;
-           }
-       }
-       public override Guid ComponentGuid
-       {
-           get { return new Guid("637c784c-7832-4a23-8cd7-a8a942dbb272"); }
-       }
+            }
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("637c784c-7832-4a23-8cd7-a8a942dbb272"); }
+        }
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+
 
     }
 }

@@ -7,12 +7,13 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
-
+using FemDesign.Calculate;
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Line support group, Reactions" result
     /// </summary>
+    [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
     public partial class LineSupportReaction : IResult
     {
         /// <summary>

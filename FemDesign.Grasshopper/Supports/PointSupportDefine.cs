@@ -7,7 +7,9 @@ namespace FemDesign.Grasshopper
 {
     public class PointSupportDefine : GH_Component
     {
-        public PointSupportDefine() : base("PointSupport.Define", "Define", "Define a PointSupport element.", "FEM-Design", "Supports")
+        public PointSupportDefine() : base("PointSupport.Define", "Define", "Define a PointSupport element.",
+            CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

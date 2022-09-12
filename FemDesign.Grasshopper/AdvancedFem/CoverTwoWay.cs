@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class CoverTwoWay : GH_Component
     {
-        public CoverTwoWay() : base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Cover")
+        public CoverTwoWay() : base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -65,6 +65,8 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{63D6BD65-94F5-4B78-95D8-141630B8FF9E}"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+
 
     }
 }

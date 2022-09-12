@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceLoadVariable: GH_Component
     {
-        public SurfaceLoadVariable(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", "FEM-Design", "Loads")
+        public SurfaceLoadVariable(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

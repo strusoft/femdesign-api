@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class Thickness_Define: GH_Component
     {
-        public Thickness_Define(): base("Thickness.Define", "Define", "Create a Thickness object. Thickness objects are used to define Plates and Walls with variable thickness, [t1, t2, t3] and [t1, t2] respectively.", "FEM-Design", "Shells")
+        public Thickness_Define(): base("Thickness.Define", "Define", "Create a Thickness object. Thickness objects are used to define Plates and Walls with variable thickness, [t1, t2, t3] and [t1, t2] respectively.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
