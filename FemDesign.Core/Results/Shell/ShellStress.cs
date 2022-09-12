@@ -6,14 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using FemDesign.Calculate;
-
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Shells, Stresses" result
     /// </summary>
-    [Result(typeof(ShellStress), ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination, ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination, ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination, ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination)]
     public partial class ShellStress : IResult
     {
         /// <summary>

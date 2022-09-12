@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using FemDesign.Calculate;
+
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Bars, Internal Force" result
     /// </summary>
-    [Result(typeof(BarInternalForce), ListProc.BarsInternalForcesLoadCase, ListProc.BarsInternalForcesLoadCombination)]
     public partial class BarInternalForce : IResult
     {
         /// <summary>

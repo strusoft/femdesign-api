@@ -17,7 +17,8 @@ namespace FemDesign.Grasshopper
           : base("ReinforcementQuantityEstimation",
                 "ReinforcementQuantityEstimation",
                 "Read the Steel Reinforcement Estimation results for the entire model",
-                CategoryName.Name(), SubCategoryName.Cat7b())
+                "FEM-Design",
+                "Results")
         {
 
         }

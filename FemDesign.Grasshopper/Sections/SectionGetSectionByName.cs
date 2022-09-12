@@ -1,38 +1,38 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionGetSectionByName : GH_Component
+    public class SectionGetSectionByName: GH_Component
     {
-        public SectionGetSectionByName() : base("Section.GetSectionByName|Index", "GetSectionByName|Index", "Get a Section from a SectionDatabase by ByName or Index.", CategoryName.Name(), SubCategoryName.Cat4b())
+        public SectionGetSectionByName(): base("Section.GetSectionByName", "GetSectionByName", "Get a Section from a SectionDatabase by name.", "FEM-Design", "Sections")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Sections", "Sections", "", GH_ParamAccess.list);
-            pManager.AddTextParameter("SectionName|Index", "SectionName|Index", "Name of section to retreive or positional index in the list..", GH_ParamAccess.item);
-        }
+            pManager.AddGenericParameter("SectionDatabase", "SectionDatabase", "SectionDatabase.", GH_ParamAccess.item);
+            pManager.AddTextParameter("SectionName", "SectionName", "Name of section to retreive.", GH_ParamAccess.item);
+        } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var sections = new List<Sections.Section>();
-            DA.GetDataList(0, sections);
+            // get input
+            FemDesign.Sections.SectionDatabase sectionDatabase = null;
+            string sectionName = null;
+            if (!DA.GetData(0, ref sectionDatabase)) { return; }
+            if (!DA.GetData(1, ref sectionName)) { return; }
+            if (sectionDatabase == null || sectionName == null) { return; }
 
-            dynamic sectionInput = null;
-            DA.GetData(1, ref sectionInput);
+            //
+            FemDesign.Sections.Section section = sectionDatabase.SectionByName(sectionName);
 
-            sectionInput = sectionInput.Value;
-
-            var section = Sections.Section.GetSectionByNameOrIndex(sections, sectionInput);
-
+            // set output
             DA.SetData(0, section);
         }
         protected override System.Drawing.Bitmap Icon
@@ -44,10 +44,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{0561A068-DBBA-451C-B65B-299D90250144}"); }
+            get { return new Guid("579e1f74-ff16-4a1d-bf23-1a7b178a0421"); }
         }
-
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
-
     }
 }

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBucklingLengthFlexuralStiffDefine: GH_Component
     {
-        public BarsBucklingLengthFlexuralStiffDefine(): base("BucklingLength.FlexuralStiffDefine", "FlexuralStiffDefine", "Define BucklingLength in Flexural Stiff direction.", CategoryName.Name(), SubCategoryName.Cat2a())
+        public BarsBucklingLengthFlexuralStiffDefine(): base("BucklingLength.FlexuralStiffDefine", "FlexuralStiffDefine", "Define BucklingLength in Flexural Stiff direction.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("77425a82-a76c-4306-8de6-96dd2dc6fdeb"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
 
     }
 }

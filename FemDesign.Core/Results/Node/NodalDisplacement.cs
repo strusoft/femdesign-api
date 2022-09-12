@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-using FemDesign.Calculate;
 
 
 namespace FemDesign.Results
@@ -14,7 +13,6 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    [Result(typeof(NodalDisplacement), ListProc.NodalDisplacementsLoadCase, ListProc.NodalDisplacementsLoadCombination)]
     public partial class NodalDisplacement : IResult
     {
         /// <summary>

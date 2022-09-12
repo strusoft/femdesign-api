@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsPressuredBottomFlangeDefine: GH_Component
     {
-        public BarsPressuredBottomFlangeDefine(): base("BucklingLength.PressuredBottomFlangeDefine", "PressuredBottomFlangeDefine", "Define BucklingLength for Pressured Bottom Flange.", CategoryName.Name(), SubCategoryName.Cat2a())
+        public BarsPressuredBottomFlangeDefine(): base("BucklingLength.PressuredBottomFlangeDefine", "PressuredBottomFlangeDefine", "Define BucklingLength for Pressured Bottom Flange.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("955edc91-e2d0-4a54-b3e8-73e99354a56c"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
 
     }
 }

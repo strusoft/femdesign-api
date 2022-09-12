@@ -7,14 +7,12 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
-using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Bars, End forces" result
     /// </summary>
-    [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceExtractLoadCase, ListProc.ShellDerivedForceExtractLoadCombination)]
     public partial class ShellDerivedForce : IResult
     {
         /// <summary>

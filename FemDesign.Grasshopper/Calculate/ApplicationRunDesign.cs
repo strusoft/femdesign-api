@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
-
+using Grasshopper.Kernel;
 using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
     public class ModelRunDesign : GH_Component
     {
-        public ModelRunDesign() : base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ModelRunDesign() : base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
         {
 
         }
@@ -125,23 +125,8 @@ namespace FemDesign.Grasshopper
             resultTypes.Insert(1, "FeaBar");
             resultTypes.Insert(2, "FeaShell");
 
-            var notValidResultTypes = new List<string>();
-            var _resultTypes = resultTypes.Select(r =>
-            {
-                var sucess = Results.ResultTypes.All.TryGetValue(r, out Type value);
-                if (sucess)
-                    return value;
-                else
-                {
-                    notValidResultTypes.Add(r);
-                    return null;
-                }
-            });
-            if (!notValidResultTypes.Any())
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
-                return;
-            }
+
+            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
 
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
 

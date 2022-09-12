@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.Results;
-using System.Reflection;
 
 
 namespace FemDesign.Calculate
@@ -249,16 +248,12 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="strPath">Path to model with results to be extracted.</param>
         /// <param name="results">Results to be extracted.</param>
-        public static FdScript ExtractResults(string strPath, IEnumerable<Type> results = null)
+        public static FdScript ExtractResults(string strPath, IEnumerable<ResultType> results = null)
         {
             if (results == null)
                 return ReadStr(strPath);
-
-            var notAResultType = results.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-            if (notAResultType != null)
-                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
          
-            var listProcs = results.SelectMany(r => r.GetCustomAttribute<ResultAttribute>().ListProcs);
+            var listProcs = results.SelectMany(r => Results.ResultAttributeExtentions.ListProcs[r]);
 
             var dir = Path.GetDirectoryName(strPath);
             var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));

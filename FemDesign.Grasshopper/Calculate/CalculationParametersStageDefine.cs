@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersStageDefine: GH_Component
     {
-        public CalculationParametersStageDefine(): base("StageSetting.Define", "Define", "Define construction stage method", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersStageDefine(): base("StageSetting.Define", "Define", "Define construction stage method", "FEM-Design", "Calculate")
         {
 
         }
@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("fb75062e-e1b0-4d68-a8d3-2597dc4712fe"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
     }
 }

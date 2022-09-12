@@ -11,8 +11,7 @@ namespace FemDesign.Grasshopper
 {
     public class Stage : GH_Component
     {
-        public Stage() : base("Stage", "Stage", "Creates a construction stage.", CategoryName.Name(),
-            SubCategoryName.Cat7a())
+        public Stage() : base("Stage", "Stage", "Creates a construction stage.", "FEM-Design", "Construction Stage")
         {
 
         }
@@ -68,7 +67,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{46D60990-DFDE-4193-A24B-3B8879059F34}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }

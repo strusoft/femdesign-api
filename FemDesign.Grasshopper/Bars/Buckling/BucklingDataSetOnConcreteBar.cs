@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class Bars_BucklingDataSetOnConcreteBar: GH_Component
     {
-        public Bars_BucklingDataSetOnConcreteBar(): base("BucklingData.SetOnConcreteBar", "SetOnConcreteBar", "Set BucklingData on a Concrete bar-element.", CategoryName.Name(), SubCategoryName.Cat2a())
+        public Bars_BucklingDataSetOnConcreteBar(): base("BucklingData.SetOnConcreteBar", "SetOnConcreteBar", "Set BucklingData on a Concrete bar-element.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("38ce2ef2-d4b6-4b0b-b2e1-369529cf5d75"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }

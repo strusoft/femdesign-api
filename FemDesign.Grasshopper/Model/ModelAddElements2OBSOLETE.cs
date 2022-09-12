@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelAddElements2OBSOLETE: GH_Component
     {
-        public ModelAddElements2OBSOLETE(): base("Model.AddElements", "AddElements", "Add elements to an existing model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelAddElements2OBSOLETE(): base("Model.AddElements", "AddElements", "Add elements to an existing model. Nested lists are not supported.", "FEM-Design", "Model")
         {
 
         }

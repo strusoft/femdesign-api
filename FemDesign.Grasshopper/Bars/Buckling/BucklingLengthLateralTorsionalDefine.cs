@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class Bars_LateralTorsionalDefine: GH_Component
     {
-        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", CategoryName.Name(), SubCategoryName.Cat2a())
+        public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", "FEM-Design", "Bars.Buckling")
         {
 
         }
@@ -59,7 +59,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("bc530740-2feb-4203-bce5-63fbab12c287"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
 
     }
 }

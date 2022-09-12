@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadCaseCreate: GH_Component
     {
-        public LoadCaseCreate(): base("LoadCase.Create", "Create", "Creates a load case.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadCaseCreate(): base("LoadCase.Create", "Create", "Creates a load case.", "FEM-Design", "Loads")
         {
 
         }

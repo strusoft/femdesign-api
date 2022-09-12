@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-using FemDesign.Calculate;
+
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Line connection forces" result
     /// </summary>
-    [Result(typeof(LineConnectionForce), ListProc.LineConnectionForceLoadCase, ListProc.LineConnectionForceLoadCombination)]
     public partial class LineConnectionForce : IResult
     {
         /// <summary>

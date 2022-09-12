@@ -284,12 +284,8 @@ namespace FemDesign
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <param name="checkOpenFiles"></param>
-        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
+        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Results.ResultType> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
         {
-            var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-            if (notAResultType != null)
-                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-
             var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
 
             var app = new Calculate.Application();
@@ -332,7 +328,7 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -351,12 +347,8 @@ namespace FemDesign
             this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
-        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
-            var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-            if (notAResultType != null)
-                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-
             if (struxmlPath == null)
             {
                 var currentDirectory = System.IO.Directory.GetCurrentDirectory();

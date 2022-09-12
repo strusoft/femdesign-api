@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceLoadUniform: GH_Component
     {
-        public SurfaceLoadUniform(): base("SurfaceLoad.Uniform", "Uniform", "Create a uniform surface load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public SurfaceLoadUniform(): base("SurfaceLoad.Uniform", "Uniform", "Create a uniform surface load.", "FEM-Design", "Loads")
         {
 
         }

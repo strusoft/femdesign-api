@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class ModelOpen: GH_Component
     {
-        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", "FEM-Design", "Model")
         {
 
         }

@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class PressureLoadDefine: GH_Component
     {
-        public PressureLoadDefine(): base("PressureLoad.Define", "Define", "Create a pressure load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public PressureLoadDefine(): base("PressureLoad.Define", "Define", "Create a pressure load.", "FEM-Design", "Loads")
         {
 
         }

@@ -6,8 +6,6 @@ using FemDesign.Geometry;
 using FemDesign.Loads;
 using FemDesign.Supports;
 
-using Rhino.Geometry;
-
 namespace FemDesign.Grasshopper
 {
     public static class Convert
@@ -189,9 +187,10 @@ namespace FemDesign.Grasshopper
                 {
                     return arcCurve.FromRhinoArc1();
                 }
+
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not Line or Arc.");
                 }
             }
 
@@ -213,40 +212,6 @@ namespace FemDesign.Grasshopper
                 {
                     throw new System.ArgumentException($"PolylineCurve with SpanCount: {obj.SpanCount}, is not supported for conversion to an Edge.");
                 }
-            }
-
-            // If Nurbs Curve
-            else if(obj.GetType() == typeof(Rhino.Geometry.NurbsCurve))
-            {
-                if (obj.Degree == 1)
-                {
-                    Rhino.Geometry.LineCurve lnCrv = new Rhino.Geometry.LineCurve(obj.PointAtStart, obj.PointAtEnd);
-                    return lnCrv.FromRhinoLineCurve();
-                }
-                else if (obj.Degree == 2)
-                {
-                    bool isArc = obj.TryGetArc(out Rhino.Geometry.Arc arc);
-                    if (isArc == false)
-                    {
-                        throw new Exception("NurbsCurve with degree equal 2 can not be converted to Arc.");
-                    }
-                    else
-                    {
-                        var arcCurve = new Rhino.Geometry.ArcCurve(arc);
-                        // if Arc
-                        if (!obj.IsClosed)
-                        {
-                            return arcCurve.FromRhinoArc1();
-                        }
-                        else
-                        {
-                            return arcCurve.FromRhinoCircle();
-                        }
-
-                    }
-                }
-                else
-                    throw new System.ArgumentException("NurbsCurve Degree greater than 2. Line or Arc cannot be created.");
             }
 
             else
@@ -280,7 +245,7 @@ namespace FemDesign.Grasshopper
 
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not Line or Arc.");
                 }
             }
 
@@ -560,18 +525,6 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException("Brep surface is not planar. This problem might occur due to tolerance error - if your model space is in millimeters try to change to meters.");
             }
 
-            // Reconstruct Brep to make sure that boundaries are Atomic.
-            var innerNakedCurves = obj.DuplicateNakedEdgeCurves(true, false);
-            var outerNakedCurves = obj.DuplicateNakedEdgeCurves(false, true);
-            var nakedCurves = innerNakedCurves.Concat(outerNakedCurves);
-            var outerCurves = new List<Rhino.Geometry.Curve>();
-            foreach (var curve in nakedCurves)
-            {
-                var curves = Grasshopper.GeomUtility.Explode(curve);
-                outerCurves.AddRange(curves);
-            }
-            obj = Rhino.Geometry.Brep.CreatePlanarBreps(outerCurves, Tolerance.Brep)[0];
-
             // get outline curves
             var container = new List<List<Rhino.Geometry.Curve>>();
             var loopCurves = new List<Rhino.Geometry.Curve>();
@@ -687,7 +640,7 @@ namespace FemDesign.Grasshopper
 
                     else
                     {
-                        throw new System.ArgumentException("Can't close outline. Bad outline. Boundary Edge Directions should perform a close loop.");
+                        throw new System.ArgumentException("Can't close outline. Bad outline.");
                     }
                 }
             }
@@ -758,13 +711,13 @@ namespace FemDesign.Grasshopper
             return curves;
         }
 
-#endregion
+        #endregion
 
-#region RegionGroup
-/// <summary>
-/// Get rhino breps of underlying regions
-/// </summary>
-internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
+        #region RegionGroup
+        /// <summary>
+        /// Get rhino breps of underlying regions
+        /// </summary>
+        internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         {
             List<Rhino.Geometry.Brep> breps = new List<Rhino.Geometry.Brep>();
             foreach (Region region in regionGroup.Regions)

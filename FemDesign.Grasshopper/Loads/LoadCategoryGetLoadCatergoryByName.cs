@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
    public class GetLoadCategoryByName: GH_Component
     {
-        public GetLoadCategoryByName(): base("LoadCategory.GetLoadCategoryByName", "GetLoadCategoryByName", "Get LoadCategory from LoadCategoryDatabase by name.", CategoryName.Name(), SubCategoryName.Cat3())
+        public GetLoadCategoryByName(): base("LoadCategory.GetLoadCategoryByName", "GetLoadCategoryByName", "Get LoadCategory from LoadCategoryDatabase by name.", "FEM-Design", "Loads")
         {
 
         }

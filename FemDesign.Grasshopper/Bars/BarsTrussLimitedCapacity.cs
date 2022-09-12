@@ -7,8 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsTrussLimitedCapacity: GH_Component
     {
-        public BarsTrussLimitedCapacity(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", CategoryName.Name(),
-            SubCategoryName.Cat2a())
+        public BarsTrussLimitedCapacity(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", "FEM-Design", "Bars")
         {
 
         }

@@ -6,9 +6,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseListSectionNamesOBSOLETE: GH_Component
+    public class SectionDatabaseListSectionNames: GH_Component
     {
-       public SectionDatabaseListSectionNamesOBSOLETE(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4b())
+       public SectionDatabaseListSectionNames(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", "FEM-Design", "Sections")
        {
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -44,7 +44,5 @@ namespace FemDesign.Grasshopper
        {
            get { return new Guid("d06a89c3-eb5b-437e-837e-1427af3a3dc4"); }
        }
-        public override GH_Exposure Exposure => GH_Exposure.hidden;
-
     }
 }

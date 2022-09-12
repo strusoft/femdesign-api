@@ -7,8 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsEccentricityDefine: GH_Component
     {
-        public BarsEccentricityDefine(): base("Eccentricity.Define", "Define", "Define the eccentricity of bar element along its local axes. Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.", CategoryName.Name(),
-            SubCategoryName.Cat2a())
+        public BarsEccentricityDefine(): base("Eccentricity.Define", "Define", "Define the eccentricity of bar element along its local axes. Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.", "FEM-Design", "Bars")
         {
 
         }

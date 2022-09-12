@@ -9,9 +9,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeamSimple: GH_Component
     {
-       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", CategoryName.Name(),
-            SubCategoryName.Cat2a())
-        {
+       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", "FEM-Design", "Bars")
+       {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -115,7 +114,7 @@ namespace FemDesign.Grasshopper
        {
            get { return new Guid("49a8b281-b9ba-4ff4-8cde-ab611a252776"); }
        }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
 
 
     }

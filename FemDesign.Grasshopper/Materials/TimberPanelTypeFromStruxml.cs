@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class TimberPanelTypeFromStruxml : GH_Component
     {
-        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase which contains the TimberPanel type from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase which contains the TimberPanel type from a .struxml file.", "FEM-Design", "Materials")
         {
 
         }

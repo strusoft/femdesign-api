@@ -8,14 +8,14 @@ namespace FemDesign.Grasshopper
 {
     public class SlabPlate: GH_Component
     {
-        public SlabPlate(): base("Slab.Plate", "Plate", "Create a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPlate(): base("Slab.Plate", "Plate", "Create a plate element.", "FEM-Design", "Shells")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item, 0.15);
+            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class AxisDefine: GH_Component
     {
-        public AxisDefine(): base("Axis.Define", "Define", "Define an Axis.", "FEM-Design", "ModellingTools")
+        public AxisDefine(): base("Axis.Define", "Define", "Define an Axis.", "FEM-Design", "Structure grid")
         {
 
         }
@@ -77,7 +77,5 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("09dd7852-f4c4-43b6-b5e6-242bc2da5794"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
-
     }
 }

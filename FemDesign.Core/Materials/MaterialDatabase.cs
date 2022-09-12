@@ -242,8 +242,8 @@ namespace FemDesign.Materials
             foreach (var material in materialDataBaseList)
             {
                 // update object information
-                //material.Guid = System.Guid.NewGuid();
-                //material.EntityModified();
+                material.Guid = System.Guid.NewGuid();
+                material.EntityModified();
 
                 if (material.Family == "Steel")
                 {

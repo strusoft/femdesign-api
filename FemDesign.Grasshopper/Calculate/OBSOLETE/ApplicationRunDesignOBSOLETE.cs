@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
     public class ModelRunDesignOBSOLETE: GH_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.hidden;  
-        public ModelRunDesignOBSOLETE(): base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ModelRunDesignOBSOLETE(): base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
         {
 
         }

@@ -1,9 +1,7 @@
 // https://strusoft.com/
-using System;
+
 using System.Globalization;
 using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FemDesign.Materials
 {
@@ -56,38 +54,9 @@ namespace FemDesign.Materials
             }
         }
 
-        public static Material GetMaterialByNameOrIndex(List<Material> materials, dynamic materialInput)
-        {
-            Material material;
-            var isNumeric = int.TryParse(materialInput.ToString(), out int n);
-            if (!isNumeric)
-            {
-                try
-                {
-                    material = materials.Where(x => x.Identifier == materialInput).First();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"{materialInput} does not exist!");
-                }
-            }
-            else
-            {
-                try
-                {
-                    material = materials[n];
-                }
-                catch (Exception ex)
-                {
-                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!");
-                }
-            }
-            return material;
-        }
-
         public override string ToString()
         {
-            return $"{this.Identifier}";
+            return $"Material: Family - {this.Family}, Identifier - {this.Identifier}";
         }
 
         /// <summary>

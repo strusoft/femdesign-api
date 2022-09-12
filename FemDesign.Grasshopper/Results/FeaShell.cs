@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         public FeaShell()
           : base("FdFeaModel.FeaShell", "FeaShell",
               "Deconstruct an Fea Shell in his Part",
-              CategoryName.Name(), SubCategoryName.Cat7b())
+              "FEM-Design", "Results")
         {
         }
 

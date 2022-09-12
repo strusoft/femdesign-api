@@ -7,13 +7,12 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
-using FemDesign.Calculate;
+
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Line connection, Resultants" result
     /// </summary>
-    [Result(typeof(LineConnectionResultant), ListProc.LineConnectionResultantLoadCase, ListProc.LineConnectionResultantLoadCombination)]
     public partial class LineConnectionResultant : IResult
     {
         /// <summary>

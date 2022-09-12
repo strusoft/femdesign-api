@@ -17,7 +17,8 @@ namespace FemDesign.Grasshopper
           : base("LineSupportReaction",
                 "LineSupportReaction",
                 "Read the line reaction forces",
-                CategoryName.Name(), SubCategoryName.Cat7b())
+                "FEM-Design",
+                "Results")
         {
 
         }
@@ -28,7 +29,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -40,10 +41,10 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("Identifier", "Identifier", "Node Identifier.");
             pManager.Register_IntegerParam("ElementId", "ElementId", "Element Index");
             pManager.Register_IntegerParam("NodeId", "NodeId", "Node Index");
-            pManager.Register_VectorParam("ReactionForce", "ReactionForce", "Reaction Forces in Local Coordinates System for all nodes.");
-            pManager.Register_VectorParam("ReactionMoment", "ReactionMoment", "Reaction Moments in Local Coordinates System for all nodes.");
-            pManager.Register_DoubleParam("ForceResultant", "ForceResultant", "Force Resultant");
-            pManager.Register_DoubleParam("MomentResultant", "MomentResultant", "Moment Resultant");
+            pManager.Register_VectorParam("ReactionForce", "ReactionForce", "Reaction Forces in Local Coordinates System for all nodes. [N]");
+            pManager.Register_VectorParam("ReactionMoment", "ReactionMoment", "Reaction Moments in Local Coordinates System for all nodes. [Nmm]");
+            pManager.Register_DoubleParam("ForceResultant", "ForceResultant", "Force Resultant [N]");
+            pManager.Register_DoubleParam("MomentResultant", "MomentResultant", "Moment Resultant [Nmm]");
         }
 
         /// <summary>

@@ -6,11 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using FemDesign.Calculate;
-
 namespace FemDesign.Results
 {
-    [Result(typeof(NodalResponseFactor), ListProc.NodalResponseFactor)]
     public partial class NodalResponseFactor : IResult
     {
         /// <summary>

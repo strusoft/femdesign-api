@@ -17,8 +17,8 @@ namespace FemDesign.Grasshopper
             Name = "ResultsType";
             NickName = "ResultsType";
             Description = "ResultsType enum.";
-            Category = CategoryName.Name();
-            SubCategory = SubCategoryName.Cat7b();
+            Category = "FEM-Design";
+            SubCategory = "Results";
 
 
             ListItems.Clear();

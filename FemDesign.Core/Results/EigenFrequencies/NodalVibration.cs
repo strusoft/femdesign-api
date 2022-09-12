@@ -7,14 +7,12 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
-using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    [Result(typeof(NodalVibration), ListProc.NodalVibrationShape)]
     public partial class NodalVibration : IResult
     {
         /// <summary>

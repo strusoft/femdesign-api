@@ -1,30 +1,29 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseSave : GH_Component
+    public class SectionDatabaseSave: GH_Component
     {
-        public SectionDatabaseSave() : base("SectionDatabase.Save", "Save", "Save these Sections to .struxml.", CategoryName.Name(), SubCategoryName.Cat4b())
-        {
+       public SectionDatabaseSave(): base("SectionDatabase.Save", "Save", "Save this SectionDatabase to .struxml.", "FEM-Design", "Sections")
+       {
 
-        }
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            pManager.AddGenericParameter("Sections", "Sections", "", GH_ParamAccess.list);
+       }
+       protected override void RegisterInputParams(GH_InputParamManager pManager)
+       {
+            pManager.AddGenericParameter("SectionDatabase", "SectionDatabase", "SectionDatabase.", GH_ParamAccess.item);
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the section database as .struxml", GH_ParamAccess.item);
-        }
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
+       } 
+       protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+       {
 
-        }
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            List<Sections.Section> sections = new List<Sections.Section>();
-            if (!DA.GetDataList(0, sections))
+       }
+       protected override void SolveInstance(IGH_DataAccess DA)
+       {
+            Sections.SectionDatabase db = null;
+            if (!DA.GetData(0, ref db))
             {
                 return;
             }
@@ -36,30 +35,19 @@ namespace FemDesign.Grasshopper
             }
 
             // save
-            var database = FemDesign.Sections.SectionDatabase.Empty();
-
-            // clone section db
-            Sections.SectionDatabase obj = database.DeepClone();
-
-            // add section
-            foreach(var section in sections)
-                obj.AddNewSection(section);
-
-            database.SerializeSectionDatabase(filePath);
-        }
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
+            db.SerializeSectionDatabase(filePath);
+       }
+       protected override System.Drawing.Bitmap Icon
+       {
+           get
+           {
                 return FemDesign.Properties.Resources.SectionDatabaseSave;
-            }
-        }
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{824CE056-143D-423A-865C-0EDB8B51CDD9}"); }
-        }
-
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+           }
+       }
+       public override Guid ComponentGuid
+       {
+           get { return new Guid("8ca63a70-13dc-40a0-b04f-e633db878a47"); }
+       }
 
     }
 }

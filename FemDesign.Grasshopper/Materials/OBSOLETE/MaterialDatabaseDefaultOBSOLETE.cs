@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialDatabaseDefaultOBSOLETE: GH_Component
     {
-        public MaterialDatabaseDefaultOBSOLETE(): base("MaterialDatabase.Default", "Default", "Load the default MaterialDatabase for each respective country.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public MaterialDatabaseDefaultOBSOLETE(): base("MaterialDatabase.Default", "Default", "Load the default MaterialDatabase for each respective country.", "FEM-Design", "Materials")
         {
 
         }

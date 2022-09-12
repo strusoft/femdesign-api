@@ -17,7 +17,8 @@ namespace FemDesign.Grasshopper
           : base("NodalVibration",
                 "NodalVibration",
                 "Read the Nodal Vibration Vector for the entire model",
-                CategoryName.Name(), SubCategoryName.Cat7b())
+                "FEM-Design",
+                "Results")
         {
 
         }

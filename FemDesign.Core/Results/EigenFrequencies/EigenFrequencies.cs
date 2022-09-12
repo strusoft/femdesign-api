@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-using FemDesign.Calculate;
-
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "EigenFrequencies" result
     /// </summary>
-    [Result(typeof(EigenFrequencies), ListProc.EigenFrequencies)]
     public partial class EigenFrequencies : IResult
     {
         /// <summary>

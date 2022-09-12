@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LoadLocationValueDefine: GH_Component
     {
-        public LoadLocationValueDefine(): base("LoadLocationValue.Define", "Define", "Create a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadLocationValueDefine(): base("LoadLocationValue.Define", "Define", "Create a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", "FEM-Design", "Loads")
         {
 
         }

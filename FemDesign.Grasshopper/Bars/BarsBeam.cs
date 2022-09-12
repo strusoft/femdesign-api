@@ -9,9 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeam : GH_Component
     {
-        public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
-            CategoryName.Name(),
-            SubCategoryName.Cat2a())
+        public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.", "FEM-Design", "Bars")
         {
 
         }

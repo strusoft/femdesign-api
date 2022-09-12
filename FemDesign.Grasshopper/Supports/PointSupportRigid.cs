@@ -7,8 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class PointSupportRigid: GH_Component
     {
-        public PointSupportRigid(): base("PointSupport.Rigid", "Rigid", "Create a Rigid PointSupport element.", CategoryName.Name(),
-            SubCategoryName.Cat1())
+        public PointSupportRigid(): base("PointSupport.Rigid", "Rigid", "Create a Rigid PointSupport element.", "FEM-Design", "Supports")
         {
 
         }

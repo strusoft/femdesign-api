@@ -17,7 +17,8 @@ namespace FemDesign.Grasshopper
           : base("EigenFrequencies",
                 "EigenFrequencies",
                 "Read the Eigen Frequencies for the entire model",
-                CategoryName.Name(), SubCategoryName.Cat7b())
+                "FEM-Design",
+                "Results")
         {
 
         }
