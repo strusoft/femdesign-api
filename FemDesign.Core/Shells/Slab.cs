@@ -266,5 +266,10 @@ namespace FemDesign.Shells
             // return
             return slabClone;
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

@@ -417,6 +417,11 @@ namespace FemDesign.Bars
             }
         }
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
 
     }
 }
