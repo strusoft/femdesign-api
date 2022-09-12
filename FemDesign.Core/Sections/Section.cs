@@ -76,6 +76,15 @@ namespace FemDesign.Sections
         [XmlAttribute("fd_name_size")]
         public string SizeName { get; set; } // string. Optional
 
+        [XmlIgnore]
+        internal string _sectionName
+        {
+            get
+            {
+                return string.Join("-", new List<string> { this.TypeName + this.SizeName });
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization
         /// <summary>

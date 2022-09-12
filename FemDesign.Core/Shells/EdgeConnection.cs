@@ -156,5 +156,10 @@ namespace FemDesign.Shells
             _shellEdgeConnection.Release = false;
             return _shellEdgeConnection;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {this.Rigidity.Motions} {this.Rigidity.Rotations}";
+        }
     }
 }

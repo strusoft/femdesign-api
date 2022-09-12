@@ -419,9 +419,17 @@ namespace FemDesign.Bars
 
         public override string ToString()
         {
-            return base.ToString();
+            if(this.Type == BarType.Beam || this.Type == BarType.Column)
+                return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: ({this.BarPart.ComplexSectionObj.Sections.First()._sectionName}, {this.BarPart.ComplexSectionObj.Sections.Last()._sectionName}), Material: {this.BarPart.ComplexMaterialObj}";
+
+            else if(this.Type == BarType.Truss)
+            {
+                return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Section: {this.BarPart.TrussUniformSectionObj._sectionName}, Material: {this.BarPart.ComplexMaterialObj}";
+            }
+            else
+            {
+                return base.ToString();
+            }
         }
-
-
     }
 }

@@ -26,5 +26,10 @@ namespace FemDesign.Shells
             this.Z = point.Z;
             this.Value = val;            
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} Pos: {this.GetFdPoint()}, Value: {this.Value} m";
+        }
     }
 }

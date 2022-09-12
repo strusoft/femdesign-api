@@ -1,5 +1,5 @@
 // https://strusoft.com/
-
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -325,6 +325,11 @@ namespace FemDesign.Geometry
             return newRegion;
         }
 
+        public static double Area(List<FdPoint3d> points)
+        {
+            var area = System.Math.Abs(points.Take(points.Count - 1).Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y)).Sum() / 2);
+            return area;
+        }
 
     }
 }

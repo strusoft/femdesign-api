@@ -40,7 +40,11 @@ namespace FemDesign.Shells
         [XmlAttribute("name")]
         public string Identifier {get; set;} // identifier
         [XmlAttribute("complex_material")]
-        public System.Guid ComplexMaterial {get; set;} // guidtype
+        public System.Guid ComplexMaterialGuid {get; set;} // guidtype
+
+        [XmlIgnore]
+        public Materials.Material ComplexMaterial { get; set; } // guidtype
+
         [XmlAttribute("alignment")]
         public GenericClasses.VerticalAlignment Alignment { get; set; }
         [XmlAttribute("align_offset")]
@@ -197,7 +201,8 @@ namespace FemDesign.Shells
             this.EntityCreated();
             this.Identifier = name;
             this.Region = region;
-            this.ComplexMaterial = complexMaterial.Guid;
+            this.ComplexMaterialGuid = complexMaterial.Guid;
+            this.ComplexMaterial = complexMaterial;
             this.Alignment = alignment.Alignment;
             this.AlignOffset = alignment.Eccentricity;
             this.OrthoAlfa = orthotropy.OrthoAlfa;

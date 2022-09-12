@@ -3106,7 +3106,7 @@ namespace FemDesign
                 // get material
                 foreach (Materials.Material _material in this.Materials.Material)
                 {
-                    if (_material.Guid == item.SlabPart.ComplexMaterial)
+                    if (_material.Guid == item.SlabPart.ComplexMaterialGuid)
                     {
                         item.Material = _material;
                     }

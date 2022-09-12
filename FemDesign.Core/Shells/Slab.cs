@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -34,6 +35,19 @@ namespace FemDesign.Shells
         [XmlElement("end", Order = 2)]
         public string End { get; set; } // empty_type
 
+        [XmlIgnore]
+        public bool IsVariableThickness
+        {
+            get
+            {
+                if (this.SlabPart.Thickness.Count == 3)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -269,7 +283,15 @@ namespace FemDesign.Shells
 
         public override string ToString()
         {
-            return base.ToString();
+            var isVariable = IsVariableThickness == true ? "Variable" : "";
+            if (this.IsVariableThickness)
+            {
+                return $"{this.Type}{isVariable} Material: {this.SlabPart.ComplexMaterial}, Thickness: ({this.SlabPart.Thickness[0].Value}, {this.SlabPart.Thickness[1].Value}, {this.SlabPart.Thickness[2].Value}) m, {this.SlabPart.ShellEccentricity}";
+            }
+            else
+            {
+                return $"{this.Type}{isVariable} Material: {this.SlabPart.ComplexMaterial}, Thickness: {this.SlabPart.Thickness[0].Value} m, {this.SlabPart.ShellEccentricity}";
+            }
         }
     }
 }

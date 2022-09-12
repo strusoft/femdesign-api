@@ -42,5 +42,10 @@ namespace FemDesign.Shells
         {
             return new ShellEccentricity(VerticalAlignment.Center, 0, false, false);
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {this.Eccentricity} m";
+        }
     }
 }
