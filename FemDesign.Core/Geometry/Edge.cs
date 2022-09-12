@@ -11,6 +11,8 @@ namespace FemDesign.Geometry
     /// 
     /// Curves in FEM-Design are expressed as edges. This extended edge also contains a LCS to keep track of directions.
     /// </summary>
+    [XmlInclude(typeof(LineEdge))]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
     public partial class Edge
     {

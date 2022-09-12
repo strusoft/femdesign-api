@@ -27,9 +27,12 @@ namespace FemDesign.Examples
             var mid = p1 + (p2 - p1) * 0.5;
 
             // Create elements
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            //var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            var edge = new Geometry.LineEdge(p1, p2, Geometry.FdVector3d.UnitZ());
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
+
+            
 
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
@@ -104,7 +107,6 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
             
-
             model.Open();
 
 
