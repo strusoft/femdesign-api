@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class DiaphragmDefine: GH_Component
+    public class DiaphragmConstruct: GH_Component
     {
-        public DiaphragmDefine(): base("Diaphragm.Define", "Define", "Define a fictitious shell", "FEM-Design", "ModellingTools")
+        public DiaphragmConstruct(): base("Diaphragm.Construct", "Construct", "Construct a fictitious shell", "FEM-Design", "ModellingTools")
         {
 
         }

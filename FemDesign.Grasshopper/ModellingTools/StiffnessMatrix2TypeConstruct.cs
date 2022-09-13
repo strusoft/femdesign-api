@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessMatrix2TypeDefine: GH_Component
+    public class StiffnessMatrix2TypeConstruct: GH_Component
     {
-       public StiffnessMatrix2TypeDefine(): base("StiffnessMatrix2Type.Define", "Define", "Defina a shear stiffness matrix H.", "FEM-Design", "ModellingTools")
+       public StiffnessMatrix2TypeConstruct(): base("StiffnessMatrix2Type.Construct", "Construct", "Construct a shear stiffness matrix H.", "FEM-Design", "ModellingTools")
        {
 
        }

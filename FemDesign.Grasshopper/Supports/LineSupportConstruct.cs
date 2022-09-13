@@ -7,9 +7,9 @@ using FemDesign.Releases;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineSupportDefine : GH_Component
+    public class LineSupportConstruct : GH_Component
     {
-        public LineSupportDefine() : base("LineSupport.Define", "Define", "Define a LineSupport element.",
+        public LineSupportConstruct() : base("LineSupport.Construct", "Construct", "Construct a LineSupport element.",
             CategoryName.Name(),
             SubCategoryName.Cat1())
         {

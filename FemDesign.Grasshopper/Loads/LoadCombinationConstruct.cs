@@ -8,9 +8,9 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationCreate: GH_Component
+    public class LoadCombinationConstruct: GH_Component
     {
-        public LoadCombinationCreate(): base("LoadCombination.Create", "Create", "Create a LoadCombination from a LoadCase or a list of LoadCases.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadCombinationConstruct(): base("LoadCombination.Construct", "Construct", "Construct a LoadCombination from a LoadCase or a list of LoadCases.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

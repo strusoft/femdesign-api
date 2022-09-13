@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelSave: GH_Component
+    public class ModelSerialise: GH_Component
     {
-        public ModelSave(): base("Model.Save", "Save", "Save model to .struxml", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelSerialise(): base("Model.Serialise", "Serialise", "Serialise a model to .struxml", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }

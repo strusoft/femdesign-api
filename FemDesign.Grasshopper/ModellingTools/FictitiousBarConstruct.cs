@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousBarDefine: GH_Component
+    public class FictitiousBarConstruct: GH_Component
     {
-       public FictitiousBarDefine(): base("FictitiousBar.Define", "Define", "Create a fictitious bar element.", "FEM-Design", "ModellingTools")
+       public FictitiousBarConstruct(): base("FictitiousBar.Construct", "Construct", "Construct a fictitious bar element.", "FEM-Design", "ModellingTools")
        {
 
        }

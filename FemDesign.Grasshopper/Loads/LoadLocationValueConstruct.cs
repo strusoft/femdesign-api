@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadLocationValueDefine: GH_Component
+    public class LoadLocationValueConstruct: GH_Component
     {
-        public LoadLocationValueDefine(): base("LoadLocationValue.Define", "Define", "Create a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadLocationValueConstruct(): base("LoadLocationValue.Construct", "Construct", "Construct a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }

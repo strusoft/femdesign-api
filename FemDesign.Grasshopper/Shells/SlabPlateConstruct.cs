@@ -1,60 +1,55 @@
 // https://strusoft.com/
 using System;
+using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class ProfiledPlateDefine: GH_Component
+    public class SlabPlateConstruct: GH_Component
     {
-        public ProfiledPlateDefine(): base("ProfiledPlate.Define", "Define", "Create a profiled plate", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPlateConstruct(): base("Plate.Construct", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "Srf", "Surface.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Mat", "Material.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Section", "Sec", "Section.", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item, 0.15);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("OrthoRatio", "OrthoRatio", "Transversal flexural stiffness factor.", GH_ParamAccess.item, 1);
+            pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrthotropy. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("BorderEdgeConnection", "BorderEdgeConnection", "EdgeConnection of the external border of the panel. Optional. If not defined hinged will be used.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("AvgMeshSize", "AverageMeshSize", "Average mesh size. If zero an automatic value will be used by FEM-Design. Optional. [m]", GH_ParamAccess.item, 0);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional.", GH_ParamAccess.item, "PP");
+            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional.", GH_ParamAccess.item, "P");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ProfiledPlate", "PP", "-", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
             Brep surface = null;
-            if (!DA.GetData(0, ref surface))
-            {
-                return;
-            }
+            if(!DA.GetData(0, ref surface)) { return; }
+
+            double thickness = 0.15;
+            DA.GetData(1, ref thickness);
 
             FemDesign.Materials.Material material = null;
-            if (!DA.GetData(1, ref material))
+            if(!DA.GetData(2, ref material))
             {
-                return;
-            }
-
-            FemDesign.Sections.Section section = null;
-            if (!DA.GetData(2, ref section))
-            {
-                return;
-            }
+                material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
+            };
 
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default;
             if(!DA.GetData(3, ref eccentricity))
@@ -62,13 +57,13 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             
-            double orthoRatio = 1;
-            if(!DA.GetData(4, ref orthoRatio))
+            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default;
+            if(!DA.GetData(4, ref orthotropy))
             {
                 // pass
             }
             
-            FemDesign.Shells.EdgeConnection edgeConnection = FemDesign.Shells.EdgeConnection.Hinged;
+            FemDesign.Shells.EdgeConnection edgeConnection = FemDesign.Shells.EdgeConnection.Rigid;
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass
@@ -85,44 +80,36 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-
-            double meshSize = 0;
-            if (!DA.GetData(8, ref meshSize))
-            {
-                // pass
-            }
             
-            string identifier = "PP";
-            if (!DA.GetData(9, ref identifier))
+            string identifier = "P";
+            if(!DA.GetData(8, ref identifier))
             {
                 // pass
             }
 
-            if (surface == null || material == null || section == null || eccentricity == null || edgeConnection == null || identifier == null)
-            {
-                return;
-            }
+            if (surface == null || material == null || eccentricity == null || orthotropy == null || edgeConnection == null || identifier == null) { return; }
 
-            
+            //
             FemDesign.Geometry.Region region = surface.FromRhino();
 
             //
-            FemDesign.Shells.Panel obj = FemDesign.Shells.Panel.DefaultContreteContinuous(region, edgeConnection, material, section, identifier, orthoRatio, eccentricity);
+            List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+
+            //
+            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Plate(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                obj.LocalX = x.FromRhino();
+                obj.SlabPart.LocalX = x.FromRhino();
             }
 
             // set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                obj.LocalZ = z.FromRhino();
+                obj.SlabPart.LocalZ = z.FromRhino();
             }
-
-            // set uniform average mesh size
-            obj.UniformAvgMeshSize = meshSize;
 
             // return
             DA.SetData(0, obj);
@@ -131,12 +118,12 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.ProfiledPlateDefine;
+                return FemDesign.Properties.Resources.Plate;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("f2cc84f9-9831-414f-916d-65b1163ac1ce"); }
+            get { return new Guid("8c85f3e3-c50b-49ef-9cc0-5f90867bc0a1"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.primary;
 

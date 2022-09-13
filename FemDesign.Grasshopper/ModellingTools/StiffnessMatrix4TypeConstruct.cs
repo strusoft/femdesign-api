@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessMatrix4TypeDefine: GH_Component
+    public class StiffnessMatrix4TypeConstruct: GH_Component
     {
-       public StiffnessMatrix4TypeDefine(): base("StiffnessMatrix4Type.Define", "Define", "Defina a membrane (D) or flexural (K) stiffness matrix.", "FEM-Design", "ModellingTools")
+       public StiffnessMatrix4TypeConstruct(): base("StiffnessMatrix4Type.Construct", "Construct", "Construct a membrane (D) or flexural (K) stiffness matrix.", "FEM-Design", "ModellingTools")
        {
 
        }

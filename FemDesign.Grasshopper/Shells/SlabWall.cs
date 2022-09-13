@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabWall: GH_Component
     {
-        public SlabWall(): base("Slab.Wall", "Wall", "Create a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabWall(): base("Wall", "Construct", "Construct a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
