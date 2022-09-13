@@ -285,26 +285,33 @@ namespace FemDesign.Bars
         /// Define default (rigid) releases for a bar-element.
         /// </summary>
         /// <returns></returns>
-        public static Connectivity Default => Connectivity.GetRigid();
+        public static Connectivity Default => Connectivity.Rigid;
 
 
         /// <summary>
         /// Define hinged releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity GetHinged()
+        public static Connectivity Hinged
         {
-            Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
-            return connectivity;
+            get
+            {
+                Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
+                return connectivity;
+            }
         }
         /// <summary>
         /// Define rigid releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity GetRigid()
+        public static Connectivity Rigid
         {
-            Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
-            return connectivity;
+            get
+            {
+                    Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
+                    return connectivity;
+
+            }
         }
 
         public override string ToString()

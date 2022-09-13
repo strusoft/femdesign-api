@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            FemDesign.Shells.EdgeConnection obj = FemDesign.Shells.EdgeConnection.GetHinged();
+            FemDesign.Shells.EdgeConnection obj = FemDesign.Shells.EdgeConnection.Hinged;
 
             // return
             DA.SetData(0, obj);

@@ -42,7 +42,7 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             bar.BarPart.LocalY = Geometry.FdVector3d.UnitY;

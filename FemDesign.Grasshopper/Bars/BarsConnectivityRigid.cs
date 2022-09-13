@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            DA.SetData(0, FemDesign.Bars.Connectivity.GetRigid());
+            DA.SetData(0, FemDesign.Bars.Connectivity.Rigid);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -59,7 +59,7 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivities))
             {
-                connectivities = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.GetRigid() };
+                connectivities = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.Rigid };
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();

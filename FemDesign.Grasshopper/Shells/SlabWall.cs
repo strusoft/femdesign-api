@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             
-            FemDesign.Shells.EdgeConnection edgeConnection = FemDesign.Shells.EdgeConnection.GetRigid();
+            FemDesign.Shells.EdgeConnection edgeConnection = FemDesign.Shells.EdgeConnection.Rigid;
             if(!DA.GetData(5, ref edgeConnection))
             {
                 // pass

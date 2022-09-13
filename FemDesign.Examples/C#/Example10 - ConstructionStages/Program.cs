@@ -44,7 +44,7 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar1.BarPart.LocalY = Geometry.FdVector3d.UnitY();
@@ -54,7 +54,7 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar2.BarPart.LocalY = Geometry.FdVector3d.UnitX();
@@ -64,7 +64,7 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar3.BarPart.LocalY = Geometry.FdVector3d.UnitX();

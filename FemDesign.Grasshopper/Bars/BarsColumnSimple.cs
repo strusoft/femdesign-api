@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Sections.Section section = null;
             if (!DA.GetData(2, ref section)) { return; }
 
-            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.GetRigid();
+            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.Rigid;
             if (!DA.GetData(3, ref connectivity))
             {
                 // pass

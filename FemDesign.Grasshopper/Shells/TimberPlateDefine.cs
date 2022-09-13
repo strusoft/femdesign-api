@@ -53,7 +53,7 @@ namespace FemDesign.Grasshopper
             Shells.ShellEccentricity eccentricity = Shells.ShellEccentricity.Default;
             DA.GetData("ShellEccentricity", ref eccentricity);
             
-            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetHinged();
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.Hinged;
             DA.GetData("BorderEdgeConnection", ref edgeConnection);
 
             Rhino.Geometry.Vector3d x = Vector3d.Zero;
