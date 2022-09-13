@@ -37,7 +37,7 @@ namespace FemDesign.Examples
                 material,
                 sections: new Sections.Section[] { section },
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
 
 

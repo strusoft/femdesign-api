@@ -127,11 +127,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default (rigid) EdgeConnection.
         /// </summary>
-        /// <returns></returns>
-        public static EdgeConnection GetDefault()
-        {
-            return EdgeConnection.GetRigid();
-        }
+        public static EdgeConnection Default => EdgeConnection.GetRigid();
 
         /// <summary>
         /// Create a hinged EdgeConnection.

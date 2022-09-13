@@ -51,7 +51,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.GetDefault();
+            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.Default;
             if (!DA.GetData(4, ref eccentricity))
             {
                 // pass

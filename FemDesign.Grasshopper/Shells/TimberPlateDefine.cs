@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
             double panelWidth = 1.5;
             DA.GetData("PanelWidth", ref panelWidth);
 
-            Shells.ShellEccentricity eccentricity = Shells.ShellEccentricity.GetDefault();
+            Shells.ShellEccentricity eccentricity = Shells.ShellEccentricity.Default;
             DA.GetData("ShellEccentricity", ref eccentricity);
             
             Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetHinged();

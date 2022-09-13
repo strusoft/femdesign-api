@@ -285,10 +285,8 @@ namespace FemDesign.Bars
         /// Define default (rigid) releases for a bar-element.
         /// </summary>
         /// <returns></returns>
-        public static Connectivity GetDefault()
-        {
-            return Connectivity.GetRigid();
-        }
+        public static Connectivity Default => Connectivity.GetRigid();
+
 
         /// <summary>
         /// Define hinged releases for a bar-element.

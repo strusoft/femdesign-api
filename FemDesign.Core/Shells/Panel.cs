@@ -543,10 +543,10 @@ namespace FemDesign.Shells
         public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.FdVector3d direction, EdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
         {
             if (externalEdgeConnection == null)
-                externalEdgeConnection = EdgeConnection.GetDefault();
+                externalEdgeConnection = EdgeConnection.Default;
 
             if (eccentricity == null)
-                eccentricity = ShellEccentricity.GetDefault();
+                eccentricity = ShellEccentricity.Default;
             
             Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);

@@ -187,8 +187,8 @@ namespace FemDesign.Bars
             this.Type = type;
             this.Identifier = identifier;
 
-            if(eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if(connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            if(eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if(connectivity == null) { connectivity = Connectivity.Default; }
             this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Identifier);
         }
 
@@ -216,10 +216,10 @@ namespace FemDesign.Bars
             this.Type = type;
             this.Identifier = identifier;
 
-            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
-            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
-            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
-            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+            if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
+            if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
+            if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
 
             this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
         }
@@ -249,8 +249,8 @@ namespace FemDesign.Bars
             bar.Type = type;
             bar.Identifier = identifier;
 
-            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            if (eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if (connectivity == null) { connectivity = Connectivity.Default; }
             bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
             return bar;
         }
@@ -280,8 +280,8 @@ namespace FemDesign.Bars
             bar.Type = type;
             bar.Identifier = identifier;
 
-            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
+            if (eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if (connectivity == null) { connectivity = Connectivity.Default; }
             bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
             return bar;
         }
@@ -303,10 +303,10 @@ namespace FemDesign.Bars
         {
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
-            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
-            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
-            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
-            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+            if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
+            if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
+            if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
 
             this.EntityCreated();
             this.Type = type;

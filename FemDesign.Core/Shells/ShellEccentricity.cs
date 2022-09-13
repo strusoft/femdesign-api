@@ -38,10 +38,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellEccentricity GetDefault()
-        {
-            return new ShellEccentricity(VerticalAlignment.Center, 0, false, false);
-        }
+        public static ShellEccentricity Default => new ShellEccentricity(VerticalAlignment.Center, 0, false, false);
 
         public override string ToString()
         {

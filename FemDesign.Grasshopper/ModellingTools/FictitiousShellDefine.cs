@@ -107,7 +107,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.GetDefault();
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.Default;
             if (!DA.GetData(10, ref edgeConnection))
             {
                 // pass

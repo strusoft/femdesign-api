@@ -51,13 +51,13 @@ namespace FemDesign.Grasshopper
                 material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
             };
 
-            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.GetDefault();
+            FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default;
             if(!DA.GetData(3, ref eccentricity))
             {
                 // pass
             }
             
-            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.GetDefault();
+            FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default;
             if(!DA.GetData(4, ref orthotropy))
             {
                 // pass

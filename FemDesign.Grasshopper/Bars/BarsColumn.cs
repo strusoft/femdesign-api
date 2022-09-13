@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (!DA.GetDataList(4, eccentricities))
             {
-                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.GetDefault()};
+                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.Default};
             }
 
             Vector3d v = Vector3d.Zero;

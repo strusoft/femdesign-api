@@ -121,7 +121,7 @@ namespace FemDesign.Shells.EdgeConnectionTests
             };
             var contour = new Geometry.Contour(edges);
             var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.FdCoordinateSystem.Global());
-            var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.GetDefault(), ShellEccentricity.GetDefault(), ShellOrthotropy.GetDefault(), new List<Thickness> { new Thickness(Geometry.FdPoint3d.Origin, 0.2) });
+            var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.Default, ShellEccentricity.Default, ShellOrthotropy.Default, new List<Thickness> { new Thickness(Geometry.FdPoint3d.Origin, 0.2) });
             return slab;
         }
     }
