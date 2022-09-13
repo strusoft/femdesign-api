@@ -42,7 +42,7 @@ namespace FemDesign.Performance
                     Bars.BarType.Beam,
                     material,
                     sections: new Sections.Section[] { section },
-                    connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                    connectivities: new Bars.Connectivity[] { Bars.Connectivity.Hinged },
                     eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                     identifier: "B");
                 bar.BarPart.LocalY = Geometry.FdVector3d.UnitY;
@@ -61,8 +61,8 @@ namespace FemDesign.Performance
             stopWatch.Stop();
             time = stopWatch.ElapsedMilliseconds;
             Console.WriteLine($"Time to Serialise {numberOfBeam} elements is: {time}");
-
-            Assert.IsTrue(time < 1000);
+            model.Open();
+            Assert.IsTrue(time < 1500);
         }
     }
 }
