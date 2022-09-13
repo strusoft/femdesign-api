@@ -51,7 +51,7 @@ namespace FemDesign.Bars
                     }
                     else
                     {
-                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc.");
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc. Circle is not supported. Consider splitting the Circle in two arches.");
                     }
                 }
                 else if (this.Type == BarType.Column)
@@ -59,7 +59,7 @@ namespace FemDesign.Bars
                     // check if line
                     if (!value.IsLine())
                     {
-                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line. Circle is not supported. Consider splitting the Circle in two arches.");
                     }
 
                     // check if line local x equals positive global Z

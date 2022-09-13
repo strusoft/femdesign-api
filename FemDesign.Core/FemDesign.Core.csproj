@@ -50,6 +50,8 @@
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Geometry\ArcEdge.cs" />
+    <Compile Include="Geometry\CircleEdge.cs" />
     <Compile Include="Geometry\LineEdge.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
