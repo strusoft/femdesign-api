@@ -21,14 +21,14 @@ namespace FemDesign.Loads
         /// Direction of load.
         /// </summary>
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d Direction { get; set; }
+        public Geometry.Vector3d Direction { get; set; }
 
         /// <summary>
         /// Optional. Ambiguous what this does.
         /// </summary>
         /// <value></value>
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; }
+        public Geometry.Vector3d Normal { get; set; }
 
         /// <summary>
         /// Top bottom field. Top value is normal force [kN], bottom value is moment [kNm], according to FD GUI.
@@ -74,7 +74,7 @@ namespace FemDesign.Loads
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="direction">Direction of load.</param>
         /// <param name="topBotLocVal">List of 2 top bottom location values</param>
-        public LineStressLoad(Geometry.Edge edge, Geometry.FdVector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
+        public LineStressLoad(Geometry.Edge edge, Geometry.Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Edge = edge;

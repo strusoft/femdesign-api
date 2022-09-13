@@ -6,21 +6,21 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public partial class FdVector2d
+    public partial class Vector2d
     {
         [XmlAttribute("x")]
         public double X { get; set;}
         [XmlAttribute("y")]
         public double Y { get; set; }
 
-        public static FdVector2d Zero => new FdVector2d(0,0);
-        public static FdVector2d UnitX => new FdVector2d(1,0);
-        public static FdVector2d UnitY => new FdVector2d(0,1);
+        public static Vector2d Zero => new Vector2d(0,0);
+        public static Vector2d UnitX => new Vector2d(1,0);
+        public static Vector2d UnitY => new Vector2d(0,1);
 
         /// <summary>
         /// Parameterless constructor for
         /// </summary>
-        private FdVector2d()
+        private Vector2d()
         {
             // pass
         }
@@ -30,7 +30,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="x">i-component.</param>
         /// <param name="y">j-component.</param>
-        public FdVector2d(double x, double y)
+        public Vector2d(double x, double y)
         {
             this.X = x;
             this.Y = y;
@@ -40,9 +40,9 @@ namespace FemDesign.Geometry
         /// Convert to 3d vector.
         /// </summary>
         /// <returns></returns>
-        public FdVector3d To3d()
+        public Vector3d To3d()
         {
-            return new FdVector3d(this.X, this.Y, 0);
+            return new Vector3d(this.X, this.Y, 0);
         }
 
         /// <summary>

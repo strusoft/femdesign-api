@@ -6,19 +6,19 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public partial class FdPoint2d
+    public partial class Point2d
     {
         [XmlAttribute("x")]
         public double X { get; set;}
         [XmlAttribute("y")]
         public double Y { get; set; }
 
-        public static FdPoint2d Origin => new FdPoint2d(0, 0);
+        public static Point2d Origin => new Point2d(0, 0);
 
         /// <summary>
         /// Parameterless constructor for
         /// </summary>
-        private FdPoint2d()
+        private Point2d()
         {
             // pass
         }
@@ -28,7 +28,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="x">x-coordinate.</param>
         /// <param name="y">y-coordinate.</param>
-        public FdPoint2d(double x, double y)
+        public Point2d(double x, double y)
         {
             this.X = x;
             this.Y = y;
@@ -38,9 +38,9 @@ namespace FemDesign.Geometry
         /// Convert to 3d point.
         /// </summary>
         /// <returns></returns>
-        public FdPoint3d To3d()
+        public Point3d To3d()
         {
-            return new FdPoint3d(this.X, this.Y, 0);
+            return new Point3d(this.X, this.Y, 0);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FemDesign.Geometry
     public partial class Polyline
     {
         [XmlElement("point")]
-        public List<FdPoint3d> Verticies;
+        public List<Point3d> Verticies;
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -26,7 +26,7 @@ namespace FemDesign.Geometry
         /// Construct Polyline from points.
         /// </summary>
         /// <param name="verticies"></param>
-        public Polyline(List<FdPoint3d> verticies)
+        public Polyline(List<Point3d> verticies)
         {
             Initialize(verticies);
         }
@@ -35,12 +35,12 @@ namespace FemDesign.Geometry
         /// Construct Polyline from points.
         /// </summary>
         /// <param name="verticies"></param>
-        public Polyline(params FdPoint3d[] verticies)
+        public Polyline(params Point3d[] verticies)
         {
             Initialize(verticies.ToList());
         }
 
-        private void Initialize(List<FdPoint3d> verticies)
+        private void Initialize(List<Point3d> verticies)
         {
             if (verticies.Count < 3)
                 throw new ArgumentException($"Polyline must have at least 3 points but got {verticies.Count}.");

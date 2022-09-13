@@ -59,8 +59,8 @@ namespace FemDesign.Grasshopper
             {
                 throw new System.ArgumentException("Curve must be a LineCurve");
             }
-            FemDesign.Geometry.FdPoint3d p0 = Convert.FromRhino(line.PointAtStart);
-            FemDesign.Geometry.FdPoint3d p1 = Convert.FromRhino(line.PointAtEnd);
+            FemDesign.Geometry.Point3d p0 = Convert.FromRhino(line.PointAtStart);
+            FemDesign.Geometry.Point3d p1 = Convert.FromRhino(line.PointAtEnd);
 
             //
             FemDesign.StructureGrid.Axis obj = new StructureGrid.Axis(p0, p1, prefix, id, idIsLetter);

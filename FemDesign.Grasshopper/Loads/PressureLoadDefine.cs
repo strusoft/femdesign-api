@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
 
             // transform geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d loadDirection = direction.FromRhino().Normalize();
+            FemDesign.Geometry.Vector3d loadDirection = direction.FromRhino().Normalize();
 
             PressureLoad obj = new PressureLoad(region, loadDirection, z0, q0, qh, loadCase, comment, false, ForceLoadType.Force);
 

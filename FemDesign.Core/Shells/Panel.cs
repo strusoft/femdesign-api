@@ -22,16 +22,16 @@ namespace FemDesign.Shells
         /// Coordinate system
         /// </summary>
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem _coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.CoordinateSystem CoordinateSystem
         {
             get
             {
                 if (this._coordinateSystem == null)
                 {
-                    this._coordinateSystem = new Geometry.FdCoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalZ.Cross(this.LocalX));
+                    this._coordinateSystem = new Geometry.CoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalZ.Cross(this.LocalX));
                     return this._coordinateSystem;
                 }
                 else
@@ -51,9 +51,9 @@ namespace FemDesign.Shells
         /// Deinfes the position of the local coordinate system
         /// </summary>
         [XmlElement("local_pos", Order = 4)]
-        public Geometry.FdPoint3d _localOrigin;
+        public Geometry.Point3d _localOrigin;
         [XmlIgnore]
-        public Geometry.FdPoint3d LocalOrigin
+        public Geometry.Point3d LocalOrigin
         {
             get
             {
@@ -71,9 +71,9 @@ namespace FemDesign.Shells
         /// </summary>
         /// <value></value>
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d _localX;
+        public Geometry.Vector3d _localX;
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -87,7 +87,7 @@ namespace FemDesign.Shells
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -104,7 +104,7 @@ namespace FemDesign.Shells
         /// LocalZ
         /// </summary>
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -144,7 +144,7 @@ namespace FemDesign.Shells
         /// </summary>
         /// <value></value>
         [XmlElement("anchor_point", Order = 3)]
-        public Geometry.FdPoint3d AnchorPoint { get; set; }
+        public Geometry.Point3d AnchorPoint { get; set; }
 
         [XmlElement("internal_panels", Order = 5)]
         public InternalPanels InternalPanels { get; set; }
@@ -432,7 +432,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
+        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
 
@@ -476,7 +476,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
-        internal Panel(Geometry.Region region, Geometry.FdPoint3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, EdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, EdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -518,7 +518,7 @@ namespace FemDesign.Shells
         /// <returns></returns>
         public static Panel DefaultContreteContinuous(Geometry.Region region, EdgeConnection externalEdgeConnection, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
         {
-            Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
+            Geometry.Point3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
             PanelType type = PanelType.Concrete;
@@ -540,7 +540,7 @@ namespace FemDesign.Shells
         /// <param name="eccentricity"></param>
         /// <param name="panelWidth"></param>
         /// <returns></returns>
-        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.FdVector3d direction, EdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.Vector3d direction, EdgeConnection externalEdgeConnection = null, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
         {
             if (externalEdgeConnection == null)
                 externalEdgeConnection = EdgeConnection.Default;
@@ -548,7 +548,7 @@ namespace FemDesign.Shells
             if (eccentricity == null)
                 eccentricity = ShellEccentricity.Default;
             
-            Geometry.FdPoint3d anchorPoint = region.Contours[0].Edges[0].Points[0];
+            Geometry.Point3d anchorPoint = region.Contours[0].Edges[0].Points[0];
             InternalPanel internalPanel = new InternalPanel(region);
             InternalPanels internalPanels = new InternalPanels(internalPanel);
             PanelType type = PanelType.Timber;

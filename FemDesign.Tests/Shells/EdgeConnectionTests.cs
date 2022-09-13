@@ -108,20 +108,20 @@ namespace FemDesign.Shells.EdgeConnectionTests
             string input = "Shells/EdgeConnection-model.struxml";
             var template = Model.DeserializeFromFilePath(input);
 
-            var p1 = new Geometry.FdPoint3d(0, 0, 0);
-            var p2 = new Geometry.FdPoint3d(1, 0, 0);
-            var p3 = new Geometry.FdPoint3d(1, 1, 0);
-            var p4 = new Geometry.FdPoint3d(0, 1, 0);
+            var p1 = new Geometry.Point3d(0, 0, 0);
+            var p2 = new Geometry.Point3d(1, 0, 0);
+            var p3 = new Geometry.Point3d(1, 1, 0);
+            var p4 = new Geometry.Point3d(0, 1, 0);
 
             var edges = new List<Geometry.Edge> {
-                new Geometry.Edge(p1, p2, Geometry.FdCoordinateSystem.Global()),
-                new Geometry.Edge(p2, p3, Geometry.FdCoordinateSystem.Global()),
-                new Geometry.Edge(p3, p4, Geometry.FdCoordinateSystem.Global()),
-                new Geometry.Edge(p4, p1, Geometry.FdCoordinateSystem.Global())
+                new Geometry.Edge(p1, p2, Geometry.CoordinateSystem.Global()),
+                new Geometry.Edge(p2, p3, Geometry.CoordinateSystem.Global()),
+                new Geometry.Edge(p3, p4, Geometry.CoordinateSystem.Global()),
+                new Geometry.Edge(p4, p1, Geometry.CoordinateSystem.Global())
             };
             var contour = new Geometry.Contour(edges);
-            var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.FdCoordinateSystem.Global());
-            var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.Default, ShellEccentricity.Default, ShellOrthotropy.Default, new List<Thickness> { new Thickness(Geometry.FdPoint3d.Origin, 0.2) });
+            var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.CoordinateSystem.Global());
+            var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.Default, ShellEccentricity.Default, ShellOrthotropy.Default, new List<Thickness> { new Thickness(Geometry.Point3d.Origin, 0.2) });
             return slab;
         }
     }

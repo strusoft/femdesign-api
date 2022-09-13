@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
 
 
             var nodeId = (List<int>) result["NodeId"];
-            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>) result["Position"];
+            var feaNodePoint = (List<FemDesign.Geometry.Point3d>) result["Position"];
 
 
             // Convert the FdPoint to Rhino

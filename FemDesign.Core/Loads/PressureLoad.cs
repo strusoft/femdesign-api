@@ -45,7 +45,7 @@ namespace FemDesign.Loads
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; } // region_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d Direction { get; set; } // point_type_3c
+        public Geometry.Vector3d Direction { get; set; } // point_type_3c
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -67,7 +67,7 @@ namespace FemDesign.Loads
         /// <param name="comment">Comment.</param>
         /// <param name="loadProjection"></param>
         /// <param name="loadType"></param>
-        public PressureLoad(Geometry.Region region, Geometry.FdVector3d loadDirection, double z0, double q0, double qh, LoadCase loadCase, string comment, bool loadProjection, ForceLoadType loadType)
+        public PressureLoad(Geometry.Region region, Geometry.Vector3d loadDirection, double z0, double q0, double qh, LoadCase loadCase, string comment, bool loadProjection, ForceLoadType loadType)
         {
             // base
             this.EntityCreated();

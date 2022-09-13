@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
 
             // convert geometry
             Geometry.Region region = brep.FromRhino();
-            Geometry.FdVector3d dir = direction.FromRhino();
+            Geometry.Vector3d dir = direction.FromRhino();
 
             // create obj
             Loads.SurfaceTemperatureLoad obj = new Loads.SurfaceTemperatureLoad(region, dir, vals, lc, comment);

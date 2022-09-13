@@ -78,7 +78,7 @@ namespace FemDesign.Grasshopper
             }
 
             // create Longitudinal
-            var pos = new FemDesign.Geometry.FdPoint2d(yPos, zPos);
+            var pos = new FemDesign.Geometry.Point2d(yPos, zPos);
             var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, startAnchorage, endAnchorage, start, end, auxiliary);
 
             // create bar reinforcement without base bar reference

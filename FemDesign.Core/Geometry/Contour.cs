@@ -18,7 +18,7 @@ namespace FemDesign.Geometry
         /// Get LocalZ of Contour by analysing the direction of the contour.
         /// </summary>
         [XmlIgnore]
-        internal Geometry.FdVector3d LocalZ
+        internal Geometry.Vector3d LocalZ
         {
             get
             {
@@ -94,8 +94,8 @@ namespace FemDesign.Geometry
                         }
 
                         // construct vector
-                        FdVector3d v0 = new FdVector3d(edges[0].Points[0], edges[0].Points[1]);
-                        FdVector3d v1 = new FdVector3d(edges[1].Points[0], edges[1].Points[1]);
+                        Vector3d v0 = new Vector3d(edges[0].Points[0], edges[0].Points[1]);
+                        Vector3d v1 = new Vector3d(edges[1].Points[0], edges[1].Points[1]);
 
                         // return normal
                         return v0.Cross(v1).Normalize();

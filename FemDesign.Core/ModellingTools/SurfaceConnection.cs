@@ -44,7 +44,7 @@ namespace FemDesign.ModellingTools
         public GuidListType[] References { get; set; }
 
         [XmlElement("local_system", Order = 5)]
-        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
 
         [XmlAttribute("name")]
         public string _identifier;

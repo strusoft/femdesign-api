@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public partial class FdPoint3d
+    public partial class Point3d
     {
         [XmlAttribute("x")]
         public double X;
@@ -19,12 +19,12 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct FdPoint3d in origin
         /// </summary>
-        public static FdPoint3d Origin => new FdPoint3d(0, 0, 0);
+        public static Point3d Origin => new Point3d(0, 0, 0);
 
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public FdPoint3d()
+        public Point3d()
         {
 
         }
@@ -35,7 +35,7 @@ namespace FemDesign.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public FdPoint3d(double x, double y, double z)
+        public Point3d(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
@@ -45,19 +45,19 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Move a point p along vector v
         /// </summary>
-        public static FdPoint3d operator +(FdPoint3d p, FdVector3d v) => new FdPoint3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
+        public static Point3d operator +(Point3d p, Vector3d v) => new Point3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
         /// <summary>
         /// Move a point p along vector v
         /// </summary>
-        public static FdPoint3d operator +(FdVector3d v, FdPoint3d p) => new FdPoint3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
+        public static Point3d operator +(Vector3d v, Point3d p) => new Point3d(p.X + v.X, p.Y + v.Y, p.Z + v.Z);
         /// <summary>
         /// Move a point p along vector -v
         /// </summary>
-        public static FdPoint3d operator -(FdPoint3d p, FdVector3d v) => new FdPoint3d(p.X - v.X, p.Y - v.Y, p.Z - v.Z);
+        public static Point3d operator -(Point3d p, Vector3d v) => new Point3d(p.X - v.X, p.Y - v.Y, p.Z - v.Z);
         /// <summary>
         /// Create vector from v2 to v1
         /// </summary>
-        public static FdVector3d operator -(FdPoint3d v1, FdPoint3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+        public static Vector3d operator -(Point3d v1, Point3d v2) => new Vector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
 
 
         /// <summary>
@@ -65,18 +65,18 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="v">Vector.</param>
         /// <returns></returns>
-        public FdPoint3d Translate(FdVector3d v)
+        public Point3d Translate(Vector3d v)
         {
-            return new FdPoint3d(this.X + v.X, this.Y + v.Y, this.Z + v.Z);
+            return new Point3d(this.X + v.X, this.Y + v.Y, this.Z + v.Z);
         }
 
         /// <summary>
         /// Project point on XY-plane.
         /// </summary>
         /// <returns></returns>
-        public FdPoint2d To2d()
+        public Point2d To2d()
         {
-            return new FdPoint2d(this.X, this.Y);
+            return new Point2d(this.X, this.Y);
         }
 
         public override bool Equals(System.Object obj)
@@ -85,7 +85,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            FdPoint3d p = obj as FdPoint3d;
+            Point3d p = obj as Point3d;
             if ((System.Object)p == null)
             {
                 return false;
@@ -93,7 +93,7 @@ namespace FemDesign.Geometry
             return (X == p.X) && (Y == p.Y) && (Z == p.Z);            
         }
 
-        public bool Equals(FdPoint3d p)
+        public bool Equals(Point3d p)
         {
             if ((object)p == null)
             {
@@ -102,7 +102,7 @@ namespace FemDesign.Geometry
             return (X == p.X) && (Y == p.Y) && (Z == p.Z);
         }
 
-        public bool Equals(FdPoint3d p, double tolerance)
+        public bool Equals(Point3d p, double tolerance)
         {
             if ((object)p == null)
             {
@@ -116,12 +116,12 @@ namespace FemDesign.Geometry
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
-        public static implicit operator FdPoint3d(FdCoordinateSystem plane)
+        public static implicit operator Point3d(CoordinateSystem plane)
         {
             var x = plane.Origin.X;
             var y = plane.Origin.Y;
             var z = plane.Origin.Z;
-            var point = new FdPoint3d(x, y, z);
+            var point = new Point3d(x, y, z);
             return point;
         }
         public override string ToString()

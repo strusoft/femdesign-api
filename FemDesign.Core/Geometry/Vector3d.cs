@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public partial class FdVector3d
+    public partial class Vector3d
     {
         [XmlAttribute("x")]
         public double X { get; set; }
@@ -16,16 +16,16 @@ namespace FemDesign.Geometry
         [XmlAttribute("z")]
         public double Z { get; set; }
 
-        public static FdVector3d UnitX => new FdVector3d(1, 0, 0);
-        public static FdVector3d UnitY => new FdVector3d(0, 1, 0);
-        public static FdVector3d UnitZ => new FdVector3d(0, 0, 1);
-        public static FdVector3d ZeroLength => new FdVector3d(0, 0, 0);
+        public static Vector3d UnitX => new Vector3d(1, 0, 0);
+        public static Vector3d UnitY => new Vector3d(0, 1, 0);
+        public static Vector3d UnitZ => new Vector3d(0, 0, 1);
+        public static Vector3d ZeroLength => new Vector3d(0, 0, 0);
 
 
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public FdVector3d()
+        public Vector3d()
         {
             
         }
@@ -36,7 +36,7 @@ namespace FemDesign.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public FdVector3d(double x, double y, double z)
+        public Vector3d(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
@@ -48,7 +48,7 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="p0">Start point</param>
         /// <param name="p1">End point</param>
-        public FdVector3d(FdPoint3d p0, FdPoint3d p1)
+        public Vector3d(Point3d p0, Point3d p1)
         {
             this.X = p1.X - p0.X;
             this.Y = p1.Y - p0.Y;
@@ -58,32 +58,32 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Reverse vector
         /// </summary>
-        public static FdVector3d operator -(FdVector3d v) => v.Reverse();
+        public static Vector3d operator -(Vector3d v) => v.Reverse();
         
         /// <summary>
         /// Vector difference
         /// </summary>
-        public static FdVector3d operator -(FdVector3d v1, FdVector3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+        public static Vector3d operator -(Vector3d v1, Vector3d v2) => new Vector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
 
         /// <summary>
         /// Scale vector
         /// </summary>
-        public static FdVector3d operator *(FdVector3d v, int n) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+        public static Vector3d operator *(Vector3d v, int n) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
         /// <summary>
         /// Scale vector
         /// </summary>
-        public static FdVector3d operator *(int n, FdVector3d v) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+        public static Vector3d operator *(int n, Vector3d v) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
         /// <summary>
         /// Scale vector
         /// </summary>
-        public static FdVector3d operator *(FdVector3d v, double n) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+        public static Vector3d operator *(Vector3d v, double n) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
         /// <summary>
         /// Scale vector
         /// </summary>
-        public static FdVector3d operator *(double n, FdVector3d v) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
+        public static Vector3d operator *(double n, Vector3d v) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
 
         /// <summary>
@@ -98,20 +98,20 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Normalize FdVector3d (i.e. scale so that length equals 1).
         /// </summary>
-        public FdVector3d Normalize()
+        public Vector3d Normalize()
         {
             double l = this.Length();
-            FdVector3d normal = new FdVector3d(this.X / l, this.Y / l, this.Z / l);
+            Vector3d normal = new Vector3d(this.X / l, this.Y / l, this.Z / l);
             return normal;
         }
 
         /// <summary>
         /// Calculate cross-product of this FdVector3d and v FdVector3d.
         /// </summary>
-        public FdVector3d Cross(FdVector3d v)
+        public Vector3d Cross(Vector3d v)
         {
-            FdVector3d v0 = this;
-            FdVector3d v1 = v;
+            Vector3d v0 = this;
+            Vector3d v1 = v;
 
             double i, j, k;
             // https://en.wikipedia.org/wiki/Cross_product#Coordinate_notation
@@ -119,17 +119,17 @@ namespace FemDesign.Geometry
             j = v0.Z * v1.X - v0.X * v1.Z;
             k = v0.X * v1.Y - v0.Y * v1.X;
 
-            FdVector3d v2 = new FdVector3d(i, j, k);;
+            Vector3d v2 = new Vector3d(i, j, k);;
             return v2;
         }
 
         /// <summary>
         /// Calculate dot-product of this FdVector3d and v FdVector3d.
         /// </summary>
-        public double Dot(FdVector3d v)
+        public double Dot(Vector3d v)
         {
-            FdVector3d v0 = this;
-            FdVector3d v1 = v;
+            Vector3d v0 = this;
+            Vector3d v1 = v;
 
             // https://en.wikipedia.org/wiki/Dot_product#Algebraic_definition
             double s = v0.X*v1.X + v0.Y*v1.Y + v0.Z*v1.Z;
@@ -140,16 +140,16 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Scale this FdVector3d by s.
         /// </summary>
-        public FdVector3d Scale(double s)
+        public Vector3d Scale(double s)
         {   
-            return new FdVector3d(this.X * s, this.Y * s, this.Z * s);
+            return new Vector3d(this.X * s, this.Y * s, this.Z * s);
         }
 
         /// <summary>
         /// Reverse this by negative scaling.
         /// </summary>
         /// <returns></returns>
-        public FdVector3d Reverse()
+        public Vector3d Reverse()
         {
             return this.Scale(-1);
         }
@@ -160,10 +160,10 @@ namespace FemDesign.Geometry
         /// <param name="axis"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public FdVector3d RotateAroundAxis(double angle, FdVector3d axis)
+        public Vector3d RotateAroundAxis(double angle, Vector3d axis)
         {
             // normalize vector
-            FdVector3d _axis = axis.Normalize();
+            Vector3d _axis = axis.Normalize();
 
             // https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle
             double[,] rotationMatrix = new double[3,3];
@@ -183,17 +183,17 @@ namespace FemDesign.Geometry
             double z = this.X*rotationMatrix[2,0] + this.Y*rotationMatrix[2,1] + this.Z*rotationMatrix[2,2];
 
             // return new vector
-            return new FdVector3d(x, y, z);
+            return new Vector3d(x, y, z);
         }
 
         /// <summary>
         /// Check if this FdVector3d is parallel to v.
         /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel
         /// </summary>
-        public int Parallel(FdVector3d v)
+        public int Parallel(Vector3d v)
         {
-            FdVector3d v0 = this.Normalize();
-            FdVector3d v1 = v.Normalize();
+            Vector3d v0 = this.Normalize();
+            Vector3d v1 = v.Normalize();
             if (v0.Equals(v1, Tolerance.Point3d))
             {
                 return 1;
@@ -212,11 +212,11 @@ namespace FemDesign.Geometry
         /// Check if z-component is 0 and convert to 2d vector in XY-plane.
         /// </summary>
         /// <returns></returns>
-        public FdVector2d To2d()
+        public Vector2d To2d()
         {
             if (this.Z == 0)
             {
-                return new FdVector2d(this.X, this.Y);
+                return new Vector2d(this.X, this.Y);
             }
             else
             {
@@ -247,7 +247,7 @@ namespace FemDesign.Geometry
             {
                 return false;
             }
-            FdVector3d v = obj as FdVector3d;
+            Vector3d v = obj as Vector3d;
             if ((System.Object)v == null)
             {
                 return false;
@@ -255,7 +255,7 @@ namespace FemDesign.Geometry
             return (X == v.X) && (Y == v.Y) && (Z == v.Z);            
         }
 
-        public bool Equals(FdVector3d v)
+        public bool Equals(Vector3d v)
         {
             if ((object)v == null)
             {
@@ -264,7 +264,7 @@ namespace FemDesign.Geometry
             return (X == v.X) && (Y == v.Y) && (Z == v.Z);
         }
 
-        public bool Equals(FdVector3d v, double tol)
+        public bool Equals(Vector3d v, double tol)
         {
             if ((object)v == null)
             {

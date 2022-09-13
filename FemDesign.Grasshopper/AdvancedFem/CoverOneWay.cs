@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
 
             // convert geometry
             FemDesign.Geometry.Region region = brep.FromRhino();
-            FemDesign.Geometry.FdVector3d fdVector3d = vector.FromRhino().Normalize();
+            FemDesign.Geometry.Vector3d fdVector3d = vector.FromRhino().Normalize();
 
             //
             FemDesign.Cover obj = FemDesign.Cover.OneWayCover(region, structures, fdVector3d, identifier);

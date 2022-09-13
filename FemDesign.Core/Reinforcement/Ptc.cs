@@ -352,13 +352,13 @@ namespace FemDesign.Reinforcement
     public partial class Ptc : EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
-        public Geometry.FdPoint3d StartPoint { get; set; }
+        public Geometry.Point3d StartPoint { get; set; }
 
         [XmlElement("end_point", Order = 2)]
-        public Geometry.FdPoint3d EndPoint { get; set; }
+        public Geometry.Point3d EndPoint { get; set; }
 
         [XmlElement("local_z", Order = 3)]
-        public Geometry.FdVector3d LocalZ { get; set; }
+        public Geometry.Vector3d LocalZ { get; set; }
 
         [XmlElement("losses", Order = 4)]
         public PtcLosses Losses { get; set; }
@@ -438,7 +438,7 @@ namespace FemDesign.Reinforcement
             Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
         }
 
-        private void Initialize(Geometry.FdPoint3d start, Geometry.FdPoint3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands, string identifier)
+        private void Initialize(Geometry.Point3d start, Geometry.Point3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands, string identifier)
         {
             StartPoint = start;
             EndPoint = end;

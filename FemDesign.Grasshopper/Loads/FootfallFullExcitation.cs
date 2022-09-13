@@ -35,7 +35,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(2, ref comment)) { /* Pass */}
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
 
             // Create a Footfall full excitation
             var obj = new Loads.Footfall(fdPoint, identifier, comment);

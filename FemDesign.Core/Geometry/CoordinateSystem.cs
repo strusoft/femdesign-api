@@ -6,14 +6,14 @@ using System.Xml.Serialization;
 namespace FemDesign.Geometry
 {
     [System.Serializable]
-    public partial class FdCoordinateSystem
+    public partial class CoordinateSystem
     {
         [XmlElement("local_pos", Order = 1)]
-        public FdPoint3d Origin { get; set; }
+        public Point3d Origin { get; set; }
         [XmlElement("local_x", Order = 2)]
-        public FdVector3d _localX;
+        public Vector3d _localX;
         [XmlIgnore]
-        public FdVector3d LocalX
+        public Vector3d LocalX
         {
             get
             {
@@ -29,9 +29,9 @@ namespace FemDesign.Geometry
         }
 
         [XmlElement("local_y", Order = 3)]
-        public FdVector3d _localY;
+        public Vector3d _localY;
         [XmlIgnore]
-        public FdVector3d LocalY
+        public Vector3d LocalY
         {
             get
             {
@@ -47,9 +47,9 @@ namespace FemDesign.Geometry
         }
 
         [XmlIgnore]
-        public FdVector3d _localZ;
+        public Vector3d _localZ;
         [XmlIgnore]
-        public FdVector3d LocalZ
+        public Vector3d LocalZ
         {
             get
             {
@@ -67,7 +67,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private FdCoordinateSystem()
+        private CoordinateSystem()
         {
 
         }
@@ -75,7 +75,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct FdCoordinateSystem from origin point and local x and y axes.
         /// </summary>
-        public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY)
+        public CoordinateSystem(Point3d origin, Vector3d localX, Vector3d localY)
         {
             this.Origin = origin;
             this._localX = localX;
@@ -96,7 +96,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct FdCoordinateSystem from origin point and local x, y, z axes.
         /// </summary>
-        public FdCoordinateSystem(FdPoint3d origin, FdVector3d localX, FdVector3d localY, FdVector3d localZ)
+        public CoordinateSystem(Point3d origin, Vector3d localX, Vector3d localY, Vector3d localZ)
         {
             this.Origin = origin;
             this._localX = localX;
@@ -117,7 +117,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct FdCoordinateSystem from three points. localX will follow the point1 - point0 direction.
         /// </summary>
-        public FdCoordinateSystem(FdPoint3d origin, FdPoint3d point1, FdPoint3d point2)
+        public CoordinateSystem(Point3d origin, Point3d point1, Point3d point2)
         {
             this.Origin = origin;
             this._localX = point1 - origin;
@@ -138,9 +138,9 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Global coordinate system
         /// </summary>
-        public static FdCoordinateSystem Global()
+        public static CoordinateSystem Global()
         {
-            return new FdCoordinateSystem(FdPoint3d.Origin, FdVector3d.UnitX, FdVector3d.UnitY);
+            return new CoordinateSystem(Point3d.Origin, Vector3d.UnitX, Vector3d.UnitY);
         }
 
         /// <summary>
@@ -164,11 +164,11 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set X-axis and rotate coordinate system accordingly around Z-axis.
         /// </summary>
-        public void SetXAroundZ(FdVector3d vector)
+        public void SetXAroundZ(Vector3d vector)
         {
             // try to set axis
-            FdVector3d val = vector.Normalize();
-            FdVector3d z = this.LocalZ;
+            Vector3d val = vector.Normalize();
+            Vector3d z = this.LocalZ;
 
             double dot = z.Dot(val);
             if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -185,11 +185,11 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set Y-axis and rotate coordinate system accordingly around X-Axis.
         /// </summary>
-        public void SetYAroundX(FdVector3d vector)
+        public void SetYAroundX(Vector3d vector)
         {
             // try to set axis
-            FdVector3d val = vector.Normalize();
-            FdVector3d x = this.LocalX;
+            Vector3d val = vector.Normalize();
+            Vector3d x = this.LocalX;
 
             double dot = x.Dot(val);
             if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -206,11 +206,11 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set Y-axis and rotate coordinate system accordingly around Z-axis
         /// </summary>
-        public void SetYAroundZ(FdVector3d vector)
+        public void SetYAroundZ(Vector3d vector)
         {
             // try set axis
-            FdVector3d val = vector.Normalize();
-            FdVector3d z = this.LocalZ;
+            Vector3d val = vector.Normalize();
+            Vector3d z = this.LocalZ;
 
             double dot = z.Dot(val);
             if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -228,11 +228,11 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Set Z-axis and rotate coordinate system accordingly around X-axis
         /// </summary>
-        public void SetZAroundX(FdVector3d vector)
+        public void SetZAroundX(Vector3d vector)
         {
             // try to set axis
-            Geometry.FdVector3d val = vector.Normalize();
-            Geometry.FdVector3d x = this.LocalX;
+            Geometry.Vector3d val = vector.Normalize();
+            Geometry.Vector3d x = this.LocalX;
 
             double dot = x.Dot(val);
             if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -255,16 +255,16 @@ namespace FemDesign.Geometry
             if (this.IsComplete())
             {
                 // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.LocalX.Parallel(Geometry.FdVector3d.UnitZ);
+                int par = this.LocalX.Parallel(Geometry.Vector3d.UnitZ);
                 if (par == 1 || par == -1)
                 {
-                    this.SetYAroundX(FdVector3d.UnitY);
+                    this.SetYAroundX(Vector3d.UnitY);
                 }
 
                 // else set (rotate) LocalY to UnitZ cross LocalX
                 else
                 {
-                    this.SetYAroundX(FdVector3d.UnitZ.Cross(this.LocalX).Normalize());
+                    this.SetYAroundX(Vector3d.UnitZ.Cross(this.LocalX).Normalize());
                 }
             }
 
@@ -281,13 +281,13 @@ namespace FemDesign.Geometry
         /// </summary>
         public void OrientPlaneTypeLcsToGcs()
         {
-            double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ);
+            double dot = this.LocalZ.Normalize().Dot(Vector3d.UnitZ);
             if (dot == 1)
             {
                 // the plane is horisontal and z' is equal to Z
 
                 // set x' to X
-                this.SetXAroundZ(FdVector3d.UnitX);
+                this.SetXAroundZ(Vector3d.UnitX);
             }
             else if (dot < 1 && dot > 0)
             {
@@ -301,7 +301,7 @@ namespace FemDesign.Geometry
                 // the plane is vertical 
 
                 // set y' to Z. This is the equivalent as setting x' to the cross-product of z' and Z in this case.
-                this.SetYAroundZ(FdVector3d.UnitZ);
+                this.SetYAroundZ(Vector3d.UnitZ);
             }
             else if (dot < 0 && dot > -1)
             {
@@ -334,9 +334,9 @@ namespace FemDesign.Geometry
         /// Implicity convert FdPoint to a FdCoordinateSystem. Local axis are set to Global X and Global Y.
         /// </summary>
         /// <param name="point"></param>
-        public static implicit operator FdCoordinateSystem(FdPoint3d point)
+        public static implicit operator CoordinateSystem(Point3d point)
         {
-            var plane = new FdCoordinateSystem(point, FdVector3d.UnitX, FdVector3d.UnitY);
+            var plane = new CoordinateSystem(point, Vector3d.UnitX, Vector3d.UnitY);
             return plane;
         }
     }

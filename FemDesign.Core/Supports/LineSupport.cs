@@ -56,7 +56,7 @@ namespace FemDesign.Supports
         /// This property only reflects the edge normal. If this normal is changed arcs may transform.
         /// </summary>
         [XmlElement("normal", Order = 4)]
-        public FdVector3d EdgeNormal;
+        public Vector3d EdgeNormal;
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -78,7 +78,7 @@ namespace FemDesign.Supports
         /// <param name="posPlastic">Plastic limit in positive direction. [kN] or [kNm]</param>
         /// <param name="negPlastic">Plastic limit in negative direction. [kN] or [kNm]</param>
         /// <param name="identifier">Name.</param>
-        public LineSupport(Edge edge, FdVector3d direction, bool movingLocal, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
+        public LineSupport(Edge edge, Vector3d direction, bool movingLocal, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
         {
             Initialize(edge, null, movingLocal, identifier);
             this.Directed = new Directed(direction, type, pos, neg, posPlastic, negPlastic);

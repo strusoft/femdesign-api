@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
 
             // Extract the results from the Dictionary
             var nodeId = (List<int>)nodeData["NodeId"];
-            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>)nodeData["Position"];
+            var feaNodePoint = (List<FemDesign.Geometry.Point3d>)nodeData["Position"];
 
             // Create Rhino Mesh
             var rhinoPoint = feaNodePoint.Select(x => x.ToRhino());

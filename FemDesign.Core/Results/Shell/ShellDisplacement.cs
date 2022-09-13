@@ -159,8 +159,8 @@ namespace FemDesign.Results
             var nodeId = new List<int?>();
 
             // Create an FD Vector for Displacement and Rotation
-            var translation = new List<FemDesign.Geometry.FdVector3d>();
-            var rotation = new List<FemDesign.Geometry.FdVector3d>();
+            var translation = new List<FemDesign.Geometry.Vector3d>();
+            var rotation = new List<FemDesign.Geometry.Vector3d>();
 
 
             var uniqueLoadCase = shellDisplacement.Select(n => n.CaseIdentifier).Distinct().ToList();
@@ -175,8 +175,8 @@ namespace FemDesign.Results
                     identifier.Add(shellResult.Id);
                     elementId.Add(shellResult.ElementId);
                     nodeId.Add(shellResult.NodeId);
-                    translation.Add(new Geometry.FdVector3d(shellResult.Ex, shellResult.Ey, shellResult.Ez));
-                    rotation.Add(new Geometry.FdVector3d(shellResult.Fix, shellResult.Fiy, shellResult.Fiz));
+                    translation.Add(new Geometry.Vector3d(shellResult.Ex, shellResult.Ey, shellResult.Ez));
+                    rotation.Add(new Geometry.Vector3d(shellResult.Fix, shellResult.Fiy, shellResult.Fiz));
                 }
             }
 

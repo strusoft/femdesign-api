@@ -8,17 +8,17 @@ namespace FemDesign.StructureGrid
     public partial class Axis: EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
-        public Geometry.FdPoint2d _startPoint; // point_type_2d
+        public Geometry.Point2d _startPoint; // point_type_2d
         [XmlIgnore]
-        public Geometry.FdPoint3d StartPoint
+        public Geometry.Point3d StartPoint
         {
             get { return this._startPoint.To3d(); }
             set { this._startPoint = value.To2d(); }
         }
         [XmlElement("end_point", Order = 2)]
-        public Geometry.FdPoint2d _endPoint; // point_type_2d
+        public Geometry.Point2d _endPoint; // point_type_2d
         [XmlIgnore]
-        public Geometry.FdPoint3d EndPoint
+        public Geometry.Point3d EndPoint
         {
             get { return this._endPoint.To3d(); }
             set { this._endPoint = value.To2d(); }
@@ -71,7 +71,7 @@ namespace FemDesign.StructureGrid
         /// <param name="prefix">Prefix of axis identifier.</param>
         /// <param name="id">Number of axis identifier.</param>
         /// <param name="idIsLetter">Is identifier numbering a letter?</param>
-        public Axis(Geometry.FdPoint3d startPoint, Geometry.FdPoint3d endPoint, string prefix, int id, bool idIsLetter)
+        public Axis(Geometry.Point3d startPoint, Geometry.Point3d endPoint, string prefix, int id, bool idIsLetter)
         {
             this.EntityCreated();
             this.StartPoint = startPoint;

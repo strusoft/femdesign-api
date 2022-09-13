@@ -73,7 +73,7 @@ namespace FemDesign.Grasshopper
 
             
             Geometry.Region region = surface.FromRhino();
-            Geometry.FdVector3d dir = spanDirection.FromRhino();
+            Geometry.Vector3d dir = spanDirection.FromRhino();
             Shells.Panel obj = Shells.Panel.DefaultTimberContinuous(region, timberPlateMaterialData, dir, edgeConnection, identifier, eccentricity,  panelWidth);
 
             // set local x-axis

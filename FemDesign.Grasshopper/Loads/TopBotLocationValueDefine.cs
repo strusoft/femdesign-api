@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
             }
 
             // convert geometry
-            Geometry.FdPoint3d p = point.FromRhino();
+            Geometry.Point3d p = point.FromRhino();
 
             // create obj
             Loads.TopBotLocationValue obj = new Loads.TopBotLocationValue(p, topVal, bottomVal);

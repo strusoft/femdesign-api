@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
             if (point == null) { return; }
 
             //  transform geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
 
             //
             FemDesign.Loads.LoadLocationValue obj = new FemDesign.Loads.LoadLocationValue(fdPoint, val);

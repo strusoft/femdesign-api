@@ -110,11 +110,11 @@ namespace FemDesign.Shells
             }
         }
         [XmlElement("local_pos", Order = 3)]
-        public Geometry.FdPoint3d LocalPos {get; set;} // point_type_3d
+        public Geometry.Point3d LocalPos {get; set;} // point_type_3d
         [XmlElement("local_x", Order = 4)]
-        public Geometry.FdVector3d _localX; // point_type_3d
+        public Geometry.Vector3d _localX; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -122,8 +122,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d z = this.LocalZ;
+                Geometry.Vector3d val = value.Normalize();
+                Geometry.Vector3d z = this.LocalZ;
 
                 double dot = z.Dot(val);
                 if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -139,9 +139,9 @@ namespace FemDesign.Shells
             }
         }
         [XmlElement("local_y", Order = 5)]
-        public Geometry.FdVector3d _localY; // point_type_3d
+        public Geometry.Vector3d _localY; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -149,9 +149,9 @@ namespace FemDesign.Shells
             }
         }
         [XmlIgnore]
-        private Geometry.FdVector3d _localZ;
+        private Geometry.Vector3d _localZ;
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -166,8 +166,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d x = this.LocalX;
+                Geometry.Vector3d val = value.Normalize();
+                Geometry.Vector3d x = this.LocalX;
 
                 double dot = x.Dot(val);
                 if (Math.Abs(dot) < Tolerance.DotProduct)

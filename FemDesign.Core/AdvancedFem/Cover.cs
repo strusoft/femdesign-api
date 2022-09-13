@@ -41,7 +41,7 @@ namespace FemDesign
         /// Load bearing direction (point_type_3d)
         /// </summary>
         [XmlElement("load_bearing_direction", Order = 1)]
-        public Geometry.FdVector3d LoadBearingDirection { get; set; }
+        public Geometry.Vector3d LoadBearingDirection { get; set; }
 
         /// <summary>
         /// Region (region_type).
@@ -69,7 +69,7 @@ namespace FemDesign
         /// <param name="region">Region of cover.</param>
         /// <param name="supportingStructures">Guidlist of supporting structure.</param>
         /// <param name="loadBearingDirection">Vector, if null a TwoWay cover is defined.</param>
-        public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             this.EntityCreated();
             this.Identifier = identifier;
@@ -79,7 +79,7 @@ namespace FemDesign
         }
 
         /// Create OneWayCover.
-        public static Cover OneWayCover(Geometry.Region region, List<object> supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        public static Cover OneWayCover(Geometry.Region region, List<object> supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             // get supportingStructures.guid
             CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);
@@ -90,7 +90,7 @@ namespace FemDesign
             return _cover;
         } 
 
-        public static Cover OneWayCover(Geometry.Region region, List<FemDesign.GenericClasses.IStructureElement> supportingStructures, Geometry.FdVector3d loadBearingDirection, string identifier)
+        public static Cover OneWayCover(Geometry.Region region, List<FemDesign.GenericClasses.IStructureElement> supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             // get supportingStructures.guid
             CoverReferenceList _supportingStructures = CoverReferenceList.FromObjectList(supportingStructures);

@@ -130,15 +130,15 @@ namespace FemDesign.Results
             var loadCases = nodalDisplacements.Select(n => n.CaseIdentifier).Distinct().ToList();
 
             // Create a Rhino Vector for Displacement and Rotation
-            var translation = new List<FemDesign.Geometry.FdVector3d>();
-            var rotation = new List<FemDesign.Geometry.FdVector3d>();
+            var translation = new List<FemDesign.Geometry.Vector3d>();
+            var rotation = new List<FemDesign.Geometry.Vector3d>();
 
             foreach (var nodeDisp in nodalDisplacements)
             {
-                var transVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
+                var transVector = new FemDesign.Geometry.Vector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
                 translation.Add(transVector);
 
-                var rotVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
+                var rotVector = new FemDesign.Geometry.Vector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
                 rotation.Add(rotVector);
             }
 

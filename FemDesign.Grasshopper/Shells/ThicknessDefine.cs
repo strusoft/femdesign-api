@@ -35,7 +35,7 @@ namespace FemDesign.Grasshopper
             }
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
 
             //
             FemDesign.Shells.Thickness obj = new FemDesign.Shells.Thickness(fdPoint, val);

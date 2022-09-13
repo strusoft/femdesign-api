@@ -206,9 +206,9 @@ namespace FemDesign.Bars
         /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null/end</param>
         /// <param name="endConnectivity">Connectivity. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(FemDesign.Geometry.FdPoint3d startPoint, FemDesign.Geometry.FdPoint3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.FdVector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
+        public Bar(FemDesign.Geometry.Point3d startPoint, FemDesign.Geometry.Point3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.Vector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
         {
-            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.FdVector3d.UnitZ);
+            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.Vector3d.UnitZ);
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, orientY);
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
@@ -235,13 +235,13 @@ namespace FemDesign.Bars
         /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
         /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public static Bar SimpleBeam(double length, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        public static Bar SimpleBeam(double length, Materials.Material material, Sections.Section section, Geometry.Vector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
             var bar = new Bar();
 
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin;
-            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(length, 0.0, 0.0);
-            localY = localY ?? Geometry.FdVector3d.UnitY;
+            Geometry.Point3d startPoint = Geometry.Point3d.Origin;
+            Geometry.Point3d endPoint = new Geometry.Point3d(length, 0.0, 0.0);
+            localY = localY ?? Geometry.Vector3d.UnitY;
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
             var type = BarType.Beam;
 
@@ -266,13 +266,13 @@ namespace FemDesign.Bars
         /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
         /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public static Bar SimpleColumn(double height, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        public static Bar SimpleColumn(double height, Materials.Material material, Sections.Section section, Geometry.Vector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
             var bar = new Bar();
 
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin;
-            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(0.0, 0.0, height);
-            localY = localY ?? Geometry.FdVector3d.UnitY;
+            Geometry.Point3d startPoint = Geometry.Point3d.Origin;
+            Geometry.Point3d endPoint = new Geometry.Point3d(0.0, 0.0, height);
+            localY = localY ?? Geometry.Vector3d.UnitY;
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
             var type = BarType.Column;
 

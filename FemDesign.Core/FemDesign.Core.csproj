@@ -151,11 +151,11 @@
     <Compile Include="Geometry\Contour.cs" />
     <Compile Include="Geometry\Degree.cs" />
     <Compile Include="Geometry\Edge.cs" />
-    <Compile Include="Geometry\FdCoordinateSystem.cs" />
-    <Compile Include="Geometry\FdPoint2d.cs" />
-    <Compile Include="Geometry\FdPoint3d.cs" />
-    <Compile Include="Geometry\FdVector2d.cs" />
-    <Compile Include="Geometry\FdVector3d.cs" />
+    <Compile Include="Geometry\CoordinateSystem.cs" />
+    <Compile Include="Geometry\Point2d.cs" />
+    <Compile Include="Geometry\Point3d.cs" />
+    <Compile Include="Geometry\Vector2d.cs" />
+    <Compile Include="Geometry\Vector3d.cs" />
     <Compile Include="Geometry\RectangleType.cs" />
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />

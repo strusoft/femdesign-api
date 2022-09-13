@@ -15,7 +15,7 @@ namespace FemDesign.Geometry
 
         }
 
-        public CircleEdge(double radius, FdPoint3d centerPoint, FdCoordinateSystem coordinateSystem) : base(radius, centerPoint, coordinateSystem)
+        public CircleEdge(double radius, Point3d centerPoint, CoordinateSystem coordinateSystem) : base(radius, centerPoint, coordinateSystem)
         {
         }
 

@@ -64,8 +64,8 @@ namespace FemDesign.Grasshopper
             }
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d p = origo.FromRhino();
-            FemDesign.Geometry.FdVector3d v = direction.FromRhino();
+            FemDesign.Geometry.Point3d p = origo.FromRhino();
+            FemDesign.Geometry.Vector3d v = direction.FromRhino();
 
             // return
             FemDesign.StructureGrid.Storey obj = new FemDesign.StructureGrid.Storey(p, v, dimX, dimY, name);

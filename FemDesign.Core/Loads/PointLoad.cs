@@ -11,7 +11,7 @@ namespace FemDesign.Loads
     public partial class PointLoad: ForceLoadBase
     {
         [XmlElement("direction")]
-        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
+        public Geometry.Vector3d Direction { get; set; } // point_type_3d
         [XmlElement("load")]
         public LoadLocationValue Load { get; set; } // location_value
 
@@ -26,7 +26,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor accessed by static methods.
         /// </summary>
-        public PointLoad(Geometry.FdPoint3d point, Geometry.FdVector3d force, LoadCase loadCase, string comment, ForceLoadType type)
+        public PointLoad(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
