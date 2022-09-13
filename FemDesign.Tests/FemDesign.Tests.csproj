@@ -79,6 +79,7 @@
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Materials\MaterialDatabaseTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
+    <Compile Include="Performance\BeamGeneration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\BarDisplacementTests.cs" />
     <Compile Include="Results\BarInternalForcesTest.cs" />
@@ -111,6 +112,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Performance\materials.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Performance\sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
