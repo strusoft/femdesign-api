@@ -94,7 +94,7 @@ namespace FemDesign.Supports
         /// <param name="identifier"></param>
         public PointSupport(FdPoint3d point, Motions motions, Rotations rotations, string identifier = "S")
         {
-            var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, rotations);
+            var group = new Group(FdVector3d.UnitX, FdVector3d.UnitY, motions, rotations);
             Initialize(point, group, identifier);
         }
 
@@ -109,7 +109,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public PointSupport(FdCoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
-            var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            var group = new Group(FdVector3d.UnitX, FdVector3d.UnitY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(plane, group, identifier);
         }
 

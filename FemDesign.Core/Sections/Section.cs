@@ -22,7 +22,7 @@ namespace FemDesign.Sections
             set
             {
                 
-                Geometry.FdVector3d unitZ = Geometry.FdVector3d.UnitZ();
+                Geometry.FdVector3d unitZ = Geometry.FdVector3d.UnitZ;
                 foreach(Geometry.Region region in value.Regions)
                 {
                     // check normal

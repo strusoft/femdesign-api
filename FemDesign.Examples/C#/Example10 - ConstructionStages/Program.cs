@@ -29,9 +29,9 @@ namespace FemDesign.Examples
             var p3 = new Geometry.FdPoint3d(2.5, 2.5, 0);
 
             // Create elements
-            var edge1 = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
-            var edge2 = new Geometry.Edge(p2, p3, Geometry.FdVector3d.UnitZ());
-            var edge3 = new Geometry.Edge(p3, p1, Geometry.FdVector3d.UnitZ());
+            var edge1 = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ);
+            var edge2 = new Geometry.Edge(p2, p3, Geometry.FdVector3d.UnitZ);
+            var edge3 = new Geometry.Edge(p3, p1, Geometry.FdVector3d.UnitZ);
 
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");

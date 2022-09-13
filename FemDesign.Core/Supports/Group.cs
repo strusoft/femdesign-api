@@ -22,7 +22,7 @@ namespace FemDesign.Supports
                 // if deserialized from file the cooridnate system element does not exist and has to be created from local x and local y fields.
                 if (this._coordinateSystem == null)
                 {
-                    this._coordinateSystem = new Geometry.FdCoordinateSystem(Geometry.FdPoint3d.Origin(), this._localX, this._localY);
+                    this._coordinateSystem = new Geometry.FdCoordinateSystem(Geometry.FdPoint3d.Origin, this._localX, this._localY);
                     return this._coordinateSystem;
                 }
                 else

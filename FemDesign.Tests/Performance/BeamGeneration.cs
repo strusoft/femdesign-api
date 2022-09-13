@@ -35,7 +35,7 @@ namespace FemDesign.Performance
             {
                 var startPoint = new FdPoint3d(0, i, 0);
                 var endPoint = new FdPoint3d(5 , i, 0);
-                var edge = new LineEdge(startPoint, endPoint, FdVector3d.UnitY());
+                var edge = new LineEdge(startPoint, endPoint, FdVector3d.UnitY);
 
                 var bar = new Bars.Bar(
                     edge,
@@ -45,7 +45,7 @@ namespace FemDesign.Performance
                     connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
                     eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
                     identifier: "B");
-                bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
+                bar.BarPart.LocalY = Geometry.FdVector3d.UnitY;
 
                 elements.Add(bar);
             }

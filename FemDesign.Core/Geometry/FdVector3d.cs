@@ -16,6 +16,12 @@ namespace FemDesign.Geometry
         [XmlAttribute("z")]
         public double Z { get; set; }
 
+        public static FdVector3d UnitX => new FdVector3d(1, 0, 0);
+        public static FdVector3d UnitY => new FdVector3d(0, 1, 0);
+        public static FdVector3d UnitZ => new FdVector3d(0, 0, 1);
+        public static FdVector3d ZeroLength => new FdVector3d(0, 0, 0);
+
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -79,32 +85,6 @@ namespace FemDesign.Geometry
         /// </summary>
         public static FdVector3d operator *(double n, FdVector3d v) => new FdVector3d(n * v.X, n * v.Y, n * v.Z);
 
-        /// <summary>
-        /// Returns the unit x vector.
-        /// </summary>
-        /// <returns></returns>
-        public static FdVector3d UnitX()
-        {
-            return new FdVector3d(1, 0, 0);
-        }
-        
-        /// <summary>
-        /// Returns the unit y vector.
-        /// </summary>
-        /// <returns></returns>
-        public static FdVector3d UnitY()
-        {
-            return new FdVector3d(0, 1, 0);
-        }
-        
-        /// <summary>
-        /// Return the unit z vector.
-        /// </summary>
-        /// <returns></returns>
-        public static FdVector3d UnitZ()
-        {
-            return new FdVector3d(0, 0, 1);
-        }
 
         /// <summary>
         /// Calculate length of FdVector3d.

@@ -208,7 +208,7 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier</param>
         public Bar(FemDesign.Geometry.FdPoint3d startPoint, FemDesign.Geometry.FdPoint3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.FdVector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
         {
-            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.FdVector3d.UnitZ());
+            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.FdVector3d.UnitZ);
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, orientY);
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
@@ -239,9 +239,9 @@ namespace FemDesign.Bars
         {
             var bar = new Bar();
 
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
+            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin;
             Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(length, 0.0, 0.0);
-            localY = localY ?? Geometry.FdVector3d.UnitY();
+            localY = localY ?? Geometry.FdVector3d.UnitY;
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
             var type = BarType.Beam;
 
@@ -270,9 +270,9 @@ namespace FemDesign.Bars
         {
             var bar = new Bar();
 
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
+            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin;
             Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(0.0, 0.0, height);
-            localY = localY ?? Geometry.FdVector3d.UnitY();
+            localY = localY ?? Geometry.FdVector3d.UnitY;
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
             var type = BarType.Column;
 

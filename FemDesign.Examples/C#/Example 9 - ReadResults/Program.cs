@@ -28,7 +28,7 @@ namespace FemDesign.Examples
 
 
             // Create elements
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ);
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
@@ -43,7 +43,7 @@ namespace FemDesign.Examples
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
                 identifier: "B");
-            bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
+            bar.BarPart.LocalY = Geometry.FdVector3d.UnitY;
             var elements = new List<GenericClasses.IStructureElement>() { bar };
             #endregion
 

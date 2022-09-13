@@ -22,7 +22,7 @@ namespace FemDesign.Examples
             // DEFINE GEOMETRY
             var p1 = new Geometry.FdPoint3d(0.0, 2.0, 0);
             var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitY());
+            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitY);
 
             // CREATE BEAM
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");

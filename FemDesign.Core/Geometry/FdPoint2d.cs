@@ -13,6 +13,8 @@ namespace FemDesign.Geometry
         [XmlAttribute("y")]
         public double Y { get; set; }
 
+        public static FdPoint2d Origin => new FdPoint2d(0, 0);
+
         /// <summary>
         /// Parameterless constructor for
         /// </summary>

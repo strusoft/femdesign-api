@@ -175,8 +175,8 @@ namespace FemDesign.ModellingTools
                 firstPoint,
                 secondPoint
             };
-            this.LocalX = FdVector3d.UnitX();
-            this.LocalY = FdVector3d.UnitY();
+            this.LocalX = FdVector3d.UnitX;
+            this.LocalY = FdVector3d.UnitY;
             this.Rigidity = rigidity;
             this.References = references;
             this.Identifier = identifier;

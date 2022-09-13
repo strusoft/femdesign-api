@@ -140,7 +140,7 @@ namespace FemDesign.Geometry
         /// </summary>
         public static FdCoordinateSystem Global()
         {
-            return new FdCoordinateSystem(FdPoint3d.Origin(), FdVector3d.UnitX(), FdVector3d.UnitY());
+            return new FdCoordinateSystem(FdPoint3d.Origin, FdVector3d.UnitX, FdVector3d.UnitY);
         }
 
         /// <summary>
@@ -255,16 +255,16 @@ namespace FemDesign.Geometry
             if (this.IsComplete())
             {
                 // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.LocalX.Parallel(Geometry.FdVector3d.UnitZ());
+                int par = this.LocalX.Parallel(Geometry.FdVector3d.UnitZ);
                 if (par == 1 || par == -1)
                 {
-                    this.SetYAroundX(FdVector3d.UnitY());
+                    this.SetYAroundX(FdVector3d.UnitY);
                 }
 
                 // else set (rotate) LocalY to UnitZ cross LocalX
                 else
                 {
-                    this.SetYAroundX(FdVector3d.UnitZ().Cross(this.LocalX).Normalize());
+                    this.SetYAroundX(FdVector3d.UnitZ.Cross(this.LocalX).Normalize());
                 }
             }
 
@@ -281,13 +281,13 @@ namespace FemDesign.Geometry
         /// </summary>
         public void OrientPlaneTypeLcsToGcs()
         {
-            double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ());
+            double dot = this.LocalZ.Normalize().Dot(FdVector3d.UnitZ);
             if (dot == 1)
             {
                 // the plane is horisontal and z' is equal to Z
 
                 // set x' to X
-                this.SetXAroundZ(FdVector3d.UnitX());
+                this.SetXAroundZ(FdVector3d.UnitX);
             }
             else if (dot < 1 && dot > 0)
             {
@@ -301,7 +301,7 @@ namespace FemDesign.Geometry
                 // the plane is vertical 
 
                 // set y' to Z. This is the equivalent as setting x' to the cross-product of z' and Z in this case.
-                this.SetYAroundZ(FdVector3d.UnitZ());
+                this.SetYAroundZ(FdVector3d.UnitZ);
             }
             else if (dot < 0 && dot > -1)
             {
@@ -336,7 +336,7 @@ namespace FemDesign.Geometry
         /// <param name="point"></param>
         public static implicit operator FdCoordinateSystem(FdPoint3d point)
         {
-            var plane = new FdCoordinateSystem(point, FdVector3d.UnitX(), FdVector3d.UnitY());
+            var plane = new FdCoordinateSystem(point, FdVector3d.UnitX, FdVector3d.UnitY);
             return plane;
         }
     }

@@ -17,6 +17,11 @@ namespace FemDesign.Geometry
         public double Z;
 
         /// <summary>
+        /// Construct FdPoint3d in origin
+        /// </summary>
+        public static FdPoint3d Origin => new FdPoint3d(0, 0, 0);
+
+        /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
         public FdPoint3d()
@@ -54,13 +59,6 @@ namespace FemDesign.Geometry
         /// </summary>
         public static FdVector3d operator -(FdPoint3d v1, FdPoint3d v2) => new FdVector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
 
-        /// <summary>
-        /// Construct FdPoint3d in origin
-        /// </summary>
-        public static FdPoint3d Origin()
-        {
-            return new FdPoint3d(0,0,0);
-        }
 
         /// <summary>
         /// Translate a point by a vector.

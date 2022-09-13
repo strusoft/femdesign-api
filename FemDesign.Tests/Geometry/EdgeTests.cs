@@ -71,7 +71,7 @@ namespace FemDesign.Geometry.EdgeTests
         [TestMethod("X-Axis")]
         public void XAxis()
         {
-            var edge = new Edge(FdPoint3d.Origin(), new FdPoint3d(1, 1, 0), FdVector3d.UnitZ());
+            var edge = new Edge(FdPoint3d.Origin, new FdPoint3d(1, 1, 0), FdVector3d.UnitZ);
             var direction = edge.XAxis.Normalize();
         }
     }
