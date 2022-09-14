@@ -92,8 +92,8 @@
     <Compile Include="Results\FeaNodeTests.cs" />
     <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactorTests.cs" />
-    <Compile Include="Results\LineSupportResultantTests.cs" />
-    <Compile Include="Results\LineSupportReactionTests.cs" />
+    <Compile Include="Results\Support\LineSupportResultantTests.cs" />
+    <Compile Include="Results\Support\LineSupportReactionTests.cs" />
     <Compile Include="Results\QuantityEstimationConcreteTests.cs" />
     <Compile Include="Results\QuantityEstimationProfiledPlateTests.cs" />
     <Compile Include="Results\QuantityEstimationMasonryTests.cs" />
@@ -103,6 +103,7 @@
     <Compile Include="Results\ShellDerivedForceTests.cs" />
     <Compile Include="Results\ShellsDisplacementTests.cs" />
     <Compile Include="Results\ShellsStressTests.cs" />
+    <Compile Include="Results\Support\PointSupportReactionTests.cs" />
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
