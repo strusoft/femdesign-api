@@ -99,7 +99,8 @@ namespace FemDesign.Results
 
         public override string ToString()
         {
-            return ResultsReader.ObjectRepresentation(this);
+            return $"{this.GetType().Name}, Max: {this.Max}, Id: {this.Id}, NodeId: {this.NodeId}, Pos: ({this.X}, {this.Y}, {this.Z}), Force: ({this.Fx}, {this.Fy}, {this.Fz}), Moment: ({this.Mx}, {this.My}, {this.Mz}), Fr: {this.Fr}, Mr: {this.Mr}, CaseIdentifier: {this.CaseIdentifier}";
+
         }
 
         internal static Regex IdentificationExpression
