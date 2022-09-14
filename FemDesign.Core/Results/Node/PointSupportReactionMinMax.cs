@@ -134,7 +134,7 @@ namespace FemDesign.Results
             double mz = Double.Parse(row[11], CultureInfo.InvariantCulture);
             double fr = Double.Parse(row[12], CultureInfo.InvariantCulture);
             double mr = Double.Parse(row[13], CultureInfo.InvariantCulture);
-            string lc = HeaderData["casename"];
+            string lc = row[14];
             return new PointSupportReactionMinMax(max, supportname, x, y, z, nodeId, fx, fy, fz, mx, my, mz, fr, mr, lc);
         }
     }

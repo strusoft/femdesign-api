@@ -132,6 +132,7 @@
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\NodalVibration.cs" />
+    <Compile Include="Results\PointSupportReactionMinMax.cs" />
     <Compile Include="Results\Quantities\ReinforcementQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\TimberPanelQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\ConcreteQuantityEstimation.cs" />
