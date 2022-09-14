@@ -39,7 +39,7 @@ https://wiki.fem-design.strusoft.com/xwiki/bin/view/FEM-Design%20API/Python/API%
 ## Maintenance
 The examples and samples here are created and mainatained by StruSoft. 
 ## Questions and feedback
-If you have any questions regarding the examples and how they work, feel free to contact us. We also welcome any feedback, as well as suggestions for future examples. You can reach us at femdesign.api@strusoft.com.
+If you have any questions regarding the examples and how they work, feel free to contact us. We also welcome any feedback, as well as suggestions for future examples. You can reach us at support@strusoft.freshdesk.com or at https://strusoft.freshdesk.com/en/support/tickets/new.
 
 ## Disclaimer
 Any and all sample and example files are for educational purposes, and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Additionally, as part of the Maintenance policy, we cannot guarantee that all files will be up to date at all times.
