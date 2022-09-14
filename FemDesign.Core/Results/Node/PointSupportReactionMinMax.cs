@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
+using FemDesign.Calculate;
 
 
 namespace FemDesign.Results
@@ -13,6 +14,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Point support group, Reactions" result
     /// </summary>
+    [Result(typeof(PointSupportReactionMinMax), ListProc.PointSupportReactionsMaxOfLoadCombinationMinMax)]
     public partial class PointSupportReactionMinMax : IResult
     {
         /// <summary>
