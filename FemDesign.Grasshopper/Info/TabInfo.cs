@@ -44,7 +44,7 @@ namespace FemDesign.Info
         public override string AuthorName => "StruSoft";
 
         //Return a string representing your preferred contact details.
-        public override string AuthorContact => "femdesign.api@strusoft.com";
+        public override string AuthorContact => "";
 
 
         public override string AssemblyVersion
