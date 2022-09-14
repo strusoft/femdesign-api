@@ -13,16 +13,16 @@ namespace FemDesign.ModellingTools
         private static int Instance = 0;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem _coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.CoordinateSystem CoordinateSystem
         {
             get
             {
                 if (this._coordinateSystem == null)
                 {
-                    this._coordinateSystem = new Geometry.FdCoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalY);
+                    this._coordinateSystem = new Geometry.CoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalY);
                     return this._coordinateSystem;
                 }
                 else
@@ -55,9 +55,9 @@ namespace FemDesign.ModellingTools
         }
         
         [XmlElement("local_pos", Order=2)]
-        public Geometry.FdPoint3d _localOrigin;
+        public Geometry.Point3d _localOrigin;
         [XmlIgnore]
-        public Geometry.FdPoint3d LocalOrigin
+        public Geometry.Point3d LocalOrigin
         {
             get
             {
@@ -71,9 +71,9 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlElement("local_x", Order=3)]
-        public Geometry.FdVector3d _localX;
+        public Geometry.Vector3d _localX;
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -88,9 +88,9 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlElement("local_y", Order=4)]
-        public Geometry.FdVector3d _localY;
+        public Geometry.Vector3d _localY;
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -105,7 +105,7 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {

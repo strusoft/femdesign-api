@@ -45,9 +45,6 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static ShellOrthotropy GetDefault()
-        {
-            return new ShellOrthotropy(0, 1);
-        }
+        public static ShellOrthotropy Default => new ShellOrthotropy(0, 1);
     }
 }

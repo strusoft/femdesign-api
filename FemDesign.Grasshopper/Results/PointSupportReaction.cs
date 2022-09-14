@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("PointSupportReaction",
                 "PointSupportReaction",
                 "Read the nodal reaction forces",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -77,9 +76,9 @@ namespace FemDesign.Grasshopper
             var loadCases = (List<string>)result["CaseIdentifier"];
             var identifier = (List<string>)result["Identifier"];
             var nodeId = (List<int>)result["NodeId"];
-            var iPos = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
-            var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
-            var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
+            var iPos = (List<FemDesign.Geometry.Point3d>)result["Position"];
+            var iReactionForce = (List<FemDesign.Geometry.Vector3d>)result["ReactionForce"];
+            var iReactionMoment = (List<FemDesign.Geometry.Vector3d>)result["ReactionMoment"];
             var iForceResultant = (List<double>)result["ForceResultant"];
             var iMomentResultant = (List<double>)result["MomentResultant"];
 

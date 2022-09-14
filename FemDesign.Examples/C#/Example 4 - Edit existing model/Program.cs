@@ -50,7 +50,7 @@ namespace FemDesign.Examples
                 if (Math.Abs(tempBar.BarPart.Edge.Points[1].Z - zCoord) < Tolerance.LengthComparison)
                 {
                     var tempSupport = new Supports.PointSupport(
-                        point: new Geometry.FdPoint3d(tempBar.BarPart.Edge.Points[1].X, tempBar.BarPart.Edge.Points[1].Y, zCoord),
+                        point: new Geometry.Point3d(tempBar.BarPart.Edge.Points[1].X, tempBar.BarPart.Edge.Points[1].Y, zCoord),
                         motions: Releases.Motions.RigidPoint(),
                         rotations: Releases.Rotations.Free()
                         );

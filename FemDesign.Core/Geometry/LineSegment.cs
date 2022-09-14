@@ -12,16 +12,16 @@ namespace FemDesign.Geometry
     public partial class LineSegment
     {
         [XmlElement("start_point")]
-        public FdPoint3d StartPoint;
+        public Point3d StartPoint;
         [XmlElement("base_point")]
-        public FdPoint3d BasePoint;
+        public Point3d BasePoint;
         [XmlElement("end_point")]
-        public FdPoint3d EndPoint;
+        public Point3d EndPoint;
 
         [XmlIgnore]
-        public List<FdPoint3d> Verticies { 
+        public List<Point3d> Verticies { 
             get {
-                return new List<FdPoint3d>() { StartPoint, EndPoint };
+                return new List<Point3d>() { StartPoint, EndPoint };
             } 
         }
 
@@ -37,10 +37,10 @@ namespace FemDesign.Geometry
         /// Construct LineSegment from start and endpoint.
         /// </summary>
         /// <param name="verticies"></param>
-        public LineSegment(FdPoint3d start, FdPoint3d end)
+        public LineSegment(Point3d start, Point3d end)
         {
             this.StartPoint = start;
-            this.BasePoint = new FdPoint3d((start.X + end.X) / 2.0, (start.Y + end.Y) / 2.0, (start.Z + end.Z) / 2.0);
+            this.BasePoint = new Point3d((start.X + end.X) / 2.0, (start.Y + end.Y) / 2.0, (start.Z + end.Z) / 2.0);
             this.EndPoint = end;
         }
     }

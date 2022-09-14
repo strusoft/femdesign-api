@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsConnectivityDefineSemiRigid: GH_Component
     {
-        public BarsConnectivityDefineSemiRigid(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", "FEM-Design", "Bars")
+        public BarsConnectivityDefineSemiRigid(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }
@@ -34,7 +35,7 @@ namespace FemDesign.Grasshopper
         {
             // get indata
             bool mx = false, my = false, mz = false, rx = false, ry = false, rz = false;
-            double mxRelease = 0, myRelease = 0, mzRelease = 0, rxRelease = 0, ryRelease = 0, rzRelease = 0;
+            double mxRelease = 0.00, myRelease = 0.00, mzRelease = 0.00, rxRelease = 0.00, ryRelease = 0.00, rzRelease = 0.00;
             if (!DA.GetData(0, ref mxRelease))
             {
                 mx = true;

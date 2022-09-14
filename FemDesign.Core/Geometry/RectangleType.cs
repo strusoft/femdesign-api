@@ -10,13 +10,13 @@ namespace FemDesign.Geometry
     public partial class RectangleType
     {
         [XmlElement("base_corner", Order = 1)]
-        public FdPoint3d BaseCorner { get; set; }
+        public Point3d BaseCorner { get; set; }
 
         [XmlElement("x_direction", Order = 2)]
-        public FdVector3d LocalX { get; set; }
+        public Vector3d LocalX { get; set; }
 
         [XmlElement("y_direction", Order = 3)]
-        public FdVector3d LocalY { get; set; }
+        public Vector3d LocalY { get; set; }
 
         [XmlAttribute("x_size")]
         public double DimX {get; set; }

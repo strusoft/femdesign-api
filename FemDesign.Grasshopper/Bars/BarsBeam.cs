@@ -9,7 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeam : GH_Component
     {
-        public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.", "FEM-Design", "Bars")
+        public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
+            CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }
@@ -57,13 +59,13 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivities))
             {
-                connectivities = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.GetRigid() };
+                connectivities = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.Rigid };
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (!DA.GetDataList(4, eccentricities))
             {
-                eccentricities = new List<Bars.Eccentricity> { FemDesign.Bars.Eccentricity.GetDefault() };
+                eccentricities = new List<Bars.Eccentricity> { FemDesign.Bars.Eccentricity.Default };
             }
 
             Vector3d v = Vector3d.Zero;

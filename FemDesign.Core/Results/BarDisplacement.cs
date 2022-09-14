@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Bars, Displacements" result
     /// </summary>
-
+    [Result(typeof(BarDisplacement), ListProc.BarsDisplacementsLoadCase, ListProc.BarsDisplacementsLoadCombination)]
     public partial class BarDisplacement : IResult
     {
         /// <summary>
@@ -135,15 +136,15 @@ namespace FemDesign.Results
             var localPosition = barDisplacements.Select(n => n.Pos).ToList();
 
             // Create a Rhino Vector for Displacement and Rotation
-            var translation = new List<FemDesign.Geometry.FdVector3d>();
-            var rotation = new List<FemDesign.Geometry.FdVector3d>();
+            var translation = new List<FemDesign.Geometry.Vector3d>();
+            var rotation = new List<FemDesign.Geometry.Vector3d>();
 
             foreach (var nodeDisp in barDisplacements)
             {
-                var transVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
+                var transVector = new FemDesign.Geometry.Vector3d(nodeDisp.Ex, nodeDisp.Ey, nodeDisp.Ez);
                 translation.Add(transVector);
 
-                var rotVector = new FemDesign.Geometry.FdVector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
+                var rotVector = new FemDesign.Geometry.Vector3d(nodeDisp.Fix, nodeDisp.Fiy, nodeDisp.Fiz);
                 rotation.Add(rotVector);
             }
 

@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("ShellDisplacement",
                 "ShellDisplacement",
                 "Read the shell displacement for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -75,8 +74,8 @@ namespace FemDesign.Grasshopper
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int?>)result["NodeId"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
 
             var uniqueLoadCase = loadCases.Distinct().ToList();

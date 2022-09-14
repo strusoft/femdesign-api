@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineTemperatureLoadDefine: GH_Component
     {
-        public LineTemperatureLoadDefine(): base("LineTemperatureLoad.Define", "Define", "Define a surface temperature load", "FEM-Design", "Loads")
+        public LineTemperatureLoadDefine(): base("LineTemperatureLoad.Define", "Define", "Define a surface temperature load", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
 
             // convert geometry
             Geometry.Edge edge = crv.FromRhinoLineOrArc1();
-            Geometry.FdVector3d v = dir.FromRhino();
+            Geometry.Vector3d v = dir.FromRhino();
 
             // create obj
             Loads.LineTemperatureLoad obj = new Loads.LineTemperatureLoad(edge, v, vals, lc, comment);

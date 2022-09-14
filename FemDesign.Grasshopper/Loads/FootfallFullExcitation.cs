@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class FootfallFullExcitation : GH_Component
     {
-        public FootfallFullExcitation() : base("Footfall.FullExcitation", "FullExcitation", "Create a footfall full excitation point.", "FEM-Design", "Loads")
+        public FootfallFullExcitation() : base("Footfall.FullExcitation", "FullExcitation", "Create a footfall full excitation point.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -35,7 +35,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(2, ref comment)) { /* Pass */}
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
 
             // Create a Footfall full excitation
             var obj = new Loads.Footfall(fdPoint, identifier, comment);

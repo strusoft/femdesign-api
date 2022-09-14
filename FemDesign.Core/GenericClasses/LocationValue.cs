@@ -8,7 +8,7 @@ namespace FemDesign
     /// location_value_type
     /// </summary>
     [System.Serializable]
-    public partial class LocationValue: Geometry.FdPoint3d
+    public partial class LocationValue: Geometry.Point3d
     {
         /// <summary>
         /// Value.
@@ -33,9 +33,9 @@ namespace FemDesign
         /// <summary>
         /// Convert coordinates of LocationValue to FdPoint.
         /// </summary>
-        public Geometry.FdPoint3d GetFdPoint()
+        public Geometry.Point3d GetFdPoint()
         {
-            return new Geometry.FdPoint3d(this.X, this.Y, this.Z);
+            return new Geometry.Point3d(this.X, this.Y, this.Z);
         }
     }
 }

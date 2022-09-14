@@ -22,13 +22,13 @@ namespace FemDesign.Examples
 
 
             // Define geometry
-            var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
-            var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
-            var p3 = new Geometry.FdPoint3d(4.0, 2.0, 0);
+            var p1 = new Geometry.Point3d(2.0, 2.0, 0);
+            var p2 = new Geometry.Point3d(10, 2.0, 0);
+            var p3 = new Geometry.Point3d(4.0, 2.0, 0);
             var mid = p1 + (p2 - p1) * 0.5;
 
             // Create elements
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            var edge = new Geometry.Edge(p1, p2, Geometry.Vector3d.UnitZ);
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
@@ -40,10 +40,10 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
-            bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
+            bar.BarPart.LocalY = Geometry.Vector3d.UnitY;
             var elements = new List<GenericClasses.IStructureElement>() { bar };
 
 
@@ -85,11 +85,11 @@ namespace FemDesign.Examples
 
 
             // Create loads
-            var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
+            var pointForce = new Loads.PointLoad(mid, new Geometry.Vector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
+            var pointMoment = new Loads.PointLoad(p2, new Geometry.Vector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
 
-            var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
-            var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
+            var lineLoadStart = new Geometry.Vector3d(0.0, 0.0, -2.0);
+            var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, Loads.ForceLoadType.Force, "", constLoadDir: true, loadProjection: true);
 
             var obj = new FemDesign.Loads.MassConversionTable(new List<double>() { 1.0 }, new List<Loads.LoadCase>() { deadload });
@@ -119,7 +119,7 @@ namespace FemDesign.Examples
 
 
             // Define Result to be extract
-            var results = new List<Results.ResultType>() { Results.ResultType.NodalDisplacement };
+            var results = new List<Type>() { typeof(Results.BarDisplacement) };
 
             // Run a specific analysis
             model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);

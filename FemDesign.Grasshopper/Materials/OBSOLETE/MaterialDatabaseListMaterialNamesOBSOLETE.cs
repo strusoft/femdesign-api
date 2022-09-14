@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
         public MaterialDatabaseListMaterialNamesOBSOLETE()
           : base("MaterialDatabase.ListMaterialNames", "ListMaterialNames",
               "Lists the names of all Materials in MaterialDatabase.",
-              "FEM-Design", "Materials")
+              CategoryName.Name(), SubCategoryName.Cat4a())
         { 
 
         }

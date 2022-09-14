@@ -8,7 +8,7 @@ namespace FemDesign.Shells
     public partial class ShellBucklingType: EntityBase
     {
         [XmlElement("direction", Order = 1)]
-        public Geometry.FdVector3d LocalX { get; set; }
+        public Geometry.Vector3d LocalX { get; set; }
 
         [XmlElement("contour", Order = 2)]
         public Geometry.Contour Contour { get; set; }

@@ -16,10 +16,10 @@ namespace FemDesign.ModellingTools
         public Geometry.Edge Edge { get; set; }
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem _coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.CoordinateSystem CoordinateSystem
         {
             get
             {
@@ -41,7 +41,7 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlIgnore]
-        public Geometry.FdPoint3d LocalOrigin
+        public Geometry.Point3d LocalOrigin
         {
             get
             {
@@ -50,7 +50,7 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -59,10 +59,10 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlElement("local-y", Order = 2)]
-        public Geometry.FdVector3d _localY;
+        public Geometry.Vector3d _localY;
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -76,7 +76,7 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -205,7 +205,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public FictitiousBar(Geometry.Edge edge, Geometry.FdVector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
+        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
         {
             this.EntityCreated();
             this.Edge = edge;

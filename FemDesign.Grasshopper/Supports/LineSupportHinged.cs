@@ -7,7 +7,9 @@ namespace FemDesign.Grasshopper
 {
     public class LineSupportHinged: GH_Component
     {
-        public LineSupportHinged(): base("LineSupport.Hinged", "Hinged", "Create a Hinged LineSupport element.", "FEM-Design", "Supports")
+        public LineSupportHinged(): base("LineSupport.Hinged", "Hinged", "Create a Hinged LineSupport element.",
+            CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }

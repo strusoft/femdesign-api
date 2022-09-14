@@ -201,6 +201,28 @@ namespace FemDesign.Bars
             }
         }
 
+        public bool IsRigid
+        {
+            get
+            {
+                if(this.Mx && this.My && this.Mz && this.Rx && this.Ry && this.Rz)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public bool IsHinged
+        {
+            get
+            {
+                if (this.Mx && this.My && this.Mz && this.Rx && this.Ry == false && this.Rz == false)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -263,28 +285,43 @@ namespace FemDesign.Bars
         /// Define default (rigid) releases for a bar-element.
         /// </summary>
         /// <returns></returns>
-        public static Connectivity GetDefault()
-        {
-            return Connectivity.GetRigid();
-        }
+        public static Connectivity Default => Connectivity.Rigid;
+
 
         /// <summary>
         /// Define hinged releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity GetHinged()
+        public static Connectivity Hinged
         {
-            Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
-            return connectivity;
+            get
+            {
+                Connectivity connectivity = new Connectivity(true, true, true, true, false, false);
+                return connectivity;
+            }
         }
         /// <summary>
         /// Define rigid releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
-        public static Connectivity GetRigid()
+        public static Connectivity Rigid
         {
-            Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
-            return connectivity;
+            get
+            {
+                    Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
+                    return connectivity;
+
+            }
+        }
+
+        public override string ToString()
+        {
+            if(IsRigid)
+                return $"{this.GetType().Name} Rigid";
+            else if(IsHinged)
+                return $"{this.GetType().Name} Hinged";
+            else
+                return $"{this.GetType().Name} Tx: {this.MxRelease} kN/m, Ty: {this.MyRelease} kN/m, Tz: {this.MzRelease} kN/m, Rx: {this.RxRelease} kNm/rad, Ry: {this.RyRelease} kNm/rad, Rz: {this.RzRelease} kNm/rad";
         }
     }
 }

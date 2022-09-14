@@ -13,16 +13,16 @@ namespace FemDesign.Reinforcement
         public GuidListType[] ConnectedBar { get; set; }
 
         [XmlElement("local_pos", Order = 3)]
-        public Geometry.FdPoint3d LocalPos { get; set; }
+        public Geometry.Point3d LocalPos { get; set; }
 
         [XmlElement("local_x", Order = 4)]
-        public Geometry.FdVector3d LocalX { get; set; }
+        public Geometry.Vector3d LocalX { get; set; }
 
         [XmlElement("local_y", Order = 5)]
-        public Geometry.FdVector3d LocalY { get; set; }
+        public Geometry.Vector3d LocalY { get; set; }
 
         [XmlElement("reference_points_offset", Order = 6)]
-        public Geometry.FdPoint3d RefPointsOffset { get; set; }
+        public Geometry.Point3d RefPointsOffset { get; set; }
 
         [XmlElement("region", Order = 7)]
         public Geometry.Region Region { get; set; }

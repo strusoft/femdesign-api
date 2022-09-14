@@ -127,22 +127,22 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default (rigid) EdgeConnection.
         /// </summary>
-        /// <returns></returns>
-        public static EdgeConnection GetDefault()
-        {
-            return EdgeConnection.GetRigid();
-        }
+        public static EdgeConnection Default => EdgeConnection.Rigid;
 
         /// <summary>
         /// Create a hinged EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static EdgeConnection GetHinged()
+        public static EdgeConnection Hinged
         {
-            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.HingedLine());
-            _shellEdgeConnection.Release = true;
-            return _shellEdgeConnection;
+            get
+            {
+                EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.HingedLine());
+                _shellEdgeConnection.Release = true;
+                return _shellEdgeConnection;
+
+            }
         }
         
         /// <summary>
@@ -150,11 +150,19 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static EdgeConnection GetRigid()
+        public static EdgeConnection Rigid
         {
-            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.RigidLine());
-            _shellEdgeConnection.Release = false;
-            return _shellEdgeConnection;
+            get
+            {
+                EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.RigidLine());
+                _shellEdgeConnection.Release = false;
+                return _shellEdgeConnection;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {this.Rigidity.Motions} {this.Rigidity.Rotations}";
         }
     }
 }

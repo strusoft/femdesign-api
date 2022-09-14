@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("LineSupportReaction",
                 "LineSupportReaction",
                 "Read the line reaction forces",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -78,8 +77,8 @@ namespace FemDesign.Grasshopper
             var identifier = (List<string>)result["Identifier"];
             var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int>)result["NodeId"];
-            var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
-            var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
+            var iReactionForce = (List<FemDesign.Geometry.Vector3d>)result["ReactionForce"];
+            var iReactionMoment = (List<FemDesign.Geometry.Vector3d>)result["ReactionMoment"];
             var iForceResultant = (List<double>)result["ForceResultant"];
             var iMomentResultant = (List<double>)result["MomentResultant"];
 

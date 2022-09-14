@@ -18,7 +18,7 @@ namespace FemDesign.Geometry
         /// <param name="p2">Reference point on line 2</param>
         /// <param name="v2">Direction of line 2</param>
         /// <returns>Parameters t1, t2, where the two lines are the closest to each other</returns>
-        public static (double t1, double t2) LineLineProximity(FdPoint3d p1, FdVector3d v1, FdPoint3d p2, FdVector3d v2)
+        public static (double t1, double t2) LineLineProximity(Point3d p1, Vector3d v1, Point3d p2, Vector3d v2)
         {
             var cp = v1.Cross(v2);
             var n1 = v1.Cross(-cp);
@@ -39,8 +39,8 @@ namespace FemDesign.Geometry
         /// <param name="end1">Second reference point for infinite line 1</param>
         /// <param name="start2">First reference point for infinite line 2</param>
         /// <param name="end2">Second reference point for infinite line 2</param>
-        /// <inheritdoc cref="LineLineProximity(FdPoint3d, FdVector3d, FdPoint3d, FdVector3d)"/>
-        public static (double t1, double t2) LineLineProximity(FdPoint3d start1, FdPoint3d end1, FdPoint3d start2, FdPoint3d end2)
+        /// <inheritdoc cref="LineLineProximity(Point3d, Vector3d, Point3d, Vector3d)"/>
+        public static (double t1, double t2) LineLineProximity(Point3d start1, Point3d end1, Point3d start2, Point3d end2)
         {
             return LineLineProximity(start1, end1 - start1, start2, end2 - start2);
         }

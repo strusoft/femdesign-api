@@ -24,14 +24,14 @@ namespace FemDesign.Examples
             Model model = new Model(Country.S);
 
             // Define geometry
-            var p1 = new Geometry.FdPoint3d(0.0, 0.0, 0);
-            var p2 = new Geometry.FdPoint3d(5.0, 0.0, 0);
-            var p3 = new Geometry.FdPoint3d(2.5, 2.5, 0);
+            var p1 = new Geometry.Point3d(0.0, 0.0, 0);
+            var p2 = new Geometry.Point3d(5.0, 0.0, 0);
+            var p3 = new Geometry.Point3d(2.5, 2.5, 0);
 
             // Create elements
-            var edge1 = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
-            var edge2 = new Geometry.Edge(p2, p3, Geometry.FdVector3d.UnitZ());
-            var edge3 = new Geometry.Edge(p3, p1, Geometry.FdVector3d.UnitZ());
+            var edge1 = new Geometry.Edge(p1, p2, Geometry.Vector3d.UnitZ);
+            var edge2 = new Geometry.Edge(p2, p3, Geometry.Vector3d.UnitZ);
+            var edge3 = new Geometry.Edge(p3, p1, Geometry.Vector3d.UnitZ);
 
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
@@ -44,8 +44,8 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar1.BarPart.LocalY = Geometry.FdVector3d.UnitY();
 
@@ -54,8 +54,8 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar2.BarPart.LocalY = Geometry.FdVector3d.UnitX();
 
@@ -64,8 +64,8 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             //bar3.BarPart.LocalY = Geometry.FdVector3d.UnitX();
 
@@ -113,10 +113,10 @@ namespace FemDesign.Examples
 
 
             // Create loads
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), deadLoadCase, null, Loads.ForceLoadType.Moment);
+            var pointMoment = new Loads.PointLoad(p2, new Geometry.Vector3d(0.0, 5.0, 0.0), deadLoadCase, null, Loads.ForceLoadType.Moment);
 
-            var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
-            var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
+            var lineLoadStart = new Geometry.Vector3d(0.0, 0.0, -2.0);
+            var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = new Loads.LineLoad(edge2, lineLoadStart, lineLoadEnd, windCase, Loads.ForceLoadType.Force, "", constLoadDir: true, loadProjection: true);
 
             var loads = new List<GenericClasses.ILoadElement>() { pointMoment, lineLoad};
@@ -166,7 +166,7 @@ namespace FemDesign.Examples
 
 
             // Define Result to be extract
-            var results = new List<Results.ResultType>() { Results.ResultType.NodalDisplacement };
+            var results = new List<Type>() { typeof(Results.BarDisplacement) };
 
             // Run a specific analysis
             model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);

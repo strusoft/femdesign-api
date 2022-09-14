@@ -19,7 +19,7 @@ namespace FemDesign.Loads
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; } // region_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
+        public Geometry.Vector3d Direction { get; set; } // point_type_3d
         [XmlElement("load", Order = 3)]
         public List<LoadLocationValue> Loads = new List<LoadLocationValue>(); // location_value
         [XmlIgnore]
@@ -50,7 +50,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase"></param>
         /// <param name="loadProjection">False: Intensity meant along action line (eg. dead load). True: Intensity meant perpendicular to direction of load (eg. snow load).</param>
         /// <param name="comment"></param>
-        public SurfaceLoad(Geometry.Region region, Geometry.FdVector3d load, LoadCase loadCase, bool loadProjection = false, string comment = "") : this(region, new List<LoadLocationValue> { new LoadLocationValue(region.Contours[0].Edges[0].Points[0], load.Length()) }, load.Normalize(), loadCase, loadProjection, comment)
+        public SurfaceLoad(Geometry.Region region, Geometry.Vector3d load, LoadCase loadCase, bool loadProjection = false, string comment = "") : this(region, new List<LoadLocationValue> { new LoadLocationValue(region.Contours[0].Edges[0].Points[0], load.Length()) }, load.Normalize(), loadCase, loadProjection, comment)
         {
 
         }
@@ -58,7 +58,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Variable surface load
         /// </summary>
-        public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.FdVector3d loadDirection, LoadCase loadCase, bool loadProjection = false, string comment = "")
+        public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.Vector3d loadDirection, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
@@ -83,7 +83,7 @@ namespace FemDesign.Loads
         /// <param name="loadProjection">False: Intensity meant along action line (eg. dead load). True: Intensity meant perpendicular to direction of load (eg. snow load).</param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        public static SurfaceLoad Uniform(Geometry.Region region, Geometry.FdVector3d force, LoadCase loadCase, bool loadProjection = false, string comment = "")
+        public static SurfaceLoad Uniform(Geometry.Region region, Geometry.Vector3d force, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             return  new SurfaceLoad(region, force, loadCase, loadProjection, comment);
         }
@@ -98,7 +98,7 @@ namespace FemDesign.Loads
         /// <param name="loadProjection">False: Intensity meant along action line (eg. dead load). True: Intensity meant perpendicular to direction of load (eg. snow load).</param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        public static SurfaceLoad Variable(Geometry.Region region, Geometry.FdVector3d direction, List<LoadLocationValue> loadLocationValue, LoadCase loadCase, bool loadProjection = false, string comment = "")
+        public static SurfaceLoad Variable(Geometry.Region region, Geometry.Vector3d direction, List<LoadLocationValue> loadLocationValue, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             if (loadLocationValue.Count != 3)
             {

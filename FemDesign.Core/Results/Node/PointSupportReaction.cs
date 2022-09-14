@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Point support group, Reactions" result
     /// </summary>
+    [Result(typeof(PointSupportReaction), ListProc.PointSupportReactionsLoadCase, ListProc.PointSupportReactionsLoadCombination)]
     public partial class PointSupportReaction : IResult
     {
         /// <summary>
@@ -160,16 +161,16 @@ namespace FemDesign.Results
             var momentResultant = pointReactions.Select(n => n.Mr).ToList();
 
             // Create a Fd Vector/Point for Visualising the Reaction Forces
-            var reactionForceVector = new List<FemDesign.Geometry.FdVector3d>();
-            var reactionMomentVector = new List<FemDesign.Geometry.FdVector3d>();
+            var reactionForceVector = new List<FemDesign.Geometry.Vector3d>();
+            var reactionMomentVector = new List<FemDesign.Geometry.Vector3d>();
 
-            var position = new List<FemDesign.Geometry.FdPoint3d>();
+            var position = new List<FemDesign.Geometry.Point3d>();
 
             foreach (var reaction in pointReactions)
             {
-                var forceVector = new FemDesign.Geometry.FdVector3d(reaction.Fx, reaction.Fy, reaction.Fz);
-                var momentVector = new FemDesign.Geometry.FdVector3d(reaction.Mx, reaction.My, reaction.Mz);
-                var pos = new FemDesign.Geometry.FdPoint3d(reaction.X, reaction.Y, reaction.Z);
+                var forceVector = new FemDesign.Geometry.Vector3d(reaction.Fx, reaction.Fy, reaction.Fz);
+                var momentVector = new FemDesign.Geometry.Vector3d(reaction.Mx, reaction.My, reaction.Mz);
+                var pos = new FemDesign.Geometry.Point3d(reaction.X, reaction.Y, reaction.Z);
 
                 reactionForceVector.Add(forceVector);
                 reactionMomentVector.Add(momentVector);

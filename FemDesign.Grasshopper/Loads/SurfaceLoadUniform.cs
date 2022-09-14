@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceLoadUniform: GH_Component
     {
-        public SurfaceLoadUniform(): base("SurfaceLoad.Uniform", "Uniform", "Create a uniform surface load.", "FEM-Design", "Loads")
+        public SurfaceLoadUniform(): base("SurfaceLoad.Uniform", "Uniform", "Create a uniform surface load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
 
             // Convert geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d _force = force.FromRhino();
+            FemDesign.Geometry.Vector3d _force = force.FromRhino();
 
             FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Uniform(region, _force, loadCase, loadProjection, comment);
 

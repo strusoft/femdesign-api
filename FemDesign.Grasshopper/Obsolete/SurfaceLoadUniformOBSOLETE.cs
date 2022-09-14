@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
 
             // transform geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d _force = force.FromRhino();
+            FemDesign.Geometry.Vector3d _force = force.FromRhino();
 
             //
             FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Uniform(region, _force, loadCase, false, comment);

@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineLoadForce: GH_Component
     {
-        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", "FEM-Design", "Loads")
+        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -60,8 +60,8 @@ namespace FemDesign.Grasshopper
             if (curve == null || startForce == null || endForce == null || loadCase == null) return;
 
             Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = startForce.FromRhino();
-            Geometry.FdVector3d _endForce = endForce.FromRhino();
+            Geometry.Vector3d _startForce = startForce.FromRhino();
+            Geometry.Vector3d _endForce = endForce.FromRhino();
 
             try
             {
