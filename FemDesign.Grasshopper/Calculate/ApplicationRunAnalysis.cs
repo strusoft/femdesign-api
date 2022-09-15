@@ -127,7 +127,7 @@ namespace FemDesign.Grasshopper
                     return null;
                 }
             });
-            if (!notValidResultTypes.Any())
+            if (notValidResultTypes.Count != 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
                 return;
