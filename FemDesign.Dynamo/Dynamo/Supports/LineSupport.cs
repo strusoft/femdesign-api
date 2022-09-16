@@ -28,7 +28,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -62,7 +62,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -98,7 +98,7 @@ namespace FemDesign.Supports
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.Group.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                obj.Group.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS

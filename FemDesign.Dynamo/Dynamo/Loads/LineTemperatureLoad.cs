@@ -25,7 +25,7 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            Geometry.FdVector3d v = Geometry.FdVector3d.FromDynamo(direction);
+            Geometry.Vector3d v = Geometry.Vector3d.FromDynamo(direction);
 
             // return
             return new LineTemperatureLoad(edge, v, topBottomLocationValues, loadCase, comments);

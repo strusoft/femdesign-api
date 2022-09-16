@@ -129,11 +129,11 @@ namespace FemDesign.Geometry
             double radius = obj.Radius;
             double startAngle = 0;
             double endAngle = startAngle + Degree.ToRadians(obj.SweepAngle);
-            FdPoint3d centerPoint = FdPoint3d.FromDynamo(obj.CenterPoint);
-            FdVector3d xAxis = new FdVector3d(centerPoint, FdPoint3d.FromDynamo(obj.StartPoint)).Normalize();
+            Point3d centerPoint = Point3d.FromDynamo(obj.CenterPoint);
+            Vector3d xAxis = new FdVector3d(centerPoint, Point3d.FromDynamo(obj.StartPoint)).Normalize();
 
             // lcs
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoCurve(obj);
+            CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj);
 
             // return
             return new Geometry.Edge(radius, startAngle, endAngle, centerPoint, xAxis, cs);
@@ -145,12 +145,12 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Geometry.Edge FromDynamoArc2(Autodesk.DesignScript.Geometry.Arc obj)
         {
-           FdPoint3d p0 = FdPoint3d.FromDynamo(obj.StartPoint);
-           FdPoint3d p1 = FdPoint3d.FromDynamo(obj.PointAtParameter(0.5));
-           FdPoint3d p2 = FdPoint3d.FromDynamo(obj.EndPoint);
+           Point3d p0 = Point3d.FromDynamo(obj.StartPoint);
+           Point3d p1 = Point3d.FromDynamo(obj.PointAtParameter(0.5));
+           Point3d p2 = Point3d.FromDynamo(obj.EndPoint);
 
             // lcs
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoCurve(obj); 
+            CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj); 
 
            // return
            return new Geometry.Edge(p0, p1, p2, cs);
@@ -162,10 +162,10 @@ namespace FemDesign.Geometry
         public static Geometry.Edge FromDynamoCircle(Autodesk.DesignScript.Geometry.Circle obj)
         {
             double radius = obj.Radius;
-            FdPoint3d centerPoint = FdPoint3d.FromDynamo(obj.CenterPoint);
+            Point3d centerPoint = Point3d.FromDynamo(obj.CenterPoint);
 
             // lcs
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoCurve(obj);
+            CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj);
 
             // return
             return new Geometry.Edge(radius, centerPoint, cs);
@@ -176,11 +176,11 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Geometry.Edge FromDynamoLine(Autodesk.DesignScript.Geometry.Line obj)
         {
-            FdPoint3d startPoint = FdPoint3d.FromDynamo(obj.StartPoint);
-            FdPoint3d endPoint = FdPoint3d.FromDynamo(obj.EndPoint);
+            Point3d startPoint = Point3d.FromDynamo(obj.StartPoint);
+            Point3d endPoint = Point3d.FromDynamo(obj.EndPoint);
 
             // lcs
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoCurve(obj);
+            CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj);
 
             // return
             return new Geometry.Edge(startPoint, endPoint, cs);
@@ -191,11 +191,11 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Geometry.Edge FromDynamoLinearNurbsCurve(Autodesk.DesignScript.Geometry.NurbsCurve obj)
         {
-            FdPoint3d startPoint = FdPoint3d.FromDynamo(obj.StartPoint);
-            FdPoint3d endPoint = FdPoint3d.FromDynamo(obj.EndPoint);
+            Point3d startPoint = Point3d.FromDynamo(obj.StartPoint);
+            Point3d endPoint = Point3d.FromDynamo(obj.EndPoint);
 
             // lcs
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoCurve(obj);
+            CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj);
 
             // return
             return new Geometry.Edge(startPoint, endPoint, cs);

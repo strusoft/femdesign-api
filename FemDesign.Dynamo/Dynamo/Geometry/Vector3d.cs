@@ -9,15 +9,15 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Geometry
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FdVector3d
+    public partial class Vector3d
     {
         #region dynamo
         /// <summary>
         /// Create FdVector3d from Dynamo vector.
         /// </summary>
-        public static FdVector3d FromDynamo(Autodesk.DesignScript.Geometry.Vector vector)
+        public static Vector3d FromDynamo(Autodesk.DesignScript.Geometry.Vector vector)
         {
-            FdVector3d newVector = new FdVector3d(vector.X, vector.Y, vector.Z);
+            Vector3d newVector = new Vector3d(vector.X, vector.Y, vector.Z);
             return newVector;
         }
 

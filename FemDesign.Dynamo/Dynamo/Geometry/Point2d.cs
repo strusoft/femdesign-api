@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Geometry
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FdVector2d
+    public partial class Point2d
     {
         
     }

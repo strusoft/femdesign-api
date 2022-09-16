@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Loads
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class TopBotLocationValue: Geometry.FdPoint3d
+    public partial class TopBotLocationValue: Geometry.Point3d
     {
         #region dynamo
         /// <summary>
@@ -21,7 +21,7 @@ namespace FemDesign.Loads
         public static TopBotLocationValue Define(Autodesk.DesignScript.Geometry.Point point, double topVal, double bottomVal)
         {
             // convert geometry
-            Geometry.FdPoint3d p = Geometry.FdPoint3d.FromDynamo(point); 
+            Geometry.Point3d p = Geometry.Point3d.FromDynamo(point); 
 
             return new TopBotLocationValue(p, topVal, bottomVal);
         }

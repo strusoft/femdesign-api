@@ -21,8 +21,8 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static PointLoad Force(Autodesk.DesignScript.Geometry.Point point, Autodesk.DesignScript.Geometry.Vector force, LoadCase loadCase, string comment = "")
         {
-            var p0 = Geometry.FdPoint3d.FromDynamo(point);
-            var v0 = Geometry.FdVector3d.FromDynamo(force);
+            var p0 = Geometry.Point3d.FromDynamo(point);
+            var v0 = Geometry.Vector3d.FromDynamo(force);
             PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, ForceLoadType.Force);
             return pointLoad;
         }
@@ -37,8 +37,8 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static PointLoad Moment(Autodesk.DesignScript.Geometry.Point point, Autodesk.DesignScript.Geometry.Vector moment, LoadCase loadCase, string comment = "")
         {
-            var p0 = Geometry.FdPoint3d.FromDynamo(point);
-            var v0 = Geometry.FdVector3d.FromDynamo(moment);
+            var p0 = Geometry.Point3d.FromDynamo(point);
+            var v0 = Geometry.Vector3d.FromDynamo(moment);
             PointLoad pointLoad = new PointLoad(p0, v0, loadCase, comment, ForceLoadType.Moment);
             return pointLoad;
         }

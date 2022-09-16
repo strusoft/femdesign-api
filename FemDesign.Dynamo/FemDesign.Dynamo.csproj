@@ -119,6 +119,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\Bsc.cs">
       <Link>Core\Calculate\Bsc.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdApplyDesignChanges.cs">
+      <Link>Core\Calculate\CmdApplyDesignChanges.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\CmdCalculation.cs">
       <Link>Core\Calculate\CmdCalculation.cs</Link>
     </Compile>
@@ -151,9 +154,6 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\CombItem.cs">
       <Link>Core\Calculate\CombItem.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\ConstructionStage.cs">
-      <Link>Core\Calculate\ConstructionStage.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Design.cs">
       <Link>Core\Calculate\Design.cs</Link>
@@ -251,6 +251,12 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\VerticalAlignmentEnum.cs">
       <Link>Core\GenericClasses\VerticalAlignmentEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\ArcEdge.cs">
+      <Link>Core\Geometry\ArcEdge.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\CircleEdge.cs">
+      <Link>Core\Geometry\CircleEdge.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\Contour.cs">
       <Link>Core\Geometry\Contour.cs</Link>
     </Compile>
@@ -263,20 +269,26 @@
     <Compile Include="..\FemDesign.Core\Geometry\Face.cs">
       <Link>Core\Geometry\Face.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdCoordinateSystem.cs">
-      <Link>Core\Geometry\FdCoordinateSystem.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\CoordinateSystem.cs">
+      <Link>Core\Geometry\CoordinateSystem.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdPoint2d.cs">
-      <Link>Core\Geometry\FdPoint2d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\LineEdge.cs">
+      <Link>Core\Geometry\LineEdge.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdPoint3d.cs">
-      <Link>Core\Geometry\FdPoint3d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Point2d.cs">
+      <Link>Core\Geometry\Point2d.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdVector2d.cs">
-      <Link>Core\Geometry\FdVector2d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Point3d.cs">
+      <Link>Core\Geometry\Point3d.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdVector3d.cs">
-      <Link>Core\Geometry\FdVector3d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Proximity.cs">
+      <Link>Core\Geometry\Proximity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Vector2d.cs">
+      <Link>Core\Geometry\Vector2d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Vector3d.cs">
+      <Link>Core\Geometry\Vector3d.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\LineSegment.cs">
       <Link>Core\Geometry\LineSegment.cs</Link>
@@ -686,9 +698,6 @@
     <Compile Include="..\FemDesign.Core\Results\ResultsReader.cs">
       <Link>Core\Results\ResultsReader.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
-      <Link>Core\Results\ResultTypeEnum.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Results\Shell\ShellDerivedForce.cs">
       <Link>Core\Results\ShellDerivedForce.cs</Link>
     </Compile>
@@ -862,11 +871,11 @@
     <Compile Include="Dynamo\Geometry\Contour.cs" />
     <Compile Include="Dynamo\Geometry\Face.cs" />
     <Compile Include="Dynamo\Geometry\Edge.cs" />
-    <Compile Include="Dynamo\Geometry\FdCoordinateSystem.cs" />
-    <Compile Include="Dynamo\Geometry\FdPoint2d.cs" />
-    <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
-    <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
-    <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\CoordinateSystem.cs" />
+    <Compile Include="Dynamo\Geometry\Point2d.cs" />
+    <Compile Include="Dynamo\Geometry\Point3d.cs" />
+    <Compile Include="Dynamo\Geometry\Vector2d.cs" />
+    <Compile Include="Dynamo\Geometry\Vector3d.cs" />
     <Compile Include="Dynamo\Geometry\LineSegment.cs" />
     <Compile Include="Dynamo\Geometry\Polyline.cs" />
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />

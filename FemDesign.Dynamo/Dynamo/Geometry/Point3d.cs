@@ -9,15 +9,15 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Geometry
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FdPoint3d
+    public partial class Point3d
     {
         #region dynamo
         /// <summary>
         /// Create FdPoint3d from Dynamo point.
         /// </summary>
-        public static FdPoint3d FromDynamo(Autodesk.DesignScript.Geometry.Point point)
+        public static Point3d FromDynamo(Autodesk.DesignScript.Geometry.Point point)
         {
-            FdPoint3d newPoint = new FdPoint3d(point.X, point.Y, point.Z);
+            Point3d newPoint = new Point3d(point.X, point.Y, point.Z);
             return newPoint;
         }
 
