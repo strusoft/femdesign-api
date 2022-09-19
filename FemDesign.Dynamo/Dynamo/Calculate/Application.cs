@@ -26,7 +26,7 @@ namespace FemDesign.Calculate
         /// <returns>Bool. True if session has exited. False if session is still open or was closed manually.</returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[] { "FdModel", "FdFeaModel", "Results", "HasExited" })]
-        public static Dictionary<string, object> RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, [DefaultArgument("[]")] List<string> resultTypes, [DefaultArgument("[]")] Results.UnitResults units, string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
+        public static Dictionary<string, object> RunAnalysis(Model fdModel, string struxmlPath, Calculate.Analysis analysis, [DefaultArgument("[]")] List<Type> resultTypes, [DefaultArgument("[]")] Results.UnitResults units, string docxTemplatePath = "", bool endSession = true, bool closeOpenWindows = false, bool runNode = true)
         {
             if (!runNode)
             {
@@ -38,12 +38,12 @@ namespace FemDesign.Calculate
             units = Results.UnitResults.Default();
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            resultTypes.Insert(0, "FeaNode");
-            resultTypes.Insert(1, "FeaBar");
-            resultTypes.Insert(1, "FeaShell");
+            resultTypes.Insert(0, typeof(Results.FeaNode));
+            resultTypes.Insert(1, typeof(Results.FeaBar));
+            resultTypes.Insert(2, typeof(Results.FeaShell));
 
             // Create Bsc files from resultTypes
-            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
+            //var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
             var rtn = fdModel.FdApp.RunAnalysis(struxmlPath, analysis, bscPathsFromResultTypes, docxTemplatePath, endSession, closeOpenWindows);
 

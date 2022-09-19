@@ -130,7 +130,7 @@ namespace FemDesign.Geometry
             double startAngle = 0;
             double endAngle = startAngle + Degree.ToRadians(obj.SweepAngle);
             Point3d centerPoint = Point3d.FromDynamo(obj.CenterPoint);
-            Vector3d xAxis = new FdVector3d(centerPoint, Point3d.FromDynamo(obj.StartPoint)).Normalize();
+            Vector3d xAxis = new Vector3d(centerPoint, Point3d.FromDynamo(obj.StartPoint)).Normalize();
 
             // lcs
             CoordinateSystem cs = CoordinateSystem.FromDynamoCurve(obj);

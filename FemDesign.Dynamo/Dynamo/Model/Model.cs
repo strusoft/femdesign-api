@@ -172,15 +172,15 @@ namespace FemDesign
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "FdFeaModel", "Results" })]
-        public static Dictionary<string, object> ReadStr(string strPath, List<Results.ResultType> resultTypes, Results.UnitResults units)
+        public static Dictionary<string, object> ReadStr(string strPath, List<Type> resultTypes, Results.UnitResults units)
         {
             Results.FDfea fdFeaModel = null;
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            resultTypes.Insert(0, Results.ResultType.FeaNode);
-            resultTypes.Insert(1, Results.ResultType.FeaBar);
-            resultTypes.Insert(2, Results.ResultType.FeaShell);
+            resultTypes.Insert(0, typeof(Results.FeaNode));
+            resultTypes.Insert(1, typeof(Results.FeaBar));
+            resultTypes.Insert(2, typeof(Results.FeaShell));
 
 
             // Create Bsc files from resultTypes

@@ -185,6 +185,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\Options.cs">
       <Link>Core\Calculate\Options.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
+      <Link>Core\Calculate\Stage.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
       <Link>Core\GenericClasses\Camber.cs</Link>
     </Compile>
@@ -244,6 +247,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\StartEndType.cs">
       <Link>Core\GenericClasses\StartEndType.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\TextFormatting.cs">
+      <Link>Core\GenericClasses\TextFormatting.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Tolerance.cs">
       <Link>Core\GenericClasses\Tolerance.cs</Link>
@@ -770,15 +776,6 @@
     <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
       <Link>Core\Shells\WallCorbel.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
-      <Link>Core\AdvancedFem\ActivatedLoadCase.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\ConstructionStages.cs">
-      <Link>Core\AdvancedFem\ConstructionStages.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\Stage.cs">
-      <Link>Core\AdvancedFem\Stage.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
       <Link>Core\StructureGrid\Axes.cs</Link>
     </Compile>
@@ -815,8 +812,14 @@
     <Compile Include="..\FemDesign.Core\Supports\Supports.cs">
       <Link>Core\Supports\Supports.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
-      <Link>Core\Supports\SurfaceSupport.cs</Link>
+    <Compile Include="..\FemDesign.Core\Stage\Stage.cs">
+      <Link>Core\Stage\Stage.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ConstructionStages.cs">
+      <Link>Core\Stage\ConstructionStages.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
+      <Link>Core\Stage\ActivatedLoadCase.cs</Link>
     </Compile>
     <Compile Include="Dynamo\AuxiliaryResults\LabelledSectionsGeometry.cs" />
     <Compile Include="Dynamo\AuxiliaryResults\LabelledSection.cs" />
@@ -1083,7 +1086,9 @@
     <None Include="packages.config" />
     <None Include="PackageData\pkg.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Stage\" />
+  </ItemGroup>
   <Target Name="AfterBuild">
     <ItemGroup>
       <Dlls Include="$(OutDir)*.dll" />
