@@ -6,18 +6,16 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class CoverTwoWay: GH_Component
+    public class CoverTwoWay : GH_Component
     {
-        public CoverTwoWay(): base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Cover")
+        public CoverTwoWay() : base("Cover.TwoWay", "TwoWay", "Create a two way cover.", "FEM-Design", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface. Surface must be flat.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("SupportingBars", "SupportingBars", "Single bar element or list of bar elements. List cannot be nested.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("SupportingSlabs", "SupportingSlabs", "Single slab element or list of slab elements. List cannot be nested.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("SupportingElements", "SupportingElements", "bar elements or shell elements. List cannot be nested.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "CO");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -30,40 +28,21 @@ namespace FemDesign.Grasshopper
         {
             // get data
             Brep brep = null;
-            List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
-            List<FemDesign.Shells.Slab> slabs = new List<FemDesign.Shells.Slab>();
+            var structures = new List<FemDesign.GenericClasses.IStructureElement>();
             string identifier = "CO";
             if (!DA.GetData(0, ref brep))
             {
                 return;
             }
-            if (!DA.GetDataList(1, bars))
+            if (!DA.GetDataList(1, structures))
             {
                 // pass
             }
-            if (!DA.GetDataList(2, slabs))
+            if (!DA.GetData(2, ref identifier))
             {
                 // pass
-            }
-            if (!DA.GetData(3, ref identifier))
-            {
-                // pass
-            }
-            if (brep == null || bars == null || slabs == null || identifier == null)
-            {
-                return;
             }
 
-            // create list of supporting structures
-            List<object> structures = new List<object>();
-            foreach (FemDesign.Bars.Bar bar in bars)
-            {
-                structures.Add(bar);
-            }
-            foreach(FemDesign.Shells.Slab slab in slabs)
-            {
-                structures.Add(slab);
-            }
 
             // convert geometry
             FemDesign.Geometry.Region region = brep.FromRhino();
@@ -84,7 +63,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("aa9d087e-14ce-48d5-abad-33f1364f390a"); }
+            get { return new Guid("{63D6BD65-94F5-4B78-95D8-141630B8FF9E}"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+
+
     }
 }

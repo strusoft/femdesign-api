@@ -11,18 +11,22 @@ namespace FemDesign.Geometry
     /// 
     /// Curves in FEM-Design are expressed as edges. This extended edge also contains a LCS to keep track of directions.
     /// </summary>
+    [XmlInclude(typeof(LineEdge))]
+    [XmlInclude(typeof(ArcEdge))]
+    [XmlInclude(typeof(CircleEdge))]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
     public partial class Edge
-    {         
+    {
         [XmlIgnore]
-        private FdCoordinateSystem _coordinateSystem;
+        private CoordinateSystem _coordinateSystem;
         /// <summary>
         /// Get/Set LCS
         /// 
         /// If no LCS exists on Edge (i.e. when an Edge was deserialized from path) an LCS will be reconstructed.
         /// </summary>
         [XmlIgnore]
-        public FdCoordinateSystem CoordinateSystem
+        public CoordinateSystem CoordinateSystem
         {
             get
             {
@@ -32,9 +36,9 @@ namespace FemDesign.Geometry
                 }
                 else
                 {
-                    FdPoint3d origin;
-                    FdVector3d localX, localY, localZ;
-                    
+                    Point3d origin;
+                    Vector3d localX, localY, localZ;
+
                     // arc1
                     if (this.Type == "arc" && this.Points.Count == 1)
                     {
@@ -42,39 +46,39 @@ namespace FemDesign.Geometry
                         double sweepAngle = this.EndAngle - this.StartAngle;
 
                         // find p0, p1 and p2
-                        FdPoint3d p0, p1, p2;
-                        FdVector3d v = this.XAxis.Scale(this.Radius);
+                        Point3d p0, p1, p2;
+                        Vector3d v = this.XAxis.Scale(this.Radius);
                         p0 = this.Points[0].Translate(v);
-                        p1 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle/2, this.Normal));
+                        p1 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle / 2, this.Normal));
                         p2 = this.Points[0].Translate(v.RotateAroundAxis(sweepAngle, this.Normal));
 
                         origin = p1;
-                        localX = new FdVector3d(p0, p2).Normalize();
+                        localX = new Vector3d(p0, p2).Normalize();
                         localZ = this.Normal;
                         localY = localZ.Cross(localX);
-                        return new FdCoordinateSystem(origin, localX, localY, localZ);
+                        return new CoordinateSystem(origin, localX, localY, localZ);
                     }
 
                     // arc2
                     else if (this.Type == "arc" && this.Points.Count == 3)
                     {
                         origin = this.Points[1];
-                        localX = new FdVector3d(this.Points[0], this.Points[2]).Normalize();
-                        FdVector3d v = new FdVector3d(this.Points[0], this.Points[1]).Normalize();
+                        localX = new Vector3d(this.Points[0], this.Points[2]).Normalize();
+                        Vector3d v = new Vector3d(this.Points[0], this.Points[1]).Normalize();
                         localZ = v.Cross(localX);
                         localY = localZ.Cross(localX);
-                        return new FdCoordinateSystem(origin, localX, localY, localZ);
+                        return new CoordinateSystem(origin, localX, localY, localZ);
                     }
 
                     // line
                     else if (this.Type == "line" && this.Points.Count == 2)
                     {
-                        FdVector3d v = new FdVector3d(this.Points[0], this.Points[1]);
+                        Vector3d v = new Vector3d(this.Points[0], this.Points[1]);
                         origin = this.Points[0].Translate(v.Scale(0.5));
                         localX = v.Normalize();
                         localY = this.Normal;
                         localZ = localX.Cross(localY);
-                        return new FdCoordinateSystem(origin, localX, localY, localZ);
+                        return new CoordinateSystem(origin, localX, localY, localZ);
                     }
 
                     // else
@@ -87,11 +91,11 @@ namespace FemDesign.Geometry
             set { this._coordinateSystem = value; }
         }
         [XmlElement("point", Order = 1)]
-        public List<Geometry.FdPoint3d> Points = new List<Geometry.FdPoint3d>(); // sequence: point_type_3d // ordered internal points, or the center of the circle/arc
+        public List<Geometry.Point3d> Points = new List<Geometry.Point3d>(); // sequence: point_type_3d // ordered internal points, or the center of the circle/arc
         [XmlElement("normal", Order = 2)]
-        public FdVector3d Normal { get; set; } // point_type_3d // normal of the curve; it must be used if the curve is arc or circle.
+        public Vector3d Normal { get; set; } // point_type_3d // normal of the curve; it must be used if the curve is arc or circle.
         [XmlElement("x_axis", Order = 3)]
-        public Geometry.FdVector3d XAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
+        public Geometry.Vector3d XAxis { get; set; } // point_type_3d // axis of base line (the value default is the x axis {1, 0, 0}) angles are measured from this direction.
         [XmlElement("edge_connection", Order = 4)]
         public Shells.EdgeConnection EdgeConnection { get; set; } // optional. ec_type.
         [XmlAttribute("type")]
@@ -99,8 +103,8 @@ namespace FemDesign.Geometry
         [XmlIgnore]
         public string Type
         {
-            get {return this._type;}
-            set {this._type = RestrictedString.EdgeType(value);}
+            get { return this._type; }
+            set { this._type = RestrictedString.EdgeType(value); }
         }
         [XmlAttribute("radius")]
         public double Radius { get; set; }   // optional. double
@@ -115,13 +119,30 @@ namespace FemDesign.Geometry
             {
                 if (this.Type == "line")
                 {
-                    return (new FdVector3d(this.Points[0], this.Points[1]).Length());
+                    return (new Vector3d(this.Points[0], this.Points[1]).Length());
                 }
                 else if (this.Type == "arc")
                 {
                     if (this.Points.Count == 3)
                     {
-                        throw new System.ArgumentException("Can't calculate length of edge for arc2 type. Calculation of sweep angle is not implemented.");
+                        // https://github.com/strusoft/femdesign-api/issues/123#issuecomment-1205322334
+                        var v1 = Points[0] - Points[1];
+                        var v2 = Points[2] - Points[1];
+                        var normal = v1.Cross(v2);
+                        var m1 = Points[1] + 0.5 * v1;
+                        var m2 = Points[1] + 0.5 * v2;
+                        var N1 = normal.Cross(v1);
+                        var N2 = normal.Cross(v2);
+
+                        var (t1, t2) = Proximity.LineLineProximity(m1, N1, m2, N2);
+
+                        var centre = m1 + (t1 * N1);
+
+                        var radius = (Points[0] - centre).Length();
+                        var r1 = (Points[0] - centre).Normalize();
+                        var r2 = (Points[2] - centre).Normalize();
+                        var angle = Math.Acos(r1.Dot(r2));
+                        return angle * radius;
                     }
                     else
                     {
@@ -150,7 +171,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc1 type.
         /// </summary>
-        public Edge(double radius, double startAngle, double endAngle, Geometry.FdPoint3d centerPoint, Geometry.FdVector3d xAxis, Geometry.FdCoordinateSystem coordinateSystem)
+        public Edge(double radius, double startAngle, double endAngle, Geometry.Point3d centerPoint, Geometry.Vector3d xAxis, Geometry.CoordinateSystem coordinateSystem)
         {
             this.Type = "arc";
             this.Radius = radius;
@@ -165,7 +186,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc2 type.
         /// </summary>
-        public Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _midPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(Geometry.Point3d _startPoint, Geometry.Point3d _midPoint, Geometry.Point3d _endPoint, Geometry.CoordinateSystem _coordinateSystem)
         {
             this.Type = "arc";
             this.Points.Add(_startPoint);
@@ -177,7 +198,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of circle type.
         /// </summary>
-        public Edge(double _radius, Geometry.FdPoint3d _centerPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(double _radius, Geometry.Point3d _centerPoint, Geometry.CoordinateSystem _coordinateSystem)
         {
             this.Type = "circle";
             this.Radius = _radius;
@@ -189,7 +210,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of line type by points and coordinate system.
         /// </summary>
-        public Edge(Geometry.FdPoint3d _startPoint, Geometry.FdPoint3d _endPoint, Geometry.FdCoordinateSystem _coordinateSystem)
+        public Edge(Geometry.Point3d _startPoint, Geometry.Point3d _endPoint, Geometry.CoordinateSystem _coordinateSystem)
         {
             this.Type = "line";
             this.Points.Add(_startPoint);
@@ -202,7 +223,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of line type by points and normal (localY).
         /// </summary>
-        public Edge(FdPoint3d startPoint, FdPoint3d endPoint, FdVector3d localY)
+        public Edge(Point3d startPoint, Point3d endPoint, Vector3d localY)
         {
             this.Type = "line";
             this.Points.Add(startPoint);
@@ -241,7 +262,7 @@ namespace FemDesign.Geometry
         {
             if (this.IsLine())
             {
-                return (this.CoordinateSystem.LocalX.Equals(Geometry.FdVector3d.UnitZ(), Tolerance.Vector3d));
+                return (this.CoordinateSystem.LocalX.Equals(Geometry.Vector3d.UnitZ, Tolerance.Vector3d));
             }
             else
             {
@@ -272,7 +293,7 @@ namespace FemDesign.Geometry
             {
                 // get sweep angle
                 double sweepAngle = this.EndAngle - this.StartAngle;
-                
+
                 // set new properties
                 this.XAxis = this.XAxis.RotateAroundAxis(sweepAngle, this.Normal);
                 this.Normal = this.Normal.Reverse();

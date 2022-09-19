@@ -9,8 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class BarsBeamSimple: GH_Component
     {
-       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", "FEM-Design", "Bars")
-       {
+       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
+        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -45,13 +46,13 @@ namespace FemDesign.Grasshopper
             FemDesign.Sections.Section section = null;
             if (!DA.GetData(2, ref section)) { return; }
 
-            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.GetRigid();
+            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.Rigid;
             if (!DA.GetData(3, ref connectivity))
             {
                 // pass
             }
 
-            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.GetDefault();
+            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.Default;
             if (!DA.GetData(4, ref eccentricity))
             {
                 // pass
@@ -82,7 +83,7 @@ namespace FemDesign.Grasshopper
 
             // create bar
             var type = FemDesign.Bars.BarType.Beam;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, eccentricity, connectivity, identifier);
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, section, type, eccentricity, connectivity, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
@@ -114,7 +115,7 @@ namespace FemDesign.Grasshopper
        {
            get { return new Guid("49a8b281-b9ba-4ff4-8cde-ab611a252776"); }
        }
-        public override GH_Exposure Exposure => GH_Exposure.obscure;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
 
     }

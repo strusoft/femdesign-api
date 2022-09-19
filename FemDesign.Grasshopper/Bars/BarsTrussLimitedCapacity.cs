@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsTrussLimitedCapacity: GH_Component
     {
-        public BarsTrussLimitedCapacity(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", "FEM-Design", "Bars")
+        public BarsTrussLimitedCapacity(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }
@@ -81,8 +82,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            var type = FemDesign.Bars.BarType.Truss;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, identifier);
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, section, identifier: identifier);
             bar.MaxCompression = maxCompression;
             bar.MaxTension = maxTension;
             bar.CompressionPlasticity = compressionPlasticity;

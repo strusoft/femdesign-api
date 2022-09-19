@@ -13,7 +13,7 @@ namespace FemDesign
     /// Stage
     /// </summary>
     [System.Serializable]
-    public partial class ConstructionStages : EntityBase, IFemDesignEntity
+    public partial class ConstructionStages
     {
         [XmlAttribute("last_change")]
         public string _lastChange;

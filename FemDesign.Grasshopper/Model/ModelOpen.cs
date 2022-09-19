@@ -6,14 +6,15 @@ namespace FemDesign.Grasshopper
 {
     public class ModelOpen: GH_Component
     {
-        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", "FEM-Design", "Model")
+        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("CloseOpenWindows", "CloseOpenWindows", "If true all open windows will be closed without prior warning.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
@@ -28,39 +29,34 @@ namespace FemDesign.Grasshopper
         {
             // 
             FemDesign.Model model = null;
-            string filePath = null;
-            bool closeOpenWindows = false;
+            DA.GetData(0, ref model);
 
             // get data
-            if(!DA.GetData(0, ref model))
+            string filePath = null;
+            if(!DA.GetData(1, ref filePath))
             {
-                return;
+                bool fileExist = OnPingDocument().IsFilePathDefined;
+                if (!fileExist)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
+                    return;
+                }
+                filePath = OnPingDocument().FilePath;
+                filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
             }
-            if (!DA.GetData(1, ref filePath))
-            {
-                return;
-            }
-            if (!DA.GetData(2, ref closeOpenWindows))
-            {
-                // pass
-            }
+
+            bool closeOpenWindows = false;
+            DA.GetData(2, ref closeOpenWindows);
 
             bool runNode = true;
-            if (!DA.GetData(3, ref runNode))
-            {
-                // pass
-            }
-
-            if (model == null || filePath == null)
-            {
-                return;
-            }
+            DA.GetData(3, ref runNode);
 
             //
             if (runNode)
             {
-                model.SerializeModel(filePath);
-                model.FdApp.OpenStruxml(filePath, closeOpenWindows);
+                model.Open(filePath, closeOpenWindows);
+                //model.SerializeModel(filePath);
+                //model.FdApp.OpenStruxml(filePath, closeOpenWindows);
             }
             else
             {

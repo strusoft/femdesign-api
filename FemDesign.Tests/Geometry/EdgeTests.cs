@@ -10,12 +10,12 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthArc()
         {
             // arc by 
-            var center = new FdPoint3d(0,0,0);
+            var center = new Point3d(0, 0, 0);
             var radius = 1;
             var startAngle = 0;
             var endAngle = Math.PI;
-            var xAxis = new FdVector3d(1,0,0);
-            var cs = FdCoordinateSystem.Global();
+            var xAxis = new Vector3d(1, 0, 0);
+            var cs = CoordinateSystem.Global();
             var arc1 = new Edge(radius, startAngle, endAngle, center, xAxis, cs);
             Assert.IsTrue(Math.Abs(arc1.Length - Math.PI) <= Tolerance.LengthComparison);
         }
@@ -24,9 +24,9 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthCircle()
         {
             // circle
-            var center = new FdPoint3d(0, 0, 0);
+            var center = new Point3d(0, 0, 0);
             var radius = 1;
-            var cs = FdCoordinateSystem.Global();
+            var cs = CoordinateSystem.Global();
             var circle = new Edge(radius, center, cs);
             Assert.IsTrue(Math.Abs(circle.Length - 2 * Math.PI) <= Tolerance.LengthComparison);
         }
@@ -35,9 +35,9 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthLine()
         {
             // line
-            var p0 = new FdPoint3d(0, 0, 0);
-            var p1 = new FdPoint3d(1, 0, 0);
-            var y = new FdVector3d(0, 1, 0);
+            var p0 = new Point3d(0, 0, 0);
+            var p1 = new Point3d(1, 0, 0);
+            var y = new Vector3d(0, 1, 0);
             var line = new Edge(p0, p1, y);
             Assert.IsTrue(Math.Abs(line.Length - 1) <= Tolerance.LengthComparison);
         }
@@ -46,9 +46,9 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthInvalid()
         {
             // some other type
-            var p0 = new FdPoint3d(0, 0, 0);
-            var p1 = new FdPoint3d(1, 0, 0);
-            var y = new FdVector3d(0, 1, 0);
+            var p0 = new Point3d(0, 0, 0);
+            var p1 = new Point3d(1, 0, 0);
+            var y = new Vector3d(0, 1, 0);
             var line = new Edge(p0, p1, y);
             var edge = line;
             edge._type = "someType";
@@ -59,22 +59,20 @@ namespace FemDesign.Geometry.EdgeTests
         public void GetLengthArc3Point()
         {
             // arc by three points
-            var start = new FdPoint3d(-1, 0, 0);
-            var mid = new FdPoint3d(0, 1, 0);
-            var end = new FdPoint3d(1, 0, 0);
-            var cs = FdCoordinateSystem.Global();
+            var start = new Point3d(-1, 0, 0);
+            var mid = new Point3d(0, 1, 0);
+            var end = new Point3d(1, 0, 0);
+            var cs = CoordinateSystem.Global();
             var arc2 = new Edge(start, mid, end, cs);
-            //Assert.ThrowsException<ArgumentException>(() => arc2.Length, "Should throw exception stating that method to calculate sweep angle is not implemented yet.");
-            Assert.IsTrue(Math.Abs(arc2.Length - Math.PI) <= Tolerance.LengthComparison); // test should fail here 
+
+            Assert.AreEqual(Math.PI, arc2.Length, Tolerance.LengthComparison);
         }
 
         [TestMethod("X-Axis")]
         public void XAxis()
         {
-            var edge = new Edge(FdPoint3d.Origin(), new FdPoint3d(1, 1, 0), FdVector3d.UnitZ());
-            var direction = edge.XAxis.Normalize(); // This will throw null reference exception
-
-            Console.ReadKey();
+            var edge = new Edge(Point3d.Origin, new Point3d(1, 1, 0), Vector3d.UnitZ);
+            var direction = edge.XAxis.Normalize();
         }
     }
 }

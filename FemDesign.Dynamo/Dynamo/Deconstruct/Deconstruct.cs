@@ -129,12 +129,12 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", pointLoad.Guid},
+                {"Guid", pointLoad.LoadCaseGuid},
                 {"Type", pointLoad.LoadType},
                 {"Point", pointLoad.GetDynamoGeometry()},
                 {"Direction", pointLoad.Direction.ToDynamo()},
                 {"q", pointLoad.Load.Value},
-                {"LoadCaseGuid", pointLoad.LoadCase},
+                {"LoadCaseGuid", pointLoad.LoadCaseGuid},
                 {"Comment", pointLoad.Comment}
             };
         }
@@ -150,13 +150,13 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", lineLoad.Guid},
+                {"Guid", lineLoad.LoadCaseGuid},
                 {"Type", lineLoad.LoadType},
                 {"Curve", lineLoad.GetDynamoGeometry()},
                 {"Direction", lineLoad.Direction.ToDynamo()},
                 {"q1", lineLoad.Load[0].Value},
                 {"q2", lineLoad.Load[1].Value},
-                {"LoadCaseGuid", lineLoad.LoadCase},
+                {"LoadCaseGuid", lineLoad.LoadCaseGuid},
                 {"Comment", lineLoad.Comment}
             };
         }
@@ -172,12 +172,12 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", lineTemperatureLoad.Guid},
+                {"Guid", lineTemperatureLoad.LoadCaseGuid},
                 {"Curve", lineTemperatureLoad.Edge.ToDynamo()},
                 {"Direction", lineTemperatureLoad.Direction.ToDynamo()},
                 {"TopBotLocVal1", lineTemperatureLoad.TopBotLocVal[0]},
                 {"TopBotLocVal2", lineTemperatureLoad.TopBotLocVal[1]},
-                {"LoadCaseGuid", lineTemperatureLoad.LoadCase},
+                {"LoadCaseGuid", lineTemperatureLoad.LoadCaseGuid},
                 {"Comment", lineTemperatureLoad.Comment}
             };
         }
@@ -258,14 +258,14 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", surfaceLoad.Guid},
+                    {"Guid", surfaceLoad.LoadCaseGuid},
                     {"Type", surfaceLoad.LoadType},
                     {"Surface", surfaceLoad.Region.ToDynamoSurface()},
                     {"Direction", surfaceLoad.Direction.ToDynamo()},
                     {"q1", surfaceLoad.Loads[0].Value},
                     {"q2", surfaceLoad.Loads[0].Value},
                     {"q3", surfaceLoad.Loads[0].Value},
-                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"LoadCaseGuid", surfaceLoad.LoadCaseGuid},
                     {"Comment", surfaceLoad.Comment}
                 };
             }
@@ -273,14 +273,14 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", surfaceLoad.Guid},
+                    {"Guid", surfaceLoad.LoadCaseGuid},
                     {"Type", surfaceLoad.LoadType},
                     {"Surface", surfaceLoad.Region.ToDynamoSurface()},
                     {"Direction", surfaceLoad.Direction.ToDynamo()},
                     {"q1", surfaceLoad.Loads[0].Value},
                     {"q2", surfaceLoad.Loads[1].Value},
                     {"q3", surfaceLoad.Loads[2].Value},
-                    {"LoadCaseGuid", surfaceLoad.LoadCase},
+                    {"LoadCaseGuid", surfaceLoad.LoadCaseGuid},
                     {"Comment", surfaceLoad.Comment}
                 };
             }
@@ -303,13 +303,13 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", srfTmpLoad.Guid},
+                    {"Guid", srfTmpLoad.LoadCaseGuid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
                     {"Direction", srfTmpLoad.LocalZ.ToDynamo()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[0]},
-                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"LoadCaseGuid", srfTmpLoad.LoadCaseGuid},
                     {"Comment", srfTmpLoad.Comment}
                 };
             }
@@ -317,13 +317,13 @@ namespace FemDesign
             {
                 return new Dictionary<string, object>
                 {
-                    {"Guid", srfTmpLoad.Guid},
+                    {"Guid", srfTmpLoad.LoadCaseGuid},
                     {"Surface", srfTmpLoad.Region.ToDynamoSurface()},
                     {"Direction", srfTmpLoad.LocalZ.ToDynamo()},
                     {"TopBotLocVal1", srfTmpLoad.TopBotLocVal[0]},
                     {"TopBotLocVal2", srfTmpLoad.TopBotLocVal[1]},
                     {"TopBotLocVal3", srfTmpLoad.TopBotLocVal[2]},
-                    {"LoadCaseGuid", srfTmpLoad.LoadCase},
+                    {"LoadCaseGuid", srfTmpLoad.LoadCaseGuid},
                     {"Comment", srfTmpLoad.Comment}
                 };
             }
@@ -345,14 +345,14 @@ namespace FemDesign
         {
             return new Dictionary<string, object>
             {
-                {"Guid", pressureLoad.Guid},
+                {"Guid", pressureLoad.LoadCaseGuid},
                 {"Type", pressureLoad.LoadType},
                 {"Surface", pressureLoad.Region.ToDynamoSurface()},
                 {"Direction", pressureLoad.Direction.ToDynamo()},
                 {"z0", pressureLoad.Z0},
                 {"q0", pressureLoad.Q0},
                 {"qh", pressureLoad.Qh},
-                {"LoadCaseGuid", pressureLoad.LoadCase},
+                {"LoadCaseGuid", pressureLoad.LoadCaseGuid},
                 {"Comment", pressureLoad.Comment}
             };
         }

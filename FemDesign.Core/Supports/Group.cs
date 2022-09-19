@@ -12,17 +12,17 @@ namespace FemDesign.Supports
     public partial class Group
     {
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem _coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.CoordinateSystem CoordinateSystem
         {
             get
             {
                 // if deserialized from file the cooridnate system element does not exist and has to be created from local x and local y fields.
                 if (this._coordinateSystem == null)
                 {
-                    this._coordinateSystem = new Geometry.FdCoordinateSystem(Geometry.FdPoint3d.Origin(), this._localX, this._localY);
+                    this._coordinateSystem = new Geometry.CoordinateSystem(Geometry.Point3d.Origin, this._localX, this._localY);
                     return this._coordinateSystem;
                 }
                 else
@@ -39,10 +39,10 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("local_x", Order = 1)]
-        public Geometry.FdVector3d _localX;
+        public Geometry.Vector3d _localX;
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -51,10 +51,10 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("local_y", Order = 2)]
-        public Geometry.FdVector3d _localY;
+        public Geometry.Vector3d _localY;
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -68,7 +68,7 @@ namespace FemDesign.Supports
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -99,6 +99,9 @@ namespace FemDesign.Supports
             }
         }
 
+        [XmlElement("rigidity_group", Order = 5)]
+        public StruSoft.Interop.StruXml.Data.Rigidity_group_type2 RigidityGroup { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -110,7 +113,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for line support
         /// </summary>
-        internal Group(Geometry.FdCoordinateSystem coordSystem, Motions motions, Rotations rotations)
+        internal Group(Geometry.CoordinateSystem coordSystem, Motions motions, Rotations rotations)
         {
             this.CoordinateSystem = coordSystem;
             this.Rigidity = new RigidityDataType3(motions, rotations);
@@ -119,7 +122,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for line support
         /// </summary>
-        internal Group(Geometry.FdCoordinateSystem coordSystem, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
+        internal Group(Geometry.CoordinateSystem coordSystem, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
         {
             this.CoordinateSystem = coordSystem;
             this.Rigidity = new RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
@@ -129,7 +132,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for point support
         /// </summary>
-        internal Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
+        internal Group(Geometry.Vector3d localX, Geometry.Vector3d localY, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
         {
             this._localX = localX;
             this._localY = localY;
@@ -139,7 +142,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by vectors and rigidity. Used to create group for point support
         /// </summary>
-        public Group(Geometry.FdVector3d localX, Geometry.FdVector3d localY, Motions motions, Rotations rotations)
+        public Group(Geometry.Vector3d localX, Geometry.Vector3d localY, Motions motions, Rotations rotations)
         {
             this._localX = localX;
             this._localY = localY;

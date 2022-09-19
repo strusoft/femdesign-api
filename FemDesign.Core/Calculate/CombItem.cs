@@ -14,20 +14,28 @@ namespace FemDesign.Calculate
     {
         [XmlAttribute("NLE")]
         public int NLE { get; set; } // bool
+
         [XmlAttribute("PL")]
         public int PL { get; set; } // bool
+
         [XmlAttribute("NLS")]
         public int NLS { get; set; } // bool
+
         [XmlAttribute("Cr")]
         public int Cr { get; set; } // bool
+
         [XmlAttribute("f2nd")]
         public int f2nd { get; set; } // bool
+
         [XmlAttribute("Im")]
         public int Im { get; set; } // int
+
         [XmlAttribute("Waterlevel")]
         public int Waterlevel { get; set; } // int
+
         [XmlAttribute("ImpfRqd")]
         public int ImpfRqd { get; set; } // int
+
         [XmlAttribute("StabRqd")]
         public int StabRqd { get; set; } // int
 
@@ -37,7 +45,7 @@ namespace FemDesign.Calculate
         /// </summary>
         private CombItem()
         {
-            
+
         }
         public CombItem(int _ImpfRqd = 0, int _StabRqd = 0, bool _NLE = false, bool _PL = false, bool _NLS = false, bool _Cr = false, bool _f2nd = false, bool _Im = false, int _Waterlevel = 0)
         {
@@ -50,6 +58,22 @@ namespace FemDesign.Calculate
             this.Waterlevel = _Waterlevel;
             this.ImpfRqd = _ImpfRqd;
             this.StabRqd = _StabRqd;
+        }
+
+        public static CombItem Default()
+        {
+            int _ImpfRqd = 0;
+            int _StabRqd = 0;
+            bool _NLE = false;
+            bool _PL = false;
+            bool _NLS = false;
+            bool _Cr = false;
+            bool _f2nd = false;
+            bool _Im = false;
+            int _Waterlevel = 0;
+
+            var combItem = new CombItem(_ImpfRqd, _StabRqd, _NLE, _PL, _NLS, _Cr, _f2nd, _Im, _Waterlevel);
+            return combItem;
         }
     }
 }

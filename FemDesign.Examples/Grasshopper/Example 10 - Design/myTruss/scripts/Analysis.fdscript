@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fdscript xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="fdscript.xsd">
+  <fdscriptheader>
+    <title>Generated script.</title>
+    <version>2100</version>
+    <module>sframe</module>
+    <logfile>C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\logfile.log</logfile>
+  </fdscriptheader>
+  <cmdopen command="; CXL CS2SHELL OPEN">
+    <filename>C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss.struxml</filename>
+  </cmdopen>
+  <cmduser command="; CXL $MODULE STEELDESIGN" />
+  <cmdglobalcfg command="$ FEM $CODE(GLOBALCFG)">
+    <mesh_general fAdjustToLoads="0" />
+    <mesh_elements fAdjustToLoads="1" rElemSizeDiv="6" fCorrectToMinDivNum="1" sDefaultDivision="2" rDefaultAngle="15" />
+    <mesh_functions fRefineLocally="1" sRefineMaxStepNum="5" fMaxIterWarning="0" fReduceSize="1" sSmoothStepNum="3" fCheckMeshGeom="1" rCheckGeomMinAngle="10" rCheckGeomMaxAngle="170" rCheckGeomMaxSideRatio="8" fCheckMeshOverlap="1" fCheckMeshTopology="1" />
+    <mesh_prepare fAutoRegen="1" fThPeak="1" fThBeam="0" fThColumn="1" fThTruss="0" fThFicBeam="0" fThFreeEdge="0" fThRegionBorder="0" fThSuppPt="1" fThSuppLn="0" fThSuppSf="0" fThEdgeConn="0" fThConnPt="0" fThConnLn="0" fThConnSf="0" fThLoadPt="0" fThLoadLn="0" fThLoadSf="0" fThFixPt="0" fThFixLn="0" fAutoRebuild="1" fAutoSmooth="1" fAutoCheck="0" />
+    <peaksm_method sPeakFormFunc_M="1" sPeakFormFunc_N="1" sPeakFormFunc_V="1" />
+    <peaksm_auto fPeakBeam="0" fPeakColumn="1" fPeakTruss="0" fPeakFicBeam="0" fPeakPlate="0" fPeakWall="0" fPeakFicShell="0" fPeakSuppPt="1" fPeakSuppLn="0" fPeakSuppSf="0" fPeakConnPt="0" fPeakConnLn="0" fPeakConnSf="0" rPeakFactor="0.5" />
+  </cmdglobalcfg>
+  <cmdcalculation command="; CXL $MODULE CALC">
+    <analysis calcCase="1" calcCStage="0" calcCImpf="0" calcComb="1" calcGmax="0" calcStab="0" calcFreq="0" calcSeis="0" calcDesign="0" calcFootfall="0" elemfine="0" diaphragm="0" peaksmoothing="0">
+      <comb NLEmaxiter="30" PLdefloadstep="20" PLminloadstep="2" PLmaxeqiter="30" CRloadstep="20" CRmaxiter="30" CRstifferror="2" NLSMohr="1" NLSinitloadstep="10" NLSminloadstep="10" NLSactiveelemratio="5" NLSplasticelemratio="5" />
+    </analysis>
+    <design>
+      <gmax />
+      <autodesign>true</autodesign>
+      <check>true</check>
+    </design>
+  </cmdcalculation>
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\scripts\FeaNode.bsc" outfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\results\FeaNode.csv" regional="0" headers="1" fillcells="1" />
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\scripts\FeaBar.bsc" outfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\results\FeaBar.csv" regional="0" headers="1" fillcells="1" />
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\scripts\FeaShell.bsc" outfile="C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss\results\FeaShell.csv" regional="0" headers="1" fillcells="1" />
+  <cmdsave command="; CXL CS2SHELL SAVE">
+    <filename>C:\GitHub\femdesign-api\FemDesign.Examples\Grasshopper\Example 10 - Design\myTruss.str</filename>
+  </cmdsave>
+</fdscript>

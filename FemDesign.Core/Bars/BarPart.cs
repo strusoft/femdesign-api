@@ -51,7 +51,7 @@ namespace FemDesign.Bars
                     }
                     else
                     {
-                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc.");
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line or arc. Circle is not supported. Consider splitting the Circle in two arches.");
                     }
                 }
                 else if (this.Type == BarType.Column)
@@ -59,7 +59,7 @@ namespace FemDesign.Bars
                     // check if line
                     if (!value.IsLine())
                     {
-                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line. Circle is not supported. Consider splitting the Circle in two arches.");
                     }
 
                     // check if line local x equals positive global Z
@@ -90,10 +90,10 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem _coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
 
         [XmlIgnore]
-        private Geometry.FdCoordinateSystem CoordinateSystem
+        private Geometry.CoordinateSystem CoordinateSystem
         {
             get
             {
@@ -115,7 +115,7 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public Geometry.FdPoint3d LocalOrigin
+        public Geometry.Point3d LocalOrigin
         {
             get
             {
@@ -124,7 +124,7 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -133,10 +133,10 @@ namespace FemDesign.Bars
         }
 
         [XmlElement("local-y", Order = 2)]
-        public Geometry.FdVector3d _localY;
+        public Geometry.Vector3d _localY;
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -150,7 +150,7 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {

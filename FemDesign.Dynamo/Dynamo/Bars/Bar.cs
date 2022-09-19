@@ -109,8 +109,7 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            var type = BarType.Truss;
-            Bar bar = new Bar(edge, type, material, section, identifier);
+            Bar bar = Bar.Truss(edge, material, section, identifier);
 
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))

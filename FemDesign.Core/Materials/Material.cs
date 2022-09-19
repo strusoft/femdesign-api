@@ -1,7 +1,9 @@
 // https://strusoft.com/
-
+using System;
 using System.Globalization;
 using System.Xml.Serialization;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FemDesign.Materials
 {
@@ -33,6 +35,60 @@ namespace FemDesign.Materials
         public ReinforcingSteel ReinforcingSteel { get; set; }
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
+        
+        [XmlIgnore]
+        public string Family
+        {
+            get
+            {
+                if (this.Steel != null)
+                    return "Steel";
+                else if (this.Concrete != null)
+                    return "Concrete";
+                else if (this.Timber != null)
+                    return "Timber";
+                else if (this.Stratum != null)
+                    return "Stratum";
+                else if (this.ReinforcingSteel != null)
+                    return "ReinforcingSteel";
+                else
+                    return "Custom";
+            }
+        }
+
+        public static Material GetMaterialByNameOrIndex(List<Material> materials, dynamic materialInput)
+        {
+            Material material;
+            var isNumeric = int.TryParse(materialInput.ToString(), out int n);
+            if (!isNumeric)
+            {
+                try
+                {
+                    material = materials.Where(x => x.Identifier == materialInput).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"{materialInput} does not exist!");
+                }
+            }
+            else
+            {
+                try
+                {
+                    material = materials[n];
+                }
+                catch (Exception ex)
+                {
+                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!");
+                }
+            }
+            return material;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Identifier}";
+        }
 
         /// <summary>
         /// Set creep and shrinkage parameters to a concrete Material.

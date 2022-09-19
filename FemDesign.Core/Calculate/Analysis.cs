@@ -15,7 +15,7 @@ namespace FemDesign.Calculate
     {
         // elements
         [XmlElement("stage")]
-        public ConstructionStage Stage { get; set; } // ANALSTAGE
+        public Stage Stage { get; set; } // ANALSTAGE
         [XmlElement("comb")]
         public Comb Comb { get; set; } // ANALCOMB
         [XmlElement("freq")]
@@ -38,7 +38,7 @@ namespace FemDesign.Calculate
                 this._calcCase = Convert.ToInt32(value);
             }
         }
-        [XmlAttribute("calcCStage")]
+        [XmlAttribute("calcCstage")]
         public int _calcCStage; // bool as int
         [XmlIgnore]
         public bool CalcCStage
@@ -216,22 +216,22 @@ namespace FemDesign.Calculate
         private Analysis()
         {
         }
-        public Analysis(ConstructionStage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
-            this.Stage = stage ?? ConstructionStage.Default();
+            this.Stage = stage;
             this.Comb = comb ?? Comb.Default();
-            this.Freq = freq ?? Freq.Default();
-            this.Footfall = footfall ?? Footfall.Default();
+            this.Freq = freq;
+            this.Footfall = footfall;
             this.CalcCase = calcCase;
-            this.CalcCStage = calcCStage;
+            this.CalcCStage = stage != null ? true : calcCStage;
             this.CalcCImpf = calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
             this.CalcStab = calcStab;
-            this.CalcFreq = calcFreq;
+            this.CalcFreq = freq != null ? true : calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;
-            this.CalcFootfall = calcFootfall;
+            this.CalcFootfall = footfall != null ? true : calcFootfall;
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
             this.PeakSmoothing = peakSmoothing;
@@ -241,13 +241,13 @@ namespace FemDesign.Calculate
         /// Define a Static Analysis.
         /// </summary>
         /// <param name="comb"></param>
-        /// <param name="stage"></param>
+        /// <param name="calcCase"></param>
+        /// <param name="calccomb"></param>
         /// <returns></returns>
-        public static Analysis StaticAnalysis(ConstructionStage stage = null, Comb comb = null, bool calcCase = true, bool calccomb = true)
+        public static Analysis StaticAnalysis(Comb comb = null, bool calcCase = true, bool calccomb = true)
         {
             comb = comb ?? Comb.Default();
-            stage = stage ?? ConstructionStage.Default();
-            return new Analysis(comb: comb, calcCase: calcCase, calcComb: calccomb, stage: stage);
+            return new Analysis(comb: comb, calcCase: calcCase, calcComb: calccomb);
         }
 
 
@@ -267,6 +267,25 @@ namespace FemDesign.Calculate
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ghost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static Analysis ConstructionStages(bool ghost = false)
+        {
+            var stage = ghost == false ? Stage.Tracking() : Stage.Ghost();
+            return new Analysis(stage, calcCStage: true);
+        }
+
+        // TODO
+        private static Analysis FootFall(Footfall footfall)
+        {
+            var analisys = new Analysis(footfall: footfall, calcFootfall: true);
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Internal method to transfer load combination calculation parameters from LoadCombination to Analysis.

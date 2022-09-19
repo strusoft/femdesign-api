@@ -10,14 +10,15 @@ namespace FemDesign.Grasshopper
 {
     public class ModelRunAnalysis : GH_Component
     {
-        public ModelRunAnalysis() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
+        public ModelRunAnalysis() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePathStruxml", "FilePathStruxml", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -60,9 +61,17 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+
             if (!DA.GetData(1, ref filePath))
             {
-                return;
+                bool fileExist = OnPingDocument().IsFilePathDefined;
+                if (!fileExist)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
+                    return;
+                }
+                filePath = OnPingDocument().FilePath;
+                filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
             }
             if (!DA.GetData(2, ref analysis))
             {
@@ -101,12 +110,28 @@ namespace FemDesign.Grasshopper
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            resultTypes.Insert(0, "FeaNode");
-            resultTypes.Insert(1, "FeaBar");
-            resultTypes.Insert(2, "FeaShell");
+            resultTypes.Add("FeaNode");
+            resultTypes.Add("FeaBar");
+            resultTypes.Add("FeaShell");
 
             // it should be a method
-            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
+            var notValidResultTypes = new List<string>();
+            var _resultTypes = resultTypes.Select(r =>
+            {
+                var sucess = Results.ResultTypes.All.TryGetValue(r, out Type value);
+                if (sucess)
+                    return value;
+                else
+                {
+                    notValidResultTypes.Add(r);
+                    return null;
+                }
+            });
+            if (notValidResultTypes.Count != 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
+                return;
+            }
 
             // Create Bsc files from resultTypes
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);

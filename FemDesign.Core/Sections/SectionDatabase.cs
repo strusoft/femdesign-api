@@ -12,11 +12,11 @@ namespace FemDesign.Sections
     /// Section database.
     /// </summary>
     [System.Serializable]
-    [XmlRoot("database", Namespace="urn:strusoft")]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class SectionDatabase
     {
         [XmlIgnore]
-        public string FilePath {get; set; }
+        public string FilePath { get; set; }
         [XmlAttribute("struxml_version")]
         public string StruxmlVersion { get; set; }
         [XmlAttribute("source_software")]
@@ -38,10 +38,15 @@ namespace FemDesign.Sections
         [XmlElement("sections")]
         public DatabaseSections Sections { get; set; }
         [XmlElement("end")]
-        public string End { get; set;}
+        public string End { get; set; }
+        [XmlIgnore]
+        private static SectionDatabase _defaultSectionDatabaseCache = null;
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         private SectionDatabase()
         {
-            // parameterless constructor for serialization
         }
 
         /// <summary>
@@ -76,6 +81,47 @@ namespace FemDesign.Sections
             }
             return list;
         }
+
+        public (List<Section> steel, List<Section> concrete, List<Section> timber, List<Section> hollowCore, List<Section> custom) ByType()
+        {
+            var sectionDatabaseList = this.Sections.Section;
+
+            var steel = new List<Section>();
+            var timber = new List<Section>();
+            var concrete = new List<Section>();
+            var hollowCore = new List<Section>();
+            var custom = new List<Section>();
+
+            foreach (var section in sectionDatabaseList)
+            {
+                // update object information
+                //section.Guid = System.Guid.NewGuid();
+                //section.EntityModified();
+
+                if (section.MaterialFamily == "Steel")
+                {
+                    steel.Add(section);
+                }
+                else if (section.MaterialFamily == "Concrete")
+                {
+                    concrete.Add(section);
+                }
+                else if (section.MaterialFamily == "Timber")
+                {
+                    timber.Add(section);
+                }
+                else if (section.MaterialFamily == "Hollow")
+                {
+                    hollowCore.Add(section);
+                }
+                else if (section.MaterialFamily == "Custom")
+                {
+                    custom.Add(section);
+                }
+            }
+            return (steel, concrete, timber, hollowCore, custom);
+        }
+
 
         /// <summary>
         /// Add a section to this section database
@@ -134,7 +180,7 @@ namespace FemDesign.Sections
         private static SectionDatabase DeserializeFromResource()
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(SectionDatabase));
-            
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             foreach (string resourceName in assembly.GetManifestResourceNames())
             {
@@ -166,11 +212,30 @@ namespace FemDesign.Sections
         /// <returns></returns>
         public static SectionDatabase GetDefault()
         {
-            SectionDatabase sectionDatabase = SectionDatabase.DeserializeFromResource();
-            sectionDatabase.End = "";
-            return sectionDatabase;
+            if (_defaultSectionDatabaseCache is null)
+            {
+                _defaultSectionDatabaseCache = DeserializeFromResource();
+                _defaultSectionDatabaseCache.End = "";
+            }
+            return _defaultSectionDatabaseCache;
         }
 
+        public static SectionDatabase Empty()
+        {
+            var emptyDatabase = new SectionDatabase();
+            emptyDatabase.StruxmlVersion = "01.00.000";
+            emptyDatabase.SourceSoftware = "FEM-Design API";
+            emptyDatabase.StartTime = "1970-01-01T00:00:00.000";
+            emptyDatabase.EndTime = "1970-01-01T00:00:00.000";
+            emptyDatabase.Guid = System.Guid.NewGuid().ToString();
+            emptyDatabase.ConvertId = "00000000-0000-0000-0000-000000000000";
+            emptyDatabase.Standard = "EC";
+            emptyDatabase.Country = "common";
+            emptyDatabase.Xmlns = "urn:strusoft";
+            emptyDatabase.Sections = new DatabaseSections();
+            emptyDatabase.End = "";
+            return emptyDatabase;
+        }
         /// <summary>
         /// Serialize section database to file
         /// </summary>

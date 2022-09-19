@@ -56,7 +56,7 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("local_system", Order= 4)]
-        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
         public Motions Motions { get { return Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Rigidity?.PlasticLimitForces; } }
 
@@ -101,6 +101,14 @@ namespace FemDesign.Supports
             this.Region = region;
             this.Rigidity = rigidity;
             this.CoordinateSystem = region.CoordinateSystem;
+        }
+
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Rigidity.PlasticLimitForces != null)
+                hasPlasticLimit = true;
+            return $"{this.GetType().Name} Motion: {this.Rigidity.Motions}, PlasticLimit: {hasPlasticLimit}";
         }
     }
 }

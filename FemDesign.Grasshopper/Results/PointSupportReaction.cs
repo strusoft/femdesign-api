@@ -17,8 +17,7 @@ namespace FemDesign.Grasshopper
           : base("PointSupportReaction",
                 "PointSupportReaction",
                 "Read the nodal reaction forces",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -29,7 +28,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -41,10 +40,10 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Identifier", "Identifier", "Node Identifier.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
             pManager.AddPointParameter("SupportPosition", "SupportPosition", "Position Point for the returned reaction forces", GH_ParamAccess.list);
-            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes. [kN]", GH_ParamAccess.list);
-            pManager.AddVectorParameter("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes. [kNm]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant [kN]", GH_ParamAccess.list);
-            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant [kNm]", GH_ParamAccess.list);
+            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes.", GH_ParamAccess.list);
+            pManager.AddVectorParameter("ReactionMoment", "ReactionMoment", "Reaction Moments in global x, y, z for all nodes.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant", GH_ParamAccess.list);
+            pManager.AddNumberParameter("MomentResultant", "MomentResultant", "Moment Resultant", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -77,9 +76,9 @@ namespace FemDesign.Grasshopper
             var loadCases = (List<string>)result["CaseIdentifier"];
             var identifier = (List<string>)result["Identifier"];
             var nodeId = (List<int>)result["NodeId"];
-            var iPos = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
-            var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
-            var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
+            var iPos = (List<FemDesign.Geometry.Point3d>)result["Position"];
+            var iReactionForce = (List<FemDesign.Geometry.Vector3d>)result["ReactionForce"];
+            var iReactionMoment = (List<FemDesign.Geometry.Vector3d>)result["ReactionMoment"];
             var iForceResultant = (List<double>)result["ForceResultant"];
             var iMomentResultant = (List<double>)result["MomentResultant"];
 

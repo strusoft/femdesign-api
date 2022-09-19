@@ -9,8 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class BarsColumnSimple: GH_Component
     {
-       public BarsColumnSimple(): base("Bars.ColumnSimple", "ColumnSimple", "Create a bar element of type column with same start/end properties.", "FEM-Design", "Bars")
-       {
+       public BarsColumnSimple(): base("Bars.ColumnSimple", "ColumnSimple", "Create a bar element of type column with same start/end properties.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
+        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -44,13 +45,13 @@ namespace FemDesign.Grasshopper
             FemDesign.Sections.Section section = null;
             if (!DA.GetData(2, ref section)) { return; }
 
-            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.GetRigid();
+            FemDesign.Bars.Connectivity connectivity = FemDesign.Bars.Connectivity.Rigid;
             if (!DA.GetData(3, ref connectivity))
             {
                 // pass
             }
 
-            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.GetDefault();
+            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.Default;
             if (!DA.GetData(4, ref eccentricity))
             {
                 // pass
@@ -85,7 +86,7 @@ namespace FemDesign.Grasshopper
 
             // create bar
             var type = FemDesign.Bars.BarType.Column;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, eccentricity, connectivity, identifier);
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, section, type, eccentricity, connectivity, identifier);
             
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
@@ -118,7 +119,7 @@ namespace FemDesign.Grasshopper
            get { return new Guid("4f7cdee1-2e06-403b-b503-acdb8cc5cd4f"); }
        }
 
-        public override GH_Exposure Exposure => GH_Exposure.obscure;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }

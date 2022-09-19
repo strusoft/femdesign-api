@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Reflection;
 
 
 namespace FemDesign.Calculate
@@ -89,28 +90,34 @@ namespace FemDesign.Calculate
             DocTable.CaseIndex = caseIndex;
         }
 
-
-        public static List<string> BscPathFromResultTypes(IEnumerable<Results.ResultType> resultTypes, string strPath, Results.UnitResults units = null)
+        public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null)
         {
+            var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
+            if (notAResultType != null)
+                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
+
+
             // Create Bsc files from resultTypes
-            var listProcs = resultTypes.Select(r => Results.ResultAttributeExtentions.ListProcs[r]);
+            var listProcs = resultTypes.Select(r =>
+                r.GetCustomAttribute<Results.ResultAttribute>()?.ListProcs
+                ?? Enumerable.Empty<ListProc>()
+            );
 
-
-            var dir = System.IO.Path.GetDirectoryName(strPath);
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(strPath);
+            var dir = Path.GetDirectoryName(strPath);
+            var fileName = Path.GetFileNameWithoutExtension(strPath);
 
             // Create \data folder to store output
-            string dataDir = System.IO.Path.Combine(dir, fileName, "scripts");
+            string dataDir = Path.Combine(dir, fileName, "scripts");
             // If directory does not exist, create it
-            if (!System.IO.Directory.Exists(dataDir))
+            if (!Directory.Exists(dataDir))
             {
-                System.IO.Directory.CreateDirectory(dataDir);
+                Directory.CreateDirectory(dataDir);
             }
 
-            if(units == null)
+            if (units == null)
                 units = Results.UnitResults.Default();
 
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, $"{dataDir}\\{l}.bsc", units)));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
             return bscPathsFromResultTypes;
         }
@@ -123,7 +130,7 @@ namespace FemDesign.Calculate
 
         public static implicit operator List<string>(Bsc bsc)
         {
-            return new List<string>() {bsc.BscPath};
+            return new List<string>() { bsc.BscPath };
         }
 
         /// <summary>

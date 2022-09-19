@@ -35,7 +35,7 @@ namespace FemDesign.Supports
     public partial class Directed
     {
         [XmlElement("direction", Order = 1)]
-        public FdVector3d Direction;
+        public Vector3d Direction;
 
         [XmlIgnore]
         private StiffBaseType movement;
@@ -121,7 +121,7 @@ namespace FemDesign.Supports
 
         }
 
-        internal Directed(FdVector3d direction, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0)
+        internal Directed(Vector3d direction, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0)
         {
             Direction = direction;
             if (type == MotionType.Motion)
@@ -136,7 +136,7 @@ namespace FemDesign.Supports
             }
         }
 
-        internal Directed(FdVector3d direction, SimpleRigidityGroup rigidityGroup)
+        internal Directed(Vector3d direction, SimpleRigidityGroup rigidityGroup)
         {
             Direction = direction;
             RigidityGroup = rigidityGroup;

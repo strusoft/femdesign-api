@@ -78,7 +78,7 @@ namespace FemDesign.Grasshopper
             }
 
             // create Longitudinal
-            var pos = new FemDesign.Geometry.FdPoint2d(yPos, zPos);
+            var pos = new FemDesign.Geometry.Point2d(yPos, zPos);
             var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, startAnchorage, endAnchorage, start, end, auxiliary);
 
             // create bar reinforcement without base bar reference
@@ -98,5 +98,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("f83c3e91-5d1d-47fc-bb9d-cb2f708e4d3a"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
     }  
 }

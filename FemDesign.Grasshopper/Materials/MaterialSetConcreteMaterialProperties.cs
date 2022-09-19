@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialSetConcreteMaterialProperties: GH_Component
     {
-        public MaterialSetConcreteMaterialProperties(): base("Material.SetConcreteMaterialProperties", "SetConcreteMaterialProperties", "Set creep and shrinkage parameters to a concrete Material.", "FEM-Design", "Materials")
+        public MaterialSetConcreteMaterialProperties(): base("SetConcreteMaterialProperties", "SetConcreteMaterialProperties", "Set creep and shrinkage parameters to a concrete Material.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
@@ -78,5 +78,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("5871fa03-17fe-4580-9091-976da4a1b4ee"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 }

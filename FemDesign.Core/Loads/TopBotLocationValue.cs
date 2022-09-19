@@ -8,7 +8,7 @@ namespace FemDesign.Loads
     /// topbottom_value
     /// </summary>
     [System.Serializable]
-    public partial class TopBotLocationValue: Geometry.FdPoint3d
+    public partial class TopBotLocationValue: Geometry.Point3d
     {
         /// <summary>
         /// Top value
@@ -45,7 +45,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Construct top bottom location value by point, top value and bottom value.
         /// </summary>
-        public TopBotLocationValue(Geometry.FdPoint3d point, double topVal, double bottomVal)
+        public TopBotLocationValue(Geometry.Point3d point, double topVal, double bottomVal)
         {
             this.X = point.X;
             this.Y = point.Y;
@@ -57,9 +57,9 @@ namespace FemDesign.Loads
         /// <summary>
         /// Convert coordinates to FdPoint.
         /// </summary>
-        public Geometry.FdPoint3d GetFdPoint()
+        public Geometry.Point3d GetFdPoint()
         {
-            return new Geometry.FdPoint3d(this.X, this.Y, this.Z);
+            return new Geometry.Point3d(this.X, this.Y, this.Z);
         }
 
     }

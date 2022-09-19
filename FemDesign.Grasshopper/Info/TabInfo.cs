@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper;
 using System.Drawing;
+using System.Reflection;
+
 
 namespace FemDesign.Info
 {
@@ -42,8 +44,17 @@ namespace FemDesign.Info
         public override string AuthorName => "StruSoft";
 
         //Return a string representing your preferred contact details.
-        public override string AuthorContact => "femdesign.api@strusoft.com";
+        public override string AuthorContact => "";
 
-        public override string AssemblyVersion => "21.3.0";
+
+        public override string AssemblyVersion
+        {
+            get
+            {
+                IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
+                string assemblyVersion = assembly.First().Version?.ToString();
+                return assemblyVersion;
+            }
+        }
     }
 }

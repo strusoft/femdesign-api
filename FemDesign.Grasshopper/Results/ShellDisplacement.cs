@@ -18,8 +18,7 @@ namespace FemDesign.Grasshopper
           : base("ShellDisplacement",
                 "ShellDisplacement",
                 "Read the shell displacement for the entire model",
-                "FEM-Design",
-                "Results")
+                CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -30,7 +29,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. Default value returns the results for the first load case", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -41,8 +40,8 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_GenericParam("ElementId", "ElementId", "Element Index");
             pManager.Register_GenericParam("NodeId", "NodeId", "Node Index");
-            pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes. [m]");
-            pManager.Register_VectorParam("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes. [rad]");
+            pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes.");
+            pManager.Register_VectorParam("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes.");
         }
 
         /// <summary>
@@ -75,8 +74,8 @@ namespace FemDesign.Grasshopper
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int?>)result["NodeId"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
 
             var uniqueLoadCase = loadCases.Distinct().ToList();

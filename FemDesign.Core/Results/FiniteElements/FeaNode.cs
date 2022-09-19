@@ -7,12 +7,14 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Node" result
     /// </summary>
+    [Result(typeof(FeaNode), ListProc.FeaNode)]
     public partial class FeaNode : IResult
     {
         /// <summary>
@@ -85,11 +87,11 @@ namespace FemDesign.Results
 
 
             // Create a Fd Vector/Point for Visualising the Reaction Forces
-            var feaNodePoint = new List<FemDesign.Geometry.FdPoint3d>();
+            var feaNodePoint = new List<FemDesign.Geometry.Point3d>();
 
             foreach (var node in feaNodes)
             {
-                var pos = new FemDesign.Geometry.FdPoint3d(node.X, node.Y, node.Z);
+                var pos = new FemDesign.Geometry.Point3d(node.X, node.Y, node.Z);
                 feaNodePoint.Add(pos);
             }
 

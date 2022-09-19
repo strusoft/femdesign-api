@@ -17,8 +17,8 @@ namespace FemDesign.Grasshopper
             Name = "ResultsType";
             NickName = "ResultsType";
             Description = "ResultsType enum.";
-            Category = "FEM-Design";
-            SubCategory = "Results";
+            Category = CategoryName.Name();
+            SubCategory = SubCategoryName.Cat7b();
 
 
             ListItems.Clear();
@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
 
 
             var values = new List<string>
-            { "NodalDisplacement", "PointSupportReaction", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
+            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "ShellDisplacement", "ShellInternalForce", "ShellStress", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
 
             GH_ValueListItem vi;
             foreach (string value in values)

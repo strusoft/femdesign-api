@@ -1,0 +1,659 @@
+Mon Jul 25 15:00:05 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Mon Jul 25 15:00:07 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Mon Jul 25 15:00:07 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Mon Jul 25 15:01:22 2022
+
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Mon Jul 25 15:01:22 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Mon Jul 25 15:01:22 2022
+
+Mon Jul 25 15:13:09 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Mon Jul 25 15:13:11 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Mon Jul 25 15:13:11 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Mon Jul 25 15:14:24 2022
+
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Mon Jul 25 15:14:24 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Mon Jul 25 15:14:24 2022
+
+Mon Jul 25 15:16:46 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Mon Jul 25 15:16:48 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Mon Jul 25 15:16:48 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Mon Jul 25 15:18:01 2022
+
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Mon Jul 25 15:18:01 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Mon Jul 25 15:18:02 2022
+
+Tue Jul 26 08:52:10 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 08:52:12 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 08:52:12 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 08:53:19 2022
+
+Tue Jul 26 08:53:19 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 08:53:19 2022
+
+Tue Jul 26 08:58:10 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 08:58:12 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Tue Jul 26 08:58:12 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 08:59:20 2022
+
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 08:59:20 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 08:59:20 2022
+
+Tue Jul 26 08:59:59 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 09:00:01 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 09:00:01 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 09:01:06 2022
+
+Tue Jul 26 09:01:06 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 09:01:06 2022
+
+Tue Jul 26 10:04:46 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 10:04:48 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 10:04:48 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 10:05:24 2022
+
+Tue Jul 26 10:05:24 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:05:24 2022
+
+Tue Jul 26 10:05:24 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:05:24 2022
+
+Tue Jul 26 10:05:24 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:05:24 2022
+
+Tue Jul 26 10:05:24 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 10:05:24 2022
+
+Tue Jul 26 10:05:49 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 10:05:50 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 10:05:50 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 10:06:29 2022
+
+Tue Jul 26 10:06:29 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:06:29 2022
+
+Tue Jul 26 10:06:29 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:06:29 2022
+
+Tue Jul 26 10:06:29 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:06:29 2022
+
+Tue Jul 26 10:06:29 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 10:06:29 2022
+
+Tue Jul 26 10:07:41 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 10:07:42 2022
+
+Tue Jul 26 10:07:42 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:07:42 2022
+
+Tue Jul 26 10:07:42 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:07:42 2022
+
+Tue Jul 26 10:07:42 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:07:42 2022
+
+Tue Jul 26 10:07:42 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 10:07:42 2022
+
+Tue Jul 26 10:08:38 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 10:08:39 2022
+
+Tue Jul 26 10:08:39 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:08:39 2022
+
+Tue Jul 26 10:08:39 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:08:39 2022
+
+Tue Jul 26 10:08:39 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 10:08:39 2022
+
+Tue Jul 26 10:08:39 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 10:08:39 2022
+
+Tue Jul 26 11:51:00 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 11:51:02 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 11:51:02 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 11:51:46 2022
+
+Tue Jul 26 11:51:46 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:51:46 2022
+
+Tue Jul 26 11:51:46 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:51:46 2022
+
+Tue Jul 26 11:51:46 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:51:46 2022
+
+Tue Jul 26 11:51:46 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 11:51:46 2022
+
+Tue Jul 26 11:52:02 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 11:52:03 2022
+
+Tue Jul 26 11:52:03 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:52:03 2022
+
+Tue Jul 26 11:52:03 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:52:03 2022
+
+Tue Jul 26 11:52:03 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:52:03 2022
+
+Tue Jul 26 11:52:03 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 11:52:03 2022
+
+Tue Jul 26 11:52:29 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 11:52:31 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 11:52:31 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 11:53:12 2022
+
+Tue Jul 26 11:53:12 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:53:12 2022
+
+Tue Jul 26 11:53:12 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:53:12 2022
+
+Tue Jul 26 11:53:12 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 11:53:12 2022
+
+Tue Jul 26 11:53:12 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 11:53:12 2022
+
+Tue Jul 26 11:55:14 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 11:55:16 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 11:55:16 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 11:59:26 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 11:59:28 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 11:59:28 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 12:00:07 2022
+
+Tue Jul 26 12:00:07 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 12:00:07 2022
+
+Tue Jul 26 12:00:07 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 12:00:07 2022
+
+Tue Jul 26 12:00:07 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 12:00:07 2022
+
+Tue Jul 26 12:00:07 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 12:00:07 2022
+
+Tue Jul 26 13:33:30 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 13:33:32 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 13:33:32 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 13:34:16 2022
+
+Tue Jul 26 13:34:16 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:34:16 2022
+
+Tue Jul 26 13:34:16 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:34:16 2022
+
+Tue Jul 26 13:34:16 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:34:16 2022
+
+Tue Jul 26 13:34:16 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 13:34:16 2022
+
+Tue Jul 26 13:43:33 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 13:43:34 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 13:43:35 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 13:44:14 2022
+
+Tue Jul 26 13:44:14 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:44:14 2022
+
+Tue Jul 26 13:44:14 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:44:14 2022
+
+Tue Jul 26 13:44:14 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:44:14 2022
+
+Tue Jul 26 13:44:14 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 13:44:14 2022
+
+Tue Jul 26 13:49:04 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Tue Jul 26 13:49:05 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+cmduser:'; CXL FEM $CODE(DESCHANGESAPPLY)'
+Tue Jul 26 13:49:05 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Tue Jul 26 13:49:50 2022
+
+Tue Jul 26 13:49:50 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:49:50 2022
+
+Tue Jul 26 13:49:50 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:49:50 2022
+
+Tue Jul 26 13:49:50 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Tue Jul 26 13:49:50 2022
+
+Tue Jul 26 13:49:50 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Tue Jul 26 13:49:50 2022
+
+Thu Jul 28 15:30:41 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:30:43 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:30:43 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:30:43 2022
+
+Thu Jul 28 15:30:43 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:30:43 2022
+
+Thu Jul 28 15:31:02 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:31:04 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:31:04 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:31:04 2022
+
+Thu Jul 28 15:31:04 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:31:05 2022
+
+Thu Jul 28 15:31:42 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:31:44 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:31:44 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:31:44 2022
+
+Thu Jul 28 15:31:44 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:31:44 2022
+
+Thu Jul 28 15:32:22 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:32:23 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:32:24 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:32:24 2022
+
+Thu Jul 28 15:32:24 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:32:24 2022
+
+Thu Jul 28 15:33:32 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:33:34 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:33:34 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:33:34 2022
+
+Thu Jul 28 15:33:34 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:33:35 2022
+
+Thu Jul 28 15:39:58 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:40:00 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:40:00 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:40:00 2022
+
+Thu Jul 28 15:40:00 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:40:00 2022
+
+Thu Jul 28 15:40:41 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:40:43 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:40:43 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:40:43 2022
+
+Thu Jul 28 15:40:43 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:40:43 2022
+
+Thu Jul 28 15:43:02 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:43:03 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:43:04 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:43:04 2022
+
+Thu Jul 28 15:43:04 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:43:04 2022
+
+Thu Jul 28 15:43:11 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:43:13 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:43:13 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:43:13 2022
+
+Thu Jul 28 15:43:13 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:43:14 2022
+
+Thu Jul 28 15:44:14 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:44:16 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:44:16 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:44:16 2022
+
+Thu Jul 28 15:44:16 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+No declared mass or converted load case.
+analysis
+Thu Jul 28 15:44:16 2022
+
+Thu Jul 28 15:52:49 2022
+
+cmdopen:'; CXL CS2SHELL OPEN'
+Thu Jul 28 15:52:51 2022
+
+cmduser:'; CXL $MODULE STEELDESIGN'
+Thu Jul 28 15:52:51 2022
+
+cmdglobalcfg:'$ FEM $CODE(GLOBALCFG)'
+Thu Jul 28 15:52:51 2022
+
+Thu Jul 28 15:52:51 2022
+
+cmdcalculation:'; CXL $MODULE CALC'
+Thu Jul 28 15:53:32 2022
+
+Thu Jul 28 15:53:32 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Thu Jul 28 15:53:32 2022
+
+Thu Jul 28 15:53:32 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Thu Jul 28 15:53:32 2022
+
+Thu Jul 28 15:53:32 2022
+
+cmdlistgen:'$ MODULECOM LISTGEN'
+Thu Jul 28 15:53:32 2022
+
+Thu Jul 28 15:53:32 2022
+
+cmdsave:'; CXL CS2SHELL SAVE'
+Thu Jul 28 15:53:32 2022
+

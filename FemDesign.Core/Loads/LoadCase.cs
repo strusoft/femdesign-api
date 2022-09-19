@@ -59,5 +59,10 @@ namespace FemDesign.Loads
             }
             return null;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} ID: {this.Identifier}, Type: {this.Type}, Duration: {this.DurationClass}";
+        }
     }
 }

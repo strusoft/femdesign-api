@@ -103,7 +103,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Private constructor accessed by static methods.
         /// </summary>
-        public Straight(ReinforcementDirection direction, double space, GenericClasses.Face face, double cover)
+        public Straight(ReinforcementDirection direction, double space, GenericClasses.Face face, double cover = 0.02)
         {
             this.Direction = direction;
             this.Space = space;
@@ -119,7 +119,7 @@ namespace FemDesign.Reinforcement
         /// <param name="space">Spacing between bars.</param>
         /// <param name="face">"top"/"bottom"</param>
         /// <param name="cover">Reinforcement concrete cover.</param>
-        public Straight(string direction, double space, string face, double cover)
+        public Straight(string direction, double space, string face, double cover = 0.02)
         {
             this.Direction = EnumParser.Parse<ReinforcementDirection>(direction);
             this.Space = space;

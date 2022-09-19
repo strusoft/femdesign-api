@@ -22,14 +22,17 @@ namespace FemDesign.Examples
 
 
             // Define geometry
-            var p1 = new Geometry.FdPoint3d(2.0, 2.0, 0);
-            var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
+            var p1 = new Geometry.Point3d(2.0, 2.0, 0);
+            var p2 = new Geometry.Point3d(10, 2.0, 0);
             var mid = p1 + (p2 - p1) * 0.5;
 
             // Create elements
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            //var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitZ());
+            var edge = new Geometry.LineEdge(p1, p2, Geometry.Vector3d.UnitZ);
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
+
+            
 
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
@@ -39,18 +42,23 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
-            bar.BarPart.LocalY = Geometry.FdVector3d.UnitY();
-            var elements = new List<GenericClasses.IStructureElement>() { bar };
+            bar.BarPart.LocalY = Geometry.Vector3d.UnitY;
+
+
+            var bar1 = Bars.Bar.SimpleBeam(10.0, material, section);
+
+            var column = Bars.Bar.SimpleColumn(3.0, material, section);
+            var elements = new List<GenericClasses.IStructureElement>() { bar, bar1, column };
 
 
             // Create supports
             var s1 = new Supports.PointSupport(
                 point: p1,
                 motions: Releases.Motions.RigidPoint(),
-                rotations: Releases.Rotations.Free()
+                rotations: Releases.Rotations.RigidPoint()
                 );
 
             var s2 = new Supports.PointSupport(
@@ -58,6 +66,7 @@ namespace FemDesign.Examples
                 motions: new Releases.Motions(yNeg: 1e10, yPos: 1e10, zNeg: 1e10, zPos: 1e10),
                 rotations: Releases.Rotations.Free()
                 );
+
             var supports = new List<GenericClasses.ISupportElement>() { s1, s2 };
 
 
@@ -76,11 +85,11 @@ namespace FemDesign.Examples
 
 
             // Create loads
-            var pointForce = new Loads.PointLoad(mid, new Geometry.FdVector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.FdVector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
+            var pointForce = new Loads.PointLoad(mid, new Geometry.Vector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
+            var pointMoment = new Loads.PointLoad(p2, new Geometry.Vector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
 
-            var lineLoadStart = new Geometry.FdVector3d(0.0, 0.0, -2.0);
-            var lineLoadEnd = new Geometry.FdVector3d(0.0, 0.0, -4.0);
+            var lineLoadStart = new Geometry.Vector3d(0.0, 0.0, -2.0);
+            var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = new Loads.LineLoad(edge, lineLoadStart, lineLoadEnd, liveload, Loads.ForceLoadType.Force, "", constLoadDir: true, loadProjection: true);
 
             var loads = new List<GenericClasses.ILoadElement>() {
@@ -89,8 +98,6 @@ namespace FemDesign.Examples
                 lineLoad
             };
 
-            // Create Stages
-            //stage = new FemDesign.Stage(1, )
 
             // Add to model
             Model model = new Model(Country.S);
@@ -99,14 +106,10 @@ namespace FemDesign.Examples
             model.AddLoadCases(loadcases);
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
+            
+            model.Open();
 
 
-            // Save model then open in FEM-Design
-            string path = System.IO.Path.GetFullPath("simple_model.struxml");
-            model.SerializeModel(path);
-
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
         }
     }
 }

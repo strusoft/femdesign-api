@@ -44,7 +44,7 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("position", Order = 3)]
-        public FdPoint3d Position { get; set; } // point_type_3d
+        public Point3d Position { get; set; } // point_type_3d
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
         public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }
@@ -66,7 +66,7 @@ namespace FemDesign.Supports
         /// <param name="posPlastic">Plastic limit in positive direction. [kN] or [kNm]</param>
         /// <param name="negPlastic">Plastic limit in negative direction. [kN] or [kNm]</param>
         /// <param name="identifier">Name.</param>
-        public PointSupport(FdPoint3d point, FdVector3d direction, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
+        public PointSupport(Point3d point, Vector3d direction, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
         {
             Initialize(point, null, identifier);
             this.Directed = new Directed(direction, type, pos, neg, posPlastic, negPlastic);
@@ -79,7 +79,7 @@ namespace FemDesign.Supports
         /// <param name="motions"></param>
         /// <param name="rotations"></param>
         /// <param name="identifier"></param>
-        public PointSupport(FdCoordinateSystem plane, Motions motions, Rotations rotations, string identifier = "S")
+        public PointSupport(CoordinateSystem plane, Motions motions, Rotations rotations, string identifier = "S")
         {
             var group = new Group(plane.LocalX, plane.LocalY, motions, rotations);
             Initialize(plane.Origin, group, identifier);
@@ -92,9 +92,9 @@ namespace FemDesign.Supports
         /// <param name="motions"></param>
         /// <param name="rotations"></param>
         /// <param name="identifier"></param>
-        public PointSupport(FdPoint3d point, Motions motions, Rotations rotations, string identifier = "S")
+        public PointSupport(Point3d point, Motions motions, Rotations rotations, string identifier = "S")
         {
-            var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, rotations);
+            var group = new Group(Vector3d.UnitX, Vector3d.UnitY, motions, rotations);
             Initialize(point, group, identifier);
         }
 
@@ -107,9 +107,9 @@ namespace FemDesign.Supports
         /// <param name="rotations">Rotation stiffnessess. </param>
         /// <param name="rotationsPlasticLimits">Rotation plastic limit moments. </param>
         /// <param name="identifier">Name.</param>
-        public PointSupport(FdCoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
+        public PointSupport(CoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
-            var group = new Group(FdVector3d.UnitX(), FdVector3d.UnitY(), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            var group = new Group(Vector3d.UnitX, Vector3d.UnitY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(plane, group, identifier);
         }
 
@@ -125,7 +125,7 @@ namespace FemDesign.Supports
         /// <param name="ry"></param>
         /// <param name="rz"></param>
         /// <param name="identifier"></param>
-        public PointSupport(FdCoordinateSystem plane, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, string identifier = "S")
+        public PointSupport(CoordinateSystem plane, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, string identifier = "S")
         {
             double x = tx == true ? Motions.ValueRigidPoint : 0;
             double y = ty == true ? Motions.ValueRigidPoint : 0;
@@ -141,7 +141,7 @@ namespace FemDesign.Supports
             Initialize(plane.Origin, group, identifier);
         }
 
-        private void Initialize(FdCoordinateSystem point, Group group, string identifier)
+        private void Initialize(CoordinateSystem point, Group group, string identifier)
         {
             PointSupport._instance++;
             this.EntityCreated();
@@ -155,7 +155,7 @@ namespace FemDesign.Supports
         /// </summary>
         /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Rigid(FdCoordinateSystem plane, string identifier = "S")
+        public static PointSupport Rigid(CoordinateSystem plane, string identifier = "S")
         {
             Motions motions = Motions.RigidPoint();
             Rotations rotations = Rotations.RigidPoint();
@@ -167,11 +167,24 @@ namespace FemDesign.Supports
         /// </summary>
         /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Hinged(FdCoordinateSystem plane, string identifier = "S")
+        public static PointSupport Hinged(CoordinateSystem plane, string identifier = "S")
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.Free();
             return new PointSupport(plane, motions, rotations, identifier);
+        }
+
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Group.Rigidity != null)
+            {
+                if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} Pos: {this.Position}, {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+            }
+            else
+                return $"{this.GetType().Name} with RigidityGroup Pos: {this.Position}";
         }
     }
 }

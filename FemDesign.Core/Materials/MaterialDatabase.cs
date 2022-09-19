@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace FemDesign.Materials
@@ -11,11 +12,11 @@ namespace FemDesign.Materials
     /// <summary>
     /// Material database.
     /// </summary>
-    [XmlRoot("database", Namespace="urn:strusoft")]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class MaterialDatabase
     {
         [XmlIgnore]
-        public string FilePath {get; set; }
+        public string FilePath { get; set; }
         [XmlAttribute("struxml_version")]
         public string StruxmlVersion { get; set; }
         [XmlAttribute("source_software")]
@@ -41,7 +42,9 @@ namespace FemDesign.Materials
         [XmlElement("clt_panel_types")]
         public CltPanelTypes CltPanelTypes { get; set; } // clt_panel_types
         [XmlElement("end")]
-        public string End { get; set;}
+        public string End { get; set; }
+        [XmlIgnore]
+        private static Dictionary<string, MaterialDatabase> _defaultSectionDatabaseCache = new Dictionary<string, MaterialDatabase>();
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -73,7 +76,7 @@ namespace FemDesign.Materials
                 foreach (Material material in this.ReinforcingMaterials.Material)
                 {
                     list.Add(material.Identifier);
-                } 
+                }
             }
             if (this.CltPanelTypes != null)
             {
@@ -125,6 +128,15 @@ namespace FemDesign.Materials
                 }
             }
             throw new System.ArgumentException($"Material was not found. Incorrect material name ({materialName}) or empty material database.");
+        }
+
+        public List<CltPanelLibraryType> GetCltPanelLibrary()
+        {
+            if (this.CltPanelTypes != null)
+            {
+                return this.CltPanelTypes.CltPanelLibraryTypes;
+            }
+            return null;
         }
 
         public CltPanelLibraryType GetCltPanelLibraryTypeByName(string panelLibraryTypeName)
@@ -207,10 +219,58 @@ namespace FemDesign.Materials
         /// <returns></returns>
         public static MaterialDatabase GetDefault(string countryCode = "S")
         {
-            string code = RestrictedString.EurocodeType(countryCode);
-            MaterialDatabase materialDatabase = MaterialDatabase.DeserializeResource(code);
-            materialDatabase.End = "";
-            return materialDatabase;
+            RestrictedString.EurocodeType(countryCode);
+            if (!_defaultSectionDatabaseCache.ContainsKey(countryCode))
+            {
+                _defaultSectionDatabaseCache[countryCode] = DeserializeResource(countryCode);
+                _defaultSectionDatabaseCache[countryCode].End = "";
+            }
+            return _defaultSectionDatabaseCache[countryCode];
+        }
+
+        public (List<Material> steel, List<Material> concrete, List<Material> timber, List<Material> reinforcement, List<Material> stratum, List<Material> custom) ByType()
+        {
+            var materialDataBaseList = this.Materials.Material.Concat(this.ReinforcingMaterials.Material);
+
+            var steel = new List<Material>();
+            var timber = new List<Material>();
+            var concrete = new List<Material>();
+            var reinforcement = new List<Material>();
+            var stratum = new List<Material>();
+            var custom = new List<Material>();
+
+            foreach (var material in materialDataBaseList)
+            {
+                // update object information
+                //material.Guid = System.Guid.NewGuid();
+                //material.EntityModified();
+
+                if (material.Family == "Steel")
+                {
+                    steel.Add(material);
+                }
+                else if (material.Family == "Concrete")
+                {
+                    concrete.Add(material);
+                }
+                else if (material.Family == "Timber")
+                {
+                    timber.Add(material);
+                }
+                else if (material.Family == "ReinforcingSteel")
+                {
+                    reinforcement.Add(material);
+                }
+                else if (material.Family == "Stratum")
+                {
+                    stratum.Add(material);
+                }
+                else if (material.Family == "Custom")
+                {
+                    custom.Add(material);
+                }
+            }
+            return (steel, concrete, timber, reinforcement, stratum, custom);
         }
 
         /// <summary>

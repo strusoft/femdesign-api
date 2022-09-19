@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
-using Grasshopper.Kernel;
+
 using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
     public class ModelRunDesign : GH_Component
     {
-        public ModelRunDesign() : base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
+        public ModelRunDesign() : base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -19,7 +19,8 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
@@ -70,7 +71,14 @@ namespace FemDesign.Grasshopper
             }
             if (!DA.GetData(2, ref filePath))
             {
-                return;
+                bool fileExist = OnPingDocument().IsFilePathDefined;
+                if (!fileExist)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
+                    return;
+                }
+                filePath = OnPingDocument().FilePath;
+                filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
             }
             if (!DA.GetData(3, ref analysis))
             {
@@ -100,9 +108,11 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (!DA.GetData(10, ref runNode))
+            DA.GetData(10, ref runNode);
+            if(runNode == false)
             {
-                // pass
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+                return;
             }
             if (mode == null || model == null || filePath == null || analysis == null)
             {
@@ -115,8 +125,23 @@ namespace FemDesign.Grasshopper
             resultTypes.Insert(1, "FeaBar");
             resultTypes.Insert(2, "FeaShell");
 
-
-            var _resultTypes = resultTypes.Select(r => GenericClasses.EnumParser.Parse<Results.ResultType>(r));
+            var notValidResultTypes = new List<string>();
+            var _resultTypes = resultTypes.Select(r =>
+            {
+                var sucess = Results.ResultTypes.All.TryGetValue(r, out Type value);
+                if (sucess)
+                    return value;
+                else
+                {
+                    notValidResultTypes.Add(r);
+                    return null;
+                }
+            });
+            if (notValidResultTypes.Count != 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
+                return;
+            }
 
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
 
@@ -131,7 +156,9 @@ namespace FemDesign.Grasshopper
             {
                 model.SerializeModel(filePath);
                 analysis.SetLoadCombinationCalculationParameters(model);
-                rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPathsFromResultTypes, docxTemplatePath, endSession, closeOpenWindows);
+
+                bool endDesignSession = design.ApplyChanges == true ? true : endSession;
+                rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPathsFromResultTypes, docxTemplatePath, endDesignSession, closeOpenWindows);
 
 
                 // Create FdScript
@@ -186,11 +213,15 @@ namespace FemDesign.Grasshopper
                     resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
                     i++;
                 }
+
+                if (design.ApplyChanges)
+                {
+                    filePath = System.IO.Path.ChangeExtension(filePath, "str");
+                    (model, _) = FemDesign.Model.ReadStr(filePath, null);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "It is recommended to run a new analysis when 'design changes' are applied. The model might have a different stress/force distribution due to change in stiffness.");
+                }
             }
-            else
-            {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
-            }
+
 
             // Set output
             DA.SetData("FdModel", model);

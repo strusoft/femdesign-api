@@ -21,9 +21,9 @@ namespace FemDesign.Reinforcement
         [XmlElement("center", Order=2)]
         public Center Center { get; set; }
         [XmlElement("x_direction", Order=3)]
-        public Geometry.FdVector3d XDirection { get; set; } // point_type_3d
+        public Geometry.Vector3d XDirection { get; set; } // point_type_3d
         [XmlElement("y_direction", Order = 4)]
-        public Geometry.FdVector3d YDirection { get; set; } // point_type_3d
+        public Geometry.Vector3d YDirection { get; set; } // point_type_3d
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -36,7 +36,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Private constructor accessed by static methods.
         /// </summary>
-        private SurfaceReinforcementParameters(bool singleLayerReinforcement, GuidListType baseShell, Center center, Geometry.FdVector3d xDirection, Geometry.FdVector3d yDirection)
+        private SurfaceReinforcementParameters(bool singleLayerReinforcement, GuidListType baseShell, Center center, Geometry.Vector3d xDirection, Geometry.Vector3d yDirection)
         {
             // object information
             this.EntityCreated();
@@ -61,8 +61,8 @@ namespace FemDesign.Reinforcement
         {
             GuidListType baseShell = new GuidListType(slab.SlabPart.Guid);
             Center center = Center.Straight();
-            Geometry.FdVector3d xDirection = slab.SlabPart.LocalX;
-            Geometry.FdVector3d yDirection = slab.SlabPart.LocalY;
+            Geometry.Vector3d xDirection = slab.SlabPart.LocalX;
+            Geometry.Vector3d yDirection = slab.SlabPart.LocalY;
             return new SurfaceReinforcementParameters(singleLayerReinforcement, baseShell, center, xDirection, yDirection);
         }
     }

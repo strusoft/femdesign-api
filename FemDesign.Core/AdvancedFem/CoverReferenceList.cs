@@ -56,5 +56,39 @@ namespace FemDesign
             }
             return refList;
         }
+
+        internal static CoverReferenceList FromObjectList(List<FemDesign.GenericClasses.IStructureElement> objs)
+        {
+            if (objs == null)
+            {
+                return null;
+            }
+
+            if (objs.Count == 0)
+            {
+                return null;
+            }
+
+            CoverReferenceList refList = new CoverReferenceList();
+            foreach (object elem in objs)
+            {
+                if (elem.GetType() == typeof(Bars.Bar))
+                {
+                    refList.RefGuid.Add(new GuidListType(((Bars.Bar)elem).BarPart.Guid));
+                }
+                else if (elem.GetType() == typeof(Shells.Slab))
+                {
+                    refList.RefGuid.Add(new GuidListType(((Shells.Slab)elem).SlabPart.Guid));
+                }
+                else
+                {
+                    throw new System.ArgumentException("Type of supporting structure is not supported. Can be bar or slab.");
+                }
+            }
+            return refList;
+        }
+
+
+
     }
 }

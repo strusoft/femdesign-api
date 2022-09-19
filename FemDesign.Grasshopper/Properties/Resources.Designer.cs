@@ -1373,6 +1373,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RebarAddToElement {
+            get {
+                object obj = ResourceManager.GetObject("RebarAddToElement", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReinforcementParametersDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("ReinforcementParametersDeconstruct", resourceCulture);
@@ -1613,9 +1623,29 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StageActivatedLoad {
+            get {
+                object obj = ResourceManager.GetObject("StageActivatedLoad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap StageDefine {
             get {
                 object obj = ResourceManager.GetObject("StageDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stages {
+            get {
+                object obj = ResourceManager.GetObject("Stages", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

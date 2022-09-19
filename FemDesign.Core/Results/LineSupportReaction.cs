@@ -7,12 +7,13 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
-
+using FemDesign.Calculate;
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Line support group, Reactions" result
     /// </summary>
+    [Result(typeof(LineSupportReaction), ListProc.LineSupportReactionsLoadCase, ListProc.LineSupportReactionsLoadCombination)]
     public partial class LineSupportReaction : IResult
     {
         /// <summary>
@@ -149,14 +150,14 @@ namespace FemDesign.Results
             var momentResultant = lineSupportReactions.Select(n => n.Mr).ToList();
 
             // Create a Fd Vector/Point for Visualising the Reaction Forces
-            var reactionForceVector = new List<FemDesign.Geometry.FdVector3d>();
-            var reactionMomentVector = new List<FemDesign.Geometry.FdVector3d>();
+            var reactionForceVector = new List<FemDesign.Geometry.Vector3d>();
+            var reactionMomentVector = new List<FemDesign.Geometry.Vector3d>();
 
 
             foreach (var reaction in lineSupportReactions)
             {
-                var forceVector = new FemDesign.Geometry.FdVector3d(reaction.Fx, reaction.Fy, reaction.Fz);
-                var momentVector = new FemDesign.Geometry.FdVector3d(reaction.Mx, reaction.My, reaction.Mz);
+                var forceVector = new FemDesign.Geometry.Vector3d(reaction.Fx, reaction.Fy, reaction.Fz);
+                var momentVector = new FemDesign.Geometry.Vector3d(reaction.Mx, reaction.My, reaction.Mz);
 
                 reactionForceVector.Add(forceVector);
                 reactionMomentVector.Add(momentVector);

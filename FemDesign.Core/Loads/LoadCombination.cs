@@ -31,12 +31,13 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma)
+        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma, Calculate.CombItem combItem = null)
         {
             this.EntityCreated();
             this.Identifier = name;
             this.Type = type;
             
+            this.CombItem = combItem ?? Calculate.CombItem.Default();
 
             if (loadCase.GetType() == typeof(List<LoadCase>) && gamma.GetType() == typeof(List<double>))
             {
@@ -98,8 +99,8 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.ModelLoadCase.Add(new ModelLoadCase(loadCase.Guid, gamma)); 
-            }         
+               this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma)); 
+            }
         }
 
         /// <summary>
@@ -116,6 +117,19 @@ namespace FemDesign.Loads
             }
             return false;
         }
-        
+
+        public override string ToString()
+        {
+            const int space = -10;
+            const int caseNameSpace = -12;
+            const int gammaSpace = -3;
+            var repr = "";
+            repr += $"{this.Identifier,space} {this.Type}\n";
+            foreach(var item in this.ModelLoadCase)
+            {
+                repr  += $"{"",space-1}{item.LoadCase.Identifier,caseNameSpace} {item.Gamma,gammaSpace}\n";
+            }
+            return repr;
+        }
     }
 }

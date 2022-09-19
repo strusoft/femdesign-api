@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialTimberPlateMaterial : GH_Component
     {
-        public MaterialTimberPlateMaterial() : base("Material.TimberPlateMaterial", "Define", "Define timber factor parameters for a timber panel type.", "FEM-Design", "Materials")
+        public MaterialTimberPlateMaterial() : base("TimberPlateMaterial", "Define", "Define timber factor parameters for a timber panel type.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
             
         }
@@ -48,5 +48,8 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("098e6fdd-c621-487d-9246-61ad5586be45"); }
         }
+
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
     }
 }

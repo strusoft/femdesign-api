@@ -57,8 +57,8 @@ namespace FemDesign.Grasshopper
             if (curve == null || startForce == null || endForce == null || loadCase == null) return;
 
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineOrArc1(curve);
-            FemDesign.Geometry.FdVector3d _startForce = startForce.FromRhino();
-            FemDesign.Geometry.FdVector3d _endForce = endForce.FromRhino();
+            FemDesign.Geometry.Vector3d _startForce = startForce.FromRhino();
+            FemDesign.Geometry.Vector3d _endForce = endForce.FromRhino();
 
             try
             {

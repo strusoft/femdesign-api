@@ -33,7 +33,7 @@ namespace FemDesign.Reinforcement
     public partial class BendedBar
     {
         [XmlElement("local_center", Order = 1)]
-        public Geometry.FdPoint3d LocalCenter { get; set; }
+        public Geometry.Point3d LocalCenter { get; set; }
 
         [XmlElement("wire", Order = 2)]
         public Wire Wire { get; set; }

@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsTruss: GH_Component
     {
-        public BarsTruss(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", "FEM-Design", "Bars")
+        public BarsTruss(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }
@@ -73,8 +74,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // bar
-            var type = FemDesign.Bars.BarType.Truss;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, identifier);
+            FemDesign.Bars.Bar bar = FemDesign.Bars.Bar.Truss(edge, material, section, identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

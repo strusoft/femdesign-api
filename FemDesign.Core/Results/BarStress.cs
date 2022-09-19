@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-
+using FemDesign.Calculate;
 namespace FemDesign.Results
 {
     /// <summary>
     /// FemDesign "Bars, Stresses" result
     /// </summary>
+    [Result(typeof(BarStress), ListProc.BarsStressesLoadCase, ListProc.BarsStressesLoadCombination)]
     public partial class BarStress : IResult
     {
         /// <summary>

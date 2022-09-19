@@ -17,7 +17,7 @@ namespace FemDesign.Loads
         /// Direction of load.
         /// </summary>
         [XmlElement("direction", Order=2)]
-        public Geometry.FdVector3d Direction { get; set; }
+        public Geometry.Vector3d Direction { get; set; }
 
         /// <summary>
         /// Optional. Ambiguous what this does.
@@ -25,7 +25,7 @@ namespace FemDesign.Loads
         /// <value></value>
 
         [XmlElement("normal", Order=3)]
-        public Geometry.FdVector3d Normal { get; set; }
+        public Geometry.Vector3d Normal { get; set; }
 
         /// <summary>
         /// Field
@@ -71,13 +71,13 @@ namespace FemDesign.Loads
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="direction">Directio of load.</param>
         /// <param name="topBotLocVal">1 or 2 top bottom location values</param>
-        public LineTemperatureLoad(Geometry.Edge edge, Geometry.FdVector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
+        public LineTemperatureLoad(Geometry.Edge edge, Geometry.Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Edge = edge;
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
 

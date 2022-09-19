@@ -10,10 +10,10 @@ namespace FemDesign.Shells
     public partial class WallCorbel: EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
-        public Geometry.FdPoint3d StartPoint { get; set; }
+        public Geometry.Point3d StartPoint { get; set; }
 
         [XmlElement("end_point", Order = 2)]
-        public Geometry.FdPoint3d EndPoint { get; set; }
+        public Geometry.Point3d EndPoint { get; set; }
 
         [XmlElement("connectable_parts", Order = 3)]
         public TwoGuidListType ConnectableParts { get; set; }

@@ -9,8 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class BarsColumn: GH_Component
     {
-       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", "FEM-Design", "Bars")
-       {
+       public BarsColumn(): base("Bars.Column", "Column", "Create a bar element of type column.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
+        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -56,13 +57,13 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivities))
             {
-                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.GetRigid()};
+                connectivities = new List<Bars.Connectivity>{FemDesign.Bars.Connectivity.Rigid};
             }
 
             List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
             if (!DA.GetDataList(4, eccentricities))
             {
-                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.GetDefault()};
+                eccentricities = new List<Bars.Eccentricity>{FemDesign.Bars.Eccentricity.Default};
             }
 
             Vector3d v = Vector3d.Zero;

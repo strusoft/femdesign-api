@@ -96,7 +96,12 @@ namespace FemDesign.Models
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
-
+        [TestMethod("Open a Model")]
+        public void Open()
+        {
+            Model model = new Model(Country.S);
+            model.Open();
+        }
 
         /// <summary>
         /// Test if the global model can be deep cloned.
@@ -104,7 +109,7 @@ namespace FemDesign.Models
         [TestMethod("DeepClone")]
         public void DeepClone()
         {
-            string input = "Model/global-test-model_IN.struxml";
+            string input = "Model/global-test-model_MASTER.struxml";
             Model model = Model.DeserializeFromFilePath(input);
             var clone = model.DeepClone();
             Console.Write(clone.SerializeToString());

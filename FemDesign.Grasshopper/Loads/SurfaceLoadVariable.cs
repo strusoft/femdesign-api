@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SurfaceLoadVariable: GH_Component
     {
-        public SurfaceLoadVariable(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", "FEM-Design", "Loads")
+        public SurfaceLoadVariable(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
 
             // Convert geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
+            FemDesign.Geometry.Vector3d fdVector = direction.FromRhino().Normalize();
 
             FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, loadProjection, comment);
 

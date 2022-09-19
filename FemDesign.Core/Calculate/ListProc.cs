@@ -387,5 +387,64 @@ namespace FemDesign.Calculate
         [XmlEnum("RCShellUtilizationComb_ListProc")]
         RCDesignShellUtilizationLoadCombination,
         #endregion
+
+        #region MAX OF LOAD COMBINATION
+        /* MAX OF LOAD COMBINATION */
+        #region NODE
+        [XmlEnum("frCmaxDispNodalMax_ListProc")]
+        NodalDisplacementMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxDispNodalMin_ListProc")]
+        NodalDisplacementMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxReacPtGroupMax_ListProc")]
+        PointSupportReactionsMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxReacPtGroupMin_ListProc")]
+        PointSupportReactionsMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxReacPtGroupExtract_ListProc")]
+        PointSupportReactionsMaxOfLoadCombinationMinMax,
+
+        #endregion
+
+        #region SHELL
+        [XmlEnum("frCmaxDispShellMax_ListProc")]
+        ShellDisplacementMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxDispShellMin_ListProc")]
+        ShellDisplacementMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxIntfShellMax_ListProc")]
+        ShellInternalForceMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxIntfShellMin_ListProc")]
+        ShellInternalForceMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxStrsTopShellMax_ListProc")]
+        ShellStressesTopMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxStrsTopShellMin_ListProc")]
+        ShellStressesTopMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxStrsMembraneShellMax_ListProc")]
+        ShellStressesMembraneMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxStrsMembraneShellMin_ListProc")]
+        ShellStressesMembraneMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxStrsBottomShellMax_ListProc")]
+        ShellStressesBottomMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxStrsBottomShellMin_ListProc")]
+        ShellStressesBottomMaxOfLoadCombinationMin,
+
+        [XmlEnum("frCmaxIntfDerShellMax_ListProc")]
+        ShellDerivedForceMaxOfLoadCombinationMax,
+
+        [XmlEnum("frCmaxIntfDerShellMin_ListProc")]
+        ShellDerivedForceMaxOfLoadCombinationMin,
+        #endregion
+        #endregion
     }
 }

@@ -225,17 +225,19 @@ namespace FemDesign.Calculate
             {
                 return process.HasExited;
             }
+
+
         }
 
-        public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        public bool RunAnalysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows, Calculate.CmdGlobalCfg cmdglobalconfig = null)
         {
-            FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession);
+            FdScript fdScript = FdScript.Analysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, cmdglobalconfig);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
 
-        public bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows)
+        public bool RunDesign(string mode,string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, bool closeOpenWindows, Calculate.CmdGlobalCfg cmdglobalconfig = null)
         {
-            FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession);
+            FdScript fdScript = FdScript.Design(mode, struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, cmdglobalconfig);
             return this.RunFdScript(fdScript, closeOpenWindows, endSession, false);
         }
 

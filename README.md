@@ -5,19 +5,6 @@
 # femdesign-api
 This repository contains source code for the FEM-Design API wrapper. It consists of the `C#`-Core together with the `Dynamo` and `Grasshopper` plugins. 
 
-## Contents
-* [Contributing](#contributing)
-* [Road-map](#road-map)
-* [Installation](#Installation)
-* [Examples](#Examples)
-* [Versioning](#versioning)
-* [Authors](#authors)
-* [Disclaimer](#disclaimer)
-* [License](#license)
-
-## Contributing
-Feel free to fork this repo as you seem fit. Please let us know with an issue what feature you want and how you plan on implement it and we (the [authors](#Authors)) will guide you. 
-
 ## 🚗 Road-map
 The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
 
@@ -45,19 +32,17 @@ Either
 There are multiple ways to install Python, but one of them is to download the installer from [Python.org](https://www.python.org/downloads/).
 
 ## Examples
-Examples can be found in the folder [FemDesign.Samples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Samples). More examples are planned to be added in the future.
+Examples can be found in the folder [FemDesign.Examples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Examples). More examples are planned to be added in the future.
 
 ## Contributing
+Feel free to fork this repo as you seem fit. Please let us know with an issue what feature you want and how you plan on implement it and we (the [authors](#Authors)) will guide you. 
 If you want to contribute please follow our [contribution guide](https://github.com/strusoft/femdesign-api/wiki/Contribute).
-
-## Road-map
-The road-map of the project is can be found [here](https://github.com/strusoft/femdesign-api/wiki/Road-map).
 
 ## Versioning
 Future versioning will be using the following structure: `major.minor.patch` where major follows the FEM-Design version.
 
 ## Authors
-The FEM-Design API repository is developed and maintained by StruSoft. 
+The FEM-Design API repository is developed and maintained by [StruSoft](https://strusoft.com/). 
 
 ## Disclaimer
 In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package. 😊

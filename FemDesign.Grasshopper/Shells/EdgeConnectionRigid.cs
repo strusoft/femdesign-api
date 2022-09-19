@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class EdgeConnectionRigid: GH_Component
     {
-        public EdgeConnectionRigid(): base("EdgeConnection.Rigid", "Rigid", "Create a Rigid EdgeConnection.", "FEM-Design", "Shells")
+        public EdgeConnectionRigid(): base("EdgeConnection.Rigid", "Rigid", "Create a Rigid EdgeConnection.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            FemDesign.Shells.EdgeConnection obj = FemDesign.Shells.EdgeConnection.GetRigid();
+            FemDesign.Shells.EdgeConnection obj = FemDesign.Shells.EdgeConnection.Rigid;
 
             // return
             DA.SetData(0, obj);

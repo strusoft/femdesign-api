@@ -139,9 +139,9 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct uniform ModelEccentricity with presets from Eccentricity.
         /// </summary>
-        public ModelEccentricity(Eccentricity eccentricity)
+        public ModelEccentricity(Eccentricity eccentricity, bool useDefaultPhysicalAlignment = false)
         {
-            this.UseDefaultPhysicalAlignment = true;
+            this.UseDefaultPhysicalAlignment = useDefaultPhysicalAlignment;
             Eccentricity[] eccentricities = new Eccentricity[2]{eccentricity, eccentricity};
             this._analytical = eccentricities;
             this._physical = eccentricities;
@@ -150,7 +150,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Construct non-uniform ModelEccentricity with presets from Eccentricity.
         /// </summary>
-        public ModelEccentricity(Eccentricity startEccentricity, Eccentricity endEccentricity, bool useDefaultPhysicalAlignment)
+        public ModelEccentricity(Eccentricity startEccentricity, Eccentricity endEccentricity, bool useDefaultPhysicalAlignment = false)
         {
             this.UseDefaultPhysicalAlignment = useDefaultPhysicalAlignment;
             this._analytical[0] = startEccentricity;

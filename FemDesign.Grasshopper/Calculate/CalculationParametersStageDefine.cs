@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersStageDefine: GH_Component
     {
-        public CalculationParametersStageDefine(): base("Stage.Define", "Define", "Define construction stage method", "FEM-Design", "Calculate")
+        public CalculationParametersStageDefine(): base("StageSetting.Define", "Define", "Define construction stage method", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Calculate.ConstructionStage obj = FemDesign.Calculate.ConstructionStage.Define(ghost);
+            FemDesign.Calculate.Stage obj = FemDesign.Calculate.Stage.Define(ghost);
 
             // return
             DA.SetData(0, obj);
@@ -37,14 +37,14 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.StageDefine;
+                return FemDesign.Properties.Resources.Stages;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("fb75062e-e1b0-4d68-a8d3-2597dc4712fe"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
     }
 }

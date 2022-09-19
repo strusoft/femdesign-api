@@ -32,9 +32,9 @@ namespace FemDesign.Loads
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; } // edge_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
+        public Geometry.Vector3d Direction { get; set; } // point_type_3d
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
+        public Geometry.Vector3d Normal { get; set; } // point_type_3d
         [XmlElement("load", Order = 4)]
         public LoadLocationValue[] Load = new LoadLocationValue[2];
         [XmlIgnore]
@@ -62,7 +62,7 @@ namespace FemDesign.Loads
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d StartForce
+        public Geometry.Vector3d StartForce
         {
             get
             {
@@ -70,7 +70,7 @@ namespace FemDesign.Loads
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d EndForce
+        public Geometry.Vector3d EndForce
         {
             get
             {
@@ -86,10 +86,11 @@ namespace FemDesign.Loads
             
         }
 
-        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineLoad(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Identifier;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -102,10 +103,11 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d startForce, Geometry.FdVector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineLoad(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Identifier;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -115,7 +117,7 @@ namespace FemDesign.Loads
             this.SetStartAndEndForces(startForce, endForce);
         }
 
-        internal void SetStartAndEndForces(Geometry.FdVector3d startForce, Geometry.FdVector3d endForce)
+        internal void SetStartAndEndForces(Geometry.Vector3d startForce, Geometry.Vector3d endForce)
         {
             if (startForce.IsZero() && !endForce.IsZero())
             {
@@ -139,8 +141,8 @@ namespace FemDesign.Loads
             // if no zero vectors - check if vectors are parallel
             else
             {
-                Geometry.FdVector3d v0 = startForce.Normalize();
-                Geometry.FdVector3d v1 = endForce.Normalize();
+                Geometry.Vector3d v0 = startForce.Normalize();
+                Geometry.Vector3d v1 = endForce.Normalize();
                 double q0 = startForce.Length();
                 double q1 = endForce.Length();
 
@@ -156,6 +158,12 @@ namespace FemDesign.Loads
                     throw new System.ArgumentException($"StartForce and EndForce must be parallel or antiparallel.");
                 }
             }
-        }        
+        }
+
+        public override string ToString()
+        {
+            var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
+            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCaseName}";
+        }
     }
 }
