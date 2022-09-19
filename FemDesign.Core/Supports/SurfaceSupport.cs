@@ -26,6 +26,16 @@ namespace FemDesign.Supports
             }
         }
 
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this._identifier.IndexOf(".");
+                return int.Parse(this._identifier.Substring(found + 1));
+            }
+        }
+
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
 

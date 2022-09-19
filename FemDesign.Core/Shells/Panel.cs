@@ -16,7 +16,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Panel instance counter
         /// </summary>
-        private static int Instance = 0;
+        private static int _instance = 0;
 
         /// <summary>
         /// Coordinate system
@@ -255,6 +255,15 @@ namespace FemDesign.Shells
         [XmlAttribute("name")]
         public string _identifier; // identifier
         [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
+        [XmlIgnore]
         public string Identifier
         {
             get
@@ -263,10 +272,11 @@ namespace FemDesign.Shells
             }
             set
             {
-                Panel.Instance++;
-                this._identifier = RestrictedString.Length(value, 50) + "." + Panel.Instance.ToString();
+                Panel._instance++;
+                this._identifier = RestrictedString.Length(value, 50) + "." + Panel._instance.ToString();
             }
         }
+
         [XmlAttribute("panelname")]
         public string PanelName { get; set; }
         [XmlAttribute("in_situ_fabricated")]

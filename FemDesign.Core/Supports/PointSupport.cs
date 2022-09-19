@@ -17,6 +17,15 @@ namespace FemDesign.Supports
         public static int _instance = 0; // used for PointSupports and LineSupports
         [XmlAttribute("name")]
         public string Identifier { get; set; } // identifier
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;

@@ -39,6 +39,15 @@ namespace FemDesign.Shells
 
         [XmlAttribute("name")]
         public string Identifier {get; set;} // identifier
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialGuid {get; set;} // guidtype
 

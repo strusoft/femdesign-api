@@ -47,6 +47,15 @@ namespace FemDesign.Shells
 
         [XmlAttribute("name")]
         public string Identifier { get; set; }
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
 
         [XmlAttribute("positive_side")]
         public bool PositiveSide { get; set; } = true;

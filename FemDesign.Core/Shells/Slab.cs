@@ -24,6 +24,16 @@ namespace FemDesign.Shells
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
         [XmlAttribute("name")]
         public string Identifier { get; set; } // identifier
+
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
         [XmlAttribute("type")]
         public SlabType Type { get; set; }
 

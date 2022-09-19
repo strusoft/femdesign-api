@@ -15,6 +15,15 @@ namespace FemDesign.Bars
 
         [XmlAttribute("name")]
         public string Identifier { get; set; }
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
 
         [XmlAttribute("base_column")]
         public System.Guid BaseColumn { get; set; }

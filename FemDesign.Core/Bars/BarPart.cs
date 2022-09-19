@@ -180,6 +180,15 @@ namespace FemDesign.Bars
             }
         }
         [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this._identifier.IndexOf(".");
+                return int.Parse(this._identifier.Substring(found + 1));
+            }
+        }
+        [XmlIgnore]
         public BarType Type { get; set; }
 
         [XmlIgnore]

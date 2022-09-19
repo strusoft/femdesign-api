@@ -120,6 +120,7 @@ namespace FemDesign.Bars
                 return int.Parse(this._identifier.Substring(found + 1));
 			}
 		}
+
         [XmlAttribute("type")]
         public BarType _type; // beamtype
 

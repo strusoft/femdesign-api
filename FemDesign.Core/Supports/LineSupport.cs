@@ -17,6 +17,15 @@ namespace FemDesign.Supports
         // serialization properties
         [XmlAttribute("name")]
         public string Identifier { get; set; } // identifier.
+        [XmlIgnore]
+        public int Instance
+        {
+            get
+            {
+                var found = this.Identifier.IndexOf(".");
+                return int.Parse(this.Identifier.Substring(found + 1));
+            }
+        }
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
 
