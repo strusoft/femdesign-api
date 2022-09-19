@@ -821,6 +821,9 @@
     <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
       <Link>Core\Stage\ActivatedLoadCase.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
+      <Link>Core\Supports\SurfaceSupport.cs</Link>
+    </Compile>
     <Compile Include="Dynamo\AuxiliaryResults\LabelledSectionsGeometry.cs" />
     <Compile Include="Dynamo\AuxiliaryResults\LabelledSection.cs" />
     <Compile Include="Dynamo\Bars\BarType.cs" />
@@ -1086,9 +1089,7 @@
     <None Include="packages.config" />
     <None Include="PackageData\pkg.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Stage\" />
-  </ItemGroup>
+  <ItemGroup />
   <Target Name="AfterBuild">
     <ItemGroup>
       <Dlls Include="$(OutDir)*.dll" />
