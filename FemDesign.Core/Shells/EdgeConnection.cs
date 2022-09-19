@@ -18,7 +18,7 @@ namespace FemDesign.Shells
         [XmlIgnore]
         public bool Release { get; set; } = true;
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // identifier
+        public string Name { get; set; } // identifier
         [XmlElement("rigidity")]
         public Releases.RigidityDataType3 Rigidity { get; set; } // rigidity_data_type2(3?)
         [XmlElement("predefined_rigidity")]
@@ -45,7 +45,7 @@ namespace FemDesign.Shells
         /// Library name of the edge connection.
         /// </summary>
         [XmlIgnore]
-        public string LibraryName => PredefRigidity?.Identifier;
+        public string LibraryName => PredefRigidity?.Name;
         /// <summary>
         /// Should the edge connection be added to the model as a Predefined/Library item or not?
         /// </summary>
@@ -93,7 +93,7 @@ namespace FemDesign.Shells
             ec.EntityCreated();
 
             //
-            ec.Identifier = name;
+            ec.Name = name;
 
             // return
             return ec;

@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
             Shells.Slab obj;
             if (shellEdgeConnections.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"No shell edge connection added to shell {slab.Identifier}");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"No shell edge connection added to shell {slab.Name}");
                 return;
             }
             else if (shellEdgeConnections.Count == 1)

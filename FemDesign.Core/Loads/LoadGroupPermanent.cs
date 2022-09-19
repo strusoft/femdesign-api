@@ -55,7 +55,7 @@ namespace FemDesign.Loads
                                        double accidentalUnfavourable, List<LoadCase> loadCases, 
                                        ELoadGroupRelationship relationsship, double xi, string name)
         {
-            this.Identifier = name;
+            this.Name = name;
             this.StandardFavourable = standardFavourable;
             this.StandardUnfavourable = standardUnfavourable;
             this.AccidentalFavourable = accidentalFavourable;

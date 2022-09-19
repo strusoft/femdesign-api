@@ -59,7 +59,7 @@ namespace FemDesign.Sections
         public string _end { get; set; } // enpty_type
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // string i.e. GroupName, TypeName, SizeName --> "Steel sections, CHS, 20-2.0"
+        public string Name { get; set; } // string i.e. GroupName, TypeName, SizeName --> "Steel sections, CHS, 20-2.0"
 
         [XmlAttribute("type")]
         public string Type { get; set; } // sectiontype
@@ -100,7 +100,7 @@ namespace FemDesign.Sections
         {
             this.EntityCreated();
             this.RegionGroup = regionGroup;
-            this.Identifier = name;
+            this.Name = name;
             this.Type = type;
             this.MaterialType = ((int)materialTypeEnum).ToString();
             this.GroupName = groupName;
@@ -137,7 +137,7 @@ namespace FemDesign.Sections
             {
                 try
                 {
-                    section = sections.Where(x => x.Identifier == sectionInput).First();
+                    section = sections.Where(x => x.Name == sectionInput).First();
                 }
                 catch (Exception ex)
                 {
@@ -160,7 +160,7 @@ namespace FemDesign.Sections
 
         public override string ToString()
         {
-            return $"{this.Identifier}";
+            return $"{this.Name}";
         }
 
     }

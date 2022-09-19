@@ -59,7 +59,7 @@ namespace FemDesign.Sections
         {
             foreach (Section section in this.Sections.Section)
             {
-                if (section.Identifier == sectionName)
+                if (section.Name == sectionName)
                 {
                     return section;
                 }
@@ -77,7 +77,7 @@ namespace FemDesign.Sections
             List<string> list = new List<string>();
             foreach (Section section in this.Sections.Section)
             {
-                list.Add(section.Identifier);
+                list.Add(section.Name);
             }
             return list;
         }

@@ -30,7 +30,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Identifier;
+            this.LoadCaseName = loadCase.Name;
             this.Comment = comment;
             this.LoadType = type;
             this.Direction = force.Normalize();

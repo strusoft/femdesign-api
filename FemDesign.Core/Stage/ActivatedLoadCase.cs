@@ -44,7 +44,7 @@ namespace FemDesign
 
         public override string ToString()
         {
-            return $"ActivatedLoadCase {this.LoadCase.Identifier} {this.Factor} {this.Type}";
+            return $"ActivatedLoadCase {this.LoadCase.Name} {this.Factor} {this.Type}";
         }
     }
 

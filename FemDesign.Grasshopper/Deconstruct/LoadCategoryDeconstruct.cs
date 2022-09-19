@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             }
 
             // return
-            DA.SetData(0, obj.Identifier);
+            DA.SetData(0, obj.Name);
             DA.SetData(1, obj.Country);
             DA.SetData(2, obj.Psi0);
             DA.SetData(3, obj.Psi1);

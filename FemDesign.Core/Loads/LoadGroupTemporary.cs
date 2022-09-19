@@ -84,7 +84,7 @@ namespace FemDesign.Loads
                                        bool potentiallyLeadingAction, List<LoadCase> loadCases,
                                        ELoadGroupRelationship relationsship, string name)
         {
-            this.Identifier = name;
+            this.Name = name;
             this.SafetyFactor = safetyFactor;
             this.Psi0 = psi0;
             this.Psi1 = psi1;

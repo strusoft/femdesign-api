@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
 
             // return
             DA.SetData(0, obj.Guid);
-            DA.SetData(1, obj.Identifier);
+            DA.SetData(1, obj.Name);
 
             // catch pre-defined rigidity
             if (obj.Rigidity != null)
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-                DA.SetData(2, obj.PredefRigidity.Identifier);
+                DA.SetData(2, obj.PredefRigidity.Name);
                 DA.SetData(3, obj.PredefRigidity.Guid);
                 if (obj.PredefRigidity.Rigidity._friction == null)
                 {

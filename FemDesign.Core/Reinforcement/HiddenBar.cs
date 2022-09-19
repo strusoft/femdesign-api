@@ -21,19 +21,19 @@ namespace FemDesign.Reinforcement
         public string End = "";
 
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 HiddenBar._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + HiddenBar._instance.ToString();
+                this._name = RestrictedString.Length(value, 50) + HiddenBar._instance.ToString();
             }
         }
 

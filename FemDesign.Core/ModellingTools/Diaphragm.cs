@@ -13,22 +13,22 @@ namespace FemDesign.ModellingTools
         public Geometry.Region Region { get; set; }
 
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 Diaphragm._instance++;
-                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance}";
+                this._name = $"{RestrictedString.Length(value, 50)}.{_instance}";
             }
         }
 
@@ -44,7 +44,7 @@ namespace FemDesign.ModellingTools
 
             // add properties
             this.Region = region;
-            this.Identifier = identifier;
+            this.Name = identifier;
         }        
     }
 }

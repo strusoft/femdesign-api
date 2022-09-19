@@ -253,29 +253,30 @@ namespace FemDesign.Shells
             }
         }
         [XmlAttribute("name")]
-        public string _identifier; // identifier
+        public string _name; // identifier
         [XmlIgnore]
-        public int Instance
+        public string Instance
         {
             get
             {
-                var found = this.Identifier.IndexOf(".");
-                return int.Parse(this.Identifier.Substring(found + 1));
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
             }
         }
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 Panel._instance++;
-                this._identifier = RestrictedString.Length(value, 50) + "." + Panel._instance.ToString();
+                this._name = RestrictedString.Length(value, 50) + "." + Panel._instance.ToString();
             }
         }
+        public string Identifier => this.Name.Split('.')[0];
 
         [XmlAttribute("panelname")]
         public string PanelName { get; set; }
@@ -460,7 +461,7 @@ namespace FemDesign.Shells
             this.Type = type;
             this.Material = material; // note that material and section are not added directly to complexMaterial and complexSection fields.
             this.Section = section;
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.PanelName = panelName;
             this.Gap = gap;
             this.Orthotropy = orthotropy;
@@ -504,7 +505,7 @@ namespace FemDesign.Shells
 
             // attributes
             this.Type = type;
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.PanelName = panelName;
             this.Gap = gap;
             this.Alignment = ecc.Alignment;

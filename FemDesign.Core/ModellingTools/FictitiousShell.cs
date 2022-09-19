@@ -132,19 +132,19 @@ namespace FemDesign.ModellingTools
         /// Identifier. Default FS.
         /// </summary>
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         { 
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 FictitiousShell.Instance++;
-                this._identifier = RestrictedString.Length(value, 40) + "." + FictitiousShell.Instance.ToString();
+                this._name = RestrictedString.Length(value, 40) + "." + FictitiousShell.Instance.ToString();
             }
         }
 
@@ -300,7 +300,7 @@ namespace FemDesign.ModellingTools
             this.Alpha2 = alpha2;
             this.IgnoreInStImpCalculation = ignoreInStImpCalc;
             this.MeshSize = meshSize;
-            this.Identifier = identifier;
+            this.Name = identifier;
         }
 
         /// <summary>

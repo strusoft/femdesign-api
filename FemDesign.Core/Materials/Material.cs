@@ -22,7 +22,7 @@ namespace FemDesign.Materials
         /// </summary>
         /// <value></value>
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // name256
+        public string Name { get; set; } // name256
         [XmlElement("timber")]
         public Timber Timber { get; set; }
         [XmlElement("concrete")]
@@ -64,7 +64,7 @@ namespace FemDesign.Materials
             {
                 try
                 {
-                    material = materials.Where(x => x.Identifier == materialInput).First();
+                    material = materials.Where(x => x.Name == materialInput).First();
                 }
                 catch (Exception ex)
                 {
@@ -87,7 +87,7 @@ namespace FemDesign.Materials
 
         public override string ToString()
         {
-            return $"{this.Identifier}";
+            return $"{this.Name}";
         }
 
         /// <summary>

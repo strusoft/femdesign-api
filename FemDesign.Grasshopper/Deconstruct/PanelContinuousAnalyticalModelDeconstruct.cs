@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("ExtEdgeConnections", panel.InternalPanels.IntPanels[0].Region.GetEdgeConnections());
             DA.SetData("LocalX", panel.LocalX.ToRhino());
             DA.SetData("LocalY", panel.LocalY.ToRhino());
-            DA.SetData("Identifier", panel.Identifier);
+            DA.SetData("Identifier", panel.Name);
         }
         protected override System.Drawing.Bitmap Icon
         {

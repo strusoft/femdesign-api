@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(4, bar.BarPart.Connectivity);
             DA.SetDataList(5, bar.BarPart.ComplexSectionObj.Eccentricities);
             DA.SetData(6, bar.BarPart.LocalY.ToRhino());
-            DA.SetData(7, bar.Identifier);
+            DA.SetData(7, bar.Name);
         }
         protected override System.Drawing.Bitmap Icon
         {

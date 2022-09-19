@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
             {
                 var obj = (Supports.PointSupport)support;
                 DA.SetData(0, obj.Guid);
-                DA.SetData(1, obj.Identifier);
+                DA.SetData(1, obj.Name);
                 DA.SetData(2, obj.GetRhinoGeometry());
                 DA.SetData(3, "PointSupport has no moving local property.");
                 DA.SetData(4, obj.Group.LocalX.ToRhino());
@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
             {
                 var obj = (Supports.LineSupport)support;
                 DA.SetData(0, obj.Guid);
-                DA.SetData(1, obj.Identifier);
+                DA.SetData(1, obj.Name);
                 DA.SetData(2, obj.GetRhinoGeometry());
                 DA.SetData(3, obj.MovingLocal);
                 DA.SetData(4, obj.Group.LocalX.ToRhino());
@@ -106,7 +106,7 @@ namespace FemDesign.Grasshopper
             {
                 var obj = (Supports.SurfaceSupport)support;
                 DA.SetData(0, obj.Guid);
-                DA.SetData(1, obj.Identifier);
+                DA.SetData(1, obj.Name);
                 DA.SetData(2, obj.Region.ToRhinoBrep());
                 DA.SetData(3, "SurfaceSupport has no moving local property.");
                 DA.SetData(4, obj.CoordinateSystem.LocalX.ToRhino());

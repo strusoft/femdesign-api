@@ -11,28 +11,30 @@ namespace FemDesign.Supports
     public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement
     {
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 PointSupport._instance++;
-                this._identifier = value + "." + PointSupport._instance.ToString();
+                this._name = value + "." + PointSupport._instance.ToString();
             }
         }
+        public string Identifier => this.Name.Split('.')[0];
+
 
         [XmlIgnore]
-        public int Instance
+        public string Instance
         {
             get
             {
-                var found = this._identifier.IndexOf(".");
-                return int.Parse(this._identifier.Substring(found + 1));
+                var found = this._name.IndexOf(".");
+                return this._name.Substring(found + 1);
             }
         }
 
@@ -107,7 +109,7 @@ namespace FemDesign.Supports
         private void Initialize(Geometry.Region region, RigidityDataType1 rigidity, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
             this.CoordinateSystem = region.CoordinateSystem;

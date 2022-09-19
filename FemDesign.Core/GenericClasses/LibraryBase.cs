@@ -12,18 +12,18 @@ namespace FemDesign
     public partial class LibraryBase : EntityBase, ILibraryBase
     {
         [XmlIgnore]
-        private string _identifier;
+        private string _name;
         
         [XmlAttribute("name")]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
-                this._identifier = RestrictedString.Length(value, 40);
+                this._name = RestrictedString.Length(value, 40);
             }
         }
 

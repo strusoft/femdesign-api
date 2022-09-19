@@ -32,7 +32,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Materials.Material material = null;
             try
             {
-                material = materials.Where(x => x.Identifier == materialName).First();
+                material = materials.Where(x => x.Name == materialName).First();
             }
             catch (Exception ex)
             {

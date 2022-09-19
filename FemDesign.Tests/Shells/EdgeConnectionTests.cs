@@ -38,7 +38,7 @@ namespace FemDesign.Shells.EdgeConnectionTests
             var slabs = deserialized.Entities.Slabs;
             Assert.AreEqual(7, slabs.Count);
             Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().Where(ec => ec != null).Count() == 1);
-            Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().First(ec => ec != null).PredefRigidity.Identifier == "No shear");
+            Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().First(ec => ec != null).PredefRigidity.Name == "No shear");
         }
 
         [TestMethod("Edge connection - Serialize custom")]

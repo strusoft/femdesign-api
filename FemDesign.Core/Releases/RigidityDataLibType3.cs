@@ -28,7 +28,7 @@ namespace FemDesign.Releases
         public RigidityDataLibType3(RigidityDataType3 rigidity, string name)
         {
             Rigidity = rigidity;
-            this.Identifier = name;
+            this.Name = name;
             this.EntityCreated();
         }
     }

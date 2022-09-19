@@ -22,18 +22,18 @@ namespace FemDesign
         /// Identifier
         /// </summary>
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 Cover._coverInstance++;
-                this._identifier = value + "." + Cover._coverInstance.ToString();
+                this._name = value + "." + Cover._coverInstance.ToString();
             }
         }
         
@@ -72,7 +72,7 @@ namespace FemDesign
         public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.Region = region;
             this.SupportingStructures = supportingStructures;
             this.LoadBearingDirection = loadBearingDirection;

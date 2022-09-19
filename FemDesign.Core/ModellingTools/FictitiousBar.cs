@@ -114,19 +114,19 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         { 
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 FictitiousBar.Instance++;
-                this._identifier = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
+                this._name = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
             }
         }
 
@@ -212,7 +212,7 @@ namespace FemDesign.ModellingTools
             this.LocalY = localY;
             this.StartConnectivity = startConnectivity;
             this.EndConnectivity = endConnectivity;
-            this.Identifier = name;
+            this.Name = name;
             this.AE = ae;
             this.ItG = itg;
             this.I1E = i1e;

@@ -162,32 +162,34 @@ namespace FemDesign.Bars
         /// Identifier field
         /// </summary>
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         /// <summary>
         /// Identifier property
         /// </summary>
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
-                this._identifier = value + ".1";
+                this._name = value + ".1";
             }
         }
         [XmlIgnore]
-        public int Instance
+        public string Instance
         {
             get
             {
-                var found = this._identifier.IndexOf(".");
-                return int.Parse(this._identifier.Substring(found + 1));
+                var found = this._name.IndexOf(".");
+                return this._name.Substring(found + 1);
             }
         }
+        public string Identifier => this.Name.Split('.')[0];
+
         [XmlIgnore]
         public BarType Type { get; set; }
 
@@ -482,7 +484,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(section, eccentricity);
                 this.Connectivity = new Connectivity[1] { connectivity };
                 this.EccentricityCalc = true;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 
@@ -504,7 +506,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(section, section, startEccentricity, endEccentricity);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 
@@ -526,7 +528,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(startSection, endSection, startEccentricity, endEccentricity);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 
@@ -548,7 +550,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(sections, eccentricities);
                 this.Connectivity = connectivities;
                 this.EccentricityCalc = true;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 
@@ -570,7 +572,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(sections, positions, eccentricities);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 
@@ -590,7 +592,7 @@ namespace FemDesign.Bars
                 this.Edge = edge;
                 this.ComplexMaterialObj = material;
                 this.TrussUniformSectionObj = section;
-                this.Identifier = identifier;
+                this.Name = identifier;
             }
         }
 

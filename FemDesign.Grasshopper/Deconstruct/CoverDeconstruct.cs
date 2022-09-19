@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             // return
             
             DA.SetData(0, cover.Guid);
-            DA.SetData(1, cover.Identifier);
+            DA.SetData(1, cover.Name);
             DA.SetData(2, cover.GetRhinoSurface());
             DA.SetDataList(3, cover.GetRhinoCurves());
        }

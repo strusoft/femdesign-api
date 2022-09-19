@@ -1563,7 +1563,7 @@ namespace FemDesign
             // add load case
             if (this.LoadCaseNameTaken(obj))
             {
-                obj.Identifier = obj.Identifier + " (1)";
+                obj.Name = obj.Name + " (1)";
             }
             this.Entities.Loads.LoadCases.Add(obj);
         }
@@ -1590,7 +1590,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.Identifier == obj.Identifier)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -1675,7 +1675,7 @@ namespace FemDesign
             // add load combination
             if (this.LoadCombinationNameTaken(obj))
             {
-                obj.Identifier = obj.Identifier + " (1)";
+                obj.Name = obj.Name + " (1)";
             }
             this.Entities.Loads.LoadCombinations.Add(obj);
         }
@@ -1713,7 +1713,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCombination elem in this.Entities.Loads.LoadCombinations)
             {
-                if (elem.Identifier == obj.Identifier)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -2922,7 +2922,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexSectionRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexSectionRef is null");
                     }
 
                     // material
@@ -2936,7 +2936,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexMaterialRef is null");
                     }
                 }
                 // do nothing for beam or column with complex section (delta beam type)
@@ -2968,7 +2968,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexSectionRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexSectionRef is null");
                     }
 
                     // material

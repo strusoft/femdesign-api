@@ -46,16 +46,18 @@ namespace FemDesign.Shells
         // [XmlElement("rigidity_group", Order = 6)]
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
         [XmlIgnore]
-        public int Instance
+        public string Instance
         {
             get
             {
-                var found = this.Identifier.IndexOf(".");
-                return int.Parse(this.Identifier.Substring(found + 1));
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
             }
         }
+        public string Identifier => this.Name.Split('.')[0];
+
 
         [XmlAttribute("positive_side")]
         public bool PositiveSide { get; set; } = true;

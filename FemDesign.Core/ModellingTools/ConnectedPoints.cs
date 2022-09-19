@@ -75,19 +75,19 @@ namespace FemDesign.ModellingTools
         public GuidListType[] References { get; set; }
 
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 _instance++;
-                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
+                this._name = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 
@@ -179,7 +179,7 @@ namespace FemDesign.ModellingTools
             this.LocalY = Vector3d.UnitY;
             this.Rigidity = rigidity;
             this.References = references;
-            this.Identifier = identifier;
+            this.Name = identifier;
         }
     }
 }
