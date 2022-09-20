@@ -87,6 +87,7 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Plate;
             string name = identifier + "." + Slab._plateInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -114,6 +115,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -151,6 +154,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -183,6 +188,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -200,6 +207,8 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -226,6 +235,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
