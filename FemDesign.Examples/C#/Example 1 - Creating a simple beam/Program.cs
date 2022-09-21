@@ -47,11 +47,7 @@ namespace FemDesign.Examples
                 identifier: "B");
             bar.BarPart.LocalY = Geometry.Vector3d.UnitY;
 
-
-            var bar1 = Bars.Bar.SimpleBeam(10.0, material, section);
-
-            var column = Bars.Bar.SimpleColumn(3.0, material, section);
-            var elements = new List<GenericClasses.IStructureElement>() { bar, bar1, column };
+            var elements = new List<GenericClasses.IStructureElement>() { bar };
 
 
             // Create supports
