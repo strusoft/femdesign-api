@@ -7,16 +7,16 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class StageLoad : GH_Component
+    public class ActivatedLoadCase : GH_Component
     {
-        public StageLoad() : base("StageLoad", "StageLoad", "Creates a stage load.", CategoryName.Name(),
+        public ActivatedLoadCase() : base("ActivatedLoadCase", "ActivatedLoadCase", "Creates an (construction stage) activated load case.", CategoryName.Name(),
             SubCategoryName.Cat7a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadCase", "LoadCase", "Name of LoadCase.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to be activated.\n\nLoadCase may also be \"PTC T0\" or \"PTC T8\" to activate a PTC load", GH_ParamAccess.item);
             pManager.AddNumberParameter("Factor", "Factor", "Factor", GH_ParamAccess.item, 1.0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("Partitioning", "Partitioning", "0 - only_in_this_stage\n1 - from_this_stage_on\n2 - shifted_from_first_stage\n3 - only_stage_activated_elem.\nDefault: from_this_stage_on.", GH_ParamAccess.item, 1);
@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
             bool isString = DA.GetData("LoadCase", ref ptcLoadCase);
             bool isPTCLoadCase = isString && (ptcLoadCase.ToUpper() == "PTC T0" || ptcLoadCase.ToUpper() == "PTC T8");
             if (!(isLoadCase || isPTCLoadCase)) return;
-            ClearRuntimeMessages();
+            ClearRuntimeMessages(); // Remove the error message. One of the GetData above will always add an error message since we try to parse mutliple types.
 
             double factor = 1;
             DA.GetData(1, ref factor);
@@ -58,7 +58,6 @@ namespace FemDesign.Grasshopper
             }
             else throw new Exception("The input was not a LoadCase or a PTCLoadCase.");
 
-            // return
             DA.SetData(0, activatedLoadCase);
         }
 

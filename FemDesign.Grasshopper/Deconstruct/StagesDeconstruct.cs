@@ -17,33 +17,27 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-
-            pManager.Register_IntegerParam("Id", "Id", "");
-            pManager.Register_GenericParam("Elements", "Elements", "");
-            pManager.Register_StringParam("Description", "Description", "");
-            pManager.Register_BooleanParam("InitialState", "InitialState", "");
-            pManager.Register_GenericParam("ActivatedLoadCase", "ActivatedLoadCase", "");
+            pManager.AddIntegerParameter("Id", "Id", "Stage id", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Elements", "Elements", "", GH_ParamAccess.list);
+            pManager.AddTextParameter("Description", "Description", "", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("InitialStressState", "InitialState", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ActivatedLoadCases", "ActivatedLoadCases", "", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // set references
             FemDesign.Stage stage = null;
-            if (!DA.GetData(0, ref stage))
-            {
-                return;
-            }
+            if (!DA.GetData(0, ref stage)) return;
 
             var id = stage.Id;
             var elements = stage.Elements;
             var description = stage.Description;
-            var initialState = stage.InitialStressState;
+            var initialStressState = stage.InitialStressState;
             var activeLoadCases = stage.ActivatedLoadCases;
 
-            // return data
             DA.SetData(0, id);
             DA.SetDataList(1, elements);
             DA.SetData(2, description);
-            DA.SetData(3, initialState);
+            DA.SetData(3, initialStressState);
             DA.SetDataList(4, activeLoadCases);
 
         }

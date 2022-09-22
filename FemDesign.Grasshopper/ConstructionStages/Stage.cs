@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
             var elements = new List<IStageElement>();
             DA.GetDataList(2, elements);
 
-            List<ActivatedLoadCase> activatedLoadCases = new List<ActivatedLoadCase>();
+            List<FemDesign.ActivatedLoadCase> activatedLoadCases = new List<FemDesign.ActivatedLoadCase>();
             DA.GetDataList(3, activatedLoadCases);
 
             bool initialStressState = false;
