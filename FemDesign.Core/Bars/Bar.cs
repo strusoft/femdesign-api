@@ -347,12 +347,10 @@ namespace FemDesign.Bars
         /// <exception cref="System.Exception"></exception>
         public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
-            var truss = new Bar();
-
             this.EntityCreated();
             this.Type = BarType.Truss;
             this.Name = identifier;
-            this.BarPart = new BarPart(edge, truss.Type, material, section, truss.Name);
+            this.BarPart = new BarPart(edge, this.Type, material, section, identifier);
         }
 
         /// Update entities if this bar should be "reconstructed"

@@ -59,7 +59,7 @@ namespace FemDesign.Bars
                     // check if line
                     if (!value.IsLine())
                     {
-                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line. Circle is not supported. Consider splitting the Circle in two arches.");
+                        throw new System.ArgumentException($"Edge type: {value.Type}, is not line.");
                     }
 
                     // check if line local x equals positive global Z
