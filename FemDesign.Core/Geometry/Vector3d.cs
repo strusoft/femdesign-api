@@ -85,7 +85,14 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Vector3d operator *(double n, Vector3d v) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
-
+        public static implicit operator Vector3d(Point3d point)
+		{
+            var x = point.X;
+            var y = point.Y;
+            var z = point.Z;
+            var vector = new Vector3d(x, y, z);
+            return vector;
+        }
         /// <summary>
         /// Calculate length of FdVector3d.
         /// </summary>

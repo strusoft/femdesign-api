@@ -58,6 +58,9 @@ namespace FemDesign.Geometry
         /// Create vector from v2 to v1
         /// </summary>
         public static Vector3d operator -(Point3d v1, Point3d v2) => new Vector3d(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+        public static Point3d operator +(Point3d p1, Point3d p2) => new Point3d(p1.X + p2.X, p1.Y + p2.Y, p1.Z + p2.Z);
+        public static Point3d operator /(Point3d p1, double number) => new Point3d(p1.X / number, p1.Y / number, p1.Z / number);
+        public static Point3d operator *(Point3d p1, double number) => new Point3d(p1.X * number, p1.Y * number, p1.Z * number);
 
 
         /// <summary>
@@ -124,6 +127,7 @@ namespace FemDesign.Geometry
             var point = new Point3d(x, y, z);
             return point;
         }
+
         public override string ToString()
         {
             return $"({this.X.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Z.ToString(FemDesign.TextFormatting.decimalRounding)})";
