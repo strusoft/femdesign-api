@@ -19,10 +19,10 @@ namespace FemDesign
         public string Description { get; set; }
 
         [XmlAttribute("initial_stress_state")]
-        public bool InitialState { get; set; } = false;
+        public bool InitialStressState { get; set; } = false;
 
         [XmlElement("activated_load_case")]
-        public ActivatedLoadCase ActivatedLoadCase { get; set; }
+        public List<ActivatedLoadCase> ActivatedLoadCases { get; set; }
 
         [XmlIgnore]
         public List<IStageElement> Elements { get; set; }
@@ -35,17 +35,17 @@ namespace FemDesign
 
         }
 
-        public Stage(int index, string description, ActivatedLoadCase loadCase, List<IStageElement> elements, bool initialState = false)
+        public Stage(int index, string description, List<ActivatedLoadCase> activatedLoadCases, List<IStageElement> elements, bool initialStressState = false)
         {
-            if(index <= 0)
+            if (index <= 0)
             {
                 throw new ArgumentException("index must be >= 1");
             }
             this.Id = index;
             this.Description = description;
-            this.ActivatedLoadCase = loadCase;
+            this.ActivatedLoadCases = activatedLoadCases;
             this.Elements = elements;
-            this.InitialState = initialState;
+            this.InitialStressState = initialStressState;
         }
 
         public override string ToString()
