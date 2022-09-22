@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection;
 
 using FemDesign;
 
@@ -18,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and read some of the results.
 
-            // This example was last updated 2022-07-08, using the ver. 21.3.0 FEM-Design API.
+            // This example was last updated 2022-09-22
 
             #region DEFINE GEOMETRY
             // Define geometry
@@ -106,14 +105,18 @@ namespace FemDesign.Examples
             #region SETTINGS
 
             // define the file name
-            string fileName = "SimpleBeam.struxml";
-            fileName = Path.GetFullPath(fileName);
+            string fileName = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "StruSoft",
+                "FemDesign API Examples",
+                "Example 9 - Read Results",
+                "ExampleModel.struxml");
 
             // Define the Units
             // it is an optional operation and it can be omitted
             // Default Units can be seen looking at FemDesign.Results.UnitResults.Default()
 
-            var units = new FemDesign.Results.UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.mm, Results.Force.daN, Results.Mass.kg, Results.Displacement.cm, Results.Stress.MPa);
+            var units = new FemDesign.Results.UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.mm, Results.Force.kN, Results.Mass.kg, Results.Displacement.cm, Results.Stress.MPa);
 
             // Select the results to extract
             var resultTypes = new List<Type>
@@ -129,7 +132,6 @@ namespace FemDesign.Examples
             // Running the analysis
             var analysisSettings = FemDesign.Calculate.Analysis.StaticAnalysis();
 
-            model.SerializeModel(fileName);
             var fdScript = FemDesign.Calculate.FdScript.Analysis(fileName, analysisSettings, bscPathsFromResultTypes, null, true);
 
             var app = new FemDesign.Calculate.Application();
