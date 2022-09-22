@@ -36,12 +36,12 @@ namespace FemDesign
             ? int.Parse(IndexedGuidPattern.Match(_case).Groups["index"].Value)
             : throw new Exception($"Case \"{_case}\" is not an indexed guid of a moving load case.");
 
-        private static readonly Regex PTCLoadCasePattern = new Regex("PTC T(0|8)");
+        private static readonly Regex PTCLoadCasePattern = new Regex("ptc_t(0|8)");
         public bool IsPTCLoadCase => PTCLoadCasePattern.IsMatch(_case);
         public PTCLoadCase PTCLoadCase => IsPTCLoadCase ? (_case.EndsWith("0") ? PTCLoadCase.T0 : PTCLoadCase.T8) : throw new Exception($"Case \"{_case}\" is not a PTC load case.");
 
         [XmlIgnore]
-        string LoadCaseDisplayName { get; set; }
+        public string LoadCaseDisplayName { get; internal set; }
 
         [XmlAttribute("factor")]
         public double _factor { get; set; }
