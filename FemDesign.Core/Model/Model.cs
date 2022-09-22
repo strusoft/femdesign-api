@@ -246,7 +246,8 @@ namespace FemDesign
                 model.GetPointConnections();
             if (model.Entities.AdvancedFem.ConnectedLines.Any())
                 model.GetLineConnections();
-
+            if (model.ConstructionStages != null && model.ConstructionStages.Stages.Any())
+                model.GetConstructionStages();
             return model;
         }
 
@@ -300,7 +301,8 @@ namespace FemDesign
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
             if (resultTypes != null && resultTypes.Any())
             {
-                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path =>
+                {
                     try
                     {
                         return Results.ResultsReader.Parse(path);
@@ -3326,6 +3328,44 @@ namespace FemDesign
                         {
                             connectedLine.PredefRigidity = predefinedType;
                         }
+                    }
+                }
+            }
+        }
+
+        internal void GetConstructionStages()
+        {
+            var loadCaseNames = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid, lc => lc.Name);
+
+            List<IStageElement> stageElements = new List<IStageElement>();
+            stageElements.AddRange(this.Entities.Bars);
+            stageElements.AddRange(this.Entities.Panels);
+            stageElements.AddRange(this.Entities.Slabs);
+            stageElements.AddRange(this.Entities.Supports.PointSupport);
+            stageElements.AddRange(this.Entities.Supports.LineSupport);
+            stageElements.AddRange(this.Entities.Supports.SurfaceSupport);
+            stageElements.AddRange(this.Entities.AdvancedFem.Diaphragms);
+
+            var elementsPerStage = stageElements.GroupBy(s => s.StageId).ToDictionary(g => g.Key, g => g.ToList());
+
+            int i = 0;
+            foreach (var stage in this.ConstructionStages.Stages)
+            {
+                i++; // Starts at 1
+                stage.Id = i;
+                stage.Elements = elementsPerStage[i];
+
+                if (stage.ActivatedLoadCases != null)
+                {
+                    foreach (var activatedLoadCase in stage.ActivatedLoadCases)
+                    {
+                        if (activatedLoadCase.IsLoadCase)
+                            activatedLoadCase.LoadCaseDisplayName = loadCaseNames[activatedLoadCase.LoadCaseGuid];
+                        else if (activatedLoadCase.IsPTCLoadCase)
+                            activatedLoadCase.LoadCaseDisplayName = "PTC " + activatedLoadCase.PTCLoadCase.ToString().ToUpper();
+                        else if (activatedLoadCase.IsMovingLoad)
+                            // TODO: Use the moving load name
+                            activatedLoadCase.LoadCaseDisplayName = "<MovingLoad>";
                     }
                 }
             }
