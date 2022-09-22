@@ -36,15 +36,15 @@ namespace FemDesign.Grasshopper
             var id = stage.Id;
             var elements = stage.Elements;
             var description = stage.Description;
-            var initialState = stage.InitialState;
-            var activeLoadCase = stage.ActivatedLoadCase;
+            var initialState = stage.InitialStressState;
+            var activeLoadCases = stage.ActivatedLoadCases;
 
             // return data
             DA.SetData(0, id);
             DA.SetDataList(1, elements);
             DA.SetData(2, description);
             DA.SetData(3, initialState);
-            DA.SetData(4, activeLoadCase);
+            DA.SetDataList(4, activeLoadCases);
 
         }
         protected override System.Drawing.Bitmap Icon
