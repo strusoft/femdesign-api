@@ -28,23 +28,35 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
             Loads.LoadCase loadCase = null;
-            if (!DA.GetData(0, ref loadCase)) { return; }
+            string ptcLoadCase = "";
+            bool isLoadCase = DA.GetData("LoadCase", ref loadCase);
+            bool isString = DA.GetData("LoadCase", ref ptcLoadCase);
+            bool isPTCLoadCase = isString && (ptcLoadCase.ToUpper() == "PTC T0" || ptcLoadCase.ToUpper() == "PTC T8");
+            if (!(isLoadCase || isPTCLoadCase)) return;
+            ClearRuntimeMessages();
 
             double factor = 1;
             DA.GetData(1, ref factor);
 
             int partitioning = 1;
-            PartitioningType type = (PartitioningType) partitioning; //from_this_stage_on
+            ActivationType type = (ActivationType)partitioning; //from_this_stage_on
             DA.GetData(2, ref partitioning);
 
-            if (Enum.IsDefined(typeof(PartitioningType), partitioning))
+            if (Enum.IsDefined(typeof(ActivationType), partitioning))
             {
-                type = (PartitioningType) partitioning;
+                type = (ActivationType)partitioning;
             }
 
-            var activatedLoadCase = new FemDesign.ActivatedLoadCase(loadCase, factor, type);
+            FemDesign.ActivatedLoadCase activatedLoadCase;
+            if (isLoadCase)
+                activatedLoadCase = new FemDesign.ActivatedLoadCase(loadCase, factor, type);
+            else if (isPTCLoadCase)
+            {
+                PTCLoadCase _ptcLoadCase = ptcLoadCase.ToUpper() == "PTC T0" ? PTCLoadCase.T0 : PTCLoadCase.T8;
+                activatedLoadCase = new FemDesign.ActivatedLoadCase(_ptcLoadCase, factor, type);
+            }
+            else throw new Exception("The input was not a LoadCase or a PTCLoadCase.");
 
             // return
             DA.SetData(0, activatedLoadCase);

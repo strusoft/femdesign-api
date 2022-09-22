@@ -113,11 +113,11 @@ namespace FemDesign.Examples
 
             // Load cases per stage
             var stageOneLoadCases = new List<ActivatedLoadCase>() {
-                new ActivatedLoadCase(deadLoadCase, 1.0, PartitioningType.from_this_stage_on)
+                new ActivatedLoadCase(deadLoadCase, 1.0, ActivationType.FromThisStageOn)
             };
             var stageTwoLoadCases = new List<ActivatedLoadCase>() {
-                new ActivatedLoadCase(windCase, 1.0, PartitioningType.only_in_this_stage),
-                new ActivatedLoadCase(imposedCase, 1.0, PartitioningType.from_this_stage_on)
+                new ActivatedLoadCase(windCase, 1.0, ActivationType.OnlyInThisStage),
+                new ActivatedLoadCase(imposedCase, 1.0, ActivationType.FromThisStageOn)
             };
 
             // Create the stages
