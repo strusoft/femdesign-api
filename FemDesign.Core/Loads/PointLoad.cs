@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System.Xml.Serialization;
+using FemDesign.Geometry;
 
 namespace FemDesign.Loads
 {
@@ -35,6 +36,16 @@ namespace FemDesign.Loads
             this.LoadType = type;
             this.Direction = force.Normalize();
             this.Load = new LoadLocationValue(point, force.Length());
+        }
+
+        public static PointLoad Force(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment = "")
+		{
+            return new PointLoad(point, force, loadCase, comment, ForceLoadType.Force);
+        }
+
+        public static PointLoad Moment(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment = "")
+        {
+            return new PointLoad(point, force, loadCase, comment, ForceLoadType.Moment);
         }
 
         public override string ToString()
