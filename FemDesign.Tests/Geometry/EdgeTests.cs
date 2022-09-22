@@ -74,5 +74,23 @@ namespace FemDesign.Geometry.EdgeTests
             var edge = new Edge(Point3d.Origin, new Point3d(1, 1, 0), Vector3d.UnitZ);
             var direction = edge.XAxis.Normalize();
         }
+
+        [TestMethod("Create-LineEdge")]
+        public void EdgeLine()
+		{
+            // line
+            var p0 = new Point3d(0, 0, 0);
+            var p1 = new Point3d(1, 0, 0);
+            var y = new Vector3d(0, 1, 0);
+
+            var edge = new FemDesign.Geometry.Edge(p0, p1, y);
+            var edgeLine = new FemDesign.Geometry.LineEdge(p0, p1, y);
+
+           
+            Assert.IsTrue(edge.Length == edgeLine.Length);
+            Assert.IsTrue(Math.Abs(edgeLine.Length - 1) <= Tolerance.LengthComparison);
+
+
+        }
     }
 }
