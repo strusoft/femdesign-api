@@ -23,7 +23,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Elements", "Elements", "", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ActivatedLoadCase", "ActivatedLoadCase", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ActivatedLoadCase", "ActivatedLoadCase", "", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("InitialStressState", "InitialStressState", "", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -34,7 +34,6 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
             int index = 1;
             DA.GetData(0, ref index);
 
@@ -44,15 +43,14 @@ namespace FemDesign.Grasshopper
             var elements = new List<IStageElement>();
             DA.GetDataList(2, elements);
 
-            ActivatedLoadCase loadCase = null;
-            DA.GetData(3, ref loadCase);
+            List<ActivatedLoadCase> activatedLoadCases = new List<ActivatedLoadCase>();
+            DA.GetDataList(3, activatedLoadCases);
 
             bool initialStressState = false;
             DA.GetData(4, ref initialStressState);
 
-            var stage = new FemDesign.Stage(index, description, loadCase, elements, initialStressState);
+            var stage = new FemDesign.Stage(index, description, activatedLoadCases, elements, initialStressState);
 
-            // return
             DA.SetData(0, stage);
         }
         protected override System.Drawing.Bitmap Icon
