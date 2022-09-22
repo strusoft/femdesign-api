@@ -355,7 +355,10 @@ namespace FemDesign.Shells
 
 
             // set external rigidity property to reflect the majority of edge connections of the region
-            this.ExternalRigidity = ec.Rigidity;
+            if (ec.Rigidity != null)
+                this.ExternalRigidity = ec.Rigidity;
+            else if (ec.PredefRigidity != null)
+                this.ExternalPredefinedRigidity = ec.PredefRigidity;
         }
 
         /// <summary>
