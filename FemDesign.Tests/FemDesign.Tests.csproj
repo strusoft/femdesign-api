@@ -70,6 +70,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
+    <Compile Include="Bars\CreateElements.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
     <Compile Include="Geometry\RegionTest.cs" />
@@ -109,6 +110,12 @@
     <Compile Include="Shells\EdgeConnectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Bars\materials.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Bars\sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Model\global-test-model_MASTER.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

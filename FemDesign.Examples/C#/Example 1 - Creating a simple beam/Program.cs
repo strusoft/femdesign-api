@@ -32,14 +32,11 @@ namespace FemDesign.Examples
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
-            
-
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var bar = new Bars.Bar(
+            var bar = new Bars.Beam(
                 edge,
-                Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
@@ -47,11 +44,7 @@ namespace FemDesign.Examples
                 identifier: "B");
             bar.BarPart.LocalY = Geometry.Vector3d.UnitY;
 
-
-            var bar1 = Bars.Bar.SimpleBeam(10.0, material, section);
-
-            var column = Bars.Bar.SimpleColumn(3.0, material, section);
-            var elements = new List<GenericClasses.IStructureElement>() { bar, bar1, column };
+            var elements = new List<GenericClasses.IStructureElement>() { bar };
 
 
             // Create supports
@@ -108,8 +101,6 @@ namespace FemDesign.Examples
             model.AddLoads(loads);
             
             model.Open();
-
-
         }
     }
 }

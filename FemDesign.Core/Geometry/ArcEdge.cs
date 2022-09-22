@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Geometry
 {
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
     public partial class ArcEdge : Edge
     {

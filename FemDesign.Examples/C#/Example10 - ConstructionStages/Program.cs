@@ -39,9 +39,8 @@ namespace FemDesign.Examples
             var material = materialsDB.MaterialByName("C35/45");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var bar1 = new Bars.Bar(
+            var bar1 = new Bars.Beam(
                 edge1,
-                Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
@@ -49,9 +48,8 @@ namespace FemDesign.Examples
                 identifier: "B");
             //bar1.BarPart.LocalY = Geometry.FdVector3d.UnitY();
 
-            var bar2 = new Bars.Bar(
+            var bar2 = new Bars.Beam(
                 edge2,
-                Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
@@ -59,9 +57,8 @@ namespace FemDesign.Examples
                 identifier: "B");
             //bar2.BarPart.LocalY = Geometry.FdVector3d.UnitX();
 
-            var bar3 = new Bars.Bar(
+            var bar3 = new Bars.Beam(
                 edge3,
-                Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
                 connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
