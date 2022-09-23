@@ -160,6 +160,38 @@ namespace FemDesign.Loads
             }
         }
 
+        /// <summary>
+        /// Create a Distributed Force Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="startForce"></param>
+        /// <param name="endForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad DistributedForce(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+		{
+            return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
+        }
+
+        /// <summary>
+        /// Create a Distributed Moment Load to be applied to an Edge [kN/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="startForce"></param>
+        /// <param name="endForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad DistributedMoment(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
+        }
+
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
