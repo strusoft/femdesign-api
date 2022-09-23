@@ -103,5 +103,28 @@ namespace FemDesign.Geometry.EdgeTests
             Assert.IsTrue(edge.Length == edgeLine.Length);
             Assert.IsTrue(Math.Abs(edgeLine.Length - 1) <= Tolerance.LengthComparison);
         }
+
+        [TestMethod("Create-RadialEdgeLines")]
+        public void RadialEdgeLines()
+        {
+            // line
+            var p0 = new Point3d(0, 0, 0);
+
+            for(int i = -1; i < 1; i++)
+			{
+                for(int j = -1; j < 1; j++)
+				{
+                    for(int k = -1; k < 1; k++)
+					{
+                        if (i == 0 && j == 0 && k == 0) continue;
+                        var p1 = new Point3d(i, j, k);
+                        var edge = new FemDesign.Geometry.Edge(p0, p1);
+                        var edgeLine = new FemDesign.Geometry.LineEdge(p0, p1);
+
+                        Assert.IsTrue(edge.Length == edgeLine.Length);
+					}
+				}
+			}
+        }
     }
 }
