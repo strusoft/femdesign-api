@@ -60,7 +60,6 @@ namespace FemDesign.Geometry
         public static Vector3d operator -(Point3d p1, Point3d p2) => new Vector3d(p1.X - p2.X, p1.Y - p2.Y, p1.Z - p2.Z);
         public static Point3d operator +(Point3d p1, Point3d p2) => new Point3d(p1.X + p2.X, p1.Y + p2.Y, p1.Z + p2.Z);
         public static Point3d operator /(Point3d p1, double number) => new Point3d(p1.X / number, p1.Y / number, p1.Z / number);
-        public static Point3d operator /(double number, Point3d p1) => new Point3d(p1.X / number, p1.Y / number, p1.Z / number);
         public static Point3d operator *(Point3d p1, double number) => new Point3d(p1.X * number, p1.Y * number, p1.Z * number);
         public static Point3d operator *(double number, Point3d p1) => new Point3d(p1.X * number, p1.Y * number, p1.Z * number);
 
