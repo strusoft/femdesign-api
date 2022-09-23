@@ -229,7 +229,7 @@ namespace FemDesign.Geometry
             this.Points.Add(startPoint);
             this.Points.Add(endPoint);
 
-            this.Normal = localY ?? (endPoint - startPoint).Cross(Vector3d.UnitZ);
+            this.Normal = localY ?? -(endPoint - startPoint).Cross(Vector3d.UnitZ);
             this.XAxis = this.CoordinateSystem.LocalX;
         }
 
