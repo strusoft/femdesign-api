@@ -19,14 +19,13 @@ namespace FemDesign.Geometry
 
         public LineEdge()
         {
-
         }
 
         public LineEdge(Point3d startPoint, Point3d endPoint, CoordinateSystem coordinateSystem) : base(startPoint, endPoint, coordinateSystem)
         {
         }
 
-        public LineEdge(Point3d startPoint, Point3d endPoint, Vector3d localY) : base(startPoint, endPoint, localY)
+        public LineEdge(Point3d startPoint, Point3d endPoint, Vector3d localY = null) : base(startPoint, endPoint, localY)
         {
         }
     }

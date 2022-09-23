@@ -223,12 +223,13 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of line type by points and normal (localY).
         /// </summary>
-        public Edge(Point3d startPoint, Point3d endPoint, Vector3d localY)
+        public Edge(Point3d startPoint, Point3d endPoint, Vector3d localY = null)
         {
             this.Type = "line";
             this.Points.Add(startPoint);
             this.Points.Add(endPoint);
-            this.Normal = localY;
+
+            this.Normal = localY ?? (endPoint - startPoint).Cross(Vector3d.UnitZ);
             this.XAxis = this.CoordinateSystem.LocalX;
         }
 
