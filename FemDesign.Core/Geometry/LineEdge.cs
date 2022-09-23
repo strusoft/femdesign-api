@@ -11,6 +11,12 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class LineEdge : Edge
     {
+        [XmlIgnore]
+        public Point3d StartPoint => base.Points[0];
+
+        [XmlIgnore]
+        public Point3d EndPoint => base.Points[1];
+
         public LineEdge()
         {
 

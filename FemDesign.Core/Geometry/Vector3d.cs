@@ -55,6 +55,13 @@ namespace FemDesign.Geometry
             this.Z = p1.Z - p0.Z;
         }
 
+        public Vector3d(LineEdge edge)
+        {
+            this.X = (edge.EndPoint - edge.StartPoint).X;
+            this.Y = (edge.EndPoint - edge.StartPoint).Y;
+            this.Z = (edge.EndPoint - edge.StartPoint).Z;
+        }
+
         /// <summary>
         /// Reverse vector
         /// </summary>
@@ -85,14 +92,27 @@ namespace FemDesign.Geometry
         /// </summary>
         public static Vector3d operator *(double n, Vector3d v) => new Vector3d(n * v.X, n * v.Y, n * v.Z);
 
+        /// <summary>
+        /// Implicitly convert Point to Vector
+        /// </summary>
+        /// <param name="point"></param>
         public static implicit operator Vector3d(Point3d point)
 		{
             var x = point.X;
             var y = point.Y;
             var z = point.Z;
-            var vector = new Vector3d(x, y, z);
-            return vector;
+            return new Vector3d(x, y, z); ;
         }
+
+        /// <summary>
+        /// Implicitly convert LineEedge to Vector
+        /// </summary>
+        /// <param name="edge"></param>
+        public static implicit operator Vector3d(LineEdge edge)
+		{
+            return edge.EndPoint - edge.StartPoint;
+		}
+
         /// <summary>
         /// Calculate length of FdVector3d.
         /// </summary>
