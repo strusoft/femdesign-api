@@ -171,7 +171,7 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineLoad DistributedForce(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineLoad VariableForce(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
 		{
             return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
         }
@@ -187,9 +187,39 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineLoad DistributedMoment(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineLoad VariableMoment(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
+        }
+
+        /// <summary>
+        /// Create a UniformDistributed Force Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="constantForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad UniformLoad(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
+        }
+
+        /// <summary>
+        /// Create a Uniform Distributed Moment Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="constantForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad UniformMoment(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
         }
 
         public override string ToString()
