@@ -86,11 +86,22 @@ namespace FemDesign.Geometry.EdgeTests
             var edge = new FemDesign.Geometry.Edge(p0, p1, y);
             var edgeLine = new FemDesign.Geometry.LineEdge(p0, p1, y);
 
-           
             Assert.IsTrue(edge.Length == edgeLine.Length);
             Assert.IsTrue(Math.Abs(edgeLine.Length - 1) <= Tolerance.LengthComparison);
+        }
 
+        [TestMethod("Create-VerticalLineEdge")]
+        public void VerticalEdgeLine()
+        {
+            // line
+            var p0 = new Point3d(0, 0, 0);
+            var p1 = new Point3d(0, 0, 1);
 
+            var edge = new FemDesign.Geometry.Edge(p0, p1);
+            var edgeLine = new FemDesign.Geometry.LineEdge(p0, p1);
+
+            Assert.IsTrue(edge.Length == edgeLine.Length);
+            Assert.IsTrue(Math.Abs(edgeLine.Length - 1) <= Tolerance.LengthComparison);
         }
     }
 }

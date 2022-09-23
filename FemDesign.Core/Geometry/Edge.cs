@@ -228,8 +228,14 @@ namespace FemDesign.Geometry
             this.Type = "line";
             this.Points.Add(startPoint);
             this.Points.Add(endPoint);
-
-            this.Normal = localY ?? -(endPoint - startPoint).Cross(Vector3d.UnitZ);
+			if (!this.IsLineVertical())
+			{
+                this.Normal = localY ?? -(endPoint - startPoint).Cross(Vector3d.UnitZ);
+			}
+			else
+			{
+                this.Normal = localY ?? Vector3d.UnitX;
+            }
             this.XAxis = this.CoordinateSystem.LocalX;
         }
 
