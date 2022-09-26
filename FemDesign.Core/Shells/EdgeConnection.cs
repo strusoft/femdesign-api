@@ -162,7 +162,10 @@ namespace FemDesign.Shells
 
         public override string ToString()
         {
-            return $"{this.GetType().Name} {this.Rigidity.Motions} {this.Rigidity.Rotations}";
+            if(!this.IsLibraryItem)
+                return $"{this.GetType().Name} {this.Rigidity.Motions} {this.Rigidity.Rotations}";
+            else
+                return $"{this.GetType().Name} {this.PredefRigidity.Rigidity.Motions} {this.PredefRigidity.Rigidity.Rotations} Library: {this.LibraryName}";
         }
     }
 }
