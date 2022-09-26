@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPlaneParameter("Plane", "Plane", "Point where to place the PointSupport. [m]", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Position", "Position", "Point|Plane location to place the PointSupport. [m]\nDefault orientation is WorldXY Plane.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Motions", "Motions", "Motion springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotation springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Plastic Limits Forces Motions", "PlaLimM", "Plastic limits forces for motion springs. Optional.", GH_ParamAccess.item);
