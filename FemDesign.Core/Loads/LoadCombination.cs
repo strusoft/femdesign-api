@@ -9,7 +9,7 @@ namespace FemDesign.Loads
     /// load_combination_type
     /// </summary>
     [System.Serializable]
-    public partial class LoadCombination: EntityBase
+    public partial class LoadCombination : EntityBase
     {
         [XmlAttribute("name")]
         public string Name { get; set; } // name159
@@ -27,39 +27,45 @@ namespace FemDesign.Loads
         {
 
         }
-        
+
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCase, List<double> gamma, Calculate.CombItem combItem = null)
+        public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCases, List<double> gammas, Calculate.CombItem combItem = null)
+        {
+            Initialize(name, type, combItem);
+
+            if (loadCases.Count == gammas.Count)
+                for (int i = 0; i < loadCases.Count; i++)
+                    this.AddLoadCase(loadCases[i], gammas[i]);
+            else
+                throw new System.ArgumentException("loadCase and gamma must have equal length");
+
+        }
+
+        public LoadCombination(string name, LoadCombType type, params (LoadCase lc, double gamma)[] values)
+        {
+            Initialize(name, type);
+
+            foreach (var (lc, gamma) in values)
+                this.AddLoadCase(lc, gamma);
+        }
+
+        private void Initialize(string name, LoadCombType type, Calculate.CombItem combItem = null)
         {
             this.EntityCreated();
             this.Name = name;
             this.Type = type;
-            
+            this.SetCalculationSettings(combItem);
+        }
+
+        /// <summary>
+        /// Set the load combination-specific calculation settings. This is known as "Setup by load combinations" in FEM-Design GUI.
+        /// </summary>
+        /// <param name="combItem">Load combination-specific settings. The default settings will be used if the value is null.</param>
+        public void SetCalculationSettings(Calculate.CombItem combItem)
+        {
             this.CombItem = combItem ?? Calculate.CombItem.Default();
-
-            if (loadCase.GetType() == typeof(List<LoadCase>) && gamma.GetType() == typeof(List<double>))
-            {
-                List<LoadCase> loadCases = (List<LoadCase>)loadCase;
-                List<double> gammas = (List<double>)gamma;
-
-                if (loadCases.Count == gammas.Count)
-                {
-                    for (int i = 0; i < loadCases.Count; i++)
-                    {
-                        this.AddLoadCase(loadCases[i], gammas[i]);
-                    }
-                }
-                else
-                {
-                    throw new System.ArgumentException("loadCase and gamma must have equal length");
-                }
-            }
-            else
-            {
-                throw new System.ArgumentException("loadCase must be Loads.LoadCase or List<Loads.LoadCase>, gamma must be double or List<double>");
-            }          
         }
 
         /// <summary>
@@ -99,7 +105,7 @@ namespace FemDesign.Loads
             }
             else
             {
-               this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma)); 
+                this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma));
             }
         }
 
@@ -125,9 +131,9 @@ namespace FemDesign.Loads
             const int gammaSpace = -3;
             var repr = "";
             repr += $"{this.Name,space} {this.Type}\n";
-            foreach(var item in this.ModelLoadCase)
+            foreach (var item in this.ModelLoadCase)
             {
-                repr  += $"{"",space-1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
+                repr += $"{"",space - 1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
             }
             return repr;
         }

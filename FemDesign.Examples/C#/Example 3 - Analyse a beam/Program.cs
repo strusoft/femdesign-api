@@ -74,7 +74,7 @@ namespace FemDesign.Examples
             var loadcases = new List<Loads.LoadCase>() { deadload, liveload };
 
             var combItem = Calculate.CombItem.Default();
-            var combItemNLE = new Calculate.CombItem(_NLE: true);
+            var combItemNLE = new Calculate.CombItem(NLE: true);
 
             // Create load combinations
             var slsFactors = new List<double>() { 1.0, 1.0 };

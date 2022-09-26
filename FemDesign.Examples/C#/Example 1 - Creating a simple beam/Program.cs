@@ -54,10 +54,12 @@ namespace FemDesign.Examples
 
 
             // Create load combinations
-            var slsFactors = new List<double>() { 1.0, 1.0 };
-            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors);
-            var ulsFactors = new List<double>() { 1.35, 1.5 };
-            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
+            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic,
+                (deadload, 1.0),
+                (liveload, 1.0));
+            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary,
+                (deadload, 1.2),
+                (liveload, 1.5));
             var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS };
 
 
