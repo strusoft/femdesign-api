@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Bars.CreateElements
+namespace FemDesign.Bars
 {
     [TestClass()]
     public class CreateElements

@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace FemDesign.Geometry.EdgeTests
+namespace FemDesign.Geometry
 {
     [TestClass()]
     public class EdgeTests

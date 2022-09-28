@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Results.ShellCrackWidthTests
+namespace FemDesign.Results
 {
     [TestClass()]
     public class ShellCrackWidthTests

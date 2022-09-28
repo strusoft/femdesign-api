@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace FemDesign.Materials.Tests
+namespace FemDesign.Materials
 {
     [TestClass()]
     public class MaterialDatabaseTests

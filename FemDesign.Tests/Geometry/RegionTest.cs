@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace FemDesign.Geometry.RegionTest
+namespace FemDesign.Geometry
 {
     [TestClass()]
     public class RegionTest

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.GenericClasses.EnumHelpersTests
+namespace FemDesign.GenericClasses
 {
     [TestClass()]
     public class EnumHelpersTests
