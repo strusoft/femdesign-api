@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
-
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 using System.Linq;
 
 namespace FemDesign.Grasshopper
@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "Connect 'ValueList' to get the options.\nNational annex of calculation code: D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -62,6 +62,13 @@ namespace FemDesign.Grasshopper
         public override Guid ComponentGuid
         {
             get { return new Guid("{BC3E170C-C4BB-46C9-87BC-F5E23B54AF5D}"); }
+        }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 0, new List<string>
+            { "D","DK","EST","FIN","GB","H","N","PL","RO","S","TR"
+            }, null, 0);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
