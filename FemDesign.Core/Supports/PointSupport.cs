@@ -192,10 +192,14 @@ namespace FemDesign.Supports
             {
                 if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
                     hasPlasticLimit = true;
-                return $"{this.GetType().Name} Pos: {this.Position}, {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
             }
             else
-                return $"{this.GetType().Name} with RigidityGroup Pos: {this.Position}";
+            {
+                if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+            }
         }
     }
 }

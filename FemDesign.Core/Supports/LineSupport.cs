@@ -189,9 +189,19 @@ namespace FemDesign.Supports
         public override string ToString()
         {
             bool hasPlasticLimit = false;
-            if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
-                hasPlasticLimit = true;
-            return $"{this.GetType().Name} Motion: {this.Group.Rigidity.Motions}, Rotation: {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+            if (this.Group.Rigidity != null)
+			{
+                if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+			}
+			else
+			{
+                if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+			}
+
         }
 
     }
