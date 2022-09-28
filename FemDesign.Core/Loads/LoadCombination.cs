@@ -133,8 +133,11 @@ namespace FemDesign.Loads
             repr += $"{this.Name,space} {this.Type}\n";
             foreach (var item in this.ModelLoadCase)
             {
-                repr += $"{"",space - 1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
+                if(item.LoadCase == null) { return base.ToString(); } // Deserialisation can not get the loadcase name from the object. Only the GUID
+                else
+                    repr += $"{"",space - 1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
             }
+            
             return repr;
         }
     }
