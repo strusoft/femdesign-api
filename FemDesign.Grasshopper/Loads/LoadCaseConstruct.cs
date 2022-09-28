@@ -6,6 +6,8 @@ using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
 using FemDesign.Loads;
 
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+
 namespace FemDesign.Grasshopper
 {
     public class LoadCaseConstruct: GH_Component
@@ -36,16 +38,11 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            var resultTypes = new List<string>() { "ordinary", "dead_load", "soil_dead_load", "shrinkage", "prestressing", "fire", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym" };
-            FemDesign.Grasshopper.Extension.ComponentExtensions.SetValueList(this, resultTypes, 1);
-
 
             if (!DA.GetData(2, ref durationClass))
             {
                 // pass
             }
-            resultTypes = new List<string>() { "permanent", "long-term", "medium-term", "short-term", "instantaneous" };
-            FemDesign.Grasshopper.Extension.ComponentExtensions.SetValueList(this, resultTypes, 2);
 
             LoadCaseType _type = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseType>(type);
             LoadCaseDuration _durationClass = FemDesign.GenericClasses.EnumParser.Parse<LoadCaseDuration>(durationClass);
@@ -67,33 +64,19 @@ namespace FemDesign.Grasshopper
             get { return new Guid("ebf804c1-91a6-40bb-adee-5a02a9e42f80"); }
         }
 
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 1, new List<string>
+            { "ordinary", "dead_load", "soil_dead_load", "shrinkage", "prestressing", "fire", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym"
+            }, null, 0);
+
+        
+            ValueListUtils.updateValueLists(this, 2, new List<string>
+            { "permanent", "long-term", "medium-term", "short-term", "instantaneous"
+            }, null, 0);
+        }
+
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
-
-        //private void SetValueList(List<string> ResultTypes, int inputIndex)
-        //{
-
-        //    if (this.Params.Input[inputIndex].SourceCount == 1)
-        //    {
-        //        if (this.Params.Input[inputIndex]?.Sources[0] is GH_ValueList)
-        //        {
-        //            var valueList = Params.Input[inputIndex].Sources[0] as GH_ValueList;
-        //            valueList.ListMode = GH_ValueListMode.DropDown;
-
-        //            if (valueList.ListItems.Count != ResultTypes.Count)
-        //            {
-        //                valueList.ListItems.Clear();
-        //                for (int i = 0; i < ResultTypes.Count; i++)
-        //                {
-        //                    var name = ResultTypes[i];
-        //                    valueList.ListItems.Add(new GH_ValueListItem(name, String.Format("\"{0}\"", name)));
-        //                }
-        //            }
-        //            valueList.SelectItem(1);
-        //            valueList.Attributes.ExpireLayout();
-        //            valueList.Attributes.PerformLayout();
-        //        }
-        //    }
-        //}
 
     }
 }
