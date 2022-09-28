@@ -287,9 +287,12 @@ namespace FemDesign
         /// <param name="checkOpenFiles"></param>
         public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
         {
-            var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-            if (notAResultType != null)
-                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
+            if(resultTypes != null)
+			{
+                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
+                if (notAResultType != null)
+                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
+			}
 
             var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
 
