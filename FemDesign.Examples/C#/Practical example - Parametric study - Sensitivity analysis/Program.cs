@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // In this example, we will analyse how different stiffness values on a support
             // will affect a bridge (modelled simply as a beam).
 
-            // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // FILE PATH SETUP

@@ -18,7 +18,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design.Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated 2022-04-27, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // Define geometry
@@ -122,7 +122,7 @@ namespace FemDesign.Examples
             var results = new List<Type>() { typeof(Results.BarDisplacement) };
 
             // Run a specific analysis
-            model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config);
+            model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config, endSession: true);
 
 
 

@@ -19,7 +19,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design. Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated 2022-09-22.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
             // Define geometry
             var p1 = new Geometry.Point3d(0.0, 0.0, 0);
@@ -149,8 +149,6 @@ namespace FemDesign.Examples
                 "ExampleModel.struxml");
 
             // Set up the analysis
-            var eigenfrequenciesAnalysis = Calculate.Analysis.Eigenfrequencies();
-            var staticAnalysis = Calculate.Analysis.StaticAnalysis(calcCase: true, calccomb: true);
             var constructionStageAnalysis = Calculate.Analysis.ConstructionStages(ghost: false);
 
             // Optional Settings for the Discretisation
@@ -163,8 +161,6 @@ namespace FemDesign.Examples
             // Run a specific analysis
             model.RunAnalysis(constructionStageAnalysis, struxmlPath: filePath, resultTypes: results, cmdGlobalCfg: config);
 
-            // Or simply open the model
-            //model.Open(filePath);
         }
     }
 }

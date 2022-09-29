@@ -18,7 +18,7 @@ namespace FemDesign.Examples
             // walls and pillars with appropriate supports. Using height as a point of comparison we can find
             // which elements to reuse from the old model, and create a new model with our selected elements.
 
-            // This example was last updated 2022-04-13, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // READ THE MODEL:

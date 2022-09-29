@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and read some of the results.
 
-            // This example was last updated 2022-09-22
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
             #region DEFINE GEOMETRY
             // Define geometry
@@ -176,7 +176,8 @@ namespace FemDesign.Examples
             var zReactions = results.Where(t => t.GetType() == typeof(Results.PointSupportReaction)).Cast<Results.PointSupportReaction>();
             foreach(var zReaction in zReactions)
             {
-                Console.WriteLine($"Node {zReaction.Id}: {zReaction.Fz} {units.Force}");
+                var text = String.Format("Node {0,5} {1,7:#.00} {2} {3,12}", zReaction.Id, zReaction.Fz, units.Force, zReaction.CaseIdentifier);
+                Console.WriteLine(text);
             }
             #endregion
 
