@@ -358,10 +358,6 @@ namespace FemDesign
 
         public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
-            var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-            if (notAResultType != null)
-                throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-
             if (struxmlPath == null)
             {
                 var currentDirectory = System.IO.Directory.GetCurrentDirectory();
@@ -371,6 +367,9 @@ namespace FemDesign
             List<string> bscPath = null;
             if (resultTypes != null)
             {
+                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
+                if (notAResultType != null)
+                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
                 bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
             }
 
