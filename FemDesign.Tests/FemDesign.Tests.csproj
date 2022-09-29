@@ -78,6 +78,8 @@
     <Compile Include="Loads\LoadCaseTests.cs" />
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Materials\MaterialDatabaseTests.cs" />
+    <Compile Include="Loads\LoadsTests.cs" />
+    <Compile Include="Loads\ModelLoadCaseTests.cs" />
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Performance\BeamGeneration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +118,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Model\global-test-model_MASTER.struxml">
+    <None Include="Loads\MovingLoads - No indexed Guid.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Loads\MovingLoads - With indexed Guid.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
