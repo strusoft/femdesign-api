@@ -118,6 +118,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Model\global-test-model_MASTER.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Loads\MovingLoads - No indexed Guid.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
