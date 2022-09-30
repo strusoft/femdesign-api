@@ -6,7 +6,8 @@
 This repository contains source code for the FEM-Design API wrapper. It consists of the `C#`-Core together with the `Dynamo` and `Grasshopper` plugins. 
 
 ## 🚗 Road-map
-The road-map of the project is expressed by the [milestones](https://github.com/strusoft/femdesign-api/milestones).
+
+[Now-next-later](https://github.com/strusoft/femdesign-api/wiki/Road-map)
 
 ## Installation
 See installation for your framework below. 
