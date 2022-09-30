@@ -321,10 +321,10 @@ namespace FemDesign.Loads
             string leadingActionName = "";
             // Find a suitable name for the leading action
             if (parentLoadGroup.Relationship == ELoadGroupRelationship.Alternative)
-                leadingActionName = parentLoadGroup.GetCorrespondingCompleteLoadCase(leadingLoadCase).Identifier;
+                leadingActionName = parentLoadGroup.GetCorrespondingCompleteLoadCase(leadingLoadCase).Name;
             else if (parentLoadGroup.Relationship == ELoadGroupRelationship.Entire)
                 // Use the groups name
-                leadingActionName = parentLoadGroup.Identifier;
+                leadingActionName = parentLoadGroup.Name;
             return leadingActionName;
         }
 

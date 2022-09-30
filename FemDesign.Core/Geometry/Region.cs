@@ -1,5 +1,5 @@
 // https://strusoft.com/
-
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -15,13 +15,13 @@ namespace FemDesign.Geometry
     public partial class Region
     {
         [XmlIgnore]
-        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
 
         /// <summary>
         /// Used for panels and sections
         /// </summary>
         [XmlIgnore]
-        public FdVector3d LocalZ
+        public Vector3d LocalZ
         {
             get
             {
@@ -43,7 +43,7 @@ namespace FemDesign.Geometry
 
                 else
                 {
-                    FdVector3d v = this.LocalZ;
+                    Vector3d v = this.LocalZ;
                     throw new System.ArgumentException($"Value: ({value.X}, {value.Y}, {value.Z}) is not parallell to LocalZ ({v.X}, {v.Y}, {v.Z}) ");
                 }
             }
@@ -65,7 +65,7 @@ namespace FemDesign.Geometry
             this.Contours = contours;
         }
 
-        public Region(List<Contour> contours, FdCoordinateSystem coordinateSystem)
+        public Region(List<Contour> contours, CoordinateSystem coordinateSystem)
         {
             this.Contours = contours;
             this.CoordinateSystem = coordinateSystem;
@@ -76,19 +76,19 @@ namespace FemDesign.Geometry
         /// </summary>
         /// <param name="points">List of sorted points defining the outer perimeter of the region.</param>
         /// <param name="coordinateSystem">Coordinate system of the region</param>
-        public Region(List<FdPoint3d> points, FdCoordinateSystem coordinateSystem)
+        public Region(List<Point3d> points, CoordinateSystem coordinateSystem)
         {
             // edge normal
-            FdVector3d edgeLocalY = coordinateSystem.LocalZ;
+            Vector3d edgeLocalY = coordinateSystem.LocalZ;
 
             List<Edge> edges = new List<Edge>();
             for (int idx = 0 ; idx < points.Count; idx++)
             {
                 // startPoint
-                FdPoint3d p0 = p0 = points[idx];
+                Point3d p0 = p0 = points[idx];
 
                 // endPoint
-                FdPoint3d p1;
+                Point3d p1;
                 if (idx != points.Count - 1)
                 {
                     p1 = points[idx + 1];
@@ -113,14 +113,14 @@ namespace FemDesign.Geometry
 
         public static Region RectangleXZ(double width, double height)
         {
-            var points0 = new FdPoint3d(0,0,0);
-            var points1 = new FdPoint3d(width,0,0);
-            var points2 = new FdPoint3d(width,0,height);
-            var points3 = new FdPoint3d(0,0,height);
+            var points0 = new Point3d(0,0,0);
+            var points1 = new Point3d(width,0,0);
+            var points2 = new Point3d(width,0,height);
+            var points3 = new Point3d(0,0,height);
 
-            var points = new List<FdPoint3d>() { points0, points1, points2, points3 };
+            var points = new List<Point3d>() { points0, points1, points2, points3 };
 
-            var fdCoordinate = new FdCoordinateSystem(points0, points1, points3);
+            var fdCoordinate = new CoordinateSystem(points0, points1, points3);
 
             // set properties
             var region = new Region(points, fdCoordinate);
@@ -130,14 +130,14 @@ namespace FemDesign.Geometry
 
         public static Region RectangleXY(double width, double length)
         {
-            var points0 = new FdPoint3d(0, 0, 0);
-            var points1 = new FdPoint3d(width, 0, 0);
-            var points2 = new FdPoint3d(width, length, 0);
-            var points3 = new FdPoint3d(0, length, 0);
+            var points0 = new Point3d(0, 0, 0);
+            var points1 = new Point3d(width, 0, 0);
+            var points2 = new Point3d(width, length, 0);
+            var points3 = new Point3d(0, length, 0);
 
-            var points = new List<FdPoint3d>() { points0, points1, points2, points3 };
+            var points = new List<Point3d>() { points0, points1, points2, points3 };
 
-            var fdCoordinate = new FdCoordinateSystem(points0, points1, points3);
+            var fdCoordinate = new CoordinateSystem(points0, points1, points3);
 
             // set properties
             var region = new Region(points, fdCoordinate);
@@ -325,6 +325,11 @@ namespace FemDesign.Geometry
             return newRegion;
         }
 
+        public static double Area(List<Point3d> points)
+        {
+            var area = System.Math.Abs(points.Take(points.Count - 1).Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y)).Sum() / 2);
+            return area;
+        }
 
     }
 }

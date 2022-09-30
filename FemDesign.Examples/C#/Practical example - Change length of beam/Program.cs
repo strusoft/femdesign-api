@@ -16,7 +16,7 @@ namespace FemDesign.Examples
             // PRACTICAL EXAMPLE: CHANGE LENGTH OF BEAM
             // this simple example will show you how to edit the length of a beam from within a C# script.
 
-            // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // FILE PATH SETUP

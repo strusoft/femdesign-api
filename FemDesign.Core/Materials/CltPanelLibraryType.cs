@@ -28,7 +28,7 @@ namespace FemDesign.Materials
 
         public override string ToString()
         {
-            return $"CLT Panel - {this.Identifier}";
+            return $"CLT Panel - {this.Name}";
         }
     }
 }

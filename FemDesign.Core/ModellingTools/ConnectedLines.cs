@@ -19,13 +19,13 @@ namespace FemDesign.ModellingTools
         /// Represents first interface point, i.e Point@Parameter on Line between Edge[0].StartPoint and Edge[1].StartPoint.
         /// </summary>
         [XmlElement("point", Order = 2)]
-        public Geometry.FdPoint3d[] Points { get; set; }
+        public Geometry.Point3d[] Points { get; set; }
 
         [XmlElement("local_x", Order = 3)]
-        public Geometry.FdVector3d LocalX { get; set; }
+        public Geometry.Vector3d LocalX { get; set; }
 
         [XmlElement("local_y", Order = 4)]
-        public Geometry.FdVector3d LocalY { get; set; }
+        public Geometry.Vector3d LocalY { get; set; }
 
         // simple stiffness choice
 
@@ -60,19 +60,19 @@ namespace FemDesign.ModellingTools
         public GuidListType[] References { get; set; }
         
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 _instance++;
-                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
+                this._name = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 
@@ -119,7 +119,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Constructor
         /// </summary>
-        public ConnectedLines(Geometry.Edge firstEdge, Geometry.Edge secondEdge, Geometry.FdVector3d localX, Geometry.FdVector3d localY, Releases.RigidityDataType3 rigidity, GuidListType[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
+        public ConnectedLines(Geometry.Edge firstEdge, Geometry.Edge secondEdge, Geometry.Vector3d localX, Geometry.Vector3d localY, Releases.RigidityDataType3 rigidity, GuidListType[] references, string identifier, bool movingLocal, double interfaceStart, double interfaceEnd)
         {
             this.EntityCreated();
             this.Edges = new Geometry.Edge[2]
@@ -131,7 +131,7 @@ namespace FemDesign.ModellingTools
             this.LocalY = localY;
             this.Rigidity = rigidity;
             this.References = references;
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.MovingLocal = movingLocal;
             this.InterfaceStart = interfaceStart;
             this.InterfaceEnd = interfaceEnd;

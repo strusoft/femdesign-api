@@ -10,10 +10,10 @@ namespace FemDesign.Shells
     public partial class WallCorbel: EntityBase, IStructureElement
     {
         [XmlElement("start_point", Order = 1)]
-        public Geometry.FdPoint3d StartPoint { get; set; }
+        public Geometry.Point3d StartPoint { get; set; }
 
         [XmlElement("end_point", Order = 2)]
-        public Geometry.FdPoint3d EndPoint { get; set; }
+        public Geometry.Point3d EndPoint { get; set; }
 
         [XmlElement("connectable_parts", Order = 3)]
         public TwoGuidListType ConnectableParts { get; set; }
@@ -46,7 +46,18 @@ namespace FemDesign.Shells
         // [XmlElement("rigidity_group", Order = 6)]
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
+
 
         [XmlAttribute("positive_side")]
         public bool PositiveSide { get; set; } = true;

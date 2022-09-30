@@ -83,7 +83,7 @@ namespace FemDesign
         public Materials.OrthotropicPanelTypes OrthotropicPanelTypes { get; set; }
         [XmlElement("glc_panel_types", Order = 14)]
         public Materials.GlcPanelTypes GlcPanelTypes { get; set; }
-        
+
         [XmlElement("clt_panel_types", Order = 15)]
         public Materials.CltPanelTypes CltPanelTypes { get; set; }
 
@@ -91,19 +91,19 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
 
         [XmlElement("vehicle_types", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes { get; set; }
 
         [XmlElement("bolt_types", Order = 18)]
-        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes { get; set; }
 
         [XmlElement("geometry", Order = 19)]
-        public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry{ get; set;}
+        public StruSoft.Interop.StruXml.Data.DatabaseGeometry Geometry { get; set; }
 
         [XmlElement("user_defined_filter", Order = 20)]
-        public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters{ get; set;}
+        public List<StruSoft.Interop.StruXml.Data.Userfilter_type> UserDefinedFilters { get; set; }
 
         [XmlElement("user_defined_views", Order = 21)]
-        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews{ get; set;}
+        public StruSoft.Interop.StruXml.Data.DatabaseUser_defined_views UserDefinedViews { get; set; }
 
         [XmlElement("end", Order = 22)]
         public string End { get; set; }
@@ -139,7 +139,7 @@ namespace FemDesign
                 AddLoadCombinations(loadCombinations, overwrite: false);
             if (loadGroups != null)
                 AddLoadGroupTable(loadGroups, overwrite: false);
-            if(constructionStage != null)
+            if (constructionStage != null)
                 SetConstructionStages(constructionStage);
         }
 
@@ -198,11 +198,11 @@ namespace FemDesign
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
             TextReader reader = new StreamReader(filePath);
-            
+
             object obj;
             try
             {
-                 obj = deserializer.Deserialize(reader);
+                obj = deserializer.Deserialize(reader);
             }
             catch (System.InvalidOperationException ex)
             {
@@ -230,23 +230,24 @@ namespace FemDesign
             // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
             if (model.Entities.Bars.Any())
                 model.GetBars();
-            if (model.Entities.AdvancedFem.FictitiousShells.Any()) 
+            if (model.Entities.AdvancedFem.FictitiousShells.Any())
                 model.GetFictitiousShells();
-            if (model.Entities.Supports.LineSupport.Any()) 
+            if (model.Entities.Supports.LineSupport.Any())
                 model.GetLineSupports();
-            if (model.Entities.Panels.Any()) 
+            if (model.Entities.Panels.Any())
                 model.GetPanels();
-            if (model.Entities.Supports.PointSupport.Any()) 
+            if (model.Entities.Supports.PointSupport.Any())
                 model.GetPointSupports();
-            if (model.Entities.Slabs.Any()) 
+            if (model.Entities.Slabs.Any())
                 model.GetSlabs();
-            if (model.Entities.Supports.SurfaceSupport.Any()) 
+            if (model.Entities.Supports.SurfaceSupport.Any())
                 model.GetSurfaceSupports();
-            if (model.Entities.AdvancedFem.ConnectedPoints.Any()) 
+            if (model.Entities.AdvancedFem.ConnectedPoints.Any())
                 model.GetPointConnections();
-            if (model.Entities.AdvancedFem.ConnectedLines.Any()) 
+            if (model.Entities.AdvancedFem.ConnectedLines.Any())
                 model.GetLineConnections();
-
+            if (model.ConstructionStages != null && model.ConstructionStages.Stages.Any())
+                model.GetConstructionStages();
             return model;
         }
 
@@ -284,8 +285,15 @@ namespace FemDesign
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <param name="checkOpenFiles"></param>
-        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Results.ResultType> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
+        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
         {
+            if(resultTypes != null)
+			{
+                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
+                if (notAResultType != null)
+                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
+			}
+
             var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
 
             var app = new Calculate.Application();
@@ -296,7 +304,8 @@ namespace FemDesign
             IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
             if (resultTypes != null && resultTypes.Any())
             {
-                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path => {
+                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path =>
+                {
                     try
                     {
                         return Results.ResultsReader.Parse(path);
@@ -328,7 +337,7 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -347,7 +356,7 @@ namespace FemDesign
             this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
-        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Results.ResultType> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -358,6 +367,9 @@ namespace FemDesign
             List<string> bscPath = null;
             if (resultTypes != null)
             {
+                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
+                if (notAResultType != null)
+                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
                 bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
             }
 
@@ -386,7 +398,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups,  bool overwrite)
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -477,7 +489,7 @@ namespace FemDesign
 
             this.AddLoadCombinations(loadCombinations, overwrite);
 
-            if(loadGroups != null)
+            if (loadGroups != null)
             {
                 this.AddLoadGroupTable(loadGroups, overwrite);
             }
@@ -528,7 +540,7 @@ namespace FemDesign
             {
                 this.Entities.Bars.RemoveAll(x => x.Guid == obj.Guid);
             }
-            
+
             // if truss
             if (obj.BarPart.SectionType == Bars.SectionType.Truss)
             {
@@ -588,7 +600,7 @@ namespace FemDesign
         {
             foreach (Reinforcement.Ptc ptc in obj.Ptc)
             {
-                    this.AddPtc(ptc, overwrite);
+                this.AddPtc(ptc, overwrite);
             }
         }
 
@@ -774,7 +786,7 @@ namespace FemDesign
                 // initialise variable as false
                 bool inModel = false;
 
-                if(this.Composites.Composite_section != null)
+                if (this.Composites.Composite_section != null)
                 {
                     inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
                 }
@@ -798,7 +810,7 @@ namespace FemDesign
 
                 // add complex composite
                 this.Composites.Composite_section.Add(compositeSection.CompositeSectionDataObj);
-                foreach(var part in compositeSection.CompositeSectionDataObj.Part)
+                foreach (var part in compositeSection.CompositeSectionDataObj.Part)
                 {
                     this.AddMaterial(part.MaterialObj, overwrite);
                     this.AddSection(part.SectionObj, overwrite);
@@ -823,7 +835,7 @@ namespace FemDesign
             }
             // if composites not present
             else
-            {   
+            {
                 this.Composites = new StruSoft.Interop.StruXml.Data.DatabaseComposites();
                 this.Composites.Complex_composite = new List<StruSoft.Interop.StruXml.Data.Complex_composite_type>();
             }
@@ -1555,7 +1567,7 @@ namespace FemDesign
             // add load case
             if (this.LoadCaseNameTaken(obj))
             {
-                obj.Identifier = obj.Identifier + " (1)";
+                obj.Name = obj.Name + " (1)";
             }
             this.Entities.Loads.LoadCases.Add(obj);
         }
@@ -1582,7 +1594,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCase elem in this.Entities.Loads.LoadCases)
             {
-                if (elem.Identifier == obj.Identifier)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -1599,7 +1611,7 @@ namespace FemDesign
             if (loadCombinations != null)
                 foreach (Loads.LoadCombination loadCombination in loadCombinations)
                     this.AddLoadCombination(loadCombination, overwrite);
-            
+
             this.CheckCombItems();
         }
 
@@ -1611,9 +1623,9 @@ namespace FemDesign
         private void CheckCombItems()
         {
             if (this.Entities.Loads.LoadCombinations.Any(x => x.CombItem != null) && this.Entities.Loads.LoadCombinations.Any(x => x.CombItem == null))
-                {
-                    throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
-                }  
+            {
+                throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
+            }
         }
 
         /// <summary>
@@ -1667,7 +1679,7 @@ namespace FemDesign
             // add load combination
             if (this.LoadCombinationNameTaken(obj))
             {
-                obj.Identifier = obj.Identifier + " (1)";
+                obj.Name = obj.Name + " (1)";
             }
             this.Entities.Loads.LoadCombinations.Add(obj);
         }
@@ -1705,7 +1717,7 @@ namespace FemDesign
         {
             foreach (Loads.LoadCombination elem in this.Entities.Loads.LoadCombinations)
             {
-                if (elem.Identifier == obj.Identifier)
+                if (elem.Name == obj.Name)
                 {
                     return true;
                 }
@@ -2025,7 +2037,7 @@ namespace FemDesign
             else if (inModel && overwrite)
             {
                 this.Entities.BarReinforcements.RemoveAll(x => x.Guid == obj.Guid);
-            } 
+            }
 
             // add obj
             this.Entities.BarReinforcements.Add(obj);
@@ -2443,7 +2455,7 @@ namespace FemDesign
         {
             foreach (Materials.Material elem in this.Materials.Material)
             {
-                if(obj != null && elem != null)
+                if (obj != null && elem != null)
                 {
                     if (elem.Guid == obj.Guid)
                     {
@@ -2736,7 +2748,7 @@ namespace FemDesign
 
         private void SetConstructionStages(ConstructionStages obj)
         {
-            if(this.ConstructionStages == null)
+            if (this.ConstructionStages == null)
             {
                 this.ConstructionStages = new ConstructionStages();
             }
@@ -2749,9 +2761,9 @@ namespace FemDesign
 
             foreach (var stage in obj.Stages)
             {
-                if(stage.Elements != null)
+                if (stage.Elements != null)
                 {
-                    foreach(var element in stage.Elements)
+                    foreach (var element in stage.Elements)
                     {
                         //var newElement = element.DeepClone();
                         element.StageId = stage.Id;
@@ -2843,7 +2855,7 @@ namespace FemDesign
 
 
         private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
-        
+
         private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
         private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
@@ -2914,7 +2926,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexSectionRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexSectionRef is null");
                     }
 
                     // material
@@ -2928,7 +2940,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexMaterialRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexMaterialRef is null");
                     }
                 }
                 // do nothing for beam or column with complex section (delta beam type)
@@ -2960,7 +2972,7 @@ namespace FemDesign
                     }
                     catch (ArgumentNullException)
                     {
-                        throw new ArgumentNullException($"BarPart {item.BarPart.Identifier} BarPart.ComplexSectionRef is null");
+                        throw new ArgumentNullException($"BarPart {item.BarPart.Name} BarPart.ComplexSectionRef is null");
                     }
 
                     // material
@@ -3098,7 +3110,7 @@ namespace FemDesign
                 // get material
                 foreach (Materials.Material _material in this.Materials.Material)
                 {
-                    if (_material.Guid == item.SlabPart.ComplexMaterial)
+                    if (_material.Guid == item.SlabPart.ComplexMaterialGuid)
                     {
                         item.Material = _material;
                     }
@@ -3323,8 +3335,43 @@ namespace FemDesign
             }
         }
 
+        internal void GetConstructionStages()
+        {
+            var loadCaseNames = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid, lc => lc.Name);
 
+            List<IStageElement> stageElements = new List<IStageElement>();
+            stageElements.AddRange(this.Entities.Bars);
+            stageElements.AddRange(this.Entities.Panels);
+            stageElements.AddRange(this.Entities.Slabs);
+            stageElements.AddRange(this.Entities.Supports.PointSupport);
+            stageElements.AddRange(this.Entities.Supports.LineSupport);
+            stageElements.AddRange(this.Entities.Supports.SurfaceSupport);
+            stageElements.AddRange(this.Entities.AdvancedFem.Diaphragms);
 
+            var elementsPerStage = stageElements.GroupBy(s => s.StageId).ToDictionary(g => g.Key, g => g.ToList());
+
+            int i = 0;
+            foreach (var stage in this.ConstructionStages.Stages)
+            {
+                i++; // Starts at 1
+                stage.Id = i;
+                stage.Elements = elementsPerStage[i];
+
+                if (stage.ActivatedLoadCases != null)
+                {
+                    foreach (var activatedLoadCase in stage.ActivatedLoadCases)
+                    {
+                        if (activatedLoadCase.IsLoadCase)
+                            activatedLoadCase.LoadCaseDisplayName = loadCaseNames[activatedLoadCase.LoadCaseGuid];
+                        else if (activatedLoadCase.IsPTCLoadCase)
+                            activatedLoadCase.LoadCaseDisplayName = "PTC " + activatedLoadCase.PTCLoadCase.ToString().ToUpper();
+                        else if (activatedLoadCase.IsMovingLoad)
+                            // TODO: Use the moving load name
+                            activatedLoadCase.LoadCaseDisplayName = "<MovingLoad>";
+                    }
+                }
+            }
+        }
         #endregion
     }
 }

@@ -8,11 +8,11 @@ namespace FemDesign.StructureGrid
     public partial class Storey: EntityBase, IStructureElement
     {
         [XmlElement("origo", Order=1)]
-        public Geometry.FdPoint3d Origo { get; set; }
+        public Geometry.Point3d Origo { get; set; }
         [XmlElement("direction", Order=2)]
-        public Geometry.FdVector2d _direction;
+        public Geometry.Vector2d _direction;
         [XmlIgnore]
-        public Geometry.FdVector3d Direction
+        public Geometry.Vector3d Direction
         {
             get
             {
@@ -41,7 +41,7 @@ namespace FemDesign.StructureGrid
             set { this._dimensionY = RestrictedDouble.Positive(value); }
         }
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization
@@ -59,15 +59,14 @@ namespace FemDesign.StructureGrid
         /// <param name="dimensionX">Dimension in x'-direction.</param>
         /// <param name="dimensionY">Dimension in y'-direction.</param>
         /// <param name="name">Name of storey.</param>
-        public Storey(Geometry.FdPoint3d origo, Geometry.FdVector3d direction, double dimensionX, double dimensionY, string name)
+        public Storey(Geometry.Point3d origo, Geometry.Vector3d direction, double dimensionX, double dimensionY, string name)
         {
             this.EntityCreated();
             this.Origo = origo;
             this.Direction = direction;
             this.DimensionX = dimensionX;
             this.DimensionY = dimensionY;
-            this.Identifier = name;
+            this.Name = name;
         }
-
     }
 }

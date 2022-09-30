@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // In this example, we will analyse how different stiffness values on a support
             // will affect a bridge (modelled simply as a beam).
 
-            // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // FILE PATH SETUP
@@ -32,8 +32,8 @@ namespace FemDesign.Examples
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
             //Read point support number and its stiffness properties
-            var support1 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Identifier == "S.1");
-            var support2 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Identifier == "S.2");
+            var support1 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Name == "S.1");
+            var support2 = model.Entities.Supports.PointSupport.FirstOrDefault(p => p.Name == "S.2");
             double alpha = 0.5;
 
 

@@ -14,13 +14,13 @@ namespace FemDesign.Loads
     public partial class Footfall : EntityBase, ILoadElement
     {
         [XmlAttribute("name")]
-        public string Identifier;
+        public string Name;
         [XmlAttribute("comment")]
         public string Comment;
         [XmlElement("region")] 
         public Region Region;
         [XmlElement("position")]
-        public FdPoint3d Position;
+        public Point3d Position;
 
         [XmlIgnore]
         public bool IsSelfExcitation
@@ -62,7 +62,7 @@ namespace FemDesign.Loads
         /// <param name="position"></param>
         /// <param name="identifier"></param>
         /// <param name="comment"></param>
-        public Footfall(FdPoint3d position, string identifier = "FE", string comment = null)
+        public Footfall(Point3d position, string identifier = "FE", string comment = null)
         {
             InitializeFullExcitation(position, identifier, comment);
         }
@@ -71,16 +71,16 @@ namespace FemDesign.Loads
         {
             Region = region;
             Footfall.selfExcitationInstances++;
-            Identifier = $"{identifier}.{selfExcitationInstances}";
+            Name = $"{identifier}.{selfExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;
             this.EntityCreated();
         }
 
-        private void InitializeFullExcitation(FdPoint3d position, string identifier, string comment)
+        private void InitializeFullExcitation(Point3d position, string identifier, string comment)
         {
             Position = position;
             Footfall.fullExcitationInstances++;
-            Identifier = $"{identifier}.{fullExcitationInstances}";
+            Name = $"{identifier}.{fullExcitationInstances}";
             Comment = string.IsNullOrEmpty(comment) ? null : comment;
             this.EntityCreated();
         }

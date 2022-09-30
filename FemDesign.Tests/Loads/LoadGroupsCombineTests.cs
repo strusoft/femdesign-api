@@ -6,7 +6,7 @@ using FemDesign.Loads;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Examples.LoadGroupsCombineTests
+namespace FemDesign.Loads
 {
     [TestClass()]
     public class LoadGroupsCombineTests
@@ -214,8 +214,8 @@ namespace FemDesign.Examples.LoadGroupsCombineTests
 
             // Generate ULS and SLS Combinations
             LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
-            Program.CombineULS(loadGroups, loadCombinationTable);
-            Program.CombineSLS(loadGroups, loadCombinationTable);
+            FemDesign.Examples.Program.CombineULS(loadGroups, loadCombinationTable);
+            FemDesign.Examples.Program.CombineSLS(loadGroups, loadCombinationTable);
             return loadCombinationTable.LoadCombinations;
         }
     }

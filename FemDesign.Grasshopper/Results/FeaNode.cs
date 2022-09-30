@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         public FeaNode()
           : base("FdFeaModel.FeaNode", "FeaNode",
               "Deconstruct an Fea Node in his Part",
-              "FEM-Design", "Results")
+              CategoryName.Name(), SubCategoryName.Cat7b())
         {
         }
 
@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
 
 
             var nodeId = (List<int>) result["NodeId"];
-            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>) result["Position"];
+            var feaNodePoint = (List<FemDesign.Geometry.Point3d>) result["Position"];
 
 
             // Convert the FdPoint to Rhino

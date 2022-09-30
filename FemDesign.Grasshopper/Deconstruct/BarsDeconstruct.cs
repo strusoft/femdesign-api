@@ -99,7 +99,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(8, bar.Stirrups);
             DA.SetDataList(9, bar.LongitudinalBars);
             DA.SetDataList(10, bar.Ptc);
-            DA.SetData(11, bar.Identifier);
+            DA.SetData(11, bar.Name);
         }
         protected override System.Drawing.Bitmap Icon
         {

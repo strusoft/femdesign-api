@@ -14,7 +14,7 @@ namespace FemDesign.Loads
     {
         // attributes
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // name79
+        public string Name { get; set; } // name79
         [XmlAttribute("type")]
         public LoadCaseType Type { get; set; } // loadcasetype_type
         [XmlAttribute("duration_class")]
@@ -37,7 +37,7 @@ namespace FemDesign.Loads
         public LoadCase(string name, LoadCaseType type, LoadCaseDuration durationClass)
         {
             this.EntityCreated();
-            this.Identifier = name;
+            this.Name = name;
             this.Type = type;
             this.DurationClass = durationClass;
         }
@@ -52,12 +52,17 @@ namespace FemDesign.Loads
         {
             foreach (LoadCase _loadCase in loadCases)
             {
-                if (_loadCase.Identifier == name)
+                if (_loadCase.Name == name)
                 {
                     return _loadCase;
                 }
             }
             return null;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} ID: {this.Name}, Type: {this.Type}, Duration: {this.DurationClass}";
         }
     }
 }

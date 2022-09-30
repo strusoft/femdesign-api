@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class StoreyDefine: GH_Component
     {
-        public StoreyDefine(): base("Storey.Define", "Define", "Define a storey.", "FEM-Design", "Structure grid")
+        public StoreyDefine(): base("Storey.Define", "Define", "Define a storey.", "FEM-Design", "ModellingTools")
         {
 
         }
@@ -64,8 +64,8 @@ namespace FemDesign.Grasshopper
             }
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d p = origo.FromRhino();
-            FemDesign.Geometry.FdVector3d v = direction.FromRhino();
+            FemDesign.Geometry.Point3d p = origo.FromRhino();
+            FemDesign.Geometry.Vector3d v = direction.FromRhino();
 
             // return
             FemDesign.StructureGrid.Storey obj = new FemDesign.StructureGrid.Storey(p, v, dimX, dimY, name);
@@ -82,5 +82,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("65f147bb-c8a2-40f2-a4cc-75dc380edccc"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
     }
 }

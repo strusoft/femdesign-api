@@ -16,7 +16,18 @@ namespace FemDesign.Supports
     {
         // serialization properties
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // identifier.
+        public string Name { get; set; } // identifier.
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
+
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
 
@@ -56,7 +67,7 @@ namespace FemDesign.Supports
         /// This property only reflects the edge normal. If this normal is changed arcs may transform.
         /// </summary>
         [XmlElement("normal", Order = 4)]
-        public FdVector3d EdgeNormal;
+        public Vector3d EdgeNormal;
         
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -78,7 +89,7 @@ namespace FemDesign.Supports
         /// <param name="posPlastic">Plastic limit in positive direction. [kN] or [kNm]</param>
         /// <param name="negPlastic">Plastic limit in negative direction. [kN] or [kNm]</param>
         /// <param name="identifier">Name.</param>
-        public LineSupport(Edge edge, FdVector3d direction, bool movingLocal, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
+        public LineSupport(Edge edge, Vector3d direction, bool movingLocal, MotionType type, double pos, double neg, double posPlastic = 0.0, double negPlastic = 0.0, string identifier = "S")
         {
             Initialize(edge, null, movingLocal, identifier);
             this.Directed = new Directed(direction, type, pos, neg, posPlastic, negPlastic);
@@ -94,6 +105,22 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public LineSupport(Edge edge, Motions motions, Rotations rotations, bool movingLocal, string identifier = "S")
         {
+            var group = new Group(edge.CoordinateSystem, motions, rotations);
+            Initialize(edge, group, movingLocal, identifier);
+        }
+
+        public LineSupport(Edge edge, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, bool movingLocal, string identifier = "S")
+        {
+            double x = tx == true ? Motions.ValueRigidLine : 0;
+            double y = ty == true ? Motions.ValueRigidLine : 0;
+            double z = tz == true ? Motions.ValueRigidLine : 0;
+            double xx = rx == true ? Rotations.ValueRigidLine : 0;
+            double yy = ry == true ? Rotations.ValueRigidLine : 0;
+            double zz = rz == true ? Rotations.ValueRigidLine : 0;
+
+            var motions = new Motions(x, x, y, y, z, z);
+            var rotations = new Rotations(xx, xx, yy, yy, zz, zz);
+
             var group = new Group(edge.CoordinateSystem, motions, rotations);
             Initialize(edge, group, movingLocal, identifier);
         }
@@ -118,7 +145,7 @@ namespace FemDesign.Supports
         {
             PointSupport._instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.Identifier = identifier + "." + PointSupport._instance.ToString();
+            this.Name = identifier + "." + PointSupport._instance.ToString();
             this.MovingLocal = movingLocal;
 
             // set edge specific properties
@@ -158,6 +185,23 @@ namespace FemDesign.Supports
             Motions motions = Motions.RigidLine();
             Rotations rotations = Rotations.Free();
             return new LineSupport(edge, motions, rotations, movingLocal, identifier);
+        }
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Group.Rigidity != null)
+			{
+                if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+			}
+			else
+			{
+                if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+			}
+
         }
 
     }

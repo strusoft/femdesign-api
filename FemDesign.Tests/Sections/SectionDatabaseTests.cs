@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace FemDesign.Sections.Tests
+namespace FemDesign.Sections
 {
     [TestClass()]
     public class SectionDatabaseTests

@@ -8,7 +8,7 @@ namespace FemDesign.Materials
 {
     public interface IMaterial
     {
-        string Identifier { get; set; }
+        string Name { get; set; }
         Guid Guid { get; set; }
 
     }

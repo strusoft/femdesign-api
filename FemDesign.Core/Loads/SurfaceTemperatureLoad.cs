@@ -11,7 +11,7 @@ namespace FemDesign.Loads
         public Geometry.Region Region { get; set; }
 
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -61,13 +61,13 @@ namespace FemDesign.Loads
         /// <param name="tempLocValue">List of top bottom location value. List should have 1 or 3 elements.></param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.FdVector3d direction, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment)
+        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.Vector3d direction, List<TopBotLocationValue> tempLocValue, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = tempLocValue;
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
         
@@ -80,13 +80,13 @@ namespace FemDesign.Loads
         /// <param name="bottomVal">Bottom value, temperature in celsius</param>
         /// <param name="loadCase">LoadCase.</param>
         /// <param name="comment">Comment.</param>
-        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.FdVector3d direction, double topVal, double bottomVal, LoadCase loadCase, string comment)
+        public SurfaceTemperatureLoad(Geometry.Region region, Geometry.Vector3d direction, double topVal, double bottomVal, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
             this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.CoordinateSystem.Origin, topVal, bottomVal)};
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
 

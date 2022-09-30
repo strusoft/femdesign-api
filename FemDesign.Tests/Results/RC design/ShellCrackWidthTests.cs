@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Results.ShellCrackWidthTests
+namespace FemDesign.Results
 {
     [TestClass()]
     public class ShellCrackWidthTests
@@ -41,8 +41,8 @@ P.1.1	1	bottom	0.751	3.168	0.000	4.739	Kvasi-frekvent
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.Count == 12);
-            Assert.IsTrue(results.First().GetType() == typeof(ShellCrackWidth));
-            Assert.IsTrue(results.Last().GetType() == typeof(ShellCrackWidth));
+            Assert.IsTrue(results.First().GetType() == typeof(RCShellCrackWidth));
+            Assert.IsTrue(results.Last().GetType() == typeof(RCShellCrackWidth));
 
             File.Delete(path);
         }
@@ -58,8 +58,8 @@ P.1.1	1	bottom	0.751	3.168	0.000	4.739	Kvasi-frekvent
 
             foreach (var header in headers)
             {
-                var match = ShellCrackWidth.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellCrackWidth).Name}");
+                var match = RCShellCrackWidth.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(RCShellCrackWidth).Name}");
             }
         }
 
@@ -78,7 +78,7 @@ P.1.1	1	bottom	0.751	3.168	0.000	4.739	Kvasi-frekvent
 
             foreach (var header in headers)
             {
-                var match = ShellCrackWidth.HeaderExpression.Match(header);
+                var match = RCShellCrackWidth.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

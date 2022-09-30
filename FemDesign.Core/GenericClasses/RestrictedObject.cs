@@ -16,7 +16,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        internal static Geometry.FdVector3d NonZeroFdVector3d(Geometry.FdVector3d val)
+        internal static Geometry.Vector3d NonZeroFdVector3d(Geometry.Vector3d val)
         {
             if (val.IsZero())
             {
@@ -33,7 +33,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        internal static Geometry.FdVector2d NonZeroFdVector2d(Geometry.FdVector2d val)
+        internal static Geometry.Vector2d NonZeroFdVector2d(Geometry.Vector2d val)
         {
             if (val.IsZero())
             {

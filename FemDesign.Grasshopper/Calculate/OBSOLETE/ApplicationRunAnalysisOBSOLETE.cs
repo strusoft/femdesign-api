@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
     public class ModelRunAnalysisOBSOLETE: GH_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.hidden;
-        public ModelRunAnalysisOBSOLETE(): base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", "FEM-Design", "Calculate")
+        public ModelRunAnalysisOBSOLETE(): base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }

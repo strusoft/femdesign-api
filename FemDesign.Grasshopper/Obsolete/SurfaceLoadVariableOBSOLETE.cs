@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
 
             // transform geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
-            FemDesign.Geometry.FdVector3d fdVector = direction.FromRhino().Normalize();
+            FemDesign.Geometry.Vector3d fdVector = direction.FromRhino().Normalize();
 
             //
             FemDesign.Loads.SurfaceLoad obj = FemDesign.Loads.SurfaceLoad.Variable(region, fdVector, loads, loadCase, false, comment);

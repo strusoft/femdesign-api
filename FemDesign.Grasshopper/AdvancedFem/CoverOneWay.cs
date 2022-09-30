@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class CoverOneWay : GH_Component
     {
-        public CoverOneWay() : base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "Cover")
+        public CoverOneWay() : base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
 
             // convert geometry
             FemDesign.Geometry.Region region = brep.FromRhino();
-            FemDesign.Geometry.FdVector3d fdVector3d = vector.FromRhino().Normalize();
+            FemDesign.Geometry.Vector3d fdVector3d = vector.FromRhino().Normalize();
 
             //
             FemDesign.Cover obj = FemDesign.Cover.OneWayCover(region, structures, fdVector3d, identifier);
@@ -74,6 +74,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{7F1B0264-54F0-4D31-BEB3-23E5F151FE09}"); }
         }
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
     }
 }

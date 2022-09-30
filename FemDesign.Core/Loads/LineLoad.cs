@@ -9,7 +9,7 @@ namespace FemDesign.Loads
     /// line_load_type
     /// </summary>
     [System.Serializable]
-    public partial class LineLoad: ForceLoadBase
+    public partial class LineLoad : ForceLoadBase
     {
         [XmlAttribute("load_dir")]
         public LoadDirType _constantLoadDirection; // load_dir_type
@@ -27,14 +27,14 @@ namespace FemDesign.Loads
         }
         [XmlAttribute("load_projection")]
         public bool LoadProjection { get; set; } // bool
-        
+
         // elements
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; } // edge_type
         [XmlElement("direction", Order = 2)]
-        public Geometry.FdVector3d Direction { get; set; } // point_type_3d
+        public Geometry.Vector3d Direction { get; set; } // point_type_3d
         [XmlElement("normal", Order = 3)]
-        public Geometry.FdVector3d Normal { get; set; } // point_type_3d
+        public Geometry.Vector3d Normal { get; set; } // point_type_3d
         [XmlElement("load", Order = 4)]
         public LoadLocationValue[] Load = new LoadLocationValue[2];
         [XmlIgnore]
@@ -62,7 +62,7 @@ namespace FemDesign.Loads
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d StartForce
+        public Geometry.Vector3d StartForce
         {
             get
             {
@@ -70,7 +70,7 @@ namespace FemDesign.Loads
             }
         }
         [XmlIgnore]
-        public Geometry.FdVector3d EndForce
+        public Geometry.Vector3d EndForce
         {
             get
             {
@@ -83,13 +83,14 @@ namespace FemDesign.Loads
         /// </summary>
         private LineLoad()
         {
-            
+
         }
 
-        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineLoad(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Name;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -102,10 +103,11 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public LineLoad(Geometry.Edge edge, Geometry.FdVector3d startForce, Geometry.FdVector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineLoad(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCase = loadCase.Guid;
+            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Name;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -115,7 +117,7 @@ namespace FemDesign.Loads
             this.SetStartAndEndForces(startForce, endForce);
         }
 
-        internal void SetStartAndEndForces(Geometry.FdVector3d startForce, Geometry.FdVector3d endForce)
+        internal void SetStartAndEndForces(Geometry.Vector3d startForce, Geometry.Vector3d endForce)
         {
             if (startForce.IsZero() && !endForce.IsZero())
             {
@@ -139,8 +141,8 @@ namespace FemDesign.Loads
             // if no zero vectors - check if vectors are parallel
             else
             {
-                Geometry.FdVector3d v0 = startForce.Normalize();
-                Geometry.FdVector3d v1 = endForce.Normalize();
+                Geometry.Vector3d v0 = startForce.Normalize();
+                Geometry.Vector3d v1 = endForce.Normalize();
                 double q0 = startForce.Length();
                 double q1 = endForce.Length();
 
@@ -156,6 +158,76 @@ namespace FemDesign.Loads
                     throw new System.ArgumentException($"StartForce and EndForce must be parallel or antiparallel.");
                 }
             }
-        }        
+        }
+
+
+        /// <summary>
+        /// Create a Distributed Force Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="startForce"></param>
+        /// <param name="endForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad VariableForce(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+		{
+            return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
+        }
+
+
+        /// <summary>
+        /// Create a Distributed Moment Load to be applied to an Edge [kN/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="startForce"></param>
+        /// <param name="endForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad VariableMoment(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, startForce, endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
+        }
+
+        /// <summary>
+        /// Create a UniformDistributed Force Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="constantForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad UniformForce(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
+        }
+
+        /// <summary>
+        /// Create a Uniform Distributed Moment Load to be applied to an Edge [kNm/m]
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="constantForce"></param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
+        /// <param name="constLoadDir"></param>
+        /// <param name="loadProjection"></param>
+        /// <returns></returns>
+        public static LineLoad UniformMoment(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        {
+            return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
+        }
+
+        public override string ToString()
+        {
+            var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
+            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCaseName}";
+        }
     }
 }

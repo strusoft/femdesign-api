@@ -7,14 +7,15 @@ namespace FemDesign.Grasshopper
 {
     public class PointSupportRigid: GH_Component
     {
-        public PointSupportRigid(): base("PointSupport.Rigid", "Rigid", "Create a Rigid PointSupport element.", "FEM-Design", "Supports")
+        public PointSupportRigid(): base("PointSupport.Rigid", "Rigid", "Create a Rigid PointSupport element.", CategoryName.Name(),
+            SubCategoryName.Cat1())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-           pManager.AddPlaneParameter("Plane", "Plane", "Plane where to place the PointSupport. [m]", GH_ParamAccess.item);
-           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
+            pManager.AddPlaneParameter("Position", "Position", "Point|Plane location to place the PointSupport. [m]\nDefault orientation is WorldXY Plane.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "S");
            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

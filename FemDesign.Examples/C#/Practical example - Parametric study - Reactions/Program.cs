@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // In this example, we will analyse how different E-modules will result
             // in different reaction forces in the supports holding a concrete plate.
 
-            // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // FILE PATH SETUP
@@ -58,7 +58,7 @@ namespace FemDesign.Examples
                 Calculate.Application app = new Calculate.Application();
                 app.RunFdScript(fdScript, false, true, true);
 
-                string pointSupportReactionsPath = Path.Combine(outFolder, "pointsupportreactions.csv");
+                string pointSupportReactionsPath = fdScript.CmdListGen.First().OutFile;
 
                 // Reading results (This method is only available for some result types as of now, but more will be added)
                 var results = Results.ResultsReader.Parse(pointSupportReactionsPath);

@@ -20,9 +20,9 @@ namespace FemDesign.Examples
 
 
             // DEFINE GEOMETRY
-            var p1 = new Geometry.FdPoint3d(0.0, 2.0, 0);
-            var p2 = new Geometry.FdPoint3d(10, 2.0, 0);
-            var edge = new Geometry.Edge(p1, p2, Geometry.FdVector3d.UnitY());
+            var p1 = new Geometry.Point3d(0.0, 2.0, 0);
+            var p2 = new Geometry.Point3d(10, 2.0, 0);
+            var edge = new Geometry.Edge(p1, p2, Geometry.Vector3d.UnitY);
 
             // CREATE BEAM
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
@@ -36,8 +36,8 @@ namespace FemDesign.Examples
                 Bars.BarType.Beam,
                 material,
                 sections: new Sections.Section[] { section },
-                connectivities: new Bars.Connectivity[] { Bars.Connectivity.GetRigid() },
-                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.GetDefault() },
+                connectivities: new Bars.Connectivity[] { Bars.Connectivity.Rigid },
+                eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
 
 

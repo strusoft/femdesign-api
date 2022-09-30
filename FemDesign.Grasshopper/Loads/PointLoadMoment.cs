@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class PointLoadMoment: GH_Component
     {
-        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", "FEM-Design", "Loads")
+        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -41,8 +41,8 @@ namespace FemDesign.Grasshopper
             if (moment == null || loadCase == null) { return; };
 
             // convert geometry
-            FemDesign.Geometry.FdPoint3d fdPoint = point.FromRhino();
-            FemDesign.Geometry.FdVector3d _moment = moment.FromRhino();
+            FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
+            FemDesign.Geometry.Vector3d _moment = moment.FromRhino();
 
             //
             FemDesign.Loads.PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _moment, loadCase, comment, Loads.ForceLoadType.Moment);

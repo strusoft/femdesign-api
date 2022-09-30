@@ -8,7 +8,7 @@ namespace FemDesign.Reinforcement
     public partial class LongitudinalBar
     {
         [XmlElement("cross-sectional_position", Order = 1)]
-        public Geometry.FdPoint2d Position2d { get; set; }
+        public Geometry.Point2d Position2d { get; set; }
 
         [XmlElement("anchorage", Order = 2)]
         public StartEndType Anchorage { get; set; }
@@ -38,7 +38,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         /// <param name="startAnchorage">Start anchorage in meters.</param>
         /// <param name="endAnchorage">End anchorage in meters.</param>
-        public LongitudinalBar(Geometry.FdPoint2d position, double startAnchorage, double endAnchorage, double start, double end, bool auxiliary)
+        public LongitudinalBar(Geometry.Point2d position, double startAnchorage, double endAnchorage, double start, double end, bool auxiliary)
         {
             this.Position2d = position;
             this.Anchorage = new StartEndType(startAnchorage, endAnchorage);
@@ -52,7 +52,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         /// <param name="startAnchorage">Start anchorage in meters.</param>
         /// <param name="endAnchorage">End anchorage in meters.</param>
-        public LongitudinalBar(Bars.Bar bar, Geometry.FdPoint2d position, double startAnchorage, double endAnchorage, double startParam, double endParam, bool auxiliary)
+        public LongitudinalBar(Bars.Bar bar, Geometry.Point2d position, double startAnchorage, double endAnchorage, double startParam, double endParam, bool auxiliary)
         {
             this.Position2d = position;
             this.Anchorage = new StartEndType(startAnchorage, endAnchorage);

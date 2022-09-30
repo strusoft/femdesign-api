@@ -15,10 +15,10 @@ namespace FemDesign.ModellingTools
         private static int _instance = 0;
 
         [XmlElement("point", Order = 1)]
-        public FdPoint3d[] _points;
+        public Point3d[] _points;
 
         [XmlIgnore]
-        public FdPoint3d[] Points
+        public Point3d[] Points
         {
             get
             {
@@ -38,10 +38,10 @@ namespace FemDesign.ModellingTools
         }
 
         [XmlElement("local_x", Order = 2)]
-        public FdVector3d LocalX { get; set; }
+        public Vector3d LocalX { get; set; }
 
         [XmlElement("local_y", Order = 3)]
-        public FdVector3d LocalY { get; set; }
+        public Vector3d LocalY { get; set; }
 
         // rigidity data choice
 
@@ -75,19 +75,19 @@ namespace FemDesign.ModellingTools
         public GuidListType[] References { get; set; }
 
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 _instance++;
-                this._identifier = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
+                this._name = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
             }
         }
 
@@ -118,7 +118,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Create a connected point between 2 points using rigidity. 
         /// </summary>
-        public ConnectedPoints(FdPoint3d firstPoint, FdPoint3d secondPoint, RigidityDataType2 rigidity, GuidListType[] references, string identifier = "CP")
+        public ConnectedPoints(Point3d firstPoint, Point3d secondPoint, RigidityDataType2 rigidity, GuidListType[] references, string identifier = "CP")
         {
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
         }
@@ -132,7 +132,7 @@ namespace FemDesign.ModellingTools
         /// <param name="rotations">Rotations rigidity</param>
         /// <param name="references">Reference element</param>
         /// <param name="identifier">Name of connected point</param>
-        public ConnectedPoints(FdPoint3d firstPoint, FdPoint3d secondPoint, Motions motions, Rotations rotations, IEnumerable<EntityBase> references, string identifier = "CP")
+        public ConnectedPoints(Point3d firstPoint, Point3d secondPoint, Motions motions, Rotations rotations, IEnumerable<EntityBase> references, string identifier = "CP")
         {
             GuidListType[] refs = references.Select(r => new GuidListType(r)).ToArray();
             RigidityDataType2 rigidity = new RigidityDataType2(motions, rotations);
@@ -142,7 +142,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Create a connected point between 2 points with rigidity (motions, rotations). 
         /// </summary>
-        public ConnectedPoints(FdPoint3d firstPoint, FdPoint3d secondPoint, Motions motions, Rotations rotations, GuidListType[] references, string identifier = "CP")
+        public ConnectedPoints(Point3d firstPoint, Point3d secondPoint, Motions motions, Rotations rotations, GuidListType[] references, string identifier = "CP")
         {
             RigidityDataType2 rigidity = new RigidityDataType2(motions, rotations);
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
@@ -151,7 +151,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Create a connected point between 2 points with rigidity (motions, rotations) and plastic limits (forces, moments). 
         /// </summary>
-        public ConnectedPoints(FdPoint3d firstPoint, FdPoint3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, IEnumerable<EntityBase> references, string identifier = "CP")
+        public ConnectedPoints(Point3d firstPoint, Point3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, IEnumerable<EntityBase> references, string identifier = "CP")
         {
             GuidListType[] refs = references.Select(r => new GuidListType(r)).ToArray();
             RigidityDataType2 rigidity = new RigidityDataType2(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
@@ -161,25 +161,25 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Create a connected point between 2 points with rigidity (motions, rotations) and plastic limits (forces, moments). 
         /// </summary>
-        public ConnectedPoints(FdPoint3d firstPoint, FdPoint3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, GuidListType[] references, string identifier = "CP")
+        public ConnectedPoints(Point3d firstPoint, Point3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, GuidListType[] references, string identifier = "CP")
         {
             RigidityDataType2 rigidity = new RigidityDataType2(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
         }
 
-        private void Initialize(FdPoint3d firstPoint, FdPoint3d secondPoint, RigidityDataType2 rigidity, GuidListType[] references, string identifier)
+        private void Initialize(Point3d firstPoint, Point3d secondPoint, RigidityDataType2 rigidity, GuidListType[] references, string identifier)
         {
             this.EntityCreated();
-            this.Points = new FdPoint3d[2]
+            this.Points = new Point3d[2]
             {
                 firstPoint,
                 secondPoint
             };
-            this.LocalX = FdVector3d.UnitX();
-            this.LocalY = FdVector3d.UnitY();
+            this.LocalX = Vector3d.UnitX;
+            this.LocalY = Vector3d.UnitY;
             this.Rigidity = rigidity;
             this.References = references;
-            this.Identifier = identifier;
+            this.Name = identifier;
         }
     }
 }

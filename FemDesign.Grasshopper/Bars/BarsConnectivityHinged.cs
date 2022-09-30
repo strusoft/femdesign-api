@@ -6,7 +6,8 @@ namespace FemDesign.Grasshopper
 {
     public class BarsConnectivityHinged: GH_Component
     {
-        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", "FEM-Design", "Bars")
+        public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
         {
 
         }
@@ -20,7 +21,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            DA.SetData(0, FemDesign.Bars.Connectivity.GetHinged());
+            DA.SetData(0, FemDesign.Bars.Connectivity.Hinged);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -20,7 +20,7 @@ namespace FemDesign.Loads
         /// </summary>
         /// <value></value>
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
         [XmlAttribute("psi_0")]
         public double _psi0 { get; set; }
         /// <summary>
@@ -70,7 +70,7 @@ namespace FemDesign.Loads
         public LoadCategory(string name, double psi0, double psi1, double psi2)
         {
             Country = "";
-            Identifier = name;
+            Name = name;
             Psi0 = psi0;
             Psi1 = psi1;
             Psi2 = psi2;

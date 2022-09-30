@@ -12,6 +12,10 @@ namespace FemDesign.Bars
     /// 
     /// Bar-element
     /// </summary>
+    [XmlInclude(typeof(Beam))]
+    [XmlInclude(typeof(Column))]
+    [XmlInclude(typeof(Truss))]
+    [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
     public partial class Bar : EntityBase, IStructureElement, IStageElement
     {
@@ -60,48 +64,48 @@ namespace FemDesign.Bars
         public bool TensionPlasticity { get; set; } // bool
 
         [XmlAttribute("name")]
-        public string _identifier { get; set; } // identifier
+        public string _name { get; set; } // identifier
 
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 if (this.Type == BarType.Beam)
                 {
                     Bar._barInstance++;
-                    this._identifier = value + "." + Bar._barInstance.ToString();
+                    this._name = value + "." + Bar._barInstance.ToString();
 
                     // update barpart identifier
                     if (this.BarPart != null)
                     {
-                        this.BarPart.Identifier = this._identifier;
+                        this.BarPart.Name = this._name;
                     }
                 }
                 else if (this.Type == BarType.Column)
                 {
                     Bar._columnInstance++;
-                    this._identifier = value + "." + Bar._columnInstance.ToString();
+                    this._name = value + "." + Bar._columnInstance.ToString();
 
                     // update barpart identifier
                     if (this.BarPart != null)
                     {
-                        this.BarPart.Identifier = this._identifier;
+                        this.BarPart.Name = this._name;
                     }
                 }
                 else if (this.Type == BarType.Truss)
                 {
                     Bar._trussInstance++;
-                    this._identifier = value + "." + Bar._trussInstance.ToString();
+                    this._name = value + "." + Bar._trussInstance.ToString();
 
                     // update barpart identifier
                     if (this.BarPart != null)
                     {
-                        this.BarPart.Identifier = this._identifier;
+                        this.BarPart.Name = this._name;
                     }
                 }
                 else
@@ -110,6 +114,17 @@ namespace FemDesign.Bars
                 }
             }
         }
+
+        [XmlIgnore]
+        public string Instance
+		{
+			get
+			{
+                var found = this._name.IndexOf(".");
+                return this._name.Substring(found + 1);
+			}
+		}
+        public string Identifier => this.Name.Split('.')[0];
 
         [XmlAttribute("type")]
         public BarType _type; // beamtype
@@ -164,7 +179,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private Bar()
+        internal Bar()
         {
 
         }
@@ -185,11 +200,11 @@ namespace FemDesign.Bars
             
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
+            this.Name = identifier;
 
-            if(eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if(connectivity == null) { connectivity = Connectivity.GetDefault(); }
-            this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Identifier);
+            if(eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if(connectivity == null) { connectivity = Connectivity.Default; }
+            this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Name);
         }
 
         /// <summary>
@@ -206,85 +221,24 @@ namespace FemDesign.Bars
         /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null/end</param>
         /// <param name="endConnectivity">Connectivity. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(FemDesign.Geometry.FdPoint3d startPoint, FemDesign.Geometry.FdPoint3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.FdVector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
+        public Bar(FemDesign.Geometry.Point3d startPoint, FemDesign.Geometry.Point3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.Vector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
         {
-            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.FdVector3d.UnitZ());
+            var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.Vector3d.UnitZ);
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, orientY);
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
+            this.Name = identifier;
 
-            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
-            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
-            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
-            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+            if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
+            if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
+            if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
 
-            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Name);
         }
 
-
-        /// <summary>
-        /// Construct beam along X with uniform section and uniform start/end conditions
-        /// </summary>
-        /// <param name="length"></param>
-        /// <param name="localY"></param>
-        /// <param name="material"></param>
-        /// <param name="section">Section, same at start/end</param>
-        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
-        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
-        /// <param name="identifier">Identifier</param>
-        public static Bar SimpleBeam(double length, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
-        {
-            var bar = new Bar();
-
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
-            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(length, 0.0, 0.0);
-            localY = localY ?? Geometry.FdVector3d.UnitY();
-            Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
-            var type = BarType.Beam;
-
-            bar.EntityCreated();
-            bar.Type = type;
-            bar.Identifier = identifier;
-
-            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
-            bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
-            return bar;
-        }
-
-
-        /// <summary>
-        /// Construct a vertical column with uniform section and uniform start/end conditions
-        /// </summary>
-        /// <param name="height"></param>
-        /// <param name="material"></param>
-        /// <param name="localY"></param>
-        /// <param name="section">Section, same at start/end</param>
-        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
-        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
-        /// <param name="identifier">Identifier</param>
-        public static Bar SimpleColumn(double height, Materials.Material material, Sections.Section section, Geometry.FdVector3d localY = null, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
-        {
-            var bar = new Bar();
-
-            Geometry.FdPoint3d startPoint = Geometry.FdPoint3d.Origin();
-            Geometry.FdPoint3d endPoint = new Geometry.FdPoint3d(0.0, 0.0, height);
-            localY = localY ?? Geometry.FdVector3d.UnitY();
-            Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, localY);
-            var type = BarType.Column;
-
-            bar.EntityCreated();
-            bar.Type = type;
-            bar.Identifier = identifier;
-
-            if (eccentricity == null) { eccentricity = Eccentricity.GetDefault(); }
-            if (connectivity == null) { connectivity = Connectivity.GetDefault(); }
-            bar.BarPart = new BarPart(edge, bar.Type, material, section, eccentricity, connectivity, bar.Identifier);
-            return bar;
-        }
 
 
         /// <summary>
@@ -303,17 +257,17 @@ namespace FemDesign.Bars
         {
             if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
-            if (startEccentricity == null) { startEccentricity = Eccentricity.GetDefault(); }
-            if (endEccentricity == null) { endEccentricity = Eccentricity.GetDefault(); }
-            if (startConnectivity == null) { startConnectivity = Connectivity.GetDefault(); }
-            if (endConnectivity == null) { endConnectivity = Connectivity.GetDefault(); }
+            if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
+            if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
+            if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
 
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
+            this.Name = identifier;
 
 
-            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Name);
         }
 
         /// <summary>
@@ -335,9 +289,10 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
-            this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Identifier);
+            this.Name = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Name);
         }
+
 
         /// <summary>
         /// Construct beam or column with start/end section and different start/end conditions
@@ -355,8 +310,8 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
-            this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, this.Identifier);
+            this.Name = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, this.Name);
         }
 
         /// <summary>
@@ -377,8 +332,8 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            this.Identifier = identifier;
-            this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, this.Identifier);
+            this.Name = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, this.Name);
         }
 
 
@@ -390,15 +345,12 @@ namespace FemDesign.Bars
         /// <param name="section"></param>
         /// <param name="identifier"></param>
         /// <exception cref="System.Exception"></exception>
-        public static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
+        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
         {
-            var truss = new Bar();
-
-            truss.EntityCreated();
-            truss.Type = BarType.Truss;
-            truss.Identifier = identifier;
-            truss.BarPart = new BarPart(edge, truss.Type, material, section, truss.Identifier);
-            return truss;
+            this.EntityCreated();
+            this.Type = BarType.Truss;
+            this.Name = identifier;
+            this.BarPart = new BarPart(edge, this.Type, material, section, identifier);
         }
 
         /// Update entities if this bar should be "reconstructed"
@@ -417,6 +369,19 @@ namespace FemDesign.Bars
             }
         }
 
+        public override string ToString()
+        {
+            if(this.Type == BarType.Beam || this.Type == BarType.Column)
+                return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: ({this.BarPart.ComplexSectionObj.Sections.First()._sectionName}, {this.BarPart.ComplexSectionObj.Sections.Last()._sectionName}), Material: {this.BarPart.ComplexMaterialObj}";
 
+            else if(this.Type == BarType.Truss)
+            {
+                return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Section: {this.BarPart.TrussUniformSectionObj._sectionName}, Material: {this.BarPart.ComplexMaterialObj}";
+            }
+            else
+            {
+                return base.ToString();
+            }
+        }
     }
 }

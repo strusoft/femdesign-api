@@ -25,10 +25,10 @@ namespace FemDesign.AuxiliaryResults
         /// The verticies of the labelled section. 2 verticies for line geometry and 3 or more for polyline geometry.
         /// </summary>
         [XmlIgnore]
-        public List<FdPoint3d> Verticies { 
+        public List<Point3d> Verticies { 
             get
             {
-                var verticies = new List<FdPoint3d>();
+                var verticies = new List<Point3d>();
                 if (_lineSegment != null)
                     verticies.AddRange(_lineSegment.Verticies);
                 if (_polyline != null)
@@ -56,7 +56,7 @@ namespace FemDesign.AuxiliaryResults
         /// Identifier
         /// </summary>
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
         
         /// <summary>
         /// Parameterless contructor for serialization
@@ -68,24 +68,24 @@ namespace FemDesign.AuxiliaryResults
         /// </summary>
         /// <param name="verticies">Verticies</param>
         /// <param name="identifier">Identifier</param>
-        public LabelledSection(List<FdPoint3d> verticies, string identifier = "LS")
+        public LabelledSection(List<Point3d> verticies, string identifier = "LS")
         {
             Initialize(verticies, identifier);
         }
 
-        /// <inheritdoc cref="LabelledSection(List{FdPoint3d}, string)"/>
-        public LabelledSection(string identifier = "LS", params FdPoint3d[] verticies)
+        /// <inheritdoc cref="LabelledSection(List{Point3d}, string)"/>
+        public LabelledSection(string identifier = "LS", params Point3d[] verticies)
         {
             Initialize(verticies.ToList(), identifier);
         }
 
-        private void Initialize(List<FdPoint3d> verticies, string identifier)
+        private void Initialize(List<Point3d> verticies, string identifier)
         {
             instances++;
             this.EntityCreated();
 
             Verticies = verticies;
-            Identifier = $"{identifier}.{instances}";
+            Name = $"{identifier}.{instances}";
         }
     }
 }

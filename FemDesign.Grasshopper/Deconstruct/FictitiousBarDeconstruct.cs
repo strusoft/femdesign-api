@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
 
             // return
             DA.SetData(0, obj.Guid);
-            DA.SetData(1, obj.Identifier);
+            DA.SetData(1, obj.Name);
             DA.SetData(2, obj.Edge.ToRhino());
             DA.SetData(3, obj.AE);
             DA.SetData(4, obj.ItG);

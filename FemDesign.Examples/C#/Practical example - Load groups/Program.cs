@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // PRACTICAL EXAMPLE: SETTING UP LOAD GROUPS
             // This example shows the core steps of creating load groups for a model.
 
-            // This example was last updated 2022-04-06, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated using the ver. 21.4.0 FEM-Design API.
 
 
             // CREATING LOAD CASES

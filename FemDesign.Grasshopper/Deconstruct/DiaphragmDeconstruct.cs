@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
 
             DA.SetData("Guid", diaphragm.Guid);
             DA.SetData("Surface", diaphragm.Region.ToRhinoBrep());
-            DA.SetData("Identifier", diaphragm.Identifier);
+            DA.SetData("Identifier", diaphragm.Name);
        }
        protected override System.Drawing.Bitmap Icon
        {

@@ -14,7 +14,17 @@ namespace FemDesign.Bars
         public Connectivity Connectivity { get; set; }
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; }
+        public string Name { get; set; }
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
 
         [XmlAttribute("base_column")]
         public System.Guid BaseColumn { get; set; }

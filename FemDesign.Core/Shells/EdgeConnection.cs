@@ -18,7 +18,7 @@ namespace FemDesign.Shells
         [XmlIgnore]
         public bool Release { get; set; } = true;
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // identifier
+        public string Name { get; set; } // identifier
         [XmlElement("rigidity")]
         public Releases.RigidityDataType3 Rigidity { get; set; } // rigidity_data_type2(3?)
         [XmlElement("predefined_rigidity")]
@@ -38,12 +38,14 @@ namespace FemDesign.Shells
                 this._predefRigidityRef = new GuidListType(value.Guid);
             }
         }
+        [XmlElement("rigidity_group")]
+        public StruSoft.Interop.StruXml.Data.Rigidity_group_type2 RigidityGroup { get; set; }
 
         /// <summary>
         /// Library name of the edge connection.
         /// </summary>
         [XmlIgnore]
-        public string LibraryName => PredefRigidity?.Identifier;
+        public string LibraryName => PredefRigidity?.Name;
         /// <summary>
         /// Should the edge connection be added to the model as a Predefined/Library item or not?
         /// </summary>
@@ -91,7 +93,7 @@ namespace FemDesign.Shells
             ec.EntityCreated();
 
             //
-            ec.Identifier = name;
+            ec.Name = name;
 
             // return
             return ec;
@@ -125,22 +127,22 @@ namespace FemDesign.Shells
         /// <summary>
         /// Create a default (rigid) EdgeConnection.
         /// </summary>
-        /// <returns></returns>
-        public static EdgeConnection GetDefault()
-        {
-            return EdgeConnection.GetRigid();
-        }
+        public static EdgeConnection Default => EdgeConnection.Rigid;
 
         /// <summary>
         /// Create a hinged EdgeConnection.
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static EdgeConnection GetHinged()
+        public static EdgeConnection Hinged
         {
-            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.HingedLine());
-            _shellEdgeConnection.Release = true;
-            return _shellEdgeConnection;
+            get
+            {
+                EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.HingedLine());
+                _shellEdgeConnection.Release = true;
+                return _shellEdgeConnection;
+
+            }
         }
         
         /// <summary>
@@ -148,11 +150,22 @@ namespace FemDesign.Shells
         /// </summary>
         /// <remarks>Create</remarks>
         /// <returns></returns>
-        public static EdgeConnection GetRigid()
+        public static EdgeConnection Rigid
         {
-            EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.RigidLine());
-            _shellEdgeConnection.Release = false;
-            return _shellEdgeConnection;
+            get
+            {
+                EdgeConnection _shellEdgeConnection = new EdgeConnection(Releases.RigidityDataType3.RigidLine());
+                _shellEdgeConnection.Release = false;
+                return _shellEdgeConnection;
+            }
+        }
+
+        public override string ToString()
+        {
+            if(!this.IsLibraryItem)
+                return $"{this.GetType().Name} {this.Rigidity.Motions} {this.Rigidity.Rotations}";
+            else
+                return $"{this.GetType().Name} {this.PredefRigidity.Rigidity.Motions} {this.PredefRigidity.Rigidity.Rotations} Library: {this.LibraryName}";
         }
     }
 }

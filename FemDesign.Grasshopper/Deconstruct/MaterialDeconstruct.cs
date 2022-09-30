@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
             Materials.IMaterial obj = null;
             if(!DA.GetData(0, ref obj)) return;
             DA.SetData("Guid", obj.Guid);
-            DA.SetData("Name", obj.Identifier);
+            DA.SetData("Name", obj.Name);
 
             if (obj is Materials.Material material)
             {

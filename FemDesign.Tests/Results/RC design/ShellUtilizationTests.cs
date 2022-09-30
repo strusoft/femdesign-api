@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Results.hellUtilizationTests
+namespace FemDesign.Results
 {
     [TestClass()]
     public class ShellUtilizationTests
@@ -36,10 +36,10 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
 ");
 
             var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results.All(r => r.GetType() == typeof(ShellUtilization)), "Shell utilization should be parsed");
+            Assert.IsTrue(results.All(r => r.GetType() == typeof(RCShellUtilization)), "Shell utilization should be parsed");
             Assert.IsTrue(results.Count == 6, "Should read all results.");
 
-            var shellUtilization = results.Cast<ShellUtilization>().ToArray();
+            var shellUtilization = results.Cast<RCShellUtilization>().ToArray();
             
             Assert.IsTrue(shellUtilization[0].Id == "P.1.1");
             Assert.IsTrue(shellUtilization[1].Id == "P.2.1");
@@ -72,8 +72,8 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
 
             foreach (var header in headers)
             {
-                var match = ShellUtilization.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(ShellUtilization).Name}");
+                var match = RCShellUtilization.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(RCShellUtilization).Name}");
             }
         }
 
@@ -90,7 +90,7 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
 
             foreach (var header in headers)
             {
-                var match = ShellUtilization.HeaderExpression.Match(header);
+                var match = RCShellUtilization.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

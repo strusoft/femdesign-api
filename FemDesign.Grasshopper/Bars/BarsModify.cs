@@ -9,8 +9,9 @@ namespace FemDesign.Grasshopper
 {
     public class BarsModify: GH_Component
     {
-       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", "FEM-Design", "Bars")
-       {
+       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", CategoryName.Name(),
+            SubCategoryName.Cat2a())
+        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -116,8 +117,8 @@ namespace FemDesign.Grasshopper
             string identifier = null;
             if (DA.GetData(9, ref identifier))
             {
-                bar.Identifier = identifier;
-                bar.BarPart.Identifier = bar.Identifier;
+                bar.Name = identifier;
+                bar.BarPart.Name = bar.Name;
             }
 
             // output

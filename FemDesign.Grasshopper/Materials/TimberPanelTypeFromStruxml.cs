@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class TimberPanelTypeFromStruxml : GH_Component
     {
-        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase which contains the TimberPanel type from a .struxml file.", "FEM-Design", "Materials")
+        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase which contains the TimberPanel type from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("CltPanelType", "CltPanelType", "CltPanelLibraryType.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("OrthotropicShell", "OrthotropicShell", "NOT yet implemented. Contact us at femdesign.api@strusoft.com if you need it.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("OrthotropicShell", "OrthotropicShell", "NOT yet implemented. Contact us at support@strusoft.freshdesk.com if you need it.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

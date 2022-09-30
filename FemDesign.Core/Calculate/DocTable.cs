@@ -110,7 +110,7 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
@@ -125,7 +125,7 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FeaNode") || r.StartsWith("FeaBar") || r.StartsWith("FeaShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases

@@ -46,9 +46,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bars\Beam.cs" />
+    <Compile Include="Bars\Column.cs" />
+    <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
+    <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
+    <Compile Include="Geometry\ArcEdge.cs" />
+    <Compile Include="Geometry\CircleEdge.cs" />
+    <Compile Include="Geometry\LineEdge.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
     <Compile Include="AdvancedFem\Cover.cs" />
@@ -124,13 +132,12 @@
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\BarDisplacement.cs" />
     <Compile Include="Results\LineSupportResultant.cs" />
-    <Compile Include="Results\RC design\ShellCrackWidth.cs" />
-    <Compile Include="Results\RC design\ShellUtilization.cs" />
+    <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
+    <Compile Include="Results\RC design\RCShellUtilization.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
-    <Compile Include="Results\ResultTypeEnum.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="GenericClasses\ISupportElement.cs" />
     <Compile Include="GenericClasses\IStructureElement.cs" />
@@ -148,11 +155,11 @@
     <Compile Include="Geometry\Contour.cs" />
     <Compile Include="Geometry\Degree.cs" />
     <Compile Include="Geometry\Edge.cs" />
-    <Compile Include="Geometry\FdCoordinateSystem.cs" />
-    <Compile Include="Geometry\FdPoint2d.cs" />
-    <Compile Include="Geometry\FdPoint3d.cs" />
-    <Compile Include="Geometry\FdVector2d.cs" />
-    <Compile Include="Geometry\FdVector3d.cs" />
+    <Compile Include="Geometry\CoordinateSystem.cs" />
+    <Compile Include="Geometry\Point2d.cs" />
+    <Compile Include="Geometry\Point3d.cs" />
+    <Compile Include="Geometry\Vector2d.cs" />
+    <Compile Include="Geometry\Vector3d.cs" />
     <Compile Include="Geometry\RectangleType.cs" />
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
@@ -306,6 +313,7 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />

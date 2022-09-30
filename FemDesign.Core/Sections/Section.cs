@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -21,7 +22,7 @@ namespace FemDesign.Sections
             set
             {
                 
-                Geometry.FdVector3d unitZ = Geometry.FdVector3d.UnitZ();
+                Geometry.Vector3d unitZ = Geometry.Vector3d.UnitZ;
                 foreach(Geometry.Region region in value.Regions)
                 {
                     // check normal
@@ -58,23 +59,31 @@ namespace FemDesign.Sections
         public string _end { get; set; } // enpty_type
 
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // string
+        public string Name { get; set; } // string i.e. GroupName, TypeName, SizeName --> "Steel sections, CHS, 20-2.0"
 
         [XmlAttribute("type")]
         public string Type { get; set; } // sectiontype
 
         [XmlAttribute("fd-mat")]
-        public string MaterialType { get; set; }
-        // public Materials.MaterialTypeEnum MaterialType { get; set; } // fd_mat_type
+        public string MaterialType { get; set; } // int i.e. 1, 2, 3
 
         [XmlAttribute("fd_name_code")]
-        public string GroupName { get; set; } // string. Optional
+        public string GroupName { get; set; } // string. Optional i.e. Steel section, Concrete section
 
         [XmlAttribute("fd_name_type")]
-        public string TypeName { get; set; } // string. Optional
+        public string TypeName { get; set; } // string. Optional i.e. CHS, HE-A
 
         [XmlAttribute("fd_name_size")]
         public string SizeName { get; set; } // string. Optional
+
+        [XmlIgnore]
+        internal string _sectionName
+        {
+            get
+            {
+                return string.Join("-", new List<string> { this.TypeName + this.SizeName });
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization
@@ -91,7 +100,7 @@ namespace FemDesign.Sections
         {
             this.EntityCreated();
             this.RegionGroup = regionGroup;
-            this.Identifier = name;
+            this.Name = name;
             this.Type = type;
             this.MaterialType = ((int)materialTypeEnum).ToString();
             this.GroupName = groupName;
@@ -99,5 +108,60 @@ namespace FemDesign.Sections
             this.SizeName = sizeName;
             this._end = "";
         }
+
+
+        [XmlIgnore]
+        public string MaterialFamily
+        {
+            get
+            {
+                string materialFamily = this.GroupName.Split(' ')[0];
+                if (materialFamily == "Steel")
+                    return "Steel";
+                else if (materialFamily == "Concrete")
+                    return "Concrete";
+                else if (materialFamily == "Timber")
+                    return "Timber";
+                else if (materialFamily == "Hollow")
+                    return "Hollow";
+                else
+                    return "Custom";
+            }
+        }
+
+        public static Section GetSectionByNameOrIndex(List<Section> sections, dynamic sectionInput)
+        {
+            Section section;
+            var isNumeric = int.TryParse(sectionInput.ToString(), out int n);
+            if (!isNumeric)
+            {
+                try
+                {
+                    section = sections.Where(x => x.Name == sectionInput).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"{sectionInput} does not exist!");
+                }
+            }
+            else
+            {
+                try
+                {
+                    section = sections[n];
+                }
+                catch (Exception ex)
+                {
+                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!");
+                }
+            }
+            return section;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Name}";
+        }
+
     }
 }

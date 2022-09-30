@@ -38,9 +38,25 @@ namespace FemDesign.Shells
         }
 
         [XmlAttribute("name")]
-        public string Identifier {get; set;} // identifier
+        public string Name {get; set;} // identifier
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
+
+
         [XmlAttribute("complex_material")]
-        public System.Guid ComplexMaterial {get; set;} // guidtype
+        public System.Guid ComplexMaterialGuid {get; set;} // guidtype
+
+        [XmlIgnore]
+        public Materials.Material ComplexMaterial { get; set; } // guidtype
+
         [XmlAttribute("alignment")]
         public GenericClasses.VerticalAlignment Alignment { get; set; }
         [XmlAttribute("align_offset")]
@@ -106,11 +122,11 @@ namespace FemDesign.Shells
             }
         }
         [XmlElement("local_pos", Order = 3)]
-        public Geometry.FdPoint3d LocalPos {get; set;} // point_type_3d
+        public Geometry.Point3d LocalPos {get; set;} // point_type_3d
         [XmlElement("local_x", Order = 4)]
-        public Geometry.FdVector3d _localX; // point_type_3d
+        public Geometry.Vector3d _localX; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d LocalX
+        public Geometry.Vector3d LocalX
         {
             get
             {
@@ -118,8 +134,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d z = this.LocalZ;
+                Geometry.Vector3d val = value.Normalize();
+                Geometry.Vector3d z = this.LocalZ;
 
                 double dot = z.Dot(val);
                 if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -135,9 +151,9 @@ namespace FemDesign.Shells
             }
         }
         [XmlElement("local_y", Order = 5)]
-        public Geometry.FdVector3d _localY; // point_type_3d
+        public Geometry.Vector3d _localY; // point_type_3d
         [XmlIgnore]
-        public Geometry.FdVector3d LocalY
+        public Geometry.Vector3d LocalY
         {
             get
             {
@@ -145,9 +161,9 @@ namespace FemDesign.Shells
             }
         }
         [XmlIgnore]
-        private Geometry.FdVector3d _localZ;
+        private Geometry.Vector3d _localZ;
         [XmlIgnore]
-        public Geometry.FdVector3d LocalZ
+        public Geometry.Vector3d LocalZ
         {
             get
             {
@@ -162,8 +178,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                Geometry.FdVector3d val = value.Normalize();
-                Geometry.FdVector3d x = this.LocalX;
+                Geometry.Vector3d val = value.Normalize();
+                Geometry.Vector3d x = this.LocalX;
 
                 double dot = x.Dot(val);
                 if (Math.Abs(dot) < Tolerance.DotProduct)
@@ -195,9 +211,10 @@ namespace FemDesign.Shells
         public SlabPart(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
         {
             this.EntityCreated();
-            this.Identifier = name;
+            this.Name = name;
             this.Region = region;
-            this.ComplexMaterial = complexMaterial.Guid;
+            this.ComplexMaterialGuid = complexMaterial.Guid;
+            this.ComplexMaterial = complexMaterial;
             this.Alignment = alignment.Alignment;
             this.AlignOffset = alignment.Eccentricity;
             this.OrthoAlfa = orthotropy.OrthoAlfa;
@@ -216,9 +233,9 @@ namespace FemDesign.Shells
         /// </summary>
         public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
         {
-            shellEdgeConnection = shellEdgeConnection ?? EdgeConnection.GetDefault();
-            eccentricity = eccentricity ?? ShellEccentricity.GetDefault();
-            orthotropy = orthotropy ?? ShellOrthotropy.GetDefault();
+            shellEdgeConnection = shellEdgeConnection ?? EdgeConnection.Default;
+            eccentricity = eccentricity ?? ShellEccentricity.Default;
+            orthotropy = orthotropy ?? ShellOrthotropy.Default;
 
             // add edgeConnections to region
             region.SetEdgeConnections(shellEdgeConnection);

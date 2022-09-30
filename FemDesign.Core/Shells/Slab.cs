@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -22,7 +23,19 @@ namespace FemDesign.Shells
         [XmlIgnore]
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
         [XmlAttribute("name")]
-        public string Identifier { get; set; } // identifier
+        public string Name { get; set; } // identifier
+
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this.Name.IndexOf(".");
+                return this.Name.Substring(found + 1);
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
+
         [XmlAttribute("type")]
         public SlabType Type { get; set; }
 
@@ -34,6 +47,19 @@ namespace FemDesign.Shells
         [XmlElement("end", Order = 2)]
         public string End { get; set; } // empty_type
 
+        [XmlIgnore]
+        public bool IsVariableThickness
+        {
+            get
+            {
+                if (this.SlabPart.Thickness.Count == 3)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -48,7 +74,7 @@ namespace FemDesign.Shells
         private Slab(SlabType type, string name, SlabPart slabPart, Materials.Material material)
         {
             this.EntityCreated();
-            this.Identifier = name;
+            this.Name = name;
             this.Type = type;
             this.SlabPart = slabPart;
             this.Material = material;
@@ -61,6 +87,7 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Plate;
             string name = identifier + "." + Slab._plateInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -88,6 +115,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -105,18 +134,18 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public static Slab Wall(Geometry.FdPoint3d point0, Geometry.FdPoint3d point1, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Wall")
+        public static Slab Wall(Geometry.Point3d point0, Geometry.Point3d point1, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Wall")
         {
             Slab._plateInstance++;
             SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
 
-            var translation = new Geometry.FdVector3d(0, 0, height);
+            var translation = new Geometry.Vector3d(0, 0, height);
             var point2 = point1 + translation;
             var point3 = point0 + translation;
-            var points = new List<FemDesign.Geometry.FdPoint3d>() { point0, point1, point2, point3};
+            var points = new List<FemDesign.Geometry.Point3d>() { point0, point1, point2, point3};
 
-            var fdCoordinate = new Geometry.FdCoordinateSystem(point0, point1, point3);
+            var fdCoordinate = new Geometry.CoordinateSystem(point0, point1, point3);
 
             // set properties
             var region = new Geometry.Region(points, fdCoordinate);
@@ -125,6 +154,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -143,20 +174,22 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public static Slab FromFourPoints(Geometry.FdPoint3d point0, Geometry.FdPoint3d point1, Geometry.FdPoint3d point2, Geometry.FdPoint3d point3, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
+        public static Slab FromFourPoints(Geometry.Point3d point0, Geometry.Point3d point1, Geometry.Point3d point2, Geometry.Point3d point3, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
         {
             Slab._plateInstance++;
             SlabType type = SlabType.Plate;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
 
-            var points = new List<Geometry.FdPoint3d>() { point0, point1, point2, point3 };
-            var fdCoordinate = new Geometry.FdCoordinateSystem(point0, point1, point3);
+            var points = new List<Geometry.Point3d>() { point0, point1, point2, point3 };
+            var fdCoordinate = new Geometry.CoordinateSystem(point0, point1, point3);
             var region = new Geometry.Region(points, fdCoordinate);
 
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -174,6 +207,8 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Wall;
             string name = identifier + "." + Slab._wallInstance.ToString() + ".1";
             SlabPart slabPart = SlabPart.Define(name, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -200,6 +235,8 @@ namespace FemDesign.Shells
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(name, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            name = identifier + "." + Slab._plateInstance.ToString();
+
             Slab shell = new Slab(type, name, slabPart, material);
             return shell;
         }
@@ -265,6 +302,19 @@ namespace FemDesign.Shells
 
             // return
             return slabClone;
+        }
+
+        public override string ToString()
+        {
+            var isVariable = IsVariableThickness == true ? "Variable" : "";
+            if (this.IsVariableThickness)
+            {
+                return $"{this.Type}{isVariable} Material: {this.SlabPart.ComplexMaterial}, Thickness: ({this.SlabPart.Thickness[0].Value}, {this.SlabPart.Thickness[1].Value}, {this.SlabPart.Thickness[2].Value}) m, {this.SlabPart.ShellEccentricity}";
+            }
+            else
+            {
+                return $"{this.Type}{isVariable} Material: {this.SlabPart.ComplexMaterial}, Thickness: {this.SlabPart.Thickness[0].Value} m, {this.SlabPart.ShellEccentricity}";
+            }
         }
     }
 }

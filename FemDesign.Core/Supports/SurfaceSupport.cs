@@ -8,21 +8,33 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement
+    public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement, IStageElement
     {
         [XmlAttribute("name")]
-        public string _identifier;
+        public string _name;
         [XmlIgnore]
-        public string Identifier
+        public string Name
         {
             get
             {
-                return this._identifier;
+                return this._name;
             }
             set
             {
                 PointSupport._instance++;
-                this._identifier = value + "." + PointSupport._instance.ToString();
+                this._name = value + "." + PointSupport._instance.ToString();
+            }
+        }
+        public string Identifier => this.Name.Split('.')[0];
+
+
+        [XmlIgnore]
+        public string Instance
+        {
+            get
+            {
+                var found = this._name.IndexOf(".");
+                return this._name.Substring(found + 1);
             }
         }
 
@@ -56,7 +68,7 @@ namespace FemDesign.Supports
         }
 
         [XmlElement("local_system", Order= 4)]
-        public Geometry.FdCoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
         public Motions Motions { get { return Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Rigidity?.PlasticLimitForces; } }
 
@@ -97,10 +109,23 @@ namespace FemDesign.Supports
         private void Initialize(Geometry.Region region, RigidityDataType1 rigidity, string identifier)
         {
             this.EntityCreated();
-            this.Identifier = identifier;
+            this.Name = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
             this.CoordinateSystem = region.CoordinateSystem;
+        }
+
+        public override string ToString()
+        {
+            bool hasPlasticLimit = false;
+            if (this.Rigidity != null)
+			{
+                if(this.Rigidity.PlasticLimitForces != null)
+                    hasPlasticLimit = true;
+                return $"{this.GetType().Name} {this.Rigidity.Motions}, PlasticLimit: {hasPlasticLimit}";
+			}
+            else
+                return $"{this.GetType().Name} {this.PredefRigidity.Rigidity.Motions}, PlasticLimit: {hasPlasticLimit}";
         }
     }
 }
