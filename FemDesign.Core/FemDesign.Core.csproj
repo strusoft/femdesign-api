@@ -51,6 +51,7 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
+    <Compile Include="ApplicationConnection.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
