@@ -75,6 +75,26 @@ namespace FemDesign
             _inputPipe.Flush();
         }
 
+        /// <summary>
+        /// Run a command and wait for it to finish.
+        /// </summary>
+        /// <param name="script"></param>
+        public void RunScript(FdScript script)
+        {
+            if (script == null) throw new ArgumentNullException("script");
+            if (script.FdScriptPath == null) throw new ArgumentNullException("script.FdScriptPath");
+            script.SerializeFdScript();
+            this.Send("run " + script.FdScriptPath);
+            this.WaitForCommandToFinish();
+        }
+
+        public void WaitForCommandToFinish()
+        {
+            var guid = Guid.NewGuid();
+            this.Send("echo " + guid);
+            this._waitForOutput(guid);
+        }
+
         // ----------------------------------------------------------------------------------------
 
         public void Dispose()
@@ -98,6 +118,30 @@ namespace FemDesign
                 );
 #pragma warning restore CA1416 // Validate platform compatibility
             return pipe;
+        }
+
+        private void _waitForOutput(Guid guid)
+        {
+            this._waitForOutput(guid.ToString());
+        }
+
+        private void _waitForOutput(string output)
+        {
+            bool isDone = false;
+            void onOutput(string msg)
+            {
+                if (msg == output)
+                {
+                    this.OnOutput -= onOutput;
+                    isDone = true;
+                }
+            }
+            this.OnOutput += onOutput;
+
+            while (!isDone)
+            {
+                System.Threading.Thread.Sleep(10); // ms
+            }
         }
 
         private void _disposePipes()
