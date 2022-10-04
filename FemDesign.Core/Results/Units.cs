@@ -159,7 +159,7 @@ namespace FemDesign.Results
         #if ISDYNAMO
         [IsVisibleInDynamoLibrary(true)]
         #endif
-        public UnitResults(Length length, Angle angle, SectionalData sectionalData, Force force, Mass mass, Displacement displacement, Stress stress)
+        public UnitResults(Length length = Length.m, Angle angle = Angle.deg, SectionalData sectionalData = SectionalData.m, Force force = Force.kN, Mass mass = Mass.kg, Displacement displacement = Displacement.m, Stress stress = Stress.Pa)
         {
             this.Length = length;
             this.Angle = angle;
