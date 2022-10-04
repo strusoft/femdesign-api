@@ -14,11 +14,11 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("m_x", "m_x", "Release stiffness. Translation local-x axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("t_x", "t_x", "Release stiffness. Translation local-x axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount -1].Optional = true;
-            pManager.AddNumberParameter("m_y", "m_z", "Release stiffness. Translation local-y axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("t_y", "t_z", "Release stiffness. Translation local-y axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount -1].Optional = true;
-            pManager.AddNumberParameter("m_z", "m_z", "Release stiffness. Translation local-z axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("t_z", "t_z", "Release stiffness. Translation local-z axis. Optional, default value is fully rigid. [kN/m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount -1].Optional = true;
             pManager.AddNumberParameter("r_x", "r_x", "Release stiffness. Rotation around local-x axis. Optional, default value is fully rigid. [kNm/rad]", GH_ParamAccess.item);
             pManager[pManager.ParamCount -1].Optional = true;
