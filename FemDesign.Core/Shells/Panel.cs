@@ -347,6 +347,26 @@ namespace FemDesign.Shells
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
 
+
+        [XmlAttribute("ignored_distance")]
+        public double _ignoredDistance = 0.02;
+
+        [XmlIgnore]
+        public double IgnoredDistance
+        {
+            get
+            {
+                return this._ignoredDistance;
+            }
+            set
+            {
+                this._ignoredDistance = RestrictedDouble.NonNegMax_1000(value);
+            }
+        }
+
+        [XmlAttribute("ignored_in_stability")]
+        public bool IgnoredInStability { get; set; } = false;
+
         /// <summary>
         /// Set external edge connections (i.e. set edge connections around region). 
         /// When this is performed for panels the external rigidity is changed accordingly.
