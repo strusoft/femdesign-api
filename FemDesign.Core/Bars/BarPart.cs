@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 using FemDesign.GenericClasses;
 
@@ -455,8 +457,36 @@ namespace FemDesign.Bars
         }
         [XmlElement("buckling_data", Order = 5)]
         public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
-        [XmlElement("end", Order = 6)]
+
+        [XmlElement("camber_type_2d", Order = 6)]
+        public StruSoft.Interop.StruXml.Data.Camber_type_2d CamberType2d { get; set; }
+
+        [XmlElement("stiffness_modifiers", Order = 7)]
+        public List<StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> StiffnessModifiers { get; set; }
+
+        [XmlElement("end", Order = 8)]
         public string End = "";
+
+        [XmlAttribute("ecc_crack")]
+        [DefaultValue(false)]
+        public bool EccCrack { get; set; }
+
+        [XmlAttribute("first_order_analysis_U")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisU { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sq")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSq { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sf")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSf { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sc")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSc { get; set; }
+
 
         /// <summary>
         /// Parameterless constructor for serialization.

@@ -150,7 +150,10 @@ namespace FemDesign.Bars
         [XmlElement("bar_part", Order = 1)]
         public BarPart BarPart { get; set; } // bar_part_type
 
-        [XmlElement("end", Order = 2)]
+        [XmlElement("truss_behaviour", Order = 2)]
+        public StruSoft.Interop.StruXml.Data.Truss_chr_type TrussBehaviour { get; set; }
+
+        [XmlElement("end", Order = 3)]
         public string End = "";
 
         [XmlIgnore]
