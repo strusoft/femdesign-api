@@ -71,6 +71,25 @@ namespace FemDesign.Calculate
             
         }
 
+        public static FdScript OpenModel(string struxmlPath)
+        {
+            FdScript fdScript = new FdScript();
+
+            fdScript.XmlAttrib = "fdscript.xsd";
+            fdScript.StruxmlPath = struxmlPath;
+            fdScript.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
+            fdScript.Cwd = Path.GetDirectoryName(fdScript.StruxmlPath);
+
+            fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
+
+            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
+
+            // Open model
+            fdScript.CmdOpen = new CmdOpen(fdScript.StruxmlPath);
+
+            return fdScript;
+        }
+
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>

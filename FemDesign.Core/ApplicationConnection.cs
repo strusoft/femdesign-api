@@ -5,6 +5,9 @@ using System.Diagnostics;
 using System.IO.Pipes;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 
 using FemDesign;
 using FemDesign.Calculate;
@@ -76,16 +79,109 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Run a command and wait for it to finish.
+        /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
         public void RunScript(FdScript script)
         {
             if (script == null) throw new ArgumentNullException("script");
             if (script.FdScriptPath == null) throw new ArgumentNullException("script.FdScriptPath");
+
             script.SerializeFdScript();
             this.Send("run " + script.FdScriptPath);
             this.WaitForCommandToFinish();
+        }
+
+        /// <summary>
+        /// Run a script and wait for it to finish.
+        /// </summary>
+        /// <param name="script"></param>
+        public void RunScript(FdScript2 script, string tempPath = null)
+        {
+            if (script == null) throw new ArgumentNullException("script");
+
+            if (tempPath is null)
+            {
+                using (var temp = new TemporaryFile(".fdscript"))
+                {
+                    script.Serialize(temp.FilePath);
+                    this.Send("run " + temp.FilePath);
+                    this.WaitForCommandToFinish();
+                }
+            }
+            else
+            {
+                if (File.Exists(tempPath)) throw new ArgumentException("tempPath already exists and would be overritten");
+                if (Path.GetExtension(tempPath).ToLower() != ".fdscript")
+                    throw new ArgumentException("tempPath must have extension .fdscript");
+
+                script.Serialize(tempPath);
+                this.Send("run " + tempPath);
+                this.WaitForCommandToFinish();
+                File.Delete(tempPath);
+            }
+        }
+
+        /// <summary>
+        /// Open a file in FEM-Design application.
+        /// </summary>
+        /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype sopported in FEM-Design can be used.</param>
+        public void Open(string filePath)
+        {
+            this.RunScript(FdScript.OpenModel(Path.GetFullPath(filePath)));
+        }
+
+        /// <summary>
+        /// Open a <see cref="Model"/> in FEM-Design application.
+        /// </summary>
+        /// <param name="model">Model to be opened.</param>
+        /// <param name="tempPath">Optionally override where the temporary struxml file will be saved.</param>
+        public void Open(Model model, string tempPath = null)
+        {
+            using (var temp = new TemporaryFile("struxml"))
+            {
+                // Model must be serialized to a file to be opened in FEM-Design.
+                model.SerializeModel(temp.FilePath);
+
+                this.Open(temp.FilePath);
+            }
+        }
+
+        public List<T> GetResults<T>(Results.UnitResults units = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+            var tempBscs = listProcs.Select(l => new TemporaryFile(".bsc")).ToList();
+            var tempCsvs = listProcs.Select(l => new TemporaryFile(".csv")).ToList();
+            var bscs = listProcs.Zip(tempBscs, (l, p) => new Bsc(l, p.FilePath, units)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+            var listGenCommands = tempBscs.Zip(tempCsvs, (b, c) =>
+                {
+                    return new List<CmdCommand> {
+                        new CmdUserModule2(CmdUserModule.RESMODE),
+                        new CmdListGen2(c.FilePath, b.FilePath)
+                    };
+                }).SelectMany(l => l);
+
+            List<T> results = new List<T>();
+            using (var tempLog = new TemporaryFile(".log"))
+            {
+                var script = new FdScript2(tempLog.FilePath, listGenCommands.ToArray());
+
+                this.RunScript(script);
+
+                foreach (string resultFile in tempCsvs.Select(c => c.FilePath))
+                {
+                    results.AddRange(
+                        Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                    );
+                }
+            }
+
+            tempBscs.Concat(tempCsvs).ToList().ForEach(t => t.Dispose());
+            return results;
         }
 
         public void WaitForCommandToFinish()

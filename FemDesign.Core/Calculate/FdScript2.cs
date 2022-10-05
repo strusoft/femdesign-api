@@ -44,6 +44,20 @@ namespace FemDesign.Calculate
         }
     }
 
+    public class CmdUserModule2 : CmdCommand
+    {
+        public const string Command = "; CXL $MODULE {0}";
+        public CmdUserModule Module;
+        public CmdUserModule2(CmdUserModule module)
+        {
+            Module = module;
+        }
+        public override XElement ToXElement()
+        {
+            return new XElement("cmduser", new XAttribute("command", string.Format(Command, Module)));
+        }
+    }
+
     public class CmdListGen2 : CmdCommand
     {
         public const string Command = "$ MODULECOM LISTGEN";
@@ -65,7 +79,9 @@ namespace FemDesign.Calculate
                 new XAttribute("command", Command),
                 new XAttribute("outfile", OutPath),
                 new XAttribute("bscfile", BscPath),
-                new XAttribute("regional", Regional)
+                new XAttribute("regional", Regional),
+                new XAttribute("headers", "1"),
+                new XAttribute("fillcells", "1")
             );
         }
     }
@@ -80,7 +96,7 @@ namespace FemDesign.Calculate
             public string LogFilePath { get; private set; }
             public FdScriptHeader2(string logFilePath)
             {
-                LogFilePath = logFilePath;
+                LogFilePath = Path.GetFullPath(logFilePath);
             }
 
             public XElement ToXElement()
@@ -120,10 +136,7 @@ namespace FemDesign.Calculate
 
             root.Add(Header.ToXElement());
 
-            Commands.ForEach(c =>
-            {
-                root.Add(c.ToXElement());
-            });
+            Commands.ForEach(c => root.Add(c.ToXElement()));
 
             doc.Add(root);
             doc.Save(path);
