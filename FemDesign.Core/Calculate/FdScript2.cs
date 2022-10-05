@@ -58,6 +58,39 @@ namespace FemDesign.Calculate
         }
     }
 
+    public class CmdCalculation2 : CmdCommand
+    {
+        public const string Command = "; CXL $MODULE CALC";
+        public Analysis Analysis;
+        public CmdCalculation2(Analysis analysis)
+        {
+            Analysis = analysis;
+        }
+
+        public override XElement ToXElement()
+        {
+            return new XElement("cmdcalculation", new XAttribute("command", Command),
+                new XElement("analysis",
+                    new XAttribute("calcCase", Analysis.CalcCase),
+                    new XAttribute("calcCstage", Analysis.CalcCStage),
+                    new XAttribute("calcCImpf", Analysis.CalcCImpf),
+                    new XAttribute("calcComb", Analysis.CalcComb),
+                    new XAttribute("calcGmax", Analysis.CalcGMax),
+                    new XAttribute("calcStab", Analysis.CalcStab),
+                    new XAttribute("calcFreq", Analysis.CalcFreq),
+                    new XAttribute("calcSeis", Analysis.CalcSeis),
+                    new XAttribute("calcDesign", Analysis.CalcDesign),
+                    new XAttribute("calcFootfall", Analysis.CalcFootfall),
+                    new XAttribute("elemfine", Analysis.ElemFine),
+                    new XAttribute("diaphragm", Analysis.Diaphragm),
+                    new XAttribute("peaksmoothing", Analysis.PeakSmoothing)
+
+                    // TODO add <comb>
+                )
+            );
+        }
+    }
+
     public class CmdListGen2 : CmdCommand
     {
         public const string Command = "$ MODULECOM LISTGEN";
@@ -82,6 +115,34 @@ namespace FemDesign.Calculate
                 new XAttribute("regional", Regional),
                 new XAttribute("headers", "1"),
                 new XAttribute("fillcells", "1")
+            );
+        }
+    }
+
+    /// <summary>
+    /// Save the model to a file
+    /// </summary>
+    public class CmdSave2 : CmdCommand
+    {
+        public const string Command = "; CXL CS2SHELL SAVE";
+        public string Filename { get; set; }
+
+        /// <inheritdoc cref="CmdSave2"/>
+        /// <param name="filepath">The target path of the saved model. Typically the file should have the extension .str or .struxml</param>
+        public CmdSave2(string filepath)
+        {
+            this.Filename = Path.GetFullPath(filepath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return new XElement(
+                "cmdopen",
+                new XAttribute("command", Command),
+                new XElement(
+                    "filename",
+                    new XText(Filename)
+                )
             );
         }
     }

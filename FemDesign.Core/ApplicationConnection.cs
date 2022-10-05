@@ -128,15 +128,17 @@ namespace FemDesign
         /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype sopported in FEM-Design can be used.</param>
         public void Open(string filePath)
         {
-            this.RunScript(FdScript.OpenModel(Path.GetFullPath(filePath)));
+            using (var logfile = new TemporaryFile(".log"))
+            {
+                this.RunScript(new FdScript2(logfile.FilePath, new CmdOpen2(filePath)));
+            }
         }
 
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.
         /// </summary>
         /// <param name="model">Model to be opened.</param>
-        /// <param name="tempPath">Optionally override where the temporary struxml file will be saved.</param>
-        public void Open(Model model, string tempPath = null)
+        public void Open(Model model)
         {
             using (var temp = new TemporaryFile("struxml"))
             {
@@ -147,6 +149,43 @@ namespace FemDesign
             }
         }
 
+        /// <summary>
+        /// Runs an analysis task on the current model in FEM-Design.
+        /// </summary>
+        /// <param name="analysis">The analysis to be run. Defaults to static analysis (<see cref="Analysis.StaticAnalysis(Comb, bool, bool)"/>)</param>
+        public void RunAnalysis(Analysis analysis = null)
+        {
+            if (analysis is null)
+                analysis = Analysis.StaticAnalysis();
+
+            using (var logfile = new TemporaryFile(".log"))
+            {
+                var script = new FdScript2(
+                    logfile.FilePath,
+                    new CmdUserModule2(CmdUserModule.RESMODE),
+                    new CmdCalculation2(analysis)
+                );
+                this.RunScript(script);
+            }
+        }
+
+        /// <summary>
+        /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="analysis"></param>
+        public void RunAnalysis(Model model, Analysis analysis)
+        {
+            this.Open(model);
+            this.RunAnalysis(analysis);
+        }
+
+        /// <summary>
+        /// Retreive results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
         public List<T> GetResults<T>(Results.UnitResults units = null) where T : Results.IResult
         {
             if (units is null)
@@ -182,6 +221,15 @@ namespace FemDesign
 
             tempBscs.Concat(tempCsvs).ToList().ForEach(t => t.Dispose());
             return results;
+        }
+
+        public void Save(string filePath)
+        {
+            using (var logfile = new TemporaryFile(".log"))
+            {
+                var script = new FdScript2(logfile.FilePath, new CmdSave2(filePath));
+                this.RunScript(script);
+            }
         }
 
         public void WaitForCommandToFinish()
