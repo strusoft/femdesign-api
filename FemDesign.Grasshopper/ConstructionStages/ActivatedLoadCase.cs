@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using FemDesign.Loads;
+using System.Linq;
+using Grasshopper.Kernel.Special;
+
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
@@ -19,7 +23,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase to be activated.\n\nLoadCase may also be \"PTC T0\" or \"PTC T8\" to activate a PTC load", GH_ParamAccess.item);
             pManager.AddNumberParameter("Factor", "Factor", "Factor", GH_ParamAccess.item, 1.0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("Partitioning", "Partitioning", "0 - only_in_this_stage\n1 - from_this_stage_on\n2 - shifted_from_first_stage\n3 - only_stage_activated_elem.\nDefault: from_this_stage_on.", GH_ParamAccess.item, 1);
+            pManager.AddTextParameter("Partitioning", "Partitioning", "Connect 'ValueList' to get the options.\n0 - only_in_this_stage\n1 - from_this_stage_on\n2 - shifted_from_first_stage\n3 - only_stage_activated_elem.\nDefault: from_this_stage_on.", GH_ParamAccess.item, "from_this_stage_on");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -39,14 +43,10 @@ namespace FemDesign.Grasshopper
             double factor = 1;
             DA.GetData(1, ref factor);
 
-            int partitioning = 1;
-            ActivationType type = (ActivationType)partitioning; //from_this_stage_on
+            string partitioning = "1";
             DA.GetData(2, ref partitioning);
 
-            if (Enum.IsDefined(typeof(ActivationType), partitioning))
-            {
-                type = (ActivationType)partitioning;
-            }
+            ActivationType type = FemDesign.GenericClasses.EnumParser.Parse<ActivationType>(partitioning);
 
             FemDesign.ActivatedLoadCase activatedLoadCase;
             if (isLoadCase)
@@ -59,6 +59,13 @@ namespace FemDesign.Grasshopper
             else throw new Exception("The input was not a LoadCase or a PTCLoadCase.");
 
             DA.SetData(0, activatedLoadCase);
+        }
+
+        protected override void BeforeSolveInstance()
+        {
+            var resultTypes = Enum.GetNames(typeof(ActivationType)).ToList();
+            ValueListUtils.updateValueLists(this, 2, resultTypes, null);
+
         }
 
         protected override System.Drawing.Bitmap Icon

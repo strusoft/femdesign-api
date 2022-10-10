@@ -27,5 +27,17 @@ namespace FemDesign.GenericClasses
                     Assert.Fail($"Should be able to parse country \"{countryCode}\" successfully");
                 }
         }
+
+        [TestMethod("Parse Activation Type")]
+        public void ParseLoadActivation()
+		{
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("0") == ActivationType.OnlyInThisStage);
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("1") == ActivationType.FromThisStageOn);
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("2") == ActivationType.ShiftedFromFirstStage);
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("3") == ActivationType.OnlyStageActivatedElements);
+
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("only_in_this_stage") == ActivationType.OnlyInThisStage);
+            Assert.IsTrue(EnumParser.Parse<ActivationType>("only_stage_activated_elem") == ActivationType.OnlyStageActivatedElements);
+        }
     }
 }
