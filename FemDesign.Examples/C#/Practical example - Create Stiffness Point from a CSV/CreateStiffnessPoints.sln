@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateStiffnessPoints", "CreateStiffnessPoints.csproj", "{BE21154D-59B3-40F1-A567-14312741EFD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE21154D-59B3-40F1-A567-14312741EFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE21154D-59B3-40F1-A567-14312741EFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE21154D-59B3-40F1-A567-14312741EFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE21154D-59B3-40F1-A567-14312741EFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46A8FE65-03A3-490A-9D1A-E2503F24BD9B}
+	EndGlobalSection
+EndGlobal

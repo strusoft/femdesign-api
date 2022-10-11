@@ -52,10 +52,11 @@ namespace FemDesign.Supports
 			this.EntityCreated();
 		}
 
-		public StiffnessPoint(FemDesign.Supports.SurfaceSupport surface, FemDesign.Geometry.Point3d point, Motions motions, MotionsPlasticLimits MotionsPlasticityLimits = null)
+		public StiffnessPoint(FemDesign.Supports.SurfaceSupport surface, FemDesign.Geometry.Point3d point, Motions motions, MotionsPlasticLimits MotionsPlasticityLimits = null, string name = null)
 		{
 			this.Initialise(surface, point);
 			this.Rigidity = new RigidityDataType0(motions, MotionsPlasticityLimits);
+			this.Name = name;
 		}
 	}
 }
