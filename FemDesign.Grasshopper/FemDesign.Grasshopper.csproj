@@ -785,25 +785,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\icons\FootfallFullExcitation.bmp" />
+    <EmbeddedResource Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\FootfallSelfExcitation.bmp" />
+    <EmbeddedResource Include="Resources\icons\FootfallSelfExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\MaterialTimberPlateMaterial.bmp" />
+    <EmbeddedResource Include="Resources\icons\MaterialTimberPlateMaterial.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\PanelDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\PanelDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\PanelTimberPlateDefine.bmp" />
+    <EmbeddedResource Include="Resources\icons\PanelTimberPlateDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\CalculateFootfall.bmp" />
+    <EmbeddedResource Include="Resources\icons\CalculateFootfall.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <EmbeddedResource Include="Resources\icons\StiffnessPoint.png" />
     <EmbeddedResource Include="Resources\icons\RebarAddToElement.jpg" />
     <EmbeddedResource Include="Resources\icons\Stages.png" />
     <EmbeddedResource Include="Resources\icons\Stage_ActivatedLoad.png" />
@@ -811,38 +812,28 @@
     <EmbeddedResource Include="Resources\icons\ResultType.png" />
     <EmbeddedResource Include="Resources\icons\results.png" />
     <EmbeddedResource Include="Resources\icons\quantity.png" />
-    <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
-    <None Include="Resources\icons\CombineLoadGroups.bmp" />
-    <None Include="Resources\icons\LoadCategory.bmp" />
-    <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
-    <None Include="Resources\Fd_TabIcon_24_24.png" />
+    <EmbeddedResource Include="Resources\icons\LoadGroupDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\CombineLoadGroups.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategory.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <EmbeddedResource Include="Resources\Fd_TabIcon_24_24.png" />
     <EmbeddedResource Include="Resources\icons\feabar.png" />
     <EmbeddedResource Include="Resources\icons\feanode.png" />
     <EmbeddedResource Include="Resources\icons\feashell.png" />
-    <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
-    <Content Include="Resources\icons\LoadGroup.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
-    <None Include="Resources\icons\Help.bmp" />
+    <EmbeddedResource Include="Resources\icons\Help.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fem-design.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\fdlogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\fem-design-21.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Untitled.png" />
+    <EmbeddedResource Include="Resources\fdlogo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

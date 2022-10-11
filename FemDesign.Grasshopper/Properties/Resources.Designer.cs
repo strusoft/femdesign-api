@@ -1693,6 +1693,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StiffnessPoint {
+            get {
+                object obj = ResourceManager.GetObject("StiffnessPoint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Stirrups {
             get {
                 object obj = ResourceManager.GetObject("Stirrups", resourceCulture);
