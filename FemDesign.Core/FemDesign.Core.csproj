@@ -53,6 +53,7 @@
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
     <Compile Include="Geometry\ArcEdge.cs" />
     <Compile Include="Geometry\CircleEdge.cs" />
@@ -318,6 +319,7 @@
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
     <Compile Include="Supports\PointSupport.cs" />
+    <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Supports\Supports.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
   </ItemGroup>

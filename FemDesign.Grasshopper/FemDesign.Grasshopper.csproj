@@ -149,6 +149,7 @@
     <Compile Include="Sections\SectionGetSectionByName.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
+    <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupConstruct.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />

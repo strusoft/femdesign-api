@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FemDesign.Bars
 {
     [TestClass()]
-    public class CreateElements
+    public class CreateElementsTests
     {
         [TestMethod("Create a Linear Beam,Bar,Truss and Deserialise")]
         public void CreateLineElement()

@@ -2420,6 +2420,48 @@ namespace FemDesign
             this.SurfaceSupportTypes.PredefinedTypes.Add(obj);
         }
 
+
+        /// <summary>
+        /// Add SurfaceSupport to Model.
+        /// </summary>
+        private void AddStiffnessPoint(Supports.StiffnessPoint obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.StiffnessPointInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Supports.StiffnessPoint.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.Entities.Supports.StiffnessPoint.Add(obj);
+        }
+
+
+        /// <summary>
+        /// Check if StiffnessPoint in Model.
+        /// </summary>
+        private bool StiffnessPointInModel(Supports.StiffnessPoint obj)
+        {
+            foreach (Supports.StiffnessPoint elem in this.Entities.Supports.StiffnessPoint)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         /// <summary>
         /// Add Material to Model.
         /// </summary>
@@ -2868,6 +2910,7 @@ namespace FemDesign
         private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
         private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
         private void AddEntity(Supports.SurfaceSupport obj, bool overwrite) => AddSurfaceSupport(obj, overwrite);
+        private void AddEntity(Supports.StiffnessPoint obj, bool overwrite) => AddStiffnessPoint(obj, overwrite);
 
         private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
         private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
