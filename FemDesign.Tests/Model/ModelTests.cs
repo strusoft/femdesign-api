@@ -87,6 +87,7 @@ namespace FemDesign.Models
             return Deserialize<T>(Serialize(source));
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Construct Model")]
         public void ModelTest()
         {
@@ -96,6 +97,7 @@ namespace FemDesign.Models
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Open a Model")]
         public void Open()
         {
@@ -106,6 +108,7 @@ namespace FemDesign.Models
         /// <summary>
         /// Test if the global model can be deep cloned.
         /// </summary>
+        [TestCategory("FEM-Design required")]
         [TestMethod("DeepClone")]
         public void DeepClone()
         {
@@ -136,6 +139,7 @@ namespace FemDesign.Models
             return bIdentical;
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("CompareInOut")]
         public void CompareInOut()
         {

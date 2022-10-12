@@ -11,6 +11,7 @@ namespace FemDesign.Loads.Tests
     [TestClass()]
     public class LoadsTests
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod("Moving loads deserialize")]
         public void MovingLoadsTest1()
         {
@@ -21,6 +22,7 @@ namespace FemDesign.Loads.Tests
             Assert.AreEqual(1, model.Entities.Loads.MovingLoads.Count);
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Moving loads deserialize-serialize")]
         public void MovingLoadsTest2()
         {
