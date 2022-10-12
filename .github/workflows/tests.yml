@@ -32,5 +32,5 @@ jobs:
         run: |
           msbuild.exe femdesign-api.sln /p:platform="Any CPU" /p:configuration="Debug"
         
-#       - name: Run Tests
-#         run: vstest.console.exe ./FemDesign.Tests/bin/Debug/FemDesign.Tests.dll
+      - name: Run Tests
+        run: vstest.console.exe ./FemDesign.Tests/bin/Debug/FemDesign.Tests.dll
