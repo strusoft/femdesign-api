@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// load_group_table
     /// </summary>
     [System.Serializable]
-    public partial class LoadGroupTable: IFemDesignEntity
+    public partial class LoadGroupTable
     {
         [XmlAttribute("last_change")]
         public string _lastChange;
@@ -86,6 +86,17 @@ namespace FemDesign.Loads
         {
             LastChange = DateTime.UtcNow;
             Action = "added";
+        }
+
+        /// <summary>
+        /// Invoke when an instance is modified.
+        /// 
+        /// Changes timestamp and action.
+        /// </summary>
+        public void EntityModified()
+        {
+            this.LastChange = DateTime.UtcNow;
+            this.Action = "modified";
         }
     }
 }
