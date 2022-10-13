@@ -10,20 +10,20 @@ namespace FemDesign
     /// entity_attribs
     /// </summary>
     [Serializable]
-    public partial class EntityBase : IFemDesignEntity
+    public abstract partial class EntityBase : IFemDesignEntity
     {
         [XmlAttribute("guid")]
         public Guid Guid { get; set; }
         [XmlAttribute("last_change")]
         public string _lastChange;
         [XmlIgnore]
-        internal DateTime LastChange
+        public DateTime LastChange
         {
             get
             {
                 return DateTime.Parse(this._lastChange);
             }
-            set
+            private set
             {
                 this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
