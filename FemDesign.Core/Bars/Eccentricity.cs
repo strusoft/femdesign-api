@@ -138,8 +138,7 @@ namespace FemDesign.Bars
         public static Eccentricity Default => new Eccentricity(0, 0);
         public override string ToString()
         {
-            return $"{this.GetType().Name} Local-X: 0.00, Local-Y: {this.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, Local-Z: {this.Z.ToString(FemDesign.TextFormatting.decimalRounding)}";
+            return $"{this.GetType().Name} Local-Y: {this.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, Local-Z: {this.Z.ToString(FemDesign.TextFormatting.decimalRounding)}";
         }
-
     }
 }
