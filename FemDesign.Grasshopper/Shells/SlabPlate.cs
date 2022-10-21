@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabPlateConstruct: GH_Component
+    public class SlabPlate: GH_Component
     {
-        public SlabPlateConstruct(): base("Plate.Construct", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPlate(): base("Plate", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }

@@ -150,7 +150,7 @@
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
-    <Compile Include="Shells\SlabPlateConstruct.cs" />
+    <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />

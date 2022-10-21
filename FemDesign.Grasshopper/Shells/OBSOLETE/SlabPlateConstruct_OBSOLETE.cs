@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class SlabPlateConstruct_OBSOLETE: GH_Component
     {
-        public SlabPlateConstruct_OBSOLETE(): base("Plate.Construct", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPlateConstruct_OBSOLETE(): base("Plate", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
