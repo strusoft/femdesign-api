@@ -186,8 +186,9 @@ namespace FemDesign.Geometry
                                 edge.EdgeConnection = null;
                             }
                             else
-                            { 
-                                string name = "CE." + cInstance.ToString();
+                            {
+                                string name = edgeConnection.Name == null ? "CE." + cInstance.ToString() : edgeConnection.Name;
+
                                 Shells.EdgeConnection ec = Shells.EdgeConnection.CopyExisting(edgeConnection, name);
                                 edge.EdgeConnection = ec;
                             }
