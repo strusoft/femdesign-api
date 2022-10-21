@@ -120,7 +120,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public PointSupport(CoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
-            var group = new Group(Vector3d.UnitX, Vector3d.UnitY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            var group = new Group(plane.LocalX, plane.LocalY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(plane, group, identifier);
         }
 
