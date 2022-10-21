@@ -337,7 +337,7 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public bool RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -353,10 +353,10 @@ namespace FemDesign
 
             this.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(this);
-            this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
+            return this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
-        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public bool RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -375,7 +375,7 @@ namespace FemDesign
 
             this.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(this);
-            this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
+            return this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
         /// <summary>

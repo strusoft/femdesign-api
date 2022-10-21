@@ -123,11 +123,6 @@ namespace FemDesign.Examples
 
             // Run a specific analysis
             model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config, endSession: true);
-
-
-
-            // TO DO
-            //model.ReadResult(ResultType);
         }
     }
 }
