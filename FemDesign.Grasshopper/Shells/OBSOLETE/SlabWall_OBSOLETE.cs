@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabWall: GH_Component
+    public class SlabWall_OBSOLETE: GH_Component
     {
-        public SlabWall(): base("Wall", "Construct", "Construct a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabWall_OBSOLETE(): base("Wall", "Construct", "Construct a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
@@ -118,9 +118,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{C3C9CD9E-BEE2-4B12-B0DE-60817FA7D2F5}"); }
+            get { return new Guid("e26cd4b0-0582-4ea5-8705-3b9695937277"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

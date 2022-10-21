@@ -74,8 +74,11 @@
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
-    <Compile Include="Bars\BarsBeamSimple.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE.cs" />
+    <Compile Include="Bars\BarsBeamSimple.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE.cs" />
     <Compile Include="Bars\BarsColumnSimple.cs" />
     <Compile Include="Bars\BarsConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsConnectivityDefineSemiRigid.cs" />
@@ -83,7 +86,7 @@
     <Compile Include="Bars\BarsConnectivityRigid.cs" />
     <Compile Include="Bars\BarsEccentricityConstruct.cs" />
     <Compile Include="Bars\BarsModify.cs" />
-    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsTruss_OBSOLETE.cs" />
     <Compile Include="Bars\BarsTrussLimitedCapacity.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnConcreteBar.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnSteelBar.cs" />
@@ -147,6 +150,8 @@
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\SlabPlateConstruct.cs" />
+    <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
@@ -299,11 +304,11 @@
     <Compile Include="Shells\EdgeConnectionHinged.cs" />
     <Compile Include="Shells\EdgeConnectionRigid.cs" />
     <Compile Include="Shells\ShellOrthotropyConstruct.cs" />
-    <Compile Include="Shells\SlabPlateConstruct.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabPlateConstruct_OBSOLETE.cs" />
     <Compile Include="Shells\SlabPlateVariableThickness.cs" />
     <Compile Include="Shells\SlabSetAverageMeshSize.cs" />
     <Compile Include="Shells\SlabSetEdgeConnection.cs" />
-    <Compile Include="Shells\SlabWall.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabWall_OBSOLETE.cs" />
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessConstruct.cs" />
     <Compile Include="Shells\TimberPlateConstruct.cs" />

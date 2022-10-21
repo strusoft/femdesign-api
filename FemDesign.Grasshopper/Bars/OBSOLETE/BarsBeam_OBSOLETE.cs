@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsBeam : GH_Component
+    public class BarsBeam_OBSOLETE : GH_Component
     {
-        public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
+        public BarsBeam_OBSOLETE() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
             CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
@@ -19,7 +19,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Section", "Section", "Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
@@ -42,10 +44,17 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(0, ref curve)) { return; }
 
             FemDesign.Materials.Material material = null;
-            if (!DA.GetData(1, ref material)) { return; }
+            if (!DA.GetData(1, ref material))
+            {
+                material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
+            }
 
             List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
-            if (!DA.GetDataList(2, sections)) { return; }
+            if (!DA.GetDataList(2, sections))
+            {
+                sections = new List<Sections.Section>();
+                sections.Add(FemDesign.Sections.SectionDatabase.GetDefault().SectionByName("Concrete sections, Rectangle, 250x600"));
+            }
 
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivities))
@@ -113,9 +122,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{ED5BB11A-1A9A-438E-9BD3-A2283DB9C025}"); }
+            get { return new Guid("135b6331-bf19-4d89-9e81-9e5e0d137f67"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

@@ -6,18 +6,19 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabWall: GH_Component
+    public class SlabPlateConstruct_OBSOLETE: GH_Component
     {
-        public SlabWall(): base("Wall", "Construct", "Construct a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPlateConstruct_OBSOLETE(): base("Plate.Construct", "Construct", "Construct a plate element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat and vertical", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item, 0.15);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrthotropy. Optional.", GH_ParamAccess.item);
@@ -27,7 +28,7 @@ namespace FemDesign.Grasshopper
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional.", GH_ParamAccess.item, "P");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -45,7 +46,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(1, ref thickness);
 
             FemDesign.Materials.Material material = null;
-            if (!DA.GetData(2, ref material)) { return; }
+            if(!DA.GetData(2, ref material)) { return; }
 
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default;
             if(!DA.GetData(3, ref eccentricity))
@@ -82,6 +83,7 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
             if (surface == null || material == null || eccentricity == null || orthotropy == null || edgeConnection == null || identifier == null) { return; }
 
             //
@@ -92,7 +94,7 @@ namespace FemDesign.Grasshopper
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
             //
-            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);
+            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Plate(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
@@ -105,7 +107,7 @@ namespace FemDesign.Grasshopper
             {
                 obj.SlabPart.LocalZ = z.FromRhino();
             }
-            
+
             // return
             DA.SetData(0, obj);
         }
@@ -113,14 +115,14 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.Wall;
+                return FemDesign.Properties.Resources.Plate;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{C3C9CD9E-BEE2-4B12-B0DE-60817FA7D2F5}"); }
+            get { return new Guid("8c85f3e3-c50b-49ef-9cc0-5f90867bc0a1"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
