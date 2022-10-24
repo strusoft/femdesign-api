@@ -15,6 +15,7 @@ namespace FemDesign.Performance
     public class BeamGenerationTests
     {
         [TestMethod("GenerateBeam")]
+        [TestCategory("FEM-Design required"), TestCategory("Performance")]
         [DataRow(800)]
         public void NumberOfBeam(int numberOfBeam)
         {

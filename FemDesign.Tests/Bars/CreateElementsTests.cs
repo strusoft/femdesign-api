@@ -11,6 +11,7 @@ namespace FemDesign.Bars
     [TestClass()]
     public class CreateElementsTests
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod("Create a Linear Beam,Bar,Truss and Deserialise")]
         public void CreateLineElement()
         {
@@ -86,6 +87,7 @@ namespace FemDesign.Bars
             Assert.IsTrue( myModel.Entities.Bars[2] is Bars.Truss );
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Create an Arc Beam,Bar,Truss and Deserialise")]
         public void CreateArcElement()
         {

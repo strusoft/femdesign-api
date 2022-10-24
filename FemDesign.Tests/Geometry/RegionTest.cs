@@ -8,6 +8,7 @@ namespace FemDesign.Geometry
     [TestClass()]
     public class RegionTest
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod("Create Rectangle Slab")]
         public void CreateRectangle()
         {
