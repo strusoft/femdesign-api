@@ -195,10 +195,9 @@ namespace FemDesign.Shells
             }
         }
 
-        [XmlArrayItem("factors")]
-        [XmlArray(ElementName = "stiffness_modifiers", Order = 6)]
-        public System.Collections.Generic.List<StruSoft.Interop.StruXml.Data.Slab_stiffness_record> Stiffness_modifiers { get; set; }
-            
+        [XmlElement(ElementName = "stiffness_modifiers", Order = 6)]
+        public SlabStiffnessFactors SlabStiffnessFactors { get; set; }
+
         [XmlElement("end", Order = 7)]
         public string End {get; set;} // empty_type
 
