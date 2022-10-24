@@ -7,7 +7,8 @@ on:
     branches: [ master ]
 
 jobs:  
-  build:    
+  tests:
+    name: Tests
     runs-on: windows-latest
     
     steps:
