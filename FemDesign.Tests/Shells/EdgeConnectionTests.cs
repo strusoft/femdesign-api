@@ -29,6 +29,7 @@ namespace FemDesign.Shells
             Assert.IsNull(ec.Rigidity);
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Edge connection - Deserialize")]
         public void EdgeConnectionTest3()
         {
@@ -41,6 +42,7 @@ namespace FemDesign.Shells
             Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().First(ec => ec != null).PredefRigidity.Name == "No shear");
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Edge connection - Serialize custom")]
         public void EdgeConnectionTest4()
         {
@@ -71,6 +73,7 @@ namespace FemDesign.Shells
             Assert.AreEqual(123.4, first.Rigidity.Motions.XNeg, delta: 1e-6);
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("Edge connection - Serialize library item")]
         public void EdgeConnectionTest5()
         {

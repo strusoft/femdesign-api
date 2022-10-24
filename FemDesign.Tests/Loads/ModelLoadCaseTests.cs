@@ -11,6 +11,7 @@ namespace FemDesign.Loads.Tests
     [TestClass()]
     public class ModelLoadCaseTests
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod("ModelLoadCase - No IndexedGuid")]
         public void ModelLoadCaseIndexedGuidTest1()
         {
@@ -18,6 +19,7 @@ namespace FemDesign.Loads.Tests
             Assert.IsNotNull(model, "Should read model with no IndexedGuid");
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("ModelLoadCase - IndexedGuid")]
         public void ModelLoadCaseIndexedGuidTest2()
         {
@@ -25,6 +27,7 @@ namespace FemDesign.Loads.Tests
             Assert.IsNotNull(model, "Should read model with IndexedGuid types");
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("ModelLoadCase - IndexedGuid - serialize-deserialize")]
         public void ModelLoadCaseIndexedGuidTest3()
         {
