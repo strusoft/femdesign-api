@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true; 
             pManager.AddBooleanParameter("f2nd", "f2nd", "2nd order analysis.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true; 
-            pManager.AddNumberParameter("Im", "Im", "Imperfection shape for 2nd order analysis.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Im", "Im", "Imperfection shape for 2nd order analysis.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true; 
             pManager.AddIntegerParameter("Waterlevel", "Waterlevel", "Ground water level. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
