@@ -3,7 +3,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
@@ -17,7 +19,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0.", GH_ParamAccess.list);
             pManager.AddTextParameter("Name", "Name", "Name of section", GH_ParamAccess.item);
-            pManager.AddTextParameter("MaterialType", "MatType", "Material type. Choice: SteelRolled/SteelColdWorked/SteelWelded/Concrete/Timber", GH_ParamAccess.item);
+            pManager.AddTextParameter("MaterialType", "MatType", "Connect 'ValueList' to get the options.\nSteelRolled\nSteelColdWorked\nSteelWelded\nConcrete\nTimber\nUnknown\nUndefined", GH_ParamAccess.item);
             pManager.AddTextParameter("GroupName", "GroupName", "Name of section group", GH_ParamAccess.item);
             pManager.AddTextParameter("TypeName", "TypeName", "Name of section type", GH_ParamAccess.item);
             pManager.AddTextParameter("SizeName", "SizeName", "Name of section size", GH_ParamAccess.item);
@@ -99,6 +101,13 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("637c784c-7832-4a23-8cd7-a8a942dbb272"); }
         }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 2, Enum.GetNames(typeof( FemDesign.Materials.MaterialTypeEnum )).ToList()
+            , null, GH_ValueListMode.DropDown);
+        }
+
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
 
