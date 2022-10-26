@@ -149,6 +149,7 @@
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
+    <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabWall.cs" />
@@ -295,7 +296,7 @@
     <Compile Include="Sections\OBSOLETE\SectionDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionDatabaseListSectionNamesOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionDatabaseSaveOBSOLETE.cs" />
-    <Compile Include="Sections\SectionDefine.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDefineOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionGetSectionByNameOBSOLETE.cs" />
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
     <Compile Include="Shells\ProfiledPlateConstruct.cs" />
