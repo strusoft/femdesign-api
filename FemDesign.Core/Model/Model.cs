@@ -263,13 +263,20 @@ namespace FemDesign
                 filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
             }
 
-            // check file extension
+            // Relavive paths will be converted to full paths
+            filePath = System.IO.Path.GetFullPath(filePath);
+
+            // If path has no file extension "struxml" will be used
+            if (Path.GetExtension(filePath) == "")
+                filePath = Path.ChangeExtension(filePath, "struxml")
+
+            // Check file extension
             if (Path.GetExtension(filePath) != ".struxml")
             {
                 throw new System.ArgumentException("File extension must be .struxml! Model.SerializeModel failed.");
             }
 
-            // serialize
+            // Serialize
             XmlSerializer serializer = new XmlSerializer(typeof(Model));
             using (TextWriter writer = new StreamWriter(filePath))
             {
