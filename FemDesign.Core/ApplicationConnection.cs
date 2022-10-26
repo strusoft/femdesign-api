@@ -37,7 +37,10 @@ namespace FemDesign
      */
     public class ApplicationConnection : IDisposable
     {
-        public ApplicationConnection(string fd_installation_folder, string pipe_base_name = "FdPipe1")
+        public ApplicationConnection(
+            string fd_installation_folder = @"C:\Program Files\StruSoft\FEM-Design 21\",
+            bool minimized = false,
+            string pipe_base_name = "FdPipe1")
         {
             // todo(Gustav): figure out 9-bit encoding?
             // encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
@@ -55,7 +58,16 @@ namespace FemDesign
             if (_inputPipe == null) { throw new Exception("setup failed"); }
 
             string path_to_fd_struct = Path.Combine(fd_installation_folder, "fd3dstruct.exe");
-            this._process = Process.Start(path_to_fd_struct, "/p " + input_name);
+            var startInfo = new ProcessStartInfo()
+            {
+                FileName = path_to_fd_struct,
+                Arguments = "/p " + input_name,
+                UseShellExecute = false,
+                Verb = "open"
+            };
+            startInfo.EnvironmentVariables["FD_NOGUI"] = minimized ? "1" : "0";
+
+            this._process = Process.Start(startInfo);
             this._process.Exited += Process_Exited;
 
             _inputPipe.WaitForConnection();
