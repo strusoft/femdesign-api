@@ -268,7 +268,7 @@ namespace FemDesign
 
             // If path has no file extension "struxml" will be used
             if (Path.GetExtension(filePath) == "")
-                filePath = Path.ChangeExtension(filePath, "struxml")
+                filePath = Path.ChangeExtension(filePath, "struxml");
 
             // Check file extension
             if (Path.GetExtension(filePath) != ".struxml")
