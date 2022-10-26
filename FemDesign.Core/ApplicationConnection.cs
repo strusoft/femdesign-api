@@ -37,9 +37,20 @@ namespace FemDesign
      */
     public class ApplicationConnection : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fd_installation_folder"></param>
+        /// <param name="minimized">Open FEM-Design as a minimized window.</param>
+        /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
+        /// <param name="tempOutputDir"><code>BE CAREFUL!</code>If true the <paramref name="outputDir"/> will be deleted on exit. This option has no effect unless <paramref name="outputDir"/> has been specified.</param>
+        /// <param name="pipe_base_name"></param>
+        /// <exception cref="Exception"></exception>
         public ApplicationConnection(
             string fd_installation_folder = @"C:\Program Files\StruSoft\FEM-Design 21\",
             bool minimized = false,
+            string outputDir = null,
+            bool tempOutputDir = false,
             string pipe_base_name = "FdPipe1")
         {
             // todo(Gustav): figure out 9-bit encoding?
@@ -66,6 +77,10 @@ namespace FemDesign
                 Verb = "open"
             };
             startInfo.EnvironmentVariables["FD_NOGUI"] = minimized ? "1" : "0";
+
+            OutputDir = outputDir;
+            if (string.IsNullOrEmpty(outputDir) == false && tempOutputDir)
+                _outputDirsToBeDeleted.Add(OutputDir);
 
             this._process = Process.Start(startInfo);
             this._process.Exited += Process_Exited;
@@ -108,42 +123,26 @@ namespace FemDesign
         /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
-        public void RunScript(FdScript2 script, string tempPath = null)
+        public void RunScript(FdScript2 script)
         {
             if (script == null) throw new ArgumentNullException("script");
 
-            if (tempPath is null)
-            {
-                using (var temp = new TemporaryFile(".fdscript"))
-                {
-                    script.Serialize(temp.FilePath);
-                    this.Send("run " + temp.FilePath);
-                    this.WaitForCommandToFinish();
-                }
-            }
-            else
-            {
-                if (File.Exists(tempPath)) throw new ArgumentException("tempPath already exists and would be overritten");
-                if (Path.GetExtension(tempPath).ToLower() != ".fdscript")
-                    throw new ArgumentException("tempPath must have extension .fdscript");
+            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
 
-                script.Serialize(tempPath);
-                this.Send("run " + tempPath);
-                this.WaitForCommandToFinish();
-                File.Delete(tempPath);
-            }
+            script.Serialize(scriptPath);
+            this.Send("run " + scriptPath);
+            this.WaitForCommandToFinish();
         }
 
         /// <summary>
         /// Open a file in FEM-Design application.
         /// </summary>
-        /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype sopported in FEM-Design can be used.</param>
+        /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype supported in FEM-Design is valid.</param>
         public void Open(string filePath)
         {
-            using (var logfile = new TemporaryFile(".log"))
-            {
-                this.RunScript(new FdScript2(logfile.FilePath, new CmdOpen2(filePath)));
-            }
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            this.RunScript(new FdScript2(logfile, new CmdOpen2(filePath)));
+
         }
 
         /// <summary>
@@ -152,13 +151,10 @@ namespace FemDesign
         /// <param name="model">Model to be opened.</param>
         public void Open(Model model)
         {
-            using (var temp = new TemporaryFile("struxml"))
-            {
-                // Model must be serialized to a file to be opened in FEM-Design.
-                model.SerializeModel(temp.FilePath);
-
-                this.Open(temp.FilePath);
-            }
+            var struxml = OutputFileHelper.GetStruxmlPath(OutputDir);
+            // Model must be serialized to a file to be opened in FEM-Design.
+            model.SerializeModel(struxml);
+            this.Open(struxml);
         }
 
         /// <summary>
@@ -170,15 +166,13 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
-            using (var logfile = new TemporaryFile(".log"))
-            {
-                var script = new FdScript2(
-                    logfile.FilePath,
-                    new CmdUserModule2(CmdUserModule.RESMODE),
-                    new CmdCalculation2(analysis)
-                );
-                this.RunScript(script);
-            }
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(
+                logfile,
+                new CmdUserModule2(CmdUserModule.RESMODE),
+                new CmdCalculation2(analysis)
+            );
+            this.RunScript(script);
         }
 
         /// <summary>
@@ -203,45 +197,42 @@ namespace FemDesign
             if (units is null)
                 units = Results.UnitResults.Default();
 
+            // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-            var tempBscs = listProcs.Select(l => new TemporaryFile(".bsc")).ToList();
-            var tempCsvs = listProcs.Select(l => new TemporaryFile(".csv")).ToList();
-            var bscs = listProcs.Zip(tempBscs, (l, p) => new Bsc(l, p.FilePath, units)).ToList();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
-            var listGenCommands = tempBscs.Zip(tempCsvs, (b, c) =>
-                {
-                    return new List<CmdCommand> {
-                        new CmdUserModule2(CmdUserModule.RESMODE),
-                        new CmdListGen2(c.FilePath, b.FilePath)
-                    };
-                }).SelectMany(l => l);
 
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUserModule2(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen2(csvPaths[i], bscPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
             List<T> results = new List<T>();
-            using (var tempLog = new TemporaryFile(".log"))
+            foreach (string resultFile in csvPaths)
             {
-                var script = new FdScript2(tempLog.FilePath, listGenCommands.ToArray());
-
-                this.RunScript(script);
-
-                foreach (string resultFile in tempCsvs.Select(c => c.FilePath))
-                {
-                    results.AddRange(
-                        Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                    );
-                }
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
             }
 
-            tempBscs.Concat(tempCsvs).ToList().ForEach(t => t.Dispose());
             return results;
         }
 
         public void Save(string filePath)
         {
-            using (var logfile = new TemporaryFile(".log"))
-            {
-                var script = new FdScript2(logfile.FilePath, new CmdSave2(filePath));
-                this.RunScript(script);
-            }
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(logfile, new CmdSave2(filePath));
+            this.RunScript(script);
         }
 
         public void WaitForCommandToFinish()
@@ -257,6 +248,14 @@ namespace FemDesign
         {
             _disposePipes();
             _disposeWorker();
+            _deleteOutputDirectories();
+        }
+
+        private void _deleteOutputDirectories()
+        {
+            foreach (string dir in _outputDirsToBeDeleted)
+                if (Directory.Exists(dir))
+                    Directory.Delete(dir, true);
         }
 
         // ----------------------------------------------------------------------------------------
@@ -381,10 +380,90 @@ namespace FemDesign
         private readonly System.Text.Encoding _encoding;
         private const int BUFFER_SIZE = 4096;
         private readonly Process _process;
+        private bool _sendOutputToEvent = true;
         public bool HasExited { get; private set; }
 
-        // ---
+        // ----------------------------------------------------------------------------------------
 
-        private bool _sendOutputToEvent = true;
+        public string OutputDir
+        {
+            get { return _outputDir; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) // Use temp dir
+                {
+                    _outputDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                    _outputDirsToBeDeleted.Add(_outputDir);
+                }
+                else // Use given directory
+                    _outputDir = Path.GetFullPath(value);
+            }
+        }
+        private string _outputDir;
+        private List<string> _outputDirsToBeDeleted = new List<string>();
+    }
+
+    public static class OutputFileHelper
+    {
+        private const string _scriptsDirectory = "scripts";
+        private const string _resultsDirectory = "results";
+        private const string _bscDirectory = "bsc";
+
+        private const string _logFileName = "logfile.log";
+        private const string _struxmlFileName = "model.struxml";
+        private const string _strFileName = "model.str";
+
+        private const string _fdscriptFileExtension = ".fdscript";
+        private const string _bscFileExtension = ".bsc";
+        private const string _csvFileExtension = ".csv";
+        public static string GetLogfilePath(string baseDir)
+        {
+            string logfilePath = Path.Combine(baseDir, _logFileName);
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            return Path.GetFullPath(Path.Combine(baseDir, _logFileName));
+        }
+        public static string GetStruxmlPath(string baseDir)
+        {
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            string path = Path.GetFullPath(Path.Combine(baseDir, _struxmlFileName));
+            return path;
+        }
+        public static string GetStrPath(string baseDir)
+        {
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            string path = Path.GetFullPath(Path.Combine(baseDir, _strFileName));
+            return path;
+        }
+        public static string GetBscPath(string baseDir, string fileName)
+        {
+            string dir = Path.Combine(baseDir, _bscDirectory);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            fileName = Path.ChangeExtension(fileName, _bscFileExtension);
+            string path = Path.GetFullPath(Path.Combine(dir, fileName));
+            return path;
+        }
+        public static string GetCsvPath(string baseDir, string fileName)
+        {
+            string dir = Path.Combine(baseDir, _resultsDirectory);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            fileName = Path.ChangeExtension(fileName, _csvFileExtension);
+            string path = Path.GetFullPath(Path.Combine(dir, fileName));
+            return path;
+        }
+        public static string GetFdScriptPath(string baseDir, string fileName = "script")
+        {
+            string dir = Path.Combine(baseDir, _scriptsDirectory);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            fileName = Path.GetFileName(Path.ChangeExtension(fileName, _fdscriptFileExtension));
+            string path = Path.GetFullPath(Path.Combine(dir, fileName));
+            return path;
+        }
     }
 }
