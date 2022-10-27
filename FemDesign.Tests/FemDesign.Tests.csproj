@@ -76,6 +76,7 @@
     <Compile Include="Geometry\RegionTest.cs" />
     <Compile Include="Geometry\ProximityTests.cs" />
     <Compile Include="Loads\LoadCaseTests.cs" />
+    <Compile Include="Loads\LoadCombinationTests.cs" />
     <Compile Include="Loads\LoadGroupsCombineTests.cs" />
     <Compile Include="Materials\MaterialDatabaseTests.cs" />
     <Compile Include="Loads\LoadsTests.cs" />
@@ -115,6 +116,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Bars\sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Loads\Load combination case types.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Model\global-test-model_MASTER.struxml">

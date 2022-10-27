@@ -53,6 +53,8 @@
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Loads\LoadCombinationCaseBase.cs" />
+    <Compile Include="Loads\StageLoadCase.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
     <Compile Include="Geometry\ArcEdge.cs" />
     <Compile Include="Geometry\CircleEdge.cs" />

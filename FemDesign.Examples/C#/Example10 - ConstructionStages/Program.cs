@@ -90,13 +90,6 @@ namespace FemDesign.Examples
             var imposedCase = new Loads.LoadCase("IMPOSED", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
             var loadcases = new List<Loads.LoadCase>() { deadLoadCase, windCase, imposedCase };
 
-            // Create load combinations
-            var slsFactors = new List<double>() { 1.0, 1.0, 1.0 };
-            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors);
-            var ulsFactors = new List<double>() { 1.35, 1.5, 1.2 };
-            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
-            var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS };
-
             // Create loads
             var pointMoment = new Loads.PointLoad(p2, new Geometry.Vector3d(0.0, 5.0, 0.0), deadLoadCase, null, Loads.ForceLoadType.Moment);
 
@@ -123,11 +116,21 @@ namespace FemDesign.Examples
             // Create the stages
             var stage1 = new Stage(1, "STAGE_1", stageOneLoadCases, elementsStageOne);
             var stage2 = new Stage(2, "STAGE_2", stageTwoLoadCases, elementsStageTwo);
-            var stage3 = new Stage(3, "STAGE_3", null, elementsStageThree);
-            var stage4 = new Stage(4, "STAGE_4", null, null);
-            var stage5 = new Stage(5, "STAGE_5", null, null);
+            var stage3 = new Stage(3, "STAGE_3", elements: elementsStageThree);
+            var stage4 = new Stage(4, "STAGE_4");
+            var stage5 = new Stage(5, "STAGE_5");
 
             var stages = new List<Stage>() { stage1, stage2, stage3, stage4, stage5 };
+
+
+            // Create load combinations
+            var slsFactors = new List<double>() { 1.0, 1.0, 1.0 };
+            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors);
+            var ulsFactors = new List<double>() { 1.35, 1.5, 1.2 };
+            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
+            var CSCombination = new Loads.LoadCombination("Stage combination", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
+            CSCombination.SetStageLoadCase(stage1, 1.0);
+            var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS, CSCombination };
 
             // Create the model
             Model model = new Model(Country.S);

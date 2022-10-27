@@ -69,12 +69,12 @@ namespace FemDesign
         /// </summary>
         /// <param name="loadCase">The load case to be activated.</param>
         /// <param name="factor">Load case factor.</param>
-        /// <param name="type">Activation type.</param>
-        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType type)
+        /// <param name="partitioning">Partitioning.</param>
+        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType partitioning)
         {
             this.LoadCaseDisplayName = loadCase.Name;
             this._case = loadCase.Guid.ToString();
-            Initialize(factor, type);
+            Initialize(factor, partitioning);
         }
 
         /// <summary>

@@ -3355,7 +3355,9 @@ namespace FemDesign
             {
                 i++; // Starts at 1
                 stage.Id = i;
-                stage.Elements = elementsPerStage[i];
+
+                if (elementsPerStage.ContainsKey(i))
+                    stage.Elements = elementsPerStage[i];
 
                 if (stage.ActivatedLoadCases != null)
                 {
