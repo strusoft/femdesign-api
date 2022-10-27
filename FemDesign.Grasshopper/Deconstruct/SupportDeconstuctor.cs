@@ -77,10 +77,7 @@ namespace FemDesign.Grasshopper
                 DA.SetData(1, obj.Name);
                 DA.SetData(2, obj.GetRhinoGeometry());
                 DA.SetData(3, obj.MovingLocal);
-                // Confusion in FEM-Design StruXML regarding some group attribute and edge normal
-                var localZ = obj.Group.LocalX; // local coordinate system for line support
-                var localX = obj.Group.LocalY.Cross(localZ);
-                DA.SetData(4, localX);
+                DA.SetData(4, obj.Group.LocalX.ToRhino());
                 DA.SetData(5, obj.Group.LocalY.ToRhino());
 
                 // Catch pre-defined rigidity
