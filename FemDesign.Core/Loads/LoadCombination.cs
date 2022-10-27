@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace FemDesign.Loads
 {
@@ -14,9 +15,58 @@ namespace FemDesign.Loads
         [XmlAttribute("name")]
         public string Name { get; set; } // name159
         [XmlAttribute("type")]
-        public LoadCombType Type { get; set; } // loadcombtype 
+        public LoadCombType Type { get; set; } // loadcombtype
+
+        // CASES: Xml elements sequence in order
+        //
+        // load_case (sequence)
+        // seismic_max
+        // seismic_res_fx_plus_mx
+        // seismic_res_fx_minus_mx
+        // seismic_res_fy_plus_my
+        // seismic_res_fy_minus_my
+        // seismic_res_fz
+        // ptc_t0
+        // ptc_t8
+        // ldcase_pile
+        // cs_case
+
         [XmlElement("load_case")]
-        public List<ModelLoadCase> ModelLoadCase = new List<ModelLoadCase>(); // sequence: ModelLoadCase
+        public List<ModelLoadCase> ModelLoadCase { get; set; } = new List<ModelLoadCase>();
+
+        // Special load cases of the combination, from FD18
+        [XmlElement("seismic_max")]
+        public LoadCombinationCaseBase SeismicMax { get; set; }
+
+        [XmlElement("seismic_res_fx_plus_mx")]
+        public LoadCombinationCaseBase SeismicResFxPlusMx { get; set; }
+
+        [XmlElement("seismic_res_fx_minus_mx")]
+        public LoadCombinationCaseBase SeismicResFxMinusMx { get; set; }
+
+        [XmlElement("seismic_res_fy_plus_my")]
+        public LoadCombinationCaseBase SeismicResFyPlusMy { get; set; }
+
+        [XmlElement("seismic_res_fy_minus_my")]
+        public LoadCombinationCaseBase SeismicResFyMinusMy { get; set; }
+
+        [XmlElement("seismic_res_fz")]
+        public LoadCombinationCaseBase SeismicResFz { get; set; }
+
+        // Special load cases of the combination, from FD19
+        [XmlElement("ptc_t0")]
+        public LoadCombinationCaseBase PtcT0 { get; set; }
+
+        [XmlElement("ptc_t8")]
+        public LoadCombinationCaseBase PtcT8 { get; set; }
+
+        // Special load cases of the combination, from FD20
+        [XmlElement("ldcase_pile")]
+        public LoadCombinationCaseBase PileLoadCase { get; set; }
+
+        [XmlElement("cs_case")]
+        public StageLoadCase StageLoadCase { get; set; }
+
         [XmlIgnore]
         public Calculate.CombItem CombItem { get; set; }
 
@@ -28,9 +78,6 @@ namespace FemDesign.Loads
 
         }
 
-        /// <summary>
-        /// Internal constructor. Used for GH components and Dynamo nodes.
-        /// </summary>
         public LoadCombination(string name, LoadCombType type, List<LoadCase> loadCases, List<double> gammas, Calculate.CombItem combItem = null)
         {
             Initialize(name, type, combItem);
@@ -97,16 +144,27 @@ namespace FemDesign.Loads
         /// <summary>
         /// Add LoadCase to LoadCombination.
         /// </summary>
-        private void AddLoadCase(LoadCase loadCase, double gamma)
+        public void AddLoadCase(LoadCase loadCase, double gamma)
         {
             if (this.LoadCaseInLoadCombination(loadCase))
-            {
-                // pass
-            }
-            else
-            {
-                this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma));
-            }
+                return;
+
+            this.ModelLoadCase.Add(new ModelLoadCase(loadCase, gamma));
+        }
+
+        public void SetStageLoadCase(Stage stage, double gamma)
+        {
+            this.StageLoadCase = new StageLoadCase(stage, gamma);
+        }
+
+        public void SetFinalStageLoadCase(double gamma)
+        {
+            this.StageLoadCase = StageLoadCase.FinalStage(gamma);
+        }
+
+        public void RemoveStageLoadCase()
+        {
+            this.StageLoadCase = null;
         }
 
         /// <summary>
@@ -114,14 +172,7 @@ namespace FemDesign.Loads
         /// </summary>
         private bool LoadCaseInLoadCombination(LoadCase loadCase)
         {
-            foreach (ModelLoadCase elem in this.ModelLoadCase)
-            {
-                if (elem.Guid == loadCase.Guid)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return this.ModelLoadCase.Any(elem => elem.Guid == loadCase.Guid);
         }
 
         public override string ToString()
@@ -133,11 +184,11 @@ namespace FemDesign.Loads
             repr += $"{this.Name,space} {this.Type}\n";
             foreach (var item in this.ModelLoadCase)
             {
-                if(item.LoadCase == null) { return base.ToString(); } // Deserialisation can not get the loadcase name from the object. Only the GUID
+                if (item.LoadCase == null) { return base.ToString(); } // Deserialisation can not get the loadcase name from the object. Only the GUID
                 else
                     repr += $"{"",space - 1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
             }
-            
+
             return repr;
         }
     }

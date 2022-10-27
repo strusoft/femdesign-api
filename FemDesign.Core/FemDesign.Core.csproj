@@ -178,6 +178,7 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
+    <Compile Include="Loads\LoadCombinationCaseBase.cs" />
     <Compile Include="Loads\LoadCombinationTable.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\LoadCombinationType.cs" />
@@ -188,12 +189,13 @@
     <Compile Include="Loads\LoadDirTypeEnum.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
+    <Compile Include="Loads\StageLoadCase.cs" />
     <Compile Include="Loads\LoadCategory.cs" />
     <Compile Include="Loads\LoadCategories.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
     <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
-    <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\ModelGeneralLoadGroup.cs" />
+    <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\LoadGroupPermanent.cs" />
     <Compile Include="Loads\LoadGroupTemporary.cs" />
     <Compile Include="Loads\PointLoad.cs" />
