@@ -9,6 +9,10 @@ namespace FemDesign.Loads
         [XmlAttribute("gamma")]
         public double Gamma;
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        protected LoadCombinationCaseBase() { }
         public LoadCombinationCaseBase(double gamma)
         {
             Gamma = gamma;

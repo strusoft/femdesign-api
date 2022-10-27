@@ -18,7 +18,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        private StageLoadCase()
+        protected StageLoadCase()
         {
         }
 
