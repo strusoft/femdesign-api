@@ -46,7 +46,7 @@ namespace FemDesign.Reinforcement
         public static Reinforcement.BarReinforcement LongitudinalBarByStartEnd(Wire wire, double yPos, double zPos, double startAnchorage, double endAnchorage, double start, double end, bool auxBar)
         {
             // create longitudinal
-            var pos = new FemDesign.Geometry.FdPoint2d(yPos, zPos);
+            var pos = new FemDesign.Geometry.Point2d(yPos, zPos);
             var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, startAnchorage, endAnchorage, start, end, auxBar);
 
             // create bar reinforcement

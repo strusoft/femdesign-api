@@ -24,8 +24,8 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = Geometry.FdVector3d.FromDynamo(force);
-            Geometry.FdVector3d _endForce = _startForce;
+            Geometry.Vector3d _startForce = Geometry.Vector3d.FromDynamo(force);
+            Geometry.Vector3d _endForce = _startForce;
 
             // check zero vector
             if (_startForce.IsZero())
@@ -52,8 +52,8 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = Geometry.FdVector3d.FromDynamo(startForce);
-            Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
+            Geometry.Vector3d _startForce = Geometry.Vector3d.FromDynamo(startForce);
+            Geometry.Vector3d _endForce = Geometry.Vector3d.FromDynamo(endForce);
 
             //
             return new LineLoad(edge, _startForce,  _endForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection: false);
@@ -73,8 +73,8 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = Geometry.FdVector3d.FromDynamo(force);
-            Geometry.FdVector3d _endForce = _startForce;
+            Geometry.Vector3d _startForce = Geometry.Vector3d.FromDynamo(force);
+            Geometry.Vector3d _endForce = _startForce;
 
             // check zero vector
             if (_startForce.IsZero())
@@ -100,8 +100,8 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc1(curve);
-            Geometry.FdVector3d _startForce = Geometry.FdVector3d.FromDynamo(startForce);
-            Geometry.FdVector3d _endForce = Geometry.FdVector3d.FromDynamo(endForce);
+            Geometry.Vector3d _startForce = Geometry.Vector3d.FromDynamo(startForce);
+            Geometry.Vector3d _endForce = Geometry.Vector3d.FromDynamo(endForce);
 
             return new LineLoad(edge, _startForce, _endForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection: false);
         }

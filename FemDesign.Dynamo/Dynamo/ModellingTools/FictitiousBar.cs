@@ -30,7 +30,7 @@ namespace FemDesign.ModellingTools
         {
             // convert geometry
             Geometry.Edge edge = Geometry.Edge.FromDynamoLineOrArc2(curve);
-            Geometry.FdVector3d y = Geometry.FdVector3d.FromDynamo(localY);
+            Geometry.Vector3d y = Geometry.Vector3d.FromDynamo(localY);
 
             // get connectivity
             Bars.Connectivity startConnectivity;
@@ -56,7 +56,7 @@ namespace FemDesign.ModellingTools
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                bar.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                bar.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS

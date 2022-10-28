@@ -197,7 +197,7 @@ namespace FemDesign.Bars
         /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
         /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, BarType type, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
             if(type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
             
@@ -224,7 +224,7 @@ namespace FemDesign.Bars
         /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null/end</param>
         /// <param name="endConnectivity">Connectivity. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
-        public Bar(FemDesign.Geometry.Point3d startPoint, FemDesign.Geometry.Point3d endPoint, Materials.Material material, Sections.Section section, BarType type = BarType.Beam, Geometry.Vector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
+        public Bar(FemDesign.Geometry.Point3d startPoint, FemDesign.Geometry.Point3d endPoint, Materials.Material material, Sections.Section section, BarType type, Geometry.Vector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
         {
             var orientY = localY ?? (endPoint - startPoint).Cross(Geometry.Vector3d.UnitZ);
             Geometry.Edge edge = new Geometry.Edge(startPoint, endPoint, orientY);

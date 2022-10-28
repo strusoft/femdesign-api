@@ -128,6 +128,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\Bsc.cs">
       <Link>Core\Calculate\Bsc.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\CmdApplyDesignChanges.cs">
+      <Link>Core\Calculate\CmdApplyDesignChanges.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\CmdCalculation.cs">
       <Link>Core\Calculate\CmdCalculation.cs</Link>
     </Compile>
@@ -161,9 +164,6 @@
     <Compile Include="..\FemDesign.Core\Calculate\CombItem.cs">
       <Link>Core\Calculate\CombItem.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Calculate\ConstructionStage.cs">
-      <Link>Core\Calculate\ConstructionStage.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Design.cs">
       <Link>Core\Calculate\Design.cs</Link>
     </Compile>
@@ -193,6 +193,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Options.cs">
       <Link>Core\Calculate\Options.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
+      <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
       <Link>Core\GenericClasses\Camber.cs</Link>
@@ -254,11 +257,20 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\StartEndType.cs">
       <Link>Core\GenericClasses\StartEndType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\TextFormatting.cs">
+      <Link>Core\GenericClasses\TextFormatting.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Tolerance.cs">
       <Link>Core\GenericClasses\Tolerance.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\VerticalAlignmentEnum.cs">
       <Link>Core\GenericClasses\VerticalAlignmentEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\ArcEdge.cs">
+      <Link>Core\Geometry\ArcEdge.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\CircleEdge.cs">
+      <Link>Core\Geometry\CircleEdge.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\Contour.cs">
       <Link>Core\Geometry\Contour.cs</Link>
@@ -272,20 +284,26 @@
     <Compile Include="..\FemDesign.Core\Geometry\Face.cs">
       <Link>Core\Geometry\Face.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdCoordinateSystem.cs">
-      <Link>Core\Geometry\FdCoordinateSystem.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\CoordinateSystem.cs">
+      <Link>Core\Geometry\CoordinateSystem.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdPoint2d.cs">
-      <Link>Core\Geometry\FdPoint2d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\LineEdge.cs">
+      <Link>Core\Geometry\LineEdge.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdPoint3d.cs">
-      <Link>Core\Geometry\FdPoint3d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Point2d.cs">
+      <Link>Core\Geometry\Point2d.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdVector2d.cs">
-      <Link>Core\Geometry\FdVector2d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Point3d.cs">
+      <Link>Core\Geometry\Point3d.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Geometry\FdVector3d.cs">
-      <Link>Core\Geometry\FdVector3d.cs</Link>
+    <Compile Include="..\FemDesign.Core\Geometry\Proximity.cs">
+      <Link>Core\Geometry\Proximity.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Vector2d.cs">
+      <Link>Core\Geometry\Vector2d.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Vector3d.cs">
+      <Link>Core\Geometry\Vector3d.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\LineSegment.cs">
       <Link>Core\Geometry\LineSegment.cs</Link>
@@ -695,9 +713,6 @@
     <Compile Include="..\FemDesign.Core\Results\ResultsReader.cs">
       <Link>Core\Results\ResultsReader.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Results\ResultTypeEnum.cs">
-      <Link>Core\Results\ResultTypeEnum.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\Results\Shell\ShellDerivedForce.cs">
       <Link>Core\Results\ShellDerivedForce.cs</Link>
     </Compile>
@@ -770,15 +785,6 @@
     <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
       <Link>Core\Shells\WallCorbel.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
-      <Link>Core\AdvancedFem\ActivatedLoadCase.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\ConstructionStages.cs">
-      <Link>Core\AdvancedFem\ConstructionStages.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Stage\Stage.cs">
-      <Link>Core\AdvancedFem\Stage.cs</Link>
-    </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
       <Link>Core\StructureGrid\Axes.cs</Link>
     </Compile>
@@ -814,6 +820,15 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Supports.cs">
       <Link>Core\Supports\Supports.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\Stage.cs">
+      <Link>Core\Stage\Stage.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ConstructionStages.cs">
+      <Link>Core\Stage\ConstructionStages.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Stage\ActivatedLoadCase.cs">
+      <Link>Core\Stage\ActivatedLoadCase.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\SurfaceSupport.cs">
       <Link>Core\Supports\SurfaceSupport.cs</Link>
@@ -871,11 +886,11 @@
     <Compile Include="Dynamo\Geometry\Contour.cs" />
     <Compile Include="Dynamo\Geometry\Face.cs" />
     <Compile Include="Dynamo\Geometry\Edge.cs" />
-    <Compile Include="Dynamo\Geometry\FdCoordinateSystem.cs" />
-    <Compile Include="Dynamo\Geometry\FdPoint2d.cs" />
-    <Compile Include="Dynamo\Geometry\FdPoint3d.cs" />
-    <Compile Include="Dynamo\Geometry\FdVector2d.cs" />
-    <Compile Include="Dynamo\Geometry\FdVector3d.cs" />
+    <Compile Include="Dynamo\Geometry\CoordinateSystem.cs" />
+    <Compile Include="Dynamo\Geometry\Point2d.cs" />
+    <Compile Include="Dynamo\Geometry\Point3d.cs" />
+    <Compile Include="Dynamo\Geometry\Vector2d.cs" />
+    <Compile Include="Dynamo\Geometry\Vector3d.cs" />
     <Compile Include="Dynamo\Geometry\LineSegment.cs" />
     <Compile Include="Dynamo\Geometry\Polyline.cs" />
     <Compile Include="Dynamo\Geometry\RectangleType.cs" />
@@ -1007,6 +1022,8 @@
     <Compile Include="Dynamo\Shells\SlabPart.cs" />
     <Compile Include="Dynamo\Shells\Thickness.cs" />
     <Compile Include="Dynamo\Shells\WallCorbel.cs" />
+    <Compile Include="Dynamo\Stage\ActivatedLoadCase.cs" />
+    <Compile Include="Dynamo\Stage\Stage.cs" />
     <Compile Include="Dynamo\StructureGrid\Axes.cs" />
     <Compile Include="Dynamo\StructureGrid\Axis.cs" />
     <Compile Include="Dynamo\StructureGrid\Storey.cs" />
@@ -1017,6 +1034,7 @@
     <Compile Include="Dynamo\Supports\PointSupport.cs" />
     <Compile Include="Dynamo\Supports\Supports.cs" />
     <Compile Include="Dynamo\Supports\SurfaceSupport.cs" />
+    <Compile Include="Dynamo\Stage\ConstructionStages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -29,13 +29,13 @@ namespace FemDesign.Supports
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.CoordinateSystem.SetXAroundZ(FemDesign.Geometry.FdVector3d.FromDynamo(localX));
+                obj.CoordinateSystem.SetXAroundZ(FemDesign.Geometry.Vector3d.FromDynamo(localX));
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.CoordinateSystem.SetZAroundX(FemDesign.Geometry.FdVector3d.FromDynamo(localZ));
+                obj.CoordinateSystem.SetZAroundX(FemDesign.Geometry.Vector3d.FromDynamo(localZ));
             }
 
             return obj;

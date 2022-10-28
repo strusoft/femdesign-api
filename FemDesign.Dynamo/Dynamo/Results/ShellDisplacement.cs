@@ -37,8 +37,8 @@ namespace FemDesign.Results
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int?>)result["NodeId"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
             // Convert the FdVector to Dynamo
             var oTranslation = iTranslation.Select(x => x.ToDynamo());

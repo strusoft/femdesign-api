@@ -19,7 +19,7 @@ namespace FemDesign.Supports
         [IsVisibleInDynamoLibrary(true)]
         public static PointSupport Rigid(Autodesk.DesignScript.Geometry.Point point, [DefaultArgument("S")] string identifier)
         {
-            return PointSupport.Rigid(Geometry.FdPoint3d.FromDynamo(point), identifier);
+            return PointSupport.Rigid(Geometry.Point3d.FromDynamo(point), identifier);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace FemDesign.Supports
         [IsVisibleInDynamoLibrary(true)]
         public static PointSupport Hinged(Autodesk.DesignScript.Geometry.Point point, [DefaultArgument("S")] string identifier)
         {
-            return PointSupport.Hinged(Geometry.FdPoint3d.FromDynamo(point), identifier);
+            return PointSupport.Hinged(Geometry.Point3d.FromDynamo(point), identifier);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace FemDesign.Supports
         [IsVisibleInDynamoLibrary(true)]
         public static PointSupport Define(Autodesk.DesignScript.Geometry.Point point, Motions motions, [DefaultArgument("MotionsPlasticLimits.Default()")] MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, [DefaultArgument("RotationsPlasticLimits.Default()")] RotationsPlasticLimits rotationsPlasticLimits, [DefaultArgument("S")] string identifier)
         {
-            return new PointSupport(Geometry.FdPoint3d.FromDynamo(point), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, identifier);
+            return new PointSupport(Geometry.Point3d.FromDynamo(point), motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, identifier);
         }
 
         internal Autodesk.DesignScript.Geometry.Point GetDynamoGeometry()

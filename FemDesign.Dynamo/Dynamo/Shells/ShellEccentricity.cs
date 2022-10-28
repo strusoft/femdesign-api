@@ -20,13 +20,5 @@ namespace FemDesign.Shells
         {
             return new ShellEccentricity(alignment, eccentricity, eccentricityCalculation, eccentricityByCracking);
         }
-
-        /// <summary>
-        /// Create a default ShellEccentricity.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public static ShellEccentricity Default() => GetDefault();
     }
 }

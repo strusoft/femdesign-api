@@ -19,7 +19,7 @@ namespace FemDesign.Shells
         [IsVisibleInDynamoLibrary(true)]
         public static Thickness Define(Autodesk.DesignScript.Geometry.Point point, double val)
         {
-            return new Thickness(Geometry.FdPoint3d.FromDynamo(point), val);
+            return new Thickness(Geometry.Point3d.FromDynamo(point), val);
         }
         
         #endregion
