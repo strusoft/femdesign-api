@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class NodalDisplacement : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "NodalDisplacement";
+        }
+
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
         /// </summary>

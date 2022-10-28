@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class ShellDisplacement : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "ShellDisplacement";
+        }
+
         /// <summary>
         /// Deconstruct the Shell Displacement Results
         /// </summary>

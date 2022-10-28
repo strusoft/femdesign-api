@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class NodalVibration : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "NodalVibration";
+        }
+
         /// <summary>
         /// Read the Modal Shape vectors for the entire model
         /// </summary>

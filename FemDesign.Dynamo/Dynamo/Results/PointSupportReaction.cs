@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class PointSupportReaction : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "PointSupportReaction";
+        }
+
         /// <summary>
         /// 
         /// </summary>

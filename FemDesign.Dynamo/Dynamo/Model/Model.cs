@@ -172,19 +172,36 @@ namespace FemDesign
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
         [MultiReturn(new[]{"Model", "FdFeaModel", "Results" })]
-        public static Dictionary<string, object> ReadStr(string strPath, List<Type> resultTypes, Results.UnitResults units)
+        public static Dictionary<string, object> ReadStr(string strPath, List<string> resultTypes, Results.UnitResults units)
         {
             Results.FDfea fdFeaModel = null;
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            resultTypes.Insert(0, typeof(Results.FeaNode));
-            resultTypes.Insert(1, typeof(Results.FeaBar));
-            resultTypes.Insert(2, typeof(Results.FeaShell));
+            resultTypes.Insert(0, "FeaNode");
+            resultTypes.Insert(1, "FeaBar");
+            resultTypes.Insert(2, "FeaShell");
+
+            var notValidResultTypes = new List<string>();
+            var _resultTypes = resultTypes.Select(r =>
+            {
+                var sucess = Results.ResultTypes.All.TryGetValue(r, out Type value);
+                if (sucess)
+                    return value;
+                else
+                {
+                    notValidResultTypes.Add(r);
+                    return null;
+                }
+            });
+            if (notValidResultTypes.Count() != 0)
+            {
+                throw new Exception( "The following strings are not valid result types: " + string.Join(", ", notValidResultTypes));
+            }
 
 
             // Create Bsc files from resultTypes
-            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, strPath, units);
+            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, strPath, units);
 
             // Create FdScript
             var fdScript = FemDesign.Calculate.FdScript.ReadStr(strPath, bscPathsFromResultTypes);
@@ -202,7 +219,7 @@ namespace FemDesign
             List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
             List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
 
-            if (resultTypes != null && resultTypes.Any())
+            if (_resultTypes != null && _resultTypes.Any())
             {
                 foreach (var cmd in fdScript.CmdListGen)
                 {

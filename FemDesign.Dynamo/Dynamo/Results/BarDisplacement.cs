@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class BarDisplacement : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "BarDisplacement";
+        }
+
         /// <summary>
         /// Deconstruct the Bar Displacement Results
         /// </summary>

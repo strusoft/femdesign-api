@@ -11,6 +11,13 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class BarInternalForce : IResult
     {
+
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "BarInternalForce";
+        }
+
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
         /// </summary>

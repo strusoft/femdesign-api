@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class FeaNode : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "FeaNode";
+        }
+
         /// <summary>
         /// Deconstruct the Fea Node Element
         /// </summary>

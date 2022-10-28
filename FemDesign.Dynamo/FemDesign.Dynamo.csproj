@@ -707,6 +707,9 @@
     <Compile Include="..\FemDesign.Core\Results\Node\PointSupportReaction.cs">
       <Link>Core\Results\PointSupportReaction.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Results\Node\PointSupportReactionMinMax.cs">
+      <Link>Core\Results\PointSupportReactionMinMax.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Results\QuantityEstimation.cs">
       <Link>Core\Results\QuantityEstimation.cs</Link>
     </Compile>
@@ -1007,6 +1010,7 @@
     <Compile Include="Dynamo\Results\NodalResponseFactor.cs" />
     <Compile Include="Dynamo\Results\NodalVibration.cs" />
     <Compile Include="Dynamo\Results\PointSupportReaction.cs" />
+    <Compile Include="Dynamo\Results\PointSupportReactionMinMax.cs" />
     <Compile Include="Dynamo\Results\QuantityEstimation.cs" />
     <Compile Include="Dynamo\Results\ResultAttribute.cs" />
     <Compile Include="Dynamo\Results\ResultReader.cs" />
