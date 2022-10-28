@@ -49,6 +49,7 @@ namespace FemDesign
             Initialize(index, description, activatedLoadCases, elements, initialStressState);
         }
 
+#if !ISDYNAMO
         /// <summary>
         /// Construction stage.
         /// </summary>
@@ -63,7 +64,7 @@ namespace FemDesign
             var activatedLoadCase = loadCases.Select(l => new ActivatedLoadCase(l, 1.0, partitioning)).ToList();
             Initialize(index, description, activatedLoadCase, elements, initialStressState);
         }
-
+#endif
         private void Initialize(int index, string description, List<ActivatedLoadCase> activatedLoadCases, List<IStageElement> elements, bool initialStressState)
         {
             if (index <= 0)

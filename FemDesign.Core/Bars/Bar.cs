@@ -12,10 +12,12 @@ namespace FemDesign.Bars
     /// 
     /// Bar-element
     /// </summary>
+#if !ISDYNAMO
     [XmlInclude(typeof(Beam))]
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(Truss))]
     [XmlRoot("database", Namespace = "urn:strusoft")]
+#endif
     [System.Serializable]
     public partial class Bar : EntityBase, IStructureElement, IStageElement
     {
@@ -355,6 +357,30 @@ namespace FemDesign.Bars
             this.Name = identifier;
             this.BarPart = new BarPart(edge, this.Type, material, section, identifier);
         }
+
+
+
+        /// <summary>
+        /// Construct a truss element.
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="material"></param>
+        /// <param name="section"></param>
+        /// <param name="identifier"></param>
+        /// <exception cref="System.Exception"></exception>
+        public static Bar Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
+        {
+            var truss = new Bar();
+
+            truss.EntityCreated();
+            truss.Type = BarType.Truss;
+            truss.Name = identifier;
+            truss.BarPart = new BarPart(edge, truss.Type, material, section, truss.Identifier);
+            return truss;
+        }
+
+
+
 
         /// Update entities if this bar should be "reconstructed"
         public void UpdateEntities()

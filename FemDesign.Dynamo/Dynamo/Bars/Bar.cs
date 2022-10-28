@@ -247,8 +247,8 @@ namespace FemDesign.Bars
 
                 if (identifier != null)
                 {
-                    bar.Identifier = identifier;
-                    bar.BarPart.Identifier = bar.Identifier;
+                    bar.Name = identifier;
+                    bar.BarPart.Name = bar.Name;
                 }
 
                 return bar;

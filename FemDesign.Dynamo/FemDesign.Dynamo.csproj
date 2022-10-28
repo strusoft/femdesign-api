@@ -83,14 +83,11 @@
     <Compile Include="..\FemDesign.Core\Bars\BarPart.cs">
       <Link>Core\Bars\BarPart.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Bars\Beam.cs">
-      <Link>Core\Bars\Beam.cs</Link>
+    <Compile Include="..\FemDesign.Core\Bars\BarStiffnessFactors.cs">
+      <Link>Core\Bars\BarStiffnessFactors.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Buckling\BucklingTypeEnum.cs">
       <Link>Core\Bars\Buckling\BucklingTypeEnum.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Bars\Column.cs">
-      <Link>Core\Bars\Column.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\ColumnCorbel.cs">
       <Link>Core\Bars\ColumnCorbel.cs</Link>
@@ -115,9 +112,6 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\SteelMadeTypeEnum.cs">
       <Link>Core\Bars\SteelMadeTypeEnum.cs</Link>
-    </Compile>
-    <Compile Include="..\FemDesign.Core\Bars\Truss.cs">
-      <Link>Core\Bars\Truss.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Analysis.cs">
       <Link>Core\Calculate\Analysis.cs</Link>
@@ -362,6 +356,9 @@
     <Compile Include="..\FemDesign.Core\Loads\LoadCombination.cs">
       <Link>Core\Loads\LoadCombination.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\LoadCombinationCaseBase.cs">
+      <Link>Core\Loads\LoadCombinationCaseBase.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Loads\LoadCombTypeEnum.cs">
       <Link>Core\Loads\LoadCombTypeEnum.cs</Link>
     </Compile>
@@ -409,6 +406,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\PressureLoad.cs">
       <Link>Core\Loads\PressureLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Loads\StageLoadCase.cs">
+      <Link>Core\Loads\StageLoadCase.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Loads\SurfaceLoad.cs">
       <Link>Core\Loads\SurfaceLoad.cs</Link>
@@ -614,6 +614,9 @@
     <Compile Include="..\FemDesign.Core\Releases\RigidityDataLibType3.cs">
       <Link>Core\Releases\RigidityDataLibType3.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Releases\RigidityDataType0.cs">
+      <Link>Core\Releases\RigidityDataType0.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Releases\RigidityDataType1.cs">
       <Link>Core\Releases\RigidityDataType1.cs</Link>
     </Compile>
@@ -776,6 +779,9 @@
     <Compile Include="..\FemDesign.Core\Shells\SlabPart.cs">
       <Link>Core\Shells\SlabPart.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Shells\SlabStiffnessFactors.cs">
+      <Link>Core\Shells\SlabStiffnessFactors.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Shells\SlabTypeEnum.cs">
       <Link>Core\Shells\SlabTypeEnum.cs</Link>
     </Compile>
@@ -817,6 +823,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\PointSupport.cs">
       <Link>Core\Supports\PointSupport.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Supports\StiffnessPoints.cs">
+      <Link>Core\Supports\StiffnessPoints.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Supports.cs">
       <Link>Core\Supports\Supports.cs</Link>
