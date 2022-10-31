@@ -50,7 +50,8 @@ namespace FemDesign.Examples
             // Create load cases
             var deadload = new Loads.LoadCase("Deadload", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
             var liveload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var loadcases = new List<Loads.LoadCase>() { deadload, liveload };
+            var stressload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
+            var loadcases = new List<Loads.LoadCase>() { deadload, liveload, stressload };
 
 
             // Create load combinations
@@ -71,10 +72,13 @@ namespace FemDesign.Examples
             var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = Loads.LineLoad.VariableForce(edge, lineLoadStart, lineLoadEnd, liveload);
 
+            var lineStress = new Loads.LineStressLoad(edge, 10, stressload);
+
             var loads = new List<GenericClasses.ILoadElement>() {
                 pointForce,
                 pointMoment,
-                lineLoad
+                lineLoad,
+                lineStress
             };
 
 

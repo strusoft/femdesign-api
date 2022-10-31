@@ -107,6 +107,7 @@
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstrut.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
+    <Compile Include="Loads\LineStressLoadDefine.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
