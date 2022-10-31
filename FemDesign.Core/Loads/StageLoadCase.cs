@@ -9,30 +9,34 @@ namespace FemDesign.Loads
     public class StageLoadCase : LoadCombinationCaseBase
     {
         [XmlAttribute("type")]
-        public string Stage;
+        public string _stageType;
+
+        private Stage _stage;
+        [XmlIgnore]
+        public Stage Stage { get { return _stage; }  set { _stage = value; _stageType = $"cs.{value.Id}"; } }
 
         private const string _finalStage = "final_cs";
-        public bool IsFinalStage => Stage == _finalStage;
-        public int StageIndex => IsFinalStage ? -1 : int.Parse(Stage.Substring(3));
+        public bool IsFinalStage => _stageType == _finalStage;
+        public int StageIndex => IsFinalStage ? -1 : int.Parse(_stageType.Substring(3));
 
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        protected StageLoadCase()
+        private StageLoadCase()
         {
         }
 
         public StageLoadCase(Stage stage, double gamma)
         {
             Gamma = gamma;
-            Stage = $"cs.{stage.Id}";
+            Stage = stage;
         }
 
         public static StageLoadCase FinalStage(double gamma)
         {
             return new StageLoadCase()
             {
-                Stage = _finalStage,
+                _stageType = _finalStage,
                 Gamma = gamma
             };
         }

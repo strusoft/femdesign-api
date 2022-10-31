@@ -248,6 +248,8 @@ namespace FemDesign
                 model.GetLineConnections();
             if (model.ConstructionStages != null && model.ConstructionStages.Stages.Any())
                 model.GetConstructionStages();
+            if (model.Entities?.Loads?.LoadCombinations != null && model.Entities.Loads.LoadCombinations.Any())
+                model.GetLoadCombinations();
             return model;
         }
 
@@ -3421,6 +3423,27 @@ namespace FemDesign
                             // TODO: Use the moving load name
                             activatedLoadCase.LoadCaseDisplayName = "<MovingLoad>";
                     }
+                }
+            }
+        }
+        internal void GetLoadCombinations()
+        {
+            var loadCasesMap = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid);
+            var stageMap = this.ConstructionStages?.Stages?.ToDictionary(s => s.Id);
+
+            foreach (var lComb in this.Entities.Loads.LoadCombinations)
+            {
+                foreach (Loads.ModelLoadCase mLoadCase in lComb.ModelLoadCase)
+                {
+                    if (mLoadCase.IsMovingLoadLoadCase)
+                        continue;
+
+                    mLoadCase.LoadCase = loadCasesMap[mLoadCase.Guid].DeepClone();
+                }
+
+                if (lComb.StageLoadCase != null && lComb.StageLoadCase.IsFinalStage == false)
+                {
+                    lComb.StageLoadCase.Stage = stageMap[lComb.StageLoadCase.StageIndex].DeepClone();
                 }
             }
         }

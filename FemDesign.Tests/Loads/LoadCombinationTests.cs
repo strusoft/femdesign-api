@@ -17,29 +17,58 @@ namespace FemDesign.Loads
         {
             Model model = Model.DeserializeFromFilePath("Loads/Load combination case types.struxml");
 
-            Assert.AreEqual(3, model.Entities.Loads.LoadCombinations.Count);
+            Assert.AreEqual(4, model.Entities.Loads.LoadCombinations.Count);
             var comb1 = model.Entities.Loads.LoadCombinations[0];
             var comb2 = model.Entities.Loads.LoadCombinations[1];
             var comb3 = model.Entities.Loads.LoadCombinations[2];
+            var comb4 = model.Entities.Loads.LoadCombinations[3];
 
-            // LoadCase
+            // LoadCase and moving load load cases
             Assert.AreEqual(1, comb1.ModelLoadCase.Count);
             Assert.AreEqual(1, comb2.ModelLoadCase.Count);
             Assert.AreEqual(1, comb3.ModelLoadCase.Count);
+            Assert.AreEqual(1, comb4.ModelLoadCase.Count);
+
+            Assert.IsFalse(comb1.ModelLoadCase[0].IsMovingLoadLoadCase);
+            Assert.IsFalse(comb2.ModelLoadCase[0].IsMovingLoadLoadCase);
+            Assert.IsFalse(comb3.ModelLoadCase[0].IsMovingLoadLoadCase);
+            Assert.IsTrue(comb4.ModelLoadCase[0].IsMovingLoadLoadCase);
+
+            Assert.IsNotNull(comb1.ModelLoadCase[0].LoadCase);
+            Assert.IsNotNull(comb2.ModelLoadCase[0].LoadCase);
+            Assert.IsNotNull(comb3.ModelLoadCase[0].LoadCase);
+            Assert.IsNull(comb4.ModelLoadCase[0].LoadCase);
+
+            // Seismic
+            Assert.IsNotNull(comb2.SeismicMax);
+            Assert.IsNotNull(comb2.SeismicResFxMinusMx);
+            Assert.IsNotNull(comb2.SeismicResFxPlusMx);
+            Assert.IsNotNull(comb2.SeismicResFyMinusMy);
+            Assert.IsNotNull(comb2.SeismicResFyPlusMy);
+            Assert.IsNotNull(comb2.SeismicResFz);
+
+            // PTC
+            Assert.IsNotNull(comb3.PtcT0);
+            Assert.IsNotNull(comb3.PtcT8);
+
+            // Pile
+            Assert.IsNotNull(comb3.PileLoadCase);
 
             // Construction stages
-
-            Assert.AreEqual("cs.1", comb1.StageLoadCase.Stage);
+            Assert.AreEqual("cs.1", comb1.StageLoadCase._stageType);
             Assert.AreEqual(1, comb1.StageLoadCase.StageIndex);
             Assert.IsFalse(comb1.StageLoadCase.IsFinalStage);
+            Assert.IsNotNull(comb1.StageLoadCase.Stage);
 
-            Assert.AreEqual("cs.2", comb2.StageLoadCase.Stage);
+            Assert.AreEqual("cs.2", comb2.StageLoadCase._stageType);
             Assert.AreEqual(2, comb2.StageLoadCase.StageIndex);
             Assert.IsFalse(comb2.StageLoadCase.IsFinalStage);
+            Assert.IsNotNull(comb2.StageLoadCase.Stage);
 
-            Assert.AreEqual("final_cs", comb3.StageLoadCase.Stage);
+            Assert.AreEqual("final_cs", comb3.StageLoadCase._stageType);
             Assert.AreEqual(-1, comb3.StageLoadCase.StageIndex);
             Assert.IsTrue(comb3.StageLoadCase.IsFinalStage);
+            Assert.IsNull(comb3.StageLoadCase.Stage);
         }
 
         [TestCategory("FEM-Design required")]
@@ -72,7 +101,7 @@ namespace FemDesign.Loads
 
                 Assert.AreEqual(e[i].PileLoadCase?.Gamma, a[i].PileLoadCase?.Gamma);
 
-                Assert.AreEqual(e[i].StageLoadCase.Stage, a[i].StageLoadCase.Stage);
+                Assert.AreEqual(e[i].StageLoadCase?._stageType, a[i].StageLoadCase?._stageType);
             }
         }
     }

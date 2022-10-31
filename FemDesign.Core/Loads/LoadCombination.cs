@@ -142,6 +142,110 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of pairs of CaseId and gamma values. CaseId may be LoadCase guid, construction stage index description or special case name.</returns>
+        public List<(string CaseId, double Gamma)> GetCaseDescriptionAndGammas()
+        {
+            var pairs = new List<(string CaseId, double Gamma)>();
+            for (int i = 0; i < ModelLoadCase.Count; i++)
+            {
+                pairs.Add((ModelLoadCase[i].Guid.ToString(), ModelLoadCase[i].Gamma));
+            }
+
+            if (SeismicMax != null)
+                pairs.Add(("Seismic max.", SeismicMax.Gamma));
+            if (SeismicResFxMinusMx != null)
+                pairs.Add(("Seismic fx-mx", SeismicResFxMinusMx.Gamma));
+            if (SeismicResFxPlusMx != null)
+                pairs.Add(("Seismic fx+mx", SeismicResFxPlusMx.Gamma));
+            if (SeismicResFyMinusMy != null)
+                pairs.Add(("Seismic fy-my", SeismicResFyMinusMy.Gamma));
+            if (SeismicResFyPlusMy != null)
+                pairs.Add(("Seismic fy+my", SeismicResFyPlusMy.Gamma));
+            if (SeismicResFz != null)
+                pairs.Add(("Seismic fz", SeismicResFz.Gamma));
+
+            if (PtcT0 != null)
+                pairs.Add(("Ptc T0", PtcT0.Gamma));
+            if (PtcT8 != null)
+                pairs.Add(("Ptc T8", PtcT8.Gamma));
+
+            if (PileLoadCase != null)
+                pairs.Add(("pile loadcase", PileLoadCase.Gamma));
+
+            if (StageLoadCase != null)
+                pairs.Add((StageLoadCase._stageType, StageLoadCase.Gamma));
+
+            return pairs;
+        }
+
+
+
+        public List<(LoadCase Case, double Gamma, string CaseType)> GetLoadCasesAndGammas()
+        {
+            var pairs = new List<(LoadCase Case, double Gamma, string CaseType)>();
+            for (int i = 0; i < ModelLoadCase.Count; i++)
+            {
+                pairs.Add((
+                    ModelLoadCase[i].LoadCase,
+                    ModelLoadCase[i].Gamma,
+                    ModelLoadCase[i].IsMovingLoadLoadCase ? "Moving load case" : "Load case"
+                    ));
+            }
+            return pairs;
+        }
+        public List<(string Case, double Gamma)> GetSpecialCasesAndGammas()
+        {
+            var pairs = new List<(string Case, double Gamma)>();
+
+            if (SeismicMax != null)
+                pairs.Add(("Seismic max.", SeismicMax.Gamma));
+            if (SeismicResFxMinusMx != null)
+                pairs.Add(("Seis res, Fx-Mx", SeismicResFxMinusMx.Gamma));
+            if (SeismicResFxPlusMx != null)
+                pairs.Add(("Seis res, Fx+Mx", SeismicResFxPlusMx.Gamma));
+            if (SeismicResFyMinusMy != null)
+                pairs.Add(("Seis res, Fy-My", SeismicResFyMinusMy.Gamma));
+            if (SeismicResFyPlusMy != null)
+                pairs.Add(("Seis res, Fy+My", SeismicResFyPlusMy.Gamma));
+            if (SeismicResFz != null)
+                pairs.Add(("Seis res, Fz", SeismicResFz.Gamma));
+
+            if (PtcT0 != null)
+                pairs.Add(("PTC T0", PtcT0.Gamma));
+            if (PtcT8 != null)
+                pairs.Add(("PTC T8", PtcT8.Gamma));
+
+            if (PileLoadCase != null)
+                pairs.Add(("Neg. Shaft friction", PileLoadCase.Gamma));
+
+            return pairs;
+        }
+
+        public List<(object Case, double Gamma, string CaseType)> GetCaseAndGammas()
+        {
+            var pairs = new List<(object, double, string)>();
+            pairs.AddRange(
+                GetLoadCasesAndGammas()
+                .Select((t) => { return ((object)t.Case, t.Gamma, t.CaseType); })
+                .ToList());
+            pairs.AddRange(
+                GetSpecialCasesAndGammas()
+                .Select((t) => { return ((object)t.Case, t.Gamma, "Special load case"); })
+                .ToList());
+
+            if (StageLoadCase is null) return pairs;
+
+            if (StageLoadCase.IsFinalStage)
+                pairs.Add(("Final construction stage", StageLoadCase.Gamma, "Special load case"));
+            else
+                pairs.Add((StageLoadCase.Stage, StageLoadCase.Gamma, "Stage"));
+
+            return pairs;
+        }
+
+        /// <summary>
         /// Add LoadCase to LoadCombination.
         /// </summary>
         public void AddLoadCase(LoadCase loadCase, double gamma)
@@ -182,11 +286,20 @@ namespace FemDesign.Loads
             const int gammaSpace = -3;
             var repr = "";
             repr += $"{this.Name,space} {this.Type}\n";
-            foreach (var item in this.ModelLoadCase)
+
+            var casesAndGammas = GetCaseAndGammas();
+
+            foreach (var (@case, gamma, type) in casesAndGammas)
             {
-                if (item.LoadCase == null) { return base.ToString(); } // Deserialisation can not get the loadcase name from the object. Only the GUID
+                if (@case is null) { return base.ToString(); } // Deserialisation can not get the loadcase name from the object.
+
+                if (@case.GetType() == typeof(LoadCase))
+                {
+                    var lc = (LoadCase)@case;
+                    repr += $"{"",space - 1}{gamma,gammaSpace} {lc.Name,caseNameSpace}\n";
+                }
                 else
-                    repr += $"{"",space - 1}{item.LoadCase.Name,caseNameSpace} {item.Gamma,gammaSpace}\n";
+                    repr += $"{"",space - 1}{gamma,gammaSpace} {@case,caseNameSpace}\n";
             }
 
             return repr;
