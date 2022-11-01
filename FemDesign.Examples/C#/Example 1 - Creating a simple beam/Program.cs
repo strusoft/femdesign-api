@@ -50,7 +50,7 @@ namespace FemDesign.Examples
             // Create load cases
             var deadload = new Loads.LoadCase("Deadload", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
             var liveload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var stressload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
+            var stressload = new Loads.LoadCase("Stresses", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
             var loadcases = new List<Loads.LoadCase>() { deadload, liveload, stressload };
 
 
