@@ -34,9 +34,9 @@ namespace FemDesign.Grasshopper
             {
                 material = materials.Where(x => x.Name == materialName).First();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!", ex);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!");
             }
 
             DA.SetData(0, material);
