@@ -49,7 +49,6 @@ namespace FemDesign
             Initialize(index, description, activatedLoadCases, elements, initialStressState);
         }
 
-#if !ISDYNAMO
         /// <summary>
         /// Construction stage.
         /// </summary>
@@ -59,12 +58,15 @@ namespace FemDesign
         /// <param name="elements">Elements to be activated in this stage.</param>
         /// <param name="partitioning">Partitioning for when to activate load cases.</param>
         /// <param name="initialStressState">Initial stress state.</param>
+#if ISDYNAMO // Dynamo may not have any default enum arguments in any constructor in any imported C# libraries it seems like
+        public Stage(int index, string description, List<LoadCase> loadCases, List<IStageElement> elements, ActivationType partitioning, bool initialStressState = false)
+#else
         public Stage(int index, string description, List<LoadCase> loadCases, List<IStageElement> elements, ActivationType partitioning = ActivationType.OnlyInThisStage, bool initialStressState = false)
+#endif
         {
             var activatedLoadCase = loadCases.Select(l => new ActivatedLoadCase(l, 1.0, partitioning)).ToList();
             Initialize(index, description, activatedLoadCase, elements, initialStressState);
         }
-#endif
         private void Initialize(int index, string description, List<ActivatedLoadCase> activatedLoadCases, List<IStageElement> elements, bool initialStressState)
         {
             if (index <= 0)

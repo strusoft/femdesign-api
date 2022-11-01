@@ -12,12 +12,10 @@ namespace FemDesign.Bars
     /// 
     /// Bar-element
     /// </summary>
-#if !ISDYNAMO
     [XmlInclude(typeof(Beam))]
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(Truss))]
     [XmlRoot("database", Namespace = "urn:strusoft")]
-#endif
     [System.Serializable]
     public partial class Bar : EntityBase, IStructureElement, IStageElement
     {

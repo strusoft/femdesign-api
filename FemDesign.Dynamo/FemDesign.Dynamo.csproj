@@ -86,8 +86,14 @@
     <Compile Include="..\FemDesign.Core\Bars\BarStiffnessFactors.cs">
       <Link>Core\Bars\BarStiffnessFactors.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Beam.cs">
+      <Link>Core\Bars\Beam.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Buckling\BucklingTypeEnum.cs">
       <Link>Core\Bars\Buckling\BucklingTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Column.cs">
+      <Link>Core\Bars\Column.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\ColumnCorbel.cs">
       <Link>Core\Bars\ColumnCorbel.cs</Link>
@@ -112,6 +118,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Bars\SteelMadeTypeEnum.cs">
       <Link>Core\Bars\SteelMadeTypeEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Bars\Truss.cs">
+      <Link>Core\Bars\Truss.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Analysis.cs">
       <Link>Core\Calculate\Analysis.cs</Link>
