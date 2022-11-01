@@ -64,6 +64,7 @@ namespace FemDesign.Loads
         [XmlElement("ldcase_pile")]
         public LoadCombinationCaseBase PileLoadCase { get; set; }
 
+        // Special load cases of the combination, from FD21.0003
         [XmlElement("cs_case")]
         public StageLoadCase StageLoadCase { get; set; }
 
