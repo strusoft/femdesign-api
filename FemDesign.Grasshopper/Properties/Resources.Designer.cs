@@ -593,6 +593,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LineStressLoadConstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineStressLoadConstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LineStressLoadDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineStressLoadDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineSupportDefine {
             get {
                 object obj = ResourceManager.GetObject("LineSupportDefine", resourceCulture);

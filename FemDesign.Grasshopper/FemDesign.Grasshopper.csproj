@@ -814,6 +814,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LineStressLoadDeconstruct.png" />
+    <None Include="Resources\icons\LineStressLoadConstruct.png" />
     <EmbeddedResource Include="Resources\icons\StiffnessPoint.png" />
     <EmbeddedResource Include="Resources\icons\RebarAddToElement.jpg" />
     <EmbeddedResource Include="Resources\icons\Stages.png" />

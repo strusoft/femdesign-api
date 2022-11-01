@@ -49,7 +49,7 @@ namespace FemDesign.Grasshopper
             DA.SetData("LoadCaseGuid", stressLoad.LoadCaseGuid);
             DA.SetData("Comment", stressLoad.Comment);
         }
-        protected override System.Drawing.Bitmap Icon => null; // TODO FemDesign.Properties.Resources.LineStressLoadDeconstruct;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.LineStressLoadDeconstruct;
         public override Guid ComponentGuid => new Guid("6b4b792a-a7cc-44de-af6a-5e30a9429fa1");
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
 

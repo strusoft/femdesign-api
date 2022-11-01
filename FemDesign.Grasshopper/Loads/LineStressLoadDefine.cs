@@ -68,7 +68,7 @@ namespace FemDesign.Grasshopper
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
             }
         }
-        protected override System.Drawing.Bitmap Icon => null; // TODO: FemDesign.Properties.Resources.LineStressLoadForce;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.LineStressLoadConstruct;
         public override Guid ComponentGuid => new Guid("22908c81-003d-4281-bc8c-c85029d13af6");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 
