@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 // Convert the csv file data to a Point3d object
 var jsonObject = DataParser.ConvertCsvFileToJsonObject("PointLocation.txt");
 var points = JsonConvert.DeserializeObject<FemDesign.Geometry.Point3d[]>(jsonObject);
+if (points is null || points.Length < 1)
+    throw new Exception("Empty json file.");
 
 // Empty List to contain all the Structural Elements
 var struElements = new List<FemDesign.GenericClasses.IStructureElement>();
