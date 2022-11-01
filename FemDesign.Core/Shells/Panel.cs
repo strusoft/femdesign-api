@@ -454,18 +454,18 @@ namespace FemDesign.Shells
         /// Construct standard panel with "Continuous" analytical model.
         /// </summary>
         /// <param name="region">Region of shell containing panels.</param>
-        /// <param name="localX">Direction of panels.</param>
         /// <param name="anchorPoint"></param>
-        /// <param name="externalRigidity">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
         /// <param name="type">Type of panel.</param>
-        /// <param name="complexMaterial">Guid reference to material.</param>
-        /// <param name="complexSection">Guid reference to complex section.</param>
         /// <param name="identifier">Name of shell.</param>
         /// <param name="panelName">Name of panel.</param>
         /// <param name="gap">Gap between panels.</param>
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
+        /// <param name="internalPanels"></param>
+        /// <param name="externalEdgeConnection"></param>
+        /// <param name="material"></param>
+        /// <param name="section"></param>
         internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
