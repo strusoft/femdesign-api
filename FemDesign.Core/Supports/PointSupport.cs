@@ -11,23 +11,11 @@ namespace FemDesign.Supports
     /// point_support_type
     /// </summary>
     [System.Serializable]
-    public partial class PointSupport : EntityBase, IStructureElement, ISupportElement, IStageElement
+    public partial class PointSupport : NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
         [XmlIgnore]
-        public static int _instance = 0; // used for PointSupports and LineSupports
-        [XmlAttribute("name")]
-        public string Name { get; set; } // identifier
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this.Name.IndexOf(".");
-                return this.Name.Substring(found + 1);
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
-
+        internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
+        protected override int GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
@@ -154,9 +142,8 @@ namespace FemDesign.Supports
 
         private void Initialize(CoordinateSystem point, Group group, string identifier)
         {
-            PointSupport._instance++;
             this.EntityCreated();
-            this.Name = $"{identifier}.{_instance}";
+            this.Identifier = identifier;
             this.Group = group;
             this.Position = point;
         }

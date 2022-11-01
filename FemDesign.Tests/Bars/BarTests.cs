@@ -16,7 +16,7 @@ namespace FemDesign.Bars.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            // Reset all instance counters before all tests
+            // Reset all instance counters before each tests
             PrivateType barType = new PrivateType(typeof(Bar));
             barType.SetStaticFieldOrProperty("_barInstance", 0);
             barType.SetStaticFieldOrProperty("_columnInstance", 0);
