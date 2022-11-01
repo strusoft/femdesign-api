@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             }
             catch (Exception ex)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"{materialName} does not exist!", ex);
             }
 
             DA.SetData(0, material);

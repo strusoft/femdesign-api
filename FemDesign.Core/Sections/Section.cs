@@ -158,7 +158,7 @@ namespace FemDesign.Sections
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"{sectionInput} does not exist!");
+                    throw new Exception($"{sectionInput} does not exist!", ex);
                 }
             }
             else
@@ -169,7 +169,7 @@ namespace FemDesign.Sections
                 }
                 catch (Exception ex)
                 {
-                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!");
+                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!", ex);
                 }
             }
             return section;

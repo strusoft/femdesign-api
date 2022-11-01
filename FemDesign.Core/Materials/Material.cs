@@ -68,7 +68,7 @@ namespace FemDesign.Materials
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"{materialInput} does not exist!");
+                    throw new Exception($"{materialInput} does not exist!", ex);
                 }
             }
             else
@@ -79,7 +79,7 @@ namespace FemDesign.Materials
                 }
                 catch (Exception ex)
                 {
-                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!");
+                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!", ex);
                 }
             }
             return material;
