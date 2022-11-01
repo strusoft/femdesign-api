@@ -285,6 +285,7 @@ namespace FemDesign.ModellingTools
         /// <param name="alpha2"></param>
         /// <param name="ignoreInStImpCalc"></param>
         /// <param name="identifier"></param>
+        /// <param name="meshSize"></param>
         public FictitiousShell(Geometry.Region region, StiffnessMatrix4Type membraneStiffness, StiffnessMatrix4Type flexuralStiffness, StiffnessMatrix2Type shearStiffness, double density, double t1, double t2, double alpha1, double alpha2, bool ignoreInStImpCalc, double meshSize, string identifier)
         {
             this.EntityCreated();

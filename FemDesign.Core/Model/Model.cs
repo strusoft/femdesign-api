@@ -125,6 +125,7 @@ namespace FemDesign
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
+        /// <param name="constructionStage">Construction stages object instance.</param>
         public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null)
         {
             Initialize(country);
@@ -1091,6 +1092,7 @@ namespace FemDesign
         /// Add Load to Model.
         /// </summary>
         /// <param name="obj">PointLoad, LineLoad, PressureLoad, SurfaceLoad</param>
+        /// <param name="overwrite"></param>
         private void AddLoad(object obj, bool overwrite)
         {
             if (obj == null)
@@ -1877,6 +1879,7 @@ namespace FemDesign
         /// Add StructureGrid (axis or storey) to model.
         /// </summary>
         /// <param name="obj">Axis, Storey</param>
+        /// <param name="overwrite"></param>
         private void AddStructureGrid(object obj, bool overwrite)
         {
             if (obj == null)
@@ -1901,6 +1904,7 @@ namespace FemDesign
         /// Add axis to entities.
         /// </summary>
         /// <param name="obj">Axis.</param>
+        /// <param name="overwrite"></param>
         private void AddAxis(StructureGrid.Axis obj, bool overwrite)
         {
             // check if axes in entities
@@ -1949,6 +1953,7 @@ namespace FemDesign
         /// Add Storey to Model.
         /// </summary>
         /// <param name="obj">Storey.</param>
+        /// <param name="overwrite"></param>
         private void AddStorey(StructureGrid.Storey obj, bool overwrite)
         {
             // check if storeys in entities
@@ -2073,6 +2078,7 @@ namespace FemDesign
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="obj"></param>
+        /// <param name="overwrite"></param>
         private void AddSurfaceReinforcements(Shells.Slab obj, bool overwrite)
         {
             foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in obj.SurfaceReinforcement)
@@ -2175,6 +2181,7 @@ namespace FemDesign
         /// Add Support to Model
         /// </summary>
         /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        /// <param name="overwrite"></param>
         private void AddSupport(ISupportElement obj, bool overwrite)
         {
             if (obj == null)

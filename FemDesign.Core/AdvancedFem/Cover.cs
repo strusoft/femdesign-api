@@ -69,6 +69,7 @@ namespace FemDesign
         /// <param name="region">Region of cover.</param>
         /// <param name="supportingStructures">Guidlist of supporting structure.</param>
         /// <param name="loadBearingDirection">Vector, if null a TwoWay cover is defined.</param>
+        /// <param name="identifier">Name.</param>
         public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             this.EntityCreated();

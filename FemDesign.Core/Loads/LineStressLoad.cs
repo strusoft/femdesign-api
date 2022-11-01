@@ -74,6 +74,8 @@ namespace FemDesign.Loads
         /// </summary>
         /// <param name="edge"></param>
         /// <param name="force">Force (n1 and n2)</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double force, LoadCase loadCase, string comment = "")
                 : this(edge, edge.CoordinateSystem.LocalY, force, force, 0.0, 0.0, loadCase, comment)
         { }
@@ -84,6 +86,8 @@ namespace FemDesign.Loads
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="force">Force (n1 and n2)</param>
         /// <param name="moment">Moment (m1 and m2)</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double force, double moment, LoadCase loadCase, string comment = "")
                 : this(edge, edge.CoordinateSystem.LocalY, force, force, moment, moment, loadCase, comment)
         { }
@@ -96,6 +100,8 @@ namespace FemDesign.Loads
         /// <param name="n2">Force at end.</param>
         /// <param name="m1">Moment at start.</param>
         /// <param name="m2">Moment at end.</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double n1, double n2, double m1, double m2, LoadCase loadCase, string comment = "")
                 : this(edge, edge.CoordinateSystem.LocalY, n1, n2, m1, m2, loadCase, comment)
         { }
@@ -109,6 +115,8 @@ namespace FemDesign.Loads
         /// <param name="n2">Force at end.</param>
         /// <param name="m1">Moment at start.</param>
         /// <param name="m2">Moment at end.</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, Vector3d direction, double n1, double n2, double m1, double m2, LoadCase loadCase, string comment = "")
         {
             var topBotLocVals = new List<TopBotLocationValue> {
@@ -124,6 +132,8 @@ namespace FemDesign.Loads
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="direction">Direction of load.</param>
         /// <param name="topBotLocVals">List of 2 top bottom location values</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment = "")
         {
             Initialize(edge, direction, topBotLocVals, loadCase, comment);
