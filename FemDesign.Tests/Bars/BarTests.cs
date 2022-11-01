@@ -13,47 +13,42 @@ namespace FemDesign.Bars.Tests
     [TestClass()]
     public class BarTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            // Reset all instance counters before all tests
+            PrivateType barType = new PrivateType(typeof(Bar));
+            barType.SetStaticFieldOrProperty("_barInstance", 0);
+            barType.SetStaticFieldOrProperty("_columnInstance", 0);
+            barType.SetStaticFieldOrProperty("_trussInstance", 0);
+        }
+
+        [TestMethod("Bar constructor 1")]
+        public void BarConstructorTest1()
+        {
+            var edge = new Geometry.LineEdge(new Geometry.Point3d(0, 0, 0), new Geometry.Point3d(1, 0, 0));
+            Bar bar = new Bar(edge, new Material(), GetTestSection(), "Truss");
+
+            Assert.AreEqual("Truss", bar.Identifier);
+            Assert.AreEqual(BarType.Truss, bar.Type);
+            Assert.AreEqual(1, bar.Instance);
+
+            Bar bar2 = new Bar(edge, new Material(), GetTestSection(), "Truss");
+            Assert.AreEqual(2, bar2.Instance);
+        }
+
         [TestMethod("Name, Identifier etc.")]
         public void BarTest()
         {
             var bar = GetTestBar();
             bar.Identifier = "TestName";
-            
+
             Assert.AreEqual("TestName", bar.Identifier);
             Assert.AreEqual("TestName.1", bar.Name);
             Assert.AreEqual(1, bar.Instance);
         }
 
-        [TestMethod("Name, Identifier etc. (BarPart)")]
-        public void BarPartTest()
-        {
-            var bar = GetTestBar();
-            bar.Identifier = "B";
-
-            Assert.AreEqual("B", bar.Identifier);
-            Assert.AreEqual("B.1", bar.Name);
-            Assert.AreEqual(1, bar.Instance);
-
-            Assert.AreEqual("B", bar.BarPart.Identifier, "Setting the identifier on Bar should also set on BarPart");
-            Assert.AreEqual("B.1.1", bar.BarPart.Name);
-            Assert.AreEqual(1, bar.BarPart.Instance);
-        }
-
-        [TestMethod("Name")]
-        public void BarTest2()
-        {
-            var bar = GetTestBar();
-            bar.Identifier = "AlexBeam";
-
-            bar.Name = bar.Name;
-            bar.Name = bar.Name;
-            bar.Name = bar.Name;
-            bar.Name = bar.Name;
-            bar.Name = bar.Name;
-            Assert.AreEqual("AlexBeam.1", bar.Name);
-        }
-
-        [TestMethod("Identifier")]
+        [TestMethod("Identifier 1")]
         public void BarTest3()
         {
             var bar = GetTestBar();
@@ -65,6 +60,19 @@ namespace FemDesign.Bars.Tests
             bar.Identifier = bar.Identifier;
 
             Assert.AreEqual("BeamOfLight", bar.Identifier);
+        }
+
+        [TestMethod("Identifier 2")]
+        public void BarTest4()
+        {
+            var bar = GetTestBar();
+            bar.Identifier = "Repeat";
+            bar.Identifier = "Repeat";
+            bar.Identifier = "Repeat";
+            bar.Identifier = "Repeat";
+            bar.Identifier = "Repeat";
+
+            Assert.AreEqual("Repeat", bar.Identifier);
         }
 
         [TestMethod("LockedIdentifier 1")]
@@ -95,7 +103,7 @@ namespace FemDesign.Bars.Tests
             Section section = GetTestSection();
             Material material = new Material();
 
-            return new Bar(edge, material, section, "Test");
+            return new Beam(edge, material, section, identifier: "Test");
         }
 
         private static Section GetTestSection()
@@ -123,6 +131,5 @@ namespace FemDesign.Bars.Tests
                             "TestSize"
                             );
         }
-
     }
 }
