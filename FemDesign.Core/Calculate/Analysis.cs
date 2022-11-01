@@ -259,7 +259,7 @@ namespace FemDesign.Calculate
         /// <param name="x">Consider masses in global x-direction.</param>
         /// <param name="y">Consider masses in global y-direction.</param>
         /// <param name="z">Consider masses in global z-direction.</param>
-        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency 
+        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency</param>
         /// <returns></returns>
         public static Analysis Eigenfrequencies(int numShapes = 3, int maxSturm = 0, bool x = true, bool y = true, bool z = true, double top = -0.01)
         {

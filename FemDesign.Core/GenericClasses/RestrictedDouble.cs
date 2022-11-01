@@ -56,7 +56,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        // abs_max_1e20
+        /// abs_max_1e20
         /// </summary>
         internal static double AbsMax_1e20(double val)
         {
@@ -83,7 +83,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        // non_neg_max_100
+        /// non_neg_max_100
         /// </summary>
         internal static double NonNegMax_100(double val)
         {

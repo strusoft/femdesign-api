@@ -245,6 +245,7 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
+        /// <summary>
         /// Create fdscript to open and extract results from a FEM-Design .str model.
         /// </summary>
         /// <param name="strPath">Path to model with results to be extracted.</param>

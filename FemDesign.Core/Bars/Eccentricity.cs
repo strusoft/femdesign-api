@@ -14,7 +14,7 @@ namespace FemDesign.Bars
     {
         /// <summary>
         /// Private field for eccentricity of local-x.
-        /// <summary>
+        /// </summary>
         [XmlAttribute("x")]
         public double _x;
 

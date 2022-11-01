@@ -608,7 +608,7 @@ namespace FemDesign.Bars
 
         /// <summary>
         /// Construct BarPart (truss)
-        /// <summary>
+        /// </summary>
         public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
             if (type != BarType.Truss)
@@ -628,7 +628,7 @@ namespace FemDesign.Bars
 
         /// <summary>
         /// Orient this object's coordinate system to GCS
-        /// <summary>
+        /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
             var cs = this.CoordinateSystem;
