@@ -1,6 +1,8 @@
 // https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
@@ -64,14 +66,14 @@ namespace FemDesign.Bars
         public bool TensionPlasticity { get; set; } // bool
 
         [XmlAttribute("name")]
-        public string _name { get; set; } // identifier
+        public string _name; // identifier
 
         [XmlIgnore]
         public string Name
         {
             get
             {
-                return this._name;
+                return this._name.Replace("@", "");
             }
             set
             {
@@ -116,33 +118,45 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public string Instance
-		{
-			get
-			{
-                var found = this._name.IndexOf(".");
-                return this._name.Substring(found + 1);
-			}
-		}
-        public string Identifier => this.Name.Split('.')[0];
-
-        [XmlAttribute("type")]
-        public BarType _type; // beamtype
-
-        [XmlIgnore]
-        public BarType Type
+        public int Instance
         {
             get
             {
-                return this._type;
+                var found = this._name.IndexOf(".");
+                return int.Parse(this._name.Substring(found + 1));
+            }
+        }
+        [XmlIgnore]
+        public string Identifier
+        {
+            get { return this.Name.Split('.')[0]; }
+            set
+            {
+                if (string.IsNullOrEmpty(value) || _namePattern.IsMatch(value) == false)
+                    throw new ArgumentException($"'{value}' is not a valid Identifier");
+                this._name = $"{value}.{this.Instance}";
+            }
+        }
+        [XmlIgnore]
+        public bool LockedIdentifier
+        {
+            get
+            {
+                return _name.StartsWith("@");
             }
             set
             {
-                this._type = value;
+                if (value && !LockedIdentifier)
+                    _name = "@" + _name;
+                else if (!value && LockedIdentifier)
+                    _name = _name.Substring(1);
             }
-            // get {return this._type;}
-            // set {this._type = RestrictedString.BeamType(value);}
         }
+
+        private static readonly Regex _namePattern = new Regex(@"@{0,1}[ -#%'-;=?A-\ufffd;]{0,50}");
+
+        [XmlAttribute("type")]
+        public BarType Type { get; set; }
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
@@ -182,7 +196,7 @@ namespace FemDesign.Bars
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        internal Bar()
+        protected Bar()
         {
 
         }
@@ -199,14 +213,14 @@ namespace FemDesign.Bars
         /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, BarType type, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
         {
-            if(type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
-            
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
             this.EntityCreated();
             this.Type = type;
             this.Name = identifier;
 
-            if(eccentricity == null) { eccentricity = Eccentricity.Default; }
-            if(connectivity == null) { connectivity = Connectivity.Default; }
+            if (eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if (connectivity == null) { connectivity = Connectivity.Default; }
             this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Name);
         }
 
@@ -398,10 +412,10 @@ namespace FemDesign.Bars
 
         public override string ToString()
         {
-            if(this.Type == BarType.Beam || this.Type == BarType.Column)
+            if (this.Type == BarType.Beam || this.Type == BarType.Column)
                 return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: ({this.BarPart.ComplexSectionObj.Sections.First()._sectionName}, {this.BarPart.ComplexSectionObj.Sections.Last()._sectionName}), Material: {this.BarPart.ComplexMaterialObj}";
 
-            else if(this.Type == BarType.Truss)
+            else if (this.Type == BarType.Truss)
             {
                 return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Section: {this.BarPart.TrussUniformSectionObj._sectionName}, Material: {this.BarPart.ComplexMaterialObj}";
             }

@@ -70,6 +70,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
+    <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
