@@ -77,7 +77,6 @@ namespace FemDesign.AuxiliaryResults
 
         private void Initialize(List<Point3d> verticies, string identifier)
         {
-            _labelledSectioninstances++;
             this.EntityCreated();
 
             Verticies = verticies;
