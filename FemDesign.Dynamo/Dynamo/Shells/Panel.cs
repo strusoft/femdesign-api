@@ -10,7 +10,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Shells
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Panel: EntityBase
+    public partial class Panel
     {
         #region dynamo
 

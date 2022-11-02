@@ -7,7 +7,7 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class PointSupport: EntityBase
+    public partial class PointSupport: NamedEntityBase
     {
         /// <summary>
         /// Create a rigid point support element.

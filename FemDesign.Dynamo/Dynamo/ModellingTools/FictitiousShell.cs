@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FictitiousShell: EntityBase
+    public partial class FictitiousShell
     {
         /// <summary>
         /// Set EdgeConnection by indices.

@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class SurfaceConnection: EntityBase
+    public partial class SurfaceConnection
     {
         
     }

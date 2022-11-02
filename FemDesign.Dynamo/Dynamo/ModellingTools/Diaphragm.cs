@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Diaphragm : EntityBase
+    public partial class Diaphragm
     {
         [IsVisibleInDynamoLibrary(true)]
         public static Diaphragm Define(Autodesk.DesignScript.Geometry.Surface surface, string identifier = "D")

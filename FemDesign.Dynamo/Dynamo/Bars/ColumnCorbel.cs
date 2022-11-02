@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Bars
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ColumnCorbel: EntityBase
+    public partial class ColumnCorbel
     {
 
     }

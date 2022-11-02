@@ -128,12 +128,12 @@ namespace FemDesign.Geometry
             return region;
         }
 
-        public static Region RectangleXY(double width, double length)
+        public static Region RectangleXY(Point3d corner, double widthX, double widthY)
         {
-            var points0 = new Point3d(0, 0, 0);
-            var points1 = new Point3d(width, 0, 0);
-            var points2 = new Point3d(width, length, 0);
-            var points3 = new Point3d(0, length, 0);
+            var points0 = corner + new Vector3d(0, 0, 0);
+            var points1 = corner + new Vector3d(widthX, 0, 0);
+            var points2 = corner + new Vector3d(widthX, widthY, 0);
+            var points3 = corner + new Vector3d(0, widthY, 0);
 
             var points = new List<Point3d>() { points0, points1, points2, points3 };
 

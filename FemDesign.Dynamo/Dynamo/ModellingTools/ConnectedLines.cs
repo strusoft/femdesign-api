@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ConnectedLines: EntityBase
+    public partial class ConnectedLines
     {
         #region dynamo
         [IsVisibleInDynamoLibrary(true)]

@@ -14,13 +14,13 @@ namespace FemDesign.Bars.Tests
     public class BarTests
     {
         [TestInitialize]
-        public void TestInitialize()
+        public void ResetInstanceCounters()
         {
-            // Reset all instance counters before all tests
-            PrivateType barType = new PrivateType(typeof(Bar));
-            barType.SetStaticFieldOrProperty("_barInstance", 0);
-            barType.SetStaticFieldOrProperty("_columnInstance", 0);
-            barType.SetStaticFieldOrProperty("_trussInstance", 0);
+            // Reset all instance counters before each tests
+            PrivateType barPartType = new PrivateType(typeof(BarPart));
+            barPartType.SetStaticFieldOrProperty("_barInstance", 0);
+            barPartType.SetStaticFieldOrProperty("_columnInstance", 0);
+            barPartType.SetStaticFieldOrProperty("_trussInstance", 0);
         }
 
         [TestMethod("Bar constructor 1")]
@@ -44,8 +44,23 @@ namespace FemDesign.Bars.Tests
             bar.Identifier = "TestName";
 
             Assert.AreEqual("TestName", bar.Identifier);
-            Assert.AreEqual("TestName.1", bar.Name);
-            Assert.AreEqual(1, bar.Instance);
+            Assert.AreEqual("TestName.2", bar.Name);
+            Assert.AreEqual(2, bar.Instance);
+        }
+
+        [TestMethod("Name, Identifier etc. (BarPart)")]
+        public void BarPartTest()
+        {
+            var bar = GetTestBar();
+            bar.Identifier = "BP";
+
+            Assert.AreEqual("BP", bar.Identifier);
+            Assert.AreEqual("BP.2", bar.Name);
+            Assert.AreEqual(2, bar.Instance);
+
+            Assert.AreEqual("BP", bar.BarPart.Identifier);
+            Assert.AreEqual("BP.2.1", bar.BarPart.Name);
+            Assert.AreEqual(2, bar.BarPart.Instance);
         }
 
         [TestMethod("Identifier 1")]
@@ -75,6 +90,30 @@ namespace FemDesign.Bars.Tests
             Assert.AreEqual("Repeat", bar.Identifier);
         }
 
+        [TestMethod("Identifier validation")]
+        public void BarTest5()
+        {
+            var bar = GetTestBar();
+            
+            bar.Identifier = "Valid";
+            Assert.AreEqual("Valid", bar.Identifier);
+            
+            bar.Identifier = "Valid_1";
+            Assert.AreEqual("Valid_1", bar.Identifier);
+
+            bar.Identifier = "Valid.1.2.3";
+            Assert.AreEqual("Valid.1.2.3", bar.Identifier);
+
+            bar.Identifier = "Valid_åäöÅÄÖ~!£\"%^*()";
+            Assert.AreEqual("Valid_åäöÅÄÖ~!£\"%^*()", bar.Identifier);
+
+            Assert.ThrowsException<ArgumentException>(() => bar.Identifier = null);
+            Assert.ThrowsException<ArgumentException>(() => bar.Identifier = "");
+            Assert.ThrowsException<ArgumentException>(() => bar.Identifier = "invalid char >");
+            Assert.ThrowsException<ArgumentException>(() => bar.Identifier = "invalid char &");
+            Assert.ThrowsException<ArgumentException>(() => bar.Identifier = "invalid char $");
+        }
+
         [TestMethod("LockedIdentifier 1")]
         public void LockedIdentifierTest()
         {
@@ -82,8 +121,10 @@ namespace FemDesign.Bars.Tests
             bar.LockedIdentifier = true;
 
             Assert.IsTrue(bar.LockedIdentifier);
-            Assert.IsTrue(bar._name.StartsWith("@"));
             Assert.IsFalse(bar.Name.StartsWith("@"));
+
+            Assert.IsTrue(bar.BarPart.LockedIdentifier);
+            Assert.IsFalse(bar.BarPart.Name.StartsWith("@"));
         }
 
         [TestMethod("LockedIdentifier 2")]
@@ -93,8 +134,10 @@ namespace FemDesign.Bars.Tests
             bar.LockedIdentifier = false;
 
             Assert.IsFalse(bar.LockedIdentifier);
-            Assert.IsFalse(bar._name.StartsWith("@"));
             Assert.IsFalse(bar.Name.StartsWith("@"));
+
+            Assert.IsFalse(bar.BarPart.LockedIdentifier);
+            Assert.IsFalse(bar.BarPart.Name.StartsWith("@"));
         }
 
         private static Bar GetTestBar()

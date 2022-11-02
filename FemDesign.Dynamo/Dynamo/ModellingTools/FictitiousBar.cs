@@ -9,7 +9,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FictitiousBar: EntityBase
+    public partial class FictitiousBar
     {
         #region dynamo
         [IsVisibleInDynamoLibrary(true)]

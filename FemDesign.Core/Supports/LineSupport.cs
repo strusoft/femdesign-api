@@ -12,21 +12,9 @@ namespace FemDesign.Supports
     /// line_support_type
     /// </summary>
     [System.Serializable]
-    public partial class LineSupport: EntityBase, IStructureElement, ISupportElement, IStageElement
+    public partial class LineSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
-        // serialization properties
-        [XmlAttribute("name")]
-        public string Name { get; set; } // identifier.
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this.Name.IndexOf(".");
-                return this.Name.Substring(found + 1);
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
+        protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and LineSupport share the same instance counter.
 
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool
@@ -143,9 +131,8 @@ namespace FemDesign.Supports
 
         private void Initialize(Edge edge, Group group, bool movingLocal, string identifier)
         {
-            PointSupport._instance++; // PointSupport and LineSupport share the same instance counter.
             this.EntityCreated();
-            this.Name = identifier + "." + PointSupport._instance.ToString();
+            this.Identifier = identifier;
             this.MovingLocal = movingLocal;
 
             // set edge specific properties

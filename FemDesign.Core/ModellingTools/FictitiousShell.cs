@@ -6,11 +6,13 @@ using FemDesign.GenericClasses;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class FictitiousShell: EntityBase, IStructureElement
+    public partial class FictitiousShell: NamedEntityBase, IStructureElement
     {
         
         [XmlIgnore]
-        private static int Instance = 0;
+        private static int _ficticiousShellInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_ficticiousShellInstances;
+
 
         [XmlIgnore]
         private Geometry.CoordinateSystem _coordinateSystem;
@@ -127,26 +129,6 @@ namespace FemDesign.ModellingTools
 
         [XmlElement("shear_stiffness", Order=7)]
         public StiffnessMatrix2Type ShearStiffness { get; set; }
-
-        /// <summary>
-        /// Identifier. Default FS.
-        /// </summary>
-        [XmlAttribute("name")]
-        public string _name;
-
-        [XmlIgnore]
-        public string Name
-        { 
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                FictitiousShell.Instance++;
-                this._name = RestrictedString.Length(value, 40) + "." + FictitiousShell.Instance.ToString();
-            }
-        }
 
         /// <summary>
         /// Density in t/m2
@@ -301,7 +283,7 @@ namespace FemDesign.ModellingTools
             this.Alpha2 = alpha2;
             this.IgnoreInStImpCalculation = ignoreInStImpCalc;
             this.MeshSize = meshSize;
-            this.Name = identifier;
+            this.Identifier = identifier;
         }
 
         /// <summary>

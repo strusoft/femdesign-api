@@ -4,7 +4,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Cover : EntityBase
+    public partial class Cover
     {
         #region dynamo
         
