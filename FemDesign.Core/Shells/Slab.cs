@@ -36,14 +36,10 @@ namespace FemDesign.Shells
         public Reinforcement.SurfaceReinforcementParameters SurfaceReinforcementParameters { get; set; }
         [XmlIgnore]
         public List<Reinforcement.SurfaceReinforcement> SurfaceReinforcement = new List<Reinforcement.SurfaceReinforcement>();
-        
+
 
         [XmlAttribute("type")]
-        public SlabType Type
-        {
-            get => SlabPart.SlabType;
-            set => SlabPart.SlabType = value;
-        }
+        public SlabType Type { get; set; }
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
@@ -90,7 +86,7 @@ namespace FemDesign.Shells
         public static Slab Plate(string identifier, Materials.Material material, Geometry.Region region, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             SlabType type = SlabType.Plate;
-            SlabPart slabPart = SlabPart.Define(identifier, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            SlabPart slabPart = SlabPart.Define(type, identifier, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
             Slab shell = new Slab(type, identifier, slabPart, material);
             return shell;
         }
@@ -115,7 +111,7 @@ namespace FemDesign.Shells
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
-            SlabPart slabPart = SlabPart.Define(identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
             Slab shell = new Slab(type, identifier, slabPart, material);
             return shell;
@@ -151,7 +147,7 @@ namespace FemDesign.Shells
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
-            SlabPart slabPart = SlabPart.Define(identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
             Slab shell = new Slab(type, identifier, slabPart, material);
             return shell;
@@ -182,7 +178,7 @@ namespace FemDesign.Shells
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
             thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
 
-            SlabPart slabPart = SlabPart.Define(identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
+            SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
             Slab shell = new Slab(type, identifier, slabPart, material);
             return shell;
@@ -198,7 +194,7 @@ namespace FemDesign.Shells
             }
 
             SlabType type = SlabType.Wall;
-            SlabPart slabPart = SlabPart.Define(identifier, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
+            SlabPart slabPart = SlabPart.Define(type, identifier, region, thickness, material, shellEdgeConnection, eccentricity, orthotropy);
 
             Slab shell = new Slab(type, identifier, slabPart, material);
             return shell;

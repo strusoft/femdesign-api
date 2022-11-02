@@ -181,7 +181,7 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public BarType Type { get; set; }
+        public BarType Type;
 
         [XmlIgnore]
         public SectionType SectionType

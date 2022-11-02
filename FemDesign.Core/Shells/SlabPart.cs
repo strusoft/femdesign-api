@@ -29,7 +29,7 @@ namespace FemDesign.Shells
         }
 
         [XmlIgnore]
-        internal SlabType SlabType; // This should be set by the Slab class
+        public SlabType SlabType;
 
         /// <summary>
         /// Get ShellEccentricity
@@ -216,9 +216,10 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart.
         /// </summary>
-        public SlabPart(string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
+        public SlabPart(SlabType type, string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
         {
             this.EntityCreated();
+            this.SlabType = type;
             this.Identifier = identifier;
             this.Region = region;
             this.ComplexMaterialGuid = complexMaterial.Guid;
@@ -239,7 +240,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart with EdgeConnections.
         /// </summary>
-        public static SlabPart Define(string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
+        public static SlabPart Define(SlabType type, string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
         {
             shellEdgeConnection = shellEdgeConnection ?? EdgeConnection.Default;
             eccentricity = eccentricity ?? ShellEccentricity.Default;
@@ -249,7 +250,7 @@ namespace FemDesign.Shells
             region.SetEdgeConnections(shellEdgeConnection);
             
             // construct new slabPart
-            SlabPart slabPart = new SlabPart(identifier, region, thickness, material, eccentricity, orthotropy);
+            SlabPart slabPart = new SlabPart(type, identifier, region, thickness, material, eccentricity, orthotropy);
 
             // return
             return slabPart;
