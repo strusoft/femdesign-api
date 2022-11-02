@@ -297,12 +297,12 @@ namespace FemDesign
         /// <param name="checkOpenFiles"></param>
         public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
         {
-            if(resultTypes != null)
-			{
+            if (resultTypes != null)
+            {
                 var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
                 if (notAResultType != null)
                     throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-			}
+            }
 
             var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
 
@@ -1558,29 +1558,32 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCase to Model.
         /// </summary>
-        private void AddLoadCase(Loads.LoadCase obj, bool overwrite)
+        private void AddLoadCase(Loads.LoadCase loadCase, bool overwrite)
         {
+            if (loadCase is null)
+                throw new ArgumentNullException("loadCase");
+
             // in model?
-            bool inModel = this.LoadCaseInModel(obj);
+            bool inModel = this.LoadCaseInModel(loadCase);
 
             // in model, don't overwrite?
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{loadCase.GetType().FullName} with guid: {loadCase.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == loadCase.Guid);
             }
 
             // add load case
-            if (this.LoadCaseNameTaken(obj))
+            if (this.LoadCaseNameTaken(loadCase))
             {
-                obj.Name = obj.Name + " (1)";
+                loadCase.Name = loadCase.Name + " (1)";
             }
-            this.Entities.Loads.LoadCases.Add(obj);
+            this.Entities.Loads.LoadCases.Add(loadCase);
         }
 
         /// <summary>
@@ -1670,29 +1673,32 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCombination to Model.
         /// </summary>
-        private void AddLoadCombination(Loads.LoadCombination obj, bool overwrite)
+        private void AddLoadCombination(Loads.LoadCombination loadCombination, bool overwrite)
         {
+            if (loadCombination is null)
+                throw new ArgumentNullException("loadCombination");
+
             // in model?
-            bool inModel = this.LoadCombinationInModel(obj);
+            bool inModel = this.LoadCombinationInModel(loadCombination);
 
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{loadCombination.GetType().FullName} with guid: {loadCombination.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LoadCombinations.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LoadCombinations.RemoveAll(x => x.Guid == loadCombination.Guid);
             }
 
             // add load combination
-            if (this.LoadCombinationNameTaken(obj))
+            if (this.LoadCombinationNameTaken(loadCombination))
             {
-                obj.Name = obj.Name + " (1)";
+                loadCombination.Name = loadCombination.Name + " (1)";
             }
-            this.Entities.Loads.LoadCombinations.Add(obj);
+            this.Entities.Loads.LoadCombinations.Add(loadCombination);
         }
 
         /// <summary>
@@ -2855,6 +2861,8 @@ namespace FemDesign
                 }
                 catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
                 {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null element to model.", exeption);
                     throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
                 }
             }
@@ -2877,7 +2885,16 @@ namespace FemDesign
 
             foreach (var item in elements)
             {
-                AddEntity(item as dynamic, overwrite);
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null load to model.", exeption);
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
             }
 
             return this;
@@ -2900,7 +2917,16 @@ namespace FemDesign
 
             foreach (var item in elements)
             {
-                AddEntity(item as dynamic, overwrite);
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null support to model.", exeption);
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
             }
 
             return this;
