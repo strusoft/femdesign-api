@@ -15,12 +15,14 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line stress load.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("n1", "n1", "Force at start. Or the force at both the start and end of the curve.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("n2", "n2", "Force at end. Optional.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Direction", "Direction", "Reference axis for Moment Stress. Default is LocalY", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("m1", "m1", "Moment at start. Or the moment at both the start and end of the curve.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("n1", "n1", "Force at start. Or the force at both the start and end of the curve. [kN]\n+ compression\n- tension", GH_ParamAccess.item);
+            pManager.AddNumberParameter("n2", "n2", "Force at end. Optional. [kN]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("m2", "m2", "Moment at end. Optional.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("m1", "m1", "Moment at start. Or the moment at both the start and end of the curve. [kNm]", GH_ParamAccess.item, 0.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("m2", "m2", "Moment at end. Optional. [kNm]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
@@ -36,6 +38,10 @@ namespace FemDesign.Grasshopper
         {
             Curve curve = null;
             if (!DA.GetData("Curve", ref curve)) return;
+
+            var edge = Convert.FromRhino(curve);
+            var direction = edge.CoordinateSystem.LocalY.ToRhino();
+            DA.GetData("Direction", ref direction);
 
             double n1 = 0.0;
             if (!DA.GetData("n1", ref n1)) return;
@@ -55,17 +61,14 @@ namespace FemDesign.Grasshopper
             string comment = null;
             DA.GetData("Comment", ref comment);
 
-            var edge = Convert.FromRhino(curve);
-            var direction = edge.CoordinateSystem.LocalY;
-
             try
             {
-                var obj = new Loads.LineStressLoad(edge, direction, n1, n2, m1, m2, loadCase, comment);
+                var obj = new Loads.LineStressLoad(edge, direction.FromRhino(), n1, n2, m1, m2, loadCase, comment);
                 DA.SetData("StressLoad", obj);
             }
             catch (ArgumentException e)
             {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
             }
         }
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.LineStressLoadConstruct;
