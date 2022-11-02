@@ -17,11 +17,11 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Id", "Id", "Stage id", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Elements", "Elements", "", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Index", "Index", "Stage id", GH_ParamAccess.item);
             pManager.AddTextParameter("Description", "Description", "", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("InitialStressState", "InitialState", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Elements", "Elements", "", GH_ParamAccess.list);
             pManager.AddGenericParameter("ActivatedLoadCases", "ActivatedLoadCases", "", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("InitialStressState", "InitialState", "", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -35,10 +35,10 @@ namespace FemDesign.Grasshopper
             var activeLoadCases = stage.ActivatedLoadCases;
 
             DA.SetData(0, id);
-            DA.SetDataList(1, elements);
-            DA.SetData(2, description);
-            DA.SetData(3, initialStressState);
-            DA.SetDataList(4, activeLoadCases);
+            DA.SetData(1, description);
+            DA.SetDataList(2, elements);
+            DA.SetDataList(3, activeLoadCases);
+            DA.SetData(4, initialStressState);
 
         }
         protected override System.Drawing.Bitmap Icon
