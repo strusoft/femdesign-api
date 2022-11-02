@@ -7,7 +7,7 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class LineSupport: EntityBase
+    public partial class LineSupport: NamedEntityBase
     {
         /// <summary>
         /// Create a rigid line support element.

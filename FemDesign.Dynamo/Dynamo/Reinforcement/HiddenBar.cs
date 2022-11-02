@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Reinforcement
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class HiddenBar: EntityBase
+    public partial class HiddenBar
     {
         
     }

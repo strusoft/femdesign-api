@@ -7,7 +7,7 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class SurfaceSupport: EntityBase
+    public partial class SurfaceSupport: NamedEntityBase
     {
         /// <summary>
         /// Create a SurfaceSupport element.

@@ -4,10 +4,11 @@ using FemDesign.GenericClasses;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class Diaphragm: EntityBase, IStructureElement, IStageElement
+    public partial class Diaphragm: NamedEntityBase, IStructureElement, IStageElement
     {
         [XmlIgnore]
-        private static int _instance = 0;
+        private static int _diaphragmInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_diaphragmInstances;
 
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; }
@@ -17,20 +18,6 @@ namespace FemDesign.ModellingTools
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
-
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                Diaphragm._instance++;
-                this._name = $"{RestrictedString.Length(value, 50)}.{_instance}";
-            }
-        }
 
         private Diaphragm()
         {
@@ -44,7 +31,7 @@ namespace FemDesign.ModellingTools
 
             // add properties
             this.Region = region;
-            this.Name = identifier;
+            this.Identifier = identifier;
         }        
     }
 }

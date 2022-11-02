@@ -6,10 +6,11 @@ using FemDesign.GenericClasses;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class ConnectedLines: EntityBase, IStructureElement
+    public partial class ConnectedLines: NamedEntityBase, IStructureElement
     {
         [XmlIgnore]
-        private static int _instance = 0;
+        private static int _connectedLineInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_connectedLineInstances;
 
         [XmlElement("edge" , Order = 1)]
         public Geometry.Edge[] Edges { get; set; }
@@ -58,23 +59,6 @@ namespace FemDesign.ModellingTools
         
         [XmlElement("ref", Order = 7)]
         public GuidListType[] References { get; set; }
-        
-        [XmlAttribute("name")]
-        public string _name;
-
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                _instance++;
-                this._name = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
-            }
-        }
 
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; }
@@ -131,7 +115,7 @@ namespace FemDesign.ModellingTools
             this.LocalY = localY;
             this.Rigidity = rigidity;
             this.References = references;
-            this.Name = identifier;
+            this.Identifier = identifier;
             this.MovingLocal = movingLocal;
             this.InterfaceStart = interfaceStart;
             this.InterfaceEnd = interfaceEnd;

@@ -230,6 +230,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\ILoadElement.cs">
       <Link>Core\GenericClasses\ILoadElement.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\INamedEntity.cs">
+      <Link>Core\GenericClasses\INamedEntity.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\IStageElement.cs">
       <Link>Core\GenericClasses\IStageElement.cs</Link>
     </Compile>
@@ -244,6 +247,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\LocationValue.cs">
       <Link>Core\GenericClasses\LocationValue.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\NamedEntityBase.cs">
+      <Link>Core\GenericClasses\NamedEntityBase.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\RestrictedDouble.cs">
       <Link>Core\GenericClasses\RestrictedDouble.cs</Link>
@@ -901,6 +907,7 @@
     <Compile Include="Dynamo\GenericClasses\GuidListType.cs" />
     <Compile Include="Dynamo\GenericClasses\LibraryBase.cs" />
     <Compile Include="Dynamo\GenericClasses\LocationValue.cs" />
+    <Compile Include="Dynamo\GenericClasses\NamedEntityBase.cs" />
     <Compile Include="Dynamo\GenericClasses\RestrictedObject.cs" />
     <Compile Include="Dynamo\GenericClasses\StartEndType.cs" />
     <Compile Include="Dynamo\GenericClasses\Tolerance.cs" />
