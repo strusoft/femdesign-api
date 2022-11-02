@@ -142,7 +142,7 @@ namespace FemDesign.Bars
 
             if (eccentricity == null) { eccentricity = Eccentricity.Default; }
             if (connectivity == null) { connectivity = Connectivity.Default; }
-            this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, this.Name);
+            this.BarPart = new BarPart(edge, this.Type, material, section, eccentricity, connectivity, identifier);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace FemDesign.Bars
             if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
             if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
 
-            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, this.Name);
+            this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
 
 
