@@ -17,7 +17,7 @@ var motionsPoint = new FemDesign.Releases.Motions(10, 10, 10, 10, 10, 10);
 
 
 // Define Geometry
-var region = FemDesign.Geometry.Region.RectangleXY(4, 4);
+var region = FemDesign.Geometry.Region.RectangleXY(FemDesign.Geometry.Point3d.Origin, 4, 4);
 
 // Create a Surface Support
 var surfaceSupport = new FemDesign.Supports.SurfaceSupport(region, motionsSurface, null);

@@ -13,7 +13,7 @@ namespace FemDesign.Entities
         [TestMethod("Create")]
         public void Create()
         {
-            var rectangle = FemDesign.Geometry.Region.RectangleXY(5, 5);
+            var rectangle = FemDesign.Geometry.Region.RectangleXY(Geometry.Point3d.Origin, 5, 5);
             var surface = new SurfaceSupport(rectangle, Releases.Motions.RigidPoint());
             var point = new FemDesign.Geometry.Point3d(5, 0.123, -0.39);
             var stiffnessPoint = new FemDesign.Supports.StiffnessPoint(surface, point, Releases.Motions.RigidPoint(), new Releases.MotionsPlasticLimits(10,10,10,10,10,10));
