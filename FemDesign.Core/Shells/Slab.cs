@@ -94,8 +94,9 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct a rectangular slab in the XY plane
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
+        /// <param name="corner"></param>
+        /// <param name="widthX"></param>
+        /// <param name="widthY"></param>
         /// <param name="thickness"></param>
         /// <param name="material"></param>
         /// <param name="shellEdgeConnection"></param>
