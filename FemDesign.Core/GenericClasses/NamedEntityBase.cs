@@ -6,46 +6,32 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
-    public abstract partial class NamedEntityBase : EntityBase, IFemDesignEntity, INamedEntity
+    public abstract partial class NamedEntityBase : EntityBase, INamedEntity
     {
         [XmlAttribute("name")]
         public string _name; // identifier
+        [XmlIgnore]
+        public virtual string Name => _namePattern.Match(this._name).Groups["name"].Value;
+        [XmlIgnore]
+        public virtual int Instance => int.Parse(_namePattern.Match(this._name).Groups["instance"].Value);
 
         [XmlIgnore]
-        public string Name => this._name.Replace("@", "");
-
-        [XmlIgnore]
-        public int Instance
+        public virtual string Identifier
         {
-            get
-            {
-                var found = this._name.IndexOf(".");
-                return int.Parse(this._name.Substring(found + 1));
-            }
-        }
-
-        [XmlIgnore]
-        public string Identifier
-        {
-            get { return this._name.Replace("@", "").Split('.')[0]; }
+            get => _namePattern.Match(this._name).Groups["identifier"].Value;
             set
             {
-                if (string.IsNullOrEmpty(value) || _namePattern.IsMatch(value) == false)
-                    throw new ArgumentException($"'{value}' is not a valid Identifier");
-
-                if (value == this.Name) return;
-
                 this._name = $"{value}.{GetUniqueInstanceCount()}";
+
+                if (string .IsNullOrEmpty(value) || _namePattern.IsMatch(this._name) == false)
+                    throw new ArgumentException($"'{value}' is not a valid Identifier.");
             }
         }
 
         [XmlIgnore]
-        public bool LockedIdentifier
+        public virtual bool LockedIdentifier
         {
-            get
-            {
-                return _name.StartsWith("@");
-            }
+            get => _name.StartsWith("@");
             set
             {
                 if (value && !LockedIdentifier)
@@ -55,7 +41,7 @@ namespace FemDesign
             }
         }
 
-        private static readonly Regex _namePattern = new Regex(@"@{0,1}[ -#%'-;=?A-\ufffd;]{0,50}");
+        protected static readonly Regex _namePattern = new Regex(@"^@{0,1}(?'name'(?'identifier'[ -#%'-;=?A-\ufffd;]{0,50})\.(?'instance'[0-9]{1,6}){1})$");
 
         protected NamedEntityBase()
         {
@@ -67,5 +53,22 @@ namespace FemDesign
         /// </summary>
         /// <returns>A unique number.</returns>
         protected abstract int GetUniqueInstanceCount();
+    }
+
+    public abstract partial class NamedEntityPartBase : NamedEntityBase
+    {
+        public override string Name => _namePattern.Match(base._name).Groups["name"].Value;
+        public override int Instance => int.Parse(_namePattern.Match(base._name).Groups["instance"].Value);
+        [XmlIgnore]
+        public override string Identifier
+        {
+            get => _namePattern.Match(base._name).Groups["identifier"].Value;
+            set
+            {
+                base.Identifier = value;
+                base._name += ".1";
+            }
+        }
+        protected new static readonly Regex _namePattern = new Regex(@"@{0,1}(?'name'(?'identifier'[ -#%'-;=?A-\ufffd;]{0,50})\.(?'instance'[0-9]{1,6}){1}\.1)");
     }
 }
