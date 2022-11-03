@@ -12,11 +12,13 @@ namespace FemDesign.AuxiliaryResults
     /// Labelled section. Used for extracting detailed results along a section line or polyline.
     /// </summary>
     [System.Serializable]
-    public partial class LabelledSection : EntityBase, IStructureElement
+    public partial class LabelledSection : NamedEntityBase, IStructureElement
     {
         [XmlIgnore]
-        private static int instances = 0;
-        public static void ResetInstanceCount() => instances = 0;
+        private static int _labelledSectioninstances = 0;
+        public static void ResetInstanceCount() => _labelledSectioninstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_labelledSectioninstances;
+
         [XmlElement("line_segment")]
         public LineSegment _lineSegment;
         [XmlElement("polyline")]
@@ -51,12 +53,6 @@ namespace FemDesign.AuxiliaryResults
                     throw new ArgumentException($"LabelledSection must have at least 2 verticies.");
             }
         }
-
-        /// <summary>
-        /// Identifier
-        /// </summary>
-        [XmlAttribute("name")]
-        public string Name { get; set; }
         
         /// <summary>
         /// Parameterless contructor for serialization
@@ -81,11 +77,10 @@ namespace FemDesign.AuxiliaryResults
 
         private void Initialize(List<Point3d> verticies, string identifier)
         {
-            instances++;
             this.EntityCreated();
 
             Verticies = verticies;
-            Name = $"{identifier}.{instances}";
+            Identifier = identifier;
         }
     }
 }

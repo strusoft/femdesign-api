@@ -163,6 +163,7 @@ namespace FemDesign.Calculate
         /// <param name="fdScript"></param>
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
+        /// <param name="checkOpenFiles"></param>
         /// <returns></returns>
         public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true)
         {

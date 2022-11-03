@@ -27,7 +27,7 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor accessed by static methods.
         /// </summary>
-        public PointLoad(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment = "", ForceLoadType type = ForceLoadType.Force)
+        public PointLoad(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;

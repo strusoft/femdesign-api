@@ -25,7 +25,7 @@ namespace FemDesign.Calculate
         /// <param name="Waterlevel">Ground water level</param>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static Loads.LoadCombination SetupCalculation(Loads.LoadCombination loadCombination, int ImpfRqd = 0, int StabRqd = 0, bool NLE = false, bool PL = false, bool NLS = false, bool Cr = false, bool f2nd = false, bool Im = false, int Waterlevel = 0)
+        public static Loads.LoadCombination SetupCalculation(Loads.LoadCombination loadCombination, int ImpfRqd = 0, int StabRqd = 0, bool NLE = false, bool PL = false, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, int Waterlevel = 0)
         {
             loadCombination.CombItem = new Calculate.CombItem(ImpfRqd, StabRqd, NLE, PL, NLS, Cr, f2nd, Im, Waterlevel);
             return loadCombination;

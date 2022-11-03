@@ -47,7 +47,6 @@ namespace FemDesign.Geometry
         /// <param name="node1"></param>
         /// <param name="node2"></param>
         /// <param name="node3"></param>
-        /// <param name="node4"></param>
         public Face(int node1, int node2, int node3)
         {
             this.Node1 = node1;

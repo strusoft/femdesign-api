@@ -11,12 +11,13 @@ namespace FemDesign.Shells
     /// panel_type
     /// </summary>
     [System.Serializable]
-    public partial class Panel: EntityBase, IStructureElement, IStageElement
+    public partial class Panel: NamedEntityBase, IStructureElement, IStageElement
     {
         /// <summary>
         /// Panel instance counter
         /// </summary>
-        private static int _instance = 0;
+        private static int _panelInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_panelInstances;
 
         /// <summary>
         /// Coordinate system
@@ -252,31 +253,6 @@ namespace FemDesign.Shells
                 return this._section;
             }
         }
-        [XmlAttribute("name")]
-        public string _name; // identifier
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this.Name.IndexOf(".");
-                return this.Name.Substring(found + 1);
-            }
-        }
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                Panel._instance++;
-                this._name = RestrictedString.Length(value, 50) + "." + Panel._instance.ToString();
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
 
         [XmlAttribute("panelname")]
         public string PanelName { get; set; }
@@ -346,6 +322,26 @@ namespace FemDesign.Shells
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
+
+
+        [XmlAttribute("ignored_distance")]
+        public double _ignoredDistance = 0.02;
+
+        [XmlIgnore]
+        public double IgnoredDistance
+        {
+            get
+            {
+                return this._ignoredDistance;
+            }
+            set
+            {
+                this._ignoredDistance = RestrictedDouble.NonNegMax_1000(value);
+            }
+        }
+
+        [XmlAttribute("ignored_in_stability")]
+        public bool IgnoredInStability { get; set; } = false;
 
         /// <summary>
         /// Set external edge connections (i.e. set edge connections around region). 
@@ -434,18 +430,18 @@ namespace FemDesign.Shells
         /// Construct standard panel with "Continuous" analytical model.
         /// </summary>
         /// <param name="region">Region of shell containing panels.</param>
-        /// <param name="localX">Direction of panels.</param>
         /// <param name="anchorPoint"></param>
-        /// <param name="externalRigidity">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
         /// <param name="type">Type of panel.</param>
-        /// <param name="complexMaterial">Guid reference to material.</param>
-        /// <param name="complexSection">Guid reference to complex section.</param>
         /// <param name="identifier">Name of shell.</param>
         /// <param name="panelName">Name of panel.</param>
         /// <param name="gap">Gap between panels.</param>
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
+        /// <param name="internalPanels"></param>
+        /// <param name="externalEdgeConnection"></param>
+        /// <param name="material"></param>
+        /// <param name="section"></param>
         internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
@@ -464,7 +460,7 @@ namespace FemDesign.Shells
             this.Type = type;
             this.Material = material; // note that material and section are not added directly to complexMaterial and complexSection fields.
             this.Section = section;
-            this.Name = identifier;
+            this.Identifier = identifier;
             this.PanelName = panelName;
             this.Gap = gap;
             this.Orthotropy = orthotropy;
@@ -490,6 +486,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy">Orthotropy.</param>
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
+        /// <param name="panelWidth"></param>
         internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, EdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
@@ -508,7 +505,7 @@ namespace FemDesign.Shells
 
             // attributes
             this.Type = type;
-            this.Name = identifier;
+            this.Identifier = identifier;
             this.PanelName = panelName;
             this.Gap = gap;
             this.Alignment = ecc.Alignment;

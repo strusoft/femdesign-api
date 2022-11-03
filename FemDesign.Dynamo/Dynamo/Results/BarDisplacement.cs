@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class BarDisplacement : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "BarDisplacement";
+        }
+
         /// <summary>
         /// Deconstruct the Bar Displacement Results
         /// </summary>
@@ -37,8 +43,8 @@ namespace FemDesign.Results
             var loadCases = (List<string>)result["CaseIdentifier"];
             var elementId = (List<string>)result["ElementId"];
             var positionResult = (List<double>)result["PositionResult"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
             // Convert the FdVector to Dynamo
             var oTranslation = iTranslation.Select(x => x.ToDynamo());

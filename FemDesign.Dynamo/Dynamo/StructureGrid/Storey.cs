@@ -24,8 +24,8 @@ namespace FemDesign.StructureGrid
         public static Storey Define(string name, Autodesk.DesignScript.Geometry.Point origo, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.XAxis()")] Autodesk.DesignScript.Geometry.Vector direction, double dimensionX = 50, double dimensionY = 30)
         {
             // convert geometry
-            Geometry.FdPoint3d p = Geometry.FdPoint3d.FromDynamo(origo);
-            Geometry.FdVector3d v = Geometry.FdVector3d.FromDynamo(direction);
+            Geometry.Point3d p = Geometry.Point3d.FromDynamo(origo);
+            Geometry.Vector3d v = Geometry.Vector3d.FromDynamo(direction);
 
             // return
             return new Storey(p, v, dimensionX, dimensionY, name);

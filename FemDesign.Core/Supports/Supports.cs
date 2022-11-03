@@ -17,6 +17,8 @@ namespace FemDesign.Supports
         public List<LineSupport> LineSupport = new List<LineSupport>(); // line_support_type
         [XmlElement("surface_support", Order = 3)] 
         public List<SurfaceSupport> SurfaceSupport = new List<SurfaceSupport>(); // surface_support
+        [XmlElement("stiffness_point", Order = 4)]
+        public List<StiffnessPoint> StiffnessPoint = new List<StiffnessPoint>(); // surface_support
 
         public List<GenericClasses.ISupportElement> GetSupports()
         {

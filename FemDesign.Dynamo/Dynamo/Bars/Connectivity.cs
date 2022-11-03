@@ -10,13 +10,6 @@ namespace FemDesign.Bars
     public partial class Connectivity
     {
         /// <summary>
-        /// Define default (rigid) releases for a bar-element.
-        /// </summary>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public static Connectivity Default() => GetDefault();
-
-        /// <summary>
         /// Define releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
@@ -94,18 +87,18 @@ namespace FemDesign.Bars
         /// </summary>
         /// <remarks>Create</remarks>
         [IsVisibleInDynamoLibrary(true)]
-        public static Connectivity Hinged()
+        public static Connectivity GetHinged()
         {
-            return GetHinged();
+            return Connectivity.Hinged;
         }
         /// <summary>
         /// Define rigid releases for a bar-element.
         /// </summary>
         /// <remarks>Create</remarks>
         [IsVisibleInDynamoLibrary(true)]
-        public static Connectivity Rigid()
+        public static Connectivity GetRigid()
         {
-            return GetRigid();
+            return Connectivity.Rigid;
         }
     }
 }

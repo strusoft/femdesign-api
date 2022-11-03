@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class FeaNode : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "FeaNode";
+        }
+
         /// <summary>
         /// Deconstruct the Fea Node Element
         /// </summary>
@@ -25,7 +31,7 @@ namespace FemDesign.Results
 
 
             var nodeId = (List<int>)result["NodeId"];
-            var feaNodePoint = (List<FemDesign.Geometry.FdPoint3d>)result["Position"];
+            var feaNodePoint = (List<FemDesign.Geometry.Point3d>)result["Position"];
 
 
             // Convert the FdPoint to Rhino

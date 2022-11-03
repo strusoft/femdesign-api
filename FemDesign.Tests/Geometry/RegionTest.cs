@@ -12,14 +12,15 @@ namespace FemDesign.Geometry
         [TestMethod("Create Rectangle Slab")]
         public void CreateRectangle()
         {
-            //
             var rectangleWall = FemDesign.Shells.Slab.Wall(
+                Point3d.Origin,
+                new Point3d(10, 10, 0),
                 10.0,
-                20.0,
                 0.1,
                 FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37"));
 
             var rectangleWall2 = FemDesign.Shells.Slab.Plate(
+                Point3d.Origin,
                 10.0,
                 20.0,
                 0.1,

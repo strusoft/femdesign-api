@@ -74,8 +74,11 @@
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
-    <Compile Include="Bars\BarsBeamSimple.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE.cs" />
+    <Compile Include="Bars\BarsBeamSimple.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE.cs" />
     <Compile Include="Bars\BarsColumnSimple.cs" />
     <Compile Include="Bars\BarsConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsConnectivityDefineSemiRigid.cs" />
@@ -83,7 +86,7 @@
     <Compile Include="Bars\BarsConnectivityRigid.cs" />
     <Compile Include="Bars\BarsEccentricityConstruct.cs" />
     <Compile Include="Bars\BarsModify.cs" />
-    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsTruss_OBSOLETE.cs" />
     <Compile Include="Bars\BarsTrussLimitedCapacity.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnConcreteBar.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnSteelBar.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstrut.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
+    <Compile Include="Loads\LineStressLoadDefine.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
@@ -121,6 +126,8 @@
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
+    <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
@@ -146,9 +153,13 @@
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
+    <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\SlabPlate.cs" />
+    <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
+    <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Utils\LoadGroupCombine.cs" />
     <Compile Include="Loads\LoadGroupConstruct.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
@@ -289,7 +300,7 @@
     <Compile Include="Sections\OBSOLETE\SectionDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionDatabaseListSectionNamesOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionDatabaseSaveOBSOLETE.cs" />
-    <Compile Include="Sections\SectionDefine.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDefineOBSOLETE.cs" />
     <Compile Include="Sections\OBSOLETE\SectionGetSectionByNameOBSOLETE.cs" />
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
     <Compile Include="Shells\ProfiledPlateConstruct.cs" />
@@ -298,11 +309,11 @@
     <Compile Include="Shells\EdgeConnectionHinged.cs" />
     <Compile Include="Shells\EdgeConnectionRigid.cs" />
     <Compile Include="Shells\ShellOrthotropyConstruct.cs" />
-    <Compile Include="Shells\SlabPlateConstruct.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabPlateConstruct_OBSOLETE.cs" />
     <Compile Include="Shells\SlabPlateVariableThickness.cs" />
     <Compile Include="Shells\SlabSetAverageMeshSize.cs" />
     <Compile Include="Shells\SlabSetEdgeConnection.cs" />
-    <Compile Include="Shells\SlabWall.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabWall_OBSOLETE.cs" />
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessConstruct.cs" />
     <Compile Include="Shells\TimberPlateConstruct.cs" />
@@ -784,25 +795,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\icons\FootfallFullExcitation.bmp" />
+    <EmbeddedResource Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\FootfallSelfExcitation.bmp" />
+    <EmbeddedResource Include="Resources\icons\FootfallSelfExcitation.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\MaterialTimberPlateMaterial.bmp" />
+    <EmbeddedResource Include="Resources\icons\MaterialTimberPlateMaterial.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\PanelDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\PanelDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\PanelTimberPlateDefine.bmp" />
+    <EmbeddedResource Include="Resources\icons\PanelTimberPlateDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons\CalculateFootfall.bmp" />
+    <EmbeddedResource Include="Resources\icons\CalculateFootfall.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\deconstruct_icon.png" />
+    <None Include="Resources\icons\StagesDeconstruct.png" />
+    <None Include="Resources\icons\LineStressLoadDeconstruct.png" />
+    <None Include="Resources\icons\LineStressLoadConstruct.png" />
+    <EmbeddedResource Include="Resources\icons\StiffnessPoint.png" />
     <EmbeddedResource Include="Resources\icons\RebarAddToElement.jpg" />
     <EmbeddedResource Include="Resources\icons\Stages.png" />
     <EmbeddedResource Include="Resources\icons\Stage_ActivatedLoad.png" />
@@ -810,38 +826,28 @@
     <EmbeddedResource Include="Resources\icons\ResultType.png" />
     <EmbeddedResource Include="Resources\icons\results.png" />
     <EmbeddedResource Include="Resources\icons\quantity.png" />
-    <None Include="Resources\icons\LoadGroupDeconstruct.bmp" />
-    <None Include="Resources\icons\CombineLoadGroups.bmp" />
-    <None Include="Resources\icons\LoadCategory.bmp" />
-    <None Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
-    <None Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
-    <None Include="Resources\Fd_TabIcon_24_24.png" />
+    <EmbeddedResource Include="Resources\icons\LoadGroupDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\CombineLoadGroups.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategory.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDeconstruct.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseDefault.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
+    <EmbeddedResource Include="Resources\Fd_TabIcon_24_24.png" />
     <EmbeddedResource Include="Resources\icons\feabar.png" />
     <EmbeddedResource Include="Resources\icons\feanode.png" />
     <EmbeddedResource Include="Resources\icons\feashell.png" />
-    <Content Include="Resources\icons\LoadCoefficientsDataBase.bmp" />
-    <Content Include="Resources\icons\LoadGroup.bmp" />
+    <EmbeddedResource Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
-    <None Include="Resources\icons\Help.bmp" />
+    <EmbeddedResource Include="Resources\icons\Help.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fem-design.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\fdlogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\fem-design-21.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Untitled.png" />
+    <EmbeddedResource Include="Resources\fdlogo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

@@ -11,8 +11,26 @@ namespace FemDesign.Shells
     /// slab_part_type
     /// </summary>
     [System.Serializable]
-    public partial class SlabPart: EntityBase
-    { 
+    public partial class SlabPart: NamedEntityPartBase
+    {
+        private static int _plateInstance = 0;
+        private static int _wallInstance = 0;
+        protected override int GetUniqueInstanceCount()
+        {
+            switch (this.SlabType)
+            {
+                case SlabType.Plate:
+                    return ++_plateInstance;
+                case SlabType.Wall:
+                    return ++_wallInstance;
+                default:
+                    throw new ArgumentException($"Incorrect type of slab: {this.SlabType}");
+            }
+        }
+
+        [XmlIgnore]
+        public SlabType SlabType;
+
         /// <summary>
         /// Get ShellEccentricity
         /// </summary>
@@ -36,20 +54,6 @@ namespace FemDesign.Shells
                 return new ShellOrthotropy(this.OrthoAlfa, this.OrthoRatio);
             }
         }
-
-        [XmlAttribute("name")]
-        public string Name {get; set;} // identifier
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this.Name.IndexOf(".");
-                return this.Name.Substring(found + 1);
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
-
 
         [XmlAttribute("complex_material")]
         public System.Guid ComplexMaterialGuid {get; set;} // guidtype
@@ -194,7 +198,11 @@ namespace FemDesign.Shells
                 }
             }
         }
-        [XmlElement("end", Order = 6)]
+
+        [XmlElement(ElementName = "stiffness_modifiers", Order = 6)]
+        public SlabStiffnessFactors SlabStiffnessFactors { get; set; }
+
+        [XmlElement("end", Order = 7)]
         public string End {get; set;} // empty_type
 
         /// <summary>
@@ -208,10 +216,11 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart.
         /// </summary>
-        public SlabPart(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
+        public SlabPart(SlabType type, string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material complexMaterial, ShellEccentricity alignment, ShellOrthotropy orthotropy)
         {
             this.EntityCreated();
-            this.Name = name;
+            this.SlabType = type;
+            this.Identifier = identifier;
             this.Region = region;
             this.ComplexMaterialGuid = complexMaterial.Guid;
             this.ComplexMaterial = complexMaterial;
@@ -231,7 +240,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct SlabPart with EdgeConnections.
         /// </summary>
-        public static SlabPart Define(string name, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
+        public static SlabPart Define(SlabType type, string identifier, Geometry.Region region, List<Thickness> thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null)
         {
             shellEdgeConnection = shellEdgeConnection ?? EdgeConnection.Default;
             eccentricity = eccentricity ?? ShellEccentricity.Default;
@@ -241,7 +250,7 @@ namespace FemDesign.Shells
             region.SetEdgeConnections(shellEdgeConnection);
             
             // construct new slabPart
-            SlabPart slabPart = new SlabPart(name, region, thickness, material, eccentricity, orthotropy);
+            SlabPart slabPart = new SlabPart(type, identifier, region, thickness, material, eccentricity, orthotropy);
 
             // return
             return slabPart;

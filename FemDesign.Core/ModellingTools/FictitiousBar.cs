@@ -7,10 +7,11 @@ using FemDesign.GenericClasses;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class FictitiousBar: EntityBase, IStructureElement
+    public partial class FictitiousBar: NamedEntityBase, IStructureElement
     {
         [XmlIgnore]
-        private static int Instance = 0;
+        private static int _ficticiousBarInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_ficticiousBarInstances;
 
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; }
@@ -113,23 +114,6 @@ namespace FemDesign.ModellingTools
             }
         }
 
-        [XmlAttribute("name")]
-        public string _name;
-
-        [XmlIgnore]
-        public string Name
-        { 
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                FictitiousBar.Instance++;
-                this._name = RestrictedString.Length(value, 40) + "." + FictitiousBar.Instance.ToString();
-            }
-        }
-
         [XmlAttribute("AE")]
         public double _ae;
 
@@ -205,14 +189,14 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string name, double ae, double itg, double i1e, double i2e)
+        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string identifier, double ae, double itg, double i1e, double i2e)
         {
             this.EntityCreated();
             this.Edge = edge;
             this.LocalY = localY;
             this.StartConnectivity = startConnectivity;
             this.EndConnectivity = endConnectivity;
-            this.Name = name;
+            this.Identifier = identifier;
             this.AE = ae;
             this.ItG = itg;
             this.I1E = i1e;
@@ -221,7 +205,7 @@ namespace FemDesign.ModellingTools
 
         /// <summary>
         /// Orient this object's coordinate system to GCS.
-        /// <summary>
+        /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
             var cs = this.CoordinateSystem;

@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// load_case (child of load_combination_type)
     /// </summary>
     [Serializable]
-    public partial class ModelLoadCase
+    public partial class ModelLoadCase : LoadCombinationCaseBase
     {
         [XmlAttribute("guid")]
         public string _guid = string.Empty;
@@ -25,8 +25,9 @@ namespace FemDesign.Loads
                 else
                     return new Guid(_guid);
             }
-            set {
-                _guid = IsMovingLoadLoadCase ? _guid = $"{value}#{Index}": _guid = value.ToString();
+            set
+            {
+                _guid = IsMovingLoadLoadCase ? _guid = $"{value}#{Index}" : _guid = value.ToString();
             }
         }
         [XmlIgnore]
@@ -53,8 +54,6 @@ namespace FemDesign.Loads
         public bool IsMovingLoadLoadCase { get { return _guid.IndexOf('#') != -1; } }
         [XmlIgnore]
         public string IndexedGuid => _guid;
-        [XmlAttribute("gamma")]
-        public double Gamma { get; set; } // double
         [XmlIgnore]
         public LoadCase LoadCase { get; set; }
         public ModelLoadCase()

@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class FictitiousShell: EntityBase
+    public partial class FictitiousShell
     {
         /// <summary>
         /// Set EdgeConnection by indices.
@@ -47,8 +47,8 @@ namespace FemDesign.ModellingTools
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
-            Geometry.FdVector3d x = Geometry.FdVector3d.FromDynamo(localX);
-            Geometry.FdVector3d z = Geometry.FdVector3d.FromDynamo(localZ);
+            Geometry.Vector3d x = Geometry.Vector3d.FromDynamo(localX);
+            Geometry.Vector3d z = Geometry.Vector3d.FromDynamo(localZ);
 
             // add edge connections to region
             region.SetEdgeConnections(edgeConnection);
@@ -59,13 +59,13 @@ namespace FemDesign.ModellingTools
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                obj.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                obj.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             // return

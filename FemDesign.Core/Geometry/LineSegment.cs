@@ -36,7 +36,8 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct LineSegment from start and endpoint.
         /// </summary>
-        /// <param name="verticies"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         public LineSegment(Point3d start, Point3d end)
         {
             this.StartPoint = start;

@@ -20,6 +20,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>bin\Debug\FemDesign.Core.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,17 +47,22 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bars\BarStiffnessFactors.cs" />
     <Compile Include="Bars\Beam.cs" />
     <Compile Include="Bars\Column.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
+    <Compile Include="GenericClasses\INamedEntity.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
+    <Compile Include="GenericClasses\NamedEntityBase.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
     <Compile Include="Geometry\ArcEdge.cs" />
     <Compile Include="Geometry\CircleEdge.cs" />
     <Compile Include="Geometry\LineEdge.cs" />
+    <Compile Include="Shells\SlabStiffnessFactors.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
     <Compile Include="AdvancedFem\Cover.cs" />
@@ -175,6 +181,7 @@
     <Compile Include="Loads\LineTemperatureLoad.cs" />
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
+    <Compile Include="Loads\LoadCombinationCaseBase.cs" />
     <Compile Include="Loads\LoadCombinationTable.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
     <Compile Include="Loads\LoadCombinationType.cs" />
@@ -185,12 +192,13 @@
     <Compile Include="Loads\LoadDirTypeEnum.cs" />
     <Compile Include="Loads\LoadLocationValue.cs" />
     <Compile Include="Loads\Loads.cs" />
+    <Compile Include="Loads\StageLoadCase.cs" />
     <Compile Include="Loads\LoadCategory.cs" />
     <Compile Include="Loads\LoadCategories.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
     <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
-    <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\ModelGeneralLoadGroup.cs" />
+    <Compile Include="Loads\ModelLoadCase.cs" />
     <Compile Include="Loads\LoadGroupPermanent.cs" />
     <Compile Include="Loads\LoadGroupTemporary.cs" />
     <Compile Include="Loads\PointLoad.cs" />
@@ -318,6 +326,7 @@
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />
     <Compile Include="Supports\PointSupport.cs" />
+    <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Supports\Supports.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
   </ItemGroup>

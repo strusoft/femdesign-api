@@ -409,6 +409,8 @@ namespace FemDesign.Reinforcement
         /// <param name="losses"></param>
         /// <param name="manufacturing"></param>
         /// <param name="strand"></param>
+        /// <param name="jackingSide"></param>
+        /// <param name="jackingStress"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
         public Ptc(Bars.Bar bar, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
@@ -431,6 +433,8 @@ namespace FemDesign.Reinforcement
         /// <param name="losses"></param>
         /// <param name="manufacturing"></param>
         /// <param name="strand"></param>
+        /// <param name="jackingSide"></param>
+        /// <param name="jackingStress"></param>
         /// <param name="numberOfStrands"></param>
         /// <param name="identifier"></param>
         public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
@@ -483,6 +487,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Create a custom PTC-strand.
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="f_pk">f pk [N/mm2]</param>
         /// <param name="a_p">A p [mm2]</param>
         /// <param name="e_p">E p [N/mm2]</param>

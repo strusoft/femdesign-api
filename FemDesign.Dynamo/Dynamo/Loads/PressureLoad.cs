@@ -30,7 +30,7 @@ namespace FemDesign.Loads
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
 
             // normalize direction
-            Geometry.FdVector3d _loadDirection = Geometry.FdVector3d.FromDynamo(direction).Normalize();
+            Geometry.Vector3d _loadDirection = Geometry.Vector3d.FromDynamo(direction).Normalize();
 
             // create SurfaceLoad
             PressureLoad _pressureLoad = new PressureLoad(region, _loadDirection, z0, q0, qh, loadCase, comment, false, ForceLoadType.Force);

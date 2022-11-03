@@ -70,7 +70,9 @@ namespace FemDesign.Loads
         /// </summary>
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="direction">Directio of load.</param>
-        /// <param name="topBotLocVal">1 or 2 top bottom location values</param>
+        /// <param name="topBotLocVals">1 or 2 top bottom location values</param>
+        /// <param name="loadCase"></param>
+        /// <param name="comment"></param>
         public LineTemperatureLoad(Geometry.Edge edge, Geometry.Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
         {
             this.EntityCreated();

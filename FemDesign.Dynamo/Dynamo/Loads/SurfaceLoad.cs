@@ -21,7 +21,7 @@ namespace FemDesign.Loads
         public static SurfaceLoad Uniform(Autodesk.DesignScript.Geometry.Surface surface, Autodesk.DesignScript.Geometry.Vector force, LoadCase loadCase, string comment = "")
         {
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
-            Geometry.FdVector3d _force = Geometry.FdVector3d.FromDynamo(force);
+            Geometry.Vector3d _force = Geometry.Vector3d.FromDynamo(force);
 
             SurfaceLoad surfaceLoad = SurfaceLoad.Uniform(region, _force, loadCase, false, comment);
 
@@ -48,7 +48,7 @@ namespace FemDesign.Loads
             }
 
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
-            Geometry.FdVector3d loadDirection = Geometry.FdVector3d.FromDynamo(direction).Normalize();
+            Geometry.Vector3d loadDirection = Geometry.Vector3d.FromDynamo(direction).Normalize();
 
             SurfaceLoad surfaceLoad = SurfaceLoad.Variable(region, loadDirection, loadLocationValue, loadCase, false, comment);
             return surfaceLoad;

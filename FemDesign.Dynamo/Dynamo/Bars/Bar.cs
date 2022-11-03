@@ -37,7 +37,7 @@ namespace FemDesign.Bars
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                bar.BarPart.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -77,7 +77,7 @@ namespace FemDesign.Bars
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                bar.BarPart.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -114,7 +114,7 @@ namespace FemDesign.Bars
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                bar.BarPart.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -151,8 +151,7 @@ namespace FemDesign.Bars
             Geometry.Edge edge = Geometry.Edge.FromDynamoLine(line);
 
             // create bar
-            var type = BarType.Truss;
-            Bar bar = new Bar(edge, type, material, section, identifier);
+            Bar bar = Bar.Truss(edge, material, section, identifier);
             bar.MaxCompression = maxCompression;
             bar.MaxTension = maxTension;
             bar.CompressionPlasticity = compressionPlasticity;
@@ -161,7 +160,7 @@ namespace FemDesign.Bars
             // set local y-axis
             if (!localY.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                bar.BarPart.LocalY = FemDesign.Geometry.FdVector3d.FromDynamo(localY);
+                bar.BarPart.LocalY = FemDesign.Geometry.Vector3d.FromDynamo(localY);
             }
 
             // else orient coordinate system to GCS
@@ -238,7 +237,7 @@ namespace FemDesign.Bars
 
                 if (localY != null)
                 {
-                    bar.BarPart.LocalY = Geometry.FdVector3d.FromDynamo(localY);
+                    bar.BarPart.LocalY = Geometry.Vector3d.FromDynamo(localY);
                 }
 
                 if (orientLCS)
@@ -249,7 +248,6 @@ namespace FemDesign.Bars
                 if (identifier != null)
                 {
                     bar.Identifier = identifier;
-                    bar.BarPart.Identifier = bar.Identifier;
                 }
 
                 return bar;

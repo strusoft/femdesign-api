@@ -19,7 +19,7 @@ namespace FemDesign.Bars
         // binary-rigid
         /// <summary>Translation local-x axis.</summary>
         [XmlAttribute("m_x")]
-        public bool Mx
+        public bool Tx
         {
             get
             {
@@ -35,7 +35,7 @@ namespace FemDesign.Bars
 
         /// <summary>Translation local-y axis. </summary>
         [XmlAttribute("m_y")]
-        public bool My
+        public bool Ty
         {
             get
             {
@@ -52,7 +52,7 @@ namespace FemDesign.Bars
 
         /// <summary>Translation local-z axis.</summary>
         [XmlAttribute("m_z")]
-        public bool Mz
+        public bool Tz
         {
             get
             {
@@ -119,7 +119,7 @@ namespace FemDesign.Bars
         [XmlAttribute("m_x_release")]
         public double _mxRelease; // non_neg_max_1e10. Default = 0. Valid only if m_x is false.
         [XmlIgnore]
-        public double MxRelease
+        public double TxRelease
         {
             get
             {
@@ -133,7 +133,7 @@ namespace FemDesign.Bars
         [XmlAttribute("m_y_release")]
         public double _myRelease; // non_neg_max_1e10. Default = 0. Valid only if m_y is false.
         [XmlIgnore]
-        public double MyRelease
+        public double TyRelease
         {
             get
             {
@@ -147,7 +147,7 @@ namespace FemDesign.Bars
         [XmlAttribute("m_z_release")]
         public double _mzRelease; // non_neg_max_1e10. Default = 0. Valid only if m_z is false.
         [XmlIgnore]
-        public double MzRelease
+        public double TzRelease
         {
             get
             {
@@ -205,7 +205,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                if(this.Mx && this.My && this.Mz && this.Rx && this.Ry && this.Rz)
+                if(this.Tx && this.Ty && this.Tz && this.Rx && this.Ry && this.Rz)
                     return true;
                 else
                     return false;
@@ -216,7 +216,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                if (this.Mx && this.My && this.Mz && this.Rx && this.Ry == false && this.Rz == false)
+                if (this.Tx && this.Ty && this.Tz && this.Rx && this.Ry == false && this.Rz == false)
                     return true;
                 else
                     return false;
@@ -234,17 +234,17 @@ namespace FemDesign.Bars
         /// <summary>
         /// Private constructor for binary-rigid definition.
         /// </summary>
-        /// <param name="mx"></param>
-        /// <param name="my"></param>
-        /// <param name="mz"></param>
+        /// <param name="tx"></param>
+        /// <param name="ty"></param>
+        /// <param name="tz"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="rz"></param>
-        public Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz)
+        public Connectivity(bool tx, bool ty, bool tz, bool rx, bool ry, bool rz)
         {
-            this.Mx = mx;
-            this.My = my;
-            this.Mz = mz;
+            this.Tx = tx;
+            this.Ty = ty;
+            this.Tz = tz;
             this.Rx = rx;
             this.Ry = ry;
             this.Rz = rz;
@@ -253,29 +253,29 @@ namespace FemDesign.Bars
         /// <summary>
         /// Private constructor for semi-rigid definition.
         /// </summary>
-        /// <param name="mx"></param>
-        /// <param name="my"></param>
-        /// <param name="mz"></param>
+        /// <param name="tx"></param>
+        /// <param name="ty"></param>
+        /// <param name="tz"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="rz"></param>
-        /// <param name="mxRelease"></param>
-        /// <param name="myRelease"></param>
-        /// <param name="mzRelease"></param>
+        /// <param name="txRelease"></param>
+        /// <param name="tyRelease"></param>
+        /// <param name="tzRelease"></param>
         /// <param name="rxRelease"></param>
         /// <param name="ryRelease"></param>
         /// <param name="rzRelease"></param>
-        public Connectivity(bool mx, bool my, bool mz, bool rx, bool ry, bool rz, double mxRelease, double myRelease, double mzRelease, double rxRelease, double ryRelease, double rzRelease)
+        public Connectivity(bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, double txRelease, double tyRelease, double tzRelease, double rxRelease, double ryRelease, double rzRelease)
         {
-            this.Mx = mx;
-            this.My = my;
-            this.Mz = mz;
+            this.Tx = tx;
+            this.Ty = ty;
+            this.Tz = tz;
             this.Rx = rx;
             this.Ry = ry;
             this.Rz = rz;
-            this.MxRelease = mxRelease;
-            this.MyRelease = myRelease;
-            this.MzRelease = mzRelease;
+            this.TxRelease = txRelease;
+            this.TyRelease = tyRelease;
+            this.TzRelease = tzRelease;
             this.RxRelease = rxRelease;
             this.RyRelease = ryRelease;
             this.RzRelease = rzRelease;
@@ -321,7 +321,7 @@ namespace FemDesign.Bars
             else if(IsHinged)
                 return $"{this.GetType().Name} Hinged";
             else
-                return $"{this.GetType().Name} Tx: {this.MxRelease} kN/m, Ty: {this.MyRelease} kN/m, Tz: {this.MzRelease} kN/m, Rx: {this.RxRelease} kNm/rad, Ry: {this.RyRelease} kNm/rad, Rz: {this.RzRelease} kNm/rad";
+                return $"{this.GetType().Name} Tx: {this.TxRelease} kN/m, Ty: {this.TyRelease} kN/m, Tz: {this.TzRelease} kN/m, Rx: {this.RxRelease} kNm/rad, Ry: {this.RyRelease} kNm/rad, Rz: {this.RzRelease} kNm/rad";
         }
     }
 }

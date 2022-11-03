@@ -50,6 +50,7 @@ namespace FemDesign.Loads
         /// <param name="loadCases">List of load cases in the load group</param>
         /// <param name="relationsship">Specifies how to condider the load cases in combinations</param>
         /// <param name="xi">Xi-factor used in the combinations, see EN 1990.</param>
+        /// <param name="name"></param>
         public LoadGroupPermanent(double standardFavourable, 
                                        double standardUnfavourable, double accidentalFavourable,
                                        double accidentalUnfavourable, List<LoadCase> loadCases, 

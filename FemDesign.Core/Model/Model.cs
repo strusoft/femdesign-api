@@ -125,6 +125,7 @@ namespace FemDesign
         /// <param name="loadCases">Load cases</param>
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
+        /// <param name="constructionStage">Construction stages object instance.</param>
         public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null)
         {
             Initialize(country);
@@ -248,6 +249,8 @@ namespace FemDesign
                 model.GetLineConnections();
             if (model.ConstructionStages != null && model.ConstructionStages.Stages.Any())
                 model.GetConstructionStages();
+            if (model.Entities?.Loads?.LoadCombinations != null && model.Entities.Loads.LoadCombinations.Any())
+                model.GetLoadCombinations();
             return model;
         }
 
@@ -263,13 +266,20 @@ namespace FemDesign
                 filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
             }
 
-            // check file extension
+            // Relavive paths will be converted to full paths
+            filePath = System.IO.Path.GetFullPath(filePath);
+
+            // If path has no file extension "struxml" will be used
+            if (Path.GetExtension(filePath) == "")
+                filePath = Path.ChangeExtension(filePath, "struxml");
+
+            // Check file extension
             if (Path.GetExtension(filePath) != ".struxml")
             {
                 throw new System.ArgumentException("File extension must be .struxml! Model.SerializeModel failed.");
             }
 
-            // serialize
+            // Serialize
             XmlSerializer serializer = new XmlSerializer(typeof(Model));
             using (TextWriter writer = new StreamWriter(filePath))
             {
@@ -287,12 +297,12 @@ namespace FemDesign
         /// <param name="checkOpenFiles"></param>
         public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
         {
-            if(resultTypes != null)
-			{
+            if (resultTypes != null)
+            {
                 var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
                 if (notAResultType != null)
                     throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-			}
+            }
 
             var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
 
@@ -337,7 +347,7 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public void RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public bool RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -353,10 +363,10 @@ namespace FemDesign
 
             this.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(this);
-            this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
+            return this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
-        public void RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
+        public bool RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
         {
             if (struxmlPath == null)
             {
@@ -375,7 +385,7 @@ namespace FemDesign
 
             this.SerializeModel(struxmlPath);
             analysis.SetLoadCombinationCalculationParameters(this);
-            this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
+            return this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
         }
 
         /// <summary>
@@ -1082,6 +1092,7 @@ namespace FemDesign
         /// Add Load to Model.
         /// </summary>
         /// <param name="obj">PointLoad, LineLoad, PressureLoad, SurfaceLoad</param>
+        /// <param name="overwrite"></param>
         private void AddLoad(object obj, bool overwrite)
         {
             if (obj == null)
@@ -1547,29 +1558,32 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCase to Model.
         /// </summary>
-        private void AddLoadCase(Loads.LoadCase obj, bool overwrite)
+        private void AddLoadCase(Loads.LoadCase loadCase, bool overwrite)
         {
+            if (loadCase is null)
+                throw new ArgumentNullException("loadCase");
+
             // in model?
-            bool inModel = this.LoadCaseInModel(obj);
+            bool inModel = this.LoadCaseInModel(loadCase);
 
             // in model, don't overwrite?
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{loadCase.GetType().FullName} with guid: {loadCase.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LoadCases.RemoveAll(x => x.Guid == loadCase.Guid);
             }
 
             // add load case
-            if (this.LoadCaseNameTaken(obj))
+            if (this.LoadCaseNameTaken(loadCase))
             {
-                obj.Name = obj.Name + " (1)";
+                loadCase.Name = loadCase.Name + " (1)";
             }
-            this.Entities.Loads.LoadCases.Add(obj);
+            this.Entities.Loads.LoadCases.Add(loadCase);
         }
 
         /// <summary>
@@ -1659,29 +1673,32 @@ namespace FemDesign
         /// <summary>
         /// Add LoadCombination to Model.
         /// </summary>
-        private void AddLoadCombination(Loads.LoadCombination obj, bool overwrite)
+        private void AddLoadCombination(Loads.LoadCombination loadCombination, bool overwrite)
         {
+            if (loadCombination is null)
+                throw new ArgumentNullException("loadCombination");
+
             // in model?
-            bool inModel = this.LoadCombinationInModel(obj);
+            bool inModel = this.LoadCombinationInModel(loadCombination);
 
             // in model, don't overwrite
             if (inModel && !overwrite)
             {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+                throw new System.ArgumentException($"{loadCombination.GetType().FullName} with guid: {loadCombination.Guid} has already been added to model. Are you adding the same element twice?");
             }
 
             // in model, overwrite
             else if (inModel && overwrite)
             {
-                this.Entities.Loads.LoadCombinations.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.Loads.LoadCombinations.RemoveAll(x => x.Guid == loadCombination.Guid);
             }
 
             // add load combination
-            if (this.LoadCombinationNameTaken(obj))
+            if (this.LoadCombinationNameTaken(loadCombination))
             {
-                obj.Name = obj.Name + " (1)";
+                loadCombination.Name = loadCombination.Name + " (1)";
             }
-            this.Entities.Loads.LoadCombinations.Add(obj);
+            this.Entities.Loads.LoadCombinations.Add(loadCombination);
         }
 
         /// <summary>
@@ -1868,6 +1885,7 @@ namespace FemDesign
         /// Add StructureGrid (axis or storey) to model.
         /// </summary>
         /// <param name="obj">Axis, Storey</param>
+        /// <param name="overwrite"></param>
         private void AddStructureGrid(object obj, bool overwrite)
         {
             if (obj == null)
@@ -1892,6 +1910,7 @@ namespace FemDesign
         /// Add axis to entities.
         /// </summary>
         /// <param name="obj">Axis.</param>
+        /// <param name="overwrite"></param>
         private void AddAxis(StructureGrid.Axis obj, bool overwrite)
         {
             // check if axes in entities
@@ -1940,6 +1959,7 @@ namespace FemDesign
         /// Add Storey to Model.
         /// </summary>
         /// <param name="obj">Storey.</param>
+        /// <param name="overwrite"></param>
         private void AddStorey(StructureGrid.Storey obj, bool overwrite)
         {
             // check if storeys in entities
@@ -2064,6 +2084,7 @@ namespace FemDesign
         /// Add SurfaceReinforcement(s) from Slab to Model.
         /// </summary>
         /// <param name="obj"></param>
+        /// <param name="overwrite"></param>
         private void AddSurfaceReinforcements(Shells.Slab obj, bool overwrite)
         {
             foreach (Reinforcement.SurfaceReinforcement surfaceReinforcement in obj.SurfaceReinforcement)
@@ -2166,6 +2187,7 @@ namespace FemDesign
         /// Add Support to Model
         /// </summary>
         /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        /// <param name="overwrite"></param>
         private void AddSupport(ISupportElement obj, bool overwrite)
         {
             if (obj == null)
@@ -2419,6 +2441,48 @@ namespace FemDesign
             // add obj
             this.SurfaceSupportTypes.PredefinedTypes.Add(obj);
         }
+
+
+        /// <summary>
+        /// Add SurfaceSupport to Model.
+        /// </summary>
+        private void AddStiffnessPoint(Supports.StiffnessPoint obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.StiffnessPointInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Supports.StiffnessPoint.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.Entities.Supports.StiffnessPoint.Add(obj);
+        }
+
+
+        /// <summary>
+        /// Check if StiffnessPoint in Model.
+        /// </summary>
+        private bool StiffnessPointInModel(Supports.StiffnessPoint obj)
+        {
+            foreach (Supports.StiffnessPoint elem in this.Entities.Supports.StiffnessPoint)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Add Material to Model.
@@ -2797,6 +2861,8 @@ namespace FemDesign
                 }
                 catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
                 {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null element to model.", exeption);
                     throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
                 }
             }
@@ -2819,7 +2885,16 @@ namespace FemDesign
 
             foreach (var item in elements)
             {
-                AddEntity(item as dynamic, overwrite);
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null load to model.", exeption);
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
             }
 
             return this;
@@ -2842,7 +2917,16 @@ namespace FemDesign
 
             foreach (var item in elements)
             {
-                AddEntity(item as dynamic, overwrite);
+                try
+                {
+                    AddEntity(item as dynamic, overwrite);
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException exeption)
+                {
+                    if (item == null)
+                        throw new ArgumentNullException("Can not add null support to model.", exeption);
+                    throw new System.NotImplementedException($"Class Model don't have a method AddEntity that accepts {item.GetType()}. ", exeption);
+                }
             }
 
             return this;
@@ -2868,6 +2952,7 @@ namespace FemDesign
         private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
         private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
         private void AddEntity(Supports.SurfaceSupport obj, bool overwrite) => AddSurfaceSupport(obj, overwrite);
+        private void AddEntity(Supports.StiffnessPoint obj, bool overwrite) => AddStiffnessPoint(obj, overwrite);
 
         private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
         private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
@@ -3355,7 +3440,9 @@ namespace FemDesign
             {
                 i++; // Starts at 1
                 stage.Id = i;
-                stage.Elements = elementsPerStage[i];
+
+                if (elementsPerStage.ContainsKey(i))
+                    stage.Elements = elementsPerStage[i];
 
                 if (stage.ActivatedLoadCases != null)
                 {
@@ -3369,6 +3456,27 @@ namespace FemDesign
                             // TODO: Use the moving load name
                             activatedLoadCase.LoadCaseDisplayName = "<MovingLoad>";
                     }
+                }
+            }
+        }
+        internal void GetLoadCombinations()
+        {
+            var loadCasesMap = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid);
+            var stageMap = this.ConstructionStages?.Stages?.ToDictionary(s => s.Id);
+
+            foreach (var lComb in this.Entities.Loads.LoadCombinations)
+            {
+                foreach (Loads.ModelLoadCase mLoadCase in lComb.ModelLoadCase)
+                {
+                    if (mLoadCase.IsMovingLoadLoadCase)
+                        continue;
+
+                    mLoadCase.LoadCase = loadCasesMap[mLoadCase.Guid].DeepClone();
+                }
+
+                if (lComb.StageLoadCase != null && lComb.StageLoadCase.IsFinalStage == false)
+                {
+                    lComb.StageLoadCase.Stage = stageMap[lComb.StageLoadCase.StageIndex].DeepClone();
                 }
             }
         }

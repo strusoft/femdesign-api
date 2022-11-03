@@ -11,32 +11,14 @@ namespace FemDesign
     /// cover_type
     /// </summary>
     [System.Serializable]
-    public partial class Cover: EntityBase, IStructureElement
+    public partial class Cover: NamedEntityBase, IStructureElement
     {
         /// <summary>
         /// Cover instance number
         /// </summary>
         private static int _coverInstance = 0;
-        
-        /// <summary>
-        /// Identifier
-        /// </summary>
-        [XmlAttribute("name")]
-        public string _name;
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                Cover._coverInstance++;
-                this._name = value + "." + Cover._coverInstance.ToString();
-            }
-        }
-        
+        protected override int GetUniqueInstanceCount() => ++_coverInstance;
+
         /// <summary>
         /// Load bearing direction (point_type_3d)
         /// </summary>
@@ -69,10 +51,11 @@ namespace FemDesign
         /// <param name="region">Region of cover.</param>
         /// <param name="supportingStructures">Guidlist of supporting structure.</param>
         /// <param name="loadBearingDirection">Vector, if null a TwoWay cover is defined.</param>
+        /// <param name="identifier">Name.</param>
         public Cover(Geometry.Region region, CoverReferenceList supportingStructures, Geometry.Vector3d loadBearingDirection, string identifier)
         {
             this.EntityCreated();
-            this.Name = identifier;
+            this.Identifier = identifier;
             this.Region = region;
             this.SupportingStructures = supportingStructures;
             this.LoadBearingDirection = loadBearingDirection;

@@ -14,6 +14,13 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class ShellInternalForce : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "ShellInternalForce";
+        }
+
+
         /// <summary>
         /// Deconstruct the Shell Internal Force Results
         /// </summary>

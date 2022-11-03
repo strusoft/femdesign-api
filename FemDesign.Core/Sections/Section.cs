@@ -87,7 +87,7 @@ namespace FemDesign.Sections
 
         /// <summary>
         /// Parameterless constructor for serialization
-        /// <summary>
+        /// </summary>
         private Section()
         {
 
@@ -95,12 +95,29 @@ namespace FemDesign.Sections
 
         /// <summary>
         /// Construct a new section
-        /// <summary>
+        /// </summary>
+        [Obsolete("Consider use the other constructor. 'Name' shouldn't be set.")]
         public Section(Geometry.RegionGroup regionGroup, string name, string type, Materials.MaterialTypeEnum materialTypeEnum, string groupName, string typeName, string sizeName)
         {
             this.EntityCreated();
             this.RegionGroup = regionGroup;
             this.Name = name;
+            this.Type = type;
+            this.MaterialType = ((int)materialTypeEnum).ToString();
+            this.GroupName = groupName;
+            this.TypeName = typeName;
+            this.SizeName = sizeName;
+            this._end = "";
+        }
+
+        /// <summary>
+        /// Construct a new section
+        /// </summary>
+        public Section(Geometry.RegionGroup regionGroup, string type, Materials.MaterialTypeEnum materialTypeEnum, string groupName, string typeName, string sizeName)
+        {
+            this.EntityCreated();
+            this.RegionGroup = regionGroup;
+            this.Name = $"{groupName}, {typeName}, {sizeName}";
             this.Type = type;
             this.MaterialType = ((int)materialTypeEnum).ToString();
             this.GroupName = groupName;
@@ -141,7 +158,7 @@ namespace FemDesign.Sections
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"{sectionInput} does not exist!");
+                    throw new Exception($"{sectionInput} does not exist!", ex);
                 }
             }
             else
@@ -152,7 +169,7 @@ namespace FemDesign.Sections
                 }
                 catch (Exception ex)
                 {
-                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!");
+                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!", ex);
                 }
             }
             return section;

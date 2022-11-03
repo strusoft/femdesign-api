@@ -10,7 +10,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Bars
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class BarPart: EntityBase
+    public partial class BarPart: NamedEntityPartBase
     {
         
     }

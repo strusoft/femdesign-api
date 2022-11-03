@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
             foreach(var section in sections)
                 obj.AddNewSection(section);
 
-            database.SerializeSectionDatabase(filePath);
+            obj.SerializeSectionDatabase(filePath);
         }
         protected override System.Drawing.Bitmap Icon
         {
