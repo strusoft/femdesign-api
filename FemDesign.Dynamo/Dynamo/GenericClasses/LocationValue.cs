@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class LocationValue: Geometry.FdPoint3d
+    public partial class LocationValue: Geometry.Point3d
     {
         
     }

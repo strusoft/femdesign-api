@@ -16,7 +16,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Parameterless constructor for serialization
-        /// <summary>
+        /// </summary>
         private RegionGroup()
         {
 
@@ -24,7 +24,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Construct region group from single region
-        /// <summary>
+        /// </summary>
         public RegionGroup(Region region)
         {
             this.Regions.Add(region);
@@ -32,7 +32,7 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Construct region group from list of regions
-        /// <summary>
+        /// </summary>
         public RegionGroup(List<Region> regions)
         {
             this.Regions = regions;

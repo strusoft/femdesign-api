@@ -19,7 +19,7 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static Footfall FullExcitation(Autodesk.DesignScript.Geometry.Point point, string identifier = "FE", string comment = "")
         {
-            var p0 = FdPoint3d.FromDynamo(point);
+            var p0 = Point3d.FromDynamo(point);
             return new Footfall(p0, identifier, comment);
         }
 

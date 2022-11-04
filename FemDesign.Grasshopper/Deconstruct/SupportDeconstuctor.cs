@@ -20,8 +20,8 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("AnalyticalID", "AnalyticalID", "Analytical ID.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Geometry", "Geometry", "Geometry. [m]", GH_ParamAccess.item);
             pManager.AddGenericParameter("MovingLocal", "MovingLocal", "MovingLocal.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("LocalX", "LocalX", "LocalX.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("LocalY", "LocalY", "LocalY.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("GroupLocalX", "GroupLocalX", "The value refer to Group LocalX and NOT the local coordinate system of the underlying geometry.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("GroupLocalY", "GroupLocalY", "The value refer to Group LocalY and NOT the local coordinate system of the underlying geometry.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Motions", "Motions", "Motions.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotations", "Rotations", "Rotations.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Plastic Limits Forces Motions", "PlaLimMotions", "Plastic limits forces for motion springs.", GH_ParamAccess.item);

@@ -12,9 +12,10 @@ using FemDesign.GenericClasses;
 namespace FemDesign.Performance
 {
     [TestClass()]
-    public class BeamGeneration
+    public class BeamGenerationTests
     {
         [TestMethod("GenerateBeam")]
+        [TestCategory("FEM-Design required"), TestCategory("Performance")]
         [DataRow(800)]
         public void NumberOfBeam(int numberOfBeam)
         {

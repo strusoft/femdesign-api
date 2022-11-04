@@ -151,7 +151,7 @@ namespace FemDesign.Supports
 
         /// <summary>
         /// Orient this object's coordinate system to GCS
-        /// <summary>
+        /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
             var cs = this.CoordinateSystem;

@@ -4,7 +4,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Cover : EntityBase
+    public partial class Cover
     {
         #region dynamo
         
@@ -24,7 +24,7 @@ namespace FemDesign
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
 
             // get loadBearingDirection
-            Geometry.FdVector3d _loadBearingDirection = Geometry.FdVector3d.FromDynamo(loadBearingDirection).Normalize();
+            Geometry.Vector3d _loadBearingDirection = Geometry.Vector3d.FromDynamo(loadBearingDirection).Normalize();
 
             // return
             return Cover.OneWayCover(region, supportingStructures, _loadBearingDirection, identifier);

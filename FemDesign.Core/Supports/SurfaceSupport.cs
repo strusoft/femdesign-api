@@ -8,35 +8,9 @@ using FemDesign.Releases;
 namespace FemDesign.Supports
 {
     [System.Serializable]
-    public partial class SurfaceSupport: EntityBase, IStructureElement, ISupportElement, IStageElement
+    public partial class SurfaceSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
-        [XmlAttribute("name")]
-        public string _name;
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                PointSupport._instance++;
-                this._name = value + "." + PointSupport._instance.ToString();
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
-
-
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this._name.IndexOf(".");
-                return this._name.Substring(found + 1);
-            }
-        }
+        protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and SurfaceSupport share the same instance counter.
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
@@ -109,7 +83,7 @@ namespace FemDesign.Supports
         private void Initialize(Geometry.Region region, RigidityDataType1 rigidity, string identifier)
         {
             this.EntityCreated();
-            this.Name = identifier;
+            this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
             this.CoordinateSystem = region.CoordinateSystem;

@@ -6,7 +6,6 @@ namespace FemDesign.Shells
 {
     public partial class ShellEccentricity
     {
-        private string _alignment; // ver_align
         public VerticalAlignment Alignment { get; set; }
         private double _eccentricity; // align_offset // abs_max_1e20
         public double Eccentricity

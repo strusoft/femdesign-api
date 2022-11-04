@@ -16,12 +16,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private Stage()
+        public Stage()
         {
             
         }
 
-        private Stage(bool ghost = false)
+        public Stage(bool ghost = false)
         {
             this._ghost = Convert.ToInt32(ghost);
         }

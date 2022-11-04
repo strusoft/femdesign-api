@@ -22,8 +22,8 @@ namespace FemDesign.StructureGrid
         public static Axis Define(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("")] string prefix, int id, [DefaultArgument("false")] bool idIsLetter)
         {
             // convert geometry
-            Geometry.FdPoint3d p0 = Geometry.FdPoint3d.FromDynamo(line.StartPoint);
-            Geometry.FdPoint3d p1 = Geometry.FdPoint3d.FromDynamo(line.EndPoint);
+            Geometry.Point3d p0 = Geometry.Point3d.FromDynamo(line.StartPoint);
+            Geometry.Point3d p1 = Geometry.Point3d.FromDynamo(line.EndPoint);
 
             //
             return new Axis(p0, p1, prefix, id, idIsLetter);

@@ -2,8 +2,8 @@ name: publish to nuget
 
 on:
   push:
-    paths: # When the nuspec file changed
-      - 'FemDesign.Core/FemDesign.Core.nuspec'
+    paths: # When the file with assembly version changed
+      - 'FemDesign.Core/Properties/GlobalAssemblyInfo.cs'
     branches: # Only on push to master
       - master
 

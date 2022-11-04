@@ -49,6 +49,7 @@ namespace FemDesign.AuxiliaryResults
             Assert.IsNull(LS2._lineSegment, "Three or more verticies should not give LS with linesegment");
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("LabelledSection serialization")]
         public void LabelledSectionSerializeTest()
         {

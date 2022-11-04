@@ -16,9 +16,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddCurveParameter("Line", "Line", "LineCurve", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
@@ -37,16 +35,10 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(0, ref curve)) { return; }
 
             FemDesign.Materials.Material material = null;
-            if (!DA.GetData(1, ref material))
-            {
-                material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
-            }
+            if (!DA.GetData(1, ref material)) { return; }
 
             FemDesign.Sections.Section section = null;
-            if (!DA.GetData(2, ref section))
-            {
-                section = FemDesign.Sections.SectionDatabase.GetDefault().SectionByName("Concrete sections, Rectangle, 250x600");
-            }
+            if (!DA.GetData(2, ref section)) { return; }
 
             Vector3d v = Vector3d.Zero;
             if (!DA.GetData(3, ref v))
@@ -103,7 +95,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("bfc07633-529a-4a98-a45b-ce657e916f83"); }
+            get { return new Guid("{EC481150-B491-406E-8549-92625E18FBEC}"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.primary;
 

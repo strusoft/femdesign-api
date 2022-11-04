@@ -11,6 +11,13 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class BarStress : IResult
     {
+
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "BarStress";
+        }
+
         /// <summary>
         /// Read Bar Stress from a previously run model.
         /// </summary>

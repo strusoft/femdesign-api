@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ConnectedLines: EntityBase
+    public partial class ConnectedLines
     {
         #region dynamo
         [IsVisibleInDynamoLibrary(true)]
@@ -17,8 +17,8 @@ namespace FemDesign.ModellingTools
             // convert geometry
             Geometry.Edge edge0 = Geometry.Edge.FromDynamoLineOrArc2(firstCurve);
             Geometry.Edge edge1 = Geometry.Edge.FromDynamoLineOrArc2(secondCurve);
-            Geometry.FdVector3d x = Geometry.FdVector3d.FromDynamo(localX);
-            Geometry.FdVector3d y = Geometry.FdVector3d.FromDynamo(localY);
+            Geometry.Vector3d x = Geometry.Vector3d.FromDynamo(localX);
+            Geometry.Vector3d y = Geometry.Vector3d.FromDynamo(localY);
 
             // rigidity
             Releases.RigidityDataType3 rigidity = new Releases.RigidityDataType3(motions, rotations);

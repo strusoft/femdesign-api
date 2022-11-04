@@ -10,7 +10,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Shells
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class SlabPart: EntityBase
+    public partial class SlabPart
     { 
         #region dynamo
 

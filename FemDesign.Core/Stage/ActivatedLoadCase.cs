@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
+using FemDesign.GenericClasses;
+
 namespace FemDesign
 {
     public enum PTCLoadCase
@@ -69,12 +71,12 @@ namespace FemDesign
         /// </summary>
         /// <param name="loadCase">The load case to be activated.</param>
         /// <param name="factor">Load case factor.</param>
-        /// <param name="type">Activation type.</param>
-        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType type)
+        /// <param name="partitioning">Partitioning.</param>
+        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType partitioning)
         {
             this.LoadCaseDisplayName = loadCase.Name;
             this._case = loadCase.Guid.ToString();
-            Initialize(factor, type);
+            Initialize(factor, partitioning);
         }
 
         /// <summary>
@@ -127,21 +129,25 @@ namespace FemDesign
         /// <summary>
         /// Only in this stage
         /// </summary>
+        [Parseable("only_in_this_stage", "0", "OnlyInThisStage")]
         [XmlEnum("only_in_this_stage")]
         OnlyInThisStage,
         /// <summary>
         /// From this stage on
         /// </summary>
+        [Parseable("from_this_stage_on", "1", "FromThisStageOn")]
         [XmlEnum("from_this_stage_on")]
         FromThisStageOn,
         /// <summary>
         /// Shifted from first stage
         /// </summary>
+        [Parseable("shifted_from_first_stage", "2", "ShiftedFromFirstStage")]
         [XmlEnum("shifted_from_first_stage")]
         ShiftedFromFirstStage,
         /// <summary>
         /// Only stage activated elements
         /// </summary>
+        [Parseable("only_stage_activated_elem", "3", "OnlyStageActivatedElements")]
         [XmlEnum("only_stage_activated_elem")]
         OnlyStageActivatedElements
     }

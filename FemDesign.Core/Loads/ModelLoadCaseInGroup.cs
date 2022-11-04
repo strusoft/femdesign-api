@@ -23,6 +23,7 @@ namespace FemDesign.Loads
         /// Public constructor.
         /// </summary>
         /// <param name="guid">LoadCase guid reference.</param>
+        /// <param name="parentLoadGroup"></param>
         public ModelLoadCaseInGroup(System.Guid guid, LoadGroupBase parentLoadGroup)
         {
             this.Guid = guid;

@@ -12,8 +12,20 @@ namespace FemDesign.GenericClasses
     public interface IFemDesignEntity
     {
         /// <summary>
+        /// Global Unique Id of entity
+        /// </summary>
+        Guid Guid { get; set; }
+
+        /// <summary>
         /// Invoke when an instance is created.
         /// </summary>
         void EntityCreated();
+
+        /// <summary>
+        /// Invoke when an instance is modified.
+        /// 
+        /// Changes timestamp and action.
+        /// </summary>
+        void EntityModified();
     }
 }

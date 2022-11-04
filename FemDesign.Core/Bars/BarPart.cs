@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 using FemDesign.GenericClasses;
 
@@ -14,8 +16,28 @@ namespace FemDesign.Bars
     /// Underlying representation of a Bar-element.
     /// </summary>
     [System.Serializable]
-    public partial class BarPart : EntityBase, IStageElement
+    public partial class BarPart : NamedEntityPartBase, IStageElement
     {
+        [XmlIgnore]
+        private static int _barInstance = 0; // Number of bar/beam instances created
+        [XmlIgnore]
+        private static int _columnInstance = 0; // Number of column instances created
+        [XmlIgnore]
+        private static int _trussInstance = 0; // Number of truss instances created
+        protected override int GetUniqueInstanceCount()
+        {
+            switch (this.Type)
+            {
+                case BarType.Beam:
+                    return ++_barInstance;
+                case BarType.Column:
+                    return ++_columnInstance;
+                case BarType.Truss:
+                    return ++_trussInstance;
+                default:
+                    throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
+            }
+        }
         /// <summary>
         /// Edge field
         /// </summary>
@@ -158,47 +180,15 @@ namespace FemDesign.Bars
             }
         }
 
-        /// <summary>
-        /// Identifier field
-        /// </summary>
-        [XmlAttribute("name")]
-        public string _name;
-
-        /// <summary>
-        /// Identifier property
-        /// </summary>
         [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                this._name = value + ".1";
-            }
-        }
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this._name.IndexOf(".");
-                return this._name.Substring(found + 1);
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
-
-        [XmlIgnore]
-        public BarType Type { get; set; }
+        public BarType Type;
 
         [XmlIgnore]
         public SectionType SectionType
         {
             get
             {
-                if(this.Type == BarType.Truss)
+                if (this.Type == BarType.Truss)
                 {
                     return SectionType.Truss;
                 }
@@ -206,11 +196,11 @@ namespace FemDesign.Bars
                 {
                     return SectionType.RegularBeamColumn;
                 }
-                else if(this.Type != BarType.Truss && this.HasComplexCompositeRef)
+                else if (this.Type != BarType.Truss && this.HasComplexCompositeRef)
                 {
                     return SectionType.CompositeBeamColumn;
                 }
-                else if(this.Type != BarType.Truss && this.HasComplexSectionRef && this.HasDeltaBeamComplexSectionRef)
+                else if (this.Type != BarType.Truss && this.HasComplexSectionRef && this.HasDeltaBeamComplexSectionRef)
                 {
                     return SectionType.DeltaBeamColumn;
                 }
@@ -306,7 +296,7 @@ namespace FemDesign.Bars
                         this._complexSectionRef = r;
                         return r;
                     }
-                    
+
                 }
             }
             set
@@ -455,8 +445,35 @@ namespace FemDesign.Bars
         }
         [XmlElement("buckling_data", Order = 5)]
         public Buckling.BucklingData BucklingData { get; set; } // buckling_data_type
-        [XmlElement("end", Order = 6)]
+
+        [XmlElement("camber_type_2d", Order = 6)]
+        public StruSoft.Interop.StruXml.Data.Camber_type_2d CamberType2d { get; set; }
+
+        [XmlElement("stiffness_modifiers", Order = 7)]
+        public BarStiffnessFactors BarStiffnessFactors { get; set; }
+
+        [XmlElement("end", Order = 8)]
         public string End = "";
+
+        [XmlAttribute("ecc_crack")]
+        [DefaultValue(false)]
+        public bool EccCrack { get; set; }
+
+        [XmlAttribute("first_order_analysis_U")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisU { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sq")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSq { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sf")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSf { get; set; }
+
+        [XmlAttribute("first_order_analysis_Sc")]
+        [DefaultValue(false)]
+        public bool FirstOrderAnalysisSc { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -484,7 +501,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(section, eccentricity);
                 this.Connectivity = new Connectivity[1] { connectivity };
                 this.EccentricityCalc = true;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
@@ -506,7 +523,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(section, section, startEccentricity, endEccentricity);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
@@ -528,7 +545,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(startSection, endSection, startEccentricity, endEccentricity);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
@@ -550,7 +567,7 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(sections, eccentricities);
                 this.Connectivity = connectivities;
                 this.EccentricityCalc = true;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
@@ -572,13 +589,13 @@ namespace FemDesign.Bars
                 this.ComplexSectionObj = new Sections.ComplexSection(sections, positions, eccentricities);
                 this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.EccentricityCalc = true;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
         /// <summary>
         /// Construct BarPart (truss)
-        /// <summary>
+        /// </summary>
         public BarPart(Geometry.Edge edge, BarType type, Materials.Material material, Sections.Section section, string identifier)
         {
             if (type != BarType.Truss)
@@ -592,13 +609,13 @@ namespace FemDesign.Bars
                 this.Edge = edge;
                 this.ComplexMaterialObj = material;
                 this.TrussUniformSectionObj = section;
-                this.Name = identifier;
+                this.Identifier = identifier;
             }
         }
 
         /// <summary>
         /// Orient this object's coordinate system to GCS
-        /// <summary>
+        /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
             var cs = this.CoordinateSystem;

@@ -47,7 +47,7 @@ namespace FemDesign.Info
             var current = Info.GetCurrentFemDesignApiVersion();
 
             if (current != VersionWhenFirstCreated)
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"The version of this script ({current}) is different than the version it was created with ({VersionWhenFirstCreated})");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"The version of FEM-Design API installed ({current}) is different than the version when this script was created ({VersionWhenFirstCreated}). Most things are expected to work anyways. If you update the components marked with the \"OLD\"-tag it is recommended that you also create a new \"Info\"-component to indicate that this script has been updated to the current version ({current}).");
         }
         public override void CreateAttributes()
         {

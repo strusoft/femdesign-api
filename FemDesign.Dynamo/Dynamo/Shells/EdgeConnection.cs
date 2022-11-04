@@ -12,13 +12,6 @@ namespace FemDesign.Shells
     public partial class EdgeConnection: EdgeConnectionBase
     {
         /// <summary>
-        /// Create a default (rigid) EdgeConnection.
-        /// </summary>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public static EdgeConnection Default() => GetDefault();
-
-        /// <summary>
         /// Define a new EdgeConnection
         /// </summary>
         /// <remarks>Create</remarks>
@@ -37,9 +30,9 @@ namespace FemDesign.Shells
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static EdgeConnection Hinged()
+        public static EdgeConnection GetHinged()
         {
-            return EdgeConnection.GetHinged();
+            return EdgeConnection.Hinged;
         }
 
         /// <summary>
@@ -48,9 +41,9 @@ namespace FemDesign.Shells
         /// <remarks>Create</remarks>
         /// <returns></returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static EdgeConnection Rigid()
+        public static EdgeConnection GetRigid()
         {
-            return EdgeConnection.GetRigid();
+            return EdgeConnection.Rigid;
         }
     }
 }

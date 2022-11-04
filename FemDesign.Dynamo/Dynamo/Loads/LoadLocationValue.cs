@@ -18,7 +18,7 @@ namespace FemDesign.Loads
         [IsVisibleInDynamoLibrary(true)]
         public static LoadLocationValue Define(Autodesk.DesignScript.Geometry.Point point, double intensity)
         {
-            return new LoadLocationValue(Geometry.FdPoint3d.FromDynamo(point), intensity);
+            return new LoadLocationValue(Geometry.Point3d.FromDynamo(point), intensity);
         }
 
         #endregion

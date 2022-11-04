@@ -152,7 +152,7 @@ namespace FemDesign.Geometry
             }
 
             // get LCS
-            FdCoordinateSystem cs = FdCoordinateSystem.FromDynamoSurface(obj);
+            CoordinateSystem cs = CoordinateSystem.FromDynamoSurface(obj);
 
             // return
             return new Geometry.Region(contours, cs);

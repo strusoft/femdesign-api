@@ -18,7 +18,6 @@ namespace FemDesign.Grasshopper
             pManager.AddNumberParameter("Thickness", "Thickness", "Thickness. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrthotropy. Optional.", GH_ParamAccess.item);
@@ -46,10 +45,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(1, ref thickness);
 
             FemDesign.Materials.Material material = null;
-            if (!DA.GetData(2, ref material))
-            {
-                material = FemDesign.Materials.MaterialDatabase.GetDefault().MaterialByName("C30/37");
-            };
+            if (!DA.GetData(2, ref material)) { return; }
 
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default;
             if(!DA.GetData(3, ref eccentricity))
@@ -122,7 +118,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("e26cd4b0-0582-4ea5-8705-3b9695937277"); }
+            get { return new Guid("{C3C9CD9E-BEE2-4B12-B0DE-60817FA7D2F5}"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.primary;
 

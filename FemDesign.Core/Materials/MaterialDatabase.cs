@@ -230,7 +230,13 @@ namespace FemDesign.Materials
 
         public (List<Material> steel, List<Material> concrete, List<Material> timber, List<Material> reinforcement, List<Material> stratum, List<Material> custom) ByType()
         {
-            var materialDataBaseList = this.Materials.Material.Concat(this.ReinforcingMaterials.Material);
+            var materialDataBaseList = new List<Material>();
+            if (this.ReinforcingMaterials != null)
+            {
+                materialDataBaseList = this.Materials.Material.Concat(this.ReinforcingMaterials.Material).ToList();
+            }
+            else
+                materialDataBaseList.AddRange(this.Materials.Material);
 
             var steel = new List<Material>();
             var timber = new List<Material>();

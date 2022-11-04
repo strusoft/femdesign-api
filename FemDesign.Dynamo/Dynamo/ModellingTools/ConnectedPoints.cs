@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.ModellingTools
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class ConnectedPoints: EntityBase
+    public partial class ConnectedPoints
     {
 
         #region dynamo
@@ -17,8 +17,8 @@ namespace FemDesign.ModellingTools
         public static ConnectedPoints Define(Autodesk.DesignScript.Geometry.Point firstPoint, Autodesk.DesignScript.Geometry.Point secondPoint, Releases.Motions motions, Releases.Rotations rotations, System.Guid[] references, string identifier)
         {
             // convert geometry
-            Geometry.FdPoint3d p1 = Geometry.FdPoint3d.FromDynamo(firstPoint);
-            Geometry.FdPoint3d p2 = Geometry.FdPoint3d.FromDynamo(secondPoint);
+            Geometry.Point3d p1 = Geometry.Point3d.FromDynamo(firstPoint);
+            Geometry.Point3d p2 = Geometry.Point3d.FromDynamo(secondPoint);
 
             // rigidity
             Releases.RigidityDataType2 rigidity = new Releases.RigidityDataType2(motions, rotations);

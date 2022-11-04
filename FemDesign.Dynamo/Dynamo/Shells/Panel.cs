@@ -10,7 +10,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Shells
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Panel: EntityBase
+    public partial class Panel
     {
         #region dynamo
 
@@ -40,13 +40,13 @@ namespace FemDesign.Shells
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                obj.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                obj.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                obj.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             // set mesh

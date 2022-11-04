@@ -20,13 +20,5 @@ namespace FemDesign.Shells
         {
             return new ShellOrthotropy(orthoAlfa, orthoRatio);
         }
-
-        /// <summary>
-        /// Create a default definition for ShellOrthotropy.
-        /// </summary>
-        /// <remarks>Create</remarks>
-        /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
-        public static ShellOrthotropy Default() => GetDefault();
     }
 }

@@ -9,7 +9,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Shells
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class Slab: EntityBase
+    public partial class Slab
     {
         #region dynamo
 
@@ -66,13 +66,13 @@ namespace FemDesign.Shells
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                slab.SlabPart.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                slab.SlabPart.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             return slab;
@@ -109,13 +109,13 @@ namespace FemDesign.Shells
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                slab.SlabPart.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                slab.SlabPart.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             return slab;
@@ -156,13 +156,13 @@ namespace FemDesign.Shells
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                slab.SlabPart.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                slab.SlabPart.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             return slab;
@@ -205,13 +205,13 @@ namespace FemDesign.Shells
             // set local x-axis
             if (!localX.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalX = FemDesign.Geometry.FdVector3d.FromDynamo(localX);
+                slab.SlabPart.LocalX = FemDesign.Geometry.Vector3d.FromDynamo(localX);
             }
 
             // set local z-axis
             if (!localZ.Equals(Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0,0,0)))
             {
-                slab.SlabPart.LocalZ = FemDesign.Geometry.FdVector3d.FromDynamo(localZ);
+                slab.SlabPart.LocalZ = FemDesign.Geometry.Vector3d.FromDynamo(localZ);
             }
 
             return slab;
@@ -230,8 +230,8 @@ namespace FemDesign.Shells
             Slab slab = this.DeepClone();
 
             // set local x and local z
-            slab.SlabPart.LocalX = Geometry.FdVector3d.FromDynamo(localX);
-            slab.SlabPart.LocalZ = Geometry.FdVector3d.FromDynamo(localZ);
+            slab.SlabPart.LocalX = Geometry.Vector3d.FromDynamo(localX);
+            slab.SlabPart.LocalZ = Geometry.Vector3d.FromDynamo(localZ);
 
             //
             return slab;

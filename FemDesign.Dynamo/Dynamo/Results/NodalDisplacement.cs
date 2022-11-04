@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class NodalDisplacement : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "NodalDisplacement";
+        }
+
         /// <summary>
         /// Create new model. Add entities to model. Nested lists are not supported, use flatten.
         /// </summary>
@@ -35,8 +41,8 @@ namespace FemDesign.Results
 
             var loadCases = (List<string>)result["CaseIdentifier"];
             var nodeId = (List<int>)result["NodeId"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
 
             // Convert the FdVector to Dynamo

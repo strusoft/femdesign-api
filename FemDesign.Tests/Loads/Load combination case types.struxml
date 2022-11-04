@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.005" start_time="1970-01-01T00:00:00.000" end_time="2022-10-28T14:38:37.000" guid="623ea81b-e09c-4278-9067-2bbe51a51a4c" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+	<construction_stages last_change="2022-10-28T14:37:55.000" action="added">
+		<stage description="First stage">
+			<activated_load_case case="6ca669aa-55c6-4c0a-866e-49144b5c5f16" factor="1" partitioning="from_this_stage_on"></activated_load_case>
+			<activated_load_case case="2ce4d6d8-6231-4ce0-863d-0f333df1cc4d" factor="1" partitioning="from_this_stage_on"></activated_load_case>
+		</stage>
+		<stage description="Second stage">
+			<activated_load_case case="b04c0d6a-5957-4057-adbd-a95b5a553945" factor="1" partitioning="from_this_stage_on"></activated_load_case>
+		</stage>
+	</construction_stages>
+	<entities>
+		<soil_elements>
+			<strata name="SOIL.1" last_change="2022-10-28T07:51:20.000" action="added" default_filling="a53b6201-9cec-4402-9c05-21cea3da25b8" default_fillings_colour="B97A57" depth_level_limit="-10">
+				<contour>
+					<point x="12.4327116639066" y="12.3904258235923"></point>
+					<point x="12.9129966399232" y="12.3904258235923"></point>
+					<point x="12.9129966399232" y="13.2223085086807"></point>
+					<point x="12.4327116639066" y="13.2223085086807"></point>
+				</contour>
+				<stratum material="a53b6201-9cec-4402-9c05-21cea3da25b8" colour="AAAF37"></stratum>
+				<water_level colour="0040FF" name="a"></water_level>
+			</strata>
+			<borehole guid="c2109f53-1f2b-4095-8493-505f8ed9280d" last_change="2022-10-28T07:51:20.000" action="added" name="BH.1" x="12.4327116639066" y="12.3904258235923" final_ground_level="0">
+				<whole_level_data>
+					<strata_top_levels>0</strata_top_levels>
+					<water_levels>-10</water_levels>
+				</whole_level_data>
+			</borehole>
+			<borehole guid="5c189f56-b96f-43c1-8cbe-680c0c264ebc" last_change="2022-10-28T07:51:20.000" action="added" name="BH.2" x="12.9129966399232" y="12.3904258235923" final_ground_level="0">
+				<whole_level_data>
+					<strata_top_levels>0</strata_top_levels>
+					<water_levels>-10</water_levels>
+				</whole_level_data>
+			</borehole>
+			<borehole guid="70349f6d-27af-466d-9423-ab6ba97f5ca9" last_change="2022-10-28T07:51:20.000" action="added" name="BH.3" x="12.9129966399232" y="13.2223085086807" final_ground_level="0">
+				<whole_level_data>
+					<strata_top_levels>0</strata_top_levels>
+					<water_levels>-10</water_levels>
+				</whole_level_data>
+			</borehole>
+			<borehole guid="3ad6dac1-6bec-4bbe-9416-2397ca6fb7a0" last_change="2022-10-28T07:51:20.000" action="added" name="BH.4" x="12.4327116639066" y="13.2223085086807" final_ground_level="0">
+				<whole_level_data>
+					<strata_top_levels>0</strata_top_levels>
+					<water_levels>-10</water_levels>
+				</whole_level_data>
+			</borehole>
+			<pile guid="a14ceaab-cc1f-40b7-a135-0c9fca096099" last_change="2022-10-28T07:51:25.000" action="added" name="PI.1" type="driven_displacement" division_length="0.5" surface_surcharge="0" neutral_level="0" perimeter_by_contour="false">
+				<beam guid="071a1c0a-3d90-407b-972d-733c9c7e3ab4" complex_material="1ff47a81-e2bb-4699-8cc1-ea0a2e7f500d" complex_section="9a68f1d2-2ba3-4dd2-920e-305d333e6ab6">
+					<curve type="line">
+						<point x="12.6720835704246" y="12.8832826854212" z="-8"></point>
+						<point x="12.6720835704246" y="12.8832826854212" z="0"></point>
+					</curve>
+					<local-y x="0" y="1" z="0"></local-y>
+					<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				</beam>
+				<point_support>
+					<rigidity>
+						<spring neg="275.510204081633" pos="0"></spring>
+						<plastic_limit_forces neg="21.06"></plastic_limit_forces>
+					</rigidity>
+				</point_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+				<line_support alpha_neg="1" beta_neg="1">
+					<rigidity>
+						<motions x_neg="1071.15709789877" x_pos="1071.15709789877" y_neg="761.477513853925" y_pos="761.477513853925" z_neg="681.086193725966" z_pos="681.086193725966"></motions>
+						<plastic_limit_forces x_neg="29.966625" x_pos="29.966625"></plastic_limit_forces>
+					</rigidity>
+				</line_support>
+			</pile>
+		</soil_elements>
+		<bar name="B.1" type="beam" guid="5a223c3a-524a-4be8-af2d-7b5c56026428" last_change="2022-10-27T08:10:29.000" action="added">
+			<bar_part guid="0b7c6d34-ebda-4456-91b2-8efe4773cced" last_change="2022-10-27T08:10:29.000" action="added" name="B.1.1" complex_material="25a4f1be-a29e-4895-91af-c698f1ee53ae" made="rolled" complex_section="89b4fbf8-a59f-4b01-9e31-1f26d6db8bd8" ecc_calc="true">
+				<curve type="line">
+					<point x="11.0208517010856" y="9.3807861683125" z="0"></point>
+					<point x="18.0338034871511" y="9.3807861683125" z="0"></point>
+				</curve>
+				<local-y x="0" y="1" z="0"></local-y>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<eccentricity use_default_physical_alignment="true">
+					<analytical x="0" y="0" z="0"></analytical>
+					<analytical x="0" y="0" z="0"></analytical>
+					<physical x="0" y="0" z="-0.048"></physical>
+					<physical x="0" y="0" z="-0.048"></physical>
+				</eccentricity>
+				<end></end>
+			</bar_part>
+			<end></end>
+		</bar>
+		<post-tensioned_cable guid="5df12e1d-97c9-4d53-a2e1-46f3161a5747" last_change="2022-10-27T08:10:37.000" action="added" name="PTC.1" base_object="0b7c6d34-ebda-4456-91b2-8efe4773cced" strand_type="e7d4bb12-a9a1-4706-8b73-9d65a2ac5572" number_of_strands="3" jacking_side="start" jacking_stress="1488">
+			<start_point x="11.0208517010856" y="9.3807861683125" z="0"></start_point>
+			<end_point x="18.0338034871511" y="9.3807861683125" z="0"></end_point>
+			<losses curvature_coefficient="0.05" wobble_coefficient="0.007" anchorage_set_slip="6" elastic_shortening="0" creep_stress="0" shrinkage_stress="0" relaxation_stress="0"></losses>
+			<shape_base_points top="0.06" bottom="0.06">
+				<start_point z="-4.80000000012514E-02" tangent="0"></start_point>
+				<intermediate_point pos="0.500000001781668" z="-3.60000000025029E-02" tangent="0" prior_inflection_pos="0.199999999287333"></intermediate_point>
+				<end_point z="-4.80000000012514E-02" tangent="0" prior_inflection_pos="0.799999999287333"></end_point>
+			</shape_base_points>
+			<manufacturing shift_x="0" shift_z="9.60000000025029E-02">
+				<positions>0 0.142593308852768 0.285186617705536 0.500000001781668 0.712966544263839 0.855559853116607 1</positions>
+			</manufacturing>
+		</post-tensioned_cable>
+		<loads>
+			<line_stress_load load_case="b04c0d6a-5957-4057-adbd-a95b5a553945" guid="34cd409b-96fa-41d2-9389-b75caff832c6" last_change="2022-10-27T08:09:40.000" action="added">
+				<edge type="line">
+					<point x="6.58449364276716" y="22.0934983847422" z="0"></point>
+					<point x="11.6764911222535" y="20.4890216273602" z="0"></point>
+					<normal x="0.300531354990388" y="0.953771935353332" z="0"></normal>
+				</edge>
+				<direction x="0.300531354990384" y="0.953771935353334" z="0"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<stress x="6.58449364276716" y="22.0934983847422" z="0" top_val="10" bottom_val="10"></stress>
+				<stress x="11.6764911222535" y="20.4890216273602" z="0" top_val="10" bottom_val="10"></stress>
+			</line_stress_load>
+			<moving_load name="MVL" guid="451cd1a0-715f-4e0f-a08d-3129341d03a3" last_change="2022-10-28T14:37:55.000" action="added" vehicle="6a9783d4-4a40-43d6-a423-313653524ce9" lock_direction="true">
+				<division_points value="3"></division_points>
+				<path_position x="15.9372334075478" y="20.7456141807427" z="0"></path_position>
+				<path_position x="17.6787303980364" y="21.751070780052" z="0"></path_position>
+				<path_position x="18.53692323" y="25.3959204731661" z="0"></path_position>
+				<path_position x="18.53692323" y="28.6369776664887" z="0"></path_position>
+				<vehicle_positions>
+					<position x="15.9372334075478" y="20.7456141807427" z="0"></position>
+					<position x="17.9051481026484" y="22.7126944040605" z="0"></position>
+					<position x="18.53692323" y="25.6381492158889" z="0"></position>
+					<position x="18.53692323" y="28.6369776664887" z="0"></position>
+				</vehicle_positions>
+			</moving_load>
+			<load_case type="static" duration_class="permanent" guid="ec9f507c-8183-433f-8d23-364b26e6a827" last_change="2022-09-22T07:28:33.000" action="added" name="DL"></load_case>
+			<load_case type="static" duration_class="permanent" guid="6ca669aa-55c6-4c0a-866e-49144b5c5f16" last_change="2022-09-22T07:28:33.000" action="added" name="Prestress 1"></load_case>
+			<load_case type="static" duration_class="permanent" guid="2ce4d6d8-6231-4ce0-863d-0f333df1cc4d" last_change="2022-09-22T07:28:33.000" action="added" name="Prestress 2"></load_case>
+			<load_case type="static" duration_class="permanent" guid="b04c0d6a-5957-4057-adbd-a95b5a553945" last_change="2022-09-22T07:28:33.000" action="added" name="Prestress 3"></load_case>
+			<load_combination guid="652eb67c-9729-4070-aee3-dde851a9d3a5" last_change="2022-10-27T07:26:14.000" action="added" name="LComb1" type="ultimate_ordinary">
+				<load_case guid="ec9f507c-8183-433f-8d23-364b26e6a827" gamma="1"></load_case>
+				<cs_case type="cs.1" gamma="1"></cs_case>
+			</load_combination>
+			<load_combination guid="b1a8d8ba-32f7-431e-aadc-305da98e6b02" last_change="2022-10-27T08:09:30.000" action="added" name="LComb2" type="ultimate_ordinary">
+				<load_case guid="ec9f507c-8183-433f-8d23-364b26e6a827" gamma="1"></load_case>
+				<seismic_max gamma="1"></seismic_max>
+				<seismic_res_fx_plus_mx gamma="1"></seismic_res_fx_plus_mx>
+				<seismic_res_fx_minus_mx gamma="1"></seismic_res_fx_minus_mx>
+				<seismic_res_fy_plus_my gamma="1"></seismic_res_fy_plus_my>
+				<seismic_res_fy_minus_my gamma="1"></seismic_res_fy_minus_my>
+				<seismic_res_fz gamma="1"></seismic_res_fz>
+				<cs_case type="cs.2" gamma="1"></cs_case>
+			</load_combination>
+			<load_combination guid="ad57609b-cff0-474c-bbf8-9173daa32a5b" last_change="2022-10-28T07:51:46.000" action="added" name="LComb3" type="ultimate_ordinary">
+				<load_case guid="ec9f507c-8183-433f-8d23-364b26e6a827" gamma="1"></load_case>
+				<ptc_t0 gamma="1"></ptc_t0>
+				<ptc_t8 gamma="1"></ptc_t8>
+				<ldcase_pile gamma="1"></ldcase_pile>
+				<cs_case type="final_cs" gamma="1"></cs_case>
+			</load_combination>
+			<load_combination guid="add04cbd-b3cf-462b-93d0-fd29159142f4" last_change="2022-10-28T14:38:37.000" action="added" name="LComb4" type="ultimate_ordinary">
+				<load_case guid="451cd1a0-715f-4e0f-a08d-3129341d03a3#1" gamma="1"></load_case>
+			</load_combination>
+			<load_group_table last_change="2022-10-28T14:37:55.000" action="added" simple_combination_method="false">
+				<group name="MVL" guid="84f1c040-f1d8-4760-9ef4-2cb7fae41815">
+					<temporary safety_factor="1.5" psi_0="0.7" psi_1="0.5" psi_2="0.3" leading_cases="true">
+						<load_cases_of_moving_load guid="451cd1a0-715f-4e0f-a08d-3129341d03a3"></load_cases_of_moving_load>
+					</temporary>
+				</group>
+			</load_group_table>
+		</loads>
+	</entities>
+	<sections>
+		<section guid="4987c406-68d0-42d5-a158-6ab8f608c851" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Rectangle, 120x150" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Rectangle" fd_name_size="120x150">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.06" y="-0.075" z="0"></point>
+							<point x="0.06" y="-0.075" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.075" z="0"></point>
+							<point x="0.06" y="0.075" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.075" z="0"></point>
+							<point x="-0.06" y="0.075" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.075" z="0"></point>
+							<point x="-0.06" y="-0.075" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, HE-A, 100" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="HE-A" fd_name_size="100">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.05" y="-0.048" z="0"></point>
+							<point x="0.05" y="-0.048" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.048" z="0"></point>
+							<point x="0.05" y="-0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.04" z="0"></point>
+							<point x="0.0145" y="-0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0145" y="-0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0025" y="-0.028" z="0"></point>
+							<point x="0.0025" y="0.028" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0145" y="0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0145" y="0.04" z="0"></point>
+							<point x="0.05" y="0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="0.04" z="0"></point>
+							<point x="0.05" y="0.048" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="0.048" z="0"></point>
+							<point x="-0.05" y="0.048" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.048" z="0"></point>
+							<point x="-0.05" y="0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.04" z="0"></point>
+							<point x="-0.0145" y="0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0145" y="0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0025" y="0.028" z="0"></point>
+							<point x="-0.0025" y="-0.028" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0145" y="-0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0145" y="-0.04" z="0"></point>
+							<point x="-0.05" y="-0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="-0.04" z="0"></point>
+							<point x="-0.05" y="-0.048" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<complex_section guid="9a68f1d2-2ba3-4dd2-920e-305d333e6ab6" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="4987c406-68d0-42d5-a158-6ab8f608c851">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+			<section pos="1" guid="4987c406-68d0-42d5-a158-6ab8f608c851">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+		</complex_section>
+		<complex_section guid="89b4fbf8-a59f-4b01-9e31-1f26d6db8bd8" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+			<section pos="1" guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+		</complex_section>
+	</sections>
+	<materials>
+		<material guid="a53b6201-9cec-4402-9c05-21cea3da25b8" last_change="2022-10-28T07:51:03.000" action="added" standard="EC" country="S" name="a">
+			<stratum reference_level="0" Gamma_dry="16" Gamma_sat="18" nu="0.3">
+				<behaviour>
+					<undrained c_uk="130" c_uk_depth="0"></undrained>
+				</behaviour>
+				<model>
+					<linear value="2500" M0_depth="0"></linear>
+				</model>
+			</stratum>
+		</material>
+		<material guid="1ff47a81-e2bb-4699-8cc1-ea0a2e7f500d" last_change="2013-07-19T10:00:49.000" action="added" standard="EC" country="S" name="C35/45">
+			<concrete mass="2.54842" E_0="34000000" E_1="34000000" E_2="34000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="14166666.6666667" G_1="14166666.6666667" G_2="14166666.6666667" Fck="35" Fck_cube="45" Fctk="2.2" Fctm="3.2" Ecm="34000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="23.3333333333333" Fcd_1="29.1666666666667" Fctd_0="1.46666666666667" Fctd_1="1.83333333333333" Ecd_0="22666.6666666667" Ecd_1="28333.3333333333" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+		<material guid="25a4f1be-a29e-4895-91af-c698f1ee53ae" last_change="2018-08-28T10:01:02.000" action="added" standard="EC" country="S" name="S355J2">
+			<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="355" Fyk40="345" Fyk63="335" Fyk80="325" Fyk100="315" Fyk150="295" Fyk200="285" Fyk250="275" Fyk400="265" Fuk3="510" Fuk40="470" Fuk100="470" Fuk150="450" Fuk250="450" Fuk400="450" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.2" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+		</material>
+	</materials>
+	<ptc_strand_types>
+		<predefined_type name="Y1860S7-15,7-F1-C1" guid="e7d4bb12-a9a1-4706-8b73-9d65a2ac5572" last_change="2022-10-27T08:10:27.000" action="added">
+			<ptc_strand_data f_pk="1860" A_p="150" E_p="195000" density="7.81" relaxation_class="2" Rho_1000="2.5"></ptc_strand_data>
+		</predefined_type>
+	</ptc_strand_types>
+	<vehicle_types>
+		<predefined_type name="EC LM1 Lane 1. (Truck) [Concentrated]" guid="6a9783d4-4a40-43d6-a423-313653524ce9" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="3329590c-96bf-4b25-918f-9a6346d16922" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="-1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="75944593-3082-4b0f-98c3-089fcce353a0" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="-1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="4268944a-f2b8-4539-af2d-a9a052c2f4db" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="ed84a014-fb83-4f2b-9b3b-481536d47626" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="1" z="0" val="150"></load>
+			</point_load>
+		</predefined_type>
+	</vehicle_types>
+	<end></end>
+</database>

@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class NodalVibration : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "NodalVibration";
+        }
+
         /// <summary>
         /// Read the Modal Shape vectors for the entire model
         /// </summary>
@@ -36,8 +42,8 @@ namespace FemDesign.Results
             var shapeIds = (List<int>)result["ShapeId"];
             var identifier = (List<string>)result["Id"];
             var nodeId = (List<int>)result["NodeId"];
-            var iTranslation = (List<FemDesign.Geometry.FdVector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.FdVector3d>)result["Rotation"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
             // Convert the FdVector to Dynamo
             var oTranslation = iTranslation.Select(x => x.ToDynamo());

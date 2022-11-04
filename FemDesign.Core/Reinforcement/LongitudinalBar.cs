@@ -36,8 +36,12 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Construct longitudinal bar using start and end distance from bar start
         /// </summary>
+        /// <param name="position"></param>
         /// <param name="startAnchorage">Start anchorage in meters.</param>
         /// <param name="endAnchorage">End anchorage in meters.</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="auxiliary"></param>
         public LongitudinalBar(Geometry.Point2d position, double startAnchorage, double endAnchorage, double start, double end, bool auxiliary)
         {
             this.Position2d = position;
@@ -50,8 +54,13 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Construct longitudinal bar using start and end param from bar start
         /// </summary>
+        /// <param name="bar"></param>
+        /// <param name="position"></param>
         /// <param name="startAnchorage">Start anchorage in meters.</param>
         /// <param name="endAnchorage">End anchorage in meters.</param>
+        /// <param name="startParam"></param>
+        /// <param name="endParam"></param>
+        /// <param name="auxiliary"></param>
         public LongitudinalBar(Bars.Bar bar, Geometry.Point2d position, double startAnchorage, double endAnchorage, double startParam, double endParam, bool auxiliary)
         {
             this.Position2d = position;

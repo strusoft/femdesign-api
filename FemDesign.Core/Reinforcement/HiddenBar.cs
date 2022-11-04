@@ -6,10 +6,11 @@ using FemDesign.GenericClasses;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public partial class HiddenBar: EntityBase, IStructureElement
+    public partial class HiddenBar: NamedEntityBase, IStructureElement
     {   
         
-        private static int _instance = 0;
+        private static int _hiddenBarInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_hiddenBarInstances;
 
         [XmlElement("rectangle", Order = 1)]
         public Geometry.RectangleType Rectangle { get; set; }
@@ -19,23 +20,6 @@ namespace FemDesign.Reinforcement
 
         [XmlElement("end", Order = 3)]
         public string End = "";
-
-        [XmlAttribute("name")]
-        public string _name;
-
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                HiddenBar._instance++;
-                this._name = RestrictedString.Length(value, 50) + HiddenBar._instance.ToString();
-            }
-        }
 
         [XmlAttribute("base_shell")]
         public Guid BaseShell { get; set; }

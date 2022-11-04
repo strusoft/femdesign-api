@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class LineSupportReaction : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "LineSupportReaction";
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,8 +43,8 @@ namespace FemDesign.Results
             var identifier = (List<string>)result["Identifier"];
             var elementId = (List<int>)result["ElementId"];
             var nodeId = (List<int>)result["NodeId"];
-            var iReactionForce = (List<FemDesign.Geometry.FdVector3d>)result["ReactionForce"];
-            var iReactionMoment = (List<FemDesign.Geometry.FdVector3d>)result["ReactionMoment"];
+            var iReactionForce = (List<FemDesign.Geometry.Vector3d>)result["ReactionForce"];
+            var iReactionMoment = (List<FemDesign.Geometry.Vector3d>)result["ReactionMoment"];
             var iForceResultant = (List<double>)result["ForceResultant"];
             var iMomentResultant = (List<double>)result["MomentResultant"];
 

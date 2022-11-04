@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.AuxiliaryResults
 {
     [IsVisibleInDynamoLibrary(false)]
-    public partial class LabelledSection : EntityBase, IStructureElement
+    public partial class LabelledSection
     {
     }
 }

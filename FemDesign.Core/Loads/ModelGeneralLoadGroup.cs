@@ -10,7 +10,7 @@ namespace FemDesign.Loads
     /// load_case (child of load_group_table)
     /// </summary>
     [System.Serializable]
-    public partial class ModelGeneralLoadGroup: GenericClasses.IFemDesignEntity
+    public partial class ModelGeneralLoadGroup
     {
         [XmlAttribute("name")]
         public string Name { get; set; }
@@ -28,7 +28,6 @@ namespace FemDesign.Loads
         /// </summary>
         public ModelGeneralLoadGroup()
         {
-            // parameterless constructor for serialization
         }
 
         /// <summary>
@@ -37,17 +36,9 @@ namespace FemDesign.Loads
         /// <param name="LoadGroup">Specific load group object</param>
         public ModelGeneralLoadGroup(LoadGroupBase LoadGroup)
         {
-            EntityCreated();
+            Guid = Guid.NewGuid();
             AddSpecificLoadGroup(LoadGroup, false);
             Name = LoadGroup.Name;
-        }
-
-        /// <summary>
-        /// Invoke when an instance is created.
-        /// 
-        public void EntityCreated()
-        {
-            Guid = Guid.NewGuid();
         }
 
         /// <summary>

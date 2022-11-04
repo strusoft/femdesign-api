@@ -117,8 +117,7 @@ namespace FemDesign.Grasshopper
             string identifier = null;
             if (DA.GetData(9, ref identifier))
             {
-                bar.Name = identifier;
-                bar.BarPart.Name = bar.Name;
+                bar.Identifier = identifier;
             }
 
             // output

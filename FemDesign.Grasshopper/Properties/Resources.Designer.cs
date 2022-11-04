@@ -293,6 +293,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap deconstruct_icon {
+            get {
+                object obj = ResourceManager.GetObject("deconstruct_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DesignDefine {
             get {
                 object obj = ResourceManager.GetObject("DesignDefine", resourceCulture);
@@ -586,6 +596,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap LineLoadMoment {
             get {
                 object obj = ResourceManager.GetObject("LineLoadMoment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LineStressLoadConstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineStressLoadConstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LineStressLoadDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineStressLoadDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1653,6 +1683,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StagesDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("StagesDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap StiffnessMatrix2Type {
             get {
                 object obj = ResourceManager.GetObject("StiffnessMatrix2Type", resourceCulture);
@@ -1686,6 +1726,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StiffnessMatrix4TypeDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("StiffnessMatrix4TypeDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StiffnessPoint {
+            get {
+                object obj = ResourceManager.GetObject("StiffnessPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

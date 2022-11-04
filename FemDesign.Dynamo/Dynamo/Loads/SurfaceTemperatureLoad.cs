@@ -25,7 +25,7 @@ namespace FemDesign.Loads
         {
             // convert geometry
             Geometry.Region region = Geometry.Region.FromDynamo(surface);
-            Geometry.FdVector3d dir = Geometry.FdVector3d.FromDynamo(direction);
+            Geometry.Vector3d dir = Geometry.Vector3d.FromDynamo(direction);
 
             // return
             return new SurfaceTemperatureLoad(region, dir, tempLocValue, loadCase, comment);

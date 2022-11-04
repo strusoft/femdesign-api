@@ -9,10 +9,11 @@ using FemDesign.Geometry;
 namespace FemDesign.ModellingTools
 {
     [System.Serializable]
-    public partial class ConnectedPoints : EntityBase, IStructureElement
+    public partial class ConnectedPoints : NamedEntityBase, IStructureElement
     {
         [XmlIgnore]
-        private static int _instance = 0;
+        private static int _connectedPointInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_connectedPointInstances;
 
         [XmlElement("point", Order = 1)]
         public Point3d[] _points;
@@ -73,23 +74,6 @@ namespace FemDesign.ModellingTools
 
         [XmlElement("ref", Order = 6)]
         public GuidListType[] References { get; set; }
-
-        [XmlAttribute("name")]
-        public string _name;
-
-        [XmlIgnore]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                _instance++;
-                this._name = $"{RestrictedString.Length(value, 50)}.{_instance.ToString()}";
-            }
-        }
 
         [XmlAttribute("interface")]
         public double _interface;
@@ -179,7 +163,7 @@ namespace FemDesign.ModellingTools
             this.LocalY = Vector3d.UnitY;
             this.Rigidity = rigidity;
             this.References = references;
-            this.Name = identifier;
+            this.Identifier = identifier;
         }
     }
 }

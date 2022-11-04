@@ -11,23 +11,11 @@ namespace FemDesign.Supports
     /// point_support_type
     /// </summary>
     [System.Serializable]
-    public partial class PointSupport : EntityBase, IStructureElement, ISupportElement, IStageElement
+    public partial class PointSupport : NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
         [XmlIgnore]
-        public static int _instance = 0; // used for PointSupports and LineSupports
-        [XmlAttribute("name")]
-        public string Name { get; set; } // identifier
-        [XmlIgnore]
-        public string Instance
-        {
-            get
-            {
-                var found = this.Name.IndexOf(".");
-                return this.Name.Substring(found + 1);
-            }
-        }
-        public string Identifier => this.Name.Split('.')[0];
-
+        internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
+        protected override int GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
@@ -99,10 +87,10 @@ namespace FemDesign.Supports
         /// <summary>
         /// Create a Point Support oriented along the Global Axis X and Y.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="motions"></param>
-        /// <param name="rotations"></param>
-        /// <param name="identifier"></param>
+        /// <param name="point">Position of the support. </param>
+        /// <param name="motions">Motions stiffnessess. </param>
+        /// <param name="rotations">Rotation stiffnessess. </param>
+        /// <param name="identifier">Name.</param>
         public PointSupport(Point3d point, Motions motions, Rotations rotations, string identifier = "S")
         {
             var group = new Group(Vector3d.UnitX, Vector3d.UnitY, motions, rotations);
@@ -112,7 +100,7 @@ namespace FemDesign.Supports
         /// <summary>
         /// PointSupport at point with rigidity (motions, rotations) and plastic limits (forces, moments). Group aligned with global coordinate system.
         /// </summary>
-        /// <param name="point">Position of the support. </param>
+        /// <param name="plane">Position (and orientation) of the support. </param>
         /// <param name="motions">Motions stiffnessess. </param>
         /// <param name="motionsPlasticLimits">Motions plastic limit forces. </param>
         /// <param name="rotations">Rotation stiffnessess. </param>
@@ -120,7 +108,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public PointSupport(CoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
-            var group = new Group(Vector3d.UnitX, Vector3d.UnitY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            var group = new Group(plane.LocalX, plane.LocalY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(plane, group, identifier);
         }
 
@@ -154,9 +142,8 @@ namespace FemDesign.Supports
 
         private void Initialize(CoordinateSystem point, Group group, string identifier)
         {
-            PointSupport._instance++;
             this.EntityCreated();
-            this.Name = $"{identifier}.{_instance}";
+            this.Identifier = identifier;
             this.Group = group;
             this.Position = point;
         }

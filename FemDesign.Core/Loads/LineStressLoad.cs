@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using FemDesign.Geometry;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -9,7 +10,7 @@ namespace FemDesign.Loads
     /// line_stress_load_type
     /// </summary>
     [System.Serializable]
-    public partial class LineStressLoad: LoadBase
+    public partial class LineStressLoad : LoadBase
     {
         /// <summary>
         /// Edge defining the geometry of the load
@@ -69,20 +70,89 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
+        /// Construct a line stress load
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="force">Force (n1 and n2)</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
+        public LineStressLoad(Edge edge, double force, LoadCase loadCase, string comment = "")
+                : this(edge, edge.CoordinateSystem.LocalY, force, force, 0.0, 0.0, loadCase, comment)
+        { }
+
+        /// <summary>
+        /// Construct a line stress load
+        /// </summary>
+        /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
+        /// <param name="force">Force (n1 and n2)</param>
+        /// <param name="moment">Moment (m1 and m2)</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
+        public LineStressLoad(Edge edge, double force, double moment, LoadCase loadCase, string comment = "")
+                : this(edge, edge.CoordinateSystem.LocalY, force, force, moment, moment, loadCase, comment)
+        { }
+
+        /// <summary>
+        /// Construct a uniform or variable line stress load
+        /// </summary>
+        /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
+        /// <param name="n1">Force at start.</param>
+        /// <param name="n2">Force at end.</param>
+        /// <param name="m1">Moment at start.</param>
+        /// <param name="m2">Moment at end.</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
+        public LineStressLoad(Edge edge, double n1, double n2, double m1, double m2, LoadCase loadCase, string comment = "")
+                : this(edge, edge.CoordinateSystem.LocalY, n1, n2, m1, m2, loadCase, comment)
+        { }
+
+        /// <summary>
         /// Construct a uniform or variable line stress load
         /// </summary>
         /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
         /// <param name="direction">Direction of load.</param>
-        /// <param name="topBotLocVal">List of 2 top bottom location values</param>
-        public LineStressLoad(Geometry.Edge edge, Geometry.Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
+        /// <param name="n1">Force at start.</param>
+        /// <param name="n2">Force at end.</param>
+        /// <param name="m1">Moment at start.</param>
+        /// <param name="m2">Moment at end.</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
+        public LineStressLoad(Edge edge, Vector3d direction, double n1, double n2, double m1, double m2, LoadCase loadCase, string comment = "")
+        {
+            var topBotLocVals = new List<TopBotLocationValue> {
+                new TopBotLocationValue(edge.Points[0], n1, m1),
+                new TopBotLocationValue(edge.Points[0], n2, m2)
+            };
+            Initialize(edge, direction, topBotLocVals, loadCase, comment);
+        }
+
+        /// <summary>
+        /// Construct a uniform or variable line stress load
+        /// </summary>
+        /// <param name="edge">Underlying edge of line load. Line or Arc.</param>
+        /// <param name="direction">Direction of load.</param>
+        /// <param name="topBotLocVals">List of 2 top bottom location values</param>
+        /// <param name="loadCase">Load case</param>
+        /// <param name="comment">Comment</param>
+        public LineStressLoad(Edge edge, Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment = "")
+        {
+            Initialize(edge, direction, topBotLocVals, loadCase, comment);
+        }
+
+        private void Initialize(Edge edge, Vector3d direction, List<TopBotLocationValue> topBotLocVals, LoadCase loadCase, string comment)
         {
             this.EntityCreated();
             this.Edge = edge;
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
             this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCaseName = loadCase.Name;
             this.Comment = comment;
         }
 
+        public override string ToString()
+        {
+            return $"{this.GetType().Name}, Force: {TopBotLocVal[0].TopVal:0.0}/{TopBotLocVal[1].TopVal:0.0}kN, Moment: {TopBotLocVal[0].BottomVal:0.0}/{TopBotLocVal[1].BottomVal:0.0}kNm, LoadCase: {this.LoadCaseName}";
+        }
     }
 }

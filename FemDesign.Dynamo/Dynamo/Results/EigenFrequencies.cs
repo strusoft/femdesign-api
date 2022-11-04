@@ -12,6 +12,12 @@ namespace FemDesign.Results
     [IsVisibleInDynamoLibrary(false)]
     public partial class EigenFrequencies : IResult
     {
+        [IsVisibleInDynamoLibrary(true)]
+        public static string ResultType()
+        {
+            return "EigenFrequencies";
+        }
+
         /// <summary>
         /// Read the EigenFrequencies for the entire model
         /// </summary>

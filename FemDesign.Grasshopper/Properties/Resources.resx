@@ -6557,4 +6557,19 @@
   <data name="RebarAddToElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\RebarAddToElement.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StiffnessPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StiffnessPoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineStressLoadConstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineStressLoadConstruct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineStressLoadDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineStressLoadDeconstruct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deconstruct_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\deconstruct_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StagesDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\StagesDeconstruct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
