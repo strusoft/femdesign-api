@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System.Threading.Tasks;
 
 using FemDesign;
 using FemDesign.Calculate;
@@ -123,6 +124,7 @@ namespace FemDesign
         /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void RunScript(FdScript2 script)
         {
             if (script == null) throw new ArgumentNullException("script");
@@ -282,21 +284,23 @@ namespace FemDesign
 
         private void _waitForOutput(string output)
         {
-            bool isDone = false;
+            _waitForOutputAsync(output).Wait();
+        }
+
+        private async Task _waitForOutputAsync(string output)
+        {
+            var tcs = new TaskCompletionSource<bool>();
             void onOutput(string msg)
             {
                 if (msg == output)
                 {
                     this.OnOutput -= onOutput;
-                    isDone = true;
+                    tcs.SetResult(true);
                 }
             }
             this.OnOutput += onOutput;
 
-            while (!isDone)
-            {
-                System.Threading.Thread.Sleep(10); // ms
-            }
+            await tcs.Task;
         }
 
         private void _disposePipes()
