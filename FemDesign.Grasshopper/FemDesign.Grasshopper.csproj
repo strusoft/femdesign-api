@@ -107,10 +107,12 @@
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\LabelledSectionDeconstruct.cs" />
     <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
-    <Compile Include="Deconstruct\ModelDeconstrut.cs" />
+    <Compile Include="Deconstruct\ModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2150.cs" />
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstuctor.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Results\EigenFrequencies.cs" />
     <Compile Include="Results\FeaBar.cs" />
     <Compile Include="Results\FeaShell.cs" />
+    <Compile Include="Results\LabelledSection.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
@@ -814,6 +817,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LabelledSectionDeconstruct.png" />
     <None Include="Resources\icons\deconstruct_icon.png" />
     <None Include="Resources\icons\StagesDeconstruct.png" />
     <None Include="Resources\icons\LineStressLoadDeconstruct.png" />

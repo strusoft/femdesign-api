@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelDeconstruct : GH_Component
+    public class ModelDeconstructOBSOLETE2150 : GH_Component
     {
-        public ModelDeconstruct() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
+        public ModelDeconstructOBSOLETE2150() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
         {
 
         }
@@ -105,7 +105,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{31A8CF15-A5FE-48F0-98E7-73739F5A1492}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
