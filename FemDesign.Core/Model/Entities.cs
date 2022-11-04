@@ -78,7 +78,7 @@ namespace FemDesign
         public StructureGrid.Axes Axes { get; set; }
 
         [XmlElement("labelled_sections_geometry", Order = 22)]
-        public AuxiliaryResults.LabelledSectionsGeometry LabelledSections;
+        public AuxiliaryResults.LabelledSectionsGeometry LabelledSections = new AuxiliaryResults.LabelledSectionsGeometry();
 
         // axes
         // ref planes
