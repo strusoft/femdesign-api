@@ -146,35 +146,6 @@ namespace FemDesign.Sections
             }
         }
 
-        public static Section GetSectionByNameOrIndex(List<Section> sections, dynamic sectionInput)
-        {
-            Section section;
-            var isNumeric = int.TryParse(sectionInput.ToString(), out int n);
-            if (!isNumeric)
-            {
-                try
-                {
-                    section = sections.Where(x => x.Name == sectionInput).First();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"{sectionInput} does not exist!", ex);
-                }
-            }
-            else
-            {
-                try
-                {
-                    section = sections[n];
-                }
-                catch (Exception ex)
-                {
-                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!", ex);
-                }
-            }
-            return section;
-        }
-
         public override string ToString()
         {
             return $"{this.Name}";

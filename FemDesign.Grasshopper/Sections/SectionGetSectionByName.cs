@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
-
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
 
             sectionInput = sectionInput.Value;
 
-            var section = Sections.Section.GetSectionByNameOrIndex(sections, sectionInput);
+            var section = GetSectionByNameOrIndex(sections, sectionInput);
 
             DA.SetData(0, section);
         }
@@ -46,6 +46,36 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{0561A068-DBBA-451C-B65B-299D90250144}"); }
         }
+
+        private static FemDesign.Sections.Section GetSectionByNameOrIndex(List<FemDesign.Sections.Section> sections, dynamic sectionInput)
+        {
+            FemDesign.Sections.Section section;
+            var isNumeric = int.TryParse(sectionInput.ToString(), out int n);
+            if (!isNumeric)
+            {
+                try
+                {
+                    section = sections.Where(x => x.Name == sectionInput).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"{sectionInput} does not exist!", ex);
+                }
+            }
+            else
+            {
+                try
+                {
+                    section = sections[n];
+                }
+                catch (Exception ex)
+                {
+                    throw new System.Exception($"Materials List only contains {sections.Count} item. {sectionInput} is out of range!", ex);
+                }
+            }
+            return section;
+        }
+
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 

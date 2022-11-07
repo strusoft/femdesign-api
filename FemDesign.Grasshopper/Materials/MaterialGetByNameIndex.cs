@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
             
             materialInput = materialInput.Value;
 
-            var material = Materials.Material.GetMaterialByNameOrIndex(materials, materialInput);
+            var material = GetMaterialByNameOrIndex(materials, materialInput);
 
             DA.SetData(0, material);
         }
@@ -48,6 +48,36 @@ namespace FemDesign.Grasshopper
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
+
+        private static FemDesign.Materials.Material GetMaterialByNameOrIndex(List<FemDesign.Materials.Material> materials, dynamic materialInput)
+        {
+            FemDesign.Materials.Material material;
+            var isNumeric = int.TryParse(materialInput.ToString(), out int n);
+            if (!isNumeric)
+            {
+                try
+                {
+                    material = materials.Where(x => x.Name == materialInput).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"{materialInput} does not exist!", ex);
+                }
+            }
+            else
+            {
+                try
+                {
+                    material = materials[n];
+                }
+                catch (Exception ex)
+                {
+                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!", ex);
+                }
+            }
+            return material;
+        }
+
 
     }
 }

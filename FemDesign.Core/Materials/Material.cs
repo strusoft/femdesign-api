@@ -56,35 +56,6 @@ namespace FemDesign.Materials
             }
         }
 
-        public static Material GetMaterialByNameOrIndex(List<Material> materials, dynamic materialInput)
-        {
-            Material material;
-            var isNumeric = int.TryParse(materialInput.ToString(), out int n);
-            if (!isNumeric)
-            {
-                try
-                {
-                    material = materials.Where(x => x.Name == materialInput).First();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"{materialInput} does not exist!", ex);
-                }
-            }
-            else
-            {
-                try
-                {
-                    material = materials[n];
-                }
-                catch (Exception ex)
-                {
-                    throw new System.Exception($"Materials List only contains {materials.Count} item. {materialInput} is out of range!", ex);
-                }
-            }
-            return material;
-        }
-
         public override string ToString()
         {
             return $"{this.Name}";
