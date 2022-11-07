@@ -122,6 +122,7 @@
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
+    <Compile Include="Materials\CustomMaterial.cs" />
     <Compile Include="Materials\MaterialGetByNameIndex.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialGetMaterialByNameOBSOLETE2.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefaultOBSOLETE.cs" />

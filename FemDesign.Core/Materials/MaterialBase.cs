@@ -8,31 +8,39 @@ namespace FemDesign.Materials
     public partial class MaterialBase
     {
         // material_type_attribs
+
         [XmlAttribute("mass")]
-        public string Mass { get; set; } // non_neg_max_1e20
+        public double _mass; // non_neg_max_1e20
+        [XmlIgnore]
+        public double Mass
+        {
+            get { return _mass; }
+            set { RestrictedDouble.NonNegMax_1e20(value); } // non_neg_max_1e20
+        }
+
         [XmlAttribute("E_0")]
-        public string E_0  { get; set; } // double
+        public double E_0  { get; set; }
         [XmlAttribute("E_1")]
-        public string E_1 { get; set; } // double
+        public double E_1 { get; set; }
         [XmlAttribute("E_2")]
-        public string E_2 { get; set; } // double
+        public double E_2 { get; set; }
         [XmlAttribute("nu_0")]
-        public string nu_0 { get; set; } // double
+        public double nu_0 { get; set; }
         [XmlAttribute("nu_1")]
-        public string nu_1 { get; set; } // double
+        public double nu_1 { get; set; }
         [XmlAttribute("nu_2")]
-        public string nu_2 { get; set; } // double
+        public double nu_2 { get; set; }
         [XmlAttribute("alfa_0")]
-        public string alfa_0 { get; set; } // double
+        public double alfa_0 { get; set; }
         [XmlAttribute("alfa_1")]
-        public string alfa_1 { get; set; } // double
+        public double alfa_1 { get; set; }
         [XmlAttribute("alfa_2")]
-        public string alfa_2 { get; set; } // double
+        public double alfa_2 { get; set; }
         [XmlAttribute("G_0")]
-        public string G_0 { get; set; } // double
+        public double G_0 { get; set; }
         [XmlAttribute("G_1")]
-        public string G_1 { get; set; } // double
+        public double G_1 { get; set; }
         [XmlAttribute("G_2")]
-        public string G_2 { get; set; } // double
+        public double G_2 { get; set; }
     }
 }

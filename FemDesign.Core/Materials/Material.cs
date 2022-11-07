@@ -122,6 +122,19 @@ namespace FemDesign.Materials
                 throw new System.ArgumentException("Material must be concrete!");
             }
         }
+        
+        public static Material CustomUniaxialMaterial(string name, double mass, double e_0, double nu_0, double alfa_0)
+        {
+            var material = new Material();
+            material.Name = name;
+            material.Country = "n/a";
+            material.Standard = "general";
+            material.EntityCreated();
+
+            material.Custom = new Custom(mass, e_0, nu_0, alfa_0);
+            return material;
+        }
+
         // /// <summary>
         // /// Set material properties for timber material.
         // /// </summary>
