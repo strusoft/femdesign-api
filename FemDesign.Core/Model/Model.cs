@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -147,7 +148,7 @@ namespace FemDesign
         private void Initialize(Country country)
         {
             this.StruxmlVersion = "01.00.000";
-            this.SourceSoftware = "FEM-Design 18.00.004";
+            this.SourceSoftware = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             this.StartTime = "1970-01-01T00:00:00.000";
             this.EndTime = System.DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             this.Guid = System.Guid.NewGuid();
