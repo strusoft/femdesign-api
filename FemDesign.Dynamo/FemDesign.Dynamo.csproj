@@ -200,6 +200,27 @@
     <Compile Include="..\FemDesign.Core\Calculate\Stage.cs">
       <Link>Core\Calculate\Stage.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\CuboidPlinth.cs">
+      <Link>Core\Foundations\CuboidPlinth.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\ExtrudedSolid.cs">
+      <Link>Core\Foundations\ExtrudedSolid.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\Foundations.cs">
+      <Link>Core\Foundations\Foundations.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\FoundationSystem.cs">
+      <Link>Core\Foundations\FoundationSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\Insulation.cs">
+      <Link>Core\Foundations\Insulation.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\IsolatedFoundation.cs">
+      <Link>Core\Foundations\IsolatedFoundation.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Foundations\RefParts.cs">
+      <Link>Core\Foundations\RefParts.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\Camber.cs">
       <Link>Core\GenericClasses\Camber.cs</Link>
     </Compile>
