@@ -10,19 +10,24 @@ namespace FemDesign.Foundations
 {
     public partial class RefParts
     {
-        [XmlAttribute("ref_slab")]
+        [XmlAttribute("ref_support")]
         public Guid RefSupport { get; set; }
 
         [XmlAttribute("ref_slab")]
         public Guid RefSlab { get; set; }
 
+        private RefParts()
+        {
+        }
+
         /// <summary>
         /// to understand what ref are doing
         /// </summary>
-        public RefParts()
+        public RefParts(bool refSlab = false)
         {
-            this.RefSupport = new Guid();
-            this.RefSlab = new Guid();
+            this.RefSupport = Guid.NewGuid();
+            if (refSlab) { this.RefSlab = Guid.NewGuid(); }
         }
+
     }
 }

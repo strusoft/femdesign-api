@@ -9,21 +9,22 @@ using System.ComponentModel;
 using FemDesign.GenericClasses;
 using FemDesign.Geometry;
 
-
 namespace FemDesign.Foundations
 {
-    public partial class IsolatedFoundation : NamedEntityBase, IStructureElement, IStageElement
+    [System.Serializable]
+    public partial class IsolatedFoundation : NamedEntityBase, IStructureElement, IFoundationElement, IStageElement
     {
         [XmlIgnore]
         internal static int _instance = 0;
+
         protected override int GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("bedding_modulus")]
         public double BeddingModulus { get; set; }
 
         [XmlAttribute("stage")]
-        [DefaultValue("1")]
-        public int StageId { get; set; }
+        [DefaultValue(1)]
+        public int StageId { get; set; } = 1;
 
         [XmlElement("connection_point", Order = 1)]
         public Point3d ConnectionPoint { get; set; }
@@ -42,7 +43,7 @@ namespace FemDesign.Foundations
 
         [XmlAttribute("analythical_system")]
         [DefaultValue(FoundationSystem.Simple)]
-        public FoundationSystem FoundationSystem => FoundationSystem.Simple;
+        public FoundationSystem FoundationSystem { get; set; }
 
         #region MATERIAL
 
@@ -86,27 +87,33 @@ namespace FemDesign.Foundations
         {
         }
 
-        public IsolatedFoundation(Point3d point, ExtrudedSolid solid, double bedding, string identifier = "F")
+#if !ISDYNAMO
+        public IsolatedFoundation(CoordinateSystem coordinateSystem, ExtrudedSolid solid, double bedding, Materials.Material material, FoundationSystem foundationSystem = FoundationSystem.Simple, string identifier = "F")
+        {
+            this.Initialise(coordinateSystem.Origin, solid, bedding, material, identifier);
+            this.Direction = coordinateSystem.LocalX;
+            this.BeddingModulus = bedding;
+            this.Insulation = null;
+
+            if(foundationSystem == FoundationSystem.FromSoil)
+            {
+                throw new InvalidEnumArgumentException("FromSoil is not a valid input for Isolated Foundation!");
+            }
+            this.FoundationSystem = foundationSystem;
+            this.Parts = foundationSystem == FoundationSystem.SurfaceSupportGroup ? new RefParts(true) : new RefParts(false);
+        }
+#endif
+
+        private void Initialise(Point3d point, ExtrudedSolid solid, double bedding, Materials.Material material, string identifier = "F")
         {
             this.EntityCreated();
             this.ConnectionPoint = point;
-            this.Direction = Vector3d.UnitY;
             this.ExtrudedSolid = solid;
+            this.ComplexMaterialObj = material;
             this.BeddingModulus = bedding;
-            this.Insulation = null;
             this.Identifier = identifier;
         }
 
-        public IsolatedFoundation(Point3d point, ExtrudedSolid solid, Vector3d direction, double bedding, Insulation insulation, string identifier = "F") : this(point, solid, bedding, identifier)
-        {
-            this.EntityCreated();
-            this.ConnectionPoint = point;
-            this.Direction = direction;
-            this.ExtrudedSolid = solid;
-            this.BeddingModulus = bedding;
-            this.Insulation = insulation;
-            this.Identifier = identifier;
-        }
 
     }
 }

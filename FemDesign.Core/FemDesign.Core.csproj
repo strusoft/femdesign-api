@@ -60,6 +60,7 @@
     <Compile Include="Foundations\Insulation.cs" />
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\RefParts.cs" />
+    <Compile Include="GenericClasses\IFoundationElement.cs" />
     <Compile Include="GenericClasses\INamedEntity.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\NamedEntityBase.cs" />

@@ -245,6 +245,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\IFemDesignEntity.cs">
       <Link>Core\GenericClasses\IFemDesignEntity.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IFoundationElement.cs">
+      <Link>Core\GenericClasses\IFoundationElement.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\ILibraryBase.cs">
       <Link>Core\GenericClasses\ILibraryBase.cs</Link>
     </Compile>

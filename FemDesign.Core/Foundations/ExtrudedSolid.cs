@@ -15,7 +15,7 @@ namespace FemDesign.Foundations
         public double Thickness { get; set; }
 
         [XmlAttribute("abobe")]
-        [DefaultValue("false")]
+        [DefaultValue(false)]
         public bool Above { get; set; }
 
         [XmlElement("region")]
