@@ -23,6 +23,10 @@
     /// </summary>
     internal class SubCategoryName
     {
+        public static string Cat0()
+        {
+            return new string(' ', 7) + "Foundations";
+        }
         public static string Cat1()
         {
             return new string(' ', 7) + "Supports";

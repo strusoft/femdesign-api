@@ -88,14 +88,13 @@ namespace FemDesign.Foundations
         }
 
 #if !ISDYNAMO
-        public IsolatedFoundation(CoordinateSystem coordinateSystem, ExtrudedSolid solid, double bedding, Materials.Material material, FoundationSystem foundationSystem = FoundationSystem.Simple, string identifier = "F")
+        public IsolatedFoundation(ExtrudedSolid solid, double bedding, Materials.Material material, CoordinateSystem coordinateSystem, Insulation insulation = null, FoundationSystem foundationSystem = FoundationSystem.Simple, string identifier = "F")
         {
-            this.Initialise(coordinateSystem.Origin, solid, bedding, material, identifier);
-            this.Direction = coordinateSystem.LocalX;
+            this.Initialise(coordinateSystem, solid, bedding, material, identifier);
             this.BeddingModulus = bedding;
-            this.Insulation = null;
+            this.Insulation = insulation;
 
-            if(foundationSystem == FoundationSystem.FromSoil)
+            if (foundationSystem == FoundationSystem.FromSoil)
             {
                 throw new InvalidEnumArgumentException("FromSoil is not a valid input for Isolated Foundation!");
             }
@@ -104,10 +103,13 @@ namespace FemDesign.Foundations
         }
 #endif
 
-        private void Initialise(Point3d point, ExtrudedSolid solid, double bedding, Materials.Material material, string identifier = "F")
+
+
+        private void Initialise(CoordinateSystem coordinateSystem, ExtrudedSolid solid, double bedding, Materials.Material material, string identifier = "F")
         {
             this.EntityCreated();
-            this.ConnectionPoint = point;
+            this.ConnectionPoint = coordinateSystem.Origin;
+            this.Direction = coordinateSystem.LocalX;
             this.ExtrudedSolid = solid;
             this.ComplexMaterialObj = material;
             this.BeddingModulus = bedding;

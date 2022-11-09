@@ -19,7 +19,7 @@ namespace FemDesign.Entities
             var extrudedSolid = new Foundations.ExtrudedSolid(0.3, rectangle, false);
             var materials = FemDesign.Materials.MaterialDatabase.GetDefault();
             var material = materials.ByType().concrete[0];
-            var isolatedFoundation = new FemDesign.Foundations.IsolatedFoundation(point, extrudedSolid, 3000, material);
+            var isolatedFoundation = new FemDesign.Foundations.IsolatedFoundation(extrudedSolid, 3000, material, point);
 
             var objText = SerializeToString(isolatedFoundation);
             Console.Write(objText);
@@ -43,12 +43,12 @@ namespace FemDesign.Entities
             Model model = new Model(Country.S);
 
             var rectangle = FemDesign.Geometry.Region.RectangleXY(Geometry.Point3d.Origin, 5, 5);
-            var point = new FemDesign.Geometry.Point3d(2.5, 2.5, 0);
+            var point = new FemDesign.Geometry.Point3d(1, 1, 0);
 
-            var extrudedSolid = new Foundations.ExtrudedSolid(0.3, rectangle, true);
+            var extrudedSolid = new Foundations.ExtrudedSolid(0.3, rectangle, false);
             var materials = FemDesign.Materials.MaterialDatabase.GetDefault();
             var material = materials.ByType().concrete[0];
-            var isolatedFoundation = new FemDesign.Foundations.IsolatedFoundation(point, extrudedSolid, 3000, material);
+            var isolatedFoundation = new FemDesign.Foundations.IsolatedFoundation(extrudedSolid, 3000, material, point);
 
             var elements = new List<GenericClasses.IStructureElement>() { isolatedFoundation };
 

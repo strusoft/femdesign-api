@@ -21,12 +21,12 @@ namespace FemDesign.Foundations
         }
 
         /// <summary>
-        /// to understand what ref are doing
+        /// 
         /// </summary>
         public RefParts(bool refSlab = false)
         {
-            this.RefSupport = Guid.NewGuid();
-            if (refSlab) { this.RefSlab = Guid.NewGuid(); }
+            this.RefSupport = Guid.NewGuid();                   // What ref is referencing with the Guid?
+            if (refSlab) { this.RefSlab = Guid.NewGuid(); }     // What ref is referencing with the Guid?
         }
 
     }

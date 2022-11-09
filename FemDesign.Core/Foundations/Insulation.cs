@@ -34,7 +34,7 @@ namespace FemDesign.Foundations
         {
         }
 
-        public Insulation(double e, double thickness, double density, double gamma_m_u = 1.2, double gamma_m_uas = 1.0, double limitStress = 1.0)
+        public Insulation(double e, double thickness, double density, double limitStress, double gamma_m_u = 1.2, double gamma_m_uas = 1.0)
         {
             this.E_modulus = e;
             this.Thickness = thickness;

@@ -2200,6 +2200,7 @@ namespace FemDesign
             else if (obj.GetType() == typeof(Foundations.IsolatedFoundation))
             {
                 this.AddIsolatedFoundation((Foundations.IsolatedFoundation)obj, overwrite);
+                this.AddMaterial( ((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
             }
             else
             {

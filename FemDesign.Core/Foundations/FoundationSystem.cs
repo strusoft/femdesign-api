@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Foundations
 {
     public enum FoundationSystem
     {
 
-        [System.Xml.Serialization.XmlEnum(Name = "simple")]
+        [XmlEnum("simple")]
+        [Parseable("Simple")]
         Simple,
 
-        [System.Xml.Serialization.XmlEnum(Name = "surface_support_group")]
+        [XmlEnum(Name = "surface_support_group")]
+        [Parseable("SurfaceSupportGroup")]
         SurfaceSupportGroup,
 
-        [System.Xml.Serialization.XmlEnum(Name = "from_soil")]
+        [XmlEnum(Name = "from_soil")]
+        [Parseable("FromSoil")]
         FromSoil,
     }
 }
