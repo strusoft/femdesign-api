@@ -393,6 +393,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ExtrudedSolid {
+            get {
+                object obj = ResourceManager.GetObject("ExtrudedSolid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fd_TabIcon_24_24 {
             get {
                 object obj = ResourceManager.GetObject("Fd_TabIcon_24_24", resourceCulture);
@@ -556,6 +566,36 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Insulation {
+            get {
+                object obj = ResourceManager.GetObject("Insulation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IsolatedFoundation {
+            get {
+                object obj = ResourceManager.GetObject("IsolatedFoundation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IsolatedFoundationDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("IsolatedFoundationDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

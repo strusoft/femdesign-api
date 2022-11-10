@@ -107,6 +107,7 @@
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\IsolatedFoundationDeconstruct.cs" />
     <Compile Include="Deconstruct\LabelledSectionDeconstruct.cs" />
     <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
@@ -116,6 +117,9 @@
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportDeconstuctor.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
+    <Compile Include="Foundations\Insulation.cs" />
+    <Compile Include="Foundations\IsolatedFoundation.cs" />
+    <Compile Include="Foundations\ExtrudedSolid.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoadDefine.cs" />
@@ -819,6 +823,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
+    <None Include="Resources\icons\Insulation.png" />
+    <None Include="Resources\icons\ExtrudedSolid.png" />
+    <None Include="Resources\icons\IsolatedFoundation.png" />
     <None Include="Resources\icons\LabelledSectionDeconstruct.png" />
     <None Include="Resources\icons\deconstruct_icon.png" />
     <None Include="Resources\icons\StagesDeconstruct.png" />

@@ -2184,6 +2184,69 @@ namespace FemDesign
             return false;
         }
 
+
+
+        /// <summary>
+        /// Add Support to Model
+        /// </summary>
+        /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        /// <param name="overwrite"></param>
+        private void AddFoundation(IFoundationElement obj, bool overwrite)
+        {
+            if (obj == null)
+            {
+                throw new System.ArgumentException("Passed object is null");
+            }
+            else if (obj.GetType() == typeof(Foundations.IsolatedFoundation))
+            {
+                this.AddIsolatedFoundation((Foundations.IsolatedFoundation)obj, overwrite);
+                this.AddMaterial( ((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
+            }
+            else
+            {
+                throw new System.ArgumentException("Passed object must be IsolatedFoundation. LineFoundation or WallFoundation NOT YET implemented!");
+            }
+        }
+
+        /// <summary>
+        /// Add PointSupport to Model.
+        /// </summary>
+        private void AddIsolatedFoundation(Foundations.IsolatedFoundation obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.IsolatedFoundationInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Foundations.IsolatedFoundations.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add obj
+            this.Entities.Foundations.IsolatedFoundations.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if PointSupport in Model.
+        /// </summary>
+        private bool IsolatedFoundationInModel(Foundations.IsolatedFoundation obj)
+        {
+            foreach (Foundations.IsolatedFoundation elem in this.Entities.Foundations.IsolatedFoundations)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Add Support to Model
         /// </summary>
@@ -2950,10 +3013,16 @@ namespace FemDesign
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
 
+        #region FOUNDATIONS
+        private void AddEntity(Foundations.IsolatedFoundation obj, bool overwrite) => AddIsolatedFoundation(obj, overwrite);
+        #endregion
+
+        #region SUPPORTS
         private void AddEntity(Supports.PointSupport obj, bool overwrite) => AddPointSupport(obj, overwrite);
         private void AddEntity(Supports.LineSupport obj, bool overwrite) => AddLineSupport(obj, overwrite);
         private void AddEntity(Supports.SurfaceSupport obj, bool overwrite) => AddSurfaceSupport(obj, overwrite);
         private void AddEntity(Supports.StiffnessPoint obj, bool overwrite) => AddStiffnessPoint(obj, overwrite);
+        #endregion
 
         private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
         private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
