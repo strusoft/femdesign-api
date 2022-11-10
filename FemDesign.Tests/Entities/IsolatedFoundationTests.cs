@@ -10,20 +10,43 @@ namespace FemDesign.Entities
     [TestClass()]
     public class IsolatedFoundationTests
     {
-        [TestMethod("Create")]
-        public void Create()
+        [TestMethod("Isolated constructor 1")]
+        public void FoundationConstructorTest1()
+        {
+            var foundation = GetFoundationTest();
+
+            Assert.AreEqual("F", foundation.Identifier);
+            Assert.AreEqual(foundation.FoundationSystem, FoundationSystem.Simple);
+            Assert.AreEqual(1, foundation.Instance);
+
+            var foundation2 = GetFoundationTest();
+            Assert.AreEqual(2, foundation2.Instance);
+        }
+
+        [TestMethod("Name, Identifier etc.")]
+        public void FoundationTest()
+        {
+            var foundation = GetFoundationTest();
+            foundation.Identifier = "TestName";
+
+            Assert.AreEqual("TestName", foundation.Identifier);
+            Assert.AreEqual("TestName.2", foundation.Name);
+            Assert.AreEqual(2, foundation.Instance);
+        }
+
+        private static IsolatedFoundation GetFoundationTest()
         {
             var rectangle = FemDesign.Geometry.Region.RectangleXY(Geometry.Point3d.Origin, 5, 5);
             var point = new FemDesign.Geometry.Point3d(5, 0.123, -0.39);
 
-            var extrudedSolid = new Foundations.ExtrudedSolid(0.3, rectangle, false);
+            var extrudedSolid = new Foundations.ExtrudedSolid(0.3, rectangle);
             var materials = FemDesign.Materials.MaterialDatabase.GetDefault();
             var material = materials.ByType().concrete[0];
             var isolatedFoundation = new FemDesign.Foundations.IsolatedFoundation(extrudedSolid, 3000, material, point);
 
-            var objText = SerializeToString(isolatedFoundation);
-            Console.Write(objText);
+            return isolatedFoundation;
         }
+
 
         public static string SerializeToString(IsolatedFoundation isolatedFoundation)
         {

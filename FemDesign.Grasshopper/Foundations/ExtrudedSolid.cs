@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Plinth : GH_Component
+    public class ExtrudedSolid : GH_Component
     {
-        public Plinth() : base("Plinth", "Plinth", "",
+        public ExtrudedSolid() : base("ExtrudedSolid", "ExtrudedSolid", "",
             CategoryName.Name(),
             SubCategoryName.Cat0())
         {
@@ -18,18 +18,18 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Thickness", "Thickness", "Thickness [m]", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Surface", "Srf", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("a", "a", "a [m]", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "Srf", "Surface definining the foundation footing.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("a", "a", "Plinth Base [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("b", "b", "b [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("b", "b", "Plinth Width [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("h", "h", "h [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("h", "h", "Plinth Height [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plinth", "Plinth", "Plinth.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ExtrudedSolid", "ExtrudedSolid", "ExtrudedSolid.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(2, ref a);
 
             double b = 0.0;
-            DA.GetData(3, ref a);
+            DA.GetData(3, ref b);
 
             double h = 0.0;
             DA.GetData(4, ref h);
@@ -57,10 +57,11 @@ namespace FemDesign.Grasshopper
             {
                 plinth = new FemDesign.Foundations.CuboidPlinth(a, b, h);
             }
-            var foundation = new FemDesign.Foundations.ExtrudedSolid(thickness, brep.FromRhino(), false, plinth);
+
+            var extrudedSolid = new FemDesign.Foundations.ExtrudedSolid(thickness, brep.FromRhino(), false, plinth);
 
             // output
-            DA.SetData(0, foundation);
+            DA.SetData(0, extrudedSolid);
 
         }
         protected override System.Drawing.Bitmap Icon

@@ -75,6 +75,7 @@ namespace FemDesign.Foundations
             }
             set
             {
+                if(value.Concrete == null) { throw new System.ArgumentException("Material type must be concrete"); }
                 this._complexMaterialObj = value;
                 this.ComplexMaterialRef = this._complexMaterialObj.Guid;
             }

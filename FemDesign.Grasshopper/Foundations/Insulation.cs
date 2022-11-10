@@ -21,7 +21,6 @@ namespace FemDesign.Grasshopper
             pManager.AddSurfaceParameter("Thickness", "Thickness", "Thickness [m]", GH_ParamAccess.item);
             pManager.AddNumberParameter("Density", "Density", "Unit Mass [t/m3]", GH_ParamAccess.item);
             pManager.AddGenericParameter("LimitStress", "LimitStress", "LimitStress [N/mm2]", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("GammaMu", "GammaMu", "", GH_ParamAccess.item, 1.2);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("GammaMuas", "GammaMuas", "", GH_ParamAccess.item, 1.0);

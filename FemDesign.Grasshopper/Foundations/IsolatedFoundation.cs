@@ -20,9 +20,10 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPlaneParameter("ConnectionPoint", "ConnectionPoint", "ConnectionPoint", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Plinth", "Plinth", "Plinth Geometry.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ExtrudedSolid", "ExtrudedSolid", "ExtrudedSolid.", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("ConnectionPoint", "ConnectionPoint", "Reference point which will connect the foundation with other elements. The point must lie on the Surface Geometry. Default is centroid point of surface.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Material", "Material", "Material must be of type concrete.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Bedding", "Bedding", "Bedding [kN/m2/m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Analytical", "Analytical", "Connect 'ValueList' to get the options.\nSimple\nSurfaceSupportGroup.", GH_ParamAccess.item, "SurfaceSupportGroup");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -37,11 +38,15 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var connectionPoint = new Rhino.Geometry.Plane();
-            DA.GetData("ConnectionPoint", ref connectionPoint);
-
             Foundations.ExtrudedSolid extrudedSolid = null;
-            if (!DA.GetData("Plinth", ref extrudedSolid)) { return; }
+            if (!DA.GetData("ExtrudedSolid", ref extrudedSolid)) { return; }
+
+            Rhino.Geometry.Plane connectionPoint = Rhino.Geometry.Plane.WorldXY;
+            if(!DA.GetData("ConnectionPoint", ref connectionPoint) )
+            {
+                var centroid = Rhino.Geometry.AreaMassProperties.Compute(extrudedSolid.Region.ToRhinoBrep()).Centroid;
+                connectionPoint = new Rhino.Geometry.Plane(centroid, Rhino.Geometry.Vector3d.ZAxis);
+            };
 
             Materials.Material material = null;
             if (!DA.GetData("Material", ref material)) { return; }

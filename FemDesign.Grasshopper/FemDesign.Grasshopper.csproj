@@ -118,7 +118,7 @@
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Foundations\Insulation.cs" />
     <Compile Include="Foundations\IsolatedFoundation.cs" />
-    <Compile Include="Foundations\Plinth.cs" />
+    <Compile Include="Foundations\ExtrudedSolid.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoadDefine.cs" />
