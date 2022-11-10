@@ -593,6 +593,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IsolatedFoundationDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("IsolatedFoundationDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LabelledSection {
             get {
                 object obj = ResourceManager.GetObject("LabelledSection", resourceCulture);

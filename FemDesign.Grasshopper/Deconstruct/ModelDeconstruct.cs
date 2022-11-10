@@ -19,6 +19,7 @@ namespace FemDesign.Grasshopper
         {
 
             pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Foundations", "Foundations", "Single foundation element or list of foundation elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Shells", "Shells", "Single shell element or list of shell elements.", GH_ParamAccess.list);
@@ -76,14 +77,22 @@ namespace FemDesign.Grasshopper
                 stages = model.ConstructionStages.Stages;
             }
 
+
+            List<FemDesign.AuxiliaryResults.LabelledSection> labelledSections = null;
+            if (model.Entities.LabelledSections != null)
+            {
+                labelledSections = model.Entities.LabelledSections.LabelledSections;
+            }
+
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
+            DA.SetDataList("Foundations", model.Entities.Foundations.GetFoundations());
             DA.SetDataList("Bars", model.Entities.Bars);
             DA.SetDataList("FictitiousBars", model.Entities.AdvancedFem.FictitiousBars);
             DA.SetDataList("Shells", model.Entities.Slabs);
             DA.SetDataList("FictitiousShells", model.Entities.AdvancedFem.FictitiousShells);
             DA.SetDataList("Diaphragms", model.Entities.AdvancedFem.Diaphragms);
-            DA.SetDataList("LabelledSection", model.Entities.LabelledSections.LabelledSections);
+            DA.SetDataList("LabelledSection", labelledSections);
             DA.SetDataList("Panels", model.Entities.Panels);
             DA.SetDataList("Covers", model.Entities.AdvancedFem.Covers);
             DA.SetDataList("Loads", model.Entities.Loads.GetLoads());

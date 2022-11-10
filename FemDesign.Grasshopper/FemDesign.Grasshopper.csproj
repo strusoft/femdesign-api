@@ -107,6 +107,7 @@
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\IsolatedFoundationDeconstruct.cs" />
     <Compile Include="Deconstruct\LabelledSectionDeconstruct.cs" />
     <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
@@ -822,6 +823,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
     <None Include="Resources\icons\Insulation.png" />
     <None Include="Resources\icons\ExtrudedSolid.png" />
     <None Include="Resources\icons\IsolatedFoundation.png" />

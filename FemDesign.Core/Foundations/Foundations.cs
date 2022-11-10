@@ -17,5 +17,16 @@ namespace FemDesign.Foundations
 
         [XmlElement("foundation_slab")]
         private List<StruSoft.Interop.StruXml.Data.Sffoundation_type> foundation_slabField = new List<StruSoft.Interop.StruXml.Data.Sffoundation_type>();
+
+
+        public List<GenericClasses.IFoundationElement> GetFoundations()
+        {
+            var objs = new List<GenericClasses.IFoundationElement>();
+            objs.AddRange(this.IsolatedFoundations);
+            //objs.AddRange(this.wall_foundationField); // to implement
+            //objs.AddRange(this.foundation_slabField); // to implement
+            return objs;
+        }
+
     }
 }
