@@ -118,6 +118,9 @@
     <None Include="Bars\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Entities\materials.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Bars\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
