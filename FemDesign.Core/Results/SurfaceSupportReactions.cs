@@ -27,7 +27,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Finite element node id
         /// </summary>
-        public int NodeId { get; }
+        public int? NodeId { get; }
         /// <summary>
         /// Local Fx'
         /// </summary>
@@ -49,7 +49,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
-        internal SurfaceSupportReaction(string id, int elementId, int nodeId, double fx, double fy, double fz, double fr, string resultCase)
+        internal SurfaceSupportReaction(string id, int elementId, int? nodeId, double fx, double fy, double fz, double fr, string resultCase)
         {
             Name = id;
             ElementId = elementId;
@@ -85,8 +85,8 @@ namespace FemDesign.Results
         internal static SurfaceSupportReaction Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string surfaceName = row[0];
-            int nodeId = int.Parse(row[1], CultureInfo.InvariantCulture);
-            int elementId = int.Parse(row[2], CultureInfo.InvariantCulture);
+            int elementId = int.Parse(row[1], CultureInfo.InvariantCulture);
+            int? nodeId = int.Parse(row[2] == "-" ? "-1" : row[2], CultureInfo.InvariantCulture);
             double fx = Double.Parse(row[3], CultureInfo.InvariantCulture);
             double fy = Double.Parse(row[4], CultureInfo.InvariantCulture);
             double fz = Double.Parse(row[5], CultureInfo.InvariantCulture);
