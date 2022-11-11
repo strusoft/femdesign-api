@@ -158,6 +158,8 @@
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
+    <Compile Include="Results\SurfaceSupportReaction.cs" />
+    <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
     <Compile Include="Sections\SectionDatabaseDefault.cs" />

@@ -62,7 +62,7 @@ namespace FemDesign.Calculate
             {
                 return new Options(1, 0.5);
             }
-            else if (r.StartsWith("ShellDisplacement") || r.StartsWith("ShellStress") || r.StartsWith("ShellInternalForce") || r.StartsWith("ShellDerivedForce"))
+            else if (r.StartsWith("ShellDisplacement") || r.StartsWith("ShellStress") || r.StartsWith("ShellInternalForce") || r.StartsWith("ShellDerivedForce") || r.StartsWith("SurfaceSupportReaction"))
             {
                 return new Options(1, "srf");
             }

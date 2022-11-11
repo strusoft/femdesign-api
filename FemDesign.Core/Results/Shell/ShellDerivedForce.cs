@@ -18,7 +18,7 @@ namespace FemDesign.Results
     public partial class ShellDerivedForce : IResult
     {
         /// <summary>
-        /// Bar name identifier
+        /// Shell name identifier
         /// </summary>
         public string Id { get; }
         /// <summary>

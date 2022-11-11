@@ -22,14 +22,14 @@ namespace FemDesign.Grasshopper
 
 
             ListItems.Clear();
-            ListMode = GH_ValueListMode.CheckList;
+            ListMode = GH_ValueListMode.DropDown;
 
             // It needs to be update when we create new Results Deconstructor
             // It should automatically get the name from the Enum
 
 
             var values = new List<string>
-            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce","ShellDisplacement", "ShellInternalForce", "ShellStress", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
+            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
 
             GH_ValueListItem vi;
             foreach (string value in values)

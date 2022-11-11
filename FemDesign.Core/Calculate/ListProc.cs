@@ -140,6 +140,16 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCase,
         /// <summary>
+        /// Load case: Surface support, Reactions
+        /// </summary>
+        [XmlEnum("frCaseReacSf_ListProc")]
+        SurfaceSupportReactionsLoadCase,
+        /// <summary>
+        /// Load case: Surface support, Resultants
+        /// </summary>
+        [XmlEnum("frCaseReacSfRes_ListProc")]
+        SurfaceSupportResultantsLoadCase,
+        /// <summary>
         /// Load case: Shells, Displacements
         /// </summary>
         [XmlEnum("frCaseDispShell_ListProc")]
@@ -273,6 +283,16 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCombination,
+        /// <summary>
+        /// Load case: Surface support, Reactions
+        /// </summary>
+        [XmlEnum("frCombReacSf_ListProc")]
+        SurfaceSupportReactionsLoadCombination,
+        /// <summary>
+        /// Load case: Surface support, Resultants
+        /// </summary>
+        [XmlEnum("frCombReacSfRes_ListProc")]
+        SurfaceSupportResultantsLoadCombination,
         /// <summary>
         /// Load combination: Shells, Displacements
         /// </summary>
