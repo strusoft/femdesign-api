@@ -9,15 +9,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceSupportReaction : GH_Component
+    public class SurfaceSupportResultant : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the PointSupportReaction class.
         /// </summary>
-        public SurfaceSupportReaction()
-          : base("SurfaceSupportReaction",
-                "SurfaceSupportReaction",
-                "Read the Surface Support Reaction",
+        public SurfaceSupportResultant()
+          : base("SurfaceSupportResultant",
+                "SurfaceSupportResultant",
+                "Read the Surface Support Resultant",
                 CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
@@ -39,10 +39,12 @@ namespace FemDesign.Grasshopper
         {
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_GenericParam("Name", "Name", "Element Name");
-            pManager.Register_GenericParam("ElementId", "ElementId", "Element Index");
-            pManager.Register_GenericParam("NodeId", "NodeId", "Node Index");
-            pManager.AddVectorParameter("ReactionForce", "ReactionForce", "Reaction Forces in global x, y, z for all nodes.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ForceResultant", "ForceResultant", "Force Resultant", GH_ParamAccess.list);
+            pManager.Register_DoubleParam("Fx", "Fx", "");
+            pManager.Register_DoubleParam("Fy", "Fy", "");
+            pManager.Register_DoubleParam("Fz", "Fz", "");
+            pManager.Register_DoubleParam("Mx", "Mx", "");
+            pManager.Register_DoubleParam("My", "My", "");
+            pManager.Register_DoubleParam("Mz", "Mz", "");
         }
 
         /// <summary>
@@ -52,15 +54,14 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
-            List<FemDesign.Results.SurfaceSupportReaction> iResult = new List<FemDesign.Results.SurfaceSupportReaction>();
+            List<FemDesign.Results.SurfaceSupportResultant> iResult = new List<FemDesign.Results.SurfaceSupportResultant>();
             DA.GetDataList("Result", iResult);
 
             string iLoadCase = null;
             DA.GetData(1, ref iLoadCase);
 
-
-
             // Return the unique load case - load combination
+            // it might be remove to optimise the speed
             var uniqueLoadCases = iResult.Select(n => n.CaseIdentifier).Distinct().ToList();
 
             // Select the Nodal Displacement for the selected Load Case - Load Combination
@@ -74,67 +75,36 @@ namespace FemDesign.Grasshopper
                 throw new ArgumentException(warning);
             }
 
-
-            // Extract Results from the Dictionary
-            var loadCases = new List<string>();
+            var caseIdentifier = new List<string>();
             var name = new List<string>();
-            var elementId = new List<int>();
-            var nodeId = new List<int?>();
-            var iForce = new List<Vector3d>();
-            var resultant = new List<double>();
+            var fx = new List<double>();
+            var fy = new List<double>();
+            var fz = new List<double>();
+            var mx = new List<double>();
+            var my = new List<double>();
+            var mz = new List<double>();
 
-            foreach (var result in iResult)
+            foreach(var result in iResult)
             {
-                loadCases.Add(result.CaseIdentifier);
+                caseIdentifier.Add(result.CaseIdentifier);
                 name.Add(result.Name);
-                elementId.Add(result.ElementId);
-                nodeId.Add(result.NodeId);
-                iForce.Add(new Vector3d(result.Fx, result.Fy, result.Fz));
-                resultant.Add(result.Fr);
+                fx.Add(result.Fx);
+                fy.Add(result.Fy);
+                fz.Add(result.Fz);
+                mx.Add(result.Mx);
+                my.Add(result.My);
+                mz.Add(result.Mz);
             }
 
 
-            var uniqueLoadCase = loadCases.Distinct().ToList();
-            var uniqueId = elementId.Distinct().ToList();
-
-
-            // Convert Data in DataTree structure
-            DataTree<object> nameTree = new DataTree<object>();
-            DataTree<object> elementIdTree = new DataTree<object>();
-            DataTree<object> nodeIdTree = new DataTree<object>();
-            DataTree<object> oForceTree = new DataTree<object>();
-            DataTree<object> oResultant = new DataTree<object>();
-
-
-            var ghPath = DA.Iteration;
-            var i = 0;
-
-            foreach (var id in uniqueId)
-            {
-                // indexes where the uniqueId matches in the list
-                var indexes = elementId.Select((value, index) => new { value, index })
-                  .Where(a => string.Equals(a.value, id))
-                  .Select(a => a.index);
-
-                elementIdTree.Add(id, new GH_Path(ghPath, i));
-
-                foreach (int index in indexes)
-                {
-                    //loadCasesTree.Add(loadCases.ElementAt(index), new GH_Path(i));
-                    nameTree.Add(name.ElementAt(index), new GH_Path(ghPath, i));
-                    nodeIdTree.Add(nodeId.ElementAt(index), new GH_Path(ghPath, i));
-                    oForceTree.Add(iForce.ElementAt(index), new GH_Path(ghPath, i));
-                    oResultant.Add(resultant.ElementAt(index), new GH_Path(ghPath, i));
-                }
-                i++;
-            }
-
-            DA.SetDataList("CaseIdentifier", uniqueLoadCase);
-            DA.SetDataTree(1, nameTree);
-            DA.SetDataTree(2, elementIdTree);
-            DA.SetDataTree(3, nodeIdTree);
-            DA.SetDataTree(4, oForceTree);
-            DA.SetDataTree(5, oResultant);
+            DA.SetDataList(0, caseIdentifier);
+            DA.SetDataList(1, name);
+            DA.SetDataList(2, fx);
+            DA.SetDataList(3, fy);
+            DA.SetDataList(4, fz);
+            DA.SetDataList(5, mx);
+            DA.SetDataList(6, my);
+            DA.SetDataList(7, mz);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quinary;
@@ -157,7 +127,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{21DAE46D-101C-4D04-8CFC-6154105B30DB}"); }
+            get { return new Guid("{5712F504-A99A-4B21-A842-56FC20014690}"); }
         }
     }
 }

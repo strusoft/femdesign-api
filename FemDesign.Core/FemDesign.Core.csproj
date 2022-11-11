@@ -71,6 +71,7 @@
     <Compile Include="Geometry\CircleEdge.cs" />
     <Compile Include="Geometry\LineEdge.cs" />
     <Compile Include="Results\SurfaceSupportReactions.cs" />
+    <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Shells\SlabStiffnessFactors.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
