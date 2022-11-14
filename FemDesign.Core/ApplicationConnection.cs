@@ -177,13 +177,24 @@ namespace FemDesign
             this.RunScript(script);
         }
 
-
+        /// <summary>
+        /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="analysis"></param>
+        public void RunAnalysis(Model model, Analysis analysis)
+        {
+            this.Open(model);
+            this.RunAnalysis(analysis);
+        }
 
 
         /// <summary>
-        /// 
+        /// Runs a design task on the current model in FEM-Design.
         /// </summary>
+        /// <param name="userModule"></param>
         /// <param name="design"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void RunDesign(CmdUserModule userModule, Design design = null)
         {
             if(userModule == CmdUserModule.RESMODE)
@@ -204,14 +215,15 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
+        /// Opens <paramref name="model"/> in FEM-Design and runs the design.
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="analysis"></param>
-        public void RunAnalysis(Model model, Analysis analysis)
+        /// <param name="design"></param>
+        /// <param name="userModule"></param>
+        public void RunDesign(Model model, Design design, CmdUserModule userModule)
         {
             this.Open(model);
-            this.RunAnalysis(analysis);
+            this.RunDesign(userModule, design);
         }
 
         /// <summary>
