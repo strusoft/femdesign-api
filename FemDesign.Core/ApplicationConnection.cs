@@ -77,7 +77,8 @@ namespace FemDesign
                 UseShellExecute = false,
                 Verb = "open"
             };
-            startInfo.EnvironmentVariables["FD_NOGUI"] = minimized ? "1" : "0";
+            if (minimized)
+                startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
 
             OutputDir = outputDir;
             if (string.IsNullOrEmpty(outputDir) == false && tempOutputDir)
