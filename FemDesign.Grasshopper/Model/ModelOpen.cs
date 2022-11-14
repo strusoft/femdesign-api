@@ -1,81 +1,82 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelOpen: GH_Component
+    public class ModelOpen : GH_Component
     {
-        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
+        private enum ProgramState { Unknown, Creation, Finished }
+        private volatile ProgramState _state = ProgramState.Creation;
+        private Task _task;
+
+        public ModelOpen() : base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            int connectionIndex = pManager.AddGenericParameter("Connection", "Connection", "FEM-Design application connection.", GH_ParamAccess.item);
             pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("CloseOpenWindows", "CloseOpenWindows", "If true all open windows will be closed without prior warning.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-
+            pManager.AddGenericParameter("Connection", "Connection", "FEM-Design application connection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Finished", "Finished", "Model was opened successfully.", GH_ParamAccess.item);
         }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // 
-            FemDesign.Model model = null;
-            DA.GetData(0, ref model);
+            ApplicationConnection connection = null;
+            DA.GetData("Connection", ref connection);
 
-            // get data
-            string filePath = null;
-            if(!DA.GetData(1, ref filePath))
+            Model model = null;
+            DA.GetData("FdModel", ref model);
+
+            bool runNode = false;
+            DA.GetData("RunNode", ref runNode);
+
+            if (runNode == false)
             {
-                bool fileExist = OnPingDocument().IsFilePathDefined;
-                if (!fileExist)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
-                    return;
-                }
-                filePath = OnPingDocument().FilePath;
-                filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
-            }
-
-            bool closeOpenWindows = false;
-            DA.GetData(2, ref closeOpenWindows);
-
-            bool runNode = true;
-            DA.GetData(3, ref runNode);
-
-            //
-            if (runNode)
-            {
-                model.Open(filePath, closeOpenWindows);
-                //model.SerializeModel(filePath);
-                //model.FdApp.OpenStruxml(filePath, closeOpenWindows);
-            }
-            else
-            {
+                DA.SetData("Finished", false);
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+                return;
             }
-        }
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
+
+            if (_state == ProgramState.Creation)
             {
-                return FemDesign.Properties.Resources.ModelOpen;
+                // Create an async task that opens the model on a background thread.
+                // This is needed in order not to block the grasshopper UI thread indefinitely.
+                _task = Task.Run(() => connection.OpenAsync(model));
+
+                // When the task is done we want to let grasshopper know the output must be updated (expire solution)
+                _task.ContinueWith(task =>
+                {
+                    _state = ProgramState.Finished;
+                    Rhino.RhinoApp.InvokeOnUiThread(new Action(() => this.ExpireSolution(true)));
+                });
+
+                // Until that happens, the node will output false
+                DA.SetData("Finished", false);
+            }
+            else if (_state == ProgramState.Finished)
+            {
+                // When the task has been finished
+                DA.SetData("Finished", true);
+                DA.SetData("Connection", connection);
+                _state = ProgramState.Creation;
             }
         }
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("237b7d25-1a97-4604-9f07-68ef62abf016"); }
-        }
 
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ModelOpen;
+        public override Guid ComponentGuid => new Guid("11fd183e-f7bf-442f-89d6-5ff86bafcf38");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
-
     }
 }

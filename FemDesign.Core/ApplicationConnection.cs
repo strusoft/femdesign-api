@@ -137,6 +137,22 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Run a script and wait for it to finish.
+        /// </summary>
+        /// <param name="script"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task RunScriptAsync(FdScript2 script)
+        {
+            if (script == null) throw new ArgumentNullException("script");
+
+            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
+
+            script.Serialize(scriptPath);
+            this.Send("run " + scriptPath);
+            await this.WaitForCommandToFinishAsync();
+        }
+
+        /// <summary>
         /// Open a file in FEM-Design application.
         /// </summary>
         /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype supported in FEM-Design is valid.</param>
@@ -144,6 +160,17 @@ namespace FemDesign
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             this.RunScript(new FdScript2(logfile, new CmdOpen2(filePath)));
+
+        }
+
+        /// <summary>
+        /// Open a file in FEM-Design application.
+        /// </summary>
+        /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype supported in FEM-Design is valid.</param>
+        public async Task OpenAsync(string filePath)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            await this.RunScriptAsync(new FdScript2(logfile, new CmdOpen2(filePath)));
 
         }
 
@@ -157,6 +184,18 @@ namespace FemDesign
             // Model must be serialized to a file to be opened in FEM-Design.
             model.SerializeModel(struxml);
             this.Open(struxml);
+        }
+
+        /// <summary>
+        /// Open a <see cref="Model"/> in FEM-Design application.
+        /// </summary>
+        /// <param name="model">Model to be opened.</param>
+        public async Task OpenAsync(Model model)
+        {
+            var struxml = OutputFileHelper.GetStruxmlPath(OutputDir);
+            // Model must be serialized to a file to be opened in FEM-Design.
+            model.SerializeModel(struxml);
+            await this.OpenAsync(struxml);
         }
 
         /// <summary>
@@ -244,6 +283,13 @@ namespace FemDesign
             this._waitForOutput(guid);
         }
 
+        public async Task WaitForCommandToFinishAsync()
+        {
+            var guid = Guid.NewGuid();
+            this.Send("echo " + guid);
+            await this._waitForOutputAsync(guid);
+        }
+
         // ----------------------------------------------------------------------------------------
 
         public void Dispose()
@@ -280,6 +326,11 @@ namespace FemDesign
         private void _waitForOutput(Guid guid)
         {
             this._waitForOutput(guid.ToString());
+        }
+
+        private async Task _waitForOutputAsync(Guid guid)
+        {
+            await this._waitForOutputAsync(guid.ToString());
         }
 
         private void _waitForOutput(string output)
