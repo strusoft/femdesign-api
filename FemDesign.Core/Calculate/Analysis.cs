@@ -52,7 +52,7 @@ namespace FemDesign.Calculate
                 this._calcCStage = Convert.ToInt32(value);
             }
         }
-        [XmlAttribute("calcCImpf")]
+        [XmlAttribute("calcImpf")]
         public int _calcCImpf; // bool as int
         [XmlIgnore]
         public bool CalcCImpf
