@@ -177,6 +177,32 @@ namespace FemDesign
             this.RunScript(script);
         }
 
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="design"></param>
+        public void RunDesign(CmdUserModule userModule, Design design = null)
+        {
+            if(userModule == CmdUserModule.RESMODE)
+            {
+                throw new ArgumentException("User Module can not be 'RESMODE'!");
+            }
+
+            if (design == null)
+                design = Design.Default();
+
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(
+                logfile,
+                new CmdUserModule2(userModule),
+                new CmdCalculation2(design)
+            );
+            this.RunScript(script);
+        }
+
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
         /// </summary>

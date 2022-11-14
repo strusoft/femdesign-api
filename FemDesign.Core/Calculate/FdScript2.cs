@@ -62,32 +62,57 @@ namespace FemDesign.Calculate
     {
         public const string Command = "; CXL $MODULE CALC";
         public Analysis Analysis;
+        public Design Design;
         public CmdCalculation2(Analysis analysis)
         {
             Analysis = analysis;
         }
 
+        public CmdCalculation2(Design design)
+        {
+            Design = design;
+        }
+
         public override XElement ToXElement()
         {
-            return new XElement("cmdcalculation", new XAttribute("command", Command),
-                new XElement("analysis",
-                    new XAttribute("calcCase", Analysis.CalcCase),
-                    new XAttribute("calcCstage", Analysis.CalcCStage),
-                    new XAttribute("calcCImpf", Analysis.CalcCImpf),
-                    new XAttribute("calcComb", Analysis.CalcComb),
-                    new XAttribute("calcGmax", Analysis.CalcGMax),
-                    new XAttribute("calcStab", Analysis.CalcStab),
-                    new XAttribute("calcFreq", Analysis.CalcFreq),
-                    new XAttribute("calcSeis", Analysis.CalcSeis),
-                    new XAttribute("calcDesign", Analysis.CalcDesign),
-                    new XAttribute("calcFootfall", Analysis.CalcFootfall),
-                    new XAttribute("elemfine", Analysis.ElemFine),
-                    new XAttribute("diaphragm", Analysis.Diaphragm),
-                    new XAttribute("peaksmoothing", Analysis.PeakSmoothing)
+            if (Analysis != null)
+            {
+                return new XElement("cmdcalculation", new XAttribute("command", Command),
+                        new XElement("analysis",
+                            new XAttribute("calcCase", Analysis.CalcCase),
+                            new XAttribute("calcCstage", Analysis.CalcCStage),
+                            new XAttribute("calcCImpf", Analysis.CalcCImpf),
+                            new XAttribute("calcComb", Analysis.CalcComb),
+                            new XAttribute("calcGmax", Analysis.CalcGMax),
+                            new XAttribute("calcStab", Analysis.CalcStab),
+                            new XAttribute("calcFreq", Analysis.CalcFreq),
+                            new XAttribute("calcSeis", Analysis.CalcSeis),
+                            new XAttribute("calcDesign", Analysis.CalcDesign),
+                            new XAttribute("calcFootfall", Analysis.CalcFootfall),
+                            new XAttribute("elemfine", Analysis.ElemFine),
+                            new XAttribute("diaphragm", Analysis.Diaphragm),
+                            new XAttribute("peaksmoothing", Analysis.PeakSmoothing)
 
                     // TODO add <comb>
-                )
-            );
+                    )
+                );
+            }
+            else if (Design != null)
+            {
+                XElement designBased = Design.CMax != null ? new XElement("cmax") : new XElement("gmax");
+
+                return new XElement("cmdcalculation", new XAttribute("command", Command),
+                            new XElement("Design",
+                                designBased,
+                                new XElement("autodesign", new XText(Design.AutoDesign.ToString())),
+                                new XElement("check", new XText(Design.Check.ToString()))
+                                )
+                            );
+            }
+            else
+            {
+                throw new Exception("No Analysis or Design has been set up");
+            }
         }
     }
 
