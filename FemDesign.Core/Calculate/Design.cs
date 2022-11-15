@@ -47,7 +47,7 @@ namespace FemDesign.Calculate
 
         public static Design Default()
         {
-            return new Design();
+            return new Design(false, true, true, false);
         }
     }
 }

@@ -160,7 +160,7 @@ namespace FemDesign
         public void Open(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript2(logfile, new CmdOpen2(filePath)));
+            this.RunScript(new FdScript2(logfile, new CmdOpen(filePath)));
 
         }
 
@@ -211,8 +211,8 @@ namespace FemDesign
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(
                 logfile,
-                new CmdUserModule2(CmdUserModule.RESMODE),
-                new CmdCalculation2(analysis)
+                new CmdUser(CmdUserModule.RESMODE),
+                new CmdCalculation(analysis)
             );
             this.RunScript(script);
         }
@@ -226,6 +226,44 @@ namespace FemDesign
         {
             this.Open(model);
             this.RunAnalysis(analysis);
+        }
+
+
+        /// <summary>
+        /// Runs a design task on the current model in FEM-Design.
+        /// </summary>
+        /// <param name="userModule"></param>
+        /// <param name="design"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public void RunDesign(CmdUserModule userModule, Design design = null)
+        {
+            if(userModule == CmdUserModule.RESMODE)
+            {
+                throw new ArgumentException("User Module can not be 'RESMODE'!");
+            }
+
+            if (design == null)
+                design = Design.Default();
+
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(
+                logfile,
+                new CmdUser(userModule),
+                new CmdCalculation(design)
+            );
+            this.RunScript(script);
+        }
+
+        /// <summary>
+        /// Opens <paramref name="model"/> in FEM-Design and runs the design.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="design"></param>
+        /// <param name="userModule"></param>
+        public void RunDesign(Model model, Design design, CmdUserModule userModule)
+        {
+            this.Open(model);
+            this.RunDesign(userModule, design);
         }
 
         /// <summary>
@@ -249,9 +287,9 @@ namespace FemDesign
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUserModule2(CmdUserModule.RESMODE));
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen2(csvPaths[i], bscPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -273,7 +311,7 @@ namespace FemDesign
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, new CmdSave2(filePath));
+            var script = new FdScript2(logfile, new CmdSave(filePath));
             this.RunScript(script);
         }
 
