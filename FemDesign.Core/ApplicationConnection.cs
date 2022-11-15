@@ -143,7 +143,7 @@ namespace FemDesign
         public void Open(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript2(logfile, new CmdOpen2(filePath)));
+            this.RunScript(new FdScript2(logfile, new CmdOpen(filePath)));
 
         }
 
@@ -171,8 +171,8 @@ namespace FemDesign
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(
                 logfile,
-                new CmdUserModule2(CmdUserModule.RESMODE),
-                new CmdCalculation2(analysis)
+                new CmdUser(CmdUserModule.RESMODE),
+                new CmdCalculation(analysis)
             );
             this.RunScript(script);
         }
@@ -208,8 +208,8 @@ namespace FemDesign
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(
                 logfile,
-                new CmdUserModule2(userModule),
-                new CmdCalculation2(design)
+                new CmdUser(userModule),
+                new CmdCalculation(design)
             );
             this.RunScript(script);
         }
@@ -247,9 +247,9 @@ namespace FemDesign
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUserModule2(CmdUserModule.RESMODE));
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen2(csvPaths[i], bscPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -271,7 +271,7 @@ namespace FemDesign
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, new CmdSave2(filePath));
+            var script = new FdScript2(logfile, new CmdSave(filePath));
             this.RunScript(script);
         }
 

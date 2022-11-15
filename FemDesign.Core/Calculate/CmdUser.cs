@@ -4,7 +4,9 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Calculate
 {
-    public partial class CmdUser
+    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [System.Serializable]
+    public partial class CmdUser : CmdCommand
     {
         [XmlAttribute("command")]
         public string _command; // token
