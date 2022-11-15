@@ -10,9 +10,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDLISTGEN
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
-    [System.Serializable]
-    public partial class CmdListGen : CmdCommand
+    public partial class CmdListGen
     {
         [XmlAttribute("command")]
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
@@ -79,8 +77,6 @@ namespace FemDesign.Calculate
             this.FillCells = fillCells;
             this.Headers = headers;
         }
-
-
 
         private void Initialize(string bscPath, string outputDir) {
             string _fileName = Path.GetFileNameWithoutExtension(bscPath);

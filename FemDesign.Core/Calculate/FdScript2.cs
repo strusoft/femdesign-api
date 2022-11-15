@@ -7,50 +7,168 @@ using System.Xml.Serialization;
 using FemDesign.Results;
 using System.Reflection;
 using System.Xml.Linq;
-using System.Text;
+
 
 namespace FemDesign.Calculate
 {
-
-    public static class Extension
-    {
-        public static XElement ToXElement<T>(this object obj)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                using (TextWriter streamWriter = new StreamWriter(memoryStream))
-                {
-                    var xmlSerializer = new XmlSerializer(typeof(T));
-                    xmlSerializer.Serialize(streamWriter, obj);
-                    return XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
-                }
-            }
-        }
-
-        public static T FromXElement<T>(this XElement xElement)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            return (T)xmlSerializer.Deserialize(xElement.CreateReader());
-        }
-    }
-
-
     /// <summary>
     /// Base class for all commands that can be run in FEM-Design
     /// </summary>
-    [XmlInclude(typeof(CmdCalculation))]
-    [XmlInclude(typeof(CmdSave))]
-    [XmlInclude(typeof(FdScriptHeader))]
-    [XmlInclude(typeof(CmdOpen))]
-    [XmlInclude(typeof(CmdUser))]
-    [XmlInclude(typeof(CmdListGen))]
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
-    [System.Serializable]
-    public abstract partial class CmdCommand
+    public abstract class CmdCommand
     {
-        public XElement ToXElement()
+        public abstract XElement ToXElement();
+    }
+
+    /// <summary>
+    /// Open a file in FEM-Design
+    /// </summary>
+    public class CmdOpen2 : CmdCommand
+    {
+        public const string Command = "; CXL CS2SHELL OPEN";
+        public string Filename { get; set; }
+        public CmdOpen2(string filepath)
         {
-            return Extension.ToXElement<CmdCommand>(this);
+            this.Filename = Path.GetFullPath(filepath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return new XElement(
+                "cmdopen",
+                new XAttribute("command", Command),
+                new XElement(
+                    "filename", 
+                    new XText(Filename)
+                )
+            );
+        }
+    }
+
+    public class CmdUserModule2 : CmdCommand
+    {
+        public const string Command = "; CXL $MODULE {0}";
+        public CmdUserModule Module;
+        public CmdUserModule2(CmdUserModule module)
+        {
+            Module = module;
+        }
+        public override XElement ToXElement()
+        {
+            return new XElement("cmduser", new XAttribute("command", string.Format(Command, Module)));
+        }
+    }
+
+    public class CmdCalculation2 : CmdCommand
+    {
+        public const string Command = "; CXL $MODULE CALC";
+        public Analysis Analysis;
+        public Design Design;
+        public CmdCalculation2(Analysis analysis)
+        {
+            Analysis = analysis;
+        }
+
+        public CmdCalculation2(Design design)
+        {
+            Design = design;
+        }
+
+        public override XElement ToXElement()
+        {
+            if (Analysis != null)
+            {
+                return new XElement("cmdcalculation", new XAttribute("command", Command),
+                        new XElement("analysis",
+                            new XAttribute("calcCase", Analysis.CalcCase),
+                            new XAttribute("calcCstage", Analysis.CalcCStage),
+                            new XAttribute("calcCImpf", Analysis.CalcCImpf),
+                            new XAttribute("calcComb", Analysis.CalcComb),
+                            new XAttribute("calcGmax", Analysis.CalcGMax),
+                            new XAttribute("calcStab", Analysis.CalcStab),
+                            new XAttribute("calcFreq", Analysis.CalcFreq),
+                            new XAttribute("calcSeis", Analysis.CalcSeis),
+                            new XAttribute("calcDesign", Analysis.CalcDesign),
+                            new XAttribute("calcFootfall", Analysis.CalcFootfall),
+                            new XAttribute("elemfine", Analysis.ElemFine),
+                            new XAttribute("diaphragm", Analysis.Diaphragm),
+                            new XAttribute("peaksmoothing", Analysis.PeakSmoothing)
+
+                    // TODO add <comb>
+                    )
+                );
+            }
+            else if (Design != null)
+            {
+                XElement designBased = Design.CMax != null ? new XElement("cmax") : new XElement("gmax");
+
+                return new XElement("cmdcalculation", new XAttribute("command", Command),
+                            new XElement("Design",
+                                designBased,
+                                new XElement("autodesign", new XText(Design.AutoDesign.ToString())),
+                                new XElement("check", new XText(Design.Check.ToString()))
+                                )
+                            );
+            }
+            else
+            {
+                throw new Exception("No Analysis or Design has been set up");
+            }
+        }
+    }
+
+    public class CmdListGen2 : CmdCommand
+    {
+        public const string Command = "$ MODULECOM LISTGEN";
+        public string BscPath;
+        public string OutPath;
+        public bool Regional;
+
+        public CmdListGen2(string outPath, string bscPath, bool regional = false)
+        {
+            OutPath = Path.GetFullPath(outPath);
+            BscPath = Path.GetFullPath(bscPath);
+            Regional = regional;
+        }
+
+        public override XElement ToXElement()
+        {
+            return new XElement(
+                "cmdlistgen",
+                new XAttribute("command", Command),
+                new XAttribute("outfile", OutPath),
+                new XAttribute("bscfile", BscPath),
+                new XAttribute("regional", Regional),
+                new XAttribute("headers", "1"),
+                new XAttribute("fillcells", "1")
+            );
+        }
+    }
+
+    /// <summary>
+    /// Save the model to a file
+    /// </summary>
+    public class CmdSave2 : CmdCommand
+    {
+        public const string Command = "; CXL CS2SHELL SAVE";
+        public string Filename { get; set; }
+
+        /// <inheritdoc cref="CmdSave2"/>
+        /// <param name="filepath">The target path of the saved model. Typically the file should have the extension .str or .struxml</param>
+        public CmdSave2(string filepath)
+        {
+            this.Filename = Path.GetFullPath(filepath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return new XElement(
+                "cmdopen",
+                new XAttribute("command", Command),
+                new XElement(
+                    "filename",
+                    new XText(Filename)
+                )
+            );
         }
     }
 
@@ -59,12 +177,32 @@ namespace FemDesign.Calculate
     /// </summary>
     public partial class FdScript2
     {
-        public FdScriptHeader Header { get; set; }
+        public class FdScriptHeader2
+        {
+            public string LogFilePath { get; private set; }
+            public FdScriptHeader2(string logFilePath)
+            {
+                LogFilePath = Path.GetFullPath(logFilePath);
+            }
+
+            public XElement ToXElement()
+            {
+                return new XElement(
+                    "fdscriptheader",
+                    new XElement("title", new XText("FEM-Design example script")),
+                    new XElement("version", new XText("1900")),
+                    new XElement("module", new XText("SFRAME")),
+                    new XElement("logfile", new XText(LogFilePath))
+                );
+            }
+        }
+
+        public FdScriptHeader2 Header { get; set; }
         public List<CmdCommand> Commands = new List<CmdCommand>();
 
         public FdScript2(string logFilePath, params CmdCommand[] commands)
         {
-            Header = new FdScriptHeader(logFilePath);
+            Header = new FdScriptHeader2(logFilePath);
             Commands = commands.ToList();
         }
 

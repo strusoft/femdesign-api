@@ -8,9 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDCALCULATION
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
-    [System.Serializable]
-    public partial class CmdCalculation : CmdCommand
+    public partial class CmdCalculation
     {
         [XmlElement("analysis")]
         public Analysis Analysis { get; set; } // ANALYSIS
@@ -30,15 +28,9 @@ namespace FemDesign.Calculate
         {
             this.Analysis = analysis;
         }
-
         public CmdCalculation(Analysis analysis, Design design)
         {
             this.Analysis = analysis;
-            this.Design = design;
-        }
-
-        public CmdCalculation(Design design)
-        {
             this.Design = design;
         }
     }
