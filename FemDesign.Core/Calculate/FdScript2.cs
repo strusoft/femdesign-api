@@ -43,14 +43,16 @@ namespace FemDesign.Calculate
     [XmlInclude(typeof(CmdOpen))]
     [XmlInclude(typeof(CmdUser))]
     [XmlInclude(typeof(CmdListGen))]
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
     [System.Serializable]
     public abstract partial class CmdCommand
     {
-        public XElement ToXElement()
-        {
-            return Extension.ToXElement<CmdCommand>(this);
-        }
+        //public XElement ToXElement()
+        //{
+        //    return Extension.ToXElement<CmdCommand>(this);
+        //}
+
+        public abstract XElement ToXElement();
+
     }
 
     /// <summary>
@@ -59,7 +61,6 @@ namespace FemDesign.Calculate
     [XmlRoot("fdscript")]
     public partial class FdScript2
     {
-        [XmlElement("fdscriptheader", Order = 1)]
         public FdScriptHeader Header { get; set; }
         public List<CmdCommand> Commands = new List<CmdCommand>();
 
@@ -110,9 +111,5 @@ namespace FemDesign.Calculate
                 return writer.ToString();
             }
         }
-
-
-
-
     }
 }

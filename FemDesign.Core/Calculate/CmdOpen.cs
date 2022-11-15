@@ -9,7 +9,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDOPEN
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [XmlRoot("cmdopen")]
     [System.Serializable]
     public partial class CmdOpen : CmdCommand
     {
@@ -28,6 +28,11 @@ namespace FemDesign.Calculate
         public CmdOpen(string filepath)
         {
             this.Filename = filepath;
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdOpen>(this);
         }
     }
 }

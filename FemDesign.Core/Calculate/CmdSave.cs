@@ -1,6 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -8,7 +8,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDSAVE
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [XmlRoot("cmdsave")]
     [System.Serializable]
     public partial class CmdSave : CmdCommand
     {
@@ -27,6 +27,11 @@ namespace FemDesign.Calculate
         public CmdSave(string filePath)
         {
             this.FilePath = filePath;
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdSave>(this);
         }
     }
 }

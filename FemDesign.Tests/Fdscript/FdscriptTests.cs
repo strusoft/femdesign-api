@@ -15,9 +15,7 @@ namespace FemDesign.Calculate
             var logfile = @"C:\temp\logfile.log";
             var filePath = @"C:\temp\tempFile.struxml";
             var script = new FdScript2(logfile, new CmdOpen(filePath));
-            var text = script.SerializeToString();
-
-            Console.WriteLine(text);
+            script.Serialize("script.fdscript");
         }
     }
 }

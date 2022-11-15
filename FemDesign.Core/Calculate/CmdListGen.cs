@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDLISTGEN
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [XmlRoot("cmdlistgen")]
     [System.Serializable]
     public partial class CmdListGen : CmdCommand
     {
@@ -95,6 +95,11 @@ namespace FemDesign.Calculate
             this.BscFile = bscPath;
             this.FileName = _fileName;
             this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdListGen>(this);
         }
     }
 }

@@ -1,7 +1,7 @@
 // https://strusoft.com/
 using System.IO;
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -9,7 +9,8 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDSAVEDOCX
     /// </summary>
-    public partial class CmdSaveDocx
+    [XmlRoot("cmdsavedocx")]
+    public partial class CmdSaveDocx : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ DOC SAVEDOCX"; // token, fixed
@@ -38,6 +39,10 @@ namespace FemDesign.Calculate
 
             //
             this.FilePath = filePath;
+        }
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdSave>(this);
         }
     }
 }
