@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using FemDesign.Sections;
 using FemDesign.Materials;
 
-namespace FemDesign.Bars.Tests
+namespace FemDesign.Bars
 {
     [TestClass()]
     public class BarTests

@@ -11,7 +11,6 @@ using System.Text;
 
 namespace FemDesign.Calculate
 {
-
     public static class Extension
     {
         public static XElement ToXElement<T>(this object obj)
@@ -57,10 +56,17 @@ namespace FemDesign.Calculate
     /// <summary>
     /// Fdscript root class
     /// </summary>
+    [XmlRoot("fdscript")]
     public partial class FdScript2
     {
+        [XmlElement("fdscriptheader", Order = 1)]
         public FdScriptHeader Header { get; set; }
         public List<CmdCommand> Commands = new List<CmdCommand>();
+
+
+        private FdScript2()
+        {
+        }
 
         public FdScript2(string logFilePath, params CmdCommand[] commands)
         {
@@ -89,5 +95,24 @@ namespace FemDesign.Calculate
             doc.Add(root);
             doc.Save(path);
         }
+
+
+        /// <summary>
+        /// Serialize Model to string.
+        /// </summary>
+        public string SerializeToString()
+        {
+            // serialize
+            XmlSerializer serializer = new XmlSerializer(typeof(FdScript2));
+            using (TextWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, this);
+                return writer.ToString();
+            }
+        }
+
+
+
+
     }
 }

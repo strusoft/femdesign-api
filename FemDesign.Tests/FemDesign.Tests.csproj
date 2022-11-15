@@ -73,6 +73,7 @@
     <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
+    <Compile Include="Fdscript\FdscriptTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
     <Compile Include="Geometry\RegionTest.cs" />
