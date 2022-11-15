@@ -1,6 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -9,7 +9,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDOPEN
     /// </summary>
-    public partial class CmdOpen
+    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [System.Serializable]
+    public partial class CmdOpen : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL OPEN"; // token, fixed

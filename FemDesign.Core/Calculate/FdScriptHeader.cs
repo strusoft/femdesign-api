@@ -8,7 +8,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd    
     /// FDSCRIPTHEADER
     /// </summary>
-    public partial class FdScriptHeader
+    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [System.Serializable]
+    public partial class FdScriptHeader : CmdCommand
     {
         [XmlElement("title")]
         public string Title { get; set; } // SZBUF
@@ -33,5 +35,11 @@ namespace FemDesign.Calculate
             this.Module = "sframe";
             this.LogFile = logfile;
         }
+
+        public FdScriptHeader(string logFilePath)
+        {
+            LogFile = System.IO.Path.GetFullPath(logFilePath);
+        }
+
     }
 }
