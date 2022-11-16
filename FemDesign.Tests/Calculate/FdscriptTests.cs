@@ -19,7 +19,13 @@ namespace FemDesign.Calculate
                 new CmdOpen("model.struxml"),
                 new CmdUser(CmdUserModule.RESMODE),
                 new CmdCalculation(Analysis.StaticAnalysis()),
-                new CmdListGen("a.bsc", "./")
+                new CmdCalculation(new Calculate.Design()),
+                new CmdListGen("a.bsc", "./"),
+                new CmdEndSession(),
+                CmdGlobalCfg.Default(),
+                new CmdDesignDesignChanges(),
+                new CmdSave("model.struxml"),
+                new CmdSaveDocx("model.docx")
                 );
             script.Serialize("script.fdscript");
 
@@ -34,6 +40,11 @@ namespace FemDesign.Calculate
             Assert.IsTrue(xmlText.Contains("<cmduser"));
             Assert.IsTrue(xmlText.Contains("<cmdcalculation"));
             Assert.IsTrue(xmlText.Contains("<cmdlistgen"));
+            Assert.IsTrue(xmlText.Contains("<cmdsave"));
+            Assert.IsTrue(xmlText.Contains("<cmdendsession"));
+            Assert.IsTrue(xmlText.Contains("<cmdglobalcfg"));
+            Assert.IsTrue(xmlText.Contains("<cmdsave"));
+            Assert.IsTrue(xmlText.Contains("<cmdsavedocx"));
         }
 
         [TestMethod("Validate schema")]
