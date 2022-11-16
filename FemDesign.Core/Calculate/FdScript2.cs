@@ -19,8 +19,10 @@ namespace FemDesign.Calculate
             {
                 using (TextWriter streamWriter = new StreamWriter(memoryStream))
                 {
+                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                    ns.Add("", "");
                     var xmlSerializer = new XmlSerializer(typeof(T));
-                    xmlSerializer.Serialize(streamWriter, obj);
+                    xmlSerializer.Serialize(streamWriter, obj, ns);
                     return XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
                 }
             }
@@ -43,6 +45,7 @@ namespace FemDesign.Calculate
     [XmlInclude(typeof(CmdOpen))]
     [XmlInclude(typeof(CmdUser))]
     [XmlInclude(typeof(CmdListGen))]
+    [XmlInclude(typeof(CmdDesignDesignChanges))]
     [System.Serializable]
     public abstract partial class CmdCommand
     {
