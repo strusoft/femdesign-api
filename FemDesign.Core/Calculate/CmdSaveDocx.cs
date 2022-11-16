@@ -42,7 +42,7 @@ namespace FemDesign.Calculate
         }
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdSave>(this);
+            return Extension.ToXElement<CmdSaveDocx>(this);
         }
     }
 }
