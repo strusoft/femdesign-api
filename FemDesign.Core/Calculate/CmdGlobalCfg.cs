@@ -4,6 +4,8 @@ using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
+    [XmlRoot("cmdglobalcfg")]
+    [System.Serializable]
     public partial class CmdGlobalCfg : CmdCommand
     {
         [XmlAttribute("command")]
