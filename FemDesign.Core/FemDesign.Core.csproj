@@ -102,7 +102,7 @@
     <Compile Include="Calculate\CombItem.cs" />
     <Compile Include="Calculate\Design.cs" />
     <Compile Include="Calculate\DocTable.cs" />
-    <Compile Include="Calculate\FdScript.cs" />
+    <Compile Include="Calculate\FdScript_OBSOLETE.cs" />
     <Compile Include="Calculate\FdScriptHeader.cs" />
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />

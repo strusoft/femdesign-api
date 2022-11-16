@@ -18,48 +18,64 @@ namespace FemDesign.Calculate
     public partial class FdScript
     {
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string XmlAttrib { get; set; }
 
         [XmlElement("fdscriptheader", Order = 1)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
 
         [XmlElement("cmdopen", Order = 2)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
 
         [XmlElement("cmduser", Order = 3)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdUser CmdUser { get; set; } // CMDUSER
 
         [XmlElement("cmdglobalcfg", Order = 4)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
         [XmlElement("cmdcalculation", Order = 5)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
 
         [XmlElement("cmduser", Order = 6)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
 
         [XmlElement("cmdchild", Order = 8)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
 
         [XmlElement("cmdsavedocx", Order = 9)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdSaveDocx CmdSaveDocx { get; set;} // CMDSAVEDOCX
 
         [XmlElement("cmdsave", Order = 10)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdSave CmdSave { get; set; } // CMDSAVE
 
         [XmlElement("cmdendsession", Order = 11)]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
 
         [XmlIgnore]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string StruxmlPath {get; set; } // path to struxml file, string 259
         [XmlIgnore]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string FileName { get; set; } // file name of struxlm file, string 259
         [XmlIgnore]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string FdScriptPath { get; set; } // path to fdscript file, string
 
         
@@ -71,6 +87,7 @@ namespace FemDesign.Calculate
             
         }
 
+        [Obsolete("Will be deprecated in 22.0.0.")]
         public static FdScript OpenModel(string struxmlPath)
         {
             FdScript fdScript = new FdScript();
@@ -93,6 +110,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             FdScript fdScript = new FdScript();
@@ -152,6 +170,7 @@ namespace FemDesign.Calculate
         }
 
         /// Create fdscript to read a str-model.
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript ReadStr(string strPath, List<string> bscPaths = null)
         {
             FdScript fdScript = new FdScript();
@@ -193,6 +212,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis.
         /// </summary>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             CmdUserModule mode = CmdUserModule.RESMODE;
@@ -204,6 +224,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis and design.
         /// </summary>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             CmdUserModule _mode = CmdUserModule.RCDESIGN;
@@ -247,6 +268,7 @@ namespace FemDesign.Calculate
         /// <param name="docxTemplatePath">The .docx template path for the documentation.</param>
         /// <param name="endSession">Close the FEM-Design program after successfully generating documentation.</param>
         /// <returns>An <see cref="FdScript"/> for generating documentation.</returns>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript CreateDocumentation(string strPath, string docxTemplatePath, bool endSession = true)
         {
             FdScript fdScript = FdScript.ReadStr(strPath, null);
@@ -269,6 +291,7 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="strPath">Path to model with results to be extracted.</param>
         /// <param name="results">Results to be extracted.</param>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript ExtractResults(string strPath, IEnumerable<Type> results = null)
         {
             if (results == null)
@@ -290,6 +313,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Serialize fdscript.
         /// </summary>
+        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public void SerializeFdScript()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FdScript));

@@ -14,6 +14,7 @@ namespace FemDesign.Calculate
     /// Start and run processes (open, analysis, design etc.
     /// </summary>
     [System.Serializable]
+    [Obsolete("Will be deprecated in 22.0.0. Use FemDesignConnection instead.")]
     public partial class Application
     {
         /// <summary>
