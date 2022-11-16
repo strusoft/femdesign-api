@@ -20,7 +20,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdUser()
+        internal CmdUser()
         {
             
         }
