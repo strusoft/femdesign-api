@@ -224,6 +224,19 @@ namespace FemDesign
             this.RunDesign(userModule, design);
         }
 
+
+        public void EndSession()
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript2(
+                logfile,
+                new CmdEndSession()
+            );
+
+            this.RunScript(script);
+        }
+
         /// <summary>
         /// Retreive results from the opened model.
         /// </summary>
