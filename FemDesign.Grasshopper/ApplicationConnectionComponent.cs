@@ -8,9 +8,9 @@ namespace FemDesign.Grasshopper
 {
     public class ApplicationConnectionComponent : GH_Component
     {
-        private ApplicationConnection _connection;
+        private FemDesignConnection _connection;
 
-        public ApplicationConnectionComponent() : base("FEM-Design", "FEM-Design", $"FEM-Design application connection ({typeof(ApplicationConnection).FullName})", CategoryName.Name(), SubCategoryName.Cat6())
+        public ApplicationConnectionComponent() : base("FEM-Design", "FEM-Design", $"FEM-Design application connection ({typeof(FemDesignConnection).FullName})", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             if (_connection != null)
                 _connection.Dispose();
 
-            _connection = new ApplicationConnection(fd_installation_folder, minimized, outputDir);
+            _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir);
 
             DA.SetData("Connection", _connection);
         }

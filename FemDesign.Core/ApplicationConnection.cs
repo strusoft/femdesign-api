@@ -15,67 +15,37 @@ using FemDesign.Calculate;
 
 namespace FemDesign
 {
-    /*
-     FEM-Design usage with pipe
-        To initiate :
-        1: create a WIN32 named pipe for duplex mode, message oriented
-        1a: optional : create another pipe for back channel, named appending 'b'.
-        2: launch FD with command line argument /p Name
-        passing the name you used at creation.FD will open it right at start and exit if can't
-        after successful open it listens to commands while the usual interface is active
-        you can combine it with the windowless / minimized mode to hide the window
-        it also attaches to the back channel pipe at this moment, if unable, all output is permanently disabled
-        3: send commands through the pipe
-        4: FD will exit if 'exit' command received or the pipe is closed on this end
-
-        FD only reads the main pipe and only writes the back channel(if supplied), allowing this end to never
-        read.While the pipe is duplexand can be used in both direction, if it gets clogged in
-        one direction(by not reading what the other end sends), the write can get blocked too.
-        The document recommends using another pipe for a back channel.
-        By default nothing is written to the back channel, you need to set output level or commands with implicit reply.
-        FD buffers all outgoing messages till they can be sent over, if this end is lazy to read it will not clog,
-        however they will accumulate in memory.
-     */
-    public class ApplicationConnection : IDisposable
+    /// <summary>
+    /// FEM-Design real-time connection. Use this to open a <see cref="Model"/>, run <see cref="Analysis"/>, <see cref="Design"/>, extract results and more.
+    /// </summary>
+    public class FemDesignConnection : IDisposable
     {
+        private readonly PipeConnection _connection;
+        private readonly Process _process;
+        public bool HasExited { get; private set; }
+
         /// <summary>
-        /// 
+        /// Open a new instance of FEM-Design and connect to it.
         /// </summary>
-        /// <param name="fd_installation_folder"></param>
+        /// <param name="fdInstallationDir"></param>
         /// <param name="minimized">Open FEM-Design as a minimized window.</param>
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
         /// <param name="tempOutputDir"><code>BE CAREFUL!</code>If true the <paramref name="outputDir"/> will be deleted on exit. This option has no effect unless <paramref name="outputDir"/> has been specified.</param>
-        /// <param name="pipe_base_name"></param>
-        /// <exception cref="Exception"></exception>
-        public ApplicationConnection(
-            string fd_installation_folder = @"C:\Program Files\StruSoft\FEM-Design 21\",
+        public FemDesignConnection(
+            string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 21\",
             bool minimized = false,
             string outputDir = null,
-            bool tempOutputDir = false,
-            string pipe_base_name = "FdPipe1")
+            bool tempOutputDir = false)
         {
-            // todo(Gustav): figure out 9-bit encoding?
-            // encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
-            _encoding = System.Text.Encoding.ASCII;
+            string pathToFemDesign = Path.Combine(fdInstallationDir, "fd3dstruct.exe");
 
-            string input_name = pipe_base_name;
-            string output_name = pipe_base_name + "b";
-
-            _inputPipe = create_pipe(input_name);
-            _outputPipe = create_pipe(output_name);
-
-            _startOutputThread();
-
-            // this is what check status does...
-            if (_inputPipe == null) { throw new Exception("setup failed"); }
-
-            string path_to_fd_struct = Path.Combine(fd_installation_folder, "fd3dstruct.exe");
+            const string pipeName = "FdPipe1"; // TODO: maybe use a uniqe name for each new instance of FEM-Design?
             var startInfo = new ProcessStartInfo()
             {
-                FileName = path_to_fd_struct,
-                Arguments = "/p " + input_name,
+                FileName = pathToFemDesign,
+                Arguments = "/p " + pipeName,
                 UseShellExecute = false,
-                Verb = "open"
+                Verb = "open",
             };
             if (minimized)
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
@@ -85,12 +55,12 @@ namespace FemDesign
                 _outputDirsToBeDeleted.Add(OutputDir);
 
             this._process = Process.Start(startInfo);
-            this._process.Exited += Process_Exited;
+            this._process.Exited += ProcessExited;
 
-            _inputPipe.WaitForConnection();
+            _connection = new PipeConnection(pipeName);
         }
 
-        private void Process_Exited(object sender, EventArgs e)
+        private void ProcessExited(object sender, EventArgs e)
         {
             this.HasExited = true;
         }
@@ -98,25 +68,15 @@ namespace FemDesign
         public delegate void OnOutputEvent(string output);
         public OnOutputEvent OnOutput { get; set; } = null;
 
-
-        public void Send(string command)
-        {
-            if (_inputPipe.CanWrite == false) throw new Exception("Can't write to pipe");
-            var buffer = _encoding.GetBytes(command);
-            _inputPipe.Write(buffer, 0, buffer.Length);
-            _inputPipe.Flush();
-        }
-
         /// <summary>
         /// Disconnects the current connection. FEM-Design will be left open for normal usage.
         /// </summary>
         public void Disconnect()
         {
-            this.Send("detach"); // Tell FEM-Design to detach from the pipe
-            _inputPipe.Disconnect();
+            this._connection.Send("detach"); // Tell FEM-Design to detach from the pipe
+            this._connection.Dispose();
             this.Dispose();
         }
-
 
         /// <summary>
         /// Run a script and wait for it to finish.
@@ -130,8 +90,8 @@ namespace FemDesign
             string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
 
             script.Serialize(scriptPath);
-            this.Send("run " + scriptPath);
-            this.WaitForCommandToFinish();
+            this._connection.Send("run " + scriptPath);
+            this._connection.WaitForCommandToFinish();
         }
 
         /// <summary>
@@ -146,8 +106,8 @@ namespace FemDesign
             string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
 
             script.Serialize(scriptPath);
-            this.Send("run " + scriptPath);
-            await this.WaitForCommandToFinishAsync();
+            this._connection.Send("run " + scriptPath);
+            await this._connection.WaitForCommandToFinishAsync();
         }
 
         /// <summary>
@@ -184,7 +144,6 @@ namespace FemDesign
             model.SerializeModel(struxml);
             this.Open(struxml, disconnect);
         }
-
 
         public void SetGlobalConfig(Calculate.CmdGlobalCfg cmdglobalconfig)
         {
@@ -237,7 +196,6 @@ namespace FemDesign
             this.RunAnalysis(analysis);
         }
 
-
         /// <summary>
         /// Runs a design task on the current model in FEM-Design.
         /// </summary>
@@ -275,7 +233,6 @@ namespace FemDesign
             this.Open(model);
             this.RunDesign(userModule, design);
         }
-
 
         public void EndSession()
         {
@@ -338,14 +295,105 @@ namespace FemDesign
             this.RunScript(script);
         }
 
-        public void WaitForCommandToFinish()
+        public void Dispose()
+        {
+            _deleteOutputDirectories();
+        }
+
+        private void _deleteOutputDirectories()
+        {
+            foreach (string dir in _outputDirsToBeDeleted)
+                if (Directory.Exists(dir))
+                    Directory.Delete(dir, true);
+        }
+
+        public string OutputDir
+        {
+            get { return _outputDir; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) // Use temp dir
+                {
+                    _outputDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                    _outputDirsToBeDeleted.Add(_outputDir);
+                }
+                else // Use given directory
+                    _outputDir = Path.GetFullPath(value);
+            }
+        }
+        private string _outputDir;
+        private List<string> _outputDirsToBeDeleted = new List<string>();
+    }
+
+    /*
+    FEM-Design usage with named pipe.
+
+    To initiate:
+    1:  Create a WIN32 named pipe for duplex mode, message oriented
+    1a: optional: Create another pipe for back channel, named appending 'b'.
+    2:  Launch FD with command line argument `/p Name` passing the name you used at creation. FD will open it right at start and exit if can't. After successful launch it listens to commands while the usual interface is active. You can combine it with the windowless / minimized mode to hide the window. It also attaches to the back channel pipe at this moment, if unable, all output is permanently disabled.
+    3:  Send commands through the pipe.
+    4:  FD will exit if 'exit' command received or the pipe is closed on this end.
+
+    FD only reads the main pipe and only writes the back channel (if supplied), allowing this end to never read.
+    While the pipe is duplexand, it can be used in both direction. If it gets clogged in one direction (by not reading what the other end sends), the write can get blocked too.
+    The document recommends using another pipe for a back channel.
+    By default nothing is written to the back channel, you need to set output level (using verbosity, v, comand) or use commands with implicit reply.
+    FD buffers all outgoing messages till they can be sent over, if this end is lazy to read, it will not clog, however they will accumulate in memory.
+     */
+    internal class PipeConnection : IDisposable
+    {
+        /// <summary>
+        /// Connect to FEM-Design using Named Pipe
+        /// </summary>
+        /// <param name="pipeBaseName"></param>
+        /// <exception cref="Exception"></exception>
+        public PipeConnection(
+            string pipeBaseName = "FdPipe1")
+        {
+            // todo(Gustav): figure out 9-bit encoding?
+            // encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
+            _encoding = System.Text.Encoding.ASCII;
+
+            string input_name = pipeBaseName;
+            string output_name = pipeBaseName + "b";
+
+            _inputPipe = create_pipe(input_name);
+            _outputPipe = create_pipe(output_name);
+
+            _startOutputThread();
+
+            // this is what check status does...
+            if (_inputPipe == null) { throw new Exception("setup failed"); }
+
+
+            _inputPipe.WaitForConnection();
+        }
+
+        private void Process_Exited(object sender, EventArgs e)
+        {
+            this.HasExited = true;
+        }
+
+        public delegate void OnOutputEvent(string output);
+        public OnOutputEvent OnOutput { get; set; } = null;
+
+        public void Send(string command)
+        {
+            if (_inputPipe.CanWrite == false) throw new Exception("Can't write to pipe");
+            var buffer = _encoding.GetBytes(command);
+            _inputPipe.Write(buffer, 0, buffer.Length);
+            _inputPipe.Flush();
+        }
+
+        internal void WaitForCommandToFinish()
         {
             var guid = Guid.NewGuid();
             this.Send("echo " + guid);
             this._waitForOutput(guid);
         }
 
-        public async Task WaitForCommandToFinishAsync()
+        internal async Task WaitForCommandToFinishAsync()
         {
             var guid = Guid.NewGuid();
             this.Send("echo " + guid);
@@ -358,14 +406,6 @@ namespace FemDesign
         {
             _disposePipes();
             _disposeWorker();
-            _deleteOutputDirectories();
-        }
-
-        private void _deleteOutputDirectories()
-        {
-            foreach (string dir in _outputDirsToBeDeleted)
-                if (Directory.Exists(dir))
-                    Directory.Delete(dir, true);
         }
 
         // ----------------------------------------------------------------------------------------
@@ -489,6 +529,12 @@ namespace FemDesign
             }
         }
 
+        //internal void Disconnect()
+        //{
+        //    this._inputPipe.Disconnect();
+        //    this._outputPipe.Disconnect();
+        //}
+
         // ----------------------------------------------------------------------------------------
 
         private readonly NamedPipeServerStream _inputPipe;
@@ -499,25 +545,6 @@ namespace FemDesign
         private readonly Process _process;
         private bool _sendOutputToEvent = true;
         public bool HasExited { get; private set; }
-
-        // ----------------------------------------------------------------------------------------
-
-        public string OutputDir
-        {
-            get { return _outputDir; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) // Use temp dir
-                {
-                    _outputDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-                    _outputDirsToBeDeleted.Add(_outputDir);
-                }
-                else // Use given directory
-                    _outputDir = Path.GetFullPath(value);
-            }
-        }
-        private string _outputDir;
-        private List<string> _outputDirsToBeDeleted = new List<string>();
     }
 
     public static class OutputFileHelper
@@ -556,7 +583,7 @@ namespace FemDesign
         }
         public static string GetBscPath(string baseDir, string fileName)
         {
-            string dir = Path.Combine(baseDir, _bscDirectory);
+            string dir = Path.Combine(baseDir, _scriptsDirectory, _bscDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
             fileName = Path.ChangeExtension(fileName, _bscFileExtension);

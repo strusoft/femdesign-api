@@ -110,16 +110,19 @@ namespace FemDesign.Examples
             config.MeshElements.DefaultDivision = 20;
 
             // Run a specific analysis
-            List<Results.BarDisplacement> results1;
-            List<Results.BarDisplacement> results2;
+            List<Results.BarDisplacement> results1, results2;
             var units = Results.UnitResults.Default();
             units.Displacement = Results.Displacement.mm;
-            using (var femDesign = new ApplicationConnection())
+            using (var femDesign = new FemDesignConnection())
             {
+                femDesign.OnOutput += Console.WriteLine;
+
+                // Update FEM-Design settings
+                femDesign.SetGlobalConfig(config);
+
                 // First we run the analysis of the first beam
                 femDesign.OutputDir = "beam/";
                 femDesign.Open(model);
-                femDesign.SetGlobalConfig(config);
                 femDesign.RunAnalysis(analysis);
                 results1 = femDesign.GetResults<Results.BarDisplacement>(units);
 

@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            ApplicationConnection connection = null;
+            FemDesignConnection connection = null;
             DA.GetData("Connection", ref connection);
 
             Model model = null;

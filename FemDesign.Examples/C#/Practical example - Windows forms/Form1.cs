@@ -14,7 +14,7 @@ namespace FemDesign.Examples
 {
     public partial class Form1 : Form
     {
-        ApplicationConnection _connection = new ApplicationConnection();
+        FemDesignConnection _connection = new FemDesignConnection();
         string _modelPath = Path.GetFullPath("sample_slab.struxml");
 
         public Form1()

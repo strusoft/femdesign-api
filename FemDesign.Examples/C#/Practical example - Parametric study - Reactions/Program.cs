@@ -36,7 +36,7 @@ namespace FemDesign.Examples
             // ITERATION & ANALYSIS PROCESS
             Analysis analysis = new Analysis(calcCase: true);
 
-            using (var femDesign = new ApplicationConnection(minimized: true))
+            using (var femDesign = new FemDesignConnection(minimized: true))
                 for (int i = 1; i < 6; i++)
                 {
                     // Change E-modulus
