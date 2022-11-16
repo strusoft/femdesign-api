@@ -107,7 +107,7 @@ namespace FemDesign.Examples
 
             // Optional Settings for the discretisation
             var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 5;
+            config.MeshElements.DefaultDivision = 20;
 
             // Run a specific analysis
             List<Results.BarDisplacement> results1;
@@ -119,6 +119,7 @@ namespace FemDesign.Examples
                 // First we run the analysis of the first beam
                 femDesign.OutputDir = "beam/";
                 femDesign.Open(model);
+                femDesign.SetGlobalConfig(config);
                 femDesign.RunAnalysis(analysis);
                 results1 = femDesign.GetResults<Results.BarDisplacement>(units);
 
