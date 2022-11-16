@@ -1,6 +1,9 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using System.IO;
+
+
 
 namespace FemDesign.Calculate
 {
@@ -24,10 +27,12 @@ namespace FemDesign.Calculate
         {
             
         }
-        public CmdSave(string filePath)
+
+        public CmdSave(string filepath)
         {
-            this.FilePath = filePath;
+            this.FilePath = Path.GetFullPath(filepath);
         }
+
 
         public override XElement ToXElement()
         {
