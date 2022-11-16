@@ -110,20 +110,6 @@ namespace FemDesign
         /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
-        public void RunScript(FdScript script)
-        {
-            if (script == null) throw new ArgumentNullException("script");
-            if (script.FdScriptPath == null) throw new ArgumentNullException("script.FdScriptPath");
-
-            script.SerializeFdScript();
-            this.Send("run " + script.FdScriptPath);
-            this.WaitForCommandToFinish();
-        }
-
-        /// <summary>
-        /// Run a script and wait for it to finish.
-        /// </summary>
-        /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public void RunScript(FdScript2 script)
         {
@@ -157,6 +143,17 @@ namespace FemDesign
             // Model must be serialized to a file to be opened in FEM-Design.
             model.SerializeModel(struxml);
             this.Open(struxml);
+        }
+
+
+        public void SetGlobalConfig(Calculate.CmdGlobalCfg cmdglobalconfig)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(
+                logfile,
+                cmdglobalconfig
+            );
+            this.RunScript(script);
         }
 
         /// <summary>
