@@ -39,13 +39,6 @@ namespace FemDesign.Calculate
     /// <summary>
     /// Base class for all commands that can be run in FEM-Design
     /// </summary>
-    [XmlInclude(typeof(CmdCalculation))]
-    [XmlInclude(typeof(CmdSave))]
-    [XmlInclude(typeof(FdScriptHeader))]
-    [XmlInclude(typeof(CmdOpen))]
-    [XmlInclude(typeof(CmdUser))]
-    [XmlInclude(typeof(CmdListGen))]
-    [XmlInclude(typeof(CmdDesignDesignChanges))]
     [System.Serializable]
     public abstract partial class CmdCommand
     {
