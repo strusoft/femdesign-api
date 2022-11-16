@@ -192,15 +192,12 @@ namespace FemDesign
         /// <param name="userModule"></param>
         /// <param name="design"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void RunDesign(CmdUserModule userModule, Design design = null)
+        public void RunDesign(CmdUserModule userModule, Design design)
         {
             if(userModule == CmdUserModule.RESMODE)
             {
                 throw new ArgumentException("User Module can not be 'RESMODE'!");
             }
-
-            if (design == null)
-                design = Design.Default();
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(
