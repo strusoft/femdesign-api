@@ -200,11 +200,15 @@ namespace FemDesign
             }
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
             var script = new FdScript2(
                 logfile,
                 new CmdUser(userModule),
                 new CmdCalculation(design)
             );
+
+            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
+
             this.RunScript(script);
         }
 
