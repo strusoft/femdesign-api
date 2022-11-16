@@ -171,7 +171,7 @@ namespace FemDesign
         public async Task OpenAsync(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            await this.RunScriptAsync(new FdScript2(logfile, new CmdOpen2(filePath)));
+            await this.RunScriptAsync(new FdScript2(logfile, new CmdOpen(filePath)));
 
         }
 
