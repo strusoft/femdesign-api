@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="XmlDiffPatch, Version=1.0.8.28, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\XMLDiffPatch.1.0.8.28\lib\net\XmlDiffPatch.dll</HintPath>
     </Reference>
@@ -74,6 +75,7 @@
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
+    <Compile Include="Fdscript\FdscriptTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
     <Compile Include="Geometry\RegionTest.cs" />

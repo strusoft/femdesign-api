@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDLISTGEN
     /// </summary>
-    [XmlRoot("fdscript", Namespace = "urn:strusoft")]
+    [XmlRoot("cmdlistgen")]
     [System.Serializable]
     public partial class CmdListGen : CmdCommand
     {
@@ -62,39 +62,26 @@ namespace FemDesign.Calculate
                 this._fillCells = Convert.ToInt32(value);
             }
         }
-        private string FileName { get; set; }
         
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
         private CmdListGen()
         {
-            
         }
 
-        public CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
+        public CmdListGen(string bscPath, string outPath, bool regional = false)
         {
-            Initialize(bscPath, outputDir);
-            this.Regional = regional;
-            this.FillCells = fillCells;
-            this.Headers = headers;
+            OutFile = Path.GetFullPath(outPath);
+            BscFile = Path.GetFullPath(bscPath);
+            Regional = regional;
+            FillCells = true;
+            Headers = true;
         }
 
-
-
-        private void Initialize(string bscPath, string outputDir) {
-            string _fileName = Path.GetFileNameWithoutExtension(bscPath);
-            string _extension = Path.GetExtension(bscPath);
-
-            if (_extension != ".bsc")
-            {
-                throw new System.ArgumentException("Incorrect file-extension. Expected .bsc. CmdListGen failed.");
-            }
-
-
-            this.BscFile = bscPath;
-            this.FileName = _fileName;
-            this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdListGen>(this);
         }
     }
 }

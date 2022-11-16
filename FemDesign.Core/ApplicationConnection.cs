@@ -111,20 +111,6 @@ namespace FemDesign
         /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
-        public void RunScript(FdScript script)
-        {
-            if (script == null) throw new ArgumentNullException("script");
-            if (script.FdScriptPath == null) throw new ArgumentNullException("script.FdScriptPath");
-
-            script.SerializeFdScript();
-            this.Send("run " + script.FdScriptPath);
-            this.WaitForCommandToFinish();
-        }
-
-        /// <summary>
-        /// Run a script and wait for it to finish.
-        /// </summary>
-        /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public void RunScript(FdScript2 script)
         {
@@ -187,6 +173,17 @@ namespace FemDesign
             this.Open(struxml);
         }
 
+
+        public void SetGlobalConfig(Calculate.CmdGlobalCfg cmdglobalconfig)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(
+                logfile,
+                cmdglobalconfig
+            );
+            this.RunScript(script);
+        }
+
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.
         /// </summary>
@@ -235,22 +232,23 @@ namespace FemDesign
         /// <param name="userModule"></param>
         /// <param name="design"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void RunDesign(CmdUserModule userModule, Design design = null)
+        public void RunDesign(CmdUserModule userModule, Design design)
         {
             if(userModule == CmdUserModule.RESMODE)
             {
                 throw new ArgumentException("User Module can not be 'RESMODE'!");
             }
 
-            if (design == null)
-                design = Design.Default();
-
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
             var script = new FdScript2(
                 logfile,
                 new CmdUser(userModule),
                 new CmdCalculation(design)
             );
+
+            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
+
             this.RunScript(script);
         }
 
@@ -264,6 +262,19 @@ namespace FemDesign
         {
             this.Open(model);
             this.RunDesign(userModule, design);
+        }
+
+
+        public void EndSession()
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript2(
+                logfile,
+                new CmdEndSession()
+            );
+
+            this.RunScript(script);
         }
 
         /// <summary>

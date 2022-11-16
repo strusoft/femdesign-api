@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using System.IO;
 
 namespace FemDesign.Calculate
 {
@@ -27,7 +28,12 @@ namespace FemDesign.Calculate
         }
         public CmdOpen(string filepath)
         {
-            this.Filename = filepath;
+            this.Filename = Path.GetFullPath(filepath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdOpen>(this);
         }
     }
 }
