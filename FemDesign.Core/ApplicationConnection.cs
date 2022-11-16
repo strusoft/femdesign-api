@@ -108,10 +108,11 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Disconnects the current connection.
+        /// Disconnects the current connection. FEM-Design will be left open for normal usage.
         /// </summary>
         public void Disconnect()
         {
+            this.Send("detach"); // Tell FEM-Design to detach from the pipe
             _inputPipe.Disconnect();
             this.Dispose();
         }
@@ -157,7 +158,7 @@ namespace FemDesign
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             this.RunScript(new FdScript2(logfile, new CmdOpen(filePath)));
-            if(disconnect) this.Disconnect();
+            if (disconnect) this.Disconnect();
         }
 
         /// <summary>
@@ -245,7 +246,7 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         public void RunDesign(CmdUserModule userModule, Design design)
         {
-            if(userModule == CmdUserModule.RESMODE)
+            if (userModule == CmdUserModule.RESMODE)
             {
                 throw new ArgumentException("User Module can not be 'RESMODE'!");
             }
