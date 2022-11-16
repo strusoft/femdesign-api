@@ -108,6 +108,16 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Disconnects the current connection.
+        /// </summary>
+        public void Disconnect()
+        {
+            _inputPipe.Disconnect();
+            this.Dispose();
+        }
+
+
+        /// <summary>
         /// Run a script and wait for it to finish.
         /// </summary>
         /// <param name="script"></param>
@@ -143,11 +153,11 @@ namespace FemDesign
         /// Open a file in FEM-Design application.
         /// </summary>
         /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype supported in FEM-Design is valid.</param>
-        public void Open(string filePath)
+        public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             this.RunScript(new FdScript2(logfile, new CmdOpen(filePath)));
-
+            if(disconnect) this.Disconnect();
         }
 
         /// <summary>
@@ -165,12 +175,13 @@ namespace FemDesign
         /// Open a <see cref="Model"/> in FEM-Design application.
         /// </summary>
         /// <param name="model">Model to be opened.</param>
-        public void Open(Model model)
+        /// <param name="disconnect">Set to True to disconnect to the pipe.</param>
+        public void Open(Model model, bool disconnect = false)
         {
             var struxml = OutputFileHelper.GetStruxmlPath(OutputDir);
             // Model must be serialized to a file to be opened in FEM-Design.
             model.SerializeModel(struxml);
-            this.Open(struxml);
+            this.Open(struxml, disconnect);
         }
 
 

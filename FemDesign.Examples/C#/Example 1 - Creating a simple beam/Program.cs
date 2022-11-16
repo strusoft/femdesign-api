@@ -89,7 +89,15 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
-            model.Open();
+
+            var femDesign = new ApplicationConnection();
+
+            femDesign.OutputDir = "beam/";
+            femDesign.Open(model);
+            //femDesign.Disconnect();
+
+
+            var a = 3;
         }
     }
 }
