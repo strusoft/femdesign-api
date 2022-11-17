@@ -156,17 +156,13 @@ namespace FemDesign.Examples
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
             newModel.AddElements(storeyAsList);
 
-
-            // SAVE AND RUN:
-            // Create a file path for the new model, serialize it, and run the script!
-            string path = Path.GetFullPath("output/edited_model.struxml");
-            if (!Directory.Exists("output"))
-                Directory.CreateDirectory("output");
-            newModel.SerializeModel(path);
-            Console.WriteLine($"Opening file at {path}");
-
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, false);
+            
+            // RUN ANALYSIS
+            using( var femDesign = new ApplicationConnection() )
+            {
+                var analysis = Calculate.Analysis.StaticAnalysis();
+                femDesign.RunAnalysis(model, analysis);
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace FemDesign.Examples
             var results = app.GetResults<Results.NodalDisplacement>(units);
 
             // Display summary of results
-            Console.WriteLine("Max bar displacement per case/comb:");
+            Console.WriteLine("Max nodal displacement per case/comb:");
 
             Console.WriteLine();
             Console.WriteLine("exbeam.struxml");
