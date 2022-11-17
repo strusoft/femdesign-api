@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and read some of the results.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
             #region DEFINE GEOMETRY
             // Define geometry
@@ -130,12 +130,12 @@ namespace FemDesign.Examples
 
             resultTypes.AddRange(pointSupportReaction);
             resultTypes.AddRange(nodalDisplacement);
+            femDesignApplication.Disconnect();
 
             #endregion
 
             // Use DISCONNECT if you want to keep FEM-Design Open at the end of the script
             // The method realese the live link connection between the c# code and the application
-            femDesignApplication.Disconnect();
 
             #region DO SOMETHING WITH RESULTS
             // Display Results on Screen

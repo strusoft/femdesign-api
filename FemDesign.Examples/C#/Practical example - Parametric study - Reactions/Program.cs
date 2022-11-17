@@ -21,7 +21,7 @@ namespace FemDesign.Examples
             // In this example, we will analyse how different E-modules will result
             // in different reaction forces in the supports holding a concrete plate.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // READ MODEL

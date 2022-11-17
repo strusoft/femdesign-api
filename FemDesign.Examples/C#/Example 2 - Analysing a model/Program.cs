@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to run an analyse
             // with a given model from within a C# script.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // LOADING UP THE MODEL

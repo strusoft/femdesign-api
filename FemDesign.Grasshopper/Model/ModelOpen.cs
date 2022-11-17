@@ -10,9 +10,9 @@ namespace FemDesign.Grasshopper
 {
     public class ModelOpen : GH_Component
     {
-        private enum ProgramState { Unknown, Creation, Finished }
-        private volatile ProgramState _state = ProgramState.Creation;
-        private Task _task;
+        //private enum ProgramState { Unknown, Creation, Finished }
+        //private volatile ProgramState _state = ProgramState.Creation;
+        //private Task _task;
 
         public ModelOpen() : base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
         {
@@ -50,29 +50,31 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            if (_state == ProgramState.Creation)
-            {
-                // Create an async task that opens the model on a background thread.
-                // This is needed in order not to block the grasshopper UI thread indefinitely.
-                _task = Task.Run(() => connection.OpenAsync(model));
+            connection.Open(model, true);
 
-                // When the task is done we want to let grasshopper know the output must be updated (expire solution)
-                _task.ContinueWith(task =>
-                {
-                    _state = ProgramState.Finished;
-                    Rhino.RhinoApp.InvokeOnUiThread(new Action(() => this.ExpireSolution(true)));
-                });
+            //if (_state == ProgramState.Creation)
+            //{
+            //    // Create an async task that opens the model on a background thread.
+            //    // This is needed in order not to block the grasshopper UI thread indefinitely.
+            //    _task = Task.Run(() => connection.OpenAsync(model));
 
-                // Until that happens, the node will output false
-                DA.SetData("Finished", false);
-            }
-            else if (_state == ProgramState.Finished)
-            {
-                // When the task has been finished
-                DA.SetData("Finished", true);
-                DA.SetData("Connection", connection);
-                _state = ProgramState.Creation;
-            }
+            //    // When the task is done we want to let grasshopper know the output must be updated (expire solution)
+            //    _task.ContinueWith(task =>
+            //    {
+            //        _state = ProgramState.Finished;
+            //        Rhino.RhinoApp.InvokeOnUiThread(new Action(() => this.ExpireSolution(true)));
+            //    });
+
+            //    // Until that happens, the node will output false
+            //    DA.SetData("Finished", false);
+            //}
+            //else if (_state == ProgramState.Finished)
+            //{
+            //    // When the task has been finished
+            //    DA.SetData("Finished", true);
+            //    DA.SetData("Connection", connection);
+            //    _state = ProgramState.Creation;
+            //}
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ModelOpen;
