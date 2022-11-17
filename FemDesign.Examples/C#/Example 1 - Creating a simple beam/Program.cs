@@ -94,7 +94,6 @@ namespace FemDesign.Examples
 
             femDesign.OutputDir = "beam/";
             femDesign.Open(model);
-            //femDesign.Disconnect();
 
 
             var a = 3;

@@ -72,14 +72,24 @@ namespace FemDesign.Examples
                 peakSmoothing: false
                 );
 
+            var units = FemDesign.Results.UnitResults.Default();
 
-            // RUN THE ANALYSIS VIA AN FDSCRIPT
-            var bscPath = new List<string> { @"C:\GitHub\femdesign-api\FemDesign.Examples\C#\Example 2 - Analysing a model\bin\Debug\pointsupportreactions.bsc" };
+            var app = new ApplicationConnection();
 
-            FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(Path.GetFullPath(struxmlPath), analysis, bscPath, "", true);
-            fdScript.CmdGlobalCfg = Calculate.CmdGlobalCfg.Default();
-            Calculate.Application app = new Calculate.Application();
-            app.RunFdScript(fdScript, false, true, true);
+            app.RunAnalysis(model, analysis);
+            var results = app.GetResults<Results.NodalDisplacement>(units);
+
+            // Display summary of results
+            Console.WriteLine("Max bar displacement per case/comb:");
+
+            Console.WriteLine();
+            Console.WriteLine("exbeam.struxml");
+            foreach (var group in results.GroupBy(r => r.CaseIdentifier))
+            {
+                double min = group.Min(r => r.Ez);
+                Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
+            }
+
         }
     }
 }

@@ -112,6 +112,7 @@ namespace FemDesign
         /// </summary>
         public void Disconnect()
         {
+            this.Send("detach"); // Tell FEM-Design to detach from the pipe
             _inputPipe.Disconnect();
             this.Dispose();
         }
@@ -153,6 +154,7 @@ namespace FemDesign
         /// Open a file in FEM-Design application.
         /// </summary>
         /// <param name="filePath">The model file to be opened. Typically a .str or .struxml file, but any filetype supported in FEM-Design is valid.</param>
+        /// <param name="disconnect">Set to True to disconnect to the pipe and leave FEM-Design Open.</param>
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -175,7 +177,7 @@ namespace FemDesign
         /// Open a <see cref="Model"/> in FEM-Design application.
         /// </summary>
         /// <param name="model">Model to be opened.</param>
-        /// <param name="disconnect">Set to True to disconnect to the pipe.</param>
+        /// <param name="disconnect">Set to True to disconnect to the pipe and leave FEM-Design Open.</param>
         public void Open(Model model, bool disconnect = false)
         {
             var struxml = OutputFileHelper.GetStruxmlPath(OutputDir);
