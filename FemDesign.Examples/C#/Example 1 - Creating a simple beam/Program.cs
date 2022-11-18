@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using FemDesign.Results;
 
 namespace FemDesign.Examples
 {
@@ -22,17 +23,26 @@ namespace FemDesign.Examples
 
 
             // Define geometry
-            var p1 = new Geometry.Point3d(2.0, 2.0, 0);
-            var p2 = new Geometry.Point3d(10, 2.0, 0);
+            var length = 6.00;
+
+            var p1 = new Geometry.Point3d(0.0, 0.0, 0.0);
+            var p2 = new Geometry.Point3d(length, 0.0, 0.0);
             var mid = p1 + (p2 - p1) * 0.5;
 
-            // Create elements
+            // Create Line Geometry
             var edge = new Geometry.LineEdge(p1, p2);
-            Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
-            Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
-            var material = materialsDB.MaterialByName("C35/45");
-            var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
+            // Create Material
+            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
+
+            var materialName = "C35/45";
+            var material = materialsDB.MaterialByName(materialName);
+
+            // Create Section
+            var sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
+
+            var sectionName = "Concrete sections, Rectangle, 300x900";
+            var section = sectionsDB.SectionByName(sectionName);
 
             var bar = new Bars.Beam(
                 edge,
@@ -41,9 +51,14 @@ namespace FemDesign.Examples
 
 
             // Create supports
-            var s1 = Supports.PointSupport.Rigid(p1);
+            var stiffValue = 1e10;
+            var motion = new FemDesign.Releases.Motions(stiffValue, stiffValue, stiffValue, stiffValue, stiffValue, stiffValue);
+            var rotation = new FemDesign.Releases.Rotations(stiffValue, stiffValue, stiffValue, stiffValue, stiffValue, stiffValue);
+
+            var s1 = new Supports.PointSupport(p1, motion, rotation);
             var s2 = Supports.PointSupport.Hinged(p2);
 
+            // Create a List of Structural Elements
             var elements = new List<GenericClasses.IStructureElement>() { bar, s1, s2 };
 
 
@@ -89,10 +104,27 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
+            // Create Analysis
+            var analysis = Calculate.Analysis.StaticAnalysis();
 
-            var femDesign = new ApplicationConnection();
+            // Run Analysis
+            using (var femDesign = new ApplicationConnection(outputDir: "model"))
+            {
+                femDesign.RunAnalysis(model, analysis);
+                var pointSupportReactions = femDesign.GetResults<PointSupportReaction>();
 
-            femDesign.Open(model, true);
+                // Print results
+                Console.WriteLine();
+                Console.WriteLine("Id         | Reaction  ");
+                foreach (var reaction in pointSupportReactions)
+                {
+                    Console.WriteLine($"{reaction.Id,10} | {reaction.Fz,10} kN | {reaction.CaseIdentifier,10}");
+                }
+            }
+
+            // ENDING THE PROGRAM
+            Console.WriteLine("\nPress any key to close console.");
+            Console.ReadKey();
         }
     }
 }
