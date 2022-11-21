@@ -27,15 +27,22 @@ namespace FemDesign
         public bool IsDisconnected => !IsConnected;
 
         /// <summary>
+        /// Keep FEM-Design open after <see cref="Dispose"/> is called.
+        /// </summary>
+        private bool _keepOpen;
+
+        /// <summary>
         /// Open a new instance of FEM-Design and connect to it.
         /// </summary>
         /// <param name="fdInstallationDir"></param>
         /// <param name="minimized">Open FEM-Design as a minimized window.</param>
+        /// <param name="keepOpen">If true FEM-Design will be left open and have to be manually exited.</param>
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
         /// <param name="tempOutputDir"><code>BE CAREFUL!</code>If true the <paramref name="outputDir"/> will be deleted on exit. This option has no effect unless <paramref name="outputDir"/> has been specified.</param>
         public FemDesignConnection(
             string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 21\",
             bool minimized = false,
+            bool keepOpen = false,
             string outputDir = null,
             bool tempOutputDir = false)
         {
@@ -56,8 +63,10 @@ namespace FemDesign
             if (string.IsNullOrEmpty(outputDir) == false && tempOutputDir)
                 _outputDirsToBeDeleted.Add(OutputDir);
 
-            this._process = Process.Start(startInfo);
-            this._process.Exited += ProcessExited;
+            _process = Process.Start(startInfo);
+            _process.Exited += ProcessExited;
+
+            _keepOpen = keepOpen;
 
             _connection = new PipeConnection(pipeName);
         }
@@ -77,6 +86,14 @@ namespace FemDesign
         {
             this._connection.Send("detach"); // Tell FEM-Design to detach from the pipe
             this._connection.Disconnect();
+        }
+
+        /// <summary>
+        /// FEM-Design will be left open, when the <see cref="FemDesignConnection"/> is disposed.
+        /// </summary>
+        public void KeepOpen()
+        {
+            _keepOpen = true;
         }
 
         /// <summary>
@@ -299,6 +316,8 @@ namespace FemDesign
 
         public void Dispose()
         {
+            if (_keepOpen) Disconnect();
+
             this._connection.Dispose();
 
             // TODO: Delete the files when they are not locked by FEM-Design
