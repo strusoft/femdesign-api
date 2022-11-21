@@ -18,7 +18,7 @@ namespace FemDesign.Examples
             // walls and pillars with appropriate supports. Using height as a point of comparison we can find
             // which elements to reuse from the old model, and create a new model with our selected elements.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // READ THE MODEL:
@@ -156,17 +156,13 @@ namespace FemDesign.Examples
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
             newModel.AddElements(storeyAsList);
 
-
-            // SAVE AND RUN:
-            // Create a file path for the new model, serialize it, and run the script!
-            string path = Path.GetFullPath("output/edited_model.struxml");
-            if (!Directory.Exists("output"))
-                Directory.CreateDirectory("output");
-            newModel.SerializeModel(path);
-            Console.WriteLine($"Opening file at {path}");
-
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, false);
+            
+            // RUN ANALYSIS
+            using( var femDesign = new ApplicationConnection() )
+            {
+                var analysis = Calculate.Analysis.StaticAnalysis();
+                femDesign.RunAnalysis(model, analysis);
+            }
         }
     }
 }

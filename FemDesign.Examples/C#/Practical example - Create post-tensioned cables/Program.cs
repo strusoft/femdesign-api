@@ -16,7 +16,7 @@ namespace FemDesign.Examples
             // PRACTICAL EXAMPLE: CREATE POST-TENSIONED CABLES
             // This example will show you how to add post-tensioned cables to your concrete beam.
 
-            // This example was last updated 2022-05-03, using the ver. 21.1.0 FEM-Design API.
+            // This example was last updated 2022-11-17, using the ver. 21.6.0 FEM-Design API.
 
 
             // DEFINE GEOMETRY
@@ -99,8 +99,8 @@ namespace FemDesign.Examples
                 Directory.CreateDirectory("output");
             model.SerializeModel(path);
 
-            var app = new Calculate.Application();
-            app.OpenStruxml(Path.GetFullPath(path), false);
+            var app = new FemDesign.ApplicationConnection();
+            app.Open(model, true);
         }
     }
 }

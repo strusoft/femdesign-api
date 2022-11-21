@@ -19,7 +19,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design. Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
             // Define geometry
             var p1 = new Geometry.Point3d(0.0, 0.0, 0);
@@ -144,25 +144,18 @@ namespace FemDesign.Examples
                 assignNewElement: false,
                 ghostMethod: false);
 
-            string filePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "StruSoft",
-                "FemDesign API Examples",
-                "Example 10 - ConstructionStages",
-                "ExampleModel.struxml");
-
             // Set up the analysis
             var constructionStageAnalysis = Calculate.Analysis.ConstructionStages(ghost: false);
 
-            // Optional Settings for the Discretisation
-            var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 5;
+            using( var femDesign = new FemDesign.ApplicationConnection(outputDir: "beam"))
+            {
+                femDesign.Open(model);
+                femDesign.RunAnalysis(constructionStageAnalysis);
+            }
 
-            // Define Result to be extract
-            var results = new List<Type>() { typeof(Results.BarDisplacement) };
-
-            // Run a specific analysis
-            model.RunAnalysis(constructionStageAnalysis, struxmlPath: filePath, resultTypes: results, cmdGlobalCfg: config);
+            // ENDING THE PROGRAM
+            Console.WriteLine("\nPress any key to close console.");
+            Console.ReadKey();
 
         }
     }

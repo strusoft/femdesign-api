@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // PRACTICAL EXAMPLE: SETTING UP LOAD GROUPS
             // This example shows the core steps of creating load groups for a model.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // CREATING LOAD CASES
@@ -45,13 +45,8 @@ namespace FemDesign.Examples
             // CREATING AND OPENING NEW MODEL
             var model2 = new Model(Country.S, null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
 
-            string path = Path.GetFullPath("output/LoadGroups.struxml");
-            if (!Directory.Exists("output"))
-                Directory.CreateDirectory("output");
-
-            model2.SerializeModel(path);
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
+            var app = new FemDesign.ApplicationConnection();
+            app.Open(model2, true);
         }
     }
 }

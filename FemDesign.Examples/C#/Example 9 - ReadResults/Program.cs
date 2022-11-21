@@ -17,7 +17,7 @@ namespace FemDesign.Examples
             // This example will show you how to model a simple supported beam,
             // and read some of the results.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
             #region DEFINE GEOMETRY
             // Define geometry
@@ -104,14 +104,6 @@ namespace FemDesign.Examples
 
             #region SETTINGS
 
-            // define the file name
-            string fileName = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "StruSoft",
-                "FemDesign API Examples",
-                "Example 9 - Read Results",
-                "ExampleModel.struxml");
-
             // Define the Units
             // it is an optional operation and it can be omitted
             // Default Units can be seen looking at FemDesign.Results.UnitResults.Default()
@@ -119,45 +111,36 @@ namespace FemDesign.Examples
             var units = new FemDesign.Results.UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.mm, Results.Force.kN, Results.Mass.kg, Results.Displacement.cm, Results.Stress.MPa);
 
             // Select the results to extract
-            var resultTypes = new List<Type>
-            {
-                typeof(Results.PointSupportReaction),
-                typeof(Results.NodalDisplacement)
-            };
+            List<Results.IResult> resultTypes = new List<Results.IResult>();
 
-            var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(resultTypes, fileName, units);
             #endregion
 
             #region ANALYSIS
-            // Running the analysis
+            // Create a FEM-Design Application Connection and Run the analysis
             var analysisSettings = FemDesign.Calculate.Analysis.StaticAnalysis();
+            var femDesignApplication = new FemDesign.ApplicationConnection(outputDir: "beam");
+            femDesignApplication.RunAnalysis(model, analysisSettings);
 
-            var fdScript = FemDesign.Calculate.FdScript.Analysis(fileName, analysisSettings, bscPathsFromResultTypes, null, true);
-
-            var app = new FemDesign.Calculate.Application();
-            app.RunFdScript(fdScript, false, true);
-            model.SerializeModel(fileName);
-
-            // Read model and results
-            model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
             #endregion
 
             #region EXTRACT RESULTS
 
-            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
-            
-            foreach (var cmd in fdScript.CmdListGen)
-            {
-                string path = cmd.OutFile;
-                var _results = Results.ResultsReader.Parse(path);
-                results = results.Concat(_results);
-            }
+            var pointSupportReaction = femDesignApplication.GetResults<Results.PointSupportReaction> (units);
+            var nodalDisplacement = femDesignApplication.GetResults<Results.NodalDisplacement> (units);
+
+            resultTypes.AddRange(pointSupportReaction);
+            resultTypes.AddRange(nodalDisplacement);
+            femDesignApplication.Disconnect();
+
             #endregion
+
+            // Use DISCONNECT if you want to keep FEM-Design Open at the end of the script
+            // The method realese the live link connection between the c# code and the application
 
             #region DO SOMETHING WITH RESULTS
             // Display Results on Screen
             // The results are grouped by their type
-            var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+            var resultGroups = resultTypes.GroupBy(t => t.GetType()).ToList();
             foreach(var resultGroup in resultGroups)
             {
                 Console.WriteLine(resultGroup.Key.Name);
@@ -173,7 +156,7 @@ namespace FemDesign.Examples
 
             // Select a specific result
             Console.WriteLine("Vertical Reaction Forces");
-            var zReactions = results.Where(t => t.GetType() == typeof(Results.PointSupportReaction)).Cast<Results.PointSupportReaction>();
+            var zReactions = pointSupportReaction.Where(t => t.GetType() == typeof(Results.PointSupportReaction)).Cast<Results.PointSupportReaction>();
             foreach(var zReaction in zReactions)
             {
                 var text = String.Format("Node {0,5} {1,7:#.00} {2} {3,12}", zReaction.Id, zReaction.Fz, units.Force, zReaction.CaseIdentifier);

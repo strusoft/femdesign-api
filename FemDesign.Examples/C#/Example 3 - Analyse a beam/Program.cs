@@ -18,7 +18,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design.Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // Define geometry
@@ -104,10 +104,6 @@ namespace FemDesign.Examples
 
             // Set up the analysis
             var analysis = Calculate.Analysis.StaticAnalysis();
-
-            // Optional Settings for the discretisation
-            var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 20;
 
             // Run a specific analysis
             List<Results.BarDisplacement> results1, results2;

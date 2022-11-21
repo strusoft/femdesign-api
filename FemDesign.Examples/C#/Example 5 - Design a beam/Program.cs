@@ -18,7 +18,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design.Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
             // Define geometry
             var p1 = new Geometry.Point3d(2.0, 2.0, 0);
@@ -108,27 +108,28 @@ namespace FemDesign.Examples
             model.AddLoads(loads);
 
             // Set up the analysis
-            Calculate.Analysis analysisType;
+            var analysisType = Calculate.Analysis.StaticAnalysis();
+            var designType = new Calculate.Design(autoDesign: true, applyChanges: true);
+            var units = Results.UnitResults.Default();
 
-            //analysisType = Calculate.Analysis.Eigenfrequencies();
-            analysisType = Calculate.Analysis.StaticAnalysis();
-            //analysisType = new Calculate.Analysis(stage: Calculate.Stage.Ghost(), comb: Calculate.Comb.Default(), freq: Calculate.Freq.Default());
+            // RUN ANALYSIS
+            using (var femDesign = new ApplicationConnection())
+            {
+                femDesign.Open(model);
+                femDesign.RunAnalysis(analysisType);
+                femDesign.RunDesign(Calculate.CmdUserModule.STEELDESIGN, designType);
+                var results = femDesign.GetResults<Results.BarDisplacement>();
+                // Display summary of results
+                Console.WriteLine("Max nodal displacement per case/comb:");
 
-            var designType = new Calculate.Design(autoDesign: true);
-
-            // Optional Settings for the Discretisation
-            var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 5;
-
-
-            // Define Result to be extract
-
-            // Run Design
-            model.RunDesign(Calculate.CmdUserModule.STEELDESIGN, analysisType, designType);
-
-
-            // TO DO
-            //model.ReadResult(ResultType);
+                Console.WriteLine();
+                Console.WriteLine("exbeam.struxml");
+                foreach (var group in results.GroupBy(r => r.CaseIdentifier))
+                {
+                    double min = group.Min(r => r.Ez);
+                    Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
+                }
+            }
         }
     }
 }
