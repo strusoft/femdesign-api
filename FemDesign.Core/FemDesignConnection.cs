@@ -23,6 +23,8 @@ namespace FemDesign
         private readonly PipeConnection _connection;
         private readonly Process _process;
         public bool HasExited { get; private set; }
+        public bool IsConnected => _connection._inputPipe.IsConnected;
+        public bool IsDisconnected => !IsConnected;
 
         /// <summary>
         /// Open a new instance of FEM-Design and connect to it.
@@ -39,7 +41,7 @@ namespace FemDesign
         {
             string pathToFemDesign = Path.Combine(fdInstallationDir, "fd3dstruct.exe");
 
-            const string pipeName = "FdPipe1"; // TODO: maybe use a uniqe name for each new instance of FEM-Design?
+            string pipeName = "FdPipe" + Guid.NewGuid().ToString();
             var startInfo = new ProcessStartInfo()
             {
                 FileName = pathToFemDesign,
@@ -74,8 +76,7 @@ namespace FemDesign
         public void Disconnect()
         {
             this._connection.Send("detach"); // Tell FEM-Design to detach from the pipe
-            this._connection.Dispose();
-            this.Dispose();
+            this._connection.Disconnect();
         }
 
         /// <summary>
@@ -298,11 +299,14 @@ namespace FemDesign
 
         public void Dispose()
         {
-            _deleteOutputDirectories();
+            this._connection.Dispose();
+
+            // TODO: Delete the files when they are not locked by FEM-Design
+            //_deleteOutputDirectories();
         }
 
         private void _deleteOutputDirectories()
-        {
+        {   
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
                     Directory.Delete(dir, true);
@@ -315,7 +319,7 @@ namespace FemDesign
             {
                 if (string.IsNullOrEmpty(value)) // Use temp dir
                 {
-                    _outputDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                    _outputDir = Path.Combine(Directory.GetCurrentDirectory(), "FEM-Design API");
                     _outputDirsToBeDeleted.Add(_outputDir);
                 }
                 else // Use given directory
@@ -371,11 +375,6 @@ namespace FemDesign
             _inputPipe.WaitForConnection();
         }
 
-        private void Process_Exited(object sender, EventArgs e)
-        {
-            this.HasExited = true;
-        }
-
         public delegate void OnOutputEvent(string output);
         public OnOutputEvent OnOutput { get; set; } = null;
 
@@ -403,9 +402,15 @@ namespace FemDesign
 
         // ----------------------------------------------------------------------------------------
 
+        public void Disconnect()
+        {
+            _inputPipe.Disconnect();
+        }
+
         public void Dispose()
         {
-            _disposePipes();
+            _inputPipe.Dispose();
+            _outputPipe.Dispose();
             _disposeWorker();
         }
 
@@ -455,12 +460,6 @@ namespace FemDesign
             this.OnOutput += onOutput;
 
             await tcs.Task;
-        }
-
-        private void _disposePipes()
-        {
-            _inputPipe.Dispose();
-            _outputPipe.Dispose();
         }
 
         // ----------------------------------------------------------------------------------------
@@ -538,14 +537,12 @@ namespace FemDesign
 
         // ----------------------------------------------------------------------------------------
 
-        private readonly NamedPipeServerStream _inputPipe;
-        private readonly NamedPipeServerStream _outputPipe;
+        internal readonly NamedPipeServerStream _inputPipe;
+        internal readonly NamedPipeServerStream _outputPipe;
         readonly BackgroundWorker _outputWorker = new BackgroundWorker();
         private readonly System.Text.Encoding _encoding;
         private const int BUFFER_SIZE = 4096;
-        private readonly Process _process;
         private bool _sendOutputToEvent = true;
-        public bool HasExited { get; private set; }
     }
 
     public static class OutputFileHelper
