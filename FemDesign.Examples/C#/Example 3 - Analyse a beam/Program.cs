@@ -13,14 +13,14 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 1: CREATING A SIMPLE BEAM
-            // This example will show you how to model a simple supported beam,
-            // and how to save it for export to FEM-Design.Before running,
-            // make sure you have a window with FEM-Design open.
+            // EXAMPLE 3: CREATING A SIMPLE BEAM
+            // This example shows how to model a simple supported beam,
+            // and how to run an alalysis with it in FEM-Design.
+            // Before running, make sure you have a window with FEM-Design open.
 
             // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
-
+            #region Simple beam model
             // Define geometry
             var start = new Geometry.Point3d(2.0, 2.0, 0);
             var end = new Geometry.Point3d(10, 2.0, 0);
@@ -101,14 +101,19 @@ namespace FemDesign.Examples
             // Add to model
             var elements = new List<GenericClasses.IStructureElement>() { bar, s1, s2 }; // We will add support s3 later in this example
             var model = new Model(Country.S, elements, loads, loadcases, loadCombinations);
+            #endregion
 
+            #region Analysis
             // Set up the analysis
             var analysis = Calculate.Analysis.StaticAnalysis();
 
             // Run a specific analysis
             List<Results.BarDisplacement> results1, results2;
+            var config = Calculate.CmdGlobalCfg.Default();
+            config.MeshElements.ElemSizeDiv = 10;
             var units = Results.UnitResults.Default();
             units.Displacement = Results.Displacement.mm;
+
             using (var femDesign = new FemDesignConnection())
             {
                 femDesign.OnOutput += Console.WriteLine;
@@ -118,20 +123,22 @@ namespace FemDesign.Examples
 
                 // First we run the analysis of the first beam
                 femDesign.OutputDir = "beam/";
+
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
                 results1 = femDesign.GetResults<Results.BarDisplacement>(units);
 
                 // Then we add the third support and run the analysis again. The files will be saved in a different output folder.
                 model.AddElements(new List<GenericClasses.IStructureElement> { s3 });
-                
                 femDesign.OutputDir = "beam 3 supports/";
+                
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
                 results2 = femDesign.GetResults<Results.BarDisplacement>(units);
             }
+            #endregion
 
-            // Display summary of results
+            #region Display results
             Console.WriteLine("Max bar displacement per case/comb:");
 
             Console.WriteLine();
@@ -150,7 +157,10 @@ namespace FemDesign.Examples
                 Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+            #endregion
         }
     }
 }

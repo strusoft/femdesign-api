@@ -15,7 +15,7 @@ namespace FemDesign.Examples
         static void Main()
         {
             // EXAMPLE 1: CREATING A SIMPLE BEAM
-            // This example will show you how to model a simple supported beam,
+            // This example shows how to model a simple supported beam,
             // and how to save it for export to FEM-Design. Before running,
             // make sure you have a window with FEM-Design open.
 
@@ -29,44 +29,37 @@ namespace FemDesign.Examples
             var p2 = new Geometry.Point3d(length, 0.0, 0.0);
             var mid = p1 + (p2 - p1) * 0.5;
 
-            // Create Line Geometry
             var edge = new Geometry.LineEdge(p1, p2);
 
-            // Create Material
+
+            // Load material and sections from .struxml files
             var materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
-
-            var materialName = "C35/45";
-            var material = materialsDB.MaterialByName(materialName);
-
-            // Create Section
+            var material = materialsDB.MaterialByName("C35/45");
+            
             var sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
+            var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var sectionName = "Concrete sections, Rectangle, 300x900";
-            var section = sectionsDB.SectionByName(sectionName);
 
-            var bar = new Bars.Beam(
+            // Create the beam and supports
+            var beam = new Bars.Beam(
                 edge,
                 material,
                 section);
 
+            double mStiffness = 1e10;
+            var motion = new Releases.Motions(0.0, 0.0, 0.0, 0.0, mStiffness, mStiffness);
+            var rotation = Releases.Rotations.Free();
 
-            // Create supports
-            var stiffValue = 1e10;
-            var motion = new FemDesign.Releases.Motions(stiffValue, stiffValue, stiffValue, stiffValue, stiffValue, stiffValue);
-            var rotation = new FemDesign.Releases.Rotations(stiffValue, stiffValue, stiffValue, stiffValue, stiffValue, stiffValue);
+            var s1 = Supports.PointSupport.Hinged(p1, identifier: "Hinged");
+            var s2 = new Supports.PointSupport(p2, motion, rotation, identifier: "Z only");
 
-            var s1 = new Supports.PointSupport(p1, motion, rotation);
-            var s2 = Supports.PointSupport.Hinged(p2);
-
-            // Create a List of Structural Elements
-            var elements = new List<GenericClasses.IStructureElement>() { bar, s1, s2 };
+            var elements = new List<GenericClasses.IStructureElement>() { beam, s1, s2 };
 
 
             // Create load cases
             var deadload = new Loads.LoadCase("Deadload", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
             var liveload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var stressload = new Loads.LoadCase("Stresses", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var loadcases = new List<Loads.LoadCase>() { deadload, liveload, stressload };
+            var loadcases = new List<Loads.LoadCase>() { deadload, liveload };
 
 
             // Create load combinations
@@ -87,13 +80,10 @@ namespace FemDesign.Examples
             var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = Loads.LineLoad.VariableForce(edge, lineLoadStart, lineLoadEnd, liveload);
 
-            var lineStress = new Loads.LineStressLoad(edge, 10, stressload);
-
             var loads = new List<GenericClasses.ILoadElement>() {
                 pointForce,
                 pointMoment,
-                lineLoad,
-                lineStress
+                lineLoad
             };
 
 
@@ -104,27 +94,13 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
-            // Create Analysis
-            var analysis = Calculate.Analysis.StaticAnalysis();
 
-            // Run Analysis
-            using (var femDesign = new FemDesignConnection(outputDir: "model"))
+            // Open model in FEM-Design
+            using (var femDesign = new FemDesignConnection(outputDir: "My simple beam", keepOpen: true))
             {
-                femDesign.RunAnalysis(model, analysis);
-                var pointSupportReactions = femDesign.GetResults<PointSupportReaction>();
-
-                // Print results
-                Console.WriteLine();
-                Console.WriteLine("Id         | Reaction  ");
-                foreach (var reaction in pointSupportReactions)
-                {
-                    Console.WriteLine($"{reaction.Id,10} | {reaction.Fz,10} kN | {reaction.CaseIdentifier,10}");
-                }
+                // Inside the "using..." we can send commands to FEM-Design.
+                femDesign.Open(model);
             }
-
-            // ENDING THE PROGRAM
-            Console.WriteLine("\nPress any key to close console.");
-            Console.ReadKey();
         }
     }
 }

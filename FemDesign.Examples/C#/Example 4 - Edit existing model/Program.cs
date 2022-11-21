@@ -28,7 +28,7 @@ namespace FemDesign.Examples
 
             // ISOLATE A FLOOR:
             // Choose which floor will be singled out.
-            int floor = 3;
+            int floor = 2;
 
             FemDesign.StructureGrid.Storey storey = model.Entities.Storeys.Storey[floor];
             List<GenericClasses.IStructureElement> storeyAsList = new List<GenericClasses.IStructureElement> { storey };
@@ -36,7 +36,7 @@ namespace FemDesign.Examples
 
 
             // POINT SUPPORTS:
-            // Find all pillars supporting the chosen floor, and place point supports in their place.
+            // Find all columns supporting the chosen floor, and place point supports in their place.
             // We can use the fact that point [1] of any pillar is always the highest one.
             var supports = new List<GenericClasses.ISupportElement>();
             for (int i = 0; i < model.Entities.Bars.Count; i++)
@@ -61,7 +61,7 @@ namespace FemDesign.Examples
 
             // ELEMENTS:
             // The model only contains plates and walls, so we will not be looking for beams etc.
-            // We are looking for the floor plate at the right height, and the walls below it to
+            // We are looking for the floor plate at the correct height, and the walls below it to
             // replace them with line supports.
             var elements = new List<GenericClasses.IStructureElement>();
 
@@ -157,11 +157,10 @@ namespace FemDesign.Examples
             newModel.AddElements(storeyAsList);
 
             
-            // RUN ANALYSIS
-            using( var femDesign = new ApplicationConnection() )
+            // OPEN MODEL IN FEM-DESIGN:
+            using (var femDesign = new FemDesignConnection(keepOpen: true))
             {
-                var analysis = Calculate.Analysis.StaticAnalysis();
-                femDesign.RunAnalysis(model, analysis);
+                femDesign.Open(newModel);
             }
         }
     }
