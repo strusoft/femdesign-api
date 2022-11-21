@@ -53,7 +53,7 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
-    <Compile Include="ApplicationConnection.cs" />
+    <Compile Include="FemDesignConnection.cs" />
     <Compile Include="Calculate\FdScript2.cs" />
     <Compile Include="GenericClasses\INamedEntity.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
