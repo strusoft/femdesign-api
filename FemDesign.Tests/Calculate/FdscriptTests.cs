@@ -83,17 +83,17 @@ namespace FemDesign.Calculate
         {
 
             var mapCase = new MapCase("Deadload");
-            var mapCase1 = new MapCase("Liveload");
-            var mapCase2 = new MapCase("SnowLoad");
             var mapComb = new MapComb("myComb");
 
+            //var bsc = new Bsc(ListProc.BarsDisplacementsLoadCase, "a.bsc");
 
-            var mapCaseList = new List<MapCase>() { mapCase, mapCase1, mapCase2 };
+            var bsc = new Bsc(ListProc.BarsDisplacementsLoadCase, "a.bsc", null, false);
+
 
             // Serialize
             var script = new FdScript2(
                 "logfile.log",
-                new CmdListGen("a.bsc", "./", false, mapCaseList, mapComb)
+                new CmdListGen(bsc.BscPath, "./", false, mapCase)
                 );
             script.Serialize("script.fdscript");
 
