@@ -4,6 +4,8 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 
+using System.Collections.Generic;
+
 namespace FemDesign.Calculate
 {
     /// <summary> 
@@ -64,7 +66,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("ignorecasename")]
-        public int _ignoreCaseName { get; set; }
+        public int _ignoreCaseName { get; set; } = 0;
         [XmlIgnore]
         public bool IgnoreCaseName
         {
@@ -78,6 +80,11 @@ namespace FemDesign.Calculate
             }
         }
 
+        [XmlElement("mapcase")]
+        public List<MapCase> MapCase { get; set; }
+
+        [XmlElement("mapcomb")]
+        public List<MapComb> MapComb { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -95,9 +102,73 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
+
+        public CmdListGen(string bscPath, string outPath, bool regional, List<MapCase> mapcase, List<MapComb> mapComb) : this(bscPath, outPath, regional)
+        {
+            MapCase = mapcase;
+            MapComb = mapComb;
+        }
+
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdListGen>(this);
         }
     }
+
+    public partial class MapCase
+    {
+        [XmlAttribute("oname")]
+        public string _loadCaseName { get; set; }
+
+        [XmlAttribute("idx")]
+        public int Index { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MapCase()
+        {
+
+        }
+
+        public MapCase(string loadCaseName)
+        {
+            this._loadCaseName = loadCaseName;
+        }
+
+        public static implicit operator List<MapCase>(MapCase mapCase)
+        {
+            return new List<MapCase>() { mapCase };
+        }
+    }
+
+
+    public partial class MapComb
+    {
+        [XmlAttribute("oname")]
+        public string _loadCombName { get; set; }
+
+        [XmlAttribute("idx")]
+        public int Index { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MapComb()
+        {
+
+        }
+
+        public MapComb(string loadCombName)
+        {
+            this._loadCombName = loadCombName;
+        }
+
+        public static implicit operator List<MapComb>(MapComb mapComb)
+        {
+            return new List<MapComb>() { mapComb };
+        }
+    }
+
+
 }
