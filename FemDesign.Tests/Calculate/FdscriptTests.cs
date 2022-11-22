@@ -75,5 +75,33 @@ namespace FemDesign.Calculate
                 Assert.Fail(e.Message);
             });
         }
+
+
+
+        [TestMethod("cmdlistgen")]
+        public void CmdListGen()
+        {
+
+            var mapCase = new MapCase("Deadload");
+            var mapCase1 = new MapCase("Liveload");
+            var mapCase2 = new MapCase("SnowLoad");
+            var mapComb = new MapComb("myComb");
+
+
+            var mapCaseList = new List<MapCase>() { mapCase, mapCase1, mapCase2 };
+
+            // Serialize
+            var script = new FdScript2(
+                "logfile.log",
+                new CmdListGen("a.bsc", "./", false, mapCaseList, mapComb)
+                );
+            script.Serialize("script.fdscript");
+
+            string text = System.IO.File.ReadAllText("script.fdscript");
+
+            Console.WriteLine(text);
+        }
+
+
     }
 }
