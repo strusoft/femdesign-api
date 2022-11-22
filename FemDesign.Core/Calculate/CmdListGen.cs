@@ -20,6 +20,10 @@ namespace FemDesign.Calculate
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
         [XmlAttribute("bscfile")]
         public string BscFile { get; set; } // string
+
+        [XmlIgnore]
+        public Bsc Bsc { get; set; }
+
         [XmlAttribute("outfile")]
         public string OutFile { get; set; } // string
         [XmlAttribute("regional")]
@@ -66,7 +70,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("ignorecasename")]
-        public int _ignoreCaseName { get; set; } = 0;
+        public int _ignoreCaseName { get; set; }
         [XmlIgnore]
         public bool IgnoreCaseName
         {
@@ -81,10 +85,10 @@ namespace FemDesign.Calculate
         }
 
         [XmlElement("mapcase")]
-        public List<MapCase> MapCase { get; set; }
+        public MapCase MapCase { get; set; }
 
         [XmlElement("mapcomb")]
-        public List<MapComb> MapComb { get; set; }
+        public MapComb MapComb { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -102,10 +106,50 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
-
-        public CmdListGen(string bscPath, string outPath, bool regional, List<MapCase> mapcase, List<MapComb> mapComb) : this(bscPath, outPath, regional)
+        private CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
         {
+        }
+
+        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
+        {
+            if (bsc.DocTable.AllCaseComb == true && (mapCase != null) )
+                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
+
+            if(bsc.DocTable.AllCaseComb == false)
+            {
+                MapCase = mapCase;
+            }
+        }
+
+        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
+        {
+            if (bsc.DocTable.AllCaseComb == true && (mapComb != null) )
+                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
+
+            if (bsc.DocTable.AllCaseComb == false)
+            {
+                MapComb = mapComb;
+            }
+        }
+
+
+        public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase)
+        {
+            OutFile = Path.GetFullPath(outPath);
+            BscFile = Path.GetFullPath(bscPath);
+            Regional = regional;
+            FillCells = true;
+            Headers = true;
             MapCase = mapcase;
+        }
+
+        public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb)
+        {
+            OutFile = Path.GetFullPath(outPath);
+            BscFile = Path.GetFullPath(bscPath);
+            Regional = regional;
+            FillCells = true;
+            Headers = true;
             MapComb = mapComb;
         }
 
@@ -117,11 +161,19 @@ namespace FemDesign.Calculate
 
     public partial class MapCase
     {
+
+        public static readonly string _oname = "loadcasename";
+
         [XmlAttribute("oname")]
+        public string _refCaseName = MapCase._oname;
+
+        [XmlAttribute("nname")]
         public string _loadCaseName { get; set; }
 
-        [XmlAttribute("idx")]
-        public int Index { get; set; }
+        // We are not using index in our API.
+        // The API reference the Load Case by Name 
+        //[XmlAttribute("idx")]
+        //public int Index { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -135,21 +187,23 @@ namespace FemDesign.Calculate
         {
             this._loadCaseName = loadCaseName;
         }
-
-        public static implicit operator List<MapCase>(MapCase mapCase)
-        {
-            return new List<MapCase>() { mapCase };
-        }
     }
 
 
     public partial class MapComb
     {
+        public static readonly string _oname = "loadcombname";
+
         [XmlAttribute("oname")]
+        public string _refCombName = MapComb._oname;
+
+        [XmlAttribute("nname")]
         public string _loadCombName { get; set; }
 
-        [XmlAttribute("idx")]
-        public int Index { get; set; }
+        // We are not using index in our API.
+        // The API reference the Load Combination by Name 
+        //[XmlAttribute("idx")]
+        //public int Index { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -163,12 +217,5 @@ namespace FemDesign.Calculate
         {
             this._loadCombName = loadCombName;
         }
-
-        public static implicit operator List<MapComb>(MapComb mapComb)
-        {
-            return new List<MapComb>() { mapComb };
-        }
     }
-
-
 }
