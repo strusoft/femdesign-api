@@ -281,17 +281,18 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, MAPCASE));
 
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+                // Run the script
+                string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
