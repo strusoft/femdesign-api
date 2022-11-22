@@ -31,6 +31,15 @@ namespace FemDesign
         /// </summary>
         private bool _keepOpen;
 
+
+        public delegate void OnOutputEvent(string output);
+        /// <summary>
+        /// Occurs whenever FEM-Design writes a new log message.
+        /// 
+        /// Verbosity may be adjusted using <see cref="SetVerbosity(Verbosity)"/>
+        /// </summary>
+        public OnOutputEvent OnOutput { get; set; } = null;
+
         /// <summary>
         /// Open a new instance of FEM-Design and connect to it.
         /// </summary>
@@ -69,15 +78,20 @@ namespace FemDesign
             _keepOpen = keepOpen;
 
             _connection = new PipeConnection(pipeName);
+
+            // Forward all output messages from pipe (except echo guid commands).
+            _connection.OnOutput += (message) => {
+                message = message.Replace(">echo ", "");
+                bool isGuid = Guid.TryParse(message, out Guid _);
+                if (isGuid == false)
+                    OnOutput?.Invoke(message);
+            };
         }
 
         private void ProcessExited(object sender, EventArgs e)
         {
             this.HasExited = true;
         }
-
-        public delegate void OnOutputEvent(string output);
-        public OnOutputEvent OnOutput { get; set; } = null;
 
         /// <summary>
         /// Disconnects the current connection. FEM-Design will be left open for normal usage.
@@ -253,6 +267,11 @@ namespace FemDesign
             this.RunDesign(userModule, design);
         }
 
+        public void SetVerbosity(Verbosity verbosity)
+        {
+            _connection.Send("v " + (int)verbosity);
+        }
+
         public void EndSession()
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -325,7 +344,7 @@ namespace FemDesign
         }
 
         private void _deleteOutputDirectories()
-        {   
+        {
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
                     Directory.Delete(dir, true);
@@ -397,8 +416,64 @@ namespace FemDesign
         public delegate void OnOutputEvent(string output);
         public OnOutputEvent OnOutput { get; set; } = null;
 
+        /// <summary>
+        /// Send command to FEM-Design using the named pipe.
+        /// </summary>
+        /// <param name="command">Command to excecute in FEM-Design.</param>
         public void Send(string command)
         {
+            /*
+            The command format is
+            [!]<cmd> [args]
+            there is no delimiter at the end, the pipe message counts.
+            FEM-Design reads the pipe immediately and puts the commands in a queue. The queue is processed when it's READYSTATE
+            is ready for another command, finishing execution of the previous or a current script.
+            
+            The !requests out of bound execution. That is not supported by very command and mainly
+            serves to manipulate the queue itself, verbosity or check the communicaiton is alive.
+        
+            Messages are text in 9bit ANSI (codepage), limited to 4096 bytes.
+
+            Commands:
+        
+            exit
+            Stop the FD process
+        
+            detach
+            Close the pipe and continue in normal interface mode
+        
+            clear [in|out]
+            Flush the FD mesage queue for the direction, or both if send without in or out parameters.
+            Has no Effect on what is already issued to the pipe
+        
+            echo [txt]
+            Write txt to output
+        
+            stat
+            Write queue and processing status to output
+        
+            v [N]
+            Set verbosity control (bits)
+               1: Enable basic output
+               2: Echo all INPUT commands
+               4: FEM-Design log-lines
+               8: Script log lines
+              16: Calculation window messages (except fortran)
+             *32: Progress window title
+        
+            Commands echo and stat always creates output, otherwise nothing is written at V = 0
+            * Not yet supported
+        
+            run [scriptfile]
+            Execute script as from tools / run script menu.
+        
+            cmd [command]
+            Execute command as if typed into the command window. No warranty!
+        
+            esc
+            Escape during calculation to break/stop it.
+            */
+
             if (_inputPipe.CanWrite == false) throw new Exception("Can't write to pipe");
             var buffer = _encoding.GetBytes(command);
             _inputPipe.Write(buffer, 0, buffer.Length);
@@ -562,6 +637,44 @@ namespace FemDesign
         private readonly System.Text.Encoding _encoding;
         private const int BUFFER_SIZE = 4096;
         private bool _sendOutputToEvent = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum Verbosity
+    {
+        EchoAndStatOnly = 0,
+        /// <summary>
+        /// Enable basic output
+        /// </summary>
+        BasicOnly = 1,
+        /// <summary>
+        /// Echo all INPUT commands
+        /// </summary>
+        InputOnly = 2,
+        /// <summary>
+        /// FEM-Design log-lines
+        /// </summary>
+        LogLinesOnly = 4,
+        /// <summary>
+        /// Script log lines
+        /// </summary>
+        ScriptLogLinesOnly = 8,
+        /// <summary>
+        /// Calculation window messages (except fortran)
+        /// </summary>
+        CalculationMessagesOnly = 16,
+        /// <summary>
+        /// Progress window title
+        /// </summary>
+        ProgressWindowTitleOnly = 32,
+
+        None = EchoAndStatOnly,
+        Low = BasicOnly | InputOnly,
+        Normal = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly,
+        High = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly,
+        All = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly | ProgressWindowTitleOnly,
     }
 
     public static class OutputFileHelper
