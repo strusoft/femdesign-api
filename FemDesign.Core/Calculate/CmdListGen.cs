@@ -62,7 +62,23 @@ namespace FemDesign.Calculate
                 this._fillCells = Convert.ToInt32(value);
             }
         }
-        
+
+        [XmlAttribute("ignorecasename")]
+        public int _ignoreCaseName { get; set; }
+        [XmlIgnore]
+        public bool IgnoreCaseName
+        {
+            get
+            {
+                return Convert.ToBoolean(this._ignoreCaseName);
+            }
+            set
+            {
+                this._ignoreCaseName = Convert.ToInt32(value);
+            }
+        }
+
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
