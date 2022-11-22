@@ -447,4 +447,16 @@ namespace FemDesign.Calculate
         #endregion
         #endregion
     }
+
+    //public static class ListProcExtension
+    //{
+
+    //    public static bool IsLoadCase(this ListProc listProc)
+    //    {
+    //        {
+    //            listProc.
+    //        }
+    //    }
+    //}
+
 }
