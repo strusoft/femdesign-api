@@ -32,7 +32,7 @@ namespace FemDesign.Examples
             double alpha = 0.5;
 
             var analysis = Calculate.Analysis.Eigenfrequencies(5, 0, false, false, true, -0.01);
-            using (var app = new FemDesign.ApplicationConnection())
+            using (var app = new FemDesignConnection())
             {
                 // ITERATION AND ANALYSIS PROCESS
                 // Iterate over model using different stiffness value for the the rotational spring cy

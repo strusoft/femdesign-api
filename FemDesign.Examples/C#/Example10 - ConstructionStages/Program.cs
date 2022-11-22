@@ -147,7 +147,7 @@ namespace FemDesign.Examples
             // Set up the analysis
             var constructionStageAnalysis = Calculate.Analysis.ConstructionStages(ghost: false);
 
-            using( var femDesign = new FemDesign.ApplicationConnection(outputDir: "beam"))
+            using( var femDesign = new FemDesignConnection(outputDir: "beam"))
             {
                 femDesign.Open(model);
                 femDesign.RunAnalysis(constructionStageAnalysis);

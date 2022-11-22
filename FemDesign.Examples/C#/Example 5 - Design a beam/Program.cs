@@ -113,7 +113,7 @@ namespace FemDesign.Examples
             var units = Results.UnitResults.Default();
 
             // RUN ANALYSIS
-            using (var femDesign = new ApplicationConnection())
+            using (var femDesign = new FemDesignConnection())
             {
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysisType);
