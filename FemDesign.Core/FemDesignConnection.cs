@@ -285,6 +285,17 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Retrieves the currently opened model with all available elements as a <see cref="Model"/> object.
+        /// </summary>
+        public Model GetModel()
+        {
+            string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_saved");
+            string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
+            RunScript(new FdScript2(logfilePath, new CmdSave(struxmlPath)));
+            return Model.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
         /// Retreive results from the opened model.
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
@@ -697,11 +708,16 @@ namespace FemDesign
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _logFileName));
         }
-        public static string GetStruxmlPath(string baseDir)
+        public static string GetStruxmlPath(string baseDir, string modelName = null)
         {
             if (!Directory.Exists(baseDir))
                 Directory.CreateDirectory(baseDir);
-            string path = Path.GetFullPath(Path.Combine(baseDir, _struxmlFileName));
+            string path;
+            if (string.IsNullOrEmpty(modelName))
+                path = Path.GetFullPath(Path.Combine(baseDir, _struxmlFileName));
+            else
+                path = Path.GetFullPath(Path.Combine(baseDir, Path.ChangeExtension(Path.GetFileName(modelName), "struxml")));
+                
             return path;
         }
         public static string GetStrPath(string baseDir)
