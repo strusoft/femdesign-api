@@ -53,7 +53,7 @@ namespace FemDesign.Examples
                 // After using auto-design we need to re-calculate the model to update the distribution of the forces
                 femDesign.RunAnalysis(analysis);
 
-                // Finally we read and display the results
+                // Finally we read the updated model and get some results
                 newModel = femDesign.GetModel();
                 displacements = femDesign.GetResults<Results.BarDisplacement>(units);
 

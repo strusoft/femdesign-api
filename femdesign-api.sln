@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Stiffne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Windows forms", "FemDesign.Examples\C#\Practical example - Windows forms\Practical example - Windows forms.csproj", "{1428F873-E8E8-4A23-974F-2633FDA060C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 7 - Creating a wall", "Example 7 - Creating a wall\Example 7 - Creating a wall.csproj", "{3646ABCA-0703-425A-BB27-4D838DB92FE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 7 - Creating a wall", "FemDesign.Examples\C#\Example 7 - Creating a wall\Example 7 - Creating a wall.csproj", "{3646ABCA-0703-425A-BB27-4D838DB92FE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
