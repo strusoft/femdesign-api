@@ -64,8 +64,11 @@ namespace FemDesign.Examples
             // Create model and open file in FEM design
             var model = new Model(Country.S, null, null, loadCases, loadCombinations, generalLoadGroups);
 
-            var app = new FemDesign.ApplicationConnection();
-            app.Open(model, true);
+            using (var app = new FemDesign.FemDesignConnection())
+            {
+                app.Open(model);
+                app.Disconnect();
+            }
         }
 
 

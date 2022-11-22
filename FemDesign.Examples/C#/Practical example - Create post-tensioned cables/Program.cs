@@ -99,8 +99,11 @@ namespace FemDesign.Examples
                 Directory.CreateDirectory("output");
             model.SerializeModel(path);
 
-            var app = new FemDesign.ApplicationConnection();
-            app.Open(model, true);
+            using (var app = new FemDesignConnection())
+            {
+                app.Open(model);
+                app.Disconnect();
+            }
         }
     }
 }

@@ -43,10 +43,13 @@ namespace FemDesign.Examples
 
 
             // CREATING AND OPENING NEW MODEL
-            var model2 = new Model(Country.S, null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
+            var model = new Model(Country.S, null, null, loadCasesDeadLoads.Concat(loadCaseLiveLoads).ToList(), null, loadGroups);
 
-            var app = new FemDesign.ApplicationConnection();
-            app.Open(model2, true);
+            using (var app = new FemDesignConnection())
+            {
+                app.Open(model);
+                app.Disconnect();
+            }
         }
     }
 }
