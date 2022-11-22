@@ -33,8 +33,8 @@ namespace FemDesign.Examples
             units.Displacement = Results.Displacement.mm;
 
             var outputLog = new List<string>();
-            List<Results.BarDisplacement> results;
-
+            List<Results.BarDisplacement> displacements;
+            Model newModel;
 
             // Run analysis and design calculations
             using (var femDesign = new FemDesignConnection(keepOpen: true))
@@ -54,15 +54,14 @@ namespace FemDesign.Examples
                 femDesign.RunAnalysis(analysis);
 
                 // Finally we read and display the results
-                results = femDesign.GetResults<Results.BarDisplacement>(units);
-                femDesign.Save("my auto-designed beam.struxml");
+                newModel = femDesign.GetModel();
+                displacements = femDesign.GetResults<Results.BarDisplacement>(units);
 
                 // If we want to save the results we must save the file as a .str
                 femDesign.Save("my auto-designed beam.str");
             }
 
             // Compare the results
-            Model newModel = Model.DeserializeFromFilePath("my auto-designed beam.struxml");
             string originalSection = model.Entities.Bars[0].BarPart.ComplexSectionObj.Sections[0].Name;
             string newSection = newModel.Entities.Bars[0].BarPart.ComplexSectionObj.Sections[0].Name;
 
@@ -71,7 +70,7 @@ namespace FemDesign.Examples
             Console.WriteLine();
             Console.WriteLine("Max nodal displacement per case/comb:");
             Console.WriteLine();
-            foreach (var group in results.GroupBy(r => r.CaseIdentifier))
+            foreach (var group in displacements.GroupBy(r => r.CaseIdentifier))
             {
                 double min = group.Min(r => r.Ez);
                 string caseOrCombName = group.Key;

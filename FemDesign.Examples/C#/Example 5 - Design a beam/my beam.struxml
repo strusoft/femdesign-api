@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
-<database struxml_version="01.00.000" source_software="FEM-Design 21.00.005" start_time="1970-01-01T00:00:00.000" end_time="2022-11-22T07:28:21.000" guid="ec9861bc-3180-4ef2-a0e6-76021419e706" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.005" start_time="1970-01-01T00:00:00.000" end_time="2022-11-22T13:18:34.000" guid="ec9861bc-3180-4ef2-a0e6-76021419e706" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
 	<entities>
-		<bar name="B.1" type="beam" guid="4bc21c20-0db3-40b0-b3bd-f86a0c052fa8" last_change="2022-11-22T07:28:21.000" action="added">
-			<bar_part guid="01e91b94-131f-4a9c-b257-305f299ccd9a" last_change="2022-11-22T07:28:21.000" action="added" name="B.1.1" complex_material="8e2cc154-4375-4294-91cc-f673034762fa" made="rolled" complex_section="4cfc70fb-aecb-4417-9f55-a238ec9df309" ecc_calc="true">
+		<bar name="B.1" type="beam" guid="4bc21c20-0db3-40b0-b3bd-f86a0c052fa8" last_change="2022-11-22T13:18:34.000" action="added">
+			<bar_part guid="01e91b94-131f-4a9c-b257-305f299ccd9a" last_change="2022-11-22T13:18:34.000" action="added" name="B.1.1" complex_material="8e2cc154-4375-4294-91cc-f673034762fa" made="rolled" complex_section="bd751845-0a79-48bd-9090-c11989719dfe" ecc_calc="true">
 				<curve type="line">
 					<point x="2" y="2" z="0"></point>
 					<point x="10" y="2" z="0"></point>
@@ -18,26 +18,26 @@
 					<physical x="0" y="0" z="0"></physical>
 				</eccentricity>
 				<buckling_data>
-					<buckling_length type="flexural_stiff">
-						<position start="0" end="0.25"></position>
-					</buckling_length>
 					<buckling_length type="flexural_weak">
 						<position start="0" end="0.25"></position>
 					</buckling_length>
+					<buckling_length type="flexural_weak">
+						<position start="0.25" end="1"></position>
+					</buckling_length>
+					<buckling_length type="flexural_stiff">
+						<position start="0" end="0.25"></position>
+					</buckling_length>
+					<buckling_length type="flexural_stiff">
+						<position start="0.25" end="1"></position>
+					</buckling_length>
 					<buckling_length type="pressured_flange">
 						<position start="0" end="0.25"></position>
+					</buckling_length>
+					<buckling_length type="pressured_flange">
+						<position start="0.25" end="1"></position>
 					</buckling_length>
 					<buckling_length type="pressured_bottom_flange">
 						<position start="0" end="0.25"></position>
-					</buckling_length>
-					<buckling_length type="flexural_stiff">
-						<position start="0.25" end="1"></position>
-					</buckling_length>
-					<buckling_length type="flexural_weak">
-						<position start="0.25" end="1"></position>
-					</buckling_length>
-					<buckling_length type="pressured_flange">
-						<position start="0.25" end="1"></position>
 					</buckling_length>
 					<buckling_length type="pressured_bottom_flange">
 						<position start="0.25" end="1"></position>
@@ -118,88 +118,88 @@
 		</supports>
 	</entities>
 	<sections>
-		<section guid="173f2abd-b60c-4802-90c5-cfff2ef60fe3" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 200" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="200">
+		<section guid="bd1cba69-0eed-4a1a-91b2-4466ca1b942e" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 140" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="140">
 			<region_group>
 				<region>
 					<contour>
 						<edge type="line">
-							<point x="-0.05" y="-0.1" z="0"></point>
-							<point x="0.05" y="-0.1" z="0"></point>
+							<point x="-0.0365" y="-0.07" z="0"></point>
+							<point x="0.0365" y="-0.07" z="0"></point>
 							<normal x="0" y="1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.05" y="-0.1" z="0"></point>
-							<point x="0.05" y="-0.0915" z="0"></point>
+							<point x="0.0365" y="-0.07" z="0"></point>
+							<point x="0.0365" y="-0.0631" z="0"></point>
 							<normal x="0" y="0" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.05" y="-0.0915" z="0"></point>
-							<point x="0.0148" y="-0.0915" z="0"></point>
+							<point x="0.0365" y="-0.0631" z="0"></point>
+							<point x="0.00935" y="-0.0631" z="0"></point>
 							<normal x="0" y="-1" z="0"></normal>
 						</edge>
-						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="0.0148" y="-0.0795" z="0"></point>
+						<edge radius="0.007" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="0.00935" y="-0.0561" z="0"></point>
 							<normal x="0" y="0" z="-1"></normal>
 							<x_axis x="0" y="-1" z="0"></x_axis>
 						</edge>
 						<edge type="line">
-							<point x="0.0028" y="-0.0795" z="0"></point>
-							<point x="0.0028" y="0.0795" z="0"></point>
+							<point x="0.00235" y="-0.0561" z="0"></point>
+							<point x="0.00235" y="0.0561" z="0"></point>
 							<normal x="-1" y="0" z="0"></normal>
 						</edge>
-						<edge radius="0.012" start_angle="0" end_angle="1.57079632679489" type="arc">
-							<point x="0.0148" y="0.0795" z="0"></point>
+						<edge radius="0.007" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.00935" y="0.0561" z="0"></point>
 							<normal x="0" y="0" z="-1"></normal>
 							<x_axis x="-1" y="0" z="0"></x_axis>
 						</edge>
 						<edge type="line">
-							<point x="0.0148" y="0.0915" z="0"></point>
-							<point x="0.05" y="0.0915" z="0"></point>
+							<point x="0.00935" y="0.0631" z="0"></point>
+							<point x="0.0365" y="0.0631" z="0"></point>
 							<normal x="0" y="1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.05" y="0.0915" z="0"></point>
-							<point x="0.05" y="0.1" z="0"></point>
+							<point x="0.0365" y="0.0631" z="0"></point>
+							<point x="0.0365" y="0.07" z="0"></point>
 							<normal x="0" y="0" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.05" y="0.1" z="0"></point>
-							<point x="-0.05" y="0.1" z="0"></point>
+							<point x="0.0365" y="0.07" z="0"></point>
+							<point x="-0.0365" y="0.07" z="0"></point>
 							<normal x="0" y="-1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="-0.05" y="0.1" z="0"></point>
-							<point x="-0.05" y="0.0915" z="0"></point>
+							<point x="-0.0365" y="0.07" z="0"></point>
+							<point x="-0.0365" y="0.0631" z="0"></point>
 							<normal x="0" y="0" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="-0.05" y="0.0915" z="0"></point>
-							<point x="-0.0148" y="0.0915" z="0"></point>
+							<point x="-0.0365" y="0.0631" z="0"></point>
+							<point x="-0.00935" y="0.0631" z="0"></point>
 							<normal x="0" y="1" z="0"></normal>
 						</edge>
-						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="-0.0148" y="0.0795" z="0"></point>
+						<edge radius="0.007" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="-0.00935" y="0.0561" z="0"></point>
 							<normal x="0" y="0" z="-1"></normal>
 							<x_axis x="0" y="1" z="0"></x_axis>
 						</edge>
 						<edge type="line">
-							<point x="-0.0028" y="0.0795" z="0"></point>
-							<point x="-0.0028" y="-0.0795" z="0"></point>
+							<point x="-0.00235" y="0.0561" z="0"></point>
+							<point x="-0.00235" y="-0.0561" z="0"></point>
 							<normal x="1" y="0" z="0"></normal>
 						</edge>
-						<edge radius="0.012" start_angle="0" end_angle="1.57079632679489" type="arc">
-							<point x="-0.0148" y="-0.0795" z="0"></point>
+						<edge radius="0.007" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.00935" y="-0.0561" z="0"></point>
 							<normal x="0" y="0" z="-1"></normal>
 							<x_axis x="1" y="0" z="0"></x_axis>
 						</edge>
 						<edge type="line">
-							<point x="-0.0148" y="-0.0915" z="0"></point>
-							<point x="-0.05" y="-0.0915" z="0"></point>
+							<point x="-0.00935" y="-0.0631" z="0"></point>
+							<point x="-0.0365" y="-0.0631" z="0"></point>
 							<normal x="0" y="-1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="-0.05" y="-0.0915" z="0"></point>
-							<point x="-0.05" y="-0.1" z="0"></point>
+							<point x="-0.0365" y="-0.0631" z="0"></point>
+							<point x="-0.0365" y="-0.07" z="0"></point>
 							<normal x="0" y="0" z="0"></normal>
 						</edge>
 					</contour>
@@ -207,12 +207,12 @@
 			</region_group>
 			<end></end>
 		</section>
-		<complex_section guid="4cfc70fb-aecb-4417-9f55-a238ec9df309" last_change="1970-01-01T00:00:00.000" action="added">
-			<section pos="0" guid="173f2abd-b60c-4802-90c5-cfff2ef60fe3">
+		<complex_section guid="bd751845-0a79-48bd-9090-c11989719dfe" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="bd1cba69-0eed-4a1a-91b2-4466ca1b942e">
 				<ecc x="0" y="0" z="0"></ecc>
 				<end></end>
 			</section>
-			<section pos="1" guid="173f2abd-b60c-4802-90c5-cfff2ef60fe3">
+			<section pos="1" guid="bd1cba69-0eed-4a1a-91b2-4466ca1b942e">
 				<ecc x="0" y="0" z="0"></ecc>
 				<end></end>
 			</section>
