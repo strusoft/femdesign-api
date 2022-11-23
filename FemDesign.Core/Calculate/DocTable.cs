@@ -54,8 +54,19 @@ namespace FemDesign.Calculate
         [XmlElement("suffix")]
         public string Suffix { get; set; }
 
-        [XmlElement("index")]
+
+        // micro pattern to avoid an empty element
+        // https://stackoverflow.com/a/610630/14969396
+        [XmlIgnore]
         public int? CaseIndex { get; set; }
+
+        [XmlElement("index")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public int _xmlSomeValue { get { return CaseIndex.Value; } set { CaseIndex = value; } }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool _xmlSomeValueSpecified { get { return CaseIndex.HasValue; } }
+
+
 
         [XmlIgnore]
         public bool AllCaseComb
