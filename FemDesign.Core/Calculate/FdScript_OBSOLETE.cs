@@ -77,15 +77,8 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string FdScriptPath { get; set; } // path to fdscript file, string
-
         
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private FdScript()
-        {
-            
-        }
+
 
         [Obsolete("Will be deprecated in 22.0.0.")]
         public static FdScript OpenModel(string struxmlPath)

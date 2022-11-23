@@ -14,7 +14,7 @@ namespace FemDesign.Calculate
         public void CreateFdScript()
         {
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScript(
                 "logfile.log",
                 new CmdOpen("model.struxml"),
                 new CmdUser(CmdUserModule.RESMODE),
@@ -51,7 +51,7 @@ namespace FemDesign.Calculate
         public void ValidateSchema()
         {
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScript(
                 "logfile.log",
                 new CmdOpen("model.struxml"),
                 new CmdUser(CmdUserModule.RESMODE),
@@ -91,7 +91,7 @@ namespace FemDesign.Calculate
 
 
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScript(
                 "logfile.log",
                 new CmdListGen(bsc.BscPath, "./", false, mapCase)
                 );
