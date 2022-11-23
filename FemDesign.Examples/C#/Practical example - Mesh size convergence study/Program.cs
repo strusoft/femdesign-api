@@ -56,7 +56,7 @@ namespace FemDesign.Examples
                 var bsc = new FemDesign.Calculate.Bsc(FemDesign.Calculate.ListProc.LabelledSectionsInternalForcesLoadCombination, bscPath);
 
                 // Running the analysis
-                FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(currentPath, analysisSettings, new List<string> { bsc }, null, true);
+                FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(currentPath, analysisSettings, new List<string> { bsc.BscPath }, null, true);
                 var app = new FemDesign.Calculate.Application();
                 app.RunFdScript(fdScript, false, true, true);
 
