@@ -4,6 +4,8 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 
+using System.Collections.Generic;
+
 namespace FemDesign.Calculate
 {
     /// <summary> 
@@ -18,6 +20,10 @@ namespace FemDesign.Calculate
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
         [XmlAttribute("bscfile")]
         public string BscFile { get; set; } // string
+
+        [XmlIgnore]
+        public Bsc Bsc { get; set; }
+
         [XmlAttribute("outfile")]
         public string OutFile { get; set; } // string
         [XmlAttribute("regional")]
@@ -62,7 +68,28 @@ namespace FemDesign.Calculate
                 this._fillCells = Convert.ToInt32(value);
             }
         }
-        
+
+        [XmlAttribute("ignorecasename")]
+        public int _ignoreCaseName { get; set; }
+        [XmlIgnore]
+        public bool IgnoreCaseName
+        {
+            get
+            {
+                return Convert.ToBoolean(this._ignoreCaseName);
+            }
+            set
+            {
+                this._ignoreCaseName = Convert.ToInt32(value);
+            }
+        }
+
+        [XmlElement("mapcase")]
+        public MapCase MapCase { get; set; }
+
+        [XmlElement("mapcomb")]
+        public MapComb MapComb { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -79,9 +106,116 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
+        private CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
+        {
+        }
+
+        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
+        {
+            if (bsc.DocTable.AllCaseComb == true && (mapCase != null) )
+                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
+
+            if(bsc.DocTable.AllCaseComb == false)
+            {
+                MapCase = mapCase;
+            }
+        }
+
+        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
+        {
+            if (bsc.DocTable.AllCaseComb == true && (mapComb != null) )
+                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
+
+            if (bsc.DocTable.AllCaseComb == false)
+            {
+                MapComb = mapComb;
+            }
+        }
+
+
+        public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase)
+        {
+            OutFile = Path.GetFullPath(outPath);
+            BscFile = Path.GetFullPath(bscPath);
+            Regional = regional;
+            FillCells = true;
+            Headers = true;
+            MapCase = mapcase;
+        }
+
+        public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb)
+        {
+            OutFile = Path.GetFullPath(outPath);
+            BscFile = Path.GetFullPath(bscPath);
+            Regional = regional;
+            FillCells = true;
+            Headers = true;
+            MapComb = mapComb;
+        }
+
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdListGen>(this);
+        }
+    }
+
+    public partial class MapCase
+    {
+
+        public static readonly string _oname = "loadcasename";
+
+        [XmlAttribute("oname")]
+        public string _refCaseName = MapCase._oname;
+
+        [XmlAttribute("nname")]
+        public string _loadCaseName { get; set; }
+
+        // We are not using index in our API.
+        // The API reference the Load Case by Name 
+        //[XmlAttribute("idx")]
+        //public int Index { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MapCase()
+        {
+
+        }
+
+        public MapCase(string loadCaseName)
+        {
+            this._loadCaseName = loadCaseName;
+        }
+    }
+
+
+    public partial class MapComb
+    {
+        public static readonly string _oname = "loadcombname";
+
+        [XmlAttribute("oname")]
+        public string _refCombName = MapComb._oname;
+
+        [XmlAttribute("nname")]
+        public string _loadCombName { get; set; }
+
+        // We are not using index in our API.
+        // The API reference the Load Combination by Name 
+        //[XmlAttribute("idx")]
+        //public int Index { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private MapComb()
+        {
+
+        }
+
+        public MapComb(string loadCombName)
+        {
+            this._loadCombName = loadCombName;
         }
     }
 }

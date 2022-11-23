@@ -104,11 +104,16 @@ namespace FemDesign.Results
             this.Unit = unit;
         }
 
-        public static List<Units> GetUnits(UnitResults unitResult)
+        public static List<Units> GetUnits(UnitResults unitResult = null)
         {
             // Define the Units for some output
             // the schema has been discussed in the following issue
             // https://github.com/strusoft/femdesign-api/issues/375
+
+            if(unitResult == null)
+            {
+                unitResult = UnitResults.Default();
+            }
 
             var unitsObj = new List<Units>()
             {

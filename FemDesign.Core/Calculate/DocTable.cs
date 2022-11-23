@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 
 namespace FemDesign.Calculate
@@ -49,9 +50,33 @@ namespace FemDesign.Calculate
         
         [XmlElement("listproc")]
         public ListProc ListProc { get; set; }
-        
+
+        [XmlElement("suffix")]
+        public string Suffix { get; set; }
+
+
+        // micro pattern to avoid an empty element
+        // https://stackoverflow.com/a/610630/14969396
+        [XmlIgnore]
+        public int? CaseIndex { get; set; }
+
         [XmlElement("index")]
-        public int CaseIndex { get; set; }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public int _xmlSomeValue { get { return CaseIndex.Value; } set { CaseIndex = value; } }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool _xmlSomeValueSpecified { get { return CaseIndex.HasValue; } }
+
+
+
+        [XmlIgnore]
+        public bool AllCaseComb
+        {
+            get
+            {
+                if(Suffix == null) { return true; }
+                else { return false; }
+            }
+        }
 
         [XmlElement("units")]
         public List<FemDesign.Results.Units> Units { get; set; }
@@ -62,6 +87,10 @@ namespace FemDesign.Calculate
         [XmlElement("restype")]
         public int ResType { get; set; }
 
+        [XmlIgnore]
+        public static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
+        public static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -71,33 +100,37 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// DocTable constructor
+        /// DocTable Constructor
+        /// The name of LoadCase will be specified in cmdlistgen object
         /// </summary>
         /// <param name="resultType"></param>
-        /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
-        public DocTable(ListProc resultType, int? caseIndex = null)
+        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false)
         {
-            int cIndex;
-            if (caseIndex.HasValue)
-                cIndex = caseIndex.Value;
-            else
-                cIndex = GetDefaultCaseIndex(resultType);
-
             ListProc = resultType;
-            CaseIndex = cIndex;
+
+            var isLoadCase = resultType.ToString().Contains("LoadCase");
+            var isLoadComb = resultType.ToString().Contains("LoadCombination");
+            if (!allCaseCombo)
+            {
+                if (isLoadCase)
+                {
+                    Suffix = _loadCaseSuffix;
+                }
+                else if (isLoadComb)
+                {
+                    Suffix = _loadCombSuffix;
+                }
+            }
+            else
+            {
+                // return all the output related to the analysis
+                // i.e eigen frequency will return all the eigen values
+                CaseIndex = GetDefaultCaseIndex(resultType);
+            }
+
+            Units = Results.Units.GetUnits(unitResult);
             ResType = GetResType(resultType);
             Option = Options.GetOptions(resultType);
-        }
-
-        /// <summary>
-        /// DocTable constructor
-        /// </summary>
-        /// <param name="resultType"></param>
-        /// <param name="caseIndex">Defaults to all loadcases or loadcombinations</param>
-        /// <param name="unitResult">Units for Results</param>
-        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult, int? caseIndex = null) : this(resultType, caseIndex)
-        {
-            Units = Results.Units.GetUnits(unitResult);
         }
 
         private int GetResType(ListProc resultType)

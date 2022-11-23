@@ -447,4 +447,27 @@ namespace FemDesign.Calculate
         #endregion
         #endregion
     }
+
+    public static class ListProcExtension
+    {
+        public static bool IsLoadCase(this ListProc listProc)
+        {
+            {
+                string r = listProc.ToString();
+                if (r.EndsWith("LoadCase"))
+                    return true;
+                else return false;
+            }
+        }
+
+        public static bool IsLoadCombination(this ListProc listProc)
+        {
+            {
+                string r = listProc.ToString();
+                if (r.EndsWith("LoadCombination"))
+                    return true;
+                else return false;
+            }
+        }
+    }
 }
