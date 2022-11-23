@@ -179,6 +179,9 @@
     <Compile Include="..\FemDesign.Core\Calculate\FdScriptHeader.cs">
       <Link>Core\Calculate\FdScriptHeader.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Calculate\FdScript_OBSOLETE.cs">
+      <Link>Core\Calculate\FdScript_OBSOLETE.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Calculate\Font.cs">
       <Link>Core\Calculate\Font.cs</Link>
     </Compile>
