@@ -31,6 +31,23 @@ namespace FemDesign.Supports
             }
         }
 
+        /// <summary>
+        /// Define if Point Support is 1-d type
+        /// </summary>
+        [XmlIgnore]
+        public bool IsDirected
+        {
+            get => Directed != null;
+        }
+
+
+        [XmlIgnore]
+        public bool IsGroup
+        {
+            get => Group != null;
+        }
+
+
         [XmlIgnore]
         private Directed directed;
         [XmlElement("directed", Order = 2)]
@@ -174,19 +191,27 @@ namespace FemDesign.Supports
 
         public override string ToString()
         {
-            bool hasPlasticLimit = false;
-            if (this.Group.Rigidity != null)
+            if (IsGroup)
             {
-                if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
-                    hasPlasticLimit = true;
-                return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                bool hasPlasticLimit = false;
+                if (this.Group.Rigidity != null)
+                {
+                    if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
+                        hasPlasticLimit = true;
+                    return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                }
+                else
+                {
+                    if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
+                        hasPlasticLimit = true;
+                    return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                }
             }
-            else
+            else // is Directed
             {
-                if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
-                    hasPlasticLimit = true;
-                return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                return $"{this.GetType().Name} {this.Directed.Direction}, Mov: {this.Directed.Movement}, Rot: {this.Directed.Rotation}";
             }
+
         }
     }
 }

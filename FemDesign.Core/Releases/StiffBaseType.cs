@@ -41,5 +41,11 @@ namespace FemDesign.Releases
                 this._pos = RestrictedDouble.NonNegMax_1e15(value);
             }
         }
+
+        public override string ToString()
+        {
+            return $"Neg: {Neg} Pos: {Pos}";
+        }
+
     }
 }

@@ -19,9 +19,11 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("PointSupport", "PointSupport", "PointSupport.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("LineSupport", "LineSupport", "LineSupport.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("SurfaceSupport", "SurfaceSupport", "SurfaceSupport.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("PointSupportDirected", "PointSupportDirected", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("PointSupportGroup", "PointSupportGroup", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LineSupportDirected", "LineSupportDirected", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LineSupportGroup", "LineSupportGroup", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("SurfaceSupportGroup", "SurfaceSupportGroup", "SurfaceSupport.", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -36,24 +38,39 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            var pointSupports = new List<Supports.PointSupport>();
-            var lineSupports = new List<LineSupport>();
-            var surfaceSupports = new List<SurfaceSupport>();
+            var pointSupportsGroup = new List<Supports.PointSupport>();
+            var pointSupportsDirected = new List<Supports.PointSupport>();
+
+            var lineSupportsGroup = new List<LineSupport>();
+            var lineSupportsDirected = new List<LineSupport>();
+
+            var surfaceSupportsGroup = new List<SurfaceSupport>();
 
             foreach (GenericClasses.ISupportElement obj in objs)
             {
                 if (obj.GetType() == typeof(Supports.PointSupport))
                 {
-                    pointSupports.Add((Supports.PointSupport)obj);
+                    var pointSupport = (Supports.PointSupport)obj;
+                    if(pointSupport.IsDirected)
+                    {
+                        pointSupportsDirected.Add(pointSupport);
+                    }
+                    else
+                        pointSupportsGroup.Add(pointSupport);
                 }
-
-                else if (obj.GetType() == typeof(LineSupport))
+                else if (obj.GetType() == typeof(Supports.LineSupport))
                 {
-                    lineSupports.Add((LineSupport)obj);
+                    var lineSupport = (Supports.LineSupport)obj;
+                    if (lineSupport.IsDirected)
+                    {
+                        lineSupportsDirected.Add(lineSupport);
+                    }
+                    else
+                        lineSupportsGroup.Add(lineSupport);
                 }
                 else if (obj.GetType() == typeof(SurfaceSupport))
                 {
-                    surfaceSupports.Add((SurfaceSupport)obj);
+                    surfaceSupportsGroup.Add((SurfaceSupport)obj);
                 }
                 else
                 {
@@ -61,9 +78,11 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            DA.SetDataList("PointSupport", pointSupports);
-            DA.SetDataList("LineSupport", lineSupports);
-            DA.SetDataList("SurfaceSupport", surfaceSupports);
+            DA.SetDataList("PointSupportDirected", pointSupportsDirected);
+            DA.SetDataList("PointSupportGroup", pointSupportsGroup);
+            DA.SetDataList("LineSupportDirected", lineSupportsDirected);
+            DA.SetDataList("LineSupportGroup", lineSupportsGroup);
+            DA.SetDataList("SurfaceSupportGroup", surfaceSupportsGroup);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -74,7 +93,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("0e3450c6-1841-4628-aa51-96c7ec3ef5f6"); }
+            get { return new Guid("{3A45D870-D02C-4D92-94A4-19D35476939B}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

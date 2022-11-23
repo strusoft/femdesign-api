@@ -114,9 +114,11 @@
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\GenericSupportObjectSortSupportsOBSOLETE.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2150.cs" />
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
-    <Compile Include="Deconstruct\SupportDeconstuctor.cs" />
+    <Compile Include="Deconstruct\SupportGroupDeconstuctor.cs" />
+    <Compile Include="Deconstruct\SupportDirectedDeconstruct.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
     <Compile Include="Foundations\Insulation.cs" />
     <Compile Include="Foundations\IsolatedFoundation.cs" />

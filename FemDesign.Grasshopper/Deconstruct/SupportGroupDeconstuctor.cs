@@ -6,13 +6,13 @@ namespace FemDesign.Grasshopper
 {
     public class SupportDeconstruct : GH_Component
     {
-        public SupportDeconstruct() : base("Support.Deconstruct", "Deconstruct", "Deconstruct a PointSupport or LineSupport element.", "FEM-Design", "Deconstruct")
+        public SupportDeconstruct() : base("SupportGroup.Deconstruct", "Deconstruct", "Deconstruct a PointSupportGroup, LineSupportGroup or SurfaceSupportGroup element.", "FEM-Design", "Deconstruct")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Support", "Support", "PointSupport or LineSupport.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SupportGroup", "SupportGroup", "PointSupportGroup, LineSupportGroup or SurfaceSupportGroup.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
