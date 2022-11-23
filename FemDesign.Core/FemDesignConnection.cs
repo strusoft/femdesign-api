@@ -289,10 +289,10 @@ namespace FemDesign
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
                 //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, MAPCASE));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
 
-                // Run the script
-                string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript2(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
@@ -307,6 +307,103 @@ namespace FemDesign
 
             return results;
         }
+
+
+
+        public List<T> GetLoadCaseResults<T>(Loads.LoadCase loadCase, Results.UnitResults units = null) where T : Results.IResult
+        {
+            var mapCase = new MapCase(loadCase.Name);
+
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p =>  p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+
+            // listproc that are only load case
+
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapCase));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+
+
+        public List<T> GetLoadCombinationResults<T>(Loads.LoadCombination loadCombination, Results.UnitResults units = null) where T : Results.IResult
+        {
+            var mapComb = new MapComb(loadCombination.Name);
+
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
+
+            // listproc that are only load case
+
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapComb));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void Save(string filePath)
         {
