@@ -19,7 +19,7 @@ namespace FemDesign.Examples
             // combining existing load groups. In addition to the main program, there are two
             // public functions at the bottom - CombineULS and CombineSLS.
 
-            // This example was last updated 2022-04-06, using the ver. 21.1.0 FEM-Design API.
+            // This example was last using the ver. 21.1.0 FEM-Design API.
 
 
             // Create load cases
@@ -62,15 +62,13 @@ namespace FemDesign.Examples
 
 
             // Create model and open file in FEM design
-            var model2 = new Model(Country.S, null, null, loadCases, loadCombinations, generalLoadGroups);
+            var model = new Model(Country.S, null, null, loadCases, loadCombinations, generalLoadGroups);
 
-            string path = Path.GetFullPath("output/LoadGroupsAndCombinations.struxml");
-            if (!Directory.Exists("output"))
-                Directory.CreateDirectory("output");
-
-            model2.SerializeModel(path);
-            var app = new Calculate.Application();
-            app.OpenStruxml(path, true);
+            using (var app = new FemDesign.FemDesignConnection())
+            {
+                app.Open(model);
+                app.Disconnect();
+            }
         }
 
 

@@ -14,15 +14,22 @@ namespace FemDesign.Examples
         static void Main()
         {
             // EXAMPLE 2: ANALYSING A MODEL
-            // This example will show you how to run an analyse
-            // with a given model from within a C# script.
+            // This example will show you how to run an analysis
+            // with a given model.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // LOADING UP THE MODEL
             string struxmlPath = "exbeam.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
+
+
+            // CHOOSING WHAT ANALYSIS TO RUN
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(
+                calcCase: true,
+                calcComb: true
+                );
 
 
             // SETUP BY LOAD CALCULATION SETTINGS
@@ -38,48 +45,40 @@ namespace FemDesign.Examples
             // In this example, we use the same settings (CombItem)
             // for all load combinations, applied with a simple loop.
             var combItem = new FemDesign.Calculate.CombItem(0, 0, NLE, PL, NLS, Cr, _2nd);
-
-            int numLoadCombs = model.Entities.Loads.LoadCombinations.Count;
-            var combItems = new List<Calculate.CombItem>();
-            for (int i = 0; i < numLoadCombs; i++)
+            model.Entities.Loads.LoadCombinations.ForEach(lComb =>
             {
-                combItems.Add(combItem);
+                lComb.CombItem = combItem;
+            });
+
+            analysis.SetLoadCombinationCalculationParameters(model);
+
+            // If you want you may ask FEM-Design for results in different units
+            var units = FemDesign.Results.UnitResults.Default();
+            units.Displacement = Results.Displacement.mm;
+
+
+            // RUN THE ANALYSIS
+            using (var femDesign = new FemDesignConnection(outputDir: "My analyzed model", keepOpen: true))
+            {
+                // Run analysis and red some results
+                femDesign.RunAnalysis(model, analysis);
+                var results = femDesign.GetResults<Results.NodalDisplacement>(units);
+                
+                // Display summary of results
+                Console.WriteLine("Max nodal displacement per case/comb:");
+
+                Console.WriteLine();
+                Console.WriteLine("exbeam.struxml");
+                foreach (var group in results.GroupBy(r => r.CaseIdentifier))
+                {
+                    double min = group.Min(r => r.Ez);
+                    Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press any key to close...");
+                Console.ReadKey();
             }
-
-            Calculate.Comb comb = new Calculate.Comb();
-            comb.CombItem = combItems.ToList();
-
-
-            // CHOOSING THE ANALYSIS SETTINGS
-            // These dictate which calculations to run.
-            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(
-                stage: null,
-                comb: comb,
-                freq: null,
-                footfall: null,
-                calcCase: true,
-                calcCStage: false,
-                calcImpf: false,
-                calcComb: true,
-                calcGMax: false,
-                calcStab: false,
-                calcFreq: false,
-                calcSeis: false,
-                calcDesign: false,
-                calcFootfall: false,
-                elemFine: false,
-                diaphragm: false,
-                peakSmoothing: false
-                );
-
-
-            // RUN THE ANALYSIS VIA AN FDSCRIPT
-            var bscPath = new List<string> { @"C:\GitHub\femdesign-api\FemDesign.Examples\C#\Example 2 - Analysing a model\bin\Debug\pointsupportreactions.bsc" };
-
-            FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(Path.GetFullPath(struxmlPath), analysis, bscPath, "", true);
-            fdScript.CmdGlobalCfg = Calculate.CmdGlobalCfg.Default();
-            Calculate.Application app = new Calculate.Application();
-            app.RunFdScript(fdScript, false, true, true);
         }
     }
 }

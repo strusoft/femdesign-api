@@ -61,6 +61,8 @@
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\RefParts.cs" />
     <Compile Include="GenericClasses\IFoundationElement.cs" />
+    <Compile Include="FemDesignConnection.cs" />
+    <Compile Include="Calculate\FdScript2.cs" />
     <Compile Include="GenericClasses\INamedEntity.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\NamedEntityBase.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Calculate\CombItem.cs" />
     <Compile Include="Calculate\Design.cs" />
     <Compile Include="Calculate\DocTable.cs" />
-    <Compile Include="Calculate\FdScript.cs" />
+    <Compile Include="Calculate\FdScript_OBSOLETE.cs" />
     <Compile Include="Calculate\FdScriptHeader.cs" />
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />

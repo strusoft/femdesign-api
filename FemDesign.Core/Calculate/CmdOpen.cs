@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
+using System.IO;
 
 namespace FemDesign.Calculate
 {
@@ -9,7 +10,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDOPEN
     /// </summary>
-    public partial class CmdOpen
+    [XmlRoot("cmdopen")]
+    [System.Serializable]
+    public partial class CmdOpen : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL OPEN"; // token, fixed
@@ -25,7 +28,12 @@ namespace FemDesign.Calculate
         }
         public CmdOpen(string filepath)
         {
-            this.Filename = filepath;
+            this.Filename = Path.GetFullPath(filepath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdOpen>(this);
         }
     }
 }

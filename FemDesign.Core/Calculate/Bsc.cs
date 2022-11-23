@@ -52,7 +52,8 @@ namespace FemDesign.Calculate
 
         }
 
-        public Bsc(ListProc resultType, string bscPath)
+
+        public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
@@ -60,34 +61,10 @@ namespace FemDesign.Calculate
             }
             BscPath = Path.GetFullPath(bscPath);
             Cwd = Path.GetDirectoryName(BscPath);
-            DocTable = new DocTable(resultType);
+            DocTable = new DocTable(resultType, unitResult, allLoadCase);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
-            SerializeBsc();
-        }
-
-        public Bsc(ListProc resultType, int caseIndex, string bscPath) : this(resultType, bscPath)
-        {
-            DocTable.CaseIndex = caseIndex;
-        }
-
-        public Bsc(ListProc resultType, string bscPath, FemDesign.Results.UnitResults unitResult)
-        {
-            if (Path.GetExtension(bscPath) != ".bsc")
-            {
-                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
-            }
-            BscPath = Path.GetFullPath(bscPath);
-            Cwd = Path.GetDirectoryName(BscPath);
-            DocTable = new DocTable(resultType, unitResult);
-            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
-            CmdEndSession = new CmdEndSession();
-            SerializeBsc();
-        }
-
-        public Bsc(ListProc resultType, int caseIndex, string bscPath, FemDesign.Results.UnitResults unitResult) : this(resultType, bscPath, unitResult)
-        {
-            DocTable.CaseIndex = caseIndex;
+            SerializeBsc(); // why it is in the constructor?
         }
 
         public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null)
@@ -120,12 +97,6 @@ namespace FemDesign.Calculate
             var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
             return bscPathsFromResultTypes;
-        }
-
-
-        public static implicit operator string(Bsc bsc)
-        {
-            return bsc.BscPath;
         }
 
         public static implicit operator List<string>(Bsc bsc)

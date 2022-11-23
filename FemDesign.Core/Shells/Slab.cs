@@ -104,7 +104,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public static Slab Plate(Geometry.Point3d corner, double widthX, double widthY, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
+        public static Slab Plate(Geometry.Point3d corner, double widthX, double widthY, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "P")
         {
             SlabType type = SlabType.Plate;
             var region = Geometry.Region.RectangleXY(corner, widthX, widthY);
@@ -131,7 +131,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public static Slab Wall(Geometry.Point3d point0, Geometry.Point3d point1, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Wall")
+        public static Slab Wall(Geometry.Point3d point0, Geometry.Point3d point1, double height, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "W")
         {
             SlabType type = SlabType.Wall;
 
@@ -168,7 +168,7 @@ namespace FemDesign.Shells
         /// <param name="orthotropy"></param>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public static Slab FromFourPoints(Geometry.Point3d point0, Geometry.Point3d point1, Geometry.Point3d point2, Geometry.Point3d point3, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "Plate")
+        public static Slab FromFourPoints(Geometry.Point3d point0, Geometry.Point3d point1, Geometry.Point3d point2, Geometry.Point3d point3, double thickness, Materials.Material material, EdgeConnection shellEdgeConnection = null, ShellEccentricity eccentricity = null, ShellOrthotropy orthotropy = null, string identifier = "P")
         {
             SlabType type = SlabType.Plate;
 

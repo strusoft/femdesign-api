@@ -1,9 +1,12 @@
 ﻿// https://strusoft.com/
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
-    public partial class CmdGlobalCfg
+    [XmlRoot("cmdglobalcfg")]
+    [System.Serializable]
+    public partial class CmdGlobalCfg : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ FEM $CODE(GLOBALCFG)"; // token
@@ -62,6 +65,12 @@ namespace FemDesign.Calculate
 
             return cmdGlobalCfg;
         }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdGlobalCfg>(this);
+        }
+
     }
 
     public partial class MeshGeneral

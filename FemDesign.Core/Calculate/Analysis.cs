@@ -52,18 +52,18 @@ namespace FemDesign.Calculate
                 this._calcCStage = Convert.ToInt32(value);
             }
         }
-        [XmlAttribute("calcCImpf")]
-        public int _calcCImpf; // bool as int
+        [XmlAttribute("calcImpf")]
+        public int _calcImpf; // bool as int
         [XmlIgnore]
-        public bool CalcCImpf
+        public bool CalcImpf
         {
             get
             {
-                return Convert.ToBoolean(this._calcCImpf);
+                return Convert.ToBoolean(this._calcImpf);
             }
             set
             {
-                this._calcCImpf = Convert.ToInt32(value);
+                this._calcImpf = Convert.ToInt32(value);
             }
         }
         [XmlAttribute("calcComb")]
@@ -224,7 +224,7 @@ namespace FemDesign.Calculate
             this.Footfall = footfall;
             this.CalcCase = calcCase;
             this.CalcCStage = stage != null ? true : calcCStage;
-            this.CalcCImpf = calcImpf;
+            this.CalcImpf = calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
             this.CalcStab = calcStab;
@@ -276,7 +276,7 @@ namespace FemDesign.Calculate
         /// <exception cref="Exception"></exception>
         public static Analysis ConstructionStages(bool ghost = false)
         {
-            var stage = ghost == false ? Stage.Tracking() : Stage.Ghost();
+            var stage = ghost ? Stage.Ghost() : Stage.Tracking();
             return new Analysis(stage, calcCStage: true);
         }
 

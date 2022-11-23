@@ -19,7 +19,7 @@ namespace FemDesign.Examples
             // and how to save it for export to FEM-Design. Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
             // Define geometry
             var p1 = new Geometry.Point3d(0.0, 0.0, 0);
@@ -99,10 +99,11 @@ namespace FemDesign.Examples
 
             var loads = new List<GenericClasses.ILoadElement>() { pointMoment, lineLoad };
 
-            // Elements per stage
-            var elementsStageOne = new List<IStageElement>() { s1, s2, bar1 };
-            var elementsStageTwo = new List<IStageElement>() { s3, bar2 };
-            var elementsStageThree = new List<IStageElement>() { bar3 };
+            // Elements per stage, please not that most structure elements are also
+            // an IStageElement and can be added to a specific stage.
+            var elementsStage1 = new List<IStageElement>() { s1, s2, bar1 };
+            var elementsStage2 = new List<IStageElement>() { s3, bar2 };
+            var elementsStage3 = new List<IStageElement>() { bar3 };
 
             // Load cases per stage
             var stageOneLoadCases = new List<ActivatedLoadCase>() {
@@ -114,25 +115,32 @@ namespace FemDesign.Examples
             };
 
             // Create the stages
-            var stage1 = new Stage(1, "STAGE_1", stageOneLoadCases, elementsStageOne);
-            var stage2 = new Stage(2, "STAGE_2", stageTwoLoadCases, elementsStageTwo);
-            var stage3 = new Stage(3, "STAGE_3", elements: elementsStageThree);
+            var stage1 = new Stage(1, "STAGE_1", stageOneLoadCases, elementsStage1);
+            var stage2 = new Stage(2, "STAGE_2", stageTwoLoadCases, elementsStage2);
+            var stage3 = new Stage(3, "STAGE_3", elements: elementsStage3);
             var stage4 = new Stage(4, "STAGE_4");
-            var stage5 = new Stage(5, "STAGE_5");
 
-            var stages = new List<Stage>() { stage1, stage2, stage3, stage4, stage5 };
+            var stages = new List<Stage>() { stage1, stage2, stage3, stage4 };
 
 
             // Create load combinations
-            var slsFactors = new List<double>() { 1.0, 1.0, 1.0 };
-            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic, loadcases, slsFactors);
-            var ulsFactors = new List<double>() { 1.35, 1.5, 1.2 };
-            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
-            var CSCombination = new Loads.LoadCombination("Stage combination", Loads.LoadCombType.UltimateOrdinary, loadcases, ulsFactors);
-            CSCombination.SetStageLoadCase(stage1, 1.0);
+            var SLS = new Loads.LoadCombination("SLS", Loads.LoadCombType.ServiceabilityCharacteristic,
+                (deadLoadCase, 1.0),
+                (windCase, 1.0),
+                (imposedCase, 1.0));
+            var ULS = new Loads.LoadCombination("ULS", Loads.LoadCombType.UltimateOrdinary,
+                (deadLoadCase, 1.35),
+                (windCase, 1.5),
+                (imposedCase, 1.2));
+            var CSCombination = new Loads.LoadCombination("Stage combination", Loads.LoadCombType.UltimateOrdinary,
+                (deadLoadCase, 1.35),
+                (windCase, 1.5),
+                (imposedCase, 1.2));
+            CSCombination.SetStageLoadCase(stage1, 1.0); // A single construction stage may be added to the load combination
+
             var loadCombinations = new List<Loads.LoadCombination>() { SLS, ULS, CSCombination };
 
-            // Create the model
+            // Create the model and set the construction stages
             Model model = new Model(Country.S);
             model.AddElements(elements);
             model.AddSupports(supports);
@@ -144,26 +152,26 @@ namespace FemDesign.Examples
                 assignNewElement: false,
                 ghostMethod: false);
 
-            string filePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "StruSoft",
-                "FemDesign API Examples",
-                "Example 10 - ConstructionStages",
-                "ExampleModel.struxml");
-
             // Set up the analysis
             var constructionStageAnalysis = Calculate.Analysis.ConstructionStages(ghost: false);
+            var units = Results.UnitResults.Default();
+            units.Displacement = Results.Displacement.mm;
 
-            // Optional Settings for the Discretisation
-            var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 5;
+            using (var femDesign = new FemDesign.FemDesignConnection(outputDir: "beam"))
+            {
+                femDesign.Open(model);
+                femDesign.RunAnalysis(constructionStageAnalysis);
 
-            // Define Result to be extract
-            var results = new List<Type>() { typeof(Results.BarDisplacement) };
+                var displacements = femDesign.GetResults<Results.BarDisplacement>();
 
-            // Run a specific analysis
-            model.RunAnalysis(constructionStageAnalysis, struxmlPath: filePath, resultTypes: results, cmdGlobalCfg: config);
+                double maxValue = displacements.Min(r => r.Ez); // Largest negative displacement
+                var maxDisplacement = displacements.Find(r => r.Ez == maxValue);
+                Console.WriteLine($"Max displacement: {displacements.Max(r => -r.Ez)}{units.Displacement} in '{maxDisplacement.CaseIdentifier}'");
 
+                // ENDING THE PROGRAM
+                Console.WriteLine("\nPress any key to close console...");
+                Console.ReadKey();
+            }
         }
     }
 }

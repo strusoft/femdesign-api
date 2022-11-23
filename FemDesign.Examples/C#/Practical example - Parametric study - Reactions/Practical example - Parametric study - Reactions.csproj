@@ -49,9 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="pointsupportreactions.bsc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="sample_slab.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

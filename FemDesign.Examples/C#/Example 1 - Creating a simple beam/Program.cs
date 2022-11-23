@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using FemDesign.Results;
 
 namespace FemDesign.Examples
 {
@@ -14,44 +15,51 @@ namespace FemDesign.Examples
         static void Main()
         {
             // EXAMPLE 1: CREATING A SIMPLE BEAM
-            // This example will show you how to model a simple supported beam,
+            // This example shows how to model a simple supported beam,
             // and how to save it for export to FEM-Design. Before running,
             // make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
 
             // Define geometry
-            var p1 = new Geometry.Point3d(2.0, 2.0, 0);
-            var p2 = new Geometry.Point3d(10, 2.0, 0);
+            var length = 6.00;
+
+            var p1 = new Geometry.Point3d(0.0, 0.0, 0.0);
+            var p2 = new Geometry.Point3d(length, 0.0, 0.0);
             var mid = p1 + (p2 - p1) * 0.5;
 
-            // Create elements
             var edge = new Geometry.LineEdge(p1, p2);
-            Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
-            Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
+
+            // Load material and sections from .struxml files
+            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             var material = materialsDB.MaterialByName("C35/45");
+            
+            var sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
             var section = sectionsDB.SectionByName("Concrete sections, Rectangle, 300x900");
 
-            var bar = new Bars.Beam(
+
+            // Create the beam and supports
+            var beam = new Bars.Beam(
                 edge,
                 material,
                 section);
 
+            double mStiffness = 1e10;
+            var motion = new Releases.Motions(0.0, 0.0, 0.0, 0.0, mStiffness, mStiffness);
+            var rotation = Releases.Rotations.Free();
 
-            // Create supports
-            var s1 = Supports.PointSupport.Rigid(p1);
-            var s2 = Supports.PointSupport.Hinged(p2);
+            var s1 = Supports.PointSupport.Hinged(p1, identifier: "Hinged");
+            var s2 = new Supports.PointSupport(p2, motion, rotation, identifier: "Z only");
 
-            var elements = new List<GenericClasses.IStructureElement>() { bar, s1, s2 };
+            var elements = new List<GenericClasses.IStructureElement>() { beam, s1, s2 };
 
 
             // Create load cases
             var deadload = new Loads.LoadCase("Deadload", Loads.LoadCaseType.DeadLoad, Loads.LoadCaseDuration.Permanent);
             var liveload = new Loads.LoadCase("Liveload", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var stressload = new Loads.LoadCase("Stresses", Loads.LoadCaseType.Static, Loads.LoadCaseDuration.Permanent);
-            var loadcases = new List<Loads.LoadCase>() { deadload, liveload, stressload };
+            var loadcases = new List<Loads.LoadCase>() { deadload, liveload };
 
 
             // Create load combinations
@@ -72,13 +80,10 @@ namespace FemDesign.Examples
             var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
             var lineLoad = Loads.LineLoad.VariableForce(edge, lineLoadStart, lineLoadEnd, liveload);
 
-            var lineStress = new Loads.LineStressLoad(edge, 10, stressload);
-
             var loads = new List<GenericClasses.ILoadElement>() {
                 pointForce,
                 pointMoment,
-                lineLoad,
-                lineStress
+                lineLoad
             };
 
 
@@ -89,7 +94,13 @@ namespace FemDesign.Examples
             model.AddLoadCombinations(loadCombinations);
             model.AddLoads(loads);
 
-            model.Open();
+
+            // Open model in FEM-Design
+            using (var femDesign = new FemDesignConnection(outputDir: "My simple beam", keepOpen: true))
+            {
+                // Inside the "using..." we can send commands to FEM-Design.
+                femDesign.Open(model);
+            }
         }
     }
 }

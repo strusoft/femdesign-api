@@ -1,10 +1,12 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
-    public partial class CmdUser
+    [XmlRoot("cmduser")]
+    [System.Serializable]
+    public partial class CmdUser : CmdCommand
     {
         [XmlAttribute("command")]
         public string _command; // token
@@ -17,8 +19,8 @@ namespace FemDesign.Calculate
 
         /// <summary>
         /// Parameterless constructor for serialization.
-        /// </summary>                          
-        private CmdUser()
+        /// </summary>
+        internal CmdUser()
         {
             
         }
@@ -26,5 +28,11 @@ namespace FemDesign.Calculate
         {
             this.Command = module;
         }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdUser>(this);
+        }
+
     }
 }

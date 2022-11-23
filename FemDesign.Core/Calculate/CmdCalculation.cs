@@ -1,6 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -8,7 +8,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDCALCULATION
     /// </summary>
-    public partial class CmdCalculation
+    [XmlRoot("cmdcalculation")]
+    [System.Serializable]
+    public partial class CmdCalculation : CmdCommand
     {
         [XmlElement("analysis")]
         public Analysis Analysis { get; set; } // ANALYSIS
@@ -28,10 +30,22 @@ namespace FemDesign.Calculate
         {
             this.Analysis = analysis;
         }
+
         public CmdCalculation(Analysis analysis, Design design)
         {
             this.Analysis = analysis;
             this.Design = design;
         }
+
+        public CmdCalculation(Design design)
+        {
+            this.Design = design;
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdCalculation>(this);
+        }
+
     }
 }

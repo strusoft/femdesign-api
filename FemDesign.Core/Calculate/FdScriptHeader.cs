@@ -1,6 +1,6 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -8,7 +8,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd    
     /// FDSCRIPTHEADER
     /// </summary>
-    public partial class FdScriptHeader
+    [XmlRoot("fdscriptheader")]
+    [System.Serializable]
+    public partial class FdScriptHeader : CmdCommand
     {
         [XmlElement("title")]
         public string Title { get; set; } // SZBUF
@@ -33,5 +35,19 @@ namespace FemDesign.Calculate
             this.Module = "sframe";
             this.LogFile = logfile;
         }
+
+        public FdScriptHeader(string logFilePath)
+        {
+            Title = "FEM-Design script";
+            Version = "2100";
+            Module = "SFRAME";
+            LogFile = System.IO.Path.GetFullPath(logFilePath);
+        }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<FdScriptHeader>(this);
+        }
+
     }
 }

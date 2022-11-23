@@ -1,5 +1,8 @@
 // https://strusoft.com/
 using System.Xml.Serialization;
+using System.Xml.Linq;
+using System.IO;
+
 
 
 namespace FemDesign.Calculate
@@ -8,7 +11,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDSAVE
     /// </summary>
-    public partial class CmdSave
+    [XmlRoot("cmdsave")]
+    [System.Serializable]
+    public partial class CmdSave : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL SAVE"; // token, fixed
@@ -22,9 +27,16 @@ namespace FemDesign.Calculate
         {
             
         }
-        public CmdSave(string filePath)
+
+        public CmdSave(string filepath)
         {
-            this.FilePath = filePath;
+            this.FilePath = Path.GetFullPath(filepath);
+        }
+
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdSave>(this);
         }
     }
 }

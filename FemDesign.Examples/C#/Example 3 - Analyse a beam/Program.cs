@@ -13,22 +13,22 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 1: CREATING A SIMPLE BEAM
-            // This example will show you how to model a simple supported beam,
-            // and how to save it for export to FEM-Design.Before running,
-            // make sure you have a window with FEM-Design open.
+            // EXAMPLE 3: CREATING A SIMPLE BEAM
+            // This example shows how to model a simple supported beam,
+            // and how to run an alalysis with it in FEM-Design.
+            // Before running, make sure you have a window with FEM-Design open.
 
-            // This example was last updated using the ver. 21.4.0 FEM-Design API.
+            // This example was last updated using the ver. 21.6.0 FEM-Design API.
 
-
+            #region Simple beam model
             // Define geometry
-            var p1 = new Geometry.Point3d(2.0, 2.0, 0);
-            var p2 = new Geometry.Point3d(10, 2.0, 0);
+            var start = new Geometry.Point3d(2.0, 2.0, 0);
+            var end = new Geometry.Point3d(10, 2.0, 0);
             var p3 = new Geometry.Point3d(4.0, 2.0, 0);
-            var mid = p1 + (p2 - p1) * 0.5;
+            var mid = start + (end - start) * 0.5;
 
             // Create elements
-            var edge = new Geometry.Edge(p1, p2, Geometry.Vector3d.UnitZ);
+            var edge = new Geometry.Edge(start, end, Geometry.Vector3d.UnitZ);
             Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("materials.struxml");
             Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("sections.struxml");
 
@@ -44,18 +44,16 @@ namespace FemDesign.Examples
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
             bar.BarPart.LocalY = Geometry.Vector3d.UnitY;
-            var elements = new List<GenericClasses.IStructureElement>() { bar };
-
 
             // Create supports
             var s1 = new Supports.PointSupport(
-                point: p1,
+                point: start,
                 motions: Releases.Motions.RigidPoint(),
                 rotations: Releases.Rotations.RigidPoint()
                 );
 
             var s2 = new Supports.PointSupport(
-                point: p2,
+                point: end,
                 motions: new Releases.Motions(yNeg: 1e10, yPos: 1e10, zNeg: 1e10, zPos: 1e10),
                 rotations: Releases.Rotations.Free()
                 );
@@ -65,7 +63,6 @@ namespace FemDesign.Examples
                 motions: new Releases.Motions(yNeg: 1e10, yPos: 1e10, zNeg: 1e10, zPos: 1e10),
                 rotations: Releases.Rotations.Free()
                 );
-            var supports = new List<GenericClasses.ISupportElement>() { s1, s2, s3 };
 
 
             // Create load cases
@@ -86,7 +83,7 @@ namespace FemDesign.Examples
 
             // Create loads
             var pointForce = new Loads.PointLoad(mid, new Geometry.Vector3d(0.0, 0.0, -5.0), liveload, null, Loads.ForceLoadType.Force);
-            var pointMoment = new Loads.PointLoad(p2, new Geometry.Vector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
+            var pointMoment = new Loads.PointLoad(end, new Geometry.Vector3d(0.0, 5.0, 0.0), liveload, null, Loads.ForceLoadType.Moment);
 
             var lineLoadStart = new Geometry.Vector3d(0.0, 0.0, -2.0);
             var lineLoadEnd = new Geometry.Vector3d(0.0, 0.0, -4.0);
@@ -102,27 +99,68 @@ namespace FemDesign.Examples
             };
 
             // Add to model
-            Model model = new Model(Country.S);
-            model.AddElements(elements);
-            model.AddSupports(supports);
-            model.AddLoadCases(loadcases);
-            model.AddLoadCombinations(loadCombinations);
-            model.AddLoads(loads);
+            var elements = new List<GenericClasses.IStructureElement>() { bar, s1, s2 }; // We will add support s3 later in this example
+            var model = new Model(Country.S, elements, loads, loadcases, loadCombinations);
+            #endregion
 
+            #region Analysis
             // Set up the analysis
-            //var analysisType = Calculate.Analysis.Eigenfrequencies();
-            var analysisType = Calculate.Analysis.StaticAnalysis();
-
-            // Optional Settings for the Discretisation
-            var config = Calculate.CmdGlobalCfg.Default();
-            config.MeshElements.DefaultDivision = 5;
-
-
-            // Define Result to be extract
-            var results = new List<Type>() { typeof(Results.BarDisplacement) };
+            var analysis = Calculate.Analysis.StaticAnalysis();
 
             // Run a specific analysis
-            model.RunAnalysis(analysisType, resultTypes: results, cmdGlobalCfg: config, endSession: true);
+            List<Results.BarDisplacement> results1, results2;
+            var config = Calculate.CmdGlobalCfg.Default();
+            config.MeshElements.ElemSizeDiv = 10;
+            var units = Results.UnitResults.Default();
+            units.Displacement = Results.Displacement.mm;
+
+            using (var femDesign = new FemDesignConnection())
+            {
+                femDesign.OnOutput += Console.WriteLine;
+
+                // Update FEM-Design settings
+                femDesign.SetGlobalConfig(config);
+
+                // First we run the analysis of the first beam
+                femDesign.OutputDir = "beam/";
+
+                femDesign.Open(model);
+                femDesign.RunAnalysis(analysis);
+                results1 = femDesign.GetResults<Results.BarDisplacement>(units);
+
+                // Then we add the third support and run the analysis again. The files will be saved in a different output folder.
+                model.AddElements(new List<GenericClasses.IStructureElement> { s3 });
+                femDesign.OutputDir = "beam 3 supports/";
+                
+                femDesign.Open(model);
+                femDesign.RunAnalysis(analysis);
+                results2 = femDesign.GetResults<Results.BarDisplacement>(units);
+            }
+            #endregion
+
+            #region Display results
+            Console.WriteLine("Max bar displacement per case/comb:");
+
+            Console.WriteLine();
+            Console.WriteLine("Beam 1 (2 supports)");
+            foreach (var group in results1.GroupBy(r => r.CaseIdentifier))
+            {
+                double min = group.Min(r => r.Ez);
+                Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Beam 2 (3 supports)");
+            foreach(var group in results2.GroupBy(r => r.CaseIdentifier))
+            {
+                double min = group.Min(r => r.Ez);
+                Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            #endregion
         }
     }
 }

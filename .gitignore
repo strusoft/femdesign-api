@@ -10,7 +10,6 @@ packages/
 .vs/
 .vscode/
 *.csproj.user
-fdscript.xsd
 FemDesign.Samples/**/Local/**
 
 */ExampleModels/**/*

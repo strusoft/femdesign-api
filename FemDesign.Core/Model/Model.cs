@@ -1545,7 +1545,7 @@ namespace FemDesign
             return false;
         }
 
-        public void AddLoadCases(List<Loads.LoadCase> loadCases, bool overwrite = true)
+        public Model AddLoadCases(IEnumerable<Loads.LoadCase> loadCases, bool overwrite = true)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -1554,6 +1554,13 @@ namespace FemDesign
             if (loadCases != null)
                 foreach (Loads.LoadCase loadCase in loadCases)
                     this.AddLoadCase(loadCase, overwrite);
+
+            return this;
+        }
+
+        public Model AddLoadCases(params Loads.LoadCase[] loadCases)
+        {
+            return AddLoadCases(loadCases, overwrite: true);
         }
 
         /// <summary>
@@ -1617,7 +1624,7 @@ namespace FemDesign
             return false;
         }
 
-        public void AddLoadCombinations(List<Loads.LoadCombination> loadCombinations, bool overwrite = true)
+        public Model AddLoadCombinations(IEnumerable<Loads.LoadCombination> loadCombinations, bool overwrite = true)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -1628,6 +1635,13 @@ namespace FemDesign
                     this.AddLoadCombination(loadCombination, overwrite);
 
             this.CheckCombItems();
+
+            return this;
+        }
+
+        public Model AddLoadCombinations(params Loads.LoadCombination[] loadCombinations)
+        {
+            return AddLoadCombinations(loadCombinations, overwrite: true);
         }
 
         /// <summary>
@@ -2934,6 +2948,12 @@ namespace FemDesign
             return this;
         }
 
+        /// <inheritdoc cref="AddElements{T}(IEnumerable{T}, bool)"/>
+        public Model AddElements<T>(params T[] elements) where T : IStructureElement
+        {
+            return AddElements(elements, overwrite: true);
+        }
+
         /// <summary>
         /// Adds loads to the model.
         /// </summary>
@@ -2962,6 +2982,12 @@ namespace FemDesign
             }
 
             return this;
+        }
+
+        /// <inheritdoc cref="AddLoads{T}(IEnumerable{T}, bool)"/>
+        public Model AddLoads<T>(params T[] loads) where T : ILoadElement
+        {
+            return AddLoads(loads, overwrite: true);
         }
 
         /// <summary>
@@ -2995,6 +3021,13 @@ namespace FemDesign
 
             return this;
         }
+
+        /// <inheritdoc cref="AddSupports{T}(IEnumerable{T}, bool)"/>
+        public Model AddSupports<T>(params T[] supports) where T : ISupportElement
+        {
+            return AddSupports(supports, overwrite: true);
+        }
+
 
         private void AddEntity(Bars.Bar obj, bool overwrite) => AddBar(obj, overwrite);
         private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
