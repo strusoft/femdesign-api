@@ -152,7 +152,7 @@ namespace FemDesign.Loads
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}, Force: {TopBotLocVal[0].TopVal:0.0}/{TopBotLocVal[1].TopVal:0.0}kN, Moment: {TopBotLocVal[0].BottomVal:0.0}/{TopBotLocVal[1].BottomVal:0.0}kNm, LoadCase: {this.LoadCaseName}";
+            return $"{this.GetType().Name}, Force: {TopBotLocVal[0].TopVal:0.0}/{TopBotLocVal[1].TopVal:0.0}kN, Moment: {TopBotLocVal[0].BottomVal:0.0}/{TopBotLocVal[1].BottomVal:0.0}kNm, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
         }
     }
 }

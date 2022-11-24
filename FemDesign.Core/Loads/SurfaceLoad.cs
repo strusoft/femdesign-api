@@ -15,7 +15,7 @@ namespace FemDesign.Loads
         [XmlAttribute("load_projection")]
         public bool LoadProjection { get; set; } // bool
 
-        // elements        
+        // elements
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; } // region_type
         [XmlElement("direction", Order = 2)]
@@ -110,9 +110,9 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             if (IsConstant)
-                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCaseName}";
+                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
             else
-                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m², q2: {this.Loads[1].Value * this.Direction} kN/m², q3: {this.Loads[2].Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCaseName}";
+                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m², q2: {this.Loads[1].Value * this.Direction} kN/m², q3: {this.Loads[2].Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
         }
 
 

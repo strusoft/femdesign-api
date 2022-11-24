@@ -1,7 +1,8 @@
 // https://strusoft.com/
 using System.Collections.Generic;
 using System.Xml.Serialization;
-
+using System;
+using System.Linq;
 using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Loads
@@ -67,9 +68,9 @@ namespace FemDesign.Loads
         /// <summary>
         /// Get PointLoad, LineLoad, PressureLoad and SurfaceLoads from Loads.
         /// </summary>
-        public List<object> GetLoads()
+        public List<FemDesign.GenericClasses.ILoadElement> GetLoads()
         {
-            var objs = new List<object>();
+            var objs = new List<FemDesign.GenericClasses.ILoadElement>();
             objs.AddRange(this.PointLoads);
             objs.AddRange(this.LineLoads);
             objs.AddRange(this.LineStressLoads);
@@ -80,6 +81,24 @@ namespace FemDesign.Loads
             objs.AddRange(this.FootfallAnalysisData);
             return objs;
         }
+
+        public List<FemDesign.GenericClasses.ILoadElement> GetLoadsWithNames()
+        {
+            var objs = this.GetLoads();
+
+            var mapCase = this.LoadCases.ToDictionary(x => x.Guid, x => x.Name);
+            dynamic myObject;
+
+            foreach (dynamic loadCase in objs)
+            {
+
+                mapCase.TryGetValue(loadCase.LoadCaseGuid, out string value);
+                loadCase.LoadCaseName = value;
+            }
+            return objs;
+        }
+
+
 
         /// <summary>
         /// Gets the <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects of the LoadGroupTable.
