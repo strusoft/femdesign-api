@@ -10,9 +10,7 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDOPEN
     /// </summary>
-    [XmlRoot("cmdopen")]
-    [System.Serializable]
-    public partial class CmdOpen : CmdCommand
+    public partial class CmdOpen
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL OPEN"; // token, fixed
@@ -30,10 +28,39 @@ namespace FemDesign.Calculate
         {
             this.Filename = Path.GetFullPath(filepath);
         }
+    }
+
+
+
+    /// <summary>
+    /// fdscript.xsd
+    /// CMDOPEN
+    /// </summary>
+    [XmlRoot("cmdopen")]
+    [System.Serializable]
+    public partial class CmdOpen2 : CmdCommand
+    {
+        [XmlAttribute("command")]
+        public string Command = "; CXL CS2SHELL OPEN"; // token, fixed
+        [XmlElement("filename")]
+        public string Filename { get; set; } // SZPATH
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private CmdOpen2()
+        {
+
+        }
+        public CmdOpen2(string filepath)
+        {
+            this.Filename = Path.GetFullPath(filepath);
+        }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdOpen>(this);
+            return Extension.ToXElement<CmdOpen2>(this);
         }
     }
+
 }

@@ -8,9 +8,8 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDCALCULATION
     /// </summary>
-    [XmlRoot("cmdcalculation")]
     [System.Serializable]
-    public partial class CmdCalculation : CmdCommand
+    public partial class CmdCalculation
     {
         [XmlElement("analysis")]
         public Analysis Analysis { get; set; } // ANALYSIS
@@ -41,11 +40,52 @@ namespace FemDesign.Calculate
         {
             this.Design = design;
         }
+    }
+
+
+    /// <summary>
+    /// fdscript.xsd
+    /// CMDCALCULATION
+    /// </summary>
+    [XmlRoot("cmdcalculation")]
+    [System.Serializable]
+    public partial class CmdCalculation2 : CmdCommand
+    {
+        [XmlElement("analysis")]
+        public Analysis Analysis { get; set; } // ANALYSIS
+        [XmlElement("design")]
+        public Design Design { get; set; } // DESIGNCALC
+        [XmlAttribute("command")]
+        public string Command = "; CXL $MODULE CALC"; // token
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private CmdCalculation2()
+        {
+
+        }
+        public CmdCalculation2(Analysis analysis)
+        {
+            this.Analysis = analysis;
+        }
+
+        public CmdCalculation2(Analysis analysis, Design design)
+        {
+            this.Analysis = analysis;
+            this.Design = design;
+        }
+
+        public CmdCalculation2(Design design)
+        {
+            this.Design = design;
+        }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdCalculation>(this);
+            return Extension.ToXElement<CmdCalculation2>(this);
         }
-
     }
+
+
 }

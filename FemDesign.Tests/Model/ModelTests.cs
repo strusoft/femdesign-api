@@ -181,5 +181,15 @@ namespace FemDesign.Models
             Assert.IsTrue(diffSize == 0);
             Assert.IsTrue(identical);
         }
+
+        [TestCategory("FEM-Design required")]
+        [TestMethod("SerialiseFdScript")]
+        public void SerialiseFdScript()
+        {
+            string input = "Model/25539-surface-result.struxml";
+            Model model = Model.DeserializeFromFilePath(input);
+            //model.Open();
+            model.RunAnalysis(Calculate.Analysis.StaticAnalysis());
+        }
     }
 }

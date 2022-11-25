@@ -18,99 +18,62 @@ namespace FemDesign.Calculate
     public partial class FdScript
     {
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string XmlAttrib { get; set; }
 
         [XmlElement("fdscriptheader", Order = 1)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
 
         [XmlElement("cmdopen", Order = 2)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
 
         [XmlElement("cmduser", Order = 3)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdUser CmdUser { get; set; } // CMDUSER
 
         [XmlElement("cmdglobalcfg", Order = 4)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
         [XmlElement("cmdcalculation", Order = 5)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
 
         [XmlElement("cmduser", Order = 6)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
 
         [XmlElement("cmdchild", Order = 8)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
 
         [XmlElement("cmdsavedocx", Order = 9)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
-        public CmdSaveDocx CmdSaveDocx { get; set;} // CMDSAVEDOCX
+        public CmdSaveDocx CmdSaveDocx { get; set; } // CMDSAVEDOCX
 
         [XmlElement("cmdsave", Order = 10)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdSave CmdSave { get; set; } // CMDSAVE
 
         [XmlElement("cmdendsession", Order = 11)]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
 
         [XmlIgnore]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
-        public string StruxmlPath {get; set; } // path to struxml file, string 259
+        public string StruxmlPath { get; set; } // path to struxml file, string 259
         [XmlIgnore]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string FileName { get; set; } // file name of struxlm file, string 259
         [XmlIgnore]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public string FdScriptPath { get; set; } // path to fdscript file, string
 
-        
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
         private FdScript()
         {
-            
-        }
 
-        [Obsolete("Will be deprecated in 22.0.0.")]
-        public static FdScript OpenModel(string struxmlPath)
-        {
-            FdScript fdScript = new FdScript();
-
-            fdScript.XmlAttrib = "fdscript.xsd";
-            fdScript.StruxmlPath = struxmlPath;
-            fdScript.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
-            fdScript.Cwd = Path.GetDirectoryName(fdScript.StruxmlPath);
-
-            fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
-
-            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
-
-            // Open model
-            fdScript.CmdOpen = new CmdOpen(fdScript.StruxmlPath);
-
-            return fdScript;
         }
 
         /// <summary>
         /// Create fdscript to perform a calculation.
         /// </summary>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         internal static FdScript CalculateStruxml(string struxmlPath, CmdUserModule mode, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             FdScript fdScript = new FdScript();
@@ -119,12 +82,12 @@ namespace FemDesign.Calculate
             fdScript.StruxmlPath = struxmlPath;
             fdScript.FileName = Path.GetFileNameWithoutExtension(struxmlPath);
             fdScript.Cwd = Path.GetDirectoryName(fdScript.StruxmlPath);
-            
+
             fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
 
             // set header and logfile
             fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
-            
+
             // set open
             fdScript.CmdOpen = new CmdOpen(fdScript.StruxmlPath);
 
@@ -138,7 +101,7 @@ namespace FemDesign.Calculate
                 foreach (string item in bscPath)
                 {
                     fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
-                }  
+                }
             }
 
             // set save docx
@@ -151,9 +114,9 @@ namespace FemDesign.Calculate
                 fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
             }
 
-            if(cmdGlobalCfg == null)
+            if (cmdGlobalCfg == null)
             {
-                fdScript.CmdGlobalCfg =  CmdGlobalCfg.Default();
+                fdScript.CmdGlobalCfg = CmdGlobalCfg.Default();
             }
 
             // set save
@@ -170,7 +133,6 @@ namespace FemDesign.Calculate
         }
 
         /// Create fdscript to read a str-model.
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript ReadStr(string strPath, List<string> bscPaths = null)
         {
             FdScript fdScript = new FdScript();
@@ -196,7 +158,7 @@ namespace FemDesign.Calculate
                 foreach (string bscPath in bscPaths)
                 {
                     fdScript.CmdListGen.Add(new CmdListGen(Path.GetFullPath(bscPath), Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
-                }  
+                }
             }
 
             // save as .struxml
@@ -212,7 +174,6 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis.
         /// </summary>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript Analysis(string struxmlPath, Analysis analysis, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             CmdUserModule mode = CmdUserModule.RESMODE;
@@ -224,7 +185,6 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Create fdscript to run analysis and design.
         /// </summary>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
         {
             CmdUserModule _mode = CmdUserModule.RCDESIGN;
@@ -251,7 +211,7 @@ namespace FemDesign.Calculate
                 default:
                     throw new ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
             }
-            
+
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             if (design.ApplyChanges)
@@ -268,12 +228,11 @@ namespace FemDesign.Calculate
         /// <param name="docxTemplatePath">The .docx template path for the documentation.</param>
         /// <param name="endSession">Close the FEM-Design program after successfully generating documentation.</param>
         /// <returns>An <see cref="FdScript"/> for generating documentation.</returns>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript CreateDocumentation(string strPath, string docxTemplatePath, bool endSession = true)
         {
             FdScript fdScript = FdScript.ReadStr(strPath, null);
             fdScript.CmdSave = null;
-            
+
             fdScript.DocxTemplatePath = docxTemplatePath;
             fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.StruxmlPath.Replace(".struxml", ".docx"));
 
@@ -282,7 +241,7 @@ namespace FemDesign.Calculate
             {
                 fdScript.CmdEndSession = new CmdEndSession();
             }
-            
+
             return fdScript;
         }
 
@@ -291,7 +250,6 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="strPath">Path to model with results to be extracted.</param>
         /// <param name="results">Results to be extracted.</param>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public static FdScript ExtractResults(string strPath, IEnumerable<Type> results = null)
         {
             if (results == null)
@@ -300,20 +258,19 @@ namespace FemDesign.Calculate
             var notAResultType = results.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
             if (notAResultType != null)
                 throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-         
+
             var listProcs = results.SelectMany(r => r.GetCustomAttribute<ResultAttribute>().ListProcs);
 
             var dir = Path.GetDirectoryName(strPath);
             var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
             var bscPaths = batchResults.Select(bsc => bsc.BscPath).ToList();
-                
+
             return ReadStr(strPath, bscPaths);
         }
 
         /// <summary>
         /// Serialize fdscript.
         /// </summary>
-        [Obsolete("Will be deprecated in 22.0.0. Use FdScript instead.")]
         public void SerializeFdScript()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FdScript));
@@ -323,9 +280,9 @@ namespace FemDesign.Calculate
                 Directory.CreateDirectory(Path.GetDirectoryName(this.FdScriptHeader.LogFile));
             }
 
-            if(this.CmdListGen != null)
+            if (this.CmdListGen != null)
             {
-                foreach(var cmdListGen in this.CmdListGen)
+                foreach (var cmdListGen in this.CmdListGen)
                     if (!Directory.Exists(Path.GetDirectoryName(cmdListGen.OutFile)))
                         Directory.CreateDirectory(Path.GetDirectoryName(cmdListGen.OutFile));
             }

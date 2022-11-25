@@ -135,6 +135,9 @@
     <None Include="Loads\Load combination case types.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Model\25539-surface-result.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Model\global-test-model_MASTER.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

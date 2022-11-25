@@ -57,7 +57,7 @@ namespace FemDesign.Calculate
     [XmlRoot("fdscript")]
     public partial class FdScript2
     {
-        public FdScriptHeader Header { get; set; }
+        public FdScriptHeader2 Header { get; set; }
         public List<CmdCommand> Commands = new List<CmdCommand>();
 
 
@@ -67,7 +67,7 @@ namespace FemDesign.Calculate
 
         public FdScript2(string logFilePath, params CmdCommand[] commands)
         {
-            Header = new FdScriptHeader(logFilePath);
+            Header = new FdScriptHeader2(logFilePath);
             Commands = commands.ToList();
         }
 

@@ -16,16 +16,16 @@ namespace FemDesign.Calculate
             // Serialize
             var script = new FdScript2(
                 "logfile.log",
-                new CmdOpen("model.struxml"),
-                new CmdUser(CmdUserModule.RESMODE),
-                new CmdCalculation(Analysis.StaticAnalysis()),
-                new CmdCalculation(new Calculate.Design()),
-                new CmdListGen("a.bsc", "./"),
-                new CmdEndSession(),
-                CmdGlobalCfg.Default(),
-                new CmdDesignDesignChanges(),
-                new CmdSave("model.struxml"),
-                new CmdSaveDocx("model.docx")
+                new CmdOpen2("model.struxml"),
+                new CmdUser2(CmdUserModule.RESMODE),
+                new CmdCalculation2(Analysis.StaticAnalysis()),
+                new CmdCalculation2(new Calculate.Design()),
+                new CmdListGen2("a.bsc", "./"),
+                new CmdEndSession2(),
+                CmdGlobalCfg2.Default(),
+                new CmdDesignDesignChanges2(),
+                new CmdSave2("model.struxml"),
+                new CmdSaveDocx2("model.docx")
                 );
             script.Serialize("script.fdscript");
 
@@ -54,10 +54,10 @@ namespace FemDesign.Calculate
             // Serialize
             var script = new FdScript2(
                 "logfile.log",
-                new CmdOpen("model.struxml"),
-                new CmdUser(CmdUserModule.RESMODE),
-                new CmdCalculation(Analysis.StaticAnalysis()),
-                new CmdListGen("a.bsc", "./")
+                new CmdOpen2("model.struxml"),
+                new CmdUser2(CmdUserModule.RESMODE),
+                new CmdCalculation2(Analysis.StaticAnalysis()),
+                new CmdListGen2("a.bsc", "./")
                 );
             script.Serialize("script.fdscript");
 
@@ -94,7 +94,7 @@ namespace FemDesign.Calculate
             // Serialize
             var script = new FdScript2(
                 "logfile.log",
-                new CmdListGen(bsc.BscPath, "./", false, mapCase)
+                new CmdListGen2(bsc.BscPath, "./", false, mapCase)
                 );
             script.Serialize("script.fdscript");
 
