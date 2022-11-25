@@ -10,7 +10,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("fdscriptheader")]
     [System.Serializable]
-    public partial class FdScriptHeader2 : CmdCommand
+    public partial class FdScriptHeaderPipe : CmdCommand
     {
         [XmlElement("title")]
         public string Title { get; set; } // SZBUF
@@ -24,11 +24,11 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private FdScriptHeader2()
+        private FdScriptHeaderPipe()
         {
             
         }
-        public FdScriptHeader2(string title, string logfile)
+        public FdScriptHeaderPipe(string title, string logfile)
         {
             this.Title = title;
             this.Version = "2100";
@@ -36,7 +36,7 @@ namespace FemDesign.Calculate
             this.LogFile = logfile;
         }
 
-        public FdScriptHeader2(string logFilePath)
+        public FdScriptHeaderPipe(string logFilePath)
         {
             Title = "FEM-Design script";
             Version = "2100";
@@ -46,7 +46,7 @@ namespace FemDesign.Calculate
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<FdScriptHeader2>(this);
+            return Extension.ToXElement<FdScriptHeaderPipe>(this);
         }
 
     }

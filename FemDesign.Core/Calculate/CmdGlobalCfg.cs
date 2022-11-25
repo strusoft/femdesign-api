@@ -72,7 +72,7 @@ namespace FemDesign.Calculate
 
     [XmlRoot("cmdglobalcfg")]
     [System.Serializable]
-    public partial class CmdGlobalCfg2 : CmdCommand
+    public partial class CmdGlobalCfgPipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ FEM $CODE(GLOBALCFG)"; // token
@@ -98,12 +98,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdGlobalCfg2()
+        private CmdGlobalCfgPipe()
         {
 
         }
 
-        public CmdGlobalCfg2(MeshGeneral meshGeneral, MeshElements meshElements, MeshFunctions meshFunctions, MeshPrepare meshPrepare, PeaksmMethod peaksmMethod, PeaksmAuto peaksmAuto)
+        public CmdGlobalCfgPipe(MeshGeneral meshGeneral, MeshElements meshElements, MeshFunctions meshFunctions, MeshPrepare meshPrepare, PeaksmMethod peaksmMethod, PeaksmAuto peaksmAuto)
         {
             this.MeshGeneral = meshGeneral;
             this.MeshElements = meshElements;
@@ -113,7 +113,7 @@ namespace FemDesign.Calculate
             this.PeaksmAuto = peaksmAuto;
         }
 
-        public static CmdGlobalCfg2 Default()
+        public static CmdGlobalCfgPipe Default()
         {
             var meshGeneral = MeshGeneral.Default();
             var meshElements = MeshElements.Default();
@@ -122,7 +122,7 @@ namespace FemDesign.Calculate
             var peaksmMethod = PeaksmMethod.Default();
             var peaksmAuto = PeaksmAuto.Default();
 
-            var cmdGlobalCfg = new CmdGlobalCfg2(meshGeneral,
+            var cmdGlobalCfg = new CmdGlobalCfgPipe(meshGeneral,
                                                 meshElements,
                                                 meshfunctions,
                                                 meshPrepare,
@@ -134,7 +134,7 @@ namespace FemDesign.Calculate
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdGlobalCfg2>(this);
+            return Extension.ToXElement<CmdGlobalCfgPipe>(this);
         }
 
     }

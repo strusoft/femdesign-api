@@ -49,7 +49,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmdcalculation")]
     [System.Serializable]
-    public partial class CmdCalculation2 : CmdCommand
+    public partial class CmdCalculationPipe : CmdCommand
     {
         [XmlElement("analysis")]
         public Analysis Analysis { get; set; } // ANALYSIS
@@ -61,29 +61,29 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdCalculation2()
+        private CmdCalculationPipe()
         {
 
         }
-        public CmdCalculation2(Analysis analysis)
+        public CmdCalculationPipe(Analysis analysis)
         {
             this.Analysis = analysis;
         }
 
-        public CmdCalculation2(Analysis analysis, Design design)
+        public CmdCalculationPipe(Analysis analysis, Design design)
         {
             this.Analysis = analysis;
             this.Design = design;
         }
 
-        public CmdCalculation2(Design design)
+        public CmdCalculationPipe(Design design)
         {
             this.Design = design;
         }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdCalculation2>(this);
+            return Extension.ToXElement<CmdCalculationPipe>(this);
         }
     }
 

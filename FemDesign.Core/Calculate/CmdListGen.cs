@@ -106,7 +106,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmdlistgen")]
     [System.Serializable]
-    public partial class CmdListGen2 : CmdCommand
+    public partial class CmdListGenPipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
@@ -185,11 +185,11 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdListGen2()
+        private CmdListGenPipe()
         {
         }
 
-        public CmdListGen2(string bscPath, string outPath, bool regional = false)
+        public CmdListGenPipe(string bscPath, string outPath, bool regional = false)
         {
             OutFile = Path.GetFullPath(outPath);
             BscFile = Path.GetFullPath(bscPath);
@@ -198,11 +198,11 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
-        private CmdListGen2(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
+        private CmdListGenPipe(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
         {
         }
 
-        internal CmdListGen2(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
+        internal CmdListGenPipe(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapCase != null))
                 throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
@@ -213,7 +213,7 @@ namespace FemDesign.Calculate
             }
         }
 
-        internal CmdListGen2(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
+        internal CmdListGenPipe(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
                 throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
@@ -225,7 +225,7 @@ namespace FemDesign.Calculate
         }
 
 
-        public CmdListGen2(string bscPath, string outPath, bool regional, MapCase mapcase)
+        public CmdListGenPipe(string bscPath, string outPath, bool regional, MapCase mapcase)
         {
             OutFile = Path.GetFullPath(outPath);
             BscFile = Path.GetFullPath(bscPath);
@@ -235,7 +235,7 @@ namespace FemDesign.Calculate
             MapCase = mapcase;
         }
 
-        public CmdListGen2(string bscPath, string outPath, bool regional, MapComb mapComb)
+        public CmdListGenPipe(string bscPath, string outPath, bool regional, MapComb mapComb)
         {
             OutFile = Path.GetFullPath(outPath);
             BscFile = Path.GetFullPath(bscPath);
@@ -247,7 +247,7 @@ namespace FemDesign.Calculate
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdListGen2>(this);
+            return Extension.ToXElement<CmdListGenPipe>(this);
         }
     }
 

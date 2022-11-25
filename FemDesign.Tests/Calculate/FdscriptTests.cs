@@ -14,18 +14,18 @@ namespace FemDesign.Calculate
         public void CreateFdScript()
         {
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 "logfile.log",
-                new CmdOpen2("model.struxml"),
-                new CmdUser2(CmdUserModule.RESMODE),
-                new CmdCalculation2(Analysis.StaticAnalysis()),
-                new CmdCalculation2(new Calculate.Design()),
-                new CmdListGen2("a.bsc", "./"),
-                new CmdEndSession2(),
-                CmdGlobalCfg2.Default(),
-                new CmdDesignDesignChanges2(),
-                new CmdSave2("model.struxml"),
-                new CmdSaveDocx2("model.docx")
+                new CmdOpenPipe("model.struxml"),
+                new CmdUserPipe(CmdUserModule.RESMODE),
+                new CmdCalculationPipe(Analysis.StaticAnalysis()),
+                new CmdCalculationPipe(new Calculate.Design()),
+                new CmdListGenPipe("a.bsc", "./"),
+                new CmdEndSessionPipe(),
+                CmdGlobalCfgPipe.Default(),
+                new CmdDesignDesignChangesPipe(),
+                new CmdSavePipe("model.struxml"),
+                new CmdSaveDocxPipe("model.docx")
                 );
             script.Serialize("script.fdscript");
 
@@ -52,12 +52,12 @@ namespace FemDesign.Calculate
         public void ValidateSchema()
         {
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 "logfile.log",
-                new CmdOpen2("model.struxml"),
-                new CmdUser2(CmdUserModule.RESMODE),
-                new CmdCalculation2(Analysis.StaticAnalysis()),
-                new CmdListGen2("a.bsc", "./")
+                new CmdOpenPipe("model.struxml"),
+                new CmdUserPipe(CmdUserModule.RESMODE),
+                new CmdCalculationPipe(Analysis.StaticAnalysis()),
+                new CmdListGenPipe("a.bsc", "./")
                 );
             script.Serialize("script.fdscript");
 
@@ -92,9 +92,9 @@ namespace FemDesign.Calculate
 
 
             // Serialize
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 "logfile.log",
-                new CmdListGen2(bsc.BscPath, "./", false, mapCase)
+                new CmdListGenPipe(bsc.BscPath, "./", false, mapCase)
                 );
             script.Serialize("script.fdscript");
 

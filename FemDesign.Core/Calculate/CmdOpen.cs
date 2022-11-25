@@ -38,7 +38,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmdopen")]
     [System.Serializable]
-    public partial class CmdOpen2 : CmdCommand
+    public partial class CmdOpenPipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL OPEN"; // token, fixed
@@ -48,18 +48,18 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdOpen2()
+        private CmdOpenPipe()
         {
 
         }
-        public CmdOpen2(string filepath)
+        public CmdOpenPipe(string filepath)
         {
             this.Filename = Path.GetFullPath(filepath);
         }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdOpen2>(this);
+            return Extension.ToXElement<CmdOpenPipe>(this);
         }
     }
 

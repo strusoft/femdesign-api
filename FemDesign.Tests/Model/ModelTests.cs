@@ -189,7 +189,7 @@ namespace FemDesign.Models
             string input = "Model/25539-surface-result.struxml";
             Model model = Model.DeserializeFromFilePath(input);
             //model.Open();
-            model.RunAnalysis(Calculate.Analysis.StaticAnalysis());
+            model.RunAnalysis(Calculate.Analysis.StaticAnalysis(), endSession: true);
         }
     }
 }

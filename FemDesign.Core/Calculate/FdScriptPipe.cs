@@ -55,19 +55,19 @@ namespace FemDesign.Calculate
     /// Fdscript root class
     /// </summary>
     [XmlRoot("fdscript")]
-    public partial class FdScript2
+    public partial class FdScriptPipe
     {
-        public FdScriptHeader2 Header { get; set; }
+        public FdScriptHeaderPipe Header { get; set; }
         public List<CmdCommand> Commands = new List<CmdCommand>();
 
 
-        private FdScript2()
+        private FdScriptPipe()
         {
         }
 
-        public FdScript2(string logFilePath, params CmdCommand[] commands)
+        public FdScriptPipe(string logFilePath, params CmdCommand[] commands)
         {
-            Header = new FdScriptHeader2(logFilePath);
+            Header = new FdScriptHeaderPipe(logFilePath);
             Commands = commands.ToList();
         }
 
@@ -100,7 +100,7 @@ namespace FemDesign.Calculate
         public string SerializeToString()
         {
             // serialize
-            XmlSerializer serializer = new XmlSerializer(typeof(FdScript2));
+            XmlSerializer serializer = new XmlSerializer(typeof(FdScriptPipe));
             using (TextWriter writer = new StringWriter())
             {
                 serializer.Serialize(writer, this);

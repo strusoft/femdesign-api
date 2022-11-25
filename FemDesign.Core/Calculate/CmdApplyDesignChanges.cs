@@ -31,7 +31,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmduser")]
     [System.Serializable]
-    public partial class CmdDesignDesignChanges2 : CmdCommand
+    public partial class CmdDesignDesignChangesPipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command; // token
@@ -41,14 +41,14 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public CmdDesignDesignChanges2()
+        public CmdDesignDesignChangesPipe()
         {
-            this.Command = CmdDesignDesignChanges2.Cmd;
+            this.Command = CmdDesignDesignChangesPipe.Cmd;
         }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdDesignDesignChanges2>(this);
+            return Extension.ToXElement<CmdDesignDesignChangesPipe>(this);
         }
     }
 

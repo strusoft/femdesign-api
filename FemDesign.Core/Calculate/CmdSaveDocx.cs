@@ -47,7 +47,7 @@ namespace FemDesign.Calculate
     /// CMDSAVEDOCX
     /// </summary>
     [XmlRoot("cmdsavedocx")]
-    public partial class CmdSaveDocx2 : CmdCommand
+    public partial class CmdSaveDocxPipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ DOC SAVEDOCX"; // token, fixed
@@ -61,11 +61,11 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdSaveDocx2()
+        private CmdSaveDocxPipe()
         {
 
         }
-        public CmdSaveDocx2(string filePath)
+        public CmdSaveDocxPipe(string filePath)
         {
             //
             string extension = Path.GetExtension(filePath);
@@ -79,7 +79,7 @@ namespace FemDesign.Calculate
         }
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdSaveDocx2>(this);
+            return Extension.ToXElement<CmdSaveDocxPipe>(this);
         }
     }
 

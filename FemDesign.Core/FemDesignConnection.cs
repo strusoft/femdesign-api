@@ -115,7 +115,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void RunScript(FdScript2 script)
+        public void RunScript(FdScriptPipe script)
         {
             if (script == null) throw new ArgumentNullException("script");
 
@@ -131,7 +131,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task RunScriptAsync(FdScript2 script)
+        public async Task RunScriptAsync(FdScriptPipe script)
         {
             if (script == null) throw new ArgumentNullException("script");
 
@@ -150,7 +150,7 @@ namespace FemDesign
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript2(logfile, new CmdOpen2(filePath)));
+            this.RunScript(new FdScriptPipe(logfile, new CmdOpenPipe(filePath)));
             if (disconnect) this.Disconnect();
         }
 
@@ -161,7 +161,7 @@ namespace FemDesign
         public async Task OpenAsync(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            await this.RunScriptAsync(new FdScript2(logfile, new CmdOpen2(filePath)));
+            await this.RunScriptAsync(new FdScriptPipe(logfile, new CmdOpenPipe(filePath)));
 
         }
 
@@ -178,10 +178,10 @@ namespace FemDesign
             this.Open(struxml, disconnect);
         }
 
-        public void SetGlobalConfig(Calculate.CmdGlobalCfg2 cmdglobalconfig)
+        public void SetGlobalConfig(Calculate.CmdGlobalCfgPipe cmdglobalconfig)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 logfile,
                 cmdglobalconfig
             );
@@ -210,10 +210,10 @@ namespace FemDesign
                 analysis = Analysis.StaticAnalysis();
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 logfile,
-                new CmdUser2(CmdUserModule.RESMODE),
-                new CmdCalculation2(analysis)
+                new CmdUserPipe(CmdUserModule.RESMODE),
+                new CmdCalculationPipe(analysis)
             );
             this.RunScript(script);
         }
@@ -244,13 +244,13 @@ namespace FemDesign
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 logfile,
-                new CmdUser2(userModule),
-                new CmdCalculation2(design)
+                new CmdUserPipe(userModule),
+                new CmdCalculationPipe(design)
             );
 
-            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges2()); }
+            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChangesPipe()); }
 
             this.RunScript(script);
         }
@@ -276,9 +276,9 @@ namespace FemDesign
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript2(
+            var script = new FdScriptPipe(
                 logfile,
-                new CmdEndSession2()
+                new CmdEndSessionPipe()
             );
 
             this.RunScript(script);
@@ -291,7 +291,7 @@ namespace FemDesign
         {
             string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_saved");
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
-            RunScript(new FdScript2(logfilePath, new CmdSave2(struxmlPath)));
+            RunScript(new FdScriptPipe(logfilePath, new CmdSavePipe(struxmlPath)));
             return Model.DeserializeFromFilePath(struxmlPath);
         }
 
@@ -316,14 +316,14 @@ namespace FemDesign
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser2(CmdUserModule.RESMODE));
+            listGenCommands.Add(new CmdUserPipe(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
                 //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-                listGenCommands.Add(new CmdListGen2(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGenPipe(bscPaths[i], csvPaths[i]));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            var script = new FdScriptPipe(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -360,13 +360,13 @@ namespace FemDesign
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser2(CmdUserModule.RESMODE));
+            listGenCommands.Add(new CmdUserPipe(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen2(bscs[i], csvPaths[i], false, mapCase));
+                listGenCommands.Add(new CmdListGenPipe(bscs[i], csvPaths[i], false, mapCase));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            var script = new FdScriptPipe(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -402,13 +402,13 @@ namespace FemDesign
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser2(CmdUserModule.RESMODE));
+            listGenCommands.Add(new CmdUserPipe(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen2(bscs[i], csvPaths[i], false, mapComb));
+                listGenCommands.Add(new CmdListGenPipe(bscs[i], csvPaths[i], false, mapComb));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, listGenCommands.ToArray());
+            var script = new FdScriptPipe(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -438,7 +438,7 @@ namespace FemDesign
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript2(logfile, new CmdSave2(filePath));
+            var script = new FdScriptPipe(logfile, new CmdSavePipe(filePath));
             this.RunScript(script);
         }
 

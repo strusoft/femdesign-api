@@ -42,7 +42,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmdsave")]
     [System.Serializable]
-    public partial class CmdSave2 : CmdCommand
+    public partial class CmdSavePipe : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL SAVE"; // token, fixed
@@ -52,12 +52,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdSave2()
+        private CmdSavePipe()
         {
 
         }
 
-        public CmdSave2(string filepath)
+        public CmdSavePipe(string filepath)
         {
             this.FilePath = Path.GetFullPath(filepath);
         }
@@ -65,7 +65,7 @@ namespace FemDesign.Calculate
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdSave2>(this);
+            return Extension.ToXElement<CmdSavePipe>(this);
         }
     }
 

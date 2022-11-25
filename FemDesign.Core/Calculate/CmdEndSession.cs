@@ -12,11 +12,11 @@ namespace FemDesign.Calculate
 
     [XmlRoot("cmdendsession")]
     [System.Serializable]
-    public partial class CmdEndSession2 : CmdCommand
+    public partial class CmdEndSessionPipe : CmdCommand
     {
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdEndSession2>(this);
+            return Extension.ToXElement<CmdEndSessionPipe>(this);
         }
     }
 
