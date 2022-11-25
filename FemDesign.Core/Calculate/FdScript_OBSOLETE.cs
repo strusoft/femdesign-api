@@ -94,13 +94,16 @@ namespace FemDesign.Calculate
             // set user
             fdScript.CmdUser = new CmdUser(mode);
 
+
             // listgen
             if (bscPath != null && bscPath.Any())
             {
                 fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string item in bscPath)
                 {
-                    fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    //fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    var cmdListGen = Calculate.CmdListGen.Default(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results"));
+                    fdScript.CmdListGen.Add(cmdListGen);
                 }
             }
 
@@ -157,7 +160,8 @@ namespace FemDesign.Calculate
                 fdScript.CmdListGen = new List<CmdListGen>();
                 foreach (string bscPath in bscPaths)
                 {
-                    fdScript.CmdListGen.Add(new CmdListGen(Path.GetFullPath(bscPath), Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    var cmdListGen = Calculate.CmdListGen.Default(bscPath, Path.Combine(fdScript.Cwd, fdScript.FileName, "results"));
+                    fdScript.CmdListGen.Add(cmdListGen);
                 }
             }
 
