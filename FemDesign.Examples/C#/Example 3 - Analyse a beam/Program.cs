@@ -109,7 +109,7 @@ namespace FemDesign.Examples
 
             // Run a specific analysis
             List<Results.BarDisplacement> results1, results2;
-            var config = Calculate.CmdGlobalCfgPipe.Default();
+            var config = Calculate.CmdGlobalCfg.Default();
             config.MeshElements.ElemSizeDiv = 10;
             var units = Results.UnitResults.Default();
             units.Displacement = Results.Displacement.mm;

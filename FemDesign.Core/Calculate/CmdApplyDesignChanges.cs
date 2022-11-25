@@ -8,8 +8,9 @@ namespace FemDesign.Calculate
     /// fdscript.xsd
     /// CMDCALCULATION
     /// </summary>
+    [XmlRoot("cmduser")]
     [System.Serializable]
-    public partial class CmdDesignDesignChanges
+    public partial class CmdDesignDesignChanges : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command; // token
@@ -23,32 +24,10 @@ namespace FemDesign.Calculate
         {
             this.Command = CmdDesignDesignChanges.Cmd;
         }
-    }
-
-    /// <summary>
-    /// fdscript.xsd
-    /// CMDCALCULATION
-    /// </summary>
-    [XmlRoot("cmduser")]
-    [System.Serializable]
-    public partial class CmdDesignDesignChangesPipe : CmdCommand
-    {
-        [XmlAttribute("command")]
-        public string Command; // token
-
-        public static string Cmd = "; CXL FEM $CODE(DESCHANGESAPPLY)";
-
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        public CmdDesignDesignChangesPipe()
-        {
-            this.Command = CmdDesignDesignChangesPipe.Cmd;
-        }
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdDesignDesignChangesPipe>(this);
+            return Extension.ToXElement<CmdDesignDesignChanges>(this);
         }
     }
 

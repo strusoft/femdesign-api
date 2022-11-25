@@ -184,12 +184,16 @@ namespace FemDesign.Models
 
         [TestCategory("FEM-Design required")]
         [TestMethod("SerialiseFdScript")]
+        // Check if the fdscript is serialised correctly doing a deserialisation!!!
         public void SerialiseFdScript()
         {
             string input = "Model/25539-surface-result.struxml";
             Model model = Model.DeserializeFromFilePath(input);
-            //model.Open();
+
             model.RunAnalysis(Calculate.Analysis.StaticAnalysis(), endSession: true);
+
+            var design = new FemDesign.Calculate.Design(true, true, true, false);
+            model.RunDesign(Calculate.CmdUserModule.STEELDESIGN, Calculate.Analysis.StaticAnalysis(), design, endSession: false);
         }
     }
 }

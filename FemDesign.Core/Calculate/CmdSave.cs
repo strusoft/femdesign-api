@@ -7,34 +7,6 @@ using System.IO;
 
 namespace FemDesign.Calculate
 {
-    /// <summary>
-    /// fdscript.xsd
-    /// CMDSAVE
-    /// </summary>
-    [System.Serializable]
-    public partial class CmdSave
-    {
-        [XmlAttribute("command")]
-        public string Command = "; CXL CS2SHELL SAVE"; // token, fixed
-        [XmlElement("filename")]
-        public string FilePath { get; set; } // SZPATH
-        
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private CmdSave()
-        {
-            
-        }
-
-        public CmdSave(string filepath)
-        {
-            this.FilePath = Path.GetFullPath(filepath);
-        }
-
-    }
-
-
 
     /// <summary>
     /// fdscript.xsd
@@ -42,7 +14,7 @@ namespace FemDesign.Calculate
     /// </summary>
     [XmlRoot("cmdsave")]
     [System.Serializable]
-    public partial class CmdSavePipe : CmdCommand
+    public partial class CmdSave : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "; CXL CS2SHELL SAVE"; // token, fixed
@@ -52,12 +24,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private CmdSavePipe()
+        private CmdSave()
         {
 
         }
 
-        public CmdSavePipe(string filepath)
+        public CmdSave(string filepath)
         {
             this.FilePath = Path.GetFullPath(filepath);
         }
@@ -65,7 +37,7 @@ namespace FemDesign.Calculate
 
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdSavePipe>(this);
+            return Extension.ToXElement<CmdSave>(this);
         }
     }
 

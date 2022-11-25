@@ -4,13 +4,16 @@ using System.Xml.Linq;
 
 namespace FemDesign.Calculate
 {
-    public partial class CmdGlobalCfg
+    
+    [XmlRoot("cmdglobalcfg")]
+    [System.Serializable]
+    public partial class CmdGlobalCfg : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ FEM $CODE(GLOBALCFG)"; // token
 
         [XmlElement("mesh_general")]
-        public MeshGeneral MeshGeneral {get; set;}
+        public MeshGeneral MeshGeneral { get; set; }
 
         [XmlElement("mesh_elements")]
         public MeshElements MeshElements { get; set; }
@@ -64,77 +67,9 @@ namespace FemDesign.Calculate
             return cmdGlobalCfg;
         }
 
-    }
-
-
-
-
-
-    [XmlRoot("cmdglobalcfg")]
-    [System.Serializable]
-    public partial class CmdGlobalCfgPipe : CmdCommand
-    {
-        [XmlAttribute("command")]
-        public string Command = "$ FEM $CODE(GLOBALCFG)"; // token
-
-        [XmlElement("mesh_general")]
-        public MeshGeneral MeshGeneral { get; set; }
-
-        [XmlElement("mesh_elements")]
-        public MeshElements MeshElements { get; set; }
-
-        [XmlElement("mesh_functions")]
-        public MeshFunctions Meshfunctions { get; set; }
-
-        [XmlElement("mesh_prepare")]
-        public MeshPrepare MeshPrepare { get; set; }
-
-        [XmlElement("peaksm_method")]
-        public PeaksmMethod PeaksmMethod { get; set; }
-
-        [XmlElement("peaksm_auto")]
-        public PeaksmAuto PeaksmAuto { get; set; }
-
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private CmdGlobalCfgPipe()
-        {
-
-        }
-
-        public CmdGlobalCfgPipe(MeshGeneral meshGeneral, MeshElements meshElements, MeshFunctions meshFunctions, MeshPrepare meshPrepare, PeaksmMethod peaksmMethod, PeaksmAuto peaksmAuto)
-        {
-            this.MeshGeneral = meshGeneral;
-            this.MeshElements = meshElements;
-            this.Meshfunctions = meshFunctions;
-            this.MeshPrepare = meshPrepare;
-            this.PeaksmMethod = peaksmMethod;
-            this.PeaksmAuto = peaksmAuto;
-        }
-
-        public static CmdGlobalCfgPipe Default()
-        {
-            var meshGeneral = MeshGeneral.Default();
-            var meshElements = MeshElements.Default();
-            var meshfunctions = MeshFunctions.Default();
-            var meshPrepare = MeshPrepare.Default();
-            var peaksmMethod = PeaksmMethod.Default();
-            var peaksmAuto = PeaksmAuto.Default();
-
-            var cmdGlobalCfg = new CmdGlobalCfgPipe(meshGeneral,
-                                                meshElements,
-                                                meshfunctions,
-                                                meshPrepare,
-                                                peaksmMethod,
-                                                peaksmAuto);
-
-            return cmdGlobalCfg;
-        }
-
         public override XElement ToXElement()
         {
-            return Extension.ToXElement<CmdGlobalCfgPipe>(this);
+            return Extension.ToXElement<CmdGlobalCfg>(this);
         }
 
     }
