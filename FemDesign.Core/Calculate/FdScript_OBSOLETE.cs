@@ -21,37 +21,37 @@ namespace FemDesign.Calculate
         public string XmlAttrib { get; set; }
 
         [XmlElement("fdscriptheader", Order = 1)]
-        public FdScriptHeader FdScriptHeader { get; set; } // FDSCRIPTHEADER
+        public FdScriptHeaderPipe FdScriptHeader { get; set; } // FDSCRIPTHEADER
 
         [XmlElement("cmdopen", Order = 2)]
-        public CmdOpen CmdOpen { get; set; } // CMDOPEN
+        public CmdOpenPipe CmdOpen { get; set; } // CMDOPEN
 
         [XmlElement("cmduser", Order = 3)]
-        public CmdUser CmdUser { get; set; } // CMDUSER
+        public CmdUserPipe CmdUser { get; set; } // CMDUSER
 
         [XmlElement("cmdglobalcfg", Order = 4)]
-        public CmdGlobalCfg CmdGlobalCfg { get; set; }// CMDGLOBALCFG
+        public CmdGlobalCfgPipe CmdGlobalCfg { get; set; }// CMDGLOBALCFG
 
         [XmlElement("cmdcalculation", Order = 5)]
-        public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
+        public CmdCalculationPipe CmdCalculation { get; set; }// CMDCALCULATION
 
         [XmlElement("cmduser", Order = 6)]
-        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
+        public CmdDesignDesignChangesPipe CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
-        public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
+        public List<CmdListGenPipe> CmdListGen { get; set; } // CMDLISTGEN
 
         [XmlElement("cmdchild", Order = 8)]
         public string DocxTemplatePath { get; set; } // DOCXTEMPLATEPATH
 
         [XmlElement("cmdsavedocx", Order = 9)]
-        public CmdSaveDocx CmdSaveDocx { get; set; } // CMDSAVEDOCX
+        public CmdSaveDocxPipe CmdSaveDocx { get; set; } // CMDSAVEDOCX
 
         [XmlElement("cmdsave", Order = 10)]
-        public CmdSave CmdSave { get; set; } // CMDSAVE
+        public CmdSavePipe CmdSave { get; set; } // CMDSAVE
 
         [XmlElement("cmdendsession", Order = 11)]
-        public CmdEndSession CmdEndSession { get; set; } // CMDENDSESSION
+        public CmdEndSessionPipe CmdEndSession { get; set; } // CMDENDSESSION
 
         [XmlIgnore]
         public string StruxmlPath { get; set; } // path to struxml file, string 259
@@ -86,21 +86,21 @@ namespace FemDesign.Calculate
             fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
 
             // set header and logfile
-            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
+            fdScript.FdScriptHeader = new FdScriptHeaderPipe("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
 
             // set open
-            fdScript.CmdOpen = new CmdOpen(fdScript.StruxmlPath);
+            fdScript.CmdOpen = new CmdOpenPipe(fdScript.StruxmlPath);
 
             // set user
-            fdScript.CmdUser = new CmdUser(mode);
+            fdScript.CmdUser = new CmdUserPipe(mode);
 
             // listgen
             if (bscPath != null && bscPath.Any())
             {
-                fdScript.CmdListGen = new List<CmdListGen>();
+                fdScript.CmdListGen = new List<CmdListGenPipe>();
                 foreach (string item in bscPath)
                 {
-                    fdScript.CmdListGen.Add(new CmdListGen(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    fdScript.CmdListGen.Add(new CmdListGenPipe(item, Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
                 }
             }
 
@@ -111,21 +111,21 @@ namespace FemDesign.Calculate
                 fdScript.DocxTemplatePath = docxTemplatePath;
 
                 // object containing command to generate .docx and path to generated .docx
-                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
+                fdScript.CmdSaveDocx = new CmdSaveDocxPipe(fdScript.FileName + ".docx");
             }
 
             if (cmdGlobalCfg == null)
             {
-                fdScript.CmdGlobalCfg = CmdGlobalCfg.Default();
+                fdScript.CmdGlobalCfg = CmdGlobalCfgPipe.Default();
             }
 
             // set save
-            fdScript.CmdSave = new CmdSave(fdScript.Cwd + @"\" + fdScript.FileName + ".str");
+            fdScript.CmdSave = new CmdSavePipe(fdScript.Cwd + @"\" + fdScript.FileName + ".str");
 
             // set endsession
             if (endSession)
             {
-                fdScript.CmdEndSession = new CmdEndSession();
+                fdScript.CmdEndSession = new CmdEndSessionPipe();
             }
 
             // return
@@ -146,26 +146,26 @@ namespace FemDesign.Calculate
             fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
 
             // set header and logfile
-            fdScript.FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
+            fdScript.FdScriptHeader = new FdScriptHeaderPipe("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
 
             // open str
-            fdScript.CmdOpen = new CmdOpen(strPath);
+            fdScript.CmdOpen = new CmdOpenPipe(strPath);
 
             // listgen
             if (bscPaths != null && bscPaths.Any())
             {
-                fdScript.CmdListGen = new List<CmdListGen>();
+                fdScript.CmdListGen = new List<CmdListGenPipe>();
                 foreach (string bscPath in bscPaths)
                 {
-                    fdScript.CmdListGen.Add(new CmdListGen(Path.GetFullPath(bscPath), Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
+                    fdScript.CmdListGen.Add(new CmdListGenPipe(Path.GetFullPath(bscPath), Path.Combine(fdScript.Cwd, fdScript.FileName, "results")));
                 }
             }
 
             // save as .struxml
-            fdScript.CmdSave = new CmdSave(fdScript.StruxmlPath);
+            fdScript.CmdSave = new CmdSavePipe(fdScript.StruxmlPath);
 
             // end session
-            fdScript.CmdEndSession = new CmdEndSession();
+            fdScript.CmdEndSession = new CmdEndSessionPipe();
 
             // return
             return fdScript;
@@ -178,7 +178,7 @@ namespace FemDesign.Calculate
         {
             CmdUserModule mode = CmdUserModule.RESMODE;
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
-            fdScript.CmdCalculation = new CmdCalculation(analysis);
+            fdScript.CmdCalculation = new CmdCalculationPipe(analysis);
             return fdScript;
         }
 
@@ -213,10 +213,10 @@ namespace FemDesign.Calculate
             }
 
             FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
-            fdScript.CmdCalculation = new CmdCalculation(analysis, design);
+            fdScript.CmdCalculation = new CmdCalculationPipe(analysis, design);
             if (design.ApplyChanges)
             {
-                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
+                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChangesPipe();
             }
             return fdScript;
         }
@@ -234,12 +234,12 @@ namespace FemDesign.Calculate
             fdScript.CmdSave = null;
 
             fdScript.DocxTemplatePath = docxTemplatePath;
-            fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.StruxmlPath.Replace(".struxml", ".docx"));
+            fdScript.CmdSaveDocx = new CmdSaveDocxPipe(fdScript.StruxmlPath.Replace(".struxml", ".docx"));
 
             // set endsession
             if (endSession)
             {
-                fdScript.CmdEndSession = new CmdEndSession();
+                fdScript.CmdEndSession = new CmdEndSessionPipe();
             }
 
             return fdScript;
