@@ -115,7 +115,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void RunScript(FdScript script)
+        public void RunScript(FdScript2 script)
         {
             if (script == null) throw new ArgumentNullException("script");
 
@@ -131,7 +131,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task RunScriptAsync(FdScript script)
+        public async Task RunScriptAsync(FdScript2 script)
         {
             if (script == null) throw new ArgumentNullException("script");
 
@@ -150,7 +150,7 @@ namespace FemDesign
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)));
+            this.RunScript(new FdScript2(logfile, new CmdOpen(filePath)));
             if (disconnect) this.Disconnect();
         }
 
@@ -161,7 +161,7 @@ namespace FemDesign
         public async Task OpenAsync(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            await this.RunScriptAsync(new FdScript(logfile, new CmdOpen(filePath)));
+            await this.RunScriptAsync(new FdScript2(logfile, new CmdOpen(filePath)));
 
         }
 
@@ -181,7 +181,7 @@ namespace FemDesign
         public void SetGlobalConfig(Calculate.CmdGlobalCfg cmdglobalconfig)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(
+            var script = new FdScript2(
                 logfile,
                 cmdglobalconfig
             );
@@ -210,7 +210,7 @@ namespace FemDesign
                 analysis = Analysis.StaticAnalysis();
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(
+            var script = new FdScript2(
                 logfile,
                 new CmdUser(CmdUserModule.RESMODE),
                 new CmdCalculation(analysis)
@@ -244,7 +244,7 @@ namespace FemDesign
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript(
+            var script = new FdScript2(
                 logfile,
                 new CmdUser(userModule),
                 new CmdCalculation(design)
@@ -276,7 +276,7 @@ namespace FemDesign
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript(
+            var script = new FdScript2(
                 logfile,
                 new CmdEndSession()
             );
@@ -291,7 +291,7 @@ namespace FemDesign
         {
             string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_saved");
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
-            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)));
+            RunScript(new FdScript2(logfilePath, new CmdSave(struxmlPath)));
             return Model.DeserializeFromFilePath(struxmlPath);
         }
 
@@ -323,7 +323,7 @@ namespace FemDesign
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -366,7 +366,7 @@ namespace FemDesign
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -408,7 +408,7 @@ namespace FemDesign
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
+            var script = new FdScript2(logfile, listGenCommands.ToArray());
             this.RunScript(script);
 
             // Read csv results files
@@ -438,7 +438,7 @@ namespace FemDesign
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, new CmdSave(filePath));
+            var script = new FdScript2(logfile, new CmdSave(filePath));
             this.RunScript(script);
         }
 
