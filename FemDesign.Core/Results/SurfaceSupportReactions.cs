@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -49,6 +49,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal SurfaceSupportReaction(string id, int elementId, int? nodeId, double fx, double fy, double fz, double fr, string resultCase)
         {
             Name = id;

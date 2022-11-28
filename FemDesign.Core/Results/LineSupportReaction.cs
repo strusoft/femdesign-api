@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
 using FemDesign.Calculate;
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -65,6 +66,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal LineSupportReaction(string id, int elementId, int nodeId, double fx, double fy, double fz, double mx, double my, double mz, double fr, double mr, string resultCase)
         {
             Id = id;

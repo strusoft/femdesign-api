@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using FemDesign.Calculate;
 
 namespace FemDesign.Results
@@ -43,6 +43,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal NodalResponseFactor(string id, int nodeId, double respFactorX, double respFactorY, double respFactorZ)
         {
             this.Id = id;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-
+using Newtonsoft.Json;
 using FemDesign.Calculate;
 
 namespace FemDesign.Results
@@ -54,6 +54,7 @@ namespace FemDesign.Results
         /// </summary>
         public int ShapeId { get; }
 
+        [JsonConstructor]
         internal NodalVibration(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, int shapeId)
         {
             this.Id = id;

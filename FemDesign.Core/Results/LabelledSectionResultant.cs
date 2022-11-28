@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using FemDesign.Calculate;
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     [Result(typeof(LabelledSectionResultant), ListProc.LabelledSectionsResultantsLoadCase, ListProc.LabelledSectionsResultantsLoadCombination)]
@@ -48,6 +49,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal LabelledSectionResultant(string id, double basePointFromSP, double fx, double fy, double fz, double mx, double my, double mz, string resultCase)
         {
             this.Id = id;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     [Result(typeof(NodalAcceleration), ListProc.NodalAcceleration)]
@@ -39,6 +39,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal NodalAcceleration(string id, int nodeId, double accX, double accY, double accZ)
         {
             this.Id = id;

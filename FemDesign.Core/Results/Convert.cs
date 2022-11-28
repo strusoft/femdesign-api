@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace FemDesign.Results
 {
-    public static class ObjectExtensions
+    public static class Convert
     {
         /// <summary>
         /// The string representation of null.
@@ -21,8 +21,29 @@ namespace FemDesign.Results
         /// To json.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The Json of any object.</returns>
-        public static string ToJSON(this object value)
+        /// <returns>The Json of an IResult object.</returns>
+        public static string ToJSON(this IResult value)
+        {
+            if (value == null) return Null;
+
+            try
+            {
+                string json = JsonConvert.SerializeObject(value);
+                return json;
+            }
+            catch (Exception e)
+            {
+                //log exception but dont throw one
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// To json.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The Json of an IResult object.</returns>
+        public static string ToJSON(this IEnumerable<IResult> value)
         {
             if (value == null) return Null;
 

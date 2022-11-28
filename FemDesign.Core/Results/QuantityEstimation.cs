@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 #if ISDYNAMO
 using Autodesk.DesignScript.Runtime;
 #endif
@@ -89,6 +89,7 @@ namespace FemDesign.Results
         /// </summary>
         public double Reinforcement { get; }
 
+        [JsonConstructor]
         internal QuantityEstimationConcrete(string id, string storey, string structure, string section, string quality, double subTotal, double volume, double totalWeight, double formwork, double reinforcement)
         {
             Storey = storey;
@@ -172,6 +173,7 @@ namespace FemDesign.Results
         /// </summary>
         public double TotalWeight { get; }
 
+        [JsonConstructor]
         internal QuantityEstimationReinforcement(string id, string storey, string structure, string quality, double diameter, double quantity)
         {
             Storey = storey;
@@ -257,6 +259,7 @@ namespace FemDesign.Results
         /// Painted area
         /// </summary>
         public double PaintedArea { get; }
+        [JsonConstructor]
         internal QuantityEstimationSteel(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
         {
             Storey = storey;
@@ -348,6 +351,7 @@ namespace FemDesign.Results
         /// Painted area
         /// </summary>
         public double PaintedArea { get; }
+        [JsonConstructor]
         internal QuantityEstimationTimber(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
         {
             Storey = storey;
@@ -451,7 +455,7 @@ namespace FemDesign.Results
         /// Total weight
         /// </summary>
         public double TotalWeight { get; }
-
+        [JsonConstructor]
         internal QuantityEstimationTimberPanel(string id, string storey, string structure, string quality, double thickness, string panelType, double length, double width, double area, double weight, int count, double totalWeight)
         {
             Storey = storey;
@@ -561,6 +565,7 @@ namespace FemDesign.Results
         /// Count/Sum of sections
         /// </summary>
         public int Count { get; }
+        [JsonConstructor]
         internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, string type, double length, double width, double weight, double area, double totalWeight, int count)
         {
             Storey = storey;
@@ -656,6 +661,7 @@ namespace FemDesign.Results
         /// </summary>
         public double TotalWeight { get; }
 
+        [JsonConstructor]
         internal QuantityEstimationMasonry(string id, string storey, string structure, string quality, double thickness, double unitWeight, double subTotal, double totalWeight)
         {
             Storey = storey;
@@ -745,6 +751,7 @@ namespace FemDesign.Results
         /// Painted area
         /// </summary>
         public double PaintedArea { get; }
+        [JsonConstructor]
         internal QuantityEstimationGeneral(string id, string storey, string structure, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea)
         {
             Storey = storey;

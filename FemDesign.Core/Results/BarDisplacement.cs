@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -60,6 +60,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal BarDisplacement(string id, double pos, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
         {
             this.Id = id;

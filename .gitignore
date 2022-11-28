@@ -17,4 +17,7 @@ FemDesign.Samples/**/Local/**
 !*/ExampleModels/**/*.struxml
 !*/ExampleModels/**/*.bsc
 FemDesign.Examples/Grasshopper/Example 1 - A simple beam.struxml
+
+!FemDesign.Examples/C#/Practical example - ResultsToJSON/*.str
+!FemDesign.Examples/C#/Practical example - ResultsToJSON/*.strFEM
 Icon

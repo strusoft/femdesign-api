@@ -43,10 +43,12 @@ namespace FemDesign.Examples
                 nodalDisplacement = femDesign.GetResults<Results.NodalDisplacement>(units);
 
                 // Convert the Results to JSON Format
-                var jsonResults = nodalDisplacement.ToJSON();
+                var jsonResult = nodalDisplacement[0].ToJSON();
+                var jsonListResults = nodalDisplacement.ToJSON();
 
                 // Deserialise the string to Nodal Displacement Object
-                var myResults = JsonConvert.DeserializeObject<List<Results.NodalDisplacement>>(jsonResults);
+                var myResults = JsonConvert.DeserializeObject<List<Results.NodalDisplacement>>(jsonResult);
+                var myListResults = JsonConvert.DeserializeObject<List<Results.NodalDisplacement>>(jsonListResults);
 
                 Console.ReadKey();
             }

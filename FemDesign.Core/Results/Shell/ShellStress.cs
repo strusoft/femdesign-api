@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using FemDesign.Calculate;
 
 namespace FemDesign.Results
@@ -88,6 +88,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal ShellStress(string id, int elementId, int? nodeId, double sigmaX, double sigmaY, double tauXY, double tauXZ, double tauYZ, double sigmaVM, double sigma1, double sigma2, double alpha, string side, string caseIdentifier)
         {
             this.Id = id;

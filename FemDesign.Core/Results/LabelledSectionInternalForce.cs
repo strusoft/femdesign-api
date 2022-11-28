@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using FemDesign.Calculate;
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     [Result(typeof(LabelledSectionInternalForce), ListProc.LabelledSectionsInternalForcesLoadCase, ListProc.LabelledSectionsInternalForcesLoadCombination)]
@@ -56,6 +57,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal LabelledSectionInternalForce(string id, double pos, double mx, double my, double mxy, double nx, double ny, double nxy, double txz, double tyz, string resultCase)
         {
             this.Id = id;

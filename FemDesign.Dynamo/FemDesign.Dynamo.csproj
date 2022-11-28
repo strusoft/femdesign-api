@@ -40,6 +40,9 @@
       <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\DynamoUnits.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ProtoGeometry, Version=2.9.0.3355, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.10.1.3976\lib\net48\ProtoGeometry.dll</HintPath>
       <Private>False</Private>

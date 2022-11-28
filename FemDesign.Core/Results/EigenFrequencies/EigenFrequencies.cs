@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -48,8 +48,8 @@ namespace FemDesign.Results
         /// MassParticipant in X direction [%]
         /// </summary>
         public double MassParticipantZi { get; }
-    
 
+        [JsonConstructor]
         internal EigenFrequencies(int shapeId, double frequency, double period, double modalMass, double massPartXi, double massPartYi, double massPartZi)
         {
             this.ShapeId = shapeId;

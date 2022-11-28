@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using FemDesign.Calculate;
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -47,6 +48,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal BarStress(string id, double pos, double sigmaXiMax, double sigmaXiMin, double sigmaVM, string resultCase)
         {
             this.Id = id;

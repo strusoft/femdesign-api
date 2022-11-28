@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using FemDesign.Calculate;
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -61,6 +62,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal BarInternalForce(string id, double pos, double fx, double fy, double fz, double mx, double my, double mz, string resultCase)
         {
             this.Id = id;

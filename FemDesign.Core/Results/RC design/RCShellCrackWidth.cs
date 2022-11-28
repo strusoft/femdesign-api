@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
+using Newtonsoft.Json;
 using FemDesign.Calculate;
 
     namespace FemDesign.Results
@@ -50,6 +51,7 @@ using FemDesign.Calculate;
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal RCShellCrackWidth(string id, int elementId, Face face, double w1, double d1, double w2, double d2, string resultCase)
         {
             Id = id;

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
@@ -56,6 +56,7 @@ namespace FemDesign.Results
 
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal ShellDerivedForce(string id, int elementId, int? nodeId, double m1, double m2, double alphaM, double n1, double n2, double alphaN, string resultCase)
         {
             this.Id = id;

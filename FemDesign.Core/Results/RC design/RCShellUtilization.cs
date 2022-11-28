@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
-
+using Newtonsoft.Json;
 using FemDesign.Calculate;
 
 namespace FemDesign.Results
@@ -66,6 +66,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal RCShellUtilization(string id, double rbx, double rby, double rtx, double rty, double bu, bool sc, double cwb, double cwt, string resultCase)
         {
             Id = id;
