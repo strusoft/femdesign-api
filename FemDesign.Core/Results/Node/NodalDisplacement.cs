@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 using FemDesign.Calculate;
-
+using Newtonsoft.Json;
 
 namespace FemDesign.Results
 {
@@ -54,6 +54,7 @@ namespace FemDesign.Results
         /// </summary>
         public string CaseIdentifier { get; }
 
+        [JsonConstructor]
         internal NodalDisplacement(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase)
         {
             Id = id;

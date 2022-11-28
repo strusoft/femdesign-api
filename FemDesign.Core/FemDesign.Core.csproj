@@ -38,6 +38,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -68,6 +71,7 @@
     <Compile Include="GenericClasses\NamedEntityBase.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
+    <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
     <Compile Include="Geometry\ArcEdge.cs" />
     <Compile Include="Geometry\CircleEdge.cs" />
@@ -365,7 +369,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using FemDesign.GenericClasses;
 using FemDesign.Calculate;
 
+using Newtonsoft.Json;
+
 namespace FemDesign.Results
 {
     /// <summary>
