@@ -1653,7 +1653,7 @@ namespace FemDesign
         {
             if (this.Entities.Loads.LoadCombinations.Any(x => x.CombItem != null) && this.Entities.Loads.LoadCombinations.Any(x => x.CombItem == null))
             {
-                throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.");
+                throw new System.ArgumentException("Some load combinations have calculation setup (combItem) while others do not.\nIf you are trying to add some Load Combinations to an already existing model, you should specify 'CombItem' for all the existing Load Combinations.");
             }
         }
 
