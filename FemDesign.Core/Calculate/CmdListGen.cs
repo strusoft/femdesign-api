@@ -143,13 +143,31 @@ namespace FemDesign.Calculate
             this.Headers = headers;
         }
 
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
+        /// </summary>
+        /// <param name="bscPath"></param>
+        /// <param name="outputDir"></param>
+        /// <param name="regional"></param>
+        /// <param name="fillCells"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         internal static CmdListGen Default(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             return new CmdListGen(bscPath, outputDir, regional, fillCells, headers);
         }
 
-
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
+        /// </summary>
         private string FileName { get; set; }
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
+        /// </summary>
+        /// <param name="bscPath"></param>
+        /// <param name="outputDir"></param>
+        /// <exception cref="System.ArgumentException"></exception>
         private void Initialize(string bscPath, string outputDir)
         {
             string _fileName = Path.GetFileNameWithoutExtension(bscPath);
@@ -164,7 +182,6 @@ namespace FemDesign.Calculate
             this.FileName = _fileName;
             this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
         }
-
 
 
 
