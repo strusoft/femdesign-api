@@ -252,6 +252,8 @@ namespace FemDesign
                 model.GetConstructionStages();
             if (model.Entities?.Loads?.LoadCombinations != null && model.Entities.Loads.LoadCombinations.Any())
                 model.GetLoadCombinations();
+            if (model.Entities?.Loads?.LoadCases != null && model.Entities.Loads.LoadCases.Any())
+                model.GetLoads();
             return model;
         }
 
@@ -3583,6 +3585,20 @@ namespace FemDesign
                 }
             }
         }
+
+
+        internal void GetLoads()
+        {
+            var loads = this.Entities.Loads.GetLoads();
+
+            var mapCase = this.Entities.Loads.LoadCases?.ToDictionary(x => x.Guid);
+
+            foreach (LoadBase load in loads)
+            {
+                load.LoadCase = mapCase[load.LoadCaseGuid].DeepClone();
+            }
+        }
+
         #endregion
     }
 }

@@ -90,7 +90,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Name;
+            this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -107,7 +107,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Name;
+            this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
             this.LoadProjection = loadProjection;
@@ -227,7 +227,7 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
+            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCase.Name}";
         }
     }
 }

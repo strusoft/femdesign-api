@@ -95,7 +95,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("LabelledSection", labelledSections);
             DA.SetDataList("Panels", model.Entities.Panels);
             DA.SetDataList("Covers", model.Entities.AdvancedFem.Covers);
-            DA.SetDataList("Loads", model.Entities.Loads.GetLoadsWithNames());
+            DA.SetDataList("Loads", model.Entities.Loads.GetLoads());
             DA.SetDataList("LoadCases", model.Entities.Loads.LoadCases);
             DA.SetDataList("LoadCombinations", model.Entities.Loads.LoadCombinations);
             DA.SetDataList("LoadGroups", model.Entities.Loads.GetLoadGroups());

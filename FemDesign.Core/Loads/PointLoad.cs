@@ -31,7 +31,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Name;
+            this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadType = type;
             this.Direction = force.Normalize();
@@ -51,7 +51,7 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            return $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
+            return $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCase.Name}";
         }
     }
 }
