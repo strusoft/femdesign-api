@@ -113,7 +113,7 @@ namespace FemDesign.Loads
         /// <param name="combItem">Load combination-specific settings. The default settings will be used if the value is null.</param>
         public void SetCalculationSettings(Calculate.CombItem combItem)
         {
-            this.CombItem = combItem ?? Calculate.CombItem.Default();
+            this.CombItem = combItem;
         }
 
         /// <summary>

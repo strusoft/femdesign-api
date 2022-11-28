@@ -294,7 +294,12 @@ namespace FemDesign.Calculate
         public void SetLoadCombinationCalculationParameters(FemDesign.Model model)
         {
             this.Comb.CombItem.Clear();
-            this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
+            foreach(var loadComb in model.Entities.Loads.LoadCombinations)
+            {
+                var combItem = loadComb.CombItem ?? Calculate.CombItem.Default();
+                this.Comb.CombItem.Add(combItem);
+            }
+            //this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
         }
     }
 }
