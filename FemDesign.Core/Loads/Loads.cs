@@ -82,24 +82,6 @@ namespace FemDesign.Loads
             return objs;
         }
 
-        public List<FemDesign.GenericClasses.ILoadElement> GetLoadsWithNames()
-        {
-            var objs = this.GetLoads();
-
-            var mapCase = this.LoadCases.ToDictionary(x => x.Guid, x => x.Name);
-            dynamic myObject;
-
-            foreach (dynamic loadCase in objs)
-            {
-
-                mapCase.TryGetValue(loadCase.LoadCaseGuid, out string value);
-                loadCase.LoadCaseName = value;
-            }
-            return objs;
-        }
-
-
-
         /// <summary>
         /// Gets the <see cref="ModelGeneralLoadGroup">ModelGeneralLoadGroup</see> objects of the LoadGroupTable.
         /// </summary>

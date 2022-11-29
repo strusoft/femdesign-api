@@ -14,8 +14,9 @@ namespace FemDesign
         public System.Guid LoadCaseGuid { get; set; } // load_case_id
         [XmlAttribute("comment")]
         public string Comment { get; set; } // comment_string
-        [XmlIgnore]
-        public string LoadCaseName { get; set; }
+
+        [XmlIgnore] // force_load_type
+        public Loads.LoadCase LoadCase { get; set; }
 
     }
 }

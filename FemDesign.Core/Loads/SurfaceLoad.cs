@@ -62,7 +62,7 @@ namespace FemDesign.Loads
         {
             this.EntityCreated();
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Name;
+            this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = ForceLoadType.Force;
@@ -110,9 +110,9 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             if (IsConstant)
-                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
+                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/mï¿½, Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCase.Name}";
             else
-                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m², q2: {this.Loads[1].Value * this.Direction} kN/m², q3: {this.Loads[2].Value * this.Direction} kN/m², Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
+                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/mï¿½, q2: {this.Loads[1].Value * this.Direction} kN/mï¿½, q3: {this.Loads[2].Value * this.Direction} kN/mï¿½, Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCase.Name}";
         }
 
 

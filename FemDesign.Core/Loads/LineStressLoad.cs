@@ -146,13 +146,13 @@ namespace FemDesign.Loads
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
             this.LoadCaseGuid = loadCase.Guid;
-            this.LoadCaseName = loadCase.Name;
+            this.LoadCase = loadCase;
             this.Comment = comment;
         }
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}, Force: {TopBotLocVal[0].TopVal:0.0}/{TopBotLocVal[1].TopVal:0.0}kN, Moment: {TopBotLocVal[0].BottomVal:0.0}/{TopBotLocVal[1].BottomVal:0.0}kNm, LoadCase: {this.LoadCaseName ?? this.LoadCaseGuid.ToString()}";
+            return $"{this.GetType().Name}, Force: {TopBotLocVal[0].TopVal:0.0}/{TopBotLocVal[1].TopVal:0.0}kN, Moment: {TopBotLocVal[0].BottomVal:0.0}/{TopBotLocVal[1].BottomVal:0.0}kNm, LoadCase: {this.LoadCase.Name}";
         }
     }
 }
