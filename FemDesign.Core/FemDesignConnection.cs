@@ -72,12 +72,12 @@ namespace FemDesign
             if (string.IsNullOrEmpty(outputDir) == false && tempOutputDir)
                 _outputDirsToBeDeleted.Add(OutputDir);
 
-            _process = Process.Start(startInfo);
-            _process.Exited += ProcessExited;
-
             _keepOpen = keepOpen;
 
             _connection = new PipeConnection(pipeName);
+            _process = Process.Start(startInfo);
+            _process.Exited += ProcessExited;
+            _connection.WaitForConnection();
 
             // Forward all output messages from pipe (except echo guid commands).
             _connection.OnOutput += (message) => {
@@ -423,18 +423,6 @@ namespace FemDesign
             return results;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -500,8 +488,7 @@ namespace FemDesign
         /// </summary>
         /// <param name="pipeBaseName"></param>
         /// <exception cref="Exception"></exception>
-        public PipeConnection(
-            string pipeBaseName = "FdPipe1")
+        public PipeConnection(string pipeBaseName = "FdPipe1")
         {
             // todo(Gustav): figure out 9-bit encoding?
             // encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
@@ -517,8 +504,10 @@ namespace FemDesign
 
             // this is what check status does...
             if (_inputPipe == null) { throw new Exception("setup failed"); }
+        }
 
-
+        public void WaitForConnection()
+        {
             _inputPipe.WaitForConnection();
         }
 
