@@ -136,7 +136,6 @@
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
-    <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
@@ -268,7 +267,7 @@
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\ModelCreate_21.2.0.OBSOLETEe.cs" />
     <Compile Include="Model\ModelCreate3OBSOLETE.cs" />
-    <Compile Include="Model\ModelOpenOBSOLETE.cs" />
+    <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStrOBSOLETE.cs" />
     <Compile Include="Model\ModelReadStr.cs" />
     <Compile Include="Model\ModelReadStruxml.cs" />

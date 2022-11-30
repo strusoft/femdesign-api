@@ -20,13 +20,13 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Footfall", "Footfall", "Footfall calculation options. Optional, if undefined default values will be used - for reference please see default values of Footfall.Define component.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;                         
-            pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;            
             pManager.AddBooleanParameter("calcCstage", "calcCstage", "Construction stages.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcImpf", "calcImpf", "Imperfections", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcComb", "calcComb", "Load combinations", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcComb", "calcComb", "Load combinations", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcGmax", "calcGmax", "Maximum of load groups.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
