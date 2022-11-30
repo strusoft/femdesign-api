@@ -60,7 +60,7 @@ namespace FemDesign.Calculate
         /// <param name="Im">Imperfection shape for 2nd order analysis.</param>
         /// <param name="waterlevel">Ground water level.</param>
         // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
-        public CombItem(int impfRqd = 0, int stabReq = 0, bool NLE = false, bool PL = false, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, int waterlevel = 0)
+        public CombItem(int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, int waterlevel = 0)
         {
             this.NLE = Convert.ToInt32(NLE);
             this.PL = Convert.ToInt32(PL);
@@ -77,8 +77,8 @@ namespace FemDesign.Calculate
         {
             int impfRqd = 0;
             int stabRqd = 0;
-            bool NLE = false;
-            bool PL = false;
+            bool NLE = true;
+            bool PL = true;
             bool NLS = false;
             bool Cr = false;
             bool f2nd = false;
