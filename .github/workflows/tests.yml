@@ -40,4 +40,5 @@ jobs:
           /TestCaseFilter:"
             TestCategory!=FEM-Design required
             & TestCategory!=Performance
+            & TestCategory!=IgnoreGithubActions
           "
