@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
@@ -17,6 +19,8 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
+        private const string _struxmlSchemaResourceName = "FemDesign.FD 21.01.003.xsd";
+
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
@@ -194,23 +198,37 @@ namespace FemDesign
             // check file extension
             if (Path.GetExtension(filePath) != ".struxml")
             {
-                throw new System.ArgumentException("File extension must be .struxml! Model.DeserializeModel failed.");
+                throw new ArgumentException("File extension must be .struxml! Model.DeserializeModel failed.");
             }
 
-            //
+            // Validate
+            XmlDocument xmlDocument = new XmlDocument();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream schemaStream = assembly.GetManifestResourceStream(_struxmlSchemaResourceName))
+            {
+                XmlTextReader schemaReader = new XmlTextReader(schemaStream);
+                XmlSchema struxmlSchema = XmlSchema.Read(schemaReader, (o, e) => throw e.Exception);
+
+                xmlDocument.Schemas.Add(struxmlSchema);
+                xmlDocument.Load(filePath);
+                xmlDocument.Validate((o, e) => throw e.Exception);
+            }
+
+            // Deserialize
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));
-            TextReader reader = new StreamReader(filePath);
+            XmlReader reader = new XmlNodeReader(xmlDocument);
 
             object obj;
             try
             {
                 obj = deserializer.Deserialize(reader);
             }
-            catch (System.InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
-                if (ex.InnerException != null && ex.InnerException.GetType() == typeof(System.Reflection.TargetInvocationException))
+                if (ex.InnerException != null && ex.InnerException is TargetInvocationException)
                 {
-                    if (ex.InnerException.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(Calculate.ProgramNotStartedException))
+                    if (ex.InnerException.InnerException != null && ex.InnerException.InnerException is Calculate.ProgramNotStartedException)
                     {
                         throw ex.InnerException.InnerException; // FEM-Design 21 - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script
                     }
@@ -223,12 +241,12 @@ namespace FemDesign
                 reader.Close();
             }
 
-            // cast type
+            // Cast type
             Model model = (Model)obj;
 
             if (model.Entities == null) model.Entities = new Entities();
 
-            // prepare elements with library reference
+            // Prepare elements with library reference
             // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
             if (model.Entities.Bars.Any())
                 model.GetBars();
@@ -2216,7 +2234,7 @@ namespace FemDesign
             else if (obj.GetType() == typeof(Foundations.IsolatedFoundation))
             {
                 this.AddIsolatedFoundation((Foundations.IsolatedFoundation)obj, overwrite);
-                this.AddMaterial( ((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
+                this.AddMaterial(((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
             }
             else
             {

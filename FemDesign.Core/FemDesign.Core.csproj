@@ -370,6 +370,10 @@
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\FD 21.01.003.xsd">
+      <Link>FD 21.01.003.xsd</Link>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
