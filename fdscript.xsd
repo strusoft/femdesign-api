@@ -1,666 +1,682 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by jade skorpio atka (jade skorpio atka tm) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:element name="fdscript" type="FDSCRIPT">
-		<xs:annotation>
-			<xs:documentation>
-        			FEM-Design Script Schema,
-			      Copyright StruSoft kft. 2004-
-			      Version 1.0
-        		</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Basic definitions  ++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<xs:simpleType name="SZNAME">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="15"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZMNAME">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="1024"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZLNAME">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="79"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZID">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="63"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZBUF">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="255"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZPATH">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="259"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SZTEXT">
-		<xs:restriction base="xs:normalizedString">
-			<xs:maxLength value="2048"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="REAL">
-		<xs:restriction base="xs:decimal"/>
-	</xs:simpleType>
-	<xs:simpleType name="REAL_PLUS">
-		<xs:restriction base="REAL">
-			<xs:minInclusive value="0.0"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="REAL_1_100">
-		<xs:restriction base="REAL">
-			<xs:minInclusive value="1"/>
-			<xs:maxInclusive value="100"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="ANGLE_0_360">
-		<xs:restriction base="xs:decimal">
-			<xs:minInclusive value="0.0"/>
-			<xs:maxInclusive value="6.283185307"/>
-		</xs:restriction>
-	</xs:simpleType>
+    <xs:element name="fdscript" type="FDSCRIPT">
+        <xs:annotation>
+            <xs:documentation>
+                FEM-Design Script Schema,
+                Copyright StruSoft kft. 2004-
+                Version 1.0
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Basic definitions  ++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xs:simpleType name="SZNAME">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZMNAME">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="1024"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZLNAME">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="79"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZID">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="63"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZBUF">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZPATH">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="259"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SZTEXT">
+        <xs:restriction base="xs:normalizedString">
+            <xs:maxLength value="2048"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="REAL">
+        <xs:restriction base="xs:decimal"/>
+    </xs:simpleType>
+    <xs:simpleType name="REAL_PLUS">
+        <xs:restriction base="REAL">
+            <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="REAL_1_100">
+        <xs:restriction base="REAL">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ANGLE_0_360">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="6.283185307"/>
+        </xs:restriction>
+    </xs:simpleType>
 
-  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Common objects, geometry  +++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<xs:complexType name="POINT">
-		<xs:sequence>
-			<xs:element name="x" type="REAL"/>
-			<xs:element name="y" type="REAL"/>
-			<xs:element name="z" type="REAL" default="0.0" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="RECT">
-		<xs:sequence>
-			<xs:element name="left" type="REAL_PLUS"/>
-			<xs:element name="bottom" type="REAL_PLUS"/>
-			<xs:element name="right" type="REAL_PLUS"/>
-			<xs:element name="top" type="REAL_PLUS"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="LOCALSYS">
-		<xs:sequence>
-			<xs:element name="o" type="POINT"/>
-			<xs:element name="x" type="POINT"/>
-			<xs:element name="y" type="POINT"/>
-			<xs:element name="z" type="POINT" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:simpleType name="FONTTYPE">
-		<xs:restriction base="xs:normalizedString">
-			<xs:enumeration value="FD"/>
-			<xs:enumeration value="ANSI_CHARSET"/>
-			<xs:enumeration value="DEFAULT_CHARSET"/>
-			<xs:enumeration value="SYMBOL_CHARSET"/>
-			<xs:enumeration value="SHIFTJIS_CHARSET"/>
-			<xs:enumeration value="HANGEUL_CHARSET"/>
-			<xs:enumeration value="HANGUL_CHARSET"/>
-			<xs:enumeration value="GB2312_CHARSET"/>
-			<xs:enumeration value="CHINESEBIG5_CHARSET"/>
-			<xs:enumeration value="OEM_CHARSET"/>
-			<xs:enumeration value="MAC_CHARSET"/>
-			<xs:enumeration value="JOHAB_CHARSET"/>
-			<xs:enumeration value="GREEK_CHARSET"/>
-			<xs:enumeration value="TURKISH_CHARSET"/>
-			<xs:enumeration value="VIETNAMESE_CHARSET"/>
-			<xs:enumeration value="HEBREW_CHARSET"/>
-			<xs:enumeration value="ARABIC_CHARSET"/>
-			<xs:enumeration value="BALTIC_CHARSET"/>
-			<xs:enumeration value="RUSSIAN_CHARSET"/>
-			<xs:enumeration value="THAI_CHARSET"/>
-			<xs:enumeration value="EASTEUROPE_CHARSET"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="FONTSLANT">
-		<xs:restriction base="xs:decimal">
-			<xs:minInclusive value="0.0"/>
-			<xs:maxInclusive value="1.570796327"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:complexType name="FONT">
-		<xs:sequence>
-			<xs:element name="name" type="SZID"/>
-			<xs:element name="type" type="FONTTYPE"/>
-			<xs:element name="size" type="REAL_PLUS"/>
-			<xs:element name="width" type="REAL_PLUS"/>
-			<xs:element name="slant" type="FONTSLANT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="TEXT">
-		<xs:sequence>
-			<xs:element name="font" type="FONT"/>
-			<xs:element name="text" type="xs:normalizedString"/>
-		</xs:sequence>
-	</xs:complexType>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Common objects, geometry  +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xs:complexType name="POINT">
+        <xs:sequence>
+            <xs:element name="x" type="REAL"/>
+            <xs:element name="y" type="REAL"/>
+            <xs:element name="z" type="REAL" default="0.0" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RECT">
+        <xs:sequence>
+            <xs:element name="left" type="REAL_PLUS"/>
+            <xs:element name="bottom" type="REAL_PLUS"/>
+            <xs:element name="right" type="REAL_PLUS"/>
+            <xs:element name="top" type="REAL_PLUS"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LOCALSYS">
+        <xs:sequence>
+            <xs:element name="o" type="POINT"/>
+            <xs:element name="x" type="POINT"/>
+            <xs:element name="y" type="POINT"/>
+            <xs:element name="z" type="POINT" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="FONTTYPE">
+        <xs:restriction base="xs:normalizedString">
+            <xs:enumeration value="FD"/>
+            <xs:enumeration value="ANSI_CHARSET"/>
+            <xs:enumeration value="DEFAULT_CHARSET"/>
+            <xs:enumeration value="SYMBOL_CHARSET"/>
+            <xs:enumeration value="SHIFTJIS_CHARSET"/>
+            <xs:enumeration value="HANGEUL_CHARSET"/>
+            <xs:enumeration value="HANGUL_CHARSET"/>
+            <xs:enumeration value="GB2312_CHARSET"/>
+            <xs:enumeration value="CHINESEBIG5_CHARSET"/>
+            <xs:enumeration value="OEM_CHARSET"/>
+            <xs:enumeration value="MAC_CHARSET"/>
+            <xs:enumeration value="JOHAB_CHARSET"/>
+            <xs:enumeration value="GREEK_CHARSET"/>
+            <xs:enumeration value="TURKISH_CHARSET"/>
+            <xs:enumeration value="VIETNAMESE_CHARSET"/>
+            <xs:enumeration value="HEBREW_CHARSET"/>
+            <xs:enumeration value="ARABIC_CHARSET"/>
+            <xs:enumeration value="BALTIC_CHARSET"/>
+            <xs:enumeration value="RUSSIAN_CHARSET"/>
+            <xs:enumeration value="THAI_CHARSET"/>
+            <xs:enumeration value="EASTEUROPE_CHARSET"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FONTSLANT">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="1.570796327"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="FONT">
+        <xs:sequence>
+            <xs:element name="name" type="SZID"/>
+            <xs:element name="type" type="FONTTYPE"/>
+            <xs:element name="size" type="REAL_PLUS"/>
+            <xs:element name="width" type="REAL_PLUS"/>
+            <xs:element name="slant" type="FONTSLANT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TEXT">
+        <xs:sequence>
+            <xs:element name="font" type="FONT"/>
+            <xs:element name="text" type="xs:normalizedString"/>
+        </xs:sequence>
+    </xs:complexType>
 
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Calculations ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Calculations ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-	<xs:complexType name="ANALSTAGE">
-    <xs:attribute name="ghost" type="xs:boolean"/>
-	</xs:complexType>
+    <xs:complexType name="ANALSTAGE">
+        <xs:attribute name="ghost" type="xs:boolean"/>
+    </xs:complexType>
 
-	<xs:complexType name="ANALFREQ">
-    <xs:attribute name="Numshapes" type="xs:integer"/>
-    <xs:attribute name="MaxSturm" type="xs:integer"/>
-    <xs:attribute name="X" type="xs:boolean"/>
-    <xs:attribute name="Y" type="xs:boolean"/>
-    <xs:attribute name="Z" type="xs:boolean"/>
-    <xs:attribute name="top" type="xs:decimal"/>
-	</xs:complexType>
+    <xs:complexType name="ANALFREQ">
+        <xs:attribute name="Numshapes" type="xs:integer"/>
+        <xs:attribute name="MaxSturm" type="xs:integer"/>
+        <xs:attribute name="X" type="xs:boolean"/>
+        <xs:attribute name="Y" type="xs:boolean"/>
+        <xs:attribute name="Z" type="xs:boolean"/>
+        <xs:attribute name="top" type="xs:decimal"/>
+    </xs:complexType>
 
-	<xs:complexType name="ANALCOMBITEM">
-    <xs:attribute name="NLE" type="xs:boolean"/>
-    <xs:attribute name="PL" type="xs:boolean"/>
-    <xs:attribute name="NLS" type="xs:boolean"/>
-    <xs:attribute name="Cr" type="xs:boolean"/>
-    <xs:attribute name="f2nd" type="xs:boolean"/>
-    <xs:attribute name="Im" type="xs:integer"/>
-    <xs:attribute name="Waterlevel" type="xs:integer"/>
-    <xs:attribute name="ImpfRqd" type="xs:integer"/>
-    <xs:attribute name="StabRqd" type="xs:integer"/>
-	</xs:complexType>
+    <xs:complexType name="ANALCOMBITEM">
+        <xs:attribute name="NLE" type="xs:boolean"/>
+        <xs:attribute name="PL" type="xs:boolean"/>
+        <xs:attribute name="NLS" type="xs:boolean"/>
+        <xs:attribute name="Cr" type="xs:boolean"/>
+        <xs:attribute name="f2nd" type="xs:boolean"/>
+        <xs:attribute name="Im" type="xs:integer"/>
+        <xs:attribute name="Waterlevel" type="xs:integer"/>
+        <xs:attribute name="ImpfRqd" type="xs:integer"/>
+        <xs:attribute name="StabRqd" type="xs:integer"/>
+    </xs:complexType>
 
-	<xs:complexType name="ANALCOMB">
-    <xs:sequence>
-      <xs:element name="combitem" type="ANALCOMBITEM" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-    <xs:attribute name="NLEmaxiter" type="xs:integer"/>
-    <xs:attribute name="PLdefloadstep" type="xs:integer"/>
-    <xs:attribute name="PLminloadstep" type="xs:integer"/>
-    <xs:attribute name="PLmaxeqiter" type="xs:integer"/>
-    <xs:attribute name="CRloadstep" type="xs:integer"/>
-    <xs:attribute name="CRmaxiter" type="xs:integer"/>
-    <xs:attribute name="CRstifferror" type="xs:integer"/>
-    <xs:attribute name="NLSMohr" type="xs:boolean"/>
-    <xs:attribute name="NLSinitloadstep" type="xs:integer"/>
-    <xs:attribute name="NLSminloadstep" type="xs:integer"/>
-    <xs:attribute name="NLSactiveelemratio" type="xs:integer"/>
-    <xs:attribute name="NLSplasticelemratio" type="xs:integer"/>
-	</xs:complexType>
+    <xs:complexType name="ANALCOMB">
+        <xs:sequence>
+            <xs:element name="combitem" type="ANALCOMBITEM" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="NLEmaxiter" type="xs:integer"/>
+        <xs:attribute name="PLdefloadstep" type="xs:integer"/>
+        <xs:attribute name="PLminloadstep" type="xs:integer"/>
+        <xs:attribute name="PLmaxeqiter" type="xs:integer"/>
+        <xs:attribute name="CRloadstep" type="xs:integer"/>
+        <xs:attribute name="CRmaxiter" type="xs:integer"/>
+        <xs:attribute name="CRstifferror" type="xs:integer"/>
+        <xs:attribute name="NLSMohr" type="xs:boolean"/>
+        <xs:attribute name="NLSinitloadstep" type="xs:integer"/>
+        <xs:attribute name="NLSminloadstep" type="xs:integer"/>
+        <xs:attribute name="NLSactiveelemratio" type="xs:integer"/>
+        <xs:attribute name="NLSplasticelemratio" type="xs:integer"/>
+    </xs:complexType>
 
-	<xs:complexType name="ANALYSIS">
-    <xs:sequence>
-      <xs:element name="stage" type="ANALSTAGE" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="comb" type="ANALCOMB" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="freq" type="ANALFREQ" minOccurs="0" maxOccurs="1"/>
-    </xs:sequence>
-    <xs:attribute name="calcCase" type="xs:boolean"/>
-    <xs:attribute name="calcCstage" type="xs:boolean"/>
-    <xs:attribute name="calcImpf" type="xs:boolean"/>
-    <xs:attribute name="calcComb" type="xs:boolean"/>
-    <xs:attribute name="calcGmax" type="xs:boolean"/>
-    <xs:attribute name="calcStab" type="xs:boolean"/>
-    <xs:attribute name="calcFreq" type="xs:boolean"/>
-    <xs:attribute name="calcSeis" type="xs:boolean"/>
-    <xs:attribute name="calcDesign" type="xs:boolean"/>
-    <xs:attribute name="elemfine" type="xs:boolean"/>
-    <xs:attribute name="diaphragm" type="xs:boolean"/>
-    <xs:attribute name="peaksmoothing" type="xs:boolean"/>
-	</xs:complexType>
+    <xs:complexType name="ANALYSIS">
+        <xs:sequence>
+            <xs:element name="stage" type="ANALSTAGE" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="comb" type="ANALCOMB" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="freq" type="ANALFREQ" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="calcCase" type="xs:boolean"/>
+        <xs:attribute name="calcCstage" type="xs:boolean"/>
+        <xs:attribute name="calcImpf" type="xs:boolean"/>
+        <xs:attribute name="calcComb" type="xs:boolean"/>
+        <xs:attribute name="calcGmax" type="xs:boolean"/>
+        <xs:attribute name="calcStab" type="xs:boolean"/>
+        <xs:attribute name="calcFreq" type="xs:boolean"/>
+        <xs:attribute name="calcFootfall" type="xs:boolean"/>
+        <xs:attribute name="calcMovingLoad" type="xs:boolean"/>
+        <xs:attribute name="calcBedding" type="xs:boolean"/>
+        <xs:attribute name="calcThGroundAcc" type="xs:boolean"/>
+        <xs:attribute name="calcThExforce" type="xs:boolean"/>
+        <xs:attribute name="calcSeis" type="xs:boolean"/>
+        <xs:attribute name="calcDesign" type="xs:boolean"/>
+        <xs:attribute name="elemfine" type="xs:boolean"/>
+        <xs:attribute name="diaphragm" type="xs:boolean"/>
+        <xs:attribute name="peaksmoothing" type="xs:boolean"/>
+    </xs:complexType>
 
-	<xs:complexType name="DESIGNCALC">
-		<xs:sequence>
-			<xs:choice>
-				<xs:element name="cmax"/>
-				<xs:element name="gmax"/>
-			</xs:choice>
-			<xs:element name="autodesign" type="xs:boolean"/>
-			<xs:element name="check" type="xs:boolean"/>
-		</xs:sequence>
-	</xs:complexType>
+    <xs:complexType name="DESIGNCALC">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="cmax"/>
+                <xs:element name="gmax"/>
+            </xs:choice>
+            <xs:element name="autodesign" type="xs:boolean"/>
+            <xs:element name="check" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
 
-  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Code  +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<xs:simpleType name="CODE">
-		<xs:restriction base="xs:normalizedString">
-			<xs:enumeration value="CODE_000"/>
-			<xs:enumeration value="CODE_036"/>
-			<xs:enumeration value="CODE_044"/>
-			<xs:enumeration value="CODE_045"/>
-			<xs:enumeration value="CODE_04603"/>
-			<xs:enumeration value="CODE_04704"/>
-			<xs:enumeration value="CODE_049"/>
-			<xs:enumeration value="CODE_358"/>
-			<xs:enumeration value="CODE_35807"/>
-			<xs:enumeration value="CODE_EC000"/>
-			<xs:enumeration value="CODE_ECU"/>
-			<xs:enumeration value="CODE_ECG"/>
-			<xs:enumeration value="CODE_ec039"/>
-		</xs:restriction>
-	</xs:simpleType>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Code  +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xs:simpleType name="CODE">
+        <xs:restriction base="xs:normalizedString">
+            <xs:enumeration value="CODE_000"/>
+            <xs:enumeration value="CODE_036"/>
+            <xs:enumeration value="CODE_044"/>
+            <xs:enumeration value="CODE_045"/>
+            <xs:enumeration value="CODE_04603"/>
+            <xs:enumeration value="CODE_04704"/>
+            <xs:enumeration value="CODE_049"/>
+            <xs:enumeration value="CODE_358"/>
+            <xs:enumeration value="CODE_35807"/>
+            <xs:enumeration value="CODE_EC000"/>
+            <xs:enumeration value="CODE_ECU"/>
+            <xs:enumeration value="CODE_ECG"/>
+            <xs:enumeration value="CODE_ec039"/>
+        </xs:restriction>
+    </xs:simpleType>
 
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Documentation ++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<xs:complexType name="DOCDOCUMENT">
-		<xs:sequence>
-			<xs:element name="title" type="SZBUF"/>
-			<xs:element name="font" type="FONT" minOccurs="0" maxOccurs="11"/>
-			<xs:element name="dispinv" type="xs:boolean" default="true"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCSECTION">
-		<xs:sequence>
-			<xs:element name="width" type="REAL_PLUS"/>
-			<xs:element name="height" type="REAL_PLUS"/>
-			<xs:element name="margin" type="RECT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCCHAPTER">
-		<xs:sequence>
-			<xs:element name="title" type="SZBUF"/>
-			<xs:element name="level" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PICTURE_TYPE_LOAD">
-		<xs:sequence>
-			<xs:element name="case" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PALETTE_SIGN">
-		<xs:sequence>
-			<xs:element name="pos" type="REAL" default="0"/>
-			<xs:element name="icolor" type="xs:integer" default="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="RESPALETTE">
-		<xs:sequence>
-			<xs:element name="max0" type="REAL" default="0"/>
-      <xs:element name="min0" type="REAL" default="0"/>
-			<xs:element name="step" type="REAL" default="0"/>
-			<xs:element name="nsign" type="xs:integer" default="0"/>
-			<xs:element name="fauto" type="xs:integer" default="0"/>
-			<xs:element name="display" type="xs:boolean" default="0"/>
-			<xs:element name="scaletoview" type="xs:boolean" default="0"/>
-      <xs:element name="setrangeminmax" type="xs:boolean" default="0"/>
-      <xs:element name="size" type="xs:integer" default="0"/>
-      <xs:element name="base" type="REAL" default="0"/>
-      <xs:element name="signs" type="PALETTE_SIGN" maxOccurs="32"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_REAC">
-		<xs:sequence>
-			<xs:element name="dspflag0" type="xs:integer" default="0"/>
-			<xs:element name="dspflag1" type="xs:integer" default="0"/>
-			<xs:element name="dspflag2" type="xs:integer" default="0"/>
-      <xs:element name="dspflag3" type="xs:integer" default="0"/>
-      <xs:element name="fdist" type="xs:integer" default="0"/>
-			<xs:element name="reachatch" type="REAL" default="0"/>
-      <xs:element name="dspscalemode0" type="xs:integer" default="0"/>
-      <xs:element name="onesize0" type="REAL" default="0"/>
-      <xs:element name="dspscalemode3" type="xs:integer" default="0"/>
-      <xs:element name="onesize3" type="REAL" default="0"/>
-      <xs:element name="reacdspresultantmode" type="xs:integer" default="0"/>
-    </xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_SURF">
-		<xs:sequence>
-			<xs:element name="step" type="REAL" default="0"/>
-			<xs:element name="contour_penwidth" type="REAL" default="0"/>
-			<xs:element name="palette" type="RESPALETTE"/>
-			<xs:element name="text" type="FONT"/>
-			<xs:element name="decimals" type="xs:integer" default="0"/>
-			<xs:element name="ptrsize" type="REAL" default="0"/>
-			<xs:element name="ptrscale" type="REAL" default="0"/>
-			<xs:element name="dirscale" type="xs:boolean" default="0"/>
-			<xs:element name="cpositive" type="xs:integer" default="0"/>
-			<xs:element name="cnegative" type="xs:integer" default="0"/>
-			<xs:element name="penwidth" type="REAL" default="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_DISP">
-		<xs:sequence>
-			<xs:element name="defshape" type="xs:integer" default="0"/>
-			<xs:element name="color" type="xs:integer" default="0"/>
-			<xs:element name="fshowelements" type="xs:boolean" default="0"/>
-			<xs:element name="predefsignpositive" type="xs:boolean" default="0"/>
-			<xs:element name="userdeftooleditmode_parallel" type="xs:boolean" default="0"/>
-			<xs:element name="applychanges" type="xs:boolean" default="0"/>
-			<xs:element name="dispmode" type="xs:integer" default="0"/>
-			<xs:element name="userprojdir" type="POINT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_BEAM">
-		<xs:sequence>
-			<xs:element name="scale" type="REAL" default="0"/>
-			<xs:element name="cpositive" type="xs:integer" default="0"/>
-			<xs:element name="cnegative" type="xs:integer" default="0"/>
-			<xs:element name="palette" type="RESPALETTE"/>
-			<xs:element name="pen" type="REAL" default="0"/>
-			<xs:element name="step" type="REAL" default="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_LOAD">
-		<xs:sequence>
-			<xs:element name="dspflag0" type="xs:integer" default="0"/>
-			<xs:element name="dspflag1" type="xs:integer" default="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="GRAPH_PARAM_MASS">
-		<xs:sequence>
-			<xs:element name="color" type="xs:integer" default="0"/>
-			<xs:element name="color2" type="xs:integer" default="0"/>
-			<xs:element name="dspflag" type="xs:integer" default="0"/>
-			<xs:element name="masssize" type="REAL" default="0"/>
-		</xs:sequence>
-	</xs:complexType>
-  <xs:complexType name="RESULTNUMVALFILTER">
-    <xs:sequence>
-      <xs:element name="abs" type="xs:boolean" default="false"/>
-      <xs:element name="restype" type="xs:integer" default="-1"/>
-      <xs:element name="minimum" type="REAL" default="0"/>
-      <xs:element name="maximum" type="REAL" default="0"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="PICTURE_TYPE_RESULT">
-		<xs:sequence>
-			<xs:element name="resfrom" type="xs:integer"/>
-			<xs:element name="resdata" type="xs:integer"/>
-			<xs:element name="rescomb" type="xs:integer"/>
-      <xs:element name="resmovingload" type="xs:integer"/>
-      <xs:element name="reslstate" type="xs:integer"/>
-			<xs:element name="rescomp" type="xs:integer"/>
-			<xs:element name="dspmode" type="xs:integer"/>
-			<xs:element name="maxcomp" type="xs:integer"/>
-			<xs:element name="maxtype" type="xs:integer"/>
-			<xs:element name="palette" type="xs:boolean" default="false"/>
-			<xs:element name="reac" type="GRAPH_PARAM_REAC"/>
-			<xs:element name="surf" type="GRAPH_PARAM_SURF"/>
-			<xs:element name="disp" type="GRAPH_PARAM_DISP"/>
-			<xs:element name="beam" type="GRAPH_PARAM_BEAM"/>
-			<xs:element name="load" type="GRAPH_PARAM_LOAD"/>
-			<xs:element name="mass" type="GRAPH_PARAM_MASS"/>
-      <xs:element name="automimax_minmaxglobal" type="xs:boolean" default="false"/>
-      <xs:element name="automimax_minmaxglobalbyobject" type="xs:boolean" default="false"/>
-      <xs:element name="automimax_minmaxlocal" type="xs:boolean" default="false"/>
-      <xs:element name="automimax_minmaxsignglobal" type="xs:integer"/>
-      <xs:element name="automimax_minmaxsignlocal" type="xs:integer"/>
-      <xs:element name="numvalfilters" type="RESULTNUMVALFILTER" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="iTHDCase" type="xs:integer"/>      
-    </xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PICTURE_TYPE">
-		<xs:choice>
-			<xs:element name="type_struct"/>
-			<xs:element name="type_load" type="PICTURE_TYPE_LOAD"/>
-			<xs:element name="type_elem"/>
-			<xs:element name="type_analysis" type="PICTURE_TYPE_RESULT"/>
-			<xs:element name="type_rcdes" type="PICTURE_TYPE_RESULT"/>
-			<xs:element name="type_steeldes" type="PICTURE_TYPE_RESULT"/>
-			<xs:element name="type_cmodel"/>
-			<xs:element name="type_fndes" type="PICTURE_TYPE_RESULT"/>
-			<xs:element name="type_tmdes" type="PICTURE_TYPE_RESULT"/>
-			<xs:element name="type_compositdes" type="PICTURE_TYPE_RESULT"/>
-		</xs:choice>
-	</xs:complexType>
-	<xs:complexType name="PICTURE_TITLE">
-		<xs:sequence>
-			<xs:element name="text" type="SZMNAME"/>
-			<xs:element name="font" type="FONT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PICTURE_LAYER">
-		<xs:sequence>
-			<xs:element name="name" type="SZBUF"/>
-			<xs:element name="visible" type="xs:boolean" default="false"/>
-			<xs:element name="protected" type="xs:boolean" default="false"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCGRAPH">
-		<xs:sequence>
-			<xs:element name="type" type="PICTURE_TYPE"/>
-			<xs:element name="title" type="PICTURE_TITLE"/>
-			<xs:element name="scale" type="xs:boolean"/>
-			<xs:element name="width" type="REAL_PLUS"/>
-			<xs:element name="height" type="REAL_PLUS"/>
-			<xs:element name="align" type="xs:integer"/>
-			<xs:element name="sys" type="LOCALSYS"/>
-			<xs:element name="layers" type="PICTURE_LAYER" maxOccurs="unbounded"/>
-			<xs:element name="displaymode" type="xs:integer"/>
-			<xs:element name="module" type="SZLNAME"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="TABLE_COLDATA">
-		<xs:sequence>
-			<xs:element name="num" type="xs:integer"/>
-			<xs:element name="format" type="SZBUF"/>
-			<xs:element name="width" type="xs:integer"/>
-			<xs:element name="flags" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="TABLE_UNITS">
-		<xs:sequence>
-			<xs:element name="num" type="xs:integer"/>
-			<xs:element name="unit" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="LISTUTIL_OPTIONS">
-		<xs:sequence>
-			<xs:element name="table" type="xs:integer"/>
-			<xs:element name="sort" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="LISTSORT_OPTIONS">
-		<xs:sequence>
-			<xs:element name="sort1" type="xs:integer"/>
-			<xs:element name="sort2" type="xs:integer"/>
-			<xs:element name="sort3" type="xs:integer"/>
-			<xs:element name="sort4" type="xs:integer"/>
-			<xs:element name="asc" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="TABLE_OPTIONS">
-		<xs:sequence>
-			<xs:element name="surface" type="xs:integer" minOccurs="0"/>
-			<xs:element name="bar" type="xs:integer" minOccurs="0"/>
-			<xs:element name="step" type="REAL_PLUS" minOccurs="0"/>
-			<xs:element name="utilcomb" type="LISTUTIL_OPTIONS" minOccurs="0"/>
-			<xs:element name="utilcmax" type="LISTUTIL_OPTIONS" minOccurs="0"/>
-			<xs:element name="sort" type="LISTSORT_OPTIONS" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCTABLE">
-		<xs:sequence>
-			<xs:element name="font" type="FONT"/>
-			<xs:element name="version" type="xs:integer"/>
-			<xs:element name="suffix" type="SZBUF"/>
-			<xs:element name="index" type="xs:integer"/>
-			<xs:element name="listdll" type="SZBUF"/>
-			<xs:element name="listproc" type="SZBUF"/>
-			<xs:element name="coldata" type="TABLE_COLDATA" maxOccurs="50"/>
-			<xs:element name="units" type="TABLE_UNITS" maxOccurs="64"/>
-			<xs:element name="options" type="TABLE_OPTIONS" minOccurs="0"/>
-			<xs:element name="restype" type="xs:integer" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCTEXTBOX">
-		<xs:sequence>
-			<xs:element name="font" type="FONT"/>
-			<xs:element name="alignment" type="xs:integer"/>
-			<xs:element name="width" type="REAL_PLUS"/>
-			<xs:element name="text" type="SZTEXT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCTITLEBLOCK">
-		<xs:sequence>
-			<xs:element name="name" type="SZBUF"/>
-			<xs:element name="pt" type="POINT"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="DOCDRAWBOX">
-		<xs:sequence>
-			<xs:element name="title" type="PICTURE_TITLE"/>
-			<xs:element name="scale" type="xs:boolean"/>
-			<xs:element name="width" type="REAL_PLUS"/>
-			<xs:element name="height" type="REAL_PLUS"/>
-			<xs:element name="align" type="xs:integer"/>
-		</xs:sequence>
-	</xs:complexType>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Documentation ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xs:complexType name="DOCDOCUMENT">
+        <xs:sequence>
+            <xs:element name="title" type="SZBUF"/>
+            <xs:element name="font" type="FONT" minOccurs="0" maxOccurs="11"/>
+            <xs:element name="dispinv" type="xs:boolean" default="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCSECTION">
+        <xs:sequence>
+            <xs:element name="width" type="REAL_PLUS"/>
+            <xs:element name="height" type="REAL_PLUS"/>
+            <xs:element name="margin" type="RECT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCCHAPTER">
+        <xs:sequence>
+            <xs:element name="title" type="SZBUF"/>
+            <xs:element name="level" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PICTURE_TYPE_LOAD">
+        <xs:sequence>
+            <xs:element name="case" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PALETTE_SIGN">
+        <xs:sequence>
+            <xs:element name="pos" type="REAL" default="0"/>
+            <xs:element name="icolor" type="xs:integer" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RESPALETTE">
+        <xs:sequence>
+            <xs:element name="max0" type="REAL" default="0"/>
+            <xs:element name="min0" type="REAL" default="0"/>
+            <xs:element name="step" type="REAL" default="0"/>
+            <xs:element name="nsign" type="xs:integer" default="0"/>
+            <xs:element name="fauto" type="xs:integer" default="0"/>
+            <xs:element name="display" type="xs:boolean" default="0"/>
+            <xs:element name="scaletoview" type="xs:boolean" default="0"/>
+            <xs:element name="setrangeminmax" type="xs:boolean" default="0"/>
+            <xs:element name="size" type="xs:integer" default="0"/>
+            <xs:element name="base" type="REAL" default="0"/>
+            <xs:element name="signs" type="PALETTE_SIGN" maxOccurs="32"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_REAC">
+        <xs:sequence>
+            <xs:element name="dspflag0" type="xs:integer" default="0"/>
+            <xs:element name="dspflag1" type="xs:integer" default="0"/>
+            <xs:element name="dspflag2" type="xs:integer" default="0"/>
+            <xs:element name="dspflag3" type="xs:integer" default="0"/>
+            <xs:element name="fdist" type="xs:integer" default="0"/>
+            <xs:element name="reachatch" type="REAL" default="0"/>
+            <xs:element name="dspscalemode0" type="xs:integer" default="0"/>
+            <xs:element name="onesize0" type="REAL" default="0"/>
+            <xs:element name="dspscalemode3" type="xs:integer" default="0"/>
+            <xs:element name="onesize3" type="REAL" default="0"/>
+            <xs:element name="reacdspresultantmode" type="xs:integer" default="0"/>
+            <xs:element name="reaccolornumvalsame" type="xs:boolean" default="0"/>
+            <xs:element name="reaccolorxposxpos" type="xs:integer" default="0"/>
+            <xs:element name="reaccolorxposypos" type="xs:integer" default="0"/>
+            <xs:element name="reaccolorxposzpos" type="xs:integer" default="0"/>
+            <xs:element name="reaccolorxposxneg" type="xs:integer" default="0"/>
+            <xs:element name="reaccolorxposyneg" type="xs:integer" default="0"/>
+            <xs:element name="reaccolorxposzneg" type="xs:integer" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_SURF">
+        <xs:sequence>
+            <xs:element name="step" type="REAL" default="0"/>
+            <xs:element name="contour_penwidth" type="REAL" default="0"/>
+            <xs:element name="palette" type="RESPALETTE"/>
+            <xs:element name="text" type="FONT"/>
+            <xs:element name="decimals" type="xs:integer" default="0"/>
+            <xs:element name="ptrsize" type="REAL" default="0"/>
+            <xs:element name="ptrscale" type="REAL" default="0"/>
+            <xs:element name="dirscale" type="xs:boolean" default="0"/>
+            <xs:element name="cpositive" type="xs:integer" default="0"/>
+            <xs:element name="cnegative" type="xs:integer" default="0"/>
+            <xs:element name="penwidth" type="REAL" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_DISP">
+        <xs:sequence>
+            <xs:element name="defshape" type="xs:integer" default="0"/>
+            <xs:element name="color" type="xs:integer" default="0"/>
+            <xs:element name="fshowelements" type="xs:boolean" default="0"/>
+            <xs:element name="predefsignpositive" type="xs:boolean" default="0"/>
+            <xs:element name="userdeftooleditmode_parallel" type="xs:boolean" default="0"/>
+            <xs:element name="applychanges" type="xs:boolean" default="0"/>
+            <xs:element name="dispmode" type="xs:integer" default="0"/>
+            <xs:element name="userprojdir" type="POINT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_BEAM">
+        <xs:sequence>
+            <xs:element name="scale" type="REAL" default="0"/>
+            <xs:element name="cpositive" type="xs:integer" default="0"/>
+            <xs:element name="cnegative" type="xs:integer" default="0"/>
+            <xs:element name="palette" type="RESPALETTE"/>
+            <xs:element name="pen" type="REAL" default="0"/>
+            <xs:element name="step" type="REAL" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_LOAD">
+        <xs:sequence>
+            <xs:element name="dspflag0" type="xs:integer" default="0"/>
+            <xs:element name="dspflag1" type="xs:integer" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GRAPH_PARAM_MASS">
+        <xs:sequence>
+            <xs:element name="color" type="xs:integer" default="0"/>
+            <xs:element name="color2" type="xs:integer" default="0"/>
+            <xs:element name="dspflag" type="xs:integer" default="0"/>
+            <xs:element name="masssize" type="REAL" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RESULTNUMVALFILTER">
+        <xs:sequence>
+            <xs:element name="abs" type="xs:boolean" default="false"/>
+            <xs:element name="restype" type="xs:integer" default="-1"/>
+            <xs:element name="minimum" type="REAL" default="0"/>
+            <xs:element name="maximum" type="REAL" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PICTURE_TYPE_RESULT">
+        <xs:sequence>
+            <xs:element name="resfrom" type="xs:integer"/>
+            <xs:element name="resdata" type="xs:integer"/>
+            <xs:element name="rescomb" type="xs:integer"/>
+            <xs:element name="resmovingload" type="xs:integer"/>
+            <xs:element name="reslstate" type="xs:integer"/>
+            <xs:element name="rescomp" type="xs:integer"/>
+            <xs:element name="dspmode" type="xs:integer"/>
+            <xs:element name="maxcomp" type="xs:integer"/>
+            <xs:element name="maxtype" type="xs:integer"/>
+            <xs:element name="palette" type="xs:boolean" default="false"/>
+            <xs:element name="reac" type="GRAPH_PARAM_REAC"/>
+            <xs:element name="surf" type="GRAPH_PARAM_SURF"/>
+            <xs:element name="disp" type="GRAPH_PARAM_DISP"/>
+            <xs:element name="beam" type="GRAPH_PARAM_BEAM"/>
+            <xs:element name="load" type="GRAPH_PARAM_LOAD"/>
+            <xs:element name="mass" type="GRAPH_PARAM_MASS"/>
+            <xs:element name="automimax_minmaxglobal" type="xs:boolean" default="false"/>
+            <xs:element name="automimax_minmaxglobalbyobject" type="xs:boolean" default="false"/>
+            <xs:element name="automimax_minmaxlocal" type="xs:boolean" default="false"/>
+            <xs:element name="automimax_minmaxsignglobal" type="xs:integer"/>
+            <xs:element name="automimax_minmaxsignlocal" type="xs:integer"/>
+            <xs:element name="numvalfilters" type="RESULTNUMVALFILTER" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="iTHDCase" type="xs:integer"/>
+            <xs:element name="customlibname" type="SZTEXT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PICTURE_TYPE">
+        <xs:choice>
+            <xs:element name="type_struct"/>
+            <xs:element name="type_load" type="PICTURE_TYPE_LOAD"/>
+            <xs:element name="type_elem"/>
+            <xs:element name="type_analysis" type="PICTURE_TYPE_RESULT"/>
+            <xs:element name="type_rcdes" type="PICTURE_TYPE_RESULT"/>
+            <xs:element name="type_steeldes" type="PICTURE_TYPE_RESULT"/>
+            <xs:element name="type_cmodel"/>
+            <xs:element name="type_fndes" type="PICTURE_TYPE_RESULT"/>
+            <xs:element name="type_tmdes" type="PICTURE_TYPE_RESULT"/>
+            <xs:element name="type_compositdes" type="PICTURE_TYPE_RESULT"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="PICTURE_TITLE">
+        <xs:sequence>
+            <xs:element name="text" type="SZMNAME"/>
+            <xs:element name="font" type="FONT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PICTURE_LAYER">
+        <xs:sequence>
+            <xs:element name="name" type="SZBUF"/>
+            <xs:element name="visible" type="xs:boolean" default="false"/>
+            <xs:element name="protected" type="xs:boolean" default="false"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCGRAPH">
+        <xs:sequence>
+            <xs:element name="type" type="PICTURE_TYPE"/>
+            <xs:element name="title" type="PICTURE_TITLE"/>
+            <xs:element name="scale" type="xs:boolean"/>
+            <xs:element name="width" type="REAL_PLUS"/>
+            <xs:element name="height" type="REAL_PLUS"/>
+            <xs:element name="align" type="xs:integer"/>
+            <xs:element name="sys" type="LOCALSYS"/>
+            <xs:element name="layers" type="PICTURE_LAYER" maxOccurs="unbounded"/>
+            <xs:element name="displaymode" type="xs:integer"/>
+            <xs:element name="module" type="SZLNAME"/>
+            <xs:element name="numbering" type="xs:boolean"/>
+            <xs:element name="consttextsize" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TABLE_COLDATA">
+        <xs:sequence>
+            <xs:element name="num" type="xs:integer"/>
+            <xs:element name="format" type="SZBUF"/>
+            <xs:element name="width" type="xs:integer"/>
+            <xs:element name="flags" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TABLE_UNITS">
+        <xs:sequence>
+            <xs:element name="num" type="xs:integer"/>
+            <xs:element name="unit" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LISTUTIL_OPTIONS">
+        <xs:sequence>
+            <xs:element name="table" type="xs:integer"/>
+            <xs:element name="sort" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LISTSORT_OPTIONS">
+        <xs:sequence>
+            <xs:element name="sort1" type="xs:integer"/>
+            <xs:element name="sort2" type="xs:integer"/>
+            <xs:element name="sort3" type="xs:integer"/>
+            <xs:element name="sort4" type="xs:integer"/>
+            <xs:element name="asc" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TABLE_OPTIONS">
+        <xs:sequence>
+            <xs:element name="surface" type="xs:integer" minOccurs="0"/>
+            <xs:element name="bar" type="xs:integer" minOccurs="0"/>
+            <xs:element name="step" type="REAL_PLUS" minOccurs="0"/>
+            <xs:element name="utilcomb" type="LISTUTIL_OPTIONS" minOccurs="0"/>
+            <xs:element name="utilcmax" type="LISTUTIL_OPTIONS" minOccurs="0"/>
+            <xs:element name="sort" type="LISTSORT_OPTIONS" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCTABLE">
+        <xs:sequence>
+            <xs:element name="font" type="FONT"/>
+            <xs:element name="version" type="xs:integer"/>
+            <xs:element name="suffix" type="SZBUF"/>
+            <xs:element name="index" type="xs:integer"/>
+            <xs:element name="listdll" type="SZBUF"/>
+            <xs:element name="listproc" type="SZBUF"/>
+            <xs:element name="coldata" type="TABLE_COLDATA" maxOccurs="50"/>
+            <xs:element name="units" type="TABLE_UNITS" maxOccurs="64"/>
+            <xs:element name="options" type="TABLE_OPTIONS" minOccurs="0"/>
+            <xs:element name="restype" type="xs:integer" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCTEXTBOX">
+        <xs:sequence>
+            <xs:element name="font" type="FONT"/>
+            <xs:element name="alignment" type="xs:integer"/>
+            <xs:element name="width" type="REAL_PLUS"/>
+            <xs:element name="text" type="SZTEXT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCTITLEBLOCK">
+        <xs:sequence>
+            <xs:element name="name" type="SZBUF"/>
+            <xs:element name="pt" type="POINT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DOCDRAWBOX">
+        <xs:sequence>
+            <xs:element name="title" type="PICTURE_TITLE"/>
+            <xs:element name="scale" type="xs:boolean"/>
+            <xs:element name="width" type="REAL_PLUS"/>
+            <xs:element name="height" type="REAL_PLUS"/>
+            <xs:element name="align" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
 
-  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- Script +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<xs:complexType name="FDSCRIPTHEADER">
-		<xs:sequence>
-			<xs:element name="title" type="SZBUF"/>
-			<xs:element name="version" type="SZNAME"/>
-			<xs:element name="module" type="SZPATH"/>
-			<xs:element name="logfile" type="SZPATH" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="CMDUSER">
-		<xs:attribute name="command" type="xs:token"/>
-	</xs:complexType>
-	<xs:simpleType name="CMDCHILD">
-		<xs:restriction base="xs:token">
-			<xs:maxLength value="255"/>
-			<xs:minLength value="5"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="CMDPAUSE">
-		<xs:restriction base="xs:token">
-			<xs:maxLength value="255"/>
-			<xs:minLength value="0"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:complexType name="CMDCODE">
-		<xs:sequence>
-			<xs:element name="code" type="CODE"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="$ FEM CODE"/>
-	</xs:complexType>
-	<xs:complexType name="CMDCALCULATION">
-		<xs:sequence>
-			<xs:element name="analysis" type="ANALYSIS" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="design" type="DESIGNCALC" minOccurs="0" maxOccurs="1"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE CALC"/>
-	</xs:complexType>
-	<xs:complexType name="CMDSAVE">
-		<xs:sequence>
-			<xs:element name="filename" type="SZPATH"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL CS2SHELL SAVE"/>
-	</xs:complexType>
-  <xs:complexType name="CMDSAVEDOCX">
-    <xs:sequence>
-      <xs:element name="filename" type="SZPATH"/>
-    </xs:sequence>
-    <xs:attribute name="command" type="xs:token" fixed="$ DOC SAVEDOCX"/>
-  </xs:complexType>
-  <xs:complexType name="CMDLISTGEN">
-    <xs:attribute name="bscfile" type="xs:string"/>
-    <xs:attribute name="outfile" type="xs:string"/>
-    <xs:attribute name="regional" type="xs:boolean"/>
-    <xs:attribute name="headers" type="xs:boolean"/>
-    <xs:attribute name="fillcells" type="xs:boolean"/>
-    <xs:attribute name="command" type="xs:token" fixed="$ MODULECOM LISTGEN"/>
-  </xs:complexType>
-  <xs:complexType name="CMDOPEN">
-		<xs:sequence>
-			<xs:element name="filename" type="SZPATH"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL CS2SHELL OPEN"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCOPEN">
-		<xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCUMENT"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCCLOSE">
-		<xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCCLOSE"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCDOCUMENT">
-		<xs:sequence>
-			<xs:element name="docdocument" type="DOCDOCUMENT"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC DOCUMENT"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCSECTION">
-		<xs:sequence>
-			<xs:element name="docsection" type="DOCSECTION"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC SECTION"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCCHAPTER">
-		<xs:sequence>
-			<xs:element name="docchapter" type="DOCCHAPTER"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC CHAPTER"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCPAGEBREAK">
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC PAGEBREAK"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCCONTENT">
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC CONTENTS"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCGRAPH">
-		<xs:sequence>
-			<xs:element name="docgraph" type="DOCGRAPH"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCGRAPH"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCTABLE">
-		<xs:sequence>
-			<xs:element name="doctable" type="DOCTABLE"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCTABLE"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCTEXTBOX">
-		<xs:sequence>
-			<xs:element name="doctextbox" type="DOCTEXTBOX"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC TEXTBOX"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCTITLEBLOCK">
-		<xs:sequence>
-			<xs:element name="doctitleblock" type="DOCTITLEBLOCK"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC TITLEBLOCK"/>
-	</xs:complexType>
-	<xs:complexType name="CMDDOCDRAWBOX">
-		<xs:sequence>
-			<xs:element name="docdrawbox" type="DOCDRAWBOX"/>
-		</xs:sequence>
-		<xs:attribute name="command" type="xs:token" fixed="; CXL DOC DRAWBOX"/>
-	</xs:complexType>
-	<xs:complexType name="FDSCRIPT">
-		<xs:sequence>
-			<xs:element name="fdscriptheader" type="FDSCRIPTHEADER"/>
-			<xs:choice maxOccurs="unbounded">
-				<xs:element name="cmduser" type="CMDUSER"/>
-				<xs:element name="cmdchild" type="CMDCHILD"/>
-				<xs:element name="cmdpause" type="CMDPAUSE"/>
-				<xs:element name="cmdcalculation" type="CMDCALCULATION"/>
-				<xs:element name="cmdsave" type="CMDSAVE"/>
-        <xs:element name="cmdsavedocx" type="CMDSAVEDOCX"/>
-        <xs:element name="cmdlistgen" type="CMDLISTGEN"/>
-        <xs:element name="cmdopen" type="CMDOPEN"/>
-				<xs:element name="cmdcode" type="CMDCODE"/>
-				<xs:element name="cmddocopen" type="CMDDOCOPEN"/>
-				<xs:element name="cmddocclose" type="CMDDOCCLOSE"/>
-				<xs:element name="cmddocdocument" type="CMDDOCDOCUMENT"/>
-				<xs:element name="cmddocsection" type="CMDDOCSECTION"/>
-				<xs:element name="cmddocchapter" type="CMDDOCCHAPTER"/>
-				<xs:element name="cmddocpagebreak" type="CMDDOCPAGEBREAK"/>
-				<xs:element name="cmddoccontent" type="CMDDOCCONTENT"/>
-				<xs:element name="cmddocgraph" type="CMDDOCGRAPH"/>
-				<xs:element name="cmddoctable" type="CMDDOCTABLE"/>
-				<xs:element name="cmddoctextbox" type="CMDDOCTEXTBOX"/>
-				<xs:element name="cmddoctitleblock" type="CMDDOCTITLEBLOCK"/>
-				<xs:element name="cmddocdrawbox" type="CMDDOCDRAWBOX"/>
-			</xs:choice>
-			<xs:element name="cmdendsession" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Script +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xs:complexType name="FDSCRIPTHEADER">
+        <xs:sequence>
+            <xs:element name="title" type="SZBUF"/>
+            <xs:element name="version" type="SZNAME"/>
+            <xs:element name="module" type="SZPATH"/>
+            <xs:element name="logfile" type="SZPATH" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CMDUSER">
+        <xs:attribute name="command" type="xs:token"/>
+    </xs:complexType>
+    <xs:simpleType name="CMDCHILD">
+        <xs:restriction base="xs:token">
+            <xs:maxLength value="255"/>
+            <xs:minLength value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CMDPAUSE">
+        <xs:restriction base="xs:token">
+            <xs:maxLength value="255"/>
+            <xs:minLength value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="CMDCODE">
+        <xs:sequence>
+            <xs:element name="code" type="CODE"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="$ FEM CODE"/>
+    </xs:complexType>
+    <xs:complexType name="CMDCALCULATION">
+        <xs:sequence>
+            <xs:element name="analysis" type="ANALYSIS" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="design" type="DESIGNCALC" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE CALC"/>
+    </xs:complexType>
+    <xs:complexType name="CMDSAVE">
+        <xs:sequence>
+            <xs:element name="filename" type="SZPATH"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL CS2SHELL SAVE"/>
+    </xs:complexType>
+    <xs:complexType name="CMDSAVEDOCX">
+        <xs:sequence>
+            <xs:element name="filename" type="SZPATH"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="$ DOC SAVEDOCX"/>
+    </xs:complexType>
+    <xs:complexType name="CMDLISTGEN">
+        <xs:attribute name="bscfile" type="xs:string"/>
+        <xs:attribute name="outfile" type="xs:string"/>
+        <xs:attribute name="regional" type="xs:boolean"/>
+        <xs:attribute name="fillcells" type="xs:boolean"/>
+        <xs:attribute name="headers" type="xs:boolean"/>
+        <xs:attribute name="ignorecasename" type="xs:boolean"/>
+        <xs:attribute name="command" type="xs:token" fixed="$ MODULECOM LISTGEN"/>
+    </xs:complexType>
+    <xs:complexType name="CMDOPEN">
+        <xs:sequence>
+            <xs:element name="filename" type="SZPATH"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL CS2SHELL OPEN"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCOPEN">
+        <xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCUMENT"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCCLOSE">
+        <xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCCLOSE"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCDOCUMENT">
+        <xs:sequence>
+            <xs:element name="docdocument" type="DOCDOCUMENT"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC DOCUMENT"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCSECTION">
+        <xs:sequence>
+            <xs:element name="docsection" type="DOCSECTION"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC SECTION"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCCHAPTER">
+        <xs:sequence>
+            <xs:element name="docchapter" type="DOCCHAPTER"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC CHAPTER"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCPAGEBREAK">
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC PAGEBREAK"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCCONTENT">
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC CONTENTS"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCGRAPH">
+        <xs:sequence>
+            <xs:element name="docgraph" type="DOCGRAPH"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCGRAPH"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCTABLE">
+        <xs:sequence>
+            <xs:element name="doctable" type="DOCTABLE"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL $MODULE DOCTABLE"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCTEXTBOX">
+        <xs:sequence>
+            <xs:element name="doctextbox" type="DOCTEXTBOX"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC TEXTBOX"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCTITLEBLOCK">
+        <xs:sequence>
+            <xs:element name="doctitleblock" type="DOCTITLEBLOCK"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC TITLEBLOCK"/>
+    </xs:complexType>
+    <xs:complexType name="CMDDOCDRAWBOX">
+        <xs:sequence>
+            <xs:element name="docdrawbox" type="DOCDRAWBOX"/>
+        </xs:sequence>
+        <xs:attribute name="command" type="xs:token" fixed="; CXL DOC DRAWBOX"/>
+    </xs:complexType>
+    <xs:complexType name="FDSCRIPT">
+        <xs:sequence>
+            <xs:element name="fdscriptheader" type="FDSCRIPTHEADER"/>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="cmduser" type="CMDUSER"/>
+                <xs:element name="cmdchild" type="CMDCHILD"/>
+                <xs:element name="cmdpause" type="CMDPAUSE"/>
+                <xs:element name="cmdcalculation" type="CMDCALCULATION"/>
+                <xs:element name="cmdsave" type="CMDSAVE"/>
+                <xs:element name="cmdsavedocx" type="CMDSAVEDOCX"/>
+                <xs:element name="cmdlistgen" type="CMDLISTGEN"/>
+                <xs:element name="cmdopen" type="CMDOPEN"/>
+                <xs:element name="cmdcode" type="CMDCODE"/>
+                <xs:element name="cmddocopen" type="CMDDOCOPEN"/>
+                <xs:element name="cmddocclose" type="CMDDOCCLOSE"/>
+                <xs:element name="cmddocdocument" type="CMDDOCDOCUMENT"/>
+                <xs:element name="cmddocsection" type="CMDDOCSECTION"/>
+                <xs:element name="cmddocchapter" type="CMDDOCCHAPTER"/>
+                <xs:element name="cmddocpagebreak" type="CMDDOCPAGEBREAK"/>
+                <xs:element name="cmddoccontent" type="CMDDOCCONTENT"/>
+                <xs:element name="cmddocgraph" type="CMDDOCGRAPH"/>
+                <xs:element name="cmddoctable" type="CMDDOCTABLE"/>
+                <xs:element name="cmddoctextbox" type="CMDDOCTEXTBOX"/>
+                <xs:element name="cmddoctitleblock" type="CMDDOCTITLEBLOCK"/>
+                <xs:element name="cmddocdrawbox" type="CMDDOCDRAWBOX"/>
+            </xs:choice>
+            <xs:element name="cmdendsession" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
