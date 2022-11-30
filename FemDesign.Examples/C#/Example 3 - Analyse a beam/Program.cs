@@ -126,15 +126,15 @@ namespace FemDesign.Examples
 
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
-                results1 = femDesign.GetResults<Results.BarDisplacement>(units);
+                results1 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS, units);
 
                 // Then we add the third support and run the analysis again. The files will be saved in a different output folder.
-                model.AddElements(new List<GenericClasses.IStructureElement> { s3 });
+                model.AddElements(s3);
                 femDesign.OutputDir = "beam 3 supports/";
                 
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
-                results2 = femDesign.GetResults<Results.BarDisplacement>(units);
+                results2 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS, units);
             }
             #endregion
 
