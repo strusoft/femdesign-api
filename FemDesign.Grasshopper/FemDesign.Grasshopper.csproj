@@ -73,7 +73,6 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
-    <Compile Include="ApplicationConnectionComponent.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
     <Compile Include="Bars\BarsTruss.cs" />
