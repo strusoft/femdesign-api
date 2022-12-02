@@ -110,9 +110,9 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             if (IsConstant)
-                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m�, Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCase.Name}";
+                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCase.Name}";
             else
-                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m�, q2: {this.Loads[1].Value * this.Direction} kN/m�, q3: {this.Loads[2].Value * this.Direction} kN/m�, Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCase.Name}";
+                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m\u00B2, q2: {this.Loads[1].Value * this.Direction} kN/m\u00B2, q3: {this.Loads[2].Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCase.Name}";
         }
 
 
