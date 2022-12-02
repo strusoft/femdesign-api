@@ -4,6 +4,7 @@ on:
   push:
     paths: # When the file with assembly version changed
       - 'FemDesign.Core/Properties/GlobalAssemblyInfo.cs'
+      - '.github/workflows/publish.yml'
     branches: # Only on push to master
       - master
 
@@ -28,7 +29,7 @@ jobs:
           nuget-version: '5.x'
 
       - name: Restore Packages
-        run: nuget restore FemDesign.Core/FemDesign.Core.csproj
+        run: nuget restore FemDesign.Core/FemDesign.Core.csproj -SolutionDirectory ./
 
       - name: Build Solution
         run: |
@@ -42,6 +43,6 @@ jobs:
         run: |
           nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
 
-      - name: Echo file name instead of publish # For debugging
+      - name: Echo file name # For debugging
         run: |
           ls *.nupkg
