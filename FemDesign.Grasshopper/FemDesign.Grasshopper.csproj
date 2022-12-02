@@ -75,11 +75,15 @@
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsTaperedBeam.cs" />
+    <Compile Include="Bars\BarsTaperedColumn.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE_2160.cs" />
     <Compile Include="Bars\BarsTruss.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE.cs" />
-    <Compile Include="Bars\BarsBeamSimple.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeamSimple_OBSOLETE_2160.cs" />
     <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE.cs" />
-    <Compile Include="Bars\BarsColumnSimple.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumnSimple_OBSOLETE_2160.cs" />
     <Compile Include="Bars\BarsConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsConnectivityDefineSemiRigid.cs" />
     <Compile Include="Bars\BarsConnectivityHinged.cs" />
