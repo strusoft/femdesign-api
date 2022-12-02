@@ -7,16 +7,16 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsBeamSimple: GH_Component
+    public class BarsColumnSimple_OBSOLETE_2160: GH_Component
     {
-       public BarsBeamSimple(): base("Bars.BeamSimple", "BeamSimple", "Create a bar element of type beam with same start/end properties.", CategoryName.Name(),
+       public BarsColumnSimple_OBSOLETE_2160(): base("Bars.ColumnSimple", "ColumnSimple", "Create a bar element of type column with same start/end properties.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
+           pManager.AddCurveParameter("Line", "Line", "Local x of line must equal positive global Z.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Optional, default value if undefined.", GH_ParamAccess.item);
@@ -26,8 +26,7 @@ namespace FemDesign.Grasshopper
            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
-           pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "B");
+           pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "C");
            pManager[pManager.ParamCount - 1].Optional = true;
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -36,7 +35,7 @@ namespace FemDesign.Grasshopper
        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
-            // get input
+            // get input            
             Curve curve = null;
             if (!DA.GetData(0, ref curve)) { return; }
             
@@ -57,7 +56,7 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            
+
             Vector3d v = Vector3d.Zero;
             if (!DA.GetData(5, ref v))
             {
@@ -70,7 +69,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            string identifier = "B";
+            string identifier = "C";
             if (!DA.GetData(7, ref identifier))
             {
                 // pass
@@ -79,27 +78,31 @@ namespace FemDesign.Grasshopper
             if (curve == null || material == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
 
             // convert geometry
-            FemDesign.Geometry.Edge edge = curve.FromRhinoLineOrArc2();
+            if (curve.GetType() != typeof(LineCurve))
+            {
+                throw new System.ArgumentException("Curve must be a LineCurve");
+            }
+            FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
 
             // create bar
-            var type = FemDesign.Bars.BarType.Beam;
+            var type = FemDesign.Bars.BarType.Column;
             FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, material, section, type, eccentricity, connectivity, identifier);
-
+            
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
             {
                 bar.BarPart.LocalY = v.FromRhino();
             }
-            
+
             // else orient coordinate system to GCS
             else
             {
                 if (orientLCS)
-                {
+                {  
                     bar.BarPart.OrientCoordinateSystemToGCS();
                 }
             }
-
+            
             // output
             DA.SetData(0, bar);
 
@@ -108,15 +111,15 @@ namespace FemDesign.Grasshopper
        {
            get
            {
-                return FemDesign.Properties.Resources.BeamDefine;
+                return FemDesign.Properties.Resources.ColumnDefine;
            }
        }
        public override Guid ComponentGuid
        {
-           get { return new Guid("49a8b281-b9ba-4ff4-8cde-ab611a252776"); }
+           get { return new Guid("4f7cdee1-2e06-403b-b503-acdb8cc5cd4f"); }
        }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
 
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
