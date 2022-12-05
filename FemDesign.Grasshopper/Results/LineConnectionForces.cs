@@ -39,13 +39,16 @@ namespace FemDesign.Grasshopper
         {
             pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_StringParam("ElementId", "ElementId", "Element Id");
-            pManager.Register_DoubleParam("HalfLength.", "HalfLength.", "");
+            pManager.Register_IntegerParam("ElementIndex", "ElementIndex", "");
+            pManager.Register_IntegerParam("NodeId", "NodeId", "");
             pManager.Register_DoubleParam("Fx", "Fx", "");
             pManager.Register_DoubleParam("Fy", "Fy", "");
             pManager.Register_DoubleParam("Fz", "Fz", "");
             pManager.Register_DoubleParam("Mx", "Mx", "");
             pManager.Register_DoubleParam("My", "My", "");
             pManager.Register_DoubleParam("Mz", "Mz", "");
+            pManager.Register_DoubleParam("Fr", "Fr", "");
+            pManager.Register_DoubleParam("Mr", "Mr", "");
         }
 
         /// <summary>
