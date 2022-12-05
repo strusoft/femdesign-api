@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System.Text.RegularExpressions;
 
 namespace FemDesign.Grasshopper
 {
@@ -27,7 +28,7 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            
+
             if (filePath == null) 
             {
                 return;
@@ -35,6 +36,9 @@ namespace FemDesign.Grasshopper
 
             //
             FemDesign.Model obj = FemDesign.Model.DeserializeFromFilePath(filePath);
+
+            if (_FileName.IsASCII(filePath))
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "File path has special characters. This might cause problems.");
 
             // return
             DA.SetData(0, obj);

@@ -45,6 +45,9 @@ namespace FemDesign.Grasshopper
                 filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
             }
 
+            if (_FileName.IsASCII(filePath))
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "File path has special characters. This might cause problems.");
+
             bool closeOpenWindows = false;
             DA.GetData(2, ref closeOpenWindows);
 
