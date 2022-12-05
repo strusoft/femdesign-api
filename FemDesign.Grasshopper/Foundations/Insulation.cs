@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("E", "E", "E Modulus [kN/m2]", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Thickness", "Thickness", "Thickness [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Thickness", "Thickness", "Thickness [m]", GH_ParamAccess.item);
             pManager.AddNumberParameter("Density", "Density", "Unit Mass [t/m3]", GH_ParamAccess.item);
             pManager.AddGenericParameter("LimitStress", "LimitStress", "LimitStress [N/mm2]", GH_ParamAccess.item);
             pManager.AddNumberParameter("GammaMu", "GammaMu", "", GH_ParamAccess.item, 1.2);
