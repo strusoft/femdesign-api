@@ -150,6 +150,7 @@
     <Compile Include="Results\LabelledSection.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
+    <Compile Include="Results\LineConnectionForces.cs" />
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
