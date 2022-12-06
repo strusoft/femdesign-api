@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsConnectivityConstruct: GH_Component
+    public class BarsConnectivityConstructOBSOLETE: GH_Component
     {
-        public BarsConnectivityConstruct(): base("Connectivity.Construct", "Construct", "Construct end releases for a bar element.", CategoryName.Name(),
+        public BarsConnectivityConstructOBSOLETE(): base("Connectivity.Construct", "Construct", "Construct end releases for a bar element.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -51,7 +51,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("511ac7c9-555f-441d-85f7-9ede2790606a"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
