@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Model obj = FemDesign.Model.DeserializeFromFilePath(filePath);
 
             if (_FileName.IsASCII(filePath))
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "File path has special characters. This might cause problems.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
 
             // return
             DA.SetData(0, obj);

@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
             }
 
             if (_FileName.IsASCII(filePath))
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "File path has special characters. This might cause problems.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
 
             bool closeOpenWindows = false;
             DA.GetData(2, ref closeOpenWindows);
