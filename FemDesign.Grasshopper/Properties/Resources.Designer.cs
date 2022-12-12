@@ -633,6 +633,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LineConnection {
+            get {
+                object obj = ResourceManager.GetObject("LineConnection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineLoadDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LineLoadDeconstruct", resourceCulture);

@@ -140,6 +140,7 @@
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefaultOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
+    <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
@@ -834,6 +835,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\lineconnection.png" />
     <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
     <None Include="Resources\icons\Insulation.png" />
     <None Include="Resources\icons\ExtrudedSolid.png" />
