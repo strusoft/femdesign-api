@@ -26,6 +26,9 @@ namespace FemDesign
         public bool IsConnected => _connection._inputPipe.IsConnected;
         public bool IsDisconnected => !IsConnected;
 
+        public Verbosity Verbosity { get; private set; }
+        public const Verbosity DefaultVerbosity = Verbosity.Normal;
+
         /// <summary>
         /// Keep FEM-Design open after <see cref="Dispose"/> is called.
         /// </summary>
@@ -86,6 +89,7 @@ namespace FemDesign
                 if (isGuid == false)
                     OnOutput?.Invoke(message);
             };
+            SetVerbosity(DefaultVerbosity);
         }
 
         private void ProcessExited(object sender, EventArgs e)
@@ -269,6 +273,7 @@ namespace FemDesign
 
         public void SetVerbosity(Verbosity verbosity)
         {
+            Verbosity = verbosity;
             _connection.Send("v " + (int)verbosity);
         }
 
