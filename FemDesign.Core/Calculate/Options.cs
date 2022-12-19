@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Calculate
 {
     /// <summary>
-    /// doctable
+    /// Options
     /// </summary>
     [System.Serializable]
     public partial class Options
@@ -17,13 +17,11 @@ namespace FemDesign.Calculate
         public int Bar { get; set; }
 
         [XmlElement("step")]
-        public double Step { get; set; }
+        public double? Step { get; set; }
 
         [XmlElement("surface")]
         public int SrfValues { get; set; }
 
-        [XmlIgnore]
-        public ResPosition ResPosition { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -32,7 +30,6 @@ namespace FemDesign.Calculate
         {
 
         }
-
 
         private Options(int bar, double step)
         {
@@ -45,9 +42,23 @@ namespace FemDesign.Calculate
             this.SrfValues = srf;
         }
 
-        public Options(ListProc listProc, double step)
+        /// <summary>
+        /// Specify the result output locations.
+        /// </summary>
+        /// <param name="barResult"></param>
+        /// <param name="shellResult"></param>
+        /// <param name="step"></param>
+        public Options(BarResultPosition barResult, ShellResultPosition? shellResult, double step = 0.50)
         {
-            
+            this.Bar = (int)barResult;
+            if(barResult == BarResultPosition.ByStep)
+                this.Step = step;
+            this.SrfValues = (int)shellResult;
+        }
+
+        public static Options Default()
+        {
+            return new Options(BarResultPosition.ByStep, ShellResultPosition.Vertices, 0.50);
         }
 
         // Assumption
@@ -73,11 +84,18 @@ namespace FemDesign.Calculate
         }
     }
 
-    public enum ResPosition
+    public enum BarResultPosition
     {
-        OnlyNodes,
-        ByStep,
-        ResultPoint
+        OnlyNodes = 0,
+        ByStep = 1,
+        ResultPoint = 2,
+    }
+
+    public enum ShellResultPosition
+    {
+        Vertices = 0,
+        Center = 1,
+        ResultPoint = 2,
     }
 
 }
