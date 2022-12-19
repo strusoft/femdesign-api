@@ -3357,20 +3357,26 @@ namespace FemDesign
             foreach (Shells.Panel panel in this.Entities.Panels)
             {
                 // get material
-                foreach (Materials.Material material in this.Materials.Material)
+                if(this.Materials != null) // model with only timber plate does not have an xml element 'materials'
                 {
-                    if (material.Guid == panel.ComplexMaterial)
+                    foreach (Materials.Material material in this.Materials.Material)
                     {
-                        panel.Material = material;
+                        if (material.Guid == panel.ComplexMaterial)
+                        {
+                            panel.Material = material;
+                        }
                     }
                 }
 
                 // get section
-                foreach (Sections.Section section in this.Sections.Section)
+                if(this.Sections != null) // model with only timber plate does not have an xml element 'sections'
                 {
-                    if (section.Guid == panel.ComplexSection)
+                    foreach (Sections.Section section in this.Sections.Section)
                     {
-                        panel.Section = section;
+                        if (section.Guid == panel.ComplexSection)
+                        {
+                            panel.Section = section;
+                        }
                     }
                 }
 
