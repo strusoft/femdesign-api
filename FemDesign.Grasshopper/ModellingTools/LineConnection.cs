@@ -38,6 +38,12 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // default value to do not overwhelm the user by input
+            bool movingLocal = true;
+            double interfaceStart = 0.50;
+            double interfaceEnd = 0.50;
+
+
             Rhino.Geometry.Curve firstEdge = null;
             DA.GetData(0, ref firstEdge);
 
@@ -74,7 +80,7 @@ namespace FemDesign.Grasshopper
                 localY = plane.YAxis;
             }
 
-            var elements = new List<FemDesign.GenericClasses.IStructureElement>();
+            var elements = new List<EntityBase>();
             DA.GetDataList(6, elements);
 
             string identifier = "CL";
@@ -83,13 +89,21 @@ namespace FemDesign.Grasshopper
             GuidListType[] refs = new GuidListType[elements.Count];
             for (int idx = 0; idx < refs.Length; idx++)
             {
-                refs[idx] = new GuidListType((EntityBase)elements[idx]);
+                if (elements[idx] is Shells.Slab slab)
+                {
+                    refs[idx] = new GuidListType(slab.SlabPart);
+                }
+                else if (elements[idx] is Bars.Bar bar)
+                {
+                    refs[idx] = new GuidListType(bar.BarPart);
+                }
+                else
+                {
+                    refs[idx] = new GuidListType(elements[idx]);
+                }
+
             }
 
-            // default value to do not overwhelm the user by input
-            bool movingLocal = true;
-            double interfaceStart = 0.50;
-            double interfaceEnd = 0.50;
 
             var rigidity = new Releases.RigidityDataType3(motions, rotations);
 
@@ -111,7 +125,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{2A493ED7-9395-47B5-8321-FF797692DEEF}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }
