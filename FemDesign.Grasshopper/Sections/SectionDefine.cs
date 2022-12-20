@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0.", GH_ParamAccess.list);
+            pManager.AddSurfaceParameter("Surfaces", "Srfs", "Item or list of surfaces of section. Surfaces must lie in the XY-plane at z=0. Surfaces should not overlap.", GH_ParamAccess.list);
             pManager.AddTextParameter("MaterialType", "MatType", "Connect 'ValueList' to get the options.\nSteelRolled\nSteelColdWorked\nSteelWelded\nConcrete\nTimber\nUnknown\nUndefined", GH_ParamAccess.item);
             pManager.AddTextParameter("GroupName", "GroupName", "Name of section group", GH_ParamAccess.item);
             pManager.AddTextParameter("TypeName", "TypeName", "Name of section type", GH_ParamAccess.item);
