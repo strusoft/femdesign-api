@@ -94,16 +94,25 @@ namespace FemDesign.Calculate
 
     public enum BarResultPosition
     {
+        [Parseable("OnlyNodes", "0")]
         OnlyNodes = 0,
+
+        [Parseable("ByStep", "1")]
         ByStep = 1,
+
+        [Parseable("ResultPoints", "2")]
         ResultPoints = 2,
     }
 
     public enum ShellResultPosition
     {
+        [Parseable("Center", "0")]
         Center = 0,
+
+        [Parseable("Vertices", "1")]
         Vertices = 1,
+
+        [Parseable("ResultPoints", "2")]
         ResultPoints = 2,
     }
-
 }
