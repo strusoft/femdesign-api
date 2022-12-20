@@ -27,7 +27,7 @@ namespace FemDesign.Calculate
             Assert.IsTrue(options.SrfValues == 0);
             Assert.IsNotNull(options.Step);
 
-            options = new Options(BarResultPosition.ResultPoint, ShellResultPosition.ResultPoint, 0.50);
+            options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints, 0.50);
             Assert.IsNotNull(options);
             Assert.IsTrue(options.Bar == 2);
             Assert.IsTrue(options.SrfValues == 2);

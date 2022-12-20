@@ -142,6 +142,7 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Model\ModelReadStr.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
     <Compile Include="Results\NodalVibration.cs" />
+    <Compile Include="Results\Options.cs" />
     <Compile Include="Results\PointSupportReactionMinMax.cs" />
     <Compile Include="Results\Quantities\ReinforcementQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\TimberPanelQuantityEstimation.cs" />
@@ -276,7 +278,7 @@
     <Compile Include="Model\ModelCreate3OBSOLETE.cs" />
     <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\ModelReadStrOBSOLETE.cs" />
-    <Compile Include="Model\ModelReadStr.cs" />
+    <Compile Include="Model\OBSOLETE\ModelReadStr_OBSOLETE.cs" />
     <Compile Include="Model\ModelReadStruxml.cs" />
     <Compile Include="Model\ModelSerialise.cs" />
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Calculate
 {
@@ -17,7 +18,14 @@ namespace FemDesign.Calculate
         public int Bar { get; set; }
 
         [XmlElement("step")]
-        public double? Step { get; set; }
+        public double _step { get; set; }
+
+        [XmlIgnore]
+        public double Step
+        {
+            get { return this._step; }
+            set { this._step = value; }
+        }
 
         [XmlElement("surface")]
         public int SrfValues { get; set; }
@@ -48,7 +56,7 @@ namespace FemDesign.Calculate
         /// <param name="barResult"></param>
         /// <param name="shellResult"></param>
         /// <param name="step"></param>
-        public Options(BarResultPosition barResult, ShellResultPosition? shellResult, double step = 0.50)
+        public Options(BarResultPosition barResult, ShellResultPosition shellResult, double step = 0.50)
         {
             this.Bar = (int)barResult;
             if(barResult == BarResultPosition.ByStep)
@@ -88,14 +96,14 @@ namespace FemDesign.Calculate
     {
         OnlyNodes = 0,
         ByStep = 1,
-        ResultPoint = 2,
+        ResultPoints = 2,
     }
 
     public enum ShellResultPosition
     {
-        Vertices = 0,
-        Center = 1,
-        ResultPoint = 2,
+        Center = 0,
+        Vertices = 1,
+        ResultPoints = 2,
     }
 
 }

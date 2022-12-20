@@ -104,7 +104,7 @@ namespace FemDesign.Calculate
         /// The name of LoadCase will be specified in cmdlistgen object
         /// </summary>
         /// <param name="resultType"></param>
-        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false)
+        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
         {
             ListProc = resultType;
 
@@ -130,7 +130,8 @@ namespace FemDesign.Calculate
 
             Units = Results.Units.GetUnits(unitResult);
             ResType = GetResType(resultType);
-            Option = Options.GetOptions(resultType);
+
+            Option = options ?? Options.GetOptions(resultType);
         }
 
         private int GetResType(ListProc resultType)
