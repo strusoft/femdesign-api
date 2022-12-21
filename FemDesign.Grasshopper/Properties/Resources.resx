@@ -6909,7 +6909,7 @@
   <data name="StageActivatedLoad" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAHdJREFUSEvtzbEJwDAMRFHPkjLDeRfPkSEVFLhCxxVC2AGDi2fwB0nNzJaScSYZ
+        vAAADrwBlbxySQAAAHdJREFUSEvtzbEJwDAMRFHPkjLDeRfPkSEVFLhCxxVC2AGDi2fwB0nNzJaScSYZ
         Z5JxjGFVvCt8mBrINpAR9j3gA1W8K3yYGsg2kBH2PfBct1XxrvBhaiDbQEY4B5yMPlDFu8KHqYFsAxnh
         HHDf03u3Ff47sI61F9+4VSHtrDASAAAAAElFTkSuQmCC
 </value>
@@ -6917,7 +6917,7 @@
   <data name="Stages" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAHVJREFUSEvtzUEKwCAMRNEe1rV38cRTUhgwYRYhaEFw8QQ/JHkAbCXjSjKuJOMY
+        vAAADrwBlbxySQAAAHVJREFUSEvtzUEKwCAMRNEe1rV38cRTUhgwYRYhaEFw8QQ/JHkAbCXjSjKuJOMY
         A1Vxl/tEaiDbSEY694ANVMVd7hOpgWwjGencA60BVfMe4z6RGsg2kpHuASOjDVTNe4z7RGog20hGugfM
         9/TescN/B/bB8wIwrIEB7HGqaAAAAABJRU5ErkJggg==
 </value>
@@ -7072,7 +7072,7 @@
         ueRYwv3C7SnLlvxAssgpxWuKrdyK+XNP9cKGRXs6rnSZEcYYZ5IpNAxWyJKjQLestiguMdmPVvC3+v4p
         cRniymKKY4RlLHTfj/qD39266b7eYlJDFGqfPO+tA4Jb8LXpeZ+Hnvd1BNWPcGGX/MsHMPgu+mZJa9+H
         pnU4uyxpxjacb0DLQ153dF+qlhlIp+H1RL5pBpqvITRX7O1nn+M7SEhXE1ewuwedGcmer/DuuvLe/jzj
-        90f0G1cccpyuNuYdAAAACXBIWXMAAAsNAAALDQHtB8AsAAAAB3RJTUUH5gsECh0kOoP5YgAAA0VJREFU
+        90f0G1cccpyuNuYdAAAACXBIWXMAAAsMAAALDAE/QCLIAAAAB3RJTUUH5gsECh0kOoP5YgAAA0VJREFU
         SEvtld9LU2EYx62oqKio6A8IIugmvKmruigIg6gg9CIQCoSiwOh3gV2Uskk/IbqQzCipGYkudUJOK6QN
         RUjnZv6Y02009+PodG7nvPPy2/s8c8uzTbKL7rr48L7v87zn+31/POecAiEE/iX/Df6I3kDTJOoisp+T
         y4otg7Zk3m8DCrp7oX2tg/b5BZLf25CcDady8RjEYCeSrs9IJuZ1AtlEo1HY7XYoisLjJQaqFH+JxIcK
@@ -7104,5 +7104,8 @@
   </data>
   <data name="LineConnection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\lineconnection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\options.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
