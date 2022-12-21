@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
 {
     public class ResultOption : GH_Component
     {
-        public ResultOption() : base("ResultOption", "Option", "Specify the Output Result location.", CategoryName.Name(), SubCategoryName.Cat7b())
+        public ResultOption() : base("ResultOption", "Option", "Specify the output result locations. 'ResultPoints' options requires some prefedined result points to be present in your FEM-Design Model.", CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Surface", "Surface", "Connect 'ValueList' to get the options.\n0 : Center\n1 : Vertices\n2 : ResultPoints.", GH_ParamAccess.item, "Vertices");
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("Step", "Step", "", GH_ParamAccess.item, 0.50);
+            pManager.AddNumberParameter("Step", "Step", "Distance between output nodes for 1-d elements. It will be use if 'ByStep' is selected.", GH_ParamAccess.item, 0.50);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -53,8 +53,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                //return FemDesign.Properties.Resources.BeamDefine;
-                return null;
+                return FemDesign.Properties.Resources.options;
             }
         }
         public override Guid ComponentGuid
