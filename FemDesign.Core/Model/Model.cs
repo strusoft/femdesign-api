@@ -3361,7 +3361,7 @@ namespace FemDesign
                 {
                     foreach (Materials.Material material in this.Materials.Material)
                     {
-                        if (material.Guid == panel.ComplexMaterial)
+                        if (material.Guid == panel.ComplexMaterialRef)
                         {
                             panel.Material = material;
                         }

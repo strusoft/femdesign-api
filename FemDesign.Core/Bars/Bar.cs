@@ -312,7 +312,78 @@ namespace FemDesign.Bars
             return truss;
         }
 
+        public void UpdateSection(Sections.Section section)
+        {
+            if(this.Type == BarType.Truss)
+            {
+                this.UpdateTrussSection(section);
+            }
+            else if(!this.BarPart.HasComplexCompositeRef || !this.BarPart.HasDeltaBeamComplexSectionRef)
+            {
+                var sections = new Sections.Section[2] { section, section };
+                this.UpdateSection(sections);
+            }
+            else
+            {
+                throw new NotImplementedException("Bar with Composite Section can not be updated yet! Send a request.");
+            }
+        }
 
+        /// <summary>
+        /// Update Sections for a Bar Element. Composite Section and Delta Beam are not implemented yet. Send us a request.
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
+        public void UpdateSection(Sections.Section[] sections)
+        {
+            if(!this.BarPart.HasComplexCompositeRef || !this.BarPart.HasDeltaBeamComplexSectionRef)
+            {
+                if (this.Type != BarType.Truss)
+                {
+                    if (sections.Length < 2)
+                    {
+                        throw new System.ArgumentException($"Number of sections: {sections.Length}, must be 2 or more");
+                    }
+
+                    for (int i = 0; i < sections.Length; i++)
+                    {
+                        this.BarPart.ComplexSectionObj.Parts[i].SectionObj = sections[i];
+                        this.BarPart.ComplexSectionObj.Parts[i].SectionRef = sections[i].Guid;
+                    }
+                }
+                else if (this.Type == BarType.Truss)
+                {
+                    throw new System.ArgumentException($"Number of sections: {sections.Length}, must be 1.");
+                }
+            }
+            else
+            {
+                throw new NotImplementedException("Bar with Composite or Delta Section can not be updated yet! Send a request.");
+            }
+        }
+        private void UpdateTrussSection(Sections.Section section)
+        {
+            this.BarPart.TrussUniformSectionObj = section;
+        }
+
+        /// <summary>
+        /// Update Sections for a Bar Element. Material for Composite Section and Delta Beam are not implemented yet. Send us a request.
+        /// </summary>
+        /// <param name="material"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void UpdateMaterial(Materials.Material material)
+        {
+            if (!this.BarPart.HasComplexCompositeRef || !this.BarPart.HasDeltaBeamComplexSectionRef)
+            {
+                this.BarPart.ComplexMaterialObj = material;
+                this.BarPart.ComplexMaterialRef = material.Guid;
+            }
+            else
+            {
+                throw new NotImplementedException("Bar with Composite Section or Delta Beam can not be updated yet! Send a request.");
+            }
+        }
 
 
         /// Update entities if this bar should be "reconstructed"

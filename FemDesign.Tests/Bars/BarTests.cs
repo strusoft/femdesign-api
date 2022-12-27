@@ -140,6 +140,67 @@ namespace FemDesign.Bars
             Assert.IsFalse(bar.BarPart.Name.StartsWith("@"));
         }
 
+
+        [TestMethod("UpdateSection")]
+        public void UpdateSection()
+        {
+
+            // Define geometry
+            Model model = FemDesign.Model.DeserializeFromFilePath("Bars//myModel.struxml");
+
+            var beam = model.Entities.Bars.Where(x => x.BarPart.HasComplexSectionRef && !x.BarPart.HasDeltaBeamComplexSectionRef).ToList().First();
+            var truss = model.Entities.Bars.Where(x => x.Type == BarType.Truss).ToList().First();
+            var deltaBeam = model.Entities.Bars.Where(x => x.BarPart.HasDeltaBeamComplexSectionRef).ToList().First();
+            var compositeBeam = model.Entities.Bars.Where(x => x.BarPart.HasComplexCompositeRef).ToList().First();
+
+            Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("Bars//materials.struxml");
+            Sections.SectionDatabase sectionsDB = Sections.SectionDatabase.DeserializeStruxml("Bars//sections.struxml");
+
+            var section1 = sectionsDB.SectionByName("Concrete sections, Rectangle, 120x150");
+            var section2 = sectionsDB.SectionByName("Concrete sections, Rectangle, 200x550");
+            var steelSection = sectionsDB.SectionByName("Steel sections, IPE, 80");
+
+
+            beam.UpdateSection(new Section[] { section1, section2 });
+            truss.UpdateSection(steelSection);
+
+            Assert.ThrowsException<NotImplementedException>(() => deltaBeam.UpdateSection(new Section[] { section1, section2 }));
+            Assert.ThrowsException<NotImplementedException>(() => compositeBeam.UpdateSection(new Section[] { section1, section2 }));
+        }
+
+        [TestMethod("UpdateMaterial")]
+        public void UpdateMaterial()
+        {
+            // Define geometry
+            Model model = FemDesign.Model.DeserializeFromFilePath("Bars//myModel.struxml");
+
+            var beam = model.Entities.Bars.Where(x => x.BarPart.HasComplexSectionRef && !x.BarPart.HasDeltaBeamComplexSectionRef).ToList().First();
+            var truss = model.Entities.Bars.Where(x => x.Type == BarType.Truss).ToList().First();
+            var deltaBeam = model.Entities.Bars.Where(x => x.BarPart.HasDeltaBeamComplexSectionRef).ToList().First();
+            var compositeBeam = model.Entities.Bars.Where(x => x.BarPart.HasComplexCompositeRef).ToList().First();
+
+            Materials.MaterialDatabase materialsDB = Materials.MaterialDatabase.DeserializeStruxml("Bars//materials.struxml");
+
+            var c1620 = materialsDB.MaterialByName("C16/20");
+            var s235 = materialsDB.MaterialByName("S 235");
+
+            Console.WriteLine(beam.BarPart.ComplexMaterialObj.Name);
+            beam.UpdateMaterial(c1620);
+            Console.WriteLine(beam.BarPart.ComplexMaterialObj.Name);
+
+            Console.WriteLine(truss.BarPart.ComplexMaterialObj.Name);
+            truss.UpdateMaterial(s235);
+            Console.WriteLine(truss.BarPart.ComplexMaterialObj.Name);
+
+            Assert.IsTrue(beam.BarPart.ComplexMaterialObj.Equals(c1620));
+            Assert.IsTrue(truss.BarPart.ComplexMaterialObj.Equals(s235));
+
+            Assert.ThrowsException<NotImplementedException>(() => deltaBeam.UpdateMaterial(c1620));
+            Assert.ThrowsException<NotImplementedException>(() => compositeBeam.UpdateMaterial(c1620));
+        }
+
+
+
         private static Bar GetTestBar()
         {
             var edge = new Geometry.LineEdge(new Geometry.Point3d(0, 0, 0), new Geometry.Point3d(1, 0, 0));

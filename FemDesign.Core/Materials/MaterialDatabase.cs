@@ -104,7 +104,7 @@ namespace FemDesign.Materials
                     if (material.Name == materialName)
                     {
                         // update object information
-                        material.Guid = System.Guid.NewGuid();
+                        //material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -119,7 +119,7 @@ namespace FemDesign.Materials
                     if (material.Name == materialName)
                     {
                         // update object information
-                        material.Guid = System.Guid.NewGuid();
+                        //material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -148,7 +148,7 @@ namespace FemDesign.Materials
                     if (panelLibraryType.Name == panelLibraryTypeName)
                     {
                         // update object information
-                        panelLibraryType.Guid = System.Guid.NewGuid();
+                        //panelLibraryType.Guid = System.Guid.NewGuid();
                         panelLibraryType.EntityModified();
 
                         // return
