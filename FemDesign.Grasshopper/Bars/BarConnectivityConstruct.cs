@@ -46,68 +46,137 @@ namespace FemDesign.Grasshopper
             DA.GetData(4, ref r_y);
             DA.GetData(5, ref r_z);
 
-            if (typeof(bool).IsAssignableFrom(t_x.Value.GetType()))
+            #region tx release
+            try
             {
-                connectivity.Tx = t_x.Value;
+                if (typeof(bool).IsAssignableFrom(t_x.Value.GetType()))
+                {
+                    connectivity.Tx = t_x.Value;
+                }
+                else
+                {
+                    connectivity.Tx = false;
+                    try
+                    {
+                        connectivity.TxRelease = double.Parse(t_x.Value);
+                    }
+                    catch { connectivity.TxRelease = t_x.Value; }
+                }
             }
-            else
+            catch
             {
-                connectivity.Tx = false;
-                connectivity.TxRelease = t_x.Value;
+                connectivity.Tx = t_x;
+            }
+            #endregion
+
+            #region ty release
+            try
+            {
+                if (typeof(bool).IsAssignableFrom(t_y.Value.GetType()))
+                {
+                    connectivity.Ty = t_y.Value;
+                }
+                else
+                {
+                    connectivity.Ty = false;
+                    try
+                    {
+                        connectivity.TyRelease = double.Parse(t_y.Value);
+                    }
+                    catch { connectivity.TyRelease = t_y.Value; }
+                }
+            }
+            catch { connectivity.Ty = t_y; }
+
+            #endregion
+
+            #region tz release
+            try
+            {
+                if (typeof(bool).IsAssignableFrom(t_z.Value.GetType()))
+                {
+                    connectivity.Tz = t_z.Value;
+                }
+                else
+                {
+                    connectivity.Tz = false;
+                    try
+                    {
+                        connectivity.TzRelease = double.Parse(t_z.Value);
+                    }
+                    catch { connectivity.TzRelease = t_z.Value; }
+                }
+            }
+            catch
+            {
+                connectivity.Tz = t_z;
             }
 
-            if (typeof(bool).IsAssignableFrom(t_y.Value.GetType()))
-            {
-                connectivity.Ty = t_y.Value;
-            }
-            else
-            {
-                connectivity.Ty = false;
-                connectivity.TyRelease = t_y.Value;
-            }
 
-            if (typeof(bool).IsAssignableFrom(t_z.Value.GetType()))
-            {
-                connectivity.Tz = t_z.Value;
-            }
-            else
-            {
-                connectivity.Tz = false;
-                connectivity.TzRelease = t_z.Value;
-            }
+            #endregion
 
+            #region rx release
+            try
+            {
+                if (typeof(bool).IsAssignableFrom(r_x.Value.GetType()))
+                {
+                    connectivity.Rx = r_x.Value;
+                }
+                else
+                {
+                    connectivity.Rx = false;
+                    try
+                    {
+                        connectivity.RxRelease = double.Parse(r_x.Value);
+                    }
+                    catch { connectivity.RxRelease = r_x.Value; }
+                }
+            }
+            catch { connectivity.Rx = r_x; }
 
+            #endregion
 
+            #region ry release
+            try
+            {
+                if (typeof(bool).IsAssignableFrom(r_y.Value.GetType()))
+                {
+                    connectivity.Ry = r_y.Value;
+                }
+                else
+                {
+                    connectivity.Ry = false;
+                    try
+                    {
+                        connectivity.RyRelease = double.Parse(r_y.Value);
+                    }
+                    catch { connectivity.RyRelease = r_y.Value; }
+                }
+            }
+            catch { connectivity.Ry = r_y; }
 
-            if (typeof(bool).IsAssignableFrom(r_x.Value.GetType()))
-            {
-                connectivity.Rx = r_x.Value;
-            }
-            else
-            {
-                connectivity.Rx = false;
-                connectivity.RxRelease = r_x.Value;
-            }
+            #endregion
 
-            if (typeof(bool).IsAssignableFrom(r_y.Value.GetType()))
+            #region rz release
+            try
             {
-                connectivity.Ry = r_y.Value;
+                if (typeof(bool).IsAssignableFrom(r_z.Value.GetType()))
+                {
+                    connectivity.Rz = r_z.Value;
+                }
+                else
+                {
+                    connectivity.Rz = false;
+                    try
+                    {
+                        connectivity.RzRelease = double.Parse(r_z.Value);
+                    }
+                    catch { connectivity.RzRelease = r_z.Value; }
+                }
             }
-            else
-            {
-                connectivity.Ry = false;
-                connectivity.RyRelease = r_y.Value;
-            }
+            catch { connectivity.Rz = r_z; }
+            #endregion
 
-            if (typeof(bool).IsAssignableFrom(r_z.Value.GetType()))
-            {
-                connectivity.Rz = r_z.Value;
-            }
-            else
-            {
-                connectivity.Rz = false;
-                connectivity.RzRelease = r_z.Value;
-            }
 
             // return
             DA.SetData(0, connectivity);
