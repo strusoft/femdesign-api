@@ -142,6 +142,7 @@ namespace FemDesign.Bars
 
 
         [TestMethod("UpdateSection")]
+        [TestCategory("FEM-Design required")]
         public void UpdateSection()
         {
 
@@ -169,6 +170,7 @@ namespace FemDesign.Bars
         }
 
         [TestMethod("UpdateMaterial")]
+        [TestCategory("FEM-Design required")]
         public void UpdateMaterial()
         {
             // Define geometry
