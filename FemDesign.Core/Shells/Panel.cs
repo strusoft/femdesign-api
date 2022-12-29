@@ -11,7 +11,7 @@ namespace FemDesign.Shells
     /// panel_type
     /// </summary>
     [System.Serializable]
-    public partial class Panel: NamedEntityBase, IStructureElement, IStageElement
+    public partial class Panel: NamedEntityBase, IStructureElement, IStageElement, IShell
     {
         /// <summary>
         /// Panel instance counter
@@ -212,7 +212,7 @@ namespace FemDesign.Shells
         public PanelType Type { get; set; }
 
         [XmlAttribute("complex_material")]
-        public System.Guid ComplexMaterial { get; set; }
+        public System.Guid ComplexMaterialRef { get; set; }
         [XmlIgnore]
         public Materials.Material _material;
         [XmlIgnore]
@@ -223,7 +223,7 @@ namespace FemDesign.Shells
                 if (value.Concrete != null)
                 {
                     // material must be concrete
-                    this.ComplexMaterial = value.Guid;
+                    this.ComplexMaterialRef = value.Guid;
                     this._material = value;
                 }
                 else
@@ -416,6 +416,20 @@ namespace FemDesign.Shells
                 //
                 this.SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(shellEdgeConnection, index);  
             }
+        }
+
+
+        public void UpdateMaterial(Materials.Material material)
+        {
+            if (this.Type == PanelType.Concrete)
+            {
+                if (material.Family == "Concrete")
+                    this.ComplexMaterialRef = material.Guid;
+                else
+                    throw new System.ArgumentException("Material must be of type Concrete.");
+            }
+            else if (this.Type == PanelType.Timber)
+                throw new System.NotImplementedException("Panel with Timber Material can not be updated yet! Send a request.");
         }
 
         /// <summary>

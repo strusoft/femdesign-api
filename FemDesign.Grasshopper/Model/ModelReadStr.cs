@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
-
+using System.Text.RegularExpressions;
 namespace FemDesign.Grasshopper
 {
     public class ModelReadStr: GH_Component
@@ -45,6 +45,9 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+
+            
+
             DA.GetDataList("ResultTypes", resultTypes);
 
             bool runNode = true;
@@ -96,6 +99,10 @@ namespace FemDesign.Grasshopper
 
                 // Read model and results
                 var model = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
+
+
+                if (_FileName.IsASCII(filePath))
+                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
 
                 IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 

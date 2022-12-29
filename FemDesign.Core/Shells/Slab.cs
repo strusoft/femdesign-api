@@ -12,7 +12,7 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public partial class Slab : EntityBase, INamedEntity, IStructureElement, IStageElement
+    public partial class Slab : EntityBase, INamedEntity, IStructureElement, IStageElement, IShell
     {
         public string Name => this.SlabPart.Name.Substring(0, this.SlabPart.Name.Length - 2); // Remove trailing ".1" from barpart name
         public int Instance => this.SlabPart.Instance;
@@ -262,6 +262,29 @@ namespace FemDesign.Shells
 
             // return
             return slabClone;
+        }
+
+
+        public void UpdateMaterial(Materials.Material material)
+        {
+            this.SlabPart.ComplexMaterial = material;
+            this.SlabPart.ComplexMaterialGuid = material.Guid;
+        }
+
+        public void UpdateThickness(double thickness)
+        {
+            var thicknessObj = new List<FemDesign.Shells.Thickness>();
+            thicknessObj.Add(new FemDesign.Shells.Thickness(this.SlabPart.Region.Contours.First().Edges.First().Points.First(), thickness));
+            this.SlabPart.Thickness = thicknessObj;
+        }
+
+        public void UpdateThickness(List<Geometry.Point3d> points , List<double> thickness)
+        {
+            if(points.Count != 3) throw new System.ArgumentException("points must have exactly three items.");
+            if(thickness.Count != 3) throw new System.ArgumentException("thickness must have exactly three items.");
+
+            var thicknessObj = points.Zip(thickness, (p, t) => new FemDesign.Shells.Thickness(p, t)).ToList();
+            this.SlabPart.Thickness = thicknessObj;
         }
 
         public override string ToString()

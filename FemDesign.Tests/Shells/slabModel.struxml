@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 21.00.005" start_time="1970-01-01T00:00:00.000" end_time="2022-12-27T14:36:43.000" guid="97f82c8a-ebc3-4458-8e69-a52a60c0f5ae" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<entities>
+		<slab name="P.1" guid="e1646632-3bd8-49e1-8cec-994a4d4e9ce2" last_change="2022-12-27T10:40:19.000" action="added" type="plate">
+			<slab_part guid="fb9805d9-43dd-4947-99ed-9a303ee6237b" last_change="2022-12-27T10:40:19.000" action="added" name="P.1.1" complex_material="2e2222ee-6327-4a43-9fd0-ee4166577601" alignment="center" align_offset="0" ortho_alfa="0" ortho_ratio="1">
+				<contour>
+					<edge type="line">
+						<point x="10.6172451965899" y="16.9722132373487" z="0"></point>
+						<point x="35.037387958223" y="16.9722132373487" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="35.037387958223" y="16.9722132373487" z="0"></point>
+						<point x="35.037387958223" y="38.6274788513623" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="35.037387958223" y="38.6274788513623" z="0"></point>
+						<point x="10.6172451965899" y="38.6274788513623" z="0"></point>
+						<normal x="0" y="-1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="10.6172451965899" y="38.6274788513623" z="0"></point>
+						<point x="10.6172451965899" y="16.9722132373487" z="0"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+				<thickness x="10.6172451965899" y="16.9722132373487" z="0" val="0.15"></thickness>
+				<local_pos x="22.8273165774064" y="27.7998460443555" z="0"></local_pos>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<end></end>
+			</slab_part>
+			<end></end>
+		</slab>
+		<slab name="P.2" guid="32aaea1a-9253-4b2f-869a-3b911e28e19e" last_change="2022-12-27T14:36:43.000" action="added" type="plate">
+			<slab_part guid="aba07122-bcd8-41f9-a040-0613846839e9" last_change="2022-12-27T14:36:43.000" action="added" name="P.2.1" complex_material="7a9b5b82-22fa-4d6e-b492-49e307630075" alignment="center" align_offset="0" ortho_alfa="0" ortho_ratio="1">
+				<contour>
+					<edge type="line">
+						<point x="51.3406596903225" y="6.65507604746498" z="0"></point>
+						<point x="38.9904582496747" y="6.65507604746498" z="0"></point>
+						<normal x="0" y="-1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="38.9904582496747" y="6.65507604746498" z="0"></point>
+						<point x="38.9904582496747" y="-0.475457214542985" z="0"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="38.9904582496747" y="-0.475457214542985" z="0"></point>
+						<point x="51.3406596903225" y="-0.475457214542985" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="51.3406596903225" y="-0.475457214542985" z="0"></point>
+						<point x="51.3406596903225" y="6.65507604746498" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+				<thickness x="51.3406596903225" y="6.65507604746498" z="0" val="1.2"></thickness>
+				<local_pos x="45.16555897" y="3.089809416461" z="0"></local_pos>
+				<local_x x="1" y="0" z="0"></local_x>
+				<local_y x="0" y="1" z="0"></local_y>
+				<end></end>
+			</slab_part>
+			<end></end>
+		</slab>
+		<shell_buckling base_shell="09c7e230-5a25-4833-a7f3-2c2ab506c2c4" guid="ae5f5ef3-11a5-44b9-abd4-94ed18ea3bbc" last_change="2022-12-27T10:38:43.000" action="added">
+			<direction x="-3.67320510329499E-06" y="0.999999999993254" z="0"></direction>
+			<contour>
+				<edge type="line">
+					<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+					<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<edge type="line">
+					<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+					<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+					<normal x="-1" y="0" z="0"></normal>
+				</edge>
+				<edge type="line">
+					<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+					<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<edge type="line">
+					<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+					<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+					<normal x="1" y="0" z="0"></normal>
+				</edge>
+			</contour>
+		</shell_buckling>
+		<panel type="concrete" external_moving_local="true" complex_material="2e2222ee-6327-4a43-9fd0-ee4166577601" complex_section="dfee187e-fef5-4a85-bdeb-bb588b0d7137" panelname="A" gap="0.003" orthotropy="1" thickness="0.18179125178241" alignment="center" align_offset="0" guid="04f046a4-51e2-4a7d-a27b-b146f48e1194" last_change="2022-12-27T09:12:45.000" action="added" name="PP.1">
+			<region>
+				<contour>
+					<edge type="line">
+						<point x="46.568521767332" y="19.2214627372231" z="0"></point>
+						<point x="62.4218848201805" y="19.2214627372231" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="62.4218848201805" y="19.2214627372231" z="0"></point>
+						<point x="62.4218848201805" y="34.296537870046" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="62.4218848201805" y="34.296537870046" z="0"></point>
+						<point x="46.568521767332" y="34.296537870046" z="0"></point>
+						<normal x="0" y="-1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="46.568521767332" y="34.296537870046" z="0"></point>
+						<point x="46.568521767332" y="19.2214627372231" z="0"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+			</region>
+			<direction x="0" y="1" z="0"></direction>
+			<anchor_point x="62.4218848201805" y="19.2214627372231" z="0"></anchor_point>
+			<local_pos x="54.4952032937562" y="26.7590003036346" z="0"></local_pos>
+			<internal_panels>
+				<item guid="8d59fab2-2dc3-4e6f-a472-8803709decb5">
+					<region>
+						<contour>
+							<edge type="line">
+								<point x="46.568521767332" y="19.2214627372231" z="0"></point>
+								<point x="62.4218848201805" y="19.2214627372231" z="0"></point>
+								<normal x="0" y="1" z="0"></normal>
+								<edge_connection guid="71ab412d-d310-4f8a-8f36-049d1f6d522a" last_change="2022-12-27T09:12:45.000" action="added" name="CE.1" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "PP.1.CE.1" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="62.4218848201805" y="19.2214627372231" z="0"></point>
+								<point x="62.4218848201805" y="34.296537870046" z="0"></point>
+								<normal x="-1" y="0" z="0"></normal>
+								<edge_connection guid="a764d4c3-4cd0-4e41-84da-2ca2b4172739" last_change="2022-12-27T09:12:45.000" action="added" name="CE.2" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "PP.1.CE.2" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="62.4218848201805" y="34.296537870046" z="0"></point>
+								<point x="46.568521767332" y="34.296537870046" z="0"></point>
+								<normal x="0" y="-1" z="0"></normal>
+								<edge_connection guid="3dcb77c8-6a8c-4414-99e3-96b8c35fa830" last_change="2022-12-27T09:12:45.000" action="added" name="CE.3" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "PP.1.CE.3" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="46.568521767332" y="34.296537870046" z="0"></point>
+								<point x="46.568521767332" y="19.2214627372231" z="0"></point>
+								<normal x="1" y="0" z="0"></normal>
+								<edge_connection guid="30a542ce-b92e-4917-a623-e07e6a69b769" last_change="2022-12-27T09:12:45.000" action="added" name="CE.4" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "PP.1.CE.4" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+						</contour>
+					</region>
+				</item>
+			</internal_panels>
+			<external_rigidity>
+				<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+				<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+			</external_rigidity>
+		</panel>
+		<panel type="timber" external_moving_local="true" panelname="A" gap="0.01" orthotropy="1" thickness="0.06" alignment="center" align_offset="0" guid="09c7e230-5a25-4833-a7f3-2c2ab506c2c4" last_change="2022-12-27T09:12:53.000" action="added" name="TP.1">
+			<region>
+				<contour>
+					<edge type="line">
+						<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+						<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+						<normal x="0" y="1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+						<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+						<normal x="-1" y="0" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+						<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+						<normal x="0" y="-1" z="0"></normal>
+					</edge>
+					<edge type="line">
+						<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+						<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+						<normal x="1" y="0" z="0"></normal>
+					</edge>
+				</contour>
+			</region>
+			<direction x="-3.67320510329499E-06" y="0.999999999993254" z="0"></direction>
+			<anchor_point x="88.7675876154204" y="17.7571816278839" z="0"></anchor_point>
+			<local_pos x="80.4110850046152" y="22.5818038384225" z="0"></local_pos>
+			<internal_panels>
+				<item guid="9b195203-db72-430e-babc-10ba1307614c">
+					<region>
+						<contour>
+							<edge type="line">
+								<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+								<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+								<normal x="0" y="1" z="0"></normal>
+								<edge_connection guid="bc8297bd-4b9c-4b0e-a4f0-d183d863b0ae" last_change="2022-12-27T09:12:53.000" action="added" name="CE.1" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "TP.1.CE.1" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="88.7675521717665" y="17.7571816277537" z="0"></point>
+								<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+								<normal x="-1" y="0" z="0"></normal>
+								<edge_connection guid="3e183a3a-871a-4d16-b367-c6bdd712081e" last_change="2022-12-27T09:12:53.000" action="added" name="CE.2" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "TP.1.CE.2" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="88.7675521717665" y="27.4064260490914" z="0"></point>
+								<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+								<normal x="0" y="-1" z="0"></normal>
+								<edge_connection guid="573618ec-b1ef-4432-b283-5132e334c40b" last_change="2022-12-27T09:12:53.000" action="added" name="CE.3" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "TP.1.CE.3" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+							<edge type="line">
+								<point x="72.0546178374638" y="27.4064260490914" z="0"></point>
+								<point x="72.0546178374638" y="17.7571816277537" z="0"></point>
+								<normal x="1" y="0" z="0"></normal>
+								<edge_connection guid="29d16eae-0e9b-4042-bb10-66b20a180119" last_change="2022-12-27T09:12:53.000" action="added" name="CE.4" moving_local="true" joined_start_point="true" joined_end_point="true">
+									<!--edge description: "TP.1.CE.4" -->
+									<rigidity>
+										<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+										<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+									</rigidity>
+								</edge_connection>
+							</edge>
+						</contour>
+					</region>
+				</item>
+			</internal_panels>
+			<timber_application_data panel_type="6aad5ee0-47a9-4e86-b0ac-d9370211383d">
+				<factors gamma_m_u="1.3" gamma_m_as="1" kdef_U="0" kdef_Sq="0.6" kdef_Sf="0.6" kdef_Sc="0.6" service_class="0" system_factor="1"></factors>
+			</timber_application_data>
+			<external_rigidity>
+				<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
+				<rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0"></rotations>
+			</external_rigidity>
+		</panel>
+	</entities>
+	<sections>
+		<section guid="dfee187e-fef5-4a85-bdeb-bb588b0d7137" last_change="1970-01-01T00:00:00.000" action="added" name="Hollow Core, HD-F, 120-20" type="custom" fd-mat="3" fd_name_code="Hollow Core" fd_name_type="HD-F" fd_name_size="120-20">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.004" start_angle="0" end_angle="1.57079632679476" type="arc">
+							<point x="-0.594498768489166" y="-9.81835715325423E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.594498768489167" y="-0.102183571532543" z="0"></point>
+							<point x="0.594501067478849" y="-0.102183571532543" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.004" start_angle="0" end_angle="1.57079632679481" type="arc">
+							<point x="0.594501067478849" y="-9.81835715325432E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.598501067478849" y="-9.81835715325434E-02" z="0"></point>
+							<point x="0.598501067478849" y="-7.71838004143785E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.598501067478849" y="-7.71838004143785E-02" z="0"></point>
+							<point x="0.593223308576693" y="-7.71836478305898E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge radius="4.99999999999912E-03" start_angle="0" end_angle="1.51368740263556" type="arc">
+							<point x="0.593223453130273" y="-7.21836478326805E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-2.89107159989754E-05" y="-0.999999999582085" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.588231596238809" y="-7.24688929468203E-02" z="0"></point>
+							<point x="0.583064971287439" y="1.79482644049574E-02" z="0"></point>
+							<normal x="-0.998371378292842" y="-5.70490228281845E-02" z="0"></normal>
+						</edge>
+						<edge radius="2.26667851868581E-02" start_angle="0" end_angle="2.16167167560481" type="arc">
+							<point x="0.592573409132934" y="3.85242883271348E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.419487711517303" y="-0.907761014742303" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.580783019383148" y="5.78832619635483E-02" z="0"></point>
+							<point x="0.579039855320645" y="8.83886330573034E-02" z="0"></point>
+							<normal x="-0.998371334423971" y="-5.70497905386075E-02" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.579039855320645" y="8.83886330573034E-02" z="0"></point>
+							<point x="0.569056105930997" y="9.78182595221447E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.569056105930997" y="9.78182595221447E-02" z="0"></point>
+							<point x="-0.569054073970124" y="9.78182595221447E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.569054073970124" y="9.78182595221447E-02" z="0"></point>
+							<point x="-0.579037785212799" y="8.83886330573034E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.579037785212799" y="8.83886330573034E-02" z="0"></point>
+							<point x="-0.580784649531648" y="5.78182595221451E-02" z="0"></point>
+							<normal x="0.998371360779469" y="-5.70493293155334E-02" z="0"></normal>
+						</edge>
+						<edge radius="2.26667851868679E-02" start_angle="0" end_angle="2.16167167560489" type="arc">
+							<point x="-0.592575039281435" y="3.84592858857295E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.520161533829826" y="0.854067900534731" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.583066601435944" y="1.78832619635514E-02" z="0"></point>
+							<point x="-0.58822948790803" y="-7.24688916174181E-02" z="0"></point>
+							<normal x="0.998371393415042" y="-0.057048758185499" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.5137165784263" type="arc">
+							<point x="-0.593221344875104" y="-7.21836478264909E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.998371393415045" y="-0.057048758185448" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.593221344875107" y="-7.71836478264907E-02" z="0"></point>
+							<point x="-0.598498768489168" y="-7.71836478264882E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.598498768489168" y="-7.71836478264882E-02" z="0"></point>
+							<point x="-0.598498768489167" y="-9.81835715325427E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283375E-02" start_angle="0" end_angle="0.724478713213901" type="arc">
+							<point x="-0.472498740358856" y="-8.18407671450683E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.52377630076539" y="-0.851855848577988" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.549997849146774" y="-3.17367941886324E-02" z="0"></point>
+							<point x="-0.549997849147125" y="1.53695290533922E-02" z="0"></point>
+							<normal x="-1" y="-7.45470073910707E-12" z="0"></normal>
+						</edge>
+						<edge radius="0.081000008779934" start_angle="0" end_angle="2.55150926809484" type="arc">
+							<point x="-0.472497849147126" y="-8.18363256769762E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746274" y="0.29077974158102" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.394997849147126" y="1.53695290533949E-02" z="0"></point>
+							<point x="-0.394997849147125" y="-3.17367941887927E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.080999930437238" start_angle="0" end_angle="0.724470566713894" type="arc">
+							<point x="-0.472497714075576" y="-8.18345754806214E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.956789277596812" y="-0.290782183559742" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.430071625392242" y="-7.71835715325442E-02" z="0"></point>
+							<point x="-0.514924111048982" y="-0.077183571532543" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283463E-02" start_angle="0" end_angle="0.724478713213846" type="arc">
+							<point x="-0.283498763247027" y="-8.18407671451597E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.523776300765541" y="-0.851855848577895" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.360997872034957" y="-3.17367941886346E-02" z="0"></point>
+							<point x="-0.360997872035308" y="1.53695290533931E-02" z="0"></point>
+							<normal x="-1" y="-7.45823600660852E-12" z="0"></normal>
+						</edge>
+						<edge radius="8.10000087799342E-02" start_angle="0" end_angle="2.55150926809482" type="arc">
+							<point x="-0.283497872035308" y="-8.18363256769665E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746272" y="0.290779741581026" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.205997872035309" y="1.53695290533971E-02" z="0"></point>
+							<point x="-0.205997872035308" y="-3.17367941887927E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.09999304372407E-02" start_angle="0" end_angle="0.724470566713909" type="arc">
+							<point x="-0.283497736963749" y="-8.18345754805341E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.95678927759677" y="-0.29078218355988" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.241071648280426" y="-0.077183571532543" z="0"></point>
+							<point x="-0.325924133937164" y="-7.71835715325441E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283566E-02" start_angle="0" end_angle="0.72447871321374" type="arc">
+							<point x="-9.44987479882298E-02" y="-8.18407671450709E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.523776300765573" y="-0.851855848577875" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.171997856776167" y="-3.17367941886342E-02" z="0"></point>
+							<point x="-0.171997856776518" y="1.53695290533935E-02" z="0"></point>
+							<normal x="-1" y="-7.45705758410787E-12" z="0"></normal>
+						</edge>
+						<edge radius="8.10000087799337E-02" start_angle="0" end_angle="2.55150926809486" type="arc">
+							<point x="-9.44978567765186E-02" y="-8.18363256769579E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746274" y="0.290779741581019" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-1.69978567765187E-02" y="1.53695290533953E-02" z="0"></point>
+							<point x="-1.69978567765194E-02" y="-3.17367941887922E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.09999304372391E-02" start_angle="0" end_angle="0.724470566713945" type="arc">
+							<point x="-9.44977217049538E-02" y="-8.18345754805004E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.956789277596759" y="-0.290782183559916" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-5.20716330216351E-02" y="-7.71835715325426E-02" z="0"></point>
+							<point x="-0.136924118678375" y="-7.71835715325435E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283433E-02" start_angle="0" end_angle="0.724478713213893" type="arc">
+							<point x="9.45011909766078E-02" y="-8.18407671453171E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.523776300765654" y="-0.851855848577826" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="1.70020821886763E-02" y="-3.17367941886359E-02" z="0"></point>
+							<point x="1.70020821883248E-02" y="1.53695290533931E-02" z="0"></point>
+							<normal x="-1" y="-7.46368621067381E-12" z="0"></normal>
+						</edge>
+						<edge radius="8.10000087799357E-02" start_angle="0" end_angle="2.5515092680948" type="arc">
+							<point x="9.45020821883235E-02" y="-8.18363256769936E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746265" y="0.29077974158105" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.172002082188324" y="1.53695290533935E-02" z="0"></point>
+							<point x="0.172002082188324" y="-3.17367941887914E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.09999304372404E-02" start_angle="0" end_angle="0.724470566713946" type="arc">
+							<point x="9.45022172598883E-02" y="-8.18345754804993E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.956789277596765" y="-0.290782183559897" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.136928305943208" y="-7.71835715325437E-02" z="0"></point>
+							<point x="5.20758202864689E-02" y="-7.71835715325437E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283539E-02" start_angle="0" end_angle="0.724478713213756" type="arc">
+							<point x="0.283501168088428" y="-8.18407671451035E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.52377630076557" y="-0.851855848577877" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.206002059300493" y="-0.031736794188635" z="0"></point>
+							<point x="0.206002059300141" y="1.53695290533935E-02" z="0"></point>
+							<normal x="-1" y="-7.4658957528626E-12" z="0"></normal>
+						</edge>
+						<edge radius="0.081000008779934" start_angle="0" end_angle="2.5515092680948" type="arc">
+							<point x="0.283502059300141" y="-8.18363256769836E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746265" y="0.290779741581048" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.361002059300141" y="1.53695290533944E-02" z="0"></point>
+							<point x="0.361002059300141" y="-3.17367941887949E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.09999304372295E-02" start_angle="0" end_angle="0.724470566714008" type="arc">
+							<point x="0.283502194371703" y="-8.1834575480661E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.956789277596813" y="-0.290782183559736" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.325928283055023" y="-7.71835715325435E-02" z="0"></point>
+							<point x="0.241075797398285" y="-7.71835715325435E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="8.09990269283502E-02" start_angle="0" end_angle="0.724478713213791" type="arc">
+							<point x="0.472501183347211" y="-8.18407671450882E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.523776300765508" y="-0.851855848577915" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.395002074559281" y="-3.17367941886355E-02" z="0"></point>
+							<point x="0.39500207455893" y="1.53695290533918E-02" z="0"></point>
+							<normal x="-1" y="-7.45352231660599E-12" z="0"></normal>
+						</edge>
+						<edge radius="8.10000087799333E-02" start_angle="0" end_angle="2.55150926809484" type="arc">
+							<point x="0.47250207455893" y="-8.18363256769797E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.956790019746273" y="0.290779741581024" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.550002074558929" y="1.53695290533944E-02" z="0"></point>
+							<point x="0.550002074558929" y="-3.17367941887936E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.09999304372356E-02" start_angle="0" end_angle="0.724470566713957" type="arc">
+							<point x="0.47250220963049" y="-8.18345754806031E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.956789277596796" y="-0.290782183559793" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.514928298313813" y="-7.71835715325439E-02" z="0"></point>
+							<point x="0.430075812657074" y="-7.71835715325439E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+	</sections>
+	<materials>
+		<material guid="7a9b5b82-22fa-4d6e-b492-49e307630075" last_change="2014-11-20T10:37:15.000" action="added" standard="EC" country="common" name="C12/15">
+			<concrete mass="2.54842" E_0="27000000" E_1="27000000" E_2="27000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="11250000" G_1="11250000" G_2="11250000" Fck="12" Fck_cube="15" Fctk="1.1" Fctm="1.6" Ecm="27000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="8" Fcd_1="10" Fctd_0="0.733333333333333" Fctd_1="0.916666666666667" Ecd_0="18000" Ecd_1="22500" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+		<material guid="2e2222ee-6327-4a43-9fd0-ee4166577601" last_change="2014-11-20T10:37:15.000" action="added" standard="EC" country="common" name="C12/15">
+			<concrete mass="2.54842" E_0="27000000" E_1="27000000" E_2="27000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="11250000" G_1="11250000" G_2="11250000" Fck="12" Fck_cube="15" Fctk="1.1" Fctm="1.6" Ecm="27000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="1" alfaCt="1" Fcd_0="8" Fcd_1="10" Fctd_0="0.733333333333333" Fctd_1="0.916666666666667" Ecd_0="18000" Ecd_1="22500" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<timber_panel_types>
+		<predefined_type name="L(T)60-3S" guid="6aad5ee0-47a9-4e86-b0ac-d9370211383d" last_change="2018-09-25T12:27:28.000" action="added">
+			<timber_panel_data description="Cross laminated board" thickness="0.06">
+				<stiffness Em_k0="7126" Em_k90="274" Et_k0="4933" Et_k90="2467" Ec_k0="4933" Ec_k90="2467" Gr_k0="117" Gr_k90="96" Gv_k="690" rho="400"></stiffness>
+				<strength fm_k0="23.1" fm_k90="0.9" ft_k0="9.3" ft_k90="4.7" fc_k0="14" fc_k90="7" fr_k0="1.1" fr_k90="1.1" fv_k="1.3"></strength>
+				<service_class_0_factors kdef="0.6" kmod_permanent="0.6" kmod_long_term="0.7" kmod_medium_term="0.8" kmod_short_term="0.9" kmod_instantaneous="1.1"></service_class_0_factors>
+				<service_class_1_factors kdef="0.8" kmod_permanent="0.6" kmod_long_term="0.7" kmod_medium_term="0.8" kmod_short_term="0.9" kmod_instantaneous="1.1"></service_class_1_factors>
+				<service_class_2_factors kdef="2" kmod_permanent="0.5" kmod_long_term="0.55" kmod_medium_term="0.65" kmod_short_term="0.7" kmod_instantaneous="0.9"></service_class_2_factors>
+			</timber_panel_data>
+		</predefined_type>
+	</timber_panel_types>
+	<end></end>
+</database>

@@ -155,6 +155,23 @@ namespace FemDesign.Grasshopper
                 return ((Rhino.Geometry.LineCurve) obj).FromRhinoLineCurve();
             }
 
+            // if PolyCurve
+            else if (obj.GetType() == typeof(Rhino.Geometry.PolylineCurve))
+            {
+                //if(obj.PointCount)
+                Rhino.Geometry.PolylineCurve polyCurve = (Rhino.Geometry.PolylineCurve) obj;
+                if(polyCurve.PointCount == 2)
+                {
+                    var lineCurve = new Rhino.Geometry.LineCurve(polyCurve.PointAtStart, polyCurve.PointAtEnd);
+                    return lineCurve.FromRhinoLineCurve();
+                }
+                else
+                {
+                    throw new Exception($"Curve type: {obj.GetType()}, is not supported for conversion to an Edge.");
+                }
+            }
+
+
             // if NurbsCurve
             else if (obj.GetType() == typeof(Rhino.Geometry.NurbsCurve))
             {
