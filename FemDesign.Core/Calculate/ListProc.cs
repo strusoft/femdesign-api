@@ -406,6 +406,16 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("RCShellUtilizationComb_ListProc")]
         RCDesignShellUtilizationLoadCombination,
+        /// <summary>
+        /// RC design: Shell, Design Forces.
+        /// </summary>
+        [XmlEnum("RCShellDesForcesComb_ListProc")]
+        RCDesignShellDesignForcesLoadCombination,
+        /// <summary>
+        /// RC design: Shell, Required Reinforcement.
+        /// </summary>
+        [XmlEnum("RCShellReqReinfComb_ListProc")]
+        RCDesignShellRequiredReinforcementLoadCombination,
         #endregion
 
         #region MAX OF LOAD COMBINATION
