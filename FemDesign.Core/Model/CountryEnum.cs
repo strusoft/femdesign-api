@@ -107,6 +107,13 @@ namespace FemDesign
         /// </summary>
         [Parseable("TR", "tr", "turkey", "Turkey")]
         [XmlEnum("TR")]
-        TR
+        TR,
+
+        /// <summary>
+        /// Dutch annex
+        /// </summary>
+        [Parseable("NL", "nl", "Netherlands", "netherlands")]
+        [XmlEnum("NL")]
+        NL
     }
 }
