@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
 using FemDesign.GenericClasses;
+using Grasshopper.Kernel.Special;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
@@ -15,7 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR/NL", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Structure Elements", "Elements", "Single structure element or list of structure elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -74,6 +76,14 @@ namespace FemDesign.Grasshopper
             Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage);
             DA.SetData("FdModel", model);
         }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 0, new List<string>
+            { "D","DK","EST","FIN","GB","H","N","PL","RO","S","TR","NL"
+            }, null, GH_ValueListMode.DropDown);
+        }
+
         protected override System.Drawing.Bitmap Icon
         {
             get
