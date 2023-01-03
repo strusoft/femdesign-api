@@ -116,6 +116,7 @@
     <Compile Include="Results\SurfaceSupportReactionTests.cs" />
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
+    <Compile Include="Shells\SlabTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\fdscript.xsd">
@@ -125,6 +126,9 @@
     </None>
     <None Include="Bars\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Bars\myModel.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Entities\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -156,6 +160,9 @@
     </None>
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Shells\slabModel.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

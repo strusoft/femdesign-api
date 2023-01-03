@@ -73,15 +73,20 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
+    <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsTaperedBeam.cs" />
+    <Compile Include="Bars\BarsTaperedColumn.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE_2160.cs" />
     <Compile Include="Bars\BarsTruss.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE.cs" />
-    <Compile Include="Bars\BarsBeamSimple.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsBeamSimple_OBSOLETE_2160.cs" />
     <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE.cs" />
-    <Compile Include="Bars\BarsColumnSimple.cs" />
-    <Compile Include="Bars\BarsConnectivityConstruct.cs" />
-    <Compile Include="Bars\BarsConnectivityDefineSemiRigid.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsColumnSimple_OBSOLETE_2160.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsConnectivityConstructOBSOLETE.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsConnectivityDefineSemiRigidOBSOLETE.cs" />
     <Compile Include="Bars\BarsConnectivityHinged.cs" />
     <Compile Include="Bars\BarsConnectivityRigid.cs" />
     <Compile Include="Bars\BarsEccentricityConstruct.cs" />
@@ -123,6 +128,7 @@
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\ExtrudedSolid.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
+    <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoadDefine.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
@@ -134,6 +140,7 @@
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefaultOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
+    <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
@@ -146,6 +153,7 @@
     <Compile Include="Results\LabelledSection.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
+    <Compile Include="Results\LineConnectionForces.cs" />
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FeaNode.cs" />
@@ -828,6 +836,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\lineconnection.bmp" />
+    <None Include="Resources\icons\lineconnection.png" />
     <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
     <None Include="Resources\icons\Insulation.png" />
     <None Include="Resources\icons\ExtrudedSolid.png" />

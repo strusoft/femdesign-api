@@ -263,6 +263,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\INamedEntity.cs">
       <Link>Core\GenericClasses\INamedEntity.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IShell.cs">
+      <Link>Core\GenericClasses\IShell.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\IStageElement.cs">
       <Link>Core\GenericClasses\IStageElement.cs</Link>
     </Compile>

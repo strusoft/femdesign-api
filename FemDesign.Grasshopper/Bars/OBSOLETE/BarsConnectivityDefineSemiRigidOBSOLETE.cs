@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsConnectivityDefineSemiRigid: GH_Component
+    public class BarsConnectivityDefineSemiRigidOBSOLETE: GH_Component
     {
-        public BarsConnectivityDefineSemiRigid(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", CategoryName.Name(),
+        public BarsConnectivityDefineSemiRigidOBSOLETE(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -78,7 +78,6 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("2440d612-86bd-4113-ab16-2ff018c17a62"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
