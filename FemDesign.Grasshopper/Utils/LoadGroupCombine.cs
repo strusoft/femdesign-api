@@ -17,7 +17,7 @@ namespace FemDesign.Loads
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "LoadGroups to include in LoadCombination. Single LoadGrousp or list of LoadGroups.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "LoadGroups to include in LoadCombination. Single LoadGroups or list of LoadGroups.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("CombinationType", "CombinationType", "Type of combination", GH_ParamAccess.item, 0);
             Param_Integer type = pManager[1] as Param_Integer;
             type.AddNamedValue("6.10a", 0);

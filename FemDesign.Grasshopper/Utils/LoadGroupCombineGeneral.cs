@@ -11,20 +11,25 @@ namespace FemDesign.Loads
     public class LoadGroupCombineGeneral : GH_Component
     {
         public LoadGroupCombineGeneral()
-          : base("LoadGroup.CombineGeneral", "CombineGeneral", "This component/method is a utility contribution from a user (@Boohman). This component/method is not part of FEM-Design but might still be useful when automating stuff 😉\n\nCombines the load cases in each load group into load combinations", "FEM-Design Utils", "Loads")
+          : base("LoadGroup.CombineGeneral", "CombineGeneral", "This component/method is a utility contribution from a user (@GabrielEdefors) and further developed by another user (@Boohman). This component/method is not part of FEM-Design but might still be useful when automating stuff 😉\n\nCombines the load cases in each load group into load combinations", "FEM-Design Utils", "Loads")
         {
         }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "LoadGroups to include in LoadCombination. Single LoadGrousp or list of LoadGroups.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "LoadGroups to include in LoadCombination. Single LoadGroups or list of LoadGroups.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("CombinationType", "CombinationType", "Type of combination", GH_ParamAccess.item, 0);
-            Param_Integer type = pManager[1] as Param_Integer;
-            type.AddNamedValue("6.10a", 0);
-            type.AddNamedValue("6.10b", 1);
-            type.AddNamedValue("characteristic", 2);
-            type.AddNamedValue("frequent", 3);
-            type.AddNamedValue("quasi permanent", 4);
+            Param_Integer typeComb = pManager[1] as Param_Integer;
+            typeComb.AddNamedValue("6.10a", 0);
+            typeComb.AddNamedValue("6.10b", 1);
+            typeComb.AddNamedValue("characteristic", 2);
+            typeComb.AddNamedValue("frequent", 3);
+            typeComb.AddNamedValue("quasi permanent", 4);
+            pManager.AddIntegerParameter("NationalAnnex", "NationalAnnex", "National annex for combining loads", GH_ParamAccess.item, 0);
+            Param_Integer typeNationalAnex = pManager[2] as Param_Integer;
+            typeNationalAnex.AddNamedValue("EKS", 0);
+            typeNationalAnex.AddNamedValue("TSFS", 1);
+
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -34,16 +39,22 @@ namespace FemDesign.Loads
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get data
+            // Get data
             List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
             if (!DA.GetDataList(0, loadGroups)) { return; }
             if (loadGroups == null) { return; }
 
+            // Combination type
             int combType = 0;
             if (!DA.GetData(1, ref combType)) { return; }
 
+            // National annex
+            int natAnnex = 0;
+            if (!DA.GetData(2, ref natAnnex)) { return; }
+
             // Convert combination type to enum
             ELoadCombinationType combTypeEnum = ELoadCombinationType.SixTenB;
+
             if (combType == 0)
                 combTypeEnum = ELoadCombinationType.SixTenA;
             else if (combType == 1)
@@ -54,6 +65,14 @@ namespace FemDesign.Loads
                 combTypeEnum = ELoadCombinationType.Frequent;
             else if (combType == 4)
                 combTypeEnum = ELoadCombinationType.QuasiPermanent;
+
+            // Convert National Annex to Enum
+            ENationalAnnex nationalAnnexEnum = ENationalAnnex.EKS;
+
+            if (natAnnex == 0)
+                nationalAnnexEnum = ENationalAnnex.EKS;
+            else if (natAnnex == 1)
+                nationalAnnexEnum = ENationalAnnex.TSFS;
 
             // Raise error if 6.10a and no permanent load group
             int permanentGroupsCount = 0;
@@ -72,12 +91,12 @@ namespace FemDesign.Loads
             // Create load combinations
             List<FemDesign.Loads.LoadCombination> loadCombinations;
             List<LoadGroupBase> specificLoadGroups = loadGroups.Select(lg => lg.GetSpecificLoadGroup()).ToList();
-            loadCombinations = CreateCombinations(specificLoadGroups, combTypeEnum);
+            loadCombinations = CreateCombinations(specificLoadGroups, combTypeEnum, nationalAnnexEnum);
 
             DA.SetDataList(0, loadCombinations);
         }
 
-        private List<LoadCombination> CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType)
+        private List<LoadCombination> CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType, ENationalAnnex nationalAnnex)
         {
             // Fix how the combination type is printed
             string loadCombinationNameTag;
@@ -88,8 +107,8 @@ namespace FemDesign.Loads
             else
                 loadCombinationNameTag = combinationType.ToString();
 
-            LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
-            loadCombinationTable.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType);
+            LoadCombinationTableGeneral loadCombinationTable = new LoadCombinationTableGeneral();
+            loadCombinationTable.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType, nationalAnnex);
             return loadCombinationTable.LoadCombinations;
         }
 

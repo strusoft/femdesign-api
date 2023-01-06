@@ -71,6 +71,8 @@
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\NamedEntityBase.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Loads\LoadCombinationTableGeneral.cs" />
+    <Compile Include="Loads\NationalAnnexEnum.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />

@@ -6,7 +6,7 @@ namespace FemDesign.Loads
     /// <summary>
     /// Class for combining load cases and storing load combinations
     /// </summary>
-    public class LoadCombinationTable
+    public class LoadCombinationTableGeneral
     {
         /// List of load combinations in collection
         public List<LoadCombination> LoadCombinations { get; set; }
@@ -14,7 +14,7 @@ namespace FemDesign.Loads
         ///<summary>
         /// Constructor
         ///</summary>
-        public LoadCombinationTable()
+        public LoadCombinationTableGeneral()
         {
             LoadCombinations = new List<LoadCombination>();
         }
@@ -46,9 +46,10 @@ namespace FemDesign.Loads
         /// <param name="loadCombinationNameTag">The name tag used for naming the combination</param>
         /// <param name="permanentLoadGroups">List of permanent load groups</param>
         /// <param name="combinationType">Type of loda combination <see cref="ELoadCombinationType">ELoadCombinationType</see></param>
+        /// <param name="nationalAnnex">National annex</param>
         /// <returns></returns>
         private LoadCombination CreateLoadCombination(List<ModelLoadCaseInGroup> temporaryLoadCases, int loadCombNumber, string loadCombinationNameTag,
-                                                            List<LoadGroupPermanent> permanentLoadGroups, ELoadCombinationType combinationType)
+                                                            List<LoadGroupPermanent> permanentLoadGroups, ELoadCombinationType combinationType, ENationalAnnex nationalAnnex)
         {
             List<double> loadCombGammas = new List<double>();
             List<LoadCase> loadCases = new List<LoadCase>();
@@ -59,14 +60,28 @@ namespace FemDesign.Loads
             // Add variable load cases
             string leadingActionName;
             leadingActionName = AddTemporaryLoadCases(temporaryLoadCases, combinationType, loadCases,
-                                                      loadCombGammas);
+                                                      loadCombGammas, nationalAnnex);
+            // CHANGED
 
             // Create load combination
-            string loadCombName;
-            if (combinationType == ELoadCombinationType.SixTenA)
-                loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag;
-            else
+            string loadCombName = "";
+
+            // National Annex EKS
+            if (nationalAnnex == ENationalAnnex.EKS)
+            {
+                if (combinationType == ELoadCombinationType.SixTenA)
+                    loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag;
+                else
+                    loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
+            }
+
+            // National Annex TSFS
+            else if (nationalAnnex == ENationalAnnex.TSFS)
+            {
                 loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
+            }
+            // /Changed
+
             LoadCombination loadCombination = new LoadCombination(loadCombName, LoadCombinationType(combinationType), loadCases, loadCombGammas);
 
             return loadCombination;
@@ -152,8 +167,9 @@ namespace FemDesign.Loads
         /// <param name="loadGroups"></param>
         /// <param name="loadCombinationNameTag"></param>
         /// <param name="combinationType"></param>
+        /// <param name="nationalAnnex">National annex</param>
         /// <returns>Returns a list of instances of load combinations and the set of all load cases used</returns>
-        public void GenerateLoadCombinations(List<LoadGroupBase> loadGroups, string loadCombinationNameTag, ELoadCombinationType combinationType)
+        public void GenerateLoadCombinations(List<LoadGroupBase> loadGroups, string loadCombinationNameTag, ELoadCombinationType combinationType, ENationalAnnex nationalAnnex)
         {
             // Separate out the permanent load groups and the temporary
             List<LoadGroupPermanent> permanentLoadGroups = loadGroups.Where(lg => lg is LoadGroupPermanent).Cast<LoadGroupPermanent>().ToList();
@@ -170,14 +186,20 @@ namespace FemDesign.Loads
             {
                 LoadCombination currentLoadCombination;
                 currentLoadCombination = CreateLoadCombination(loadCasePermutations[i], loadCombCounter,
-                                                               loadCombinationNameTag, permanentLoadGroups, combinationType);
+                                                               loadCombinationNameTag, permanentLoadGroups, combinationType, nationalAnnex);
                 AddLoadCombination(currentLoadCombination);
 
-                // If 6.10a only one combination is needed
-                if (combinationType == ELoadCombinationType.SixTenA)
-                    break;
+                // CHANGED
+                if (nationalAnnex == ENationalAnnex.EKS)
+                {
+                    // If 6.10a only one combination is needed
+                    if (combinationType == ELoadCombinationType.SixTenA)
+                        break;
+                }
 
+                // /Changed
                 loadCombCounter++;
+
             }
         }
 
@@ -238,8 +260,9 @@ namespace FemDesign.Loads
         /// <param name="combinationType">Combination type used for the factors</param>
         /// <param name="loadCases">A list of load cases to add to</param>
         /// <param name="loadCombGammas">A list of combiation factors to add to</param>
+        /// <param name="nationalAnnex">National annex</param>
         private string AddTemporaryLoadCases(List<ModelLoadCaseInGroup> temporaryLoadCases, ELoadCombinationType combinationType,
-                                             List<LoadCase> loadCases, List<double> loadCombGammas)
+                                             List<LoadCase> loadCases, List<double> loadCombGammas, ENationalAnnex nationalAnnex)
         {
             string leadingActionName = "";
 
@@ -250,18 +273,32 @@ namespace FemDesign.Loads
             {
                 LoadGroupTemporary parentLoadGroup = (LoadGroupTemporary)temporaryLoadCases[i].LoadGroup;
 
-                // If combination type is not 6.10a, include load case
-                if (combinationType != ELoadCombinationType.SixTenA)
+                // CHANGED
+
+                // National Annex EKS
+                if (nationalAnnex == ENationalAnnex.EKS)
+                {
+                    // If combination type is not 6.10a, include load case
+                    if (combinationType != ELoadCombinationType.SixTenA)
+                        loadCases.Add(parentLoadGroup.GetCorrespondingCompleteLoadCase(temporaryLoadCases[i]));
+                }
+
+                // National Annex TSFS
+                else if (nationalAnnex == ENationalAnnex.TSFS)
+                {
                     loadCases.Add(parentLoadGroup.GetCorrespondingCompleteLoadCase(temporaryLoadCases[i]));
+                }
+
+                
 
                 // If leading action
                 if (indicesLeadingCases.Contains(i))
                 {
                     leadingActionName = FindLeadingActionName(parentLoadGroup, temporaryLoadCases[i]);
-                    AddCombinationFactorLeadingAction(parentLoadGroup, combinationType, loadCombGammas);
+                    AddCombinationFactorLeadingAction(parentLoadGroup, combinationType, loadCombGammas, nationalAnnex);
                 }
                 else //Else accompanying action
-                    AddCombinationFactorsAccompanyingAction(parentLoadGroup, combinationType, loadCombGammas);
+                    AddCombinationFactorsAccompanyingAction(parentLoadGroup, combinationType, loadCombGammas, nationalAnnex);
 
                 // Remove the load case if gamma is zero
                 if (loadCombGammas[loadCombGammas.Count - 1] == 0)
@@ -279,11 +316,15 @@ namespace FemDesign.Loads
         /// <param name="parentLoadGroup">The load group to take the coefficients from</param>
         /// <param name="combinationType">The type of load combination</param>
         /// <param name="loadCombGammas">The list of combinations factors to append to</param>
-        private void AddCombinationFactorLeadingAction(LoadGroupTemporary parentLoadGroup, ELoadCombinationType combinationType, List<double> loadCombGammas)
+        /// <param name="nationalAnnex">National annex</param>
+        private void AddCombinationFactorLeadingAction(LoadGroupTemporary parentLoadGroup, ELoadCombinationType combinationType, List<double> loadCombGammas, ENationalAnnex nationalAnnex)
         {
             // Assign the combination factors
             if (combinationType == ELoadCombinationType.SixTenB)
                 loadCombGammas.Add(parentLoadGroup.SafetyFactor);
+            // Add case for 6.10a if TSFS
+            else if(combinationType == ELoadCombinationType.SixTenA && nationalAnnex == ENationalAnnex.TSFS)
+                loadCombGammas.Add(parentLoadGroup.SafetyFactor * parentLoadGroup.Psi0);
             else if (combinationType == ELoadCombinationType.Characteristic)
                 loadCombGammas.Add(1);
             else if (combinationType == ELoadCombinationType.Frequent)
@@ -298,9 +339,14 @@ namespace FemDesign.Loads
         /// <param name="parentLoadGroup">The load group to take the coefficients from</param>
         /// <param name="combinationType">The type of load combination</param>
         /// <param name="loadCombGammas">The list of combinations factors to append to</param>
-        private void AddCombinationFactorsAccompanyingAction(LoadGroupTemporary parentLoadGroup, ELoadCombinationType combinationType, List<double> loadCombGammas)
+        /// <param name="nationalAnnex">National annex</param>
+        private void AddCombinationFactorsAccompanyingAction(LoadGroupTemporary parentLoadGroup, ELoadCombinationType combinationType, List<double> loadCombGammas, ENationalAnnex nationalAnnex)
         {
+
             if (combinationType == ELoadCombinationType.SixTenB)
+                loadCombGammas.Add(parentLoadGroup.SafetyFactor * parentLoadGroup.Psi0);
+            // Add case for 6.10a if TSFS 
+            else if (combinationType == ELoadCombinationType.SixTenA && nationalAnnex == ENationalAnnex.TSFS)
                 loadCombGammas.Add(parentLoadGroup.SafetyFactor * parentLoadGroup.Psi0);
             else if (combinationType == ELoadCombinationType.Characteristic)
                 loadCombGammas.Add(parentLoadGroup.Psi0);
