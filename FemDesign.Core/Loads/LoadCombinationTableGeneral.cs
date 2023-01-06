@@ -4,7 +4,7 @@ using System.Linq;
 namespace FemDesign.Loads
 {
     /// <summary>
-    /// Class for combining load cases and storing load combinations
+    /// Class for combining load cases based on a national annex and storing load combinations 
     /// </summary>
     public class LoadCombinationTableGeneral
     {
@@ -61,7 +61,6 @@ namespace FemDesign.Loads
             string leadingActionName;
             leadingActionName = AddTemporaryLoadCases(temporaryLoadCases, combinationType, loadCases,
                                                       loadCombGammas, nationalAnnex);
-            // CHANGED
 
             // Create load combination
             string loadCombName = "";
@@ -80,7 +79,6 @@ namespace FemDesign.Loads
             {
                 loadCombName = "LC " + loadCombNumber.ToString() + " " + loadCombinationNameTag + " - " + leadingActionName + " as leading action";
             }
-            // /Changed
 
             LoadCombination loadCombination = new LoadCombination(loadCombName, LoadCombinationType(combinationType), loadCases, loadCombGammas);
 
@@ -189,7 +187,6 @@ namespace FemDesign.Loads
                                                                loadCombinationNameTag, permanentLoadGroups, combinationType, nationalAnnex);
                 AddLoadCombination(currentLoadCombination);
 
-                // CHANGED
                 if (nationalAnnex == ENationalAnnex.EKS)
                 {
                     // If 6.10a only one combination is needed
@@ -197,7 +194,6 @@ namespace FemDesign.Loads
                         break;
                 }
 
-                // /Changed
                 loadCombCounter++;
 
             }
@@ -272,8 +268,6 @@ namespace FemDesign.Loads
             for (int i = 0; i < temporaryLoadCases.Count; i++)
             {
                 LoadGroupTemporary parentLoadGroup = (LoadGroupTemporary)temporaryLoadCases[i].LoadGroup;
-
-                // CHANGED
 
                 // National Annex EKS
                 if (nationalAnnex == ENationalAnnex.EKS)

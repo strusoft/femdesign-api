@@ -8,6 +8,9 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Loads
 {
+    /// <summary>
+    /// A class for generating load combinations based on a national annex
+    /// </summary>
     public class LoadGroupCombineGeneral : GH_Component
     {
         public LoadGroupCombineGeneral()

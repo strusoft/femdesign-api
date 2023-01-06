@@ -1,6 +1,9 @@
 ﻿
 namespace FemDesign.Loads
 {
+    /// <summary>
+    /// Enum for keeping track of the chosen national annex
+    /// </summary>
     public enum ENationalAnnex
     {
         /// <summary>
