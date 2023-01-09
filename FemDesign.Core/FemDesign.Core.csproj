@@ -340,6 +340,7 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessFactors.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
