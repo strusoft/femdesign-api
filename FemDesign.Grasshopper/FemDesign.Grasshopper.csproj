@@ -102,6 +102,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
+    <Compile Include="Bars\StiffnessModifier.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysisOBSOLETE.cs" />
