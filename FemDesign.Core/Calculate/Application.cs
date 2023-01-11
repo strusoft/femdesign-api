@@ -142,7 +142,7 @@ namespace FemDesign.Calculate
                 this.KillProcesses();
             }
 
-            string arguments = struxmlPath;
+            string arguments = "\"" + struxmlPath + "\"";
             string processPath = struxmlPath;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo(processPath)
@@ -203,7 +203,7 @@ namespace FemDesign.Calculate
                 this.KillProcesses();
             }
 
-            string arguments = "/s " + fdScriptPath;
+            string arguments = "/s " + "\"" + fdScriptPath + "\"";
             string processPath = fdScriptPath;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo(processPath)
