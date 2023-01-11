@@ -49,7 +49,7 @@ namespace FemDesign
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
         /// <param name="tempOutputDir"><code>BE CAREFUL!</code>If true the <paramref name="outputDir"/> will be deleted on exit. This option has no effect unless <paramref name="outputDir"/> has been specified.</param>
         public FemDesignConnection(
-            string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 21\",
+            string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 22\",
             bool minimized = false,
             bool keepOpen = false,
             string outputDir = null,
