@@ -857,6 +857,9 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\BarStiffnessFactorRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\BarStiffnessFactorRecord.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\CompositePart.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\CompositePart.cs</Link>
     </Compile>
@@ -866,8 +869,8 @@
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
     </Compile>
-    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessFactors.cs">
-      <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessFactors.cs</Link>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\SlabStiffnessRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\SlabStiffnessRecord.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs</Link>
