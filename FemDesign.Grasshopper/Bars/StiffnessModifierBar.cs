@@ -8,9 +8,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessModifier : GH_Component
+    public class StiffnessModifierBar : GH_Component
     {
-        public StiffnessModifier() : base("StiffnessModifier", "StiffnessModifier", "StiffnessModifier factor on Beam.", CategoryName.Name(),
+        public StiffnessModifierBar() : base("StiffnessModifierBar", "StiffnessModifierBar", "StiffnessModifier factor on Beam.", CategoryName.Name(),
              SubCategoryName.Cat2a())
         {
 
@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
                 analysisType = new List<string> { "SameForAllCalculation" };
             };
 
-            var isSameForAll = analysisType.Contains(Bars.AnalysisModifier.SameForAllCalculation.ToString());
+            var isSameForAll = analysisType.Contains(FemDesign.GenericClasses.StiffnessAnalysisType.SameForAllCalculation.ToString());
             if(analysisType.Count >= 2 && isSameForAll)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, $"'SameForAllCalculation' must be use without the other analysis type");
@@ -145,7 +145,7 @@ namespace FemDesign.Grasshopper
 
                 for (int i = 0; i < maxLength; i++)
                 {
-                    var value = (Bars.AnalysisModifier)Enum.Parse(typeof(Bars.AnalysisModifier), analysisType[i]);
+                    var value = (FemDesign.GenericClasses.StiffnessAnalysisType)Enum.Parse(typeof(FemDesign.GenericClasses.StiffnessAnalysisType), analysisType[i]);
                     var barStiffRecord = new StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record();
 
                     if (i < areaFactors.Count)
@@ -213,14 +213,14 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 0, Enum.GetNames( typeof(Bars.AnalysisModifier) ).ToList(), null, 0);
+            ValueListUtils.updateValueLists(this, 0, Enum.GetNames( typeof(FemDesign.GenericClasses.StiffnessAnalysisType) ).ToList(), null, 0);
         }
 
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.StiffnessModifier;
             }
         }
         public override Guid ComponentGuid

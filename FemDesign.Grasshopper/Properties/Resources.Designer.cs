@@ -153,6 +153,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BeamSetStiffness {
+            get {
+                object obj = ResourceManager.GetObject("BeamSetStiffness", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BucklingDataSetOnConcreteBar {
             get {
                 object obj = ResourceManager.GetObject("BucklingDataSetOnConcreteBar", resourceCulture);
@@ -1263,6 +1273,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PlateSetStiffness {
+            get {
+                object obj = ResourceManager.GetObject("PlateSetStiffness", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PlateVariableThickness {
             get {
                 object obj = ResourceManager.GetObject("PlateVariableThickness", resourceCulture);
@@ -1796,6 +1816,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StiffnessMatrix4TypeDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("StiffnessMatrix4TypeDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StiffnessModifier {
+            get {
+                object obj = ResourceManager.GetObject("StiffnessModifier", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
