@@ -299,6 +299,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\StartEndType.cs">
       <Link>Core\GenericClasses\StartEndType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\StiffnessAnalysisType.cs">
+      <Link>Core\GenericClasses\StiffnessAnalysisType.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\TextFormatting.cs">
       <Link>Core\GenericClasses\TextFormatting.cs</Link>
     </Compile>
@@ -862,6 +865,12 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessFactors.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessFactors.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>

@@ -73,6 +73,7 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
+    <Compile Include="Bars\Bar.SetStiffnessModifier.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
+    <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysisOBSOLETE.cs" />
@@ -176,8 +178,10 @@
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\Slab.SetStiffnessModifier.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabWall.cs" />
+    <Compile Include="Shells\StiffnessModifierSlab.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
@@ -835,6 +839,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\PlateSetStiffness.bmp" />
+    <None Include="Resources\icons\BeamSetStiffness.bmp" />
+    <None Include="Resources\icons\StiffnessModifier.png" />
     <None Include="Resources\icons\lineconnection.bmp" />
     <None Include="Resources\icons\lineconnection.png" />
     <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
