@@ -8,6 +8,9 @@ using FemDesign;
 using FemDesign.GenericClasses;
 using FemDesign.Calculate;
 
+
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+
 namespace FemDesign.Grasshopper
 {
     public class ResultOption : GH_Component
@@ -49,6 +52,14 @@ namespace FemDesign.Grasshopper
             // output
             DA.SetData(0, options);
         }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.BarResultPosition)).ToList(), null);
+
+
+            ValueListUtils.updateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Calculate.ShellResultPosition)).ToList(), null);
+        }
+
         protected override System.Drawing.Bitmap Icon
         {
             get

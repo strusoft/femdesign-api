@@ -55,7 +55,7 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="barResult"></param>
         /// <param name="shellResult"></param>
-        /// <param name="step"></param>
+        /// <param name="step">Distance between nodal output results for bar element</param>
         public Options(BarResultPosition barResult, ShellResultPosition shellResult, double step = 0.50)
         {
             this.Bar = (int)barResult;
