@@ -11,27 +11,37 @@ namespace FemDesign.Shells
     public partial class SlabStiffnessFactors
     {
         [XmlElement("factors", Order = 1)]
-        public List<StruSoft.Interop.StruXml.Data.Slab_stiffness_record> StiffnessModifiers
+        public List<SlabStiffnessRecord> _factors { get; set; }
+
+        [XmlIgnore]
+        public List<SlabStiffnessRecord> Factors
         {
             get
             {
-                return this._stiffnessModifiers.Values.ToList();
+                return this._keyPairAnalysysFactors.Values.ToList();
             }
-            set { this.StiffnessModifiers = value; }
+            set { this._factors = value; }
+        }
+
+        public SlabStiffnessFactors()
+        {
+
         }
 
         [XmlIgnore]
-        public Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Slab_stiffness_record> _stiffnessModifiers { get; set; }
+        public Dictionary<StiffnessAnalysisType, SlabStiffnessRecord> _keyPairAnalysysFactors { get; set; }
 
-        public static Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Slab_stiffness_record> Default()
+        public static Dictionary<StiffnessAnalysisType, SlabStiffnessRecord> Default()
         {
-            var stiffRecordDefault = new StruSoft.Interop.StruXml.Data.Slab_stiffness_record(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+            var stiffRecordDefault = new SlabStiffnessRecord(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
             return SameAllCalculation(stiffRecordDefault);
         }
 
-        public static Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Slab_stiffness_record> SameAllCalculation(StruSoft.Interop.StruXml.Data.Slab_stiffness_record stiffRecord)
+
+
+        public static Dictionary<StiffnessAnalysisType, SlabStiffnessRecord> SameAllCalculation(SlabStiffnessRecord stiffRecord)
         {
-            var defaultValues = new Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Slab_stiffness_record>();
+            var defaultValues = new Dictionary<StiffnessAnalysisType, SlabStiffnessRecord>();
 
             defaultValues.Add(StiffnessAnalysisType.FirstOrderU, stiffRecord);
 

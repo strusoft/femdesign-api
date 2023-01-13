@@ -199,8 +199,24 @@ namespace FemDesign.Shells
             }
         }
 
-        [XmlElement(ElementName = "stiffness_modifiers", Order = 6)]
-        public SlabStiffnessFactors SlabStiffnessFactors { get; set; }
+        [XmlElement("stiffness_modifiers", Order = 6)]
+        public List<SlabStiffnessFactors> _stiffnessModifiers;
+        [XmlIgnore]
+        public List<SlabStiffnessFactors> StiffnessModifiers
+        {
+            get { return this._stiffnessModifiers; }
+            set
+            {
+                if (value.Count == 1)
+                {
+                    this._stiffnessModifiers = value;
+                }
+                else
+                {
+                    throw new System.ArgumentException("List of Slab Stiffness Factors objects must contain either 1");
+                }
+            }
+        }
 
         [XmlElement("end", Order = 7)]
         public string End {get; set;} // empty_type

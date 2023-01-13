@@ -11,18 +11,20 @@ namespace FemDesign.Bars
     public partial class BarStiffnessFactors
     {
         [XmlElement("factors", Order = 1)]
-        public List<StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> StiffnessModifiers
+        public List<StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> _factors { get; set; }
+
+        [XmlIgnore]
+        public List<StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> Factors
         {
             get
             {
-                return this._stiffnessModifiers.Values.ToList();
+                return this._keyPairAnalysysFactors.Values.ToList();
             }
-            set { this.StiffnessModifiers = value; }
+            set { this._factors = value; }
         }
 
         [XmlIgnore]
-        public Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> _stiffnessModifiers { get; set; }
-
+        public Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> _keyPairAnalysysFactors { get; set; }
 
         public static Dictionary<StiffnessAnalysisType, StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record> Default()
         {

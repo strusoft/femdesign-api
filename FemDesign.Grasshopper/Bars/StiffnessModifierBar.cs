@@ -136,12 +136,12 @@ namespace FemDesign.Grasshopper
             if(isSameForAll)
             {
                 var barStiffRecord = new StruSoft.Interop.StruXml.Data.Bar_stiffness_factor_record(areaFactors[0], shearArea1[0], shearArea2[0], torsional[0], bendingAxis1[0], bendingAxis2[0]);
-                stiffFactors._stiffnessModifiers = Bars.BarStiffnessFactors.SameAllCalculation(barStiffRecord);
+                stiffFactors._keyPairAnalysysFactors = Bars.BarStiffnessFactors.SameAllCalculation(barStiffRecord);
             }
             else
             {
                 // initiate the object
-                stiffFactors._stiffnessModifiers = Bars.BarStiffnessFactors.Default();
+                stiffFactors._keyPairAnalysysFactors = Bars.BarStiffnessFactors.Default();
 
                 for (int i = 0; i < maxLength; i++)
                 {
@@ -202,10 +202,13 @@ namespace FemDesign.Grasshopper
                         barStiffRecord.Inertia_about_axis_2 = bendingAxis2[bendingAxis2.Count - 1];
                     }
 
-                    stiffFactors._stiffnessModifiers[value] = barStiffRecord;
+                    stiffFactors._keyPairAnalysysFactors[value] = barStiffRecord;
 
                 }
+
             }
+
+            stiffFactors._factors = stiffFactors.Factors;
             // output
             DA.SetData(0, stiffFactors);
         }

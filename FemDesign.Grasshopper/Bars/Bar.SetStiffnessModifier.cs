@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(1, ref stiffnessFactors)) { return; }
 
             // output
-            bar.BarPart.BarStiffnessFactors = stiffnessFactors;
+            bar.BarPart.BarStiffnessFactors = new List<Bars.BarStiffnessFactors> { stiffnessFactors };
             DA.SetData(0, bar);
 
         }

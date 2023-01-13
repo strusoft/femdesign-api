@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(1, ref stiffnessFactors)) { return; }
 
             // output
-            slab.SlabPart.SlabStiffnessFactors = stiffnessFactors;
+            slab.SlabPart.StiffnessModifiers = new List<Shells.SlabStiffnessFactors> { stiffnessFactors };
             DA.SetData(0, slab);
         }
         protected override System.Drawing.Bitmap Icon

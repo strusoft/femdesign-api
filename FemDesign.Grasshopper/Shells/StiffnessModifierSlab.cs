@@ -163,18 +163,18 @@ namespace FemDesign.Grasshopper
 
             if (isSameForAll)
             {
-                var slabStiffRecord = new StruSoft.Interop.StruXml.Data.Slab_stiffness_record(bending11[0], bending22[0], bending12[0], membrane11[0], membrane22[0], membrane12[0], shear13[0], shear23[0]);
-                stiffFactors._stiffnessModifiers = Shells.SlabStiffnessFactors.SameAllCalculation(slabStiffRecord);
+                var slabStiffRecord = new Shells.SlabStiffnessRecord(bending11[0], bending22[0], bending12[0], membrane11[0], membrane22[0], membrane12[0], shear13[0], shear23[0]);
+                stiffFactors._keyPairAnalysysFactors = Shells.SlabStiffnessFactors.SameAllCalculation(slabStiffRecord);
             }
             else
             {
                 // initiate the object
-                stiffFactors._stiffnessModifiers = Shells.SlabStiffnessFactors.Default();
+                stiffFactors._keyPairAnalysysFactors = Shells.SlabStiffnessFactors.Default();
 
                 for (int i = 0; i < maxLength; i++)
                 {
                     var value = (FemDesign.GenericClasses.StiffnessAnalysisType)Enum.Parse(typeof(FemDesign.GenericClasses.StiffnessAnalysisType), analysisType[i]);
-                    var slabStiffRecord = new StruSoft.Interop.StruXml.Data.Slab_stiffness_record();
+                    var slabStiffRecord = new Shells.SlabStiffnessRecord();
 
                     if (i < bending11.Count)
                     {
@@ -248,10 +248,12 @@ namespace FemDesign.Grasshopper
                         slabStiffRecord.Shear_2_3 = shear23[shear23.Count - 1];
                     }
 
-                    stiffFactors._stiffnessModifiers[value] = slabStiffRecord;
+                    stiffFactors._keyPairAnalysysFactors[value] = slabStiffRecord;
 
                 }
             }
+
+            stiffFactors._factors = stiffFactors.Factors;
             // output
             DA.SetData(0, stiffFactors);
         }
