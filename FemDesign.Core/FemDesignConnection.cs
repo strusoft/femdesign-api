@@ -300,8 +300,9 @@ namespace FemDesign
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
         /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
-        public List<T> GetResults<T>(Results.UnitResults units = null) where T : Results.IResult
+        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -311,7 +312,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
@@ -340,7 +341,7 @@ namespace FemDesign
 
 
 
-        public List<T> GetLoadCaseResults<T>(Loads.LoadCase loadCase, Results.UnitResults units = null) where T : Results.IResult
+        public List<T> GetLoadCaseResults<T>(Loads.LoadCase loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapCase = new MapCase(loadCase.Name);
 
@@ -355,7 +356,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
@@ -382,7 +383,7 @@ namespace FemDesign
         }
 
 
-        public List<T> GetLoadCombinationResults<T>(Loads.LoadCombination loadCombination, Results.UnitResults units = null) where T : Results.IResult
+        public List<T> GetLoadCombinationResults<T>(Loads.LoadCombination loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapComb = new MapComb(loadCombination.Name);
 
@@ -397,7 +398,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using FemDesign.GenericClasses;
 
 namespace FemDesign.Calculate
 {
     /// <summary>
-    /// doctable
+    /// Options
     /// </summary>
     [System.Serializable]
     public partial class Options
@@ -17,13 +18,18 @@ namespace FemDesign.Calculate
         public int Bar { get; set; }
 
         [XmlElement("step")]
-        public double Step { get; set; }
+        public double _step { get; set; }
+
+        [XmlIgnore]
+        public double Step
+        {
+            get { return this._step; }
+            set { this._step = value; }
+        }
 
         [XmlElement("surface")]
         public int SrfValues { get; set; }
 
-        [XmlIgnore]
-        public ResPosition ResPosition { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -32,7 +38,6 @@ namespace FemDesign.Calculate
         {
 
         }
-
 
         private Options(int bar, double step)
         {
@@ -45,9 +50,23 @@ namespace FemDesign.Calculate
             this.SrfValues = srf;
         }
 
-        public Options(ListProc listProc, double step)
+        /// <summary>
+        /// Specify the result output locations.
+        /// </summary>
+        /// <param name="barResult"></param>
+        /// <param name="shellResult"></param>
+        /// <param name="step">Distance between nodal output results for bar element</param>
+        public Options(BarResultPosition barResult, ShellResultPosition shellResult, double step = 0.50)
         {
-            
+            this.Bar = (int)barResult;
+            if(barResult == BarResultPosition.ByStep)
+                this.Step = step;
+            this.SrfValues = (int)shellResult;
+        }
+
+        public static Options Default()
+        {
+            return new Options(BarResultPosition.ByStep, ShellResultPosition.Vertices, 0.50);
         }
 
         // Assumption
@@ -73,11 +92,27 @@ namespace FemDesign.Calculate
         }
     }
 
-    public enum ResPosition
+    public enum BarResultPosition
     {
-        OnlyNodes,
-        ByStep,
-        ResultPoint
+        [Parseable("OnlyNodes", "0")]
+        OnlyNodes = 0,
+
+        [Parseable("ByStep", "1")]
+        ByStep = 1,
+
+        [Parseable("ResultPoints", "2")]
+        ResultPoints = 2,
     }
 
+    public enum ShellResultPosition
+    {
+        [Parseable("Center", "0")]
+        Center = 0,
+
+        [Parseable("Vertices", "1")]
+        Vertices = 1,
+
+        [Parseable("ResultPoints", "2")]
+        ResultPoints = 2,
+    }
 }

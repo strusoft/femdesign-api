@@ -1,4 +1,4 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using Grasshopper.Kernel.Data;
 using System.Text.RegularExpressions;
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadStr : GH_Component
+    public class ModelReadStr_OBSOLETE: GH_Component
     {
-        public ModelReadStr() : base("Model.ReadStr", "ReadStr", "Read model from .str file.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelReadStr_OBSOLETE(): base("Model.ReadStr", "ReadStr", "Read model from .str file.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -21,8 +21,6 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -38,7 +36,7 @@ namespace FemDesign.Grasshopper
             // Get input
             string filePath = null;
             List<string> resultTypes = new List<string>();
-
+            
 
             Results.FDfea fdFeaModel = null;
 
@@ -48,10 +46,9 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            DA.GetDataList("ResultTypes", resultTypes);
+            
 
-            FemDesign.Calculate.Options options = new FemDesign.Calculate.Options();
-            DA.GetData("Options", ref options);
+            DA.GetDataList("ResultTypes", resultTypes);
 
             bool runNode = true;
             if (!DA.GetData("RunNode", ref runNode))
@@ -62,7 +59,7 @@ namespace FemDesign.Grasshopper
             // Units
             var units = Results.UnitResults.Default();
             DA.GetData("Units", ref units);
-
+           
             // RunNode
             if (runNode)
             {
@@ -91,7 +88,7 @@ namespace FemDesign.Grasshopper
                 }
 
                 // Create Bsc files from resultTypes
-                var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units, options);
+                var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
 
                 // Create FdScript
                 var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPathsFromResultTypes);
@@ -120,7 +117,7 @@ namespace FemDesign.Grasshopper
                         string path = cmd.OutFile;
                         try
                         {
-                            if (path.Contains("FeaNode"))
+                            if(path.Contains("FeaNode"))
                             {
                                 feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
                             }
@@ -152,7 +149,7 @@ namespace FemDesign.Grasshopper
                 var resultsTree = new DataTree<object>();
 
                 var i = 0;
-                foreach (var resGroup in resultGroups)
+                foreach(var resGroup in resultGroups)
                 {
                     resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
                     i++;
@@ -177,10 +174,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{D9152EDD-6BC8-4F4C-AD81-B9B2E8B51192}"); }
+            get { return new Guid("e5d933c4-9217-4ffa-9f82-15a5a26c9967"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

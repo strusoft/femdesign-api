@@ -53,7 +53,7 @@ namespace FemDesign.Calculate
         }
 
 
-        public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true)
+        public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
@@ -61,13 +61,13 @@ namespace FemDesign.Calculate
             }
             BscPath = Path.GetFullPath(bscPath);
             Cwd = Path.GetDirectoryName(BscPath);
-            DocTable = new DocTable(resultType, unitResult, allLoadCase);
+            DocTable = new DocTable(resultType, unitResult, allLoadCase, options);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
             SerializeBsc(); // why it is in the constructor?
         }
 
-        public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null)
+        public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null, Options options = null)
         {
             var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
             if (notAResultType != null)
@@ -94,7 +94,7 @@ namespace FemDesign.Calculate
             if (units == null)
                 units = Results.UnitResults.Default();
 
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units)));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units, true, options)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
             return bscPathsFromResultTypes;
         }
