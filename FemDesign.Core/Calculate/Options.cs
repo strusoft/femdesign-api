@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using System.ComponentModel;
 
 namespace FemDesign.Calculate
 {
@@ -17,6 +18,7 @@ namespace FemDesign.Calculate
         [XmlElement("bar")]
         public int Bar { get; set; }
 
+        [DefaultValue(0)]
         [XmlElement("step")]
         public double _step { get; set; }
 

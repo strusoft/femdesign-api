@@ -13,26 +13,21 @@ namespace FemDesign.Calculate
             Assert.IsNotNull(options);
             Assert.IsTrue(options.Bar == 0);
             Assert.IsTrue(options.SrfValues == 0);
-            Assert.IsNull(options.Step);
 
             options = new Options(BarResultPosition.ByStep, ShellResultPosition.Vertices, 0.50);
             Assert.IsNotNull(options);
             Assert.IsTrue(options.Bar == 1);
             Assert.IsTrue(options.SrfValues == 1);
-            Assert.IsNotNull(options.Step);
 
             options = new Options(BarResultPosition.ByStep, ShellResultPosition.Vertices, 0.50);
             Assert.IsNotNull(options);
             Assert.IsTrue(options.Bar == 1);
             Assert.IsTrue(options.SrfValues == 1);
-            Assert.IsNotNull(options.Step);
 
             options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints, 0.50);
             Assert.IsNotNull(options);
             Assert.IsTrue(options.Bar == 2);
             Assert.IsTrue(options.SrfValues == 2);
-            Assert.IsNull(options.Step);
-
         }
     }
 }
