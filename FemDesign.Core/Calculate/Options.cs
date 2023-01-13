@@ -18,10 +18,10 @@ namespace FemDesign.Calculate
         public int Bar { get; set; }
 
         [XmlElement("step")]
-        public double _step { get; set; }
+        public double? _step { get; set; }
 
         [XmlIgnore]
-        public double Step
+        public double? Step
         {
             get { return this._step; }
             set { this._step = value; }
