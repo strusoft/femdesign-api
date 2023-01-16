@@ -59,7 +59,7 @@ namespace FemDesign.Calculate
                 }
                 this.FdVersion = firstProcess.MainModule.FileVersionInfo.FileVersion.Split(new char[] { '.' })[0];
             }
-            
+
             // Check if process information matches target version
             if (this.FdVersion == null || this.FdVersion != this.FdTargetVersion || this.FdPath == null)
             {
@@ -165,8 +165,9 @@ namespace FemDesign.Calculate
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <param name="checkOpenFiles"></param>
+        /// <param name="minimised"></param>
         /// <returns></returns>
-        public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true)
+        public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true, bool minimised = false)
         {
             // serialize script
             fdScript.SerializeFdScript();
@@ -185,7 +186,7 @@ namespace FemDesign.Calculate
                 });
             }
 
-            return RunFdScript(fdScript.FdScriptPath, killProcess, endSession);
+            return RunFdScript(fdScript.FdScriptPath, killProcess, endSession, minimised);
         }
 
         /// <summary>
@@ -195,7 +196,7 @@ namespace FemDesign.Calculate
         /// <param name="killProcess"></param>
         /// <param name="endSession"></param>
         /// <returns></returns>
-        public bool RunFdScript(string fdScriptPath, bool killProcess, bool endSession)
+        public bool RunFdScript(string fdScriptPath, bool killProcess, bool endSession, bool minimised = false)
         {
             // kill processes
             if (killProcess)
@@ -214,6 +215,12 @@ namespace FemDesign.Calculate
                 FileName = this.FdPath,
                 Verb = "open"
             };
+
+            if (minimised)
+            {
+                processStartInfo.EnvironmentVariables["FD_NOGUI"] = "1";
+                processStartInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+            }
 
             // start process
             Process process = Process.Start(processStartInfo);
