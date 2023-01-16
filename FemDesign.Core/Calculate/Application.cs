@@ -194,12 +194,6 @@ namespace FemDesign.Calculate
         /// <returns></returns>
         public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true, bool minimised = false)
         {
-            // serialize script
-            if (fdScript.FdScriptPath == null)
-            {
-                string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
-                fdScript.FdScriptPath = scriptPath;
-            }
             fdScript.SerializeFdScript();
 
             // kill processes
