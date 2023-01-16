@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
+
+using System.Reflection;
+
+using FemDesign;
+
 
 namespace FemDesign.Calculate
 {
@@ -33,6 +37,27 @@ namespace FemDesign.Calculate
         /// Target version of class library.
         /// </summary>
         internal string FdTargetVersion = "22";
+
+
+
+        public string OutputDir
+        {
+            get { return _outputDir; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) // Use temp dir
+                {
+                    _outputDir = Path.Combine(Directory.GetCurrentDirectory(), "FEM-Design API");
+                    _outputDirsToBeDeleted.Add(_outputDir);
+                }
+                else // Use given directory
+                    _outputDir = Path.GetFullPath(value);
+            }
+        }
+        private string _outputDir;
+        private List<string> _outputDirsToBeDeleted = new List<string>();
+
+
 
         public Application()
         {
@@ -170,6 +195,11 @@ namespace FemDesign.Calculate
         public bool RunFdScript(FdScript fdScript, bool killProcess, bool endSession, bool checkOpenFiles = true, bool minimised = false)
         {
             // serialize script
+            if (fdScript.FdScriptPath == null)
+            {
+                string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
+                fdScript.FdScriptPath = scriptPath;
+            }
             fdScript.SerializeFdScript();
 
             // kill processes

@@ -67,7 +67,7 @@ namespace FemDesign.Calculate
             SerializeBsc(); // why it is in the constructor?
         }
 
-        public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null, Options options = null)
+        public static List<string> BscPathFromResultTypes(IEnumerable<Type> resultTypes, string strPath, Results.UnitResults units = null, Options options = null, bool allLoadCase = true)
         {
             var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
             if (notAResultType != null)
@@ -94,7 +94,7 @@ namespace FemDesign.Calculate
             if (units == null)
                 units = Results.UnitResults.Default();
 
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units, true, options)));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units, allLoadCase, options)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
             return bscPathsFromResultTypes;
         }
