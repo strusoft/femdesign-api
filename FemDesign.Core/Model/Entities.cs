@@ -80,7 +80,9 @@ namespace FemDesign
         [XmlElement("labelled_sections_geometry", Order = 22)]
         public AuxiliaryResults.LabelledSectionsGeometry LabelledSections;
 
-        // axes
+        [XmlElement("result_points", Order = 23)]
+        public AuxiliaryResults.ResultPointsGeometry ResultPoints;
+
         // ref planes
         // tsolids
         // regions

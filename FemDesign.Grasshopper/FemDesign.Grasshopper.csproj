@@ -171,6 +171,7 @@
     <Compile Include="Results\Quantities\GeneralQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\SteelQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\TimberQuantityEstimation.cs" />
+    <Compile Include="Results\ResultPoints.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
@@ -843,6 +844,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\ResultPoint.png" />
     <None Include="Resources\icons\PlateSetStiffness.bmp" />
     <None Include="Resources\icons\BeamSetStiffness.bmp" />
     <None Include="Resources\icons\StiffnessModifier.png" />

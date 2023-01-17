@@ -2883,6 +2883,56 @@ namespace FemDesign
         }
 
 
+
+        /// <summary>
+        /// Add LabelledSection to Model
+        /// </summary>
+        private void AddResultPoint(AuxiliaryResults.ResultPoint obj, bool overwrite)
+        {
+            if (this.Entities.ResultPoints == null)
+            {
+                this.Entities.ResultPoints = new AuxiliaryResults.ResultPointsGeometry();
+            }
+
+            // in model?
+            bool inModel = this.ResultPointInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.ResultPoints.ResultPoints.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.ResultPoints.ResultPoints.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Entities.ResultPoints.ResultPoints.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if LabelledSection in Model
+        /// </summary>
+        private bool ResultPointInModel(AuxiliaryResults.ResultPoint obj)
+        {
+            foreach (AuxiliaryResults.ResultPoint elem in this.Entities.ResultPoints.ResultPoints)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
         {
             var obj = new ConstructionStages(stages, assignModifedElement, assignNewElement, ghostMethod);
@@ -3047,6 +3097,7 @@ namespace FemDesign
         private void AddEntity(ModellingTools.Diaphragm obj, bool overwrite) => AddDiaphragm(obj, overwrite);
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
+        private void AddEntity(AuxiliaryResults.ResultPoint obj, bool overwrite) => AddResultPoint(obj, overwrite);
 
         #region FOUNDATIONS
         private void AddEntity(Foundations.IsolatedFoundation obj, bool overwrite) => AddIsolatedFoundation(obj, overwrite);

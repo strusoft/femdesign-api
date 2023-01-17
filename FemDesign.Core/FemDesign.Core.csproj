@@ -50,6 +50,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuxiliaryResults\ResultPointsGeometry.cs" />
     <Compile Include="Bars\BarStiffnessFactors.cs" />
     <Compile Include="Bars\Beam.cs" />
     <Compile Include="Bars\Column.cs" />
