@@ -98,7 +98,19 @@ namespace FemDesign.Bars
             }
         }
 
-        public string Name => this.BarPart.Name.Substring(0, this.BarPart.Name.Length - 2); // Remove trailing ".1" from barpart name
+        public string Name
+        {
+            get
+            {
+                var foundIndexes = new List<int>();
+                for (int i = 0; i < this.BarPart.Name.Length; i++)
+                    if (this.BarPart.Name[i] == '.')
+                        foundIndexes.Add(i);
+
+                return this.BarPart.Name.Substring(0, foundIndexes.Last());
+            }
+        }
+
         public int Instance => this.BarPart.Instance;
 
         [XmlIgnore]
