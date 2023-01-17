@@ -80,6 +80,9 @@
     <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSectionsGeometry.cs">
       <Link>Core\AuxiliaryResults\LabelledSectionsGeometry.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\ResultPointsGeometry.cs">
+      <Link>Core\AuxiliaryResults\ResultPointsGeometry.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Bar.cs">
       <Link>Core\Bars\Bar.cs</Link>
     </Compile>
