@@ -623,6 +623,9 @@
     <Compile Include="..\FemDesign.Core\Reinforcement\ReinforcementDirectionEnum.cs">
       <Link>Core\Reinforcement\ReinforcementDirectionEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\ShearControlRegion.cs">
+      <Link>Core\Reinforcement\ShearControlRegion.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Reinforcement\Stirrups.cs">
       <Link>Core\Reinforcement\Stirrups.cs</Link>
     </Compile>
