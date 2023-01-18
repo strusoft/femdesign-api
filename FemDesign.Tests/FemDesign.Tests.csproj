@@ -116,6 +116,7 @@
     <Compile Include="Results\ShellsStressTests.cs" />
     <Compile Include="Results\Support\PointSupportReactionTests.cs" />
     <Compile Include="Results\SurfaceSupportReactionTests.cs" />
+    <Compile Include="Results\Timber Design\CLTUtilisationTests.cs" />
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
     <Compile Include="Shells\SlabTest.cs" />
@@ -182,6 +183,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

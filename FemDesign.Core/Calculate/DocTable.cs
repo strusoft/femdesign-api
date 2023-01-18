@@ -46,7 +46,7 @@ namespace FemDesign.Calculate
     public partial class DocTable
     {
         [XmlElement("version")]
-        public string FemDesignVersion { get; set; } = "2100";
+        public string FemDesignVersion { get; set; } = FdScript.Version;
         
         [XmlElement("listproc")]
         public ListProc ListProc { get; set; }
