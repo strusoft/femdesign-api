@@ -90,6 +90,7 @@
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Performance\BeamGenerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reinforcement\ShearControlRegionTests.cs" />
     <Compile Include="Results\BarDisplacementTests.cs" />
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
@@ -175,6 +176,11 @@
       <Project>{6a2cb706-d4be-4ae8-a165-ec9f9f0d336e}</Project>
       <Name>Practical example - Load groups combining</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reinforcement\ShearRegionTestFile.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

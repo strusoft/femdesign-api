@@ -73,6 +73,7 @@
     <Compile Include="GenericClasses\NamedEntityBase.cs" />
     <Compile Include="GenericClasses\StiffnessAnalysisType.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Reinforcement\ShearControlRegion.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
