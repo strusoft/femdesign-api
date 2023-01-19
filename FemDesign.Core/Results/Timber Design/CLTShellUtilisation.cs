@@ -20,68 +20,68 @@ namespace FemDesign.Results
         /// <summary>
         /// Panel name identifier
         /// </summary>
-        public string Id { get; }
+        public string Id { get; protected set; }
         /// <summary>
         /// Max utilization [%]
         /// </summary>
-        public double Max { get; }
+        public double Max { get; protected set; }
         /// <summary>
         /// Tension X [%]
         /// </summary>
-        public double TensionX { get; }
+        public double TensionX { get; protected set; }
         /// <summary>
         /// Tension Y [%]
         /// </summary>
-        public double TensionY { get; }
+        public double TensionY { get; protected set; }
         /// <summary>
         /// <summary> [%]
         /// Compression X [%]
         /// </summary>
-        public double CompressionX { get; }
+        public double CompressionX { get; protected set; }
         /// <summary>
         /// Compression Y [%]
         /// </summary>
-        public double CompressionY { get; }
+        public double CompressionY { get; protected set; }
         /// <summary>
         /// Shear XY [%]
         /// </summary>
-        public double ShearXY { get; }
+        public double ShearXY { get; protected set; }
         /// <summary>
         /// Shear X [%]
         /// </summary>
-        public double ShearX { get; }
+        public double ShearX { get; protected set; }
         /// <summary>
         ///  Shear Y [%]
         /// </summary>
-        public double ShearY { get; }
+        public double ShearY { get; protected set; }
         /// <summary>
         /// Shear Interaction [%]
         /// </summary>
-        public double ShearInteraction { get; }
+        public double ShearInteraction { get; protected set; }
         /// <summary>
         /// Tension Shear [%]
         /// </summary>
-        public double TensionShear { get; }
+        public double TensionShear { get; protected set; }
         /// <summary>
         /// Compression Shear [%]
         /// </summary>
-        public double CompressionShear { get; }
+        public double CompressionShear { get; protected set; }
         /// <summary>
         /// Buckling [%]
         /// </summary>
-        public double Buckling { get; }
+        public double Buckling { get; protected set; }
         /// <summary>
         /// Torsion [%]
         /// </summary>
-        public double Torsion { get; }
-        public double Deflection { get; }
+        public double Torsion { get; protected set; }
+        public double Deflection { get; protected set; }
         /// <summary>
         /// Load case or combination name
         /// </summary>
-        public string CaseIdentifier { get; }
+        public string CaseIdentifier { get; protected set; }
 
         [JsonConstructor]
-        internal CLTShellUtilization(string id, double max, double tensionX, double tensionY, double compressionX, double compressionY, double shearXY, double shearX, double shearY, double shearInteraction, double tensionShear, double compressionShear, double buckling, double torsion, string caseIndentifier)
+        public CLTShellUtilization(string id, double max, double tensionX, double tensionY, double compressionX, double compressionY, double shearXY, double shearX, double shearY, double shearInteraction, double tensionShear, double compressionShear, double buckling, double torsion, string caseIndentifier)
         {
             Id = id;
             Max = max;

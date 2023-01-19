@@ -108,8 +108,8 @@ namespace FemDesign.Calculate
         {
             ListProc = resultType;
 
-            var isLoadCase = resultType.ToString().Contains("LoadCase");
-            var isLoadComb = resultType.ToString().Contains("LoadCombination");
+            var isLoadCase = resultType.IsLoadCase();
+            var isLoadComb = resultType.IsLoadCombination();
             if (!allCaseCombo)
             {
                 if (isLoadCase)
