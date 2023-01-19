@@ -84,8 +84,8 @@
     <Compile Include="Results\RC design\RCShellDesignForces.cs" />
     <Compile Include="Results\SurfaceSupportReactions.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
-    <Compile Include="Results\Timber Design\CLTFireUtilisation.cs" />
-    <Compile Include="Results\Timber Design\CLTShellUtilisation.cs" />
+    <Compile Include="Results\Timber Design\CLTFireUtilization.cs" />
+    <Compile Include="Results\Timber Design\CLTShellUtilization.cs" />
     <Compile Include="Shells\SlabStiffnessFactors.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
