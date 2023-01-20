@@ -881,6 +881,9 @@
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>
     </Compile>

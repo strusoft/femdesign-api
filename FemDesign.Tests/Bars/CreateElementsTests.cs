@@ -78,14 +78,14 @@ namespace FemDesign.Bars
 
             Assert.AreEqual(3, myModel.Entities.Bars.Count);
 
-            Assert.IsTrue( myModel.Entities.Bars[0] is Bars.Bar );
-            Assert.IsTrue( myModel.Entities.Bars[0] is Bars.Beam );
+            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Bar);
+            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Beam);
 
-            Assert.IsTrue( myModel.Entities.Bars[1] is Bars.Bar );
-            Assert.IsTrue( myModel.Entities.Bars[1] is Bars.Column );
+            Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Bar);
+            Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Column);
 
-            Assert.IsTrue( myModel.Entities.Bars[2] is Bars.Bar );
-            Assert.IsTrue( myModel.Entities.Bars[2] is Bars.Truss );
+            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Bar);
+            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Truss);
         }
 
         [TestCategory("FEM-Design required")]
@@ -115,7 +115,7 @@ namespace FemDesign.Bars
                 eccentricities: new Bars.Eccentricity[] { Bars.Eccentricity.Default },
                 identifier: "B");
 
-			var elements = new List<GenericClasses.IStructureElement>() { beam };
+            var elements = new List<GenericClasses.IStructureElement>() { beam };
 
 
             // Add to model
@@ -160,7 +160,7 @@ namespace FemDesign.Bars
             var tension = Truss_behaviour_type.Elastic();
             var trussBehaviour = new StruSoft.Interop.StruXml.Data.Truss_chr_type(compression, tension);
 
-            var beam = new Bars.Truss(
+            var truss_1 = new Bars.Truss(
                 edge,
                 material,
                 section,
@@ -168,7 +168,29 @@ namespace FemDesign.Bars
                 trussBehaviour
                 );
 
-            var elements = new List<GenericClasses.IStructureElement>() { beam };
+            compression = Truss_behaviour_type.Brittle(10);
+            tension = Truss_behaviour_type.Brittle(30);
+            trussBehaviour = new StruSoft.Interop.StruXml.Data.Truss_chr_type(compression, tension);
+            var truss_2 = new Bars.Truss(
+                edge,
+                material,
+                section,
+                "B",
+                trussBehaviour
+                );
+
+            compression = Truss_behaviour_type.Plastic(10.3);
+            tension = Truss_behaviour_type.Plastic(23.9);
+            trussBehaviour = new StruSoft.Interop.StruXml.Data.Truss_chr_type(compression, tension);
+            var truss_3 = new Bars.Truss(
+                edge,
+                material,
+                section,
+                "B",
+                trussBehaviour
+                );
+
+            var elements = new List<GenericClasses.IStructureElement>() { truss_1, truss_2, truss_3 };
 
 
             // Add to model
@@ -185,10 +207,22 @@ namespace FemDesign.Bars
 
             Assert.AreEqual(3, myModel.Entities.Bars.Count);
 
+            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Bar);
+            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Truss);
+            Assert.IsTrue(myModel.Entities.Bars[0].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Elastic);
+            Assert.IsTrue(myModel.Entities.Bars[0].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Elastic);
+
+
             Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Bar);
             Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Truss);
+            Assert.IsTrue(myModel.Entities.Bars[1].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Brittle);
+            Assert.IsTrue(myModel.Entities.Bars[1].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Brittle);
+
+
+            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Bar);
+            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Truss);
+            Assert.IsTrue(myModel.Entities.Bars[2].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Plastic);
+            Assert.IsTrue(myModel.Entities.Bars[2].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Plastic);
         }
-
-
     }
 }
