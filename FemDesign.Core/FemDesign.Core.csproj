@@ -348,6 +348,7 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\BarStiffnessFactorRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\SlabStiffnessRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\Truss_chr_type.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />

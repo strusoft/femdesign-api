@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsTrussLimitedCapacity: GH_Component
+    public class BarsTrussLimitedCapacityOBSOLETE: GH_Component
     {
-        public BarsTrussLimitedCapacity(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", CategoryName.Name(),
+        public BarsTrussLimitedCapacityOBSOLETE(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -117,7 +117,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("49eb9ae7-d644-4d22-b6d5-e1f96ffcba51"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

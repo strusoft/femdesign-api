@@ -81,7 +81,7 @@
     <Compile Include="Bars\BarsTaperedColumn.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
     <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE_2160.cs" />
-    <Compile Include="Bars\BarsTruss.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsTrussOBSOLETE.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeamSimple_OBSOLETE_2160.cs" />
     <Compile Include="Bars\OBSOLETE\BarsColumn_OBSOLETE.cs" />
@@ -93,7 +93,7 @@
     <Compile Include="Bars\BarsEccentricityConstruct.cs" />
     <Compile Include="Bars\BarsModify.cs" />
     <Compile Include="Bars\OBSOLETE\BarsTruss_OBSOLETE.cs" />
-    <Compile Include="Bars\BarsTrussLimitedCapacity.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsTrussLimitedCapacityOBSOLETE.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnConcreteBar.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnSteelBar.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnTimberBar.cs" />
@@ -103,6 +103,8 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
+    <Compile Include="Bars\Truss.cs" />
+    <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysisOBSOLETE.cs" />

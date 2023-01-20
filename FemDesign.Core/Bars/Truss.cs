@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using FemDesign.Geometry;
 using FemDesign.Materials;
 using FemDesign.Sections;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Bars
 {
@@ -17,7 +18,7 @@ namespace FemDesign.Bars
 		private Truss()
 		{
 		}
-		public Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier) :base(edge, material, section, identifier)
+		public Truss(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier, StruSoft.Interop.StruXml.Data.Truss_chr_type trussBehaviour = null) :base(edge, material, section, identifier, trussBehaviour)
 		{
 		}
 	}
