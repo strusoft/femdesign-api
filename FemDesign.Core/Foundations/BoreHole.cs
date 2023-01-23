@@ -38,13 +38,20 @@ namespace FemDesign.Foundations
 
         public BoreHole(double x, double y, double finalGroundLevel = 0.00, AllLevels allLevels = null, string identifier = "BH")
         {
-            X = x;
-            Y = y;
-            FinalGroundLevel = finalGroundLevel;
-            WholeLevelData = allLevels;
-            Identifier = identifier;
+            this.X = x;
+            this.Y = y;
+            this.FinalGroundLevel = finalGroundLevel;
+            this.WholeLevelData = allLevels;
+            this.Identifier = identifier;
             this.EntityCreated();
         }
+
+        public static BoreHole GroundLevel(double x, double y, double finalGroundLevel, string identifier = "BH")
+        {
+            var boreHole = new BoreHole(x, y, finalGroundLevel, identifier: identifier);
+            return boreHole;
+        }
+
     }
 
     public partial class AllLevels
