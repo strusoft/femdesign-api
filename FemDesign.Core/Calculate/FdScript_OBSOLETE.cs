@@ -114,7 +114,7 @@ namespace FemDesign.Calculate
                 fdScript.DocxTemplatePath = docxTemplatePath;
 
                 // object containing command to generate .docx and path to generated .docx
-                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
+                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.Cwd + @"\" + fdScript.FileName + ".docx");
             }
 
             if (cmdGlobalCfg == null)
