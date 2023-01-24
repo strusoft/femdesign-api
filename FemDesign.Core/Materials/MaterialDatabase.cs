@@ -130,6 +130,18 @@ namespace FemDesign.Materials
             throw new System.ArgumentException($"Material was not found. Incorrect material name ({materialName}) or empty material database.");
         }
 
+        public List<Material> GetSoilMaterial()
+        {
+            var soilMaterial = new List<Material>();
+
+            foreach(var material in this.Materials.Material)
+            {
+                if(material.Family != null)
+                    soilMaterial.Add(material);
+            }
+            return soilMaterial;
+        }
+
         public List<CltPanelLibraryType> GetCltPanelLibrary()
         {
             if (this.CltPanelTypes != null)

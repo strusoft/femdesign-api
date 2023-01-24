@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using StruSoft.Interop.StruXml.Data;
 
-namespace FemDesign.Foundations
+namespace FemDesign.Soil
 {
     [System.Serializable]
-    [XmlType(TypeName = "borehole")]
     public partial class BoreHole : NamedEntityBase
     {
         [XmlIgnore]
@@ -29,11 +27,27 @@ namespace FemDesign.Foundations
         public double Y { get; set; }
 
         [XmlAttribute("final_ground_level")]
-        public double FinalGroundLevel { get; set; }
+        public double _finalGroundLevel { get; set; }
+
+        [XmlIgnore]
+        public double FinalGroundLevel
+        {
+            get
+            {
+                return _finalGroundLevel;
+            }
+            set
+            {
+                this._finalGroundLevel = RestrictedDouble.ValueInRange(value, -1e6, 10000);
+            }
+        }
 
         [XmlElement("whole_level_data")]
         public AllLevels WholeLevelData { get; set; }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
         private BoreHole() { }
 
         public BoreHole(double x, double y, double finalGroundLevel = 0.00, AllLevels allLevels = null, string identifier = "BH")

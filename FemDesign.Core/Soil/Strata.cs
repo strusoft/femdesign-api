@@ -8,14 +8,14 @@ using System.Drawing;
 using StruSoft.Interop.StruXml.Data;
 using System.ComponentModel;
 
-namespace FemDesign.Foundations
+namespace FemDesign.Soil
 {
+    [System.Serializable]
     public partial class Strata : NamedEntityBase
     {
-
         [XmlIgnore]
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
-        protected override int GetUniqueInstanceCount() => ++_instance;
+        protected override int GetUniqueInstanceCount() => 1; // Only ONE instance can be created.
 
         [XmlElement("stratum")]
         public List<Stratum> Stratum { get; set; }
@@ -61,6 +61,33 @@ namespace FemDesign.Foundations
             }
         }
 
+        /// <remarks/>
+        [XmlAttribute("default_fillings_colour")]
+        [DefaultValue("B97A57")]
+        public string _defaultFillingsColour { get; set; }
+
+        [XmlIgnore]
+        public Color DefaultFillingsColour
+        {
+            get
+            {
+                Color col = System.Drawing.ColorTranslator.FromHtml("#" + this._defaultFillingsColour);
+                return col;
+            }
+            set
+            {
+                this._defaultFillingsColour = ColorTranslator.ToHtml(value).Substring(1);
+            }
+        }
+
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private Strata()
+        {
+        }
+
         public Strata(List<Stratum> stratum, List<WaterLevel> waterLevel, List<Geometry.Point2d> contour, double levelLimit, string identifier = "SOIL")
         {
             this.Stratum = stratum;
@@ -72,6 +99,21 @@ namespace FemDesign.Foundations
             // Strata Object does not have a Guid. Therefore this.EntityCreated() should not be use
             this.EntityModified();
         }
+
+
+        internal void SetContour(List<BoreHole> boreholes)
+        {
+            foreach(BoreHole hole in boreholes)
+            {
+                var x = hole.X;
+                var y = hole.Y;
+
+                var point2d = new FemDesign.Geometry.Point2d(x, y);
+                this.Contour.Add(point2d);
+            }
+        }
+
+
     }
 
     public partial class Stratum
@@ -99,7 +141,7 @@ namespace FemDesign.Foundations
         [XmlAttribute("colour")]
         public string _colour { get; set; }
         [XmlIgnore]
-        public Color Color
+        public Color? Color
         {
             get
             {
@@ -108,30 +150,25 @@ namespace FemDesign.Foundations
             }
             set
             {
-                this._colour = ColorTranslator.ToHtml(value).Substring(1);
+                this._colour = ColorTranslator.ToHtml((Color)value).Substring(1);
             }
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private Stratum() { }
 
-        /// <remarks/>
-        [XmlAttribute("default_fillings_colour")]
-        [DefaultValue("B97A57")]
-        public string _defaultFillingsColour { get; set; }
-
-        [XmlIgnore]
-        public Color DefaultFillingsColour
+        public Stratum(Materials.Material soilMaterial, Color? color = null)
         {
-            get
+            this.Material = soilMaterial;
+            if(color == null)
             {
-                Color col = System.Drawing.ColorTranslator.FromHtml("#" + this._defaultFillingsColour);
-                return col;
+                var rnd = new Random();
+                color = System.Drawing.Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
             }
-            set
-            {
-                this._defaultFillingsColour = ColorTranslator.ToHtml(value).Substring(1);
-            }
+            this.Color = color;
         }
-
 
     }
 
@@ -141,7 +178,7 @@ namespace FemDesign.Foundations
         [XmlAttribute("colour")]
         public string _colour { get; set; }
         [XmlIgnore]
-        public Color Color
+        public Color? Color
         {
             get
             {
@@ -150,11 +187,34 @@ namespace FemDesign.Foundations
             }
             set
             {
-                this._colour = ColorTranslator.ToHtml(value);
+                this._colour = ColorTranslator.ToHtml( (Color)value);
             }
         }
 
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+
+
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private WaterLevel() { }
+
+        public WaterLevel(string name, Color? color = null)
+        {
+            this.Name = name;
+            if (color == null)
+            {
+                var rnd = new Random();
+                color = System.Drawing.Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            }
+            this.Color = color;
+        }
+
+
+
+
     }
 }
