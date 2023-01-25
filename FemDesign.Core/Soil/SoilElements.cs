@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-
+using FemDesign.GenericClasses;
 namespace FemDesign.Soil
 {
     public partial class SoilElements

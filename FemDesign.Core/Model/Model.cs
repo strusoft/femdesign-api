@@ -127,7 +127,9 @@ namespace FemDesign
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
         /// <param name="constructionStage">Construction stages object instance.</param>
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null)
+        /// <param name="soil">Soil element</param>
+
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null, Soil.SoilElements soil = null)
         {
             Initialize(country);
 
@@ -143,6 +145,8 @@ namespace FemDesign
                 AddLoadGroupTable(loadGroups, overwrite: false);
             if (constructionStage != null)
                 SetConstructionStages(constructionStage);
+            if (soil != null)
+                AddSoilElement(soil);
         }
 
         private void Initialize(Country country)
@@ -2263,6 +2267,46 @@ namespace FemDesign
             return false;
         }
 
+
+
+
+        /// <summary>
+        /// Add PointSupport to Model.
+        /// </summary>
+        private void AddSoil(Soil.SoilElements obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.SoilInModel();
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException("Model can only have one Soil element object");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.SoilElements = null;
+            }
+
+            // add obj
+            this.Entities.SoilElements = obj;
+        }
+
+        /// <summary>
+        /// Check if PointSupport in Model.
+        /// </summary>
+        private bool SoilInModel()
+        {
+            if (this.Entities.SoilElements != null)
+                return true;
+            else
+                return false;
+        }
+
+
+
         /// <summary>
         /// Add Support to Model
         /// </summary>
@@ -3006,6 +3050,23 @@ namespace FemDesign
             return AddElements(elements, overwrite: true);
         }
 
+
+        /// <summary>
+        /// Add Soil to the model.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddSoilElement(Soil.SoilElements element, bool overwrite = true)
+        {
+            // check if model contains entities
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
+            AddEntity(element as dynamic, overwrite);
+            return this;
+        }
+
         /// <summary>
         /// Adds loads to the model.
         /// </summary>
@@ -3101,6 +3162,9 @@ namespace FemDesign
 
         #region FOUNDATIONS
         private void AddEntity(Foundations.IsolatedFoundation obj, bool overwrite) => AddIsolatedFoundation(obj, overwrite);
+
+        private void AddEntity(Soil.SoilElements obj, bool overwrite) => AddSoil(obj, overwrite);
+
         #endregion
 
         #region SUPPORTS

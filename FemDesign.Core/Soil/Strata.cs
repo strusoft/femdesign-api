@@ -17,30 +17,29 @@ namespace FemDesign.Soil
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
         protected override int GetUniqueInstanceCount() => 1; // Only ONE instance can be created.
 
-        [XmlElement("stratum")]
+        [XmlElement("contour", Order = 1)]
+        public Geometry.HorizontalPolygon2d Contour { get; set; }
+
+        [XmlElement("stratum", Order = 2)]
         public List<Stratum> Stratum { get; set; }
 
-        [XmlElement("water_level")]
-        public List<WaterLevel> WaterLevel { get; set; }
-
-        [XmlElement("contour")]
-        public List<FemDesign.Geometry.Point2d> _contour;
+        [XmlElement("water_level", Order = 3)]
+        public List<GroundWater> _groundWater { get; set; }
 
         [XmlIgnore]
-        public List<FemDesign.Geometry.Point2d> Contour
+        public List<GroundWater> GroundWater
         {
             get
             {
-                return this._contour;
+                return _groundWater;
             }
             set
             {
-                if(this.Contour.Count < 3)
+                if( value.GroupBy(x => x.Name).Any(g => g.Count() > 1))
                 {
-                    throw new ArgumentOutOfRangeException("List should have at least 3 items!");
+                    throw new Exception("Duplicate Name found. WaterLevel's names must be unique.");
                 }
-                else
-                    this._contour = value;
+                _groundWater = value;
             }
         }
 
@@ -63,8 +62,7 @@ namespace FemDesign.Soil
 
         /// <remarks/>
         [XmlAttribute("default_fillings_colour")]
-        [DefaultValue("B97A57")]
-        public string _defaultFillingsColour { get; set; }
+        public string _defaultFillingsColour { get; set; } = "B97A57";
 
         [XmlIgnore]
         public Color DefaultFillingsColour
@@ -88,32 +86,17 @@ namespace FemDesign.Soil
         {
         }
 
-        public Strata(List<Stratum> stratum, List<WaterLevel> waterLevel, List<Geometry.Point2d> contour, double levelLimit, string identifier = "SOIL")
+        public Strata(List<Stratum> stratum, List<GroundWater> waterLevel, List<Geometry.Point2d> contour, double levelLimit, string identifier = "SOIL")
         {
             this.Stratum = stratum;
-            this.WaterLevel = waterLevel;
-            this.Contour = contour;
+            this.GroundWater = waterLevel;
+            this.Contour = new Geometry.HorizontalPolygon2d(contour);
             this.DepthLevelLimit = levelLimit;
             this.Identifier = identifier;
 
             // Strata Object does not have a Guid. Therefore this.EntityCreated() should not be use
             this.EntityModified();
         }
-
-
-        internal void SetContour(List<BoreHole> boreholes)
-        {
-            foreach(BoreHole hole in boreholes)
-            {
-                var x = hole.X;
-                var y = hole.Y;
-
-                var point2d = new FemDesign.Geometry.Point2d(x, y);
-                this.Contour.Add(point2d);
-            }
-        }
-
-
     }
 
     public partial class Stratum
@@ -173,7 +156,7 @@ namespace FemDesign.Soil
     }
 
 
-    public partial class WaterLevel
+    public partial class GroundWater
     {
         [XmlAttribute("colour")]
         public string _colour { get; set; }
@@ -182,12 +165,12 @@ namespace FemDesign.Soil
         {
             get
             {
-                Color col = System.Drawing.ColorTranslator.FromHtml(this._colour);
+                Color col = System.Drawing.ColorTranslator.FromHtml("#" + this._colour);
                 return col;
             }
             set
             {
-                this._colour = ColorTranslator.ToHtml( (Color)value);
+                this._colour = ColorTranslator.ToHtml((Color)value).Substring(1);
             }
         }
 
@@ -200,9 +183,9 @@ namespace FemDesign.Soil
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private WaterLevel() { }
+        private GroundWater() { }
 
-        public WaterLevel(string name, Color? color = null)
+        public GroundWater(string name, Color? color = null)
         {
             this.Name = name;
             if (color == null)
