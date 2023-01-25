@@ -2285,13 +2285,10 @@ namespace FemDesign
             }
 
             // in model, overwrite
-            else if (inModel && overwrite)
-            {
-                this.Entities.SoilElements = null;
-            }
-
             // add obj
             this.Entities.SoilElements = obj;
+            foreach(var stratum in obj.Strata.Stratum)
+                this.AddMaterial(stratum.Material, overwrite);
         }
 
         /// <summary>

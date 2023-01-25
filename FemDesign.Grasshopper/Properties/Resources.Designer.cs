@@ -163,6 +163,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap boreholes {
+            get {
+                object obj = ResourceManager.GetObject("boreholes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BucklingDataSetOnConcreteBar {
             get {
                 object obj = ResourceManager.GetObject("BucklingDataSetOnConcreteBar", resourceCulture);
@@ -566,6 +576,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap FreqDefine {
             get {
                 object obj = ResourceManager.GetObject("FreqDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GroundWater {
+            get {
+                object obj = ResourceManager.GetObject("GroundWater", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1763,6 +1783,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap soil {
+            get {
+                object obj = ResourceManager.GetObject("soil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SoilMaterial {
+            get {
+                object obj = ResourceManager.GetObject("SoilMaterial", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap StageActivatedLoad {
             get {
                 object obj = ResourceManager.GetObject("StageActivatedLoad", resourceCulture);
@@ -1916,6 +1956,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap StraightReinforcementLayout {
             get {
                 object obj = ResourceManager.GetObject("StraightReinforcementLayout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Strata {
+            get {
+                object obj = ResourceManager.GetObject("Strata", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

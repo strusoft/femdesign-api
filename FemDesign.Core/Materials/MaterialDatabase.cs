@@ -136,7 +136,7 @@ namespace FemDesign.Materials
 
             foreach(var material in this.Materials.Material)
             {
-                if(material.Family != null)
+                if(material.Stratum != null)
                     soilMaterial.Add(material);
             }
             return soilMaterial;

@@ -9,7 +9,7 @@ using System.IO;
 namespace FemDesign.Soil
 {
     [TestClass]
-    public class FoundationsTests
+    public class SoilElementsTests
     {
         [TestMethod]
         public void CreateBoreholes()
@@ -63,6 +63,23 @@ namespace FemDesign.Soil
             Console.WriteLine(SerializeToString(strata));
         }
 
+        [TestMethod]
+        [TestCategory("FEM-Design required")]
+        public void CreateModelWithSoil()
+        {
+
+            var strata = GetStrata();
+            var borehole = GetBoreholes();
+            var boreholes = borehole.Concat(OuterBoreholes()).ToList();
+
+            var soilElements = new FemDesign.Soil.SoilElements(strata, boreholes);
+
+            var model = new Model(Country.S, soil: soilElements);
+            model.Open();
+
+            Console.WriteLine(model.SerializeToString());
+        }
+
 
         [TestMethod]
         [TestCategory("FEM-Design required")]
@@ -103,6 +120,28 @@ namespace FemDesign.Soil
 
             return boreholes;
         }
+
+        private List<BoreHole> OuterBoreholes()
+        {
+            var boreholes = new List<BoreHole>();
+
+ 
+            var strata = new List<double> { 0.00, -10.00, -20.00 };
+            var water = new List<double> { -12, -22.00 };
+            var levels = new FemDesign.Soil.AllLevels(strata, water);
+
+            var boreHole = new FemDesign.Soil.BoreHole(0, 0, 0, levels);
+            boreholes.Add(boreHole);
+            boreHole = new FemDesign.Soil.BoreHole(10, 0, 0, levels);
+            boreholes.Add(boreHole);
+            boreHole = new FemDesign.Soil.BoreHole(0, 10, 0, levels);
+            boreholes.Add(boreHole);
+            boreHole = new FemDesign.Soil.BoreHole(10, 10, 0, levels);
+            boreholes.Add(boreHole);
+
+            return boreholes;
+        }
+
         private Strata GetStrata()
         {
             var database = FemDesign.Materials.MaterialDatabase.DeserializeStruxml(@"Soil\SoilDatabase.struxml");

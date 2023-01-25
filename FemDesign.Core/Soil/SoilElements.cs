@@ -30,6 +30,25 @@ namespace FemDesign.Soil
         {
             this.Strata = strata;
             this.BoreHoles = boreholes;
+            this.ValidateData();
+        }
+
+        private void ValidateData()
+        {
+            var stratumCount = this.Strata.Stratum.Count;
+            var groundWaterCount = this.Strata.GroundWater.Count;
+
+            foreach(var borehole in this.BoreHoles)
+            {
+                if(borehole.WholeLevelData.StrataTopLevels.Count != stratumCount)
+                {
+                    throw new Exception($"Borehole '{borehole.Name}' must have {stratumCount} number of Strata Levels");
+                }
+                if (borehole.WholeLevelData.WaterLevels.Count != groundWaterCount)
+                {
+                    throw new Exception($"Borehole's Waterlevels list must have {groundWaterCount} values");
+                }
+            }
         }
     }
 }
