@@ -37,7 +37,7 @@ namespace FemDesign.Soil
             {
                 if( value.GroupBy(x => x.Name).Any(g => g.Count() > 1))
                 {
-                    throw new Exception("Duplicate Name found. WaterLevel's names must be unique.");
+                    throw new Exception("Duplicate Name found. WaterLevel names must be unique.");
                 }
                 _groundWater = value;
             }
@@ -97,6 +97,10 @@ namespace FemDesign.Soil
             // Strata Object does not have a Guid. Therefore this.EntityCreated() should not be use
             this.EntityModified();
         }
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {this.Name}, Level Limit {DepthLevelLimit} [m], Stratum: {Stratum.Count} layer, Ground water: {GroundWater.Count} layer";
+        }
     }
 
     public partial class Stratum
@@ -116,6 +120,8 @@ namespace FemDesign.Soil
             }
             set
             {
+                if (value.Family != "Stratum")
+                    throw new ArgumentException("Material should be type of Stratum!");
                 this._material = value;
                 this.Guid = this._material.Guid;
             }
@@ -151,6 +157,11 @@ namespace FemDesign.Soil
                 color = System.Drawing.Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
             }
             this.Color = color;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
 
     }

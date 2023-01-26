@@ -1783,19 +1783,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap soil {
+        internal static System.Drawing.Bitmap Soil {
             get {
-                object obj = ResourceManager.GetObject("soil", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SoilMaterial {
-            get {
-                object obj = ResourceManager.GetObject("SoilMaterial", resourceCulture);
+                object obj = ResourceManager.GetObject("Soil", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1966,6 +1956,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap Strata {
             get {
                 object obj = ResourceManager.GetObject("Strata", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stratum {
+            get {
+                object obj = ResourceManager.GetObject("Stratum", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

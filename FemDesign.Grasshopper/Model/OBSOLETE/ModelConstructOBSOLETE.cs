@@ -9,9 +9,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelConstruct : GH_Component
+    public class ModelConstructOBSOLETE : GH_Component
     {
-        public ModelConstruct() : base("Model.Construct", "Construct", "Construct new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelConstructOBSOLETE() : base("Model.Construct", "Construct", "Construct new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -28,8 +28,6 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single LoadGroup element or list of LoadGroup elements to add. Nested lists are not supported.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Soil", "Soil", "Single Soil element. FEM-Design can only have one soil element in a model.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Stages", "Stages", "List of Stages to add. Minimum number of stages is two. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -64,7 +62,7 @@ namespace FemDesign.Grasshopper
 
             ConstructionStages constructionStage = null;
 
-            if (stages.Count != 0)
+            if(stages.Count != 0)
             {
                 constructionStage = new ConstructionStages(
                     stages,
@@ -74,20 +72,8 @@ namespace FemDesign.Grasshopper
             }
 
 
-            List<FemDesign.Soil.SoilElements> _soil = new List<FemDesign.Soil.SoilElements>();
-            DA.GetDataList("Soil", _soil);
-
-            if(_soil.Count > 1)
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design can only have one soil element in a model.");
-
-            Soil.SoilElements soil = null;
-
-            if (_soil.Count != 0)
-                soil = _soil[0];
-
-
             // Create model
-            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage, soil);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage);
             DA.SetData("FdModel", model);
         }
 
@@ -107,10 +93,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{C2A1F38B-E81E-4B0E-8E58-16DC74F3B91A}"); }
+            get { return new Guid("{8BC26CB8-4497-4817-A412-3C7E3A1F74E0}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

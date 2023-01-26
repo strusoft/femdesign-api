@@ -152,6 +152,7 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />
     <Compile Include="Model\ModelReadResults.cs" />
     <Compile Include="Model\ModelReadStr.cs" />

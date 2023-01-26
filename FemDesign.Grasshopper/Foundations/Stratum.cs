@@ -60,7 +60,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.Strata;
+                return FemDesign.Properties.Resources.Stratum;
             }
         }
 

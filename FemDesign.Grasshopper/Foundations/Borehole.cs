@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -8,9 +8,6 @@ namespace FemDesign.Grasshopper
 {
     public class Borehole : GH_Component
     {
-        /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
-        /// </summary>
         public Borehole()
           : base("Borehole", "Borehole", "Create a Borehole element.",
             CategoryName.Name(),
@@ -24,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Position", "Position", "", GH_ParamAccess.item);
-            pManager.AddPointParameter("FinalGroundLevel", "FinalGroundLevel", "Final ground level [m]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FinalGroundLevel", "FinalGroundLevel", "Final ground level [m]", GH_ParamAccess.item, 0.00);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("StrataLevels", "StrataLevels", "", GH_ParamAccess.list);
             pManager.AddNumberParameter("WaterLevels", "WaterLevels", "", GH_ParamAccess.list);
@@ -60,6 +57,16 @@ namespace FemDesign.Grasshopper
 
             string identifier = "BH";
             DA.GetData(4, ref identifier);
+
+
+            if( strataLevels.Where(x => x > 0.0).Any())
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Positive value specified in Strata Levels.");
+            }
+            if (waterLevels.Where(x => x > 0.0).Any())
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Positive value specified in Water Levels.");
+            }
 
             var allLevels = new FemDesign.Soil.AllLevels(strataLevels, waterLevels);
 

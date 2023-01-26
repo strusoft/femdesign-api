@@ -33,7 +33,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.SoilMaterial;
+                return FemDesign.Properties.Resources.Strata;
             }
         }
         public override Guid ComponentGuid

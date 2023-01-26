@@ -24,9 +24,9 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddCurveParameter("Contour", "Contour", "Define the boundary region of the soil element. The boundary edges must be straight.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Stratum", "Stratum", "", GH_ParamAccess.list);
             pManager.AddGenericParameter("GroundWater", "GroundWater", "", GH_ParamAccess.list);
-            pManager.AddPointParameter("Contour", "Contour", "", GH_ParamAccess.list);
             pManager.AddNumberParameter("LevelLimit", "LevelLimit", "Limit Depth Level [m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "Identifier", "", GH_ParamAccess.item, "SOIL");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -46,14 +46,14 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Rhino.Geometry.Curve _contourCurve = null;
+            DA.GetData(0, ref _contourCurve);
+
             var stratum = new List<Soil.Stratum>();
-            DA.GetDataList(0, stratum);
+            DA.GetDataList(1, stratum);
 
             var waterLevel = new List<Soil.GroundWater>();
-            DA.GetDataList(1, waterLevel);
-
-            var _contour = new List<Rhino.Geometry.Point3d>();
-            DA.GetDataList(2, _contour);
+            DA.GetDataList(2, waterLevel);
 
             double levelLimit = 0.0;
             DA.GetData(3, ref levelLimit);
@@ -61,6 +61,24 @@ namespace FemDesign.Grasshopper
             string identifier = "SOIL";
             DA.GetData(4, ref identifier);
 
+            var listCurves = FemDesign.Grasshopper.GeomUtility.Explode(_contourCurve);
+
+            var _contour = new List<Rhino.Geometry.Point3d>();
+            foreach (var curve in listCurves)
+            {
+                if (!curve.IsLinear())
+                {
+                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Curve must have straight edges");
+                    return;
+                }
+                else
+                {
+                    _contour.Add(curve.PointAtStart);
+                    _contour.Add(curve.PointAtEnd);
+                }
+            }
+
+            _contour = Rhino.Geometry.Point3d.CullDuplicates(_contour, FemDesign.Tolerance.Point3d).ToList();
 
             var contour = new List<Geometry.Point2d>();
             foreach(var point in _contour)
@@ -83,7 +101,7 @@ namespace FemDesign.Grasshopper
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return FemDesign.Properties.Resources.SoilMaterial;
+                return FemDesign.Properties.Resources.Strata;
             }
         }
 

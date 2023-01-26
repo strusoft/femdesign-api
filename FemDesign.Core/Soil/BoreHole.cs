@@ -66,6 +66,13 @@ namespace FemDesign.Soil
             return boreHole;
         }
 
+        public override string ToString()
+        {
+            if(this.WholeLevelData != null)
+                return $"{this.GetType().Name} {this.Name}, X: {this.X} Y: {this.Y}, FinalGroundLevel: {this.FinalGroundLevel} [m], Ground Level Depth: {this.WholeLevelData._strataTopLevels} [m], Water Levels Depth: {this.WholeLevelData._waterLevels} [m]";
+            else
+                return $"{this.GetType().Name} {this.Name}, X: {this.X} Y: {this.Y}, FinalGroundLevel: {this.FinalGroundLevel} [m]";
+        }
     }
 
     public partial class AllLevels
