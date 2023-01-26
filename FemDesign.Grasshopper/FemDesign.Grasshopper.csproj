@@ -853,6 +853,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\TrussBehaviour.png" />
     <None Include="Resources\icons\GroundWater.png" />
     <None Include="Resources\icons\Strata.png" />
     <None Include="Resources\icons\SoilMaterial.png" />

@@ -7135,4 +7135,7 @@
   <data name="Stratum" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\Strata.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TrussBehaviour" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\TrussBehaviour.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

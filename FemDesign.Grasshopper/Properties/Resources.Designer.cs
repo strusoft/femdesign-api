@@ -2133,6 +2133,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TrussBehaviour {
+            get {
+                object obj = ResourceManager.GetObject("TrussBehaviour", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TrussDefault {
             get {
                 object obj = ResourceManager.GetObject("TrussDefault", resourceCulture);
