@@ -128,9 +128,14 @@
     <Compile Include="Deconstruct\SupportGroupDeconstuctor.cs" />
     <Compile Include="Deconstruct\SupportDirectedDeconstruct.cs" />
     <Compile Include="Extension\ComponentExtensions.cs" />
+    <Compile Include="Foundations\Borehole.cs" />
+    <Compile Include="Foundations\GroundWater.cs" />
     <Compile Include="Foundations\Insulation.cs" />
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\ExtrudedSolid.cs" />
+    <Compile Include="Foundations\SoilElement.cs" />
+    <Compile Include="Foundations\Strata.cs" />
+    <Compile Include="Foundations\Stratum.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
@@ -143,9 +148,11 @@
     <Compile Include="Materials\OBSOLETE\MaterialGetMaterialByNameOBSOLETE2.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefaultOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
+    <Compile Include="Materials\SoilMaterialFromStruxml.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />
     <Compile Include="Model\ModelReadResults.cs" />
     <Compile Include="Model\ModelReadStr.cs" />
@@ -846,6 +853,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\GroundWater.png" />
+    <None Include="Resources\icons\Strata.png" />
+    <None Include="Resources\icons\SoilMaterial.png" />
+    <None Include="Resources\icons\soil.png" />
+    <None Include="Resources\icons\boreholes .png" />
     <None Include="Resources\icons\ResultPoint.png" />
     <None Include="Resources\icons\PlateSetStiffness.bmp" />
     <None Include="Resources\icons\BeamSetStiffness.bmp" />

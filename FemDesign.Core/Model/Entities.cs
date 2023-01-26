@@ -18,7 +18,7 @@ namespace FemDesign
         public Foundations.Foundations Foundations { get; set; } = new Foundations.Foundations();
 
         [XmlElement("soil_elements", Order = 2)]
-        public StruSoft.Interop.StruXml.Data.DatabaseEntitiesSoil_elements SoilElements { get; set; }
+        public FemDesign.Soil.SoilElements SoilElements { get; set; }
 
         [XmlElement("bar", Order = 3)]
         public List<Bars.Bar> Bars { get; set; } = new List<Bars.Bar>();
