@@ -335,6 +335,9 @@
     <Compile Include="..\FemDesign.Core\Geometry\CoordinateSystem.cs">
       <Link>Core\Geometry\CoordinateSystem.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\HorizontalPolygon2d.cs">
+      <Link>Core\Geometry\HorizontalPolygon2d.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\LineEdge.cs">
       <Link>Core\Geometry\LineEdge.cs</Link>
     </Compile>
@@ -850,6 +853,15 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
       <Link>Core\Shells\WallCorbel.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\BoreHole.cs">
+      <Link>Core\Soil\BoreHole.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\SoilElements.cs">
+      <Link>Core\Soil\SoilElements.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\Strata.cs">
+      <Link>Core\Soil\Strata.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
       <Link>Core\StructureGrid\Axes.cs</Link>
