@@ -153,7 +153,7 @@ namespace FemDesign.Soil
             this.Material = soilMaterial;
             if(color == null)
             {
-                var rnd = new Random();
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
                 color = System.Drawing.Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
             }
             this.Color = color;
