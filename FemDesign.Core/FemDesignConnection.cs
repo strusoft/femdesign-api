@@ -338,9 +338,127 @@ namespace FemDesign
 
             return results;
         }
+        public List<Results.FeaNode> GetFeaNodes(Results.Length units = Results.Length.m)
+        {
+            var _resultType = ListProc.FeaNode;
 
+            var unitResults = Results.UnitResults.Default();
+            unitResults.Length = units;
 
+            // Input bsc files and output csv files
+            var listProcs = new List<ListProc> { _resultType };
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<FemDesign.Results.FeaNode> results = new List<FemDesign.Results.FeaNode>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaNode)r)
+                );
+            }
+
+            return results;
+        }
+        public List<Results.FeaBar> GetFeaBars(Results.Length units = Results.Length.m)
+        {
+            var _resultType = ListProc.FeaBar;
+
+            var unitResults = Results.UnitResults.Default();
+            unitResults.Length = units;
+
+            // Input bsc files and output csv files
+            var listProcs = new List<ListProc> { _resultType };
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<FemDesign.Results.FeaBar> results = new List<FemDesign.Results.FeaBar>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaBar)r)
+                );
+            }
+
+            return results;
+        }
+        public List<Results.FeaShell> GetFeaShells(Results.Length units = Results.Length.m)
+        {
+            var _resultType = ListProc.FeaShell;
+
+            var unitResults = Results.UnitResults.Default();
+            unitResults.Length = units;
+
+            // Input bsc files and output csv files
+            var listProcs = new List<ListProc> { _resultType };
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<FemDesign.Results.FeaShell> results = new List<FemDesign.Results.FeaShell>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaShell)r)
+                );
+            }
+
+            return results;
+        }
+        public Results.FDfea GetFeaModel(Results.Length units = Results.Length.m)
+        {
+            var feaNode = GetFeaNodes(units);
+            var feaBar = GetFeaBars(units);
+            var feaShell = GetFeaShells(units);
+
+            var fdFEa = new Results.FDfea(feaNode, feaBar, feaShell);
+
+            return fdFEa;
+        }
         public List<T> GetLoadCaseResults<T>(Loads.LoadCase loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapCase = new MapCase(loadCase.Name);
@@ -381,8 +499,6 @@ namespace FemDesign
 
             return results;
         }
-
-
         public List<T> GetLoadCombinationResults<T>(Loads.LoadCombination loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapComb = new MapComb(loadCombination.Name);
@@ -423,7 +539,6 @@ namespace FemDesign
 
             return results;
         }
-
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);

@@ -77,11 +77,11 @@ namespace FemDesign.Grasshopper
             {
                 if (obj.IsTriangle())
                 {
-                    oMesh.Faces.AddFace(obj.Node1 - 1, obj.Node2 - 1, obj.Node3 - 1);
+                    oMesh.Faces.AddFace((int)obj.Node1 - 1, (int)obj.Node2 - 1, (int)obj.Node3 - 1);
                 }
                 else
                 {
-                    oMesh.Faces.AddFace(obj.Node1 - 1, obj.Node2 - 1, obj.Node3 - 1, obj.Node4 - 1);
+                    oMesh.Faces.AddFace((int)obj.Node1 - 1, (int)obj.Node2 - 1, (int)obj.Node3 - 1, (int)obj.Node4 - 1);
                 }
             }
 
