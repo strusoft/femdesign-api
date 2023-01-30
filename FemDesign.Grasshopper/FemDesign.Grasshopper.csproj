@@ -140,6 +140,7 @@
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefaultOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxmlOBSOLETE.cs" />
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
+    <Compile Include="ModellingTools\PointConnectionConstruct.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
