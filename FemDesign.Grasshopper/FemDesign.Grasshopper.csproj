@@ -130,9 +130,10 @@
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
-    <Compile Include="Loads\LineStressLoadDefine.cs" />
+    <Compile Include="Loads\LineStressLoad.cs" />
     <Compile Include="Loads\LineLoadForce.cs" />
     <Compile Include="Loads\LineLoadMoment.cs" />
+    <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
     <Compile Include="Materials\CustomMaterial.cs" />
     <Compile Include="Materials\MaterialGetByNameIndex.cs" />
@@ -242,7 +243,7 @@
     <Compile Include="Loads\FootfallSelfExcitation.cs" />
     <Compile Include="Obsolete\LineLoadForceOBSOLETE.cs" />
     <Compile Include="Obsolete\LineLoadMomentOBSOLETE.cs" />
-    <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
+    <Compile Include="Loads\LineTemperatureLoadDefineOBSOLETE.cs" />
     <Compile Include="Loads\LoadCaseConstruct.cs" />
     <Compile Include="Loads\LoadCaseGetLoadCaseByName.cs" />
     <Compile Include="Loads\LoadCombinationConstruct.cs" />
@@ -256,7 +257,7 @@
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
-    <Compile Include="Loads\TopBotLocationValueConstruct.cs" />
+    <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
