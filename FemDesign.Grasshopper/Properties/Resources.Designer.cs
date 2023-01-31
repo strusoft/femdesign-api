@@ -1273,6 +1273,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PointConnection {
+            get {
+                object obj = ResourceManager.GetObject("PointConnection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PointLoadForce {
             get {
                 object obj = ResourceManager.GetObject("PointLoadForce", resourceCulture);
