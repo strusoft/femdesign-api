@@ -155,7 +155,7 @@
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />
     <Compile Include="Model\ModelReadResults.cs" />
-    <Compile Include="Model\ModelReadStr.cs" />
+    <Compile Include="Model\OBSOLETE\ModelReadStr_21.7.0_OBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />

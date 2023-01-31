@@ -8,9 +8,9 @@ using Grasshopper.Kernel.Data;
 using System.Text.RegularExpressions;
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadStr : GH_Component
+    public class ModelReadStr_21_7_0_OBSOLETE : GH_Component
     {
-        public ModelReadStr() : base("Model.ReadStr", "ReadStr", "Read model from .str file.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelReadStr_21_7_0_OBSOLETE() : base("Model.ReadStr", "ReadStr", "Read model from .str file.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -180,7 +180,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{D9152EDD-6BC8-4F4C-AD81-B9B2E8B51192}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

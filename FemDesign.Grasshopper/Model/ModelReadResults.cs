@@ -56,8 +56,6 @@ namespace FemDesign.Grasshopper
             // Get input
             string filePath = null;
 
-            Results.FDfea fdFeaModel = null;
-
             DA.GetData("StrPath", ref filePath);
             if (filePath == null)
             {
@@ -66,6 +64,16 @@ namespace FemDesign.Grasshopper
 
             List<string> resultTypes = new List<string>();
             DA.GetDataList("ResultTypes", resultTypes);
+
+            bool hasFiniteElent = false;
+            if (resultTypes.Contains("FiniteElement"))
+            {
+                resultTypes.Insert(0, "FeaNode");
+                resultTypes.Insert(1, "FeaBar");
+                resultTypes.Insert(2, "FeaShell");
+                resultTypes.Remove("FiniteElement");
+                hasFiniteElent = true;
+            }
 
             List<string> caseCombo = new List<string>();
             DA.GetDataList("Case/Combination Name", caseCombo);
@@ -133,6 +141,11 @@ namespace FemDesign.Grasshopper
 
                 IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
+
+                List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
+                List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
+                List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+
                 if (resultTypes != null && resultTypes.Any())
                 {
                     foreach (var cmd in fdScript.CmdListGen)
@@ -140,8 +153,23 @@ namespace FemDesign.Grasshopper
                         string path = cmd.OutFile;
                         try
                         {
-                            var _results = Results.ResultsReader.Parse(path);
-                            results = results.Concat(_results);
+                            if (path.Contains("FeaNode"))
+                            {
+                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                            }
+                            else if (path.Contains("FeaBar"))
+                            {
+                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                            }
+                            else if (path.Contains("FeaShell"))
+                            {
+                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                            }
+                            else
+                            {
+                                var _results = Results.ResultsReader.Parse(path);
+                                results = results.Concat(_results);
+                            }
                         }
                         catch (Exception e)
                         {
@@ -149,6 +177,7 @@ namespace FemDesign.Grasshopper
                         }
                     }
                 }
+
 
                 var resultGroups = results.GroupBy(t => t.GetType()).ToList();
                 // Convert Data in DataTree structure
@@ -159,6 +188,14 @@ namespace FemDesign.Grasshopper
                 {
                     resultsTree.AddRange(resGroup.AsEnumerable(), new GH_Path(i));
                     i++;
+                }
+
+
+                Results.FDfea fdFeaModel = null;
+                if (hasFiniteElent)
+                {
+                    fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+                    resultsTree.Add(fdFeaModel);
                 }
 
                 DA.SetDataTree(0, resultsTree);
