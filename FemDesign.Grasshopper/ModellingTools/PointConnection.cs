@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Rotation", "Rotation", "Default rotation release is rigid (1.000e+10 kNm/rad).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ElementToConnect", "ElementToConnect", "Select objects to connect.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("ElementToConnect", "ElementToConnect", "Objects to connect.", GH_ParamAccess.list);
             pManager.AddPlaneParameter("LocalPlane", "LocalPlane", "Default orientation is WorldXY Plane.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Define an identifier (position number).", GH_ParamAccess.item, "CP");
