@@ -36,10 +36,17 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            Vector3d dir = Vector3d.YAxis;
+            Vector3d tan = new Vector3d(crv.PointAtEnd - crv.PointAtStart);
+            Vector3d dir = Vector3d.CrossProduct(tan, Vector3d.ZAxis);
+
             if (!DA.GetData(1, ref dir))
             {
                 // pass
+            }
+
+            if (DA.GetData(1, ref dir) & Vector3d.CrossProduct(dir, tan).IsZero)
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The direction cannot be parallel to the curve.");
             }
 
             double topVal = 0;
@@ -54,9 +61,9 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            var val1 = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), topVal, bottomVal);
-            var val2 = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), topVal, bottomVal);
-            var vals = new List<Loads.TopBotLocationValue>() { val1, val2 };
+            var firstValue = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), topVal, bottomVal);
+            var secondValue = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), topVal, bottomVal);
+            var vals = new List<Loads.TopBotLocationValue>() { firstValue, secondValue };
             
             Loads.LoadCase lc = null;
             if (!DA.GetData(4, ref lc))
@@ -74,6 +81,7 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+
 
             // convert geometry
             Geometry.Edge edge = crv.FromRhinoLineOrArc1();
