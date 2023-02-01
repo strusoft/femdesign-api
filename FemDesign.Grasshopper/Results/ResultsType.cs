@@ -29,7 +29,7 @@ namespace FemDesign.Grasshopper
 
 
             var values = new List<string>
-            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "CLTShellUtilization", "CLTFireUtilization", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement"};
+            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "CLTShellUtilization", "CLTFireUtilization", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement", "FiniteElement"};
 
             GH_ValueListItem vi;
             foreach (string value in values)

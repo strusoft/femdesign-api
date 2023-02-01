@@ -195,7 +195,7 @@ namespace FemDesign.Grasshopper
                 if (hasFiniteElent)
                 {
                     fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
-                    resultsTree.Add(fdFeaModel);
+                    resultsTree.Add(fdFeaModel, new GH_Path(i));
                 }
 
                 DA.SetDataTree(0, resultsTree);
