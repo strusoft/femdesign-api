@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace FemDesign.Geometry
 {
@@ -107,10 +108,13 @@ namespace FemDesign.Geometry
             set { this._type = RestrictedString.EdgeType(value); }
         }
         [XmlAttribute("radius")]
+        [DefaultValue(0)]
         public double Radius { get; set; }   // optional. double
         [XmlAttribute("start_angle")]
+        [DefaultValue(0)]
         public double StartAngle { get; set; } // optional. double
         [XmlAttribute("end_angle")]
+        [DefaultValue(0)]
         public double EndAngle { get; set; } // optional. double
         [XmlIgnore]
         public double Length

@@ -98,6 +98,8 @@ namespace FemDesign.Bars
             }
         }
 
+        [XmlAttribute("name")]
+        public string _name; // identifier
         public string Name
         {
             get

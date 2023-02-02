@@ -14,6 +14,8 @@ namespace FemDesign.Shells
     [System.Serializable]
     public partial class Slab : EntityBase, INamedEntity, IStructureElement, IStageElement, IShell
     {
+        [XmlAttribute("name")]
+        public string _name; // identifier
         public string Name
         {
             get

@@ -41,7 +41,7 @@ namespace FemDesign.Reinforcement
         }
 
         [XmlAttribute("physical_extension")]
-        public double _physicalExtension { get; set; }
+        public double _physicalExtension { get; set; } = 0.01;
 
         [XmlIgnore]
         public double PhysicalExtension

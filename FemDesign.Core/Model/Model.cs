@@ -2207,9 +2207,9 @@ namespace FemDesign
 
 
         /// <summary>
-        /// Add Support to Model
+        /// Add Foundation to the Model
         /// </summary>
-        /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        /// <param name="obj">Isolated Foundation, Line Foundation or Slab Foundation</param>
         /// <param name="overwrite"></param>
         private void AddFoundation(IFoundationElement obj, bool overwrite)
         {
@@ -3711,7 +3711,7 @@ namespace FemDesign
 
             var mapCase = this.Entities.Loads.LoadCases?.ToDictionary(x => x.Guid);
 
-            foreach (LoadBase load in loads)
+            foreach (var load in loads.OfType<LoadBase>())
             {
                 load.LoadCase = mapCase[load.LoadCaseGuid].DeepClone();
             }
