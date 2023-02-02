@@ -191,16 +191,15 @@ namespace FemDesign.Info
                 textRectangle.Y += 15;
                 link1 = textRectangle;
                 Font linkFont = new Font(GH_FontServer.StandardItalic, FontStyle.Underline);
-                graphics.DrawString(String.Format("https://strusoft.freshdesk.com/", 5), linkFont, Brushes.Blue, textRectangle, format);
+                graphics.DrawString(String.Format("https://femdesign-api-docs.onstrusoft.com"), linkFont, Brushes.Blue, textRectangle, format);
 
                 textRectangle.Y += 15;
                 link2 = textRectangle;
-                graphics.DrawString(String.Format("https://wiki.fem-design.strusoft.com/"), linkFont, Brushes.Blue, textRectangle, format);
+                graphics.DrawString(String.Format("https://strusoft.freshdesk.com", 5), linkFont, Brushes.Blue, textRectangle, format);
 
                 textRectangle.Y += 15;
                 link3 = textRectangle;
                 graphics.DrawString(String.Format("https://github.com/strusoft/femdesign-api"), linkFont, Brushes.Blue, textRectangle, format);
-
 
                 textRectangle.Y += 25;
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
@@ -221,12 +220,12 @@ namespace FemDesign.Info
             // Left mouse button up
             if (link1.Contains(e.CanvasLocation))
             {
-                System.Diagnostics.Process.Start("https://strusoft.freshdesk.com/");
+                System.Diagnostics.Process.Start("https://femdesign-api-docs.onstrusoft.com");
                 return GH.GUI.Canvas.GH_ObjectResponse.Handled;
             }
             else if (link2.Contains(e.CanvasLocation))
             {
-                System.Diagnostics.Process.Start("https://wiki.fem-design.strusoft.com/");
+                System.Diagnostics.Process.Start("https://strusoft.freshdesk.com");
                 return GH.GUI.Canvas.GH_ObjectResponse.Handled;
             }
             else if (link3.Contains(e.CanvasLocation))
