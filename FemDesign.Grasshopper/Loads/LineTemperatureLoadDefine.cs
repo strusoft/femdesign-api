@@ -93,9 +93,9 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException(msg);
             }
 
-            var bottom = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), topVal[0], bottomVal[0]);
-            var top = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), topVal[1], bottomVal[1]);
-            var vals = new List<Loads.TopBotLocationValue>() { top, bottom };
+            var firstVal = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), bottomVal[0], topVal[0]);
+            var secondVal = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), bottomVal[1], topVal[1]);
+            var vals = new List<Loads.TopBotLocationValue>() { firstVal, secondVal };
             
 
             Loads.LoadCase lc = null;
