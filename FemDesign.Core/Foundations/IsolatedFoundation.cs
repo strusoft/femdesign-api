@@ -20,7 +20,8 @@ namespace FemDesign.Foundations
         protected override int GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("bedding_modulus")]
-        public double BeddingModulus { get; set; }
+        [DefaultValue(10000)]
+        public double BeddingModulus { get; set; } = 10000;
 
         [XmlAttribute("stage")]
         [DefaultValue(1)]

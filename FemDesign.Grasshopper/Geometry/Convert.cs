@@ -797,12 +797,12 @@ internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         {
             if(face.IsQuad())
             {
-               return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3, face.Node4);
+               return new Rhino.Geometry.MeshFace((int)face.Node1, (int)face.Node2, (int)face.Node3, (int)face.Node4);
             }
             else
             // it is Triangular Mesh
             {
-                return new Rhino.Geometry.MeshFace(face.Node1, face.Node2, face.Node3);
+                return new Rhino.Geometry.MeshFace((int)face.Node1, (int)face.Node2, (int)face.Node3);
             }
         }
         #endregion

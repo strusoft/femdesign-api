@@ -14,7 +14,20 @@ namespace FemDesign.Shells
     [System.Serializable]
     public partial class Slab : EntityBase, INamedEntity, IStructureElement, IStageElement, IShell
     {
-        public string Name => this.SlabPart.Name.Substring(0, this.SlabPart.Name.Length - 2); // Remove trailing ".1" from barpart name
+        [XmlAttribute("name")]
+        public string _name; // identifier
+        public string Name
+        {
+            get
+            {
+                var foundIndexes = new List<int>();
+                for (int i = 0; i < this.SlabPart.Name.Length; i++)
+                    if (this.SlabPart.Name[i] == '.')
+                        foundIndexes.Add(i);
+
+                return this.SlabPart.Name.Substring(0, foundIndexes.Last());
+            }
+        }
         public int Instance => this.SlabPart.Instance;
 
         [XmlIgnore]

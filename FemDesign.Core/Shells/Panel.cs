@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
-
+using System.ComponentModel;
 
 namespace FemDesign.Shells
 {
@@ -325,6 +325,7 @@ namespace FemDesign.Shells
 
 
         [XmlAttribute("ignored_distance")]
+        [DefaultValue(0.02)]
         public double _ignoredDistance = 0.02;
 
         [XmlIgnore]
@@ -341,6 +342,7 @@ namespace FemDesign.Shells
         }
 
         [XmlAttribute("ignored_in_stability")]
+        [DefaultValue(false)]
         public bool IgnoredInStability { get; set; } = false;
 
         /// <summary>

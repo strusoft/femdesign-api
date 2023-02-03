@@ -36,6 +36,7 @@ namespace FemDesign.Materials
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
         
+        // it should be an Enum
         [XmlIgnore]
         public string Family
         {

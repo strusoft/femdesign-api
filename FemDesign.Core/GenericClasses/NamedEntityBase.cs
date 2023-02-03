@@ -69,6 +69,6 @@ namespace FemDesign
                 base._name += ".1";
             }
         }
-        protected new static readonly Regex _namePattern = new Regex(@"@{0,1}(?'name'(?'identifier'[ -#%'-;=?A-\ufffd;]{0,50})\.(?'instance'[0-9]{1,6}){1}\.1)");
+        protected new static readonly Regex _namePattern = new Regex(@"@{0,1}(?'name'(?'identifier'[ -#%'-;=?A-\ufffd;]{0,50})\.(?'instance'[0-9]{1,6}){1}\.[0-9]{0,4})");
     }
 }

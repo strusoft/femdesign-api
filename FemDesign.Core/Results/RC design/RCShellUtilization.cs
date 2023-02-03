@@ -118,7 +118,7 @@ namespace FemDesign.Results
                 string lc = row[2];
                 return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
             }
-
+            else
             {
                 string id = row[0];
                 double rbx = double.Parse(row[2], CultureInfo.InvariantCulture);

@@ -179,7 +179,15 @@ namespace FemDesign.Info
                 PointF pt2 = new PointF(textRectangle.X + textRectangle.Width, textRectangle.Y + 20);
                 graphics.DrawLine(pen, pt1, pt2);
 
-                textRectangle.Y += 25;
+
+                textRectangle.Y += 30;
+                textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
+                Image image = FemDesign.Properties.Resources.fdlogo;
+
+                graphics.DrawImage(image, textRectangle);
+
+
+                textRectangle.Y += 40;
                 graphics.DrawString($"Current version: {currentVersion}", GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
 
                 textRectangle.Y += 20;

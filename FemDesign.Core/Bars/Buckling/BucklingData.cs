@@ -23,6 +23,7 @@ namespace FemDesign.Bars.Buckling
         /// <returns></returns>
         public static Bar SetOnConcreteBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
         {
+            bar = bar.DeepClone();
             // assert input
             if (bar.BarPart.ComplexMaterialObj.Concrete == null)
             {
@@ -57,6 +58,7 @@ namespace FemDesign.Bars.Buckling
         /// <returns></returns>
         public static Bar SetOnSteelBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength pressuredFlange, BucklingLength pressuredBottomFlange)
         {
+            bar = bar.DeepClone();
             // assert input
             if (bar.BarPart.ComplexMaterialObj.Steel == null)
             {
@@ -100,6 +102,7 @@ namespace FemDesign.Bars.Buckling
         /// <returns></returns>
         public static Bar SetOnTimberBar(Bar bar, BucklingLength flexuralStiff, BucklingLength flexuralWeak, BucklingLength lateralTorsional)
         {
+            bar = bar.DeepClone();
             // assert input
             if (bar.BarPart.ComplexMaterialObj.Timber == null)
             {

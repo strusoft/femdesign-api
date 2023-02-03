@@ -56,6 +56,9 @@ namespace FemDesign.Calculate
     /// </summary>
     public partial class FdScript
     {
+
+        public static readonly string Version = "2200";
+
         [XmlIgnore]
         public List<CmdCommand> Commands = new List<CmdCommand>();
 
