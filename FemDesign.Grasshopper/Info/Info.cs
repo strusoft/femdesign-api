@@ -105,10 +105,10 @@ namespace FemDesign.Info
             // Compute the width of the NickName of the owner (plus some extra padding), 
             // then make sure we have at least 80 pixels.
             //int width = GH_FontServer.StringWidth(Owner.NickName, GH_FontServer.Standard);
-            int width = 220; //Math.Max(width + 10, 80);
+            int width = 300; //Math.Max(width + 10, 80);
 
             // The height of our object is always 60 pixels
-            int height = 200;
+            int height = 220;
 
             // Assign the width and height to the Bounds property.
             // Also, make sure the Bounds are anchored to the Pivot
@@ -188,16 +188,16 @@ namespace FemDesign.Info
                 textRectangle.Y += 20;
                 graphics.DrawString(String.Format("Useful links:"), GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link1 = textRectangle;
                 Font linkFont = new Font(GH_FontServer.StandardItalic, FontStyle.Underline);
                 graphics.DrawString(String.Format("https://femdesign-api-docs.onstrusoft.com"), linkFont, Brushes.Blue, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link2 = textRectangle;
                 graphics.DrawString(String.Format("https://strusoft.freshdesk.com", 5), linkFont, Brushes.Blue, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link3 = textRectangle;
                 graphics.DrawString(String.Format("https://github.com/strusoft/femdesign-api"), linkFont, Brushes.Blue, textRectangle, format);
 
