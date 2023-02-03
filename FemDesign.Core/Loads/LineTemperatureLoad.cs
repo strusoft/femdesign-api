@@ -82,6 +82,11 @@ namespace FemDesign.Loads
             this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
+        public override string ToString()
+        {
+            return "[t1;t1']:[" + this.TopBotLocVal[0].TopVal + ";" + this.TopBotLocVal[0].BottomVal + "]; [t2;t2']:[" + this.TopBotLocVal[1].TopVal + ";" + this.TopBotLocVal[1].BottomVal + 
+                "]; tan:{" + this.Edge.Points[0].X + ";" + this.Edge.Points[0].Y + ";" + this.Edge.Points[0].Z + "}; dir:{" + this.Direction.X + ";" + this.Direction.Y + ";" + this.Direction.Z + "}; ";
+        }
 
     }
 }
