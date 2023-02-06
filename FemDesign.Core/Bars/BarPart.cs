@@ -450,7 +450,7 @@ namespace FemDesign.Bars
         public StruSoft.Interop.StruXml.Data.Camber_type_2d CamberType2d { get; set; }
 
         [XmlElement("stiffness_modifiers", Order = 7)]
-        public BarStiffnessFactors BarStiffnessFactors { get; set; }
+        public List<BarStiffnessFactors> StiffnessModifiers { get; set; }
 
         [XmlElement("end", Order = 8)]
         public string End = "";

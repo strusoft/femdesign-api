@@ -2,6 +2,15 @@
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+
+
 
 namespace FemDesign.Grasshopper
 {
@@ -47,6 +56,9 @@ namespace FemDesign.Grasshopper
 
             // serialize model
             model.SerializeModel(filePath);
+
+            if (_FileName.IsASCII(filePath))
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
             
             // return true
             DA.SetData(0, true);

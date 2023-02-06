@@ -35,6 +35,9 @@ There are multiple ways to install Python, but one of them is to download the in
 ## Examples
 Examples can be found in the folder [FemDesign.Examples/](https://github.com/strusoft/femdesign-api/tree/master/FemDesign.Examples). More examples are planned to be added in the future.
 
+## Documentation
+[FEM-Design API docs](https://femdesign-api-docs.onstrusoft.com)
+
 ## Contributing
 Feel free to fork this repo as you seem fit. Please let us know with an issue what feature you want and how you plan on implement it and we (the [authors](#Authors)) will guide you. 
 If you want to contribute please follow our [contribution guide](https://github.com/strusoft/femdesign-api/wiki/Contribute).

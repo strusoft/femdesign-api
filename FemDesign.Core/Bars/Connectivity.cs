@@ -14,7 +14,7 @@ namespace FemDesign.Bars
     {
         
         [XmlIgnore]
-        private bool _mx;
+        private bool _tx;
 
         // binary-rigid
         /// <summary>Translation local-x axis.</summary>
@@ -23,15 +23,15 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._mx;
+                return this._tx;
             }
             set
             {
-                this._mx = value;
+                this._tx = value;
             }
         }
         [XmlIgnore]
-        private bool _my;
+        private bool _ty;
 
         /// <summary>Translation local-y axis. </summary>
         [XmlAttribute("m_y")]
@@ -39,16 +39,16 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._my;
+                return this._ty;
             }
             set
             {
-                this._my = value;
+                this._ty = value;
             }
         }
 
         [XmlIgnore]
-        private bool _mz;
+        private bool _tz;
 
         /// <summary>Translation local-z axis.</summary>
         [XmlAttribute("m_z")]
@@ -56,11 +56,11 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._mz;
+                return this._tz;
             }
             set
             {
-                this._mz = value;
+                this._tz = value;
             }
         }
 
@@ -117,45 +117,45 @@ namespace FemDesign.Bars
 
         // semi-rigid       
         [XmlAttribute("m_x_release")]
-        public double _mxRelease; // non_neg_max_1e10. Default = 0. Valid only if m_x is false.
+        public double _txRelease; // non_neg_max_1e10. Default = 0. Valid only if m_x is false.
         [XmlIgnore]
         public double TxRelease
         {
             get
             {
-                return this._mxRelease;
+                return this._txRelease;
             }
             set
             {
-                this._mxRelease = RestrictedDouble.NonNegMax_1e10(value);
+                this._txRelease = RestrictedDouble.NonNegMax_1e10(value);
             }
         }
         [XmlAttribute("m_y_release")]
-        public double _myRelease; // non_neg_max_1e10. Default = 0. Valid only if m_y is false.
+        public double _tyRelease; // non_neg_max_1e10. Default = 0. Valid only if m_y is false.
         [XmlIgnore]
         public double TyRelease
         {
             get
             {
-                return this._myRelease;
+                return this._tyRelease;
             }
             set
             {
-                this._myRelease = RestrictedDouble.NonNegMax_1e10(value);
+                this._tyRelease = RestrictedDouble.NonNegMax_1e10(value);
             }
         }
         [XmlAttribute("m_z_release")]
-        public double _mzRelease; // non_neg_max_1e10. Default = 0. Valid only if m_z is false.
+        public double _tzRelease; // non_neg_max_1e10. Default = 0. Valid only if m_z is false.
         [XmlIgnore]
         public double TzRelease
         {
             get
             {
-                return this._mzRelease;
+                return this._tzRelease;
             }
             set
             {
-                this._mzRelease = RestrictedDouble.NonNegMax_1e10(value);
+                this._tzRelease = RestrictedDouble.NonNegMax_1e10(value);
             }
         }
         [XmlAttribute("r_x_release")]
@@ -226,9 +226,8 @@ namespace FemDesign.Bars
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private Connectivity()
+        public Connectivity()
         {
-            
         }
         
         /// <summary>
@@ -316,12 +315,22 @@ namespace FemDesign.Bars
 
         public override string ToString()
         {
-            if(IsRigid)
+            if (IsRigid)
                 return $"{this.GetType().Name} Rigid";
-            else if(IsHinged)
+            else if (IsHinged)
                 return $"{this.GetType().Name} Hinged";
             else
-                return $"{this.GetType().Name} Tx: {this.TxRelease} kN/m, Ty: {this.TyRelease} kN/m, Tz: {this.TzRelease} kN/m, Rx: {this.RxRelease} kNm/rad, Ry: {this.RyRelease} kNm/rad, Rz: {this.RzRelease} kNm/rad";
+            {
+                var tx = this.Tx == true ? "Rigid" : $"{this.TxRelease} kN/m";
+                var ty = this.Ty == true ? "Rigid" : $"{this.TyRelease} kN/m";
+                var tz = this.Tz == true ? "Rigid" : $"{this.TzRelease} kN/m";
+
+                var rx = this.Rx == true ? "Rigid" : $"{this.RxRelease} kNm/rad";
+                var ry = this.Ry == true ? "Rigid" : $"{this.RyRelease} kNm/rad";
+                var rz = this.Rz == true ? "Rigid" : $"{this.RzRelease} kNm/rad";
+
+                return $"{this.GetType().Name} Tx: {tx}, Ty: {ty}, Tz: {tz}, Rx: {rx}, Ry: {ry}, Rz: {rz}";
+            }
         }
     }
 }

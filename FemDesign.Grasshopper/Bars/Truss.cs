@@ -1,13 +1,13 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsTruss: GH_Component
+    public class BarsTruss : GH_Component
     {
-        public BarsTruss(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", CategoryName.Name(),
+        public BarsTruss() : base("Bars.Truss", "Truss", "Create a bar element of type truss.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -20,6 +20,8 @@ namespace FemDesign.Grasshopper
             pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
+            pManager.AddGenericParameter("TrussBehaviour", "TrussBehaviour", "TrussBehaviour. Optional, Elastic if undefined.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "T");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -30,7 +32,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
-            
+
             Curve curve = null;
             if (!DA.GetData(0, ref curve)) { return; }
 
@@ -52,21 +54,29 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
+            StruSoft.Interop.StruXml.Data.Truss_chr_type trussBehaviour = null;
+            if (!DA.GetData(5, ref trussBehaviour))
+            {
+                // pass
+            }
+
             string identifier = "T";
-            if (!DA.GetData(5, ref identifier))
+            if (!DA.GetData(6, ref identifier))
             {
                 // pass
             }
 
             // convert geometry
-            if (curve.GetType() != typeof(LineCurve))
+            if (!curve.IsLinear())
             {
                 throw new System.ArgumentException("Curve must be a LineCurve");
             }
-            FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
+
+            // convert geometry
+            FemDesign.Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // bar
-            FemDesign.Bars.Bar bar = new Bars.Truss(edge, material, section, identifier);
+            FemDesign.Bars.Bar bar = new Bars.Truss(edge, material, section, identifier, trussBehaviour);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
@@ -95,7 +105,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{EC481150-B491-406E-8549-92625E18FBEC}"); }
+            get { return new Guid("{FF46A649-FE7F-469E-9B89-99077D728D93}"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.primary;
 

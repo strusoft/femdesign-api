@@ -1,4 +1,4 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +9,19 @@ namespace FemDesign.Grasshopper
 {
     public class BarsColumn : GH_Component
     {
-        public BarsColumn() : base("Bars.Column", "Column", "Create a bar element of type column.", CategoryName.Name(),
+        public BarsColumn() : base("Bars.Column", "Column", "Create a bar element of type column with same start/end properties.", CategoryName.Name(),
              SubCategoryName.Cat2a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Line", "Line", "Line. Local x of line must equal positive global Z.", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Line", "Line", "Local x of line must equal positive global Z.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Section", "Section", "Section. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Section", "Section", "Section.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. Optional, default value if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -35,26 +35,35 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get input
+            // get input            
             Curve curve = null;
             if (!DA.GetData(0, ref curve)) { return; }
 
             FemDesign.Materials.Material material = null;
             if (!DA.GetData(1, ref material)) { return; }
 
-            List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
-            if (!DA.GetDataList(2, sections)) { return; }
+            FemDesign.Sections.Section section = null;
+            if (!DA.GetData(2, ref section)) { return; }
 
-            List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
-            if (!DA.GetDataList(3, connectivities))
+            List<FemDesign.Bars.Connectivity> connectivity = new List<Bars.Connectivity>();
+            if (!DA.GetDataList(3, connectivity))
             {
-                connectivities = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.Rigid };
+                connectivity = new List<Bars.Connectivity> { FemDesign.Bars.Connectivity.Rigid, FemDesign.Bars.Connectivity.Rigid };
             }
 
-            List<FemDesign.Bars.Eccentricity> eccentricities = new List<Bars.Eccentricity>();
-            if (!DA.GetDataList(4, eccentricities))
+            if (connectivity.Count == 1)
             {
-                eccentricities = new List<Bars.Eccentricity> { FemDesign.Bars.Eccentricity.Default };
+                connectivity.Add(connectivity[0]);
+            }
+            else if (connectivity.Count != 2)
+            {
+                throw new ArgumentException("Connectivity list lenght must be equal to 1 or 2!");
+            }
+
+            FemDesign.Bars.Eccentricity eccentricity = FemDesign.Bars.Eccentricity.Default;
+            if (!DA.GetData(4, ref eccentricity))
+            {
+                // pass
             }
 
             Vector3d v = Vector3d.Zero;
@@ -75,6 +84,8 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
+            if (curve == null || material == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
+
             // convert geometry
             if (curve.GetType() != typeof(LineCurve))
             {
@@ -84,7 +95,7 @@ namespace FemDesign.Grasshopper
 
             // create bar
             var type = FemDesign.Bars.BarType.Column;
-            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, sections.ToArray(), eccentricities.ToArray(), connectivities.ToArray(), identifier);
+            FemDesign.Bars.Bar bar = new FemDesign.Bars.Bar(edge, type, material, section, eccentricity, eccentricity, connectivity[0], connectivity[1], identifier);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))
@@ -114,9 +125,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{5001B207-03E3-4571-A012-A05B7AC3F717}"); }
+            get { return new Guid("{65A86DFE-3351-4144-AB54-B5990E03FBA4}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+
     }
 }

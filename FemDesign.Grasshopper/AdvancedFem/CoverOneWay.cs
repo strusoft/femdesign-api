@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class CoverOneWay : GH_Component
     {
-        public CoverOneWay() : base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "Reinforcement")
+        public CoverOneWay() : base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "ModellingTools")
         {
 
         }
@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{7F1B0264-54F0-4D31-BEB3-23E5F151FE09}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
     }
 }

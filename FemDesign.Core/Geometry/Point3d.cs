@@ -129,6 +129,13 @@ namespace FemDesign.Geometry
             return point;
         }
 
+        public static implicit operator Point3d(FemDesign.Results.FeaNode feaNode)
+        {
+            var point = new Geometry.Point3d(feaNode.X, feaNode.Y, feaNode.Z);
+            return point;
+        }
+
+
         public override string ToString()
         {
             return $"({this.X.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, {this.Z.ToString(FemDesign.TextFormatting.decimalRounding)})";

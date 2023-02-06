@@ -104,7 +104,7 @@ namespace FemDesign.Materials
                     if (material.Name == materialName)
                     {
                         // update object information
-                        material.Guid = System.Guid.NewGuid();
+                        //material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -119,7 +119,7 @@ namespace FemDesign.Materials
                     if (material.Name == materialName)
                     {
                         // update object information
-                        material.Guid = System.Guid.NewGuid();
+                        //material.Guid = System.Guid.NewGuid();
                         material.EntityModified();
 
                         // return
@@ -128,6 +128,18 @@ namespace FemDesign.Materials
                 }
             }
             throw new System.ArgumentException($"Material was not found. Incorrect material name ({materialName}) or empty material database.");
+        }
+
+        public List<Material> GetSoilMaterial()
+        {
+            var soilMaterial = new List<Material>();
+
+            foreach(var material in this.Materials.Material)
+            {
+                if(material.Stratum != null)
+                    soilMaterial.Add(material);
+            }
+            return soilMaterial;
         }
 
         public List<CltPanelLibraryType> GetCltPanelLibrary()
@@ -148,7 +160,7 @@ namespace FemDesign.Materials
                     if (panelLibraryType.Name == panelLibraryTypeName)
                     {
                         // update object information
-                        panelLibraryType.Guid = System.Guid.NewGuid();
+                        //panelLibraryType.Guid = System.Guid.NewGuid();
                         panelLibraryType.EntityModified();
 
                         // return

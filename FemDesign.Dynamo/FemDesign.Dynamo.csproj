@@ -80,6 +80,9 @@
     <Compile Include="..\FemDesign.Core\AuxiliaryResults\LabelledSectionsGeometry.cs">
       <Link>Core\AuxiliaryResults\LabelledSectionsGeometry.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\AuxiliaryResults\ResultPointsGeometry.cs">
+      <Link>Core\AuxiliaryResults\ResultPointsGeometry.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Bars\Bar.cs">
       <Link>Core\Bars\Bar.cs</Link>
     </Compile>
@@ -263,6 +266,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\INamedEntity.cs">
       <Link>Core\GenericClasses\INamedEntity.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\IShell.cs">
+      <Link>Core\GenericClasses\IShell.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\IStageElement.cs">
       <Link>Core\GenericClasses\IStageElement.cs</Link>
     </Compile>
@@ -296,6 +302,9 @@
     <Compile Include="..\FemDesign.Core\GenericClasses\StartEndType.cs">
       <Link>Core\GenericClasses\StartEndType.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\GenericClasses\StiffnessAnalysisType.cs">
+      <Link>Core\GenericClasses\StiffnessAnalysisType.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\GenericClasses\TextFormatting.cs">
       <Link>Core\GenericClasses\TextFormatting.cs</Link>
     </Compile>
@@ -325,6 +334,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\CoordinateSystem.cs">
       <Link>Core\Geometry\CoordinateSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\HorizontalPolygon2d.cs">
+      <Link>Core\Geometry\HorizontalPolygon2d.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\LineEdge.cs">
       <Link>Core\Geometry\LineEdge.cs</Link>
@@ -614,6 +626,9 @@
     <Compile Include="..\FemDesign.Core\Reinforcement\ReinforcementDirectionEnum.cs">
       <Link>Core\Reinforcement\ReinforcementDirectionEnum.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Reinforcement\ShearControlRegion.cs">
+      <Link>Core\Reinforcement\ShearControlRegion.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Reinforcement\Stirrups.cs">
       <Link>Core\Reinforcement\Stirrups.cs</Link>
     </Compile>
@@ -839,6 +854,15 @@
     <Compile Include="..\FemDesign.Core\Shells\WallCorbel.cs">
       <Link>Core\Shells\WallCorbel.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\BoreHole.cs">
+      <Link>Core\Soil\BoreHole.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\SoilElements.cs">
+      <Link>Core\Soil\SoilElements.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Soil\Strata.cs">
+      <Link>Core\Soil\Strata.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\StructureGrid\Axes.cs">
       <Link>Core\StructureGrid\Axes.cs</Link>
     </Compile>
@@ -851,6 +875,9 @@
     <Compile Include="..\FemDesign.Core\StructureGrid\Storeys.cs">
       <Link>Core\StructureGrid\Storeys.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\BarStiffnessFactorRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\BarStiffnessFactorRecord.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\CompositePart.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\CompositePart.cs</Link>
     </Compile>
@@ -859,6 +886,15 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\FD-21.00.001.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\SlabStiffnessRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\SlabStiffnessRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Supports\Directed.cs">
       <Link>Core\Supports\Directed.cs</Link>

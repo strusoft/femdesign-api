@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StruSoft AB")]
 [assembly: AssemblyProduct("FemDesign.Properties")]
-[assembly: AssemblyCopyright("Copyright © 2021")]
+[assembly: AssemblyCopyright("Copyright © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,5 +23,5 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 
-[assembly: AssemblyVersion("21.6.0.0")]
-[assembly: AssemblyFileVersion("21.6.0.0")]
+[assembly: AssemblyVersion("22.1.0.0")]
+[assembly: AssemblyFileVersion("22.1.0.0")]

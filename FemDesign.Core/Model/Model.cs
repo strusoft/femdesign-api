@@ -127,7 +127,9 @@ namespace FemDesign
         /// <param name="loadCombinations">Load combinations</param>
         /// <param name="loadGroups">Load groups</param>
         /// <param name="constructionStage">Construction stages object instance.</param>
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null)
+        /// <param name="soil">Soil element</param>
+
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null, Soil.SoilElements soil = null)
         {
             Initialize(country);
 
@@ -143,6 +145,8 @@ namespace FemDesign
                 AddLoadGroupTable(loadGroups, overwrite: false);
             if (constructionStage != null)
                 SetConstructionStages(constructionStage);
+            if (soil != null)
+                AddSoilElement(soil);
         }
 
         private void Initialize(Country country)
@@ -2203,9 +2207,9 @@ namespace FemDesign
 
 
         /// <summary>
-        /// Add Support to Model
+        /// Add Foundation to the Model
         /// </summary>
-        /// <param name="obj">PointSupport, LineSupport or SurfaceSupport</param>
+        /// <param name="obj">Isolated Foundation, Line Foundation or Slab Foundation</param>
         /// <param name="overwrite"></param>
         private void AddFoundation(IFoundationElement obj, bool overwrite)
         {
@@ -2262,6 +2266,43 @@ namespace FemDesign
             }
             return false;
         }
+
+
+
+
+        /// <summary>
+        /// Add PointSupport to Model.
+        /// </summary>
+        private void AddSoil(Soil.SoilElements obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.SoilInModel();
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException("Model can only have one Soil element object");
+            }
+
+            // in model, overwrite
+            // add obj
+            this.Entities.SoilElements = obj;
+            foreach(var stratum in obj.Strata.Stratum)
+                this.AddMaterial(stratum.Material, overwrite);
+        }
+
+        /// <summary>
+        /// Check if PointSupport in Model.
+        /// </summary>
+        private bool SoilInModel()
+        {
+            if (this.Entities.SoilElements != null)
+                return true;
+            else
+                return false;
+        }
+
+
 
         /// <summary>
         /// Add Support to Model
@@ -2883,6 +2924,56 @@ namespace FemDesign
         }
 
 
+
+        /// <summary>
+        /// Add LabelledSection to Model
+        /// </summary>
+        private void AddResultPoint(AuxiliaryResults.ResultPoint obj, bool overwrite)
+        {
+            if (this.Entities.ResultPoints == null)
+            {
+                this.Entities.ResultPoints = new AuxiliaryResults.ResultPointsGeometry();
+            }
+
+            // in model?
+            bool inModel = this.ResultPointInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.ResultPoints.ResultPoints.RemoveAll(x => x.Guid == obj.Guid);
+                this.Entities.ResultPoints.ResultPoints.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Entities.ResultPoints.ResultPoints.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if LabelledSection in Model
+        /// </summary>
+        private bool ResultPointInModel(AuxiliaryResults.ResultPoint obj)
+        {
+            foreach (AuxiliaryResults.ResultPoint elem in this.Entities.ResultPoints.ResultPoints)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
         {
             var obj = new ConstructionStages(stages, assignModifedElement, assignNewElement, ghostMethod);
@@ -2954,6 +3045,23 @@ namespace FemDesign
         public Model AddElements<T>(params T[] elements) where T : IStructureElement
         {
             return AddElements(elements, overwrite: true);
+        }
+
+
+        /// <summary>
+        /// Add Soil to the model.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="overwrite"></param>
+        /// <returns></returns>
+        public Model AddSoilElement(Soil.SoilElements element, bool overwrite = true)
+        {
+            // check if model contains entities
+            if (this.Entities == null)
+                this.Entities = new Entities();
+
+            AddEntity(element as dynamic, overwrite);
+            return this;
         }
 
         /// <summary>
@@ -3047,9 +3155,13 @@ namespace FemDesign
         private void AddEntity(ModellingTools.Diaphragm obj, bool overwrite) => AddDiaphragm(obj, overwrite);
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
+        private void AddEntity(AuxiliaryResults.ResultPoint obj, bool overwrite) => AddResultPoint(obj, overwrite);
 
         #region FOUNDATIONS
         private void AddEntity(Foundations.IsolatedFoundation obj, bool overwrite) => AddIsolatedFoundation(obj, overwrite);
+
+        private void AddEntity(Soil.SoilElements obj, bool overwrite) => AddSoil(obj, overwrite);
+
         #endregion
 
         #region SUPPORTS
@@ -3357,20 +3469,26 @@ namespace FemDesign
             foreach (Shells.Panel panel in this.Entities.Panels)
             {
                 // get material
-                foreach (Materials.Material material in this.Materials.Material)
+                if(this.Materials != null) // model with only timber plate does not have an xml element 'materials'
                 {
-                    if (material.Guid == panel.ComplexMaterial)
+                    foreach (Materials.Material material in this.Materials.Material)
                     {
-                        panel.Material = material;
+                        if (material.Guid == panel.ComplexMaterialRef)
+                        {
+                            panel.Material = material;
+                        }
                     }
                 }
 
                 // get section
-                foreach (Sections.Section section in this.Sections.Section)
+                if(this.Sections != null) // model with only timber plate does not have an xml element 'sections'
                 {
-                    if (section.Guid == panel.ComplexSection)
+                    foreach (Sections.Section section in this.Sections.Section)
                     {
-                        panel.Section = section;
+                        if (section.Guid == panel.ComplexSection)
+                        {
+                            panel.Section = section;
+                        }
                     }
                 }
 
@@ -3593,7 +3711,7 @@ namespace FemDesign
 
             var mapCase = this.Entities.Loads.LoadCases?.ToDictionary(x => x.Guid);
 
-            foreach (LoadBase load in loads)
+            foreach (var load in loads.OfType<LoadBase>())
             {
                 load.LoadCase = mapCase[load.LoadCaseGuid].DeepClone();
             }

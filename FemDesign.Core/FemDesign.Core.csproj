@@ -50,6 +50,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuxiliaryResults\ResultPointsGeometry.cs" />
     <Compile Include="Bars\BarStiffnessFactors.cs" />
     <Compile Include="Bars\Beam.cs" />
     <Compile Include="Bars\Column.cs" />
@@ -63,21 +64,32 @@
     <Compile Include="Foundations\Insulation.cs" />
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\RefParts.cs" />
+    <Compile Include="Geometry\HorizontalPolygon2d.cs" />
+    <Compile Include="Soil\BoreHole.cs" />
+    <Compile Include="Soil\SoilElements.cs" />
+    <Compile Include="Soil\Strata.cs" />
     <Compile Include="GenericClasses\IFoundationElement.cs" />
     <Compile Include="FemDesignConnection.cs" />
     <Compile Include="Calculate\FdScript.cs" />
     <Compile Include="GenericClasses\INamedEntity.cs" />
+    <Compile Include="GenericClasses\IShell.cs" />
     <Compile Include="GenericClasses\IStageElement.cs" />
     <Compile Include="GenericClasses\NamedEntityBase.cs" />
+    <Compile Include="GenericClasses\StiffnessAnalysisType.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
+    <Compile Include="Reinforcement\ShearControlRegion.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
     <Compile Include="Geometry\ArcEdge.cs" />
     <Compile Include="Geometry\CircleEdge.cs" />
     <Compile Include="Geometry\LineEdge.cs" />
+    <Compile Include="Results\RC design\RCShellReinforcementRequired.cs" />
+    <Compile Include="Results\RC design\RCShellDesignForces.cs" />
     <Compile Include="Results\SurfaceSupportReactions.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
+    <Compile Include="Results\Timber Design\CLTFireUtilization.cs" />
+    <Compile Include="Results\Timber Design\CLTShellUtilization.cs" />
     <Compile Include="Shells\SlabStiffnessFactors.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
     <Compile Include="AdvancedFem\AdvancedFem.cs" />
@@ -337,7 +349,10 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\BarStiffnessFactorRecord.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\SlabStiffnessRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\Truss_chr_type.cs" />
     <Compile Include="Supports\Directed.cs" />
     <Compile Include="Supports\Group.cs" />
     <Compile Include="Supports\LineSupport.cs" />

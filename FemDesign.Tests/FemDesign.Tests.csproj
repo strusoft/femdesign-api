@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FemDesign.Tests</RootNamespace>
     <AssemblyName>FemDesign.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -49,6 +49,7 @@
       <HintPath>..\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="XmlDiffPatch, Version=1.0.8.28, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -73,9 +74,11 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
+    <Compile Include="Calculate\OptionsTests.cs" />
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
+    <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
     <Compile Include="Geometry\RegionTest.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Model\ModelTests.cs" />
     <Compile Include="Performance\BeamGenerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reinforcement\ShearControlRegionTests.cs" />
     <Compile Include="Results\BarDisplacementTests.cs" />
     <Compile Include="Results\BarInternalForcesTest.cs" />
     <Compile Include="Results\BarStressTests.cs" />
@@ -114,8 +118,11 @@
     <Compile Include="Results\ShellsStressTests.cs" />
     <Compile Include="Results\Support\PointSupportReactionTests.cs" />
     <Compile Include="Results\SurfaceSupportReactionTests.cs" />
+    <Compile Include="Results\Timber Design\CLTFireUtilizationTests.cs" />
+    <Compile Include="Results\Timber Design\CLTUtilisationTests.cs" />
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
+    <Compile Include="Shells\SlabTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\fdscript.xsd">
@@ -125,6 +132,9 @@
     </None>
     <None Include="Bars\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Bars\myModel.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Entities\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -157,6 +167,12 @@
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Shells\slabModel.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Soil\SoilDatabase.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
@@ -167,6 +183,14 @@
       <Project>{6a2cb706-d4be-4ae8-a165-ec9f9f0d336e}</Project>
       <Name>Practical example - Load groups combining</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reinforcement\ShearRegionTestFile.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="System.Drawing.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
