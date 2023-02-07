@@ -43,7 +43,8 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // TODO: Set version as global variable in FemDesign.Core
-            string fd_installation_folder = @"C:\Program Files\StruSoft\FEM-Design 22 Night Install\";
+            
+            string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 22 Night Install\";
             DA.GetData("FEM-Design dir", ref fd_installation_folder);
 
             bool minimized = false;

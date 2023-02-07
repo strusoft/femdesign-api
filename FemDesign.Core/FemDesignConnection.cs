@@ -343,6 +343,15 @@ namespace FemDesign
 
             return results;
         }
+
+
+        public List<Results.IResult> GetResults(Type resultType, Results.UnitResults units, Options options)
+        {
+            MethodInfo genericMethod = this.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
+            object result = genericMethod.Invoke(this, new object[] { units, options });
+            return (List<Results.IResult>)result;
+        }
+
         public List<Results.FeaNode> GetFeaNodes(Results.Length units = Results.Length.m)
         {
             var _resultType = ListProc.FeaNode;

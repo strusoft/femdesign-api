@@ -36,9 +36,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Target version of class library.
         /// </summary>
-        internal string FdTargetVersion = "22";
-
-
+        public string FdTargetVersion = "22";
 
         public string OutputDir
         {
@@ -56,7 +54,6 @@ namespace FemDesign.Calculate
         }
         private string _outputDir;
         private List<string> _outputDirsToBeDeleted = new List<string>();
-
 
 
         public Application()

@@ -11,16 +11,23 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRunAnalysis2 : GH_AsyncComponent
+    public class ApplicationReadResult2 : GH_AsyncComponent
     {
-        public ApplicationRunAnalysis2() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationReadResult2() : base("Application.ReadResults", "ReadResults", "Read Results from a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
-            BaseWorker = new ApplicationRunAnalysisWorker(this);
+            BaseWorker = new ApplicationReadResultWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
+            pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination to return the results.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Units", "Units", "", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Options", "Options", "", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
 
@@ -28,35 +35,29 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => base.Icon;
-        public override Guid ComponentGuid => new Guid("d74ac5fb-42ff-49de-977a-aa71849c73ea");
+        public override Guid ComponentGuid => new Guid("{57A6F72C-8312-412B-A6F3-2D92F9BC0C1F}");
         public override GH_Exposure Exposure => GH_Exposure.primary;
-
-        //public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
-        //{
-        //    base.AppendAdditionalMenuItems(menu);
-        //    Menu_AppendItem(menu, "Cancel the analysis (if possible)", (s, e) =>
-        //    {
-        //        RequestCancellation();
-        //        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Analysis could not be cancelled.");
-        //    });
-        //}
     }
 
-    public class ApplicationRunAnalysisWorker : WorkerInstance
+    public class ApplicationReadResultWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
-        private Calculate.Analysis _analysis = null;
+        private Calculate.Options _options = null;
+        private Results.UnitResults _units = null;
+        private string _analysis;
+        private List<Results.NodalDisplacement> _results = null;
         private bool _runNode = false;
         private bool _success = false;
 
         private Verbosity _verbosity = Verbosity.Normal;
 
-        public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
+        public ApplicationReadResultWorker(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -112,7 +113,7 @@ namespace FemDesign.Grasshopper
             _connection.OnOutput += onOutput;
 
             // Run the Analysis
-            _connection.RunAnalysis(_analysis);
+            _results = _connection.GetResults<Results.NodalDisplacement>();
             _success = true;
 
             _connection.OnOutput -= onOutput;
@@ -120,19 +121,22 @@ namespace FemDesign.Grasshopper
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationRunAnalysisWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            if (!DA.GetData("Analysis", ref _analysis)) return;
+            DA.GetData("ResultType", ref _analysis);
+            DA.GetData("Case/Combination Name", ref _analysis);
+            DA.GetData("Units", ref _units);
+            DA.GetData("Options", ref _options);
             DA.GetData("RunNode", ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            //DA.GetData("FdFeaModel", ref connection);
+            DA.SetDataList("Results", _results);
             DA.SetData("Success", _success);
         }
     }

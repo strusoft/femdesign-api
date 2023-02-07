@@ -19,10 +19,16 @@ namespace FemDesign.Info
     {
         public static string GetCurrentFemDesignApiVersion()
         {
+            var ver = GetApiVersion();
+            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+        }
+
+        private static (int Major, int Minor, int Build) GetApiVersion()
+        {
             IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
             string assemblyVersion = assembly.First().Version?.ToString();
             var ver = Version.Parse(assemblyVersion);
-            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            return (ver.Major, ver.Minor, ver.Build);
         }
     }
 
