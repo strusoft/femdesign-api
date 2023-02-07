@@ -6,14 +6,14 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using System.Linq;
 using System.Windows.Forms;
-
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRunAnalysis2 : GH_AsyncComponent
+    public class PipeRunAnalysis : GH_AsyncComponent
     {
-        public ApplicationRunAnalysis2() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public PipeRunAnalysis() : base("Pipe.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
         {
             BaseWorker = new ApplicationRunAnalysisWorker(this);
         }
@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }
@@ -31,19 +31,15 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
+        ////This region overrides the typical component layout
+        //public override void CreateAttributes()
+        //{
+        //    m_attributes = new Attributes_Custom(this);
+        //}
+
         protected override System.Drawing.Bitmap Icon => base.Icon;
         public override Guid ComponentGuid => new Guid("d74ac5fb-42ff-49de-977a-aa71849c73ea");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
-        //public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
-        //{
-        //    base.AppendAdditionalMenuItems(menu);
-        //    Menu_AppendItem(menu, "Cancel the analysis (if possible)", (s, e) =>
-        //    {
-        //        RequestCancellation();
-        //        this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Analysis could not be cancelled.");
-        //    });
-        //}
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
     }
 
     public class ApplicationRunAnalysisWorker : WorkerInstance
@@ -51,10 +47,8 @@ namespace FemDesign.Grasshopper
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
         private Calculate.Analysis _analysis = null;
-        private bool _runNode = false;
+        private bool _runNode = true;
         private bool _success = false;
-
-        private Verbosity _verbosity = Verbosity.Normal;
 
         public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
 
@@ -104,6 +98,8 @@ namespace FemDesign.Grasshopper
 
                 if (progress < 0)
                     ReportProgress(Id, 0.0);
+                else
+                    ReportProgress(Id, progress);
 
                 Rhino.RhinoApp.WriteLine(message);
             }
@@ -132,7 +128,6 @@ namespace FemDesign.Grasshopper
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            //DA.GetData("FdFeaModel", ref connection);
             DA.SetData("Success", _success);
         }
     }

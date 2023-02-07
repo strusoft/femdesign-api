@@ -11,53 +11,50 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationReadResult2 : GH_AsyncComponent
+    public class PipeRunDesign : GH_AsyncComponent
     {
-        public ApplicationReadResult2() : base("Application.ReadResults", "ReadResults", "Read Results from a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public PipeRunDesign() : base("Pipe.RunDesign", "RunDesign", "Run design of model.", CategoryName.Name(), SubCategoryName.Cat7())
         {
-            BaseWorker = new ApplicationReadResultWorker(this);
+            BaseWorker = new ApplicationRunDesignWorker(this);
         }
+
+        protected override void ExpireDownStreamObjects()
+        {
+            foreach (IGH_Param item in Params.Output)
+            {
+                item.ExpireSolution(recompute: false);
+            }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
+            pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination to return the results.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Units", "Units", "", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Options", "Options", "", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => base.Icon;
-        public override Guid ComponentGuid => new Guid("{57A6F72C-8312-412B-A6F3-2D92F9BC0C1F}");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{A4EBF6E6-14DA-4082-A19E-9E06FA956481}");
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
     }
 
-    public class ApplicationReadResultWorker : WorkerInstance
+    public class ApplicationRunDesignWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
-        private Calculate.Options _options = null;
-        private Results.UnitResults _units = null;
-        private string _analysis;
-        private List<Results.NodalDisplacement> _results = null;
-        private bool _runNode = false;
+        private Calculate.Design _design = null;
+        private string _mode = "Steel";
+        private bool _runNode = true;
         private bool _success = false;
 
-        private Verbosity _verbosity = Verbosity.Normal;
-
-        public ApplicationReadResultWorker(GH_Component component) : base(component) { }
+        public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -105,38 +102,33 @@ namespace FemDesign.Grasshopper
 
                 if (progress < 0)
                     ReportProgress(Id, 0.0);
+                else
+                    ReportProgress(Id, progress);
 
                 Rhino.RhinoApp.WriteLine(message);
             }
 
-            _connection.SetVerbosity(_connection.Verbosity);
-            _connection.OnOutput += onOutput;
-
             // Run the Analysis
-            _results = _connection.GetResults<Results.NodalDisplacement>();
+            var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
+            _connection.RunDesign( _userModule , _design);
             _success = true;
-
-            _connection.OnOutput -= onOutput;
 
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationRunDesignWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("ResultType", ref _analysis);
-            DA.GetData("Case/Combination Name", ref _analysis);
-            DA.GetData("Units", ref _units);
-            DA.GetData("Options", ref _options);
+            if (!DA.GetData("Mode", ref _mode)) return;
+            if (!DA.GetData("Design", ref _design)) return;
             DA.GetData("RunNode", ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            DA.SetDataList("Results", _results);
             DA.SetData("Success", _success);
         }
     }

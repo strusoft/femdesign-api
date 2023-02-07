@@ -5,16 +5,16 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelOpen2 : GH_AsyncComponent
+    public class PipeOpen : GH_AsyncComponent
     {
-        public ModelOpen2() : base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
+        public PipeOpen() : base("Pipe.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat7())
         {
             BaseWorker = new ModelOpenWorker();
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open or file path.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         }
         protected override System.Drawing.Bitmap Icon => base.Icon;
         public override Guid ComponentGuid => new Guid("96dc72e0-c0c1-4081-ac2b-56be85905fb2");
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ namespace FemDesign.Grasshopper
     public class ModelOpenWorker : WorkerInstance
     {
         /* INPUT */
-        Model model = null;
+        dynamic model = null;
         FemDesignConnection connection = null;
         bool runNode = false;
 
@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
 
             if (runNode)
             {
-                connection.Open(model);
+                connection.Open(model.Value);
                 success = true;
             }
             else

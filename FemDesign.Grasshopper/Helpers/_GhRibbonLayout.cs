@@ -67,6 +67,11 @@
             return new string(' ', 2) + "Model";
         }
 
+        public static string Cat7()
+        {
+            return new string(' ', 1) + "\u03B2eta";
+        }
+
         public static string Cat7a()
         {
             return new string(' ', 1) + "Calculate";
