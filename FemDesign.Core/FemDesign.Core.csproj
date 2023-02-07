@@ -65,6 +65,7 @@
     <Compile Include="Foundations\IsolatedFoundation.cs" />
     <Compile Include="Foundations\RefParts.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
+    <Compile Include="Geometry\TextAnnotation.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
