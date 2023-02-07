@@ -345,11 +345,13 @@ namespace FemDesign
         }
 
 
-        public List<Results.IResult> GetResults(Type resultType, Results.UnitResults units, Options options)
+        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
         {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
             MethodInfo genericMethod = this.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            object result = genericMethod.Invoke(this, new object[] { units, options });
-            return (List<Results.IResult>)result;
+            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
         }
 
         public List<Results.FeaNode> GetFeaNodes(Results.Length units = Results.Length.m)
@@ -473,9 +475,9 @@ namespace FemDesign
 
             return fdFEa;
         }
-        public List<T> GetLoadCaseResults<T>(Loads.LoadCase loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        public List<T> GetLoadCaseResults<T>(string loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
-            var mapCase = new MapCase(loadCase.Name);
+            var mapCase = new MapCase(loadCase);
 
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -513,9 +515,17 @@ namespace FemDesign
 
             return results;
         }
-        public List<T> GetLoadCombinationResults<T>(Loads.LoadCombination loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
         {
-            var mapComb = new MapComb(loadCombination.Name);
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCaseResults").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(this, new object[] { loadCase, units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+        public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            var mapComb = new MapComb(loadCombination);
 
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -553,6 +563,15 @@ namespace FemDesign
 
             return results;
         }
+        public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
+        {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
