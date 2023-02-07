@@ -1,6 +1,9 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Eto.Forms;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -8,58 +11,109 @@ namespace FemDesign.Grasshopper
 {
     public class TextAnnotation : GH_Component
     {
-        public TextAnnotation() : base("TextAnnotation", "TextAnnotation", "Create a text annotation.", CategoryName.Name(), SubCategoryName.CatLast())
+        public static readonly List<string> HorAlignValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Hor_align)).ToList();
+        public static string HorAlignValueListDescription
+        {
+            get
+            {
+                var str = "";
+                foreach (var h in HorAlignValueList)
+                {
+                    str += "\n" + h;
+                }
+                return str;
+            }
+        }
+        public static readonly List<string> VerAlignValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Ver_align)).ToList();
+        public static string VerAlignValueListDescription
+        {
+            get
+            {
+                var str = "";
+                foreach (var h in VerAlignValueList)
+                {
+                    str += "\n" + h;
+                }
+                return str;
+            }
+        }
+
+        public TextAnnotation() : base("TextAnnotation", "TxtAnnot", "Create a text annotation.", CategoryName.Name(), SubCategoryName.CatLast())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("TextAnnotation", "TextAnnotation", "TextAnnotation", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddPlaneParameter("Point|Plane", "Point|Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {HorAlignValueListDescription}", GH_ParamAccess.item);
+
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("VerticalAligment", "VerAlign", $"Vertical alignement of text. Connect 'ValueList' to get the options: {VerAlignValueListDescription}", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("TextAnnotation", "TextAnnotation", "TextAnnotation.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddPlaneParameter("Plane", "Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
+        }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 3, HorAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 4, VerAlignValueList, null, 0);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var textAnnot = new FemDesign.Geometry.TextAnnotation();
-            if (DA.GetData(0, ref textAnnot))
-            {
-                // pass
-            }
-            else
-            {
-                textAnnot.Initialize();
-            }
-
             var plane = Plane.WorldXY;
-            if (!DA.GetData(1, ref plane)) 
+            if (!DA.GetData(0, ref plane)) 
             { 
                 // pass
             }
 
             string text = null;
-            if (!DA.GetData(2, ref text))
+            if (!DA.GetData(1, ref text))
             {
                 return;
             }
 
-            textAnnot.Position = plane.Origin.FromRhino();
-            textAnnot.LocalX = plane.XAxis.FromRhino();
-            textAnnot.LocalY = plane.YAxis.FromRhino();
-            textAnnot.Text = text;
+
+            var textAnnot = new Geometry.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
+            
+            double size = 0;
+            if (DA.GetData(2, ref size))
+            {
+                textAnnot.StyleType.Font.Size = size;
+            }
+
+            string horAlign = null;
+            if (DA.GetData(3, ref horAlign))
+            {
+                if (Enum.TryParse(horAlign, out StruSoft.Interop.StruXml.Data.Hor_align horAlignEnum))
+                {
+                    textAnnot.StyleType.Font.H_align = horAlignEnum;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Invalid horisontal alignment value: {horAlign}, must be one of the following values: {HorAlignValueListDescription}");
+                }
+            }
+
+            string verAlign = null;
+            if (DA.GetData(4, ref verAlign))
+            {
+                if (Enum.TryParse(verAlign, out StruSoft.Interop.StruXml.Data.Ver_align verAlignEnum))
+                {
+                    textAnnot.StyleType.Font.V_align = verAlignEnum;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Invalid vertical alignment value: {verAlign}, must be one of the following values: {VerAlignValueListDescription}");
+                }
+            }
 
             DA.SetData(0, textAnnot);
-            DA.SetData(1, new Plane(textAnnot.Position.ToRhino(), textAnnot.LocalX.ToRhino(), textAnnot.LocalY.ToRhino()));
-            DA.SetData(2, textAnnot.Text);
         }
 
         protected override System.Drawing.Bitmap Icon
@@ -75,6 +129,117 @@ namespace FemDesign.Grasshopper
         }
 
         public override GH_Exposure Exposure => GH_Exposure.septenary;
+    }
+    public class TextAnnotationDeconstruct : GH_Component
+    {
+        public TextAnnotationDeconstruct() : base("TextAnnotationDeconstruct", "TxtAnnotDecon", "Deconstruct or modify a text annotation.", CategoryName.Name(), SubCategoryName.CatLast())
+        {
 
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("TextAnnotation", "TextAnnotation", "TextAnnotation", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Point|Plane", "Point|Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {TextAnnotation.HorAlignValueListDescription}", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("VerticalAligment", "VerAlign", $"Vertical alignement of text. Connect 'ValueList' to get the options: {TextAnnotation.VerAlignValueListDescription}", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+        }
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddGenericParameter("TextAnnotation", "TextAnnotation", "TextAnnotation.", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Plane", "Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
+            pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size. [m]", GH_ParamAccess.item);
+            pManager.AddTextParameter("HorisontalAligment", "HorAlign", "Horisontal alignement of text", GH_ParamAccess.item);
+            pManager.AddTextParameter("VerticalAligment", "VerAlign", "Vertical alignement of text", GH_ParamAccess.item);
+        }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 4, TextAnnotation.HorAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 5, TextAnnotation.VerAlignValueList, null, 0);
+        }
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            Geometry.TextAnnotation origTextAnnot = null;
+            if (!DA.GetData(0, ref origTextAnnot))
+            {
+                return;
+            }
+            
+            var textAnnot = origTextAnnot.DeepClone();
+
+            var plane = new Plane(textAnnot.Position.ToRhino(), textAnnot.LocalX.ToRhino(), textAnnot.LocalY.ToRhino());
+            if (DA.GetData(1, ref plane))
+            {
+                textAnnot.Position = plane.Origin.FromRhino();
+                textAnnot.LocalX = plane.XAxis.FromRhino();
+                textAnnot.LocalY = plane.YAxis.FromRhino();
+            }
+
+            string text = textAnnot.Text;
+            if (DA.GetData(2, ref text))
+            {
+                textAnnot.Text = text;
+            }
+
+            double size = textAnnot.StyleType.Font.Size;
+            if (DA.GetData(3, ref size))
+            {
+                textAnnot.StyleType.Font.Size = size;
+            }
+
+            string horAlign = textAnnot.StyleType.Font.H_align.ToString();
+            if (DA.GetData(4, ref horAlign))
+            {
+                if (Enum.TryParse(horAlign, out StruSoft.Interop.StruXml.Data.Hor_align horAlignEnum))
+                {
+                    textAnnot.StyleType.Font.H_align = horAlignEnum;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Invalid horisontal alignment value: {horAlign}, must be one of the following values: {TextAnnotation.HorAlignValueListDescription}");
+                }
+            }
+
+            string verAlign = textAnnot.StyleType.Font.V_align.ToString();
+            if (DA.GetData(5, ref verAlign))
+            {
+                if (Enum.TryParse(verAlign, out StruSoft.Interop.StruXml.Data.Ver_align verAlignEnum))
+                {
+                    textAnnot.StyleType.Font.V_align = verAlignEnum;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Invalid vertical alignment value: {verAlign}, must be one of the following values: {TextAnnotation.VerAlignValueListDescription}");
+                }
+            }
+
+            DA.SetData(0, textAnnot);
+            DA.SetData(1, plane);
+            DA.SetData(2, text);
+            DA.SetData(3, size);
+            DA.SetData(4, horAlign);
+            DA.SetData(5, verAlign);
+        }
+
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
+                return null;
+            }
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("7C35D2FF-75B1-4561-A9BE-B7D22FE93B95"); }
+        }
+
+        public override GH_Exposure Exposure => GH_Exposure.septenary;
     }
 }

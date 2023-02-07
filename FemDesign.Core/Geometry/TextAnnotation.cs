@@ -38,7 +38,7 @@ namespace FemDesign.Geometry
                 }
                 else
                 {
-                    throw new System.ArgumentException($"text value: {value} has bad formatting");
+                    throw new System.ArgumentException($"text value: {value} has bad formatting. Expected regex pattern: {regex}");
                 }
             }
         }
@@ -79,17 +79,10 @@ namespace FemDesign.Geometry
             StyleType = styleType;
             Text = text;
         }
+
+        public override string ToString()
+        {
+            return $"TextAnnotation: {this.Text} at {this.Position}";
+        }
     }
 }
-
- //< xs:complexType name = "text_type" >
- //  < xs:sequence >
- //    < xs:element name = "position" type="point_type_3d" /> 
- //    <xs:element name = "local_x"  type="point_type_3d" /> 
- //    <xs:element name = "local_y"  type="point_type_3d" /> 
- //    <xs:element name = "style"    type="style_type" /> 
- //  </xs:sequence >
- //  < xs:attribute name = "guid"      type="guidtype"          use="required" /> 
- //  <xs:attribute name = "text"      type="geometry_text1023" use="required" /> 
- //  <xs:anyAttribute processContents = "skip" />
- //</ xs:complexType >
