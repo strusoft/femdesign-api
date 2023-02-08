@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeReadResults : GH_AsyncComponent
     {
-        public PipeReadResults() : base("Pipe.ReadResults", "ReadResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeReadResults() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
         {
             BaseWorker = new ApplicationReadResultWorker(this);
         }
@@ -21,7 +21,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination to return the results. Default will return all Case/Combination", GH_ParamAccess.item);
+            pManager.AddTextParameter("Case Name", "Case Name", "Name of Load Case to return the results.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -51,9 +53,10 @@ namespace FemDesign.Grasshopper
         private Calculate.Options _options = null;
         private Results.UnitResults _units = null;
         private string _resultType;
-        private string _caseCombo;
+        private List<string> _case = new List<string>();
+        private List<string> _combo = new List<string>();
 
-        private List<Results.IResult> _results = null;
+        private List<Results.IResult> _results = new List<Results.IResult>();
         private bool _runNode = true;
         private bool _success = false;
 
@@ -85,10 +88,44 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            // Run the Analysis
-            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+            if (!_combo.Any() && !_case.Any())
+            {
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input parameter Case Name or Combo Name failed to collect data.");
+                return;
+            }
+
+
+                // Run the Analysis
+                var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
-            _results = _connection._getResults(type, _units, _options);
+
+            if(_case.Any())
+            {
+                foreach(var item in _case)
+                {
+                    var res = _connection._getLoadCaseResults(type, item, _units, _options);
+                    _results.AddRange(res);
+                }
+            }
+
+            if (_combo.Any())
+            {
+                foreach(var item in _combo)
+                {
+                    var res = _connection._getLoadCombinationResults(type, item, _units, _options);
+                    _results.AddRange(res);
+                }
+            }
+
+            //if (!_combo.Any() && !_case.Any())
+            //{
+            //    var resCase = _connection._getAllLoadCaseResults(type, _units, _options);
+            //    _results.AddRange(resCase);
+                
+            //    var resCombo = _connection._getAllLoadCombinationResults(type, _units, _options);
+            //    _results.AddRange(resCombo);
+            //}
+
             _success = true;
             Done();
         }
@@ -99,7 +136,8 @@ namespace FemDesign.Grasshopper
         {
             if (!DA.GetData("Connection", ref _connection)) return;
             DA.GetData("ResultType", ref _resultType);
-            DA.GetData("Case/Combination Name", ref _caseCombo);
+            DA.GetDataList("Case Name", _case);
+            DA.GetDataList("Combination Name", _combo);
             DA.GetData("Units", ref _units);
             DA.GetData("Options", ref _options);
             DA.GetData("RunNode", ref _runNode);

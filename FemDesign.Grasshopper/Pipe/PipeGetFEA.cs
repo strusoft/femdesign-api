@@ -11,53 +11,45 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeReadLoadCombinationResults : GH_AsyncComponent
+    public class PipeGetFeaModel : GH_AsyncComponent
     {
-        public PipeReadLoadCombinationResults() : base("Pipe.ReadLoadCombinationResults", "ReadLoadCombinationResults", "Read Load Combination Results from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeGetFeaModel() : base("FEM-Design.GetFeaModel", "GetFeaModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat7())
         {
-            BaseWorker = new ApplicationReadLoadCombinationResultWorker(this);
+            BaseWorker = new ApplicationGetFeaModelWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
-            pManager.AddTextParameter("Combination Name", "Comb Name", "Name of Load Combination to return the results.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
+
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("FDFeaModel", "FDFeaModel", "FEM-Design finite element model.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => base.Icon;
-        public override Guid ComponentGuid => new Guid("{70E2775B-63BD-44D9-822A-E27B0DA9AE1F}");
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override Guid ComponentGuid => new Guid("{6231B7A4-936A-4BA2-8302-D3BB4CA1594F}");
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
     }
 
-    public class ApplicationReadLoadCombinationResultWorker : WorkerInstance
+    public class ApplicationGetFeaModelWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
-        private Calculate.Options _options = null;
-        private Results.UnitResults _units = null;
-        private string _resultType;
-        private string _combo;
+        private FemDesign.Results.FDfea _fdFea = null;
 
-        private List<Results.IResult> _results = null;
-        private bool _runNode = true;
+        private Results.UnitResults _units = null;
+        private bool _runNode = false;
         private bool _success = false;
 
-        private Verbosity _verbosity = Verbosity.Normal;
-
-        public ApplicationReadLoadCombinationResultWorker(GH_Component component) : base(component) { }
+        public ApplicationGetFeaModelWorker(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -83,30 +75,24 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            // Run the Analysis
-            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
-            Type type = Type.GetType(_type);
-            _results = _connection._getLoadCombinationResults(type, _combo, _units, _options);
+            _fdFea = _connection.GetFeaModel(_units.Length);
             _success = true;
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationReadLoadCombinationResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationGetFeaModelWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("ResultType", ref _resultType);
-            DA.GetData("Combination Name", ref _combo);
             DA.GetData("Units", ref _units);
-            DA.GetData("Options", ref _options);
             DA.GetData("RunNode", ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            DA.SetDataList("Results", _results);
+            DA.SetData("FDFeaModel", _fdFea);
             DA.SetData("Success", _success);
         }
     }

@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeRunAnalysis : GH_AsyncComponent
     {
-        public PipeRunAnalysis() : base("Pipe.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeRunAnalysis() : base("FEM-Design.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
         {
             BaseWorker = new ApplicationRunAnalysisWorker(this);
         }
@@ -31,12 +31,6 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        ////This region overrides the typical component layout
-        //public override void CreateAttributes()
-        //{
-        //    m_attributes = new Attributes_Custom(this);
-        //}
-
         protected override System.Drawing.Bitmap Icon => base.Icon;
         public override Guid ComponentGuid => new Guid("d74ac5fb-42ff-49de-977a-aa71849c73ea");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
@@ -51,6 +45,7 @@ namespace FemDesign.Grasshopper
         private bool _success = false;
 
         public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
+
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {

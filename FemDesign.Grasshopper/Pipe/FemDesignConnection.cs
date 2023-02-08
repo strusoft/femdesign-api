@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Pipe", "Pipe", $"FEM-Design application connection", CategoryName.Name(), SubCategoryName.Cat6())
+        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", $"FEM-Design application connection", CategoryName.Name(), SubCategoryName.Cat6())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -51,7 +51,20 @@ namespace FemDesign.Grasshopper
             DA.GetData("Minimized", ref minimized);
 
             string outputDir = null;
-            DA.GetData("OutputDir", ref outputDir);
+            if (!DA.GetData("OutputDir", ref outputDir))
+            {
+                bool fileExist = OnPingDocument().IsFilePathDefined;
+                if (!fileExist)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
+                    return;
+                }
+
+                var _ghfileDir = System.IO.Path.GetDirectoryName( OnPingDocument().FilePath );
+                System.IO.Directory.SetCurrentDirectory(_ghfileDir);
+            }
+
+            outputDir = null;
 
 
             if (_connection != null)

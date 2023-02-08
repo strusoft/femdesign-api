@@ -3,17 +3,18 @@ using System;
 using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Data;
 using System.Linq;
 using System.Windows.Forms;
-
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
     public class PipeRunDesign : GH_AsyncComponent
     {
-        public PipeRunDesign() : base("Pipe.RunDesign", "RunDesign", "Run design of model.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeRunDesign() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.", CategoryName.Name(), SubCategoryName.Cat7())
         {
             BaseWorker = new ApplicationRunDesignWorker(this);
         }
@@ -38,6 +39,11 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
+        }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.CmdUserModule)).ToList(), null, GH_ValueListMode.DropDown);
         }
 
         protected override System.Drawing.Bitmap Icon => base.Icon;

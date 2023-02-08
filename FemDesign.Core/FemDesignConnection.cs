@@ -344,7 +344,6 @@ namespace FemDesign
             return results;
         }
 
-
         public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
         {
             List<Results.IResult> mixedResults = new List<Results.IResult>();
@@ -486,9 +485,9 @@ namespace FemDesign
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p =>  p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
 
             // listproc that are only load case
-
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+            var uniqueGuid = Guid.NewGuid().ToString();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + uniqueGuid)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + uniqueGuid)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -515,6 +514,42 @@ namespace FemDesign
 
             return results;
         }
+        public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
         public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
         {
             List<Results.IResult> mixedResults = new List<Results.IResult>();
@@ -523,6 +558,16 @@ namespace FemDesign
             mixedResults.AddRange(result);
             return mixedResults;
         }
+        public dynamic _getAllLoadCaseResults(Type resultType, Results.UnitResults units = null, Options options = null)
+        {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCaseResults").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+
+
         public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapComb = new MapComb(loadCombination);
@@ -534,9 +579,9 @@ namespace FemDesign
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
 
             // listproc that are only load case
-
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+            var uniqueGuid = Guid.NewGuid().ToString();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + uniqueGuid)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + uniqueGuid)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -563,11 +608,55 @@ namespace FemDesign
 
             return results;
         }
+        public List<T> GetAllLoadCombinationResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
         public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
         {
             List<Results.IResult> mixedResults = new List<Results.IResult>();
             MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+        public dynamic _getAllLoadCombinationResults(Type resultType, Results.UnitResults units = null, Options options = null)
+        {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCombinationResults").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
             mixedResults.AddRange(result);
             return mixedResults;
         }
@@ -987,7 +1076,7 @@ namespace FemDesign
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            fileName = Path.GetFileName(Path.ChangeExtension(fileName, _fdscriptFileExtension));
+            fileName = Path.GetFileName(Path.ChangeExtension(fileName + System.Guid.NewGuid().ToString(), _fdscriptFileExtension));
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
         }

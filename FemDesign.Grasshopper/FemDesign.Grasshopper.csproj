@@ -106,8 +106,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
-    <Compile Include="Pipe\PipeReadLoadCaseResult.cs" />
-    <Compile Include="Pipe\PipeReadLoadCombinationResult.cs" />
+    <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
