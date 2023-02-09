@@ -160,7 +160,7 @@ namespace FemDesign.Geometry
                 }
             }
         }
-
+        
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
