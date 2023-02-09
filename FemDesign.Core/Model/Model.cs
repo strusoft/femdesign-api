@@ -2973,6 +2973,34 @@ namespace FemDesign
             return false;
         }
 
+        public void AddTextAnnotation(Geometry.TextAnnotation obj, bool overwrite)
+        {
+            if (this.Geometry == null)
+            {
+                this.Geometry = new StruSoft.Interop.StruXml.Data.DatabaseGeometry();
+            }
+
+            bool inModel = this.Geometry.Text.Any(x => x.Guid == obj.Guid.ToString());
+
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Geometry.Text.RemoveAll(x => x.Guid == obj.Guid.ToString());
+                this.Geometry.Text.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Geometry.Text.Add(obj);
+            }
+        }
+
 
         public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
         {

@@ -7,7 +7,7 @@ using StruSoft.Interop.StruXml.Data;
 namespace FemDesign.Geometry
 {
     [Serializable]
-    public class TextAnnotation
+    public class TextAnnotation: GenericClasses.IStructureElement
     {
         [XmlElement("position")]
         public Point3d Position { get; set; }
@@ -83,6 +83,16 @@ namespace FemDesign.Geometry
         public override string ToString()
         {
             return $"TextAnnotation: {this.Text} at {this.Position}";
+        }
+
+        public void EntityCreated()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EntityModified()
+        {
+            throw new NotImplementedException();
         }
     }
 }
