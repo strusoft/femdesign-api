@@ -67,6 +67,10 @@
             return new string(' ', 2) + "Model";
         }
 
+        /// <summary>
+        /// \u03B2eta
+        /// </summary>
+        /// <returns></returns>
         public static string Cat7()
         {
             return new string(' ', 1) + "\u03B2eta";

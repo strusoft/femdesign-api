@@ -172,6 +172,7 @@
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
@@ -927,7 +928,8 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
+    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />
@@ -935,12 +937,12 @@
       <Dlls Include="$(OutDir)FemDesign.*.dll" />
       <Ghas Include="$(OutDir)FemDesign.*.gha" />
       <Pdbs Include="$(OutDir)*.pdb" />
-      <Xmls Include="$(OutDir)*.xml" />
+      <CmdGlobalCfg Include="$(OutDir)cmdglobalcfg.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Ghas)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
-    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(CmdGlobalCfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
   </Target>
   <Import Project="..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

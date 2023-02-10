@@ -296,6 +296,7 @@ namespace FemDesign
             this.RunScript(script);
         }
 
+
         /// <summary>
         /// Retrieves the currently opened model with all available elements as a <see cref="Model"/> object.
         /// </summary>
