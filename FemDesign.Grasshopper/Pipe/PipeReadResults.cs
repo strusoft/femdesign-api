@@ -88,15 +88,21 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            //if (!_connection.HasResult())
+            //{
+            //    _success = false;
+            //    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The open model does not contain any results!");
+            //    return;
+            //}
+
             if (!_combo.Any() && !_case.Any())
             {
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input parameter Case Name or Combo Name failed to collect data.");
                 return;
             }
 
-
-                // Run the Analysis
-                var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+            // Run the Analysis
+            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
 
             if(_case.Any())

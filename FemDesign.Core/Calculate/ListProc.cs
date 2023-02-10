@@ -542,5 +542,16 @@ namespace FemDesign.Calculate
                 else return false;
             }
         }
+
+        public static bool IsQuantityEstimation(this ListProc listProc)
+        {
+            {
+                string r = listProc.ToString();
+                if (r.StartsWith("QuantityEstimation"))
+                    return true;
+                else return false;
+            }
+        }
+
     }
 }

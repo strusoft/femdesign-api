@@ -26,6 +26,12 @@ namespace FemDesign
         public bool IsConnected => _connection._inputPipe.IsConnected;
         public bool IsDisconnected => !IsConnected;
 
+        /// <summary>
+        /// File path of th open file in the current Pipe.
+        /// WARNING
+        /// If a user manually open a file in a pipe instance, the file path location will be equal to null.
+        /// </summary>
+        private string CurrentOpenModel;
         public Verbosity Verbosity { get; private set; }
         public const Verbosity DefaultVerbosity = Verbosity.Normal;
 
@@ -155,6 +161,7 @@ namespace FemDesign
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             this.RunScript(new FdScript(logfile, new CmdOpen(filePath)));
+            this.CurrentOpenModel = filePath;
             if (disconnect) this.Disconnect();
         }
 
@@ -299,6 +306,34 @@ namespace FemDesign
             RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)));
             return Model.DeserializeFromFilePath(struxmlPath);
         }
+
+
+        /// The result seems to be save in memory and not in the .strFEM.
+        /// Ask Pasa
+
+        ///// <summary>
+        ///// Check if the open model with FemDesignConnection has results
+        ///// </summary>
+        ///// <returns></returns>
+        //public bool HasResult()
+        //{
+        //    if(CurrentOpenModel == null)
+        //    {
+        //        throw new Exception("The model has been open manually. Open a file using FemDesignConnection.Open() if you want to read the results!");
+        //    }
+        //    var directory = System.IO.Path.GetDirectoryName(CurrentOpenModel);
+        //    var fileNames = Directory.GetFiles(directory);
+
+        //    var strFEM = System.IO.Path.ChangeExtension(CurrentOpenModel, ".strFEM");
+
+        //    foreach(var filename in fileNames)
+        //    {
+        //        if (filename == strFEM)
+        //            return true;
+        //    }
+
+        //    return false;
+        //}
 
         /// <summary>
         /// Retreive results from the opened model.
@@ -466,6 +501,11 @@ namespace FemDesign
         }
         public Results.FDfea GetFeaModel(Results.Length units = Results.Length.m)
         {
+            //if( !HasResult())
+            //{
+            //    throw new Exception("The current open model does not have results!");
+            //}
+
             var feaNode = GetFeaNodes(units);
             var feaBar = GetFeaBars(units);
             var feaShell = GetFeaShells(units);
@@ -483,6 +523,11 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p =>  p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCase result type!");
+            }
 
             // listproc that are only load case
             var uniqueGuid = Guid.NewGuid().ToString();
@@ -521,6 +566,12 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCase result type!");
+            }
+
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
@@ -566,8 +617,6 @@ namespace FemDesign
             mixedResults.AddRange(result);
             return mixedResults;
         }
-
-
         public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapComb = new MapComb(loadCombination);
@@ -577,6 +626,11 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
+
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCombination result type!");
+            }
 
             // listproc that are only load case
             var uniqueGuid = Guid.NewGuid().ToString();
@@ -615,6 +669,12 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
+
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCombination result type!");
+            }
+
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
@@ -657,6 +717,57 @@ namespace FemDesign
             List<Results.IResult> mixedResults = new List<Results.IResult>();
             MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCombinationResults").MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(this, new object[] { units, options });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+
+        public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsQuantityEstimation() == true) ?? Enumerable.Empty<ListProc>();
+
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a Quantity Estimation result type!");
+            }
+
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+        public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
+        {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = this.GetType().GetMethod("GetQuantities").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(this, new object[] { units });
             mixedResults.AddRange(result);
             return mixedResults;
         }

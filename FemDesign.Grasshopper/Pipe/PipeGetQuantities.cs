@@ -6,21 +6,27 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using System.Linq;
 using System.Windows.Forms;
-
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using Grasshopper.Kernel.Special;
 using GrasshopperAsyncComponent;
+
+using System.Reflection;
+
+using FemDesign;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeGetFeaModel : GH_AsyncComponent
+    public class PipeGetQuantities : GH_AsyncComponent
     {
-        public PipeGetFeaModel() : base("FEM-Design.GetFeaModel", "GetFeaModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeGetQuantities() : base("FEM-Design.GetQuantities", "GetQuantities", "Get quantities from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
         {
-
-            BaseWorker = new ApplicationGetFeaModelWorker(this);
+            BaseWorker = new ApplicationGetQuantitiesWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
+            pManager.AddTextParameter("QuantityType", "QuantityType", "Connect 'ValueList' to get the options.\nQuantity type:\nQuantityEstimationConcrete\nQuantityEstimationReinforcement\nQuantityEstimationSteel\nQuantityEstimationTimber\nQuantityEstimationTimberPanel\nQuantityEstimationMasonry\nQuantityEstimationGeneral\nQuantityEstimationProfiledPanel", GH_ParamAccess.item);
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -31,26 +37,45 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("FDFeaModel", "FDFeaModel", "FEM-Design finite element model.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Quantities", "Quantities", "Quantities.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => base.Icon;
-        public override Guid ComponentGuid => new Guid("{6231B7A4-936A-4BA2-8302-D3BB4CA1594F}");
+        public override Guid ComponentGuid => new Guid("{81E32E19-C6A6-4E9E-A0B2-EB6CE1BA888F}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
+
+        protected override void BeforeSolveInstance()
+        {
+            var quantities = new List<string>();
+
+            var shipped = Enum.GetValues(typeof(ListProc));
+            foreach(var _item in shipped)
+            {
+                var item = (ListProc)_item;
+                if(item.IsQuantityEstimation())
+                    quantities.Add(item.ToString());
+            }
+
+            ValueListUtils.updateValueLists(this, 1, quantities, null, GH_ValueListMode.DropDown);
+        }
+
     }
 
-    public class ApplicationGetFeaModelWorker : WorkerInstance
+    public class ApplicationGetQuantitiesWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
-        private FemDesign.Results.FDfea _fdFea = null;
-
         private Results.UnitResults _units = null;
-        private bool _runNode = false;
+        private string _resultType;
+
+        private List<Results.IResult> _results = new List<Results.IResult>();
+        private bool _runNode = true;
         private bool _success = false;
 
-        public ApplicationGetFeaModelWorker(GH_Component component) : base(component) { }
+        private Verbosity _verbosity = Verbosity.Normal;
+
+        public ApplicationGetQuantitiesWorker(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -76,24 +101,23 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            //if (!_connection.HasResult())
-            //{
-            //    _success = false;
-            //    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The open model does not contain any results!");
-            //    return;
-            //}
+            // Run the Analysis
+            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+            Type type = Type.GetType(_type);
 
+            var res = _connection._getQuantities(type, _units);
+            _results.AddRange(res);
 
-            _fdFea = _connection.GetFeaModel(_units.Length);
             _success = true;
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationGetFeaModelWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationGetQuantitiesWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
+            DA.GetData("QuantityType", ref _resultType);
             DA.GetData("Units", ref _units);
             DA.GetData("RunNode", ref _runNode);
         }
@@ -101,7 +125,7 @@ namespace FemDesign.Grasshopper
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            DA.SetData("FDFeaModel", _fdFea);
+            DA.SetDataList("Quantities", _results);
             DA.SetData("Success", _success);
         }
     }
