@@ -14,18 +14,19 @@ namespace FemDesign.Grasshopper
 {
     public class PipeRunDesign : GH_AsyncComponent
     {
-        public PipeRunDesign() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeRunDesign() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationRunDesignWorker(this);
         }
 
-        protected override void ExpireDownStreamObjects()
-        {
-            foreach (IGH_Param item in Params.Output)
-            {
-                item.ExpireSolution(recompute: false);
-            }
-        }
+        //protected override void ExpireDownStreamObjects()
+        //{
+        //    foreach (IGH_Param item in Params.Output)
+        //    {
+        //        item.ExpireSolution(recompute: false);
+        //    }
+        //}
+
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -69,6 +70,13 @@ namespace FemDesign.Grasshopper
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
                 ReportProgress(Id, 0.0);
+                return;
+            }
+
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
                 return;
             }
 

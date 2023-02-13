@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeSetGlobalCfg : GH_AsyncComponent
     {
-        public PipeSetGlobalCfg() : base("FEM-Design.SetGlobalCfg", "SetGlobalCfg", "SetGlobalCfg of a model.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeSetGlobalCfg() : base("FEM-Design.SetGlobalCfg", "SetGlobalCfg", "SetGlobalCfg of a model.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationSetGlobalCfgWorker(this);
         }
@@ -57,6 +57,13 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                return;
+            }
+
             if (_connection.IsDisconnected)
             {
                 _success = false;
@@ -84,7 +91,7 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            if (!DA.GetData("GlobalCfg", ref _globalCfgPath)) return;
+            DA.GetData("GlobalCfg", ref _globalCfgPath);
             DA.GetData("RunNode", ref _runNode);
         }
 

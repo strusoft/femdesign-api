@@ -125,11 +125,11 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void RunScript(FdScript script)
+        public void RunScript(FdScript script, string filename = "script")
         {
             if (script == null) throw new ArgumentNullException("script");
 
-            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
+            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir, filename);
 
             script.Serialize(scriptPath);
             this._connection.Send("run " + scriptPath);
@@ -141,11 +141,11 @@ namespace FemDesign
         /// </summary>
         /// <param name="script"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task RunScriptAsync(FdScript script)
+        public async Task RunScriptAsync(FdScript script, string filename = "script")
         {
             if (script == null) throw new ArgumentNullException("script");
 
-            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir);
+            string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir, filename);
 
             script.Serialize(scriptPath);
             this._connection.Send("run " + scriptPath);
@@ -293,7 +293,7 @@ namespace FemDesign
                 new CmdEndSession()
             );
 
-            this.RunScript(script);
+            this.RunScript(script, "EndSession");
         }
 
 
@@ -304,7 +304,7 @@ namespace FemDesign
         {
             string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_saved");
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
-            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)));
+            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetModel");
             return Model.DeserializeFromFilePath(struxmlPath);
         }
 
@@ -366,7 +366,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetResult");
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -413,7 +413,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetFeaNode");
 
             // Read csv results files
             List<FemDesign.Results.FeaNode> results = new List<FemDesign.Results.FeaNode>();
@@ -450,7 +450,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetFeaBar");
 
             // Read csv results files
             List<FemDesign.Results.FeaBar> results = new List<FemDesign.Results.FeaBar>();
@@ -487,7 +487,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetFeaShell");
 
             // Read csv results files
             List<FemDesign.Results.FeaShell> results = new List<FemDesign.Results.FeaShell>();
@@ -531,9 +531,9 @@ namespace FemDesign
             }
 
             // listproc that are only load case
-            var uniqueGuid = Guid.NewGuid().ToString();
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + uniqueGuid)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + uniqueGuid)).ToList();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -547,7 +547,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetLoadCase" + currentTime);
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -634,9 +634,9 @@ namespace FemDesign
             }
 
             // listproc that are only load case
-            var uniqueGuid = Guid.NewGuid().ToString();
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + uniqueGuid)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + uniqueGuid)).ToList();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -650,7 +650,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetLoadCombo" + currentTime);
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -751,7 +751,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
+            this.RunScript(script, "GetQuantities");
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -1187,8 +1187,7 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _scriptsDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
-
-            fileName = Path.GetFileName(Path.ChangeExtension(fileName + System.Guid.NewGuid().ToString(), _fdscriptFileExtension));
+            fileName = Path.GetFileName(Path.ChangeExtension(fileName, _fdscriptFileExtension));
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
         }

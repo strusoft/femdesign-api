@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", $"FEM-Design application connection", CategoryName.Name(), SubCategoryName.Cat7())
+        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FEM-Design application connection", CategoryName.Name(), SubCategoryName.Cat8())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)

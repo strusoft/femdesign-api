@@ -34,10 +34,11 @@ namespace FemDesign.Info
 
     public class InfoComponent : GH_Component
     {
-        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.CatLast())
+        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.Cat0())
         {
 
         }
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -189,8 +190,6 @@ namespace FemDesign.Info
                 textRectangle.Y += 30;
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
                 Image image = FemDesign.Properties.Resources.fdlogo;
-
-                graphics.DrawImage(image, textRectangle);
 
 
                 textRectangle.Y += 40;

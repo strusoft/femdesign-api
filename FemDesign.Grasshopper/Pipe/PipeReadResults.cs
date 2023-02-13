@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeReadResults : GH_AsyncComponent
     {
-        public PipeReadResults() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeReadResults() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationReadResultWorker(this);
         }
@@ -74,12 +74,20 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                return;
+            }
+
             if (_connection.IsDisconnected)
             {
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
                 return;
             }
+
 
             if (_connection.HasExited)
             {

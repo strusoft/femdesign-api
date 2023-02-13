@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeRunAnalysis : GH_AsyncComponent
     {
-        public PipeRunAnalysis() : base("FEM-Design.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeRunAnalysis() : base("FEM-Design.RunAnalysis", "RunAnalysis", "Run analysis of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationRunAnalysisWorker(this);
         }
@@ -54,6 +54,13 @@ namespace FemDesign.Grasshopper
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
                 ReportProgress(Id, 0.0);
+                return;
+            }
+
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
                 return;
             }
 

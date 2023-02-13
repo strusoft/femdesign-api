@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetFeaModel : GH_AsyncComponent
     {
-        public PipeGetFeaModel() : base("FEM-Design.GetFeaModel", "GetFeaModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeGetFeaModel() : base("FEM-Design.GetFeaModel", "GetFeaModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat8())
         {
 
             BaseWorker = new ApplicationGetFeaModelWorker(this);
@@ -59,6 +59,13 @@ namespace FemDesign.Grasshopper
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
                 ReportProgress(Id, 0.0);
+                return;
+            }
+
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
                 return;
             }
 

@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetQuantities : GH_AsyncComponent
     {
-        public PipeGetQuantities() : base("FEM-Design.GetQuantities", "GetQuantities", "Get quantities from a model. .csv list files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeGetQuantities() : base("FEM-Design.GetQuantities", "GetQuantities", "Get quantities from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationGetQuantitiesWorker(this);
         }
@@ -87,6 +87,13 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                return;
+            }
+
             if (_connection.IsDisconnected)
             {
                 _success = false;
@@ -117,6 +124,13 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
+            if (_connection == null)
+            {
+                _success = false;
+                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                return;
+            }
+
             DA.GetData("QuantityType", ref _resultType);
             DA.GetData("Units", ref _units);
             DA.GetData("RunNode", ref _runNode);

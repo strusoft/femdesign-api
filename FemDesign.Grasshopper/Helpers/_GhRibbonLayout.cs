@@ -67,14 +67,6 @@
             return new string(' ', 2) + "Model";
         }
 
-        /// <summary>
-        /// \u03B2eta
-        /// </summary>
-        /// <returns></returns>
-        public static string Cat7()
-        {
-            return new string(' ', 1) + "\u03B2eta";
-        }
 
         public static string Cat7a()
         {
@@ -85,9 +77,15 @@
         {
             return new string(' ', 1) + "Results";
         }
+
         public static string CatLast()
         {
-            return "StruSoft";
+            return new string(' ', 1) + "StruSoft";
+        }
+
+        public static string Cat8()
+        {
+            return "\u03B2eta";
         }
 
     }

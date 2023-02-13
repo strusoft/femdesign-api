@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeOpen : GH_AsyncComponent
     {
-        public PipeOpen() : base("FEM-Design.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat7())
+        public PipeOpen() : base("FEM-Design.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ModelOpenWorker();
         }
