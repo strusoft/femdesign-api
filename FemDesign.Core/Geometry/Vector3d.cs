@@ -244,7 +244,9 @@ namespace FemDesign.Geometry
             Vector3d v1 = this.Normalize();
             Vector3d v2 = v.Normalize();
             Vector3d v3 = v1.Cross(v2);
-            if (v3.Length() == 1)
+            double lowerTol = 1 - Tolerance.Vector3d;
+            double upperTol = 1 + Tolerance.Vector3d;
+            if (v3.Length() > lowerTol && v3.Length() < upperTol)
             {
                 return true;
             }
