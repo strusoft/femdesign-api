@@ -146,7 +146,7 @@ namespace FemDesign.Loads
                 double q0 = startForce.Length();
                 double q1 = endForce.Length();
 
-                int par = v0.Parallel(v1);
+                int par = v0.IsParallel(v1);
                 if (par != 0)
                 {
                     this.Direction = v0;

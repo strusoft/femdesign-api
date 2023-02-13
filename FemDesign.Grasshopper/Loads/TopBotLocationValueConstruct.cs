@@ -5,9 +5,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class TopBotLocationValueConstructOBSOLETE: GH_Component
+    public class TopBotLocationValueConstruct: GH_Component
     {
-        public TopBotLocationValueConstructOBSOLETE(): base("TopBotLocationValue.Construct", "Construct", "Define a top bottom location value", CategoryName.Name(), SubCategoryName.Cat3())
+        public TopBotLocationValueConstruct(): base("TopBotLocationValue.Construct", "Construct", "Define a top bottom location value", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("ec2c2062-0b9c-4052-a61d-75c2d496e670"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.hidden;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
     }
 }

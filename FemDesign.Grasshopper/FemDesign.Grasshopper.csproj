@@ -275,7 +275,7 @@
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
-    <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
+    <Compile Include="Loads\TopBotLocationValueConstruct.cs" />
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
