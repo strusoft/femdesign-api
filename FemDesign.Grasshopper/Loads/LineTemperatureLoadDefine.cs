@@ -55,11 +55,6 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            //if (!tan.IsPerpendicularTo(dir))
-            //{
-            //    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The direction must be perpendicular to the curve.");
-            //}
-
 
             List<double> topVal = new List<double>();
             if (!DA.GetDataList(2, topVal))
