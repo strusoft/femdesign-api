@@ -46,7 +46,7 @@ namespace FemDesign.Calculate
     public partial class DocTable
     {
         [XmlElement("version")]
-        public string FemDesignVersion { get; set; } = "2100";
+        public string FemDesignVersion { get; set; } = FdScript.Version;
         
         [XmlElement("listproc")]
         public ListProc ListProc { get; set; }
@@ -104,12 +104,12 @@ namespace FemDesign.Calculate
         /// The name of LoadCase will be specified in cmdlistgen object
         /// </summary>
         /// <param name="resultType"></param>
-        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false)
+        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
         {
             ListProc = resultType;
 
-            var isLoadCase = resultType.ToString().Contains("LoadCase");
-            var isLoadComb = resultType.ToString().Contains("LoadCombination");
+            var isLoadCase = resultType.IsLoadCase();
+            var isLoadComb = resultType.IsLoadCombination();
             if (!allCaseCombo)
             {
                 if (isLoadCase)
@@ -130,7 +130,8 @@ namespace FemDesign.Calculate
 
             Units = Results.Units.GetUnits(unitResult);
             ResType = GetResType(resultType);
-            Option = Options.GetOptions(resultType);
+
+            Option = options ?? Options.GetOptions(resultType);
         }
 
         private int GetResType(ListProc resultType)

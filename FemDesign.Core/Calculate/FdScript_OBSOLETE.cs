@@ -114,7 +114,7 @@ namespace FemDesign.Calculate
                 fdScript.DocxTemplatePath = docxTemplatePath;
 
                 // object containing command to generate .docx and path to generated .docx
-                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.FileName + ".docx");
+                fdScript.CmdSaveDocx = new CmdSaveDocx(fdScript.Cwd + @"\" + fdScript.FileName + ".docx");
             }
 
             if (cmdGlobalCfg == null)
@@ -174,6 +174,68 @@ namespace FemDesign.Calculate
             // return
             return fdScript;
         }
+
+
+        /// Create fdscript to read a str-model.
+        public static FdScript ReadLoadCase(string strPath, List<string> bscPaths = null, List<MapCase> mapCases = null)
+        {
+            FdScript fdScript = new FdScript();
+            fdScript.XmlAttrib = "fdscript.xsd";
+
+            strPath = Path.GetFullPath(strPath);
+            fdScript.FileName = Path.GetFileNameWithoutExtension(strPath);
+            fdScript.Cwd = Path.GetDirectoryName(strPath);
+            fdScript.StruxmlPath = Path.Combine(fdScript.Cwd, fdScript.FileName + ".struxml");
+            fdScript.FdScriptPath = Path.Combine(fdScript.Cwd, fdScript.FileName, "scripts", "Analysis.fdscript");
+
+            // set header and logfile
+            fdScript.Header = new FdScriptHeader("Generated script.", Path.Combine(fdScript.Cwd, fdScript.FileName, "logfile.log"));
+
+            // open str
+            fdScript.CmdOpen = new CmdOpen(strPath);
+
+            // listgen
+            if (bscPaths != null && bscPaths.Any())
+            {
+                fdScript.CmdListGen = new List<CmdListGen>();
+                foreach (string bscPath in bscPaths)
+                {
+                    var cmdListGen = Calculate.CmdListGen.Default(bscPath, Path.Combine(fdScript.Cwd, fdScript.FileName, "results"));
+                    if(mapCases.Count != 0)
+                    {
+                        foreach(MapCase mapCase in mapCases)
+                        {
+                            if(mapCase != null)
+                                cmdListGen.MapCase = mapCase;
+                            fdScript.CmdListGen.Add(cmdListGen);
+                        }
+                    }
+                    else fdScript.CmdListGen.Add(cmdListGen);
+                }
+            }
+
+            // save as .struxml
+            fdScript.CmdSave = new CmdSave(fdScript.StruxmlPath);
+
+            // end session
+            fdScript.CmdEndSession = new CmdEndSession();
+
+            // return
+            return fdScript;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Create fdscript to run analysis.

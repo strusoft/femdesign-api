@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
-
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Bars
 {
@@ -98,7 +98,21 @@ namespace FemDesign.Bars
             }
         }
 
-        public string Name => this.BarPart.Name.Substring(0, this.BarPart.Name.Length - 2); // Remove trailing ".1" from barpart name
+        [XmlAttribute("name")]
+        public string _name; // identifier
+        public string Name
+        {
+            get
+            {
+                var foundIndexes = new List<int>();
+                for (int i = 0; i < this.BarPart.Name.Length; i++)
+                    if (this.BarPart.Name[i] == '.')
+                        foundIndexes.Add(i);
+
+                return this.BarPart.Name.Substring(0, foundIndexes.Last());
+            }
+        }
+
         public int Instance => this.BarPart.Instance;
 
         [XmlIgnore]
@@ -281,13 +295,22 @@ namespace FemDesign.Bars
         /// <param name="edge"></param>
         /// <param name="material"></param>
         /// <param name="section"></param>
+        /// <param name="trussBehaviour"></param>
         /// <param name="identifier"></param>
         /// <exception cref="System.Exception"></exception>
-        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier)
+        public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, string identifier = "B", Truss_chr_type trussBehaviour = null)
         {
             this.EntityCreated();
             this.Type = BarType.Truss;
             //this.Identifier = identifier;
+            if(trussBehaviour != null)
+            {
+                this.TrussBehaviour = trussBehaviour;
+            }
+            else
+            {
+                this.TrussBehaviour = Truss_chr_type.Elastic();
+            }
             this.BarPart = new BarPart(edge, this.Type, material, section, identifier);
         }
 

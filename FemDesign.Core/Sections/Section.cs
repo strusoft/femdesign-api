@@ -26,7 +26,7 @@ namespace FemDesign.Sections
                 foreach(Geometry.Region region in value.Regions)
                 {
                     // check normal
-                    int par = region.LocalZ.Parallel(unitZ);
+                    int par = region.LocalZ.IsParallel(unitZ);
                     if (par == 1)
                     {
                         // pass

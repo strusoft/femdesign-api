@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
                 "t, kg, lb, tonUK, tonUS", GH_ParamAccess.item, "kg");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Displacement", "Displacement", "Accepted input are: \n " +
-                "mm, cm, dm, m, inch, feet, yd", GH_ParamAccess.item, "m");
+                "mm, cm, dm, m, inch, feet, yd", GH_ParamAccess.item, "mm");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Stress", "Stress", "Accepted input are: \n " +
                 "Pa, kPa, MPa, GPa", GH_ParamAccess.item, "Pa");

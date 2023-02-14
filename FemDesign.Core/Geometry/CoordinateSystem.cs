@@ -255,7 +255,7 @@ namespace FemDesign.Geometry
             if (this.IsComplete())
             {
                 // if LocalX is parallell to UnitZ set (rotate) LocalY to UnitY
-                int par = this.LocalX.Parallel(Geometry.Vector3d.UnitZ);
+                int par = this.LocalX.IsParallel(Geometry.Vector3d.UnitZ);
                 if (par == 1 || par == -1)
                 {
                     this.SetYAroundX(Vector3d.UnitY);

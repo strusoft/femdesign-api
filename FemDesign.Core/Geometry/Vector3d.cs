@@ -215,9 +215,9 @@ namespace FemDesign.Geometry
 
         /// <summary>
         /// Check if this FdVector3d is parallel to v.
-        /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel
+        /// Returns 1 if parallel, -1 if antiparallel, 0 if not parallel.
         /// </summary>
-        public int Parallel(Vector3d v)
+        public int IsParallel(Vector3d v)
         {
             Vector3d v0 = this.Normalize();
             Vector3d v1 = v.Normalize();
@@ -233,6 +233,18 @@ namespace FemDesign.Geometry
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Check if this FdVector3d is perpendicular to v.
+        /// Returns true if perpendicular, false if not perpendicular.
+        /// </summary>
+        public bool IsPerpendicular(Vector3d v)
+        {
+            Vector3d v1 = this.Normalize();
+            Vector3d v2 = v.Normalize();
+            Vector3d v3 = v1.Cross(v2);
+            return (Math.Abs(1 - v3.Length()) <= Tolerance.Vector3d);
         }
 
         /// <summary>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
 using FemDesign.GenericClasses;
+using Grasshopper.Kernel.Special;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
@@ -15,7 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR/NL", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Structure Elements", "Elements", "Single structure element or list of structure elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -26,6 +28,8 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single LoadGroup element or list of LoadGroup elements to add. Nested lists are not supported.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Soil", "Soil", "Single Soil element. FEM-Design can only have one soil element in a model.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Stages", "Stages", "List of Stages to add. Minimum number of stages is two. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -60,7 +64,7 @@ namespace FemDesign.Grasshopper
 
             ConstructionStages constructionStage = null;
 
-            if(stages.Count != 0)
+            if (stages.Count != 0)
             {
                 constructionStage = new ConstructionStages(
                     stages,
@@ -70,10 +74,30 @@ namespace FemDesign.Grasshopper
             }
 
 
+            List<FemDesign.Soil.SoilElements> _soil = new List<FemDesign.Soil.SoilElements>();
+            DA.GetDataList("Soil", _soil);
+
+            if(_soil.Count > 1)
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design can only have one soil element in a model.");
+
+            Soil.SoilElements soil = null;
+
+            if (_soil.Count != 0)
+                soil = _soil[0];
+
+
             // Create model
-            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage);
+            Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage, soil);
             DA.SetData("FdModel", model);
         }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 0, new List<string>
+            { "D","DK","EST","FIN","GB","H","N","PL","RO","S","TR","NL"
+            }, null, GH_ValueListMode.DropDown);
+        }
+
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -83,7 +107,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{8BC26CB8-4497-4817-A412-3C7E3A1F74E0}"); }
+            get { return new Guid("{C2A1F38B-E81E-4B0E-8E58-16DC74F3B91A}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

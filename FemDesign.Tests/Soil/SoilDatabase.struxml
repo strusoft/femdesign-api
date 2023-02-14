@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.001" start_time="1970-01-01T00:00:00.000" end_time="2023-01-24T13:23:58.000" guid="9e8bc65d-9c26-47cc-85c1-1b99e7e8666f" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<materials>
+		<material guid="c8268132-a22f-410b-926d-70f783a38cae" last_change="2023-01-24T13:23:13.000" action="added" standard="EC" country="common" name="undrained_linear">
+			<stratum reference_level="0" Gamma_dry="16" Gamma_sat="18" nu="0.3">
+				<base_data mass="0" E_0="1857.14285714286" E_1="1857.14285714286" E_2="1857.14285714286" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0" alfa_1="0" alfa_2="0" G_0="714.285714285714" G_1="714.285714285714" G_2="714.285714285714"></base_data>
+				<behaviour>
+					<undrained c_uk="130" c_uk_depth="0"></undrained>
+				</behaviour>
+				<model>
+					<linear use_E="true" value="1857.14285714286" M0_depth="0"></linear>
+				</model>
+			</stratum>
+		</material>
+		<material guid="9b82e5af-9d86-4254-962e-912fd338ca6c" last_change="2023-01-24T13:23:20.000" action="added" standard="EC" country="common" name="drained_linear">
+			<stratum reference_level="0" Gamma_dry="16" Gamma_sat="18" nu="0.3">
+				<base_data mass="0" E_0="1857.14285714286" E_1="1857.14285714286" E_2="1857.14285714286" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0" alfa_1="0" alfa_2="0" G_0="714.285714285714" G_1="714.285714285714" G_2="714.285714285714"></base_data>
+				<behaviour>
+					<drained c_k="120" c_k_depth="0" phi_k="0.785398163397448" phi_cvk="0.628318530717959"></drained>
+				</behaviour>
+				<model>
+					<linear use_E="true" value="1857.14285714286" M0_depth="0"></linear>
+				</model>
+			</stratum>
+		</material>
+		<material guid="064afbdb-7735-4d68-88c3-12bdf7084c21" last_change="2023-01-24T13:23:45.000" action="added" standard="EC" country="common" name="undrained_overConsolidated">
+			<stratum reference_level="0" Gamma_dry="16" Gamma_sat="18" nu="0.3">
+				<base_data mass="0" E_0="1857.14285714286" E_1="1857.14285714286" E_2="1857.14285714286" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0" alfa_1="0" alfa_2="0" G_0="714.285714285714" G_1="714.285714285714" G_2="714.285714285714"></base_data>
+				<behaviour>
+					<undrained c_uk="130" c_uk_depth="0"></undrained>
+				</behaviour>
+				<model>
+					<overconsolidated Mu="10000" Mu_depth="0" M0="2500" M0_depth="0" ML="500" ML_depth="0" M="0" Sigma_c="1492.53731343284" M_depth="0" p_c="1000" Sigma_L="2985.07462686567" pc_depth="0" p_L="2000" p_L_depth="0"></overconsolidated>
+				</model>
+			</stratum>
+		</material>
+		<material guid="0e921232-2a16-4013-8d5f-5af73c898b5c" last_change="2023-01-24T13:23:58.000" action="added" standard="EC" country="common" name="drained_overConsolidated">
+			<stratum reference_level="0" Gamma_dry="16" Gamma_sat="18" nu="0.3">
+				<base_data mass="0" E_0="1857.14285714286" E_1="1857.14285714286" E_2="1857.14285714286" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0" alfa_1="0" alfa_2="0" G_0="714.285714285714" G_1="714.285714285714" G_2="714.285714285714"></base_data>
+				<behaviour>
+					<drained c_k="120" c_k_depth="0" phi_k="0.785398163397448" phi_cvk="0.628318530717959"></drained>
+				</behaviour>
+				<model>
+					<overconsolidated Mu="10000" Mu_depth="0" M0="2500" M0_depth="0" ML="500" ML_depth="0" M="0" Sigma_c="1492.53731343284" M_depth="0" p_c="1000" Sigma_L="2985.07462686567" pc_depth="0" p_L="2000" p_L_depth="0"></overconsolidated>
+				</model>
+			</stratum>
+		</material>
+	</materials>
+	<end></end>
+</database>

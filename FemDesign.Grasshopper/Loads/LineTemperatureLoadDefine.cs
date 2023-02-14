@@ -37,27 +37,22 @@ namespace FemDesign.Grasshopper
             }
 
             Vector3d tan = new Vector3d(crv.PointAtEnd - crv.PointAtStart);
-            Vector3d dir = new Vector3d();
+            Vector3d dir = Vector3d.Zero;
 
             //We have to use different default direction vector for a column (its tangent vector is parallel to the Z-axis) otherwise we will get an error message in default mode.
             if (tan.IsParallelTo(Vector3d.ZAxis) == 1)
             {
-                dir = Vector3d.CrossProduct(tan, -Vector3d.XAxis);
+                dir = Vector3d.CrossProduct(tan, Vector3d.XAxis);
             }
             else
             {
-                dir = Vector3d.CrossProduct(tan, Vector3d.ZAxis);
+                dir = Vector3d.CrossProduct(tan, -Vector3d.ZAxis);
             }
 
 
             if (!DA.GetData(1, ref dir))
             {
                 // pass
-            }
-
-            if (DA.GetData(1, ref dir) & tan.IsParallelTo(dir) == 1)
-            {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The direction cannot be parallel to the curve.");
             }
 
 
@@ -93,8 +88,8 @@ namespace FemDesign.Grasshopper
                 throw new System.ArgumentException(msg);
             }
 
-            var firstVal = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), bottomVal[0], topVal[0]);
-            var secondVal = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), bottomVal[1], topVal[1]);
+            var firstVal = new Loads.TopBotLocationValue(crv.PointAtStart.FromRhino(), topVal[0], bottomVal[0]);
+            var secondVal = new Loads.TopBotLocationValue(crv.PointAtEnd.FromRhino(), topVal[1], bottomVal[1]);
             var vals = new List<Loads.TopBotLocationValue>() { firstVal, secondVal };
             
 

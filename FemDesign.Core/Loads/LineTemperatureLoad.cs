@@ -13,11 +13,35 @@ namespace FemDesign.Loads
         [XmlElement("edge", Order=1)]
         public Geometry.Edge Edge { get; set; }
 
+
+        /// <summary>
+        /// Field
+        /// </summary>
+        [XmlElement("direction", Order = 2)]
+        public Geometry.Vector3d _direction;
+
         /// <summary>
         /// Direction of load.
         /// </summary>
-        [XmlElement("direction", Order=2)]
-        public Geometry.Vector3d Direction { get; set; }
+        [XmlIgnore]
+        public Geometry.Vector3d Direction
+        {
+            get
+            {
+                return this._direction;
+            }
+            set
+            {
+                if (value.IsPerpendicular(Edge.CoordinateSystem.LocalX))
+                {
+                    this._direction = value;
+                }
+                else
+                {
+                    throw new System.ArgumentException("The direction must be perpendicular to the curve.");
+                }
+            }
+        }
 
         /// <summary>
         /// Optional. Ambiguous what this does.

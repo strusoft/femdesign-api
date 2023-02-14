@@ -30,7 +30,7 @@ namespace FemDesign.Geometry
             
             set
             {
-                int par = value.Parallel(this.LocalZ);
+                int par = value.IsParallel(this.LocalZ);
                 if (par == 1)
                 {
                     // pass

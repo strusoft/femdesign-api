@@ -8,7 +8,7 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Results
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public partial class ResultAttribute : Attribute
     {
         public readonly Type ResultType;

@@ -184,7 +184,6 @@ namespace FemDesign.Calculate
         }
 
 
-
         public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase)
         {
             OutFile = Path.GetFullPath(outPath);

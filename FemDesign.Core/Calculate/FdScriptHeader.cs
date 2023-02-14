@@ -31,7 +31,7 @@ namespace FemDesign.Calculate
         public FdScriptHeader(string title, string logfile)
         {
             this.Title = title;
-            this.Version = "2100";
+            this.Version = FdScript.Version;
             this.Module = "sframe";
             this.LogFile = logfile;
         }
@@ -39,7 +39,7 @@ namespace FemDesign.Calculate
         public FdScriptHeader(string logFilePath)
         {
             Title = "FEM-Design script";
-            Version = "2100";
+            Version = FdScript.Version;
             Module = "SFRAME";
             LogFile = System.IO.Path.GetFullPath(logFilePath);
         }

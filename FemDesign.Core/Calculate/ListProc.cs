@@ -346,68 +346,6 @@ namespace FemDesign.Calculate
         ShellStressesBottomExtractLoadCombination,
         #endregion
 
-        #region EIGEN FREQUENCIES
-        /* EIGEN FREQUENCIES */
-        /// <summary>
-        /// Eigen Frequencies: Structural Model
-        /// </summary>
-        [XmlEnum("frFreqEigen_ListProc")]
-        EigenFrequencies,
-
-        /// <summary>
-        /// Eigen Frequencies: Structural Model
-        /// </summary>
-        [XmlEnum("frFreqDispNodal_ListProc")]
-        NodalVibrationShape,
-        #endregion
-
-        #region FOOTFALL
-        /* FOOTFALL */
-        /// <summary>
-        /// Eigen Frequencies: FootFall
-        /// </summary>
-        [XmlEnum("frFootEigen_ListProc")]
-        EigenFrequenciesFootFall,
-
-        /// <summary>
-        /// Nodal Response Factor: FootFall
-        /// </summary>
-        [XmlEnum("frFootRespNodal_ListProc")]
-        NodalResponseFactor,
-
-        /// <summary>
-        /// Nodal Acceleration: FootFall
-        /// </summary>
-        [XmlEnum("frFootAccNodal_ListProc")]
-        NodalAcceleration,
-
-        #endregion
-
-        #region RC design
-        /* RC design */
-        /// <summary>
-        /// RC design: Shell, Crack width
-        /// </summary>
-        [XmlEnum("RCShellCrackWidthCmax_ListProc")]
-        RCDesignShellCrackWidthMaxComb,
-        /// <summary>
-        /// RC design: Shell, Utilization
-        /// </summary>
-        [XmlEnum("RCShellUtilizationCmax_ListProc")]
-        RCDesignShellUtilizationMaxComb,
-
-        /// <summary>
-        /// RC design: Shell, Crack width
-        /// </summary>
-        [XmlEnum("RCShellCrackWidthComb_ListProc")]
-        RCDesignShellCrackWidthLoadCombination,
-        /// <summary>
-        /// RC design: Shell, Utilization.
-        /// </summary>
-        [XmlEnum("RCShellUtilizationComb_ListProc")]
-        RCDesignShellUtilizationLoadCombination,
-        #endregion
-
         #region MAX OF LOAD COMBINATION
         /* MAX OF LOAD COMBINATION */
         #region NODE
@@ -466,6 +404,121 @@ namespace FemDesign.Calculate
         ShellDerivedForceMaxOfLoadCombinationMin,
         #endregion
         #endregion
+
+        #region EIGEN FREQUENCIES
+        /* EIGEN FREQUENCIES */
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [XmlEnum("frFreqEigen_ListProc")]
+        EigenFrequencies,
+
+        /// <summary>
+        /// Eigen Frequencies: Structural Model
+        /// </summary>
+        [XmlEnum("frFreqDispNodal_ListProc")]
+        NodalVibrationShape,
+        #endregion
+
+        #region FOOTFALL
+        /* FOOTFALL */
+        /// <summary>
+        /// Eigen Frequencies: FootFall
+        /// </summary>
+        [XmlEnum("frFootEigen_ListProc")]
+        EigenFrequenciesFootFall,
+
+        /// <summary>
+        /// Nodal Response Factor: FootFall
+        /// </summary>
+        [XmlEnum("frFootRespNodal_ListProc")]
+        NodalResponseFactor,
+
+        /// <summary>
+        /// Nodal Acceleration: FootFall
+        /// </summary>
+        [XmlEnum("frFootAccNodal_ListProc")]
+        NodalAcceleration,
+
+        #endregion
+
+        #region RC DESIGN
+        /* RC design */
+        /// <summary>
+        /// RC design: Shell, Crack width
+        /// </summary>
+        [XmlEnum("RCShellCrackWidthCmax_ListProc")]
+        RCDesignShellCrackWidthMaxComb,
+
+        /// <summary>
+        /// RC design: Shell, Utilization
+        /// </summary>
+        [XmlEnum("RCShellUtilizationCmax_ListProc")]
+        RCDesignShellUtilizationMaxComb,
+
+        /// <summary>
+        /// RC design: Shell, Crack width
+        /// </summary>
+        [XmlEnum("RCShellCrackWidthComb_ListProc")]
+        RCDesignShellCrackWidthLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Utilization.
+        /// </summary>
+        [XmlEnum("RCShellUtilizationComb_ListProc")]
+        RCDesignShellUtilizationLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Design Forces.
+        /// </summary>
+        [XmlEnum("RCShellDesForcesComb_ListProc")]
+        RCDesignShellDesignForcesLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Required Reinforcement.
+        /// </summary>
+        [XmlEnum("RCShellReqReinfComb_ListProc")]
+        RCDesignShellRequiredReinforcementLoadCombination,
+        #endregion
+
+        #region  CLT DESIGN
+        /* CLT Design */
+        /// <summary>
+        /// CLT Panel: Utilization - Load Combination
+        /// </summary>
+        [XmlEnum("CltPanelUtilizationComb_ListProc")]
+        CLTPanelUtilizationLoadCombination,
+        /// <summary>
+        /// CLT Panel: Utilization - Max of Load Combination
+        /// </summary>
+        [XmlEnum("CltPanelUtilizationCmax_ListProc")]
+        CLTPanelUtilizationMaxComb,
+
+        /// <summary>
+        /// CLT Panel: Fire Utilization - Load Combination
+        /// </summary>
+        [XmlEnum("CltFireUtilizationComb_ListProc")]
+        CLTPanelFireUtilizationLoadCombination,
+
+        /// <summary>
+        /// CLT Panel: Fire Utilization - Max of Load Combination
+        /// </summary>
+        [XmlEnum("CltFireUtilizationCmax_ListProc")]
+        CLTPanelFireUtilizationMaxComb,
+
+        /// <summary>
+        /// Orthotropic Panel: Utilization - Load Combination
+        /// </summary>
+        [XmlEnum("TmPanelUtilizationComb_ListProc")]
+        OrthotropicPanelUtilizationLoadCombination,
+
+        /// <summary>
+        /// Orthotropic Panel: Utilization - Max of Load Combination
+        /// </summary>
+        [XmlEnum("TmPanelUtilizationCmax_ListProc")]
+        OrthotropicPanelUtilizationMaxComb,
+        #endregion
+
     }
 
     public static class ListProcExtension
