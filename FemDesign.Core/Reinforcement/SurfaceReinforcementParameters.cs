@@ -33,10 +33,7 @@ namespace FemDesign.Reinforcement
 
         }
 
-        /// <summary>
-        /// Private constructor accessed by static methods.
-        /// </summary>
-        private SurfaceReinforcementParameters(bool singleLayerReinforcement, GuidListType baseShell, Center center, Geometry.Vector3d xDirection, Geometry.Vector3d yDirection)
+        public SurfaceReinforcementParameters(bool singleLayerReinforcement, GuidListType baseShell, Center center, Geometry.Vector3d xDirection, Geometry.Vector3d yDirection)
         {
             // object information
             this.EntityCreated();
@@ -57,12 +54,12 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Straight reinforcement layout on slab.
         /// </summary>
-        public static SurfaceReinforcementParameters Straight(Shells.Slab slab, bool singleLayerReinforcement = false)
+        public static SurfaceReinforcementParameters Straight(Shells.Slab slab, bool singleLayerReinforcement = false, Geometry.Vector3d xDir = null, Geometry.Vector3d yDir = null)
         {
             GuidListType baseShell = new GuidListType(slab.SlabPart.Guid);
             Center center = Center.Straight();
-            Geometry.Vector3d xDirection = slab.SlabPart.LocalX;
-            Geometry.Vector3d yDirection = slab.SlabPart.LocalY;
+            Geometry.Vector3d xDirection = xDir ?? slab.SlabPart.LocalX;
+            Geometry.Vector3d yDirection = yDir ?? slab.SlabPart.LocalY;
             return new SurfaceReinforcementParameters(singleLayerReinforcement, baseShell, center, xDirection, yDirection);
         }
     }

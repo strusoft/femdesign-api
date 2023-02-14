@@ -15,6 +15,10 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);
             pManager.AddGenericParameter("SurfaceReinforcement", "SurfaceReinforcement", "SurfaceReinforcment to add to slab. Item or list.", GH_ParamAccess.list);
+            pManager.AddVectorParameter("xDir", "xDir", "Reinforcement direction", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("yDir", "yDir", "Reinforcement direction", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -33,13 +37,31 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+
+            Rhino.Geometry.Vector3d _xDir = Rhino.Geometry.Vector3d.Unset;
+            DA.GetData(2, ref _xDir);
+
+            Rhino.Geometry.Vector3d _yDir = Rhino.Geometry.Vector3d.Unset;
+            DA.GetData(3, ref _yDir);
+
             if (slab == null || surfaceReinforcement == null)
             {
                 return;
             }
 
-            //
-            FemDesign.Shells.Slab obj = FemDesign.Reinforcement.SurfaceReinforcement.AddReinforcementToSlab(slab, surfaceReinforcement);
+            FemDesign.Geometry.Vector3d xDir;
+            if (_xDir == Rhino.Geometry.Vector3d.Unset)
+                xDir = slab.SlabPart.LocalX;
+            else
+                xDir = _xDir.FromRhino();
+
+            FemDesign.Geometry.Vector3d yDir;
+            if (_yDir == Rhino.Geometry.Vector3d.Unset)
+                yDir = slab.SlabPart.LocalY;
+            else
+                yDir = _yDir.FromRhino();
+
+            FemDesign.Shells.Slab obj = FemDesign.Reinforcement.SurfaceReinforcement.AddReinforcementToSlab(slab, surfaceReinforcement, xDir, yDir);
 
             // return
             DA.SetData(0, obj);
