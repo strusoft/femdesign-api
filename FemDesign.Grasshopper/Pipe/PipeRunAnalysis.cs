@@ -17,6 +17,7 @@ namespace FemDesign.Grasshopper
         {
             BaseWorker = new ApplicationRunAnalysisWorker(this);
         }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
@@ -31,7 +32,8 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        protected override System.Drawing.Bitmap Icon => base.Icon;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunAnalysis;
+
         public override Guid ComponentGuid => new Guid("d74ac5fb-42ff-49de-977a-aa71849c73ea");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
     }

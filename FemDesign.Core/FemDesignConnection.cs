@@ -196,7 +196,7 @@ namespace FemDesign
                 logfile,
                 cmdglobalconfig
             );
-            this.RunScript(script);
+            this.RunScript(script, "SetGlobalConfig");
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace FemDesign
                 new CmdUser(CmdUserModule.RESMODE),
                 new CmdCalculation(analysis)
             );
-            this.RunScript(script);
+            this.RunScript(script, "RunAnalysis");
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace FemDesign
 
             if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
 
-            this.RunScript(script);
+            this.RunScript(script, "RunDesign");
         }
 
         /// <summary>

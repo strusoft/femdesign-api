@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        protected override System.Drawing.Bitmap Icon => base.Icon;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Config;
         public override Guid ComponentGuid => new Guid("{58B5D154-A7AB-4D05-878D-010BF05EA7D6}");
         public override GH_Exposure Exposure => GH_Exposure.obscure;
     }

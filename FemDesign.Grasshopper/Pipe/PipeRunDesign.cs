@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
             ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.CmdUserModule)).ToList(), null, GH_ValueListMode.DropDown);
         }
 
-        protected override System.Drawing.Bitmap Icon => base.Icon;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
         public override Guid ComponentGuid => new Guid("{A4EBF6E6-14DA-4082-A19E-9E06FA956481}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
     }

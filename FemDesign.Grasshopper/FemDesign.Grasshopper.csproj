@@ -868,6 +868,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\FEM_RunDesign.bmp" />
+    <None Include="Resources\FEM_RunAnalysis.bmp" />
+    <None Include="Resources\FEM_readresult.png" />
+    <None Include="Resources\FEM_open.png" />
+    <None Include="Resources\FEM_Connection.png" />
+    <None Include="Resources\FEM_Config.png" />
     <None Include="Resources\icons\PointConnection.png" />
     <None Include="Resources\icons\TrussBehaviour.png" />
     <None Include="Resources\icons\GroundWater.png" />

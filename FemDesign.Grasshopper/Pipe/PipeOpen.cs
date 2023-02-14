@@ -23,7 +23,8 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Success", "Success", "", GH_ParamAccess.item);
         }
-        protected override System.Drawing.Bitmap Icon => base.Icon;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_open;
+
         public override Guid ComponentGuid => new Guid("96dc72e0-c0c1-4081-ac2b-56be85905fb2");
         public override GH_Exposure Exposure => GH_Exposure.primary;
     }
