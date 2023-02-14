@@ -161,6 +161,7 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
+    <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
