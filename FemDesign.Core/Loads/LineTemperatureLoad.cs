@@ -106,10 +106,11 @@ namespace FemDesign.Loads
             this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
+
         public override string ToString()
         {
-            return "[t1;t1']:[" + this.TopBotLocVal[0].TopVal + ";" + this.TopBotLocVal[0].BottomVal + "]; [t2;t2']:[" + this.TopBotLocVal[1].TopVal + ";" + this.TopBotLocVal[1].BottomVal + 
-                "]; tan:{" + this.Edge.XAxis.X + "," + this.Edge.XAxis.Y + "," + this.Edge.XAxis.Z + "}; dir:{" + this.Direction.X + "," + this.Direction.Y + "," + this.Direction.Z + "} ";
+            return $"{this.TopBotLocVal[0]} {this.TopBotLocVal[1]} tan:({ this.Edge.XAxis.X.ToString(FemDesign.TextFormatting.decimalRounding)}, " +
+                $"{ this.Edge.XAxis.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, { this.Edge.XAxis.Z.ToString(FemDesign.TextFormatting.decimalRounding)}); dir: { Direction}";
         }
 
     }

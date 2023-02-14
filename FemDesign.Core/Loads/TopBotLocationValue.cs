@@ -62,5 +62,9 @@ namespace FemDesign.Loads
             return new Geometry.Point3d(this.X, this.Y, this.Z);
         }
 
+        public override string ToString()
+        {
+            return $"{GetFdPoint()} [top;bot]:[{this.TopVal};{this.BottomVal}];";
+        }
     }
 }

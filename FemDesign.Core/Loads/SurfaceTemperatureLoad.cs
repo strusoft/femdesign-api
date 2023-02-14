@@ -89,7 +89,17 @@ namespace FemDesign.Loads
             this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
-        
 
+        public override string ToString()
+        {
+            if (TopBotLocVal.Count == 1)
+            {
+                return $"{this.TopBotLocVal[0]} dir: {LocalZ}";
+            }
+            else
+            {
+                return $"{this.TopBotLocVal[0]} {this.TopBotLocVal[1]} {this.TopBotLocVal[2]} dir: {LocalZ}";
+            }
+        }
     }
 }
