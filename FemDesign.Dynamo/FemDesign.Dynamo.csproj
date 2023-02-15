@@ -371,6 +371,8 @@
     <Compile Include="..\FemDesign.Core\Geometry\RegionGroup.cs">
       <Link>Core\Geometry\RegionGroup.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\TextAnnotation.cs">
+      <Link>Core\Geometry\TextAnnotation.cs</Link>
     <Compile Include="..\FemDesign.Core\LibraryItems\ConnectionTypes.cs">
       <Link>Core\LibraryItems\ConnectionTypes.cs</Link>
     </Compile>
