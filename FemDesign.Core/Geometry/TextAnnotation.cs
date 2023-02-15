@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using StruSoft.Interop.StruXml.Data;

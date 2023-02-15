@@ -49,8 +49,9 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
             pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {HorAlignValueListDescription}", GH_ParamAccess.item);
-
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("VerticalAligment", "VerAlign", $"Vertical alignement of text. Connect 'ValueList' to get the options: {VerAlignValueListDescription}", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -95,8 +96,14 @@ namespace FemDesign.Grasshopper
                 textAnnot.StyleType.Font.Size = size;
             }
 
+            System.Drawing.Color color = System.Drawing.Color.Black;
+            if (DA.GetData(3, ref color))
+            {
+                textAnnot.StyleType.SetColor = color;
+            }
+
             string horAlign = null;
-            if (DA.GetData(3, ref horAlign))
+            if (DA.GetData(4, ref horAlign))
             {
                 if (Enum.TryParse(horAlign, out StruSoft.Interop.StruXml.Data.Hor_align horAlignEnum))
                 {
@@ -109,7 +116,7 @@ namespace FemDesign.Grasshopper
             }
 
             string verAlign = null;
-            if (DA.GetData(4, ref verAlign))
+            if (DA.GetData(5, ref verAlign))
             {
                 if (Enum.TryParse(verAlign, out StruSoft.Interop.StruXml.Data.Ver_align verAlignEnum))
                 {
@@ -153,6 +160,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {TextAnnotation.HorAlignValueListDescription}", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("VerticalAligment", "VerAlign", $"Vertical alignement of text. Connect 'ValueList' to get the options: {TextAnnotation.VerAlignValueListDescription}", GH_ParamAccess.item);
@@ -164,6 +173,7 @@ namespace FemDesign.Grasshopper
             pManager.AddPlaneParameter("Plane", "Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
             pManager.AddNumberParameter("FontSize", "FontSize", "Font size. [m]", GH_ParamAccess.item);
+            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", "Horisontal alignement of text", GH_ParamAccess.item);
             pManager.AddTextParameter("VerticalAligment", "VerAlign", "Vertical alignement of text", GH_ParamAccess.item);
         }
@@ -202,8 +212,14 @@ namespace FemDesign.Grasshopper
                 textAnnot.StyleType.Font.Size = size;
             }
 
+             System.Drawing.Color color = textAnnot.StyleType.GetColor;
+            if (DA.GetData(4, ref color))
+            {
+                textAnnot.StyleType.SetColor = color;
+            }
+
             string horAlign = textAnnot.StyleType.Font.H_align.ToString();
-            if (DA.GetData(4, ref horAlign))
+            if (DA.GetData(5, ref horAlign))
             {
                 if (Enum.TryParse(horAlign, out StruSoft.Interop.StruXml.Data.Hor_align horAlignEnum))
                 {
@@ -216,7 +232,7 @@ namespace FemDesign.Grasshopper
             }
 
             string verAlign = textAnnot.StyleType.Font.V_align.ToString();
-            if (DA.GetData(5, ref verAlign))
+            if (DA.GetData(6, ref verAlign))
             {
                 if (Enum.TryParse(verAlign, out StruSoft.Interop.StruXml.Data.Ver_align verAlignEnum))
                 {
@@ -232,8 +248,9 @@ namespace FemDesign.Grasshopper
             DA.SetData(1, plane);
             DA.SetData(2, text);
             DA.SetData(3, size);
-            DA.SetData(4, horAlign);
-            DA.SetData(5, verAlign);
+            DA.SetData(4, color);
+            DA.SetData(5, horAlign);
+            DA.SetData(6, verAlign);
         }
 
         protected override System.Drawing.Bitmap Icon
