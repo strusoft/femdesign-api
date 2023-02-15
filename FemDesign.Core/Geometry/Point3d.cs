@@ -135,6 +135,12 @@ namespace FemDesign.Geometry
             return point;
         }
 
+        public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
+            X = p.X,
+            Y = p.Y,
+            Z = p.Z
+        };
+
 
         public override string ToString()
         {

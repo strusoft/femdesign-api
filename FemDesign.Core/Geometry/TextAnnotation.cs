@@ -4,6 +4,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using StruSoft.Interop.StruXml.Data;
+
 namespace FemDesign.Geometry
 {
     [Serializable]
@@ -94,5 +95,14 @@ namespace FemDesign.Geometry
         {
             throw new NotImplementedException();
         }
+
+        public static implicit operator Text_type(TextAnnotation t) => new Text_type{
+            Position = t.Position,
+            Local_x = t.LocalX,
+            Local_y = t.LocalY,
+            Style = t.StyleType,
+            Guid = t.Guid.ToString(),
+            Text = t.Text,
+        };
     }
 }
