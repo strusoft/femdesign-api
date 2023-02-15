@@ -425,7 +425,7 @@ namespace FemDesign.Shells
         {
             if (this.Type == PanelType.Concrete)
             {
-                if (material.Family == "Concrete")
+                if (material.Family == Materials.Family.Concrete)
                     this.ComplexMaterialRef = material.Guid;
                 else
                     throw new System.ArgumentException("Material must be of type Concrete.");

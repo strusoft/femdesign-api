@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Drawing;
-using StruSoft.Interop.StruXml.Data;
-using System.ComponentModel;
 
 namespace FemDesign.Soil
 {
@@ -120,7 +116,7 @@ namespace FemDesign.Soil
             }
             set
             {
-                if (value.Family != "Stratum")
+                if (value.Family != Materials.Family.Stratum)
                     throw new ArgumentException("Material should be type of Stratum!");
                 this._material = value;
                 this.Guid = this._material.Guid;

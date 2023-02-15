@@ -36,24 +36,24 @@ namespace FemDesign.Materials
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
         
-        // it should be an Enum
+
         [XmlIgnore]
-        public string Family
+        public Family Family
         {
             get
             {
                 if (this.Steel != null)
-                    return "Steel";
+                    return Family.Steel;
                 else if (this.Concrete != null)
-                    return "Concrete";
+                    return Family.Concrete;
                 else if (this.Timber != null)
-                    return "Timber";
+                    return Family.Timber;
                 else if (this.Stratum != null)
-                    return "Stratum";
+                    return Family.Stratum;
                 else if (this.ReinforcingSteel != null)
-                    return "ReinforcingSteel";
+                    return Family.ReinforcingSteel;
                 else
-                    return "Custom";
+                    return Family.Custom;
             }
         }
 
@@ -131,5 +131,15 @@ namespace FemDesign.Materials
         //     }
         //     return material;
         // }
+    }
+
+    public enum Family
+    {
+        Steel,
+        Concrete,
+        Timber,
+        Stratum,
+        ReinforcingSteel,
+        Custom
     }
 }
