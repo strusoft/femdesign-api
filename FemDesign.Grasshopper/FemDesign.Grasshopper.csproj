@@ -144,6 +144,7 @@
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
     <Compile Include="Materials\CustomMaterial.cs" />
     <Compile Include="Materials\MaterialGetByNameIndex.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialGetMaterialByNameOBSOLETE2.cs" />
@@ -274,8 +275,8 @@
     <Compile Include="Loads\PressureLoadDefine.cs" />
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
-    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
-    <Compile Include="Loads\TopBotLocationValueConstruct.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoadOBSOLETE.cs" />
+    <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
