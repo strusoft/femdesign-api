@@ -2220,7 +2220,7 @@ namespace FemDesign
             else if (obj.GetType() == typeof(Foundations.IsolatedFoundation))
             {
                 this.AddIsolatedFoundation((Foundations.IsolatedFoundation)obj, overwrite);
-                this.AddMaterial( ((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
+                this.AddMaterial(((Foundations.IsolatedFoundation)obj).ComplexMaterialObj, overwrite);
             }
             else
             {
@@ -2287,7 +2287,7 @@ namespace FemDesign
             // in model, overwrite
             // add obj
             this.Entities.SoilElements = obj;
-            foreach(var stratum in obj.Strata.Stratum)
+            foreach (var stratum in obj.Strata.Stratum)
                 this.AddMaterial(stratum.Material, overwrite);
         }
 
@@ -2985,8 +2985,14 @@ namespace FemDesign
                 this.Geometry.Text = new List<StruSoft.Interop.StruXml.Data.Text_type>();
             }
 
-            bool inModel = this.Geometry.Text.Any(x => x.Guid == obj.Guid.ToString());
+            // add layer
+            if (obj.StyleType.LayerObj != null)
+            {
+                this.AddLayer(obj.StyleType.LayerObj, overwrite);
+            }
 
+            // add text annotation
+            bool inModel = this.Geometry.Text.Any(x => x.Guid == obj.Guid.ToString());
             if (inModel && !overwrite)
             {
                 // pass - note that this should not throw an exception.
@@ -3003,6 +3009,39 @@ namespace FemDesign
             else if (!inModel)
             {
                 this.Geometry.Text.Add(obj);
+            }
+        }
+
+        public void AddLayer(StruSoft.Interop.StruXml.Data.Layer_type obj, bool overwrite)
+        {
+            if (this.Geometry == null)
+            {
+                this.Geometry = new StruSoft.Interop.StruXml.Data.DatabaseGeometry();
+            }
+
+            if (this.Geometry.Layer == null)
+            {
+                this.Geometry.Layer = new List<StruSoft.Interop.StruXml.Data.Layer_type>();
+            }
+
+            bool inModel = this.Geometry.Layer.Any(x => x.Name == obj.Name);
+
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Geometry.Layer.RemoveAll(x => x.Name == obj.Name);
+                this.Geometry.Layer.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Geometry.Layer.Add(obj);
             }
         }
 
@@ -3505,7 +3544,7 @@ namespace FemDesign
             foreach (Shells.Panel panel in this.Entities.Panels)
             {
                 // get material
-                if(this.Materials != null) // model with only timber plate does not have an xml element 'materials'
+                if (this.Materials != null) // model with only timber plate does not have an xml element 'materials'
                 {
                     foreach (Materials.Material material in this.Materials.Material)
                     {
@@ -3517,7 +3556,7 @@ namespace FemDesign
                 }
 
                 // get section
-                if(this.Sections != null) // model with only timber plate does not have an xml element 'sections'
+                if (this.Sections != null) // model with only timber plate does not have an xml element 'sections'
                 {
                     foreach (Sections.Section section in this.Sections.Section)
                     {

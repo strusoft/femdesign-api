@@ -67,8 +67,8 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             var plane = Plane.WorldXY;
-            if (!DA.GetData(0, ref plane)) 
-            { 
+            if (!DA.GetData(0, ref plane))
+            {
                 // pass
             }
 
@@ -80,7 +80,15 @@ namespace FemDesign.Grasshopper
 
 
             var textAnnot = new Geometry.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
-            
+            textAnnot.StyleType.Layer = "TEXT";
+            textAnnot.StyleType.LayerObj = new StruSoft.Interop.StruXml.Data.Layer_type
+            {
+                Name = "TEXT",
+                Colour = "000000",
+                Hidden = false,
+                Protected = false
+            };
+
             double size = 0;
             if (DA.GetData(2, ref size))
             {
@@ -171,7 +179,7 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
-            
+
             var textAnnot = origTextAnnot.DeepClone();
 
             var plane = new Plane(textAnnot.Position.ToRhino(), textAnnot.LocalX.ToRhino(), textAnnot.LocalY.ToRhino());

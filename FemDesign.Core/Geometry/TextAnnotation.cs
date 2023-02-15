@@ -43,6 +43,8 @@ namespace FemDesign.Geometry
                 }
             }
         }
+        [XmlIgnore]
+        public static string DefaultLayer => "0"; 
         public TextAnnotation()
         {
 
@@ -54,7 +56,7 @@ namespace FemDesign.Geometry
             LocalY = Vector3d.UnitY;
             StyleType = new Style_type
             {
-                Layer = "0",
+                Layer = DefaultLayer,
                 Font = new Font_type
                 {
                     Script = Script_type.Default
