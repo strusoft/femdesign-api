@@ -2980,6 +2980,11 @@ namespace FemDesign
                 this.Geometry = new StruSoft.Interop.StruXml.Data.DatabaseGeometry();
             }
 
+            if (this.Geometry.Text == null)
+            {
+                this.Geometry.Text = new List<StruSoft.Interop.StruXml.Data.Text_type>();
+            }
+
             bool inModel = this.Geometry.Text.Any(x => x.Guid == obj.Guid.ToString());
 
             if (inModel && !overwrite)
@@ -3214,8 +3219,11 @@ namespace FemDesign
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
+        #endregion
 
-
+        #region GEOMETRY
+        // geometry objects are actually not entities but will be put here for now. (:
+        private void AddEntity(Geometry.TextAnnotation obj, bool overwrite) => AddTextAnnotation(obj, overwrite);
         #endregion
 
         #region deconstruct
