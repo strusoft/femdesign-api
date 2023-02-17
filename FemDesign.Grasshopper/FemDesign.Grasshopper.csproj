@@ -137,7 +137,7 @@
     <Compile Include="Foundations\Strata.cs" />
     <Compile Include="Foundations\Stratum.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
-    <Compile Include="Geometry\TextAnnotation.cs" />
+    <Compile Include="Drawing\TextAnnotation.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
@@ -856,6 +856,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <EmbeddedResource Include="Resources\icons\TextAnnotationDeconstruct.png" />
+    <EmbeddedResource Include="Resources\icons\TextAnnotation.png" />
     <None Include="Resources\icons\PointConnection.png" />
     <None Include="Resources\icons\TrussBehaviour.png" />
     <None Include="Resources\icons\GroundWater.png" />
@@ -869,7 +871,6 @@
     <None Include="Resources\icons\StiffnessModifier.png" />
     <None Include="Resources\icons\options.png" />
     <None Include="Resources\icons\lineconnection.bmp" />
-    <None Include="Resources\icons\lineconnection.png" />
     <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
     <None Include="Resources\icons\Insulation.png" />
     <None Include="Resources\icons\ExtrudedSolid.png" />

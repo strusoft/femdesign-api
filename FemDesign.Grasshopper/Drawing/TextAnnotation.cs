@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             }
         }
 
-        public TextAnnotation() : base("TextAnnotation", "TxtAnnot", "Create a text annotation.", CategoryName.Name(), SubCategoryName.CatLast())
+        public TextAnnotation() : base("TextAnnotation", "TxtAnnot", "Create a text annotation.", CategoryName.Name(), "ModellingTools")
         {
 
         }
@@ -62,8 +62,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 3, HorAlignValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 4, VerAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 4, HorAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 5, VerAlignValueList, null, 0);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -135,7 +135,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.TextAnnotation;
             }
         }
         public override Guid ComponentGuid
@@ -147,7 +147,7 @@ namespace FemDesign.Grasshopper
     }
     public class TextAnnotationDeconstruct : GH_Component
     {
-        public TextAnnotationDeconstruct() : base("TextAnnotationDeconstruct", "TxtAnnotDecon", "Deconstruct or modify a text annotation.", CategoryName.Name(), SubCategoryName.CatLast())
+        public TextAnnotationDeconstruct() : base("TextAnnotationDeconstruct", "TxtAnnotDecon", "Deconstruct or modify a text annotation.", CategoryName.Name(), "Deconstruct")
         {
 
         }
@@ -179,8 +179,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 4, TextAnnotation.HorAlignValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 5, TextAnnotation.VerAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 5, TextAnnotation.HorAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 6, TextAnnotation.VerAlignValueList, null, 0);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -257,7 +257,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.TextAnnotationDeconstruct;
             }
         }
         public override Guid ComponentGuid
@@ -265,6 +265,6 @@ namespace FemDesign.Grasshopper
             get { return new Guid("7C35D2FF-75B1-4561-A9BE-B7D22FE93B95"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
     }
 }
