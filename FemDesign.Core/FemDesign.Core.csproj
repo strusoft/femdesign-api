@@ -57,6 +57,7 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Foundations\CuboidPlinth.cs" />
     <Compile Include="Foundations\ExtrudedSolid.cs" />
     <Compile Include="Foundations\Foundations.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Foundations\RefParts.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Geometry\Plane.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
