@@ -9,27 +9,27 @@ namespace FemDesign.Geometry
     public class Plane
     {
         public Point3d Origin { get; set; }
-        private Vector3d _localX;
-        public Vector3d LocalX
+        private Vector3d _xDir;
+        public Vector3d XDir
         {
             get
             {
-                return _localX;
+                return _xDir;
             }
         }
-        private Vector3d _localY;
-        public Vector3d LocalY
+        private Vector3d _yDir;
+        public Vector3d YDir
         {
             get
             {
-                return _localY;
+                return _yDir;
             }
         }
         public Vector3d Normal
         {
             get
             {
-                return LocalX.Cross(LocalY).Normalize();
+                return XDir.Cross(YDir).Normalize();
             }
         }
         public static Plane XY
@@ -58,8 +58,8 @@ namespace FemDesign.Geometry
             Origin = origin;
             if (localX.IsPerpendicular(localY))
             {
-                _localX = localX;
-                _localY = localY;
+                _xDir = localX;
+                _yDir = localY;
             }
             else
             {

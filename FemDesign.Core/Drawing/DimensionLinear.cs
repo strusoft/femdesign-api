@@ -18,6 +18,73 @@ namespace FemDesign.Drawing
         /// </value>
         public Plane Plane;
 
+        /// <value>
+        /// Returns the distances between the reference points measured along the plane x-axis.
+        /// </value>
+        public List<double> Distances
+        {
+            get
+            {
+                var dims = new List<double>();
+                for (int idx = 0; idx < ReferencePoints.Count; idx++)
+                {
+                    if (idx != 0)
+                    {
+                        Point3d p1 = ReferencePoints[idx - 1];
+                        Point3d p2 = ReferencePoints[idx];
+                        Vector3d v = p2 - p1;
+                        dims.Add(v.Dot(Plane.XDir));
+                    }
+                }
+                return dims;
+            }
+        }
+
+        /// <value>
+        /// Returns the positions used to place the dimension text on dimension line.
+        /// </value>
+        public List<Point3d> TextPositions
+        {
+            get
+            {
+                var textPositions = new List<Point3d>();
+                for (int idx = 0; idx < ReferencePoints.Count; idx++)
+                {
+                    if (idx != 0)
+                    {
+                        // current reference point
+                        Point3d p = ReferencePoints[idx];
+
+                        // vector from plane origin to current reference point
+                        Vector3d v = p - Plane.Origin;
+
+                        // project vector along plane x-axis. multiply with 0.5 to get mid.
+                        Vector3d t = v.Dot(Plane.XDir) * 0.5 * Plane.XDir;
+
+                        // position is plane origin translated with t
+                        textPositions.Add(Plane.Origin + t);
+                    }
+                }
+                return textPositions;
+            }
+        }
+        public List<Struxml.Dimtext_type> DimtextTypes
+        {
+            get
+            {
+                var distances = Distances;
+                var textPositions = TextPositions;
+                var dimTextTypes = new List<Struxml.Dimtext_type>();
+                for (int idx = 0; idx < distances.Count; idx++)
+                {
+                    dimTextTypes.Add(new Struxml.Dimtext_type{
+                        Value = distances[idx],
+                        Position = textPositions[idx], // schema is incorrect?
+                    })
+                }
+            }
+        }
+
         /// <summary>
         /// Construct a new linear dimension from reference points and the plane of the dimension.
         /// </summary>   
@@ -27,23 +94,28 @@ namespace FemDesign.Drawing
             Plane = dimPlane;
         }
 
-        public List<double> Dimensions
-        {
-            get
-            {
-                throw new System.Exception("Not implemented");
-            }
-        }
-        //public static implicit operator Struxml.Dimline_type(DimensionLinear d) => new Struxml.Dimline_type{
-        //    Point = d.ReferencePoints.Select(x => (Struxml.Point_type_3d)x).ToList(),
-        //    Position = d.Plane.Origin,
-        //    Plane_x = d.Plane.LocalX,
-        //    Plane_y = d.Plane.LocalY,
-        //    Dimension_line = d.DimensionLine,
-        //    Extension_line = d.ExtensionLine,
-        //    Arrow = d.Arrow,
-        //    Font = d.Font,
-        //    Text = new List<Struxml.Dimtext_type>{d.Text}
-        //};
+        public static implicit operator Struxml.Dimline_type(DimensionLinear d) => new Struxml.Dimline_type{
+           Point = d.ReferencePoints.Select(x => (Struxml.Point_type_3d)x).ToList(),
+           Position = d.Plane.Origin,
+           Plane_x = d.Plane.XDir,
+           Plane_y = d.Plane.YDir,
+           Dimension_line = new Struxml.Dimdimline_type{},
+           Extension_line = new Struxml.Extline_type{
+            Extension_a = 0.005,
+            Extension_b = 0.005,
+            Offset_c = 0.005
+           },
+           Arrow = new Struxml.Arrow_type{
+            Type = Struxml.Arrowtype_type.Tick,
+            Size = 0.005,
+            Penwidth = 0.00018
+           },
+           Font = new Struxml.Dimtext_font_type{
+            Size = 0.0035
+           },
+           Text = new List<Struxml.Dimtext_type>{
+            
+           }
+        };
     }
 }
