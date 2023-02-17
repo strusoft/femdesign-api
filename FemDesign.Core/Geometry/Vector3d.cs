@@ -248,23 +248,6 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
-        /// Check if z-component is 0 and convert to 2d vector in XY-plane.
-        /// </summary>
-        /// <returns></returns>
-        public Vector2d To2d()
-        {
-            if (this.Z == 0)
-            {
-                return new Vector2d(this.X, this.Y);
-            }
-            else
-            {
-                throw new System.ArgumentException("Z-component of Vector is not zero. Vector is not in XY plane.");
-            }
-
-        }
-
-        /// <summary>
         /// Check if zero vector.
         /// </summary>
         /// <returns></returns>
@@ -311,6 +294,29 @@ namespace FemDesign.Geometry
             }
             return (Math.Abs(X - v.X) < tol) && (Math.Abs(Y - v.Y) < tol) && (Math.Abs(Z - v.Z) < tol);
         }
+
+        /// <summary>
+        /// Check if z-component is 0 and convert to 2d vector in XY-plane.
+        /// </summary>
+        /// <returns></returns>
+        public Vector2d To2d()
+        {
+            if (this.Z == 0)
+            {
+                return new Vector2d(this.X, this.Y);
+            }
+            else
+            {
+                throw new System.ArgumentException("Z-component of Vector is not zero. Vector is not in XY plane.");
+            }
+
+        }
+
+        public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Vector3d v) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
+            X = v.X,
+            Y = v.Y,
+            Z = v.Z
+        };
 
         public override int GetHashCode()
         {

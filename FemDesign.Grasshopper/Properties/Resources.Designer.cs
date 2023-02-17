@@ -2103,6 +2103,26 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TextAnnotation {
+            get {
+                object obj = ResourceManager.GetObject("TextAnnotation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TextAnnotationDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("TextAnnotationDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ThicknessDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("ThicknessDeconstruct", resourceCulture);
