@@ -349,6 +349,7 @@
     <Compile Include="StructureGrid\Axis.cs" />
     <Compile Include="StructureGrid\Storey.cs" />
     <Compile Include="StructureGrid\Storeys.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\Dimline_type.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\Style_type.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
