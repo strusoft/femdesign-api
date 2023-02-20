@@ -90,5 +90,16 @@ namespace FemDesign.Loads
             this.Comment = comment;
         }
 
+        public override string ToString()
+        {
+            if (TopBotLocVal.Count == 1)
+            {
+                return $"{this.GetType().Name} - {this.TopBotLocVal[0]}";
+            }
+            else
+            {
+                return $"{this.GetType().Name} - First:{this.TopBotLocVal[0]}  Second:{this.TopBotLocVal[1]}  Third:{this.TopBotLocVal[2]}";
+            }
+        }
     }
 }
