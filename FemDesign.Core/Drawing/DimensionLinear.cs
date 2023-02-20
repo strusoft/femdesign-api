@@ -52,14 +52,20 @@ namespace FemDesign.Drawing
                 {
                     if (idx != 0)
                     {
-                        // current reference point
-                        Point3d p = ReferencePoints[idx];
+                        // previous reference point
+                        Point3d p1 = ReferencePoints[idx - 1];
 
-                        // vector from plane origin to current reference point
-                        Vector3d v = p - Plane.Origin;
+                        // current reference point
+                        Point3d p2 = ReferencePoints[idx];
+
+                        // vector from plane origin to previous reference point
+                        Vector3d v1 = p1 - Plane.Origin;
+
+                        // vector from previous reference point to current reference point
+                        Vector3d v2 = p2 - p1;
 
                         // project vector along plane x-axis. multiply with 0.5 to get mid.
-                        Vector3d t = v.Dot(Plane.XDir) * 0.5 * Plane.XDir;
+                        Vector3d t = v1.Dot(Plane.XDir) * Plane.XDir + v2.Dot(Plane.XDir) * 0.5 * Plane.XDir;
 
                         // position is plane origin translated with t
                         textPositions.Add(Plane.Origin + t);
@@ -80,8 +86,11 @@ namespace FemDesign.Drawing
                     dimTextTypes.Add(new Struxml.Dimtext_type{
                         Value = distances[idx],
                         Position = textPositions[idx], // schema is incorrect?
-                    })
+                        Plane_x = Plane.XDir,
+                        Plane_y = Plane.YDir,
+                    });
                 }
+                return dimTextTypes;
             }
         }
 
@@ -113,9 +122,7 @@ namespace FemDesign.Drawing
            Font = new Struxml.Dimtext_font_type{
             Size = 0.0035
            },
-           Text = new List<Struxml.Dimtext_type>{
-            
-           }
+           Text = d.DimtextTypes
         };
     }
 }

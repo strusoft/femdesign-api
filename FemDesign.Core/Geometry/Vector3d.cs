@@ -63,6 +63,11 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
+        /// Vector addition
+        /// </summary>
+        public static Vector3d operator +(Vector3d v1, Vector3d v2) => new Vector3d(v1.X + v2.X, v1.Y + v2.Y, v1.Z + v2.Z);
+
+        /// <summary>
         /// Reverse vector
         /// </summary>
         public static Vector3d operator -(Vector3d v) => v.Reverse();
