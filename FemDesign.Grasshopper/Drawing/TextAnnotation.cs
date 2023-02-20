@@ -80,7 +80,7 @@ namespace FemDesign.Grasshopper
             }
 
 
-            var textAnnot = new Geometry.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
+            var textAnnot = new Drawing.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
             textAnnot.StyleType.Layer = "TEXT";
             textAnnot.StyleType.LayerObj = new StruSoft.Interop.StruXml.Data.Layer_type
             {
@@ -184,7 +184,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Geometry.TextAnnotation origTextAnnot = null;
+            Drawing.TextAnnotation origTextAnnot = null;
             if (!DA.GetData(0, ref origTextAnnot))
             {
                 return;

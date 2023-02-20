@@ -2,8 +2,9 @@
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using StruSoft.Interop.StruXml.Data;
+using FemDesign.Geometry;
 
-namespace FemDesign.Geometry
+namespace FemDesign.Drawing
 {
     [Serializable]
     public class TextAnnotation: GenericClasses.IStructureElement
