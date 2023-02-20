@@ -109,8 +109,7 @@ namespace FemDesign.Loads
 
         public override string ToString()
         {
-            return $"{this.TopBotLocVal[0]} {this.TopBotLocVal[1]} tan:({ this.Edge.XAxis.X.ToString(FemDesign.TextFormatting.decimalRounding)}, " +
-                $"{ this.Edge.XAxis.Y.ToString(FemDesign.TextFormatting.decimalRounding)}, { this.Edge.XAxis.Z.ToString(FemDesign.TextFormatting.decimalRounding)}); dir: { Direction}";
+            return $"{this.GetType().Name} - Start:{this.TopBotLocVal[0]}  End:{this.TopBotLocVal[1]}";
         }
 
     }

@@ -94,11 +94,11 @@ namespace FemDesign.Loads
         {
             if (TopBotLocVal.Count == 1)
             {
-                return $"{this.TopBotLocVal[0]} dir: {LocalZ}";
+                return $"{this.GetType().Name} - {this.TopBotLocVal[0]}";
             }
             else
             {
-                return $"{this.TopBotLocVal[0]} {this.TopBotLocVal[1]} {this.TopBotLocVal[2]} dir: {LocalZ}";
+                return $"{this.GetType().Name} - First:{this.TopBotLocVal[0]}  Second:{this.TopBotLocVal[1]}  Third:{this.TopBotLocVal[2]}";
             }
         }
     }
