@@ -138,6 +138,7 @@
     <Compile Include="Foundations\Stratum.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
