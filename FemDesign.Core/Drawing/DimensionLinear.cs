@@ -6,7 +6,7 @@ using Struxml = StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Drawing
 {
-    public class DimensionLinear: EntityBase, IStructureElement
+    public class DimensionLinear : EntityBase, IStructureElement
     {
         /// <value>
         /// Points to measure. Will measure between the points projection in the plane of the dimension line.
@@ -83,7 +83,8 @@ namespace FemDesign.Drawing
                 var dimTextTypes = new List<Struxml.Dimtext_type>();
                 for (int idx = 0; idx < distances.Count; idx++)
                 {
-                    dimTextTypes.Add(new Struxml.Dimtext_type{
+                    dimTextTypes.Add(new Struxml.Dimtext_type
+                    {
                         Value = distances[idx],
                         Position = textPositions[idx], // schema is incorrect?
                         Plane_x = Plane.XDir,
@@ -93,36 +94,53 @@ namespace FemDesign.Drawing
                 return dimTextTypes;
             }
         }
+        public Struxml.Modification_type StruxmlAction
+        {
+            get
+            {
+                Struxml.Modification_type res;
+                System.Enum.TryParse<Struxml.Modification_type>(Action, out res);
+                return res;
+            }
+        }
 
         /// <summary>
         /// Construct a new linear dimension from reference points and the plane of the dimension.
         /// </summary>   
         public DimensionLinear(List<Point3d> referencePoints, Plane dimPlane)
         {
+            EntityCreated();
             ReferencePoints = referencePoints;
             Plane = dimPlane;
         }
 
-        public static implicit operator Struxml.Dimline_type(DimensionLinear d) => new Struxml.Dimline_type{
-           Point = d.ReferencePoints.Select(x => (Struxml.Point_type_3d)x).ToList(),
-           Position = d.Plane.Origin,
-           Plane_x = d.Plane.XDir,
-           Plane_y = d.Plane.YDir,
-           Dimension_line = new Struxml.Dimdimline_type{},
-           Extension_line = new Struxml.Extline_type{
-            Extension_a = 0.005,
-            Extension_b = 0.005,
-            Offset_c = 0.005
-           },
-           Arrow = new Struxml.Arrow_type{
-            Type = Struxml.Arrowtype_type.Tick,
-            Size = 0.005,
-            Penwidth = 0.00018
-           },
-           Font = new Struxml.Dimtext_font_type{
-            Size = 0.0035
-           },
-           Text = d.DimtextTypes
+        public static implicit operator Struxml.Dimline_type(DimensionLinear d) => new Struxml.Dimline_type
+        {
+            Guid = d.Guid.ToString(),
+            Action = d.StruxmlAction,
+            Last_change = d.LastChange,
+            Point = d.ReferencePoints.Select(x => (Struxml.Point_type_3d)x).ToList(),
+            Position = d.Plane.Origin,
+            Plane_x = d.Plane.XDir,
+            Plane_y = d.Plane.YDir,
+            Dimension_line = new Struxml.Dimdimline_type { },
+            Extension_line = new Struxml.Extline_type
+            {
+                Extension_a = 0.005,
+                Extension_b = 0.005,
+                Offset_c = 0.005
+            },
+            Arrow = new Struxml.Arrow_type
+            {
+                Type = Struxml.Arrowtype_type.Tick,
+                Size = 0.005,
+                Penwidth = 0.00018
+            },
+            Font = new Struxml.Dimtext_font_type
+            {
+                Size = 0.0035
+            },
+            Text = d.DimtextTypes
         };
     }
 }
