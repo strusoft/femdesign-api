@@ -1,6 +1,9 @@
 ﻿// https://strusoft.com/
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using System.IO;
+using System.Reflection;
+using System.Linq;
 
 namespace FemDesign.Calculate
 {
@@ -67,35 +70,33 @@ namespace FemDesign.Calculate
             return cmdGlobalCfg;
         }
 
+
+        /// <summary>
+        /// Deserialize CmdGlobalCfg from resource.
+        /// </summary>
+        public static CmdGlobalCfg DeserializeCmdGlobalCfgFromFilePath(string filePath = null)
+        {
+            if(filePath == null)
+            {
+                string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+                filePath = System.IO.Path.Combine( System.IO.Path.GetDirectoryName( assemblyLocation ), @"cmdglobalcfg.xml");
+            }
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(CmdGlobalCfg));
+            TextReader reader = new StreamReader(filePath);
+            object obj = deserializer.Deserialize(reader);
+            var materialDatabase = (CmdGlobalCfg)obj;
+            reader.Close();
+            return materialDatabase;
+        }
+
+
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdGlobalCfg>(this);
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public partial class MeshGeneral

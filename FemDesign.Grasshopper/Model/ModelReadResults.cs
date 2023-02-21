@@ -5,24 +5,7 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
-using System.Text.RegularExpressions;
-using System.Reflection;
 using FemDesign.Calculate;
-using FemDesign;
-
-using System;
-using System.IO;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO.Pipes;
-using System.Security.AccessControl;
-using System.Security.Principal;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using System.Threading.Tasks;
-
-
 
 namespace FemDesign.Grasshopper
 {
@@ -44,7 +27,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

@@ -19,19 +19,26 @@ namespace FemDesign.Info
     {
         public static string GetCurrentFemDesignApiVersion()
         {
+            var ver = GetApiVersion();
+            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+        }
+
+        private static (int Major, int Minor, int Build) GetApiVersion()
+        {
             IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
             string assemblyVersion = assembly.First().Version?.ToString();
             var ver = Version.Parse(assemblyVersion);
-            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            return (ver.Major, ver.Minor, ver.Build);
         }
     }
 
     public class InfoComponent : GH_Component
     {
-        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.CatLast())
+        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.Cat0())
         {
 
         }
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -183,8 +190,6 @@ namespace FemDesign.Info
                 textRectangle.Y += 30;
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
                 Image image = FemDesign.Properties.Resources.fdlogo;
-
-                graphics.DrawImage(image, textRectangle);
 
 
                 textRectangle.Y += 40;
