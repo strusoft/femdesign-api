@@ -107,5 +107,10 @@ namespace FemDesign.Loads
             this.Comment = comment;
         }
 
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} - Start:{this.TopBotLocVal[0]}  End:{this.TopBotLocVal[1]}";
+        }
+
     }
 }
