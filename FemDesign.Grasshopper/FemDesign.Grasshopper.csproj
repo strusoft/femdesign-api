@@ -115,6 +115,7 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\IsolatedFoundationDeconstruct.cs" />
     <Compile Include="Deconstruct\LabelledSectionDeconstruct.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\GenericSupportObjectSortSupportsOBSOLETE.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2150.cs" />
+    <Compile Include="Deconstruct\PanelContinousDeconstruct.cs" />
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportGroupDeconstuctor.cs" />
     <Compile Include="Deconstruct\SupportDirectedDeconstruct.cs" />
@@ -237,7 +239,7 @@
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
-    <Compile Include="Deconstruct\PanelContinuousAnalyticalModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\PanelContinuousAnalyticalModelDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\PointLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\PressureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\RotationsDeconstruct.cs" />
