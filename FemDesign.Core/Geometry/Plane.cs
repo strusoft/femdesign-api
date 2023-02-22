@@ -58,8 +58,8 @@ namespace FemDesign.Geometry
             Origin = origin;
             if (localX.IsPerpendicular(localY))
             {
-                _xDir = localX;
-                _yDir = localY;
+                _xDir = localX.Normalize();
+                _yDir = localY.Normalize();
             }
             else
             {
