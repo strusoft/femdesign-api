@@ -19,6 +19,17 @@ namespace FemDesign.Drawing
         public Plane Plane;
 
         /// <value>
+        /// Dimension text font
+        /// </value>
+        public Struxml.Dimtext_font_type Font;
+
+
+        /// <value>
+        /// Dimension line arrow
+        /// </value>
+        public Struxml.Arrow_type Arrow;
+
+        /// <value>
         /// Returns the distances between the reference points measured along the plane x-axis.
         /// </value>
         public List<double> Distances
@@ -104,12 +115,19 @@ namespace FemDesign.Drawing
             }
         }
 
+        public void Initialise()
+        {
+            EntityCreated();
+            Font = new Struxml.Dimtext_font_type();
+            Arrow = new Struxml.Arrow_type();
+        }
+
         /// <summary>
         /// Construct a new linear dimension from reference points and the plane of the dimension.
         /// </summary>   
         public DimensionLinear(List<Point3d> referencePoints, Plane dimPlane)
         {
-            EntityCreated();
+            Initialise();
             ReferencePoints = referencePoints;
             Plane = dimPlane;
         }
@@ -136,10 +154,7 @@ namespace FemDesign.Drawing
                 Size = 0.005,
                 Penwidth = 0.00018
             },
-            Font = new Struxml.Dimtext_font_type
-            {
-                Size = 0.0035
-            },
+            Font = d.Font,
             Text = d.DimtextTypes
         };
     }
