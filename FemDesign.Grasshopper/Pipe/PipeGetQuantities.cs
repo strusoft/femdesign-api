@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("QuantityType", "QuantityType", "Connect 'ValueList' to get the options.\nQuantity type:\nQuantityEstimationConcrete\nQuantityEstimationReinforcement\nQuantityEstimationSteel\nQuantityEstimationTimber\nQuantityEstimationTimberPanel\nQuantityEstimationMasonry\nQuantityEstimationGeneral\nQuantityEstimationProfiledPanel", GH_ParamAccess.item);
+            pManager.AddTextParameter("QuantityType", "QuantityType", "Quantity type:\nQuantityEstimationConcrete\nQuantityEstimationReinforcement\nQuantityEstimationSteel\nQuantityEstimationTimber\nQuantityEstimationTimberPanel\nQuantityEstimationMasonry\nQuantityEstimationGeneral\nQuantityEstimationProfiledPanel", GH_ParamAccess.item);
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -46,20 +46,20 @@ namespace FemDesign.Grasshopper
         public override Guid ComponentGuid => new Guid("{81E32E19-C6A6-4E9E-A0B2-EB6CE1BA888F}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
-        protected override void BeforeSolveInstance()
-        {
-            var quantities = new List<string>();
+        //protected override void BeforeSolveInstance()
+        //{
+        //    var quantities = new List<string>();
 
-            var shipped = Enum.GetValues(typeof(ListProc));
-            foreach(var _item in shipped)
-            {
-                var item = (ListProc)_item;
-                if(item.IsQuantityEstimation())
-                    quantities.Add(item.ToString());
-            }
+        //    var shipped = Enum.GetValues(typeof(ListProc));
+        //    foreach(var _item in shipped)
+        //    {
+        //        var item = (ListProc)_item;
+        //        if(item.IsQuantityEstimation())
+        //            quantities.Add(item.ToString());
+        //    }
 
-            ValueListUtils.updateValueLists(this, 1, quantities, null, GH_ValueListMode.DropDown);
-        }
+        //    ValueListUtils.updateValueLists(this, 1, quantities, null, GH_ValueListMode.DropDown);
+        //}
 
     }
 
@@ -68,7 +68,7 @@ namespace FemDesign.Grasshopper
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private Results.UnitResults _units = null;
-        private string _resultType;
+        private string _resultType = null;
 
         private List<Results.IResult> _results = new List<Results.IResult>();
         private bool _runNode = true;
@@ -109,6 +109,12 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+
+            if (_resultType == null || _resultType == "1")
+            {
+                return;
+            }
+
             // Run the Analysis
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
@@ -125,14 +131,13 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            if (_connection == null)
+            DA.GetData("QuantityType", ref _resultType);
+
+            if (_resultType == null || _resultType == "1")
             {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
                 return;
             }
 
-            DA.GetData("QuantityType", ref _resultType);
             DA.GetData("Units", ref _units);
             DA.GetData("RunNode", ref _runNode);
         }

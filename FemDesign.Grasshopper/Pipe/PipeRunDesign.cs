@@ -42,10 +42,10 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        protected override void BeforeSolveInstance()
-        {
-            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.CmdUserModule)).ToList(), null, GH_ValueListMode.DropDown);
-        }
+        //protected override void BeforeSolveInstance()
+        //{
+        //    ValueListUtils.updateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Calculate.CmdUserModule)).ToList(), null, GH_ValueListMode.DropDown);
+        //}
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
         public override Guid ComponentGuid => new Guid("{A4EBF6E6-14DA-4082-A19E-9E06FA956481}");

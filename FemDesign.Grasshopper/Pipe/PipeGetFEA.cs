@@ -35,7 +35,7 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_GetMesh;
 
         public override Guid ComponentGuid => new Guid("{6231B7A4-936A-4BA2-8302-D3BB4CA1594F}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
@@ -91,6 +91,8 @@ namespace FemDesign.Grasshopper
             //    return;
             //}
 
+            if(_units == null)
+                _units = Results.UnitResults.Default();
 
             _fdFea = _connection.GetFeaModel(_units.Length);
             _success = true;

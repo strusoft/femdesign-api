@@ -176,6 +176,11 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
@@ -320,11 +325,6 @@
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
@@ -874,6 +874,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\FEM_RunDesign.bmp" />
+    <None Include="Resources\icons\FEM_RunAnalysis.bmp" />
+    <None Include="Resources\icons\FEM_readresult.png" />
+    <None Include="Resources\icons\FEM_open.png" />
+    <None Include="Resources\icons\FEM_GetMesh.png" />
+    <None Include="Resources\icons\FEM_Connection.png" />
+    <None Include="Resources\icons\FEM_Config.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotationDeconstruct.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotation.png" />
     <None Include="Resources\FEM_RunDesign.bmp" />
