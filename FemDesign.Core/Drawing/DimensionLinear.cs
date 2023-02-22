@@ -30,6 +30,21 @@ namespace FemDesign.Drawing
         public Struxml.Arrow_type Arrow;
 
         /// <value>
+        /// Number of decimals of measurement
+        /// </value>
+        public int Decimals = new Struxml.Dimtext_type().Decimals;
+
+        /// <value>
+        /// Measurement unit
+        /// </value>
+        public Struxml.Lengthunit_type LengthUnit = Struxml.Lengthunit_type.M;
+
+        /// <value>
+        /// Show unit after measurement
+        /// </value>
+        public bool ShowUnit = false;
+
+        /// <value>
         /// Returns the distances between the reference points measured along the plane x-axis.
         /// </value>
         public List<double> Distances
@@ -94,14 +109,19 @@ namespace FemDesign.Drawing
                 var dimTextTypes = new List<Struxml.Dimtext_type>();
                 for (int idx = 0; idx < distances.Count; idx++)
                 {
-                    dimTextTypes.Add(new Struxml.Dimtext_type
+                    var dimTextType = new Struxml.Dimtext_type
                     {
                         Value = distances[idx],
+                        Decimals = this.Decimals,
+                        Length_unit = this.LengthUnit,
+                        Measurement_unit = this.ShowUnit,
                         Position = textPositions[idx], // schema is incorrect?
                         Plane_x = Plane.XDir,
                         Plane_y = Plane.YDir,
-                    });
+                    };
+                    dimTextTypes.Add(dimTextType);
                 }
+
                 return dimTextTypes;
             }
         }
