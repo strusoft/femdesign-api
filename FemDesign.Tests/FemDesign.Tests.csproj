@@ -75,6 +75,7 @@
     <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Calculate\OptionsTests.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
