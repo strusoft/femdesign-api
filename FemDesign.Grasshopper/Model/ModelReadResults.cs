@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("StrPath", "StrPath", "File path to FEM-Design model (.str) file.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.list);
+            pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results. By default will return all case and combinations.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
             DA.GetDataList("Case/Combination Name", caseCombo);
 
 
-            FemDesign.Calculate.Options options = new FemDesign.Calculate.Options();
+            FemDesign.Calculate.Options options = FemDesign.Calculate.Options.Default();
             DA.GetData("Options", ref options);
 
             bool runNode = true;

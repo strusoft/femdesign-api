@@ -175,8 +175,6 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
-
-        /// Create fdscript to read a str-model.
         public static FdScript ReadLoadCase(string strPath, List<string> bscPaths = null, List<MapCase> mapCases = null)
         {
             FdScript fdScript = new FdScript();
@@ -223,17 +221,6 @@ namespace FemDesign.Calculate
             // return
             return fdScript;
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
