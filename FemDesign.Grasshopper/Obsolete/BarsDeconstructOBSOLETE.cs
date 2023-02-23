@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsDeconstructOBSOLETE : GH_Component
+    public class BarsDeconstruct_OBSOLETE : GH_Component
     {
-        public BarsDeconstructOBSOLETE() : base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FEM-Design", "Deconstruct")
+        public BarsDeconstruct_OBSOLETE() : base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FEM-Design", "Deconstruct")
         {
 
         }

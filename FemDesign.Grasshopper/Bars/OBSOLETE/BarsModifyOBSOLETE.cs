@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsModify: GH_Component
+    public class BarsModifyOBSOLETE: GH_Component
     {
-       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", CategoryName.Name(),
+       public BarsModifyOBSOLETE(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -39,33 +39,12 @@ namespace FemDesign.Grasshopper
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddGenericParameter("Bar", "Bar", "Bar.", GH_ParamAccess.item);
-
-           pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
-           pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve [m]", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Type", "Type", "Bar type", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);
-           pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
-           pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity", GH_ParamAccess.list);
-           pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal bars.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
-           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
-        }
+       }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
             // get input
             Bars.Bar bar = null;
-            if (!DA.GetData(0, ref bar))
-            {
-                return;
-            }
-            else if (bar == null)
-            {
-                return;
-            }
-            else
+            if (DA.GetData(0, ref bar))
             {
                 if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
                 {
@@ -141,50 +120,11 @@ namespace FemDesign.Grasshopper
                 bar.Identifier = identifier;
             }
 
-
             // output
-
-            // The following code is to convert 'item' to 'list object'
-            // It is required to construct the bar without graftening the data
-            var materialList = new List<object>() { bar.BarPart.ComplexMaterialObj };
-
             DA.SetData(0, bar);
-            DA.SetData(1, bar.Guid);
-            DA.SetData(2, bar.GetRhinoCurve());
-            DA.SetData(3, bar.Type);
-            DA.SetDataList(4, materialList);
 
-            if (bar.BarPart.ComplexSectionObj != null)
-            {
-                DA.SetDataList(5, bar.BarPart.ComplexSectionObj.Sections);
-            }
-            else if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar has a Composite Section. The object has not been implemented yet. Please, get in touch if needed.");
-                DA.SetDataList(5, null);
-            }
-            else if (bar.BarPart.Type == Bars.BarType.Truss)
-            {
-                var truss = new List<Sections.Section> { bar.BarPart.TrussUniformSectionObj };
-                DA.SetDataList(5, truss);
-            }
-            else
-            {
-                DA.SetDataList(5, null);
-            }
-
-            DA.SetDataList(6, bar.BarPart.Connectivity);
-
-            var result = (bar.BarPart.ComplexSectionObj != null) ? bar.BarPart.ComplexSectionObj.Eccentricities : null;
-            DA.SetDataList(7, result);
-
-            DA.SetData(8, bar.BarPart.LocalY.ToRhino());
-            DA.SetDataList(9, bar.Stirrups);
-            DA.SetDataList(10, bar.LongitudinalBars);
-            DA.SetDataList(11, bar.Ptc);
-            DA.SetData(12, bar.Name);
-        }
-        protected override System.Drawing.Bitmap Icon
+       }
+       protected override System.Drawing.Bitmap Icon
        {
            get
            {
@@ -193,9 +133,9 @@ namespace FemDesign.Grasshopper
        }
        public override Guid ComponentGuid
        {
-           get { return new Guid("3A6FD9BA-6EBB-4822-B1A8-B3E3E297ED99"); }
+           get { return new Guid("24c7400b-e73b-4b65-b2f9-c7b2fe9f27c3"); }
        }
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

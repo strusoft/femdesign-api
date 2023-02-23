@@ -8,9 +8,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsDeconstruct: GH_Component
+    public class BarsDeconstruct_OBSOLETE3: GH_Component
     {
-       public BarsDeconstruct(): base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FEM-Design", "Deconstruct")
+       public BarsDeconstruct_OBSOLETE3(): base("Bars.Deconstruct", "Deconstruct", "Deconstruct a bar element.", "FEM-Design", "Deconstruct")
        {
 
         }
@@ -113,7 +113,7 @@ namespace FemDesign.Grasshopper
            get { return new Guid("8317fff1-b65c-4d27-8604-8a13665a348f"); }
        }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
