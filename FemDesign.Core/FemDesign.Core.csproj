@@ -66,6 +66,8 @@
     <Compile Include="Foundations\RefParts.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Results\Imperfection\ImperfectionFactor.cs" />
+    <Compile Include="Results\Stability\CriticalParameter.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
@@ -394,6 +396,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
