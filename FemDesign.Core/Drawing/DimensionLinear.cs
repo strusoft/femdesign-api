@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FemDesign.Geometry;
 using FemDesign.GenericClasses;
@@ -68,6 +69,7 @@ namespace FemDesign.Drawing
 
         /// <value>
         /// Returns the positions used to place the dimension text on dimension line.
+        /// y' value needs 21% extra padding
         /// </value>
         public List<Point3d> TextPositions
         {
@@ -100,6 +102,7 @@ namespace FemDesign.Drawing
                 return textPositions;
             }
         }
+
         public List<Struxml.Dimtext_type> DimtextTypes
         {
             get
@@ -125,6 +128,10 @@ namespace FemDesign.Drawing
                 return dimTextTypes;
             }
         }
+
+        /// <value>
+        /// Get action as Modification_type
+        /// </value>
         public Struxml.Modification_type StruxmlAction
         {
             get
@@ -133,6 +140,11 @@ namespace FemDesign.Drawing
                 System.Enum.TryParse<Struxml.Modification_type>(Action, out res);
                 return res;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"DimensionLinear: O: {Plane.Origin}, X: {Plane.XDir}, Measures: {string.Join(" ", Distances.Select(x => Math.Round(x, Decimals)))}";
         }
 
         public void Initialise()
