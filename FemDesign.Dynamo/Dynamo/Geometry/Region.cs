@@ -21,7 +21,6 @@ namespace FemDesign.Geometry
             // curves[] is ordered by the loops of the surface.
             // the assumption here is that the loop with the largest circumference (i.e. the outline) is placed first in the array
             // for fd definition it is neccessary that the outline is the first contour, the subsequent loops can have any order.
-            Autodesk.DesignScript.Geometry.Curve[] curves = obj.PerimeterCurves();
             if (obj.Faces.Count() != 1)
                 throw new System.Exception("Surface has more than one face");
             var face = obj.Faces.First();
