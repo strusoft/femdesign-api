@@ -88,22 +88,34 @@ namespace FemDesign.Loads
         /// <summary>
         /// Converts the Enum combination type to string
         /// </summary>
-        /// <param name="combinationType"></param>
+        /// <param name="comboType"></param>
         /// <returns>The combination type as a string</returns>
-        private LoadCombType LoadCombinationType(ELoadCombinationType combinationType)
+        private LoadCombType LoadCombinationType(ELoadCombinationType comboType)
         {
-            LoadCombType loadCombinationType = LoadCombType.UltimateOrdinary;
 
-            if (combinationType == ELoadCombinationType.SixTenA || combinationType == ELoadCombinationType.SixTenB)
-                loadCombinationType = LoadCombType.UltimateOrdinary;
-            else if (combinationType == ELoadCombinationType.Characteristic)
-                loadCombinationType = LoadCombType.ServiceabilityCharacteristic;
-            else if (combinationType == ELoadCombinationType.Frequent)
-                loadCombinationType = LoadCombType.ServiceabilityFrequent;
-            else if (combinationType == ELoadCombinationType.QuasiPermanent)
-                loadCombinationType = LoadCombType.ServiceabilityQuasiPermanent;
-            return loadCombinationType;
+            switch (comboType)
+            {
+                case ELoadCombinationType.SixTenA:
+                case ELoadCombinationType.SixTenB:
+                    return LoadCombType.UltimateOrdinary;
+
+                case ELoadCombinationType.Characteristic:
+                    return  LoadCombType.ServiceabilityCharacteristic;
+
+                case ELoadCombinationType.Frequent:
+                    return LoadCombType.ServiceabilityFrequent;
+
+                case ELoadCombinationType.QuasiPermanent:
+                    return LoadCombType.ServiceabilityQuasiPermanent;
+
+                default:
+                    return LoadCombType.UltimateOrdinary;
+            }
         }
+
+
+
+
 
         /// <summary>
         /// Finds all combinations, where load cases from the first group are leading actions, from the provided <paramref name="loadGroups"/>, 
