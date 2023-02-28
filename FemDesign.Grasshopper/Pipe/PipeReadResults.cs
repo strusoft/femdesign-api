@@ -21,9 +21,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
-            pManager.AddTextParameter("Case Name", "Case Name", "Name of Load Case to return the results.", GH_ParamAccess.list);
+            pManager.AddTextParameter("Case Name", "Case Name", "Name of Load Case to return the results. Default will return the values for all load cases.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results.", GH_ParamAccess.list);
+            pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results. Default will return the values for all load combinations.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -32,7 +32,6 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -104,15 +103,15 @@ namespace FemDesign.Grasshopper
             //    return;
             //}
 
-            if (!_combo.Any() && !_case.Any())
-            {
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input parameter Case Name or Combo Name failed to collect data.");
-                return;
-            }
-
             // Run the Analysis
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
+
+            if (!_combo.Any() && !_case.Any())
+            {
+                var res = _connection._getResults(type, _units, _options);
+                _results.AddRange(res);
+            }
 
             if(_case.Any())
             {

@@ -405,6 +405,25 @@ namespace FemDesign.Calculate
         #endregion
         #endregion
 
+        #region STABILITY
+        /* STABILITY */
+        /// <summary>
+        /// Critical Parameters (only positive)
+        /// </summary>
+        [XmlEnum("frStabCritParamOnlyPositive_ListProc")]
+        CriticalParameters,
+        #endregion
+
+        #region STABILITY
+        /* STABILITY */
+        /// <summary>
+        /// Imperfection Factors (only positive)
+        /// </summary>
+        [XmlEnum("frImpfFactorsOnlyPositive_ListProc")]
+        ImperfectionFactors,
+        #endregion
+
+
         #region EIGEN FREQUENCIES
         /* EIGEN FREQUENCIES */
         /// <summary>
