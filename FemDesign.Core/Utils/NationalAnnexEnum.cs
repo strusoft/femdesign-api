@@ -1,5 +1,4 @@
-﻿
-namespace FemDesign.Loads
+﻿namespace FemDesign.Utils
 {
     /// <summary>
     /// Enum for keeping track of the chosen national annex

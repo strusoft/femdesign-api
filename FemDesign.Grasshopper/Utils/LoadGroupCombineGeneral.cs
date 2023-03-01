@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FemDesign.GenericClasses;
+using FemDesign.Utils;
 
 namespace FemDesign.Loads
 {
@@ -110,7 +111,7 @@ namespace FemDesign.Loads
             else
                 loadCombinationNameTag = combinationType.ToString();
 
-            LoadCombinationTableGeneral loadCombinationTable = new LoadCombinationTableGeneral();
+            LoadCombinationTable loadCombinationTable = new LoadCombinationTable();
             loadCombinationTable.GenerateLoadCombinations(loadGroups, loadCombinationNameTag, combinationType, nationalAnnex);
             return loadCombinationTable.LoadCombinations;
         }

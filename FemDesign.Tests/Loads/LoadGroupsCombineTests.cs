@@ -5,6 +5,7 @@ using System.Linq;
 using FemDesign.Loads;
 using System.Text;
 using System.Threading.Tasks;
+using FemDesign.Utils;
 
 namespace FemDesign.Loads
 {
