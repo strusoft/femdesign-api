@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using FemDesign;
 using FemDesign.Loads;
+using FemDesign.Utils;
 
 namespace FemDesign.Examples
 {
@@ -79,7 +80,7 @@ namespace FemDesign.Examples
             List<ELoadCombinationType> loadCombTypes = new List<ELoadCombinationType>() { ELoadCombinationType.SixTenA, ELoadCombinationType.SixTenB };
 
             for (int i = 0; i < loadCombTypes.Count; i++)
-                loadCombinationTable.GenerateLoadCombinations(generalLoadGroups, loadCombTypeNames[i], loadCombTypes[i]);
+                loadCombinationTable.GenerateLoadCombinations(generalLoadGroups, loadCombTypeNames[i], loadCombTypes[i], ENationalAnnex.EKS);
         }
 
 
@@ -89,7 +90,7 @@ namespace FemDesign.Examples
             List<string> loadCombTypeNames = new List<string>() { "Characteristic", "Frequent", "Quasi-permanent" };
             List<ELoadCombinationType> loadCombTypes = new List<ELoadCombinationType>() { ELoadCombinationType.Characteristic, ELoadCombinationType.Frequent, ELoadCombinationType.QuasiPermanent };
             for (int i = 0; i < loadCombTypes.Count; i++)
-                loadCombinationTable.GenerateLoadCombinations(generalloadGroups, loadCombTypeNames[i], loadCombTypes[i]);
+                loadCombinationTable.GenerateLoadCombinations(generalloadGroups, loadCombTypeNames[i], loadCombTypes[i], ENationalAnnex.TSFS);
         }
     }
 }

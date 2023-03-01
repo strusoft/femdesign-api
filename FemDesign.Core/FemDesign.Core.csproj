@@ -81,6 +81,8 @@
     <Compile Include="GenericClasses\StiffnessAnalysisType.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Reinforcement\ShearControlRegion.cs" />
+    <Compile Include="Utils\LoadCombinationTable.cs" />
+    <Compile Include="Utils\NationalAnnexEnum.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
     <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
@@ -213,9 +215,8 @@
     <Compile Include="Loads\LoadBase.cs" />
     <Compile Include="Loads\LoadCase.cs" />
     <Compile Include="Loads\LoadCombinationCaseBase.cs" />
-    <Compile Include="Loads\LoadCombinationTable.cs" />
     <Compile Include="Loads\LoadCombination.cs" />
-    <Compile Include="Loads\LoadCombinationType.cs" />
+    <Compile Include="Utils\LoadCombinationType.cs" />
     <Compile Include="Loads\LoadGroupBase.cs" />
     <Compile Include="Loads\LoadGroupRelationship.cs" />
     <Compile Include="Loads\LoadGroupTable.cs" />

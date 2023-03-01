@@ -1,5 +1,4 @@
-﻿
-namespace FemDesign.Loads
+﻿namespace FemDesign.Utils
 {
     /// <summary>
     /// Used for keeping track of the type of load combination
