@@ -138,6 +138,11 @@ namespace FemDesign.Calculate
         /// Create fdscript to read a str-model.
         public static FdScript ReadStr(string strPath, List<string> bscPaths = null)
         {
+            if (bscPaths != null && !Model.HasResults(strPath))
+            {
+                throw new Exception("Model does not contain any results!");
+            }
+
             FdScript fdScript = new FdScript();
             fdScript.XmlAttrib = "fdscript.xsd";
 
@@ -177,6 +182,11 @@ namespace FemDesign.Calculate
 
         public static FdScript ReadLoadCase(string strPath, List<string> bscPaths = null, List<MapCase> mapCases = null)
         {
+            if (!Model.HasResults(strPath))
+            {
+                throw new Exception("Model does not contain any results!");
+            }
+
             FdScript fdScript = new FdScript();
             fdScript.XmlAttrib = "fdscript.xsd";
 

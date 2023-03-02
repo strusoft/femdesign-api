@@ -96,13 +96,6 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            //if (!_connection.HasResult())
-            //{
-            //    _success = false;
-            //    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The open model does not contain any results!");
-            //    return;
-            //}
-
             // Run the Analysis
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
