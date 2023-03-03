@@ -10,7 +10,7 @@ namespace FemDesign.Shells
     /// ec_type
     /// </summary>
     [System.Serializable]
-    public partial class EdgeConnection: EdgeConnectionBase
+    public partial class EdgeConnection : EdgeConnectionBase
     {
         /// <summary>
         /// 
@@ -40,6 +40,12 @@ namespace FemDesign.Shells
         }
         [XmlElement("rigidity_group")]
         public StruSoft.Interop.StruXml.Data.Rigidity_group_type2 RigidityGroup { get; set; }
+
+        [XmlIgnore]
+        public FemDesign.Geometry.Edge Edge { get; set; }
+
+        [XmlIgnore]
+        public FemDesign.Geometry.Vector3d Normal { get; set; }
 
         /// <summary>
         /// Library name of the edge connection.

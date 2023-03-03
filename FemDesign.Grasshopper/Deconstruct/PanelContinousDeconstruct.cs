@@ -1,4 +1,4 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
@@ -22,7 +22,6 @@ namespace FemDesign.Grasshopper
             pManager.AddBrepParameter("ExtSurface", "ExtSurface", "ExtSurface", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
             pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.item);
-            pManager.AddCurveParameter("ExtEdgeCurves", "ExtEdgeCurves", "ExtEdgeCurves", GH_ParamAccess.list);
             pManager.AddGenericParameter("ExtEdgeConnections", "ExtEdgeConnections", "ExtEdgeConnections", GH_ParamAccess.list);
             pManager.AddVectorParameter("LocalX", "LocalX", "LocalX", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
@@ -57,7 +56,6 @@ namespace FemDesign.Grasshopper
             DA.SetData("ExtSurface", panel.InternalPanels.IntPanels[0].Region.ToRhinoBrep());
             DA.SetData("Material", material);
             DA.SetData("Section", panel.Section);
-            DA.SetDataList("ExtEdgeCurves", panel.InternalPanels.IntPanels[0].Region.ToRhinoCurves());
             DA.SetDataList("ExtEdgeConnections", panel.InternalPanels.IntPanels[0].Region.GetEdgeConnections());
             DA.SetData("LocalX", panel.LocalX.ToRhino());
             DA.SetData("LocalY", panel.LocalY.ToRhino());
@@ -72,7 +70,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("2aef7b29-a024-4591-98c9-5bbce2acb954"); }
+            get { return new Guid("{74AE2477-4653-4F5C-B870-ED3DD4B23362}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

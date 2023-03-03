@@ -7105,6 +7105,9 @@
   <data name="LineConnection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\lineconnection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PointConnection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointConnection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="StiffnessModifier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\StiffnessModifier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -7137,5 +7140,32 @@
   </data>
   <data name="TrussBehaviour" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\TrussBehaviour.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextAnnotation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\textAnnotation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextAnnotationDeconstruct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\textAnnotationDeconstruct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_Config" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_Config.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_Connection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_Connection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_GetMesh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_GetMesh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_readresult" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_readresult.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_RunAnalysis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_RunAnalysis.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEM_RunDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\FEM_RunDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

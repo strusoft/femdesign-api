@@ -71,6 +71,9 @@
     <Compile Include="..\FemDesign.Core\AdvancedFem\Cover.cs">
       <Link>Core\AdvancedFem\Cover.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Drawing\TextAnnotation.cs">
+      <Link>Core\Drawing\TextAnnotation.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\AdvancedFem\CoverReferenceList.cs">
       <Link>Core\AdvancedFem\CoverReferenceList.cs</Link>
     </Compile>
@@ -892,6 +895,9 @@
     </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\StiffnessRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\Style_type.cs">
+      <Link>Core\Strusoft\Interop\Struxml\Data\Style_type.cs</Link>
     </Compile>
     <Compile Include="..\FemDesign.Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs">
       <Link>Core\Strusoft\Interop\Struxml\Data\Truss_chr_type.cs</Link>

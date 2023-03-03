@@ -19,19 +19,26 @@ namespace FemDesign.Info
     {
         public static string GetCurrentFemDesignApiVersion()
         {
+            var ver = GetApiVersion();
+            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+        }
+
+        private static (int Major, int Minor, int Build) GetApiVersion()
+        {
             IEnumerable<AssemblyName> assembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(x => x.Name.Contains("FemDesign.Core"));
             string assemblyVersion = assembly.First().Version?.ToString();
             var ver = Version.Parse(assemblyVersion);
-            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            return (ver.Major, ver.Minor, ver.Build);
         }
     }
 
     public class InfoComponent : GH_Component
     {
-        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.CatLast())
+        public InfoComponent() : base("Info", "Info", "Information about FEM Design API", FGH.CategoryName.Name(), FGH.SubCategoryName.Cat0())
         {
 
         }
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -105,10 +112,10 @@ namespace FemDesign.Info
             // Compute the width of the NickName of the owner (plus some extra padding), 
             // then make sure we have at least 80 pixels.
             //int width = GH_FontServer.StringWidth(Owner.NickName, GH_FontServer.Standard);
-            int width = 220; //Math.Max(width + 10, 80);
+            int width = 300; //Math.Max(width + 10, 80);
 
             // The height of our object is always 60 pixels
-            int height = 200;
+            int height = 220;
 
             // Assign the width and height to the Bounds property.
             // Also, make sure the Bounds are anchored to the Pivot
@@ -184,8 +191,6 @@ namespace FemDesign.Info
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
                 Image image = FemDesign.Properties.Resources.fdlogo;
 
-                graphics.DrawImage(image, textRectangle);
-
 
                 textRectangle.Y += 40;
                 graphics.DrawString($"Current version: {currentVersion}", GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
@@ -196,18 +201,20 @@ namespace FemDesign.Info
                 textRectangle.Y += 20;
                 graphics.DrawString(String.Format("Useful links:"), GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link1 = textRectangle;
                 Font linkFont = new Font(GH_FontServer.StandardItalic, FontStyle.Underline);
-                graphics.DrawString(String.Format("https://strusoft.freshdesk.com/", 5), linkFont, Brushes.Blue, textRectangle, format);
+                graphics.DrawString(String.Format("https://femdesign-api-docs.onstrusoft.com"), linkFont, Brushes.Blue, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link2 = textRectangle;
-                graphics.DrawString(String.Format("https://wiki.fem-design.strusoft.com/"), linkFont, Brushes.Blue, textRectangle, format);
+                graphics.DrawString(String.Format("https://strusoft.freshdesk.com", 5), linkFont, Brushes.Blue, textRectangle, format);
 
-                textRectangle.Y += 15;
+                textRectangle.Y += 20;
                 link3 = textRectangle;
                 graphics.DrawString(String.Format("https://github.com/strusoft/femdesign-api"), linkFont, Brushes.Blue, textRectangle, format);
+
+                graphics.DrawImage(image, textRectangle);
 
                 // Always dispose of any GDI+ object that implement IDisposable.
                 format.Dispose();
@@ -222,12 +229,12 @@ namespace FemDesign.Info
             // Left mouse button up
             if (link1.Contains(e.CanvasLocation))
             {
-                System.Diagnostics.Process.Start("https://strusoft.freshdesk.com/");
+                System.Diagnostics.Process.Start("https://femdesign-api-docs.onstrusoft.com");
                 return GH.GUI.Canvas.GH_ObjectResponse.Handled;
             }
             else if (link2.Contains(e.CanvasLocation))
             {
-                System.Diagnostics.Process.Start("https://wiki.fem-design.strusoft.com/");
+                System.Diagnostics.Process.Start("https://strusoft.freshdesk.com");
                 return GH.GUI.Canvas.GH_ObjectResponse.Handled;
             }
             else if (link3.Contains(e.CanvasLocation))

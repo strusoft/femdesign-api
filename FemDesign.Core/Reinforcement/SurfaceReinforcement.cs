@@ -71,7 +71,7 @@ namespace FemDesign.Reinforcement
         /// Add SurfaceReinforcement to slab.
         /// Internal method use by GH components and Dynamo nodes.
         /// </summary>
-        public static Shells.Slab AddReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
+        public static Shells.Slab AddReinforcementToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs, Geometry.Vector3d xDir = null, Geometry.Vector3d yDir = null)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
@@ -91,7 +91,7 @@ namespace FemDesign.Reinforcement
 
             if (SurfaceReinforcement.AllStraight(srfReinfs))
             {
-                return SurfaceReinforcement.AddStraightReinfToSlab(clone, srfReinfs);
+                return SurfaceReinforcement.AddStraightReinfToSlab(clone, srfReinfs, xDir, yDir);
             }
             else if (SurfaceReinforcement.AllCentric(srfReinfs))
             {
@@ -103,7 +103,7 @@ namespace FemDesign.Reinforcement
             }
         } 
         
-        private static Shells.Slab AddStraightReinfToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs)
+        private static Shells.Slab AddStraightReinfToSlab(Shells.Slab slab, List<SurfaceReinforcement> srfReinfs, Geometry.Vector3d xDir = null, Geometry.Vector3d ydir = null)
         {
             // assert layout
             if (SurfaceReinforcement.AllStraight(srfReinfs))
@@ -128,7 +128,7 @@ namespace FemDesign.Reinforcement
             SurfaceReinforcementParameters srfReinfParams;
             if (slab.SurfaceReinforcementParameters == null)
             {
-                srfReinfParams = SurfaceReinforcementParameters.Straight(slab, singleLayer);
+                srfReinfParams = SurfaceReinforcementParameters.Straight(slab, singleLayer, xDir, ydir);
                 slab.SurfaceReinforcementParameters = srfReinfParams;
             }
 
@@ -136,7 +136,7 @@ namespace FemDesign.Reinforcement
             // any surfaceReinforcement with option "centric" will be removed
             else if (slab.SurfaceReinforcementParameters.Center.PolarSystem == true)
             {
-                srfReinfParams = SurfaceReinforcementParameters.Straight(slab);
+                srfReinfParams = SurfaceReinforcementParameters.Straight(slab, singleLayer, xDir, ydir);
                 slab.SurfaceReinforcementParameters = srfReinfParams;
 
                 foreach (SurfaceReinforcement item in slab.SurfaceReinforcement)

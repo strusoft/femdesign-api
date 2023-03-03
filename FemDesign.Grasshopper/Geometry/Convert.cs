@@ -208,7 +208,7 @@ namespace FemDesign.Grasshopper
                 }
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new ArgumentException("Curve can not be a circle! Consider splitting the circle in two arches.");
                 }
             }
 
@@ -257,7 +257,7 @@ namespace FemDesign.Grasshopper
                         }
                         else
                         {
-                            return arcCurve.FromRhinoCircle();
+                            throw new ArgumentException("Curve can not be a Circle! Consider splitting the circle in two arches.");
                         }
 
                     }
@@ -297,7 +297,7 @@ namespace FemDesign.Grasshopper
 
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new ArgumentException("Curve can not be a Circle! Consider splitting the circle in two arches.");
                 }
             }
 
@@ -505,6 +505,18 @@ namespace FemDesign.Grasshopper
         #region CoorinateSystem
 
         /// <summary>
+        /// Convert a Rhino plane to FdCoordinateSystem.
+        /// </summary>
+        internal static Rhino.Geometry.Plane ToRhino(this FemDesign.Geometry.CoordinateSystem obj)
+        {
+            Rhino.Geometry.Point3d origin = obj.Origin.ToRhino();
+            Rhino.Geometry.Vector3d localX = obj.LocalX.ToRhino();
+            Rhino.Geometry.Vector3d localY = obj.LocalY.ToRhino();
+            Rhino.Geometry.Vector3d localZ = obj.LocalZ.ToRhino();
+            return new Rhino.Geometry.Plane(origin, localX, localY);
+        }
+
+        /// <summary>
         /// Create FdCoordinateSystem from Rhino plane.
         /// </summary>
         internal static CoordinateSystem FromRhinoPlane(this Rhino.Geometry.Plane obj)
@@ -515,6 +527,7 @@ namespace FemDesign.Grasshopper
             Geometry.Vector3d localZ = obj.ZAxis.FromRhino();
             return new CoordinateSystem(origin, localX, localY, localZ);
         }
+
 
         /// <summary>
         /// Create FdCoordinateSystem from Rhino plane on curve mid u-point.

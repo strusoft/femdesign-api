@@ -67,11 +67,13 @@ namespace FemDesign.Grasshopper
             }
 
             // convert geometry
-            if (curve.GetType() != typeof(LineCurve))
+            if (!curve.IsLinear())
             {
                 throw new System.ArgumentException("Curve must be a LineCurve");
             }
-            FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
+
+            // convert geometry
+            FemDesign.Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // bar
             FemDesign.Bars.Bar bar = new Bars.Truss(edge, material, section, identifier, trussBehaviour);

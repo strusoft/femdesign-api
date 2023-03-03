@@ -263,27 +263,27 @@ namespace FemDesign.Materials
                 //material.Guid = System.Guid.NewGuid();
                 //material.EntityModified();
 
-                if (material.Family == "Steel")
+                if (material.Family == Family.Steel)
                 {
                     steel.Add(material);
                 }
-                else if (material.Family == "Concrete")
+                else if (material.Family == Family.Concrete)
                 {
                     concrete.Add(material);
                 }
-                else if (material.Family == "Timber")
+                else if (material.Family == Family.Timber)
                 {
                     timber.Add(material);
                 }
-                else if (material.Family == "ReinforcingSteel")
+                else if (material.Family == Family.ReinforcingSteel)
                 {
                     reinforcement.Add(material);
                 }
-                else if (material.Family == "Stratum")
+                else if (material.Family == Family.Stratum)
                 {
                     stratum.Add(material);
                 }
-                else if (material.Family == "Custom")
+                else if (material.Family == Family.Custom)
                 {
                     custom.Add(material);
                 }
