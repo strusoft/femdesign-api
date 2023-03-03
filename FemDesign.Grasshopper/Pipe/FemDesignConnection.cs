@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FEM-Design application connection", CategoryName.Name(), SubCategoryName.Cat8())
+        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -64,7 +64,9 @@ namespace FemDesign.Grasshopper
                 System.IO.Directory.SetCurrentDirectory(_ghfileDir);
             }
 
-            outputDir = null;
+
+            AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Do not manually close the currently open instance of FEM-Design. \n If you want to close FEM-Design, delete this component.");
+
 
 
             if (_connection != null)
