@@ -208,7 +208,7 @@ namespace FemDesign.Grasshopper
                 }
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new ArgumentException("Curve can not be a circle! Consider splitting the circle in two arches.");
                 }
             }
 
@@ -257,7 +257,7 @@ namespace FemDesign.Grasshopper
                         }
                         else
                         {
-                            return arcCurve.FromRhinoCircle();
+                            throw new ArgumentException("Curve can not be a Circle! Consider splitting the circle in two arches.");
                         }
 
                     }
@@ -297,7 +297,7 @@ namespace FemDesign.Grasshopper
 
                 else
                 {
-                    return arcCurve.FromRhinoCircle();
+                    throw new ArgumentException("Curve can not be a Circle! Consider splitting the circle in two arches.");
                 }
             }
 
