@@ -83,6 +83,11 @@ namespace FemDesign.Grasshopper
                 {
                     bar.EntityCreated();
                     bar.BarPart.EntityCreated();
+
+                    for (int i = 0; i < bar.Reinforcement.Count; i++)
+                    {
+                        bar.Reinforcement[i].BaseBar.Guid = bar.BarPart.Guid;
+                    }
                 }
             }
 
@@ -179,8 +184,14 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(7, result);
 
             DA.SetData(8, bar.BarPart.LocalY.ToRhino());
+
             DA.SetDataList(9, bar.Stirrups);
             DA.SetDataList(10, bar.LongitudinalBars);
+            if ((bar.BarPart.ComplexSectionObj.Sections[0] != bar.BarPart.ComplexSectionObj.Sections[1]) && bar.Reinforcement.Any())
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "In FEM-Design you cannot create reinforcement for bars with variable cross sections");
+            }
+
             DA.SetDataList(11, bar.Ptc);
             DA.SetData(12, bar.Name);
         }

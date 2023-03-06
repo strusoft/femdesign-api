@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace FemDesign.Reinforcement
 {
@@ -44,7 +45,8 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("reinforcing_material")]
         public System.Guid ReinforcingMaterialGuid { get; set; } // guidtype
         [XmlAttribute("profile")]
-        public WireProfileType Profile { get; set; }
+        [DefaultValue(1)]
+        public WireProfileType Profile { get; set; } = WireProfileType.Ribbed;
 
         /// <summary>
         /// Parameterless constructor for serialization.

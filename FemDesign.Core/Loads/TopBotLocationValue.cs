@@ -64,7 +64,6 @@ namespace FemDesign.Loads
 
         public override string ToString()
         {
-            //return $"{GetFdPoint()} [top;zbot]:[{this.TopVal}°C;{this.BottomVal}°C];";
             return $"{GetFdPoint()} Top:{this.TopVal}°C Bottom:{this.BottomVal}°C;";
         }
     }
