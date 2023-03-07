@@ -49,6 +49,9 @@
     <Reference Include="Grasshopper, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.6.35.21222.17001\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
+    <Reference Include="GrasshopperAsyncComponent, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrasshopperAsyncComponent.1.2.3\lib\net45\GrasshopperAsyncComponent.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Rhino.UI, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\Rhino.UI.dll</HintPath>
@@ -102,6 +105,11 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
+    <Compile Include="Helpers\CustomAttributes.cs" />
+    <Compile Include="Pipe\PipeGetFEA.cs" />
+    <Compile Include="Pipe\PipeGetModel.cs" />
+    <Compile Include="Pipe\PipeGetQuantities.cs" />
+    <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
@@ -113,8 +121,10 @@
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
+    <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\IsolatedFoundationDeconstruct.cs" />
     <Compile Include="Deconstruct\LabelledSectionDeconstruct.cs" />
@@ -124,6 +134,7 @@
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\GenericSupportObjectSortSupportsOBSOLETE.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2150.cs" />
+    <Compile Include="Deconstruct\PanelContinousDeconstruct.cs" />
     <Compile Include="Deconstruct\StagesDeconstruct.cs" />
     <Compile Include="Deconstruct\SupportGroupDeconstuctor.cs" />
     <Compile Include="Deconstruct\SupportDirectedDeconstruct.cs" />
@@ -146,6 +157,7 @@
     <Compile Include="Loads\LineLoadMoment.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
     <Compile Include="Materials\CustomMaterial.cs" />
     <Compile Include="Materials\MaterialGetByNameIndex.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialGetMaterialByNameOBSOLETE2.cs" />
@@ -155,7 +167,9 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\PointConnection.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
+    <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Pipe\PipeOpen.cs" />
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />
     <Compile Include="Model\ModelReadResults.cs" />
@@ -163,7 +177,14 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
+    <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
@@ -189,6 +210,7 @@
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
+    <Compile Include="Results\Stability\StabilityImperfection.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Units.cs" />
@@ -204,7 +226,7 @@
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
-    <Compile Include="Utils\LoadGroupCombine.cs" />
+    <Compile Include="Utils\LoadGroupCombineGeneral.cs" />
     <Compile Include="Loads\LoadGroupConstruct.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseListLoadCategoryNames.cs" />
@@ -239,7 +261,7 @@
     <Compile Include="Deconstruct\MaterialDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\MotionsDeconstruct.cs" />
-    <Compile Include="Deconstruct\PanelContinuousAnalyticalModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\PanelContinuousAnalyticalModelDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\PointLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\PressureLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\RotationsDeconstruct.cs" />
@@ -277,8 +299,8 @@
     <Compile Include="Loads\PressureLoadDefine.cs" />
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
-    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
-    <Compile Include="Loads\TopBotLocationValueConstruct.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoadOBSOLETE.cs" />
+    <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
     <Compile Include="Materials\MaterialDatabaseDefault.cs" />
     <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
@@ -305,11 +327,6 @@
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
@@ -838,6 +855,7 @@
     <EmbeddedResource Include="Resources\icons\WireDefine.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\icons\FootfallFullExcitation.bmp" />
   </ItemGroup>
@@ -858,8 +876,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\FEM_RunDesign.bmp" />
+    <None Include="Resources\icons\FEM_RunAnalysis.bmp" />
+    <None Include="Resources\icons\FEM_readresult.png" />
+    <None Include="Resources\icons\FEM_open.png" />
+    <None Include="Resources\icons\FEM_GetMesh.png" />
+    <None Include="Resources\icons\FEM_Connection.png" />
+    <None Include="Resources\icons\FEM_Config.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotationDeconstruct.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotation.png" />
+    <None Include="Resources\FEM_RunDesign.bmp" />
+    <None Include="Resources\FEM_RunAnalysis.bmp" />
+    <None Include="Resources\FEM_readresult.png" />
+    <None Include="Resources\FEM_open.png" />
+    <None Include="Resources\FEM_Connection.png" />
+    <None Include="Resources\FEM_Config.png" />
     <None Include="Resources\icons\PointConnection.png" />
     <None Include="Resources\icons\TrussBehaviour.png" />
     <None Include="Resources\icons\GroundWater.png" />
@@ -919,7 +950,8 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"</PostBuildEvent>
+    <PostBuildEvent>move "$(TargetPath)" "FemDesign.Grasshopper.gha"
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <MakeDir Directories="$(appdata)\Grasshopper\Libraries\FemDesign\" />
@@ -927,12 +959,12 @@
       <Dlls Include="$(OutDir)FemDesign.*.dll" />
       <Ghas Include="$(OutDir)FemDesign.*.gha" />
       <Pdbs Include="$(OutDir)*.pdb" />
-      <Xmls Include="$(OutDir)*.xml" />
+      <CmdGlobalCfg Include="$(OutDir)cmdglobalcfg.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Ghas)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
-    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(CmdGlobalCfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
   </Target>
   <Import Project="..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

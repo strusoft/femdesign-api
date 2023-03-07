@@ -67,6 +67,7 @@
             return new string(' ', 2) + "Model";
         }
 
+
         public static string Cat7a()
         {
             return new string(' ', 1) + "Calculate";
@@ -76,9 +77,15 @@
         {
             return new string(' ', 1) + "Results";
         }
+
         public static string CatLast()
         {
-            return "StruSoft";
+            return new string(' ', 1) + "StruSoft";
+        }
+
+        public static string Cat8()
+        {
+            return "\u03B2eta";
         }
 
     }

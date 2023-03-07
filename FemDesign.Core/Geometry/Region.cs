@@ -49,8 +49,23 @@ namespace FemDesign.Geometry
             }
         }
 
+        [XmlIgnore]
+        public List<Contour> Contours
+        {
+            get
+            {
+                if (this._contours == null)
+                {
+                    var contours = new List<Contour>();
+                    return contours;
+                }
+                return this._contours;
+            }
+            set { this._contours = value; }
+        }
+
         [XmlElement("contour")]
-        public List<Contour> Contours = new List<Contour>(); // sequence: contour_type
+        public List<Contour> _contours { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -225,6 +240,8 @@ namespace FemDesign.Geometry
                             string name = "CE." + cInstance.ToString();
                             Shells.EdgeConnection ec = Shells.EdgeConnection.CopyExisting(edgeConnection, name);
                             edge.EdgeConnection = ec;
+                            // edge connection Normal are opposite to the normal of the contour
+                            edge.EdgeConnection.Normal = this.LocalZ.Reverse();
                         }
                     }
                     else
@@ -249,7 +266,13 @@ namespace FemDesign.Geometry
             {
                 foreach (Edge edge in contour.Edges)
                 {
-                    edgeConnections.Add(edge.EdgeConnection);
+                    var edgeConnection = edge.EdgeConnection;
+                    if(edgeConnection != null)
+                    {
+                        edgeConnection.Edge = edge;
+                        edgeConnection.Normal = this.LocalZ.Reverse();
+                    }
+                    edgeConnections.Add(edgeConnection);
                 }
             }
             return edgeConnections;

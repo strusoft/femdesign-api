@@ -136,7 +136,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                this._region = value.RemoveEdgeConnections();
+                //this._region = value.RemoveEdgeConnections();
+                this._region = value;
             }
         }
 

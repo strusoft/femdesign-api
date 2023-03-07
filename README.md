@@ -7,7 +7,7 @@ This repository contains source code for the FEM-Design API wrapper. It consists
 
 ## 🚗 Road-map
 
-[Now-next-later](https://github.com/strusoft/femdesign-api/wiki/Road-map)
+https://github.com/strusoft/femdesign-api/milestones
 
 ## Installation
 See installation for your framework below. 

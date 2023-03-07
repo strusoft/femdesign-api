@@ -68,12 +68,12 @@ namespace FemDesign.Grasshopper
         {
             ValueListUtils.updateValueLists(this, 1, new List<string>
             { "ordinary", "dead_load", "soil_dead_load", "shrinkage", "prestressing", "fire", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym"
-            }, null, 0);
+            }, null, GH_ValueListMode.DropDown);
 
         
             ValueListUtils.updateValueLists(this, 2, new List<string>
             { "permanent", "long-term", "medium-term", "short-term", "instantaneous"
-            }, null, 0);
+            }, null, GH_ValueListMode.DropDown);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;

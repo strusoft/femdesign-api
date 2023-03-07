@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Core", "FemDesign
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Grasshopper", "FemDesign.Grasshopper\FemDesign.Grasshopper.csproj", "{04F35658-7446-4513-AA4D-17B4782D3D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21} = {81B4BC3B-8FC7-46FA-8C79-DFAA1C16FE21}
-		{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B} = {1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FemDesign.Examples", "FemDesign.Examples", "{C68FA42C-7B20-4FE3-AED6-8B6619EE5410}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Mesh size convergence study", "FemDesign.Examples\C#\Practical example - Mesh size convergence study\Practical example - Mesh size convergence study.csproj", "{1E5D535D-C21B-454B-A62E-1DF4D968E677}"
@@ -45,13 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 5 - Design a beam",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesign.Tests\FemDesign.Tests.csproj", "{CCADA385-E5FB-4F08-BC50-1826BBEF9794}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Stiffness Point from CSV", "FemDesign.Examples\C#\Practical example - Create Stiffness Point from a CSV\Practical example - Stiffness Point from CSV.csproj", "{CA1CEF5F-1122-4D9B-B21D-3FB260335598}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Windows forms", "FemDesign.Examples\C#\Practical example - Windows forms\Practical example - Windows forms.csproj", "{1428F873-E8E8-4A23-974F-2633FDA060C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 7 - Creating a wall", "FemDesign.Examples\C#\Example 7 - Creating a wall\Example 7 - Creating a wall.csproj", "{3646ABCA-0703-425A-BB27-4D838DB92FE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - ResultsToJSON", "FemDesign.Examples\C#\Practical example - ResultsToJSON\Practical example - ResultsToJSON.csproj", "{2747D6C1-1E22-4262-A938-44FEE99A022C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +61,6 @@ Global
 		{04F35658-7446-4513-AA4D-17B4782D3D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04F35658-7446-4513-AA4D-17B4782D3D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04F35658-7446-4513-AA4D-17B4782D3D00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E5D535D-C21B-454B-A62E-1DF4D968E677}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -131,10 +121,6 @@ Global
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCADA385-E5FB-4F08-BC50-1826BBEF9794}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA1CEF5F-1122-4D9B-B21D-3FB260335598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA1CEF5F-1122-4D9B-B21D-3FB260335598}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA1CEF5F-1122-4D9B-B21D-3FB260335598}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA1CEF5F-1122-4D9B-B21D-3FB260335598}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1428F873-E8E8-4A23-974F-2633FDA060C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1428F873-E8E8-4A23-974F-2633FDA060C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1428F873-E8E8-4A23-974F-2633FDA060C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -147,6 +133,10 @@ Global
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,7 +155,6 @@ Global
 		{8954D8AD-051F-4B44-87A4-559C00DB1CD6} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{A261E23F-DF9D-4ED5-8DC6-0DB6ECB06B9F} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{04FA45B2-F2AF-4394-99F8-E50A82E91658} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
-		{CA1CEF5F-1122-4D9B-B21D-3FB260335598} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{1428F873-E8E8-4A23-974F-2633FDA060C4} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{3646ABCA-0703-425A-BB27-4D838DB92FE8} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{2747D6C1-1E22-4262-A938-44FEE99A022C} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
