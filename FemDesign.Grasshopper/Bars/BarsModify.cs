@@ -33,16 +33,17 @@ namespace FemDesign.Grasshopper
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
+           pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
+
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddGenericParameter("Bar", "Bar", "Bar.", GH_ParamAccess.item);
-
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
            pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve [m]", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Type", "Type", "Bar type", GH_ParamAccess.item);
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
            pManager.AddGenericParameter("Section", "Section", "Section", GH_ParamAccess.list);
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
@@ -50,6 +51,7 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
            pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal bars.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
            pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
         }
@@ -140,8 +142,14 @@ namespace FemDesign.Grasshopper
                 bar.BarPart.OrientCoordinateSystemToGCS();
             }
 
+            Bars.BarStiffnessFactors stiffnessFactors = null;
+            if (!DA.GetData(9, ref stiffnessFactors)) 
+            {
+                bar.BarPart.StiffnessModifiers = new List<Bars.BarStiffnessFactors>() { stiffnessFactors };
+            }
+
             string identifier = null;
-            if (DA.GetData(9, ref identifier))
+            if (DA.GetData(10, ref identifier))
             {
                 bar.Identifier = identifier;
             }
@@ -156,43 +164,43 @@ namespace FemDesign.Grasshopper
             DA.SetData(0, bar);
             DA.SetData(1, bar.Guid);
             DA.SetData(2, bar.GetRhinoCurve());
-            DA.SetData(3, bar.Type);
-            DA.SetDataList(4, materialList);
+            DA.SetDataList(3, materialList);
 
             if (bar.BarPart.ComplexSectionObj != null)
             {
-                DA.SetDataList(5, bar.BarPart.ComplexSectionObj.Sections);
+                DA.SetDataList(4, bar.BarPart.ComplexSectionObj.Sections);
             }
             else if (bar.BarPart.HasComplexCompositeRef || bar.BarPart.HasDeltaBeamComplexSectionRef)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar has a Composite Section. The object has not been implemented yet. Please, get in touch if needed.");
-                DA.SetDataList(5, null);
+                DA.SetDataList(4, null);
             }
             else if (bar.BarPart.Type == Bars.BarType.Truss)
             {
                 var truss = new List<Sections.Section> { bar.BarPart.TrussUniformSectionObj };
-                DA.SetDataList(5, truss);
+                DA.SetDataList(4, truss);
             }
             else
             {
-                DA.SetDataList(5, null);
+                DA.SetDataList(4, null);
             }
 
-            DA.SetDataList(6, bar.BarPart.Connectivity);
+            DA.SetDataList(5, bar.BarPart.Connectivity);
 
             var result = (bar.BarPart.ComplexSectionObj != null) ? bar.BarPart.ComplexSectionObj.Eccentricities : null;
-            DA.SetDataList(7, result);
+            DA.SetDataList(6, result);
 
-            DA.SetData(8, bar.BarPart.LocalY.ToRhino());
+            DA.SetData(7, bar.BarPart.LocalY.ToRhino());
+            DA.SetDataList(8, bar.Stirrups);
+            DA.SetDataList(9, bar.LongitudinalBars);
 
-            DA.SetDataList(9, bar.Stirrups);
-            DA.SetDataList(10, bar.LongitudinalBars);
             if ((bar.BarPart.ComplexSectionObj.Sections[0] != bar.BarPart.ComplexSectionObj.Sections[1]) && bar.Reinforcement.Any())
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "In FEM-Design you cannot create reinforcement for bars with variable cross sections");
             }
 
-            DA.SetDataList(11, bar.Ptc);
+            DA.SetDataList(10, bar.Ptc);
+            DA.SetData(11, bar.BarPart.StiffnessModifiers);
             DA.SetData(12, bar.Name);
         }
         protected override System.Drawing.Bitmap Icon
