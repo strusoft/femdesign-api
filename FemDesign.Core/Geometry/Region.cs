@@ -86,6 +86,25 @@ namespace FemDesign.Geometry
             this.CoordinateSystem = coordinateSystem;
         }
 
+        public bool IsPlanar
+        {
+            get
+            {
+                var points = new List<Geometry.Point3d>();
+
+                foreach(var contour in this.Contours)
+                {
+                    foreach(var edge in contour.Edges)
+                    {
+                        points.AddRange(edge.Points);
+                    }
+                }
+
+                bool isPlanar = Point3d.ArePointsOnPlane(points);
+                return isPlanar;
+            }
+        }
+
         /// <summary>
         /// Create region by points and coordinate system.
         /// </summary>

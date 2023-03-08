@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -133,6 +134,44 @@ namespace FemDesign.Geometry
         {
             var point = new Geometry.Point3d(feaNode.X, feaNode.Y, feaNode.Z);
             return point;
+        }
+
+
+        private static (double a, double b , double c,  double d) _getPlaneEquation(Point3d p1, Point3d p2, Point3d p3)
+        {
+            double a1 = p2.X - p1.X;
+            double b1 = p2.Y - p1.Y;
+            double c1 = p2.Z - p1.Z;
+
+            double a2 = p3.X - p1.X;
+            double b2 = p3.Y - p1.Y;
+            double c2 = p3.Z - p1.Z;
+
+            double a = b1 * c2 - b2 * c1;
+            double b = a2 * c1 - a1 * c2;
+            double c = a1 * b2 - b1 * a2;
+
+            double d = (-a * p1.X - b * p1.Y - c * p1.Z);
+
+            return (a, b, c, d);
+        }
+
+
+        public static bool ArePointsOnPlane(List<Point3d> points)
+        {
+            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[2]);
+
+            for(int i = 3; i < points.Count; i++)
+            {
+                bool IsOnPlane = (a * points[i].X + b * points[i].Y + c * points[i].Z + d) == 0;
+                if (IsOnPlane == true)
+                    continue;
+                else
+                    return false;
+            }
+
+            return true;
+
         }
 
         public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
