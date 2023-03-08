@@ -649,7 +649,8 @@ namespace StruSoft.Interop.StruXml.Data
 
         public virtual bool ShouldSerializeVehicle_types()
         {
-            return true;
+            return ((this.Vehicle_types != null)
+                        && (this.Vehicle_types.Count > 0));
         }
 
         public virtual bool ShouldSerializeBolt_types()
