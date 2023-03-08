@@ -112,7 +112,9 @@ namespace FemDesign.Models
         [TestMethod("DeepClone")]
         public void DeepClone()
         {
-            string input = "Model/global-test-model_MASTER.struxml";
+            string input = @"Model/moving.struxml";
+
+            //string input = "Model/global-test-model_MASTER.struxml";
             Model model = Model.DeserializeFromFilePath(input);
             var clone = model.DeepClone();
             Console.Write(clone.SerializeToString());

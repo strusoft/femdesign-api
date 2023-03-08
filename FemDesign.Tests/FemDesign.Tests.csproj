@@ -157,6 +157,9 @@
     <None Include="Loads\MovingLoads - With indexed Guid.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Model\moving.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Performance\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

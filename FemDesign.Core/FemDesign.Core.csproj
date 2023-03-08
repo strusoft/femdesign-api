@@ -81,6 +81,7 @@
     <Compile Include="GenericClasses\StiffnessAnalysisType.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Reinforcement\ShearControlRegion.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\FD_22.00.001.cs" />
     <Compile Include="Utils\LoadCombinationTable.cs" />
     <Compile Include="Utils\NationalAnnexEnum.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
@@ -353,7 +354,6 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\Style_type.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
-    <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\BarStiffnessFactorRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\SlabStiffnessRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
