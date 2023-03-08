@@ -203,7 +203,7 @@
     <Compile Include="Geometry\RectangleType.cs" />
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
-    <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="LibraryItems\PredefinedType.cs" />
     <Compile Include="Loads\ForceLoadTypeEnum.cs" />
     <Compile Include="Loads\LoadCaseDurationEnum.cs" />
     <Compile Include="Loads\LoadCombTypeEnum.cs" />
