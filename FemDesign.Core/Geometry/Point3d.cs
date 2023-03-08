@@ -157,13 +157,34 @@ namespace FemDesign.Geometry
         }
 
 
+        public static bool ArePointsCollinear(Point3d p1, Point3d p2, Point3d p3)
+        {
+            double area = 0.5 * ((p2.X - p1.X) * (p3.Y - p1.Y) - (p3.X - p1.X) * (p2.Y - p1.Y));
+            return (area == 0);
+        }
+
+
         public static bool ArePointsOnPlane(List<Point3d> points)
         {
-            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[2]);
+            int i = 0;
+            bool colinearPoints = true;
 
-            for(int i = 3; i < points.Count; i++)
+            while( colinearPoints && i < points.Count )
             {
-                bool IsOnPlane = (a * points[i].X + b * points[i].Y + c * points[i].Z + d) == 0;
+                colinearPoints = ArePointsCollinear(points[0], points[1], points[i]);
+                i++;
+            }
+
+            if (colinearPoints)
+            {
+                throw new Exception("Points are colinear!");
+            }
+
+            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[i-1]);
+
+            for(int j = 0; j < points.Count; j++)
+            {
+                bool IsOnPlane = (a * points[j].X + b * points[j].Y + c * points[j].Z + d) == 0;
                 if (IsOnPlane == true)
                     continue;
                 else
