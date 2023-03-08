@@ -33,6 +33,8 @@ namespace FemDesign.Grasshopper
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddGenericParameter("BarReinforcement", "BarReinforcement", "BarReinforcment to add to bar. Item or list.", GH_ParamAccess.list);
+           pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item);
@@ -142,14 +144,22 @@ namespace FemDesign.Grasshopper
                 bar.BarPart.OrientCoordinateSystemToGCS();
             }
 
+            List<FemDesign.Reinforcement.BarReinforcement> barReinforcement = new List<FemDesign.Reinforcement.BarReinforcement>();
+            if (DA.GetDataList(9, barReinforcement))
+            {
+                var clonedReinforcement = barReinforcement.Select(x => x.DeepClone()).ToList();
+                bar.Reinforcement.Clear();
+                bar = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(bar, clonedReinforcement, true);
+            }
+
             Bars.BarStiffnessFactors stiffnessFactors = null;
-            if (!DA.GetData(9, ref stiffnessFactors)) 
+            if (DA.GetData(10, ref stiffnessFactors)) 
             {
                 bar.BarPart.StiffnessModifiers = new List<Bars.BarStiffnessFactors>() { stiffnessFactors };
             }
 
             string identifier = null;
-            if (DA.GetData(10, ref identifier))
+            if (DA.GetData(11, ref identifier))
             {
                 bar.Identifier = identifier;
             }

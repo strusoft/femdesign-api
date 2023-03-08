@@ -23,7 +23,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Longitudinal bar reinforcement.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Stirrups bar reinforcement.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
