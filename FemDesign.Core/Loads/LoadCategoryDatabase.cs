@@ -103,6 +103,7 @@ namespace FemDesign.Loads
             {
                 if (resourceName.EndsWith("loadCoefficients_" + countryCode + ".struxml"))
                 {
+
                     using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                     {
                         TextReader reader = new StreamReader(stream);
@@ -112,10 +113,8 @@ namespace FemDesign.Loads
                         return loadCategoryDatabase;
                     }
                 }
-                else
-                    throw new System.ArgumentException($"{countryCode} has NOT been implemented. Contact us at support@strusoft.freshdesk.com if you need it.");
             }
-            throw new System.ArgumentException("Load coefficient library resource not in assembly! Was solution compiled without embedded resources?");
+            throw new System.ArgumentException($"{countryCode} has NOT been implemented. Contact us at support@strusoft.freshdesk.com if you need it.");
         }
         /// <summary>
         /// Load the default LoadCoefficientDatabase for each respective country.
