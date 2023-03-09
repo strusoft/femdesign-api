@@ -55,7 +55,7 @@ namespace FemDesign.Geometry
             StyleType = new Style_type
             {
                 Layer = DefaultLayer,
-                Font = new Font_type
+                Font = new Text_font_type
                 {
                     Script = Script_type.Default
                 }

@@ -53611,7 +53611,7 @@ namespace StruSoft.Interop.StruXml.Data
 
         private Fill_type fillingField;
 
-        private Font_type fontField;
+        private Text_font_type fontField;
 
         private string layerField;
 
@@ -53650,7 +53650,7 @@ namespace StruSoft.Interop.StruXml.Data
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(ElementName = "font")]
-        public Font_type Font
+        public Text_font_type Font
         {
             get
             {
