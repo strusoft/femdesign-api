@@ -27,6 +27,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("InitialStressState", "InitialStressState", "", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("Day", "Day", "End time of the stage.", GH_ParamAccess.item, 0.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -49,7 +51,10 @@ namespace FemDesign.Grasshopper
             bool initialStressState = false;
             DA.GetData(4, ref initialStressState);
 
-            var stage = new FemDesign.Stage(index, description, activatedLoadCases, elements, initialStressState);
+            double day = 0.0;
+            DA.GetData(5, ref day);
+
+            var stage = new FemDesign.Stage(index, description, activatedLoadCases, elements, initialStressState, day);
 
             DA.SetData(0, stage);
         }
