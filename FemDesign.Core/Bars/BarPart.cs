@@ -625,7 +625,7 @@ namespace FemDesign.Bars
         public void OrientCoordinateSystemToGCS()
         {
             var cs = this.Plane;
-            cs.OrientEdgeTypeLcsToGcs();
+            cs.AlignYAroundXToGcs();
             this.Plane = cs;
         }
     }

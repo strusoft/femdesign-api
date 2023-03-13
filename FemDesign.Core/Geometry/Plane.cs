@@ -200,7 +200,7 @@ namespace FemDesign.Geometry
         /// Align plane Y-dir to GCS by rotating around plane X-dir
         /// </summary>
         // rename: AlignYAroundXToGcs
-        public void OrientEdgeTypeLcsToGcs()
+        public void AlignYAroundXToGcs()
         {
             int par = this.LocalX.IsParallel(Vector3d.UnitZ);
             if (par == 1 || par == -1)
