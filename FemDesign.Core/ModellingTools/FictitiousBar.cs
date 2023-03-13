@@ -17,26 +17,33 @@ namespace FemDesign.ModellingTools
         public Geometry.Edge Edge { get; set; }
 
         [XmlIgnore]
+        [Obsolete("Use _plane", true)]
         private Geometry.CoordinateSystem _coordinateSystem;
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlIgnore]
-        private Geometry.CoordinateSystem CoordinateSystem
+        private Geometry.Plane _plane;
+
+        [XmlIgnore]
+        private Geometry.Plane Plane
         {
             get
             {
-                if (this._coordinateSystem == null)
+                if (this._plane == null)
                 {
-                    this._coordinateSystem = this.Edge.CoordinateSystem;
-                    return this._coordinateSystem;
+                    this._plane = this.Edge.Plane;
+                    return this._plane;
                 }
                 else
                 {
-                    return this._coordinateSystem;
+                    return this._plane;
                 }
             }
             set
             {
-                this._coordinateSystem = value;
+                this._plane = value;
                 this._localY = value.LocalY;
             }
         }
@@ -46,7 +53,7 @@ namespace FemDesign.ModellingTools
         {
             get
             {
-                return this.CoordinateSystem.Origin;
+                return this.Plane.Origin;
             }
         }
 
@@ -55,7 +62,7 @@ namespace FemDesign.ModellingTools
         {
             get
             {
-                return this.CoordinateSystem.LocalX;
+                return this.Plane.LocalX;
             }
         }
 
@@ -71,8 +78,8 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this.CoordinateSystem.SetYAroundX(value);
-                this._localY = this.CoordinateSystem.LocalY;
+                this.Plane.SetYAroundX(value);
+                this._localY = this.Plane.LocalY;
             }
         }
 
@@ -81,7 +88,7 @@ namespace FemDesign.ModellingTools
         {
             get
             {
-                return this.CoordinateSystem.LocalZ;
+                return this.Plane.LocalZ;
             }
         }
 
@@ -208,9 +215,9 @@ namespace FemDesign.ModellingTools
         /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
-            var cs = this.CoordinateSystem;
+            var cs = this.Plane;
             cs.OrientEdgeTypeLcsToGcs();
-            this.CoordinateSystem = cs;
+            this.Plane = cs;
         }
 
     }

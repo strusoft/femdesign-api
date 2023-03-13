@@ -118,7 +118,7 @@ namespace FemDesign.Grasshopper
             Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // create virtual bar
-            ModellingTools.FictitiousBar bar = new ModellingTools.FictitiousBar(edge, edge.CoordinateSystem.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
+            ModellingTools.FictitiousBar bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e);
 
             // set local y-axis
             if (!v.Equals(Vector3d.Zero))

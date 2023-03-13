@@ -16,11 +16,11 @@ namespace FemDesign.Geometry
 
         }
 
-        public ArcEdge(Point3d start, Point3d middle, Point3d end, CoordinateSystem coordinateSystem) : base(start, middle, end, coordinateSystem)
+        public ArcEdge(Point3d start, Point3d middle, Point3d end, Plane plane) : base(start, middle, end, plane)
         {
         }
 
-        public ArcEdge(double radius, double startAngle, double endAngle,  Point3d center, Vector3d xAxis, CoordinateSystem coordinateSystem) : base(radius, startAngle, endAngle, center, xAxis, coordinateSystem)
+        public ArcEdge(double radius, double startAngle, double endAngle,  Point3d center, Vector3d xAxis, Plane plane) : base(radius, startAngle, endAngle, center, xAxis, plane)
         {
         }
 

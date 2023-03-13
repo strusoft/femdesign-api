@@ -89,7 +89,7 @@ namespace FemDesign.Grasshopper
 
             //
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
-            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.Plane.Origin, thickness));
 
             //
             FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, edgeConnection, eccentricity, orthotropy, thicknessObj);

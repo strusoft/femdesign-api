@@ -20,20 +20,26 @@ namespace FemDesign.Geometry
     public partial class Edge
     {
         [XmlIgnore]
-        private CoordinateSystem _coordinateSystem;
+        [Obsolete("Use _plane", true)]
+        private Geometry.CoordinateSystem S_coordinateSystem;
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem SCoordinateSystem;
+        [XmlIgnore]
+        private Plane _plane;
         /// <summary>
         /// Get/Set LCS
         /// 
         /// If no LCS exists on Edge (i.e. when an Edge was deserialized from path) an LCS will be reconstructed.
         /// </summary>
         [XmlIgnore]
-        public CoordinateSystem CoordinateSystem
+        public Plane Plane
         {
             get
             {
-                if (this._coordinateSystem != null)
+                if (this._plane != null)
                 {
-                    return this._coordinateSystem;
+                    return this._plane;
                 }
                 else
                 {
@@ -57,7 +63,7 @@ namespace FemDesign.Geometry
                         localX = new Vector3d(p0, p2).Normalize();
                         localZ = this.Normal;
                         localY = localZ.Cross(localX);
-                        return new CoordinateSystem(origin, localX, localY, localZ);
+                        return new Plane(origin, localX, localY);
                     }
 
                     // arc2
@@ -68,7 +74,7 @@ namespace FemDesign.Geometry
                         Vector3d v = new Vector3d(this.Points[0], this.Points[1]).Normalize();
                         localZ = v.Cross(localX);
                         localY = localZ.Cross(localX);
-                        return new CoordinateSystem(origin, localX, localY, localZ);
+                        return new Plane(origin, localX, localY);
                     }
 
                     // line
@@ -79,7 +85,7 @@ namespace FemDesign.Geometry
                         localX = v.Normalize();
                         localY = this.Normal;
                         localZ = localX.Cross(localY);
-                        return new CoordinateSystem(origin, localX, localY, localZ);
+                        return new Plane(origin, localX, localY);
                     }
 
                     // else
@@ -89,7 +95,7 @@ namespace FemDesign.Geometry
                     }
                 }
             }
-            set { this._coordinateSystem = value; }
+            set { this._plane = value; }
         }
         [XmlElement("point", Order = 1)]
         public List<Geometry.Point3d> Points = new List<Geometry.Point3d>(); // sequence: point_type_3d // ordered internal points, or the center of the circle/arc
@@ -172,7 +178,7 @@ namespace FemDesign.Geometry
         /// <summary>
         /// Construct Edge of arc1 type.
         /// </summary>
-        public Edge(double radius, double startAngle, double endAngle, Geometry.Point3d centerPoint, Geometry.Vector3d xAxis, Geometry.CoordinateSystem coordinateSystem)
+        public Edge(double radius, double startAngle, double endAngle, Geometry.Point3d centerPoint, Geometry.Vector3d xAxis, Geometry.Plane coordinateSystem)
         {
             this.Type = "arc";
             this.Radius = radius;
@@ -181,44 +187,44 @@ namespace FemDesign.Geometry
             this.Points.Add(centerPoint);
             this.Normal = coordinateSystem.LocalZ;
             this.XAxis = xAxis;
-            this.CoordinateSystem = coordinateSystem;
+            this.Plane = coordinateSystem;
         }
 
         /// <summary>
         /// Construct Edge of arc2 type.
         /// </summary>
-        public Edge(Geometry.Point3d _startPoint, Geometry.Point3d _midPoint, Geometry.Point3d _endPoint, Geometry.CoordinateSystem _coordinateSystem)
+        public Edge(Geometry.Point3d start, Geometry.Point3d mid, Geometry.Point3d end, Geometry.Plane plane)
         {
             this.Type = "arc";
-            this.Points.Add(_startPoint);
-            this.Points.Add(_midPoint);
-            this.Points.Add(_endPoint);
-            this.CoordinateSystem = _coordinateSystem;
+            this.Points.Add(start);
+            this.Points.Add(mid);
+            this.Points.Add(end);
+            this.Plane = plane;
         }
 
         /// <summary>
         /// Construct Edge of circle type.
         /// </summary>
-        public Edge(double _radius, Geometry.Point3d _centerPoint, Geometry.CoordinateSystem _coordinateSystem)
+        public Edge(double radius, Geometry.Point3d center, Geometry.Plane plane)
         {
             this.Type = "circle";
-            this.Radius = _radius;
-            this.Points.Add(_centerPoint);
-            this.Normal = _coordinateSystem.LocalZ;
-            this.CoordinateSystem = _coordinateSystem;
+            this.Radius = radius;
+            this.Points.Add(center);
+            this.Normal = plane.LocalZ;
+            this.Plane = plane;
         }
 
         /// <summary>
         /// Construct Edge of line type by points and coordinate system.
         /// </summary>
-        public Edge(Geometry.Point3d _startPoint, Geometry.Point3d _endPoint, Geometry.CoordinateSystem _coordinateSystem)
+        public Edge(Geometry.Point3d start, Geometry.Point3d end, Geometry.Plane plane)
         {
             this.Type = "line";
-            this.Points.Add(_startPoint);
-            this.Points.Add(_endPoint);
-            this.Normal = _coordinateSystem.LocalY;
-            this.XAxis = _coordinateSystem.LocalX;
-            this.CoordinateSystem = _coordinateSystem;
+            this.Points.Add(start);
+            this.Points.Add(end);
+            this.Normal = plane.LocalY;
+            this.XAxis = plane.LocalX;
+            this.Plane = plane;
         }
 
         /// <summary>
@@ -237,7 +243,7 @@ namespace FemDesign.Geometry
 			{
                 this.Normal = localY ?? Vector3d.UnitX;
             }
-            this.XAxis = this.CoordinateSystem.LocalX;
+            this.XAxis = this.Plane.LocalX;
         }
 
         /// <summary>
@@ -270,7 +276,7 @@ namespace FemDesign.Geometry
         {
             if (this.IsLine())
             {
-                return (this.CoordinateSystem.LocalX.Equals(Geometry.Vector3d.UnitZ, Tolerance.Vector3d));
+                return (this.Plane.LocalX.Equals(Geometry.Vector3d.UnitZ, Tolerance.Vector3d));
             }
             else
             {
@@ -285,7 +291,7 @@ namespace FemDesign.Geometry
         public void Reverse()
         {
             // reset coordinate system
-            this.CoordinateSystem = null;
+            this.Plane = null;
 
             if (this.Type == "line" && this.Points.Count == 2)
             {

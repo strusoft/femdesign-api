@@ -88,8 +88,8 @@ namespace FemDesign.Supports
         /// <param name="direction">Positive direction of the support. </param>
         /// <param name="movingLocal">Keep direction along line (false) or Direction changes along line (true). </param>
         /// <param name="type">Motion or rotation stiffness. </param>
-        /// <param name="pos">Support stiffness in positive direction. [kN/m] or [kNm/°]</param>
-        /// <param name="neg">Support stiffness in negative direction. [kN/m] or [kNm/°]</param>
+        /// <param name="pos">Support stiffness in positive direction. [kN/m] or [kNm/ï¿½]</param>
+        /// <param name="neg">Support stiffness in negative direction. [kN/m] or [kNm/ï¿½]</param>
         /// <param name="posPlastic">Plastic limit in positive direction. [kN] or [kNm]</param>
         /// <param name="negPlastic">Plastic limit in negative direction. [kN] or [kNm]</param>
         /// <param name="identifier">Name.</param>
@@ -109,7 +109,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public LineSupport(Edge edge, Motions motions, Rotations rotations, bool movingLocal, string identifier = "S")
         {
-            var group = new Group(edge.CoordinateSystem, motions, rotations);
+            var group = new Group(edge.Plane, motions, rotations);
             Initialize(edge, group, movingLocal, identifier);
         }
 
@@ -125,7 +125,7 @@ namespace FemDesign.Supports
             var motions = new Motions(x, x, y, y, z, z);
             var rotations = new Rotations(xx, xx, yy, yy, zz, zz);
 
-            var group = new Group(edge.CoordinateSystem, motions, rotations);
+            var group = new Group(edge.Plane, motions, rotations);
             Initialize(edge, group, movingLocal, identifier);
         }
 
@@ -141,7 +141,7 @@ namespace FemDesign.Supports
         /// <param name="identifier">Name.</param>
         public LineSupport(Edge edge, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, bool movingLocal, string identifier = "S")
         {
-            var group = new Group(edge.CoordinateSystem, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            var group = new Group(edge.Plane, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(edge, group, movingLocal, identifier);
         }
 

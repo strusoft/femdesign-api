@@ -223,7 +223,7 @@ namespace FemDesign.Bars
                                     new Geometry.CircleEdge(
                                         0.010,
                                         Geometry.Point3d.Origin,
-                                        Geometry.CoordinateSystem.Global()
+                                        Geometry.Plane.XY
                                         )
                                 }
                                 )

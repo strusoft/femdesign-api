@@ -123,7 +123,7 @@ namespace FemDesign.Shells
             var region = Geometry.Region.RectangleXY(corner, widthX, widthY);
 
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
-            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.Plane.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
@@ -153,13 +153,13 @@ namespace FemDesign.Shells
             var point3 = point0 + translation;
             var points = new List<FemDesign.Geometry.Point3d>() { point0, point1, point2, point3 };
 
-            var fdCoordinate = new Geometry.CoordinateSystem(point0, point1, point3);
+            var plane = new Geometry.Plane(point0, point1, point3);
 
             // set properties
-            var region = new Geometry.Region(points, fdCoordinate);
+            var region = new Geometry.Region(points, plane);
 
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
-            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.Plane.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
@@ -186,11 +186,11 @@ namespace FemDesign.Shells
             SlabType type = SlabType.Plate;
 
             var points = new List<Geometry.Point3d>() { point0, point1, point2, point3 };
-            var fdCoordinate = new Geometry.CoordinateSystem(point0, point1, point3);
-            var region = new Geometry.Region(points, fdCoordinate);
+            var plane = new Geometry.Plane(point0, point1, point3);
+            var region = new Geometry.Region(points, plane);
 
             List<FemDesign.Shells.Thickness> thicknessObj = new List<FemDesign.Shells.Thickness>();
-            thicknessObj.Add(new FemDesign.Shells.Thickness(region.CoordinateSystem.Origin, thickness));
+            thicknessObj.Add(new FemDesign.Shells.Thickness(region.Plane.Origin, thickness));
 
             SlabPart slabPart = SlabPart.Define(type, identifier, region, thicknessObj, material, shellEdgeConnection, eccentricity, orthotropy);
 
@@ -202,7 +202,7 @@ namespace FemDesign.Shells
         public static Slab Wall(string identifier, Materials.Material material, Geometry.Region region, EdgeConnection shellEdgeConnection, ShellEccentricity eccentricity, ShellOrthotropy orthotropy, List<Thickness> thickness)
         {
             // check if surface is vertical
-            if (Math.Abs(region.CoordinateSystem.LocalZ.Z) > FemDesign.Tolerance.Point3d)
+            if (Math.Abs(region.Plane.LocalZ.Z) > FemDesign.Tolerance.Point3d)
             {
                 throw new System.ArgumentException("Wall is not vertical! Create plate instead.");
             }

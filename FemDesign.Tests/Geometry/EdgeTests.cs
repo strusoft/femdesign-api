@@ -16,7 +16,7 @@ namespace FemDesign.Geometry
             var startAngle = 0;
             var endAngle = Math.PI;
             var xAxis = new Vector3d(1, 0, 0);
-            var cs = CoordinateSystem.Global();
+            var cs = Plane.XY;
             var arc1 = new Edge(radius, startAngle, endAngle, center, xAxis, cs);
             Assert.IsTrue(Math.Abs(arc1.Length - Math.PI) <= Tolerance.LengthComparison);
         }
@@ -27,7 +27,7 @@ namespace FemDesign.Geometry
             // circle
             var center = new Point3d(0, 0, 0);
             var radius = 1;
-            var cs = CoordinateSystem.Global();
+            var cs = Plane.XY;
             var circle = new Edge(radius, center, cs);
             Assert.IsTrue(Math.Abs(circle.Length - 2 * Math.PI) <= Tolerance.LengthComparison);
         }
@@ -63,7 +63,7 @@ namespace FemDesign.Geometry
             var start = new Point3d(-1, 0, 0);
             var mid = new Point3d(0, 1, 0);
             var end = new Point3d(1, 0, 0);
-            var cs = CoordinateSystem.Global();
+            var cs = Plane.XY;
             var arc2 = new Edge(start, mid, end, cs);
 
             Assert.AreEqual(Math.PI, arc2.Length, Tolerance.LengthComparison);

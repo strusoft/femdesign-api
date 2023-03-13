@@ -117,13 +117,13 @@ namespace FemDesign.Shells
             var p4 = new Geometry.Point3d(0, 1, 0);
 
             var edges = new List<Geometry.Edge> {
-                new Geometry.Edge(p1, p2, Geometry.CoordinateSystem.Global()),
-                new Geometry.Edge(p2, p3, Geometry.CoordinateSystem.Global()),
-                new Geometry.Edge(p3, p4, Geometry.CoordinateSystem.Global()),
-                new Geometry.Edge(p4, p1, Geometry.CoordinateSystem.Global())
+                new Geometry.Edge(p1, p2, Geometry.Plane.XY),
+                new Geometry.Edge(p2, p3, Geometry.Plane.XY),
+                new Geometry.Edge(p3, p4, Geometry.Plane.XY),
+                new Geometry.Edge(p4, p1, Geometry.Plane.XY)
             };
             var contour = new Geometry.Contour(edges);
-            var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.CoordinateSystem.Global());
+            var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.Plane.XY);
             var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.Default, ShellEccentricity.Default, ShellOrthotropy.Default, new List<Thickness> { new Thickness(Geometry.Point3d.Origin, 0.2) });
             return slab;
         }

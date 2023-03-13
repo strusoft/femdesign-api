@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
             DA.GetData(7, ref identifier);
 
             // Convert geometry
-            Geometry.CoordinateSystem fdPlane = plane.FromRhinoPlane();
+            Geometry.Plane fdPlane = plane.FromRhinoPlane();
 
             var obj = new Supports.PointSupport(fdPlane, tx, ty, tz, rx, ry, rz, identifier);
 
