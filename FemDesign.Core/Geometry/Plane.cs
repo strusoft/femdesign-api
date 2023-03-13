@@ -81,6 +81,9 @@ namespace FemDesign.Geometry
             }
         }
 
+        public Plane()
+        { }
+
         private void Initialise(Point3d origin, Vector3d xDir, Vector3d yDir)
         {
             Origin = origin;
