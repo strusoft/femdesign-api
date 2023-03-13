@@ -21,10 +21,10 @@ namespace FemDesign.Geometry
     {
         [XmlIgnore]
         [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem S_coordinateSystem;
+        private Geometry.CoordinateSystem _coordinateSystem;
         [XmlIgnore]
         [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem SCoordinateSystem;
+        private Geometry.CoordinateSystem CoordinateSystem;
         [XmlIgnore]
         private Plane _plane;
         /// <summary>

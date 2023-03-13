@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             Plane plane = Plane.WorldXY;
             DA.GetData(5, ref plane);
             //Conversion
-            FemDesign.Geometry.CoordinateSystem fdPlane = plane.FromRhinoPlane();
+            FemDesign.Geometry.Plane fdPlane = plane.FromRhinoPlane();
 
             string identifier = "CP";
             DA.GetData(6, ref identifier);
