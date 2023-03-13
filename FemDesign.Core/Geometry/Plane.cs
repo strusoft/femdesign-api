@@ -139,7 +139,6 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Passed vector: {v} is not perpendicular to the plane normal: {LocalZ}");
             }
-            throw new System.NotImplementedException("Unit test not implemented");
         }
 
         /// <summary>
@@ -155,7 +154,6 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Passed vector: {v} is not perpendicular to the plane XDir: {LocalX}");
             }
-            throw new System.NotImplementedException("Unit test not implemented");
         }
 
         /// <summary>
@@ -173,7 +171,6 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Passed vector: {v} is not perpendicular to the plane normal: {LocalZ}");
             }
-            throw new System.NotImplementedException("Unit test not implemented");
         }
 
         /// <summary>
@@ -191,7 +188,6 @@ namespace FemDesign.Geometry
             {
                 throw new System.ArgumentException($"Passed vector: {v} is not perpendicular to the plane X-dir: {LocalX}");
             }
-            throw new System.NotImplementedException("Unit test not implemented");
         }
 
         public void FlipPlane()
@@ -214,7 +210,6 @@ namespace FemDesign.Geometry
             {
                 this.SetYAroundX(Vector3d.UnitZ.Cross(this.LocalX));
             }
-            throw new System.NotImplementedException("Unit test not implemented");
         }
 
         /// <summary>

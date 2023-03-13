@@ -106,6 +106,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
+    <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
@@ -289,7 +290,7 @@
     <Compile Include="Loads\LoadCaseConstruct.cs" />
     <Compile Include="Loads\LoadCaseGetLoadCaseByName.cs" />
     <Compile Include="Loads\LoadCombinationConstruct.cs" />
-    <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Loads\OBSOLETE\LoadCombinationSetupCalculation_OBSOLETE.cs" />
     <Compile Include="Loads\LoadLocationValueConstruct.cs" />
     <Compile Include="Loads\MassConversionTableConstruct.cs" />
     <Compile Include="Loads\FootfallFullExcitation.cs" />
