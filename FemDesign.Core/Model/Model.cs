@@ -3775,6 +3775,11 @@ namespace FemDesign
         }
         internal void GetLoadCombinations()
         {
+            if (!this.Entities.Loads.LoadCases.Any())
+            {
+                return;
+                throw new Exception("Model does not contain any load cases. Load Combinations can not be created!");
+            }
             var loadCasesMap = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid);
             var stageMap = this.ConstructionStages?.Stages?.ToDictionary(s => s.Id);
 
