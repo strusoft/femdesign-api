@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
+using System.Drawing;
 
 namespace FemDesign.Grasshopper
 {
@@ -128,6 +129,47 @@ namespace FemDesign.Grasshopper
         {
 			List<Curve> list = new List<Curve>();
 			CurveSegments(list, curve, recursive);
+            return list;
+        }
+        internal static List<Mesh> ExplodeMesh(Mesh mesh)
+        {
+            List<Mesh> list = new List<Mesh>(mesh.Faces.Count);
+            for (int i = 0; i < mesh.Faces.Count; i++)
+            {
+                Mesh mesh2 = new Mesh();
+                List<Color> list2 = new List<Color>();
+                int a = mesh.Faces.GetFace(i).A;
+                int b = mesh.Faces.GetFace(i).B;
+                int c = mesh.Faces.GetFace(i).C;
+                mesh2.Vertices.Add(mesh.Vertices.ElementAt(a));
+                mesh2.Vertices.Add(mesh.Vertices.ElementAt(b));
+                mesh2.Vertices.Add(mesh.Vertices.ElementAt(c));
+                if (mesh.VertexColors.Count != 0)
+                {
+                    list2.Add(mesh.VertexColors.ElementAt(a));
+                    list2.Add(mesh.VertexColors.ElementAt(b));
+                    list2.Add(mesh.VertexColors.ElementAt(c));
+                }
+                if (mesh.Faces.GetFace(i).IsTriangle)
+                {
+                    mesh2.Faces.AddFace(0, 1, 2);
+                }
+                else
+                {
+                    int d = mesh.Faces.GetFace(i).D;
+                    mesh2.Vertices.Add(mesh.Vertices.ElementAt(d));
+                    if (mesh.VertexColors.Count != 0)
+                    {
+                        list2.Add(mesh.VertexColors.ElementAt(d));
+                    }
+                    mesh2.Faces.AddFace(0, 1, 2, 3);
+                }
+                if (mesh.VertexColors.Count != 0)
+                {
+                    mesh2.VertexColors.AppendColors(list2.ToArray());
+                }
+                list.Add(mesh2);
+            }
             return list;
         }
 
