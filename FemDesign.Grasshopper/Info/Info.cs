@@ -191,6 +191,7 @@ namespace FemDesign.Info
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
                 Image image = FemDesign.Properties.Resources.fdlogo;
 
+                graphics.DrawImage(image, textRectangle);
 
                 textRectangle.Y += 40;
                 graphics.DrawString($"Current version: {currentVersion}", GH_FontServer.StandardItalic, Brushes.Black, textRectangle, format);
@@ -214,7 +215,6 @@ namespace FemDesign.Info
                 link3 = textRectangle;
                 graphics.DrawString(String.Format("https://github.com/strusoft/femdesign-api"), linkFont, Brushes.Blue, textRectangle, format);
 
-                graphics.DrawImage(image, textRectangle);
 
                 // Always dispose of any GDI+ object that implement IDisposable.
                 format.Dispose();
