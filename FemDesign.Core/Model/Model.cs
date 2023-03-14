@@ -92,7 +92,7 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
 
         [XmlElement("vehicle_types", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes { get; set; }
+        public LibraryItems.VehicleTypes VehicleTypes { get; set; }
 
         [XmlElement("bolt_types", Order = 18)]
         public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes { get; set; }
@@ -108,6 +108,22 @@ namespace FemDesign
 
         [XmlElement("end", Order = 22)]
         public string End { get; set; }
+
+        internal static bool HasResults(string filePath)
+        {
+            var directory = System.IO.Path.GetDirectoryName(filePath);
+            var fileNames = Directory.GetFiles(directory);
+
+            var strFEM = System.IO.Path.ChangeExtension(filePath, ".strFEM");
+
+            foreach (var filename in fileNames)
+            {
+                if (filename == strFEM)
+                    return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.

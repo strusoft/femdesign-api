@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Geometry
 {
+    [Obsolete("Use Plane", true)]
     [System.Serializable]
     public partial class CoordinateSystem
     {

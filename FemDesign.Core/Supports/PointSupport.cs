@@ -95,7 +95,7 @@ namespace FemDesign.Supports
         /// <param name="motions"></param>
         /// <param name="rotations"></param>
         /// <param name="identifier"></param>
-        public PointSupport(CoordinateSystem plane, Motions motions, Rotations rotations, string identifier = "S")
+        public PointSupport(Plane plane, Motions motions, Rotations rotations, string identifier = "S")
         {
             var group = new Group(plane.LocalX, plane.LocalY, motions, rotations);
             Initialize(plane.Origin, group, identifier);
@@ -123,7 +123,7 @@ namespace FemDesign.Supports
         /// <param name="rotations">Rotation stiffnessess. </param>
         /// <param name="rotationsPlasticLimits">Rotation plastic limit moments. </param>
         /// <param name="identifier">Name.</param>
-        public PointSupport(CoordinateSystem plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
+        public PointSupport(Plane plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, string identifier = "S")
         {
             var group = new Group(plane.LocalX, plane.LocalY, motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
             Initialize(plane, group, identifier);
@@ -141,7 +141,7 @@ namespace FemDesign.Supports
         /// <param name="ry"></param>
         /// <param name="rz"></param>
         /// <param name="identifier"></param>
-        public PointSupport(CoordinateSystem plane, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, string identifier = "S")
+        public PointSupport(Plane plane, bool tx, bool ty, bool tz, bool rx, bool ry, bool rz, string identifier = "S")
         {
             double x = tx == true ? Motions.ValueRigidPoint : 0;
             double y = ty == true ? Motions.ValueRigidPoint : 0;
@@ -157,7 +157,7 @@ namespace FemDesign.Supports
             Initialize(plane.Origin, group, identifier);
         }
 
-        private void Initialize(CoordinateSystem point, Group group, string identifier)
+        private void Initialize(Plane point, Group group, string identifier)
         {
             this.EntityCreated();
             this.Identifier = identifier;
@@ -170,7 +170,7 @@ namespace FemDesign.Supports
         /// </summary>
         /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Rigid(CoordinateSystem plane, string identifier = "S")
+        public static PointSupport Rigid(Plane plane, string identifier = "S")
         {
             Motions motions = Motions.RigidPoint();
             Rotations rotations = Rotations.RigidPoint();
@@ -182,7 +182,7 @@ namespace FemDesign.Supports
         /// </summary>
         /// <param name="plane">Position of the support. </param>
         /// <param name="identifier">Name.</param>
-        public static PointSupport Hinged(CoordinateSystem plane, string identifier = "S")
+        public static PointSupport Hinged(Plane plane, string identifier = "S")
         {
             Releases.Motions motions = Releases.Motions.RigidPoint();
             Releases.Rotations rotations = Releases.Rotations.Free();

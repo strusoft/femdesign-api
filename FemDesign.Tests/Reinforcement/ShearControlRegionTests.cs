@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using FemDesign;
 
-namespace FemDesign.Tests.Reinforcement
+namespace FemDesign.Reinforcement
 {
     [TestClass]
     public class ShearControlRegionTests

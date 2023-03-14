@@ -89,7 +89,7 @@ namespace FemDesign.Calculate
             }
             else
             {
-                return new Options();
+                return Options.Default();
             }
         }
     }

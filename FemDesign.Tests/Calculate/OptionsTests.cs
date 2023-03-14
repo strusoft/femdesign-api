@@ -29,5 +29,13 @@ namespace FemDesign.Calculate
             Assert.IsTrue(options.Bar == 2);
             Assert.IsTrue(options.SrfValues == 2);
         }
+
+
+        [TestMethod("DeserialiseGlobalcfg")]
+        public void DeserialiseGlobalcfg()
+        {
+            var globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath();
+            Assert.IsNotNull(globalCfg);
+        }
     }
 }

@@ -78,6 +78,8 @@
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
+    <Compile Include="Geometry\PlaneTests.cs" />
+    <Compile Include="Geometry\Points.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
@@ -155,6 +157,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Loads\MovingLoads - With indexed Guid.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\moving.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

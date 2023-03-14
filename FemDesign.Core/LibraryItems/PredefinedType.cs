@@ -47,4 +47,13 @@ namespace FemDesign.LibraryItems
         [XmlElement("predefined_type", Order = 1)]
         public List<Releases.RigidityDataLibType1> PredefinedTypes { get; set; }
     }
+
+
+    [System.Serializable]
+    public partial class VehicleTypes
+    {
+        [XmlElement("predefined_type", Order = 1)]
+        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> PredefinedTypes { get; set; }
+    }
+
 }

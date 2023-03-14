@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Reflection;
 
 namespace FemDesign.Calculate
 {
@@ -109,5 +110,35 @@ namespace FemDesign.Calculate
                 Assert.Fail(e.Message);
             });
         }
+
+        [TestMethod("CombItem")]
+        public void CombItemTest()
+        {
+            var combItem = new Calculate.CombItem(2, 5, true, true, true, true, true, 5, 0.1234, 3);
+
+            Assert.IsTrue(combItem.NLE == true);
+            Assert.IsTrue(combItem._nle == 1);
+
+            Assert.IsTrue(combItem.PL == true);
+            Assert.IsTrue(combItem._pl == 1);
+
+            Assert.IsTrue(combItem.NLS == true);
+            Assert.IsTrue(combItem._nls == 1);
+
+            Assert.IsTrue(combItem.Cr == true);
+            Assert.IsTrue(combItem._cr == 1);
+
+            Assert.IsTrue(combItem.f2nd == true);
+            Assert.IsTrue(combItem._f2nd == 1);
+
+            Assert.IsTrue(combItem.Im == 5 );
+            Assert.IsTrue(combItem.Waterlevel == 3 );
+            Assert.IsTrue(combItem.ImpfRqd == 2 );
+            Assert.IsTrue(combItem.StabRqd == 5 );
+            Assert.IsTrue(combItem.Amplitude == 0.1234 );
+        }
+
+
+
     }
 }

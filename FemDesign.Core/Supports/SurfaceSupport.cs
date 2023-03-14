@@ -1,5 +1,5 @@
 // https://strusoft.com/
-
+using System;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using FemDesign.Releases;
@@ -40,9 +40,12 @@ namespace FemDesign.Supports
                 this._predefRigidityRef = new GuidListType(value.Guid);
             }
         }
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlElement("local_system", Order= 4)]
-        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
+        public Geometry.Plane Plane { get; set; }
         public Motions Motions { get { return Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Rigidity?.PlasticLimitForces; } }
 
@@ -86,7 +89,7 @@ namespace FemDesign.Supports
             this.Identifier = identifier;
             this.Region = region;
             this.Rigidity = rigidity;
-            this.CoordinateSystem = region.CoordinateSystem;
+            this.Plane = region.Plane;
         }
 
         public override string ToString()

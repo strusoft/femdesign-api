@@ -1,4 +1,4 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
@@ -6,32 +6,34 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationSetupCalculation: GH_Component
+    public class LoadCombinationSetupCalculation : GH_Component
     {
-        public LoadCombinationSetupCalculation(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadCombinationSetupCalculation() : base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
-        
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCombination", "LoadCombination", "LoadCombination.", GH_ParamAccess.item);
             pManager.AddIntegerParameter("ImpfRqd", "ImpfRqd", "Required imperfection shapes.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("StabRqd", "StabRqd", "Required buckling shapes for stability analysis.", GH_ParamAccess.item, 0);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("NLS", "NLS", "Consider non-linear behaviour of soil.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Cr", "Cr", "Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("f2nd", "f2nd", "2nd order analysis.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("Im", "Im", "Imperfection shape for 2nd order analysis.", GH_ParamAccess.item, 0);
-            pManager[pManager.ParamCount - 1].Optional = true; 
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("Amplitude", "Amp", "Amplitude of selected imperfection shape. [m]", GH_ParamAccess.item, 0.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("Waterlevel", "Waterlevel", "Ground water level. [m]", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -50,6 +52,7 @@ namespace FemDesign.Grasshopper
             bool cr = false;
             bool f2nd = false;
             int im = 0;
+            double amplitude = 0.0;
             int waterlevel = 0;
             if (!DA.GetData(0, ref loadCombination))
             {
@@ -87,7 +90,11 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
-            if (!DA.GetData(9, ref waterlevel))
+            if (!DA.GetData(9, ref amplitude))
+            {
+                // pass
+            }
+            if (!DA.GetData(10, ref waterlevel))
             {
                 // pass
             }
@@ -99,7 +106,7 @@ namespace FemDesign.Grasshopper
             //
             var clone = loadCombination.DeepClone();
 
-            clone.CombItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, waterlevel);
+            clone.CombItem = new FemDesign.Calculate.CombItem(impfRqd, stabRqd, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
 
             // return
             DA.SetData(0, clone);
@@ -115,7 +122,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("ffb78f7b-eb88-4309-92e4-0d76d201106b"); }
+            get { return new Guid("{2FFD5F21-8920-4F73-90E3-81874C361414}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;

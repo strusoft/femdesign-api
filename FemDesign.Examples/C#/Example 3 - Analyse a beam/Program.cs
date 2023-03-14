@@ -126,7 +126,7 @@ namespace FemDesign.Examples
 
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
-                results1 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS, units);
+                results1 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS.Name, units);
 
                 // Then we add the third support and run the analysis again. The files will be saved in a different output folder.
                 model.AddElements(s3);
@@ -134,7 +134,7 @@ namespace FemDesign.Examples
                 
                 femDesign.Open(model);
                 femDesign.RunAnalysis(analysis);
-                results2 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS, units);
+                results2 = femDesign.GetLoadCombinationResults<Results.BarDisplacement>(ULS.Name, units);
             }
             #endregion
 

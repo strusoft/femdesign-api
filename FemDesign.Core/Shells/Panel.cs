@@ -1,4 +1,4 @@
-
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml.Serialization;
@@ -19,30 +19,36 @@ namespace FemDesign.Shells
         private static int _panelInstances = 0;
         protected override int GetUniqueInstanceCount() => ++_panelInstances;
 
+        [XmlIgnore]
+        [Obsolete("Use _plane", true)]
+        private Geometry.CoordinateSystem _coordinateSystem;
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem CoordinateSystem;
         /// <summary>
         /// Coordinate system
         /// </summary>
         [XmlIgnore]
-        private Geometry.CoordinateSystem _coordinateSystem;
+        private Geometry.Plane _plane;
 
         [XmlIgnore]
-        private Geometry.CoordinateSystem CoordinateSystem
+        private Geometry.Plane Plane
         {
             get
             {
-                if (this._coordinateSystem == null)
+                if (this._plane == null)
                 {
-                    this._coordinateSystem = new Geometry.CoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalZ.Cross(this.LocalX));
-                    return this._coordinateSystem;
+                    this._plane = new Geometry.Plane(this.LocalOrigin, this.LocalX, this.LocalZ.Cross(this.LocalX));
+                    return this._plane;
                 }
                 else
                 {
-                    return this._coordinateSystem;
+                    return this._plane;
                 }
             }
             set
             {
-                this._coordinateSystem = value;
+                this._plane = value;
                 this._localOrigin = value.Origin;
                 this._localX = value.LocalX;
             }
@@ -62,7 +68,7 @@ namespace FemDesign.Shells
             }
             set
             {
-                this.CoordinateSystem.Origin = value;
+                this.Plane.Origin = value;
                 this._localOrigin = value;
             }
         }
@@ -82,8 +88,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                this.CoordinateSystem.SetXAroundZ(value);
-                this._localX = this.CoordinateSystem.LocalX;
+                this.Plane.SetXAroundZ(value);
+                this._localX = this.Plane.LocalX;
             }
         }
 
@@ -92,12 +98,12 @@ namespace FemDesign.Shells
         {
             get
             {
-                return this.CoordinateSystem.LocalY;
+                return this.Plane.LocalY;
             }
             set
             {
-                this.CoordinateSystem.SetYAroundZ(value);
-                this._localX = this.CoordinateSystem.LocalX;
+                this.Plane.SetYAroundZ(value);
+                this._localX = this.Plane.LocalX;
             }
         }
 
@@ -136,7 +142,8 @@ namespace FemDesign.Shells
             }
             set
             {
-                this._region = value.RemoveEdgeConnections();
+                //this._region = value.RemoveEdgeConnections();
+                this._region = value;
             }
         }
 
@@ -464,7 +471,7 @@ namespace FemDesign.Shells
 
             // elements
             this.Region = region;
-            this.CoordinateSystem = region.CoordinateSystem;
+            this.Plane = region.Plane;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
             this.ExternalRigidity = externalEdgeConnection.Rigidity;
@@ -509,7 +516,7 @@ namespace FemDesign.Shells
 
             // elements
             this.Region = region;
-            this.CoordinateSystem = region.CoordinateSystem;
+            this.Plane = region.Plane;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
             this.TimberPanelData = timberApplicationData;

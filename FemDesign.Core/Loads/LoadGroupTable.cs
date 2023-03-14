@@ -29,7 +29,7 @@ namespace FemDesign.Loads
         [XmlAttribute("action")]
         public string Action { get; set; }
         [XmlAttribute("simple_combination_method")]
-        public bool SimpleCombinationMethod { get; set; } = false;
+        public LoadCombinationMethod SimpleCombinationMethod { get; set; } = LoadCombinationMethod.False;
         [XmlElement("group")]
         public List<ModelGeneralLoadGroup> GeneralLoadGroups = new List<ModelGeneralLoadGroup>(); // sequence: ModelGeneralLoadGroup
 
@@ -98,5 +98,20 @@ namespace FemDesign.Loads
             this.LastChange = DateTime.UtcNow;
             this.Action = "modified";
         }
+    }
+
+    [System.Serializable]
+    public enum LoadCombinationMethod
+    {
+        [XmlEnum("true")]
+        True,
+        [XmlEnum("false")]
+        False,
+        [XmlEnum("EN 1990 6.4.3(6.10.a, b)")]
+        EN_1990_643_610_ab,
+        [XmlEnum("EN 1990 6.4.3(6.10)")]
+        EN_1990_643_610,
+        [XmlEnum("custom")]
+        Custom
     }
 }

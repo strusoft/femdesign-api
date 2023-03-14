@@ -338,6 +338,9 @@
     <Compile Include="..\FemDesign.Core\Geometry\CoordinateSystem.cs">
       <Link>Core\Geometry\CoordinateSystem.cs</Link>
     </Compile>
+    <Compile Include="..\FemDesign.Core\Geometry\Plane.cs">
+      <Link>Core\Geometry\Plane.cs</Link>
+    </Compile>
     <Compile Include="..\FemDesign.Core\Geometry\HorizontalPolygon2d.cs">
       <Link>Core\Geometry\HorizontalPolygon2d.cs</Link>
     </Compile>

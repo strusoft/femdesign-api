@@ -96,7 +96,7 @@ namespace FemDesign.Loads
             this.LoadProjection = loadProjection;
             this.LoadType = loadType;
             this.Edge = edge;
-            this.Normal = edge.CoordinateSystem.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
+            this.Normal = edge.Plane.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
             this.SetStartAndEndForces(constantForce, constantForce);
         }
 
@@ -113,7 +113,7 @@ namespace FemDesign.Loads
             this.LoadProjection = loadProjection;
             this.LoadType = loadType;
             this.Edge = edge;
-            this.Normal = edge.CoordinateSystem.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
+            this.Normal = edge.Plane.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
             this.SetStartAndEndForces(startForce, endForce);
         }
 
