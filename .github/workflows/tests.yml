@@ -26,8 +26,11 @@ jobs:
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
 
-      - name: Restore Packages
+      - name: Nuget Restore Packages
         run: nuget restore femdesign-api.sln
+        
+      - name: Dotnet Restore Packages
+        run: dotnet restore femdesign-api.sln
 
       - name: Build Solution
         run: |
