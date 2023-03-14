@@ -189,7 +189,8 @@
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
     <Compile Include="Results\FeaBar.cs" />
-    <Compile Include="Results\FeaShell.cs" />
+    <Compile Include="Results\OBSOLETE\FeaShell_OBSOLETE.cs" />
+    <Compile Include="Results\FiniteElements\FeaShell.cs" />
     <Compile Include="Results\LabelledSection.cs" />
     <Compile Include="Results\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSectionResultant.cs" />
