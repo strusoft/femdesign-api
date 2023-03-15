@@ -107,6 +107,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
@@ -316,7 +317,7 @@
     <Compile Include="ModellingTools\StiffnessMatrix2TypeConstruct.cs" />
     <Compile Include="ModellingTools\StiffnessMatrix4TypeConstruct.cs" />
     <Compile Include="Obsolete\ModelCreate2OBSOLETE.cs" />
-    <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\OBSOLETE\ModelAddElements3OBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelAddElements2OBSOLETE.cs" />
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelCreate_21.2.0.OBSOLETEe.cs" />

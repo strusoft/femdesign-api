@@ -1,4 +1,4 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelAddElements : GH_Component
+    public class ModelAddElements3OBSOLETE: GH_Component
     {
-        public ModelAddElements() : base("Model.AddElements", "AddElements", "Add elements to an existing model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelAddElements3OBSOLETE(): base("Model.AddElements", "AddElements", "Add elements to an existing model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -24,8 +24,6 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("LoadCombinations", "LoadCombinations", "Single LoadCombination element or list of LoadCombination elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Single LoadGroup element or list of LoadGroup elements to add. Nested lists are not supported.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Soil", "Soil", "Single Soil element.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Overwrite", "Overwrite", "Overwrite elements sharing GUID and mark as modified?", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -59,10 +57,6 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Loads.ModelGeneralLoadGroup> loadGroups = new List<FemDesign.Loads.ModelGeneralLoadGroup>();
             DA.GetDataList("LoadGroups", loadGroups);
 
-
-            FemDesign.Soil.SoilElements soil = null;
-            DA.GetData("Soil", ref soil);
-
             bool overwrite = false;
             DA.GetData("Overwrite", ref overwrite);
 
@@ -72,7 +66,6 @@ namespace FemDesign.Grasshopper
             clone.AddLoadCases(loadCases, overwrite);
             clone.AddLoadCombinations(loadCombinations, overwrite);
             clone.AddLoadGroupTable(loadGroups, overwrite);
-            if(soil != null) clone.AddSoilElement(soil, overwrite);
 
 
             DA.SetData("FdModel", clone);
@@ -86,10 +79,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{8C9E5B41-52A7-4206-B05D-710E2F98B9C6}"); }
+            get { return new Guid("1a38b7dc-5421-41cb-a85b-2f584855fd58"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
