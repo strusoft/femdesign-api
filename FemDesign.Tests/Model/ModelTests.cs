@@ -13,6 +13,7 @@ using System.Reflection;
 using Microsoft.XmlDiffPatch;
 
 using FemDesign.GenericClasses;
+using System.Xml.Serialization;
 
 namespace FemDesign.Models
 {
@@ -97,6 +98,40 @@ namespace FemDesign.Models
             Assert.IsTrue(model.Country == FemDesign.Country.S, "Should construct model with country code preserved");
         }
 
+        public static StruSoft.Interop.StruXml.Data.Database Load(string filename, string schemaPath = "")
+        {
+            if (!File.Exists(filename))
+            {
+                throw new FileNotFoundException(filename);
+            }
+
+            //// Always validate file before serialization.
+            //using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            //{
+            //    using (var reader = XmlReader.Create(stream))
+            //    {
+            //        var validator = new StruXmlValidator();
+            //        if (schemaPath == "")
+            //        {
+            //            validator.Validate(reader);
+            //        }
+            //        else
+            //        {
+            //            validator.Validate(reader, schemaPath);
+            //        }
+            //    }
+            //}
+
+            using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = XmlReader.Create(stream))
+                {
+                    var serializer = new XmlSerializer(typeof(StruSoft.Interop.StruXml.Data.Database));
+                    return (StruSoft.Interop.StruXml.Data.Database)serializer.Deserialize(reader);
+                }
+            }
+        }
+
         [TestCategory("FEM-Design required")]
         [TestMethod("Open a Model")]
         public void Open()
@@ -112,8 +147,11 @@ namespace FemDesign.Models
         [TestMethod("DeepClone")]
         public void DeepClone()
         {
-            string input = "Model/global-test-model_MASTER.struxml";
+            string input = @"Model/moving.struxml";
+
+            //string input = "Model/global-test-model_MASTER.struxml";
             Model model = Model.DeserializeFromFilePath(input);
+            var database = Load(input);
             var clone = model.DeepClone();
             Console.Write(clone.SerializeToString());
         }

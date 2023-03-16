@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
                 var localX = (edgeCurve.PointAtEnd - edgeCurve.PointAtStart).FromRhino();
                 var localZ = obj.Normal;
                 var localY = localX.Cross(localZ);
-                var localPlane = new FemDesign.Geometry.CoordinateSystem(midPoint, localX, localY).ToRhino();
+                var localPlane = new FemDesign.Geometry.Plane(midPoint, localX, localY).ToRhino();
                 DA.SetData(3, localPlane);
             }
 

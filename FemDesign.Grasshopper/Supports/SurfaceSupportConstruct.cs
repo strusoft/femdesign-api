@@ -63,13 +63,13 @@ namespace FemDesign.Grasshopper
             // Set local x-axis
             if (!x.Equals(Vector3d.Zero))
             {
-                obj.CoordinateSystem.SetXAroundZ(x.FromRhino());
+                obj.Plane.SetXAroundZ(x.FromRhino());
             }
 
             // Set local z-axis
             if (!z.Equals(Vector3d.Zero))
             {
-                obj.CoordinateSystem.SetZAroundX(z.FromRhino());
+                obj.Plane.SetZAroundX(z.FromRhino());
             }
 
             DA.SetData(0, obj);

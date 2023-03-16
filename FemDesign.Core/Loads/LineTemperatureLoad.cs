@@ -32,7 +32,7 @@ namespace FemDesign.Loads
             }
             set
             {
-                if (value.IsPerpendicular(Edge.CoordinateSystem.LocalX))
+                if (value.IsPerpendicular(Edge.Plane.LocalX))
                 {
                     this._direction = value;
                 }

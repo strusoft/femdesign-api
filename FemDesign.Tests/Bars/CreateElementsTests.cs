@@ -96,7 +96,7 @@ namespace FemDesign.Bars
             var p1 = new Geometry.Point3d(-1, 0, 0);
             var p2 = new Geometry.Point3d(0, 1, 0);
             var p3 = new Geometry.Point3d(1, 0, 0);
-            var cs = Geometry.CoordinateSystem.Global();
+            var cs = Geometry.Plane.XY;
 
             // Create elements
             var edge = new Geometry.ArcEdge(p1, p2, p3, cs);

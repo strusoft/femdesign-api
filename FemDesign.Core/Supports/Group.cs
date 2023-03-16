@@ -1,5 +1,5 @@
 // https://strusoft.com/
-
+using System;
 using System.Xml.Serialization;
 using FemDesign.Releases;
 
@@ -12,27 +12,34 @@ namespace FemDesign.Supports
     public partial class Group
     {
         [XmlIgnore]
+        [Obsolete("Use _plane", true)]
         private Geometry.CoordinateSystem _coordinateSystem;
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlIgnore]
-        private Geometry.CoordinateSystem CoordinateSystem
+        private Geometry.Plane _plane;
+
+        [XmlIgnore]
+        private Geometry.Plane Plane
         {
             get
             {
                 // if deserialized from file the cooridnate system element does not exist and has to be created from local x and local y fields.
-                if (this._coordinateSystem == null)
+                if (this._plane == null)
                 {
-                    this._coordinateSystem = new Geometry.CoordinateSystem(Geometry.Point3d.Origin, this._localX, this._localY);
-                    return this._coordinateSystem;
+                    this._plane = new Geometry.Plane(Geometry.Point3d.Origin, this._localX, this._localY);
+                    return this._plane;
                 }
                 else
                 {
-                    return this._coordinateSystem;
+                    return this._plane;
                 }
             }
             set
             {
-                this._coordinateSystem = value;
+                this._plane = value;
                 this._localX = value.LocalX;
                 this._localY = value.LocalY;
             }
@@ -62,8 +69,8 @@ namespace FemDesign.Supports
             }
             set
             {
-                this.CoordinateSystem.SetYAroundX(value);
-                this._localY = this.CoordinateSystem.LocalY;
+                this.Plane.SetYAroundX(value);
+                this._localY = this.Plane.LocalY;
             }
         }
 
@@ -72,7 +79,7 @@ namespace FemDesign.Supports
         {
             get
             {
-                return this.CoordinateSystem.LocalZ;
+                return this.Plane.LocalZ;
             }
         }
 
@@ -113,18 +120,18 @@ namespace FemDesign.Supports
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for line support
         /// </summary>
-        internal Group(Geometry.CoordinateSystem coordSystem, Motions motions, Rotations rotations)
+        internal Group(Geometry.Plane plane, Motions motions, Rotations rotations)
         {
-            this.CoordinateSystem = coordSystem;
+            this.Plane = plane;
             this.Rigidity = new RigidityDataType3(motions, rotations);
         }
 
         /// <summary>
         /// Constructor by edge and rigidity. Used to create group for line support
         /// </summary>
-        internal Group(Geometry.CoordinateSystem coordSystem, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
+        internal Group(Geometry.Plane plane, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits)
         {
-            this.CoordinateSystem = coordSystem;
+            this.Plane = plane;
             this.Rigidity = new RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
         }
 
@@ -154,9 +161,9 @@ namespace FemDesign.Supports
         /// </summary>
         public void OrientCoordinateSystemToGCS()
         {
-            var cs = this.CoordinateSystem;
-            cs.OrientEdgeTypeLcsToGcs();
-            this.CoordinateSystem = cs;
+            var cs = this.Plane;
+            cs.AlignYAroundXToGcs();
+            this.Plane = cs;
         }
 
     }

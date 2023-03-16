@@ -339,7 +339,7 @@ namespace FemDesign.Grasshopper
             Geometry.Vector3d xAxis = new Geometry.Vector3d(centerPoint, obj.Arc.StartPoint.FromRhino());
 
             // lcs
-            CoordinateSystem cs = obj.FromRhinoCurve();
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
 
             // return
             return new Geometry.Edge(radius, startAngle, endAngle, centerPoint, xAxis, cs);
@@ -355,7 +355,7 @@ namespace FemDesign.Grasshopper
             Geometry.Point3d endPoint = obj.Arc.EndPoint.FromRhino();
 
             // lcs
-            CoordinateSystem cs = obj.FromRhinoCurve();
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
 
             // return
             return new Geometry.Edge(startPoint, midPoint, endPoint, cs);
@@ -370,7 +370,7 @@ namespace FemDesign.Grasshopper
             Geometry.Point3d centerPoint = obj.Arc.Center.FromRhino();
 
             // lcs
-            CoordinateSystem cs = obj.FromRhinoCurve();
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
 
             // return
             return new Geometry.Edge(radius, centerPoint, cs);
@@ -385,7 +385,7 @@ namespace FemDesign.Grasshopper
             Geometry.Point3d endPoint = obj.PointAtEnd.FromRhino();
 
             // lcs
-            CoordinateSystem cs = obj.FromRhinoCurve();
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
 
             // return
             return new Geometry.Edge(startPoint, endPoint, cs);
@@ -400,7 +400,7 @@ namespace FemDesign.Grasshopper
             Geometry.Point3d endPoint = obj.PointAtEnd.FromRhino();
 
             // lcs
-            CoordinateSystem cs = obj.FromRhinoCurve();
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
 
             // return
             return new Geometry.Edge(startPoint, endPoint, cs);
@@ -507,32 +507,30 @@ namespace FemDesign.Grasshopper
         /// <summary>
         /// Convert a Rhino plane to FdCoordinateSystem.
         /// </summary>
-        internal static Rhino.Geometry.Plane ToRhino(this FemDesign.Geometry.CoordinateSystem obj)
+        internal static Rhino.Geometry.Plane ToRhino(this FemDesign.Geometry.Plane obj)
         {
             Rhino.Geometry.Point3d origin = obj.Origin.ToRhino();
             Rhino.Geometry.Vector3d localX = obj.LocalX.ToRhino();
             Rhino.Geometry.Vector3d localY = obj.LocalY.ToRhino();
-            Rhino.Geometry.Vector3d localZ = obj.LocalZ.ToRhino();
             return new Rhino.Geometry.Plane(origin, localX, localY);
         }
 
         /// <summary>
-        /// Create FdCoordinateSystem from Rhino plane.
+        /// Create FemDesign Plane from Rhino plane.
         /// </summary>
-        internal static CoordinateSystem FromRhinoPlane(this Rhino.Geometry.Plane obj)
+        internal static FemDesign.Geometry.Plane FromRhinoPlane(this Rhino.Geometry.Plane obj)
         {
             Geometry.Point3d origin = obj.Origin.FromRhino();
             Geometry.Vector3d localX = obj.XAxis.FromRhino();
             Geometry.Vector3d localY = obj.YAxis.FromRhino();
-            Geometry.Vector3d localZ = obj.ZAxis.FromRhino();
-            return new CoordinateSystem(origin, localX, localY, localZ);
+            return new FemDesign.Geometry.Plane(origin, localX, localY);
         }
 
 
         /// <summary>
-        /// Create FdCoordinateSystem from Rhino plane on curve mid u-point.
+        /// Create FemDesign Plane from Rhino plane on curve mid u-point.
         /// </summary>
-        internal static CoordinateSystem FromRhinoCurve(this Rhino.Geometry.Curve obj)
+        internal static FemDesign.Geometry.Plane FromRhinoCurve(this Rhino.Geometry.Curve obj)
         {
             // reparameterize if neccessary
             if (obj.Domain.T0 == 0 && obj.Domain.T1 == 1)
@@ -553,7 +551,7 @@ namespace FemDesign.Grasshopper
         /// <summary>
         /// Create FdCoordinateSystem from Rhino plane on surface mid u/v-point.
         /// </summary>
-        internal static CoordinateSystem FromRhinoSurface(this Rhino.Geometry.Surface obj)
+        internal static FemDesign.Geometry.Plane FromRhinoSurface(this Rhino.Geometry.Surface obj)
         {
             // reparameterize if necessary
             if (obj.Domain(0).T0 == 0 && obj.Domain(1).T0 == 0 && obj.Domain(0).T1 == 1 && obj.Domain(1).T1 == 1)
@@ -740,7 +738,7 @@ namespace FemDesign.Grasshopper
             }
 
             // Get LCS
-            CoordinateSystem cs = obj.Surfaces[0].FromRhinoSurface();
+            FemDesign.Geometry.Plane cs = obj.Surfaces[0].FromRhinoSurface();
 
             // return
             return new Geometry.Region(contours, cs);

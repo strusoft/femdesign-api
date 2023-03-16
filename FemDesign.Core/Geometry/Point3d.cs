@@ -121,7 +121,7 @@ namespace FemDesign.Geometry
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
-        public static implicit operator Point3d(CoordinateSystem plane)
+        public static implicit operator Point3d(Plane plane)
         {
             var x = plane.Origin.X;
             var y = plane.Origin.Y;

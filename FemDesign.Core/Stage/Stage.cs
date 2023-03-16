@@ -22,6 +22,20 @@ namespace FemDesign
         [XmlAttribute("initial_stress_state")]
         public bool InitialStressState { get; set; } = false;
 
+        [XmlAttribute("day")]
+        public double _day { get; set; }
+
+        /// <summary>
+        /// End time of the stage [day]
+        /// </summary>
+        [XmlIgnore]
+        public double Day
+        {
+            get { return _day; }
+            set { _day = FemDesign.RestrictedDouble.NonNegMax_1e20(value);  }
+        }
+
+
         [XmlElement("activated_load_case")]
         public List<ActivatedLoadCase> ActivatedLoadCases { get; set; }
 
@@ -44,9 +58,10 @@ namespace FemDesign
         /// <param name="activatedLoadCases">LoadCases with factor and partitioning for when to be activated.</param>
         /// <param name="elements">Elements to be activated in this stage.</param>
         /// <param name="initialStressState">Initial stress state.</param>
-        public Stage(int index, string description, List<ActivatedLoadCase> activatedLoadCases = null, List<IStageElement> elements = null, bool initialStressState = false)
+        /// <param name="day">End time of the stage.</param>
+        public Stage(int index, string description, List<ActivatedLoadCase> activatedLoadCases = null, List<IStageElement> elements = null, bool initialStressState = false, double day = 0.0)
         {
-            Initialize(index, description, activatedLoadCases, elements, initialStressState);
+            Initialize(index, description, activatedLoadCases, elements, initialStressState, day);
         }
 
         /// <summary>
@@ -58,16 +73,13 @@ namespace FemDesign
         /// <param name="elements">Elements to be activated in this stage.</param>
         /// <param name="partitioning">Partitioning for when to activate load cases.</param>
         /// <param name="initialStressState">Initial stress state.</param>
-#if ISDYNAMO // Dynamo may not have any default enum arguments in any constructor in any imported C# libraries it seems like
-        public Stage(int index, string description, List<LoadCase> loadCases, List<IStageElement> elements, ActivationType partitioning, bool initialStressState = false)
-#else
-        public Stage(int index, string description, List<LoadCase> loadCases, List<IStageElement> elements, ActivationType partitioning = ActivationType.OnlyInThisStage, bool initialStressState = false)
-#endif
+        /// <param name="day">End time of the stage.</param>
+        public Stage(int index, string description, List<LoadCase> loadCases, List<IStageElement> elements, ActivationType partitioning = ActivationType.OnlyInThisStage, bool initialStressState = false, double day = 0.0)
         {
             var activatedLoadCase = loadCases.Select(l => new ActivatedLoadCase(l, 1.0, partitioning)).ToList();
-            Initialize(index, description, activatedLoadCase, elements, initialStressState);
+            Initialize(index, description, activatedLoadCase, elements, initialStressState, day);
         }
-        private void Initialize(int index, string description, List<ActivatedLoadCase> activatedLoadCases, List<IStageElement> elements, bool initialStressState)
+        private void Initialize(int index, string description, List<ActivatedLoadCase> activatedLoadCases, List<IStageElement> elements, bool initialStressState, double day)
         {
             if (index <= 0)
             {
@@ -78,6 +90,7 @@ namespace FemDesign
             this.ActivatedLoadCases = activatedLoadCases;
             this.Elements = elements;
             this.InitialStressState = initialStressState;
+            this.Day = day;
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -13,28 +14,34 @@ namespace FemDesign.ModellingTools
         private static int _ficticiousShellInstances = 0;
         protected override int GetUniqueInstanceCount() => ++_ficticiousShellInstances;
 
-
         [XmlIgnore]
+        [Obsolete("Use _plane", true)]
         private Geometry.CoordinateSystem _coordinateSystem;
+        [XmlIgnore]
+        [Obsolete("Use Plane", true)]
+        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlIgnore]
-        private Geometry.CoordinateSystem CoordinateSystem
+        private Geometry.Plane _plane;
+
+        [XmlIgnore]
+        private Geometry.Plane Plane
         {
             get
             {
-                if (this._coordinateSystem == null)
+                if (this._plane == null)
                 {
-                    this._coordinateSystem = new Geometry.CoordinateSystem(this.LocalOrigin, this.LocalX, this.LocalY);
-                    return this._coordinateSystem;
+                    this._plane = new Geometry.Plane(this.LocalOrigin, this.LocalX, this.LocalY);
+                    return this._plane;
                 }
                 else
                 {
-                    return this._coordinateSystem;
+                    return this._plane;
                 }
             }
             set
             {
-                this._coordinateSystem = value;
+                this._plane = value;
                 this._localOrigin = value.Origin;
                 this._localX = value.LocalX;
                 this._localY = value.LocalY;
@@ -67,7 +74,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this.CoordinateSystem.Origin = value;
+                this.Plane.Origin = value;
                 this._localOrigin = value;
             }
         }
@@ -83,9 +90,9 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this.CoordinateSystem.SetXAroundZ(value);
-                this._localX = this.CoordinateSystem.LocalX;
-                this._localY = this.CoordinateSystem.LocalY;
+                this.Plane.SetXAroundZ(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
             }
         }
 
@@ -100,9 +107,9 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this.CoordinateSystem.SetYAroundZ(value);
-                this._localX = this.CoordinateSystem.LocalX;
-                this._localY = this.CoordinateSystem.LocalY;
+                this.Plane.SetYAroundZ(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
             }
         }
 
@@ -111,13 +118,13 @@ namespace FemDesign.ModellingTools
         {
             get
             {
-                return this.CoordinateSystem.LocalZ;
+                return this.Plane.LocalZ;
             }
             set
             {
-                this.CoordinateSystem.SetZAroundX(value);
-                this._localX = this.CoordinateSystem.LocalX;
-                this._localY = this.CoordinateSystem.LocalY;
+                this.Plane.SetZAroundX(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
             }
         }
 
@@ -272,7 +279,7 @@ namespace FemDesign.ModellingTools
         {
             this.EntityCreated();
             this.Region = region;
-            this.CoordinateSystem = region.CoordinateSystem;
+            this.Plane = region.Plane;
             this.MembraneStiffness = membraneStiffness;
             this.FlexuralStiffness = flexuralStiffness;
             this.ShearStiffness = shearStiffness;

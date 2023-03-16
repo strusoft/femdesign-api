@@ -45,8 +45,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 7 - Creating a wall
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - ResultsToJSON", "FemDesign.Examples\C#\Practical example - ResultsToJSON\Practical example - ResultsToJSON.csproj", "{2747D6C1-1E22-4262-A938-44FEE99A022C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Dynamo", "FemDesign.Dynamo\FemDesign.Dynamo.csproj", "{419CA97B-DCA5-40EF-A640-7691622E3BE5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,10 +131,6 @@ Global
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{419CA97B-DCA5-40EF-A640-7691622E3BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

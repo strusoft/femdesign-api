@@ -41,6 +41,28 @@ namespace FemDesign
         [XmlAttribute("ghost_method")]
         public bool GhostMethod { get; set; } = false;
 
+        [XmlAttribute("time-dependent_analysis")]
+        public bool TimeDependentAnalysis { get; set; } = false;
+
+        [XmlAttribute("creep_strain_increment_limit")]
+        public double _creepStrainIncrementLimit { get; set; }
+
+        /// <summary>
+        /// creep_strain_increment_limit [thousand percent]
+        /// </summary>
+        [XmlIgnore]
+        public double CreepStrainIncrementLimit
+        {
+            get
+            {
+                return _creepStrainIncrementLimit;
+            }
+            set
+            {
+                _creepStrainIncrementLimit = FemDesign.RestrictedDouble.ValueInRange(value, 0.0, 10.0);
+            }
+        }
+
         [XmlElement("stage")]
         public List<Stage> Stages { get; set; } = new List<Stage>();
 

@@ -67,6 +67,7 @@
     <Compile Include="Foundations\RefParts.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Results\PointConnectionForce.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
     <Compile Include="Soil\BoreHole.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="GenericClasses\StiffnessAnalysisType.cs" />
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Reinforcement\ShearControlRegion.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\FD 22.00.001 Strusoft.cs" />
     <Compile Include="Utils\LoadCombinationTable.cs" />
     <Compile Include="Utils\NationalAnnexEnum.cs" />
     <Compile Include="Releases\RigidityDataType0.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Geometry\Degree.cs" />
     <Compile Include="Geometry\Edge.cs" />
     <Compile Include="Geometry\CoordinateSystem.cs" />
+    <Compile Include="Geometry\Plane.cs" />
     <Compile Include="Geometry\Point2d.cs" />
     <Compile Include="Geometry\Point3d.cs" />
     <Compile Include="Geometry\Vector2d.cs" />
@@ -203,7 +206,7 @@
     <Compile Include="Geometry\RectangleType.cs" />
     <Compile Include="Geometry\Region.cs" />
     <Compile Include="Geometry\RegionGroup.cs" />
-    <Compile Include="LibraryItems\ConnectionTypes.cs" />
+    <Compile Include="LibraryItems\PredefinedType.cs" />
     <Compile Include="Loads\ForceLoadTypeEnum.cs" />
     <Compile Include="Loads\LoadCaseDurationEnum.cs" />
     <Compile Include="Loads\LoadCombTypeEnum.cs" />
@@ -354,7 +357,6 @@
     <Compile Include="StruSoft\Interop\StruXml\Data\Style_type.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositePart.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\CompositeSectionType.cs" />
-    <Compile Include="StruSoft\Interop\StruXml\Data\FD-21.00.001.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\BarStiffnessFactorRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\SlabStiffnessRecord.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\StiffnessRecord.cs" />
@@ -392,6 +394,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cmdglobalcfg.xml">

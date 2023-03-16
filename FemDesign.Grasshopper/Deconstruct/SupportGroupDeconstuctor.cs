@@ -109,8 +109,8 @@ namespace FemDesign.Grasshopper
                 DA.SetData(1, obj.Name);
                 DA.SetData(2, obj.Region.ToRhinoBrep());
                 DA.SetData(3, "SurfaceSupport has no moving local property.");
-                DA.SetData(4, obj.CoordinateSystem.LocalX.ToRhino());
-                DA.SetData(5, obj.CoordinateSystem.LocalY.ToRhino());
+                DA.SetData(4, obj.Plane.LocalX.ToRhino());
+                DA.SetData(5, obj.Plane.LocalY.ToRhino());
                 
                 // Catch pre-defined rigidity
                 if (obj.Rigidity != null)
