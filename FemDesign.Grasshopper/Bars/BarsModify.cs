@@ -35,6 +35,8 @@ namespace FemDesign.Grasshopper
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("BarReinforcement", "BarReinforcement", "BarReinforcment to add to bar. Item or list.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
+           pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item);
@@ -91,6 +93,10 @@ namespace FemDesign.Grasshopper
                     for (int i = 0; i < bar.Reinforcement.Count; i++)
                     {
                         bar.Reinforcement[i].BaseBar.Guid = bar.BarPart.Guid;
+                    }
+                    for (int i = 0; i < bar.Ptc.Count; i++)
+                    {
+                        bar.Ptc[i].BaseObject = bar.BarPart.Guid;
                     }
                 }
             }
@@ -152,14 +158,22 @@ namespace FemDesign.Grasshopper
                 bar = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(bar, clonedReinforcement, true);
             }
 
+            List<FemDesign.Reinforcement.Ptc> ptc = new List<FemDesign.Reinforcement.Ptc>();
+            if(DA.GetDataList(10, ptc))
+            {
+                var clonedPtc= ptc.Select(x => x.DeepClone()).ToList();
+                bar.Ptc.Clear();
+                bar = FemDesign.Reinforcement.Ptc.AddPtcToBar(bar, clonedPtc, true);
+            }
+
             Bars.BarStiffnessFactors stiffnessFactors = null;
-            if (DA.GetData(10, ref stiffnessFactors)) 
+            if (DA.GetData(11, ref stiffnessFactors)) 
             {
                 bar.BarPart.StiffnessModifiers = new List<Bars.BarStiffnessFactors>() { stiffnessFactors };
             }
 
             string identifier = null;
-            if (DA.GetData(11, ref identifier))
+            if (DA.GetData(12, ref identifier))
             {
                 bar.Identifier = identifier;
             }

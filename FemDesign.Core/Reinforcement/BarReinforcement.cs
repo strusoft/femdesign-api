@@ -204,5 +204,9 @@ namespace FemDesign.Reinforcement
             }
             return bar;
         }
+        public override string ToString()
+        {
+            return $"{this.GetType().FullName}: {this.Wire}";
+        }
     }
 }

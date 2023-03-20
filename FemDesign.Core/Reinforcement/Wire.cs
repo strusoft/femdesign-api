@@ -66,5 +66,9 @@ namespace FemDesign.Reinforcement
             this.ReinforcingMaterialGuid = reinforcingMaterial.Guid;
             this.Profile = profile;
         }
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} - {this.ReinforcingMaterial}; {this.Diameter}; {this.Profile}";
+        }
     }
 }

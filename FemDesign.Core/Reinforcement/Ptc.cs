@@ -442,6 +442,11 @@ namespace FemDesign.Reinforcement
             Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
         }
 
+        public Ptc(Geometry.LineEdge line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
+        {
+            Initialize(line.StartPoint, line.EndPoint, Guid.Empty, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
+        }
+
         private void Initialize(Geometry.Point3d start, Geometry.Point3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands, string identifier)
         {
             StartPoint = start;
@@ -460,6 +465,69 @@ namespace FemDesign.Reinforcement
             Manufacturing = manufacturing;
 
             EntityCreated();
+        }
+
+        /// <summary>
+        /// Add PTC to bar.
+        /// Internal method use by GH components and Dynamo nodes.
+        /// </summary>
+        /// <param name="bar"></param>
+        /// <param name="rebar"></param>
+        /// <param name="overwrite">Overwrite PTC on bar if a PTC sharing guid already exists on the bar?</param>
+        public static Bars.Bar AddPtcToBar(Bars.Bar bar, List<Ptc> ptc, bool overwrite)
+        {
+            // check if bar is curved
+            if (!bar.BarPart.Edge.IsLine())
+            {
+                throw new System.ArgumentException($"Bar with guid: {bar.Guid} is not straight. PTC can only be added to straight bars.");
+            }
+
+            // check if bar material is concrete
+            if (bar.BarPart.ComplexMaterialObj.Concrete == null)
+            {
+                throw new System.ArgumentException("Material of bar must be concrete");
+            }
+
+            foreach (Ptc item in ptc)
+            {
+                // empty base object - update with current barPart guid
+                if (item.BaseObject == Guid.Empty)
+                {
+                    item.BaseObject = bar.BarPart.Guid;
+                }
+
+                // base object equals current barPart guid 
+                else if (item.BaseObject == bar.BarPart.Guid)
+                {
+                    // pass
+                }
+
+                // base object does not equal current barPart guid - PTC probably added to another bar already.
+                else if (item.BaseObject != bar.BarPart.Guid)
+                {
+                    throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has a base object guid: {item.BaseObject} that does not correnspond with the current bar");
+                }
+
+                // add PTC to current bar
+                bool exists = bar.Ptc.Any(x => x.Guid == item.Guid);
+                if (exists)
+                {
+                    if (overwrite)
+                    {
+                        bar.Ptc.RemoveAll(x => x.Guid == item.Guid);
+                        bar.Ptc.Add(item);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has already been added to the bar. Are you adding the same element twice?");
+                    }
+                }
+                else
+                {
+                    bar.Ptc.Add(item);
+                }
+            }
+            return bar;
         }
     }
 
