@@ -48,6 +48,7 @@ namespace FemDesign.Grasshopper
         private bool _success = false;
         private List<string> _log = new List<string>();
 
+        List<(GH_RuntimeMessageLevel, string)> RuntimeMessages { get; set; } = new List<(GH_RuntimeMessageLevel, string)>();
 
         public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
 
@@ -87,6 +88,19 @@ namespace FemDesign.Grasshopper
             void onOutput(string message)
             {
                 _log.Add(message);
+
+                var msg = new List<string> { message };
+
+                if (FemDesign.Utils.ErrorHandling.HasError(msg, out string error) != null)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, error));
+                    _success = false;
+                }
+
+                if (FemDesign.Utils.ErrorHandling.HasWarning(msg, out string warning) != null)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, warning));
+                }
             }
 
             _connection.SetVerbosity(_connection.Verbosity);
@@ -94,25 +108,13 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
             _connection.RunAnalysis(_analysis);
+
             _connection.OnOutput -= onOutput;
-
-
-            if(FemDesign.Utils.ErrorHandling.HasError(_log, out string error) != null)
-            {
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, error);
-                return;
-            }
-
-            if (FemDesign.Utils.ErrorHandling.HasWarning(_log, out string warning) != null)
-            {
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, warning);
-                return;
-            }
-
             _success = true;
 
             Done();
         }
+
 
         public override WorkerInstance Duplicate() => new ApplicationRunAnalysisWorker(Parent);
 
@@ -123,8 +125,14 @@ namespace FemDesign.Grasshopper
             DA.GetData("RunNode", ref _runNode);
         }
 
+
         public override void SetData(IGH_DataAccess DA)
         {
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
+
             DA.SetData("Connection", _connection);
             DA.SetDataList("Log", _log);
             DA.SetData("Success", _success);
