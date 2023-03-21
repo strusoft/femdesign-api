@@ -68,64 +68,24 @@ namespace FemDesign.Drawing
         }
 
         /// <value>
-        /// Returns the positions used to place the dimension text on dimension line.
-        /// y' value needs 21% extra padding
+        /// Returns the dimtext type for the first measurement in the chain, will be used for a following measures as well.
+        /// Will be used to interpret the dimtext options such as decimals and length unit.
         /// </value>
-        public List<Point3d> TextPositions
+        public Struxml.Dimtext_type DimtextType
         {
             get
             {
-                var textPositions = new List<Point3d>();
-                for (int idx = 0; idx < ReferencePoints.Count; idx++)
+                var dimTextType = new Struxml.Dimtext_type
                 {
-                    if (idx != 0)
-                    {
-                        // previous reference point
-                        Point3d p1 = ReferencePoints[idx - 1];
-
-                        // current reference point
-                        Point3d p2 = ReferencePoints[idx];
-
-                        // vector from plane origin to previous reference point
-                        Vector3d v1 = p1 - Plane.Origin;
-
-                        // vector from previous reference point to current reference point
-                        Vector3d v2 = p2 - p1;
-
-                        // project vector along plane x-axis. multiply with 0.5 to get mid.
-                        Vector3d t = v1.Dot(Plane.LocalX) * Plane.LocalX + v2.Dot(Plane.LocalX) * 0.5 * Plane.LocalX;
-
-                        // position is plane origin translated with t
-                        textPositions.Add(Plane.Origin + t);
-                    }
-                }
-                return textPositions;
-            }
-        }
-
-        public List<Struxml.Dimtext_type> DimtextTypes
-        {
-            get
-            {
-                var distances = Distances;
-                var textPositions = TextPositions;
-                var dimTextTypes = new List<Struxml.Dimtext_type>();
-                for (int idx = 0; idx < distances.Count; idx++)
-                {
-                    var dimTextType = new Struxml.Dimtext_type
-                    {
-                        Value = distances[idx],
-                        Decimals = this.Decimals,
-                        Length_unit = this.LengthUnit,
-                        Measurement_unit = this.ShowUnit,
-                        Position = textPositions[idx], // schema is incorrect?
-                        Plane_x = Plane.LocalX,
-                        Plane_y = Plane.LocalY,
-                    };
-                    dimTextTypes.Add(dimTextType);
-                }
-
-                return dimTextTypes;
+                    Value = 0.0, // if set to 0.0 FD will interpret this as a request to calculate the measurement.
+                    Decimals = this.Decimals,
+                    Length_unit = this.LengthUnit,
+                    Measurement_unit = this.ShowUnit,
+                    Position = new Struxml.Point_type_3d(), // empty point 3d type, fd will disregard if
+                    Plane_x = new Struxml.Point_type_3d(), // empty point 3d type, fd will disregard if empty.
+                    Plane_y = new Struxml.Point_type_3d() // empty point 3d type, fd will disregard if empty.
+                };
+                return dimTextType;
             }
         }
 
@@ -187,7 +147,7 @@ namespace FemDesign.Drawing
                 Penwidth = 0.00018
             },
             Font = d.Font,
-            Text = d.DimtextTypes
+            Text = new List<Struxml.Dimtext_type>{d.DimtextType}
         };
     }
 }
