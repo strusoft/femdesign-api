@@ -60,7 +60,7 @@ namespace FemDesign.Drawing
                         Point3d p1 = ReferencePoints[idx - 1];
                         Point3d p2 = ReferencePoints[idx];
                         Vector3d v = p2 - p1;
-                        dims.Add(v.Dot(Plane.XDir));
+                        dims.Add(v.Dot(Plane.LocalX));
                     }
                 }
                 return dims;
@@ -93,7 +93,7 @@ namespace FemDesign.Drawing
                         Vector3d v2 = p2 - p1;
 
                         // project vector along plane x-axis. multiply with 0.5 to get mid.
-                        Vector3d t = v1.Dot(Plane.XDir) * Plane.XDir + v2.Dot(Plane.XDir) * 0.5 * Plane.XDir;
+                        Vector3d t = v1.Dot(Plane.LocalX) * Plane.LocalX + v2.Dot(Plane.LocalX) * 0.5 * Plane.LocalX;
 
                         // position is plane origin translated with t
                         textPositions.Add(Plane.Origin + t);
@@ -119,8 +119,8 @@ namespace FemDesign.Drawing
                         Length_unit = this.LengthUnit,
                         Measurement_unit = this.ShowUnit,
                         Position = textPositions[idx], // schema is incorrect?
-                        Plane_x = Plane.XDir,
-                        Plane_y = Plane.YDir,
+                        Plane_x = Plane.LocalX,
+                        Plane_y = Plane.LocalY,
                     };
                     dimTextTypes.Add(dimTextType);
                 }
@@ -144,7 +144,7 @@ namespace FemDesign.Drawing
 
         public override string ToString()
         {
-            return $"DimensionLinear: O: {Plane.Origin}, X: {Plane.XDir}, Measures: {string.Join(" ", Distances.Select(x => Math.Round(x, Decimals)))}";
+            return $"DimensionLinear: O: {Plane.Origin}, X: {Plane.LocalX}, Measures: {string.Join(" ", Distances.Select(x => Math.Round(x, Decimals)))}";
         }
 
         public void Initialise()
@@ -171,8 +171,8 @@ namespace FemDesign.Drawing
             Last_change = d.LastChange,
             Point = d.ReferencePoints.Select(x => (Struxml.Point_type_3d)x).ToList(),
             Position = d.Plane.Origin,
-            Plane_x = d.Plane.XDir,
-            Plane_y = d.Plane.YDir,
+            Plane_x = d.Plane.LocalX,
+            Plane_y = d.Plane.LocalY,
             Dimension_line = new Struxml.Dimdimline_type { },
             Extension_line = new Struxml.Extline_type
             {

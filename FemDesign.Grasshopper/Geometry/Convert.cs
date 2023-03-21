@@ -519,7 +519,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         internal static Rhino.Geometry.Plane ToRhinoPlane(this FemDesign.Geometry.Plane obj)
         {
-            return new Rhino.Geometry.Plane(obj.Origin.ToRhino(), obj.XDir.ToRhino(), obj.YDir.ToRhino());
+            return new Rhino.Geometry.Plane(obj.Origin.ToRhino(), obj.LocalX.ToRhino(), obj.LocalY.ToRhino());
         }
         #endregion
 
