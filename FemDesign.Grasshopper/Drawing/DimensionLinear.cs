@@ -133,7 +133,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.DimensionLinear;
             }
         }
         public override Guid ComponentGuid
@@ -263,7 +263,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.DimensionLinearDeconstruct;
             }
         }
         public override Guid ComponentGuid

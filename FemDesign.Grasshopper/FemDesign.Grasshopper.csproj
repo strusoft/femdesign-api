@@ -879,6 +879,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />
+    <None Include="Resources\icons\DimensionLinear.bmp" />
     <None Include="Resources\icons\FEM_RunDesign.bmp" />
     <None Include="Resources\icons\FEM_RunAnalysis.bmp" />
     <None Include="Resources\icons\FEM_readresult.png" />
