@@ -396,10 +396,17 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="from_1_to_1e5">
+    <xs:restriction base="xs:double">
+      <xs:minInclusive value="1.0"/>
+      <xs:maxInclusive value="1E5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="from_1_to_1e8">
     <xs:restriction base="xs:double">
       <xs:minInclusive value="1.0"/>
-      <xs:maxInclusive value="1E80"/>
+      <xs:maxInclusive value="1E8"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -2913,21 +2920,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-<!--  <xs:complexType       name="tda_creep_norton">
-    <xs:sequence>
-      <xs:element name="record" minOccurs="1" maxOccurs="unbounded">
-      	<xs:complexType>
-          <xs:attribute name="t"  type="non_neg_max_1e8"    use="required" />
-          <xs:attribute name="T"  type="non_neg_max_1e8"   use="required" />
-      	</xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="C0"  type="positive_max_1e8"  use="required" />
-    <xs:attribute name="C1"  type="abs_max_1e8"       use="required" />
-    <xs:attribute name="C2"  type="abs_max_1"         use="required" />
-    <xs:attribute name="CT"  type="non_neg_max_1e8"   use="required" />
-  </xs:complexType> -->
-
   <xs:complexType       name="tda_creep_prony">
     <xs:sequence>
       <xs:element name="record" minOccurs="1" maxOccurs="unbounded">
@@ -2954,12 +2946,26 @@
     <xs:attribute name="u"              type="Ac_u_type"         use="required" />
     <xs:attribute name="sigma_relevant" type="xs:boolean"        use="required" />
     <xs:attribute name="cement_type"    type="cement_type"       use="required" />
-    <xs:attribute name="sigma0_min_age" type="non_neg_max_100"   use="required" />
+    <xs:attribute name="increase_final_value" type="xs:boolean"  use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="tda_creep_compliance_general">
+    <xs:sequence>
+      <xs:element name="record" minOccurs="1" maxOccurs="unbounded">
+      	<xs:complexType>
+          <xs:attribute name="t"        type="non_neg_max_1e7"  use="required" />
+          <xs:attribute name="j"        type="from_1_to_1e5"    use="required" />
+      	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="tda_creep1">
     <xs:sequence>
+<xs:choice>
       <xs:element name="creep_compliance_prony_series"  type="tda_creep_prony"  />
+   <xs:element name="creep_compliance_by_data_set"      type="tda_creep_compliance_general"  />
+</xs:choice>
     </xs:sequence>
   </xs:complexType>
 
@@ -2967,6 +2973,7 @@
     <xs:choice>
       <xs:element name="creep_compliance_prony_series"  type="tda_creep_prony"  />
       <xs:element name="EN_1992-1-1_2004"               type="tda_creep_EN1992"  />
+      <xs:element name="creep_compliance_by_data_set"   type="tda_creep_compliance_general"  />
     </xs:choice>
   </xs:complexType>
 
@@ -3036,9 +3043,9 @@
       <xs:element name="concrete">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="tda_creep"      type="tda_creep2"        minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
-            <xs:element name="tda_shrinkage"  type="tda_shrinkage"    minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
-            <xs:element name="tda_elasticity" type="tda_elasticity"   minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
+            <xs:element name="tda_creep"      type="tda_creep2"         minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
+            <xs:element name="tda_shrinkage"  type="tda_shrinkage"      minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
+            <xs:element name="tda_elasticity" type="tda_elasticity"     minOccurs="0" maxOccurs="1" /> <!-- From FD22 -->
           </xs:sequence>
           <xs:attributeGroup ref="material_type_attribs" />
           <xs:attribute name="Fck"         type="material_base_value"   use="required" />

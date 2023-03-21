@@ -40,7 +40,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData("Curve", ref curve)) return;
 
             var edge = Convert.FromRhino(curve);
-            var direction = edge.CoordinateSystem.LocalY.ToRhino();
+            var direction = edge.Plane.LocalY.ToRhino();
             DA.GetData("Direction", ref direction);
 
             double n1 = 0.0;

@@ -92,7 +92,7 @@ namespace FemDesign
         public Reinforcement.PtcStrandType PtcStrandTypes { get; set; }
 
         [XmlElement("vehicle_types", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> VehicleTypes { get; set; }
+        public LibraryItems.VehicleTypes VehicleTypes { get; set; }
 
         [XmlElement("bolt_types", Order = 18)]
         public List<StruSoft.Interop.StruXml.Data.Bolt_lib_type> BoltTypes { get; set; }

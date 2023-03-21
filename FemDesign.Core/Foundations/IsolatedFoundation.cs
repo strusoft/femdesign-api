@@ -90,9 +90,9 @@ namespace FemDesign.Foundations
         }
 
 #if !ISDYNAMO
-        public IsolatedFoundation(ExtrudedSolid solid, double bedding, Materials.Material material, CoordinateSystem coordinateSystem, Insulation insulation = null, FoundationSystem foundationSystem = FoundationSystem.Simple, string identifier = "F")
+        public IsolatedFoundation(ExtrudedSolid solid, double bedding, Materials.Material material, Plane plane, Insulation insulation = null, FoundationSystem foundationSystem = FoundationSystem.Simple, string identifier = "F")
         {
-            this.Initialise(coordinateSystem, solid, bedding, material, identifier);
+            this.Initialise(plane, solid, bedding, material, identifier);
             this.BeddingModulus = bedding;
             this.Insulation = insulation;
 
@@ -107,11 +107,11 @@ namespace FemDesign.Foundations
 
 
 
-        private void Initialise(CoordinateSystem coordinateSystem, ExtrudedSolid solid, double bedding, Materials.Material material, string identifier = "F")
+        private void Initialise(Plane plane, ExtrudedSolid solid, double bedding, Materials.Material material, string identifier = "F")
         {
             this.EntityCreated();
-            this.ConnectionPoint = coordinateSystem.Origin;
-            this.Direction = coordinateSystem.LocalX;
+            this.ConnectionPoint = plane.Origin;
+            this.Direction = plane.LocalX;
             this.ExtrudedSolid = solid;
             this.ComplexMaterialObj = material;
             this.BeddingModulus = bedding;

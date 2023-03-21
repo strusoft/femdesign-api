@@ -77,7 +77,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase">Load case</param>
         /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double force, LoadCase loadCase, string comment = "")
-                : this(edge, edge.CoordinateSystem.LocalY, force, force, 0.0, 0.0, loadCase, comment)
+                : this(edge, edge.Plane.LocalY, force, force, 0.0, 0.0, loadCase, comment)
         { }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase">Load case</param>
         /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double force, double moment, LoadCase loadCase, string comment = "")
-                : this(edge, edge.CoordinateSystem.LocalY, force, force, moment, moment, loadCase, comment)
+                : this(edge, edge.Plane.LocalY, force, force, moment, moment, loadCase, comment)
         { }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace FemDesign.Loads
         /// <param name="loadCase">Load case</param>
         /// <param name="comment">Comment</param>
         public LineStressLoad(Edge edge, double n1, double n2, double m1, double m2, LoadCase loadCase, string comment = "")
-                : this(edge, edge.CoordinateSystem.LocalY, n1, n2, m1, m2, loadCase, comment)
+                : this(edge, edge.Plane.LocalY, n1, n2, m1, m2, loadCase, comment)
         { }
 
         /// <summary>

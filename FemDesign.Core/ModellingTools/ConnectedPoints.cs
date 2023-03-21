@@ -154,13 +154,13 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Create a connected point between 2 points with coordinate system and rigidity (motions, rotations). 
         /// </summary>
-        public ConnectedPoints(CoordinateSystem fdPlane, Point3d firstPoint, Point3d secondPoint, Motions motions, Rotations rotations, GuidListType[] references, string identifier = "CP")
+        public ConnectedPoints(Plane plane, Point3d firstPoint, Point3d secondPoint, Motions motions, Rotations rotations, GuidListType[] references, string identifier = "CP")
         {
             RigidityDataType2 rigidity = new RigidityDataType2(motions, rotations);
             //InitializeWithCoordinates(plane, firstPoint, secondPoint, rigidity, references, identifier);
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
-            this.LocalX = fdPlane.LocalX;
-            this.LocalY = fdPlane.LocalY;
+            this.LocalX = plane.LocalX;
+            this.LocalY = plane.LocalY;
 
         }
 

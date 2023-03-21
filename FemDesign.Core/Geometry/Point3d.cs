@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -120,7 +121,7 @@ namespace FemDesign.Geometry
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
-        public static implicit operator Point3d(CoordinateSystem plane)
+        public static implicit operator Point3d(Plane plane)
         {
             var x = plane.Origin.X;
             var y = plane.Origin.Y;
@@ -133,6 +134,65 @@ namespace FemDesign.Geometry
         {
             var point = new Geometry.Point3d(feaNode.X, feaNode.Y, feaNode.Z);
             return point;
+        }
+
+
+        private static (double a, double b , double c,  double d) _getPlaneEquation(Point3d p1, Point3d p2, Point3d p3)
+        {
+            double a1 = p2.X - p1.X;
+            double b1 = p2.Y - p1.Y;
+            double c1 = p2.Z - p1.Z;
+
+            double a2 = p3.X - p1.X;
+            double b2 = p3.Y - p1.Y;
+            double c2 = p3.Z - p1.Z;
+
+            double a = b1 * c2 - b2 * c1;
+            double b = a2 * c1 - a1 * c2;
+            double c = a1 * b2 - b1 * a2;
+
+            double d = (-a * p1.X - b * p1.Y - c * p1.Z);
+
+            return (a, b, c, d);
+        }
+
+
+        public static bool ArePointsCollinear(Point3d p1, Point3d p2, Point3d p3)
+        {
+            double area = 0.5 * ((p2.X - p1.X) * (p3.Y - p1.Y) - (p3.X - p1.X) * (p2.Y - p1.Y));
+            return (area == 0);
+        }
+
+
+        public static bool ArePointsOnPlane(List<Point3d> points)
+        {
+            int i = 0;
+            bool colinearPoints = true;
+
+            while( colinearPoints && i < points.Count )
+            {
+                colinearPoints = ArePointsCollinear(points[0], points[1], points[i]);
+                i++;
+            }
+
+            if (colinearPoints)
+            {
+                throw new Exception("Points are colinear!");
+            }
+
+            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[i-1]);
+
+            for(int j = 0; j < points.Count; j++)
+            {
+                bool IsOnPlane = (a * points[j].X + b * points[j].Y + c * points[j].Z + d) == 0;
+                if (IsOnPlane == true)
+                    continue;
+                else
+                    return false;
+            }
+
+            return true;
+
         }
 
         public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d{

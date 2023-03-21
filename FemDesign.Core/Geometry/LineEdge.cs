@@ -21,7 +21,7 @@ namespace FemDesign.Geometry
         {
         }
 
-        public LineEdge(Point3d startPoint, Point3d endPoint, CoordinateSystem coordinateSystem) : base(startPoint, endPoint, coordinateSystem)
+        public LineEdge(Point3d startPoint, Point3d endPoint, Plane plane) : base(startPoint, endPoint, plane)
         {
         }
 

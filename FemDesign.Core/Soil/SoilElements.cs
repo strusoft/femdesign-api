@@ -22,7 +22,7 @@ namespace FemDesign.Soil
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private SoilElements()
+        public SoilElements()
         {
         }
 

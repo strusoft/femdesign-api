@@ -115,6 +115,11 @@ namespace FemDesign.Calculate
         [XmlEnum("frCaseResResSection_ListProc")]
         LabelledSectionsResultantsLoadCase,
         /// <summary>
+        /// Load case: Point connection forces
+        /// </summary>
+        [XmlEnum("frCaseConnPt_ListProc")]
+        PointConnectionForceLoadCase,
+        /// <summary>
         /// Load case: Line connection forces
         /// </summary>
         [XmlEnum("frCaseConnLn_ListProc")]
@@ -263,6 +268,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCombReacPtGroup_ListProc")]
         PointSupportReactionsLoadCombination,
+        /// <summary>
+        /// Load combination: Point connection forces
+        /// </summary>
+        [XmlEnum("frCombConnPt_ListProc")]
+        PointConnectionForceLoadCombination,
         /// <summary>
         /// Load combination: Line connection forces
         /// </summary>

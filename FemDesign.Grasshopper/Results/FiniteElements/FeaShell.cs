@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+
 using System.Linq;
 using Rhino.Geometry;
 using FemDesign.Results;
@@ -58,39 +60,88 @@ namespace FemDesign.Grasshopper
             var elementId = (List<int>)result["ElementId"];
             var feaShellFaces = (List<FemDesign.Geometry.Face>)result["Face"];
 
-            // Convert the FDface to Rhino
-            var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
 
             // Read the Node Results
             var nodeData = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
-
-            // Extract the results from the Dictionary
             var nodeId = (List<int>)nodeData["NodeId"];
             var feaNodePoint = (List<FemDesign.Geometry.Point3d>)nodeData["Position"];
 
-            // Create Rhino Mesh
-            var rhinoPoint = feaNodePoint.Select(x => x.ToRhino());
-            var oMesh = new Rhino.Geometry.Mesh();
-            oMesh.Vertices.AddVertices(rhinoPoint);
-
-            foreach(var obj in feaShellFaces)
+            var feaNodedict = new Dictionary<int, Rhino.Geometry.Point3d>();
+            for(int i = 0; i < nodeId.Count; i++)
             {
+                feaNodedict.Add(nodeId[i], feaNodePoint[i].ToRhino());
+            }
+
+            // Convert the FDface to Rhino
+            var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
+
+            // Create Rhino Mesh
+            var oMesh = new List<Rhino.Geometry.Mesh>();
+
+            foreach (var obj in feaShellFaces)
+            {
+                var tempMesh = new Rhino.Geometry.Mesh();
+
                 if (obj.IsTriangle())
                 {
-                    oMesh.Faces.AddFace((int)obj.Node1 - 1, (int)obj.Node2 - 1, (int)obj.Node3 - 1);
+                    int index1 = (int)obj.Node1;
+                    int index2 = (int)obj.Node2;
+                    int index3 = (int)obj.Node3;
+
+                    tempMesh.Vertices.Add(feaNodedict[index1]);
+                    tempMesh.Vertices.Add(feaNodedict[index2]);
+                    tempMesh.Vertices.Add(feaNodedict[index3]);
+
+
+                    tempMesh.Faces.AddFace(0, 1, 2);
                 }
                 else
                 {
-                    oMesh.Faces.AddFace((int)obj.Node1 - 1, (int)obj.Node2 - 1, (int)obj.Node3 - 1, (int)obj.Node4 - 1);
+                    int index1 = (int)obj.Node1;
+                    int index2 = (int)obj.Node2;
+                    int index3 = (int)obj.Node3;
+                    int index4 = (int)obj.Node4;
+
+                    tempMesh.Vertices.Add(feaNodedict[index1]);
+                    tempMesh.Vertices.Add(feaNodedict[index2]);
+                    tempMesh.Vertices.Add(feaNodedict[index3]);
+                    tempMesh.Vertices.Add(feaNodedict[index4]);
+
+                    tempMesh.Faces.AddFace(0, 1, 2, 3);
                 }
+
+                tempMesh.Normals.ComputeNormals();
+                oMesh.Add(tempMesh);
+            }
+
+
+            var indexedNumbers = id.Select((number, index) => new { Value = number, Index = index });
+            var groups = indexedNumbers.GroupBy(x => x.Value);
+
+            var idTree = new DataTree<object>();
+            var elementIdTree = new DataTree<object>();
+            var feaShellFacesTree = new DataTree<object>();
+            var meshTree = new DataTree<object>();
+
+            int j = 0;
+            foreach (var group in groups)
+            {
+                idTree.Add(group.Key, new GH_Path(j));
+                foreach (var indexedNumber in group)
+                {
+                    elementIdTree.Add(elementId.ElementAt(indexedNumber.Index), new GH_Path(j));
+                    feaShellFacesTree.Add(oFeaShellFaces.ElementAt(indexedNumber.Index), new GH_Path(j));
+                    meshTree.Add(oMesh.ElementAt(indexedNumber.Index), new GH_Path(j));
+                }
+                j++;
             }
 
 
             // Set output
-            DA.SetDataList("Identifier", id);
-            DA.SetDataList("ElementId", elementId);
-            DA.SetDataList("FaceIndex", oFeaShellFaces);
-            DA.SetData("Mesh", oMesh);
+            DA.SetDataTree(0, idTree);
+            DA.SetDataTree(1, elementIdTree);
+            DA.SetDataTree(2, feaShellFacesTree);
+            DA.SetDataTree(3, meshTree);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.secondary;
@@ -113,7 +164,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0DA5C6E4-DA66-46CF-8058-4C83F2B27FDE"); }
+            get { return new Guid("CC8AAE80-6BAD-423F-A74F-9227F8760521"); }
         }
     }
 }

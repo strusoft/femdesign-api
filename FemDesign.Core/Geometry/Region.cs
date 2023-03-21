@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -14,8 +15,11 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class Region
     {
+        [Obsolete("Use Plane", true)]
         [XmlIgnore]
         public Geometry.CoordinateSystem CoordinateSystem { get; set; }
+        [XmlIgnore]
+        public Plane Plane { get; set; }
 
         /// <summary>
         /// Used for panels and sections
@@ -80,21 +84,40 @@ namespace FemDesign.Geometry
             this.Contours = contours;
         }
 
-        public Region(List<Contour> contours, CoordinateSystem coordinateSystem)
+        public Region(List<Contour> contours, Plane plane)
         {
             this.Contours = contours;
-            this.CoordinateSystem = coordinateSystem;
+            this.Plane = plane;
+        }
+
+        public bool IsPlanar
+        {
+            get
+            {
+                var points = new List<Geometry.Point3d>();
+
+                foreach(var contour in this.Contours)
+                {
+                    foreach(var edge in contour.Edges)
+                    {
+                        points.AddRange(edge.Points);
+                    }
+                }
+
+                bool isPlanar = Point3d.ArePointsOnPlane(points);
+                return isPlanar;
+            }
         }
 
         /// <summary>
         /// Create region by points and coordinate system.
         /// </summary>
         /// <param name="points">List of sorted points defining the outer perimeter of the region.</param>
-        /// <param name="coordinateSystem">Coordinate system of the region</param>
-        public Region(List<Point3d> points, CoordinateSystem coordinateSystem)
+        /// <param name="plane">Coordinate system of the region</param>
+        public Region(List<Point3d> points, Plane plane)
         {
             // edge normal
-            Vector3d edgeLocalY = coordinateSystem.LocalZ;
+            Vector3d edgeLocalY = plane.LocalZ;
 
             List<Edge> edges = new List<Edge>();
             for (int idx = 0 ; idx < points.Count; idx++)
@@ -123,7 +146,7 @@ namespace FemDesign.Geometry
 
             // set properties
             this.Contours = new List<Contour>{contour};
-            this.CoordinateSystem = coordinateSystem;
+            this.Plane = plane;
         }
 
         public static Region RectangleXZ(double width, double height)
@@ -135,7 +158,7 @@ namespace FemDesign.Geometry
 
             var points = new List<Point3d>() { points0, points1, points2, points3 };
 
-            var fdCoordinate = new CoordinateSystem(points0, points1, points3);
+            var fdCoordinate = new Plane(points0, points1, points3);
 
             // set properties
             var region = new Region(points, fdCoordinate);
@@ -152,10 +175,10 @@ namespace FemDesign.Geometry
 
             var points = new List<Point3d>() { points0, points1, points2, points3 };
 
-            var fdCoordinate = new CoordinateSystem(points0, points1, points3);
+            var plane = new Plane(points0, points1, points3);
 
             // set properties
-            var region = new Region(points, fdCoordinate);
+            var region = new Region(points, plane);
 
             return region;
         }
