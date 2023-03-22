@@ -26,7 +26,7 @@ namespace FemDesign.Info
         public override string Name => "FEM-Design";
 
         //Return a 24x24 pixel bitmap to represent this GHA library.
-        public override Bitmap Icon => FemDesign.Properties.Resources.fdlogo;
+        public override Bitmap Icon => FemDesign.Properties.Resources.FdLogo;
 
         //Return a short string describing the purpose of this GHA library.
         public override string Description => "Compatible with FEM-Design 3D Structure only (20 or 21 depending on version of plug-in)." +

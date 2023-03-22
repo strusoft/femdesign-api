@@ -163,9 +163,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap boreholes {
+        internal static System.Drawing.Bitmap Boreholes {
             get {
-                object obj = ResourceManager.GetObject("boreholes", resourceCulture);
+                object obj = ResourceManager.GetObject("Boreholes", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,9 +313,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap deconstruct_icon {
+        internal static System.Drawing.Bitmap Deconstruct_icon {
             get {
-                object obj = ResourceManager.GetObject("deconstruct_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Deconstruct_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -433,9 +433,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fdlogo {
+        internal static System.Drawing.Bitmap FdLogo {
             get {
-                object obj = ResourceManager.GetObject("fdlogo", resourceCulture);
+                object obj = ResourceManager.GetObject("FdLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -453,29 +453,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap feabar {
+        internal static System.Drawing.Bitmap FeBar {
             get {
-                object obj = ResourceManager.GetObject("feabar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap feanode {
-            get {
-                object obj = ResourceManager.GetObject("feanode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap feashell {
-            get {
-                object obj = ResourceManager.GetObject("feashell", resourceCulture);
+                object obj = ResourceManager.GetObject("FeBar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -546,6 +526,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap FEM_RunDesign {
             get {
                 object obj = ResourceManager.GetObject("FEM_RunDesign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FeNode {
+            get {
+                object obj = ResourceManager.GetObject("FeNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FeShell {
+            get {
+                object obj = ResourceManager.GetObject("FeShell", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1323,9 +1323,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap options {
+        internal static System.Drawing.Bitmap Options {
             get {
-                object obj = ResourceManager.GetObject("options", resourceCulture);
+                object obj = ResourceManager.GetObject("Options", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1593,9 +1593,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap quantity {
+        internal static System.Drawing.Bitmap Quantity {
             get {
-                object obj = ResourceManager.GetObject("quantity", resourceCulture);
+                object obj = ResourceManager.GetObject("Quantity", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1633,9 +1633,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap results {
+        internal static System.Drawing.Bitmap Results {
             get {
-                object obj = ResourceManager.GetObject("results", resourceCulture);
+                object obj = ResourceManager.GetObject("Results", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

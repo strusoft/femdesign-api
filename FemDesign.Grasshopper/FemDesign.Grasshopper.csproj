@@ -892,20 +892,20 @@
     <None Include="Resources\icons\GroundWater.png" />
     <None Include="Resources\icons\Strata.png" />
     <None Include="Resources\icons\SoilMaterial.png" />
-    <None Include="Resources\icons\soil.png" />
-    <None Include="Resources\icons\boreholes .png" />
+    <None Include="Resources\icons\Soil.png" />
+    <None Include="Resources\icons\Boreholes .png" />
     <None Include="Resources\icons\ResultPoint.png" />
     <None Include="Resources\icons\PlateSetStiffness.bmp" />
     <None Include="Resources\icons\BeamSetStiffness.bmp" />
     <None Include="Resources\icons\StiffnessModifier.png" />
-    <None Include="Resources\icons\options.png" />
+    <None Include="Resources\icons\Options.png" />
     <None Include="Resources\icons\lineconnection.bmp" />
     <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
     <None Include="Resources\icons\Insulation.png" />
     <None Include="Resources\icons\ExtrudedSolid.png" />
     <None Include="Resources\icons\IsolatedFoundation.png" />
     <None Include="Resources\icons\LabelledSectionDeconstruct.png" />
-    <None Include="Resources\icons\deconstruct_icon.png" />
+    <None Include="Resources\icons\Deconstruct_icon.png" />
     <None Include="Resources\icons\StagesDeconstruct.png" />
     <None Include="Resources\icons\LineStressLoadDeconstruct.png" />
     <None Include="Resources\icons\LineStressLoadConstruct.png" />
@@ -915,8 +915,8 @@
     <EmbeddedResource Include="Resources\icons\Stage_ActivatedLoad.png" />
     <EmbeddedResource Include="Resources\icons\Units.png" />
     <EmbeddedResource Include="Resources\icons\ResultType.png" />
-    <EmbeddedResource Include="Resources\icons\results.png" />
-    <EmbeddedResource Include="Resources\icons\quantity.png" />
+    <EmbeddedResource Include="Resources\icons\Results.png" />
+    <EmbeddedResource Include="Resources\icons\Quantity.png" />
     <EmbeddedResource Include="Resources\icons\LoadGroupDeconstruct.bmp" />
     <EmbeddedResource Include="Resources\icons\CombineLoadGroups.bmp" />
     <EmbeddedResource Include="Resources\icons\LoadCategory.bmp" />
@@ -925,9 +925,9 @@
     <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseListCategoryNames.bmp" />
     <EmbeddedResource Include="Resources\icons\LoadCategoryDatabaseGetCategoryByName.bmp" />
     <EmbeddedResource Include="Resources\Fd_TabIcon_24_24.png" />
-    <EmbeddedResource Include="Resources\icons\feabar.png" />
-    <EmbeddedResource Include="Resources\icons\feanode.png" />
-    <EmbeddedResource Include="Resources\icons\feashell.png" />
+    <EmbeddedResource Include="Resources\icons\FeBar.png" />
+    <EmbeddedResource Include="Resources\icons\FeNode.png" />
+    <EmbeddedResource Include="Resources\icons\FeShell.png" />
     <EmbeddedResource Include="Resources\icons\LoadGroup.bmp" />
   </ItemGroup>
   <ItemGroup>

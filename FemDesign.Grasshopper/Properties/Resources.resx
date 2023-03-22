@@ -1012,7 +1012,7 @@
         ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
 </value>
   </data>
-  <data name="fdlogo" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="FdLogo" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABGgAAAEACAYAAADvFUCgAAABg2lDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI
         A0EYhT8TRRFFxRQiFinUyoCoiKVEUQQFiRG8Cnc35oDsJuwm2FgKtgELj8arsLHW1sJWEAQPEEsrK0Ub
@@ -6834,7 +6834,7 @@
         4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg
 </value>
   </data>
-  <data name="feabar" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="FeBar" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAHhJREFUSEtj+Pr1639a4lELCOJRCwjiUQsIYhQLTp9++L+paR8Yv3z7jSQM0wcy
@@ -6842,14 +6842,14 @@
         QBCPWkAQj1pAAH/9DwDUlYc8NfUH8AAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="feanode" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="FeNode" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAEhJREFUOE9j+EolMGoQYTBqEGGAz6C3bz9eu/YMgm7ceA4VxQHwGbRjxw0GhgYI
         4udvh4riACPUIKoFNklg1CDCYNQgQuDrVwCMSkvdRG3UegAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="feashell" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="FeShell" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAPpJREFUOE9j+EolMMgNunz56cGDd6AcGNiw4TKUBQOnTj0AIigHBhAG3bv3atq0
@@ -6859,7 +6859,7 @@
         CnXyGkm5v7MTd+4HAuqURxSCYWvQ168AX5rdyJqpMeoAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="quantity" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Quantity" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAStJREFUOE/t0T2Kg0AYgOF03sADWFiJtVVAscgdFgyCpBAUUdYftIggi5W2YrWI
@@ -6870,7 +6870,7 @@
         URThDIKFvuLXhqbpDUxgOtaGAoM2AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="results" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Results" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAY5JREFUOE/llE1LAkEYx/uY0ReIUCS8iNClQ3ryUqJBh6BDiARqJvmSpPm2m2WC
@@ -6996,7 +6996,7 @@
         DsdvzzOSAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="deconstruct_icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Deconstruct_icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkUso
         RFEcxn8uIo+IWUgWd4GFKCFZaoiUqWmM8lq4944Zau413TuysVS2ysJj47WwsWZrYauU8ihZWlkRG+n6
@@ -7117,13 +7117,13 @@
   <data name="PlateSetStiffness" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\PlateSetStiffness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\options.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ResultPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\ResultPoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="boreholes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Boreholes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\boreholes .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Soil" type="System.Resources.ResXFileRef, System.Windows.Forms">

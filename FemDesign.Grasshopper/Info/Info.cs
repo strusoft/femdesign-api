@@ -189,7 +189,7 @@ namespace FemDesign.Info
 
                 textRectangle.Y += 30;
                 textRectangle.Height = Convert.ToSingle(textRectangle.Width * 0.227);
-                Image image = FemDesign.Properties.Resources.fdlogo;
+                Image image = FemDesign.Properties.Resources.FdLogo;
 
                 graphics.DrawImage(image, textRectangle);
 
