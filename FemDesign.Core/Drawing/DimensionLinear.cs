@@ -140,12 +140,7 @@ namespace FemDesign.Drawing
                 Extension_b = 0.005,
                 Offset_c = 0.005
             },
-            Arrow = new Struxml.Arrow_type
-            {
-                Type = Struxml.Arrowtype_type.Tick,
-                Size = 0.005,
-                Penwidth = 0.00018
-            },
+            Arrow = d.Arrow,
             Font = d.Font,
             Text = new List<Struxml.Dimtext_type>{d.DimtextType}
         };

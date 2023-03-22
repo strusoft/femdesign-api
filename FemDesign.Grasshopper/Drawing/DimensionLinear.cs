@@ -215,7 +215,7 @@ namespace FemDesign.Grasshopper
             {
                 if (Enum.TryParse(arrowType, out Struxml.Arrowtype_type arrowTypeEnum))
                 {
-                    dim.Arrow.Type = arrowTypeEnum;
+                   dim.Arrow.Type = arrowTypeEnum;
                 }
                 else
                 {
