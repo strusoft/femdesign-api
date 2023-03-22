@@ -31,11 +31,6 @@ The example have been tested using
 - IronPython 2.7 (pythonnet pre-installed)
 - CPython 3.7 (with [pip package pythonnet](https://pypi.org/project/pythonnet/))
 
-### 🐉 Python-old-examples
-The Python-old-examples is an API wrapper with different call functions to make it easier to create the struxml-model and run the analysis. Please see a detailed description in the documentation below.
-
-https://wiki.fem-design.strusoft.com/xwiki/bin/view/FEM-Design%20API/Python/API%20wrapper/
-
 ## Maintenance
 The examples and samples here are created and mainatained by StruSoft. 
 ## Questions and feedback
