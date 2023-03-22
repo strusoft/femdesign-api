@@ -29,8 +29,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
-            pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FdFeaModel.");
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
+            pManager.Register_GenericParam("FiniteElement", "FiniteElement", "FiniteElement.");
             pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.tree);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -40,7 +40,7 @@ namespace FemDesign.Grasshopper
             List<string> resultTypes = new List<string>();
 
 
-            Results.FDfea fdFeaModel = null;
+            Results.FiniteElement FiniteElement = null;
 
             DA.GetData("StrPath", ref filePath);
             if (filePath == null)
@@ -109,9 +109,9 @@ namespace FemDesign.Grasshopper
 
                 IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
-                List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
-                List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
-                List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+                List<Results.FemNode> feaNodeRes = new List<Results.FemNode>();
+                List<Results.FemBar> feaBarRes = new List<Results.FemBar>();
+                List<Results.FemShell> feaShellRes = new List<Results.FemShell>();
 
                 if (resultTypes != null && resultTypes.Any())
                 {
@@ -122,15 +122,15 @@ namespace FemDesign.Grasshopper
                         {
                             if (path.Contains("FeaNode"))
                             {
-                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FemNode>().ToList();
                             }
                             else if (path.Contains("FeaBar"))
                             {
-                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FemBar>().ToList();
                             }
                             else if (path.Contains("FeaShell"))
                             {
-                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FemShell>().ToList();
                             }
                             else
                             {
@@ -145,7 +145,7 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
-                fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+                FiniteElement = new FemDesign.Results.FiniteElement(feaNodeRes, feaBarRes, feaShellRes);
 
                 var resultGroups = results.GroupBy(t => t.GetType()).ToList();
                 // Convert Data in DataTree structure
@@ -159,8 +159,8 @@ namespace FemDesign.Grasshopper
                 }
 
                 // Set output
-                DA.SetData("FdModel", model);
-                DA.SetData("FdFeaModel", fdFeaModel);
+                DA.SetData("Model", model);
+                DA.SetData("FiniteElement", FiniteElement);
                 DA.SetDataTree(2, resultsTree);
             }
             else

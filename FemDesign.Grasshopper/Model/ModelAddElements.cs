@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to add elements to.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model to add elements to.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Structure Elements", "Elements", "Single structure element or list of structure elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Loads", "Loads", "Single PointLoad, LineLoad, SurfaceLoad or PressureLoad element or list of PointLoad, LineLoad, SurfaceLoad or PressureLoad to add. Nested lists are not supported.", GH_ParamAccess.list);
@@ -33,13 +33,13 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
             FemDesign.Model model = null;
-            if (!DA.GetData("FdModel", ref model))
+            if (!DA.GetData("Model", ref model))
             {
                 // pass
             }
@@ -75,7 +75,7 @@ namespace FemDesign.Grasshopper
             if(soil != null) clone.AddSoilElement(soil, overwrite);
 
 
-            DA.SetData("FdModel", clone);
+            DA.SetData("Model", clone);
         }
         protected override System.Drawing.Bitmap Icon
         {

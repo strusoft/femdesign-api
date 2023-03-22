@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetFeaModel : GH_AsyncComponent
     {
-        public PipeGetFeaModel() : base("FEM-Design.GetFeaModel", "GetFeaModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeGetFeaModel() : base("FEM-Design.GetFeModel", "GetFeModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat8())
         {
 
             BaseWorker = new ApplicationGetFeaModelWorker(this);
@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("FDFeaModel", "FDFeaModel", "FEM-Design finite element model.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FiniteElement", "FiniteElement", "FEM-Design finite element model.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
     {
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
-        private FemDesign.Results.FDfea _fdFea = null;
+        private FemDesign.Results.FiniteElement _fdFea = null;
 
         private Results.UnitResults _units = null;
         private bool _runNode = false;
@@ -111,7 +111,7 @@ namespace FemDesign.Grasshopper
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", _connection);
-            DA.SetData("FDFeaModel", _fdFea);
+            DA.SetData("FiniteElement", _fdFea);
             DA.SetData("Success", _success);
         }
     }

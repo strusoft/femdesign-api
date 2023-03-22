@@ -14,8 +14,8 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the FeaNode class.
         /// </summary>
         public FeaNode()
-          : base("FdFeaModel.FeaNode", "FeaNode",
-              "Deconstruct an Fea Node in his Part",
+          : base("FiniteElement.FemNode", "FemNode",
+              "Deconstruct an Fem Node in his Part",
               CategoryName.Name(), SubCategoryName.Cat7b())
         {
         }
@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdFeaModel", "FdFeaModel", "Result to be Parse", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FiniteElement", "FiniteElement", "Result to be Parse", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Results.FDfea fdFeaModel = null;
-            DA.GetData("FdFeaModel", ref fdFeaModel);
-            if (fdFeaModel == null)
+            FemDesign.Results.FiniteElement FiniteElement = null;
+            DA.GetData("FiniteElement", ref FiniteElement);
+            if (FiniteElement == null)
                 return;
 
 
             // Read Result from Abstract Method
-            var result = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
+            var result = FemDesign.Results.FemNode.DeconstructFeaNode(FiniteElement.FemNode);
 
 
             var nodeId = (List<int>) result["NodeId"];

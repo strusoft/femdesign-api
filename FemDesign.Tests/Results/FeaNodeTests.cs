@@ -41,7 +41,7 @@ No.	x	y	z
 ");
 
             var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(FeaNode), "FeaNode should be parsed");
+            Assert.IsTrue(results[0].GetType() == typeof(FemNode), "FeaNode should be parsed");
             Assert.IsTrue(results.Count == 18, "Should read all results.");
 
             File.Delete(path);
@@ -57,8 +57,8 @@ No.	x	y	z
 
             foreach (var header in headers)
             {
-                var match = FeaNode.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(FeaNode).Name}");
+                var match = FemNode.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(FemNode).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
             }
         }
@@ -75,7 +75,7 @@ No.	x	y	z
 
             foreach (var header in headers)
             {
-                var match = FeaNode.HeaderExpression.Match(header);
+                var match = FemNode.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -39,7 +39,7 @@ namespace FemDesign.Grasshopper
         {
             // set references
             FemDesign.Model model = null;
-            if (!DA.GetData("FdModel", ref model))
+            if (!DA.GetData("Model", ref model))
             {
                 return;
             }

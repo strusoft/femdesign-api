@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to add elements to.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model to add elements to.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("FictitiousBars", "FictBars", "Single fictitious bar element or list of fictitious bar elements to add. Nested lists are not supported.", GH_ParamAccess.list);
@@ -46,13 +46,13 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
             FemDesign.Model model = null;
-            DA.GetData("FdModel", ref model);
+            DA.GetData("Model", ref model);
  
             List<FemDesign.Bars.Bar> bars = new List<FemDesign.Bars.Bar>();
             DA.GetDataList("Bars", bars);
@@ -120,7 +120,7 @@ namespace FemDesign.Grasshopper
             
             clone.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, overwrite);
             
-            DA.SetData("FdModel", clone);
+            DA.SetData("Model", clone);
         }
         protected override System.Drawing.Bitmap Icon
         {

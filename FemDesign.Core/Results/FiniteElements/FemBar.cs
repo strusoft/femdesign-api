@@ -14,8 +14,8 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Node" result
     /// </summary>
-    [Result(typeof(FeaBar), ListProc.FeaBar)]
-    public partial class FeaBar : IResult
+    [Result(typeof(FemBar), ListProc.FemBar)]
+    public partial class FemBar : IResult
     {
         /// <summary>
         /// Element Name Identifier
@@ -38,7 +38,7 @@ namespace FemDesign.Results
         public int Nodej { get; }
 
 
-        internal FeaBar(string id, int elementId, int nodei, int nodej)
+        internal FemBar(string id, int elementId, int nodei, int nodej)
         {
             this.Id = id;
             this.ElementId = elementId;
@@ -67,23 +67,23 @@ namespace FemDesign.Results
             }
         }
 
-        internal static FeaBar Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static FemBar Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string id = row[0];
             int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
             int nodei = Int32.Parse(row[2], CultureInfo.InvariantCulture);
             int nodej = Int32.Parse(row[3], CultureInfo.InvariantCulture);
             string test = HeaderData["type"];
-            return new FeaBar(id, elementId, nodei, nodej);
+            return new FemBar(id, elementId, nodei, nodej);
         }
 
         /// <summary>
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructFeaBar(List<FemDesign.Results.FeaBar> Result)
+        public static Dictionary<string, object> DeconstructFeaBar(List<FemDesign.Results.FemBar> Result)
         {
-            var feaBars = Result.Cast<FemDesign.Results.FeaBar>();
+            var feaBars = Result.Cast<FemDesign.Results.FemBar>();
 
             // Parse Results from the object
             var id = feaBars.Select(n => n.Id).ToList();

@@ -26,7 +26,7 @@ B.1.1	4	5405	5123
 B.2.1	5	5123	4686");
 
             var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(FeaBar), "FeaBar should be parsed");
+            Assert.IsTrue(results[0].GetType() == typeof(FemBar), "FeaBar should be parsed");
             File.Delete(path);
         }
 
@@ -40,8 +40,8 @@ B.2.1	5	5123	4686");
 
             foreach (var header in headers)
             {
-                var match = FeaBar.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(FeaBar).Name}");
+                var match = FemBar.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(FemBar).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
             }
         }
@@ -57,7 +57,7 @@ B.2.1	5	5123	4686");
 
             foreach (var header in headers)
             {
-                var match = FeaBar.HeaderExpression.Match(header);
+                var match = FemBar.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }

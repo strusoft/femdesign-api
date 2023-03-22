@@ -14,8 +14,8 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Node" result
     /// </summary>
-    [Result(typeof(FeaNode), ListProc.FeaNode)]
-    public partial class FeaNode : IResult
+    [Result(typeof(FemNode), ListProc.FemNode)]
+    public partial class FemNode : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -34,7 +34,7 @@ namespace FemDesign.Results
         /// </summary>
         public double Z { get; }
 
-        internal FeaNode(int nodeId, double x, double y, double z)
+        internal FemNode(int nodeId, double x, double y, double z)
         {
             NodeId = nodeId;
             X = x;
@@ -63,23 +63,23 @@ namespace FemDesign.Results
             }
         }
 
-        internal static FeaNode Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static FemNode Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             int nodeId = Int32.Parse(row[0], CultureInfo.InvariantCulture);
             double x = Double.Parse(row[1], CultureInfo.InvariantCulture);
             double y = Double.Parse(row[2], CultureInfo.InvariantCulture);
             double z = Double.Parse(row[3], CultureInfo.InvariantCulture);
             string test = HeaderData["type"];
-            return new FeaNode(nodeId, x, y, z);
+            return new FemNode(nodeId, x, y, z);
         }
 
         /// <summary>
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructFeaNode(List<FemDesign.Results.FeaNode> Result)
+        public static Dictionary<string, object> DeconstructFeaNode(List<FemDesign.Results.FemNode> Result)
         {
-            var feaNodes = Result.Cast<FemDesign.Results.FeaNode>();
+            var feaNodes = Result.Cast<FemDesign.Results.FemNode>();
 
 
             // Parse Results from the object

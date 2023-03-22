@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("FdModel", "FdModel", "FEM-Design connection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Success", "Success", "", GH_ParamAccess.item);
         }
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
@@ -73,7 +73,7 @@ namespace FemDesign.Grasshopper
         public override void SetData(IGH_DataAccess DA)
         {
             DA.SetData("Connection", connection);
-            DA.SetData("FdModel", model);
+            DA.SetData("Model", model);
             DA.SetData("Success", success);
         }
     }

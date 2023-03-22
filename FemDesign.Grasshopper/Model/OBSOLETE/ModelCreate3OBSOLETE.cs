@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -115,7 +115,7 @@ namespace FemDesign.Grasshopper
             Model model = new Model(EnumParser.Parse<Country>(countryCode));
             model.AddEntities(bars, fictBars, slabs, fictShells, panels, covers, _loads, loadCases, loadCombinations, supports, storeys, axes, loadGroups, false);
 
-            DA.SetData("FdModel", model);
+            DA.SetData("Model", model);
         }
         protected override System.Drawing.Bitmap Icon
         {

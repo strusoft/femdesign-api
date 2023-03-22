@@ -125,9 +125,9 @@ namespace FemDesign.Grasshopper
                 IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
 
-                List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
-                List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
-                List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+                List<Results.FemNode> feaNodeRes = new List<Results.FemNode>();
+                List<Results.FemBar> feaBarRes = new List<Results.FemBar>();
+                List<Results.FemShell> feaShellRes = new List<Results.FemShell>();
 
                 if (resultTypes != null && resultTypes.Any())
                 {
@@ -138,15 +138,15 @@ namespace FemDesign.Grasshopper
                         {
                             if (path.Contains("FeaNode"))
                             {
-                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FemNode>().ToList();
                             }
                             else if (path.Contains("FeaBar"))
                             {
-                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FemBar>().ToList();
                             }
                             else if (path.Contains("FeaShell"))
                             {
-                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FemShell>().ToList();
                             }
                             else
                             {
@@ -174,11 +174,11 @@ namespace FemDesign.Grasshopper
                 }
 
 
-                Results.FDfea fdFeaModel = null;
+                Results.FiniteElement FiniteElement = null;
                 if (hasFiniteElent)
                 {
-                    fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
-                    resultsTree.Add(fdFeaModel, new GH_Path(i));
+                    FiniteElement = new FemDesign.Results.FiniteElement(feaNodeRes, feaBarRes, feaShellRes);
+                    resultsTree.Add(FiniteElement, new GH_Path(i));
                 }
 
                 DA.SetDataTree(0, resultsTree);

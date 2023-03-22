@@ -164,10 +164,10 @@
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
-    <Compile Include="Results\FiniteElements\FeaBar.cs" />
-    <Compile Include="Results\FiniteElements\FDfea.cs" />
-    <Compile Include="Results\FiniteElements\FeaNode.cs" />
-    <Compile Include="Results\FiniteElements\FeaShell.cs" />
+    <Compile Include="Results\FiniteElements\FemBar.cs" />
+    <Compile Include="Results\FiniteElements\FiniteElement.cs" />
+    <Compile Include="Results\FiniteElements\FemNode.cs" />
+    <Compile Include="Results\FiniteElements\FemShell.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\LineConnectionForce.cs" />

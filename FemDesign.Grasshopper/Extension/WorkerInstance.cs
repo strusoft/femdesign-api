@@ -82,7 +82,7 @@ namespace GrasshopperAsyncComponent
             }
         }
 
-        internal bool _success = false;
+        internal bool _success = true;
         internal List<string> _log = new List<string>();
         internal List<(GH_RuntimeMessageLevel, string)> RuntimeMessages { get; set; } = new List<(GH_RuntimeMessageLevel, string)>();
 

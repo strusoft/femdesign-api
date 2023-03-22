@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model to open.", GH_ParamAccess.item);
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
@@ -40,8 +40,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
-            pManager.Register_GenericParam("FdFeaModel", "FdFeaModel", "FemDesign Finite Element Geometries (nodes, bars, shells).");
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
+            pManager.Register_GenericParam("FiniteElement", "FiniteElement", "FemDesign Finite Element Geometries (nodes, bars, shells).");
             pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("HasExited", "HasExited", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
@@ -147,7 +147,7 @@ namespace FemDesign.Grasshopper
 
             bool rtn = false;
             var resultsTree = new DataTree<object>();
-            Results.FDfea fdFeaModel = null;
+            Results.FiniteElement FiniteElement = null;
 
 
 
@@ -166,9 +166,9 @@ namespace FemDesign.Grasshopper
 
                 IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
 
-                List<Results.FeaNode> feaNodeRes = new List<Results.FeaNode>();
-                List<Results.FeaBar> feaBarRes = new List<Results.FeaBar>();
-                List<Results.FeaShell> feaShellRes = new List<Results.FeaShell>();
+                List<Results.FemNode> feaNodeRes = new List<Results.FemNode>();
+                List<Results.FemBar> feaBarRes = new List<Results.FemBar>();
+                List<Results.FemShell> feaShellRes = new List<Results.FemShell>();
 
                 if (resultTypes != null && resultTypes.Any())
                 {
@@ -179,15 +179,15 @@ namespace FemDesign.Grasshopper
                         {
                             if (path.Contains("FeaNode"))
                             {
-                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FeaNode>().ToList();
+                                feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FemNode>().ToList();
                             }
                             else if (path.Contains("FeaBar"))
                             {
-                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FeaBar>().ToList();
+                                feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FemBar>().ToList();
                             }
                             else if (path.Contains("FeaShell"))
                             {
-                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FeaShell>().ToList();
+                                feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FemShell>().ToList();
                             }
                             else
                             {
@@ -202,7 +202,7 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
-                fdFeaModel = new FemDesign.Results.FDfea(feaNodeRes, feaBarRes, feaShellRes);
+                FiniteElement = new FemDesign.Results.FiniteElement(feaNodeRes, feaBarRes, feaShellRes);
 
                 var resultGroups = results.GroupBy(t => t.GetType()).ToList();
 
@@ -224,8 +224,8 @@ namespace FemDesign.Grasshopper
 
 
             // Set output
-            DA.SetData("FdModel", model);
-            DA.SetData("FdFeaModel", fdFeaModel);
+            DA.SetData("Model", model);
+            DA.SetData("FiniteElement", FiniteElement);
             DA.SetDataTree(2, resultsTree);
             DA.SetData(3, rtn);
 

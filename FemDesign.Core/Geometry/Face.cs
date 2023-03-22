@@ -66,7 +66,7 @@ namespace FemDesign.Geometry
             return isQuad;
         }
 
-        public static implicit operator Face(FemDesign.Results.FeaShell feaShell)
+        public static implicit operator Face(FemDesign.Results.FemShell feaShell)
         {
             var face = new Geometry.Face(feaShell.Node1, feaShell.Node2, feaShell.Node3, feaShell.Node4);
             return face;

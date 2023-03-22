@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the FeaNode class.
         /// </summary>
         public FeaShell_OBSOLETE()
-          : base("FdFeaModel.FeaShell", "FeaShell",
+          : base("FiniteElement.FeaShell", "FeaShell",
               "Deconstruct an Fea Shell in his Part",
               CategoryName.Name(), SubCategoryName.Cat7b())
         {
@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdFeaModel", "FdFeaModel", "Result to be Parse", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FiniteElement", "FiniteElement", "Result to be Parse", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,13 +45,13 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Results.FDfea fdFeaModel = null;
-            DA.GetData("FdFeaModel", ref fdFeaModel);
-            if (fdFeaModel == null)
+            FemDesign.Results.FiniteElement FiniteElement = null;
+            DA.GetData("FiniteElement", ref FiniteElement);
+            if (FiniteElement == null)
                 return;
 
             // Read the Shell Result
-            var result = FemDesign.Results.FeaShell.DeconstructFeaShell(fdFeaModel.FeaShell);
+            var result = FemDesign.Results.FemShell.DeconstructFeaShell(FiniteElement.FemShell);
 
             // Extract the results from the Dictionary
             var id = (List<string>)result["Identifier"];
@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
             var oFeaShellFaces = feaShellFaces.Select(x => x.ToRhino());
 
             // Read the Node Results
-            var nodeData = FemDesign.Results.FeaNode.DeconstructFeaNode(fdFeaModel.FeaNode);
+            var nodeData = FemDesign.Results.FemNode.DeconstructFeaNode(FiniteElement.FemNode);
 
             // Extract the results from the Dictionary
             var nodeId = (List<int>)nodeData["NodeId"];

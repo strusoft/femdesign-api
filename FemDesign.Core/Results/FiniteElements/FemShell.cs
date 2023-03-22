@@ -14,8 +14,8 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Shell" result
     /// </summary>
-    [Result(typeof(FeaShell), ListProc.FeaShell)]
-    public partial class FeaShell : IResult
+    [Result(typeof(FemShell), ListProc.FemShell)]
+    public partial class FemShell : IResult
     {
         /// <summary>
         /// Shell name identifier
@@ -51,7 +51,7 @@ namespace FemDesign.Results
         /// </summary>
         public int Node4 { get; }
 
-        internal FeaShell(string id, int elementId, int node1, int node2, int node3, int node4)
+        internal FemShell(string id, int elementId, int node1, int node2, int node3, int node4)
         {
             this.Id = id;
             this.ElementId = elementId;
@@ -82,7 +82,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static FeaShell Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static FemShell Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string id = row[0];
             int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
@@ -91,17 +91,17 @@ namespace FemDesign.Results
             int node3 = Int32.Parse(row[4], CultureInfo.InvariantCulture);
             int node4 = Int32.Parse(row[5], CultureInfo.InvariantCulture);
 
-            return new FeaShell(id, elementId, node1, node2, node3, node4);
+            return new FemShell(id, elementId, node1, node2, node3, node4);
         }
 
         /// <summary>
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructFeaShell(List<FemDesign.Results.FeaShell> Result)
+        public static Dictionary<string, object> DeconstructFeaShell(List<FemDesign.Results.FemShell> Result)
         {
             FemDesign.Geometry.Face face;
-            var feaShells = Result.Cast<FemDesign.Results.FeaShell>();
+            var feaShells = Result.Cast<FemDesign.Results.FemShell>();
 
             // Parse Results from the object
             var id = feaShells.Select(n => n.Id).ToList();

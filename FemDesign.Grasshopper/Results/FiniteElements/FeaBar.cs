@@ -15,8 +15,8 @@ namespace FemDesign.Grasshopper
         /// Initializes a new instance of the FeaBar class.
         /// </summary>
         public FeaBar()
-          : base("FdFeaModel.FeaBar", "FeaBar",
-              "Deconstruct an Fea Bar in his Part",
+          : base("FiniteElement.FemBar", "FemBar",
+              "Deconstruct a Fem Bar in his Part",
               CategoryName.Name(), SubCategoryName.Cat7b())
         {
         }
@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdFeaModel", "FdFeaModel", "Result to be Parse", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FiniteElement", "FiniteElement", "Result to be Parse", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,13 +48,13 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            FemDesign.Results.FDfea fdFeaModel = null;
-            DA.GetData("FdFeaModel", ref fdFeaModel);
-            if (fdFeaModel == null)
+            FemDesign.Results.FiniteElement FiniteElement = null;
+            DA.GetData("FiniteElement", ref FiniteElement);
+            if (FiniteElement == null)
                 return;
 
             // Read the Shell Result
-            var result = FemDesign.Results.FeaBar.DeconstructFeaBar(fdFeaModel.FeaBar);
+            var result = FemDesign.Results.FemBar.DeconstructFeaBar(FiniteElement.FemBar);
 
             // Extract the results from the Dictionary
             var id = (List<string>)result["Identifier"];
@@ -89,14 +89,14 @@ namespace FemDesign.Grasshopper
 
             for (i = 0; i < nodei.Count(); i++)
             {
-                var posStartX = fdFeaModel.FeaNode.ElementAt(nodei.ElementAt(i) - 1 ).X;
-                var posStartY = fdFeaModel.FeaNode.ElementAt(nodei.ElementAt(i) - 1).Y;
-                var posStartZ = fdFeaModel.FeaNode.ElementAt(nodei.ElementAt(i) - 1).Z;
+                var posStartX = FiniteElement.FemNode.ElementAt(nodei.ElementAt(i) - 1 ).X;
+                var posStartY = FiniteElement.FemNode.ElementAt(nodei.ElementAt(i) - 1).Y;
+                var posStartZ = FiniteElement.FemNode.ElementAt(nodei.ElementAt(i) - 1).Z;
                 var pointi = new Rhino.Geometry.Point3d(posStartX, posStartY, posStartZ);
 
-                var posEndX = fdFeaModel.FeaNode.ElementAt(nodej.ElementAt(i) - 1).X;
-                var posEndY = fdFeaModel.FeaNode.ElementAt(nodej.ElementAt(i) - 1).Y;
-                var posEndZ = fdFeaModel.FeaNode.ElementAt(nodej.ElementAt(i) - 1).Z;
+                var posEndX = FiniteElement.FemNode.ElementAt(nodej.ElementAt(i) - 1).X;
+                var posEndY = FiniteElement.FemNode.ElementAt(nodej.ElementAt(i) - 1).Y;
+                var posEndZ = FiniteElement.FemNode.ElementAt(nodej.ElementAt(i) - 1).Z;
                 var pointj = new Rhino.Geometry.Point3d(posEndX, posEndY, posEndZ);
 
                 var line = new Rhino.Geometry.LineCurve(pointi, pointj);

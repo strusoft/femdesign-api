@@ -130,7 +130,7 @@ namespace FemDesign.Geometry
             return point;
         }
 
-        public static implicit operator Point3d(FemDesign.Results.FeaNode feaNode)
+        public static implicit operator Point3d(FemDesign.Results.FemNode feaNode)
         {
             var point = new Geometry.Point3d(feaNode.X, feaNode.Y, feaNode.Z);
             return point;

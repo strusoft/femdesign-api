@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("HasExited", "HasExited", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)

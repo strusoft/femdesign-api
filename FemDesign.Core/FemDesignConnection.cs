@@ -389,9 +389,9 @@ namespace FemDesign
             return mixedResults;
         }
 
-        public List<Results.FeaNode> GetFeaNodes(Results.Length units = Results.Length.m)
+        public List<Results.FemNode> GetFeaNodes(Results.Length units = Results.Length.m)
         {
-            var _resultType = ListProc.FeaNode;
+            var _resultType = ListProc.FemNode;
 
             var unitResults = Results.UnitResults.Default();
             unitResults.Length = units;
@@ -416,19 +416,19 @@ namespace FemDesign
             this.RunScript(script, "GetFeaNode");
 
             // Read csv results files
-            List<FemDesign.Results.FeaNode> results = new List<FemDesign.Results.FeaNode>();
+            List<FemDesign.Results.FemNode> results = new List<FemDesign.Results.FemNode>();
             foreach (string resultFile in csvPaths)
             {
                 results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaNode)r)
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FemNode)r)
                 );
             }
 
             return results;
         }
-        public List<Results.FeaBar> GetFeaBars(Results.Length units = Results.Length.m)
+        public List<Results.FemBar> GetFeaBars(Results.Length units = Results.Length.m)
         {
-            var _resultType = ListProc.FeaBar;
+            var _resultType = ListProc.FemBar;
 
             var unitResults = Results.UnitResults.Default();
             unitResults.Length = units;
@@ -453,19 +453,19 @@ namespace FemDesign
             this.RunScript(script, "GetFeaBar");
 
             // Read csv results files
-            List<FemDesign.Results.FeaBar> results = new List<FemDesign.Results.FeaBar>();
+            List<FemDesign.Results.FemBar> results = new List<FemDesign.Results.FemBar>();
             foreach (string resultFile in csvPaths)
             {
                 results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaBar)r)
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FemBar)r)
                 );
             }
 
             return results;
         }
-        public List<Results.FeaShell> GetFeaShells(Results.Length units = Results.Length.m)
+        public List<Results.FemShell> GetFeaShells(Results.Length units = Results.Length.m)
         {
-            var _resultType = ListProc.FeaShell;
+            var _resultType = ListProc.FemShell;
 
             var unitResults = Results.UnitResults.Default();
             unitResults.Length = units;
@@ -490,17 +490,17 @@ namespace FemDesign
             this.RunScript(script, "GetFeaShell");
 
             // Read csv results files
-            List<FemDesign.Results.FeaShell> results = new List<FemDesign.Results.FeaShell>();
+            List<FemDesign.Results.FemShell> results = new List<FemDesign.Results.FemShell>();
             foreach (string resultFile in csvPaths)
             {
                 results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FeaShell)r)
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (Results.FemShell)r)
                 );
             }
 
             return results;
         }
-        public Results.FDfea GetFeaModel(Results.Length units = Results.Length.m)
+        public Results.FiniteElement GetFeaModel(Results.Length units = Results.Length.m)
         {
             //if( !HasResult())
             //{
@@ -511,7 +511,7 @@ namespace FemDesign
             var feaBar = GetFeaBars(units);
             var feaShell = GetFeaShells(units);
 
-            var fdFEa = new Results.FDfea(feaNode, feaBar, feaShell);
+            var fdFEa = new Results.FiniteElement(feaNode, feaBar, feaShell);
 
             return fdFEa;
         }

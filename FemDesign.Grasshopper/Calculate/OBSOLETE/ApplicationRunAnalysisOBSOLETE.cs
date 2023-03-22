@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("FdModel", "FdModel", "FdModel to open.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Model", "Model", "Model to open.", GH_ParamAccess.item);
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml", GH_ParamAccess.item);
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddTextParameter("BscPath", "BscPath", "File path(s) to batch-file (.bsc) to run. Optional parameter.", GH_ParamAccess.list);

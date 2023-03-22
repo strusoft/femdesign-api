@@ -10,32 +10,29 @@ using Autodesk.DesignScript.Runtime;
 
 namespace FemDesign.Results
 {
-    #if ISDYNAMO
-    [IsVisibleInDynamoLibrary(false)]
-    #endif
-    public partial class FDfea
+    public partial class FiniteElement
     {
         /// <summary>
         /// Fea Nodes Object
         /// </summary>
-        public List<FeaNode> FeaNode { get; set; }
+        public List<FemNode> FemNode { get; set; }
 
         /// <summary>
         /// Fea Bar Object
         /// </summary>
-        public List<FeaBar> FeaBar { get; set; }
+        public List<FemBar> FemBar { get; set; }
 
         /// <summary>
         /// Fea Shell Object
         /// </summary>
-        public List<FeaShell> FeaShell { get; set; }
+        public List<FemShell> FemShell { get; set; }
 
 
-        public FDfea(List<FeaNode> feaNode, List<FeaBar> feaBar, List<FeaShell> feaShell)
+        public FiniteElement(List<FemNode> femNode, List<FemBar> femBar, List<FemShell> femShell)
         {
-            this.FeaNode = feaNode;
-            this.FeaBar = feaBar;
-            this.FeaShell = feaShell;
+            this.FemNode = femNode;
+            this.FemBar = femBar;
+            this.FemShell = femShell;
         }
     }
 }
