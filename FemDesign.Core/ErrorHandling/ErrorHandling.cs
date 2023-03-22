@@ -8,14 +8,14 @@ namespace FemDesign.Utils
 {
     public static class ErrorHandling
     {
-        public static List<string> ErrorMessage = new List<string>{
+        public readonly static List<string> ErrorMessage = new List<string>{
             "No declared load or dead load.",
             "No declared mass.",
             "No declared load combination.",
             "No declared support."
         };
         
-        public static List<string> WarningMessase = new List<string>{
+        public readonly static List<string> WarningMessase = new List<string>{
             "Dlg message ## ~Large nodal displacement or rotation was found."
         };
 
@@ -47,7 +47,5 @@ namespace FemDesign.Utils
             warning = null;
             return warning;
         }
-
-
     }
 }

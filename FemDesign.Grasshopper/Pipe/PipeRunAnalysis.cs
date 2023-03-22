@@ -45,10 +45,6 @@ namespace FemDesign.Grasshopper
         private FemDesignConnection _connection = null;
         private Calculate.Analysis _analysis = null;
         private bool _runNode = true;
-        private bool _success = false;
-        private List<string> _log = new List<string>();
-
-        List<(GH_RuntimeMessageLevel, string)> RuntimeMessages { get; set; } = new List<(GH_RuntimeMessageLevel, string)>();
 
         public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
 
@@ -85,24 +81,6 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            void onOutput(string message)
-            {
-                _log.Add(message);
-
-                var msg = new List<string> { message };
-
-                if (FemDesign.Utils.ErrorHandling.HasError(msg, out string error) != null)
-                {
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, error));
-                    _success = false;
-                }
-
-                if (FemDesign.Utils.ErrorHandling.HasWarning(msg, out string warning) != null)
-                {
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, warning));
-                }
-            }
-
             _connection.SetVerbosity(_connection.Verbosity);
             _connection.OnOutput += onOutput;
 
@@ -110,7 +88,6 @@ namespace FemDesign.Grasshopper
             _connection.RunAnalysis(_analysis);
 
             _connection.OnOutput -= onOutput;
-            _success = true;
 
             Done();
         }
