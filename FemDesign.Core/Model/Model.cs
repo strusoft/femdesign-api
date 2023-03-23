@@ -1591,7 +1591,7 @@ namespace FemDesign
         private void AddLoadCase(Loads.LoadCase loadCase, bool overwrite)
         {
             if (loadCase is null)
-                throw new ArgumentNullException("loadCase");
+                throw new ArgumentNullException("loadCase can not be null!");
 
             // in model?
             bool inModel = this.LoadCaseInModel(loadCase);
