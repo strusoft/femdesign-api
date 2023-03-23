@@ -33,9 +33,9 @@ namespace FemDesign.Grasshopper
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddGenericParameter("BarReinforcement", "BarReinforcement", "BarReinforcment to add to bar. Item or list.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("BarReinforcement", "BarReinforcement", "BarReinforcment to add to bar. Item or list. New reinforcement will overwrite the original.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables. New PTC will overwrite the original.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
@@ -55,8 +55,8 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
            pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal bars.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
         }
        protected override void SolveInstance(IGH_DataAccess DA)
@@ -161,7 +161,7 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Reinforcement.Ptc> ptc = new List<FemDesign.Reinforcement.Ptc>();
             if(DA.GetDataList(10, ptc))
             {
-                var clonedPtc= ptc.Select(x => x.DeepClone()).ToList();
+                var clonedPtc = ptc.Select(x => x.DeepClone()).ToList();
                 bar.Ptc.Clear();
                 bar = FemDesign.Reinforcement.Ptc.AddPtcToBar(bar, clonedPtc, true);
             }

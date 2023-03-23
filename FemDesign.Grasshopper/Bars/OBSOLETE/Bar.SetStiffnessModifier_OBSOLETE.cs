@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Bars_SetStiffnessModifier : GH_Component
+    public class Bars_SetStiffnessModifier_OBSOLETE : GH_Component
     {
-        public Bars_SetStiffnessModifier() : base("Bars.SetStiffnessModifier", "StiffnessModifier", "Set StiffnessModifier factor on Beam.", CategoryName.Name(),
+        public Bars_SetStiffnessModifier_OBSOLETE() : base("Bars.SetStiffnessModifier", "StiffnessModifier", "Set StiffnessModifier factor on Beam.", CategoryName.Name(),
              SubCategoryName.Cat2a())
         {
 
@@ -49,6 +49,6 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{388DB204-30B4-4337-B98F-734F5E83538F}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

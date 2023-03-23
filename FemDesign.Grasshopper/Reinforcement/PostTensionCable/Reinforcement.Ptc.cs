@@ -1,19 +1,34 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
-
+using FemDesign.Grasshopper;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Reinforcement
 {
     public class ReinforcementPtc : GH_Component
     {
+        public static readonly List<string> JackingSideValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Ptc_jacking_side)).ToList();
+        public static string JackingSideValueListDescription
+        {
+            get
+            {
+                var str = "";
+                foreach (var j in JackingSideValueList)
+                {
+                    str += "\n" + j;
+                }
+                return str;
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.
         /// </summary>
-        public ReinforcementPtc(): base("PTC.Define", "Define", "Create post-tensioning cables for bars. Curved bars are not supported.", "FEM-Design", "Reinforcement")
+        public ReinforcementPtc(): base("PTC.Define", "Define", "Create post-tensioning cables.", "FEM-Design", "Reinforcement")
         {
         }
 
@@ -22,12 +37,12 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Curve", "Curve", "Line curve.", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Line", "Line", "Straight line.", GH_ParamAccess.item);
             pManager.AddGenericParameter("PTC.Shape", "Shape", "Cable shape.", GH_ParamAccess.item);
             pManager.AddGenericParameter("PTC.Losses", "Losses", "Short and long term losses.", GH_ParamAccess.item);
             pManager.AddGenericParameter("PTC.Manufacturing", "Manufacturing", "Cable manufacturing.", GH_ParamAccess.item);
             pManager.AddGenericParameter("PTC.Strand", "Strand", "Post-tensioning strands.", GH_ParamAccess.item);
-            pManager.AddTextParameter("JackingSide", "JackingSide", "Connect 'Value List' to get the options.\nJacking side type:\nstart\nend\nstart_then_end\nend_then_start.\n\nOptional, default value if undefined. Default value is start.", GH_ParamAccess.item,"start");
+            pManager.AddTextParameter("JackingSide", "JackingSide", $"Connect 'Value List' to get the options:{JackingSideValueListDescription}\n\nOptional, default value if undefined. Default value: '{JackingSideValueList[0]}'.", GH_ParamAccess.item, JackingSideValueList[0]);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("JackingStress", "JackingStress", "Jacking stress [N/mm2]. Optional, default value if undefined. Default value is 1416 N/mm2.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -47,7 +62,7 @@ namespace FemDesign.Reinforcement
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 5, new List<string>{"start", "end", "start_then_end", "end_then_start" }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.updateValueLists(this, 5, JackingSideValueList, null, GH_ValueListMode.DropDown);
         }
 
         /// <summary>
@@ -61,34 +76,34 @@ namespace FemDesign.Reinforcement
             PtcLosses losses = null;
             PtcManufacturingType manufacturing = null;
             PtcStrandLibType strandData = null;
-            string jackingSide = "start";
+            string jackingSide = JackingSideValueList[0];
             double jackingStress = 1416;
             int numberOfStrands = 3;
             string identifier = "PTC";
 
-            if (!DA.GetData("Curve", ref curve)) { return; }
-            if (!DA.GetData("Shape", ref shape)) { return; }
-            if (!DA.GetData("Losses", ref losses)) { return; }
-            if (!DA.GetData("Manufacturing", ref manufacturing)) { return; }
-            if (!DA.GetData("StrandData", ref strandData)) { return; }
-            DA.GetData("JackingSide", ref jackingSide);
-            DA.GetData("JackingStress", ref jackingStress);
-            DA.GetData("NumberOfStrands", ref numberOfStrands);
-            DA.GetData("Identifier", ref identifier);
+            if (!DA.GetData(0, ref curve)) { return; }
+            if (!DA.GetData(1, ref shape)) { return; }
+            if (!DA.GetData(2, ref losses)) { return; }
+            if (!DA.GetData(3, ref manufacturing)) { return; }
+            if (!DA.GetData(4, ref strandData)) { return; }
+            DA.GetData(5, ref jackingSide);
+            DA.GetData(6, ref jackingStress);
+            DA.GetData(7, ref numberOfStrands);
+            DA.GetData(8, ref identifier);
 
             if (curve == null || shape == null || losses == null || manufacturing == null || strandData == null) { return; }
 
+
+            JackingSide side = FemDesign.GenericClasses.EnumParser.Parse<JackingSide>(jackingSide);
+
             // convert geometry
-            FemDesign.Geometry.Edge line = curve.FromRhinoLineOrArc1();
-
-            if(!line.IsLine())
+            if (!curve.IsLinear())
             {
-                throw new System.ArgumentException("Curve parameter is not straight. PTC can only be added to lines.");
+                throw new System.ArgumentException("Curve must be a Line");
             }
+            FemDesign.Geometry.LineEdge fdLine = FemDesign.Grasshopper.Convert.FromRhino2(curve);
 
-            JackingSide side = GenericClasses.EnumParser.Parse<JackingSide>(jackingSide);
-
-            var ptc = new Ptc(line, shape, losses, manufacturing, strandData, side, jackingStress, numberOfStrands, identifier);
+            var ptc = new Ptc(fdLine, shape, losses, manufacturing, strandData, side, jackingStress, numberOfStrands, identifier);
 
             DA.SetData(0, ptc);
         }

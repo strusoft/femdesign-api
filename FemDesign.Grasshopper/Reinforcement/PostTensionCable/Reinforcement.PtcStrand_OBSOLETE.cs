@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace FemDesign.Reinforcement
 {
-    public class PtcStrand : GH_Component
+    public class PtcStrand_OBSOLETE : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the PtcStrand class.
         /// </summary>
-        public PtcStrand(): base("PTC.Strand", "Strand", "Post-tensioning strands.", "FEM-Design", "Reinforcement")
+        public PtcStrand_OBSOLETE() : base("PtcStrand", "Strand", "Description", "FEM-Design", "Reinforcement")
         {
         }
 
@@ -20,13 +20,13 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Name", "Name", "Starnd type name.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("f pk", "f pk", "Characteristic value of tensile strength [N/mm2].", GH_ParamAccess.item);
-            pManager.AddNumberParameter("A p", "A p", "Cross sectional area (nominal value).", GH_ParamAccess.item);
-            pManager.AddNumberParameter("E p", "E p", "Modulus of elasticity [N/mm2].", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Rho", "Rho", "Density [t/m3]", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("RelaxationClass", "RelaxationClass", "Relaxation class. Enter a value between 1 and 3.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Rho 1000", "Rho 1000", "Relaxation at 1000 hour [%].", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "Name", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("f pk", "f pk", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("A p", "A p", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("E p", "E p", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Rho", "Rho", "Density", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("RelaxationClass", "RelaxationClass", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Rho 1000", "Rho 1000", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FemDesign.Reinforcement
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("PTC.Strand", "Strand", "Post-tensioning strands.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PtcStrand", "Strand", "FemDesign.Reinforcement.PtcStrandLibType", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -50,20 +50,17 @@ namespace FemDesign.Reinforcement
             double density = 0.0;
             int relaxationClass = 2;
             double rho_1000 = 0.0;
-
-            if (!DA.GetData(0, ref name)) { return; }
-            if (!DA.GetData(1, ref f_pk)) { return; }
-            if (!DA.GetData(2, ref a_p)) { return; }
-            if (!DA.GetData(3, ref e_p)) { return; }
-            if (!DA.GetData(4, ref density)) { return; }
-            if (!DA.GetData(5, ref relaxationClass)) { return; }
-            if (!DA.GetData(6, ref rho_1000)) { return; }
-
-            if (name == null || f_pk == 0 || a_p == 0 || e_p == 0 || density == 0 || relaxationClass == 0 || rho_1000 == 0) { return; }
+            DA.GetData("Name", ref name);
+            DA.GetData("f pk", ref f_pk);
+            DA.GetData("A p", ref a_p);
+            DA.GetData("E p", ref e_p);
+            DA.GetData("Rho", ref density);
+            DA.GetData("RelaxationClass", ref relaxationClass);
+            DA.GetData("Rho 1000", ref rho_1000);
 
             var strand = new PtcStrandLibType(name, f_pk, a_p, e_p, density, relaxationClass, rho_1000);
 
-            DA.SetData(0, strand);
+            DA.SetData("PtcStrand", strand);
         }
 
         /// <summary>
@@ -84,9 +81,9 @@ namespace FemDesign.Reinforcement
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("E1E8E8A5-B7BB-428A-BD4D-E642BB760005"); }
+            get { return new Guid("6323fbff-e53a-40dd-b368-8d60f04fec3d"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

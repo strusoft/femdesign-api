@@ -68,7 +68,7 @@ namespace FemDesign.Reinforcement
         }
         public override string ToString()
         {
-            return $"{this.GetType().Name} - {this.ReinforcingMaterial}; {this.Diameter}; {this.Profile}";
+            return $"{this.GetType().Name} - {this.ReinforcingMaterial}; D={this.Diameter}; {this.Profile}";
         }
     }
 }

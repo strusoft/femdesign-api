@@ -186,6 +186,55 @@ namespace FemDesign.Grasshopper
         }
 
         /// <summary>
+        /// Convert a Rhino Curve to LineEdge
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static Geometry.LineEdge FromRhino2(this Rhino.Geometry.Curve obj)
+        {
+            // check length
+            if (obj.GetLength() < FemDesign.Tolerance.Point3d)
+            {
+                throw new System.ArgumentException("Curve has no length.");
+            }
+
+            // if LineCurve
+            else if (obj.GetType() == typeof(Rhino.Geometry.LineCurve))
+            {
+                return ((Rhino.Geometry.LineCurve)obj).FromRhinoLineCurve2();
+            }
+
+            // if PolyCurve
+            else if (obj.GetType() == typeof(Rhino.Geometry.PolylineCurve))
+            {
+                //if(obj.PointCount)
+                Rhino.Geometry.PolylineCurve polyCurve = (Rhino.Geometry.PolylineCurve)obj;
+                if (polyCurve.PointCount == 2)
+                {
+                    var lineCurve = new Rhino.Geometry.LineCurve(polyCurve.PointAtStart, polyCurve.PointAtEnd);
+                    return lineCurve.FromRhinoLineCurve2();
+                }
+                else
+                {
+                    throw new Exception($"Curve type: {obj.GetType()}, is not supported for conversion to a LineEdge.");
+                }
+            }
+
+            // if NurbsCurve
+            else if (obj.GetType() == typeof(Rhino.Geometry.NurbsCurve))
+            {
+                throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not supported for conversion to a LineEdge.");
+            }
+
+            // else
+            else
+            {
+                throw new System.ArgumentException($"Curve type: {obj.GetType()}, is not supported for conversion to a LineEdge.");
+            }
+        }
+
+
+        /// <summary>
         /// Create Edge (Line or Arc1) from Rhino LineCurve or open ArcCurve.
         /// </summary>
         public static Geometry.Edge FromRhinoLineOrArc1(this Rhino.Geometry.Curve obj)
@@ -392,7 +441,22 @@ namespace FemDesign.Grasshopper
         }
 
         /// <summary>
-        /// Create Edge (Line) from Rhino linear NurbsCurve.
+        /// Create LineEdge (Line) from Rhino Curve.
+        /// </summary>
+        public static Geometry.LineEdge FromRhinoLineCurve2(this Rhino.Geometry.LineCurve obj)
+        {
+            Geometry.Point3d startPoint = obj.PointAtStart.FromRhino();
+            Geometry.Point3d endPoint = obj.PointAtEnd.FromRhino();
+
+            // lcs
+            FemDesign.Geometry.Plane cs = obj.FromRhinoCurve();
+
+            // return
+            return new Geometry.LineEdge(startPoint, endPoint, cs);
+        }
+
+        /// <summary>
+        /// Create Edge(Line) from Rhino linear NurbsCurve.
         /// </summary>
         public static Geometry.Edge FromRhinoLinearNurbsCurve(this Rhino.Geometry.NurbsCurve obj)
         {

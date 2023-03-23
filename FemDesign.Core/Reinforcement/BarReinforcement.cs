@@ -206,7 +206,7 @@ namespace FemDesign.Reinforcement
         }
         public override string ToString()
         {
-            return $"{this.GetType().FullName}: {this.Wire}";
+            return $"{this.GetType().FullName} - {this.Wire}";
         }
     }
 }

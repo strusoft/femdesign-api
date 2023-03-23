@@ -76,7 +76,7 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
-    <Compile Include="Bars\Bar.SetStiffnessModifier.cs" />
+    <Compile Include="Bars\OBSOLETE\Bar.SetStiffnessModifier_OBSOLETE.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
@@ -187,6 +187,7 @@
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
@@ -329,7 +330,7 @@
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reinforcement\BarReinforcementAddToBar_OBSOLETE.cs" />
+    <Compile Include="Reinforcement\Obsolete\BarReinforcementAddToBar_OBSOLETE.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcManufacturing.cs" />
