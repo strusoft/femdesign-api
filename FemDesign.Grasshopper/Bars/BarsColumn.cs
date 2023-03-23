@@ -87,11 +87,11 @@ namespace FemDesign.Grasshopper
             if (curve == null || material == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
 
             // convert geometry
-            if (curve.GetType() != typeof(LineCurve))
+            if (!curve.IsLinear())
             {
                 throw new System.ArgumentException("Curve must be a LineCurve");
             }
-            FemDesign.Geometry.Edge edge = Convert.FromRhinoLineCurve((LineCurve)curve);
+            FemDesign.Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // create bar
             var type = FemDesign.Bars.BarType.Column;
