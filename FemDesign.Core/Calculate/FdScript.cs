@@ -42,11 +42,6 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public abstract partial class CmdCommand
     {
-        //public XElement ToXElement()
-        //{
-        //    return Extension.ToXElement<CmdCommand>(this);
-        //}
-
         public abstract XElement ToXElement();
 
     }

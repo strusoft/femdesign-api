@@ -199,6 +199,17 @@ namespace FemDesign
             this.RunScript(script, "SetGlobalConfig");
         }
 
+        public void SetConfig(Calculate.CmdConfig cmdconfig)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(
+                logfile,
+                cmdconfig
+            );
+            this.RunScript(script, "SetGlobalConfig");
+        }
+
+
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.
         /// </summary>
