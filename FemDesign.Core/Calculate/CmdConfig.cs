@@ -1,21 +1,19 @@
-﻿// https://strusoft.com/
-using System.Xml.Serialization;
-using System.Xml.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
+using FemDesign.Results;
+using System.Reflection;
+using System.Xml.Linq;
+using System.Text;
 
 namespace FemDesign.Calculate
 {
-    /// <summary>
-    /// fdscript.xsd
-    /// CmdConfig
-    /// </summary>
     [XmlRoot("cmdconfig")]
     [System.Serializable]
     public partial class CmdConfig : CmdCommand
     {
-
         [XmlAttribute("command")]
         public string Command { get; set; } = "$ MODULECOM APPLYCFG";
 
@@ -42,6 +40,7 @@ namespace FemDesign.Calculate
             Config = configs.ToList();
         }
 
+
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdConfig>(this);
@@ -49,7 +48,6 @@ namespace FemDesign.Calculate
     }
 
     //CODE GENERATED WITH THE HELP OF CHAT_GPT. WE NEED TO REVIEW IT AND ADD THE CORRECT TYPE. STRING, int, bool, DOUBLE
-
     [System.Serializable]
     public partial class CcmsConfig : CONFIG
     {
@@ -62,6 +60,11 @@ namespace FemDesign.Calculate
         [XmlAttribute("StripeWidth")]
         public double StripeWidth { get; set; }
 
+        private CcmsConfig()
+        {
+
+        }
+
         public CcmsConfig(bool ignoreShearStrength, double stripeWidth)
         {
             IgnoreAnnexForShearStrength = ignoreShearStrength;
@@ -69,6 +72,7 @@ namespace FemDesign.Calculate
         }
     }
 
+    [XmlRoot("cmdconfig")]
     [System.Serializable]
     public partial class EcrcConfig : CONFIG
     {
@@ -76,6 +80,11 @@ namespace FemDesign.Calculate
         public string Type { get; set; } = "ECRCCONFIG";
         [XmlAttribute("s2ndOrder")]
         public bool S2ndOrder { get; set; }
+
+        private EcrcConfig()
+        {
+
+        }
 
         public EcrcConfig(bool secondOrder)
         {
@@ -104,6 +113,11 @@ namespace FemDesign.Calculate
         [XmlAttribute("tf")]
         public double Tf { get; set; }
 
+        private EcDesparamPanelTmcLtFire()
+        {
+
+        }
+
         public EcDesparamPanelTmcLtFire(double beta0, double k2, double limitUtilisation, double tch, double tf)
         {
             Beta0 = beta0;
@@ -119,6 +133,12 @@ namespace FemDesign.Calculate
     {
         [XmlAttribute("type")]
         public string Type { get; set; } = "CCCOCONFIG";
+
+        public CcCoConfig()
+        {
+
+        }
+
     }
 
     [System.Serializable]
@@ -129,6 +149,11 @@ namespace FemDesign.Calculate
 
         [XmlAttribute("sInteraction")]
         public bool Interaction { get; set; }
+
+        private EcstConfig()
+        {
+
+        }
 
         public EcstConfig(bool interaction)
         {
@@ -150,6 +175,12 @@ namespace FemDesign.Calculate
 
         [XmlAttribute("rPlankWidth")]
         public double PlankWidth { get; set; }
+
+        private CalcParamTimberPanelClt()
+        {
+
+        }
+
     }
 
     //[System.Serializable]
@@ -218,6 +249,16 @@ namespace FemDesign.Calculate
     /// <summary>
     /// Base class for all CONFIG that can be use for cmdconfig
     /// </summary>
+    /// 
+    [XmlInclude(typeof(CcmsConfig))]
+    [XmlInclude(typeof(EcrcConfig))]
+    [XmlInclude(typeof(EcDesparamPanelTmcLtFire))]
+    [XmlInclude(typeof(CcCoConfig))]
+    [XmlInclude(typeof(EcstConfig))]
+    [XmlInclude(typeof(CalcParamTimberPanelClt))]
     [System.Serializable]
-    public abstract partial class CONFIG { }
+    public abstract partial class CONFIG
+    {
+    
+    }
 }

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using FemDesign.Results;
 using System.Reflection;
 using System.Xml.Linq;
+using System.Xml;
 using System.Text;
 
 namespace FemDesign.Calculate
@@ -21,6 +22,7 @@ namespace FemDesign.Calculate
                 {
                     XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                     ns.Add("", "");
+
                     var xmlSerializer = new XmlSerializer(typeof(T));
                     xmlSerializer.Serialize(streamWriter, obj, ns);
                     return XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
