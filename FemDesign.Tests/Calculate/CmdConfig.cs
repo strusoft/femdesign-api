@@ -21,12 +21,6 @@ namespace FemDesign.Calculate
 
             var ecst = new EcstConfig(true);
             var config = new FemDesign.Calculate.CmdConfig(cmsConfig, coCoConfig, ecst);
-
-            var fdscript = new Calculate.FdScript(@"C:\temp\fdscript_test.xml", config);
-            var path = @"C:\temp\fdscript_test.xml";
-            fdscript.Serialize(path );
-
-
         }
 
     }
