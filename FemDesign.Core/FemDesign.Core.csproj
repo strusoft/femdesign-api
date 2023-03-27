@@ -398,11 +398,15 @@
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cmdglobalcfg.xml">
+    <None Include="Calculate\Config\cmdglobalcfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Calculate\Config\cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

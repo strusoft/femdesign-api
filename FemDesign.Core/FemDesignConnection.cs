@@ -199,6 +199,7 @@ namespace FemDesign
             this.RunScript(script, "SetGlobalConfig");
         }
 
+
         public void SetConfig(Calculate.CmdConfig cmdconfig)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -206,7 +207,7 @@ namespace FemDesign
                 logfile,
                 cmdconfig
             );
-            this.RunScript(script, "SetGlobalConfig");
+            this.RunScript(script, "SetConfig");
         }
 
 
