@@ -72,7 +72,7 @@ namespace FemDesign.Grasshopper
             if (_connection != null)
                 _connection.Dispose();
 
-            _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir);
+            _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir, tempOutputDir: true);
 
             DA.SetData("Connection", _connection);
         }

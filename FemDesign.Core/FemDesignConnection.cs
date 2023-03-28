@@ -799,15 +799,36 @@ namespace FemDesign
             this._connection.Dispose();
 
             // TODO: Delete the files when they are not locked by FEM-Design
-            //_deleteOutputDirectories();
+            this._deleteOutputDirectories();
         }
 
         private void _deleteOutputDirectories()
         {
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
-                    Directory.Delete(dir, true);
+                    _deleteFolderIfNotUsed(dir);
         }
+
+
+        private static void _deleteFolderIfNotUsed(string folderPath)
+        {
+            try
+            {
+                Directory.Delete(folderPath, true);
+            }
+            catch (IOException ex)
+            {
+                // Check if the exception is due to a file or folder being in use
+                if ((ex.HResult & 0xFFFF) == 32 || (ex.HResult & 0xFFFF) == 33)
+                {
+                    // The folder or a file is in use, so we can't delete it yet
+                    return;
+                }
+                // The exception is not related to a file or folder being in use, rethrow it
+                throw;
+            }
+        }
+
 
         public string OutputDir
         {
