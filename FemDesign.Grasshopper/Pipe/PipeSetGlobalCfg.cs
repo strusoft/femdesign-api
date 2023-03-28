@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
+using System.Reflection;
 
 namespace FemDesign.Grasshopper
 {
@@ -79,6 +80,13 @@ namespace FemDesign.Grasshopper
             }
 
             // Run the Analysis
+
+            if (_globalCfgPath == null)
+            {
+                string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+                _globalCfgPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
+            }
+
             var _globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(_globalCfgPath);
             _connection.SetGlobalConfig(_globalCfg);
             _success = true;

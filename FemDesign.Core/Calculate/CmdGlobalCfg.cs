@@ -74,14 +74,8 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Deserialize CmdGlobalCfg from resource.
         /// </summary>
-        public static CmdGlobalCfg DeserializeCmdGlobalCfgFromFilePath(string filePath = null)
+        public static CmdGlobalCfg DeserializeCmdGlobalCfgFromFilePath(string filePath)
         {
-            if(filePath == null)
-            {
-                string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                filePath = System.IO.Path.Combine( System.IO.Path.GetDirectoryName( assemblyLocation ), @"cmdglobalcfg.xml");
-            }
-
             XmlSerializer deserializer = new XmlSerializer(typeof(CmdGlobalCfg));
             TextReader reader = new StreamReader(filePath);
             object obj = deserializer.Deserialize(reader);

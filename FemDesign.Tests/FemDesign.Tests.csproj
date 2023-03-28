@@ -196,6 +196,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Calculate\cmdglobalcfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="System.Drawing.dll" />
   </ItemGroup>
   <Choose>

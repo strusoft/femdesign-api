@@ -34,7 +34,7 @@ namespace FemDesign.Calculate
         [TestMethod("DeserialiseGlobalcfg")]
         public void DeserialiseGlobalcfg()
         {
-            var globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath();
+            var globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(@"Calculate\cmdglobalcfg.xml");
             Assert.IsNotNull(globalCfg);
         }
     }
