@@ -8,32 +8,31 @@ namespace FemDesign.Grasshopper
 {
     public class SlabDeconstruct: GH_Component
     {
-       public SlabDeconstruct(): base("Slab.Deconstruct", "Deconstruct", "Deconstruct a slab element.", "FEM-Design", "Deconstruct")
+       public SlabDeconstruct(): base("Shell.Deconstruct", "Deconstruct", "Deconstruct a shell element. Plate or Wall", "FEM-Design", "Deconstruct")
        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddGenericParameter("Slab", "Slab", "Slab.", GH_ParamAccess.item);           
-       } 
+           pManager.AddGenericParameter("Shell", "Shell", "Shell.", GH_ParamAccess.item);
+       }
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {
            pManager.AddTextParameter("Guid", "Guid", "Guid.", GH_ParamAccess.item);
            pManager.AddBrepParameter("Surface", "Surface", "Surface", GH_ParamAccess.item);
-           pManager.AddGenericParameter("ThicknessItems", "ThickItems", "Thickness items. List of LocationValues", GH_ParamAccess.list);
+           pManager.Register_GenericParam("ThicknessItems", "ThickItems", "Thickness items. List of LocationValues");
            pManager.AddGenericParameter("Material", "Material", "Material", GH_ParamAccess.item);
            pManager.AddGenericParameter("ShellEccentricity", "Eccentricity", "ShellEccentricity.", GH_ParamAccess.item);
            pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrhotropy", GH_ParamAccess.item);
            pManager.AddCurveParameter("EdgeCurves", "EdgeCurves", "EdgeCurves", GH_ParamAccess.list);
-           pManager.AddGenericParameter("EdgeConnections", "EdgeConnections", "EdgeConnections", GH_ParamAccess.list);
+           pManager.Register_GenericParam("EdgeConnections", "EdgeConnections", "EdgeConnections");
            pManager.AddVectorParameter("LocalX", "LocalX", "LocalX", GH_ParamAccess.item);
            pManager.AddVectorParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
            pManager.AddGenericParameter("SurfaceReinforcementParameters", "SrfReinfParams", "SurfaceReinforcementParameters", GH_ParamAccess.item);
-           pManager.AddGenericParameter("SurfaceReinforcement", "SrfReinf", "SurfaceReinforcement", GH_ParamAccess.list);
-        //    pManager.AddVectorParameter("Reinforcement x-direction", "ReinfXDir", "X-direction of reinforcement layout", GH_ParamAccess.item);
-        //    pManager.AddVectorParameter("Reinforcement y-direction", "ReinfYDir", "Y-direction of reinforcement layout", GH_ParamAccess.item);
-           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);     
-       }
+           pManager.Register_GenericParam("SurfaceReinforcement", "SrfReinf", "SurfaceReinforcement");
+           pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
+           pManager.AddTextParameter("Type", "Shell Type", "Plate or Wall.", GH_ParamAccess.item);
+        }
        protected override void SolveInstance(IGH_DataAccess DA)
        {
             // get input
@@ -61,7 +60,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(10, slab.SurfaceReinforcementParameters);
             DA.SetDataList(11, slab.SurfaceReinforcement);
             DA.SetData(12, slab.Name);
-
+            DA.SetData(13, slab.Type);
        }
        protected override System.Drawing.Bitmap Icon
        {
