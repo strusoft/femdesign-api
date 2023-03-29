@@ -6,11 +6,11 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FemDesignConnectionComponent : GH_Component
+    public class FemDesignConnectionComponent_OBSOLETE : GH_Component
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
+        public FemDesignConnectionComponent_OBSOLETE() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -24,10 +24,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("OutputDir", "OutputDir",
-                "The directory to save script files. Default, the files will be will be written to the same directory of your .gh script.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
-            pManager.AddBooleanParameter("DeleteOutputFolder", "DeleteOutputFolder", "The directory to save script files will be deleted when the connection close or disconnect", GH_ParamAccess.item, false);
+                "The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -46,8 +43,8 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // TODO: Set version as global variable in FemDesign.Core
-            
-            string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 22\";
+
+            string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 22 Night Install\";
             DA.GetData("FEM-Design dir", ref fd_installation_folder);
 
             bool minimized = false;
@@ -67,9 +64,6 @@ namespace FemDesign.Grasshopper
                 System.IO.Directory.SetCurrentDirectory(_ghfileDir);
             }
 
-            bool delteDir = false;
-            DA.GetData("DeleteOutputFolder", ref delteDir);
-
 
             AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Do not manually close the currently open instance of FEM-Design. \n If you want to close FEM-Design, delete this component.");
 
@@ -78,13 +72,13 @@ namespace FemDesign.Grasshopper
             if (_connection != null)
                 _connection.Dispose();
 
-            _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir, tempOutputDir: delteDir);
+            _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir);
 
             DA.SetData("Connection", _connection);
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Connection;
-        public override Guid ComponentGuid => new Guid("{F560002E-7AF2-41B7-BBFD-1F6B51A3A43E}");
+        public override Guid ComponentGuid => new Guid("ae8824c3-26bf-42fd-9052-5f407b3540c1");
         public override GH_Exposure Exposure => GH_Exposure.primary;
     }
 }

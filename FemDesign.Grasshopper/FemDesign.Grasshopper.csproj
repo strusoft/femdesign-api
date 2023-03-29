@@ -107,6 +107,7 @@
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />

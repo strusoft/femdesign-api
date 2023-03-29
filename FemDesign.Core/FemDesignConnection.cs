@@ -78,7 +78,7 @@ namespace FemDesign
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
 
             OutputDir = outputDir;
-            if (string.IsNullOrEmpty(outputDir) == false && tempOutputDir)
+            if (tempOutputDir)
                 _outputDirsToBeDeleted.Add(OutputDir);
 
             _keepOpen = keepOpen;
@@ -838,7 +838,7 @@ namespace FemDesign
                 if (string.IsNullOrEmpty(value)) // Use temp dir
                 {
                     _outputDir = Path.Combine(Directory.GetCurrentDirectory(), "FEM-Design API");
-                    _outputDirsToBeDeleted.Add(_outputDir);
+                    //_outputDirsToBeDeleted.Add(_outputDir);
                 }
                 else // Use given directory
                     _outputDir = Path.GetFullPath(value);
