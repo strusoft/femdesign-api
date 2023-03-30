@@ -428,8 +428,17 @@ namespace FemDesign.Bars
         public override string ToString()
         {
             if (this.Type == BarType.Beam || this.Type == BarType.Column)
+            {
+                if (this.BarPart.HasComplexCompositeRef)
+                {
+                    return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: Composite section type, Material: Composite";
+                }
+                if (this.BarPart.HasDeltaBeamComplexSectionRef)
+                {
+                    return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: Delta section type, Material: Delta beam";
+                }
                 return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Sections: ({this.BarPart.ComplexSectionObj.Sections.First()._sectionName}, {this.BarPart.ComplexSectionObj.Sections.Last()._sectionName}), Material: {this.BarPart.ComplexMaterialObj}";
-
+            }
             else if (this.Type == BarType.Truss)
             {
                 return $"{this.Type} Start: {this.BarPart.Edge.Points.First()}, End: {this.BarPart.Edge.Points.Last()}, Length: {this.BarPart.Edge.Length} m, Section: {this.BarPart.TrussUniformSectionObj._sectionName}, Material: {this.BarPart.ComplexMaterialObj}";

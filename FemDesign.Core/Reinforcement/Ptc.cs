@@ -424,6 +424,7 @@ namespace FemDesign.Reinforcement
             else
                 throw new ArgumentException($"Bar must be of type line but got '{bar.BarPart.Edge.Type}'", "bar");
         }
+
         /// <summary>
         /// Construct post-tension cable
         /// </summary>
@@ -440,6 +441,24 @@ namespace FemDesign.Reinforcement
         public Ptc(Shells.Slab slab, Geometry.LineSegment line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
         {
             Initialize(line.StartPoint, line.EndPoint, slab.SlabPart.Guid, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
+        }
+
+        /// <summary>
+        /// Construct post-tension cable
+        /// </summary>
+        /// <param name="line">Reference line element</param>
+        /// <param name="line">Cable line</param>
+        /// <param name="shape"></param>
+        /// <param name="losses"></param>
+        /// <param name="manufacturing"></param>
+        /// <param name="strand"></param>
+        /// <param name="jackingSide"></param>
+        /// <param name="jackingStress"></param>
+        /// <param name="numberOfStrands"></param>
+        /// <param name="identifier"></param>
+        public Ptc(Geometry.LineEdge line, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands = 3, string identifier = "PTC")
+        {
+            Initialize(line.StartPoint, line.EndPoint, Guid.Empty, shape, losses, manufacturing, strand, jackingSide, jackingStress, numberOfStrands, identifier);
         }
 
         private void Initialize(Geometry.Point3d start, Geometry.Point3d end, Guid baseObject, PtcShapeType shape, PtcLosses losses, PtcManufacturingType manufacturing, PtcStrandLibType strand, JackingSide jackingSide, double jackingStress, int numberOfStrands, string identifier)
@@ -461,6 +480,92 @@ namespace FemDesign.Reinforcement
 
             EntityCreated();
         }
+
+        /// <summary>
+        /// Add PTC to bar.
+        /// Internal method use by GH components and Dynamo nodes.
+        /// </summary>
+        /// <param name="bar"></param>
+        /// <param name="ptc"></param>
+        /// <param name="overwrite">Overwrite PTC on bar if a PTC sharing guid already exists on the bar?</param>
+        public static Bars.Bar AddPtcToBar(Bars.Bar bar, List<Ptc> ptc, bool overwrite)
+        {
+            // check if bar is curved and if it's not check if BarPart's and PTC line is fully overlapping
+            if (!bar.BarPart.Edge.IsLine())
+            {
+                throw new System.ArgumentException($"Bar with guid: {bar.Guid} is not straight. PTC can only be added to straight bars.");
+            }
+            else
+            {
+                var barLine = new Geometry.Line3d(bar.BarPart.Edge.Points[0], bar.BarPart.Edge.Points[1]);
+                for (int i = 0; i < ptc.Count; i++)
+                {
+                    var ptcLine = new Geometry.Line3d(ptc[i].StartPoint, ptc[i].EndPoint);
+                    if (!ptcLine.IsLineFullyOverlapping(barLine, Tolerance.Point3d))
+                    {
+                        throw new System.ArgumentException("Bar's line must overlap the PTC's line.");
+                    }
+                }
+            }
+
+            // check if bar is a truss
+            if (bar.Type == Bars.BarType.Truss)
+            {
+                throw new System.ArgumentException($"Bar with guid: {bar.Guid} is a Truss. PTC can only be added to beams or columns.");
+            }
+
+            // check if bar material is concrete
+            if (bar.BarPart.ComplexMaterialObj.Concrete == null)
+            {
+                throw new System.ArgumentException("Material of bar must be concrete");
+            }
+
+            foreach (Ptc item in ptc)
+            {
+                // empty base object - update with current barPart guid
+                if (item.BaseObject == Guid.Empty)
+                {
+                    item.BaseObject = bar.BarPart.Guid;
+                }
+
+                // base object equals current barPart guid 
+                else if (item.BaseObject == bar.BarPart.Guid)
+                {
+                    // pass
+                }
+
+                // base object does not equal current barPart guid - PTC probably added to another bar already.
+                else if (item.BaseObject != bar.BarPart.Guid)
+                {
+                    throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has a base object guid: {item.BaseObject} that does not correnspond with the current bar");
+                }
+
+                // add PTC to current bar
+                bool exists = bar.Ptc.Any(x => x.Guid == item.Guid);
+                if (exists)
+                {
+                    if (overwrite)
+                    {
+                        bar.Ptc.RemoveAll(x => x.Guid == item.Guid);
+                        bar.Ptc.Add(item);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has already been added to the bar. Are you adding the same element twice?");
+                    }
+                }
+                else
+                {
+                    bar.Ptc.Add(item);
+                }
+            }
+            return bar;
+        }
+        public override string ToString()
+        {
+            return $"{this.GetType().FullName} - {this.Name}; Strand: {this.StrandType.Name}; Jacking side: {this.JackingSide}; Jacking stress: {this.JackingStress}; Number of strands: {this.NumberOfStrands}";
+        }
+
     }
 
     [System.Serializable]
@@ -499,6 +604,10 @@ namespace FemDesign.Reinforcement
             Name = name;
             PtcStrandData = new PtcStrandData(f_pk, a_p, e_p, rho, relaxationClass, rho_1000);
             EntityCreated();
+        }
+        public override string ToString()
+        {
+            return $"{this.GetType().FullName} - Name: {this.Name}";
         }
     }
 

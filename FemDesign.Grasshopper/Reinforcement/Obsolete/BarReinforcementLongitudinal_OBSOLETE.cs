@@ -6,9 +6,9 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarReinforcementLongitudinal: GH_Component
+    public class BarReinforcementLongitudinal_OBSOLETE: GH_Component
     {
-        public BarReinforcementLongitudinal(): base("BarReinforcement.LongitudinalBar", "LongitudinalBar", "Create a longitudinal reinforcement bar.", "FEM-Design", "Reinforcement")
+        public BarReinforcementLongitudinal_OBSOLETE(): base("BarReinforcement.LongitudinalBar", "LongitudinalBar", "Create a longitudinal reinforcement bar.", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal reinforcement for bar.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Longitudinal reinforcement bar.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -82,10 +82,10 @@ namespace FemDesign.Grasshopper
             var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, startAnchorage, endAnchorage, start, end, auxiliary);
 
             // create bar reinforcement without base bar reference
-            var longBarReinf = new FemDesign.Reinforcement.LongitudinalBarReinforcement(Guid.Empty, wire, longBar);
+            var barReinf = new FemDesign.Reinforcement.BarReinforcement(Guid.Empty, wire, longBar);
 
             //
-            DA.SetData(0, longBarReinf);                
+            DA.SetData("BarReinforcement", barReinf);                
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -96,9 +96,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("2FFE169D-FA6C-4787-947F-EEFC11412CB7"); }
+            get { return new Guid("f83c3e91-5d1d-47fc-bb9d-cb2f708e4d3a"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }  
 }

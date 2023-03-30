@@ -73,10 +73,11 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
-    <Compile Include="Bars\Bar.SetStiffnessModifier.cs" />
+    <Compile Include="Bars\OBSOLETE\Bar.SetStiffnessModifier_OBSOLETE.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
+    <Compile Include="Bars\BarsModify.cs" />
     <Compile Include="Bars\BarsTaperedBeam.cs" />
     <Compile Include="Bars\BarsTaperedColumn.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="Bars\BarsConnectivityHinged.cs" />
     <Compile Include="Bars\BarsConnectivityRigid.cs" />
     <Compile Include="Bars\BarsEccentricityConstruct.cs" />
-    <Compile Include="Bars\BarsModify.cs" />
+    <Compile Include="Bars\OBSOLETE\BarsModifyOBSOLETE.cs" />
     <Compile Include="Bars\OBSOLETE\BarsTruss_OBSOLETE.cs" />
     <Compile Include="Bars\OBSOLETE\BarsTrussLimitedCapacityOBSOLETE.cs" />
     <Compile Include="Bars\Buckling\BucklingDataSetOnConcreteBar.cs" />
@@ -184,9 +185,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
+    <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
@@ -250,7 +255,7 @@
     <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
-    <Compile Include="Deconstruct\BarsDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE3.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\CoverDeconstruct.cs" />
     <Compile Include="Deconstruct\FictitiousBarDeconstruct.cs" />
@@ -331,9 +336,9 @@
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reinforcement\BarReinforcementAddToBar.cs" />
-    <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
-    <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\Obsolete\BarReinforcementAddToBar_OBSOLETE.cs" />
+    <Compile Include="Reinforcement\Obsolete\BarReinforcementLongitudinal_OBSOLETE.cs" />
+    <Compile Include="Reinforcement\Obsolete\BarReinforcementStirrups_OBSOLETE.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcManufacturing.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcLosses.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeInner.cs" />
@@ -341,7 +346,7 @@
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeStart.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShape.cs" />
-    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
+    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc_OBSOLETE.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
