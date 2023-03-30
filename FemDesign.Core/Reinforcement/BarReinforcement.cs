@@ -7,6 +7,8 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Reinforcement
 {
+    [XmlInclude(typeof(StirrupReinforcement))]
+    [XmlInclude(typeof(LongitudinalBarReinforcement))]
     [System.Serializable]
     public partial class BarReinforcement: EntityBase, IStructureElement
     {
@@ -204,6 +206,7 @@ namespace FemDesign.Reinforcement
             }
             return bar;
         }
+
         public override string ToString()
         {
             return $"{this.GetType().FullName} - {this.Wire}";

@@ -6,9 +6,9 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarReinforcementStirrups: GH_Component
+    public class BarReinforcementStirrups_OBSOLETE: GH_Component
     {
-        public BarReinforcementStirrups(): base("BarReinforcement.Stirrups", "Stirrups", "Add stirrup reinforcement to a bar.", "FEM-Design", "Reinforcement")
+        public BarReinforcementStirrups_OBSOLETE(): base("BarReinforcement.Stirrups", "Stirrups", "Add stirrup reinforcement to a bar.", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -23,7 +23,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups bar reinforcement.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarReinforcement", "BarReinf", "Stirrups bar reinforcement.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -64,10 +64,10 @@ namespace FemDesign.Grasshopper
             var stirrups = new FemDesign.Reinforcement.Stirrups(region, startParam, endParam, spacing);
 
             // create bar reinforcement
-            var stirrupsReinf = new FemDesign.Reinforcement.StirrupReinforcement(Guid.Empty, wire, stirrups);
+            var barReinf = new FemDesign.Reinforcement.BarReinforcement(Guid.Empty, wire, stirrups);
 
             //
-            DA.SetData(0, stirrupsReinf);
+            DA.SetData("BarReinforcement", barReinf);                
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -78,9 +78,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("E2EF8DCB-3730-449C-A51E-2E2BB2A22BEA"); }
+            get { return new Guid("c8d371c3-b485-4810-9953-822e62e32bee"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }  
 }

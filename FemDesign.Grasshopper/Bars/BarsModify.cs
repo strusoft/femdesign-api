@@ -9,7 +9,7 @@ namespace FemDesign.Grasshopper
 {
     public class BarsModify: GH_Component
     {
-       public BarsModify(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", CategoryName.Name(),
+       public BarsModify(): base("Bars.Deconstruct.Modify", "Deconstruct.Modify", "Deconstruct and modify properties of an exiting bar element of any type.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 
@@ -31,9 +31,9 @@ namespace FemDesign.Grasshopper
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item);
+           pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups to add to bar. Item or list. New reinforcement will overwrite the original.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
-           pManager.AddGenericParameter("BarReinforcement", "BarReinforcement", "BarReinforcment to add to bar. Item or list. New reinforcement will overwrite the original.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal reinforcement to add to bar. Item or list. New reinforcement will overwrite the original.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
            pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables. New PTC will overwrite the original.", GH_ParamAccess.list);
            pManager[pManager.ParamCount - 1].Optional = true;
@@ -53,8 +53,8 @@ namespace FemDesign.Grasshopper
            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity", GH_ParamAccess.list);
            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity", GH_ParamAccess.list);
            pManager.AddGenericParameter("LocalY", "LocalY", "LocalY", GH_ParamAccess.item);
-           pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrups.", GH_ParamAccess.list);
-           pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal bars.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("Stirrups", "Stirrups", "Stirrup bar reinforcement.", GH_ParamAccess.list);
+           pManager.AddGenericParameter("LongitudinalBars", "LongBars", "Longitudinal reinforcement for bar.", GH_ParamAccess.list);
            pManager.AddGenericParameter("PTC", "PTC", "Post-tensioning cables.", GH_ParamAccess.list);
            pManager.AddGenericParameter("StiffnessModifier", "StiffnessModifier", "", GH_ParamAccess.item);
            pManager.AddTextParameter("Identifier", "Identifier", "Structural element ID.", GH_ParamAccess.item);
@@ -114,13 +114,39 @@ namespace FemDesign.Grasshopper
             FemDesign.Materials.Material material = null;
             if (DA.GetData(3, ref material))
             {
+                if (material.Family != bar.BarPart.ComplexMaterialObj.Family)
+                {
+                    if (bar.BarPart.BucklingData != null && bar.BarPart.BucklingData.BucklingLength != null)
+                    {
+                        
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar's buckling data was created for another material and might not correspond to the new material. If you change the material you need to change the buckling length's properties.");
+                    }
+                    if (bar.Reinforcement.Any() || bar.Ptc.Any())
+                    {
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The bar already has reinforcement or PTC. Material has changed. The reinforcement and PTC have been removed.");
+                        bar.Reinforcement.Clear();
+                        bar.Ptc.Clear();
+                    }
+                }
+
                 bar.BarPart.ComplexMaterialObj = material;
             }
 
             List<FemDesign.Sections.Section> sections = new List<Sections.Section>();
             if (DA.GetDataList(4, sections))
             {
-                bar.BarPart.ComplexSectionObj.Sections = sections.ToArray();
+                if (bar.Type != Bars.BarType.Truss)
+                {
+                    bar.BarPart.ComplexSectionObj.Sections = sections.ToArray();
+                }
+                else
+                {
+                    bar.BarPart.TrussUniformSectionObj = sections[0];
+                    if(sections.Count > 1)
+                    {
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "In FEM-Design, it is not possible to set a variable cross section for truss. The first value will be selected.");
+                    }
+                }
             }
 
             List<FemDesign.Bars.Connectivity> connectivities = new List<Bars.Connectivity>();
@@ -136,6 +162,10 @@ namespace FemDesign.Grasshopper
                 {
                     bar.BarPart.ComplexSectionObj.Eccentricities = eccentricities.ToArray();
                 }
+                else
+                {
+                    throw new System.Exception("Truss has no eccentricity.");
+                }
             }
             
             Vector3d v = Vector3d.Zero;
@@ -144,18 +174,26 @@ namespace FemDesign.Grasshopper
                 bar.BarPart.LocalY = v.FromRhino();
             }
 
-            bool orientLCS = true;
-            if (DA.GetData(8, ref orientLCS))
+            List<FemDesign.Reinforcement.StirrupReinforcement> stirrups = new List<Reinforcement.StirrupReinforcement>();
+            List<FemDesign.Reinforcement.LongitudinalBarReinforcement> longBars = new List<Reinforcement.LongitudinalBarReinforcement>();
+            DA.GetDataList(8, stirrups);
+            DA.GetDataList(9, longBars);
+            List<FemDesign.Reinforcement.BarReinforcement> barReinf = new List<Reinforcement.BarReinforcement>();
+            if (stirrups.Count != 0)
             {
-                bar.BarPart.OrientCoordinateSystemToGCS();
+                var clonedStirrups = stirrups.Select(x => x.DeepClone()).ToList();
+                clonedStirrups.ForEach(s => barReinf.Add(s));
+                bar.Reinforcement.RemoveAll(x => x.IsStirrups);
             }
-
-            List<FemDesign.Reinforcement.BarReinforcement> barReinforcement = new List<FemDesign.Reinforcement.BarReinforcement>();
-            if (DA.GetDataList(9, barReinforcement))
+            if (longBars.Count != 0)
             {
-                var clonedReinforcement = barReinforcement.Select(x => x.DeepClone()).ToList();
-                bar.Reinforcement.Clear();
-                bar = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(bar, clonedReinforcement, true);
+                var clonedLongBars = longBars.Select(x => x.DeepClone()).ToList();
+                clonedLongBars.ForEach(l => barReinf.Add(l));
+                bar.Reinforcement.RemoveAll(x => !x.IsStirrups);
+            }
+            if (barReinf.Any())
+            {
+                bar = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(bar, barReinf, true);
             }
 
             List<FemDesign.Reinforcement.Ptc> ptc = new List<FemDesign.Reinforcement.Ptc>();
@@ -215,12 +253,27 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(6, result);
 
             DA.SetData(7, bar.BarPart.LocalY.ToRhino());
-            DA.SetDataList(8, bar.Stirrups);
-            DA.SetDataList(9, bar.LongitudinalBars);
 
-            if ((bar.BarPart.ComplexSectionObj.Sections[0] != bar.BarPart.ComplexSectionObj.Sections[1]) && bar.Reinforcement.Any())
+            List<FemDesign.Reinforcement.StirrupReinforcement> stirrupsOut = new List<FemDesign.Reinforcement.StirrupReinforcement>();
+            List<FemDesign.Reinforcement.LongitudinalBarReinforcement> longBarOut = new List<FemDesign.Reinforcement.LongitudinalBarReinforcement>();
+            foreach (Reinforcement.BarReinforcement reinf in bar.Reinforcement)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "In FEM-Design you cannot create reinforcement for bars with variable cross sections");
+                if (reinf.IsStirrups)
+                {
+                    stirrupsOut.Add(new Reinforcement.StirrupReinforcement(reinf));
+                }
+                else
+                {
+                    longBarOut.Add(new Reinforcement.LongitudinalBarReinforcement(reinf));
+                }
+            }
+            DA.SetDataList(8, stirrupsOut);
+            DA.SetDataList(9, longBarOut);
+            
+
+            if ((bar.Type != FemDesign.Bars.BarType.Truss) && (bar.BarPart.ComplexSectionObj.Sections[0] != bar.BarPart.ComplexSectionObj.Sections[1]) && bar.Reinforcement.Any())
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "In FEM-Design, it is not possible to create reinforcement for bars with variable cross sections.");
             }
 
             DA.SetDataList(10, bar.Ptc);

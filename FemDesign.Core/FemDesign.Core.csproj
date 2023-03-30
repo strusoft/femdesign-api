@@ -67,6 +67,8 @@
     <Compile Include="Geometry\Line3d.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Reinforcement\LongitudinalBarReinforcement.cs" />
+    <Compile Include="Reinforcement\StirrupsReinforcement.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
     <Compile Include="Soil\BoreHole.cs" />

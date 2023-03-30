@@ -490,7 +490,7 @@ namespace FemDesign.Reinforcement
         /// <param name="overwrite">Overwrite PTC on bar if a PTC sharing guid already exists on the bar?</param>
         public static Bars.Bar AddPtcToBar(Bars.Bar bar, List<Ptc> ptc, bool overwrite)
         {
-            // check if bar is curved
+            // check if bar is curved and if it's not check if BarPart's and PTC line is fully overlapping
             if (!bar.BarPart.Edge.IsLine())
             {
                 throw new System.ArgumentException($"Bar with guid: {bar.Guid} is not straight. PTC can only be added to straight bars.");
@@ -506,6 +506,12 @@ namespace FemDesign.Reinforcement
                         throw new System.ArgumentException("Bar's line must overlap the PTC's line.");
                     }
                 }
+            }
+
+            // check if bar is a truss
+            if (bar.Type == Bars.BarType.Truss)
+            {
+                throw new System.ArgumentException($"Bar with guid: {bar.Guid} is a Truss. PTC can only be added to beams or columns.");
             }
 
             // check if bar material is concrete
