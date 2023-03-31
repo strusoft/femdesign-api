@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelRunAnalysis : GH_Component
+    public class ModelRunAnalysis_OBSOLETE_2 : GH_Component
     {
-        public ModelRunAnalysis() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ModelRunAnalysis_OBSOLETE_2() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
+            pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" + 
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documenation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
@@ -191,7 +191,7 @@ namespace FemDesign.Grasshopper
 
                 var resultGroups = results.GroupBy(t => t.GetType()).ToList();
                 // Convert Data in DataTree structure
-
+                
 
                 var i = 0;
                 foreach (var resGroup in resultGroups)
@@ -209,7 +209,7 @@ namespace FemDesign.Grasshopper
 
             // Set output
             DA.SetData("Model", model);
-            DA.SetData("FiniteElement", FiniteElement);
+            DA.SetData(1, FiniteElement);
             DA.SetDataTree(2, resultsTree);
             DA.SetData(3, rtn);
         }
@@ -222,10 +222,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{874F8B8E-D54F-41BF-B040-EC77BB9CFF33}"); }
+            get { return new Guid("B1A46879-06A5-4201-929C-9BA73208CA00"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

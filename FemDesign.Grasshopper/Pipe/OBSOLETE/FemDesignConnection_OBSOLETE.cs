@@ -79,7 +79,7 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Connection;
         public override Guid ComponentGuid => new Guid("ae8824c3-26bf-42fd-9052-5f407b3540c1");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
 

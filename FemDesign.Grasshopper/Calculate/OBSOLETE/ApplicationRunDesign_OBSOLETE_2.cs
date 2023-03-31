@@ -4,26 +4,29 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
+
 using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelRunAnalysis : GH_Component
+    public class ModelRunDesign_OBSOLETE_2 : GH_Component
     {
-        public ModelRunAnalysis() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ModelRunDesign_OBSOLETE_2() : base("Application.RunDesign", "RunDesign", "Run analysis and design of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Model", "Model", "Model to open.", GH_ParamAccess.item);
             pManager.AddTextParameter("FilePathStruxml", "FilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved using the name and location folder of your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
-                "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
+            "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documenation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -38,31 +41,35 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Model", "Model", "Model.", GH_ParamAccess.item);
-            pManager.Register_GenericParam("FiniteElement", "FiniteElement", "FemDesign Finite Element Geometries(nodes, bars, shells).");
+            pManager.Register_GenericParam("FiniteElement", "FiniteElement", "FemDesign Finite Element Geometries (nodes, bars, shells).");
             pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("HasExited", "HasExited", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
-
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // 
+            string mode = null;
             FemDesign.Model model = null;
             string filePath = null;
             FemDesign.Calculate.Analysis analysis = null;
+            FemDesign.Calculate.Design design = null;
             List<string> resultTypes = new List<string>();
-            var units = Results.UnitResults.Default();
             string docxTemplatePath = "";
             bool endSession = false;
             bool closeOpenWindows = false;
             bool runNode = false;
 
+
             // get data
-            if (!DA.GetData(0, ref model))
+            if (!DA.GetData(0, ref mode))
             {
                 return;
             }
-
-            if (!DA.GetData(1, ref filePath))
+            if (!DA.GetData(1, ref model))
+            {
+                return;
+            }
+            if (!DA.GetData(2, ref filePath))
             {
                 bool fileExist = OnPingDocument().IsFilePathDefined;
                 if (!fileExist)
@@ -73,48 +80,51 @@ namespace FemDesign.Grasshopper
                 filePath = OnPingDocument().FilePath;
                 filePath = System.IO.Path.ChangeExtension(filePath, "struxml");
             }
-            if (!DA.GetData(2, ref analysis))
+            if (!DA.GetData(3, ref analysis))
             {
                 return;
             }
-            if (!DA.GetDataList(3, resultTypes))
-            {
-                // pass
-            }
-            if (!DA.GetData(4, ref units))
-            {
-                // pass
-            }
-            if (!DA.GetData(5, ref docxTemplatePath))
-            {
-                // pass
-            }
-            if (!DA.GetData(6, ref endSession))
-            {
-                // pass
-            }
-            if (!DA.GetData(7, ref closeOpenWindows))
-            {
-                // pass
-            }
-            if (!DA.GetData(8, ref runNode))
-            {
-                // pass
-            }
-            if (model == null || filePath == null || analysis == null)
+            if (!DA.GetData(4, ref design))
             {
                 return;
             }
+            if (!DA.GetDataList(5, resultTypes))
+            {
+                // pass
+            }
 
+            var units = Results.UnitResults.Default();
+            DA.GetData(6, ref units);
 
+            if (!DA.GetData(7, ref docxTemplatePath))
+            {
+                // pass
+            }
+            if (!DA.GetData(8, ref endSession))
+            {
+                // pass
+            }
+            if (!DA.GetData(9, ref closeOpenWindows))
+            {
+                // pass
+            }
+            DA.GetData(10, ref runNode);
+            if(runNode == false)
+            {
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+                return;
+            }
+            if (mode == null || model == null || filePath == null || analysis == null)
+            {
+                return;
+            }
 
             // It needs to check if model has been runned
             // Always Return the FeaNode Result
-            resultTypes.Add("FemNode");
-            resultTypes.Add("FemBar");
-            resultTypes.Add("FemShell");
+            resultTypes.Insert(0, "FemNode");
+            resultTypes.Insert(1, "FemBar");
+            resultTypes.Insert(2, "FemShell");
 
-            // it should be a method
             var notValidResultTypes = new List<string>();
             var _resultTypes = resultTypes.Select(r =>
             {
@@ -133,18 +143,23 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            // Create Bsc files from resultTypes
             var bscPathsFromResultTypes = Calculate.Bsc.BscPathFromResultTypes(_resultTypes, filePath, units);
 
             bool rtn = false;
             var resultsTree = new DataTree<object>();
             Results.FiniteElement FiniteElement = null;
+
+
+
             //
             if (runNode)
             {
                 model.SerializeModel(filePath);
                 analysis.SetLoadCombinationCalculationParameters(model);
-                rtn = model.FdApp.RunAnalysis(filePath, analysis, bscPathsFromResultTypes, docxTemplatePath, endSession, closeOpenWindows);
+
+                bool endDesignSession = design.ApplyChanges == true ? true : endSession;
+                rtn = model.FdApp.RunDesign(mode, filePath, analysis, design, bscPathsFromResultTypes, docxTemplatePath, endDesignSession, closeOpenWindows);
+
 
                 // Create FdScript
                 var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath, bscPathsFromResultTypes);
@@ -190,9 +205,8 @@ namespace FemDesign.Grasshopper
                 FiniteElement = new FemDesign.Results.FiniteElement(feaNodeRes, feaBarRes, feaShellRes);
 
                 var resultGroups = results.GroupBy(t => t.GetType()).ToList();
+
                 // Convert Data in DataTree structure
-
-
                 var i = 0;
                 foreach (var resGroup in resultGroups)
                 {
@@ -200,32 +214,34 @@ namespace FemDesign.Grasshopper
                     i++;
                 }
 
-            }
-            else
-            {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "RunNode is set to false!");
+                if (design.ApplyChanges)
+                {
+                    filePath = System.IO.Path.ChangeExtension(filePath, "str");
+                    (model, _) = FemDesign.Model.ReadStr(filePath, null);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "It is recommended to run a new analysis when 'design changes' are applied. The model might have a different stress/force distribution due to change in stiffness.");
+                }
             }
 
 
             // Set output
             DA.SetData("Model", model);
-            DA.SetData("FiniteElement", FiniteElement);
+            DA.SetData(1, FiniteElement);
             DA.SetDataTree(2, resultsTree);
             DA.SetData(3, rtn);
+
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return FemDesign.Properties.Resources.ModelRunAnalysis;
+                return FemDesign.Properties.Resources.ModelRunDesign;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{874F8B8E-D54F-41BF-B040-EC77BB9CFF33}"); }
+            get { return new Guid("E188C2DD-9091-4697-9798-B30296D57728"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

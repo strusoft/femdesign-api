@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Results.FiniteElement FiniteElement = null;
-            DA.GetData("FiniteElement", ref FiniteElement);
+            DA.GetData(0, ref FiniteElement);
             if (FiniteElement == null)
                 return;
 

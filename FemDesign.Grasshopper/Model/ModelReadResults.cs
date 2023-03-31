@@ -51,9 +51,9 @@ namespace FemDesign.Grasshopper
             bool hasFiniteElent = false;
             if (resultTypes.Contains("FiniteElement"))
             {
-                resultTypes.Insert(0, "FeaNode");
-                resultTypes.Insert(1, "FeaBar");
-                resultTypes.Insert(2, "FeaShell");
+                resultTypes.Insert(0, "FemNode");
+                resultTypes.Insert(1, "FemBar");
+                resultTypes.Insert(2, "FemShell");
                 resultTypes.Remove("FiniteElement");
                 hasFiniteElent = true;
             }
@@ -136,15 +136,15 @@ namespace FemDesign.Grasshopper
                         string path = cmd.OutFile;
                         try
                         {
-                            if (path.Contains("FeaNode"))
+                            if (path.Contains("FemNode"))
                             {
                                 feaNodeRes = Results.ResultsReader.Parse(path).Cast<Results.FemNode>().ToList();
                             }
-                            else if (path.Contains("FeaBar"))
+                            else if (path.Contains("FemBar"))
                             {
                                 feaBarRes = Results.ResultsReader.Parse(path).Cast<Results.FemBar>().ToList();
                             }
-                            else if (path.Contains("FeaShell"))
+                            else if (path.Contains("FemShell"))
                             {
                                 feaShellRes = Results.ResultsReader.Parse(path).Cast<Results.FemShell>().ToList();
                             }
