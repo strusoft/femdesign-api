@@ -88,8 +88,8 @@ namespace FemDesign.Calculate
         public int ResType { get; set; }
 
         [XmlIgnore]
-        public static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
-        public static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
+        private static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
+        private static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
 
         /// <summary>
         /// Parameterless constructor for serialization.

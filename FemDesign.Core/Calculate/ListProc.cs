@@ -508,6 +508,25 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("RCShellReqReinfComb_ListProc")]
         RCDesignShellRequiredReinforcementLoadCombination,
+
+        /// <summary>
+        /// RC design: Bar, Utilization.
+        /// </summary>
+        [XmlEnum("RCBarUtilizationComb_ListProc")]
+        RCDesignBarUtilizationLoadCombination,
+
+        /// <summary>
+        /// RC design: Bar, Utilization, max of combinations.
+        /// </summary>
+        [XmlEnum("RCBarUtilizationCmax_ListProc")]
+        RCDesignBarUtilizationMaxComb,
+
+        /// <summary>
+        /// RC design: Bar, Utilization, max of load groups.
+        /// </summary>
+        [XmlEnum("RCBarUtilizationGmax_ListProc")]
+        RCDesignBarUtilizationMaxLoadGroup,
+
         #endregion
 
         #region  CLT DESIGN
@@ -577,6 +596,26 @@ namespace FemDesign.Calculate
             {
                 string r = listProc.ToString();
                 if (r.StartsWith("QuantityEstimation"))
+                    return true;
+                else return false;
+            }
+        }
+
+        public static bool IsMaxComb(this ListProc listProc)
+        {
+            {
+                string r = listProc.ToString();
+                if (r.EndsWith("MaxComb"))
+                    return true;
+                else return false;
+            }
+        }
+
+        public static bool IsMaxLoadGroup(this ListProc listProc)
+        {
+            {
+                string r = listProc.ToString();
+                if (r.EndsWith("MaxLoadGroup"))
                     return true;
                 else return false;
             }
