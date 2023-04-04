@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" struxml_version="01.00.000" source_software="FEM-Design API" start_time="1970-01-01T00:00:00.000" end_time="1970-01-01T00:00:00.000" guid="1848f56c-58a6-4560-a33a-99ec52c6392c" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+<database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" struxml_version="01.00.000" source_software="FEM-Design API" start_time="1970-01-01T00:00:00.000" end_time="1970-01-01T00:00:00.000" guid="c106edea-4cad-4405-aed7-73fa818d89d3" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
   <sections>
-    <section last_change="2022-10-26T09:48:38.017" guid="d30097d9-7ecb-4560-8bae-a3b675c62dae" action="added" fd_name_code="My custom sections" fd_name_type="Concrete" fd_name_size="Custom 300" name="My custom sections Concrete Custom 300" type="custom" fd-mat="3">
+    <section last_change="2023-04-04T16:59:16.137" guid="b341b509-0bbd-4d16-853c-5b224bdf12a5" action="added" fd_name_code="My custom sections" fd_name_type="Concrete" fd_name_size="Custom 300" name="My custom sections, Concrete, Custom 300" type="custom" fd-mat="3">
       <region_group>
         <region>
           <contour>
@@ -9,13 +9,13 @@
               <point x="0.09" y="0.15" z="0" />
               <point x="0" y="0.15" z="0" />
               <normal x="-0" y="-1" z="0" />
-              <x_axis x="-0.99999999999999989" y="0" z="0" />
+              <x_axis x="-1" y="0" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="0" y="0.15" z="0" />
               <point x="-0.09" y="0.15" z="0" />
               <normal x="-0" y="-1" z="0" />
-              <x_axis x="-0.99999999999999989" y="0" z="0" />
+              <x_axis x="-1" y="0" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="-0.09" y="0.15" z="0" />
@@ -27,7 +27,7 @@
               <point x="-0.09" y="0.079999999999999988" z="0" />
               <point x="-0.015" y="0.059999999999999984" z="0" />
               <normal x="0.25766265056033244" y="0.96623493960124629" z="0" />
-              <x_axis x="0.96623493960124618" y="-0.25766265056033238" z="0" />
+              <x_axis x="0.96623493960124629" y="-0.25766265056033244" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="-0.015" y="0.059999999999999984" z="0" />
@@ -39,7 +39,7 @@
               <point x="-0.015" y="-0.064999999999999988" z="0" />
               <point x="-0.07" y="-0.084999999999999992" z="0" />
               <normal x="0.34174306308670443" y="-0.93979342348843709" z="0" />
-              <x_axis x="-0.939793423488437" y="-0.34174306308670438" z="0" />
+              <x_axis x="-0.93979342348843709" y="-0.34174306308670443" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="-0.07" y="-0.084999999999999992" z="0" />
@@ -69,7 +69,7 @@
               <point x="0.07" y="-0.084999999999999992" z="0" />
               <point x="0.015" y="-0.064999999999999988" z="0" />
               <normal x="-0.34174306308670443" y="-0.93979342348843709" z="0" />
-              <x_axis x="-0.939793423488437" y="0.34174306308670438" z="0" />
+              <x_axis x="-0.93979342348843709" y="0.34174306308670443" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="0.015" y="-0.064999999999999988" z="0" />
@@ -81,7 +81,7 @@
               <point x="0.015" y="0.059999999999999984" z="0" />
               <point x="0.09" y="0.079999999999999988" z="0" />
               <normal x="-0.25766265056033244" y="0.96623493960124629" z="0" />
-              <x_axis x="0.96623493960124618" y="0.25766265056033238" z="0" />
+              <x_axis x="0.96623493960124629" y="0.25766265056033244" z="0" />
             </edge>
             <edge start_angle="0" end_angle="0" type="line" radius="0">
               <point x="0.09" y="0.079999999999999988" z="0" />
