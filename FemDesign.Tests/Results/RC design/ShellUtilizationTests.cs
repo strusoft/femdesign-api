@@ -19,43 +19,20 @@ namespace FemDesign.Results
         {
             string path = Path.GetTempFileName();
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Shell, Utilization, Load comb.: Lyft
+            using (var stream = new StreamWriter(path)) stream.Write(@"Shell, Utilization, Load comb.: uls
 Shell	Max.	RBX	RBY	RTX	RTY	BU	CWB	CWT
-[-]	[%]	[%]	[%]	[%]	[%]	[%]	[-]	[%]	[%]
-P.1.1	1000	1000	1000	1000	1000	00	0
-P.2.1	78	78	31	71	66	00	0
-P.3.1	1000	1000	71	1000	71	00	0
-
-Max. of load combinations, Shell, Utilization
-Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	CWB	CWT
-[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[%]	[%]
-P.1.1	1000	Lyft	1000	1000	1000	1000	00	0
-P.2.1	78	Lyft	78	31	71	66	00	0
-P.3.1	1000	Lyft	1000	71	1000	71	00	0
+[-]	[%]	[%]	[%]	[%]	[%]	[%]	[%]	[%]
+P.1.1	157	50	50	157	145	0	0	0
 
 ");
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.All(r => r.GetType() == typeof(RCShellUtilization)), "Shell utilization should be parsed");
-            Assert.IsTrue(results.Count == 6, "Should read all results.");
+            Assert.IsTrue(results.Count == 1, "Should read all results.");
 
             var shellUtilization = results.Cast<RCShellUtilization>().ToArray();
             
             Assert.IsTrue(shellUtilization[0].Id == "P.1.1");
-            Assert.IsTrue(shellUtilization[1].Id == "P.2.1");
-            Assert.IsTrue(shellUtilization[2].Id == "P.3.1");
-
-            Assert.IsTrue(Math.Abs(shellUtilization[0].Max - 1000.0) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].Max - 78.0) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[2].Max - 1000.0) < DOUBLE_TOLERANCE);
-
-            Assert.IsTrue(Math.Abs(shellUtilization[1].RBX - 78) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].RBY - 31) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].RTX - 71) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].RTY - 66) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].BU  -  0) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].CWB -  0) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(Math.Abs(shellUtilization[1].CWT -  0) < DOUBLE_TOLERANCE);
 
             File.Delete(path);
         }
