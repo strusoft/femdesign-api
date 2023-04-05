@@ -20,18 +20,18 @@ namespace FemDesign.Results
             string path = Path.GetTempFileName();
 
             using (var stream = new StreamWriter(path)) stream.Write(@"Shell, Utilization, Load comb.: Lyft
-Shell	Max.	RBX	RBY	RTX	RTY	BU	SC	CWB	CWT
+Shell	Max.	RBX	RBY	RTX	RTY	BU	CWB	CWT
 [-]	[%]	[%]	[%]	[%]	[%]	[%]	[-]	[%]	[%]
-P.1.1	1000	1000	1000	1000	1000	0	OK	0	0
-P.2.1	78	78	31	71	66	0	OK	0	0
-P.3.1	1000	1000	71	1000	71	0	OK	0	0
+P.1.1	1000	1000	1000	1000	1000	00	0
+P.2.1	78	78	31	71	66	00	0
+P.3.1	1000	1000	71	1000	71	00	0
 
 Max. of load combinations, Shell, Utilization
-Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	SC	CWB	CWT
-[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[-]	[%]	[%]
-P.1.1	1000	Lyft	1000	1000	1000	1000	0	OK	0	0
-P.2.1	78	Lyft	78	31	71	66	0	OK	0	0
-P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
+Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	CWB	CWT
+[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[%]	[%]
+P.1.1	1000	Lyft	1000	1000	1000	1000	00	0
+P.2.1	78	Lyft	78	31	71	66	00	0
+P.3.1	1000	Lyft	1000	71	1000	71	00	0
 
 ");
 
@@ -54,7 +54,6 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
             Assert.IsTrue(Math.Abs(shellUtilization[1].RTX - 71) < DOUBLE_TOLERANCE);
             Assert.IsTrue(Math.Abs(shellUtilization[1].RTY - 66) < DOUBLE_TOLERANCE);
             Assert.IsTrue(Math.Abs(shellUtilization[1].BU  -  0) < DOUBLE_TOLERANCE);
-            Assert.IsTrue(         shellUtilization[1].SC == true);
             Assert.IsTrue(Math.Abs(shellUtilization[1].CWB -  0) < DOUBLE_TOLERANCE);
             Assert.IsTrue(Math.Abs(shellUtilization[1].CWT -  0) < DOUBLE_TOLERANCE);
 
@@ -84,8 +83,8 @@ P.3.1	1000	Lyft	1000	71	1000	71	0	OK	0	0
             {
                 "Shell, Utilization, Load comb.: Lyft",
                 "Max. of load combinations, Shell, Utilization",
-                "Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	SC	CWB	CWT",
-                "[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[-]	[%]	[%]"
+                "Shell	Max.	Combination	RBX	RBY	RTX	RTY	BU	CWB	CWT",
+                "[-]	[%]	[-]	[%]	[%]	[%]	[%]	[%]	[%]	[%]"
             };
 
             foreach (var header in headers)
