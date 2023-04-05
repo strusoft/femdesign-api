@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
-<database struxml_version="01.00.000" source_software="FEM-Design 21.00.002" start_time="1970-01-01T00:00:00.000" end_time="2022-06-09T14:14:29.000" guid="889fbed8-c807-46ab-ad32-d86664a4f46c" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.001" start_time="1970-01-01T00:00:00.000" end_time="2023-04-05T11:11:36.000" guid="889fbed8-c807-46ab-ad32-d86664a4f46c" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="S" xmlns="urn:strusoft">
 	<entities>
 		<bar name="C.1" type="column" guid="0ee26fbf-af7a-40ae-86cb-f33bc6395cab" last_change="2019-05-13T15:29:58.000" action="added">
-			<bar_part guid="4a7f1627-fa83-45b8-b743-5f62a41ea620" last_change="2019-05-13T15:29:58.000" action="added" name="C.1.1" complex_material="eb6fbb15-65f2-4b74-967e-c5a72af35356" made="rolled" complex_section="4829e179-5c84-4f7d-830c-0113f3c6c983" ecc_calc="true">
+			<bar_part guid="4a7f1627-fa83-45b8-b743-5f62a41ea620" last_change="2019-05-13T15:29:58.000" action="added" name="C.1.1" complex_material="eb6fbb15-65f2-4b74-967e-c5a72af35356" made="rolled" complex_section="a55b213a-e521-4f7c-a5f2-294073e0b7b8" ecc_calc="true">
 				<curve type="line">
 					<point x="4" y="6" z="-3"></point>
 					<point x="4" y="6" z="0"></point>
@@ -36,7 +36,7 @@
 			<end></end>
 		</bar>
 		<bar name="C.2" type="column" guid="6376ae63-bd00-4ff0-897b-c1542dab8275" last_change="2019-05-13T15:30:26.000" action="added">
-			<bar_part guid="4fbc1e00-64d2-4ee6-903b-176aa8a896d4" last_change="2019-05-13T15:30:26.000" action="added" name="C.2.1" complex_material="eb6fbb15-65f2-4b74-967e-c5a72af35356" made="rolled" complex_section="b30003fc-b0c2-4604-bdfc-e1c5a9b5984b" ecc_calc="true">
+			<bar_part guid="4fbc1e00-64d2-4ee6-903b-176aa8a896d4" last_change="2019-05-13T15:30:26.000" action="added" name="C.2.1" complex_material="eb6fbb15-65f2-4b74-967e-c5a72af35356" made="rolled" complex_section="1f1268df-4b7f-4c4f-a7ba-34da00d4aa9e" ecc_calc="true">
 				<curve type="line">
 					<point x="0" y="14" z="-3"></point>
 					<point x="0" y="14" z="0"></point>
@@ -451,24 +451,24 @@
 				</edge>
 			</contour>
 		</shell_buckling>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="28b3f0ea-68f3-4efb-8d8a-1c3f09f8637a" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="e4710154-edbb-4dc7-9099-574b0bba4bc6" factor="1"></automatic>
-		</no-shear_region>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="1aae9b69-416a-42ba-aac1-f7857f64914b" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="e5e4111b-b5f7-41bf-b8d8-89e5f35fe3fa" factor="1"></automatic>
-		</no-shear_region>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="94df6524-ed8e-4861-9b57-dbd82dbd48fa" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="dba7dff6-f711-4c84-b502-acfcda6d84a0" factor="1"></automatic>
-		</no-shear_region>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="e43c5fcf-8e3e-4aad-926d-8542ea730d17" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="04caf4a2-4eba-4b10-8255-df393016a3de" factor="1"></automatic>
-		</no-shear_region>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="fd39be88-68d4-469c-bef7-2b4726466fa9" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="4a7f1627-fa83-45b8-b743-5f62a41ea620" factor="2"></automatic>
-		</no-shear_region>
-		<no-shear_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" guid="82312500-4247-4b2b-8483-0b3006d3a92d" last_change="2022-03-08T13:05:32.000" action="added">
-			<automatic connected_structure="4fbc1e00-64d2-4ee6-903b-176aa8a896d4" factor="2"></automatic>
-		</no-shear_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="1" reduce_shear_forces="true" guid="6884f065-b3cb-45d0-b749-88ff1fa6eef6" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="e4710154-edbb-4dc7-9099-574b0bba4bc6"></automatic>
+		</shear_control_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="1" reduce_shear_forces="true" guid="f10a5331-173d-4ddd-9959-8ec208fccedc" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="e5e4111b-b5f7-41bf-b8d8-89e5f35fe3fa"></automatic>
+		</shear_control_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="1" reduce_shear_forces="true" guid="faf2ab19-a75f-4836-8960-127c4b03d345" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="dba7dff6-f711-4c84-b502-acfcda6d84a0"></automatic>
+		</shear_control_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="1" reduce_shear_forces="true" guid="555d3ffe-6037-410a-947c-4182c0358f5f" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="04caf4a2-4eba-4b10-8255-df393016a3de"></automatic>
+		</shear_control_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="2" reduce_shear_forces="true" guid="39248b8c-8250-4b38-ab84-f859d9a302ba" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="4a7f1627-fa83-45b8-b743-5f62a41ea620"></automatic>
+		</shear_control_region>
+		<shear_control_region base_plate="70ac68e1-d286-4127-9b11-7089bce48d3a" ignore_shear_check="true" x="2" reduce_shear_forces="true" guid="726ca2b3-e35c-4a97-8192-699702a79cab" last_change="2023-04-05T11:11:36.000" action="added">
+			<automatic connected_structure="4fbc1e00-64d2-4ee6-903b-176aa8a896d4"></automatic>
+		</shear_control_region>
 		<loads>
 			<point_load load_case="1569b237-c793-4cd7-992c-eba1acdc5e58" guid="149876fb-9a78-4235-a77d-d550630b3131" last_change="2019-05-13T15:35:48.000" action="added" load_type="force">
 				<direction x="0" y="0" z="-1"></direction>
@@ -614,7 +614,7 @@
 			</point_support>
 			<line_support guid="2ef77718-f944-4e64-9444-f53dd53235b3" last_change="2019-05-13T15:31:58.000" action="added" name="S.3">
 				<group>
-					<local_x x="0" y="0" z="1"></local_x>
+					<local_x x="-1" y="0" z="0"></local_x>
 					<local_y x="0" y="-1" z="0"></local_y>
 					<rigidity>
 						<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
@@ -630,7 +630,7 @@
 			</line_support>
 			<line_support guid="9a8de280-1590-4320-b569-18c8e58256a4" last_change="2019-05-13T15:32:00.000" action="added" name="S.4">
 				<group>
-					<local_x x="0" y="0" z="1"></local_x>
+					<local_x x="-0.707106781186547" y="-0.707106781186547" z="0"></local_x>
 					<local_y x="0.707106781186548" y="-0.707106781186548" z="0"></local_y>
 					<rigidity>
 						<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
@@ -646,7 +646,7 @@
 			</line_support>
 			<line_support guid="825b31b5-e53f-4362-b0ea-bf991792d59e" last_change="2019-05-13T15:32:01.000" action="added" name="S.5">
 				<group>
-					<local_x x="0" y="0" z="1"></local_x>
+					<local_x x="0" y="1" z="0"></local_x>
 					<local_y x="-1" y="0" z="0"></local_y>
 					<rigidity>
 						<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
@@ -662,7 +662,7 @@
 			</line_support>
 			<line_support guid="c6feb89b-6624-4b5c-84a9-ec534b375d6f" last_change="2019-05-13T15:32:01.000" action="added" name="S.6">
 				<group>
-					<local_x x="0" y="0" z="1"></local_x>
+					<local_x x="0" y="1" z="0"></local_x>
 					<local_y x="-1" y="0" z="0"></local_y>
 					<rigidity>
 						<motions x_neg="10000000" x_pos="10000000" y_neg="10000000" y_pos="10000000" z_neg="10000000" z_pos="10000000"></motions>
@@ -784,7 +784,7 @@
 			</region_group>
 			<end></end>
 		</section>
-		<complex_section guid="4829e179-5c84-4f7d-830c-0113f3c6c983" last_change="1970-01-01T00:00:00.000" action="added">
+		<complex_section guid="a55b213a-e521-4f7c-a5f2-294073e0b7b8" last_change="1970-01-01T00:00:00.000" action="added">
 			<section pos="0" guid="c2193eb3-50c2-4370-9272-69b348fc3856">
 				<ecc x="0" y="0" z="0"></ecc>
 				<end></end>
@@ -794,7 +794,7 @@
 				<end></end>
 			</section>
 		</complex_section>
-		<complex_section guid="b30003fc-b0c2-4604-bdfc-e1c5a9b5984b" last_change="1970-01-01T00:00:00.000" action="added">
+		<complex_section guid="1f1268df-4b7f-4c4f-a7ba-34da00d4aa9e" last_change="1970-01-01T00:00:00.000" action="added">
 			<section pos="0" guid="c2193eb3-50c2-4370-9272-69b348fc3856">
 				<ecc x="0" y="0" z="0"></ecc>
 				<end></end>
