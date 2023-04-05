@@ -144,7 +144,7 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
@@ -159,7 +159,7 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases

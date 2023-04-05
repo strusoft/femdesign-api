@@ -57,7 +57,7 @@ namespace FemDesign.Results
             ST = st;
             C = c;
             T = t;
-            CW = CW;
+            CW = cw;
             CaseIdentifier = resultCase;
         }
 
@@ -70,7 +70,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'Cmax'Max. of load combinations, RC bar, Utilization)|(?'Gmax'Max.of load groups, RC bar, Utilization)|(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"(?'Cmax'Max. of load combinations, RC bar, Utilization)|(?'Gmax'Max. of load groups, RC bar, Utilization)|(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -78,21 +78,36 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Bar\t|\[.*\]");
+                return new Regex(@"(?'Cmax'Max. of load combinations, RC bar, Utilization)|(?'Gmax'Max. of load groups, RC bar, Utilization)|(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Bar\t|\[.*\]");
             }
         }
 
         internal static RCBarUtilization Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            string id = row[0];
-            double max = double.Parse(row[1], CultureInfo.InvariantCulture);
-            double sec = double.Parse(row[2], CultureInfo.InvariantCulture);
-            double st = double.Parse(row[3], CultureInfo.InvariantCulture);
-            double c = double.Parse(row[4], CultureInfo.InvariantCulture);
-            double t = double.Parse(row[5], CultureInfo.InvariantCulture);
-            double cw = row[6] == "-" ? 0 : double.Parse(row[6], CultureInfo.InvariantCulture);
-            string lc = HeaderData["casename"]; ;
-            return new RCBarUtilization(id, max, sec, st, c, t, cw, lc);  
+            if(HeaderData.ContainsKey("casename"))
+            {
+                string id = row[0];
+                double max = double.Parse(row[1], CultureInfo.InvariantCulture);
+                double sec = double.Parse(row[2], CultureInfo.InvariantCulture);
+                double st = double.Parse(row[3], CultureInfo.InvariantCulture);
+                double c = double.Parse(row[4], CultureInfo.InvariantCulture);
+                double t = double.Parse(row[5], CultureInfo.InvariantCulture);
+                double cw = row[6] == "-" ? 0 : double.Parse(row[6], CultureInfo.InvariantCulture);
+                string lc = HeaderData["casename"]; ;
+                return new RCBarUtilization(id, max, sec, st, c, t, cw, lc);  
+            }
+            else
+            {
+                string id = row[0];
+                double max = double.Parse(row[1], CultureInfo.InvariantCulture);
+                double sec = double.Parse(row[3], CultureInfo.InvariantCulture);
+                double st = double.Parse(row[4], CultureInfo.InvariantCulture);
+                double c = double.Parse(row[5], CultureInfo.InvariantCulture);
+                double t = double.Parse(row[6], CultureInfo.InvariantCulture);
+                double cw = row[7] == "-" ? 0 : double.Parse(row[7], CultureInfo.InvariantCulture);
+                string lc = row[2];
+                return new RCBarUtilization(id, max, sec, st, c, t, cw, lc);
+            }
         }
     }
 }
