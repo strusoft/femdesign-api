@@ -480,10 +480,22 @@ namespace FemDesign.Calculate
         RCDesignShellCrackWidthMaxComb,
 
         /// <summary>
+        /// RC design: Shell, Utilization.
+        /// </summary>
+        [XmlEnum("RCShellUtilizationComb_ListProc")]
+        RCDesignShellUtilizationLoadCombination,
+
+        /// <summary>
         /// RC design: Shell, Utilization
         /// </summary>
         [XmlEnum("RCShellUtilizationCmax_ListProc")]
         RCDesignShellUtilizationMaxComb,
+
+        /// <summary>
+        /// RC design: Shell, Utilization
+        /// </summary>
+        [XmlEnum("RCShellUtilizationGmax_ListProc")]
+        RCDesignShellUtilizationMaxLoadGroup,
 
         /// <summary>
         /// RC design: Shell, Crack width
@@ -491,11 +503,6 @@ namespace FemDesign.Calculate
         [XmlEnum("RCShellCrackWidthComb_ListProc")]
         RCDesignShellCrackWidthLoadCombination,
 
-        /// <summary>
-        /// RC design: Shell, Utilization.
-        /// </summary>
-        [XmlEnum("RCShellUtilizationComb_ListProc")]
-        RCDesignShellUtilizationLoadCombination,
 
         /// <summary>
         /// RC design: Shell, Design Forces.
@@ -508,6 +515,24 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("RCShellReqReinfComb_ListProc")]
         RCDesignShellRequiredReinforcementLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Shear Utilization.
+        /// </summary>
+        [XmlEnum("RCShellShearUtilizationComb_ListProc")]
+        RCDesignShellShearUtilizationLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Shear Utilization.
+        /// </summary>
+        [XmlEnum("RCShellShearUtilizationCmax_ListProc")]
+        RCDesignShellShearUtilizationMaxComb,
+
+        /// <summary>
+        /// RC design: Shell, Shear Utilization.
+        /// </summary>
+        [XmlEnum("RCShellShearUtilizationGmax_ListProc")]
+        RCDesignShellShearUtilizationMaxLoadGroup,
 
         /// <summary>
         /// RC design: Bar, Utilization.

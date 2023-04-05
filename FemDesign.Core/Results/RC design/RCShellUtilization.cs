@@ -50,10 +50,6 @@ namespace FemDesign.Results
         /// </summary>
         public double BU { get; }
         /// <summary>
-        /// Shear capacity ok?
-        /// </summary>
-        public bool SC { get; }
-        /// <summary>
         /// Utilization for crack width on the bottom face
         /// </summary>
         public double CWB { get; }
@@ -67,7 +63,7 @@ namespace FemDesign.Results
         public string CaseIdentifier { get; }
 
         [JsonConstructor]
-        internal RCShellUtilization(string id, double rbx, double rby, double rtx, double rty, double bu, bool sc, double cwb, double cwt, string resultCase)
+        internal RCShellUtilization(string id, double rbx, double rby, double rtx, double rty, double bu, double cwb, double cwt, string resultCase)
         {
             Id = id;
             RBX = rbx;
@@ -75,7 +71,6 @@ namespace FemDesign.Results
             RTX = rtx;
             RTY = rty;
             BU = bu;
-            SC = sc;
             CWB = cwb;
             CWT = cwt;
             CaseIdentifier = resultCase;
@@ -104,21 +99,7 @@ namespace FemDesign.Results
 
         internal static RCShellUtilization Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            if (HeaderData.ContainsKey("max"))
-            {
-                string id = row[0];
-                double rbx = double.Parse(row[3], CultureInfo.InvariantCulture);
-                double rby = double.Parse(row[4], CultureInfo.InvariantCulture);
-                double rtx = double.Parse(row[5], CultureInfo.InvariantCulture);
-                double rty = double.Parse(row[6], CultureInfo.InvariantCulture);
-                double bu = double.Parse(row[7], CultureInfo.InvariantCulture);
-                bool sc = row[8] == "OK";
-                double cwb = double.Parse(row[9], CultureInfo.InvariantCulture);
-                double cwt = double.Parse(row[10], CultureInfo.InvariantCulture);
-                string lc = row[2];
-                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
-            }
-            else
+            if (HeaderData.ContainsKey("casename"))
             {
                 string id = row[0];
                 double rbx = double.Parse(row[2], CultureInfo.InvariantCulture);
@@ -126,11 +107,23 @@ namespace FemDesign.Results
                 double rtx = double.Parse(row[4], CultureInfo.InvariantCulture);
                 double rty = double.Parse(row[5], CultureInfo.InvariantCulture);
                 double bu = double.Parse(row[6], CultureInfo.InvariantCulture);
-                bool sc = row[7] == "OK";
+                double cwb = double.Parse(row[7], CultureInfo.InvariantCulture);
+                double cwt = double.Parse(row[8], CultureInfo.InvariantCulture);
+                string lc = HeaderData["casename"];
+                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, cwb, cwt, lc);
+            }
+            else
+            {
+                string id = row[0];
+                double rbx = double.Parse(row[3], CultureInfo.InvariantCulture);
+                double rby = double.Parse(row[4], CultureInfo.InvariantCulture);
+                double rtx = double.Parse(row[5], CultureInfo.InvariantCulture);
+                double rty = double.Parse(row[6], CultureInfo.InvariantCulture);
+                double bu = double.Parse(row[7], CultureInfo.InvariantCulture);
                 double cwb = double.Parse(row[8], CultureInfo.InvariantCulture);
                 double cwt = double.Parse(row[9], CultureInfo.InvariantCulture);
-                string lc = HeaderData["casename"];
-                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
+                string lc = row[2];
+                return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, cwb, cwt, lc);
             }
 
         }
