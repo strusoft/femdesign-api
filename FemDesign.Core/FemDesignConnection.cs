@@ -792,6 +792,17 @@ namespace FemDesign
             this.RunScript(script);
         }
 
+
+        public FemDesign.Results.InteractionSurface RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
+        {
+            string outFile = OutputFileHelper.GetIntSrffilePath(OutputDir);
+
+            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN), new CmdInteractionSurface(bar, outFile, offset, fUlt));
+            this.RunScript(script);
+            var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile);
+            return intSrf;
+        }
+
         public void Dispose()
         {
             if (_keepOpen) Disconnect();
@@ -1168,6 +1179,8 @@ namespace FemDesign
         private const string _struxmlFileName = "model.struxml";
         private const string _strFileName = "model.str";
 
+        private const string _intSrfFileName = "intSrf.txt";
+
         private const string _fdscriptFileExtension = ".fdscript";
         private const string _bscFileExtension = ".bsc";
         private const string _csvFileExtension = ".csv";
@@ -1178,6 +1191,15 @@ namespace FemDesign
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _logFileName));
         }
+
+        public static string GetIntSrffilePath(string baseDir)
+        {
+            string intSrffilePath = Path.Combine(baseDir, _intSrfFileName);
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            return Path.GetFullPath(Path.Combine(baseDir, _intSrfFileName));
+        }
+
         public static string GetStruxmlPath(string baseDir, string modelName = null)
         {
             if (!Directory.Exists(baseDir))
