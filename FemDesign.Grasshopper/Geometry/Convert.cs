@@ -969,5 +969,31 @@ internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         }
 
         #endregion
+
+        #region InteractionSurface
+
+        /// <summary>
+        /// Get Rhino Point from PointSupport.
+        /// </summary>
+        internal static Rhino.Geometry.Mesh ToRhino(this Results.InteractionSurface intSrf)
+        {
+            var mesh = new Mesh();
+
+
+            var orderedVertices = intSrf.Vertices.OrderBy(kvp => kvp.Key);
+
+            var points = orderedVertices.Select(x => x.Value.ToRhino()).ToList();
+            var faces = intSrf.Faces.Values.Select(x => x.ToRhino()).ToList();
+
+            mesh.Vertices.AddVertices(points);
+            mesh.Faces.AddFaces(faces);
+            mesh.Normals.ComputeNormals();
+
+            return mesh;
+        }
+
+        #endregion
+
+
     }
 }

@@ -22,7 +22,7 @@ namespace FemDesign.Calculate
         /// cross-section position, measured along the bar from the starting point [m]
         /// </summary>
         [XmlAttribute("offset")]
-        public double Offset { get; set; };
+        public double Offset { get; set; }
 
         /// <summary>
         /// fUlt is true for Ultimate, false for Accidental or Seismic  combination (different gammaC)
@@ -43,8 +43,8 @@ namespace FemDesign.Calculate
         }
         public CmdInteractionSurface(FemDesign.Bars.Bar bar, string filePath, double offset = 0.0, bool ultimate = true)
         {
-            if (bar.BarPart.ComplexSectionObj.Sections[0].MaterialFamily != "concrete")
-                throw new System.ArgumentException("Bar must have a concrete section");
+            //if (bar.BarPart.ComplexSectionObj.Sections[0].MaterialFamily != "concrete")
+            //    throw new System.ArgumentException("Bar must have a concrete section");
 
             this.Guid = bar.BarPart.Guid;
             this.Offset = offset;

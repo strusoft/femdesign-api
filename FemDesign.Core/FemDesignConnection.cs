@@ -797,6 +797,9 @@ namespace FemDesign
         {
             string outFile = OutputFileHelper.GetIntSrffilePath(OutputDir);
 
+            var model = new Model(Country.COMMON, new List<GenericClasses.IStructureElement> { bar });
+            this.Open(model);
+
             var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN), new CmdInteractionSurface(bar, outFile, offset, fUlt));
             this.RunScript(script);
             var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile);
