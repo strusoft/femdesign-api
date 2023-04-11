@@ -39,7 +39,6 @@ namespace FemDesign.Grasshopper
             bool fUlt = true;
             DA.GetData(1, ref fUlt);
 
-
             // Outputs
             List<Rhino.Geometry.Mesh> interSrf = new List<Mesh>();
 
@@ -87,9 +86,9 @@ namespace FemDesign.Grasshopper
 
 
             DA.SetDataList("InteractionSurface", interSrf);
-            DA.SetDataList("My", n);
-            DA.SetDataList("Mz", my);
-            DA.SetDataList("N", mz);
+            DA.SetDataList("N", n);
+            DA.SetDataList("My", my);
+            DA.SetDataList("Mz", mz);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -796,17 +796,10 @@ namespace FemDesign
         }
 
 
-        public FemDesign.Results.InteractionSurface RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
+        public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
         {
-            string outFile = OutputFileHelper.GetIntSrffilePath(OutputDir);
-
-            var model = new Model(Country.COMMON, new List<GenericClasses.IStructureElement> { bar });
-            this.Open(model);
-
-            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN), new CmdInteractionSurface(bar, outFile, offset, fUlt));
-            this.RunScript(script);
-            var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile);
-            return intSrf;
+            var bars = new List<GenericClasses.IStructureElement> { bar };
+            return RunInteractionSurface(bars, offset, fUlt);
         }
 
         public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)
