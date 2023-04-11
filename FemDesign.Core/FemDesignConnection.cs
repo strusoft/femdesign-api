@@ -75,7 +75,10 @@ namespace FemDesign
                 Verb = "open",
             };
             if (minimized)
+            {
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
+                startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+            }
 
             OutputDir = outputDir;
             if (tempOutputDir)
