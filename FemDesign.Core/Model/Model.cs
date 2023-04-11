@@ -145,7 +145,7 @@ namespace FemDesign
         /// <param name="constructionStage">Construction stages object instance.</param>
         /// <param name="soil">Soil element</param>
 
-        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null, Soil.SoilElements soil = null)
+        public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null, Soil.SoilElements soil = null, bool overwrite = false)
         {
             Initialize(country);
 

@@ -1,11 +1,14 @@
 ﻿// https://strusoft.com/
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using FemDesign;
 using System.Threading.Tasks;
 using FemDesign.Calculate;
+using System.Reflection;
+using Grasshopper;
 
 namespace FemDesign.Grasshopper
 {
@@ -18,42 +21,64 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bar", "Bar", "", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Offset", "Offset", "", GH_ParamAccess.item, 0.0);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("fUlt", "fUlt", "", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "", GH_ParamAccess.item);
-            pManager.Register_DoubleParam("N", "N", "", GH_ParamAccess.item);
-            pManager.Register_DoubleParam("My", "My", "", GH_ParamAccess.item);
-            pManager.Register_DoubleParam("Mz", "Mz", "", GH_ParamAccess.item);
+            pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "");
+            pManager.Register_IntervalParam("N", "N", "");
+            pManager.Register_IntervalParam("My", "My", "");
+            pManager.Register_IntervalParam("Mz", "Mz", "");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<FemDesign.Bars.Bar> bars = new List<Bars.Bar>();
+            var bars = new List<FemDesign.GenericClasses.IStructureElement>();
             if (!DA.GetDataList(0, bars)) return;
             
-            double offset = 0.0;
-            DA.GetData(1, ref offset);
-
             bool fUlt = true;
-            DA.GetData(2, ref fUlt);
+            DA.GetData(1, ref fUlt);
 
 
+            // Outputs
             List<Rhino.Geometry.Mesh> interSrf = new List<Mesh>();
 
+            var n = new List<Rhino.Geometry.Interval>();
+            var my = new List<Rhino.Geometry.Interval>();
+            var mz = new List<Rhino.Geometry.Interval>();
+
+            // Create Task
             var t = Task.Run( () =>
             {
                 var connection = new FemDesignConnection(minimized: true);
-                //var script = new FdScript(femDesign.OutputDir, new CmdUser(CmdUserModule.RCDESIGN), new CmdInteractionSurface(bar, outFile, offset, fUlt));
-                foreach(var bar in bars)
+
+                // our dummy beam has length == 1
+                var offset = 0.5;
+                var intSrf = connection.RunInteractionSurface( bars, offset, fUlt);
+                foreach(var _intSrf in intSrf)
                 {
-                    var intSrf = connection.RunInteractionSurface(bar, offset, fUlt);
-                    interSrf.Add( intSrf.ToRhino() );
+                    interSrf.Add( _intSrf.ToRhino() );
+
+                    var nMin = _intSrf.Vertices.Values.Select(x => x.Z ).Min();
+                    var nMax = _intSrf.Vertices.Values.Select(x => x.Z ).Max();
+
+                    var interval = new Rhino.Geometry.Interval(nMin, nMax);
+                    n.Add(interval);
+
+                    var myMin = _intSrf.Vertices.Values.Select(x => x.X).Min();
+                    var myMax = _intSrf.Vertices.Values.Select(x => x.X).Max();
+
+                    interval = new Rhino.Geometry.Interval(myMin, myMax);
+                    my.Add(interval);
+
+                    var mzMin = _intSrf.Vertices.Values.Select(x => x.Y).Min();
+                    var mzMax = _intSrf.Vertices.Values.Select(x => x.Y).Max();
+
+                    interval = new Rhino.Geometry.Interval(mzMin, mzMax);
+                    mz.Add(interval);
                 }
-                //femDesign.RunScriptAsync(script).Wait();
+
+                // Close FEM-Design
                 connection.Dispose();
             });
 
@@ -62,9 +87,9 @@ namespace FemDesign.Grasshopper
 
 
             DA.SetDataList("InteractionSurface", interSrf);
-            DA.SetData("My", 0);
-            DA.SetData("Mz", 0);
-            DA.SetData("N", 0);
+            DA.SetDataList("My", n);
+            DA.SetDataList("Mz", my);
+            DA.SetDataList("N", mz);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -987,7 +987,9 @@ internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
 
             mesh.Vertices.AddVertices(points);
             mesh.Faces.AddFaces(faces);
+            mesh.Flip(true, true, true);
             mesh.Normals.ComputeNormals();
+
 
             return mesh;
         }

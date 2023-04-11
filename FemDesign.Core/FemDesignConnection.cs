@@ -809,6 +809,34 @@ namespace FemDesign
             return intSrf;
         }
 
+        public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)
+        {
+            string outFile = OutputFileHelper.GetIntSrffilePath(OutputDir);
+
+            var model = new Model(Country.COMMON, bars, overwrite: true);
+            this.Open(model);
+
+            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN));
+            foreach(var bar in bars)
+            {
+                var _bar = (Bars.Bar)bar;
+                script.Add(new CmdInteractionSurface(_bar, outFile + _bar.BarPart.Guid, offset, fUlt));
+            }
+            
+            this.RunScript(script);
+
+            var intSurfaces = new List<FemDesign.Results.InteractionSurface>();
+
+            foreach (var bar in bars)
+            {
+                var _bar = (Bars.Bar)bar;
+                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile + _bar.BarPart.Guid);
+                intSurfaces.Add(intSrf);
+            }
+            return intSurfaces;
+        }
+
+
         public void Dispose()
         {
             if (_keepOpen) Disconnect();
