@@ -5,9 +5,9 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class InteractionSurface : GH_AsyncComponent
+    public class InteractionSurface_Pipe : GH_AsyncComponent
     {
-        public InteractionSurface() : base("InteractionSurface", "InteractionSurface", "", CategoryName.Name(), "Reinforcement")
+        public InteractionSurface_Pipe() : base("InteractionSurface", "InteractionSurface", "", CategoryName.Name(), "Reinforcement")
         {
             BaseWorker = new InteractionSurfaceWorker();
         }
@@ -32,7 +32,7 @@ namespace FemDesign.Grasshopper
         protected override System.Drawing.Bitmap Icon => null;
 
         public override Guid ComponentGuid => new Guid("881D7F8D-FB90-44E9-BB5B-2FD6A3119B0D");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
     /// <summary>

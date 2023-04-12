@@ -12,9 +12,9 @@ using Grasshopper;
 
 namespace FemDesign.Grasshopper
 {
-    public class InteractionSurface_HiddenPipe : GH_Component
+    public class InteractionSurface_Bar : GH_Component
     {
-        public InteractionSurface_HiddenPipe() : base("InteractionSurface_HiddenPipe", "InteractionSurface_HiddenPipe", "", "FEM-Design", "Reinforcement")
+        public InteractionSurface_Bar() : base("InteractionSurface_HiddenPipe", "InteractionSurface_HiddenPipe", "", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -102,6 +102,6 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{AF25C82B-6396-44FE-BDDC-AC2B53D89DA3}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.senary;
     }
 }

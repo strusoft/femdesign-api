@@ -64,18 +64,40 @@ namespace FemDesign.Grasshopper
         public int NumberOfBar { get; set; }
         public FemDesign.Materials.Material ReinforcingMaterial { get; set; }
         public double Diameter { get; set; }
+        public FemDesign.Reinforcement.WireProfileType WireProfileType { get; set; }
 
         public Layer()
         {
 
         }
-        public Layer(Curve curve, int numberOfRebar, double diameter, Materials.Material material)
+        public Layer(Curve curve, int numberOfRebar, double diameter, Materials.Material material, Reinforcement.WireProfileType wireProfileType)
         {
             Curve = curve;
             NumberOfBar = numberOfRebar;
             Diameter = diameter;
             ReinforcingMaterial = material;
+            WireProfileType = wireProfileType;
         }
+
+        public static implicit operator List<FemDesign.Reinforcement.BarReinforcement>(Layer layer)
+        {
+            var barReinfs = new List<FemDesign.Reinforcement.BarReinforcement>();
+
+            layer.Curve.DivideByCount(layer.NumberOfBar - 1, true, out Point3d[] points);
+
+            foreach(Point3d point in points)
+            {
+                var pos = new FemDesign.Geometry.Point2d(point.X, point.Y);
+                var longBar = new FemDesign.Reinforcement.LongitudinalBar(pos, 1.0, 1.0, 0.0, 1.0, false);
+                var wire = new FemDesign.Reinforcement.Wire(layer.Diameter, layer.ReinforcingMaterial, Reinforcement.WireProfileType.Ribbed);
+
+                var barReinf = new FemDesign.Reinforcement.BarReinforcement(Guid.Empty, wire, longBar);
+                barReinfs.Add(barReinf);
+            }
+
+            return barReinfs;
+        }
+
     }
 
 
@@ -100,6 +122,7 @@ namespace FemDesign.Grasshopper
             pManager.Register_IntervalParam("N", "N", "");
             pManager.Register_IntervalParam("My", "My", "");
             pManager.Register_IntervalParam("Mz", "Mz", "");
+            pManager.Register_GenericParam("Bar", "Bar", "");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -132,10 +155,16 @@ namespace FemDesign.Grasshopper
                 reinforcements.Add(reinf);
             }
 
+            foreach (var layer in layers)
+            {
+                var _reinf = (List<FemDesign.Reinforcement.BarReinforcement>)layer;
+                reinforcements.AddRange(_reinf);
+            }
+
 
             var edge = new FemDesign.Geometry.Edge( new Geometry.Point3d(0,0,0), new Geometry.Point3d(1,0,0) );
-            var bar = new FemDesign.Bars.Bar(edge, patch.Material, section);
-            bar.Reinforcement = reinforcements;
+            var bar = new FemDesign.Bars.Bar(edge, Bars.BarType.Beam, patch.Material, section);
+            bar = FemDesign.Reinforcement.BarReinforcement.AddReinforcementToBar(bar, reinforcements, true);
 
 
             // Outputs
@@ -188,6 +217,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("N", n);
             DA.SetDataList("My", my);
             DA.SetDataList("Mz", mz);
+            DA.SetData("Bar", bar);
         }
         protected override System.Drawing.Bitmap Icon
         {

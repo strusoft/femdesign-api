@@ -190,10 +190,11 @@
     </Compile>
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
-    <Compile Include="Reinforcement\InteractionSurface.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_Pipe.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\Layer.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Patch.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Rebar.cs" />
-    <Compile Include="Reinforcement\InteractionSurface_HiddenPipe.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_Bar.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_Section.cs" />
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
