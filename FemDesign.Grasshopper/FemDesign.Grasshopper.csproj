@@ -222,6 +222,7 @@
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
     <Compile Include="Results\Stability\StabilityImperfection.cs" />
+    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Units.cs" />

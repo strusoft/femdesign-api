@@ -433,7 +433,6 @@ namespace FemDesign.Calculate
         ImperfectionFactors,
         #endregion
 
-
         #region EIGEN FREQUENCIES
         /* EIGEN FREQUENCIES */
         /// <summary>
@@ -469,6 +468,14 @@ namespace FemDesign.Calculate
         [XmlEnum("frFootAccNodal_ListProc")]
         NodalAcceleration,
 
+        #endregion
+
+        #region STEEL DESIGN
+        /// <summary>
+        /// Steel design: Bar, Utilisation
+        /// </summary>
+        [XmlEnum("StUtilizationComb_ListProc")]
+        SteelDesignBarUtilizationLoadCombination,
         #endregion
 
         #region RC DESIGN

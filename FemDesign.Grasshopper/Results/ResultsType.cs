@@ -29,8 +29,8 @@ namespace FemDesign.Grasshopper
 
 
             var values = new List<string>
-            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "PointConnectionForce", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "CLTShellUtilization", "CLTFireUtilization", "RCBarUtilization", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "CriticalParameter", "ImperfectionFactor", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement", "FiniteElement"};
-
+            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "PointConnectionForce", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "CLTShellUtilization", "CLTFireUtilization", "RCBarUtilization", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibrationShape", "EigenFrequencies", "CriticalParameter", "ImperfectionFactor", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement", "FiniteElement", "BarSteelUtilization"};
+            
             GH_ValueListItem vi;
             foreach (string value in values)
             {
