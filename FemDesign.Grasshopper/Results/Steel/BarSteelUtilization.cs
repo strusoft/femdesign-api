@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<FemDesign.Results.BarSteelUtilization> iResult = new List<FemDesign.Results.BarSteelUtilization>();
-            DA.GetDataList("Result", iResult);
+            if(!DA.GetDataList("Result", iResult)) return;
 
             string loadCombination = null;
             DA.GetData(1, ref loadCombination);
