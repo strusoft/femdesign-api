@@ -6,16 +6,14 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Reflection;
+
 using GrasshopperAsyncComponent;
-using FemDesign;
-using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeReadResults : GH_AsyncComponent
+    public class PipeReadResults_OBSOLETE : GH_AsyncComponent
     {
-        public PipeReadResults() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeReadResults_OBSOLETE() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationReadResultWorker(this);
         }
@@ -44,42 +42,13 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{F8DADFC7-D8BA-44A4-8AD8-E4B39A1C81FC}");
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override Guid ComponentGuid => new Guid("{57A6F72C-8312-412B-A6F3-2D92F9BC0C1F}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
-    public class ApplicationReadResultWorker : WorkerInstance
+    public class ApplicationReadResultWorker_OBSOLETE : WorkerInstance
     {
         /* INPUT/OUTPUT */
-
-        public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-        public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-
         public FemDesignConnection _connection = null;
         private Calculate.Options _options = null;
         private Results.UnitResults _units = null;
@@ -93,7 +62,7 @@ namespace FemDesign.Grasshopper
 
         private Verbosity _verbosity = Verbosity.Normal;
 
-        public ApplicationReadResultWorker(GH_Component component) : base(component) { }
+        public ApplicationReadResultWorker_OBSOLETE(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -133,33 +102,42 @@ namespace FemDesign.Grasshopper
 
             if (!_combo.Any() && !_case.Any())
             {
-                var res = _getResults(type, _units, _options);
+                var res = _connection._getResults(type, _units, _options);
                 _results.AddRange(res);
             }
 
-            if(_case.Any())
+            if (_case.Any())
             {
-                foreach(var item in _case)
+                foreach (var item in _case)
                 {
-                    var res = _getLoadCaseResults(type, item, _units, _options);
+                    var res = _connection._getLoadCaseResults(type, item, _units, _options);
                     _results.AddRange(res);
                 }
             }
 
             if (_combo.Any())
             {
-                foreach(var item in _combo)
+                foreach (var item in _combo)
                 {
-                    var res = _getLoadCombinationResults(type, item, _units, _options);
+                    var res = _connection._getLoadCombinationResults(type, item, _units, _options);
                     _results.AddRange(res);
                 }
             }
+
+            //if (!_combo.Any() && !_case.Any())
+            //{
+            //    var resCase = _connection._getAllLoadCaseResults(type, _units, _options);
+            //    _results.AddRange(resCase);
+
+            //    var resCombo = _connection._getAllLoadCombinationResults(type, _units, _options);
+            //    _results.AddRange(resCombo);
+            //}
 
             _success = true;
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker_OBSOLETE(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {

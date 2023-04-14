@@ -391,16 +391,6 @@ namespace FemDesign
 
             return results;
         }
-
-        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
         public List<Results.FemNode> GetFeaNodes(Results.Length units = Results.Length.m)
         {
             var _resultType = ListProc.FemNode;
@@ -614,22 +604,6 @@ namespace FemDesign
 
             return results;
         }
-        public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { loadCase, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-        public dynamic _getAllLoadCaseResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
         public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             var mapComb = new MapComb(loadCombination);
@@ -717,23 +691,6 @@ namespace FemDesign
 
             return results;
         }
-        public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-        public dynamic _getAllLoadCombinationResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
             if (units is null)
@@ -776,22 +733,12 @@ namespace FemDesign
 
             return results;
         }
-        public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetQuantities").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, new CmdSave(filePath));
             this.RunScript(script);
         }
-
         public void Dispose()
         {
             if (_keepOpen) Disconnect();
@@ -801,15 +748,12 @@ namespace FemDesign
             // TODO: Delete the files when they are not locked by FEM-Design
             this._deleteOutputDirectories();
         }
-
         private void _deleteOutputDirectories()
         {
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
                     _deleteFolderIfNotUsed(dir);
         }
-
-
         private static void _deleteFolderIfNotUsed(string folderPath)
         {
             try
@@ -828,8 +772,6 @@ namespace FemDesign
                 throw;
             }
         }
-
-
         public string OutputDir
         {
             get { return _outputDir; }

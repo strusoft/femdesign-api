@@ -65,15 +65,17 @@ namespace FemDesign.Grasshopper
             // Return the unique load case - load combination
             var uniqueLoadCases = iResult.Select(n => n.CaseIdentifier).Distinct().ToList();
 
-            // Select the Nodal Displacement for the selected Load Case - Load Combination
-            if (uniqueLoadCases.Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            if(loadCombination != null)
             {
-                iResult = iResult.Where(n => String.Equals(n.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-            else
-            {
-                var warning = $"Load Combination '{loadCombination}' does not exist";
-                throw new ArgumentException(warning);
+                if (uniqueLoadCases.Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+                {
+                    iResult = iResult.Where(n => String.Equals(n.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                else
+                {
+                    var warning = $"Load Combination '{loadCombination}' does not exist";
+                    throw new ArgumentException(warning);
+                }
             }
 
 
