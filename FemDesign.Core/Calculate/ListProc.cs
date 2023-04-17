@@ -422,15 +422,18 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frStabCritParamOnlyPositive_ListProc")]
         CriticalParameters,
-        #endregion
 
-        #region STABILITY
-        /* STABILITY */
         /// <summary>
         /// Imperfection Factors (only positive)
         /// </summary>
         [XmlEnum("frImpfFactorsOnlyPositive_ListProc")]
         ImperfectionFactors,
+
+        /// <summary>
+        /// Nodal Buckling Shapes: Structural Model
+        /// </summary>
+        [XmlEnum("")]
+        NodalBucklingShapes,
         #endregion
 
 

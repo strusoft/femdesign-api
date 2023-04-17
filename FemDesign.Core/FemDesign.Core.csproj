@@ -76,6 +76,7 @@
     <Compile Include="Results\RC design\RCShellShearUtilization.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
+    <Compile Include="Results\Stability\NodalBucklingShapes.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
