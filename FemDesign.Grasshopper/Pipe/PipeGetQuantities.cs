@@ -46,21 +46,6 @@ namespace FemDesign.Grasshopper
         public override Guid ComponentGuid => new Guid("{81E32E19-C6A6-4E9E-A0B2-EB6CE1BA888F}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
-        //protected override void BeforeSolveInstance()
-        //{
-        //    var quantities = new List<string>();
-
-        //    var shipped = Enum.GetValues(typeof(ListProc));
-        //    foreach(var _item in shipped)
-        //    {
-        //        var item = (ListProc)_item;
-        //        if(item.IsQuantityEstimation())
-        //            quantities.Add(item.ToString());
-        //    }
-
-        //    ValueListUtils.updateValueLists(this, 1, quantities, null, GH_ValueListMode.DropDown);
-        //}
-
     }
 
     public class ApplicationGetQuantitiesWorker : WorkerInstance
