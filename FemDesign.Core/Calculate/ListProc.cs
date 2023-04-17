@@ -432,8 +432,8 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Nodal Buckling Shapes: Structural Model
         /// </summary>
-        [XmlEnum("")]
-        NodalBucklingShapes,
+        [XmlEnum("frStabDispNodal_ListProc")]
+        NodalBucklingShape,
         #endregion
 
 

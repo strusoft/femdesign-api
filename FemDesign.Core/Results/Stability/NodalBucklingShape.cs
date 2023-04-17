@@ -14,8 +14,8 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal buckling shapes" result
     /// </summary>
-    [Result(typeof(NodalBucklingShapes), ListProc.NodalBucklingShapes)]
-    public partial class NodalBucklingShapes : IResult
+    [Result(typeof(NodalBucklingShape), ListProc.NodalBucklingShape)]
+    public partial class NodalBucklingShape : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -52,10 +52,10 @@ namespace FemDesign.Results
         /// <summary>
         /// Load case or combination name
         /// </summary>
-        public int ShapeId { get; }
+        public string CaseIdentifier { get; }
 
         [JsonConstructor]
-        internal NodalBucklingShapes(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, int shapeId)
+        internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string loadCombination)
         {
             this.Id = id;
             this.NodeId = nodeId;
@@ -65,7 +65,7 @@ namespace FemDesign.Results
             this.Fix = fix;
             this.Fiy = fiy;
             this.Fiz = fiz;
-            this.ShapeId = shapeId;
+            this.CaseIdentifier = loadCombination;
         }
 
         public override string ToString()
@@ -78,7 +78,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal buckling) shapes,\s*(?'shapeid'\d*)");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'combname'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -86,11 +86,11 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal buckling) shapes,\s*(?'shapeid'\d*)|^ID.*|\[.*\]");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'combname'[ -#%'-;=?A-\ufffd]{1,79})|ID\tNode\tex\tey\tez\tfix\tfiy\tCase|\[.*\]");
             }
         }
 
-        internal static NodalBucklingShapes Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static NodalBucklingShape Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string identifier = row[0];
             int nodeId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
@@ -100,8 +100,8 @@ namespace FemDesign.Results
             double fix = Double.Parse(row[5], CultureInfo.InvariantCulture);
             double fiy = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double fiz = Double.Parse(row[7], CultureInfo.InvariantCulture);
-            int shapeId = Int32.Parse(HeaderData["shapeid"]);
-            return new NodalBucklingShapes(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, shapeId);
+            string loadcomb = HeaderData["combname"];
+            return new NodalBucklingShape(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, loadcomb);
         }
 
     }

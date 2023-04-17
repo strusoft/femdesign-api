@@ -30,8 +30,8 @@ B.1.1	6038	-0.041	0.037	-0.018	-0.020	-0.008	0.014
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.Count == 5);
-            Assert.IsTrue(results.First().GetType() == typeof(NodalVibration));
-            Assert.IsTrue(results.Last().GetType() == typeof(NodalVibration));
+            Assert.IsTrue(results.First().GetType() == typeof(NodalVibrationShape));
+            Assert.IsTrue(results.Last().GetType() == typeof(NodalVibrationShape));
 
             File.Delete(path);
         }
@@ -46,8 +46,8 @@ B.1.1	6038	-0.041	0.037	-0.018	-0.020	-0.008	0.014
 
             foreach (var header in headers)
             {
-                var match = NodalVibration.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalVibration).Name}");
+                var match = NodalVibrationShape.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalVibrationShape).Name}");
             }
         }
 
@@ -63,7 +63,7 @@ B.1.1	6038	-0.041	0.037	-0.018	-0.020	-0.008	0.014
 
             foreach (var header in headers)
             {
-                var match = NodalVibration.HeaderExpression.Match(header);
+                var match = NodalVibrationShape.HeaderExpression.Match(header);
                 Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }
