@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
 {
     public partial class RebarComp : GH_Component
     {
-        public RebarComp() : base("Rebar", "Rebar", "Define a longitudal bar.", "FEM-Design", "Reinforcement")
+        public RebarComp() : base("Rebar", "Rebar", "Define a single rebar.", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.Rebar;
             }
         }
         public override Guid ComponentGuid
