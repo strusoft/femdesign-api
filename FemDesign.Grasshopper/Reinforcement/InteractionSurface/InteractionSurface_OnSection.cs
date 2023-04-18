@@ -182,17 +182,18 @@ namespace FemDesign.Grasshopper
                 var movedPoint = new Rhino.Geometry.Point3d( reinf.Pos );
                 movedPoint.Transform(transformation);
 
-                reinf.Pos = movedPoint;
-                reinforcements.Add(reinf);
+                var _reinf = new Rebar(movedPoint, reinf.Diameter, reinf.ReinforcingMaterial, reinf.WireProfileType);
+                reinforcements.Add(_reinf);
             }
 
             foreach (var layer in layers)
             {
                 var _curve = layer.Curve.DuplicateCurve();
                 _curve.Transform(transformation);
-                layer.Curve = _curve;
 
-                var _reinf = (List<FemDesign.Reinforcement.BarReinforcement>)layer;
+                var _layer = new Layer(_curve, layer.NumberOfBar, layer.Diameter, layer.ReinforcingMaterial, layer.WireProfileType);
+
+                var _reinf = (List<FemDesign.Reinforcement.BarReinforcement>)_layer;
                 reinforcements.AddRange(_reinf);
             }
 
