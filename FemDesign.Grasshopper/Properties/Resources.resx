@@ -7168,4 +7168,16 @@
   <data name="FEM_RunDesign" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\FEM_RunDesign.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="InteractionSurface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\InteractionSurface.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rebar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Rebar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Patch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Patch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
