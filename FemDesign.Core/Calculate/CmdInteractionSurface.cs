@@ -43,8 +43,11 @@ namespace FemDesign.Calculate
         }
         public CmdInteractionSurface(FemDesign.Bars.Bar bar, string filePath, double offset = 0.0, bool ultimate = true)
         {
-            //if (bar.BarPart.ComplexSectionObj.Sections[0].MaterialFamily != "concrete")
-            //    throw new System.ArgumentException("Bar must have a concrete section");
+            if (bar.BarPart.ComplexMaterialObj.Family != Materials.Family.Concrete)
+                throw new System.ArgumentException("Bar must have a concrete section");
+
+            if (offset > bar.BarPart.Edge.Length)
+                throw new System.ArgumentException($"Offset can not be larger than {bar.BarPart.Edge.Length}");
 
             this.Guid = bar.BarPart.Guid;
             this.Offset = offset;

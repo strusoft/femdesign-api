@@ -796,10 +796,10 @@ namespace FemDesign
         }
 
 
-        public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
+        public FemDesign.Results.InteractionSurface RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
         {
             var bars = new List<GenericClasses.IStructureElement> { bar };
-            return RunInteractionSurface(bars, offset, fUlt);
+            return RunInteractionSurface(bars, offset, fUlt)[0];
         }
 
         public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)

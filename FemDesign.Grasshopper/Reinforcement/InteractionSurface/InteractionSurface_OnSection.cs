@@ -120,7 +120,7 @@ namespace FemDesign.Grasshopper
 
     public class InteractionSurface_section : GH_Component
     {
-        public InteractionSurface_section() : base("InteractionSurface.OnSection", "InteractionSurface.OnSection", "", "FEM-Design", "Reinforcement")
+        public InteractionSurface_section() : base("InteractionSurface.OnSection", "InteractionSurface.OnSection", "Calculate the interaction surface for a concrete section with rebars", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -204,11 +204,10 @@ namespace FemDesign.Grasshopper
 
 
             // Outputs
-            List<Rhino.Geometry.Mesh> interSrf = new List<Mesh>();
-
-            var n = new List<Rhino.Geometry.Interval>();
-            var my = new List<Rhino.Geometry.Interval>();
-            var mz = new List<Rhino.Geometry.Interval>();
+            Rhino.Geometry.Mesh rhinoIntSrf = new Mesh();
+            Rhino.Geometry.Interval n_interval = new Interval();
+            Rhino.Geometry.Interval my_interval = new Interval();
+            Rhino.Geometry.Interval mz_interval = new Interval();
 
             // Create Task
             var t = Task.Run(() =>
@@ -218,28 +217,23 @@ namespace FemDesign.Grasshopper
                 // our dummy beam has length == 1
                 var offset = 0.5;
                 var intSrf = connection.RunInteractionSurface(bar, offset, fUlt);
-                foreach (var _intSrf in intSrf)
-                {
-                    interSrf.Add(_intSrf.ToRhino());
 
-                    var nMin = _intSrf.Vertices.Values.Select(x => x.Z).Min();
-                    var nMax = _intSrf.Vertices.Values.Select(x => x.Z).Max();
+                rhinoIntSrf = intSrf.ToRhino();
 
-                    var interval = new Rhino.Geometry.Interval(nMin, nMax);
-                    n.Add(interval);
+                var nMin = intSrf.Vertices.Values.Select(x => x.Z).Min();
+                var nMax = intSrf.Vertices.Values.Select(x => x.Z).Max();
 
-                    var myMin = _intSrf.Vertices.Values.Select(x => x.X).Min();
-                    var myMax = _intSrf.Vertices.Values.Select(x => x.X).Max();
+                n_interval = new Rhino.Geometry.Interval(nMin, nMax);
 
-                    interval = new Rhino.Geometry.Interval(myMin, myMax);
-                    my.Add(interval);
+                var myMin = intSrf.Vertices.Values.Select(x => x.X).Min();
+                var myMax = intSrf.Vertices.Values.Select(x => x.X).Max();
 
-                    var mzMin = _intSrf.Vertices.Values.Select(x => x.Y).Min();
-                    var mzMax = _intSrf.Vertices.Values.Select(x => x.Y).Max();
+                my_interval = new Rhino.Geometry.Interval(myMin, myMax);
 
-                    interval = new Rhino.Geometry.Interval(mzMin, mzMax);
-                    mz.Add(interval);
-                }
+                var mzMin = intSrf.Vertices.Values.Select(x => x.Y).Min();
+                var mzMax = intSrf.Vertices.Values.Select(x => x.Y).Max();
+
+                mz_interval = new Rhino.Geometry.Interval(mzMin, mzMax);
 
                 // Close FEM-Design
                 connection.Dispose();
@@ -249,17 +243,17 @@ namespace FemDesign.Grasshopper
             t.Wait();
 
 
-            DA.SetDataList("InteractionSurface", interSrf);
-            DA.SetDataList("N", n);
-            DA.SetDataList("My", my);
-            DA.SetDataList("Mz", mz);
+            DA.SetData("InteractionSurface", rhinoIntSrf);
+            DA.SetData("N", n_interval);
+            DA.SetData("My", my_interval);
+            DA.SetData("Mz", mz_interval);
             DA.SetData("Bar", bar);
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.InteractionSurface;
             }
         }
         public override Guid ComponentGuid

@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
 {
     public class InteractionSurface_OnBar : GH_Component
     {
-        public InteractionSurface_OnBar() : base("InteractionSurface.OnBar", "InteractionSurface.OnBar", "", "FEM-Design", "Reinforcement")
+        public InteractionSurface_OnBar() : base("InteractionSurface.OnBar", "InteractionSurface.OnBar", "Calculate the interaction surface for a concrete beam with rebars", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -22,6 +22,8 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Bar", "Bar", "", GH_ParamAccess.list);
             pManager.AddBooleanParameter("fUlt", "fUlt", "", GH_ParamAccess.item, true);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("Offset", "Offset", "cross-section position, measured along the bar from the starting point [m]", GH_ParamAccess.item, 0.0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -39,6 +41,9 @@ namespace FemDesign.Grasshopper
             bool fUlt = true;
             DA.GetData(1, ref fUlt);
 
+            double offset = 0.0;
+            DA.GetData(2, ref offset);
+
             // Outputs
             List<Rhino.Geometry.Mesh> interSrf = new List<Mesh>();
 
@@ -52,7 +57,6 @@ namespace FemDesign.Grasshopper
                 var connection = new FemDesignConnection(minimized: true);
 
                 // our dummy beam has length == 1
-                var offset = 0.5;
                 var intSrf = connection.RunInteractionSurface( bars, offset, fUlt);
                 foreach(var _intSrf in intSrf)
                 {
@@ -94,7 +98,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.InteractionSurface;
             }
         }
         public override Guid ComponentGuid

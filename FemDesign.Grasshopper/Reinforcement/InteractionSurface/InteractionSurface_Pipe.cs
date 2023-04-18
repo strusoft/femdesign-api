@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
         {
             if (runNode)
             {
-                var intSrf = connection.RunInteractionSurface(bar, offset, fUlt)[0];
+                var intSrf = connection.RunInteractionSurface(bar, offset, fUlt);
                 interSrf = intSrf.ToRhino();
                 success = true;
             }
