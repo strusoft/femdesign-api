@@ -10,16 +10,16 @@ namespace FemDesign.Grasshopper
 {
     public partial class LayerComp : GH_Component
     {
-        public LayerComp() : base("Layer", "Layer", "", "FEM-Design", "Reinforcement")
+        public LayerComp() : base("Layer", "Layer", "Define a series of rebar to be place in a curve.", "FEM-Design", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curve", "Curve", "", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("NumberOfRebar", "NumberOfRebar", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of reinforcement bar.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar.", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Curve", "Curve", "Curve path for rebar placement", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("NumberOfRebar", "NumberOfRebar", "Number of rebar to insert on the curve. The point will be place on a same length distance.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of reinforcement bar [m].", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar. Only reinforcement material can be use.", GH_ParamAccess.item);
             pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Allowed values: smooth/ribbed", GH_ParamAccess.item, "ribbed");
             pManager[pManager.ParamCount - 1].Optional = true;
         }

@@ -12,9 +12,9 @@ using Grasshopper;
 
 namespace FemDesign.Grasshopper
 {
-    public class InteractionSurface_Bar : GH_Component
+    public class InteractionSurface_OnBar : GH_Component
     {
-        public InteractionSurface_Bar() : base("InteractionSurface_HiddenPipe", "InteractionSurface_HiddenPipe", "", "FEM-Design", "Reinforcement")
+        public InteractionSurface_OnBar() : base("InteractionSurface.OnBar", "InteractionSurface.OnBar", "", "FEM-Design", "Reinforcement")
         {
 
         }

@@ -27,6 +27,8 @@ namespace FemDesign.Grasshopper
         {
             Pos = point;
             Diameter = diameter;
+            if(reinfMaterial.Family != Materials.Family.ReinforcingSteel)
+                throw new ArgumentException("Material must be Reinforcing Steel");
             ReinforcingMaterial = reinfMaterial;
             WireProfileType = wireProfileType;
 
@@ -45,8 +47,21 @@ namespace FemDesign.Grasshopper
     public class Patch
     {
         public Rhino.Geometry.Brep Srf { get; set; }
-        public FemDesign.Materials.Material Material { get; set; }
 
+        private FemDesign.Materials.Material _material { get; set; }
+        public FemDesign.Materials.Material Material
+        {
+            get { return _material; }
+            set
+            {
+                if (value.Family != Materials.Family.Concrete)
+                {
+                    throw new ArgumentException("Material must be Concrete");
+                }
+                else
+                    _material = value;
+            }
+        }
         public Patch()
         {
 
@@ -75,6 +90,8 @@ namespace FemDesign.Grasshopper
             Curve = curve;
             NumberOfBar = numberOfRebar;
             Diameter = diameter;
+            if (material.Family != Materials.Family.ReinforcingSteel)
+                throw new ArgumentException("Material must be Reinforcing Steel");
             ReinforcingMaterial = material;
             WireProfileType = wireProfileType;
         }
@@ -103,7 +120,7 @@ namespace FemDesign.Grasshopper
 
     public class InteractionSurface_section : GH_Component
     {
-        public InteractionSurface_section() : base("InteractionSurface_section", "InteractionSurface_section", "", "FEM-Design", "Reinforcement")
+        public InteractionSurface_section() : base("InteractionSurface.OnSection", "InteractionSurface.OnSection", "", "FEM-Design", "Reinforcement")
         {
 
         }
@@ -113,7 +130,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Rebars", "Rebars", "", GH_ParamAccess.list);
             pManager.AddGenericParameter("Layers", "Layers", "", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("fUlt", "fUlt", "", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("fUlt", "fUlt", "fUlt is true for Ultimate, false for Accidental or Seismic  combination (different gammaC)", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -140,10 +157,20 @@ namespace FemDesign.Grasshopper
             DA.GetData(3, ref fUlt);
 
 
+            var areamassproperty = Rhino.Geometry.AreaMassProperties.Compute(patch.Srf);
+            var centroid = areamassproperty.Centroid;
+            var normal = patch.Srf.Surfaces.First().NormalAt(0,0);
+            var initialPosition = new Rhino.Geometry.Plane(centroid, normal);
+            var finalPosition = Rhino.Geometry.Plane.WorldXY;
+            var transformation = Rhino.Geometry.Transform.PlaneToPlane(initialPosition, finalPosition);
+
+            // Copy surface from Patch
+            var _srf = patch.Srf.DuplicateBrep();
+            _srf.Transform(transformation);
 
             // Create Section
             List<FemDesign.Geometry.Region> regions = new List<FemDesign.Geometry.Region>();
-            regions.Add(patch.Srf.FromRhino());
+            regions.Add(_srf.FromRhino());
             FemDesign.Geometry.RegionGroup regionGroup = new FemDesign.Geometry.RegionGroup(regions);
             var section = new FemDesign.Sections.Section(regionGroup, "custom", Materials.MaterialTypeEnum.Concrete, "groupName", "typeName", "sizeName");
 
@@ -152,11 +179,19 @@ namespace FemDesign.Grasshopper
 
             foreach(var reinf in rebars)
             {
+                var movedPoint = new Rhino.Geometry.Point3d( reinf.Pos );
+                movedPoint.Transform(transformation);
+
+                reinf.Pos = movedPoint;
                 reinforcements.Add(reinf);
             }
 
             foreach (var layer in layers)
             {
+                var _curve = layer.Curve.DuplicateCurve();
+                _curve.Transform(transformation);
+                layer.Curve = _curve;
+
                 var _reinf = (List<FemDesign.Reinforcement.BarReinforcement>)layer;
                 reinforcements.AddRange(_reinf);
             }

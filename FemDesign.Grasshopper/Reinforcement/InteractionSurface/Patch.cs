@@ -10,14 +10,14 @@ namespace FemDesign.Grasshopper
 {
     public partial class PatchComp : GH_Component
     {
-        public PatchComp() : base("Patch", "Patch", "", "FEM-Design", "Reinforcement")
+        public PatchComp() : base("Patch", "Patch", "Define the boundary of the structural section", "FEM-Design", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddBrepParameter("Surface", "Srf", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "Section material: Only concrete material can be specified", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -27,6 +27,12 @@ namespace FemDesign.Grasshopper
         {
             Rhino.Geometry.Brep srf = null;
             if (!DA.GetData(0, ref srf)) return;
+
+            foreach (var _srf in srf.Surfaces)
+            {
+                if (_srf.IsPlanar() == false)
+                    throw new Exception("Surface must be planar!");
+            }
 
             FemDesign.Materials.Material material = null;
             if (!DA.GetData("Material", ref material)) return;

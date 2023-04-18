@@ -10,15 +10,15 @@ namespace FemDesign.Grasshopper
 {
     public partial class RebarComp : GH_Component
     {
-        public RebarComp() : base("Rebar", "Rebar", "", "FEM-Design", "Reinforcement")
+        public RebarComp() : base("Rebar", "Rebar", "Define a longitudal bar.", "FEM-Design", "Reinforcement")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Pos", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of reinforcement bar.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar.", GH_ParamAccess.item);
+            pManager.AddPointParameter("Point", "Pos", "Rebar position.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of bar reinforcement [m].", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar. Only reinforcement material can be use.", GH_ParamAccess.item);
             pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Allowed values: smooth/ribbed", GH_ParamAccess.item, "ribbed");
             pManager[pManager.ParamCount - 1].Optional = true;
         }

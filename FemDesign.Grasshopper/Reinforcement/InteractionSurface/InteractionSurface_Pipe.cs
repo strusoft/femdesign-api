@@ -15,9 +15,9 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Bar", "Bar", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Offset", "Offset", "", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("Offset", "Offset", "cross-section position, measured along the bar from the starting point [m]", GH_ParamAccess.item, 0.0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("fUlt", "fUlt", "", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("fUlt", "fUlt", "fUlt is true for Ultimate, false for Accidental or Seismic  combination (different gammaC)", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
