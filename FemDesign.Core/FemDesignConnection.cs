@@ -1221,7 +1221,6 @@ namespace FemDesign
 
         public static string GetIntSrffilePath(string baseDir)
         {
-            string intSrffilePath = Path.Combine(baseDir, _intSrfFileName);
             if (!Directory.Exists(baseDir))
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _intSrfFileName));

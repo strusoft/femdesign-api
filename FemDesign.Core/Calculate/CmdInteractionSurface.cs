@@ -47,7 +47,7 @@ namespace FemDesign.Calculate
                 throw new System.ArgumentException("Bar must have a concrete section");
 
             if (offset > bar.BarPart.Edge.Length)
-                throw new System.ArgumentException($"Offset can not be larger than {bar.BarPart.Edge.Length}");
+                throw new System.ArgumentException($"Offset can not be larger than bar length == {bar.BarPart.Edge.Length}");
 
             this.Guid = bar.BarPart.Guid;
             this.Offset = offset;
