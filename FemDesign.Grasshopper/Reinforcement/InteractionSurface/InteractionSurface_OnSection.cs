@@ -136,10 +136,10 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "");
-            pManager.Register_IntervalParam("N", "N", "");
-            pManager.Register_IntervalParam("My", "My", "");
-            pManager.Register_IntervalParam("Mz", "Mz", "");
-            pManager.Register_GenericParam("Bar", "Bar", "");
+            pManager.Register_IntervalParam("N", "N", "Min/Max capacity value");
+            pManager.Register_IntervalParam("My", "My", "Min/Max capacity value");
+            pManager.Register_IntervalParam("Mz", "Mz", "Min/Max capacity value");
+            pManager.Register_GenericParam("Bar", "Bar", "Reinforced dummy bar. The bar has length == 1.0 and it does not contains Stirrups. ");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -155,6 +155,21 @@ namespace FemDesign.Grasshopper
 
             bool fUlt = true;
             DA.GetData(3, ref fUlt);
+
+
+
+            #region FILE CREATION
+            // set Output directory
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script to run the Interaction Surface.");
+                return;
+            }
+
+            var _ghfileDir = System.IO.Path.GetDirectoryName(OnPingDocument().FilePath);
+            System.IO.Directory.SetCurrentDirectory(_ghfileDir);
+            #endregion
 
 
             var areamassproperty = Rhino.Geometry.AreaMassProperties.Compute(patch.Srf);
@@ -212,7 +227,7 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection(minimized: true);
+                var connection = new FemDesignConnection(minimized: true, tempOutputDir: true);
 
                 // our dummy beam has length == 1
                 var offset = 0.5;
@@ -240,7 +255,14 @@ namespace FemDesign.Grasshopper
             });
 
             t.ConfigureAwait(false);
-            t.Wait();
+            try
+            {
+                t.Wait();
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
 
 
             DA.SetData("InteractionSurface", rhinoIntSrf);

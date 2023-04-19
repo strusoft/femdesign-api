@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bar", "Bar", "", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("fUlt", "fUlt", "", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("fUlt", "fUlt", "fUlt is true for Ultimate, false for Accidental or Seismic  combination (different gammaC)", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("Offset", "Offset", "cross-section position, measured along the bar from the starting point [m]", GH_ParamAccess.item, 0.0);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -29,9 +29,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "");
-            pManager.Register_IntervalParam("N", "N", "");
-            pManager.Register_IntervalParam("My", "My", "");
-            pManager.Register_IntervalParam("Mz", "Mz", "");
+            pManager.Register_IntervalParam("N", "N", "Min/Max capacity value");
+            pManager.Register_IntervalParam("My", "My", "Min/Max capacity value");
+            pManager.Register_IntervalParam("Mz", "Mz", "Min/Max capacity value");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -44,6 +44,20 @@ namespace FemDesign.Grasshopper
             double offset = 0.0;
             DA.GetData(2, ref offset);
 
+
+            #region FILE CREATION
+            // set Output directory
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script to run the Interaction Surface.");
+                return;
+            }
+
+            var _ghfileDir = System.IO.Path.GetDirectoryName(OnPingDocument().FilePath);
+            System.IO.Directory.SetCurrentDirectory(_ghfileDir);
+            #endregion
+
             // Outputs
             List<Rhino.Geometry.Mesh> interSrf = new List<Mesh>();
 
@@ -54,7 +68,7 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run( () =>
             {
-                var connection = new FemDesignConnection(minimized: true);
+                var connection = new FemDesignConnection(minimized: true, tempOutputDir: true);
 
                 // our dummy beam has length == 1
                 var intSrf = connection.RunInteractionSurface( bars, offset, fUlt);
@@ -86,7 +100,14 @@ namespace FemDesign.Grasshopper
             });
 
             t.ConfigureAwait(false);
-            t.Wait();
+            try
+            {
+                t.Wait();
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
 
 
             DA.SetDataList("InteractionSurface", interSrf);
