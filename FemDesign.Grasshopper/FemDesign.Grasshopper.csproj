@@ -77,7 +77,7 @@
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
-    <Compile Include="Bars\BarsModify.cs" />
+    <Compile Include="Bars\BarDeconstructModify.cs" />
     <Compile Include="Bars\BarsTaperedBeam.cs" />
     <Compile Include="Bars\BarsTaperedColumn.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_Pipe.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Layer.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Patch.cs" />
