@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
 
             WireProfileType _profile = EnumParser.Parse<WireProfileType>(profile);
 
-            var obj = new FemDesign.Grasshopper.Rebar(point, diameter, material, _profile);
+            var obj = new FemDesign.Grasshopper.Rebar(point.FromRhino(), diameter, material, _profile);
 
             DA.SetData(0, obj);
         }

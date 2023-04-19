@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
 {
     public partial class Rebar
     {
-        public Rhino.Geometry.Point3d Pos { get; set; }
+        public FemDesign.Geometry.Point3d Pos { get; set; }
         public FemDesign.Materials.Material ReinforcingMaterial { get; set; }
         public double Diameter { get; set; }
         public FemDesign.Reinforcement.WireProfileType WireProfileType { get; set; }
@@ -23,7 +23,7 @@ namespace FemDesign.Grasshopper
         {
 
         }
-        public Rebar(Point3d point, double diameter, Materials.Material reinfMaterial, Reinforcement.WireProfileType wireProfileType)
+        public Rebar(FemDesign.Geometry.Point3d point, double diameter, Materials.Material reinfMaterial, Reinforcement.WireProfileType wireProfileType)
         {
             Pos = point;
             Diameter = diameter;
@@ -31,7 +31,11 @@ namespace FemDesign.Grasshopper
                 throw new ArgumentException("Material must be Reinforcing Steel");
             ReinforcingMaterial = reinfMaterial;
             WireProfileType = wireProfileType;
+        }
 
+        public override string ToString()
+        {
+            return $"{this.GetType().Name}, Pos: {this.Pos}, Diameter: {Diameter}, ReinforcingMaterial: {ReinforcingMaterial.Name}, WireProfileType: {WireProfileType}";
         }
 
         public static implicit operator FemDesign.Reinforcement.BarReinforcement(Rebar rebar)
@@ -71,6 +75,11 @@ namespace FemDesign.Grasshopper
             Srf = srf;
             Material = material;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name},  Material: {Material}";
+        }
     }
 
     public class Layer
@@ -94,6 +103,11 @@ namespace FemDesign.Grasshopper
                 throw new ArgumentException("Material must be Reinforcing Steel");
             ReinforcingMaterial = material;
             WireProfileType = wireProfileType;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name}, NumberOfBar: {this.NumberOfBar}, Diameter: {Diameter}, ReinforcingMaterial: {ReinforcingMaterial.Name}, WireProfileType: {WireProfileType}";
         }
 
         public static implicit operator List<FemDesign.Reinforcement.BarReinforcement>(Layer layer)
@@ -194,10 +208,10 @@ namespace FemDesign.Grasshopper
 
             foreach(var reinf in rebars)
             {
-                var movedPoint = new Rhino.Geometry.Point3d( reinf.Pos );
+                var movedPoint = new Rhino.Geometry.Point3d( reinf.Pos.ToRhino() );
                 movedPoint.Transform(transformation);
 
-                var _reinf = new Rebar(movedPoint, reinf.Diameter, reinf.ReinforcingMaterial, reinf.WireProfileType);
+                var _reinf = new Rebar(movedPoint.FromRhino(), reinf.Diameter, reinf.ReinforcingMaterial, reinf.WireProfileType);
                 reinforcements.Add(_reinf);
             }
 
