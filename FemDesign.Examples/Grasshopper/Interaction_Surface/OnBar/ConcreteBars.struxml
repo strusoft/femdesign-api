@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.001" start_time="1970-01-01T00:00:00.000" end_time="2023-04-20T07:26:15.000" guid="7a2405a5-11be-4184-9466-61fdeb691880" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="N" xmlns="urn:strusoft">
+	<entities>
+		<bar name="B.1" type="beam" guid="31c0af33-d0a9-4bfd-b6db-8640b487a1b9" last_change="2023-04-20T07:23:25.000" action="added">
+			<bar_part guid="864fcbbf-b939-4806-9bdc-97c667bf53e7" last_change="2023-04-20T07:23:25.000" action="added" name="B.1.1" complex_material="f71bf8e5-56a2-45d3-8078-ecfb7b4e7198" complex_section="1b6c31b5-73d2-42ef-a5e6-da8637db9a12" ecc_calc="true">
+				<curve type="line">
+					<point x="6" y="4" z="0"></point>
+					<point x="10" y="4" z="0"></point>
+				</curve>
+				<local-y x="0" y="1" z="0"></local-y>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<eccentricity use_default_physical_alignment="true">
+					<analytical x="0" y="0" z="0"></analytical>
+					<analytical x="0" y="0" z="0"></analytical>
+					<physical x="0" y="0" z="-0.3"></physical>
+					<physical x="0" y="0" z="-0.3"></physical>
+				</eccentricity>
+				<buckling_data>
+					<buckling_length type="flexural_stiff">
+						<position start="0" end="1"></position>
+					</buckling_length>
+					<buckling_length type="flexural_weak">
+						<position start="0" end="1"></position>
+					</buckling_length>
+				</buckling_data>
+				<end></end>
+			</bar_part>
+			<end></end>
+		</bar>
+		<bar name="B.2" type="beam" guid="c62e3a4c-bf0c-49d4-aa15-0220d9281a94" last_change="2023-04-20T07:23:25.000" action="added">
+			<bar_part guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31" last_change="2023-04-20T07:23:25.000" action="added" name="B.2.1" complex_material="f71bf8e5-56a2-45d3-8078-ecfb7b4e7198" complex_section="88a5e9f4-eae3-4eb0-9cce-d64aa47e0327" ecc_calc="true">
+				<curve type="line">
+					<point x="6" y="6" z="0"></point>
+					<point x="10" y="6" z="0"></point>
+				</curve>
+				<local-y x="0" y="1" z="0"></local-y>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<connectivity m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true"></connectivity>
+				<eccentricity use_default_physical_alignment="true">
+					<analytical x="0" y="0" z="0"></analytical>
+					<analytical x="0" y="0" z="0"></analytical>
+					<physical x="0" y="0" z="-0.25"></physical>
+					<physical x="0" y="0" z="-0.25"></physical>
+				</eccentricity>
+				<buckling_data>
+					<buckling_length type="flexural_stiff">
+						<position start="0" end="1"></position>
+					</buckling_length>
+					<buckling_length type="flexural_weak">
+						<position start="0" end="1"></position>
+					</buckling_length>
+				</buckling_data>
+				<end></end>
+			</bar_part>
+			<end></end>
+		</bar>
+		<bar_reinforcement guid="eac0a5c3-d05e-454c-a008-fff723c430bc" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="0" end="1.2" distance="0.1">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="-0.276" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="0.276" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="0.276" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="8e2e3e81-0fe2-4d7d-ac3c-1f3e91562191" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="1.2" end="2.8" distance="0.2">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="-0.276" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="0.276" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="0.276" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="83877884-e056-491f-abec-97a04b7f41c0" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="2.8" end="4" distance="0.1">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="-0.276" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="-0.276" z="0"></point>
+							<point x="0.126" y="0.276" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="0.276" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.126" y="0.276" z="0"></point>
+							<point x="-0.126" y="-0.276" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="c45155a7-303e-4ad1-afb0-5b3e20223be3" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="0" end="1.2" distance="0.1">
+				<region>
+					<contour>
+						<edge radius="0.226" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="87eb80ba-2aae-4800-9954-7069ebaaea9b" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="1.2" end="2.8" distance="0.2">
+				<region>
+					<contour>
+						<edge radius="0.226" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="6758eedc-cc0e-415d-84d6-78b428d71715" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.008" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<stirrups start="2.8" end="4" distance="0.1">
+				<region>
+					<contour>
+						<edge radius="0.226" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</stirrups>
+		</bar_reinforcement>
+		<bar_reinforcement guid="1052cea7-724a-4f6e-89d3-f0cea9a2ac56" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="bc38da7b-6375-487f-a989-6df2eeafb04c" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.0672" y="-0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="54c5c09c-03a2-410a-81be-05a8830efd13" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.0224" y="-0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="fca7d8d2-5542-4f1e-bf43-042fbe74f981" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.0224" y="-0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="d0ff3572-6645-4433-be03-2f4a71d5a19d" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.0672" y="-0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7b00581e-c8a9-469e-8d49-909f974c51a2" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7d74b56a-de29-487f-ac2a-02b307aba5c6" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.114" y="-0.1572"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="5d102652-c215-4c41-bdca-91f19e1610bf" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.114" y="-0.1572"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="951a9fac-5253-407e-9fe0-c889c17808b5" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.114" y="-0.0524"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="9bda3c2b-e040-494a-8019-33b857d6f893" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.114" y="-0.0524"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="da29e692-3d3f-4bae-91ef-b59749a102ee" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.114" y="0.0524"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="c044b6e6-6910-41ff-a89b-3b548b54f96a" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.114" y="0.0524"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="a3cab813-4fb8-4a68-91ac-5d86bf639c69" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.114" y="0.1572"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="832fe9ae-5c5d-4c22-92d6-4fb7d31a3919" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.114" y="0.1572"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="29f2af78-d4d0-47c6-8893-b0b060045956" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="c515dc34-3bab-4dce-88ce-69610747ea07" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.0672" y="0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="8425beac-1880-4dea-9f3d-89f12aa4f97b" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.0224" y="0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="1d99a27c-9b08-4333-a246-f623228726ee" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.0224" y="0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="99302252-b176-4c49-888c-45e3dbf868e5" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.016" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.0672" y="0.264"></cross-sectional_position>
+				<anchorage start="0.682011935208866" end="0.682011935208866"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="8bb527d3-f05f-44ab-9ba1-35f0b92e0de0" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="fd18c733-ed58-4efc-bedd-a77b798e0ae0" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.067" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="e5b0d81a-4fd8-47e0-b1e5-924a45b64646" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.022" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="222d6bbf-2d19-4598-ae91-3baca84540d4" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.023" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="5ec6b4d3-f5a4-4fb9-962c-37638e6484c8" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.068" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="a3639ab6-4bde-4fe2-a3ff-8f70d14b4bf4" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="-0.217"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="f9525811-1744-4d6e-8e2b-345d751d5612" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="-0.172"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="e27eefef-cb92-4b33-9d51-3c5df838a236" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="-0.127"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="4cc6ca80-003c-4a7f-a417-fc879ac61853" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.067" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7b70d708-8ec4-4eb9-84f5-5d1dd12216f1" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.022" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="cd5612fc-0bf3-46ad-a500-dd6432bf24b8" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.023" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="564cfe71-7656-465e-87d4-b87a9723afe3" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.068" y="-0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="8bfce421-3390-4b13-830e-e6e9f7f82c2e" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="-0.217"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="21a1cbee-3644-4eb1-8c47-1c72bcce017a" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="-0.172"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="74b82ad6-f043-4030-9f7c-a37f4c88d182" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="-0.127"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="bedda359-92dc-45c4-96f4-c4d1f08bd3bb" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.067" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="a5859ec0-c0b6-4aa8-90e1-f52444a89cdf" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.022" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7d2b8e9a-cc91-4374-af32-0c211612b012" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.023" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="e092aa5e-edb2-4733-a327-5434be434920" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.068" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="85201ea4-0f24-41f8-80b0-f2a85e19946c" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="0.217"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="641dcdb1-1035-4c77-99a7-468f67309bbe" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="0.172"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="033368e4-5fe6-4281-9f80-d75f5c1d5873" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.112" y="0.127"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="06bd127e-5391-462c-8ef0-3b0c9dcca892" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.067" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7fc8cbed-3f92-495e-a65b-f9d455c28e4e" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.022" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="99e2fef9-7275-4bc8-a536-5d67313c6141" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.023" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="cc28d3fc-6405-4477-ab0f-24a1ed92cc27" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.068" y="0.262"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="ecdaf2f2-746a-41db-a47d-2d368e4647dd" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="0.217"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="732b89b2-24c3-46b0-a7a1-c0a2f73c7266" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="0.172"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="af6fa7c1-73e4-4d16-b6c7-3a4502e90380" last_change="2023-04-20T07:26:15.000" action="added">
+			<base_bar guid="864fcbbf-b939-4806-9bdc-97c667bf53e7"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.112" y="0.127"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="b14fbeb3-5561-46ac-b096-0c4c7b7db9dc" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.212" y="0"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="7c609e6b-d0bc-448a-bf4a-cbb0e8a6d24b" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.183597385602301" y="0.106"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="16830e5b-4280-4b96-b07c-392f39a157f1" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.106" y="0.183597385602301"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="d1d10514-6287-498c-9124-f8de08a72698" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0" y="0.212"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="f31cfe82-b27d-4632-89b9-027376d916be" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.106" y="0.183597385602301"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="638df9e1-bb7b-4290-ae1a-c3f2b045ded1" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.183597385602301" y="0.106"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="3d9c790b-62aa-4e98-bd0f-42d4be7e210e" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.212" y="0"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="606863d8-354c-452e-a918-efb886c8dee8" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.183597385602301" y="-0.106"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="20565039-0f98-49ec-b6d8-7c6fc6f9a19f" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="-0.106" y="-0.183597385602301"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="46ac7338-5f85-41ea-8412-f50ba8e4628c" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0" y="-0.212"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="387791aa-9003-4bd8-b60f-03575039d1c5" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.106" y="-0.183597385602301"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+		<bar_reinforcement guid="2f7088f1-8eb0-4965-bcb3-6e45eea2afa4" last_change="2023-04-20T07:24:33.000" action="added">
+			<base_bar guid="01dc4702-3a5a-452c-8dc3-fecf904c2b31"></base_bar>
+			<wire diameter="0.02" reinforcing_material="2cd12ead-e210-456a-96dd-94ce69a1c853"></wire>
+			<longitudinal_bar start="0" end="4" auxiliary="false">
+				<cross-sectional_position x="0.183597385602301" y="-0.106"></cross-sectional_position>
+				<anchorage start="0.852514919011083" end="0.852514919011083"></anchorage>
+			</longitudinal_bar>
+		</bar_reinforcement>
+	</entities>
+	<sections>
+		<section guid="a690bebc-9d3c-456a-80b1-1d007a85abd6" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Circle, D 500" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Circle" fd_name_size="D 500">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.25" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="98948ace-afb2-400d-9d96-752f5fce40c4" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Rectangle, 300x600" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Rectangle" fd_name_size="300x600">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.15" y="-0.3" z="0"></point>
+							<point x="0.15" y="-0.3" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.15" y="-0.3" z="0"></point>
+							<point x="0.15" y="0.3" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.15" y="0.3" z="0"></point>
+							<point x="-0.15" y="0.3" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.15" y="0.3" z="0"></point>
+							<point x="-0.15" y="-0.3" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<complex_section guid="1b6c31b5-73d2-42ef-a5e6-da8637db9a12" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="98948ace-afb2-400d-9d96-752f5fce40c4">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+			<section pos="1" guid="98948ace-afb2-400d-9d96-752f5fce40c4">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+		</complex_section>
+		<complex_section guid="88a5e9f4-eae3-4eb0-9cce-d64aa47e0327" last_change="1970-01-01T00:00:00.000" action="added">
+			<section pos="0" guid="a690bebc-9d3c-456a-80b1-1d007a85abd6">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+			<section pos="1" guid="a690bebc-9d3c-456a-80b1-1d007a85abd6">
+				<ecc x="0" y="0" z="0"></ecc>
+				<end></end>
+			</section>
+		</complex_section>
+	</sections>
+	<materials>
+		<material guid="f71bf8e5-56a2-45d3-8078-ecfb7b4e7198" last_change="2023-04-20T07:21:39.000" action="added" standard="EC" country="N" name="C30/37">
+			<concrete mass="2.54842" E_0="33000000" E_1="33000000" E_2="33000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="13750000" G_1="13750000" G_2="13750000" Fck="30" Fck_cube="37" Fctk="2" Fctm="2.9" Ecm="33000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="0.85" alfaCt="0.85" Fcd_0="17" Fcd_1="21.25" Fctd_0="1.13333333333333" Fctd_1="1.41666666666667" Ecd_0="22000" Ecd_1="27500" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<reinforcing_materials>
+		<material guid="2cd12ead-e210-456a-96dd-94ce69a1c853" last_change="1970-01-01T00:00:00.000" action="added" standard="EC" country="N" name="B500C">
+			<reinforcing_steel fyk="500" Es="200000" Epsilon_uk="0.075" Epsilon_ud="0.03" k="1.15"></reinforcing_steel>
+		</material>
+	</reinforcing_materials>
+	<end></end>
+</database>

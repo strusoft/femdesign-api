@@ -75,7 +75,10 @@ namespace FemDesign
                 Verb = "open",
             };
             if (minimized)
+            {
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
+                startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+            }
 
             OutputDir = outputDir;
             if (tempOutputDir)
@@ -1110,6 +1113,8 @@ namespace FemDesign
         private const string _struxmlFileName = "model.struxml";
         private const string _strFileName = "model.str";
 
+        private const string _intSrfFileName = "intSrf.txt";
+
         private const string _fdscriptFileExtension = ".fdscript";
         private const string _bscFileExtension = ".bsc";
         private const string _csvFileExtension = ".csv";
@@ -1120,6 +1125,14 @@ namespace FemDesign
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _logFileName));
         }
+
+        public static string GetIntSrffilePath(string baseDir)
+        {
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            return Path.GetFullPath(Path.Combine(baseDir, _intSrfFileName));
+        }
+
         public static string GetStruxmlPath(string baseDir, string modelName = null)
         {
             if (!Directory.Exists(baseDir))

@@ -58,7 +58,7 @@
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdConfig.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
-    <Compile Include="Calculate\ListProc.cs" />
+    <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Foundations\CuboidPlinth.cs" />
     <Compile Include="Foundations\ExtrudedSolid.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Geometry\Line3d.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Results\InteractionSurface.cs" />
     <Compile Include="Results\PointConnectionForce.cs" />
     <Compile Include="Reinforcement\LongitudinalBarReinforcement.cs" />
     <Compile Include="Reinforcement\StirrupsReinforcement.cs" />
