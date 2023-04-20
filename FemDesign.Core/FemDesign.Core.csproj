@@ -70,14 +70,17 @@
     <Compile Include="Geometry\Line3d.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\InteractionSurface.cs" />
     <Compile Include="Results\PointConnectionForce.cs" />
     <Compile Include="Reinforcement\LongitudinalBarReinforcement.cs" />
     <Compile Include="Reinforcement\StirrupsReinforcement.cs" />
     <Compile Include="Results\RC design\RCBarUtilization.cs" />
+    <Compile Include="Results\RC design\RCBarUtilization.cs" />
     <Compile Include="Results\RC design\RCShellShearUtilization.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
+    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
