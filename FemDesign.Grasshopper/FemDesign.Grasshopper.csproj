@@ -105,6 +105,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
-    <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
+    <Compile Include="ConstructionStages\ActivatedLoadCase_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
