@@ -107,7 +107,7 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
-        private CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
+        public CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
         {
         }
 
@@ -122,7 +122,7 @@ namespace FemDesign.Calculate
             }
         }
 
-        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
+        public CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
                 throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");

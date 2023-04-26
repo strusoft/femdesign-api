@@ -134,6 +134,22 @@ namespace FemDesign.Calculate
             Option = options ?? Options.GetOptions(resultType);
         }
 
+        /// <summary>
+        /// DocTable to return the buckling shape and imperfection shapes
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="loadCombination"></param>
+        /// <param name="shapeID"></param>
+        /// <param name="unitResult"></param>
+        /// <param name="options"></param>
+        public DocTable(ListProc resultType, string loadCombination, int shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        {
+            ListProc = resultType;
+            ResType = GetResType(resultType);
+            Suffix = $"{loadCombination} / {shapeID}";
+            Units = Results.Units.GetUnits(unitResult);
+            Option = options ?? Options.GetOptions(resultType);
+        }
         private int GetResType(ListProc resultType)
         {
             /*
@@ -150,6 +166,8 @@ namespace FemDesign.Calculate
                 return 1;
             if (r.EndsWith("LoadCombination"))
                 return 3;
+            if (r.EndsWith("BucklingShape"))
+                return 5;
             if (r.StartsWith("NodalVibrationShape"))
                 return 6;
 
@@ -161,7 +179,7 @@ namespace FemDesign.Calculate
             string r = resultType.ToString();
             if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
                 return 0;
-            if (r.EndsWith("LoadCase"))
+            if (r.EndsWith("LoadCase") || r.EndsWith("BucklingShape"))
                 return -65536; // All load cases
             if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape"))
                 return -1; // All load combinations

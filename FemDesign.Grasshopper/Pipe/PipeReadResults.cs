@@ -124,15 +124,6 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            //if (!_combo.Any() && !_case.Any())
-            //{
-            //    var resCase = _connection._getAllLoadCaseResults(type, _units, _options);
-            //    _results.AddRange(resCase);
-                
-            //    var resCombo = _connection._getAllLoadCombinationResults(type, _units, _options);
-            //    _results.AddRange(resCombo);
-            //}
-
             _success = true;
             Done();
         }

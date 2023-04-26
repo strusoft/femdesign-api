@@ -18,7 +18,7 @@ namespace FemDesign.Results
     public partial class NodalBucklingShape : IResult
     {
         /// <summary>
-        /// Support name identifier
+        /// Structural object name identifier
         /// </summary>
         public string Id { get; }
         /// <summary>
@@ -53,9 +53,13 @@ namespace FemDesign.Results
         /// Load case or combination name
         /// </summary>
         public string CaseIdentifier { get; }
+        /// <summary>
+        /// Buckling shape identifier
+        /// </summary>
+        public string ShapeID { get; }
 
         [JsonConstructor]
-        internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string loadCombination)
+        internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase, string shapeID)
         {
             this.Id = id;
             this.NodeId = nodeId;
@@ -65,7 +69,8 @@ namespace FemDesign.Results
             this.Fix = fix;
             this.Fiy = fiy;
             this.Fiz = fiz;
-            this.CaseIdentifier = loadCombination;
+            this.CaseIdentifier = resultCase;
+            this.ShapeID = shapeID;
         }
 
         public override string ToString()
@@ -73,12 +78,11 @@ namespace FemDesign.Results
             return ResultsReader.ObjectRepresentation(this);
         }
 
-        //Nodal buckling shapes, 3
         internal static Regex IdentificationExpression
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal buckling shapes), (?'combname'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+)");
             }
         }
 
@@ -86,10 +90,10 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal buckling shapes), (?'combname'[ -#%'-;=?A-\ufffd]{1,79})|ID\tNode\tex\tey\tez\tfix\tfiy\tCase|\[.*\]");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+)|ID\tNode\tex\tey\tez\tfix\tfiy\tfiz|\[.*\]");
             }
         }
-
+        
         internal static NodalBucklingShape Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string identifier = row[0];
@@ -100,8 +104,9 @@ namespace FemDesign.Results
             double fix = Double.Parse(row[5], CultureInfo.InvariantCulture);
             double fiy = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double fiz = Double.Parse(row[7], CultureInfo.InvariantCulture);
-            string loadcomb = HeaderData["combname"];
-            return new NodalBucklingShape(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, loadcomb);
+            string resultCase = HeaderData["casename"];
+            string shapeID = HeaderData["shape"];
+            return new NodalBucklingShape(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, resultCase, shapeID);
         }
 
     }

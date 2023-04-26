@@ -81,6 +81,7 @@
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
+    <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
