@@ -80,7 +80,7 @@ namespace FemDesign.Grasshopper
         protected override void BeforeSolveInstance()
         {
             var resultTypes = Enum.GetNames(typeof(ActivationType)).ToList();
-            ValueListUtils.updateValueLists(this, 2, resultTypes, null);
+            ValueListUtils.updateValueLists(this, 5, resultTypes, null);
 
         }
 
