@@ -38,7 +38,7 @@ namespace FemDesign.Soil
             }
             set
             {
-                this._finalGroundLevel = RestrictedDouble.ValueInRange(value, -1e6, 10000);
+                this._finalGroundLevel = RestrictedDouble.ValueInClosedInterval(value, -1e6, 10000);
             }
         }
 

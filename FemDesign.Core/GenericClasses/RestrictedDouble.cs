@@ -10,7 +10,7 @@ namespace FemDesign
         /// <summary>
         /// Check if val in range (min, max)
         /// </summary>
-        internal static double ValueInRange(double val, double min, double max)
+        internal static double ValueInClosedInterval(double val, double min, double max)
         {
             if (val >= min && val <= max)
             {
@@ -88,7 +88,7 @@ namespace FemDesign
         internal static double AbsMax_1000(double val)
         {
             double max = 1000;
-            return RestrictedDouble.ValueInRange(val, -max, max);
+            return RestrictedDouble.ValueInClosedInterval(val, -max, max);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace FemDesign
         internal static double AbsMax_10000(double val)
         {
             double max = 10000;
-            return RestrictedDouble.ValueInRange(val, -max, max);
+            return RestrictedDouble.ValueInClosedInterval(val, -max, max);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace FemDesign
             // align_offset
 
             double max = 1E20;
-            return RestrictedDouble.ValueInRange(val, -max, max);
+            return RestrictedDouble.ValueInClosedInterval(val, -max, max);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_10(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 10);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 10);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_20(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 20);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 20);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_100(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 100);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 100);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1000(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1000);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1000);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_10000(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 10000);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 10000);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1e5(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1E5);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E5);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1e10(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1E10);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E10);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1e15(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1E15);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E15);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1e20(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1E20);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E20);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace FemDesign
         /// </summary>
         internal static double NonNegMax_1e30(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1E30);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E30);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace FemDesign
         /// </summary>
         internal static double MaterialBaseValue(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 3.403E38);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 3.403E38);
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace FemDesign
         /// </summary>
         internal static double MaterialNuValue(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 0.499);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 0.499);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace FemDesign
         /// </summary>
         internal static double OneQuadrantRadians(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1.5707963267949);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1.5707963267949);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace FemDesign
         /// </summary>
         internal static double OneQuadrantDegrees(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 90);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 90);
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace FemDesign
         /// </summary>
         internal static double TwoQuadrantsRadians(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 3.14159265358979);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 3.14159265358979);
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace FemDesign
         /// </summary>
         internal static double TwoQuadrantsDegrees(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 180);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 180);
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace FemDesign
         internal static double AbsTwoQuadrants(double val)
         {
             double max = 3.14159265358979;
-            return RestrictedDouble.ValueInRange(val, -max, max);
+            return RestrictedDouble.ValueInClosedInterval(val, -max, max);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace FemDesign
         /// </summary>
         internal static double PositionType(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0, 1);
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1);
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace FemDesign
         /// </summary>
         internal static double RcDiameterValue(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0.001, 0.1);
+            return RestrictedDouble.ValueInClosedInterval(val, 0.001, 0.1);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace FemDesign
         /// </summary>
         internal static double RcKValue(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 1.05, 1E10);
+            return RestrictedDouble.ValueInClosedInterval(val, 1.05, 1E10);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace FemDesign
         /// </summary>
         internal static double TimberPanelThickness(double val)
         {
-            return RestrictedDouble.ValueInRange(val, 0.001, 100.0);
+            return RestrictedDouble.ValueInClosedInterval(val, 0.001, 100.0);
         }
     }
 }

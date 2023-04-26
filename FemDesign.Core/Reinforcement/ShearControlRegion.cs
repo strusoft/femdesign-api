@@ -47,7 +47,7 @@ namespace FemDesign.Reinforcement
         public double PhysicalExtension
         {
             get { return this._physicalExtension; }
-            set { this._physicalExtension = RestrictedDouble.ValueInRange(0.01, 100, value); }
+            set { this._physicalExtension = RestrictedDouble.ValueInClosedInterval(0.01, 100, value); }
         }
 
         [XmlAttribute("reduce_shear_forces")]

@@ -52,7 +52,7 @@ namespace FemDesign.Soil
             }
             set
             {
-                this._depthLevelLimit = RestrictedDouble.ValueInRange(value, -1000000, 0);
+                this._depthLevelLimit = RestrictedDouble.ValueInClosedInterval(value, -1000000, 0);
             }
         }
 

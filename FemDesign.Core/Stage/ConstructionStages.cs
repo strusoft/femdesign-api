@@ -46,8 +46,7 @@ namespace FemDesign
         public bool TimeDependentAnalysis { get; set; } = false;
 
         [XmlAttribute("creep_strain_increment_limit")]
-        [DefaultValue(0.25)]
-        public double _creepStrainIncrementLimit { get; set; }
+        public double _creepStrainIncrementLimit { get; set; } = 0.25;
 
         /// <summary>
         /// creep_strain_increment_limit [thousand percent]

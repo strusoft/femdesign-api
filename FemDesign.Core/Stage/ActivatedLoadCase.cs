@@ -75,12 +75,13 @@ namespace FemDesign
         /// </summary>
         /// <param name="loadCase">The load case to be activated.</param>
         /// <param name="factor">Load case factor.</param>
-        /// <param name="partitioning">Partitioning.</param>
-        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType partitioning, SFactorType sfactors = null)
+        /// <param name="type">ActivationType.</param>
+        /// <param name="sfactors">SFactorType.</param>
+        public ActivatedLoadCase(Loads.LoadCase loadCase, double factor, ActivationType type, SFactorType sfactors = null)
         {
+            Initialize(factor, type, sfactors);
             this.LoadCaseDisplayName = loadCase.Name;
             this._case = loadCase.Guid.ToString();
-            Initialize(factor, partitioning, sfactors);
         }
 
         /// <summary>
@@ -91,6 +92,7 @@ namespace FemDesign
         /// <param name="type">Activation type.</param>
         public ActivatedLoadCase(PTCLoadCase loadCase, double factor, ActivationType type, SFactorType sfactors = null)
         {
+            Initialize(factor, type, sfactors);
             this.LoadCaseDisplayName =
                 loadCase == PTCLoadCase.T0 ? "PTC T0" :
                 loadCase == PTCLoadCase.T8 ? "PTC T8" :
@@ -99,7 +101,6 @@ namespace FemDesign
                 loadCase == PTCLoadCase.T0 ? "ptc_t0" :
                 loadCase == PTCLoadCase.T8 ? "ptc_t8" :
                 throw new Exception("Not a valid PTCLoadCase value");
-            Initialize(factor, type, sfactors);
         }
 
         /// <summary>
@@ -111,9 +112,9 @@ namespace FemDesign
         /// <param name="type">Activation type.</param>
         public ActivatedLoadCase(StruSoft.Interop.StruXml.Data.Moving_load_type movingLoad, int index, double factor, ActivationType type, SFactorType sfactors = null)
         {
+            Initialize(factor, type, sfactors);
             this.LoadCaseDisplayName = movingLoad.Name + "-" + index; // E.g "MVL-42"
             this._case = movingLoad.Guid.ToString() + "#" + index;
-            Initialize(factor, type, sfactors);
         }
 
         private void Initialize(double factor, ActivationType type, SFactorType sfactors = null)
@@ -125,7 +126,7 @@ namespace FemDesign
 
         public override string ToString()
         {
-            return $"ActivatedLoadCase {this.LoadCaseDisplayName} {this.Factor} {this.Type}";
+            return $"ActivatedLoadCase {this.LoadCaseDisplayName} {this.Factor} {this.SFactors.Sc} {this.SFactors.Sf} {this.SFactors.Sq} {this.Type}";
         }
     }
 
