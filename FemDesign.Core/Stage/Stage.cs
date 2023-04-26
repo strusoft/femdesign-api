@@ -35,7 +35,6 @@ namespace FemDesign
             set { _day = FemDesign.RestrictedDouble.NonNegMax_1e20(value);  }
         }
 
-
         [XmlElement("activated_load_case")]
         public List<ActivatedLoadCase> ActivatedLoadCases { get; set; }
 

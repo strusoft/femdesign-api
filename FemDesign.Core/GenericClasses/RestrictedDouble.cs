@@ -23,6 +23,51 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Check if val is larger than min and smaller than max
+        /// </summary>
+        internal static double ValueInOpenInterval(double val, double min, double max)
+        {
+            if (val > min && val < max)
+            {
+                return val;
+            }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException($"Value should be between {min} and {max}");
+            }
+        }
+
+        /// <summary>
+        /// Check if val is larger or equal to min and smaller than max
+        /// </summary>
+        internal static double ValueInHalfOpenInterval(double val, double min, double max)
+        {
+            if (val >= min && val < max)
+            {
+                return val;
+            }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException($"Value should be larger or equal to {min} and smaller than {max}");
+            }
+        }
+
+        /// <summary>
+        /// Check if val is larger than min and smaller or equal to max
+        /// </summary>
+        internal static double ValueInHalfClosedInterval(double val, double min, double max)
+        {
+            if (val > min && val <= max)
+            {
+                return val;
+            }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException($"Value should be larger than {min} and smaller or equal to {max}");
+            }
+        }
+
+        /// <summary>
         /// Check if val is positive
         /// </summary>
         internal static double Positive(double val)

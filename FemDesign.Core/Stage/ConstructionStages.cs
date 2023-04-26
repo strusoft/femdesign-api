@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using System.ComponentModel;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace FemDesign
         public bool TimeDependentAnalysis { get; set; } = false;
 
         [XmlAttribute("creep_strain_increment_limit")]
+        [DefaultValue(0.25)]
         public double _creepStrainIncrementLimit { get; set; }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace FemDesign
             }
             set
             {
-                _creepStrainIncrementLimit = FemDesign.RestrictedDouble.ValueInRange(value, 0.0, 10.0);
+                _creepStrainIncrementLimit = FemDesign.RestrictedDouble.ValueInHalfClosedInterval(value, 0.0, 10.0);
             }
         }
 
