@@ -157,6 +157,7 @@
     <Compile Include="Foundations\Stratum.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
@@ -901,6 +902,8 @@
     <None Include="Resources\icons\Patch.png.png" />
     <None Include="Resources\icons\Layer.png" />
     <None Include="Resources\icons\Rebar.png" />
+    <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />
+    <None Include="Resources\icons\DimensionLinear.bmp" />
     <EmbeddedResource Include="Resources\icons\InteractionSurface.png" />
     <EmbeddedResource Include="Resources\icons\FEM_RunDesign.bmp" />
     <EmbeddedResource Include="Resources\icons\FEM_RunAnalysis.bmp" />

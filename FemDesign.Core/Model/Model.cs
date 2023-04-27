@@ -2989,7 +2989,7 @@ namespace FemDesign
             return false;
         }
 
-        public void AddTextAnnotation(Geometry.TextAnnotation obj, bool overwrite)
+        public void AddTextAnnotation(Drawing.TextAnnotation obj, bool overwrite)
         {
             if (this.Geometry == null)
             {
@@ -3025,6 +3025,45 @@ namespace FemDesign
             else if (!inModel)
             {
                 this.Geometry.Text.Add(obj);
+            }
+        }
+
+        public void AddLinearDimension(Drawing.DimensionLinear obj, bool overwrite)
+        {
+            if (this.Geometry == null)
+            {
+                this.Geometry = new StruSoft.Interop.StruXml.Data.DatabaseGeometry();
+            }
+
+            if (this.Geometry.Linear_dimension == null)
+            {
+                this.Geometry.Linear_dimension = new List<StruSoft.Interop.StruXml.Data.Dimline_type>();
+            }
+
+            // // add layer
+            // if (obj.StyleType.LayerObj != null)
+            // {
+            //     this.AddLayer(obj.StyleType.LayerObj, overwrite);
+            // }
+
+            // add text annotation
+            bool inModel = this.Geometry.Linear_dimension.Any(x => x.Guid == obj.Guid.ToString());
+            if (inModel && !overwrite)
+            {
+                // pass - note that this should not throw an exception.
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Geometry.Linear_dimension.RemoveAll(x => x.Guid == obj.Guid.ToString());
+                this.Geometry.Linear_dimension.Add(obj);
+            }
+
+            // not in model
+            else if (!inModel)
+            {
+                this.Geometry.Linear_dimension.Add(obj);
             }
         }
 
@@ -3276,9 +3315,10 @@ namespace FemDesign
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
         #endregion
 
-        #region GEOMETRY
-        // geometry objects are actually not entities but will be put here for now. (:
-        private void AddEntity(Geometry.TextAnnotation obj, bool overwrite) => AddTextAnnotation(obj, overwrite);
+        #region geometry
+        // geometry (drawing) objects are actually not entities but will be put here for now. (:
+        private void AddEntity(Drawing.TextAnnotation obj, bool overwrite) => AddTextAnnotation(obj, overwrite);
+        private void AddEntity(Drawing.DimensionLinear obj, bool overwrite) => AddLinearDimension(obj, overwrite);
         #endregion
 
         #region deconstruct

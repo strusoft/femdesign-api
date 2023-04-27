@@ -47,9 +47,9 @@ namespace FemDesign.Grasshopper
             pManager.AddPlaneParameter("Point|Plane", "Point|Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size of text. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
+            pManager.AddColourParameter("Colour", "Colour", "Colour of text. [ARGB]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {HorAlignValueListDescription}", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -80,7 +80,7 @@ namespace FemDesign.Grasshopper
             }
 
 
-            var textAnnot = new Geometry.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
+            var textAnnot = new Drawing.TextAnnotation(plane.Origin.FromRhino(), plane.XAxis.FromRhino(), plane.YAxis.FromRhino(), text);
             textAnnot.StyleType.Layer = "TEXT";
             textAnnot.StyleType.LayerObj = new StruSoft.Interop.StruXml.Data.Layer_type
             {
@@ -158,9 +158,9 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("FontSize", "FontSize", "Font size.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size of text. [m]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
+            pManager.AddColourParameter("Colour", "Colour", "Colour of text. [ARGB]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", $"Horisontal alignement of text. Connect 'ValueList' to get the options: {TextAnnotation.HorAlignValueListDescription}", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -172,8 +172,8 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("TextAnnotation", "TextAnnotation", "TextAnnotation.", GH_ParamAccess.item);
             pManager.AddPlaneParameter("Plane", "Plane", "Position and orientation of text. [m]", GH_ParamAccess.item);
             pManager.AddTextParameter("Text", "Text", "Text.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("FontSize", "FontSize", "Font size. [m]", GH_ParamAccess.item);
-            pManager.AddColourParameter("Colour", "Colour", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FontSize", "FontSize", "Font size of text. [m]", GH_ParamAccess.item);
+            pManager.AddColourParameter("Colour", "Colour", "Colour of text [ARGB]", GH_ParamAccess.item);
             pManager.AddTextParameter("HorisontalAligment", "HorAlign", "Horisontal alignement of text", GH_ParamAccess.item);
             pManager.AddTextParameter("VerticalAligment", "VerAlign", "Vertical alignement of text", GH_ParamAccess.item);
         }
@@ -184,7 +184,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Geometry.TextAnnotation origTextAnnot = null;
+            Drawing.TextAnnotation origTextAnnot = null;
             if (!DA.GetData(0, ref origTextAnnot))
             {
                 return;

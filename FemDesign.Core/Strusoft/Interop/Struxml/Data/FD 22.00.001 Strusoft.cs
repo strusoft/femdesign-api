@@ -36273,7 +36273,7 @@ namespace StruSoft.Interop.StruXml.Data
     public partial class Dimtext_type
     {
 
-        private Dimtext_font_type positionField;
+        private Point_type_3d positionField;
 
         private Point_type_3d plane_xField;
 
@@ -36318,7 +36318,7 @@ namespace StruSoft.Interop.StruXml.Data
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(ElementName = "position")]
-        public Dimtext_font_type Position
+        public Point_type_3d Position
         {
             get
             {
