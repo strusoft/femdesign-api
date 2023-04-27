@@ -110,6 +110,7 @@
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />

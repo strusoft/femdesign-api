@@ -94,7 +94,30 @@ namespace FemDesign.Materials
                 throw new System.ArgumentException("Material must be concrete!");
             }
         }
-        
+
+        public static Material TimberMaterialProperties(Material material, double _ksys, double _k_cr, TimberServiceClassEnum serviceClass, double _kdefU, double _kdefSq, double _kdefSf, double _kdefSc)
+        {
+            if (material.Concrete != null)
+            {
+                // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
+                Material newMaterial = material.DeepClone();
+
+                // downstream and uppstream objs will NOT share guid.
+                newMaterial.EntityCreated();
+
+                // set parameters
+                newMaterial.Timber.SetMaterialParameters(_ksys, _k_cr, serviceClass, _kdefU, _kdefSq, _kdefSf, _kdefSc);
+                newMaterial.EntityModified();
+
+                // return
+                return newMaterial;
+            }
+            else
+            {
+                throw new System.ArgumentException("Material must be concrete!");
+            }
+        }
+
         public static Material CustomUniaxialMaterial(string name, double mass, double e_0, double nu_0, double alfa_0)
         {
             var material = new Material();
