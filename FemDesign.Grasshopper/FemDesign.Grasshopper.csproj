@@ -116,6 +116,7 @@
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
+    <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
+    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
