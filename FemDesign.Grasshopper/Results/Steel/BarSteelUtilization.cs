@@ -109,7 +109,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList(10, caseIdentifier);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
         /// <summary>
         /// Provides an Icon for the component.
