@@ -73,6 +73,10 @@
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
     <Compile Include="LibraryItems\PredefinedType.cs" />
+    <Compile Include="Materials\IPanelLibraryType.cs" />
+    <Compile Include="Materials\TimberPanelType.cs" />
+    <Compile Include="Materials\TimberServiceClassFactors.cs" />
+    <Compile Include="Materials\TimberServiceClassKdefs.cs" />
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />

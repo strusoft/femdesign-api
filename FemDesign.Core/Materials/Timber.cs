@@ -51,7 +51,19 @@ namespace FemDesign.Materials
         [XmlAttribute("gammaM_1")]
         public string GammaM_1 { get; set; } // material_base_value
         [XmlAttribute("ksys")]
-        public double ksys { get; set; } // double
+        public double _ksys { get; set; } // system strength factor
+
+        [XmlIgnore]
+        public double ksys
+        {
+            get
+            { return _ksys; }
+            set
+            {
+                this._ksys = RestrictedDouble.ValueInClosedInterval(value, 0.00, 1.00);
+            }
+        }
+
         [XmlAttribute("k_cr")]
         public double k_cr { get; set; } // reduction_factor_type. Optional.
         [XmlAttribute("service_class")]
@@ -85,7 +97,7 @@ namespace FemDesign.Materials
         /// <param name="_kdefSq">kdef Sq</param>
         /// <param name="_kdefSf">kdef Sf</param>
         /// <param name="_kdefSc">kdef Sc</param>
-        internal void SetMaterialParameters(double _ksys, double _k_cr, TimberServiceClassEnum serviceClass, double _kdefU, double _kdefSq, double _kdefSf, double _kdefSc)
+        internal void SetMaterialParameters(double _ksys = 1.0, double _k_cr = 0.67, TimberServiceClassEnum serviceClass = TimberServiceClassEnum.ServiceClass1, double _kdefU = 0.0, double _kdefSq = 0.60, double _kdefSf = 0.60, double _kdefSc = 0.60)
         {
             int _serviceClass = (int)serviceClass;
 

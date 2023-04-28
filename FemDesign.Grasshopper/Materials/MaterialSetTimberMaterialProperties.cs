@@ -14,11 +14,22 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Material", "Material", "Material.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("creepUls", "creepUls", "Creep ULS.", GH_ParamAccess.item, 0);
-            pManager.AddNumberParameter("creepSlsQ", "creepSlsQ", "Creep SLS Quasi-permanent.", GH_ParamAccess.item, 0);
+            pManager.AddTextParameter("Name", "Name", "Name.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-
-
+            pManager.AddNumberParameter("ksys", "ksys", "System strenght factor", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("kcr", "kcr", " reduction_factor_type\nEC5-1-1: 6.1.7", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("kdef U", "kdef U", "kdef (U, Ua, Us).", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("kdef Sq", "kdef Sq", "kdef (Sq).", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("kdef Sf", "kdef Sf", "kdef (Sf).", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("kdef Sc", "kdef Sc", "kdef (Sc).", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddIntegerParameter("serviceClass", "serviceClass", "Service class 1/2/3.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -28,37 +39,40 @@ namespace FemDesign.Grasshopper
         {
             // get input
             FemDesign.Materials.Material material = null;
+            string name = "";
+            double ksys = 0;
+            double kcr = 0;
+            double kdefU = 0;
+            double kdefSq = 0.60;
+            double kdefSf = 0.60;
+            double kdefSc = 0.60;
+            int serviceClass = 1;
 
 
             if (!DA.GetData(0, ref material)) { return; }
-            if (!DA.GetData(1, ref creepUls))
-            {
-                // pass
-            }
-            if (!DA.GetData(2, ref creepSlq))
-            {
-                // pass
-            }
-            if (!DA.GetData(3, ref creepSlf))
-            {
-                // pass
-            }
-            if (!DA.GetData(4, ref creepSlc))
-            {
-                // pass
-            }
-            if (!DA.GetData(5, ref shrinkage))
-            {
-                // pass
-            }
-            if (material == null) { return; }
+            var newMaterial = material.DeepClone();
+            newMaterial.EntityCreated();
 
-            //
-            FemDesign.Materials.Material modifiedMaterial = FemDesign.Materials.Material.TimberMaterialProperties(material, _ksys, _k_cr, serviceClass, _kdefU, _kdefSq, _kdefSf, _kdefSc);
-            modifiedMaterial.EntityModified();
+            if (DA.GetData("Name", ref name))
+            {
+                newMaterial.Name = name;
+            }
+            else
+            {
+                newMaterial.Name += "_modified";
+            }
+
+
+            if (DA.GetData("ksys", ref ksys)) { newMaterial.Timber.ksys = ksys; }
+            if (DA.GetData("kcr", ref kcr)) { newMaterial.Timber.k_cr = kcr; }
+            if (DA.GetData("ksys", ref kdefU)) { newMaterial.Timber.kdefU = kdefU; }
+            if (DA.GetData("ksys", ref kdefSq)) { newMaterial.Timber.kdefSq = kdefSq; }
+            if (DA.GetData("ksys", ref kdefSf)) { newMaterial.Timber.kdefSf = kdefSf; }
+            if (DA.GetData("ksys", ref kdefSc)) { newMaterial.Timber.kdefSc = kdefSc; }
+            if (DA.GetData("serviceClass", ref serviceClass)) { newMaterial.Timber.ServiceClass = (int)(FemDesign.Materials.TimberServiceClassEnum)(serviceClass - 1); }
 
             // set output
-            DA.SetData(0, modifiedMaterial);
+            DA.SetData(0, newMaterial);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -72,6 +86,6 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{D5ACE67A-954F-411B-A3E3-27AB5F6DFF26}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
     }
 }

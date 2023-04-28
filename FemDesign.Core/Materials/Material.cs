@@ -95,9 +95,9 @@ namespace FemDesign.Materials
             }
         }
 
-        public static Material TimberMaterialProperties(Material material, double _ksys, double _k_cr, TimberServiceClassEnum serviceClass, double _kdefU, double _kdefSq, double _kdefSf, double _kdefSc)
+        public static Material TimberMaterialProperties(Material material, double _ksys = 1.0, double _k_cr = 0.67, TimberServiceClassEnum serviceClass = TimberServiceClassEnum.ServiceClass1, double _kdefU = 0.0, double _kdefSq = 0.60, double _kdefSf = 0.60, double _kdefSc = 0.60)
         {
-            if (material.Concrete != null)
+            if (material.Timber != null)
             {
                 // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
                 Material newMaterial = material.DeepClone();
