@@ -17,10 +17,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddPointParameter("Point", "Pos", "Rebar position.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of bar reinforcement [m].", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar. Only reinforcement material can be use.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Allowed values: smooth/ribbed", GH_ParamAccess.item, "ribbed");
-            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Wire", "Wire", "", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -31,18 +28,10 @@ namespace FemDesign.Grasshopper
             Rhino.Geometry.Point3d point = new Rhino.Geometry.Point3d(0,0,0);
             if (!DA.GetData(0, ref point)) return;
 
-            double diameter = 0;
-            if (!DA.GetData("Diameter", ref diameter)) return;
-            
-            FemDesign.Materials.Material material = null;
-            if (!DA.GetData("Material", ref material)) return;
+            FemDesign.Reinforcement.Wire wire = null;
+            DA.GetData("Wire", ref wire);
 
-            string profile = "ribbed";
-            DA.GetData("Profile", ref profile);
-
-            WireProfileType _profile = EnumParser.Parse<WireProfileType>(profile);
-
-            var obj = new FemDesign.Grasshopper.Rebar(point.FromRhino(), diameter, material, _profile);
+            var obj = new FemDesign.Grasshopper.Rebar(point.FromRhino(), wire.Diameter, wire.ReinforcingMaterial, wire.Profile);
 
             DA.SetData(0, obj);
         }

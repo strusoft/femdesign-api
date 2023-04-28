@@ -18,10 +18,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve path for rebar placement", GH_ParamAccess.item);
             pManager.AddIntegerParameter("NumberOfRebar", "NumberOfRebar", "Number of rebar to insert on the curve. The point will be place on a same length distance.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of reinforcement bar [m].", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar. Only reinforcement material can be use.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Allowed values: smooth/ribbed", GH_ParamAccess.item, "ribbed");
-            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Wire", "Wire", "", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -35,18 +32,10 @@ namespace FemDesign.Grasshopper
             int numberOfPoints = 2;
             if (!DA.GetData("NumberOfRebar", ref numberOfPoints)) return;
 
-            double diameter = 0;
-            if (!DA.GetData("Diameter", ref diameter)) return;
+            FemDesign.Reinforcement.Wire wire = null;
+            if (!DA.GetData("Wire", ref wire)) return;
 
-            FemDesign.Materials.Material material = null;
-            if (!DA.GetData("Material", ref material)) return;
-
-            string profile = "ribbed";
-            DA.GetData("Profile", ref profile);
-
-            WireProfileType _profile = EnumParser.Parse<WireProfileType>(profile);
-
-            var obj = new FemDesign.Grasshopper.Layer(curve, numberOfPoints, diameter, material, _profile);
+            var obj = new FemDesign.Grasshopper.Layer(curve, numberOfPoints, wire.Diameter,  wire.ReinforcingMaterial, wire.Profile);
 
             DA.SetData(0, obj);
         }

@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddBrepParameter("Surface", "Srf", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Surface", "Srf", "Surface or section that define the boundary.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Section material: Only concrete material can be specified", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -25,21 +25,37 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Rhino.Geometry.Brep srf = null;
-            if (!DA.GetData(0, ref srf)) return;
-
-            foreach (var _srf in srf.Surfaces)
-            {
-                if (_srf.IsPlanar() == false)
-                    throw new Exception("Surface must be planar!");
-            }
+            dynamic input = null;
+            if (!DA.GetData(0, ref input)) return;
 
             FemDesign.Materials.Material material = null;
             if (!DA.GetData("Material", ref material)) return;
 
-            var obj = new FemDesign.Grasshopper.Patch(srf, material);
+            if (input.Value is Rhino.Geometry.Brep surface)
+            {
+                foreach (var _srf in surface.Surfaces)
+                {
+                    if (_srf.IsPlanar() == false)
+                        throw new Exception("Surface must be planar!");
+                }
 
-            DA.SetData(0, obj);
+                var _obj = new FemDesign.Grasshopper.Patch(surface, material);
+                DA.SetData(0, _obj);
+            }
+            else if (input.Value is FemDesign.Sections.Section section)
+            {
+                surface = section.RegionGroup.ToRhino()[0];
+                var _obj = new FemDesign.Grasshopper.Patch(surface, material);
+                DA.SetData(0, _obj);
+            }
+            else
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input must be a Surface or Section");
+                return;
+            }
+
+
+
         }
         protected override System.Drawing.Bitmap Icon
         {
