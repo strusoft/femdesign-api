@@ -95,18 +95,37 @@ namespace FemDesign.Materials
             }
         }
 
-        public static Material TimberMaterialProperties(Material material, double _ksys = 1.0, double _k_cr = 0.67, TimberServiceClassEnum serviceClass = TimberServiceClassEnum.ServiceClass1, double _kdefU = 0.0, double _kdefSq = 0.60, double _kdefSf = 0.60, double _kdefSc = 0.60)
+        /// <summary>
+        /// Set material properties for timber material.
+        /// </summary>
+        /// <param name="material">Material.</param>
+        /// <param name="ksys">System strength factor.</param>
+        /// <param name="k_cr">k_cr. Must be between 0 and 1.</param>
+        /// <param name="serviceClass">Service class. 1,2 or 3.</param>
+        /// <param name="kdefU">kdef U/Ua/Us.</param>
+        /// <param name="kdefSq">kdef Sq.</param>
+        /// <param name="kdefSf">kdef Sf.</param>
+        /// <param name="kdefSc">kdef Sc.</param>
+        /// <param name="newName"></param>
+        /// <returns></returns>
+        public static Material TimberMaterialProperties(Material material, double ksys = 1.0, double k_cr = 0.67, TimberServiceClassEnum serviceClass = TimberServiceClassEnum.ServiceClass1, double kdefU = 0.0, double kdefSq = 0.60, double kdefSf = 0.60, double kdefSc = 0.60, string newName = null)
         {
             if (material.Timber != null)
             {
                 // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
                 Material newMaterial = material.DeepClone();
-
+                
+                if (newName == null)
+                    newMaterial.Name += "_modified";
+                else
+                {
+                    newMaterial.Name = newName;
+                }
                 // downstream and uppstream objs will NOT share guid.
                 newMaterial.EntityCreated();
 
                 // set parameters
-                newMaterial.Timber.SetMaterialParameters(_ksys, _k_cr, serviceClass, _kdefU, _kdefSq, _kdefSf, _kdefSc);
+                newMaterial.Timber.SetMaterialParameters(ksys, k_cr, serviceClass, kdefU, kdefSq, kdefSf, kdefSc);
                 newMaterial.EntityModified();
 
                 // return
@@ -114,7 +133,7 @@ namespace FemDesign.Materials
             }
             else
             {
-                throw new System.ArgumentException("Material must be concrete!");
+                throw new System.ArgumentException("Material must be timber!");
             }
         }
 
@@ -129,31 +148,6 @@ namespace FemDesign.Materials
             material.Custom = new Custom(mass, e_0, nu_0, alfa_0);
             return material;
         }
-
-        // /// <summary>
-        // /// Set material properties for timber material.
-        // /// </summary>
-        // /// <param name="material">Material.</param>
-        // /// <param name="ksys">System strength factor.</param>
-        // /// <param name="k_cr">k_cr. Must be between 0 and 1.</param>
-        // /// <param name="service_class">Service class. 1,2 or 3.</param>
-        // /// <param name="kdefU">kdef U/Ua/Us.</param>
-        // /// <param name="kdefSq">kdef Sq.</param>
-        // /// <param name="kdefSf">kdef Sf.</param>
-        // /// <param name="kdefSc">kdef Sc.</param>
-        // /// <returns></returns>
-        // public static Material SetTimberMaterialProperties(Material material, double ksys, double k_cr, int service_class, double kdefU, double kdefSq, double kdefSf, double kdefSc)
-        // {
-        //     if (material.timber != null)
-        //     {
-        //         material.timber.SetMaterialParameters(ksys, k_cr, service_class, kdefU, kdefSq, kdefSf, kdefSc);
-        //     }
-        //     else
-        //     {
-        //         throw new System.ArgumentException("Material must be timber!");
-        //     }
-        //     return material;
-        // }
     }
 
     public enum Family
