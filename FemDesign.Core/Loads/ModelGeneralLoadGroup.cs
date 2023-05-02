@@ -3,6 +3,7 @@
 using System.Xml.Serialization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FemDesign.Loads
 {
@@ -17,11 +18,14 @@ namespace FemDesign.Loads
         [XmlAttribute("guid")]
         public System.Guid Guid { get; set; }
         [XmlAttribute("consider_in_gmax")]
+        [DefaultValue(true)]
         public bool ConsiderInGmax { get; set; } = true;
         [XmlElement("permanent")]
         public LoadGroupPermanent ModelLoadGroupPermanent { get; set; }
         [XmlElement("temporary")]
         public LoadGroupTemporary ModelLoadGroupTemporary { get; set; }
+        [XmlElement("seismic")]
+        public StruSoft.Interop.StruXml.Data.Seismic_load_group SeismicLoadGroup { get; set; }
 
         /// <summary>
         /// parameterless constructor for serialization

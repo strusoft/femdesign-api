@@ -47,7 +47,7 @@ namespace FemDesign.Loads
         public MassConversionTable LoadCaseMassConversionTable {get; set;} // mass_conversion_type
         
         [XmlElement("seismic_load", Order = 14)]
-        public List<DummyXmlObject> SeismicLoads {get {return null;} set {value = null;}} // seismic_load_type
+        public StruSoft.Interop.StruXml.Data.Seismic_load_type SeismicLoads { get; set;} // seismic_load_type
 
         [XmlElement("footfall_analysis_data", Order = 15)]
         public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
