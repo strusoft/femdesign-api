@@ -227,15 +227,16 @@ namespace FemDesign.Shells
         {
             set
             {
-                if (value.Concrete != null)
+                if (value.Concrete != null || value.Steel != null)
                 {
-                    // material must be concrete
+                    // FEM-Design initially restricted the material to be concrete.
+                    // Material type can also be set as steel
                     this.ComplexMaterialRef = value.Guid;
                     this._material = value;
                 }
                 else
                 {
-                    throw new System.ArgumentException("Only support for concrete material has been added.");
+                    throw new System.ArgumentException("Only support for concrete and steel material have been added.");
                 }
             }
             get
