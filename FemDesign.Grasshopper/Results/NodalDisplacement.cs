@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class NodalDisplacement : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the NodalDisplacement class.
         /// </summary>
         public NodalDisplacement()
           : base("NodalDisplacement",

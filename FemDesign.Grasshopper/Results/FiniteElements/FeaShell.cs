@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
     public class FeaShell : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the FeaNode class.
+        /// Initializes a new instance of the FeaShell class.
         /// </summary>
         public FeaShell()
           : base("FiniteElement.FemShell", "FemShell",

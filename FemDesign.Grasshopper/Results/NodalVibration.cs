@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class NodalVibration : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the NodalVibration class.
         /// </summary>
         public NodalVibration()
           : base("NodalVibration",

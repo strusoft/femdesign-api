@@ -179,9 +179,9 @@ namespace FemDesign.Calculate
             string r = resultType.ToString();
             if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
                 return 0;
-            if (r.EndsWith("LoadCase") || r.EndsWith("BucklingShape"))
+            if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
-            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape"))
+            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape") || r.EndsWith("BucklingShape"))
                 return -1; // All load combinations
 
             throw new FormatException($"Default case index of ResultType.{resultType} not known.");

@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class EigenFrequencies : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the EigenFrequencies class.
         /// </summary>
         public EigenFrequencies()
           : base("EigenFrequencies",

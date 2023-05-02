@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FemDesign.Results
 {
@@ -14,34 +15,86 @@ namespace FemDesign.Results
     public class NodalBucklingShapeTest
     {
         [TestMethod]
-        public void ReadBucklingData()
+        public void Parse()
         {
-            // LOADING UP THE MODEL
-            string struxmlPath = @"D:\Andi\API_Work\719_BucklingShape\Test\SimpleFrame_Structure.struxml";
+            string path = Path.GetTempFileName();
+
+            using (var stream = new StreamWriter(path)) stream.Write(@"Nodal buckling shapes, ULS / 1 - for selected objects
+ID	Node	ex	ey	ez	fix	fiy	fiz
+[-]	[-]	[-]	[-]	[-]	[-]	[-]	[-]
+B.1.1	32	-0.000	-0.005	-0.000	0.003	0.000	-0.010
+B.1.1	35	-0.000	-0.007	-0.000	0.004	0.000	-0.009
+B.1.1	41	-0.000	-0.011	-0.000	0.006	0.000	-0.009
+B.1.1	26	-0.000	-0.002	-0.000	0.001	0.000	-0.010
+B.1.1	44	-0.000	-0.012	-0.000	0.007	0.000	-0.009
+B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
+");
+
+            var results = ResultsReader.Parse(path);
+            Assert.IsTrue(results.Count == 6);
+            Assert.IsTrue(results.First().GetType() == typeof(NodalBucklingShape));
+            Assert.IsTrue(results.Last().GetType() == typeof(NodalBucklingShape));
+
+            File.Delete(path);
+        }
+
+        [TestMethod]
+        public void Identification()
+        {
+            var headers = new string[]
+            {
+                "Nodal buckling shapes, LC1ULS / 1 - for selected objects"
+            };
+
+            foreach (var header in headers)
+            {
+                var match = NodalBucklingShape.IdentificationExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalBucklingShape).Name}");
+            }
+        }
+
+        [TestMethod]
+        public void Headers()
+        {
+            var headers = new string[]
+            {
+                "Nodal buckling shapes, LC1ULS / 1 - for selected objects",
+                "ID\tNode\tex\tey\tez\tfix\tfiy\tfiz",
+                "[-]\t[-]\t[-]\t[-]\t[-]\t[-]\t[-]\t[-]"
+            };
+
+            foreach (var header in headers)
+            {
+                var match = NodalBucklingShape.HeaderExpression.Match(header);
+                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
+            }
+        }
+
+
+
+        [TestCategory("FEM-Design required")]
+        [TestMethod]
+        public void ReadBucklingShapes()
+        {
+            string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
-
-            // CHOOSING WHAT ANALYSIS TO RUN
-            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(
-                calcCase: true,
-                calcComb: true,
-                calcStab: true
-                );
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(calcStab : true);
 
 
-            // SETUP BY LOAD CALCULATION SETTINGS
-            // These settings are found in the FEM-Design calculation window.
-            bool NLE = true;
-            bool PL = true;
-            bool NLS = false;
-            bool Cr = false;
-            bool _2nd = false;
+            //// SETUP BY LOAD CALCULATION SETTINGS
+            //// These settings are found in the FEM-Design calculation window.
+            //bool NLE = true;
+            //bool PL = true;
+            //bool NLS = false;
+            //bool Cr = false;
+            //bool _2nd = false;
 
 
             // SETTING UP LOAD COMBINATIONS
             // In this example, we use the same settings (CombItem)
             // for all load combinations, applied with a simple loop.
-            var combItem = new FemDesign.Calculate.CombItem(0, 10, NLE, PL, NLS, Cr, _2nd);
+            var combItem = new FemDesign.Calculate.CombItem(stabReq: 10  /*0, 10, NLE, PL, NLS, Cr, _2nd*/);
             model.Entities.Loads.LoadCombinations.ForEach(lComb =>
             {
                 lComb.CombItem = combItem;
@@ -51,13 +104,12 @@ namespace FemDesign.Results
 
 
             // RUN THE ANALYSIS
-            using (var femDesign = new FemDesignConnection(outputDir: "My analyzed model", keepOpen: false))
+            using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22 Night Install\", outputDir: "My analyzed model", keepOpen: false))
             {
-                // Run analysis and read buckling data
                 femDesign.RunAnalysis(model, analysis);
                 var resultsBuckling = femDesign.GetResults<Results.NodalBucklingShape>();
 
-                Assert.IsNull(resultsBuckling);
+                Assert.IsNotNull(resultsBuckling);
             }
         }
     }

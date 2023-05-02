@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class PointSupportReactionMinMax : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the PointSupportReaction class.
+        /// Initializes a new instance of the PointSupportReactionMinMax class.
         /// </summary>
         public PointSupportReactionMinMax()
           : base("PointSupportReactionMinMax",

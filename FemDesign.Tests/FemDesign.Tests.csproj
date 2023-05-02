@@ -171,6 +171,9 @@
     <None Include="Performance\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Results\Stability\ReadBucklingShapesTest.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

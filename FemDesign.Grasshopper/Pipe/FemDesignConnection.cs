@@ -24,7 +24,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("OutputDir", "OutputDir",
-                "The directory to save script files. Default, the files will be will be written to the same directory of your .gh script.", GH_ParamAccess.item);
+                "The directory to save script files. Default, the files will be written to the same directory of your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddBooleanParameter("DeleteOutputFolder", "DeleteOutputFolder", "The directory to save script files will be deleted when the connection close or disconnect", GH_ParamAccess.item, false);

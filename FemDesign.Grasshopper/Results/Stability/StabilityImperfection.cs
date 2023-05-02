@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class StabilityImperfection : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the PointSupportReaction class.
+        /// Initializes a new instance of the StabilityImperfection class.
         /// </summary>
         public StabilityImperfection()
           : base("ImperfectionCritical",

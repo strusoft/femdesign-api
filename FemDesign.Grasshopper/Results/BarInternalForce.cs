@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class BarInternalForce : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the BarInternalForce class.
         /// </summary>
         public BarInternalForce()
           : base("BarInternalForce",

@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class BarDisplacement : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the BarDisplacement class.
         /// </summary>
         public BarDisplacement()
           : base("BarDisplacement",

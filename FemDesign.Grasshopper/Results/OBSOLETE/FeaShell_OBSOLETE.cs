@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class FeaShell_OBSOLETE : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the FeaNode class.
+        /// Initializes a new instance of the FeaShell class.
         /// </summary>
         public FeaShell_OBSOLETE()
           : base("FiniteElement.FeaShell", "FemShell",

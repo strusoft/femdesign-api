@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class BarStress : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the BarStress class.
         /// </summary>
         public BarStress()
           : base("BarStress",

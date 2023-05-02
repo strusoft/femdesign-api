@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class labelledSectionResultant : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the labelledSectionResultant class.
         /// </summary>
         public labelledSectionResultant()
           : base("LabelledSectionResultant",

@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class LineConnectionForce : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the LineConnectionForce class.
         /// </summary>
         public LineConnectionForce()
           : base("LineConnectionForce",

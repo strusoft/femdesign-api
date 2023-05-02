@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class ShellDisplacement : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the ShellDisplacement class.
         /// </summary>
         public ShellDisplacement()
           : base("ShellDisplacement",
