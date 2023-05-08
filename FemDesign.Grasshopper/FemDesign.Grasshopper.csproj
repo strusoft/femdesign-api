@@ -188,6 +188,7 @@
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
+    <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
