@@ -276,7 +276,7 @@ namespace FemDesign
                 new CmdCalculation(design)
             );
 
-            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
+            if (design.ApplyChanges == true) { script.Add(new CmdApplyDesignChanges()); }
 
             this.RunScript(script, "RunDesign");
         }

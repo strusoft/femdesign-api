@@ -27,7 +27,7 @@ namespace FemDesign.Calculate
                 new CmdListGen("a.bsc", "./"),
                 new CmdEndSession(),
                 CmdGlobalCfg.Default(),
-                new CmdDesignDesignChanges(),
+                new CmdApplyDesignChanges(),
                 new CmdSave("model.struxml"),
                 new CmdSaveDocx("model.docx")
                 );

@@ -12,12 +12,21 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeRunDesign : GH_AsyncComponent
+    public class PipeRunDesign_OBSOLETE : GH_AsyncComponent
     {
-        public PipeRunDesign() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeRunDesign_OBSOLETE() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationRunDesignWorker(this);
+            BaseWorker = new ApplicationRunDesignWorker_OBSOLETE(this);
         }
+
+        //protected override void ExpireDownStreamObjects()
+        //{
+        //    foreach (IGH_Param item in Params.Output)
+        //    {
+        //        item.ExpireSolution(recompute: false);
+        //    }
+        //}
+
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -39,11 +48,11 @@ namespace FemDesign.Grasshopper
         //}
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
-        public override Guid ComponentGuid => new Guid("{1B0FB74E-B047-40B4-B9C1-89159860C188}");
+        public override Guid ComponentGuid => new Guid("{A4EBF6E6-14DA-4082-A19E-9E06FA956481}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
     }
 
-    public class ApplicationRunDesignWorker : WorkerInstance
+    public class ApplicationRunDesignWorker_OBSOLETE : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
@@ -52,7 +61,7 @@ namespace FemDesign.Grasshopper
         private bool _runNode = true;
         private bool _success = false;
 
-        public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
+        public ApplicationRunDesignWorker_OBSOLETE(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -115,13 +124,13 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
             var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
-            _connection.RunDesign(_userModule, _design);
+            _connection.RunDesign( _userModule , _design);
             _success = true;
 
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationRunDesignWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationRunDesignWorker_OBSOLETE(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {

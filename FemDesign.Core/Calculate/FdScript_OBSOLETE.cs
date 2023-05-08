@@ -36,7 +36,7 @@ namespace FemDesign.Calculate
         public CmdCalculation CmdCalculation { get; set; }// CMDCALCULATION
 
         [XmlElement("cmduser", Order = 6)]
-        public CmdDesignDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
+        public CmdApplyDesignChanges CmdDesignDesignChanges { get; set; } // CMDUSER
 
         [XmlElement("cmdlistgen", Order = 7)]
         public List<CmdListGen> CmdListGen { get; set; } // CMDLISTGEN
@@ -279,7 +279,7 @@ namespace FemDesign.Calculate
             fdScript.CmdCalculation = new CmdCalculation(analysis, design);
             if (design.ApplyChanges)
             {
-                fdScript.CmdDesignDesignChanges = new CmdDesignDesignChanges();
+                fdScript.CmdDesignDesignChanges = new CmdApplyDesignChanges();
             }
             return fdScript;
         }
