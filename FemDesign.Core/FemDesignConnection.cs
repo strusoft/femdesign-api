@@ -372,9 +372,8 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
                 listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
+       
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
@@ -645,7 +644,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a LoadCombination result type!");
             }
 
-            // listproc that are only load case
+            // listproc that are only load combination
             var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
@@ -787,6 +786,8 @@ namespace FemDesign
 
         public List<T> GetStabilityResults<T>(string loadCombination, int shapeId, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
         {
+            var mapComb = new MapComb(loadCombination);
+
             if (units is null)
                 units = Results.UnitResults.Default();
 
@@ -805,7 +806,7 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false));
+                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapComb));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -826,10 +827,13 @@ namespace FemDesign
 
         public dynamic _getStabilityResults(Type resultType, string loadCombination, int shapeId, Results.UnitResults units = null, Options options = null)
         {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            List<Results.NodalBucklingShape> mixedResults = new List<Results.NodalBucklingShape>();
             MethodInfo genericMethod = this.GetType().GetMethod("GetStabilityResults").MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, shapeId, units, options });
-            mixedResults.AddRange(result);
+            if (result.CaseIdentifier == loadCombination)
+            {
+                mixedResults.AddRange(result.Where(result.ShapeId == shapeId));
+            }
             return mixedResults;
         }
 

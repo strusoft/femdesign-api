@@ -147,6 +147,7 @@ namespace FemDesign.Calculate
             ListProc = resultType;
             ResType = GetResType(resultType);
             Suffix = $"{loadCombination} / {shapeID}";
+            CaseIndex = GetDefaultCaseIndex(resultType);
             Units = Results.Units.GetUnits(unitResult);
             Option = options ?? Options.GetOptions(resultType);
         }

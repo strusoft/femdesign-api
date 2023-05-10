@@ -79,7 +79,7 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
-            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(calcStab : true);
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(calcComb : true, calcStab : true);
 
 
             //// SETUP BY LOAD CALCULATION SETTINGS
@@ -107,7 +107,19 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22 Night Install\", outputDir: "My analyzed model", keepOpen: false))
             {
                 femDesign.RunAnalysis(model, analysis);
+
                 var resultsBuckling = femDesign.GetResults<Results.NodalBucklingShape>();
+
+                var _type = $"FemDesign.Results.NodalBucklingShape, FemDesign.Core";
+                Type type = Type.GetType(_type);
+                var resultsBucklingComb = femDesign._getStabilityResults(type, "LC2ULS", 2);
+                
+                //var resultsByCombination = femDesign.GetLoadCombinationResults<Results.NodalBucklingShape>("LCULS1");
+
+                //Type typeDisp = Type.GetType($"FemDesign.Results.NodalDisplacement, FemDesign.Core");
+                //var resultsDisp = femDesign._getLoadCombinationResults(typeDisp, "LC2ULS");
+
+
 
                 Assert.IsNotNull(resultsBuckling);
             }

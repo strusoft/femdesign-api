@@ -56,10 +56,10 @@ namespace FemDesign.Results
         /// <summary>
         /// Buckling shape identifier
         /// </summary>
-        public string ShapeID { get; }
+        public int ShapeId { get; }
 
         [JsonConstructor]
-        internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase, string shapeID)
+        internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase, int shapeID)
         {
             this.Id = id;
             this.NodeId = nodeId;
@@ -70,7 +70,7 @@ namespace FemDesign.Results
             this.Fiy = fiy;
             this.Fiz = fiz;
             this.CaseIdentifier = resultCase;
-            this.ShapeID = shapeID;
+            this.ShapeId = shapeID;
         }
 
         public override string ToString()
@@ -82,6 +82,7 @@ namespace FemDesign.Results
         {
             get
             {
+                //A load combination name can be up to 159 characters long.
                 return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+)");
             }
         }
@@ -105,7 +106,7 @@ namespace FemDesign.Results
             double fiy = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double fiz = Double.Parse(row[7], CultureInfo.InvariantCulture);
             string resultCase = HeaderData["casename"];
-            string shapeID = HeaderData["shape"];
+            int shapeID = Int32.Parse(HeaderData["shape"]);
             return new NodalBucklingShape(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, resultCase, shapeID);
         }
 
