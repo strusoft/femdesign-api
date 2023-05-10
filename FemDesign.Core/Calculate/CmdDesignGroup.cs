@@ -11,7 +11,9 @@ using System.Drawing;
 
 namespace FemDesign.Calculate
 {
-    internal class CmdDesignGroup
+    [XmlRoot("cmddesgroup")]
+    [System.Serializable]
+    public class CmdDesignGroup : CmdCommand
     {
         [XmlAttribute("command")]
         public string Command = "$ CODE_COM DESGROUP"; // token, fixed
@@ -24,7 +26,23 @@ namespace FemDesign.Calculate
         /// Color group
         /// </summary>
         [XmlAttribute("color")]
-        public Color? Color { get; set; }
+        public string _color { get; set; } = "0xff0000";
+        /// <summary>
+        /// Color group
+        /// </summary>
+        [XmlIgnore]
+        public Color? Color
+        {
+            get
+            {
+                Color col = System.Drawing.ColorTranslator.FromHtml("#" + this._color.Remove(0,2));
+                return col;
+            }
+            set
+            {
+                this._color = "0x" + ColorTranslator.ToHtml((Color)value).Substring(1);
+            }
+        }
         /// <summary>
         /// To delete a group use force="true" and empty guid list.
         /// </summary>
@@ -66,21 +84,6 @@ namespace FemDesign.Calculate
             Color = color;
         }
 
-
-        //public CmdDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, DesignGroupType type, Color? color = null)
-        //{
-        //    Name = name;
-        //    Guids = elements.Cast<FemDesign.Bars.Bar>().Select(x => x.BarPart.Guid).ToList();
-        //    Type = type;
-        //    if (color == null)
-        //    {
-        //        var rnd = new Random();
-        //        color = System.Drawing.Color.FromArgb(255, 0, 0);
-        //    }
-        //    Color = color;
-        //}
-
-
         public static CmdDesignGroup CmdSteelBarDesignGroup(string name, List<FemDesign.Bars.Bar> bars, Color? color = null)
         {
             var cmdDesignGroup = new CmdDesignGroup(name, bars, DesignGroupType.SteelBars, color);
@@ -95,6 +98,12 @@ namespace FemDesign.Calculate
         {
             return true;
         }
+
+        public override XElement ToXElement()
+        {
+            return Extension.ToXElement<CmdDesignGroup>(this);
+        }
+
     }
 
     /// <summary>
@@ -134,7 +143,7 @@ namespace FemDesign.Calculate
         RCBars,
         [XmlEnum("RCHIDDENBAR")]
         RCHiddenBars,
-        [XmlElement("STBAR")]
+        [XmlEnum("STBAR")]
         SteelBars,
 
         //[XmlEnum("STFIRE")]

@@ -105,6 +105,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />

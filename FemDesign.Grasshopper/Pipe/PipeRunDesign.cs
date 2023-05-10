@@ -24,6 +24,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("DesignGroup", "DesignGroup", "DesignGroup.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -48,6 +49,7 @@ namespace FemDesign.Grasshopper
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
         private Calculate.Design _design = null;
+        private List<Calculate.CmdDesignGroup> designGroups = new List<Calculate.CmdDesignGroup>();
         private string _mode = "Steel";
         private bool _runNode = true;
         private bool _success = false;
@@ -85,37 +87,9 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            void onOutput(string message)
-            {
-                // TODO: Maybe check for errors, warnings and important info and display to the users?
-                //Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
-
-                if (message.StartsWith("Dialog message auto answered: "))
-                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, message);
-
-
-                // TODO: Report progress based on last message from FEM-Design
-                double progress = -1.0;
-                if (message.StartsWith("Starting script")) progress = 10.0;
-                else if (message.StartsWith("Prepare mesh - Starting")) progress = 20.0;
-                else if (message.StartsWith("Generate mesh - Starting")) progress = 30.0;
-                else if (message.StartsWith("Generate mesh - Finishing")) progress = 40.0;
-                else if (message.StartsWith("Prepare mesh - Finishing")) progress = 50.0;
-                // ...
-                else if (message.StartsWith("Dlg message ## #Total calculation time:")) progress = 100.0;
-
-
-                if (progress < 0)
-                    ReportProgress(Id, 0.0);
-                else
-                    ReportProgress(Id, progress);
-
-                Rhino.RhinoApp.WriteLine(message);
-            }
-
             // Run the Analysis
             var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
-            _connection.RunDesign(_userModule, _design);
+            _connection.RunDesign(_userModule, _design, designGroups);
             _success = true;
 
             Done();
@@ -128,6 +102,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData("Connection", ref _connection)) return;
             if (!DA.GetData("Mode", ref _mode)) return;
             if (!DA.GetData("Design", ref _design)) return;
+            if (!DA.GetDataList("DesignGroup", designGroups)) return;
             DA.GetData("RunNode", ref _runNode);
         }
 
