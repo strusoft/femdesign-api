@@ -32,15 +32,13 @@ namespace FemDesign.Grasshopper
             string name = null;
             if (!DA.GetData(0, ref name)) { return; }
 
-            List<FemDesign.Bars.Bar> bars = new List<Bars.Bar>();
-            if (!DA.GetDataList(1, bars)) { return; }
+            List<FemDesign.GenericClasses.IStructureElement> elements = new List<FemDesign.GenericClasses.IStructureElement>();
+            if (!DA.GetDataList(1, elements)) { return; }
 
             System.Drawing.Color? color = null;
             DA.GetData(2, ref color);
 
-            DesignGroupType groupType = (DesignGroupType)Enum.Parse(typeof(DesignGroupType), "SteelBars");
-
-            var designGroup = new Calculate.CmdDesignGroup(name, bars, groupType, color);
+            var designGroup = new Calculate.CmdDesignGroup(name, elements, color);
 
             // Set output
             DA.SetData("DesignGroup", designGroup);
