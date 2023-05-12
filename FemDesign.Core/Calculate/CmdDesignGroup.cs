@@ -68,25 +68,51 @@ namespace FemDesign.Calculate
         /// Define a design group of bars
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="bars"></param>
+        /// <param name="elements"></param>
         /// <param name="type"></param>
         /// <param name="color"></param>
-        public CmdDesignGroup(string name, List<FemDesign.Bars.Bar> bars, DesignGroupType type, Color? color = null)
+        public CmdDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, DesignGroupType type, Color? color = null) : this(name, elements, color)
         {
-            Name = name;
-            Guids = bars.Select(x => x.BarPart.Guid).ToList();
             Type = type;
+        }
+
+
+        /// <summary>
+        /// Define a design group of bars
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="elements"></param>
+        /// <param name="type"></param>
+        /// <param name="color"></param>
+        public CmdDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, Color? color = null)
+        {
+            _validateGroup(elements);
+
+            Name = name;
+            try
+            {
+                var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
+                Guids = bars.Select(x => x.BarPart.Guid).ToList();
+            }
+            catch
+            {
+                var slabs = elements.Cast<FemDesign.Shells.Slab>().ToList();
+                Guids = slabs.Select(x => x.SlabPart.Guid).ToList();
+            }
+
             if (color == null)
             {
                 var rnd = new Random();
                 color = System.Drawing.Color.FromArgb(255, 0, 0);
             }
+            Elements = elements;
             Color = color;
+            Type = assignGroupType(elements);
         }
 
-        public static CmdDesignGroup CmdSteelBarDesignGroup(string name, List<FemDesign.Bars.Bar> bars, Color? color = null)
+        public static CmdDesignGroup CmdSteelBarDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, Color? color = null)
         {
-            var cmdDesignGroup = new CmdDesignGroup(name, bars, DesignGroupType.SteelBars, color);
+            var cmdDesignGroup = new CmdDesignGroup(name, elements, DesignGroupType.SteelBars, color);
             return cmdDesignGroup;
         }
 
@@ -94,16 +120,57 @@ namespace FemDesign.Calculate
         // The design group require to have elements of the same type.
         // i.e. not mixed list of TimberBar, SteelBar and ConcreteBar.
         // Additionally, Concrete Bar group is required to have elements with same bar length.
-        private bool _validateGroup()
+        private void _validateGroup(List<FemDesign.GenericClasses.IStructureElement> elements)
         {
-            return true;
+            isSameType(elements);
+            //hasSameMaterial(elements);
         }
+
+        private void isSameType(List<FemDesign.GenericClasses.IStructureElement> elements)
+        {
+            var elementCount = elements.OfType<FemDesign.Bars.Bar>().Count();
+            if (elementCount != elements.Count)
+            {
+                throw new Exception("The list of elements contains objects of different types such as Bar, Slab, and Wall.The list must only include objects of the same type.");
+            }
+        }
+
 
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdDesignGroup>(this);
         }
 
+        private DesignGroupType assignGroupType(List<FemDesign.GenericClasses.IStructureElement> elements)
+        {
+            if (elements[0] is FemDesign.Bars.Bar)
+            {
+                var families = elements.Cast<FemDesign.Bars.Bar>().Select(x => x.BarPart.ComplexMaterialObj.Family).Distinct().ToList().First();
+
+                switch (families)
+                {
+                    case Materials.Family.Steel:
+                        return DesignGroupType.SteelBars;
+                    case Materials.Family.Concrete:
+                        return DesignGroupType.RCBars;
+                    case Materials.Family.Timber:
+                        return DesignGroupType.TimberBars;
+                    default:
+                        throw new NotImplementedException("Only the TimberCLTPanel type is eligible for the creation of a design group. It's not possible to create a design group for other types.");
+                }
+            }
+            else if (elements[0] is FemDesign.Shells.Panel)
+            {
+                var families = elements.Cast<FemDesign.Shells.Panel>().Select(x => x.Material.Family).Distinct().ToList().First();
+
+                if (families == Materials.Family.Timber)
+                    return DesignGroupType.TimberPanelCLT;
+                else
+                    throw new NotImplementedException("Only the TimberCLTPanel type is eligible for the creation of a design group. It's not possible to create a design group for other types.");
+            }
+            else
+                throw new Exception($"There is Design Group Type eligible for {elements[0].GetType().Name}");
+        }
     }
 
     /// <summary>
@@ -117,8 +184,8 @@ namespace FemDesign.Calculate
         FoundationWall,
         [XmlEnum("FNSLAB")]
         FoundationSlab,
-        //[XmlEnum("RCSURFLONG")]
-        //RCSurfaceLong,
+        [XmlEnum("RCSURFLONG")]
+        RCSurfaceLong,
         [XmlEnum("RCSURFSHEAR")]
         RCSurfaceShear,
         [XmlEnum("RCPUNCH")]
