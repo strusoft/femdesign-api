@@ -82,23 +82,24 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="name"></param>
         /// <param name="elements"></param>
-        /// <param name="type"></param>
         /// <param name="color"></param>
         public CmdDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, Color? color = null)
         {
             _validateGroup(elements);
 
             Name = name;
-            try
+            if (elements[0] is FemDesign.Bars.Bar)
             {
                 var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
                 Guids = bars.Select(x => x.BarPart.Guid).ToList();
             }
-            catch
+            else if (elements[0] is FemDesign.Shells.Slab)
             {
                 var slabs = elements.Cast<FemDesign.Shells.Slab>().ToList();
                 Guids = slabs.Select(x => x.SlabPart.Guid).ToList();
             }
+            else
+                throw new Exception($"There is not Design Group Type eligible for {elements[0].GetType().Name}");
 
             if (color == null)
             {
@@ -128,8 +129,9 @@ namespace FemDesign.Calculate
 
         private void isSameType(List<FemDesign.GenericClasses.IStructureElement> elements)
         {
-            var elementCount = elements.OfType<FemDesign.Bars.Bar>().Count();
-            if (elementCount != elements.Count)
+            var barCount = elements.OfType<FemDesign.Bars.Bar>().Count();
+            var slabCount = elements.OfType<FemDesign.Shells.Slab>().Count();
+            if (barCount != elements.Count || slabCount != elements.Count)
             {
                 throw new Exception("The list of elements contains objects of different types such as Bar, Slab, and Wall.The list must only include objects of the same type.");
             }
@@ -169,7 +171,7 @@ namespace FemDesign.Calculate
                     throw new NotImplementedException("Only the TimberCLTPanel type is eligible for the creation of a design group. It's not possible to create a design group for other types.");
             }
             else
-                throw new Exception($"There is Design Group Type eligible for {elements[0].GetType().Name}");
+                throw new Exception($"There is not Design Group Type eligible for {elements[0].GetType().Name}");
         }
     }
 
