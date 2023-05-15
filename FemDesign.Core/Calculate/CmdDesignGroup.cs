@@ -131,7 +131,7 @@ namespace FemDesign.Calculate
         {
             var barCount = elements.OfType<FemDesign.Bars.Bar>().Count();
             var slabCount = elements.OfType<FemDesign.Shells.Slab>().Count();
-            if (barCount != elements.Count || slabCount != elements.Count)
+            if (barCount != elements.Count && slabCount != elements.Count)
             {
                 throw new Exception("The list of elements contains objects of different types such as Bar, Slab, and Wall.The list must only include objects of the same type.");
             }
