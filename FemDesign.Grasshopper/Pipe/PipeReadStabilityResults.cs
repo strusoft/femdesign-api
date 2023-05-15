@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 
 using GrasshopperAsyncComponent;
+using FemDesign.Calculate;
+using System.Reflection;
 
 namespace FemDesign.Grasshopper
 {
@@ -46,13 +48,22 @@ namespace FemDesign.Grasshopper
 
     public class ApplicationReadStabilityResultWorker : WorkerInstance
     {
+        public dynamic _getStabilityResults(Type resultType, string loadCombination, int? shapeId = null, Results.UnitResults units = null, Options options = null)
+        {
+            MethodInfo genericMethod = _connection.GetType().GetMethod("GetStabilityResults").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
+            
+            return result;
+        }
+
+
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private Calculate.Options _options = null;
         private Results.UnitResults _units = null;
         private string _resultType = typeof(FemDesign.Results.NodalBucklingShape).Name;
         private string _combo = null;
-        private int _shapeId = 1;
+        private int? _shapeId = null;
 
         private List<Results.IResult> _results = new List<Results.IResult>();
         private bool _runNode = true;
@@ -97,7 +108,7 @@ namespace FemDesign.Grasshopper
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
 
-            var res = _connection._getStabilityResults(type, _combo, _shapeId, _units, _options);
+            var res = _getStabilityResults(type, _combo, _shapeId, _units, _options);
             _results.AddRange(res);
 
             _success = true;

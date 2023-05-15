@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 using FemDesign;
 using FemDesign.Calculate;
+using FemDesign.Results;
 
 namespace FemDesign
 {
@@ -594,7 +595,6 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
                 listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
 
             // Run the script
@@ -784,21 +784,22 @@ namespace FemDesign
             return mixedResults;
         }
 
-        public List<T> GetStabilityResults<T>(string loadCombination, int shapeId, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
+        public List<T> GetStabilityResults<T>(string loadCombination, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
         {
-            var mapComb = new MapComb(loadCombination);
+            //var mapComb = new MapComb(loadCombination);
+            
 
             if (units is null)
                 units = Results.UnitResults.Default();
 
             // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs;
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
 
-            // listproc that are only load case
             var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
 
+            //var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCombination, shapeId, units, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
@@ -806,7 +807,8 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapComb));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                //listGenCommands.Add(new CmdListGen(bscsPaths[i], csvPaths[i], false, mapComb));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -822,19 +824,20 @@ namespace FemDesign
                 );
             }
 
-            return results;
-        }
+            //return results;
 
-        public dynamic _getStabilityResults(Type resultType, string loadCombination, int shapeId, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.NodalBucklingShape> mixedResults = new List<Results.NodalBucklingShape>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetStabilityResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, shapeId, units, options });
-            if (result.CaseIdentifier == loadCombination)
+            //var results = GetResults<T>(units, options);
+
+            var myResult = new List<T>();
+            if (shapeId != null)
             {
-                mixedResults.AddRange(result.Where(result.ShapeId == shapeId));
+                myResult = results.Where(r => r.CaseIdentifier == loadCombination).Where(r => r.ShapeId == shapeId).ToList();
             }
-            return mixedResults;
+            else
+            {
+                myResult = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
+            }
+            return myResult;
         }
 
         public void Save(string filePath)

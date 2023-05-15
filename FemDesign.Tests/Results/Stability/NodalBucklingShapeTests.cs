@@ -108,20 +108,9 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             {
                 femDesign.RunAnalysis(model, analysis);
 
-                var resultsBuckling = femDesign.GetResults<Results.NodalBucklingShape>();
+                var resultsBucklingComb = femDesign.GetStabilityResults<Results.NodalBucklingShape>("LC2ULS", 2);
 
-                var _type = $"FemDesign.Results.NodalBucklingShape, FemDesign.Core";
-                Type type = Type.GetType(_type);
-                var resultsBucklingComb = femDesign._getStabilityResults(type, "LC2ULS", 2);
-                
-                //var resultsByCombination = femDesign.GetLoadCombinationResults<Results.NodalBucklingShape>("LCULS1");
-
-                //Type typeDisp = Type.GetType($"FemDesign.Results.NodalDisplacement, FemDesign.Core");
-                //var resultsDisp = femDesign._getLoadCombinationResults(typeDisp, "LC2ULS");
-
-
-
-                Assert.IsNotNull(resultsBuckling);
+                Assert.IsNotNull(resultsBucklingComb);
             }
         }
     }

@@ -66,7 +66,7 @@ namespace FemDesign.Calculate
             SerializeBsc(); // why it is in the constructor?
         }
 
-        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int shapeID, Results.UnitResults unitResult = null, Options options = null)
+        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int? shapeID, Results.UnitResults unitResult = null, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
