@@ -41,14 +41,14 @@ namespace FemDesign.Grasshopper
             var designGroup = new Calculate.CmdDesignGroup(name, elements, color);
 
             // Set output
-            DA.SetData("DesignGroup", designGroup);
+            DA.SetData(0, designGroup);
 
         }
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.DesignGroup;
             }
         }
         public override Guid ComponentGuid

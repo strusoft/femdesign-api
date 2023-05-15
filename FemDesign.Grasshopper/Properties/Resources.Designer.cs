@@ -333,6 +333,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DesignGroup {
+            get {
+                object obj = ResourceManager.GetObject("DesignGroup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Diaphragm {
             get {
                 object obj = ResourceManager.GetObject("Diaphragm", resourceCulture);
