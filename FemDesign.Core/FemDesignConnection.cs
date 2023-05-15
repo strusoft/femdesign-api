@@ -784,11 +784,8 @@ namespace FemDesign
             return mixedResults;
         }
 
-        public List<T> GetStabilityResults<T>(string loadCombination, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
+        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
         {
-            //var mapComb = new MapComb(loadCombination);
-            
-
             if (units is null)
                 units = Results.UnitResults.Default();
 
@@ -799,8 +796,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
 
-            //var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCombination, shapeId, units, options)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
@@ -808,12 +804,11 @@ namespace FemDesign
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
                 listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-                //listGenCommands.Add(new CmdListGen(bscsPaths[i], csvPaths[i], false, mapComb));
-
+                
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetBucklingShapes" + currentTime);
+            this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -824,20 +819,29 @@ namespace FemDesign
                 );
             }
 
-            //return results;
+            //var myResult = new List<T>();
+            //if (shapeId != null)
+            //{
+            //    myResult = results.Where(r => r.CaseIdentifier == loadCombination).Where(r => r.ShapeId == shapeId).ToList();
+            //}
+            //else
+            //{
+            //    myResult = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
+            //}
+            //return myResult;
 
-            //var results = GetResults<T>(units, options);
+            
+            if(loadCombination != null)
+            {
+                results = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
+                if(loadCombination.)
+            }
+            if(shapeId != null)
+            {
+                results = results.Where(r => r.ShapeId == shapeId).ToList();
+            }
 
-            var myResult = new List<T>();
-            if (shapeId != null)
-            {
-                myResult = results.Where(r => r.CaseIdentifier == loadCombination).Where(r => r.ShapeId == shapeId).ToList();
-            }
-            else
-            {
-                myResult = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
-            }
-            return myResult;
+            return results;
         }
 
         public void Save(string filePath)

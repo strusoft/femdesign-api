@@ -142,11 +142,11 @@ namespace FemDesign.Calculate
         /// <param name="shapeID"></param>
         /// <param name="unitResult"></param>
         /// <param name="options"></param>
-        public DocTable(ListProc resultType, string loadCombination, int? shapeID = null, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        public DocTable(ListProc resultType, string loadCombination, int? shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
         {
             ListProc = resultType;
             ResType = GetResType(resultType);
-            if(shapeID != null)
+            if((loadCombination != null) || (shapeID != null))
             {
                 Suffix = $"{loadCombination} / {shapeID}";
             }

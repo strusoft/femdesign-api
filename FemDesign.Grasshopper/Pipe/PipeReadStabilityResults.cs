@@ -15,15 +15,16 @@ namespace FemDesign.Grasshopper
 {
     public class PipeStabilityResults : GH_AsyncComponent
     {
-        public PipeStabilityResults() : base("FEM-Design.GetStabilityResults", "StabilityResults", "Read the stability sesults from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeStabilityResults() : base("FEM-Design.GetStabilityResults", "StabilityResults", "Read the stability results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationReadStabilityResultWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Combination Name", "Combination Name", "", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("ShapeId", "ShapeId", "", GH_ParamAccess.item, 1);
+            pManager.AddTextParameter("Combination Name", "Combo Name", "Combination name is case sensitive. Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be larger than or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
