@@ -16,6 +16,7 @@ namespace FemDesign.Calculate
     [TestClass()]
     public partial class CmdListGenTest
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod("CreateCmdListGen")]
         public void CreateCmdListGen()
         {
@@ -35,8 +36,6 @@ namespace FemDesign.Calculate
                 var myFile = @"C:\GitHub\femdesign-api\FemDesign.Tests\Calculate\pickElement.str";
                 femDesign.Open(myFile);
                 var results = femDesign.GetResults<Results.NodalDisplacement>(elements: elements);
-
-                var a = 9;
             }
         }
 
