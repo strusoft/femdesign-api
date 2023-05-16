@@ -25,6 +25,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddTextParameter("Combination Name", "CombName", "Name of Load Combination for which to return the results.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("Buckling Shape", "Shape", "Buckling shape indexes start from '1' as per FEM-Design", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -104,29 +105,35 @@ namespace FemDesign.Grasshopper
             var uniqueCaseId = nodalBucklingShape.Select(n => n.CaseIdentifier).Distinct().ToList();
 
             // Return the unique shape identifiers
-            var uniqueShapeId = nodalBucklingShape.Select(n => n.ShapeId.ToString()).Distinct().ToList();
+            var uniqueShapeId = nodalBucklingShape.Select(n => n.ShapeId).Distinct().ToList();
+
 
             // Select the Nodal Buckling shapes for the selected Load Combination
-            if (uniqueCaseId.Contains(caseIdentifier, StringComparer.OrdinalIgnoreCase))
+            if (caseIdentifier != null)
             {
-                nodalBucklingShape = nodalBucklingShape.Where(n => String.Equals(n.CaseIdentifier, caseIdentifier, StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
-                var warning = $"NodalBucklingShape result for load combination '{caseIdentifier}' does not exist";
-                throw new ArgumentException(warning);
+                if (uniqueCaseId.Contains(caseIdentifier, StringComparer.OrdinalIgnoreCase))
+                {
+                    nodalBucklingShape = nodalBucklingShape.Where(n => String.Equals(n.CaseIdentifier, caseIdentifier, StringComparison.OrdinalIgnoreCase));
+                }
+                else
+                {
+                    var warning = $"NodalBucklingShape result for load combination '{caseIdentifier}' does not exist";
+                    throw new ArgumentException(warning);
+                }
             }
 
-            // Select the Nodal Buckling shapes for the selected Load Combination
-            if(modeShapeId >= 1)
+
+            // Select the Nodal Buckling shapes for the selected Shape identifier
+            if ((modeShapeId >= 1) && (modeShapeId <= uniqueShapeId.Count))
             {
                 nodalBucklingShape = nodalBucklingShape.Where(n => n.ShapeId == modeShapeId);
             }
-            else if(modeShapeId < 1)
+            else
             {
-                throw new System.Exception("Shape index must be equal or larger than 1.");
+                throw new System.ArgumentException("Shape index is out of range.");
             }
-
+            
+            
             // Parse Results from the object
             var identifier = nodalBucklingShape.Select(n => n.Id).ToList();
             var caseId = nodalBucklingShape.Select(n => n.CaseIdentifier).ToList();

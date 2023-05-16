@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Combination Name", "Combo Name", "Combination name is case sensitive. Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Combination Name", "Combo Name", "Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be larger than or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -49,7 +49,7 @@ namespace FemDesign.Grasshopper
 
     public class ApplicationReadStabilityResultWorker : WorkerInstance
     {
-        public dynamic _getStabilityResults(Type resultType, string loadCombination, int? shapeId = null, Results.UnitResults units = null, Options options = null)
+        public dynamic _getStabilityResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null)
         {
             MethodInfo genericMethod = _connection.GetType().GetMethod("GetStabilityResults").MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
@@ -109,7 +109,10 @@ namespace FemDesign.Grasshopper
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
 
+            _connection.SetVerbosity(_connection.Verbosity);
+            _connection.OnOutput += onOutput;
             var res = _getStabilityResults(type, _combo, _shapeId, _units, _options);
+            _connection.OnOutput -= onOutput;
             _results.AddRange(res);
 
             _success = true;
@@ -130,6 +133,11 @@ namespace FemDesign.Grasshopper
 
         public override void SetData(IGH_DataAccess DA)
         {
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
+
             DA.SetData("Connection", _connection);
             DA.SetDataList("Results", _results);
             DA.SetData("Success", _success);

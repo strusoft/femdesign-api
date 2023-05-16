@@ -819,25 +819,21 @@ namespace FemDesign
                 );
             }
 
-            //var myResult = new List<T>();
-            //if (shapeId != null)
-            //{
-            //    myResult = results.Where(r => r.CaseIdentifier == loadCombination).Where(r => r.ShapeId == shapeId).ToList();
-            //}
-            //else
-            //{
-            //    myResult = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
-            //}
-            //return myResult;
-
             
-            if(loadCombination != null)
+            if (loadCombination != null)
             {
-                results = results.Where(r => r.CaseIdentifier == loadCombination).ToList();
-                if(loadCombination.)
+                if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("Incorrect or unknown load combination name.");
+                }
+                results = results.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
             }
-            if(shapeId != null)
+            if (shapeId != null)
             {
+                if ((shapeId < 1) || (shapeId > results.Select(r => r.ShapeId).Max()))
+                {
+                    throw new ArgumentException("ShapeId is out of range.");
+                }
                 results = results.Where(r => r.ShapeId == shapeId).ToList();
             }
 

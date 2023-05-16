@@ -70,6 +70,12 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             }
         }
 
+        [TestMethod]
+        public void CheckMethodName()
+        {
+            string methodName = nameof(FemDesignConnection.GetStabilityResults);
+            Assert.IsTrue(methodName == "GetStabilityResults");
+        }
 
 
         [TestCategory("FEM-Design required")]
@@ -81,20 +87,7 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
 
             FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(calcComb : true, calcStab : true);
 
-
-            //// SETUP BY LOAD CALCULATION SETTINGS
-            //// These settings are found in the FEM-Design calculation window.
-            //bool NLE = true;
-            //bool PL = true;
-            //bool NLS = false;
-            //bool Cr = false;
-            //bool _2nd = false;
-
-
-            // SETTING UP LOAD COMBINATIONS
-            // In this example, we use the same settings (CombItem)
-            // for all load combinations, applied with a simple loop.
-            var combItem = new FemDesign.Calculate.CombItem(stabReq: 10  /*0, 10, NLE, PL, NLS, Cr, _2nd*/);
+            var combItem = new FemDesign.Calculate.CombItem(stabReq: 10);
             model.Entities.Loads.LoadCombinations.ForEach(lComb =>
             {
                 lComb.CombItem = combItem;
@@ -102,8 +95,6 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
 
             analysis.SetLoadCombinationCalculationParameters(model);
 
-
-            // RUN THE ANALYSIS
             using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22 Night Install\", outputDir: "My analyzed model", keepOpen: false))
             {
                 femDesign.RunAnalysis(model, analysis);

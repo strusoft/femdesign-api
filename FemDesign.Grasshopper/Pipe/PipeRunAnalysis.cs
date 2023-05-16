@@ -48,10 +48,8 @@ namespace FemDesign.Grasshopper
 
         public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
 
-
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
-
             if (_runNode == false)
             {
                 _success = false;
