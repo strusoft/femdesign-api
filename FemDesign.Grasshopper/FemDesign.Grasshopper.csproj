@@ -178,7 +178,6 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\PointConnection.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
-    <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\PipeOpen.cs" />
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
@@ -199,7 +198,6 @@
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnSection.cs" />
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
