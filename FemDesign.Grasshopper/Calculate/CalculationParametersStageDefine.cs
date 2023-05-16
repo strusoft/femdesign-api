@@ -12,12 +12,12 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("ghost", "ghost", "Ghost construction method. True/false. If false incremental method is used.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("ghost", "ghost", "\"Ghost\" construction method. True/false. If false incremental \"Tracking\" method is used.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Stage", "Stage", "Stage.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("StageSetting", "Stage", "Construction stages calculation method.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
