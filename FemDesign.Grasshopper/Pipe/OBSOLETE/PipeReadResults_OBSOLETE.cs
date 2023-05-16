@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
         public override Guid ComponentGuid => new Guid("{F8DADFC7-D8BA-44A4-8AD8-E4B39A1C81FC}");
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
     public class ApplicationReadResultWorker_OBSOLETE : WorkerInstance
