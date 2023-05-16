@@ -13,11 +13,11 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeReadResults : GH_AsyncComponent
+    public class PipeReadResults_OBSOLETE : GH_AsyncComponent
     {
-        public PipeReadResults() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeReadResults_OBSOLETE() : base("FEM-Design.GetResults", "GetResults", "Read Results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationReadResultWorker(this);
+            BaseWorker = new ApplicationReadResultWorker_OBSOLETE(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -26,8 +26,6 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Case Name", "Case Name", "Name of Load Case to return the results. Default will return the values for all load cases.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results. Default will return the values for all load combinations.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Elements", "Elements", "Elements for which the results will be return. Default will return the values for all elements.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -46,11 +44,11 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{81C87D08-2E73-4A97-A947-3D32072979A5}");
+        public override Guid ComponentGuid => new Guid("{F8DADFC7-D8BA-44A4-8AD8-E4B39A1C81FC}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 
-    public class ApplicationReadResultWorker : WorkerInstance
+    public class ApplicationReadResultWorker_OBSOLETE : WorkerInstance
     {
         /* INPUT/OUTPUT */
 
@@ -63,11 +61,11 @@ namespace FemDesign.Grasshopper
             return mixedResults;
         }
 
-        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
+        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
         {
             List<Results.IResult> mixedResults = new List<Results.IResult>();
             MethodInfo genericMethod = _connection.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements});
+            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options });
             mixedResults.AddRange(result);
             return mixedResults;
         }
@@ -89,15 +87,13 @@ namespace FemDesign.Grasshopper
         private List<string> _case = new List<string>();
         private List<string> _combo = new List<string>();
 
-        List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
-
         private List<Results.IResult> _results = new List<Results.IResult>();
         private bool _runNode = true;
         private bool _success = false;
 
         private Verbosity _verbosity = Verbosity.Normal;
 
-        public ApplicationReadResultWorker(GH_Component component) : base(component) { }
+        public ApplicationReadResultWorker_OBSOLETE(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, double> ReportProgress, Action Done)
         {
@@ -134,18 +130,16 @@ namespace FemDesign.Grasshopper
             // Run the Analysis
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
-            if (type == null)
-                throw new ArgumentException($"Class object of name '{_type}' does not exist!");
 
             if (!_combo.Any() && !_case.Any())
             {
-                var res = _getResults(type, _units, _options, _elements);
+                var res = _getResults(type, _units, _options);
                 _results.AddRange(res);
             }
 
-            if (_case.Any())
+            if(_case.Any())
             {
-                foreach (var item in _case)
+                foreach(var item in _case)
                 {
                     var res = _getLoadCaseResults(type, item, _units, _options);
                     _results.AddRange(res);
@@ -154,7 +148,7 @@ namespace FemDesign.Grasshopper
 
             if (_combo.Any())
             {
-                foreach (var item in _combo)
+                foreach(var item in _combo)
                 {
                     var res = _getLoadCombinationResults(type, item, _units, _options);
                     _results.AddRange(res);
@@ -165,7 +159,7 @@ namespace FemDesign.Grasshopper
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker_OBSOLETE(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
@@ -173,7 +167,6 @@ namespace FemDesign.Grasshopper
             DA.GetData("ResultType", ref _resultType);
             DA.GetDataList("Case Name", _case);
             DA.GetDataList("Combination Name", _combo);
-            DA.GetDataList("Elements", _elements);
             DA.GetData("Units", ref _units);
             DA.GetData("Options", ref _options);
             DA.GetData("RunNode", ref _runNode);

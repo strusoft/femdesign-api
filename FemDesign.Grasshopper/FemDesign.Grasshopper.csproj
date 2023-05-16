@@ -114,6 +114,7 @@
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
@@ -188,11 +189,6 @@
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
@@ -412,6 +408,11 @@
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
     <Compile Include="Supports\SurfaceSupportConstruct.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
