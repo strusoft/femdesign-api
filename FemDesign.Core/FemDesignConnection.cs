@@ -357,7 +357,7 @@ namespace FemDesign
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
         /// <param name="options">Optional. Options to set up the output location.</param>
-        /// <param name="elements"></param>
+        /// <param name="elements">Structural element for which the results should be return.</param>
         /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
         public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {

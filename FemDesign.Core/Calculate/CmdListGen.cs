@@ -95,7 +95,7 @@ namespace FemDesign.Calculate
         public List<FemDesign.GenericClasses.IStructureElement> StructureElements { get; set; }
 
         [XmlElement("GUID")]
-        public List<Guid> ElementGuids
+        public List<Guid> _elementGuids
         {
             get
             {
