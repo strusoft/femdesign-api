@@ -166,5 +166,9 @@ namespace FemDesign.Supports
             this.Plane = cs;
         }
 
+        public override string ToString()
+        {
+            return $"x: {this.LocalX}, y: {this.LocalY}, z: {this.LocalZ}";
+        }
     }
 }

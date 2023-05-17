@@ -75,7 +75,7 @@ namespace FemDesign.Releases
 
         public override string ToString()
         {
-            return $"{this.GetType().Name} x: (-{this.XNeg}/{this.XPos}), y: (-{this.YNeg}/{this.YPos}), z: (-{this.ZNeg}/{this.ZPos})";
+            return $"{this.GetType().Name} x: (-{this.XNeg.ToString("0.000e0")}/{this.XPos.ToString("0.000e0")}), y: (-{this.YNeg.ToString("0.000e0")}/{this.YPos.ToString("0.000e0")}), z: (-{this.ZNeg.ToString("0.000e0")}/{this.ZPos.ToString("0.000e0")})";
         }
     }
 }
