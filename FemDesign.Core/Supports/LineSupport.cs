@@ -198,18 +198,18 @@ namespace FemDesign.Supports
 			    {
                     if (this.Group.Rigidity.PlasticLimitForces != null || this.Group.Rigidity.PlasticLimitMoments != null)
                         hasPlasticLimit = true;
-                    return $"{this.GetType().Name} {this.Group.Rigidity.Motions}, {this.Group.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                    return $"{this.GetType().Name}\nCoord: {this.Group}\n{this.Group.Rigidity.Motions}\n{this.Group.Rigidity.Rotations}\nPlasticLimit: {hasPlasticLimit}";
 			    }
 			    else
 			    {
                     if (this.Group.PredefRigidity.Rigidity.PlasticLimitForces != null || this.Group.PredefRigidity.Rigidity.PlasticLimitMoments != null)
                         hasPlasticLimit = true;
-                    return $"{this.GetType().Name} {this.Group.PredefRigidity.Rigidity.Motions}, {this.Group.PredefRigidity.Rigidity.Rotations}, PlasticLimit: {hasPlasticLimit}";
+                    return $"{this.GetType().Name}\nCoord: {this.Group}\n{this.Group.PredefRigidity.Rigidity.Motions}\n{this.Group.PredefRigidity.Rigidity.Rotations}\nPlasticLimit: {hasPlasticLimit}";
 			    }
             }
             else // is Directed
             {
-                return $"{this.GetType().Name} {this.Directed.Direction}, Mov: {this.Directed.Movement}, Rot: {this.Directed.Rotation}";
+                return $"{this.GetType().Name}\nDir:{this.Directed.Direction}\nMov: {this.Directed.Movement}\nRot: {this.Directed.Rotation}";
             }
 
 

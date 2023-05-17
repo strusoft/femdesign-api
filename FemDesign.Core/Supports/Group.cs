@@ -168,7 +168,7 @@ namespace FemDesign.Supports
 
         public override string ToString()
         {
-            return $"x:{this.LocalX}, y:{this.LocalY}, z:{this.LocalZ}";
+            return $"x: {this.LocalX}, y: {this.LocalY}, z: {this.LocalZ}";
         }
     }
 }
