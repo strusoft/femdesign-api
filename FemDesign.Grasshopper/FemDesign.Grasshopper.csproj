@@ -77,7 +77,7 @@
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
     <Compile Include="Bars\BarsColumn.cs" />
-    <Compile Include="Bars\BarsModify.cs" />
+    <Compile Include="Bars\BarDeconstructModify.cs" />
     <Compile Include="Bars\BarsTaperedBeam.cs" />
     <Compile Include="Bars\BarsTaperedColumn.cs" />
     <Compile Include="Bars\OBSOLETE\BarsBeam_OBSOLETE_2160.cs" />
@@ -105,17 +105,22 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
+    <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
+    <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
@@ -129,7 +134,7 @@
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
-    <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
+    <Compile Include="ConstructionStages\ActivatedLoadCase_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
     <Compile Include="Deconstruct\EdgeConnectionDeconstruct.cs" />
@@ -156,6 +161,7 @@
     <Compile Include="Foundations\Stratum.cs" />
     <Compile Include="Geometry\GeomUtility.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
@@ -173,7 +179,6 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\PointConnection.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
-    <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\PipeOpen.cs" />
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
@@ -183,15 +188,17 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_Pipe.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\Layer.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\Patch.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\Rebar.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
+    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnSection.cs" />
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
@@ -224,6 +231,7 @@
     <Compile Include="Results\ShellStress.cs" />
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />
     <Compile Include="Results\Stability\StabilityImperfection.cs" />
+    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Units.cs" />
@@ -400,6 +408,11 @@
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
     <Compile Include="Supports\SurfaceSupportConstruct.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -889,37 +902,44 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
-    <None Include="Resources\icons\FEM_RunDesign.bmp" />
-    <None Include="Resources\icons\FEM_RunAnalysis.bmp" />
-    <None Include="Resources\icons\FEM_readresult.png" />
-    <None Include="Resources\icons\FEM_open.png" />
-    <None Include="Resources\icons\FEM_GetMesh.png" />
-    <None Include="Resources\icons\FEM_Connection.png" />
-    <None Include="Resources\icons\FEM_Config.png" />
+    <None Include="Resources\icons\Patch.png" />
+    <None Include="Resources\icons\Patch.png.png" />
+    <None Include="Resources\icons\Layer.png" />
+    <None Include="Resources\icons\Rebar.png" />
+    <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />
+    <None Include="Resources\icons\DimensionLinear.bmp" />
+    <EmbeddedResource Include="Resources\icons\InteractionSurface.png" />
+    <EmbeddedResource Include="Resources\icons\FEM_RunDesign.bmp" />
+    <EmbeddedResource Include="Resources\icons\FEM_RunAnalysis.bmp" />
+    <EmbeddedResource Include="Resources\icons\FEM_readresult.png" />
+    <EmbeddedResource Include="Resources\icons\FEM_open.png" />
+    <EmbeddedResource Include="Resources\icons\FEM_GetMesh.png" />
+    <EmbeddedResource Include="Resources\icons\FEM_Connection.png" />
+    <EmbeddedResource Include="Resources\icons\FEM_Config.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotationDeconstruct.png" />
     <EmbeddedResource Include="Resources\icons\TextAnnotation.png" />
-    <None Include="Resources\icons\PointConnection.png" />
-    <None Include="Resources\icons\TrussBehaviour.png" />
-    <None Include="Resources\icons\GroundWater.png" />
-    <None Include="Resources\icons\Strata.png" />
-    <None Include="Resources\icons\SoilMaterial.png" />
-    <None Include="Resources\icons\Soil.png" />
-    <None Include="Resources\icons\Boreholes .png" />
-    <None Include="Resources\icons\ResultPoint.png" />
-    <None Include="Resources\icons\PlateSetStiffness.bmp" />
-    <None Include="Resources\icons\BeamSetStiffness.bmp" />
-    <None Include="Resources\icons\StiffnessModifier.png" />
-    <None Include="Resources\icons\Options.png" />
-    <None Include="Resources\icons\lineconnection.bmp" />
-    <None Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
-    <None Include="Resources\icons\Insulation.png" />
-    <None Include="Resources\icons\ExtrudedSolid.png" />
-    <None Include="Resources\icons\IsolatedFoundation.png" />
-    <None Include="Resources\icons\LabelledSectionDeconstruct.png" />
-    <None Include="Resources\icons\Deconstruct_icon.png" />
-    <None Include="Resources\icons\StagesDeconstruct.png" />
-    <None Include="Resources\icons\LineStressLoadDeconstruct.png" />
-    <None Include="Resources\icons\LineStressLoadConstruct.png" />
+    <EmbeddedResource Include="Resources\icons\PointConnection.png" />
+    <EmbeddedResource Include="Resources\icons\TrussBehaviour.png" />
+    <EmbeddedResource Include="Resources\icons\GroundWater.png" />
+    <EmbeddedResource Include="Resources\icons\Strata.png" />
+    <EmbeddedResource Include="Resources\icons\SoilMaterial.png" />
+    <EmbeddedResource Include="Resources\icons\Soil.png" />
+    <EmbeddedResource Include="Resources\icons\Boreholes .png" />
+    <EmbeddedResource Include="Resources\icons\ResultPoint.png" />
+    <EmbeddedResource Include="Resources\icons\PlateSetStiffness.bmp" />
+    <EmbeddedResource Include="Resources\icons\BeamSetStiffness.bmp" />
+    <EmbeddedResource Include="Resources\icons\StiffnessModifier.png" />
+    <EmbeddedResource Include="Resources\icons\Options.png" />
+    <EmbeddedResource Include="Resources\icons\lineconnection.bmp" />
+    <EmbeddedResource Include="Resources\icons\IsolatedFoundationDeconstruct.png" />
+    <EmbeddedResource Include="Resources\icons\Insulation.png" />
+    <EmbeddedResource Include="Resources\icons\ExtrudedSolid.png" />
+    <EmbeddedResource Include="Resources\icons\IsolatedFoundation.png" />
+    <EmbeddedResource Include="Resources\icons\LabelledSectionDeconstruct.png" />
+    <EmbeddedResource Include="Resources\icons\Deconstruct_icon.png" />
+    <EmbeddedResource Include="Resources\icons\StagesDeconstruct.png" />
+    <EmbeddedResource Include="Resources\icons\LineStressLoadDeconstruct.png" />
+    <EmbeddedResource Include="Resources\icons\LineStressLoadConstruct.png" />
     <EmbeddedResource Include="Resources\icons\StiffnessPoint.png" />
     <EmbeddedResource Include="Resources\icons\RebarAddToElement.jpg" />
     <EmbeddedResource Include="Resources\icons\Stages.png" />

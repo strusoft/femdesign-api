@@ -46,25 +46,21 @@ namespace FemDesign.Grasshopper
         public override Guid ComponentGuid => new Guid("{81E32E19-C6A6-4E9E-A0B2-EB6CE1BA888F}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
-        //protected override void BeforeSolveInstance()
-        //{
-        //    var quantities = new List<string>();
-
-        //    var shipped = Enum.GetValues(typeof(ListProc));
-        //    foreach(var _item in shipped)
-        //    {
-        //        var item = (ListProc)_item;
-        //        if(item.IsQuantityEstimation())
-        //            quantities.Add(item.ToString());
-        //    }
-
-        //    ValueListUtils.updateValueLists(this, 1, quantities, null, GH_ValueListMode.DropDown);
-        //}
-
     }
 
     public class ApplicationGetQuantitiesWorker : WorkerInstance
     {
+
+        public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
+        {
+            List<Results.IResult> mixedResults = new List<Results.IResult>();
+            MethodInfo genericMethod = _connection.GetType().GetMethod("GetQuantities").MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(_connection, new object[] { units });
+            mixedResults.AddRange(result);
+            return mixedResults;
+        }
+
+
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private Results.UnitResults _units = null;
@@ -119,7 +115,7 @@ namespace FemDesign.Grasshopper
             var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
             Type type = Type.GetType(_type);
 
-            var res = _connection._getQuantities(type, _units);
+            var res = _getQuantities(type, _units);
             _results.AddRange(res);
 
             _success = true;

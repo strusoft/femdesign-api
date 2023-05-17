@@ -14,8 +14,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("FirstEdge", "FirstEdge", "LineCurve", GH_ParamAccess.item);
-            pManager.AddCurveParameter("SecondEdge", "SecondEdge", "LineCurve", GH_ParamAccess.item);
+            pManager.AddCurveParameter("MasterLine", "MasterLine", "LineCurve", GH_ParamAccess.item);
+            pManager.AddCurveParameter("SlaveLine", "SlaveLine", "LineCurve", GH_ParamAccess.item);
 
             pManager.AddGenericParameter("Motion", "Motion", "Motion.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;

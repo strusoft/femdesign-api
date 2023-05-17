@@ -566,7 +566,28 @@ namespace FemDesign.Grasshopper
 
         #endregion
 
-        #region CoorinateSystem
+        #region Plane
+        /// <summary>
+        /// Create Plane from Rhino plane.
+        /// </summary>
+        internal static FemDesign.Geometry.Plane ToPlane(this Rhino.Geometry.Plane obj)
+        {
+            Geometry.Point3d origin = obj.Origin.FromRhino();
+            Geometry.Vector3d localX = obj.XAxis.FromRhino();
+            Geometry.Vector3d localY = obj.YAxis.FromRhino();
+            return new FemDesign.Geometry.Plane(origin, localX, localY);
+        }
+
+        /// <summary>
+        /// Create a Rhino plane from Plane
+        /// </summary>
+        internal static Rhino.Geometry.Plane ToRhinoPlane(this FemDesign.Geometry.Plane obj)
+        {
+            return new Rhino.Geometry.Plane(obj.Origin.ToRhino(), obj.LocalX.ToRhino(), obj.LocalY.ToRhino());
+        }
+        #endregion
+
+        #region CoordinateSystem
 
         /// <summary>
         /// Convert a Rhino plane to FdCoordinateSystem.
@@ -969,5 +990,33 @@ internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         }
 
         #endregion
+
+        #region InteractionSurface
+
+        /// <summary>
+        /// Get Rhino Point from PointSupport.
+        /// </summary>
+        internal static Rhino.Geometry.Mesh ToRhino(this Results.InteractionSurface intSrf)
+        {
+            var mesh = new Mesh();
+
+
+            var orderedVertices = intSrf.Vertices.OrderBy(kvp => kvp.Key);
+
+            var points = orderedVertices.Select(x => x.Value.ToRhino()).ToList();
+            var faces = intSrf.Faces.Values.Select(x => x.ToRhino()).ToList();
+
+            mesh.Vertices.AddVertices(points);
+            mesh.Faces.AddFaces(faces);
+            mesh.Flip(true, true, true);
+            mesh.Normals.ComputeNormals();
+
+
+            return mesh;
+        }
+
+        #endregion
+
+
     }
 }

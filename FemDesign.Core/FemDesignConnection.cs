@@ -76,7 +76,10 @@ namespace FemDesign
                 Verb = "open",
             };
             if (minimized)
+            {
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
+                startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+            }
 
             OutputDir = outputDir;
             if (tempOutputDir)
@@ -355,8 +358,9 @@ namespace FemDesign
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
         /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="elements">Structural element for which the results should be return.</param>
         /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
-        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -373,8 +377,9 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-       
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
+
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
@@ -391,16 +396,6 @@ namespace FemDesign
 
             return results;
         }
-
-        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
         public List<Results.FemNode> GetFeaNodes(Results.Length units = Results.Length.m)
         {
             var _resultType = ListProc.FemNode;
@@ -572,7 +567,7 @@ namespace FemDesign
 
             return results;
         }
-        public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -595,7 +590,7 @@ namespace FemDesign
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -612,22 +607,6 @@ namespace FemDesign
             }
 
             return results;
-        }
-        public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { loadCase, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-        public dynamic _getAllLoadCaseResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
         }
         public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
@@ -674,7 +653,7 @@ namespace FemDesign
 
             return results;
         }
-        public List<T> GetAllLoadCombinationResults<T>(Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        public List<T> GetAllLoadCombinationResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -698,7 +677,7 @@ namespace FemDesign
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
                 //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -716,23 +695,6 @@ namespace FemDesign
 
             return results;
         }
-        public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { loadCombination, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-        public dynamic _getAllLoadCombinationResults(Type resultType, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetAllLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
             if (units is null)
@@ -847,6 +809,39 @@ namespace FemDesign
             this.RunScript(script);
         }
 
+        public FemDesign.Results.InteractionSurface RunInteractionSurface(FemDesign.Bars.Bar bar, double offset = 0.0, bool fUlt = true)
+        {
+            var bars = new List<GenericClasses.IStructureElement> { bar };
+            return RunInteractionSurface(bars, offset, fUlt)[0];
+        }
+
+        public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)
+        {
+            string outFile = OutputFileHelper.GetIntSrffilePath(OutputDir);
+
+            var model = new Model(Country.COMMON, bars, overwrite: true);
+            this.Open(model);
+
+            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN));
+            foreach (var bar in bars)
+            {
+                var _bar = (Bars.Bar)bar;
+                script.Add(new CmdInteractionSurface(_bar, outFile + _bar.BarPart.Guid, offset, fUlt));
+            }
+
+            this.RunScript(script);
+
+            var intSurfaces = new List<FemDesign.Results.InteractionSurface>();
+
+            foreach (var bar in bars)
+            {
+                var _bar = (Bars.Bar)bar;
+                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile + _bar.BarPart.Guid);
+                intSurfaces.Add(intSrf);
+            }
+            return intSurfaces;
+        }
+
         public void Dispose()
         {
             if (_keepOpen) Disconnect();
@@ -856,15 +851,12 @@ namespace FemDesign
             // TODO: Delete the files when they are not locked by FEM-Design
             this._deleteOutputDirectories();
         }
-
         private void _deleteOutputDirectories()
         {
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
                     _deleteFolderIfNotUsed(dir);
         }
-
-
         private static void _deleteFolderIfNotUsed(string folderPath)
         {
             try
@@ -883,8 +875,6 @@ namespace FemDesign
                 throw;
             }
         }
-
-
         public string OutputDir
         {
             get { return _outputDir; }
@@ -1223,6 +1213,8 @@ namespace FemDesign
         private const string _struxmlFileName = "model.struxml";
         private const string _strFileName = "model.str";
 
+        private const string _intSrfFileName = "intSrf.txt";
+
         private const string _fdscriptFileExtension = ".fdscript";
         private const string _bscFileExtension = ".bsc";
         private const string _csvFileExtension = ".csv";
@@ -1233,6 +1225,14 @@ namespace FemDesign
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _logFileName));
         }
+
+        public static string GetIntSrffilePath(string baseDir)
+        {
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            return Path.GetFullPath(Path.Combine(baseDir, _intSrfFileName));
+        }
+
         public static string GetStruxmlPath(string baseDir, string modelName = null)
         {
             if (!Directory.Exists(baseDir))

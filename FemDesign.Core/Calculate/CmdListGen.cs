@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml.Linq;
-
+using System.Collections.Generic;
 
 namespace FemDesign.Calculate
 {
@@ -91,6 +91,23 @@ namespace FemDesign.Calculate
         [XmlElement("mapcomb")]
         public MapComb MapComb { get; set; }
 
+        [XmlIgnore]
+        public List<FemDesign.GenericClasses.IStructureElement> StructureElements { get; set; }
+
+        [XmlElement("GUID")]
+        public List<Guid> _elementGuids
+        {
+            get
+            {
+                List<Guid> result = new List<Guid>();
+
+                if (this.StructureElements != null)
+                    foreach(var element in StructureElements)
+                        result.Add(element.Guid);
+                return result;
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -107,7 +124,18 @@ namespace FemDesign.Calculate
             Headers = true;
         }
 
-        public CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
+        public CmdListGen(string bscPath, string outPath, FemDesign.GenericClasses.IStructureElement elements, bool regional = false) : this(bscPath, outPath, regional)
+        {
+            StructureElements = new List<FemDesign.GenericClasses.IStructureElement> { elements };
+        }
+
+        public CmdListGen(string bscPath, string outPath, List<FemDesign.GenericClasses.IStructureElement> elements, bool regional = false) : this(bscPath, outPath, regional)
+        {
+            if(elements != null || elements.Count != 0)
+                StructureElements = elements;
+        }
+
+        private CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
         {
         }
 
@@ -121,8 +149,7 @@ namespace FemDesign.Calculate
                 MapCase = mapCase;
             }
         }
-
-        public CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
+        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
                 throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
@@ -132,15 +159,21 @@ namespace FemDesign.Calculate
                 MapComb = mapComb;
             }
         }
-
-
-
         private CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             Initialize(bscPath, outputDir);
             this.Regional = regional;
             this.FillCells = fillCells;
             this.Headers = headers;
+        }
+        public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
+        {
+            MapCase = mapcase;
+        }
+
+        public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
+        {
+            MapComb = mapComb;
         }
 
         /// <summary>
@@ -183,26 +216,6 @@ namespace FemDesign.Calculate
             this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
         }
 
-
-        public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase)
-        {
-            OutFile = Path.GetFullPath(outPath);
-            BscFile = Path.GetFullPath(bscPath);
-            Regional = regional;
-            FillCells = true;
-            Headers = true;
-            MapCase = mapcase;
-        }
-
-        public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb)
-        {
-            OutFile = Path.GetFullPath(outPath);
-            BscFile = Path.GetFullPath(bscPath);
-            Regional = regional;
-            FillCells = true;
-            Headers = true;
-            MapComb = mapComb;
-        }
 
         public override XElement ToXElement()
         {

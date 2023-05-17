@@ -76,12 +76,15 @@
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Calculate\CmdConfig.cs" />
     <Compile Include="Calculate\OptionsTests.cs" />
+    <Compile Include="Calculate\CmdListGenTest.cs" />
+    <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
+    <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
@@ -138,6 +141,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Bars\myModel.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Calculate\pickElement.struxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Entities\materials.struxml">
@@ -201,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Calculate\cmdglobalcfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\InteractionSurface\output.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="System.Drawing.dll" />

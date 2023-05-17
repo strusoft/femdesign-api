@@ -51,7 +51,19 @@ namespace FemDesign.Materials
         [XmlAttribute("gammaM_1")]
         public string GammaM_1 { get; set; } // material_base_value
         [XmlAttribute("ksys")]
-        public double ksys { get; set; } // double
+        public double _ksys { get; set; } // system strength factor
+
+        [XmlIgnore]
+        public double ksys
+        {
+            get
+            { return _ksys; }
+            set
+            {
+                this._ksys = RestrictedDouble.ValueInClosedInterval(value, 0.00, 1.00);
+            }
+        }
+
         [XmlAttribute("k_cr")]
         public double k_cr { get; set; } // reduction_factor_type. Optional.
         [XmlAttribute("service_class")]
@@ -75,39 +87,43 @@ namespace FemDesign.Materials
 
         }
 
-        // /// <summary>
-        // /// Set material parameters to timber material.
-        // /// </summary>
-        // /// <param name="_ksys">System strength factor.</param>
-        // /// <param name="_k_cr">-</param>
-        // /// <param name="_service_class">Service class [1, 2, 3]</param>
-        // /// <param name="_kdefU">kdef U/Ua/Us</param>
-        // /// <param name="_kdefSq">kdef Sq</param>
-        // /// <param name="_kdefSf">kdef Sf</param>
-        // /// <param name="_kdefSc">kdef Sc</param>
-        // internal void SetMaterialParameters(double _ksys, double _k_cr, int _service_class, double _kdefU, double _kdefSq, double _kdefSf, double _kdefSc)
-        // {
-        //     this.ksys = _ksys;
-        //     if (_k_cr >= 0 & _k_cr <= 1)
-        //     {                
-        //         this.k_cr = _k_cr;
-        //     }
-        //     else
-        //     {
-        //         throw new System.ArgumentException("0 <= k_cr <= 1");
-        //     }
-        //     if (_service_class == 1 | _service_class == 2 | _service_class == 3)
-        //     {
-        //         this.service_class = _service_class - 1; // struxml service class is [0, 1 ,2] = [1, 2, 3]
-        //     }
-        //     else
-        //     {
-        //         throw new System.ArgumentException("service_class must be 1, 2 or 3");
-        //     }
-        //     this.kdefU = _kdefU;
-        //     this.kdefSq = _kdefSq;
-        //     this.kdefSf = _kdefSf;
-        //     this.kdefSc = _kdefSc;
-        // }
+        /// <summary>
+        /// Set material parameters to timber material.
+        /// </summary>
+        /// <param name="_ksys">System strength factor.</param>
+        /// <param name="_k_cr">-</param>
+        /// <param name="serviceClass">Service class [1, 2, 3]</param>
+        /// <param name="_kdefU">kdef U/Ua/Us</param>
+        /// <param name="_kdefSq">kdef Sq</param>
+        /// <param name="_kdefSf">kdef Sf</param>
+        /// <param name="_kdefSc">kdef Sc</param>
+        internal void SetMaterialParameters(double _ksys = 1.0, double _k_cr = 0.67, TimberServiceClassEnum serviceClass = TimberServiceClassEnum.ServiceClass1, double _kdefU = 0.0, double _kdefSq = 0.60, double _kdefSf = 0.60, double _kdefSc = 0.60)
+        {
+            int _serviceClass = (int)serviceClass;
+
+            this.ksys = _ksys;
+
+            if (_k_cr >= 0 & _k_cr <= 1)
+            {
+                this.k_cr = _k_cr;
+            }
+            else
+            {
+                throw new System.ArgumentException("0 <= k_cr <= 1");
+            }
+
+            if (_serviceClass == 1 || _serviceClass == 2 || _serviceClass == 3)
+            {
+                this.ServiceClass = _serviceClass - 1; // struxml service class is [0, 1 ,2] = [1, 2, 3]
+            }
+            else
+            {
+                throw new System.ArgumentException("service_class must be 1, 2 or 3");
+            }
+            this.kdefU = _kdefU;
+            this.kdefSq = _kdefSq;
+            this.kdefSf = _kdefSf;
+            this.kdefSc = _kdefSc;
+        }
     }
 }

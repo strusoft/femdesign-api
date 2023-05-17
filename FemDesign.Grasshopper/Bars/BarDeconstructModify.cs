@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsModify: GH_Component
+    public class BarDeconstructModify: GH_Component
     {
-       public BarsModify(): base("Bars.Deconstruct.Modify", "Deconstruct.Modify", "Deconstruct and modify properties of an exiting bar element of any type.", CategoryName.Name(),
+       public BarDeconstructModify(): base("Bar.Deconstruct.Modify", "Deconstruct.Modify", "Deconstruct and modify properties of an exiting bar element of any type.", CategoryName.Name(),
             SubCategoryName.Cat2a())
         {
 

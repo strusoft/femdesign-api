@@ -476,6 +476,14 @@ namespace FemDesign.Calculate
 
         #endregion
 
+        #region STEEL DESIGN
+        /// <summary>
+        /// Steel design: Bar, Utilisation
+        /// </summary>
+        [XmlEnum("StUtilizationComb_ListProc")]
+        SteelDesignBarUtilizationLoadCombination,
+        #endregion
+
         #region RC DESIGN
         /* RC design */
         /// <summary>
@@ -522,22 +530,40 @@ namespace FemDesign.Calculate
         RCDesignShellRequiredReinforcementLoadCombination,
 
         /// <summary>
-        /// RC design: Shell, Shear Utilization.
+        /// RC design: Shell, Shear Utilization, load combination.
         /// </summary>
         [XmlEnum("RCShellShearUtilizationComb_ListProc")]
         RCDesignShellShearUtilizationLoadCombination,
 
         /// <summary>
-        /// RC design: Shell, Shear Utilization.
+        /// RC design: Shell, Shear Utilization, max of combinations.
         /// </summary>
         [XmlEnum("RCShellShearUtilizationCmax_ListProc")]
         RCDesignShellShearUtilizationMaxComb,
 
         /// <summary>
-        /// RC design: Shell, Shear Utilization.
+        /// RC design: Shell, Shear Utilization, max of load groups.
         /// </summary>
         [XmlEnum("RCShellShearUtilizationGmax_ListProc")]
         RCDesignShellShearUtilizationMaxLoadGroup,
+
+        /// <summary>
+        /// RC design: Shell, Shear Capacity, load combination.
+        /// </summary>
+        [XmlEnum("RCShellShearCapacityComb_ListProc")]
+        RCDesignShellShearCapacityLoadCombination,
+
+        /// <summary>
+        /// RC design: Shell, Shear Capacity, max of combinations.
+        /// </summary>
+        [XmlEnum("RCShellShearCapacityCmax_ListProc")]
+        RCDesignShellShearCapacityMaxComb,
+
+        /// <summary>
+        /// RC design: Shell, Shear Capacity, max of load groups.
+        /// </summary>
+        [XmlEnum("RCShellShCapGmax_ListProc")]
+        RCDesignShellShearCapacityMaxLoadGroup,
 
         /// <summary>
         /// RC design: Bar, Utilization.
