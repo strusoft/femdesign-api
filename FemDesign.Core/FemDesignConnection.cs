@@ -277,7 +277,7 @@ namespace FemDesign
                 new CmdCalculation(design)
             );
 
-            if (designGroups != null || designGroups.Count != 0)
+            if (designGroups != null && designGroups.Count != 0)
                 foreach(var desGroup in designGroups)
                     script.Add(desGroup);
 
