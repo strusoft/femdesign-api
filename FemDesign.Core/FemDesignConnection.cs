@@ -277,9 +277,37 @@ namespace FemDesign
                 new CmdCalculation(design)
             );
 
+
             if (designGroups != null && designGroups.Count != 0)
-                foreach(var desGroup in designGroups)
+            {
+                // delete previously define design group
+
+                foreach (var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    script.Add(emptyDesignGroup);
+                }
+
+                foreach (var desGroup in designGroups)
+                {
                     script.Add(desGroup);
+
+                    if (!CmdDesignGroup._designGroupCache.ContainsKey(desGroup.Name))
+                    {
+                        CmdDesignGroup._designGroupCache[desGroup.Name] = desGroup;
+                    }
+                }
+            }
+            else // delete previously define design group
+            {
+                foreach(var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    script.Add(emptyDesignGroup);
+                }
+
+                CmdDesignGroup._designGroupCache.Clear();
+            }
 
             if (design.ApplyChanges == true) { script.Add(new CmdApplyDesignChanges()); }
 

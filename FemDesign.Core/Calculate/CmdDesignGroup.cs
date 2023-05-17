@@ -43,6 +43,9 @@ namespace FemDesign.Calculate
                 this._color = "0x" + ColorTranslator.ToHtml((Color)value).Substring(1);
             }
         }
+
+        [XmlIgnore]
+        public static Dictionary<string, Calculate.CmdDesignGroup> _designGroupCache = new Dictionary<string, Calculate.CmdDesignGroup>();
         /// <summary>
         /// To delete a group use force="true" and empty guid list.
         /// </summary>
@@ -88,27 +91,39 @@ namespace FemDesign.Calculate
             _validateGroup(elements);
 
             Name = name;
-            if (elements[0] is FemDesign.Bars.Bar)
+
+            // assign guids if elements are provided
+            if(elements.Count != 0)
             {
-                var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
-                Guids = bars.Select(x => x.BarPart.Guid).ToList();
+                if (elements[0] is FemDesign.Bars.Bar)
+                {
+                    var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
+                    Guids = bars.Select(x => x.BarPart.Guid).ToList();
+                }
+                else if (elements[0] is FemDesign.Shells.Slab)
+                {
+                    var slabs = elements.Cast<FemDesign.Shells.Slab>().ToList();
+                    Guids = slabs.Select(x => x.SlabPart.Guid).ToList();
+                }
+                else
+                    throw new Exception($"There is not Design Group Type eligible for {elements[0].GetType().Name}");
+                
+                Type = assignGroupType(elements);
+                Elements = elements;
             }
-            else if (elements[0] is FemDesign.Shells.Slab)
+            else // if no elements, guids will be empty 
             {
-                var slabs = elements.Cast<FemDesign.Shells.Slab>().ToList();
-                Guids = slabs.Select(x => x.SlabPart.Guid).ToList();
+                Force = true;
             }
-            else
-                throw new Exception($"There is not Design Group Type eligible for {elements[0].GetType().Name}");
 
             if (color == null)
             {
                 var rnd = new Random();
                 color = System.Drawing.Color.FromArgb(255, 0, 0);
             }
-            Elements = elements;
+
             Color = color;
-            Type = assignGroupType(elements);
+
         }
 
         public static CmdDesignGroup CmdSteelBarDesignGroup(string name, List<FemDesign.GenericClasses.IStructureElement> elements, Color? color = null)

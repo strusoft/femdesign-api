@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
+using FemDesign.Materials;
 
 namespace FemDesign.Grasshopper
 {
@@ -48,6 +49,7 @@ namespace FemDesign.Grasshopper
     public class ApplicationRunDesignWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
+
         private FemDesignConnection _connection = null;
         private Calculate.Design _design = null;
         private List<Calculate.CmdDesignGroup> designGroups = new List<Calculate.CmdDesignGroup>();
@@ -90,6 +92,7 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
             var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
+
             _connection.RunDesign(_userModule, _design, designGroups);
             _success = true;
 
