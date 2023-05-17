@@ -737,14 +737,6 @@ namespace FemDesign
 
             return results;
         }
-        public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = this.GetType().GetMethod("GetQuantities").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(this, new object[] { units });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
 
         public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
         {
