@@ -14,8 +14,8 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Nodal displacements" result
     /// </summary>
-    [Result(typeof(NodalVibrationShape), ListProc.NodalVibrationShape)]
-    public partial class NodalVibrationShape : IResult
+    [Result(typeof(NodalVibration), ListProc.NodalVibrationShape)]
+    public partial class NodalVibration : IResult
     {
         /// <summary>
         /// Support name identifier
@@ -55,7 +55,7 @@ namespace FemDesign.Results
         public int ShapeId { get; }
 
         [JsonConstructor]
-        internal NodalVibrationShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, int shapeId)
+        internal NodalVibration(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, int shapeId)
         {
             this.Id = id;
             this.NodeId = nodeId;
@@ -90,7 +90,7 @@ namespace FemDesign.Results
             }
         }
 
-        internal static NodalVibrationShape Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
+        internal static NodalVibration Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
             string identifier = row[0];
             int nodeId = Int32.Parse(row[1], CultureInfo.InvariantCulture);
@@ -101,16 +101,16 @@ namespace FemDesign.Results
             double fiy = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double fiz = Double.Parse(row[7], CultureInfo.InvariantCulture);
             int shapeId = Int32.Parse(HeaderData["shapeid"]);
-            return new NodalVibrationShape(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, shapeId);
+            return new NodalVibration(identifier, nodeId, ex, ey, ez, fix, fiy, fiz, shapeId);
         }
 
         /// <summary>
         /// The method has been created for returning the value for Grasshopper and Dynamo.
         /// The method can still be use for C# users.
         /// </summary>
-        public static Dictionary<string, object> DeconstructNodalVibration(List<FemDesign.Results.NodalVibrationShape> Result, string ModeShapeId)
+        public static Dictionary<string, object> DeconstructNodalVibration(List<FemDesign.Results.NodalVibration> Result, string ModeShapeId)
         {
-            var nodalDisplacements = Result.Cast<FemDesign.Results.NodalVibrationShape>();
+            var nodalDisplacements = Result.Cast<FemDesign.Results.NodalVibration>();
 
             // Return the unique load cases - load combinations
             var uniqueShapeId = nodalDisplacements.Select(n => n.ShapeId.ToString()).Distinct().ToList();

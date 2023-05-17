@@ -51,7 +51,7 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.NodalVibrationShape> iResult = new List<FemDesign.Results.NodalVibrationShape>();
+            List<FemDesign.Results.NodalVibration> iResult = new List<FemDesign.Results.NodalVibration>();
             DA.GetDataList("Result", iResult);
 
             int vibrationMode = 0;
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             {
                 // The method "DeconstructNodalVibration" required a string option as it has been
                 // replicated from other Deconstructor methods
-                result = FemDesign.Results.NodalVibrationShape.DeconstructNodalVibration(iResult, vibrationMode.ToString());
+                result = FemDesign.Results.NodalVibration.DeconstructNodalVibration(iResult, vibrationMode.ToString());
             }
             catch (ArgumentException ex)
             {
