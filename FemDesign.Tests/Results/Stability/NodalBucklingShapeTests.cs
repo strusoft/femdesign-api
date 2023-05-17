@@ -70,13 +70,6 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             }
         }
 
-        [TestMethod]
-        public void CheckMethodName()
-        {
-            string methodName = nameof(FemDesignConnection.GetStabilityResults);
-            Assert.IsTrue(methodName == "GetStabilityResults");
-        }
-
 
         [TestCategory("FEM-Design required")]
         [TestMethod]

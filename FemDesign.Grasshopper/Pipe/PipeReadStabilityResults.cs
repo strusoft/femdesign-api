@@ -51,7 +51,8 @@ namespace FemDesign.Grasshopper
     {
         public dynamic _getStabilityResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null)
         {
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetStabilityResults").MakeGenericMethod(resultType);
+            var methodName = nameof(FemDesignConnection.GetStabilityResults);
+            MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
             
             return result;
