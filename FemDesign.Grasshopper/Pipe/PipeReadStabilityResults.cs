@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
         public FemDesignConnection _connection = null;
         private Calculate.Options _options = null;
         private Results.UnitResults _units = null;
-        private string _resultType = typeof(FemDesign.Results.NodalBucklingShape).Name;
+        private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
         private string _combo = null;
         private int? _shapeId = null;
 
@@ -106,12 +106,10 @@ namespace FemDesign.Grasshopper
             }
 
             // Run the Analysis
-            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
-            Type type = Type.GetType(_type);
 
             _connection.SetVerbosity(_connection.Verbosity);
             _connection.OnOutput += onOutput;
-            var res = _getStabilityResults(type, _combo, _shapeId, _units, _options);
+            var res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
             _connection.OnOutput -= onOutput;
             _results.AddRange(res);
 

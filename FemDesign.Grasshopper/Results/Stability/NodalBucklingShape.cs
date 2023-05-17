@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         /// <summary>
         /// Initializes a new instance of the NodalBucklingShape class.
         /// </summary>
-        public NodalBucklingShape() : base("NodalBucklingShape", "NodalBucklingShape", "Read the Nodal buckling shape vector for the entire model", CategoryName.Name(), SubCategoryName.Cat7b())
+        public NodalBucklingShape() : base("NodalBucklingShape", "NodalBucklingShape", "Read the Nodal buckling shape values for the entire model", CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
