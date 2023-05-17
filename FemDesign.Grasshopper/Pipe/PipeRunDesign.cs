@@ -25,6 +25,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
             pManager.AddGenericParameter("DesignGroup", "DesignGroup", "DesignGroup.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
