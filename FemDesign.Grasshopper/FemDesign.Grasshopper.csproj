@@ -105,6 +105,8 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
     <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
@@ -187,6 +189,8 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
+    <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
@@ -900,6 +904,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
     <None Include="Resources\icons\Patch.png.png" />
     <None Include="Resources\icons\Layer.png" />

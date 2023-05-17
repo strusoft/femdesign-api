@@ -260,8 +260,9 @@ namespace FemDesign
         /// </summary>
         /// <param name="userModule"></param>
         /// <param name="design"></param>
+        /// <param name="designGroups"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void RunDesign(CmdUserModule userModule, Design design)
+        public void RunDesign(CmdUserModule userModule, Design design, List<CmdDesignGroup> designGroups = null)
         {
             if (userModule == CmdUserModule.RESMODE)
             {
@@ -276,7 +277,39 @@ namespace FemDesign
                 new CmdCalculation(design)
             );
 
-            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
+
+            if (designGroups != null && designGroups.Count != 0)
+            {
+                // delete previously define design group
+
+                foreach (var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    script.Add(emptyDesignGroup);
+                }
+
+                foreach (var desGroup in designGroups)
+                {
+                    script.Add(desGroup);
+
+                    if (!CmdDesignGroup._designGroupCache.ContainsKey(desGroup.Name))
+                    {
+                        CmdDesignGroup._designGroupCache[desGroup.Name] = desGroup;
+                    }
+                }
+            }
+            else // delete previously define design group
+            {
+                foreach(var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    script.Add(emptyDesignGroup);
+                }
+
+                CmdDesignGroup._designGroupCache.Clear();
+            }
+
+            if (design.ApplyChanges == true) { script.Add(new CmdApplyDesignChanges()); }
 
             this.RunScript(script, "RunDesign");
         }

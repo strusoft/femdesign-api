@@ -74,10 +74,66 @@ namespace FemDesign.Calculate
 
     [XmlRoot("cmdconfig")]
     [System.Serializable]
+    public partial class DesParamBarSteel : CONFIG
+    {
+        [XmlAttribute("type")]
+        public string Type = "CCDESPARAMBARST";
+
+        [XmlAttribute("LimitUtilization")]
+        public double UtilizationLimit { get; set; } = 1.0;
+        [XmlAttribute("vSection_itemcnt")]
+        public int SectionCount { get; set; }
+
+        [XmlAttribute("vSection_csec_{i}")]
+        public List<Guid> _vSectionCsec { get; set; }
+
+        [XmlIgnore]
+        private List<FemDesign.Sections.Section> _familySections;
+
+        [XmlIgnore]
+        public List<FemDesign.Sections.Section> FamilySections
+        {
+            get
+            {
+                return _familySections;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    _vSectionCsec = new List<Guid>();
+                    _familySections = new List<FemDesign.Sections.Section>();
+                    foreach (var section in value)
+                    {
+                        _vSectionCsec.Add(section.Guid);
+                        _familySections.Add(section);
+                    }
+                    
+                }
+            }
+        }
+
+        private DesParamBarSteel()
+        {
+
+        }
+
+        public DesParamBarSteel(double limitUtilization, List<Sections.Section> sections)
+        {
+            UtilizationLimit = limitUtilization;
+            FamilySections = sections;
+            SectionCount = sections.Count;
+        }
+    }
+
+
+    [XmlRoot("cmdconfig")]
+    [System.Serializable]
     public partial class EcrcConfig : CONFIG
     {
         [XmlAttribute("type")]
-        public string Type { get; set; } = "ECRCCONFIG";
+        public string Type = "ECRCCONFIG";
+
         [XmlAttribute("s2ndOrder")]
         public bool S2ndOrder { get; set; }
 
@@ -160,6 +216,9 @@ namespace FemDesign.Calculate
             Interaction = interaction;
         }
     }
+
+
+
 
     [System.Serializable]
     public partial class CalcParamTimberPanelClt : CONFIG
@@ -256,6 +315,7 @@ namespace FemDesign.Calculate
     [XmlInclude(typeof(CcCoConfig))]
     [XmlInclude(typeof(EcstConfig))]
     [XmlInclude(typeof(CalcParamTimberPanelClt))]
+    [XmlInclude(typeof(DesParamBarSteel))]
     [System.Serializable]
     public abstract partial class CONFIG
     {
