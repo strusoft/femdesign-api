@@ -643,6 +643,8 @@ namespace FemDesign.Calculate
                 string r = listProc.ToString();
                 if (r.EndsWith("LoadCombination"))
                     return true;
+                else if(r == ListProc.NodalBucklingShape.ToString() || r == ListProc.ImperfectionFactors.ToString() || r == ListProc.CriticalParameters.ToString())
+                    return true;
                 else return false;
             }
         }

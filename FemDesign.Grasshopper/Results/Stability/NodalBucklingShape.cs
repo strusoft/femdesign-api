@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddTextParameter("Combination Name", "CombName", "Name of Load Combination for which to return the results.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("Buckling Shape", "Shape", "Buckling shape indexes start from '1' as per FEM-Design", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Buckling Shape", "Shape", "Buckling shape indexes start from '1' as per FEM-Design", GH_ParamAccess.item, 1);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
 
@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             string combName = null;
             DA.GetData(1, ref combName);
 
-            int? bucklingShape = null;
+            int bucklingShape = 1;
             DA.GetData(2, ref bucklingShape);
            
 
@@ -72,7 +72,7 @@ namespace FemDesign.Grasshopper
             }
             catch (ArgumentException ex)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, ex.Message);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
                 return;
             }
 
@@ -105,7 +105,7 @@ namespace FemDesign.Grasshopper
             var uniqueCaseId = nodalBucklingShape.Select(n => n.CaseIdentifier).Distinct().ToList();
 
             // Return the unique shape identifiers
-            var uniqueShapeId = nodalBucklingShape.Select(n => n.ShapeId).Distinct().ToList();
+            var uniqueShapeId = nodalBucklingShape.Select(n => n.ShapeId).Max();
 
 
             // Select the Nodal Buckling shapes for the selected Load Combination
@@ -124,7 +124,7 @@ namespace FemDesign.Grasshopper
 
 
             // Select the Nodal Buckling shapes for the selected Shape identifier
-            if ((modeShapeId >= 1) && (modeShapeId <= uniqueShapeId.Count))
+            if ((modeShapeId >= 1) && (modeShapeId <= uniqueShapeId))
             {
                 nodalBucklingShape = nodalBucklingShape.Where(n => n.ShapeId == modeShapeId);
             }
