@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using System.ComponentModel;
+using System.Linq;
 
 namespace FemDesign.Shells
 {
@@ -376,6 +377,50 @@ namespace FemDesign.Shells
                 this.ExternalRigidity = ec.Rigidity;
             else if (ec.PredefRigidity != null)
                 this.ExternalPredefinedRigidity = ec.PredefRigidity;
+        }
+
+
+        public List<EdgeConnection> GetEdgeConnections()
+        {
+            // set the edge connections of the external edges of the internal panels
+            if (this.InternalPanels.IntPanels.Count == 1)
+            {
+                return this.InternalPanels.IntPanels[0].Region.GetEdgeConnections();
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+        }
+
+        public List<EdgeConnection> GetEdgeConnections(string name)
+        {
+            // set the edge connections of the external edges of the internal panels
+            if (this.InternalPanels.IntPanels.Count == 1)
+            {
+                var edges = this.InternalPanels.IntPanels[0].Region.GetEdgeConnections();
+                var edgeConnection = edges.Where(x => x != null && x.Name.Contains(name)).ToList();
+                return edgeConnection;
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+        }
+
+        public EdgeConnection GetEdgeConnection(Guid guid)
+        {
+            // set the edge connections of the external edges of the internal panels
+            if (this.InternalPanels.IntPanels.Count == 1)
+            {
+                var edges = this.InternalPanels.IntPanels[0].Region.GetEdgeConnections();
+                var edgeConnection = edges.Where(x => x != null && x.Guid == guid).ToList().FirstOrDefault();
+                return edgeConnection;
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
         }
 
         /// <summary>

@@ -220,7 +220,7 @@ namespace FemDesign.Shells
         /// <param name="slab">Slab.</param>
         /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="indices">Index. List of items. Use SlabDeconstruct to extract index for each respective edge.</param>
-        public static Slab EdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, List<int> indices)
+        public static Slab SetEdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, List<int> indices)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
@@ -243,7 +243,7 @@ namespace FemDesign.Shells
         /// <param name="slab">Slab.</param>
         /// <param name="shellEdgeConnection">EdgeConnection.</param>
         /// <param name="index">Index of edge to set.</param>
-        public static Slab EdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, int index)
+        public static Slab SetEdgeConnection(Slab slab, EdgeConnection shellEdgeConnection, int index)
         {
             // deep clone. downstreams objs will contain changes made in this method, upstream objs will not.
             // downstream and uppstream objs will share guid.
@@ -255,6 +255,43 @@ namespace FemDesign.Shells
             slabClone.SlabPart.Region.SetEdgeConnection(shellEdgeConnection, index);
 
             return slabClone;
+        }
+
+        /// <summary>
+        /// Return the edge connections on a slab
+        /// </summary>
+        /// <returns></returns>
+        public List<Shells.EdgeConnection> GetEdgeConnections()
+        {
+            var edgeConnection = this.SlabPart.GetEdgeConnections();
+            return edgeConnection;
+        }
+
+        /// <summary>
+        /// Return the edge connections on a slab by the their name. Empty list if name does not match.
+        /// The method will return the edge connections if the input name is contains in the edge connection name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public List<Shells.EdgeConnection> GetEdgeConnections(string name)
+        {
+            var _edgeConnection = this.SlabPart.GetEdgeConnections();
+
+            var edgeConnection = _edgeConnection.Where( x => x != null && x.Name.Contains(name) ).ToList();
+            return edgeConnection;
+        }
+
+        /// <summary>
+        /// Return the edge connections on a slab by the their guid. Emptu list if guid does not match.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public Shells.EdgeConnection GetEdgeConnection(Guid guid)
+        {
+            var _edgeConnection = this.SlabPart.GetEdgeConnections();
+
+            var edgeConnection = _edgeConnection.Where(x => x != null && x.Guid == guid).ToList().FirstOrDefault();
+            return edgeConnection;
         }
 
         /// <summary>

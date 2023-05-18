@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Shells
 {
@@ -53,7 +54,7 @@ namespace FemDesign.Shells
 
             Slab slab = CreateDummySlab();
 
-            slab = Slab.EdgeConnection(slab, ec, 0);
+            slab = Slab.SetEdgeConnection(slab, ec, 0);
 
             var model = new Model(Country.S, new List<GenericClasses.IStructureElement> { slab });
 
@@ -85,7 +86,7 @@ namespace FemDesign.Shells
 
             Slab slab = CreateDummySlab();
 
-            slab = Slab.EdgeConnection(slab, ec, 0);
+            slab = Slab.SetEdgeConnection(slab, ec, 0);
 
             var model = new Model(Country.S, new List<GenericClasses.IStructureElement> { slab });
 
@@ -126,6 +127,50 @@ namespace FemDesign.Shells
             var region = new Geometry.Region(new List<Geometry.Contour> { contour }, Geometry.Plane.XY);
             var slab = Slab.Plate("S", template.Materials.Material[0], region, EdgeConnection.Default, ShellEccentricity.Default, ShellOrthotropy.Default, new List<Thickness> { new Thickness(Geometry.Point3d.Origin, 0.2) });
             return slab;
+        }
+
+        [TestMethod("GetEdgeConnections")]
+        public void GetEdgeConnections()
+        {
+            var filePath = "Shells/EdgeConnection-model.struxml";
+
+            // Read model and results
+            var model = Model.DeserializeFromFilePath(filePath);
+
+            var slabs = model.Entities.Slabs;
+
+            foreach( var slab in slabs)
+            {
+                var edges = slab.GetEdgeConnections();
+
+                var edgesByName = slab.GetEdgeConnections("myconnectionpinned");
+                edgesByName = slab.GetEdgeConnections(" ");
+                edgesByName = slab.GetEdgeConnections("DoesNotExist");
+                edgesByName = slab.GetEdgeConnections("123");
+
+
+                var edgesByGuid = slab.GetEdgeConnection(new Guid("7b194671-4645-4461-89d2-072c1b135cfa"));
+                edgesByGuid = slab.GetEdgeConnection(new Guid());
+                edgesByGuid = slab.GetEdgeConnection(Guid.Empty);
+
+            }
+
+            var panels = model.Entities.Panels;
+
+
+            foreach (var panel in panels)
+            {
+                var edges = panel.GetEdgeConnections();
+
+                var edgesByName = panel.GetEdgeConnections("myconnectionpinned");
+                edgesByName = panel.GetEdgeConnections(" ");
+                edgesByName = panel.GetEdgeConnections("DoesNotExist");
+                edgesByName = panel.GetEdgeConnections("123");
+
+                var edgesByGuid = panel.GetEdgeConnection(new Guid("7b194671-4645-4461-89d2-072c1b135cfa"));
+                edgesByGuid = panel.GetEdgeConnection(new Guid());
+                edgesByGuid = panel.GetEdgeConnection(Guid.Empty);
+            }
         }
     }
 }
