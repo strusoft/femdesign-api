@@ -24,7 +24,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddTextParameter("Combination Name", "Combo Name", "Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be larger than or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -108,10 +108,17 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
 
-            _connection.SetVerbosity(_connection.Verbosity);
-            _connection.OnOutput += onOutput;
-            var res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
-            _connection.OnOutput -= onOutput;
+            dynamic res = new List<FemDesign.Results.IResult>();
+            try
+            {
+                res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
+            }
+            catch (Exception ex)
+            {
+                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.InnerException.Message));
+                _success = false;
+            }
+
             _results.AddRange(res);
 
             _success = true;
