@@ -129,6 +129,7 @@ namespace FemDesign.Shells
             return slab;
         }
 
+        [TestCategory("FEM-Design required")]
         [TestMethod("GetEdgeConnections")]
         public void GetEdgeConnections()
         {
