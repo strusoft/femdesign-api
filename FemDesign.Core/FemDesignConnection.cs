@@ -101,6 +101,9 @@ namespace FemDesign
             SetVerbosity(DefaultVerbosity);
         }
 
+
+
+
         private void ProcessExited(object sender, EventArgs e)
         {
             this.HasExited = true;
@@ -1073,6 +1076,11 @@ namespace FemDesign
             _outputWorker.RunWorkerAsync();
         }
 
+        private int GetProcessCount()
+        {
+            return Process.GetProcessesByName("fd3dstruct").Length;
+        }
+
         private void _onOutputThread(object sender, DoWorkEventArgs e)
         {
             try
@@ -1086,12 +1094,26 @@ namespace FemDesign
                     if (line == null) { continue; }
 
                     _outputWorker.ReportProgress(0, line);
+
+                    if (GetProcessCount() < 1)
+                    {
+                        this.Dispose();
+                        throw new Exception("FEM-Design has been closed!");
+                    };
                 }
             }
-            catch (Exception x)
+            catch (Exception ex)
             {
-                _outputWorker.ReportProgress(1, x);
+                if(ex is Exception)
+                {
+                    throw new Exception(ex.Message);
+                }
+                if(ex is Exception)
+                {
+                    _outputWorker.ReportProgress(1, ex);
+                }
             }
+
         }
 
         private void _onOuputThreadEvent(object sender, ProgressChangedEventArgs e)
