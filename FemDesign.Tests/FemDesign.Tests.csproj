@@ -177,9 +177,6 @@
     <None Include="Performance\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Reinforcement\intSrf.txt7cb0b0b6-96e9-4097-a8b6-bf5b8ae1b15c">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -213,9 +210,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Reinforcement\intSrf-1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reinforcement\intSrf-2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="System.Drawing.dll" />

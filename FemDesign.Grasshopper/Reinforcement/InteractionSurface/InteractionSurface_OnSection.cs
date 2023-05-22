@@ -149,7 +149,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "");
+            pManager.Register_MeshParam("InteractionSurface", "InteractionSurface", "Mesh representation of the 'Onion Shape'. The mesh vertices have been mapped in such a way that x,y,z matched My, Mz, N");
             pManager.Register_IntervalParam("N", "N", "Min/Max capacity value");
             pManager.Register_IntervalParam("My", "My", "Min/Max capacity value");
             pManager.Register_IntervalParam("Mz", "Mz", "Min/Max capacity value");
