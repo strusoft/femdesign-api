@@ -241,7 +241,7 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection(minimized: true, tempOutputDir: true);
+                var connection = new FemDesignConnection(minimized: true, tempOutputDir: false);
 
                 // our dummy beam has length == 1
                 var offset = 0.5;

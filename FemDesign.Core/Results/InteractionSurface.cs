@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace FemDesign.Results
 {
@@ -51,16 +52,16 @@ namespace FemDesign.Results
 
                     if (isFace)
                     {
-                        int node_i = int.Parse( values[1] ) - 1;
-                        int node_j = int.Parse( values[2] ) - 1;
-                        int node_k = int.Parse( values[3] ) - 1;
+                        int node_i = int.Parse( values[1], CultureInfo.InvariantCulture) - 1;
+                        int node_j = int.Parse( values[2], CultureInfo.InvariantCulture) - 1;
+                        int node_k = int.Parse( values[3], CultureInfo.InvariantCulture) - 1;
                         faces[key] = new Geometry.Face(node_i, node_j, node_k);
                     }
                     else
                     {
-                        var x = Double.Parse( values[1] );
-                        var y = Double.Parse( values[2] );
-                        var z = Double.Parse( values[3] );
+                        var x = Double.Parse( values[1], CultureInfo.InvariantCulture);
+                        var y = Double.Parse( values[2], CultureInfo.InvariantCulture);
+                        var z = Double.Parse( values[3], CultureInfo.InvariantCulture);
                         vertices[key] = new Geometry.Point3d(x, y, z);
                     }
                 }
