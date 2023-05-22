@@ -972,8 +972,22 @@ namespace FemDesign
 
             if (_inputPipe.CanWrite == false) throw new Exception("Can't write to pipe");
             var buffer = _encoding.GetBytes(command);
-            _inputPipe.Write(buffer, 0, buffer.Length);
-            _inputPipe.Flush();
+            try
+            {
+                _inputPipe.Write(buffer, 0, buffer.Length);
+                _inputPipe.Flush();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "Cannot access a closed pipe.")
+                {
+                    throw new Exception("'FEM-Design Connection' has been closed! Open a new FEM-Design connection if you want to comunicate with FEM-Design.");
+                }
+                else
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
         }
 
         internal void WaitForCommandToFinish()

@@ -12,7 +12,8 @@ namespace FemDesign.Utils
             "No declared load or dead load.",
             "No declared mass.",
             "No declared load combination.",
-            "No declared support."
+            "No declared support.",
+            "No declared structure to calculate."
         };
         
         public readonly static List<string> WarningMessase = new List<string>{
