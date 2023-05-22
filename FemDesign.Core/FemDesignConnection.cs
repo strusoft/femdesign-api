@@ -74,10 +74,12 @@ namespace FemDesign
                 UseShellExecute = false,
                 Verb = "open",
             };
+
+            startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+
             if (minimized)
             {
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
-                startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
             }
 
             OutputDir = outputDir;
@@ -792,11 +794,14 @@ namespace FemDesign
             var model = new Model(Country.COMMON, bars, overwrite: true);
             this.Open(model);
 
-            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN));
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(logfile, new CmdUser(CmdUserModule.RCDESIGN));
             foreach (var bar in bars)
             {
                 var _bar = (Bars.Bar)bar;
-                script.Add(new CmdInteractionSurface(_bar, outFile + _bar.BarPart.Guid, offset, fUlt));
+                var newName = System.IO.Path.GetFileNameWithoutExtension(outFile) + _bar.BarPart.Guid + ".txt";
+                script.Add(new CmdInteractionSurface(_bar, newName, offset, fUlt));
             }
 
             this.RunScript(script);
@@ -806,7 +811,8 @@ namespace FemDesign
             foreach (var bar in bars)
             {
                 var _bar = (Bars.Bar)bar;
-                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile + _bar.BarPart.Guid);
+                var newName = System.IO.Path.GetFileNameWithoutExtension(outFile) + _bar.BarPart.Guid + ".txt";
+                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(newName);
                 intSurfaces.Add(intSrf);
             }
             return intSurfaces;

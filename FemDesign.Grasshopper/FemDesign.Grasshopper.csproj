@@ -122,6 +122,7 @@
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
     <Compile Include="Pipe\PipeReadResults.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
@@ -190,8 +191,9 @@
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeRunAnalysis.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
@@ -199,7 +201,6 @@
     <Compile Include="Reinforcement\InteractionSurface\Layer.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Patch.cs" />
     <Compile Include="Reinforcement\InteractionSurface\Rebar.cs" />
-    <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnSection.cs" />
     <Compile Include="Reinforcement\Obsolete\SurfaceReinforcementAddToSlab_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />

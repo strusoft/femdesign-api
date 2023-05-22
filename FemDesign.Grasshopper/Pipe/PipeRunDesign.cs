@@ -36,84 +36,94 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        //protected override void BeforeSolveInstance()
-        //{
-        //    ValueListUtils.updateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Calculate.CmdUserModule)).ToList(), null, GH_ValueListMode.DropDown);
-        //}
-
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
-        public override Guid ComponentGuid => new Guid("{1B0FB74E-B047-40B4-B9C1-89159860C188}");
+        public override Guid ComponentGuid => new Guid("{52B96EF2-9B6D-4F6D-9F4F-BABFD5B85AFC}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
+        private class ApplicationRunDesignWorker : WorkerInstance
+        {
+            /* INPUT/OUTPUT */
+
+            private FemDesignConnection _connection = null;
+            private Calculate.Design _design = null;
+            private List<Calculate.CmdDesignGroup> designGroups = new List<Calculate.CmdDesignGroup>();
+            private string _mode = "Steel";
+            private bool _runNode = true;
+            private bool _success = false;
+
+            public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
+
+            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            {
+                try
+                {
+                    if (_runNode == false)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
+                        ReportProgress(Id, 0.0);
+                        return;
+                    }
+
+                    if (_connection == null)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                        return;
+                    }
+
+                    if (_connection.IsDisconnected)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
+                        return;
+                    }
+
+                    if (_connection.HasExited)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
+                        return;
+                    }
+
+                    // Run the Analysis
+                    var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
+
+                    _connection.RunDesign(_userModule, _design, designGroups);
+                    _success = true;
+                }
+                catch (Exception ex)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
+                    _success = false;
+                }
+
+
+                Done();
+            }
+
+            public override WorkerInstance Duplicate() => new ApplicationRunDesignWorker(Parent);
+
+            public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
+            {
+                if (!DA.GetData("Connection", ref _connection)) return;
+                if (!DA.GetData("Mode", ref _mode)) return;
+                if (!DA.GetData("Design", ref _design)) return;
+                if (!DA.GetDataList("DesignGroup", designGroups)) return;
+                DA.GetData("RunNode", ref _runNode);
+            }
+
+            public override void SetData(IGH_DataAccess DA)
+            {
+
+                foreach (var (level, message) in RuntimeMessages)
+                {
+                    Parent.AddRuntimeMessage(level, message);
+                }
+
+                DA.SetData("Connection", _connection);
+                DA.SetData("Success", _success);
+            }
+        }
     }
 
-    public class ApplicationRunDesignWorker : WorkerInstance
-    {
-        /* INPUT/OUTPUT */
-
-        private FemDesignConnection _connection = null;
-        private Calculate.Design _design = null;
-        private List<Calculate.CmdDesignGroup> designGroups = new List<Calculate.CmdDesignGroup>();
-        private string _mode = "Steel";
-        private bool _runNode = true;
-        private bool _success = false;
-
-        public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
-
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
-        {
-            if (_runNode == false)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
-                return;
-            }
-
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-            // Run the Analysis
-            var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
-
-            _connection.RunDesign(_userModule, _design, designGroups);
-            _success = true;
-
-            Done();
-        }
-
-        public override WorkerInstance Duplicate() => new ApplicationRunDesignWorker(Parent);
-
-        public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
-        {
-            if (!DA.GetData("Connection", ref _connection)) return;
-            if (!DA.GetData("Mode", ref _mode)) return;
-            if (!DA.GetData("Design", ref _design)) return;
-            if (!DA.GetDataList("DesignGroup", designGroups)) return;
-            DA.GetData("RunNode", ref _runNode);
-        }
-
-        public override void SetData(IGH_DataAccess DA)
-        {
-            DA.SetData("Connection", _connection);
-            DA.SetData("Success", _success);
-        }
-    }
 }

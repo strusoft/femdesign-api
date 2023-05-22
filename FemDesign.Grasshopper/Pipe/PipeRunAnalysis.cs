@@ -35,84 +35,101 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunAnalysis;
 
-        public override Guid ComponentGuid => new Guid("d74ac5fb-42ff-49de-977a-aa71849c73ea");
+        public override Guid ComponentGuid => new Guid("{C8DF0C6F-4A9E-4AEF-A114-6932C3AB7820}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
+
+        private class ApplicationRunAnalysisWorker : WorkerInstance
+        {
+            /* INPUT/OUTPUT */
+            private FemDesignConnection _connection = null;
+            private Calculate.Analysis _analysis = null;
+            private bool _runNode = true;
+
+            public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
+
+
+            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            {
+                try
+                {
+                    if (_runNode == false)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
+                        ReportProgress(Id, 0.0);
+                        return;
+                    }
+
+                    if (_analysis == null)
+                    {
+                        _success = false;
+                        return;
+                    }
+
+                    if (_connection == null)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                        return;
+                    }
+
+                    if (_connection.IsDisconnected)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
+                        return;
+                    }
+
+                    if (_connection.HasExited)
+                    {
+                        _success = false;
+                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
+                        return;
+                    }
+
+                    _connection.SetVerbosity(_connection.Verbosity);
+                    _connection.OnOutput += onOutput;
+
+                    // Run the Analysis
+                    _connection.RunAnalysis(_analysis);
+
+                    _connection.OnOutput -= onOutput;
+                    _success = true;
+
+                }
+                catch (Exception ex)
+                {
+                    RuntimeMessages.Add( (GH_RuntimeMessageLevel.Error, ex.Message) );
+                    _success = false;
+                    _connection = null;
+                }
+
+                Done();
+            }
+
+
+            public override WorkerInstance Duplicate() => new ApplicationRunAnalysisWorker(Parent);
+
+            public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
+            {
+                if (!DA.GetData("Connection", ref _connection)) return;
+                if (!DA.GetData("Analysis", ref _analysis)) return;
+                DA.GetData("RunNode", ref _runNode);
+            }
+
+
+            public override void SetData(IGH_DataAccess DA)
+            {
+                foreach (var (level, message) in RuntimeMessages)
+                {
+                    Parent.AddRuntimeMessage(level, message);
+                }
+
+                DA.SetData("Connection", _connection);
+                DA.SetDataList("Log", _log);
+                DA.SetData("Success", _success);
+            }
+        }
     }
 
-    public class ApplicationRunAnalysisWorker : WorkerInstance
-    {
-        /* INPUT/OUTPUT */
-        private FemDesignConnection _connection = null;
-        private Calculate.Analysis _analysis = null;
-        private bool _runNode = true;
-
-        public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
-
-
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
-        {
-
-            if (_runNode == false)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
-                return;
-            }
-
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-            _connection.SetVerbosity(_connection.Verbosity);
-            _connection.OnOutput += onOutput;
-
-            // Run the Analysis
-            _connection.RunAnalysis(_analysis);
-
-            _connection.OnOutput -= onOutput;
-
-            Done();
-        }
-
-
-        public override WorkerInstance Duplicate() => new ApplicationRunAnalysisWorker(Parent);
-
-        public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
-        {
-            if (!DA.GetData("Connection", ref _connection)) return;
-            if (!DA.GetData("Analysis", ref _analysis)) return;
-            DA.GetData("RunNode", ref _runNode);
-        }
-
-
-        public override void SetData(IGH_DataAccess DA)
-        {
-            foreach (var (level, message) in RuntimeMessages)
-            {
-                Parent.AddRuntimeMessage(level, message);
-            }
-
-            DA.SetData("Connection", _connection);
-            DA.SetDataList("Log", _log);
-            DA.SetData("Success", _success);
-        }
-    }
 }

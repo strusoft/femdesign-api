@@ -66,6 +66,7 @@ namespace FemDesign.Grasshopper
             catch (Exception ex)
             {
                 RuntimeMessages.Add( (GH_RuntimeMessageLevel.Error, ex.Message) );
+                connection = null;
                 success = false;
             }
 
