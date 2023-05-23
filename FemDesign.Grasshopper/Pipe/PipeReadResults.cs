@@ -114,8 +114,8 @@ namespace FemDesign.Grasshopper
 
                     if (_connection == null)
                     {
-                        _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                        Done();
                         return;
                     }
 
