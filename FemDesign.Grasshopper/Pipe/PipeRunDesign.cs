@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
 using FemDesign.Materials;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -59,30 +60,33 @@ namespace FemDesign.Grasshopper
                     if (_runNode == false)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                        ReportProgress(Id, 0.0);
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                        Done();
                         return;
+                    }
+
+                    if (_design == null)
+                    {
+                        throw new Exception("Design is null.");
                     }
 
                     if (_connection == null)
                     {
-                        _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                        Done();
                         return;
                     }
 
                     if (_connection.IsDisconnected)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                        return;
+                        throw new Exception("Connection to FEM-Design have been lost.");
                     }
 
                     if (_connection.HasExited)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                        return;
+                        throw new Exception("FEM-Design have been closed.");
                     }
 
                     // Run the Analysis
@@ -105,10 +109,10 @@ namespace FemDesign.Grasshopper
 
             public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
             {
-                if (!DA.GetData("Connection", ref _connection)) return;
-                if (!DA.GetData("Mode", ref _mode)) return;
-                if (!DA.GetData("Design", ref _design)) return;
-                if (!DA.GetDataList("DesignGroup", designGroups)) return;
+                DA.GetData("Connection", ref _connection);
+                DA.GetData("Mode", ref _mode);
+                DA.GetData("Design", ref _design);             
+                DA.GetDataList("DesignGroup", designGroups);
                 DA.GetData("RunNode", ref _runNode);
             }
 

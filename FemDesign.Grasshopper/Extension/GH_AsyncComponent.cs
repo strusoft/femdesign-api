@@ -72,11 +72,11 @@ namespace GrasshopperAsyncComponent
           // We need to reverse the workers list to set the outputs in the same order as the inputs. 
           Workers.Reverse();
 
-          Rhino.RhinoApp.InvokeOnUiThread((Action)delegate
-          {
-            ExpireSolution(true);
-          });
-        }
+              Rhino.RhinoApp.InvokeOnUiThread((Action)delegate
+              {
+                  ExpireSolution(true);
+              });
+          }
       };
 
       ProgressReports = new ConcurrentDictionary<string, double>();
@@ -150,14 +150,14 @@ namespace GrasshopperAsyncComponent
       }
     }
 
-    protected override void ExpireDownStreamObjects()
-    {
-      // Prevents the flash of null data until the new solution is ready
-      if (SetData == 1)
-      {
-        base.ExpireDownStreamObjects();
-      }
-    }
+    //protected override void ExpireDownStreamObjects()
+    //{
+    //  // Prevents the flash of null data until the new solution is ready
+    //  if (SetData == 1)
+    //  {
+    //    base.ExpireDownStreamObjects();
+    //  }
+    //}
 
     protected override void SolveInstance(IGH_DataAccess DA)
     {

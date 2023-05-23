@@ -1,7 +1,9 @@
 // https://strusoft.com/
 using System;
+using System.Data.Common;
 using Grasshopper.Kernel;
 using GrasshopperAsyncComponent;
+using Rhino.Commands;
 
 namespace FemDesign.Grasshopper
 {
@@ -52,16 +54,36 @@ namespace FemDesign.Grasshopper
             //if (CancellationToken.IsCancellationRequested) return;
             try
             {
-                if (runNode)
+                if (connection == null)
                 {
-                    connection.Open(model.Value);
-                    newModel = connection.GetModel();
-                    success = true;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    Done();
+                    return;
                 }
-                else
+
+                if (connection.IsDisconnected)
                 {
-                    success = false;
+                    _success = false;
+                    throw new Exception("Connection to FEM-Design have been lost.");
                 }
+
+                if (connection.HasExited)
+                {
+                    _success = false;
+                    throw new Exception("FEM-Design have been closed.");
+                }
+
+                if (runNode == false)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                    Done();
+                    return;
+                }
+
+                connection.Open(model.Value);
+                newModel = connection.GetModel();
+                success = true;
             }
             catch (Exception ex)
             {
@@ -77,8 +99,8 @@ namespace FemDesign.Grasshopper
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
-            if (!DA.GetData("Connection", ref connection)) return;
-            if (!DA.GetData("Model", ref model)) return;
+            DA.GetData("Connection", ref connection);
+            DA.GetData("Model", ref model);
             DA.GetData("RunNode", ref runNode);
         }
 

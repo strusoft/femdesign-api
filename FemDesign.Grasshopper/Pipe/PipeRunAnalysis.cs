@@ -34,7 +34,6 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunAnalysis;
-
         public override Guid ComponentGuid => new Guid("{C8DF0C6F-4A9E-4AEF-A114-6932C3AB7820}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 
@@ -55,36 +54,33 @@ namespace FemDesign.Grasshopper
                     if (_runNode == false)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                        ReportProgress(Id, 0.0);
+                        RuntimeMessages.Add( (GH_RuntimeMessageLevel.Warning, "Run node set to false.") );
+                        Done();
                         return;
                     }
 
                     if (_analysis == null)
                     {
-                        _success = false;
-                        return;
+                        throw new Exception("Analysis is null.");
                     }
 
                     if (_connection == null)
                     {
-                        _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                        Done();
                         return;
                     }
 
                     if (_connection.IsDisconnected)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                        return;
+                        throw new Exception("Connection to FEM-Design have been lost.");
                     }
 
                     if (_connection.HasExited)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                        return;
+                        throw new Exception("FEM-Design have been closed.");
                     }
 
                     _connection.SetVerbosity(_connection.Verbosity);
@@ -112,8 +108,8 @@ namespace FemDesign.Grasshopper
 
             public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
             {
-                if (!DA.GetData("Connection", ref _connection)) return;
-                if (!DA.GetData("Analysis", ref _analysis)) return;
+                DA.GetData("Connection", ref _connection);
+                DA.GetData("Analysis", ref _analysis);
                 DA.GetData("RunNode", ref _runNode);
             }
 
