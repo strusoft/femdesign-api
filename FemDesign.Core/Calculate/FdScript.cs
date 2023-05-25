@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Xml;
 using System.Text;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace FemDesign.Calculate
 {
@@ -25,7 +26,7 @@ namespace FemDesign.Calculate
 
                     var xmlSerializer = new XmlSerializer(typeof(T));
                     xmlSerializer.Serialize(streamWriter, obj, ns);
-                    return XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
+                    return XElement.Parse(Encoding.UTF8.GetString(memoryStream.ToArray()));
                 }
             }
         }
@@ -75,7 +76,7 @@ namespace FemDesign.Calculate
             XDocument doc = new XDocument();
 
             var root = new XElement(
-                "fdscript", 
+                "fdscript",
                 new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance")
                 );
 
@@ -86,7 +87,6 @@ namespace FemDesign.Calculate
             doc.Add(root);
             doc.Save(path);
         }
-
 
         /// <summary>
         /// Serialize Model to string.
