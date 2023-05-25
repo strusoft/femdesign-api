@@ -61,6 +61,7 @@
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />
+    <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
