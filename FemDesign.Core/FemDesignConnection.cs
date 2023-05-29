@@ -269,37 +269,46 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         public void RunDesign(CmdUserModule userModule, Design design, List<CmdDesignGroup> designGroups = null)
         {
-            FdScript script = null;
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
             #region DESIGN_GROUP
 
             if (designGroups != null && designGroups.Count != 0)
             {
                 // delete previously define design group
+                var cmdcommands = new List<CmdCommand>();
 
                 foreach (var desGroup in CmdDesignGroup._designGroupCache)
                 {
                     var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
-                    script.Add(emptyDesignGroup);
+                    cmdcommands.Add(emptyDesignGroup);
                 }
 
                 foreach (var desGroup in designGroups)
                 {
-                    script.Add(desGroup);
+                    cmdcommands.Add(desGroup);
 
                     if (!CmdDesignGroup._designGroupCache.ContainsKey(desGroup.Name))
                     {
                         CmdDesignGroup._designGroupCache[desGroup.Name] = desGroup;
                     }
                 }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DesignGroup");
             }
             else // delete previously define design group
             {
+                var cmdcommands = new List<CmdCommand>();
+
                 foreach (var desGroup in CmdDesignGroup._designGroupCache)
                 {
                     var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
-                    script.Add(emptyDesignGroup);
+                    cmdcommands.Add(emptyDesignGroup);
                 }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DeleteDesignGroup");
 
                 CmdDesignGroup._designGroupCache.Clear();
             }
@@ -312,11 +321,7 @@ namespace FemDesign
                 throw new ArgumentException("User Module can not be 'RESMODE'!");
             }
 
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            
-
-
-            script = new FdScript(
+            var script = new FdScript(
                     logfile,
                     new CmdUser(userModule),
                     new CmdCalculation(design)

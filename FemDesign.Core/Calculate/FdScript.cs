@@ -66,6 +66,12 @@ namespace FemDesign.Calculate
             Commands = commands.ToList();
         }
 
+        public FdScript(string logFilePath, List<CmdCommand> commands)
+        {
+            Header = new FdScriptHeader(logFilePath);
+            Commands = commands;
+        }
+
         public void Add(CmdCommand command)
         {
             Commands.Add(command);
