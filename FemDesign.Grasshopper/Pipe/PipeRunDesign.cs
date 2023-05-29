@@ -60,6 +60,7 @@ namespace FemDesign.Grasshopper
                     if (_runNode == false)
                     {
                         _success = false;
+                        _connection = null;
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
                         Done();
                         return;
@@ -72,6 +73,8 @@ namespace FemDesign.Grasshopper
 
                     if (_connection == null)
                     {
+                        _success = false;
+                        _connection = null;
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
                         Done();
                         return;
@@ -80,12 +83,14 @@ namespace FemDesign.Grasshopper
                     if (_connection.IsDisconnected)
                     {
                         _success = false;
+                        _connection = null;
                         throw new Exception("Connection to FEM-Design have been lost.");
                     }
 
                     if (_connection.HasExited)
                     {
                         _success = false;
+                        _connection = null;
                         throw new Exception("FEM-Design have been closed.");
                     }
 
@@ -99,6 +104,7 @@ namespace FemDesign.Grasshopper
                 {
                     RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                     _success = false;
+                    _connection = null;
                 }
 
 

@@ -107,8 +107,9 @@ namespace FemDesign.Grasshopper
                     if (_runNode == false)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                        ReportProgress(Id, 0.0);
+                        _connection = null;
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                        Done();
                         return;
                     }
 
@@ -122,16 +123,15 @@ namespace FemDesign.Grasshopper
                     if (_connection.IsDisconnected)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                        return;
+                        _connection = null;
+                        throw new Exception("Connection to FEM-Design have been lost.");
                     }
-
 
                     if (_connection.HasExited)
                     {
                         _success = false;
-                        Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                        return;
+                        _connection = null;
+                        throw new Exception("FEM-Design have been closed.");
                     }
 
                     // Run the Analysis
@@ -169,6 +169,7 @@ namespace FemDesign.Grasshopper
                 {
                     RuntimeMessages.Add(( GH_RuntimeMessageLevel.Error, ex.Message ) );
                     _success = false;
+                    _connection = null;
                 }
 
                 Done();
@@ -190,6 +191,11 @@ namespace FemDesign.Grasshopper
 
             public override void SetData(IGH_DataAccess DA)
             {
+                foreach (var (level, message) in RuntimeMessages)
+                {
+                    Parent.AddRuntimeMessage(level, message);
+                }
+
                 DA.SetData("Connection", _connection);
                 DA.SetDataList("Results", _results);
                 DA.SetData("Success", _success);
