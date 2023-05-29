@@ -50,7 +50,6 @@ namespace FemDesign.Grasshopper
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
         private class ApplicationReadResultWorker : WorkerInstance
         {
-
             public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
             {
                 var method = nameof(FemDesign.FemDesignConnection.GetLoadCaseResults);
@@ -99,7 +98,7 @@ namespace FemDesign.Grasshopper
 
             public ApplicationReadResultWorker(GH_Component component) : base(component) { }
 
-            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
 
                 try

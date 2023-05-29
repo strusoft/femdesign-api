@@ -53,7 +53,7 @@ namespace FemDesign.Grasshopper
 
             public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
 
-            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
                 try
                 {
@@ -97,7 +97,13 @@ namespace FemDesign.Grasshopper
                     // Run the Analysis
                     var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
 
+                    ReportProgress("", "");
                     _connection.RunDesign(_userModule, _design, designGroups);
+
+                    if(_design.ApplyChanges == true)
+                    {
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Remark, "'Apply changes' == true. Run a new analysis to validate your model against the new section sizes."));
+                    }
                     _success = true;
                 }
                 catch (Exception ex)

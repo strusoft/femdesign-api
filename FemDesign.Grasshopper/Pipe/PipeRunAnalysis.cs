@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
             public ApplicationRunAnalysisWorker(GH_Component component) : base(component) { }
 
 
-            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
                 try
                 {
@@ -83,10 +83,12 @@ namespace FemDesign.Grasshopper
                         throw new Exception("FEM-Design have been closed.");
                     }
 
+
                     _connection.SetVerbosity(_connection.Verbosity);
                     _connection.OnOutput += onOutput;
 
                     // Run the Analysis
+                    ReportProgress("", "");
                     _connection.RunAnalysis(_analysis);
 
                     _connection.OnOutput -= onOutput;

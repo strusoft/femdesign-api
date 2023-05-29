@@ -63,13 +63,13 @@ namespace FemDesign.Grasshopper
 
         public ApplicationRunDesignWorker_OBSOLETE(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             if (_runNode == false)
             {
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
+                //ReportProgress(Id, 0.0);
                 return;
             }
 
@@ -115,9 +115,9 @@ namespace FemDesign.Grasshopper
 
 
                 if (progress < 0)
-                    ReportProgress(Id, 0.0);
+                    ReportProgress(Id, 0.0.ToString());
                 else
-                    ReportProgress(Id, progress);
+                    ReportProgress(Id, progress.ToString());
 
                 Rhino.RhinoApp.WriteLine(message);
             }

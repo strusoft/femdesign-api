@@ -99,13 +99,13 @@ namespace FemDesign.Grasshopper
 
         public ApplicationReadResultWorker_OBSOLETE2(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             if (_runNode == false)
             {
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
+                //ReportProgress(Id, 0.0);
                 return;
             }
 
