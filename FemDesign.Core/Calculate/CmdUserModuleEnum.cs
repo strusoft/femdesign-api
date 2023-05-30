@@ -13,6 +13,18 @@ namespace FemDesign.Calculate
     public enum CmdUserModule
     {
         /// <summary>
+        /// STRUCT
+        /// </summary>
+        [Parseable("STRUCT", "struct", "Struct")]
+        STRUCT,
+
+        /// <summary>
+        /// LOADS
+        /// </summary>
+        [Parseable("LOADS", "loads", "Loads")]
+        LOADS,
+
+        /// <summary>
         /// RESMODE
         /// </summary>
         [Parseable("RESMODE", "res", "RES", "Res")]

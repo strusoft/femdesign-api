@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 using FemDesign;
 using FemDesign.Calculate;
+using FemDesign.Bars;
 
 namespace FemDesign
 {
@@ -785,6 +786,33 @@ namespace FemDesign
         {
             var bars = new List<GenericClasses.IStructureElement> { bar };
             return RunInteractionSurface(bars, offset, fUlt)[0];
+        }
+
+        /// <summary>
+        /// Generate Load Combination from Load Group from an open model
+        /// </summary>
+        /// <param name="fu"></param>
+        /// <param name="fua"></param>
+        /// <param name="fus"></param>
+        /// <param name="fsq"></param>
+        /// <param name="fsc"></param>
+        /// <param name="fSeisSigned"></param>
+        /// <param name="fSeisTorsion"></param>
+        /// <param name="fSeisZdir"></param>
+        /// <param name="fSkipMinDL"></param>
+        /// <param name="fForceTemp"></param>
+        /// <param name="fShortName"></param>
+        /// <param name="loadcases"></param>
+        /// <returns></returns>
+        public void LoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true, List<FemDesign.Loads.LoadCase> loadcases = null)
+        {
+            var cmdLoadGroupToLoadComb = new CmdLoadGroupToLoadComb(fu, fua, fus, fsq, fsf, fsc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName, loadcases);
+
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(logfile, new CmdUser(CmdUserModule.LOADS), cmdLoadGroupToLoadComb);
+
+            this.RunScript(script);
         }
 
         public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)

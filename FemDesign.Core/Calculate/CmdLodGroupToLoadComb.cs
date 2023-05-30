@@ -4,10 +4,10 @@ using System.Xml.Linq;
 using System;
 using System.Collections.Generic;
 using FemDesign.Loads;
+using System.Linq;
 
 namespace FemDesign.Calculate
 {
-
     /// <summary>
     /// command to generate load combinations from load groups.
     /// Similar "Generate" dialog from Load groups
@@ -20,7 +20,7 @@ namespace FemDesign.Calculate
         public string Command = "$ LOAD LDGROUP2COMB"; // token
 
         [XmlElement("GUID")]
-        public List<Guid> Guid { get; set; }
+        public List<Guid> Guids { get; set; }
 
         [XmlAttribute("fU")]
         public bool fU { get; set; } = true;
@@ -67,11 +67,27 @@ namespace FemDesign.Calculate
 
         }
 
+        public CmdLoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true, List<FemDesign.Loads.LoadCase> loadCases = null)
+        {
+            this.fU = fu;
+            this.fUa = fua;
+            this.fUs = fus;
+            this.fSq = fsq;
+            this.fSf = fsf;
+            this.fSc = fsc;
+            this.fSeisSigned = fSeisSigned;
+            this.fSeisTorsion = fSeisTorsion;
+            this.fSeisZdir = fSeisZdir;
+            this.fSkipMinDL = fSkipMinDL;
+            this.fForceTemp = fForceTemp;
+            this.fShortName = fShortName;
+            if(loadCases != null )
+                Guids = loadCases.Select(x => x.Guid).ToList();
+        }
+
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdLoadGroupToLoadComb>(this);
         }
     }
-
-
 }
