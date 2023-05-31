@@ -104,5 +104,22 @@ namespace FemDesign.Loads
                 Assert.AreEqual(e[i].StageLoadCase?._stageType, a[i].StageLoadCase?._stageType);
             }
         }
+
+
+
+
+        [TestCategory("FEM-Design required")]
+        [TestMethod("Load combinations - Serialize")]
+        public void LoadCombinationTest3()
+        {
+            Loads expected = Loads.DeserializeFromFilePath("Loads/Load combination case types.struxml");
+
+            Assert.IsTrue(expected.LoadCombinations.Any());
+            Assert.IsTrue(expected.LoadCombinations.Count == 4);
+            Assert.IsTrue(expected.LoadCombinations[0].Name == "LComb1");
+            Assert.IsTrue(expected.LoadCombinations[1].Name == "LComb2");
+            Assert.IsTrue(expected.LoadCombinations[2].Name == "LComb3");
+            Assert.IsTrue(expected.LoadCombinations[3].Name == "LComb4");
+        }
     }
 }
