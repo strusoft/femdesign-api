@@ -21,7 +21,7 @@ The C# package can be installed in two ways:
 
 ### 🦗 Grasshopper
 Either
-- Download the grasshopper package from [food4rhino.com](https://www.food4rhino.com/en/app/fem-design-api-toolbox)
+- Download the grasshopper package with [Package Manager](https://femdesign-api-docs.onstrusoft.com/docs/grasshopper/get-started/#installation)
 - Or download it manually by downloading `FemDesign.Grasshopper.zip` from [latest release](https://github.com/strusoft/femdesign-api/releases/latest), unblock the file and unzip to the grasshopper libraries folder (e.g `C:\Users\USERNAME\AppData\Roaming\Grasshopper\Libraries`).
 
 ### 🤖 Dynamo
