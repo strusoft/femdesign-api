@@ -128,7 +128,6 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE_2.cs" />
-    <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysisOBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE_2.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunDesignOBSOLETE.cs" />
@@ -181,7 +180,6 @@
     <Compile Include="Materials\TimberPanelTypeFromStruxml.cs" />
     <Compile Include="ModellingTools\PointConnection.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
-    <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\PipeOpen.cs" />
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />

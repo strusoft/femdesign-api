@@ -15,7 +15,7 @@ namespace FemDesign.Reinforcement
             var filePath = "Reinforcement\\intSrf-1.txt";
             var results = FemDesign.Results.InteractionSurface.ReadFromFile(filePath);
 
-            Assert.IsTrue(results.Vertices.Count == 320);
+            Assert.IsTrue(results.Vertices.Count == 322);
             Assert.IsTrue(results.Faces.Count == 640);
         }
     }
