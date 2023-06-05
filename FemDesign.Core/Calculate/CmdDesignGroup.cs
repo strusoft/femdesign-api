@@ -173,7 +173,7 @@ namespace FemDesign.Calculate
                     case Materials.Family.Timber:
                         return DesignGroupType.TimberBars;
                     default:
-                        throw new NotImplementedException("Only the TimberCLTPanel type is eligible for the creation of a design group. It's not possible to create a design group for other types.");
+                        throw new NotImplementedException($"There is not Design Group Type eligible for {elements[0].GetType().Name}");
                 }
             }
             else if (elements[0] is FemDesign.Shells.Panel)

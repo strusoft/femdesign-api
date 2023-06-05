@@ -132,6 +132,18 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
+        public static CombItem Stability(int stabReq = 0)
+        {
+            var combItem = new CombItem(0, stabReq, true, true, false, false, false, 0, 0.0, 0);
+            return combItem;
+        }
+
+        public static CombItem Imperfection(int impfRqd = 0)
+        {
+            var combItem = new CombItem(impfRqd, 0, true, true, false, false, false, 0, 0.0, 0);
+            return combItem;
+        }
+
         public static CombItem Default()
         {
             int impfRqd = 0;

@@ -168,7 +168,7 @@ namespace FemDesign
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)));
+            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)), "OpenModel");
             this.CurrentOpenModel = filePath;
             if (disconnect) this.Disconnect();
         }
@@ -240,6 +240,9 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
+            if(analysis.Stability != null)
+                analysis.SetStabilityAnalysis(this);
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(
                 logfile,
@@ -248,6 +251,9 @@ namespace FemDesign
             );
             this.RunScript(script, "RunAnalysis");
         }
+
+
+
 
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
@@ -375,6 +381,39 @@ namespace FemDesign
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
             RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetModel");
             return Model.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the loads from the currently opened model with all available elements as a <see cref="Loads.Loads"/> object.
+        /// </summary>
+        public Loads.Loads GetLoads()
+        {
+            string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_loads_saved");
+            string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
+            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetLoads");
+            return Loads.Loads.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the load combinations from the currently opened model/> object.
+        /// </summary>
+        internal Dictionary<int, Loads.LoadCombination> GetLoadCombinations()
+        {
+            var loadCombinations = this.GetLoads().LoadCombinations;
+
+            var dictLoadComb = new Dictionary<int, Loads.LoadCombination>();
+
+            if (loadCombinations == null)
+                throw new Exception("There are no load combinations in the model");
+
+            int index = 0;
+            foreach(var comb in loadCombinations)
+            {
+                dictLoadComb.Add(index, comb);
+                index++;
+            }
+
+            return dictLoadComb;
         }
 
 

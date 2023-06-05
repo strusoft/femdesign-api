@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -89,6 +90,7 @@ namespace FemDesign.Grasshopper
 
                     // Run the Analysis
                     ReportProgress("", "");
+
                     _connection.RunAnalysis(_analysis);
 
                     _connection.OnOutput -= onOutput;
