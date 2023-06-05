@@ -11,6 +11,7 @@ namespace FemDesign.Utils
         public readonly static List<string> ErrorMessage = new List<string>{
             "No declared load or dead load.",
             "No declared mass.",
+            "No declared mass or converted load case.",
             "No declared load combination.",
             "No declared support.",
             "No declared structure to calculate."
