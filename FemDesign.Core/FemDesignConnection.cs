@@ -243,6 +243,9 @@ namespace FemDesign
             if(analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
 
+            if (analysis.Imperfection != null)
+                analysis.SetImperfectionAnalysis(this);
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(
                 logfile,

@@ -132,15 +132,15 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
-        public static CombItem Stability(int stabReq = 0)
+        public static CombItem Stability(int stabReq)
         {
-            var combItem = new CombItem(0, stabReq, true, true, false, false, false, 0, 0.0, 0);
+            var combItem = new CombItem(stabReq: stabReq);
             return combItem;
         }
 
-        public static CombItem Imperfection(int impfRqd = 0)
+        public static CombItem Imperfection(int impfRqd)
         {
-            var combItem = new CombItem(impfRqd, 0, true, true, false, false, false, 0, 0.0, 0);
+            var combItem = new CombItem(impfRqd: impfRqd);
             return combItem;
         }
 

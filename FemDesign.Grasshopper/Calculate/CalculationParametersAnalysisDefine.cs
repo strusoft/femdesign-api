@@ -78,11 +78,11 @@ namespace FemDesign.Grasshopper
             }
 
 
-            //FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
-            //if (!DA.GetData(1, ref comb))
-            //{
-            //     pass
-            //}
+            FemDesign.Calculate.Imperfection imperfection = null;
+            if (!DA.GetData(3, ref imperfection))
+            {
+                //pass
+            }
 
             FemDesign.Calculate.Freq freq = null;
             if (!DA.GetData(4, ref freq))
@@ -181,7 +181,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, stability, comb, freq, footfall, calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemFine, diaphragm, peakSmoothing);
+            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, stability, imperfection, comb, freq, footfall, calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemFine, diaphragm, peakSmoothing);
 
             // return
             DA.SetData(0, obj);

@@ -11,6 +11,7 @@ namespace FemDesign.Calculate
     {
         [XmlIgnore]
         public bool InitialiseAmplitude { get; set; } = true;
+
         private Imperfection() { }
         public Imperfection(List<string> loadCombinations, List<int> numShapes, bool positiveOnly = false, int numberIteration = 5, bool initialiseAmplitude = true) : base(loadCombinations, numShapes, positiveOnly, numberIteration)
         {
