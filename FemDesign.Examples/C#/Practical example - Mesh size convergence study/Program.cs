@@ -36,7 +36,7 @@ namespace FemDesign.Examples
             // Some setup necessary to run the analysis and save the results.
 
             string fileName = Path.GetFileName(modelPath);
-            FemDesign.Calculate.Analysis analysisSettings = new FemDesign.Calculate.Analysis(null, null, null, null, calcCase: true, false, false, calcComb: true, false, false, false, false, false, false, false, false, false);
+            FemDesign.Calculate.Analysis analysisSettings = FemDesign.Calculate.Analysis.StaticAnalysis();
             Model model = Model.DeserializeFromFilePath(modelPath);
 
             Dictionary<double, List<double>> allForces = new Dictionary<double, List<double>>() {};
