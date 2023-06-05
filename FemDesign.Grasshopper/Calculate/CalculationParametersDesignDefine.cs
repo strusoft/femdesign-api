@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class CalculationParametersDesignDefine : GH_Component
     {
-        public CalculationParametersDesignDefine() : base("Design.Define", "Define", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersDesignDefine() : base("Design.Define", "Design", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }

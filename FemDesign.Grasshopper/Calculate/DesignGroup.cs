@@ -11,14 +11,14 @@ namespace FemDesign.Grasshopper
 {
     public class DesignGroup : GH_Component
     {
-        public DesignGroup() : base("DesignGroup", "DesignGroup", "", CategoryName.Name(), SubCategoryName.Cat7a())
+        public DesignGroup() : base("DesignGroup.Define", "DesignGroup", "", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("GroupName", "GroupName", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("StructuralElements", "StructuralElements", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("StructuralElements", "StructuralElements", "Structural element to assign the same section.", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Color", "", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
