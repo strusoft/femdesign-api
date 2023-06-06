@@ -18,34 +18,37 @@ namespace FemDesign.Utils
         };
         
         public readonly static List<string> WarningMessase = new List<string>{
-            "Dlg message ## ~Large nodal displacement or rotation was found."
+            "Large nodal displacement or rotation was found.",
+            "One or more identical copies of 1 structural elements and loads are found."
         };
 
 
-        public static string HasError(List<string> message, out string error)
+        public static string HasError(List<string> messages, out string error)
         {
-            foreach(string s in message)
+            foreach (string message in messages)
             {
-                if (ErrorMessage.Contains(s))
+                if (ErrorMessage.Any(msg => message.Contains(msg)))
                 {
-                    error = s;
+                    error = ErrorMessage.First(msg => message.Contains(msg));
                     return error;
                 }
             }
+
             error = null;
             return error;
         }
 
-        public static string HasWarning(List<string> message, out string warning)
+        public static string HasWarning(List<string> messages, out string warning)
         {
-            foreach (string s in message)
+            foreach (string message in messages)
             {
-                if (WarningMessase.Contains(s))
+                if (WarningMessase.Any(msg => message.Contains(msg)))
                 {
-                    warning = s;
+                    warning = WarningMessase.First(msg => message.Contains(msg));
                     return warning;
                 }
             }
+
             warning = null;
             return warning;
         }
