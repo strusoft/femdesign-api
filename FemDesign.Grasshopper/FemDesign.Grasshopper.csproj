@@ -108,6 +108,7 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStabilityDefine.cs" />
+    <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
