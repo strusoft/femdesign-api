@@ -103,8 +103,8 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
-    <Compile Include="Calculate\ApplicationRunAnalysis.cs" />
-    <Compile Include="Calculate\ApplicationRunDesign.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStabilityDefine.cs" />
@@ -131,13 +131,7 @@
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE_2.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysisOBSOLETE.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE_2.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunDesignOBSOLETE.cs" />
-    <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
-    <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefineOBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
