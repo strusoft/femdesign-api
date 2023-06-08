@@ -120,7 +120,6 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            CmdUserModule userModule = design.Mode;
 
             FemDesign.Results.UnitResults units = UnitResults.Default();
             DA.GetData("Units", ref units);
@@ -170,7 +169,8 @@ namespace FemDesign.Grasshopper
 
                 if (design != null)
                 {
-                    if(designGroups.Count() == 0)
+                    CmdUserModule userModule = design.Mode;
+                    if (designGroups.Count() == 0)
                         connection.RunDesign(userModule, design);
                     else
                         connection.RunDesign(userModule, design, designGroups);

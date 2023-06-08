@@ -111,6 +111,8 @@
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
