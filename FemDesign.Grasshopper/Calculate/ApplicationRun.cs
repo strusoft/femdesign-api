@@ -81,8 +81,7 @@ namespace FemDesign.Grasshopper
         protected override void AppendAdditionalComponentMenuItems(System.Windows.Forms.ToolStripDropDown menu)
         {
             // Append the item to the menu, making sure it's always enabled and checked if Absolute is True.
-            ToolStripMenuItem item = Menu_AppendItem(menu, "Minimised", Menu_AbsoluteClicked, null, true, _minimised);
-            // Specifically assign a tooltip text to the menu item.
+            ToolStripMenuItem item = Menu_AppendItem(menu, "Minimise FEM-Design", Menu_AbsoluteClicked, null, true, _minimised);
         }
 
         private void Menu_AbsoluteClicked(object sender, EventArgs e)
