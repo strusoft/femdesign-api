@@ -47,7 +47,7 @@ namespace GrasshopperAsyncComponent
         /// </summary>
         /// <param name="ReportProgress">Call this to report progress up to the parent component.</param>
         /// <param name="Done">Call this when everything is <b>done</b>. It will tell the parent component that you're ready to <see cref="SetData(IGH_DataAccess)"/>.</param>
-        public abstract void DoWork(Action<string, double> ReportProgress, Action Done);
+        public abstract void DoWork(Action<string, string> ReportProgress, Action Done);
 
         /// <summary>
         /// Write your data setting logic here. <b>Do not call this function directly from this class. It will be invoked by the parent <see cref="GH_AsyncComponent"/> after you've called `Done` in the <see cref="DoWork(Action{string}, Action{string, GH_RuntimeMessageLevel}, Action)"/> function.</b>

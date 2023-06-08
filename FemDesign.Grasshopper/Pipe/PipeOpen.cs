@@ -48,7 +48,7 @@ namespace FemDesign.Grasshopper
 
         public ModelOpenWorker(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             //// ?? Check for task cancellation!
             //if (CancellationToken.IsCancellationRequested) return;
@@ -81,6 +81,7 @@ namespace FemDesign.Grasshopper
                     return;
                 }
 
+                ReportProgress("", "");
                 connection.Open(model.Value);
                 newModel = connection.GetModel();
                 success = true;

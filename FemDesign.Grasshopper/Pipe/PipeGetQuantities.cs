@@ -74,15 +74,16 @@ namespace FemDesign.Grasshopper
 
         public ApplicationGetQuantitiesWorker(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             try
             {
                 if (_runNode == false)
                 {
                     _success = false;
-                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                    ReportProgress(Id, 0.0);
+                    _connection = null;
+                    RuntimeMessages.Add( (GH_RuntimeMessageLevel.Warning, "Run node set to false.") );
+                    Done();
                     return;
                 }
 
@@ -96,15 +97,15 @@ namespace FemDesign.Grasshopper
                 if (_connection.IsDisconnected)
                 {
                     _success = false;
-                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                    return;
+                    _connection = null;
+                    throw new Exception("Connection to FEM-Design have been lost.");
                 }
 
                 if (_connection.HasExited)
                 {
                     _success = false;
-                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                    return;
+                    _connection = null;
+                    throw new Exception("FEM-Design have been closed.");
                 }
 
 
@@ -122,12 +123,12 @@ namespace FemDesign.Grasshopper
                     Done();
                     return;
                 }
-
             }
             catch (Exception ex)
             {
                 RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                 _success = false;
+                _connection = null;
             }
 
             Done();

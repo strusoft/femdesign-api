@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelRunAnalysis : GH_Component
+    public class ModelRunAnalysis_OBSOLETE : GH_Component
     {
-        public ModelRunAnalysis() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ModelRunAnalysis_OBSOLETE() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -225,7 +225,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{874F8B8E-D54F-41BF-B040-EC77BB9CFF33}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

@@ -20,7 +20,9 @@ namespace FemDesign.Calculate
         public bool Check { get; set; } // bool
         [XmlIgnore]
         public bool ApplyChanges { get; set; } // bool
-        
+        [XmlIgnore]
+        public CmdUserModule Mode { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -45,9 +47,9 @@ namespace FemDesign.Calculate
             this.ApplyChanges = applyChanges;
         }
 
-        public static Design Default()
+        public Design(CmdUserModule mode, bool autoDesign = false, bool check = true, bool loadCombination = true, bool applyChanges = false) : this(autoDesign, check, loadCombination, applyChanges)
         {
-            return new Design(false, true, true, false);
+            this.Mode = mode;
         }
     }
 }

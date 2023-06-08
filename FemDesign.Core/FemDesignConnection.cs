@@ -169,7 +169,7 @@ namespace FemDesign
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)));
+            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)), "OpenModel");
             this.CurrentOpenModel = filePath;
             if (disconnect) this.Disconnect();
         }
@@ -241,6 +241,12 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
+            if(analysis.Stability != null)
+                analysis.SetStabilityAnalysis(this);
+
+            if (analysis.Imperfection != null)
+                analysis.SetImperfectionAnalysis(this);
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(
                 logfile,
@@ -249,6 +255,9 @@ namespace FemDesign
             );
             this.RunScript(script, "RunAnalysis");
         }
+
+
+
 
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
@@ -270,52 +279,68 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         public void RunDesign(CmdUserModule userModule, Design design, List<CmdDesignGroup> designGroups = null)
         {
-            if (userModule == CmdUserModule.RESMODE)
-            {
-                throw new ArgumentException("User Module can not be 'RESMODE'!");
-            }
-
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript(
-                logfile,
-                new CmdUser(userModule),
-                new CmdCalculation(design)
-            );
-
+            #region DESIGN_GROUP
 
             if (designGroups != null && designGroups.Count != 0)
             {
                 // delete previously define design group
+                var cmdcommands = new List<CmdCommand>();
 
                 foreach (var desGroup in CmdDesignGroup._designGroupCache)
                 {
                     var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
-                    script.Add(emptyDesignGroup);
+                    cmdcommands.Add(emptyDesignGroup);
                 }
 
                 foreach (var desGroup in designGroups)
                 {
-                    script.Add(desGroup);
+                    cmdcommands.Add(desGroup);
 
                     if (!CmdDesignGroup._designGroupCache.ContainsKey(desGroup.Name))
                     {
                         CmdDesignGroup._designGroupCache[desGroup.Name] = desGroup;
                     }
                 }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DesignGroup");
             }
             else // delete previously define design group
             {
-                foreach(var desGroup in CmdDesignGroup._designGroupCache)
+                var cmdcommands = new List<CmdCommand>();
+
+                foreach (var desGroup in CmdDesignGroup._designGroupCache)
                 {
                     var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
-                    script.Add(emptyDesignGroup);
+                    cmdcommands.Add(emptyDesignGroup);
                 }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DeleteDesignGroup");
 
                 CmdDesignGroup._designGroupCache.Clear();
             }
+            #endregion
 
-            if (design.ApplyChanges == true) { script.Add(new CmdApplyDesignChanges()); }
+
+
+            if (userModule == CmdUserModule.RESMODE)
+            {
+                throw new ArgumentException("User Module can not be 'RESMODE'!");
+            }
+
+            var script = new FdScript(
+                    logfile,
+                    new CmdUser(userModule),
+                    new CmdCalculation(design)
+                );
+
+            if (design.ApplyChanges == true)
+            {
+                script.Add(new CmdApplyDesignChanges());
+            }
 
             this.RunScript(script, "RunDesign");
         }
@@ -360,6 +385,39 @@ namespace FemDesign
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
             RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetModel");
             return Model.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the loads from the currently opened model with all available elements as a <see cref="Loads.Loads"/> object.
+        /// </summary>
+        public Loads.Loads GetLoads()
+        {
+            string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_loads_saved");
+            string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
+            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetLoads");
+            return Loads.Loads.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the load combinations from the currently opened model/> object.
+        /// </summary>
+        internal Dictionary<int, Loads.LoadCombination> GetLoadCombinations()
+        {
+            var loadCombinations = this.GetLoads().LoadCombinations;
+
+            var dictLoadComb = new Dictionary<int, Loads.LoadCombination>();
+
+            if (loadCombinations == null)
+                throw new Exception("There are no load combinations in the model");
+
+            int index = 0;
+            foreach(var comb in loadCombinations)
+            {
+                dictLoadComb.Add(index, comb);
+                index++;
+            }
+
+            return dictLoadComb;
         }
 
 

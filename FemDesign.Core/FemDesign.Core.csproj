@@ -62,6 +62,8 @@
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
+    <Compile Include="Calculate\Imperfection.cs" />
+    <Compile Include="Calculate\Stability.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
@@ -184,7 +186,6 @@
     <Compile Include="Calculate\FdScriptHeader.cs" />
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />
-    <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Options.cs" />
     <Compile Include="Calculate\Stage.cs" />

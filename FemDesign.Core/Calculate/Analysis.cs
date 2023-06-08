@@ -18,6 +18,12 @@ namespace FemDesign.Calculate
         public Stage Stage { get; set; } // ANALSTAGE
         [XmlElement("comb")]
         public Comb Comb { get; set; } // ANALCOMB
+        [XmlIgnore]
+        public Stability Stability { get; set; } // STABILITY
+
+        [XmlIgnore]
+        public Imperfection Imperfection { get; set; } // IMPERFECTION
+
         [XmlElement("freq")]
         public Freq Freq { get; set; } // ANALFREQ
         [XmlElement("footfall")]
@@ -216,10 +222,13 @@ namespace FemDesign.Calculate
         private Analysis()
         {
         }
-        public Analysis(Calculate.Stage stage = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
+
+        public Analysis(Calculate.Stage stage = null, Stability stability = null, Imperfection imperfection = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = false, bool diaphragm = false, bool peakSmoothing = false)
         {
             this.Stage = stage;
             this.Comb = comb ?? Comb.Default();
+            this.Stability = stability;
+            this.Imperfection = imperfection;
             this.Freq = freq;
             this.Footfall = footfall;
             this.CalcCase = calcCase;
@@ -300,6 +309,80 @@ namespace FemDesign.Calculate
                 this.Comb.CombItem.Add(combItem);
             }
             //this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
+        }
+
+        public void SetStabilityAnalysis(FemDesignConnection connection)
+        {
+            this.Comb.CombItem.Clear();
+            // ordered load combinations in the model
+            var loadCombination = connection.GetLoadCombinations();
+
+            _setStabilityAnalysis(loadCombination.Values.ToList());
+        }
+
+        internal void _setStabilityAnalysis(List<Loads.LoadCombination> loadCombination)
+        {
+            this.Comb.CombItem.Clear();
+
+            // check if 
+
+            foreach (var element in loadCombination)
+            {
+                bool isFound = false;
+                int i = 0;
+                foreach (var combName in this.Stability.CombNames)
+                {
+                    if (combName == element.Name)
+                    {
+                        var indexOf = loadCombination.Select(x => x.Name).ToList().IndexOf(combName);
+                        this.Comb.CombItem.Add(CombItem.Stability(this.Stability.NumShapes[i]));
+                        isFound = true;
+                        break;
+                    }
+                    i++;
+                }
+                if (isFound == true)
+                    continue;
+                else
+                    this.Comb.CombItem.Add(CombItem.Default());
+            }
+        }
+
+        public void SetImperfectionAnalysis(FemDesignConnection connection)
+        {
+            this.Comb.CombItem.Clear();
+            // ordered load combinations in the model
+            var loadCombination = connection.GetLoadCombinations();
+
+            _setImperfectionAnalysis(loadCombination.Values.ToList());
+        }
+
+        internal void _setImperfectionAnalysis(List<Loads.LoadCombination> loadCombination)
+        {
+            this.Comb.CombItem.Clear();
+
+            // check if 
+
+            foreach (var element in loadCombination)
+            {
+                bool isFound = false;
+                int i = 0;
+                foreach (var combName in this.Imperfection.CombNames)
+                {
+                    if (combName == element.Name)
+                    {
+                        var indexOf = loadCombination.Select(x => x.Name).ToList().IndexOf(combName);
+                        this.Comb.CombItem.Add(CombItem.Imperfection(this.Imperfection.NumShapes[i]));
+                        isFound = true;
+                        break;
+                    }
+                    i++;
+                }
+                if (isFound == true)
+                    continue;
+                else
+                    this.Comb.CombItem.Add(CombItem.Default());
+            }
         }
     }
 }

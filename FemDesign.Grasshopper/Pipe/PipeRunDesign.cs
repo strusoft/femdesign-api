@@ -1,16 +1,8 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Special;
-using Grasshopper.Kernel.Data;
-using System.Linq;
-using System.Windows.Forms;
-using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
-using FemDesign.Materials;
-using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -24,7 +16,6 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Mode", "Mode", "Design mode: rc, steel or timber.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Design", "Design", "Design.", GH_ParamAccess.item);
             pManager.AddGenericParameter("DesignGroup", "DesignGroup", "DesignGroup.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -38,7 +29,7 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
-        public override Guid ComponentGuid => new Guid("{52B96EF2-9B6D-4F6D-9F4F-BABFD5B85AFC}");
+        public override Guid ComponentGuid => new Guid("{E00D955B-863C-4C35-91FA-9F519A6E4FDA}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
         private class ApplicationRunDesignWorker : WorkerInstance
         {
@@ -47,19 +38,19 @@ namespace FemDesign.Grasshopper
             private FemDesignConnection _connection = null;
             private Calculate.Design _design = null;
             private List<Calculate.CmdDesignGroup> designGroups = new List<Calculate.CmdDesignGroup>();
-            private string _mode = "Steel";
             private bool _runNode = true;
             private bool _success = false;
 
             public ApplicationRunDesignWorker(GH_Component component) : base(component) { }
 
-            public override void DoWork(Action<string, double> ReportProgress, Action Done)
+            public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
                 try
                 {
                     if (_runNode == false)
                     {
                         _success = false;
+                        _connection = null;
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
                         Done();
                         return;
@@ -72,6 +63,8 @@ namespace FemDesign.Grasshopper
 
                     if (_connection == null)
                     {
+                        _success = false;
+                        _connection = null;
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
                         Done();
                         return;
@@ -80,25 +73,34 @@ namespace FemDesign.Grasshopper
                     if (_connection.IsDisconnected)
                     {
                         _success = false;
+                        _connection = null;
                         throw new Exception("Connection to FEM-Design have been lost.");
                     }
 
                     if (_connection.HasExited)
                     {
                         _success = false;
+                        _connection = null;
                         throw new Exception("FEM-Design have been closed.");
                     }
 
                     // Run the Analysis
-                    var _userModule = FemDesign.GenericClasses.EnumParser.Parse<Calculate.CmdUserModule>(_mode);
+                    var _userModule = _design.Mode;
 
+                    ReportProgress("", "");
                     _connection.RunDesign(_userModule, _design, designGroups);
+
+                    if(_design.ApplyChanges == true)
+                    {
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Remark, "'Apply changes' == true. Run a new analysis to validate your model against the new section sizes."));
+                    }
                     _success = true;
                 }
                 catch (Exception ex)
                 {
                     RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                     _success = false;
+                    _connection = null;
                 }
 
 
@@ -110,7 +112,6 @@ namespace FemDesign.Grasshopper
             public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
             {
                 DA.GetData("Connection", ref _connection);
-                DA.GetData("Mode", ref _mode);
                 DA.GetData("Design", ref _design);             
                 DA.GetDataList("DesignGroup", designGroups);
                 DA.GetData("RunNode", ref _runNode);
@@ -129,5 +130,4 @@ namespace FemDesign.Grasshopper
             }
         }
     }
-
 }

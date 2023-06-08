@@ -38,7 +38,7 @@ namespace FemDesign.Shells
             var deserialized = Model.DeserializeFromFilePath(input);
 
             var slabs = deserialized.Entities.Slabs;
-            Assert.AreEqual(7, slabs.Count);
+            Assert.AreEqual(9, slabs.Count);
             Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().Where(ec => ec != null).Count() == 1);
             Assert.IsTrue(slabs[0].SlabPart.GetEdgeConnections().First(ec => ec != null).PredefRigidity.Name == "No shear");
         }

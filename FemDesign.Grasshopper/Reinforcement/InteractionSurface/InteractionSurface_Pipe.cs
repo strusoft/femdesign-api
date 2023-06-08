@@ -58,7 +58,7 @@ namespace FemDesign.Grasshopper
 
         public InteractionSurfaceWorker() : base(null) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             if (runNode)
             {

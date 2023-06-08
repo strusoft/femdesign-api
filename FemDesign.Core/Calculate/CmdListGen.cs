@@ -131,7 +131,7 @@ namespace FemDesign.Calculate
 
         public CmdListGen(string bscPath, string outPath, List<FemDesign.GenericClasses.IStructureElement> elements, bool regional = false) : this(bscPath, outPath, regional)
         {
-            if(elements != null || elements.Count != 0)
+            if(elements != null && elements.Count != 0)
                 StructureElements = elements;
         }
 

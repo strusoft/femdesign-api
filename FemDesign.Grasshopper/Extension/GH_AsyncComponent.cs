@@ -19,9 +19,9 @@ namespace GrasshopperAsyncComponent
 
     //List<(string, GH_RuntimeMessageLevel)> Errors;
 
-    Action<string, double> ReportProgress;
+    Action<string, string> ReportProgress;
 
-    public ConcurrentDictionary<string, double> ProgressReports;
+    public ConcurrentDictionary<string, string> ProgressReports;
 
     Action Done;
 
@@ -79,7 +79,7 @@ namespace GrasshopperAsyncComponent
           }
       };
 
-      ProgressReports = new ConcurrentDictionary<string, double>();
+      ProgressReports = new ConcurrentDictionary<string, string>();
 
       Workers = new List<WorkerInstance>();
       CancellationSources = new List<CancellationTokenSource>();
@@ -95,17 +95,19 @@ namespace GrasshopperAsyncComponent
 
       if (Workers.Count == 1)
       {
-        Message = ProgressReports.Values.Last().ToString("0.00%");
+        //Message = ProgressReports.Values.Last().ToString("0.00%");
+        Message = "Processing...";
       }
       else
       {
-        double total = 0;
-        foreach (var kvp in ProgressReports)
-        {
-          total += kvp.Value;
-        }
+        //double total = 0;
+        //foreach (var kvp in ProgressReports)
+        //{
+        //  total += kvp.Value;
+        //}
 
-        Message = (total / Workers.Count).ToString("0.00%");
+        //Message = (total / Workers.Count).ToString("0.00%");
+        Message = "Processing...";
       }
 
       Rhino.RhinoApp.InvokeOnUiThread((Action)delegate
