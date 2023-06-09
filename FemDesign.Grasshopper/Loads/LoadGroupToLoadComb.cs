@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using FemDesign.Calculate;
 using System.Reflection;
 using Grasshopper;
+using Grasshopper.Kernel.Parameters;
+using FemDesign.Loads;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
@@ -20,7 +24,10 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadCase", "LoadCase", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("LoadCases", "LoadCases", "Default: All load cases will be use to generate the load combinations!", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("CombinationMethod", "CombinationMethod", "Connect 'ValueList' to get the options.\nCombination Method type:\nEN 1990 6.4.3(6.10)\nEN 1990 6.4.3(6.10.a, b)", GH_ParamAccess.item, "EN 1990 6.4.3(6.10)");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("fU", "fU", "", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -49,58 +56,90 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_MeshParam("LoadCombination", "LoadCombination", "");
+            pManager.Register_GenericParam("LoadCombination", "LoadCombination", "");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var loadGroups = new List<Loads.LoadGroupCombineGeneral>();
+            var loadGroups = new List<Loads.ModelGeneralLoadGroup>();
+            if (!DA.GetDataList("LoadGroups", loadGroups)) return;
+
+            var _loadCases = new List<FemDesign.Loads.LoadCase>();
+
+            foreach (var loadGroup in loadGroups)
+            {
+                if(loadGroup.ModelLoadGroupPermanent != null)
+                {
+                    _loadCases.AddRange(loadGroup.ModelLoadGroupPermanent.LoadCase);
+                }
+                else if(loadGroup.ModelLoadGroupTemporary != null)
+                {
+                    _loadCases.AddRange(loadGroup.ModelLoadGroupTemporary.LoadCase);
+                }
+            }
+            
+            _loadCases = _loadCases.Distinct().ToList();
 
             var loadCases = new List<Loads.LoadCase>();
-            if( !DA.GetDataList(0, loadCases) ) return;
+            if (!DA.GetDataList("LoadCases", loadCases))
+            {
+                loadCases = null;
+            }
+
+            string combinationMethod = "EN 1990 6.4.3(6.10)";
+            DA.GetData("CombinationMethod", ref combinationMethod);
+
+            LoadCombinationMethod _combinationMethod = FemDesign.GenericClasses.EnumParser.Parse<LoadCombinationMethod>(combinationMethod);
 
             var fU = true;
-            DA.GetData(1, ref fU);
+            DA.GetData("fU", ref fU);
 
             var fUa = true;
-            DA.GetData(2, ref fUa);
+            DA.GetData("fUa", ref fUa);
 
             var fUs = true;
-            DA.GetData(3, ref fUs);
+            DA.GetData("fUs", ref fUs);
 
             var fSq = true;
-            DA.GetData(4, ref fSq);
+            DA.GetData("fSq", ref fSq);
 
             var fSf = true;
-            DA.GetData(5, ref fSf);
+            DA.GetData("fSf", ref fSf);
 
             var fSc = true;
-            DA.GetData(6, ref fSc);
+            DA.GetData("fSc", ref fSc);
 
             var fSeisSigned = true;
-            DA.GetData(7, ref fSeisSigned);
+            DA.GetData("fSeisSigned", ref fSeisSigned);
 
             var fSeisTorsion = true;
-            DA.GetData(8, ref fSeisTorsion);
+            DA.GetData("fSeisTorsion", ref fSeisTorsion);
 
             var fSeisZdir = false;
-            DA.GetData(9, ref fSeisZdir);
+            DA.GetData("fSeisZdir", ref fSeisZdir);
 
             var fSkipMinDL = true;
-            DA.GetData(10, ref fSkipMinDL);
+            DA.GetData("fSkipMinDL", ref fSkipMinDL);
 
             var fForceTemp = true;
-            DA.GetData(11, ref fForceTemp);
+            DA.GetData("fForceTemp", ref fForceTemp);
 
             var fShortName = true;
-            DA.GetData(12, ref fShortName);
+            DA.GetData("fShortName", ref fShortName);
+
+
+            var loadCombinations = new List<FemDesign.Loads.LoadCombination>();
 
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection(minimized: true, tempOutputDir: false);
+                var connection = new FemDesignConnection( fdInstallationDir: "C:\\Program Files\\StruSoft\\FEM-Design 22 Night Install", minimized: true, tempOutputDir: false);
+                var model = new Model(Country.S, loadCases: _loadCases, loadGroups: loadGroups);
+                model.Entities.Loads.LoadGroupTable.SimpleCombinationMethod = _combinationMethod;
 
+                connection.Open(model);
                 connection.LoadGroupToLoadComb(fU, fUa, fUs, fSq, fSf, fSc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName, loadCases);
 
+                loadCombinations = connection.GetLoadCombinations().Values.ToList();
                 // Close FEM-Design
                 connection.Dispose();
             });
@@ -115,11 +154,16 @@ namespace FemDesign.Grasshopper
                 throw ex.InnerException;
             }
 
-            // todo
-            var loadCombination = new List<Loads.LoadCombination>();
-
-            DA.SetData("LoadCombination", loadCombination);
+            DA.SetDataList("LoadCombination", loadCombinations);
         }
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 2, new List<string>
+            { "EN 1990 6.4.3(6.10)", "EN 1990 6.4.3(6.10.a, b)" }, null, GH_ValueListMode.DropDown);
+        }
+
+
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -129,7 +173,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{915AFE1C-BA17-456C-A65F-0AB200F4DC6A}"); }
+            get { return new Guid("{9E952662-2BF2-4727-ABAA-094FA2D67DF9}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.senary;

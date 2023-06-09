@@ -401,7 +401,7 @@ namespace FemDesign
         /// <summary>
         /// Retrieves the load combinations from the currently opened model/> object.
         /// </summary>
-        internal Dictionary<int, Loads.LoadCombination> GetLoadCombinations()
+        public Dictionary<int, Loads.LoadCombination> GetLoadCombinations()
         {
             var loadCombinations = this.GetLoads().LoadCombinations;
 
@@ -868,9 +868,9 @@ namespace FemDesign
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
-            var script = new FdScript(logfile, new CmdUser(CmdUserModule.LOADS), cmdLoadGroupToLoadComb);
+            var script = new FdScript(logfile, cmdLoadGroupToLoadComb);
 
-            this.RunScript(script);
+            this.RunScript(script, "LoadGroupToLoadComb");
         }
 
         public List<FemDesign.Results.InteractionSurface> RunInteractionSurface(List<FemDesign.GenericClasses.IStructureElement> bars, double offset = 0.0, bool fUlt = true)
