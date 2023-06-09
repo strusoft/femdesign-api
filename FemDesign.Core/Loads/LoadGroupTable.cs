@@ -41,12 +41,13 @@ namespace FemDesign.Loads
         /// <summary>
         /// Internal constructor. Used for GH components and Dynamo nodes.
         /// </summary>
-        
-        public LoadGroupTable(List<ModelGeneralLoadGroup> loadGroups)
+
+        public LoadGroupTable(List<ModelGeneralLoadGroup> loadGroups, LoadCombinationMethod combinationMethod = LoadCombinationMethod.False)
         {
             EntityCreated();
             foreach (ModelGeneralLoadGroup loadGroup in loadGroups)
                 AddGeneralLoadGroup(loadGroup);
+            this.SimpleCombinationMethod = combinationMethod;
         }
 
         /// <summary>
@@ -104,14 +105,19 @@ namespace FemDesign.Loads
     public enum LoadCombinationMethod
     {
         [XmlEnum("true")]
+        [Parseable("true")]
         True,
         [XmlEnum("false")]
+        [Parseable("false")]
         False,
         [XmlEnum("EN 1990 6.4.3(6.10.a, b)")]
+        [Parseable("EN 1990 6.4.3(6.10.a, b)")]
         EN_1990_643_610_ab,
         [XmlEnum("EN 1990 6.4.3(6.10)")]
+        [Parseable("EN 1990 6.4.3(6.10)")]
         EN_1990_643_610,
         [XmlEnum("custom")]
+        [Parseable("custom")]
         Custom
     }
 }
