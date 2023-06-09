@@ -17,6 +17,7 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public partial class CmdLoadGroupToLoadComb : CmdCommand
     {
+        [XmlAttribute("command")]
         public string Command = "$ LOAD LDGROUP2COMB"; // token
 
         [XmlElement("GUID")]

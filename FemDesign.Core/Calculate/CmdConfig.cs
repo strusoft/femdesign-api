@@ -15,7 +15,7 @@ namespace FemDesign.Calculate
     public partial class CmdConfig : CmdCommand
     {
         [XmlAttribute("command")]
-        public string Command { get; set; } = "$ MODULECOM APPLYCFG";
+        public string Command = "$ MODULECOM APPLYCFG";
 
         [XmlElement("CONFIG")]
         public List<CONFIG> Config = new List<CONFIG>();
