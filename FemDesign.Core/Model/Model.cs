@@ -274,6 +274,8 @@ namespace FemDesign
                 model.GetLoadCombinations();
             if (model.Entities?.Loads?.LoadCases != null && model.Entities.Loads.LoadCases.Any())
                 model.GetLoads();
+            if (model.Entities?.Loads?.LoadGroupTable != null)
+                model.GetLoadGroups();
             return model;
         }
 
@@ -3836,6 +3838,33 @@ namespace FemDesign
                 if (lComb.StageLoadCase != null && lComb.StageLoadCase.IsFinalStage == false)
                 {
                     lComb.StageLoadCase.Stage = stageMap[lComb.StageLoadCase.StageIndex].DeepClone();
+                }
+            }
+        }
+
+        internal void GetLoadGroups()
+        {
+            var loadCasesMap = this.Entities.Loads.LoadCases?.ToDictionary(lc => lc.Guid);
+
+            foreach (var group in this.Entities.Loads.LoadGroupTable.GeneralLoadGroups)
+            {
+
+                if(group.ModelLoadGroupPermanent != null)
+                {
+                    foreach (var loadCaseGuid in group.ModelLoadGroupPermanent?.ModelLoadCase.Select(x => x.Guid))
+                    {
+                        group.ModelLoadGroupPermanent.LoadCase.Add( loadCasesMap[loadCaseGuid].DeepClone() );
+                    }
+                }
+
+                if (group.ModelLoadGroupTemporary != null)
+                {
+                    foreach (var loadCaseGuid in group.ModelLoadGroupTemporary?.ModelLoadCase.Select(x => x.Guid))
+                    {
+                        if (group.ModelLoadGroupTemporary.Relationship == Loads.ELoadGroupRelationship.Custom)
+                            throw new NotImplementedException("Load Groups with custom relationship not supported!");
+                        group.ModelLoadGroupTemporary.LoadCase.Add(loadCasesMap[loadCaseGuid].DeepClone());
+                    }
                 }
             }
         }
