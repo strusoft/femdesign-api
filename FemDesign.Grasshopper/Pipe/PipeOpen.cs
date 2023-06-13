@@ -1,7 +1,9 @@
 // https://strusoft.com/
 using System;
+using System.Data.Common;
 using Grasshopper.Kernel;
 using GrasshopperAsyncComponent;
+using Rhino.Commands;
 
 namespace FemDesign.Grasshopper
 {
@@ -9,7 +11,7 @@ namespace FemDesign.Grasshopper
     {
         public PipeOpen() : base("FEM-Design.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ModelOpenWorker();
+            BaseWorker = new ModelOpenWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -44,41 +46,76 @@ namespace FemDesign.Grasshopper
         /* OUTPUT */
         bool success = false;
 
-        public ModelOpenWorker() : base(null) { }
+        public ModelOpenWorker(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             //// ?? Check for task cancellation!
             //if (CancellationToken.IsCancellationRequested) return;
-
-            if (runNode)
+            try
             {
+                if (connection == null)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    Done();
+                    return;
+                }
+
+                if (connection.IsDisconnected)
+                {
+                    _success = false;
+                    throw new Exception("Connection to FEM-Design have been lost.");
+                }
+
+                if (connection.HasExited)
+                {
+                    _success = false;
+                    throw new Exception("FEM-Design have been closed.");
+                }
+
+                if (runNode == false)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                    Done();
+                    return;
+                }
+
+                ReportProgress("", "");
                 connection.Open(model.Value);
                 newModel = connection.GetModel();
                 success = true;
             }
-            else
+            catch (Exception ex)
             {
+                RuntimeMessages.Add( (GH_RuntimeMessageLevel.Error, ex.Message) );
+                connection = null;
                 success = false;
             }
 
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ModelOpenWorker();
+        public override WorkerInstance Duplicate() => new ModelOpenWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
-            if (!DA.GetData("Connection", ref connection)) return;
-            if (!DA.GetData("Model", ref model)) return;
+            DA.GetData("Connection", ref connection);
+            DA.GetData("Model", ref model);
             DA.GetData("RunNode", ref runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
         {
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
+
             DA.SetData("Connection", connection);
             DA.SetData("Model", newModel);
             DA.SetData("Success", success);
+
         }
     }
 }

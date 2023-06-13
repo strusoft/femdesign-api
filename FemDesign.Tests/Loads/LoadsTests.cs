@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FemDesign.Loads.Tests
+namespace FemDesign.Loads
 {
     [TestClass()]
     public class LoadsTests

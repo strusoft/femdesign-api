@@ -74,51 +74,63 @@ namespace FemDesign.Grasshopper
 
         public ApplicationGetQuantitiesWorker(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
-            if (_runNode == false)
+            try
             {
+                if (_runNode == false)
+                {
+                    _success = false;
+                    _connection = null;
+                    RuntimeMessages.Add( (GH_RuntimeMessageLevel.Warning, "Run node set to false.") );
+                    Done();
+                    return;
+                }
+
+                if (_connection == null)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    Done();
+                    return;
+                }
+
+                if (_connection.IsDisconnected)
+                {
+                    _success = false;
+                    _connection = null;
+                    throw new Exception("Connection to FEM-Design have been lost.");
+                }
+
+                if (_connection.HasExited)
+                {
+                    _success = false;
+                    _connection = null;
+                    throw new Exception("FEM-Design have been closed.");
+                }
+
+
+                // Run the Analysis
+                var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+                Type type = Type.GetType(_type);
+
+                var res = _getQuantities(type, _units);
+                _results.AddRange(res);
+                _success = true;
+
+                if (_results.Count == 0)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, $"{_resultType} returns an empty list. Does your model contains any {_resultType.Substring("QuantityEstimation".Length)} elements?"));
+                    Done();
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                 _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
-                return;
+                _connection = null;
             }
 
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-
-            if (_resultType == null || _resultType == "1")
-            {
-                return;
-            }
-
-            // Run the Analysis
-            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
-            Type type = Type.GetType(_type);
-
-            var res = _getQuantities(type, _units);
-            _results.AddRange(res);
-
-            _success = true;
             Done();
         }
 
@@ -140,6 +152,11 @@ namespace FemDesign.Grasshopper
 
         public override void SetData(IGH_DataAccess DA)
         {
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
+
             DA.SetData("Connection", _connection);
             DA.SetDataList("Quantities", _results);
             DA.SetData("Success", _success);

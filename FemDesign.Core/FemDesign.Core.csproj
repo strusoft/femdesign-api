@@ -57,9 +57,12 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Calculate\CmdApplyDesignChanges.cs" />
     <Compile Include="Calculate\CmdConfig.cs" />
+    <Compile Include="Calculate\CmdDesignGroup.cs" />
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />
+    <Compile Include="Calculate\Imperfection.cs" />
+    <Compile Include="Calculate\Stability.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
@@ -74,6 +77,13 @@
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
     <Compile Include="LibraryItems\PredefinedType.cs" />
+    <Compile Include="Loads\ForceLoadBase.cs" />
+    <Compile Include="Loads\LineStressLoad.cs" />
+    <Compile Include="Loads\MassConversionTable.cs" />
+    <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
+    <Compile Include="Loads\PressureLoad.cs" />
+    <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
+    <Compile Include="Loads\TopBotLocationValue.cs" />
     <Compile Include="Materials\IPanelLibraryType.cs" />
     <Compile Include="Materials\TimberPanelType.cs" />
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
@@ -170,7 +180,6 @@
     <Compile Include="Calculate\FdScriptHeader.cs" />
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />
-    <Compile Include="Calculate\LoadCombination.cs" />
     <Compile Include="Calculate\ListProc.cs" />
     <Compile Include="Calculate\Options.cs" />
     <Compile Include="Calculate\Stage.cs" />

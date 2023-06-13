@@ -46,144 +46,160 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{81C87D08-2E73-4A97-A947-3D32072979A5}");
+        public override Guid ComponentGuid => new Guid("{AC9B1E92-5C07-4F62-A0B3-E5E12254CD05}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        private class ApplicationReadResultWorker : WorkerInstance
+        {
+            public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
+            {
+                var method = nameof(FemDesign.FemDesignConnection.GetLoadCaseResults);
+                List<Results.IResult> mixedResults = new List<Results.IResult>();
+                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, units, options });
+                mixedResults.AddRange(result);
+                return mixedResults;
+            }
+
+            public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
+            {
+                var method = nameof(FemDesign.FemDesignConnection.GetResults);
+                List<Results.IResult> mixedResults = new List<Results.IResult>();
+                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements});
+                mixedResults.AddRange(result);
+                return mixedResults;
+            }
+
+            public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
+            {
+                var method = nameof(FemDesign.FemDesignConnection.GetLoadCombinationResults);
+                List<Results.IResult> mixedResults = new List<Results.IResult>();
+                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, units, options });
+                mixedResults.AddRange(result);
+                return mixedResults;
+            }
+
+
+            public FemDesignConnection _connection = null;
+            private Calculate.Options _options = null;
+            private Results.UnitResults _units = null;
+            private string _resultType;
+            private List<string> _case = new List<string>();
+            private List<string> _combo = new List<string>();
+
+            List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
+
+            private List<Results.IResult> _results = new List<Results.IResult>();
+            private bool _runNode = true;
+            private bool _success = false;
+
+            private Verbosity _verbosity = Verbosity.Normal;
+
+            public ApplicationReadResultWorker(GH_Component component) : base(component) { }
+
+            public override void DoWork(Action<string, string> ReportProgress, Action Done)
+            {
+
+                try
+                {
+                    if (_runNode == false)
+                    {
+                        _success = false;
+                        _connection = null;
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                        Done();
+                        return;
+                    }
+
+                    if (_connection == null)
+                    {
+                        RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                        Done();
+                        return;
+                    }
+
+                    if (_connection.IsDisconnected)
+                    {
+                        _success = false;
+                        _connection = null;
+                        throw new Exception("Connection to FEM-Design have been lost.");
+                    }
+
+                    if (_connection.HasExited)
+                    {
+                        _success = false;
+                        _connection = null;
+                        throw new Exception("FEM-Design have been closed.");
+                    }
+
+                    // Run the Analysis
+                    var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+                    Type type = Type.GetType(_type);
+                    if (type == null)
+                        throw new ArgumentException($"Class object of name '{_type}' does not exist!");
+
+                    if (!_combo.Any() && !_case.Any())
+                    {
+                        var res = _getResults(type, _units, _options, _elements);
+                        _results.AddRange(res);
+                    }
+
+                    if (_case.Any())
+                    {
+                        foreach (var item in _case)
+                        {
+                            var res = _getLoadCaseResults(type, item, _units, _options);
+                            _results.AddRange(res);
+                        }
+                    }
+
+                    if (_combo.Any())
+                    {
+                        foreach (var item in _combo)
+                        {
+                            var res = _getLoadCombinationResults(type, item, _units, _options);
+                            _results.AddRange(res);
+                        }
+                    }
+                    _success = true;
+                }
+                catch(Exception ex)
+                {
+                    RuntimeMessages.Add(( GH_RuntimeMessageLevel.Error, ex.Message ) );
+                    _success = false;
+                    _connection = null;
+                }
+
+                Done();
+            }
+
+            public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
+
+            public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
+            {
+                if (!DA.GetData("Connection", ref _connection)) return;
+                DA.GetData("ResultType", ref _resultType);
+                DA.GetDataList("Case Name", _case);
+                DA.GetDataList("Combination Name", _combo);
+                DA.GetDataList("Elements", _elements);
+                DA.GetData("Units", ref _units);
+                DA.GetData("Options", ref _options);
+                DA.GetData("RunNode", ref _runNode);
+            }
+
+            public override void SetData(IGH_DataAccess DA)
+            {
+                foreach (var (level, message) in RuntimeMessages)
+                {
+                    Parent.AddRuntimeMessage(level, message);
+                }
+
+                DA.SetData("Connection", _connection);
+                DA.SetDataList("Results", _results);
+                DA.SetData("Success", _success);
+            }
+        }
     }
 
-    public class ApplicationReadResultWorker : WorkerInstance
-    {
-        /* INPUT/OUTPUT */
-
-        public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetLoadCaseResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements});
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-        public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
-        {
-            List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetLoadCombinationResults").MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, units, options });
-            mixedResults.AddRange(result);
-            return mixedResults;
-        }
-
-
-        public FemDesignConnection _connection = null;
-        private Calculate.Options _options = null;
-        private Results.UnitResults _units = null;
-        private string _resultType;
-        private List<string> _case = new List<string>();
-        private List<string> _combo = new List<string>();
-
-        List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
-
-        private List<Results.IResult> _results = new List<Results.IResult>();
-        private bool _runNode = true;
-        private bool _success = false;
-
-        private Verbosity _verbosity = Verbosity.Normal;
-
-        public ApplicationReadResultWorker(GH_Component component) : base(component) { }
-
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
-        {
-            if (_runNode == false)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
-                return;
-            }
-
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-            // Run the Analysis
-            var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
-            Type type = Type.GetType(_type);
-            if (type == null)
-                throw new ArgumentException($"Class object of name '{_type}' does not exist!");
-
-            if (!_combo.Any() && !_case.Any())
-            {
-                var res = _getResults(type, _units, _options, _elements);
-                _results.AddRange(res);
-            }
-
-            if (_case.Any())
-            {
-                foreach (var item in _case)
-                {
-                    var res = _getLoadCaseResults(type, item, _units, _options);
-                    _results.AddRange(res);
-                }
-            }
-
-            if (_combo.Any())
-            {
-                foreach (var item in _combo)
-                {
-                    var res = _getLoadCombinationResults(type, item, _units, _options);
-                    _results.AddRange(res);
-                }
-            }
-
-            _success = true;
-            Done();
-        }
-
-        public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
-
-        public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
-        {
-            if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("ResultType", ref _resultType);
-            DA.GetDataList("Case Name", _case);
-            DA.GetDataList("Combination Name", _combo);
-            DA.GetDataList("Elements", _elements);
-            DA.GetData("Units", ref _units);
-            DA.GetData("Options", ref _options);
-            DA.GetData("RunNode", ref _runNode);
-        }
-
-        public override void SetData(IGH_DataAccess DA)
-        {
-            DA.SetData("Connection", _connection);
-            DA.SetDataList("Results", _results);
-            DA.SetData("Success", _success);
-        }
-    }
 }

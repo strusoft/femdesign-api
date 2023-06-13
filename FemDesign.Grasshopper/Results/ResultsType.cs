@@ -29,8 +29,41 @@ namespace FemDesign.Grasshopper
 
 
             var values = new List<string>
-            { "NodalDisplacement", "PointSupportReaction", "PointSupportReactionMinMax", "PointConnectionForce", "BarDisplacement", "BarInternalForce", "BarStress", "LineSupportReaction", "LineConnectionResultant", "LineConnectionForce", "SurfaceSupportReaction","ShellDisplacement", "ShellInternalForce", "ShellStress", "CLTShellUtilization", "CLTFireUtilization", "RCBarUtilization", "LabelledSectionInternalForce","LabelledSectionResultant","NodalVibration", "EigenFrequencies", "CriticalParameter", "NodalBucklingShape", "ImperfectionFactor", "QuantityEstimationConcrete", "QuantityEstimationSteel", "QuantityEstimationTimber", "QuantityEstimationTimberPanel", "QuantityEstimationGeneral", "QuantityEstimationReinforcement", "FiniteElement"};
-
+            {
+                nameof(FemDesign.Results.NodalDisplacement),
+                nameof(FemDesign.Results.NodalDisplacement),
+                nameof(FemDesign.Results.PointSupportReaction),
+                nameof(FemDesign.Results.PointSupportReactionMinMax),
+                nameof(FemDesign.Results.PointConnectionForce),
+                nameof(FemDesign.Results.BarDisplacement),
+                nameof(FemDesign.Results.BarInternalForce),
+                nameof(FemDesign.Results.BarStress),
+                nameof(FemDesign.Results.LineSupportReaction),
+                nameof(FemDesign.Results.LineConnectionResultant),
+                nameof(FemDesign.Results.LineConnectionForce),
+                nameof(FemDesign.Results.SurfaceSupportReaction),
+                nameof(FemDesign.Results.ShellDisplacement),
+                nameof(FemDesign.Results.ShellInternalForce),
+                nameof(FemDesign.Results.ShellStress),
+                nameof(FemDesign.Results.CLTShellUtilization),
+                nameof(FemDesign.Results.CLTFireUtilization),
+                nameof(FemDesign.Results.RCBarUtilization),
+                nameof(FemDesign.Results.LabelledSectionInternalForce),
+                nameof(FemDesign.Results.LabelledSectionResultant),
+                nameof(FemDesign.Results.NodalVibration),
+                nameof(FemDesign.Results.EigenFrequencies),
+                nameof(FemDesign.Results.CriticalParameter),
+                nameof(FemDesign.Results.ImperfectionFactor),
+                nameof(FemDesign.Results.QuantityEstimationConcrete),
+                nameof(FemDesign.Results.QuantityEstimationSteel),
+                nameof(FemDesign.Results.QuantityEstimationTimber),
+                nameof(FemDesign.Results.QuantityEstimationTimberPanel),
+                nameof(FemDesign.Results.QuantityEstimationGeneral),
+                nameof(FemDesign.Results.QuantityEstimationReinforcement),
+                nameof(FemDesign.Results.FiniteElement),
+                nameof(FemDesign.Results.BarSteelUtilization)
+            };
+            
             GH_ValueListItem vi;
             foreach (string value in values)
             {

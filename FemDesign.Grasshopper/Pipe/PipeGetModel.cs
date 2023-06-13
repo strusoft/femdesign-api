@@ -44,19 +44,21 @@ namespace FemDesign.Grasshopper
 
         public GetModelWorker() : base(null) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             //// ?? Check for task cancellation!
             //if (CancellationToken.IsCancellationRequested) return;
 
             if (runNode)
             {
+                ReportProgress("", "");
                 model = connection.GetModel();
                 success = true;
             }
             else
             {
                 success = false;
+                connection = null;
             }
 
             Done();

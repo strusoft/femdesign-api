@@ -79,9 +79,6 @@ namespace FemDesign.Grasshopper
             }
 
 
-
-
-
             var id = iResult.Select(x => x.Id);
             var section = iResult.Select(x => x.Section);
             var max = iResult.Select(x => x.Max);

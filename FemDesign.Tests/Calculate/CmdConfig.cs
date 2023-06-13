@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using FemDesign;
 using FemDesign.Calculate;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace FemDesign.Calculate
 {
@@ -22,6 +24,5 @@ namespace FemDesign.Calculate
             var ecst = new EcstConfig(true);
             var config = new FemDesign.Calculate.CmdConfig(cmsConfig, coCoConfig, ecst);
         }
-
     }
 }

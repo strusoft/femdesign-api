@@ -2,7 +2,9 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Xml;
 using System.Linq;
+using System.IO;
 
 namespace FemDesign.Loads
 {
@@ -10,6 +12,7 @@ namespace FemDesign.Loads
     /// load_combination_type
     /// </summary>
     [System.Serializable]
+    [XmlRoot("load_combination", Namespace = "urn:strusoft")]
     public partial class LoadCombination : EntityBase
     {
         [XmlAttribute("name")]

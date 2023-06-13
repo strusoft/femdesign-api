@@ -77,6 +77,7 @@
     <Compile Include="Calculate\CmdConfig.cs" />
     <Compile Include="Calculate\OptionsTests.cs" />
     <Compile Include="Calculate\CmdListGenTest.cs" />
+    <Compile Include="Calculate\Stability.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
+    <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
@@ -212,6 +214,9 @@
     <None Include="Results\InteractionSurface\output.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Reinforcement\intSrf-1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="System.Drawing.dll" />
   </ItemGroup>
   <Choose>

@@ -101,8 +101,8 @@ namespace FemDesign.Results
             string status = row[2];
             double max = Double.Parse(row[3], CultureInfo.InvariantCulture);
             double rcs = Double.Parse(row[4], CultureInfo.InvariantCulture);
-            double fb = Double.Parse(row[5], CultureInfo.InvariantCulture);
-            double tfb = Double.Parse(row[6], CultureInfo.InvariantCulture);
+            double fb = row[5] == "-" ? 0 : Double.Parse(row[5], CultureInfo.InvariantCulture);
+            double tfb = row[6] == "-" ? 0 : Double.Parse(row[6], CultureInfo.InvariantCulture);
             double ltbt = row[7] == "-" ? 0 : Double.Parse(row[7], CultureInfo.InvariantCulture);
             double ltbb = row[8] == "-" ? 0 : Double.Parse(row[8], CultureInfo.InvariantCulture);
             double sb = row[9] == "-" ? 0 : Double.Parse(row[9], CultureInfo.InvariantCulture);

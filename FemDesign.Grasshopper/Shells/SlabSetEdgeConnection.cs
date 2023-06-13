@@ -40,13 +40,13 @@ namespace FemDesign.Grasshopper
             else if (shellEdgeConnections.Count == 1)
             {
                 var shellEdgeConnection = shellEdgeConnections[0];
-                obj = Shells.Slab.EdgeConnection(slab, shellEdgeConnection, indices);
+                obj = Shells.Slab.SetEdgeConnection(slab, shellEdgeConnection, indices);
             }
             else if (shellEdgeConnections.Count == indices.Count)
             {
-                obj = Shells.Slab.EdgeConnection(slab, shellEdgeConnections[0], indices[0]);
+                obj = Shells.Slab.SetEdgeConnection(slab, shellEdgeConnections[0], indices[0]);
                 for (int i = 1; i < shellEdgeConnections.Count; i++)
-                    obj = Shells.Slab.EdgeConnection(obj, shellEdgeConnections[i], indices[i]);
+                    obj = Shells.Slab.SetEdgeConnection(obj, shellEdgeConnections[i], indices[i]);
             }
             else
             {

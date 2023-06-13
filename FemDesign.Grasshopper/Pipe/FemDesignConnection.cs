@@ -70,11 +70,6 @@ namespace FemDesign.Grasshopper
             bool delteDir = false;
             DA.GetData("DeleteOutputFolder", ref delteDir);
 
-
-            AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Do not manually close the currently open instance of FEM-Design. \n If you want to close FEM-Design, delete this component.");
-
-
-
             if (_connection != null)
                 _connection.Dispose();
 

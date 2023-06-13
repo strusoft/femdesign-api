@@ -7177,10 +7177,10 @@
   <data name="Rebar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\Rebar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-	<data name="Patch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\icons\Patch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
-	  <data name="DimensionLinear" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Patch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\Patch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DimensionLinear" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         Qk32BgAAAAAAADYAAAAoAAAAGAAAABgAAAABABgAAAAAAAAAAADEDgAAxA4AAAAAAAAAAAAA8vLy8vLy
         8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy
@@ -7247,5 +7247,8 @@
         8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy
         8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy
 </value>
+  </data>
+  <data name="DesignGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\DesignGroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path. If file path is not provided, the component will read the cfg.xml file in the grasshopper library folder.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path. If file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -50,13 +50,13 @@ namespace FemDesign.Grasshopper
         public ApplicationSetCfgWorker(GH_Component component) : base(component) { }
 
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
             if (_runNode == false)
             {
                 _success = false;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
+                ReportProgress(Id, 0.0.ToString());
                 return;
             }
 

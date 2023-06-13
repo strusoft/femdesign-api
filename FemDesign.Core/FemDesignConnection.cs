@@ -75,10 +75,12 @@ namespace FemDesign
                 UseShellExecute = false,
                 Verb = "open",
             };
+
+            startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
+
             if (minimized)
             {
                 startInfo.EnvironmentVariables["FD_NOGUI"] = "1";
-                startInfo.EnvironmentVariables["FD_NOLOGO"] = "1";
             }
 
             OutputDir = outputDir;
@@ -101,6 +103,9 @@ namespace FemDesign
             };
             SetVerbosity(DefaultVerbosity);
         }
+
+
+
 
         private void ProcessExited(object sender, EventArgs e)
         {
@@ -164,7 +169,7 @@ namespace FemDesign
         public void Open(string filePath, bool disconnect = false)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)));
+            this.RunScript(new FdScript(logfile, new CmdOpen(filePath)), "OpenModel");
             this.CurrentOpenModel = filePath;
             if (disconnect) this.Disconnect();
         }
@@ -236,6 +241,12 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
+            if(analysis.Stability != null)
+                analysis.SetStabilityAnalysis(this);
+
+            if (analysis.Imperfection != null)
+                analysis.SetImperfectionAnalysis(this);
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(
                 logfile,
@@ -244,6 +255,9 @@ namespace FemDesign
             );
             this.RunScript(script, "RunAnalysis");
         }
+
+
+
 
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
@@ -261,23 +275,72 @@ namespace FemDesign
         /// </summary>
         /// <param name="userModule"></param>
         /// <param name="design"></param>
+        /// <param name="designGroups"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void RunDesign(CmdUserModule userModule, Design design)
+        public void RunDesign(CmdUserModule userModule, Design design, List<CmdDesignGroup> designGroups = null)
         {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            #region DESIGN_GROUP
+
+            if (designGroups != null && designGroups.Count != 0)
+            {
+                // delete previously define design group
+                var cmdcommands = new List<CmdCommand>();
+
+                foreach (var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    cmdcommands.Add(emptyDesignGroup);
+                }
+
+                foreach (var desGroup in designGroups)
+                {
+                    cmdcommands.Add(desGroup);
+
+                    if (!CmdDesignGroup._designGroupCache.ContainsKey(desGroup.Name))
+                    {
+                        CmdDesignGroup._designGroupCache[desGroup.Name] = desGroup;
+                    }
+                }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DesignGroup");
+            }
+            else // delete previously define design group
+            {
+                var cmdcommands = new List<CmdCommand>();
+
+                foreach (var desGroup in CmdDesignGroup._designGroupCache)
+                {
+                    var emptyDesignGroup = new CmdDesignGroup(desGroup.Key, new List<FemDesign.GenericClasses.IStructureElement>(), desGroup.Value.Type);
+                    cmdcommands.Add(emptyDesignGroup);
+                }
+
+                var _script = new FdScript(logfile, cmdcommands);
+                this.RunScript(_script, "DeleteDesignGroup");
+
+                CmdDesignGroup._designGroupCache.Clear();
+            }
+            #endregion
+
+
+
             if (userModule == CmdUserModule.RESMODE)
             {
                 throw new ArgumentException("User Module can not be 'RESMODE'!");
             }
 
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-
             var script = new FdScript(
-                logfile,
-                new CmdUser(userModule),
-                new CmdCalculation(design)
-            );
+                    logfile,
+                    new CmdUser(userModule),
+                    new CmdCalculation(design)
+                );
 
-            if (design.ApplyChanges == true) { script.Add(new CmdDesignDesignChanges()); }
+            if (design.ApplyChanges == true)
+            {
+                script.Add(new CmdApplyDesignChanges());
+            }
 
             this.RunScript(script, "RunDesign");
         }
@@ -322,6 +385,39 @@ namespace FemDesign
             string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
             RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetModel");
             return Model.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the loads from the currently opened model with all available elements as a <see cref="Loads.Loads"/> object.
+        /// </summary>
+        public Loads.Loads GetLoads()
+        {
+            string struxmlPath = OutputFileHelper.GetStruxmlPath(OutputDir, "model_loads_saved");
+            string logfilePath = OutputFileHelper.GetLogfilePath(OutputDir);
+            RunScript(new FdScript(logfilePath, new CmdSave(struxmlPath)), "GetLoads");
+            return Loads.Loads.DeserializeFromFilePath(struxmlPath);
+        }
+
+        /// <summary>
+        /// Retrieves the load combinations from the currently opened model/> object.
+        /// </summary>
+        internal Dictionary<int, Loads.LoadCombination> GetLoadCombinations()
+        {
+            var loadCombinations = this.GetLoads().LoadCombinations;
+
+            var dictLoadComb = new Dictionary<int, Loads.LoadCombination>();
+
+            if (loadCombinations == null)
+                throw new Exception("There are no load combinations in the model");
+
+            int index = 0;
+            foreach(var comb in loadCombinations)
+            {
+                dictLoadComb.Add(index, comb);
+                index++;
+            }
+
+            return dictLoadComb;
         }
 
 
@@ -814,11 +910,14 @@ namespace FemDesign
             var model = new Model(Country.COMMON, bars, overwrite: true);
             this.Open(model);
 
-            var script = new FdScript(outFile, new CmdUser(CmdUserModule.RCDESIGN));
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(logfile, new CmdUser(CmdUserModule.RCDESIGN));
             foreach (var bar in bars)
             {
                 var _bar = (Bars.Bar)bar;
-                script.Add(new CmdInteractionSurface(_bar, outFile + _bar.BarPart.Guid, offset, fUlt));
+                var newName = System.IO.Path.GetFileNameWithoutExtension(outFile) + _bar.BarPart.Guid + ".txt";
+                script.Add(new CmdInteractionSurface(_bar, newName, offset, fUlt));
             }
 
             this.RunScript(script);
@@ -828,7 +927,8 @@ namespace FemDesign
             foreach (var bar in bars)
             {
                 var _bar = (Bars.Bar)bar;
-                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(outFile + _bar.BarPart.Guid);
+                var newName = System.IO.Path.GetFileNameWithoutExtension(outFile) + _bar.BarPart.Guid + ".txt";
+                var intSrf = FemDesign.Results.InteractionSurface.ReadFromFile(newName);
                 intSurfaces.Add(intSrf);
             }
             return intSurfaces;
@@ -994,8 +1094,22 @@ namespace FemDesign
 
             if (_inputPipe.CanWrite == false) throw new Exception("Can't write to pipe");
             var buffer = _encoding.GetBytes(command);
-            _inputPipe.Write(buffer, 0, buffer.Length);
-            _inputPipe.Flush();
+            try
+            {
+                _inputPipe.Write(buffer, 0, buffer.Length);
+                _inputPipe.Flush();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "Cannot access a closed pipe.")
+                {
+                    throw new Exception("'FEM-Design Connection' has been closed! Open a new FEM-Design connection if you want to comunicate with FEM-Design.");
+                }
+                else
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
         }
 
         internal void WaitForCommandToFinish()
@@ -1098,6 +1212,11 @@ namespace FemDesign
             _outputWorker.RunWorkerAsync();
         }
 
+        private int GetProcessCount()
+        {
+            return Process.GetProcessesByName("fd3dstruct").Length;
+        }
+
         private void _onOutputThread(object sender, DoWorkEventArgs e)
         {
             try
@@ -1111,12 +1230,26 @@ namespace FemDesign
                     if (line == null) { continue; }
 
                     _outputWorker.ReportProgress(0, line);
+
+                    if (GetProcessCount() < 1)
+                    {
+                        this.Dispose();
+                        throw new Exception("FEM-Design has been closed!");
+                    };
                 }
             }
-            catch (Exception x)
+            catch (Exception ex)
             {
-                _outputWorker.ReportProgress(1, x);
+                if(ex is Exception)
+                {
+                    throw new Exception(ex.Message);
+                }
+                if(ex is Exception)
+                {
+                    _outputWorker.ReportProgress(1, ex);
+                }
             }
+
         }
 
         private void _onOuputThreadEvent(object sender, ProgressChangedEventArgs e)
