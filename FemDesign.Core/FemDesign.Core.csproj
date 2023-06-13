@@ -83,6 +83,7 @@
     <Compile Include="Loads\MassConversionTable.cs" />
     <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
     <Compile Include="Loads\PressureLoad.cs" />
+    <Compile Include="Loads\RelationTable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
     <Compile Include="Loads\TopBotLocationValue.cs" />
     <Compile Include="Materials\IPanelLibraryType.cs" />

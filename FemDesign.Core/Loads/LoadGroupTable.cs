@@ -31,7 +31,7 @@ namespace FemDesign.Loads
         [XmlAttribute("simple_combination_method")]
         public LoadCombinationMethod SimpleCombinationMethod { get; set; } = LoadCombinationMethod.False;
         [XmlElement("group")]
-        public List<ModelGeneralLoadGroup> GeneralLoadGroups = new List<ModelGeneralLoadGroup>(); // sequence: ModelGeneralLoadGroup
+        public List<ModelGeneralLoadGroup> GeneralLoadGroups { get; set; } = new List<ModelGeneralLoadGroup>(); // sequence: ModelGeneralLoadGroup
 
         /// <summary>
         /// Parameterless constructor for serialization.

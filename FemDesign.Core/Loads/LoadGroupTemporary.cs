@@ -3,6 +3,7 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using FemDesign.GenericClasses;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Loads
 {
@@ -72,6 +73,8 @@ namespace FemDesign.Loads
         public bool LeadingCases { get; set; }
         [XmlAttribute("ignore_sls")]
         public bool IgnoreSls { get; set; } = false;
+        [XmlAttribute("simultaneous")]
+        public bool Simultaneous { get; set; } = false;
 
         /// parameterless constructor for serialization///
         public LoadGroupTemporary() { }

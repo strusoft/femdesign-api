@@ -21,6 +21,11 @@ namespace FemDesign.Loads
         [XmlIgnore]
         public List<LoadCase> LoadCase = new List<LoadCase>(); // List of complete load cases
 
+        [XmlElement("subgroup")]
+        public List<StruSoft.Interop.StruXml.Data.Load_subgroup> Subgroups { get; set; }
+        [XmlElement("relations")]
+        public RelationTable RelationTable { get; set; }
+
         /// <summary>
         /// Add LoadCase to group.
         /// </summary>

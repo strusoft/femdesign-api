@@ -3862,7 +3862,9 @@ namespace FemDesign
                     foreach (var loadCaseGuid in group.ModelLoadGroupTemporary?.ModelLoadCase.Select(x => x.Guid))
                     {
                         if (group.ModelLoadGroupTemporary.Relationship == Loads.ELoadGroupRelationship.Custom)
-                            throw new NotImplementedException("Load Groups with custom relationship not supported!");
+                        {
+                            // pass
+                        }
                         group.ModelLoadGroupTemporary.LoadCase.Add(loadCasesMap[loadCaseGuid].DeepClone());
                     }
                 }

@@ -3,13 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using FemDesign;
 using System.Threading.Tasks;
-using FemDesign.Calculate;
-using System.Reflection;
-using Grasshopper;
-using Grasshopper.Kernel.Parameters;
 using FemDesign.Loads;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
@@ -22,11 +16,12 @@ namespace FemDesign.Grasshopper
         {
 
         }
+
+        public List<string> _log = new List<string>();
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("LoadCases", "LoadCases", "Default: All load cases will be use to generate the load combinations!", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Load groups to convert in load combinations", GH_ParamAccess.list);
             pManager.AddTextParameter("CombinationMethod", "CombinationMethod", "Connect 'ValueList' to get the options.\nCombination Method type:\nEN 1990 6.4.3(6.10)\nEN 1990 6.4.3(6.10.a, b)", GH_ParamAccess.item, "EN 1990 6.4.3(6.10)");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("fU", "fU", "", GH_ParamAccess.item, true);
@@ -58,10 +53,17 @@ namespace FemDesign.Grasshopper
         {
             pManager.Register_GenericParam("LoadCombination", "LoadCombination", "");
         }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             var loadGroups = new List<Loads.ModelGeneralLoadGroup>();
-            if (!DA.GetDataList("LoadGroups", loadGroups)) return;
+            DA.GetDataList("LoadGroups", loadGroups);
+
+            if(loadGroups.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input parameter 'LoadGroups' failed to collect data");
+                return;
+            }
 
             var _loadCases = new List<FemDesign.Loads.LoadCase>();
 
@@ -78,12 +80,6 @@ namespace FemDesign.Grasshopper
             }
             
             _loadCases = _loadCases.Distinct().ToList();
-
-            var loadCases = new List<Loads.LoadCase>();
-            if (!DA.GetDataList("LoadCases", loadCases))
-            {
-                loadCases = null;
-            }
 
             string combinationMethod = "EN 1990 6.4.3(6.10)";
             DA.GetData("CombinationMethod", ref combinationMethod);
@@ -126,20 +122,22 @@ namespace FemDesign.Grasshopper
             var fShortName = true;
             DA.GetData("fShortName", ref fShortName);
 
-
             var loadCombinations = new List<FemDesign.Loads.LoadCombination>();
 
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection( fdInstallationDir: "C:\\Program Files\\StruSoft\\FEM-Design 22 Night Install", minimized: true, tempOutputDir: false);
+                var connection = new FemDesignConnection( minimized: true, tempOutputDir: false);
+
                 var model = new Model(Country.S, loadCases: _loadCases, loadGroups: loadGroups);
                 model.Entities.Loads.LoadGroupTable.SimpleCombinationMethod = _combinationMethod;
 
                 connection.Open(model);
-                connection.LoadGroupToLoadComb(fU, fUa, fUs, fSq, fSf, fSc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName, loadCases);
+
+                connection.LoadGroupToLoadComb(fU, fUa, fUs, fSq, fSf, fSc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName);
 
                 loadCombinations = connection.GetLoadCombinations().Values.ToList();
+
                 // Close FEM-Design
                 connection.Dispose();
             });

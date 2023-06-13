@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FemDesign;
 using FemDesign.Calculate;
 using FemDesign.Bars;
+using System.Globalization;
 
 namespace FemDesign
 {
@@ -846,25 +847,13 @@ namespace FemDesign
             return RunInteractionSurface(bars, offset, fUlt)[0];
         }
 
-        /// <summary>
-        /// Generate Load Combination from Load Group from an open model
-        /// </summary>
-        /// <param name="fu"></param>
-        /// <param name="fua"></param>
-        /// <param name="fus"></param>
-        /// <param name="fsq"></param>
-        /// <param name="fsc"></param>
-        /// <param name="fSeisSigned"></param>
-        /// <param name="fSeisTorsion"></param>
-        /// <param name="fSeisZdir"></param>
-        /// <param name="fSkipMinDL"></param>
-        /// <param name="fForceTemp"></param>
-        /// <param name="fShortName"></param>
-        /// <param name="loadcases"></param>
-        /// <returns></returns>
-        public void LoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true, List<FemDesign.Loads.LoadCase> loadcases = null)
+        public void LoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true)
         {
-            var cmdLoadGroupToLoadComb = new CmdLoadGroupToLoadComb(fu, fua, fus, fsq, fsf, fsc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName, loadcases);
+            var version = Int32.Parse(this._process.MainModule.FileVersionInfo.FileVersion.Replace(".", ""), CultureInfo.InvariantCulture);
+            if (version < 22040)
+                throw new Exception("FEM-Design 22.00.004 or greater is required!");
+
+            var cmdLoadGroupToLoadComb = new CmdLoadGroupToLoadComb(fu, fua, fus, fsq, fsf, fsc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName);
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 

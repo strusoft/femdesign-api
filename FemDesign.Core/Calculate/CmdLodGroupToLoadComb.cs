@@ -68,7 +68,7 @@ namespace FemDesign.Calculate
 
         }
 
-        public CmdLoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true, List<FemDesign.Loads.LoadCase> loadCases = null)
+        public CmdLoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true)
         {
             this.fU = fu;
             this.fUa = fua;
@@ -82,8 +82,6 @@ namespace FemDesign.Calculate
             this.fSkipMinDL = fSkipMinDL;
             this.fForceTemp = fForceTemp;
             this.fShortName = fShortName;
-            if(loadCases != null )
-                Guids = loadCases.Select(x => x.Guid).ToList();
         }
 
         public override XElement ToXElement()
