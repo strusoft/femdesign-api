@@ -285,7 +285,7 @@ namespace FemDesign.Calculate
         /// <exception cref="Exception"></exception>
         public static Analysis ConstructionStages(bool ghost = false)
         {
-            var stage = ghost ? Stage.Ghost() : Stage.Tracking();
+            var stage = ghost ? Stage.GhostMethod() : Stage.TrackingMethod();
             return new Analysis(stage, calcCStage: true);
         }
 

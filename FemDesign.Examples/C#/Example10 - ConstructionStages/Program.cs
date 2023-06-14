@@ -149,8 +149,7 @@ namespace FemDesign.Examples
             model.AddLoads(loads);
             model.SetConstructionStages(stages,
                 assignModifedElement: false,
-                assignNewElement: false,
-                ghostMethod: false);
+                assignNewElement: false);
 
             // Set up the analysis
             var constructionStageAnalysis = Calculate.Analysis.ConstructionStages(ghost: false);

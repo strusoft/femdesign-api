@@ -69,8 +69,7 @@ namespace FemDesign.Grasshopper
                 constructionStage = new ConstructionStages(
                     stages,
                     assignModifedElement: false,
-                    assignNewElement: false,
-                    ghostMethod: false);
+                    assignNewElement: false);
             }
 
 

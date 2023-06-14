@@ -11,7 +11,44 @@ namespace FemDesign.Calculate
     public partial class Stage
     {
         [XmlAttribute("ghost")]
-        public int _ghost { get; set; } // bool // int(?)
+        public int _ghost { get; set; }
+
+        [XmlIgnore]
+        public bool Ghost
+        {
+            get { return Convert.ToBoolean(_ghost); }
+            set { _ghost = Convert.ToInt32(value); }
+        }
+
+        [XmlAttribute("tda")]
+        public int _timeDependentAnalysis { get; set; }
+        [XmlIgnore]
+        public bool TimeDependentAnalysis
+        {
+            get { return Convert.ToBoolean(_timeDependentAnalysis); }
+            set { _timeDependentAnalysis = Convert.ToInt32(value); }
+        }
+
+        [XmlAttribute("creepincrementlimit")]
+        public double _creepIncrementLimit { get; set; } = 0.25;
+
+        /// <summary>
+        /// creep_strain_increment_limit [thousand percent]
+        /// </summary>
+        [XmlIgnore]
+        public double? CreepIncrementLimit
+        {
+            get
+            {
+                return _creepIncrementLimit;
+            }
+            set
+            {
+                var creep = (double)value;
+                _creepIncrementLimit = FemDesign.RestrictedDouble.ValueInHalfClosedInterval(creep, 0.0, 10.0);
+            }
+        }
+
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -21,9 +58,11 @@ namespace FemDesign.Calculate
             
         }
 
-        public Stage(bool ghost = false)
+        public Stage(bool ghost = false, bool timeDependent = false, double? creepLimit = null)
         {
-            this._ghost = Convert.ToInt32(ghost);
+            this.Ghost = ghost;
+            this.CreepIncrementLimit = creepLimit == null ? 2.5 : creepLimit;
+            this.TimeDependentAnalysis = timeDependent;
         }
 
         /// <summary>
@@ -46,7 +85,7 @@ namespace FemDesign.Calculate
         /// Incremental construction stage method.
         /// </summary>
         /// <returns></returns>
-        public static Stage Ghost()
+        public static Stage GhostMethod()
         {
             return new Stage(true);
         }
@@ -55,7 +94,7 @@ namespace FemDesign.Calculate
         /// Ghost construction stage method.
         /// </summary>
         /// <returns></returns>
-        public static Stage Tracking()
+        public static Stage TrackingMethod()
         {
             return new Stage(false);
         }

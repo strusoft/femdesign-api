@@ -3103,9 +3103,9 @@ namespace FemDesign
         }
 
 
-        public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
+        public void SetConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false)
         {
-            var obj = new ConstructionStages(stages, assignModifedElement, assignNewElement, ghostMethod);
+            var obj = new ConstructionStages(stages, assignModifedElement, assignNewElement);
             SetConstructionStages(obj);
         }
 

@@ -83,7 +83,9 @@ namespace FemDesign
         /// <param name="assignModifedElement"></param>
         /// <param name="assignNewElement"></param>
         /// <param name="ghostMethod"></param>
-        public ConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false, bool ghostMethod = false)
+        /// <param name="timeDependentAnalysis"></param>
+        /// <param name="creepLimit"></param>
+        public ConstructionStages(List<Stage> stages, bool assignModifedElement = false, bool assignNewElement = false)
         {
             // it does not required the Guid
             this.LastChange = DateTime.UtcNow;
@@ -91,7 +93,6 @@ namespace FemDesign
             this.Stages = ConstructionStages.SortStages(stages);
             this.AssignModifiedElement = assignModifedElement;
             this.AssignNewElement = assignNewElement;
-            this.GhostMethod = ghostMethod;
         }
 
         private static List<Stage> SortStages(List<Stage> stages)

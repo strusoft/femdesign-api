@@ -14,7 +14,9 @@ namespace FemDesign.Utils
             "No declared mass or converted load case.",
             "No declared load combination.",
             "No declared support.",
-            "No declared structure to calculate."
+            "No declared structure to calculate.",
+            "None of the Construction stages contains any load case.",
+            "Time-dependent analysis is requested, but none of the object has Time-dependent property."
         };
         
         public readonly static List<string> WarningMessase = new List<string>{

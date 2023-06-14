@@ -14,21 +14,36 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddBooleanParameter("ghost", "ghost", "\"Ghost\" construction method. True/false. If false incremental \"Tracking\" method is used.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("TimeDependent", "TimeDependent", "", GH_ParamAccess.item, false);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddNumberParameter("CreepStrainIncrementLimit", "CreepStrainIncrementLimit", "", GH_ParamAccess.item, 2.5);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("StageSetting", "Stage", "Construction stages calculation method.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("StageSetting", "StageSetting", "Construction stages calculation method.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             bool ghost = false;
-            if (!DA.GetData(0, ref ghost))
+            DA.GetData(0, ref ghost);
+
+            bool timeDependent = false;
+            DA.GetData(1, ref timeDependent);
+
+            double? creepStrainLimit = 2.5;
+            if (!DA.GetData(2, ref creepStrainLimit))
             {
-                // pass
+                creepStrainLimit = null;
+            }
+
+            if(timeDependent == false && creepStrainLimit != null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'CreepStrainIncrementLimit' value will not be use. Set 'TimeDependent' == True.");
             }
 
             //
-            FemDesign.Calculate.Stage obj = FemDesign.Calculate.Stage.Define(ghost);
+            var obj = new FemDesign.Calculate.Stage( ghost, timeDependent, creepStrainLimit );
 
             // return
             DA.SetData(0, obj);
