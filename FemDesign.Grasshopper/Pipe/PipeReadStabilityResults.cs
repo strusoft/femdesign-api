@@ -37,7 +37,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Results", "Results", "Results.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BucklingShapes", "Shapes", "Buckling shape results.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("CriticalParameter", "CritParam", "Critical parameters.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
@@ -53,9 +54,39 @@ namespace FemDesign.Grasshopper
         {
             var methodName = nameof(FemDesignConnection.GetStabilityResults);
             MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
+            dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
             
-            return result;
+            return results;
+        }
+
+
+        public dynamic _getCriticalParameterResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
+        {
+            var method = nameof(FemDesign.FemDesignConnection.GetResults);
+            List<Results.CriticalParameter> mixedResults = new List<Results.CriticalParameter>();
+            MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements });
+            mixedResults.AddRange(result);
+
+            if (loadCombination != null)
+            {
+                if (!mixedResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("Incorrect or unknown load combination name.");
+                }
+                mixedResults = mixedResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (shapeId != null)
+            {
+                if ((shapeId < 1) || (shapeId > mixedResults.Select(r => r.Shape).Max()))
+                {
+                    throw new ArgumentException("ShapeId is out of range.");
+                }
+                mixedResults = mixedResults.Where(r => r.Shape == shapeId).ToList();
+            }
+
+            List<double> values = mixedResults.Select(r => r.CriticalParam).ToList();
+            return values;
         }
 
 
@@ -64,10 +95,12 @@ namespace FemDesign.Grasshopper
         private Calculate.Options _options = null;
         private Results.UnitResults _units = null;
         private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
+        private Type _critParamType = typeof(FemDesign.Results.CriticalParameter);
         private string _combo = null;
         private int? _shapeId = null;
 
         private List<Results.IResult> _results = new List<Results.IResult>();
+        private List<double> _critParam = new List<double>();
         private bool _runNode = true;
         private bool _success = false;
 
@@ -111,10 +144,12 @@ namespace FemDesign.Grasshopper
 
                 // Run the Analysis
 
-                dynamic res = new List<FemDesign.Results.IResult>();
+                dynamic bucklingResults = new List<FemDesign.Results.IResult>();
+                dynamic critParameterResults = new List<FemDesign.Results.IResult>();
                 try
                 {
-                    res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
+                    bucklingResults = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
+                    critParameterResults = _getCriticalParameterResults(_critParamType, _combo, _shapeId, _units, _options);
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +157,8 @@ namespace FemDesign.Grasshopper
                     _success = false;
                 }
 
-                _results.AddRange(res);
+                _results.AddRange(bucklingResults);
+                _critParam.AddRange(critParameterResults);
 
                 _success = true;
             }
@@ -155,9 +191,10 @@ namespace FemDesign.Grasshopper
                 Parent.AddRuntimeMessage(level, message);
             }
 
-            DA.SetData("Connection", _connection);
-            DA.SetDataList("Results", _results);
-            DA.SetData("Success", _success);
+            DA.SetData(0, _connection);
+            DA.SetDataList(1, _results);
+            DA.SetDataList(2, _critParam);
+            DA.SetData(3, _success);
         }
     }
 }
