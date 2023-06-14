@@ -75,53 +75,64 @@ namespace FemDesign.Grasshopper
 
         public ApplicationReadStabilityResultWorker(GH_Component component) : base(component) { }
 
-        public override void DoWork(Action<string, double> ReportProgress, Action Done)
+        public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
-            if (_runNode == false)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0);
-                return;
-            }
-
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-            // Run the Analysis
-
-            dynamic res = new List<FemDesign.Results.IResult>();
             try
             {
-                res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
+                if (_runNode == false)
+                {
+                    _success = false;
+                    _connection = null;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                    Done();
+                    return;
+                }
+
+                if (_connection == null)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    Done();
+                    return;
+                }
+
+                if (_connection.IsDisconnected)
+                {
+                    _success = false;
+                    _connection = null;
+                    throw new Exception("Connection to FEM-Design have been lost.");
+                }
+
+                if (_connection.HasExited)
+                {
+                    _success = false;
+                    _connection = null;
+                    throw new Exception("FEM-Design have been closed.");
+                }
+
+                // Run the Analysis
+
+                dynamic res = new List<FemDesign.Results.IResult>();
+                try
+                {
+                    res = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.InnerException.Message));
+                    _success = false;
+                }
+
+                _results.AddRange(res);
+
+                _success = true;
             }
             catch (Exception ex)
             {
-                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.InnerException.Message));
+                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                 _success = false;
+                _connection = null;
             }
 
-            _results.AddRange(res);
-
-            _success = true;
             Done();
         }
 
