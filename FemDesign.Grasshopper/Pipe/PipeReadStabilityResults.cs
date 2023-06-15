@@ -144,6 +144,9 @@ namespace FemDesign.Grasshopper
 
                 // Run the Analysis
 
+                ReportProgress("", "");
+
+
                 dynamic bucklingResults = new List<FemDesign.Results.IResult>();
                 dynamic critParameterResults = new List<FemDesign.Results.IResult>();
                 try
