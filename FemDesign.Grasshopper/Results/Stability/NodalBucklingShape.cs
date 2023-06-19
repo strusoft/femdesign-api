@@ -105,7 +105,7 @@ namespace FemDesign.Grasshopper
             var uniqueCaseId = nodalBucklingShape.Select(n => n.CaseIdentifier).Distinct().ToList();
 
             // Return the unique shape identifiers
-            var uniqueShapeId = nodalBucklingShape.Select(n => n.ShapeId).Distinct().ToList();
+            var uniqueShapeId = nodalBucklingShape.Select(n => n.Shape).Distinct().ToList();
 
 
             // Select the Nodal Buckling shapes for the selected Load Combination
@@ -128,7 +128,7 @@ namespace FemDesign.Grasshopper
             {
                 if (uniqueShapeId.Any(u => u == modeShapeId))
                 {
-                    nodalBucklingShape = nodalBucklingShape.Where(n => n.ShapeId == modeShapeId);
+                    nodalBucklingShape = nodalBucklingShape.Where(n => n.Shape == modeShapeId);
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace FemDesign.Grasshopper
             var identifier = nodalBucklingShape.Select(n => n.Id).ToList();
             var caseId = nodalBucklingShape.Select(n => n.CaseIdentifier).ToList();
             var nodeId = nodalBucklingShape.Select(n => n.NodeId).ToList();
-            var shapeIds = nodalBucklingShape.Select(n => n.ShapeId).ToList();
+            var shapeIds = nodalBucklingShape.Select(n => n.Shape).ToList();
 
             // Create a Vector for Displacement and Rotation
             var translation = new List<FemDesign.Geometry.Vector3d>();

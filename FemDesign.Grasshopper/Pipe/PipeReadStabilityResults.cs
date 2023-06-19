@@ -55,38 +55,58 @@ namespace FemDesign.Grasshopper
             var methodName = nameof(FemDesignConnection.GetStabilityResults);
             MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
             dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
-            
-            return results;
+
+            List<Results.NodalBucklingShape> mixedResults = new List<Results.NodalBucklingShape>();
+            mixedResults.AddRange(results);
+
+            //if (loadCombination != null)
+            //{
+            //    if (!mixedResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            //    {
+            //        throw new ArgumentException("Incorrect or unknown load combination name.");
+            //    }
+            //    mixedResults = mixedResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            //}
+            //if (shapeId != null)
+            //{
+            //    if ((shapeId < 1) || (shapeId > mixedResults.Select(r => r.Shape).Max()))
+            //    {
+            //        throw new ArgumentException("ShapeId is out of range.");
+            //    }
+            //    mixedResults = mixedResults.Where(r => r.Shape == shapeId).ToList();
+            //}
+
+            return mixedResults;
         }
 
 
         public dynamic _getCriticalParameterResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
         {
-            var method = nameof(FemDesign.FemDesignConnection.GetResults);
+            var method = nameof(FemDesign.FemDesignConnection.GetStabilityResults);
             List<Results.CriticalParameter> mixedResults = new List<Results.CriticalParameter>();
             MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements });
-            mixedResults.AddRange(result);
+            //dynamic results = genericMethod.Invoke(_connection, new object[] { units, options, elements });
+            dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
+            mixedResults.AddRange(results);
 
-            if (loadCombination != null)
-            {
-                if (!mixedResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-                {
-                    throw new ArgumentException("Incorrect or unknown load combination name.");
-                }
-                mixedResults = mixedResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-            if (shapeId != null)
-            {
-                if ((shapeId < 1) || (shapeId > mixedResults.Select(r => r.Shape).Max()))
-                {
-                    throw new ArgumentException("ShapeId is out of range.");
-                }
-                mixedResults = mixedResults.Where(r => r.Shape == shapeId).ToList();
-            }
-
-            List<double> values = mixedResults.Select(r => r.CriticalParam).ToList();
-            return values;
+            //if (loadCombination != null)
+            //{
+            //    if (!mixedResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            //    {
+            //        throw new ArgumentException("Incorrect or unknown load combination name.");
+            //    }
+            //    mixedResults = mixedResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            //}
+            //if (shapeId != null)
+            //{
+            //    if ((shapeId < 1) || (shapeId > mixedResults.Select(r => r.Shape).Max()))
+            //    {
+            //        throw new ArgumentException("ShapeId is out of range.");
+            //    }
+            //    mixedResults = mixedResults.Where(r => r.Shape == shapeId).ToList();
+            //}
+                        
+            return mixedResults;
         }
 
 
@@ -99,8 +119,8 @@ namespace FemDesign.Grasshopper
         private string _combo = null;
         private int? _shapeId = null;
 
-        private List<Results.IResult> _results = new List<Results.IResult>();
-        private List<double> _critParam = new List<double>();
+        private List<Results.IStabilityResult> _results = new List<Results.IStabilityResult>();
+        private List<Results.IStabilityResult> _critParam = new List<Results.IStabilityResult>();
         private bool _runNode = true;
         private bool _success = false;
 

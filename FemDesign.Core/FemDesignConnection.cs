@@ -463,8 +463,9 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -834,7 +835,63 @@ namespace FemDesign
             return results;
         }
 
-        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
+        //public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
+        //{
+        //    if (units is null)
+        //        units = Results.UnitResults.Default();
+
+        //    // Input bsc files and output csv files
+        //    var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+
+        //    var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+        //    var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+        //    var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+
+        //    var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+        //    bscs.ForEach(b => b.SerializeBsc());
+
+        //    // FdScript commands
+        //    List<CmdCommand> listGenCommands = new List<CmdCommand>();
+        //    listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+        //    for (int i = 0; i < bscPaths.Count; i++)
+        //        listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+        //    // Run the script
+        //    string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+        //    var script = new FdScript(logfile, listGenCommands.ToArray());
+        //    this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
+
+        //    // Read csv results files
+        //    List<T> results = new List<T>();
+        //    foreach (string resultFile in csvPaths)
+        //    {
+        //        results.AddRange(
+        //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+        //        );
+        //    }
+
+
+        //    if (loadCombination != null)
+        //    {
+        //        if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+        //        {
+        //            throw new ArgumentException("Incorrect or unknown load combination name.");
+        //        }
+        //        results = results.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+        //    }
+        //    if (shapeId != null)
+        //    {
+        //        if ((shapeId < 1) || (shapeId > results.Select(r => r.ShapeId).Max()))
+        //        {
+        //            throw new ArgumentException("ShapeId is out of range.");
+        //        }
+        //        results = results.Where(r => r.ShapeId == shapeId).ToList();
+        //    }
+
+        //    return results;
+        //}
+
+        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IStabilityResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -854,7 +911,7 @@ namespace FemDesign
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
                 listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-                
+
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
@@ -869,7 +926,46 @@ namespace FemDesign
                 );
             }
 
-            
+            //if (typeof(T) == typeof(NodalBucklingShape))
+            //{
+            //    List<NodalBucklingShape> results = new List<NodalBucklingShape>();
+            //    foreach (string resultFile in csvPaths)
+            //    {
+            //        results.AddRange(
+            //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (NodalBucklingShape)r)
+            //        );
+            //    }
+
+            //    if (loadCombination != null)
+            //    {
+            //        if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            //        {
+            //            throw new ArgumentException("Incorrect or unknown load combination name.");
+            //        }
+            //        results = results.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            //    }
+            //    if (shapeId != null)
+            //    {
+            //        if ((shapeId < 1) || (shapeId > results.Select(r => r.Shape).Max()))
+            //        {
+            //            throw new ArgumentException("ShapeId is out of range.");
+            //        }
+            //        results = results.Where(r => r.Shape == shapeId).ToList();
+            //    }
+
+            //    List<IResult> mixedResults = new List<IResult>();
+            //    mixedResults.AddRange(results);
+
+            //    return mixedResults;
+            //}
+            //else if (typeof(T) == typeof(CriticalParameter))
+            //{
+
+            //}
+
+
+
+
             if (loadCombination != null)
             {
                 if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
@@ -880,15 +976,16 @@ namespace FemDesign
             }
             if (shapeId != null)
             {
-                if ((shapeId < 1) || (shapeId > results.Select(r => r.ShapeId).Max()))
+                if ((shapeId < 1) || (shapeId > results.Select(r => r.Shape).Max()))
                 {
                     throw new ArgumentException("ShapeId is out of range.");
                 }
-                results = results.Where(r => r.ShapeId == shapeId).ToList();
+                results = results.Where(r => r.Shape == shapeId).ToList();
             }
-
+            
             return results;
         }
+
 
         public void Save(string filePath)
         {

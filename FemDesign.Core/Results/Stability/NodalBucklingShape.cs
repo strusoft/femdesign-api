@@ -15,7 +15,7 @@ namespace FemDesign.Results
     /// FemDesign "Nodal buckling shapes" result
     /// </summary>
     [Result(typeof(NodalBucklingShape), ListProc.NodalBucklingShape)]
-    public partial class NodalBucklingShape : IResult
+    public partial class NodalBucklingShape : IResult, IStabilityResult
     {
         /// <summary>
         /// Structural object name identifier
@@ -56,7 +56,7 @@ namespace FemDesign.Results
         /// <summary>
         /// Buckling shape identifier
         /// </summary>
-        public int ShapeId { get; }
+        public int Shape { get; }
 
         [JsonConstructor]
         internal NodalBucklingShape(string id, int nodeId, double ex, double ey, double ez, double fix, double fiy, double fiz, string resultCase, int shapeID)
@@ -70,7 +70,7 @@ namespace FemDesign.Results
             this.Fiy = fiy;
             this.Fiz = fiz;
             this.CaseIdentifier = resultCase;
-            this.ShapeId = shapeID;
+            this.Shape = shapeID;
         }
 
         public override string ToString()

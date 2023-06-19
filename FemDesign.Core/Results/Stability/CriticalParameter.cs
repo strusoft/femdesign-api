@@ -15,7 +15,7 @@ namespace FemDesign.Results
     /// FemDesign "Critical parameters" result
     /// </summary>
     [Result(typeof(CriticalParameter), ListProc.CriticalParameters)]
-    public partial class CriticalParameter : IResult
+    public partial class CriticalParameter : IStabilityResult
     {
         public string CaseIdentifier { get; }
         public int Shape { get; }
