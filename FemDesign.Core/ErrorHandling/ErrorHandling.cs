@@ -16,7 +16,8 @@ namespace FemDesign.Utils
             "No declared support.",
             "No declared structure to calculate.",
             "None of the Construction stages contains any load case.",
-            "Time-dependent analysis is requested, but none of the object has Time-dependent property."
+            "Time-dependent analysis is requested, but none of the object has Time-dependent property.",
+            "Unknown error."
         };
         
         public readonly static List<string> WarningMessase = new List<string>{
