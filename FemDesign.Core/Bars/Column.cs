@@ -18,7 +18,7 @@ namespace FemDesign.Bars
 		{
 
 		}
-		public Column(Geometry.Edge edge, Materials.Material material, Sections.Section section, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B") : base(edge, BarType.Beam, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier)
+		public Column(Geometry.Edge edge, Materials.Material material, Sections.Section section, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B") : base(edge, BarType.Column, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier)
 		{
 		}
 
