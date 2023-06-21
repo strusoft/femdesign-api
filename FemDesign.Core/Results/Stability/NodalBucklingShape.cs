@@ -15,7 +15,7 @@ namespace FemDesign.Results
     /// FemDesign "Nodal buckling shapes" result
     /// </summary>
     [Result(typeof(NodalBucklingShape), ListProc.NodalBucklingShape)]
-    public partial class NodalBucklingShape : IResult, IStabilityResult
+    public partial class NodalBucklingShape : IResult
     {
         /// <summary>
         /// Structural object name identifier
