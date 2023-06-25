@@ -241,7 +241,7 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
-            if(analysis.Stability != null)
+            if (analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
 
             if (analysis.Imperfection != null)
@@ -411,7 +411,7 @@ namespace FemDesign
                 throw new Exception("There are no load combinations in the model");
 
             int index = 0;
-            foreach(var comb in loadCombinations)
+            foreach (var comb in loadCombinations)
             {
                 dictLoadComb.Add(index, comb);
                 index++;
@@ -627,7 +627,7 @@ namespace FemDesign
                 units = Results.UnitResults.Default();
 
             // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p =>  p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
 
             if (!listProcs.Any())
             {
@@ -834,237 +834,7 @@ namespace FemDesign
 
             return results;
         }
-
-        //public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : Results.NodalBucklingShape
-        //{
-        //    if (units is null)
-        //        units = Results.UnitResults.Default();
-
-        //    // Input bsc files and output csv files
-        //    var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-
-        //    var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-        //    var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
-        //    var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
-
-        //    var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-        //    bscs.ForEach(b => b.SerializeBsc());
-
-        //    // FdScript commands
-        //    List<CmdCommand> listGenCommands = new List<CmdCommand>();
-        //    listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-        //    for (int i = 0; i < bscPaths.Count; i++)
-        //        listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
-        //    // Run the script
-        //    string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-        //    var script = new FdScript(logfile, listGenCommands.ToArray());
-        //    this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
-
-        //    // Read csv results files
-        //    List<T> results = new List<T>();
-        //    foreach (string resultFile in csvPaths)
-        //    {
-        //        results.AddRange(
-        //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-        //        );
-        //    }
-
-
-        //    if (loadCombination != null)
-        //    {
-        //        if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-        //        {
-        //            throw new ArgumentException("Incorrect or unknown load combination name.");
-        //        }
-        //        results = results.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-        //    }
-        //    if (shapeId != null)
-        //    {
-        //        if ((shapeId < 1) || (shapeId > results.Select(r => r.ShapeId).Max()))
-        //        {
-        //            throw new ArgumentException("ShapeId is out of range.");
-        //        }
-        //        results = results.Where(r => r.ShapeId == shapeId).ToList();
-        //    }
-
-        //    return results;
-        //}
-
-        //Ret getResultsbyItem<NodalBucklingShape>()
-        //{
-        //
-        //}
-
-
-        public List<T> getResultsbyItem<T, TShape>(List<T> results, Func<TShape, string> selector, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null)
-            where T : IResult
-            where TShape : IResult
-        {
-            List<T> endResult = new List<T>();
-
-            var myResults = results.Cast<TShape>();
-
-            if (loadCombination != null)
-            {
-                if (!myResults.Select(selector).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-                {
-                    throw new ArgumentException("Incorrect or unknown load combination name.");
-                }
-                myResults = myResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-            if (shapeId != null)
-            {
-                if ((shapeId < 1) || (shapeId > myResults.Select(r => r.Shape).Max()))
-                {
-                    throw new ArgumentException("ShapeId is out of range.");
-                }
-                myResults = myResults.Where(r => r.Shape == shapeId).ToList();
-            }
-
-            endResult = (List<T>)myResults;
-            return endResult;
-
-        }
-
-
-        //public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
-        //{
-        //    if (units is null)
-        //        units = Results.UnitResults.Default();
-
-        //    // Input bsc files and output csv files
-        //    var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-
-        //    var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-        //    var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
-        //    var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
-
-        //    var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-        //    bscs.ForEach(b => b.SerializeBsc());
-
-        //    // FdScript commands
-        //    List<CmdCommand> listGenCommands = new List<CmdCommand>();
-        //    listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-        //    for (int i = 0; i < bscPaths.Count; i++)
-        //        listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
-        //    // Run the script
-        //    string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-        //    var script = new FdScript(logfile, listGenCommands.ToArray());
-        //    this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
-
-        //    // Read csv results files
-        //    List<T> results = new List<T>();
-        //    foreach (string resultFile in csvPaths)
-        //    {
-        //        results.AddRange(
-        //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-        //        );
-        //    }
-
-        //    //if (typeof(T) == typeof(NodalBucklingShape))
-        //    //{
-        //    //    List<NodalBucklingShape> results = new List<NodalBucklingShape>();
-        //    //    foreach (string resultFile in csvPaths)
-        //    //    {
-        //    //        results.AddRange(
-        //    //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (NodalBucklingShape)r)
-        //    //        );
-        //    //    }
-
-        //    //    if (loadCombination != null)
-        //    //    {
-        //    //        if (!results.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-        //    //        {
-        //    //            throw new ArgumentException("Incorrect or unknown load combination name.");
-        //    //        }
-        //    //        results = results.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-        //    //    }
-        //    //    if (shapeId != null)
-        //    //    {
-        //    //        if ((shapeId < 1) || (shapeId > results.Select(r => r.Shape).Max()))
-        //    //        {
-        //    //            throw new ArgumentException("ShapeId is out of range.");
-        //    //        }
-        //    //        results = results.Where(r => r.Shape == shapeId).ToList();
-        //    //    }
-
-        //    //    List<IResult> mixedResults = new List<IResult>();
-        //    //    mixedResults.AddRange(results);
-
-        //    //    return mixedResults;
-        //    //}
-        //    //else if (typeof(T) == typeof(CriticalParameter))
-        //    //{
-
-        //    //}
-
-
-        //    List<T> endResult = new List<T>();
-        //    if (typeof(T) == typeof(NodalBucklingShape))
-        //        return getResultsbyItem<T, FemDesign.Results.NodalBucklingShape>(results, loadCombination, r => r.CaseIdentifier, shapeId, units, options);
-        //    else if (typeof(T) == typeof(CriticalParameter))
-        //        return getResultsbyItem<T, FemDesign.Results.CriticalParameter>();
-        //    //
-        //    //getResultsbyItem<NodalBucklingShape>();
-        //    //getResultsbyItem<CriticalParameter>();
-
-        //    if (typeof(T) == typeof(NodalBucklingShape))
-        //    {
-        //        var myResults = results.Cast<FemDesign.Results.NodalBucklingShape>();
-        //        if (loadCombination != null)
-        //        {
-        //            if (!myResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-        //            {
-        //                throw new ArgumentException("Incorrect or unknown load combination name.");
-        //            }
-        //            myResults = myResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-        //        }
-        //        if (shapeId != null)
-        //        {
-        //            if ((shapeId < 1) || (shapeId > myResults.Select(r => r.Shape).Max()))
-        //            {
-        //                throw new ArgumentException("ShapeId is out of range.");
-        //            }
-        //            myResults = myResults.Where(r => r.Shape == shapeId).ToList();
-        //        }
-
-        //        endResult = (List<T>)myResults;
-        //        return endResult;
-        //    }
-        //    else if (typeof(T) == typeof(CriticalParameter))
-        //    {
-        //        var myResults = results.Cast<FemDesign.Results.CriticalParameter>();
-        //        if (loadCombination != null)
-        //        {
-        //            if (!myResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-        //            {
-        //                throw new ArgumentException("Incorrect or unknown load combination name.");
-        //            }
-        //            myResults = myResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-        //        }
-        //        if (shapeId != null)
-        //        {
-        //            if ((shapeId < 1) || (shapeId > myResults.Select(r => r.Shape).Max()))
-        //            {
-        //                throw new ArgumentException("ShapeId is out of range.");
-        //            }
-        //            myResults = myResults.Where(r => r.Shape == shapeId).ToList();
-        //        }
-
-        //        endResult = (List<T>)myResults;
-        //        return endResult;
-        //    }
-        //    else
-        //    {
-        //        throw new ArgumentException("This method cannot be used with the specified type.");
-        //    }
-
-        //}
-
-
-
+                
         public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
         {
             if (units is null)
@@ -1100,62 +870,70 @@ namespace FemDesign
                 );
             }
 
-
-            List<T> endResult = new List<T>();
+            // Filter results by load combination and shape identifier
+            string loadCombPropertyName;
+            string shapeIdPropertyName;
 
             if (typeof(T) == typeof(NodalBucklingShape))
             {
-                var myResults = results.Cast<FemDesign.Results.NodalBucklingShape>();
-                if (loadCombination != null)
-                {
-                    if (!myResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-                    {
-                        throw new ArgumentException("Incorrect or unknown load combination name.");
-                    }
-                    myResults = myResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                if (shapeId != null)
-                {
-                    if ((shapeId < 1) || (shapeId > myResults.Select(r => r.Shape).Max()))
-                    {
-                        throw new ArgumentException("ShapeId is out of range.");
-                    }
-                    myResults = myResults.Where(r => r.Shape == shapeId).ToList();
-                }
-
-                endResult = (List<T>)myResults;
-                return endResult;
+                loadCombPropertyName = nameof(NodalBucklingShape.CaseIdentifier);
+                shapeIdPropertyName = nameof(NodalBucklingShape.Shape);
             }
             else if (typeof(T) == typeof(CriticalParameter))
             {
-                var myResults = results.Cast<FemDesign.Results.CriticalParameter>();
-                if (loadCombination != null)
-                {
-                    if (!myResults.Select(r => r.CaseIdentifier).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-                    {
-                        throw new ArgumentException("Incorrect or unknown load combination name.");
-                    }
-                    myResults = myResults.Where(r => String.Equals(r.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                if (shapeId != null)
-                {
-                    if ((shapeId < 1) || (shapeId > myResults.Select(r => r.Shape).Max()))
-                    {
-                        throw new ArgumentException("ShapeId is out of range.");
-                    }
-                    myResults = myResults.Where(r => r.Shape == shapeId).ToList();
-                }
-
-                endResult = (List<T>)myResults;
-                return endResult;
+                loadCombPropertyName = nameof(CriticalParameter.CaseIdentifier);
+                shapeIdPropertyName = nameof(CriticalParameter.Shape);
             }
             else
             {
                 throw new ArgumentException("This method cannot be used with the specified type.");
             }
 
+            if (loadCombination != null)
+            {
+                results = FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
+            }
+            if (shapeId != null)
+            {
+                results = FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
+            }
+
+            return results;            
         }
 
+        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination) where T:IResult
+        {
+            PropertyInfo property = typeof(T).GetProperty(propertyName);
+            if (property == null)
+            {
+                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
+            }
+                            
+            if (!results.Select(r => property.GetValue(r).ToString()).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Incorrect or unknown load combination name.");
+            }
+            var filteredResults = results.Where(r => String.Equals(property.GetValue(r).ToString(), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            
+            return filteredResults;
+        }
+
+        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId) where T : IResult
+        {
+            PropertyInfo property = typeof(T).GetProperty(propertyName);
+            if (property == null)
+            {
+                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
+            }
+
+            if ((shapeId < 1) || (shapeId > (int)results.Select(r => property.GetValue(r)).Max()))
+            {
+                throw new ArgumentException("ShapeId is out of range.");
+            }
+            var filteredResults = results.Where(r => (int)property.GetValue(r) == shapeId).ToList();
+            
+            return filteredResults;
+        }
 
         public void Save(string filePath)
         {

@@ -20,15 +20,15 @@ namespace FemDesign.Results
             string path = Path.GetTempFileName();
 
             using (var stream = new StreamWriter(path)) stream.Write(@"Nodal buckling shapes, ULS / 1 - for selected objects
-                ID	Node	ex	ey	ez	fix	fiy	fiz
-                [-]	[-]	[-]	[-]	[-]	[-]	[-]	[-]
-                B.1.1	32	-0.000	-0.005	-0.000	0.003	0.000	-0.010
-                B.1.1	35	-0.000	-0.007	-0.000	0.004	0.000	-0.009
-                B.1.1	41	-0.000	-0.011	-0.000	0.006	0.000	-0.009
-                B.1.1	26	-0.000	-0.002	-0.000	0.001	0.000	-0.010
-                B.1.1	44	-0.000	-0.012	-0.000	0.007	0.000	-0.009
-                B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
-                ");
+ID	Node	ex	ey	ez	fix	fiy	fiz
+[-]	[-]	[-]	[-]	[-]	[-]	[-]	[-]
+B.1.1	32	-0.000	-0.005	-0.000	0.003	0.000	-0.010
+B.1.1	35	-0.000	-0.007	-0.000	0.004	0.000	-0.009
+B.1.1	41	-0.000	-0.011	-0.000	0.006	0.000	-0.009
+B.1.1	26	-0.000	-0.002	-0.000	0.001	0.000	-0.010
+B.1.1	44	-0.000	-0.012	-0.000	0.007	0.000	-0.009
+B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
+");
 
             var results = ResultsReader.Parse(path);
             Assert.IsTrue(results.Count == 6);
@@ -92,7 +92,7 @@ namespace FemDesign.Results
             {
                 femDesign.RunAnalysis(model, analysis);
                                 
-                var resultsBucklingComb = new List<Results.NodalBucklingShape>();
+                var resultsBuckling = new List<Results.NodalBucklingShape>();
                 var critParam = new List<Results.CriticalParameter>();
 
                 List<string> allCombNames = model.Entities.Loads.LoadCombinations.Select(r => r.Name).ToList();
@@ -103,13 +103,13 @@ namespace FemDesign.Results
                     foreach (int i in id)
                     {
                         var res = femDesign.GetStabilityResults<Results.NodalBucklingShape>(c, i);
-                        resultsBucklingComb.AddRange(res);
+                        resultsBuckling.AddRange(res);
                         var crit = femDesign.GetStabilityResults<Results.CriticalParameter>(c, i);
                         critParam.AddRange(crit);
                     }
                 }
 
-                Assert.IsNotNull(resultsBucklingComb);
+                Assert.IsNotNull(resultsBuckling);
                 Assert.IsNotNull(critParam);
             }
         }
