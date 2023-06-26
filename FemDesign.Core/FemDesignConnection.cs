@@ -834,7 +834,7 @@ namespace FemDesign
 
             return results;
         }
-                
+
         public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
         {
             if (units is null)
@@ -891,48 +891,14 @@ namespace FemDesign
 
             if (loadCombination != null)
             {
-                results = FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
+                results = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
             }
             if (shapeId != null)
             {
-                results = FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
+                results = Results.Utils.UtilResultMethods.FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
             }
 
-            return results;            
-        }
-
-        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination) where T:IResult
-        {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
-            }
-                            
-            if (!results.Select(r => property.GetValue(r).ToString()).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("Incorrect or unknown load combination name.");
-            }
-            var filteredResults = results.Where(r => String.Equals(property.GetValue(r).ToString(), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-            
-            return filteredResults;
-        }
-
-        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId) where T : IResult
-        {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
-            }
-
-            if ((shapeId < 1) || (shapeId > (int)results.Select(r => property.GetValue(r)).Max()))
-            {
-                throw new ArgumentException("ShapeId is out of range.");
-            }
-            var filteredResults = results.Where(r => (int)property.GetValue(r) == shapeId).ToList();
-            
-            return filteredResults;
+            return results;
         }
 
         public void Save(string filePath)
