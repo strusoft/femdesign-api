@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class LineSupportReaction : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the PointSupportReaction class.
+        /// Initializes a new instance of the LineSupportReaction class.
         /// </summary>
         public LineSupportReaction()
           : base("LineSupportReaction",

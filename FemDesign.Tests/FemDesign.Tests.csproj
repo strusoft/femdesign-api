@@ -84,6 +84,7 @@
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
+    <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
@@ -177,6 +178,9 @@
     </None>
     <None Include="Performance\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Stability\ReadBucklingShapesTest.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shells\EdgeConnection-model.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

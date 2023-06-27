@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class SurfaceSupportResultant : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the PointSupportReaction class.
+        /// Initializes a new instance of the SurfaceSupportResultant class.
         /// </summary>
         public SurfaceSupportResultant()
           : base("SurfaceSupportResultant",

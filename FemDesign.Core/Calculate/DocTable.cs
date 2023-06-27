@@ -134,6 +134,26 @@ namespace FemDesign.Calculate
             Option = options ?? Options.GetOptions(resultType);
         }
 
+        /// <summary>
+        /// DocTable to return the buckling shape and imperfection shapes
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="loadCombination"></param>
+        /// <param name="shapeID"></param>
+        /// <param name="unitResult"></param>
+        /// <param name="options"></param>
+        public DocTable(ListProc resultType, string loadCombination, int? shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        {
+            ListProc = resultType;
+            ResType = GetResType(resultType);
+            if((loadCombination != null) || (shapeID != null))
+            {
+                Suffix = $"{loadCombination} / {shapeID}";
+            }
+            CaseIndex = GetDefaultCaseIndex(resultType);
+            Units = Results.Units.GetUnits(unitResult);
+            Option = options ?? Options.GetOptions(resultType);
+        }
         private int GetResType(ListProc resultType)
         {
             /*
@@ -150,6 +170,8 @@ namespace FemDesign.Calculate
                 return 1;
             if (r.EndsWith("LoadCombination"))
                 return 3;
+            if (r.EndsWith("BucklingShape"))
+                return 5;
             if (r.StartsWith("NodalVibrationShape"))
                 return 6;
 
@@ -163,7 +185,7 @@ namespace FemDesign.Calculate
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
-            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape"))
+            if (r.EndsWith("LoadCombination") || r.StartsWith("NodalVibrationShape") || r.EndsWith("BucklingShape"))
                 return -1; // All load combinations
 
             throw new FormatException($"Default case index of ResultType.{resultType} not known.");

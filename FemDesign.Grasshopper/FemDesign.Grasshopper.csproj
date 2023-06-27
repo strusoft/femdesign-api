@@ -128,6 +128,7 @@
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
+    <Compile Include="Pipe\PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
+    <Compile Include="Results\Stability\NodalBucklingShape.cs" />
     <Compile Include="Results\Stability\StabilityImperfection.cs" />
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />

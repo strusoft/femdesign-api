@@ -103,19 +103,15 @@
     <Compile Include="Reinforcement\StirrupsReinforcement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
     <Compile Include="Results\RC design\RCBarUtilization.cs" />
-    <Compile Include="Results\RC design\RCBarUtilization.cs" />
-    <Compile Include="Results\RC design\RCBarUtilization.cs" />
     <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
     <Compile Include="Results\RC design\RCShellShearCapacity.cs" />
     <Compile Include="Results\RC design\RCShellShearUtilization.cs" />
     <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
+    <Compile Include="Results\Stability\NodalBucklingShape.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
-    <Compile Include="Results\Stability\CriticalParameter.cs" />
-    <Compile Include="Results\Stability\ImperfectionFactor.cs" />
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
-    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
-    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
+    <Compile Include="Results\Utils\UtilResultMethods.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
@@ -452,6 +448,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

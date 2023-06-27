@@ -58,14 +58,15 @@ namespace FemDesign.Grasshopper
             if (_runNode == false)
             {
                 _success = false;
+                _connection = null;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                //ReportProgress(Id, "P");
                 return;
             }
 
             if (_connection == null)
             {
                 _success = false;
+                _connection = null;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
                 return;
             }
@@ -73,6 +74,7 @@ namespace FemDesign.Grasshopper
             if (_connection.IsDisconnected)
             {
                 _success = false;
+                _connection = null;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
                 return;
             }
@@ -80,6 +82,7 @@ namespace FemDesign.Grasshopper
             if (_connection.HasExited)
             {
                 _success = false;
+                _connection = null;
                 Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
                 return;
             }
@@ -93,6 +96,8 @@ namespace FemDesign.Grasshopper
 
             if(_units == null)
                 _units = Results.UnitResults.Default();
+
+            ReportProgress("", "");
 
             _fdFea = _connection.GetFeaModel(_units.Length);
             _success = true;

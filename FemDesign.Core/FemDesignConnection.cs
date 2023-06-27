@@ -14,6 +14,7 @@ using FemDesign;
 using FemDesign.Calculate;
 using FemDesign.Bars;
 using System.Globalization;
+using FemDesign.Results;
 
 namespace FemDesign
 {
@@ -242,7 +243,7 @@ namespace FemDesign
             if (analysis is null)
                 analysis = Analysis.StaticAnalysis();
 
-            if(analysis.Stability != null)
+            if (analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
 
             if (analysis.Imperfection != null)
@@ -412,7 +413,7 @@ namespace FemDesign
                 throw new Exception("There are no load combinations in the model");
 
             int index = 0;
-            foreach(var comb in loadCombinations)
+            foreach (var comb in loadCombinations)
             {
                 dictLoadComb.Add(index, comb);
                 index++;
@@ -464,8 +465,9 @@ namespace FemDesign
 
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -627,7 +629,7 @@ namespace FemDesign
                 units = Results.UnitResults.Default();
 
             // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p =>  p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
 
             if (!listProcs.Any())
             {
@@ -720,7 +722,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a LoadCombination result type!");
             }
 
-            // listproc that are only load case
+            // listproc that are only load combination
             var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
@@ -834,6 +836,73 @@ namespace FemDesign
 
             return results;
         }
+
+        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            // Filter results by load combination and shape identifier
+            string loadCombPropertyName;
+            string shapeIdPropertyName;
+
+            if (typeof(T) == typeof(NodalBucklingShape))
+            {
+                loadCombPropertyName = nameof(NodalBucklingShape.CaseIdentifier);
+                shapeIdPropertyName = nameof(NodalBucklingShape.Shape);
+            }
+            else if (typeof(T) == typeof(CriticalParameter))
+            {
+                loadCombPropertyName = nameof(CriticalParameter.CaseIdentifier);
+                shapeIdPropertyName = nameof(CriticalParameter.Shape);
+            }
+            else
+            {
+                throw new ArgumentException("This method cannot be used with the specified type.");
+            }
+
+            if (loadCombination != null)
+            {
+                results = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
+            }
+            if (shapeId != null)
+            {
+                results = Results.Utils.UtilResultMethods.FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
+            }
+
+            return results;
+        }
+
         public void Save(string filePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);

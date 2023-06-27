@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class ShellInternalForce : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the ShellInternalForce class.
         /// </summary>
         public ShellInternalForce()
           : base("ShellForce",

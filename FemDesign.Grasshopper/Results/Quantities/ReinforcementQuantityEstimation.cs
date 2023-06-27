@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
     public class ReinforcementQuantityEstimation : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the ReinforcementQuantityEstimation class.
         /// </summary>
         public ReinforcementQuantityEstimation()
           : base("ReinforcementQuantityEstimation",

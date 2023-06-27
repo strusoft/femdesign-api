@@ -52,6 +52,7 @@ namespace FemDesign.Grasshopper
                 nameof(FemDesign.Results.LabelledSectionResultant),
                 nameof(FemDesign.Results.NodalVibration),
                 nameof(FemDesign.Results.EigenFrequencies),
+                nameof(FemDesign.Results.NodalBucklingShape),
                 nameof(FemDesign.Results.CriticalParameter),
                 nameof(FemDesign.Results.ImperfectionFactor),
                 nameof(FemDesign.Results.QuantityEstimationConcrete),

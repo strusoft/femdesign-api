@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class ShellStress : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the ShellStress class.
         /// </summary>
         public ShellStress()
           : base("ShellStress",

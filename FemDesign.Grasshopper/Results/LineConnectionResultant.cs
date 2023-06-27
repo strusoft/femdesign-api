@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class LineConnectionResultant : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the LineConnectionResultant class.
         /// </summary>
         public LineConnectionResultant()
           : base("LineConnectionResultant",

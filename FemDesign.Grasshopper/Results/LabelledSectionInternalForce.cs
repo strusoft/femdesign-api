@@ -12,7 +12,7 @@ namespace FemDesign.Grasshopper
     public class LabelledSectionInternalForce : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent1 class.
+        /// Initializes a new instance of the LabelledSectionInternalForce class.
         /// </summary>
         public LabelledSectionInternalForce()
           : base("LabelledSectionInternalForce",

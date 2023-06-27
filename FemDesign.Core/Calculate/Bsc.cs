@@ -52,7 +52,6 @@ namespace FemDesign.Calculate
 
         }
 
-
         public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
@@ -62,6 +61,20 @@ namespace FemDesign.Calculate
             BscPath = Path.GetFullPath(bscPath);
             Cwd = Path.GetDirectoryName(BscPath);
             DocTable = new DocTable(resultType, unitResult, allLoadCase, options);
+            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
+            CmdEndSession = new CmdEndSession();
+            SerializeBsc(); // why it is in the constructor?
+        }
+
+        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int? shapeID, Results.UnitResults unitResult = null, Options options = null)
+        {
+            if (Path.GetExtension(bscPath) != ".bsc")
+            {
+                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
+            }
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
+            DocTable = new DocTable(resultType, loadCombination, shapeID, unitResult, options);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
             SerializeBsc(); // why it is in the constructor?
