@@ -107,7 +107,6 @@ namespace FemDesign.Grasshopper
             // Return the unique shape identifiers
             var uniqueShapeId = nodalBucklingShape.Select(n => n.Shape).Distinct().ToList();
 
-
             // Select the Nodal Buckling shapes for the selected Load Combination
             if (caseIdentifier != null)
             {
@@ -122,7 +121,6 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-
             // Select the Nodal Buckling shapes for the selected Shape identifier
             if (modeShapeId != null)
             {
@@ -135,8 +133,7 @@ namespace FemDesign.Grasshopper
                     throw new System.ArgumentException("Shape index is unknown or out of range.");
                 }
             }
-            
-            
+
             // Parse Results from the object
             var identifier = nodalBucklingShape.Select(n => n.Id).ToList();
             var caseId = nodalBucklingShape.Select(n => n.CaseIdentifier).ToList();
