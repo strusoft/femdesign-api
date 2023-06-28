@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.Geometry;
+using FemDesign.GenericClasses;
 
 
 namespace FemDesign.FiniteElements
 {
     [System.Serializable]
-    public partial class PeakSmoothingRegion : EntityBase
+    public partial class PeakSmoothingRegion : EntityBase, IStructureElement
     {
         [XmlAttribute("inactive")]
         public bool _inactive = false;
@@ -24,7 +25,8 @@ namespace FemDesign.FiniteElements
         {
             get { return this._contour; }
             set { this._contour = value; }
-        }        
+        }
+        
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -35,11 +37,13 @@ namespace FemDesign.FiniteElements
 
         public PeakSmoothingRegion(Region region, bool inactive = false)
         {
+            this.EntityCreated();
             this.Contours = region.Contours;
             this.Inactive = inactive;
         }
         public PeakSmoothingRegion(List<Geometry.Contour> contours, bool inactive = false)
         {
+            this.EntityCreated();
             this.Contours = contours;
             this.Inactive = inactive;
         }

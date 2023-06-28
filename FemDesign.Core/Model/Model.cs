@@ -148,7 +148,7 @@ namespace FemDesign
         public Model(Country country, List<IStructureElement> elements = null, List<ILoadElement> loads = null, List<Loads.LoadCase> loadCases = null, List<Loads.LoadCombination> loadCombinations = null, List<Loads.ModelGeneralLoadGroup> loadGroups = null, ConstructionStages constructionStage = null, Soil.SoilElements soil = null, bool overwrite = false)
         {
             Initialize(country);
-
+            
             if (elements != null)
                 AddElements(elements, overwrite: false);
             if (loads != null)
@@ -2991,6 +2991,49 @@ namespace FemDesign
             return false;
         }
 
+        /// <summary>
+        /// Add PeakSmoothingRegion to Model
+        /// </summary>
+        private void AddPeakSmoothingRegion(FiniteElements.PeakSmoothingRegion obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PeakSmoothingRegionInModel(obj);
+
+            // in model, don't overwrite
+            if(inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            if(inModel && overwrite)
+            {
+                this.Entities.PeakSmoothingRegions.RemoveAll(p => p == obj.Guid);
+                this.Entities.PeakSmoothingRegions.Add(obj);
+            }
+
+            // not in model
+            if (!inModel)
+            {
+                this.Entities.PeakSmoothingRegions.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Check if PeakSmoothingRegion in Model
+        /// </summary>
+        private bool PeakSmoothingRegionInModel(FiniteElements.PeakSmoothingRegion obj)
+        {
+            foreach (FiniteElements.PeakSmoothingRegion elem in this.Entities.PeakSmoothingRegions)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void AddTextAnnotation(Drawing.TextAnnotation obj, bool overwrite)
         {
             if (this.Geometry == null)
@@ -3285,6 +3328,7 @@ namespace FemDesign
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
         private void AddEntity(AuxiliaryResults.ResultPoint obj, bool overwrite) => AddResultPoint(obj, overwrite);
+        private void AddEntity(FiniteElements.PeakSmoothingRegion obj, bool overwrite) => AddPeakSmoothingRegion(obj, overwrite);
 
         #region FOUNDATIONS
         private void AddEntity(Foundations.IsolatedFoundation obj, bool overwrite) => AddIsolatedFoundation(obj, overwrite);
