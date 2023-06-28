@@ -67,6 +67,7 @@
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
+    <Compile Include="FiniteElements\PeakSmoothingRegion.cs" />
     <Compile Include="Foundations\CuboidPlinth.cs" />
     <Compile Include="Foundations\ExtrudedSolid.cs" />
     <Compile Include="Foundations\Foundations.cs" />

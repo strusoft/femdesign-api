@@ -88,6 +88,9 @@ namespace FemDesign
         [XmlElement("result_points", Order = 24)]
         public AuxiliaryResults.ResultPointsGeometry ResultPoints;
 
+        [XmlElement("peak_smoothing_region", Order =25)]
+        public FiniteElements.PeakSmoothingRegion PeakSmoothingRegion;
+
         // ref planes
         // tsolids
         // regions
