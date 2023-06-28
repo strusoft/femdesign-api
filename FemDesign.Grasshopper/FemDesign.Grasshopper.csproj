@@ -244,6 +244,7 @@
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\SlabPeakSmoothingRegion.cs" />
     <Compile Include="Shells\Slab.SetStiffnessModifier.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabWall.cs" />

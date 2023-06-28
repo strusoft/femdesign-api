@@ -2399,5 +2399,17 @@ namespace FemDesign.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SlabPeakSmoothingRegion
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("SlabPeakSmoothingRegion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
