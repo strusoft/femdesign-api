@@ -1913,6 +1913,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SlabPeakSmoothingRegion {
+            get {
+                object obj = ResourceManager.GetObject("SlabPeakSmoothingRegion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SlabSetAverageElementSize {
             get {
                 object obj = ResourceManager.GetObject("SlabSetAverageElementSize", resourceCulture);
@@ -2396,18 +2406,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap WireDefine {
             get {
                 object obj = ResourceManager.GetObject("WireDefine", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SlabPeakSmoothingRegion
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("SlabPeakSmoothingRegion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

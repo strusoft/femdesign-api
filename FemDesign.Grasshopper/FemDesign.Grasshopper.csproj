@@ -907,6 +907,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <Content Include="Resources\icons\SlabPeakSmoothingRegion.png" />
+    <None Include="Resources\SlabPeakSmoothingRegion.bmp" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
     <None Include="Resources\icons\Patch.png.png" />

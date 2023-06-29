@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// https://strusoft.com/
+using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using FemDesign;
 
 namespace FemDesign.Grasshopper
 {
@@ -20,7 +19,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("SmoothingRegion", "SmRegion", "Peak smoothing region.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SmoothingRegion", "SmRegion", "Peak smoothing region object. It should be added to the model as an element.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -34,10 +33,10 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            if (region == null) return;          
+            if (region == null) return;
 
-            Geometry.Region fdRegion = region.FromRhino();
-            var output = new FiniteElements.PeakSmoothingRegion(fdRegion, inactive);
+            FemDesign.Geometry.Region fdRegion = region.FromRhino();
+            var output = new FemDesign.FiniteElements.PeakSmoothingRegion(fdRegion, inactive);
 
             // get output
             DA.SetData(0, output);
