@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Region", "Region", "Region", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Region", "Region", "Region.", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Inactive", "Inactive", "Set the smoothing region to active or inactive. If true, the smoothing region is inactive.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -25,14 +25,15 @@ namespace FemDesign.Grasshopper
         {
             // get input
             Brep region = null;
-            if(!DA.GetData(0, ref region)) return;
+            if (!DA.GetData(0, ref region)) return;
 
             bool inactive = false;
-            if(!DA.GetData(1, ref inactive))
+            if (!DA.GetData(1, ref inactive))
             {
                 // pass
             }
 
+            // check input
             if (region == null) return;
 
             FemDesign.Geometry.Region fdRegion = region.FromRhino();

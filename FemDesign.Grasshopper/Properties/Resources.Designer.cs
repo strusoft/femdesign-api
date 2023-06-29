@@ -1413,6 +1413,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PeakSmoothingRegionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("PeakSmoothingRegionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Plate {
             get {
                 object obj = ResourceManager.GetObject("Plate", resourceCulture);

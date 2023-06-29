@@ -47,14 +47,14 @@
             return new string(' ', 5) + "Loads";
         }
 
-        public static string Cat4b()
-        {
-            return new string(' ', 4) + "Sections";
-        }
-
         public static string Cat4a()
         {
             return new string(' ', 4) + "Materials";
+        }
+
+        public static string Cat4b()
+        {
+            return new string(' ', 4) + "Sections";
         }
 
         public static string Cat5()

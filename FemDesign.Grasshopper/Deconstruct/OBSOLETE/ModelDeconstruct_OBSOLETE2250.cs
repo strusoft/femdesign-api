@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelDeconstruct : GH_Component
+    public class ModelDeconstruct_OBSOLETE2250 : GH_Component
     {
-        public ModelDeconstruct() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
+        public ModelDeconstruct_OBSOLETE2250() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
         {
 
         }
@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Axes", "Axes", "Single axis element or list of axis elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Storeys", "Storeys", "Single storey element or list of storey elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Stages", "Stages", "Single Stage element of list of stage elements.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("PeakSmoothingRegion", "SmRegion", "Single peak smoothing region element or list of peak smoothing region elements.", GH_ParamAccess.list);
+
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -77,6 +77,7 @@ namespace FemDesign.Grasshopper
                 stages = model.ConstructionStages.Stages;
             }
 
+
             List<FemDesign.AuxiliaryResults.LabelledSection> labelledSections = null;
             if (model.Entities.LabelledSections != null)
             {
@@ -102,7 +103,6 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Axes", axes);
             DA.SetDataList("Storeys", storeys);
             DA.SetDataList("Stages", stages);
-            DA.SetDataList("PeakSmoothingRegion", model.Entities.PeakSmoothingRegions);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -113,10 +113,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("D1D71B03-EA95-473E-B288-B3A35034BAD8"); }
+            get { return new Guid("{39B6F9A7-16EE-4407-806D-642AFF5719DC}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

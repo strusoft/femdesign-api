@@ -114,6 +114,8 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2250.cs" />
+    <Compile Include="Deconstruct\PeakSmoothingRegionDeconstruct.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
@@ -907,6 +909,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\PeakSmoothingRegionDeconstruct.png" />
     <Content Include="Resources\icons\SlabPeakSmoothingRegion.png" />
     <None Include="Resources\SlabPeakSmoothingRegion.bmp" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
