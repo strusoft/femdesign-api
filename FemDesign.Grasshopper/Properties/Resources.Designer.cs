@@ -703,6 +703,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImperfectionDefine {
+            get {
+                object obj = ResourceManager.GetObject("ImperfectionDefine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Insulation {
             get {
                 object obj = ResourceManager.GetObject("Insulation", resourceCulture);
@@ -1936,6 +1946,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap Soil {
             get {
                 object obj = ResourceManager.GetObject("Soil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StabilityDefine {
+            get {
+                object obj = ResourceManager.GetObject("StabilityDefine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
