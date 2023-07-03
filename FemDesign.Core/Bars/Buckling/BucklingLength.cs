@@ -33,55 +33,16 @@ namespace FemDesign.Bars.Buckling
         }
 
         [XmlAttribute("sway")]
-        public string _sway;
-
-        [XmlIgnore]
-        public bool Sway
-        {
-            get
-            {
-                return bool.Parse(this._sway);
-            }
-            set
-            {
-                this._sway = value.ToString();
-            }
-        }
+        public bool Sway;
 
         [XmlAttribute("load_position")]
         public VerticalAlignment LoadPosition { get; set; }
 
         [XmlAttribute("continously_restrained")]
-        public string _continouslyRestrained;
-        
-        [XmlIgnore]
-        public bool ContinouslyRestrained
-        {
-            get
-            {
-                return bool.Parse(this._continouslyRestrained);
-            }
-            set
-            {
-                this._continouslyRestrained = value.ToString();
-            }
-        }
+        public bool ContinouslyRestrained;
 
         [XmlAttribute("cantilever")]
-        public string _cantilever;
-
-        [XmlIgnore]
-        public bool Cantilever
-        {
-            get
-            {
-                return bool.Parse(this._cantilever);
-            }
-            set
-            {
-                this._cantilever = value.ToString();
-            }
-        }
+        public bool Cantilever;
 
         [XmlElement("position")]
         public Position Position { get; set; } // segmentposition_type

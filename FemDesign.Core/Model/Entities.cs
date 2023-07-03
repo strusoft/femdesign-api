@@ -59,33 +59,36 @@ namespace FemDesign
         [XmlElement("shear_control_region", Order = 15)]
         public List<Reinforcement.ShearControlRegionType> NoShearControlRegions { get; set; } = new List<Reinforcement.ShearControlRegionType>();
 
+        [XmlElement("surface_shear_reinforcement", Order = 16)]
+        public List<StruSoft.Interop.StruXml.Data.Surface_shear_rf_type> SurfaceShearReinforcement { get; set; }
+
         //[XmlElement("surface_shear_reinforcement", Order = 14)]
 
-        [XmlElement("panel", Order = 16)]
+        [XmlElement("panel", Order = 17)]
         public List<Shells.Panel> Panels { get; set; } = new List<Shells.Panel>();
 
-        [XmlElement("post-tensioned_cable", Order = 17)]
+        [XmlElement("post-tensioned_cable", Order = 18)]
         public List<Reinforcement.Ptc> PostTensionedCables { get; set; } = new List<Reinforcement.Ptc>();
 
-        [XmlElement("loads", Order = 18)]
+        [XmlElement("loads", Order = 19)]
         public Loads.Loads Loads { get; set; } = new Loads.Loads();
 
-        [XmlElement("supports", Order = 19)]
+        [XmlElement("supports", Order = 20)]
         public Supports.Supports Supports { get; set; } = new Supports.Supports();
 
-        [XmlElement("advanced-fem", Order = 20)]
+        [XmlElement("advanced-fem", Order = 21)]
         public AdvancedFem AdvancedFem { get; set; } = new AdvancedFem();
 
-        [XmlElement("storeys", Order = 21)]
+        [XmlElement("storeys", Order = 22)]
         public StructureGrid.Storeys Storeys { get; set; }
 
-        [XmlElement("axes", Order = 22)]
+        [XmlElement("axes", Order = 23)]
         public StructureGrid.Axes Axes { get; set; }
 
-        [XmlElement("labelled_sections_geometry", Order = 23)]
+        [XmlElement("labelled_sections_geometry", Order = 24)]
         public AuxiliaryResults.LabelledSectionsGeometry LabelledSections;
 
-        [XmlElement("result_points", Order = 24)]
+        [XmlElement("result_points", Order = 25)]
         public AuxiliaryResults.ResultPointsGeometry ResultPoints;
 
         // ref planes
