@@ -26,7 +26,17 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("QuantityType", "QuantityType", "Quantity type:\nQuantityEstimationConcrete\nQuantityEstimationReinforcement\nQuantityEstimationSteel\nQuantityEstimationTimber\nQuantityEstimationTimberPanel\nQuantityEstimationMasonry\nQuantityEstimationGeneral\nQuantityEstimationProfiledPanel", GH_ParamAccess.item);
+            pManager.AddTextParameter(
+                "QuantityType", "QuantityType", 
+                "Quantity type:\n\n" +
+                nameof(ListProc.QuantityEstimationConcrete) + "\n" +
+                nameof(ListProc.QuantityEstimationReinforcement) + "\n" +
+                nameof(ListProc.QuantityEstimationSteel) + "\n" +
+                nameof(ListProc.QuantityEstimationTimber) + "\n" +
+                nameof(ListProc.QuantityEstimationTimberPanel) + "\n" +
+                nameof(ListProc.QuantityEstimationMasonry) + "\n" +
+                nameof(ListProc.QuantityEstimationGeneral) + "\n" +
+                nameof(ListProc.QuantityEstimationProfiledPanel), GH_ParamAccess.item);
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -53,8 +63,9 @@ namespace FemDesign.Grasshopper
 
         public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
         {
+            var method = nameof(FemDesign.FemDesignConnection.GetQuantities);
             List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod("GetQuantities").MakeGenericMethod(resultType);
+            MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
             dynamic result = genericMethod.Invoke(_connection, new object[] { units });
             mixedResults.AddRange(result);
             return mixedResults;
