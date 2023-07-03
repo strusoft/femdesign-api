@@ -35,6 +35,14 @@ namespace FemDesign.Grasshopper
 
             // check input
             if (region == null) return;
+            foreach (BrepEdge edge in region.Edges)
+            {
+                if((edge.Degree >= 2) && !edge.IsArc())
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Incorrect region boundary. Boundary curves must be lines or arcs.");
+                    return;
+                }
+            }
 
             FemDesign.Geometry.Region fdRegion = region.FromRhino();
             var output = new FemDesign.FiniteElements.PeakSmoothingRegion(fdRegion, inactive);

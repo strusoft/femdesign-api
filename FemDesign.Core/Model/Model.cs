@@ -2996,6 +2996,9 @@ namespace FemDesign
         /// </summary>
         private void AddPeakSmoothingRegion(FiniteElements.PeakSmoothingRegion obj, bool overwrite)
         {
+            if (this.Entities.PeakSmoothingRegions == null)
+                this.Entities.PeakSmoothingRegions = new List<FiniteElements.PeakSmoothingRegion>();
+
             // in model?
             bool inModel = this.PeakSmoothingRegionInModel(obj);
 
