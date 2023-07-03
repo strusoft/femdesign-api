@@ -442,6 +442,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
+    <EmbeddedResource Include="Resources\Vehicles\vehicles.struxml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Calculate\Config\cmdglobalcfg.xml">

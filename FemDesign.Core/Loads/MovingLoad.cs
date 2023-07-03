@@ -1,24 +1,41 @@
 ﻿using FemDesign.Bars.Buckling;
 using FemDesign.Geometry;
 using FemDesign.LibraryItems;
+using FemDesign.Sections;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+using StruSoft.Interop.StruXml.Data;
+using FemDesign.GenericClasses;
+using Newtonsoft.Json.Serialization;
+using FemDesign.Materials;
+
 namespace FemDesign.Loads
 {
     [System.Serializable]
-    public partial class MovingLoad : EntityBase
+    public partial class MovingLoad : EntityBase, ILoadElement
     {
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         [XmlAttribute("vehicle")]
-        public Guid vehicleGuid;
+        public Guid _vehicleGuid
+        {
+            get
+            {
+                return new Guid(this.Vehicle.AnyAttr.FirstOrDefault(attr => attr.Name == "guid").Value);
+            }
+        }
+
+        [XmlIgnore]
+        public Vehicle_lib_type Vehicle { get; set; }
 
         [DefaultValue(0.0)]
         [XmlAttribute("vehicle_shift_x")]
@@ -91,7 +108,7 @@ namespace FemDesign.Loads
         }
 
         [XmlElement("vehicle_positions")]
-        public VehiclePosition Vehicle { get; set; }
+        public VehiclePosition VehiclePosition { get; set; }
 
         [DefaultValue(false)]
         [XmlAttribute("return")]
@@ -108,18 +125,84 @@ namespace FemDesign.Loads
 
         private MovingLoad() { }
 
-        public MovingLoad(string name, Guid vehicleGuid, List<Point3d> pathPosition, List<Point3d> vehiclePosition, bool returnPath = false, bool lockDirection = false, bool cutLoadsToPathExtent = false)
+        public MovingLoad(string name, Vehicle_lib_type vehicle, List<Point3d> pathPosition, List<Point3d> vehiclePosition, double shiftX = 0.00, double shiftY = 0.00, bool returnPath = false, bool lockDirection = false, bool cutLoadsToPathExtent = false)
         {
             this.EntityCreated();
             this.Name = name;
-            this.vehicleGuid = vehicleGuid;
             this.PathPosition = pathPosition;
+            this.VehiclePosition = new VehiclePosition(vehiclePosition);
+            this.Vehicle = vehicle;
+            this.DivisionPoint = vehiclePosition.Count;
 
-            this.Vehicle = new VehiclePosition(vehiclePosition);
-            this.DivisionDistance = vehiclePosition.Count;
+            this.VehicleShiftX = shiftX;
+            this.VehicleShiftY = shiftY;
             this.Return = returnPath;
             this.LockDirection = lockDirection;
             this.CutToPath = cutLoadsToPathExtent;
+        }
+
+
+        public static implicit operator Moving_load_type(MovingLoad obj)
+        {
+            var movingLoad = new StruSoft.Interop.StruXml.Data.Moving_load_type();
+
+            movingLoad.Name = obj.Name;
+            movingLoad.Guid = obj.Guid.ToString();
+            movingLoad.Vehicle_shift_x = obj.VehicleShiftX;
+            movingLoad.Vehicle_shift_y = obj.VehicleShiftY;
+
+            movingLoad.Vehicle = obj._vehicleGuid.ToString();
+            movingLoad.Lock_direction = obj.LockDirection;
+            movingLoad.Cut_to_path = obj.CutToPath;
+            movingLoad.Return = obj.Return;
+
+            var fdPoints = new List<StruSoft.Interop.StruXml.Data.Point_type_3d>();
+            foreach(var pt in obj.PathPosition)
+            {
+                var fdPoint = new StruSoft.Interop.StruXml.Data.Point_type_3d();
+                fdPoint.X = pt.X;
+                fdPoint.Y = pt.Y;
+                fdPoint.Z = pt.Z;
+
+                fdPoints.Add(fdPoint);
+            }
+
+            var divisionPoint = new StruSoft.Interop.StruXml.Data.Path_division_number_type();
+            divisionPoint.Value = obj.DivisionPoint;
+
+            var items = new List<object>();
+            items.Add(divisionPoint);
+
+            foreach(var _obj in fdPoints)
+            {
+                items.Add(_obj);
+            }
+
+            movingLoad.Items = items.ToArray<object>();
+
+            var divisionPointItems = new ItemsChoiceType3[] { ItemsChoiceType3.Division_points };
+            var pathPositionsItems = Enumerable.Repeat(ItemsChoiceType3.Path_position, fdPoints.Count).ToArray();
+            movingLoad.ItemsElementName = divisionPointItems.Concat(pathPositionsItems).ToArray();
+
+            var vehiclePosition = new Moving_load_typeVehicle_positions();
+
+            var fdVehiclePosition = new List<StruSoft.Interop.StruXml.Data.Point_type_3d>();
+            foreach (var pt in obj.VehiclePosition.Position)
+            {
+                var fdPoint = new StruSoft.Interop.StruXml.Data.Point_type_3d();
+                fdPoint.X = pt.X;
+                fdPoint.Y = pt.Y;
+                fdPoint.Z = pt.Z;
+
+                fdVehiclePosition.Add(fdPoint);
+            }
+
+
+            vehiclePosition.Position = fdVehiclePosition;
+            movingLoad.Items1 = new object[] { vehiclePosition };
+            movingLoad.Items1ElementName = new Items1ChoiceType[] { Items1ChoiceType.Vehicle_positions };
+
+            return movingLoad;
         }
     }
 

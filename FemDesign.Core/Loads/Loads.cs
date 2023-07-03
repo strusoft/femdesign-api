@@ -56,7 +56,7 @@ namespace FemDesign.Loads
         public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
 
         [XmlElement("moving_load", Order = 16)]
-        public List<Moving_load_type> MovingLoads { get; set; } // moving_load_type
+        public List<StruSoft.Interop.StruXml.Data.Moving_load_type> MovingLoads { get; set; } // moving_load_type
 
         [XmlElement("load_case", Order = 17)]
         public List<LoadCase> LoadCases = new List<LoadCase>(); // load_case_type
