@@ -906,6 +906,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\Vehicle.png" />
     <None Include="Resources\icons\MovingLoad.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />

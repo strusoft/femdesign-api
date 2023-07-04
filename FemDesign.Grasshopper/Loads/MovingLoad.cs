@@ -23,9 +23,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Moving load name", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Vehicle", "Vehicle", "Vehicle name. \"Connect 'ValueList' component to get the names.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Vehicle", "Vehicle", "Vehicle or FemDesign vehicle name. \"Connect 'ValueList' component to get the names.", GH_ParamAccess.item);
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the vehicle path.", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("DivisionNumber", "DivisionNumber", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("DivisionNumber", "DivisionNumber", "Number of steps for the moving load. The curve will be divided in equally distance segments", GH_ParamAccess.item);
             pManager.AddNumberParameter("ShiftX", "ShiftX", "", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("ShiftY", "ShiftY", "", GH_ParamAccess.item);
@@ -107,7 +107,7 @@ namespace FemDesign.Grasshopper
             DA.GetData("CutPath", ref cutPath);
 
             Point3d[] vehiclePositions;
-            curve.DivideByCount(divisionNumber, true, out vehiclePositions);
+            curve.DivideByCount(divisionNumber - 1, true, out vehiclePositions);
 
             var vehiclePos = vehiclePositions.Select(x => x.FromRhino()).ToList();
 
