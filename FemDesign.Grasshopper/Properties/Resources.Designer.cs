@@ -1433,6 +1433,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PeakSmoothingRegion {
+            get {
+                object obj = ResourceManager.GetObject("PeakSmoothingRegion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PeakSmoothingRegionDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("PeakSmoothingRegionDeconstruct", resourceCulture);
@@ -1936,16 +1946,6 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SlabDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("SlabDeconstruct", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SlabPeakSmoothingRegion {
-            get {
-                object obj = ResourceManager.GetObject("SlabPeakSmoothingRegion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -198,6 +198,11 @@
     <Compile Include="Pipe\OBSOLETE\PipeRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reinforcement\BarReinforcementLongitudinal.cs" />
     <Compile Include="Reinforcement\BarReinforcementStirrups.cs" />
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnBar.cs" />
@@ -417,11 +422,6 @@
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
     <Compile Include="Supports\SurfaceSupportConstruct.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -911,13 +911,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
-    <None Include="Resources\StabilityDefine.png" />
-    <None Include="Resources\ImperfectionDefine.png" />
+    <None Include="Resources\icons\StabilityDefine.png" />
     <None Include="Resources\icons\Vehicle.png" />
     <None Include="Resources\icons\MovingLoad.png" />
     <None Include="Resources\icons\PeakSmoothingRegionDeconstruct.png" />
-    <Content Include="Resources\icons\SlabPeakSmoothingRegion.png" />
-    <None Include="Resources\SlabPeakSmoothingRegion.bmp" />
+    <None Include="Resources\icons\ImperfectionDefine.png" />
+    <None Include="Resources\icons\PeakSmoothingRegion.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
     <None Include="Resources\icons\Patch.png.png" />

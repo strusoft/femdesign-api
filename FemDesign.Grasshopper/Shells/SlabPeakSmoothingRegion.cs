@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
         }
         protected override System.Drawing.Bitmap Icon
         {
-            get { return FemDesign.Properties.Resources.SlabPeakSmoothingRegion; }
+            get { return FemDesign.Properties.Resources.PeakSmoothingRegion; }
         }
         public override Guid ComponentGuid
         {
