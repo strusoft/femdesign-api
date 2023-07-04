@@ -204,6 +204,11 @@ namespace FemDesign.Loads
 
             return movingLoad;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} Name: {this.Name}, Vehicle: {this.Vehicle.Name}, LockDirection: {this.LockDirection}: Return: {this.Return}, CutToPath: {this.CutToPath}";
+        }
     }
 
     public partial class VehiclePosition
