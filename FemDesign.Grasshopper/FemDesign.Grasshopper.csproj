@@ -119,6 +119,8 @@
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
     <Compile Include="Loads\LoadGroupToLoadComb.cs" />
+    <Compile Include="Loads\MovingLoad.cs" />
+    <Compile Include="Loads\VehicleFromStruxml.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
@@ -908,6 +910,8 @@
     <Content Include="images\logo.png" />
     <None Include="Resources\StabilityDefine.png" />
     <None Include="Resources\ImperfectionDefine.png" />
+    <None Include="Resources\icons\Vehicle.png" />
+    <None Include="Resources\icons\MovingLoad.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
     <None Include="Resources\icons\Patch.png.png" />

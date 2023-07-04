@@ -132,6 +132,7 @@
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
     <Compile Include="Shells\SlabTest.cs" />
+    <Compile Include="Vehicle\VehicleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\fdscript.xsd">

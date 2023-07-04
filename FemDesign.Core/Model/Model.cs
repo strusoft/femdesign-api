@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using FemDesign.LibraryItems;
+using FemDesign.Loads;
 
 namespace FemDesign
 {
@@ -1529,6 +1531,91 @@ namespace FemDesign
         {
             this.Entities.Loads.LoadCaseMassConversionTable = obj;
         }
+
+        private void AddMovingLoad(Loads.MovingLoad obj, bool overwrite)
+        {
+            if (this.Entities.Loads.MovingLoads == null)
+                this.Entities.Loads.MovingLoads = new List<StruSoft.Interop.StruXml.Data.Moving_load_type>();
+
+            // in model?
+            bool inModel = this.MovingLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Loads.MovingLoads.RemoveAll(x => x.Guid == obj.Guid.ToString());
+            }
+
+            // add moving loads
+            this.Entities.Loads.MovingLoads.Add(obj);
+
+            this.AddVehicle(obj, overwrite);
+        }
+
+
+
+        private void AddVehicle(MovingLoad obj, bool overwrite)
+        {
+            if (this.VehicleTypes == null)
+                this.VehicleTypes = new VehicleTypes();
+
+            if (this.VehicleTypes.PredefinedTypes == null)
+                this.VehicleTypes.PredefinedTypes = new List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type>();
+
+            bool inModel = this.VehicleInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            else if (inModel && overwrite)
+            {
+                this.VehicleTypes.PredefinedTypes.RemoveAll(x => x.AnyAttr[0].Value == obj.Guid.ToString());
+                this.VehicleTypes.PredefinedTypes.Add(obj.Vehicle);
+            }
+
+            else if (!inModel)
+            {
+                this.VehicleTypes.PredefinedTypes.Add(obj.Vehicle);
+            }
+
+        }
+
+        private bool VehicleInModel(Loads.MovingLoad obj)
+        {
+            foreach (var elem in this.VehicleTypes.PredefinedTypes)
+            {
+                if (elem.AnyAttr[0].Value == obj.Guid.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        private bool MovingLoadInModel(Loads.MovingLoad obj)
+        {
+            foreach (var elem in this.Entities.Loads.MovingLoads)
+            {
+                if (elem.Guid == obj.Guid.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
         /// <summary>
         /// Add Footfall to Model.
@@ -3138,8 +3225,6 @@ namespace FemDesign
 
         #endregion
 
-        #region AddElements and AddLoads
-
         /// <summary>
         /// Add structural elements to Model. 
         /// </summary>
@@ -3303,6 +3388,7 @@ namespace FemDesign
         private void AddEntity(StructureGrid.Axis axis, bool overwrite) => AddAxis(axis, overwrite);
         private void AddEntity(StructureGrid.Storey storey, bool overwrite) => AddStorey(storey, overwrite);
 
+        #region LOADS
         private void AddEntity(Loads.PointLoad obj, bool overwrite) => AddPointLoad(obj, overwrite);
         private void AddEntity(Loads.SurfaceTemperatureLoad obj, bool overwrite) => AddSurfaceTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.SurfaceLoad obj, bool overwrite) => AddSurfaceLoad(obj, overwrite);
@@ -3312,6 +3398,7 @@ namespace FemDesign
         private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
         private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
         private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
+        private void AddEntity(Loads.MovingLoad obj, bool overwrite) => AddMovingLoad(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

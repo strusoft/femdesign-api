@@ -150,10 +150,21 @@ namespace FemDesign.Grasshopper
                 types.Add(type);
             }
 
+
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
+                return;
+            }
+            var filePath = OnPingDocument().FilePath;
+            var outputDir = System.IO.Path.GetDirectoryName(filePath);
+            
+
             // Create Task
             var t = Task.Run((Action)(() =>
             {
-                var connection = new FemDesign.FemDesignConnection(minimized: _minimised);
+                var connection = new FemDesign.FemDesignConnection(minimized: _minimised, outputDir: outputDir);
 
                 connection.Open(_model.Value);
 

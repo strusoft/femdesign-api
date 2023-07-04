@@ -82,6 +82,7 @@
     <Compile Include="Loads\LineStressLoad.cs" />
     <Compile Include="Loads\MassConversionTable.cs" />
     <Compile Include="Loads\ModelLoadCaseInGroup.cs" />
+    <Compile Include="Loads\MovingLoad.cs" />
     <Compile Include="Loads\PressureLoad.cs" />
     <Compile Include="Loads\RelationTable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
@@ -437,6 +438,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
+    <EmbeddedResource Include="Resources\Vehicles\vehicles.struxml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Calculate\Config\cmdglobalcfg.xml">

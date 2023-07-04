@@ -1,0 +1,904 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.004" start_time="1970-01-01T00:00:00.000" end_time="2020-11-18T12:10:33.000" guid="932fbfc2-e265-4485-b625-f01681aa9b3a" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="GB" xmlns="urn:strusoft">
+	<vehicle_types>
+		<predefined_type name="EC LM1 Lane 1. (Truck) [Concentrated]" guid="6a9783d4-4a40-43d6-a423-313653524ce9" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="3329590c-96bf-4b25-918f-9a6346d16922" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="-1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="75944593-3082-4b0f-98c3-089fcce353a0" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="-1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="4268944a-f2b8-4539-af2d-a9a052c2f4db" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="1" z="0" val="150"></load>
+			</point_load>
+			<point_load guid="ed84a014-fb83-4f2b-9b3b-481536d47626" last_change="2015-11-02T11:36:04.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="1" z="0" val="150"></load>
+			</point_load>
+		</predefined_type>
+		<predefined_type name="EC LM1 Lane 2. (Truck) [Concentrated]" guid="8651be7d-354c-4b03-9755-51424065876c" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="d6479b62-5fc5-43ac-94d2-3739b4bcad52" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="-1" z="0" val="100"></load>
+			</point_load>
+			<point_load guid="575ea634-2ce7-4093-9715-c28123baaf1b" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="-1" z="0" val="100"></load>
+			</point_load>
+			<point_load guid="b799f3bc-8bce-41c9-987f-9bfc49fb3dc3" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="1" z="0" val="100"></load>
+			</point_load>
+			<point_load guid="93161cd3-bb1b-48cd-8464-beab75f8fa77" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="1" z="0" val="100"></load>
+			</point_load>
+		</predefined_type>
+		<predefined_type name="EC LM1 Lane 3. (Truck) [Concentrated]" guid="72c49368-f7af-43ee-97f6-c63ce38fd03c" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="b83d34a4-9ecc-4863-af12-7880a84633df" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="-1" z="0" val="50"></load>
+			</point_load>
+			<point_load guid="72f2bd0a-f9db-417b-9458-6329c244d486" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="-1" z="0" val="50"></load>
+			</point_load>
+			<point_load guid="c740d8cd-dc10-4491-9e5e-bbd88338c5d2" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.2" y="1" z="0" val="50"></load>
+			</point_load>
+			<point_load guid="10da7f20-c848-4d50-ad86-d487ad1d7aa6" last_change="2015-11-02T11:33:39.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="1" z="0" val="50"></load>
+			</point_load>
+		</predefined_type>
+		<predefined_type name="EC LM2 (Truck) [Concentrated]" guid="d9258466-d963-46b5-894a-f28afb38722a" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="c682939a-fc44-42e9-9c89-b1150d4e51db" last_change="2015-11-02T11:36:48.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="-1" z="0" val="200"></load>
+			</point_load>
+			<point_load guid="4f86cddb-7ec1-493a-ab0e-b02360f01c89" last_change="2015-11-02T11:36:48.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="1" z="0" val="200"></load>
+			</point_load>
+		</predefined_type>
+		<predefined_type name="EC LM1 Lane 1. (Truck) [Distributed]" guid="8dacc1a2-d6af-4719-85e6-d0acc91cbe1d" last_change="2020-11-18T12:09:57.000" action="added">
+			<surface_load guid="9a5047ce-4e73-4f74-8c65-007eeb99ef62" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.60000000000099" y="-1.2" z="0"></point>
+							<point x="-1.60000000000072" y="-0.8" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.60000000000072" y="-0.8" z="0"></point>
+							<point x="-1.20000000000072" y="-0.800000000000262" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.20000000000072" y="-0.800000000000262" z="0"></point>
+							<point x="-1.20000000000099" y="-1.2" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.20000000000099" y="-1.2" z="0"></point>
+							<point x="-1.60000000000099" y="-1.2" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.60000000000099" y="-1.2" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="73007830-9b6b-4d9d-9c3a-3cd4903beb28" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.400000000000992" y="-1.2000000000008" z="0"></point>
+							<point x="-0.400000000000722" y="-0.800000000000802" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.400000000000722" y="-0.800000000000802" z="0"></point>
+							<point x="0" y="-0.800000000001072" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-0.800000000001072" z="0"></point>
+							<point x="0" y="-1.20000000000107" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-1.20000000000107" z="0"></point>
+							<point x="-0.400000000000992" y="-1.2000000000008" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.400000000000992" y="-1.2000000000008" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="c518ba36-3ab1-4712-94a1-f0d4ef65d500" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="0.8" z="0"></point>
+							<point x="-1.59999999999937" y="1.2" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.59999999999937" y="1.2" z="0"></point>
+							<point x="-1.19999999999937" y="1.2" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.19999999999937" y="1.2" z="0"></point>
+							<point x="-1.2" y="0.799999999999737" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="0.799999999999737" z="0"></point>
+							<point x="-1.6" y="0.8" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="0.8" z="0" val="937.5"></load>
+			</surface_load>
+			<surface_load guid="74366c47-0132-43f6-ae12-09a7243079af" last_change="2015-11-02T11:35:22.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.399999999999642" y="0.799999999999197" z="0"></point>
+							<point x="-0.399999999999372" y="1.1999999999992" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.399999999999372" y="1.1999999999992" z="0"></point>
+							<point x="0" y="1.19999999999893" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="1.19999999999893" z="0"></point>
+							<point x="0" y="0.799999999998927" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="0.799999999998927" z="0"></point>
+							<point x="-0.399999999999642" y="0.799999999999197" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.399999999999642" y="0.799999999999197" z="0" val="937.5"></load>
+			</surface_load>
+		</predefined_type>
+		<predefined_type name="EC LM1 Lane 2. (Truck) [Distributed]" guid="ce162421-f9ec-4413-ad0d-d8c469c38caf" last_change="2020-11-18T12:09:57.000" action="added">
+			<surface_load guid="51ea63c9-b907-4249-8056-b20f6ebff992" last_change="2015-11-02T11:35:07.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="-1.20000000000067" z="0"></point>
+							<point x="-1.6" y="-0.800000000000667" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.6" y="-0.800000000000667" z="0"></point>
+							<point x="-1.2" y="-0.80000000000059" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="-0.80000000000059" z="0"></point>
+							<point x="-1.2" y="-1.20000000000059" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="-1.20000000000059" z="0"></point>
+							<point x="-1.6" y="-1.20000000000067" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="-1.20000000000067" z="0" val="625"></load>
+			</surface_load>
+			<surface_load guid="aa677ae4-1690-4790-9a2b-0d093e1e4424" last_change="2015-11-02T11:35:07.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.4" y="-1.2" z="0"></point>
+							<point x="-0.4" y="-0.800000000000438" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.4" y="-0.800000000000438" z="0"></point>
+							<point x="0" y="-0.800000000000363" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-0.800000000000363" z="0"></point>
+							<point x="0" y="-1.2" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-1.2" z="0"></point>
+							<point x="-0.4" y="-1.2" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.4" y="-1.2" z="0" val="625"></load>
+			</surface_load>
+			<surface_load guid="ecfd5fb8-5e98-4803-8a44-6e8b8ba985df" last_change="2015-11-02T11:35:07.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="0.799999999999333" z="0"></point>
+							<point x="-1.6" y="1.19999999999933" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.6" y="1.19999999999933" z="0"></point>
+							<point x="-1.2" y="1.19999999999941" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="1.19999999999941" z="0"></point>
+							<point x="-1.2" y="0.799999999999409" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="0.799999999999409" z="0"></point>
+							<point x="-1.6" y="0.799999999999333" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="0.799999999999333" z="0" val="625"></load>
+			</surface_load>
+			<surface_load guid="5d5e3169-e44e-4802-a321-9754c5d31e48" last_change="2015-11-02T11:35:07.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.400000000000334" y="0.799999999999562" z="0"></point>
+							<point x="-0.400000000000411" y="1.2" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.400000000000411" y="1.2" z="0"></point>
+							<point x="0" y="1.2" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="1.2" z="0"></point>
+							<point x="0" y="0.799999999999637" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="0.799999999999637" z="0"></point>
+							<point x="-0.400000000000334" y="0.799999999999562" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.400000000000334" y="0.799999999999562" z="0" val="625"></load>
+			</surface_load>
+		</predefined_type>
+		<predefined_type name="EC LM1 Lane 3. (Truck) [Distributed]" guid="badf3a2b-db12-4dff-b3fa-b274af83a5db" last_change="2020-11-18T12:09:57.000" action="added">
+			<surface_load guid="4fcfa9b1-e45d-4320-babc-bdb9cc438d0c" last_change="2015-11-02T11:35:13.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="-1.20000000000074" z="0"></point>
+							<point x="-1.6" y="-0.800000000000738" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.6" y="-0.800000000000738" z="0"></point>
+							<point x="-1.2" y="-0.800000000000644" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="-0.800000000000644" z="0"></point>
+							<point x="-1.2" y="-1.20000000000064" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="-1.20000000000064" z="0"></point>
+							<point x="-1.6" y="-1.20000000000074" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="-1.20000000000074" z="0" val="312.5"></load>
+			</surface_load>
+			<surface_load guid="d9387e90-9e23-48c0-8125-7f4c0e95a582" last_change="2015-11-02T11:35:13.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.399999999999901" y="-1.2" z="0"></point>
+							<point x="-0.4" y="-0.800000000000457" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.4" y="-0.800000000000457" z="0"></point>
+							<point x="0" y="-0.800000000000363" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-0.800000000000363" z="0"></point>
+							<point x="0" y="-1.2" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="-1.2" z="0"></point>
+							<point x="-0.399999999999901" y="-1.2" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.399999999999901" y="-1.2" z="0" val="312.5"></load>
+			</surface_load>
+			<surface_load guid="e1bcf1f8-c114-4cd8-9712-a7547c744cc8" last_change="2015-11-02T11:35:13.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-1.6" y="0.799999999999262" z="0"></point>
+							<point x="-1.6" y="1.19999999999926" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.6" y="1.19999999999926" z="0"></point>
+							<point x="-1.2" y="1.19999999999935" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="1.19999999999935" z="0"></point>
+							<point x="-1.2" y="0.799999999999354" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.2" y="0.799999999999354" z="0"></point>
+							<point x="-1.6" y="0.799999999999262" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-1.6" y="0.799999999999262" z="0" val="312.5"></load>
+			</surface_load>
+			<surface_load guid="9d29a4f1-98ed-4aee-b7ed-3fd1a630908c" last_change="2015-11-02T11:35:13.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.40000000000037" y="0.799999999999542" z="0"></point>
+							<point x="-0.400000000000463" y="1.2" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.400000000000463" y="1.2" z="0"></point>
+							<point x="0" y="1.2" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="1.2" z="0"></point>
+							<point x="0" y="0.799999999999635" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0" y="0.799999999999635" z="0"></point>
+							<point x="-0.40000000000037" y="0.799999999999542" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.40000000000037" y="0.799999999999542" z="0" val="312.5"></load>
+			</surface_load>
+		</predefined_type>
+		<predefined_type name="EC LM2 (Truck) [Distributed]" guid="12c2f1fd-a410-4f68-b9bd-68c17e013b19" last_change="2020-11-18T12:09:57.000" action="added">
+			<surface_load guid="0038568b-3831-47d0-82d9-c4b99a457c3c" last_change="2015-11-02T11:37:27.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.175000000000086" y="-1.3" z="0"></point>
+							<point x="-0.174999999999879" y="-0.699999999999573" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.174999999999879" y="-0.699999999999573" z="0"></point>
+							<point x="0.175000000000121" y="-0.699999999999694" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.175000000000121" y="-0.699999999999694" z="0"></point>
+							<point x="0.174999999999913" y="-1.3" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.174999999999913" y="-1.3" z="0"></point>
+							<point x="-0.175000000000086" y="-1.3" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.175000000000086" y="-1.3" z="0" val="952.381"></load>
+			</surface_load>
+			<surface_load guid="d615d45e-3956-4a12-bced-03d58544768f" last_change="2015-11-02T11:37:32.000" action="added" load_projection="false" load_type="force">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.174999999999394" y="0.700000000000426" z="0"></point>
+							<point x="-0.174999999999186" y="1.3" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.174999999999186" y="1.3" z="0"></point>
+							<point x="0.175000000000813" y="1.3" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.175000000000813" y="1.3" z="0"></point>
+							<point x="0.175000000000606" y="0.700000000000305" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.175000000000606" y="0.700000000000305" z="0"></point>
+							<point x="-0.174999999999394" y="0.700000000000426" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.174999999999394" y="0.700000000000426" z="0" val="952.381"></load>
+			</surface_load>
+		</predefined_type>
+		<predefined_type name="EC LM71 (Train)" guid="84ddf2dc-45e8-4a3f-9182-122b03fcca47" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="7cbeec5c-a75e-4c9b-8ca4-5be178c624c8" last_change="2015-11-02T13:58:38.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-5.6" y="0" z="0" val="250"></load>
+			</point_load>
+			<point_load guid="41ffb982-3aa4-4098-99be-92db318a2748" last_change="2015-11-02T13:58:38.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-4" y="0" z="0" val="250"></load>
+			</point_load>
+			<point_load guid="bf2a7288-4901-498d-b9a1-3e4eceaff0fc" last_change="2015-11-02T13:58:38.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-2.4" y="0" z="0" val="250"></load>
+			</point_load>
+			<point_load guid="b332d4d7-f0da-4eeb-b4a7-e94189252316" last_change="2015-11-02T13:58:38.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.8" y="0" z="0" val="250"></load>
+			</point_load>
+			<line_load guid="02be7305-0f4d-479d-8946-5016024a0a28" last_change="2015-11-02T13:53:03.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-1006.4" y="0" z="0"></point>
+					<point x="-6.4" y="0" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-1006.4" y="0" z="0" val="80"></load>
+				<load x="-6.4" y="0" z="0" val="80"></load>
+			</line_load>
+			<line_load guid="c8717689-46be-452f-888e-16c2096c80dd" last_change="2015-11-02T13:53:03.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0" z="0"></point>
+					<point x="1000" y="0" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0" z="0" val="80"></load>
+				<load x="1000" y="0" z="0" val="80"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC LM71 Right (Train) [e=79mm, r=1435mm]" guid="c9e6dad7-663a-49b3-860e-e391c34e8e3c" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="201bb05f-e345-40c0-be84-de168fe9ab24" last_change="2015-11-02T13:58:28.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-5.59999999999945" y="-0.717500000002054" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="8cf85fbe-80e1-40b1-9fe8-cd2a8281f705" last_change="2015-11-02T13:58:28.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-4" y="-0.717500000001561" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="b0ccdd1a-c53a-47d6-8aa9-a248c5ffed5c" last_change="2015-11-02T13:58:28.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-2.4" y="-0.717500000001067" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="56c2c2db-742a-4e95-a12c-835805ca901a" last_change="2015-11-02T13:58:28.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.799999999999727" y="-0.717500000000574" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="83e5c47f-d83b-4d7f-9c1d-1746b171a763" last_change="2015-11-02T13:58:20.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-5.6" y="0.717499999997946" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="6718c5b6-9052-4f2b-862f-9b979b40aadd" last_change="2015-11-02T13:58:20.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-4" y="0.717499999998439" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="8c6f3283-9c32-4601-a13d-9a0c41ce81cc" last_change="2015-11-02T13:58:20.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-2.4" y="0.717499999998933" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="23a30d5a-e427-4b34-a47a-b5dd3216b495" last_change="2015-11-02T13:58:20.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.800000000000182" y="0.717499999999426" z="0" val="111.5"></load>
+			</point_load>
+			<line_load guid="44b5d475-879a-4e1c-bb82-fa1d326a529a" last_change="2015-11-02T11:38:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-1006.4" y="-0.717500000310769" z="0"></point>
+					<point x="-6.39999999999941" y="-0.717500000002301" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-1006.4" y="-0.717500000310769" z="0" val="44.32"></load>
+				<load x="-6.39999999999941" y="-0.717500000002301" z="0" val="44.32"></load>
+			</line_load>
+			<line_load guid="25384252-ff45-432d-943d-e6d5f156309b" last_change="2015-11-02T11:39:56.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717500000000327" z="0"></point>
+					<point x="1000" y="-0.717499999691859" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="-0.717500000000327" z="0" val="44.32"></load>
+				<load x="1000" y="-0.717499999691859" z="0" val="44.32"></load>
+			</line_load>
+			<line_load guid="97504cb7-ad38-4fcc-9ee2-783541aaab1b" last_change="2015-11-02T11:42:13.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-1006.4" y="0.717499999689231" z="0"></point>
+					<point x="-6.4" y="0.717499999997699" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-1006.4" y="0.717499999689231" z="0" val="33.68"></load>
+				<load x="-6.4" y="0.717499999997699" z="0" val="33.68"></load>
+			</line_load>
+			<line_load guid="7d27512d-17fd-43a3-88bc-dc5e849276ae" last_change="2015-11-02T11:42:13.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717499999999673" z="0"></point>
+					<point x="1000" y="0.717500000308141" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717499999999673" z="0" val="33.68"></load>
+				<load x="1000" y="0.717500000308141" z="0" val="33.68"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC LM71 Left (Train) [e=79mm, r=1435mm]" guid="d4593e15-d2aa-4f7e-a17b-4bc7795a05c3" last_change="2020-11-18T12:09:57.000" action="added">
+			<point_load guid="6e77e6a2-8eb9-4707-a09d-bb971785a05c" last_change="2015-11-02T13:57:47.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-5.6" y="0.71749999999871" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="8050c3fb-b712-4c10-a608-7774d3335040" last_change="2015-11-02T13:57:47.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-4" y="0.717499999998985" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="f3a9bdf9-beee-412f-9de2-222b5b7dd949" last_change="2015-11-02T13:57:47.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-2.4" y="0.717499999999261" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="e38a5c5d-02b7-4e9e-826e-894d4bf62725" last_change="2015-11-02T13:57:47.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.800000000000182" y="0.717499999999537" z="0" val="138.5"></load>
+			</point_load>
+			<point_load guid="e1056a3e-8706-4ba3-9d53-f7e299385aa0" last_change="2015-11-02T13:58:09.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-5.6" y="-0.717500000001291" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="a2c8c8de-edbe-49ad-8a91-50c99dd0fa80" last_change="2015-11-02T13:58:09.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-4" y="-0.717500000001015" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="c5be4d2a-996f-40f9-8dd2-82dc223966eb" last_change="2015-11-02T13:58:09.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-2.4" y="-0.717500000000739" z="0" val="111.5"></load>
+			</point_load>
+			<point_load guid="ac75db0e-c1bb-48ef-a035-d4f9c939bfe1" last_change="2015-11-02T13:58:09.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="-0.799999999999727" y="-0.717500000000464" z="0" val="111.5"></load>
+			</point_load>
+			<line_load guid="beee00ea-d4d8-4f5a-b2ef-7924eafefbad" last_change="2015-11-02T13:32:22.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-1006.4" y="0.717499999826407" z="0"></point>
+					<point x="-6.4" y="0.717499999998572" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-1006.4" y="0.717499999826407" z="0" val="44.32"></load>
+				<load x="-6.4" y="0.717499999998572" z="0" val="44.32"></load>
+			</line_load>
+			<line_load guid="38cfc0de-dea2-483d-af01-fd03e37680db" last_change="2015-11-02T13:32:22.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717499999999674" z="0"></point>
+					<point x="1000" y="0.717500000171841" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717499999999674" z="0" val="44.32"></load>
+				<load x="1000" y="0.717500000171841" z="0" val="44.32"></load>
+			</line_load>
+			<line_load guid="ac3ff66a-112d-4220-9490-4b43c6f7a0b7" last_change="2015-11-02T13:32:22.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-1006.4" y="-0.717500000173594" z="0"></point>
+					<point x="-6.4" y="-0.717500000001428" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-1006.4" y="-0.717500000173594" z="0" val="33.68"></load>
+				<load x="-6.4" y="-0.717500000001428" z="0" val="33.68"></load>
+			</line_load>
+			<line_load guid="5231c65d-0174-4a58-8724-6f57988dccac" last_change="2015-11-02T13:32:22.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717500000000326" z="0"></point>
+					<point x="1000" y="-0.71749999982816" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="0" y="-0.717500000000326" z="0" val="33.68"></load>
+				<load x="1000" y="-0.71749999982816" z="0" val="33.68"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/0 (Train)" guid="3b5c81c9-4eb1-489c-bf1a-e9c3a821648a" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="c4f9d97f-1fd4-4f6e-9608-948e45b8f0f4" last_change="2015-11-02T14:03:54.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-5.3" y="0" z="0"></point>
+					<point x="-20.3" y="0" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-5.3" y="0" z="0" val="133"></load>
+				<load x="-20.3" y="0" z="0" val="133"></load>
+			</line_load>
+			<line_load guid="c5331314-8797-4bc0-9e17-12e4c068e199" last_change="2015-11-02T14:03:54.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0" z="0"></point>
+					<point x="15" y="0" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="0" y="0" z="0" val="133"></load>
+				<load x="15" y="0" z="0" val="133"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/0 Right (Train) [e=79mm, r=1435mm]" guid="8505b40c-56ba-431a-992c-9017bc3b04a2" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="89b77995-5222-40c9-8965-53a324d02786" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-5.2999999999995" y="-0.717500000001543" z="0"></point>
+					<point x="-20.3" y="-0.717500000005188" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-5.2999999999995" y="-0.717500000001543" z="0" val="73.82"></load>
+				<load x="-20.3" y="-0.717500000005188" z="0" val="73.82"></load>
+			</line_load>
+			<line_load guid="78cce1b7-5b33-4b9a-a170-13879ce1e6d1" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717500000000255" z="0"></point>
+					<point x="15" y="-0.71749999999661" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="-0.717500000000255" z="0" val="73.82"></load>
+				<load x="15" y="-0.71749999999661" z="0" val="73.82"></load>
+			</line_load>
+			<line_load guid="26743aa6-7ac6-4648-bbc1-8f2b1d2378d1" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-5.3" y="0.717499999998457" z="0"></point>
+					<point x="-20.3" y="0.717499999994812" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-5.3" y="0.717499999998457" z="0" val="59.18"></load>
+				<load x="-20.3" y="0.717499999994812" z="0" val="59.18"></load>
+			</line_load>
+			<line_load guid="c09ce99f-1260-46c9-922c-9758ad5bd258" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717499999999745" z="0"></point>
+					<point x="15" y="0.71750000000339" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717499999999745" z="0" val="59.18"></load>
+				<load x="15" y="0.71750000000339" z="0" val="59.18"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/0 Left (Train) [e=79mm, r=1435mm]" guid="899b6e54-8d2c-4da6-b2a0-356546dacf37" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="992045d3-c764-4704-962e-3df8c2458bb5" last_change="2015-11-02T13:37:52.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-5.3" y="0.717499999999129" z="0"></point>
+					<point x="-20.3" y="0.717499999997592" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-5.3" y="0.717499999999129" z="0" val="73.82"></load>
+				<load x="-20.3" y="0.717499999997592" z="0" val="73.82"></load>
+			</line_load>
+			<line_load guid="0fb1b349-fc81-4ec6-97f6-01c2a8def826" last_change="2015-11-02T13:37:52.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717499999999673" z="0"></point>
+					<point x="15" y="0.717500000001211" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717499999999673" z="0" val="73.82"></load>
+				<load x="15" y="0.717500000001211" z="0" val="73.82"></load>
+			</line_load>
+			<line_load guid="02d640d6-b0fc-408c-85e3-6db6fde709a7" last_change="2015-11-02T13:37:52.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-5.3" y="-0.717500000000872" z="0"></point>
+					<point x="-20.3" y="-0.717500000002408" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-5.3" y="-0.717500000000872" z="0" val="59.18"></load>
+				<load x="-20.3" y="-0.717500000002408" z="0" val="59.18"></load>
+			</line_load>
+			<line_load guid="fa7e78df-5cb9-4619-a580-5bf6d515a6ae" last_change="2015-11-02T13:37:52.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717500000000328" z="0"></point>
+					<point x="15" y="-0.71749999999879" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="0" y="-0.717500000000328" z="0" val="59.18"></load>
+				<load x="15" y="-0.71749999999879" z="0" val="59.18"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/2 (Train)" guid="2463bb4f-663a-4378-a782-9bea9b74f168" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="fa69dae2-8a23-4af3-bdc8-1545e88d1c9e" last_change="2015-11-02T14:13:35.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-7" y="0" z="0"></point>
+					<point x="-32" y="0" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-7" y="0" z="0" val="150"></load>
+				<load x="-32" y="0" z="0" val="150"></load>
+			</line_load>
+			<line_load guid="5ff12c61-f977-4520-a93a-a478206a5f63" last_change="2015-11-02T14:13:35.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0" z="0"></point>
+					<point x="25" y="0" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0" z="0" val="150"></load>
+				<load x="25" y="0" z="0" val="150"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/2 Right (Train) [e=79mm, r=1435mm]" guid="4998d16a-99f8-4df7-937f-ad503c1b8e93" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="c9d347bd-495c-4519-9e38-4389ae326fd9" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-7" y="-0.71749999999844" z="0"></point>
+					<point x="-32" y="-0.717499999995693" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-7" y="-0.71749999999844" z="0" val="83.25"></load>
+				<load x="-32" y="-0.717499999995693" z="0" val="83.25"></load>
+			</line_load>
+			<line_load guid="33739591-901c-417b-a04b-94a492be6315" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-7" y="0.717500000001564" z="0"></point>
+					<point x="-32" y="0.717500000004311" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-7" y="0.717500000001564" z="0" val="66.74"></load>
+				<load x="-32" y="0.717500000004311" z="0" val="66.74"></load>
+			</line_load>
+			<line_load guid="0d184bab-6bb1-4483-af1c-37a8e72c254c" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717499999999209" z="0"></point>
+					<point x="25" y="-0.717500000001957" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="-0.717499999999209" z="0" val="83.25"></load>
+				<load x="25" y="-0.717500000001957" z="0" val="83.25"></load>
+			</line_load>
+			<line_load guid="a630c8af-37d5-4cd2-8891-93407bbbc507" last_change="2015-11-02T13:36:31.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717500000000793" z="0"></point>
+					<point x="25" y="0.717499999998044" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717500000000793" z="0" val="66.74"></load>
+				<load x="25" y="0.717499999998044" z="0" val="66.74"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="EC SW/2 Left (Train) [e=79mm, r=1435mm]" guid="76bb0f97-62a4-4d34-bf51-86d6f30bf3a5" last_change="2020-11-18T12:09:57.000" action="added">
+			<line_load guid="35392d5c-33f7-46a1-b2e2-168934d8ca2f" last_change="2015-11-02T13:42:49.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-7" y="0.717499999998079" z="0"></point>
+					<point x="-32" y="0.717499999992381" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="-7" y="0.717499999998079" z="0" val="83.25"></load>
+				<load x="-32" y="0.717499999992381" z="0" val="83.25"></load>
+			</line_load>
+			<line_load guid="6a43affa-735e-4f42-849a-7f659bd86919" last_change="2015-11-02T13:42:49.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="-7" y="-0.717500000001923" z="0"></point>
+					<point x="-32" y="-0.717500000007622" z="0"></point>
+					<normal x="0" y="-1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="-7" y="-0.717500000001923" z="0" val="66.74"></load>
+				<load x="-32" y="-0.717500000007622" z="0" val="66.74"></load>
+			</line_load>
+			<line_load guid="da413e1d-fddb-47c1-97ad-fdbe8bdd0ebe" last_change="2015-11-02T13:42:49.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="0.717499999999674" z="0"></point>
+					<point x="25" y="0.717500000005373" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="0" y="0.717499999999674" z="0" val="83.25"></load>
+				<load x="25" y="0.717500000005373" z="0" val="83.25"></load>
+			</line_load>
+			<line_load guid="c4d511ba-76d3-48cd-9027-922822c7c406" last_change="2015-11-02T13:42:49.000" action="added" load_dir="constant" load_projection="false" load_type="force">
+				<edge type="line">
+					<point x="0" y="-0.717500000000328" z="0"></point>
+					<point x="25" y="-0.717499999994626" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="-1"></normal>
+				<load x="0" y="-0.717500000000328" z="0" val="66.74"></load>
+				<load x="25" y="-0.717499999994626" z="0" val="66.74"></load>
+			</line_load>
+		</predefined_type>
+		<predefined_type name="Unit" guid="a949377a-bebf-4ebd-aa40-2a8bec98dfee" last_change="2020-11-18T12:10:33.000" action="added">
+			<point_load guid="565cc0c8-24ee-47e0-8b73-de89e99905ac" last_change="2020-11-18T12:10:16.000" action="added" load_type="force">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="0" y="0" z="0" val="1"></load>
+			</point_load>
+		</predefined_type>
+	</vehicle_types>
+	<end></end>
+</database>
