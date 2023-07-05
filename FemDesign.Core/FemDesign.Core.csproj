@@ -78,6 +78,7 @@
     <Compile Include="Geometry\Line3d.cs" />
     <Compile Include="Geometry\HorizontalPolygon2d.cs" />
     <Compile Include="Drawing\TextAnnotation.cs" />
+    <Compile Include="Geometry\Regions.cs" />
     <Compile Include="LibraryItems\PredefinedType.cs" />
     <Compile Include="Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
