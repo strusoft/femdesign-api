@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcFootfall", "calcFootfall", "Footfall analysis", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("elemfine", "elemfine", "Fine or standard elements", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("elemfine", "elemfine", "Fine or standard elements", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("diaphragm", "diaphragm", "Diaphragm calculation.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -157,7 +157,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            bool elemFine = false;
+            bool elemFine = true;
             if (!DA.GetData(16, ref elemFine))
             {
                 // pass
