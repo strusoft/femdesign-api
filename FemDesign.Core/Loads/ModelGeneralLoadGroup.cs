@@ -20,12 +20,17 @@ namespace FemDesign.Loads
         [XmlAttribute("consider_in_gmax")]
         [DefaultValue(true)]
         public bool ConsiderInGmax { get; set; } = true;
+        [XmlElement("accidental")]
+        public StruSoft.Interop.StruXml.Data.Accidental_load_group AccidentalLoadGroup { get; set; }
+
         [XmlElement("permanent")]
         public LoadGroupPermanent ModelLoadGroupPermanent { get; set; }
-        [XmlElement("temporary")]
-        public LoadGroupTemporary ModelLoadGroupTemporary { get; set; }
         [XmlElement("seismic")]
         public StruSoft.Interop.StruXml.Data.Seismic_load_group SeismicLoadGroup { get; set; }
+        [XmlElement("stress")]
+        public StruSoft.Interop.StruXml.Data.Stress_load_group StressLoadGroup { get; set; }
+        [XmlElement("temporary")]
+        public LoadGroupTemporary ModelLoadGroupTemporary { get; set; }
 
         /// <summary>
         /// parameterless constructor for serialization

@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace FemDesign.Loads
 {
@@ -24,19 +24,43 @@ namespace FemDesign.Loads
         }
 
         [XmlElement("temperature", Order=2)]
-        public List<TopBotLocationValue> _topBotLocVal;
+        public List<TopBotLocationValue> _temperature;
+
         [XmlIgnore]
-        public List<TopBotLocationValue> TopBotLocVal
+        public List<TopBotLocationValue> Temperature
         {
             get
             {
-                return this._topBotLocVal;
+                return this._temperature;
             }
             set
             {
                 if (value.Count == 1 || value.Count == 3)
                 {
-                    this._topBotLocVal = value;
+                    this._temperature = value;
+                }
+                else
+                {
+                    throw new System.ArgumentException($"Length of list is: {value.Count}, expected 1 or 3");
+                }
+            }
+        }
+
+        [XmlElement("temperature_values", Order = 3)]
+        public List<TopBotLocationValue> _temperatureValues;
+
+        [XmlIgnore]
+        public List<TopBotLocationValue> TemperatureValues
+        {
+            get
+            {
+                return this._temperatureValues;
+            }
+            set
+            {
+                if (value.Count == 1 || value.Count == 3)
+                {
+                    this._temperatureValues = value;
                 }
                 else
                 {
@@ -66,7 +90,7 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
-            this.TopBotLocVal = tempLocValue;
+            this.Temperature = tempLocValue;
             this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
@@ -85,21 +109,36 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
-            this.TopBotLocVal = new List<TopBotLocationValue>{new TopBotLocationValue(region.Plane.Origin, topVal, bottomVal)};
+            this.Temperature = new List<TopBotLocationValue>{new TopBotLocationValue(region.Plane.Origin, topVal, bottomVal)};
             this.LoadCaseGuid = loadCase.Guid;
             this.Comment = comment;
         }
 
         public override string ToString()
         {
-            if (TopBotLocVal.Count == 1)
+            if (Temperature.Any())
             {
-                return $"{this.GetType().Name} - {this.TopBotLocVal[0]}";
+                if (Temperature.Count == 1)
+                {
+                    return $"{this.GetType().Name} - {this.Temperature[0]}";
+                }
+                else
+                {
+                    return $"{this.GetType().Name} - First:{this.Temperature[0]}  Second:{this.Temperature[1]}  Third:{this.Temperature[2]}";
+                }
             }
             else
             {
-                return $"{this.GetType().Name} - First:{this.TopBotLocVal[0]}  Second:{this.TopBotLocVal[1]}  Third:{this.TopBotLocVal[2]}";
+                if (TemperatureValues.Count == 1)
+                {
+                    return $"{this.GetType().Name} - {this.TemperatureValues[0]}";
+                }
+                else
+                {
+                    return $"{this.GetType().Name} - First:{this.TemperatureValues[0]}  Second:{this.TemperatureValues[1]}  Third:{this.TemperatureValues[2]}";
+                }
             }
+
         }
     }
 }
