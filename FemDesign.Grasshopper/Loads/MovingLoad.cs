@@ -135,7 +135,7 @@ namespace FemDesign.Grasshopper
         }
 
 
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
 
     }
 }
