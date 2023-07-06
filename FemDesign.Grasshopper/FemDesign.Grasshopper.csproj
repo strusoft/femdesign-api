@@ -911,6 +911,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\LoadGroupToComb.bmp" />
     <None Include="Resources\icons\StabilityDefine.png" />
     <None Include="Resources\icons\Vehicle.png" />
     <None Include="Resources\icons\MovingLoad.png" />

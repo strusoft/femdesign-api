@@ -1063,6 +1063,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadGroupToComb {
+            get {
+                object obj = ResourceManager.GetObject("LoadGroupToComb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoadsDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LoadsDeconstruct", resourceCulture);
