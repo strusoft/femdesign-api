@@ -166,7 +166,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.LoadGroupToComb;
             }
         }
         public override Guid ComponentGuid
