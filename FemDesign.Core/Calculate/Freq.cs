@@ -16,45 +16,45 @@ namespace FemDesign.Calculate
         [XmlAttribute("MaxSturm")]
         public int MaxSturm { get; set; } // int
         [XmlAttribute("X")]
-        public int _x; // bool as int32
+        public bool _x; // bool
         [XmlIgnore]
         public bool X
         {
             get
             {
-                return Convert.ToBoolean(this._x);
+                return this._x;
             }
             set
             {
-                this._x = Convert.ToInt32(value);
+                this._x = value;
             }
         }
         [XmlAttribute("Y")]
-        public int _y; // bool as int32
+        public bool _y; // bool
         [XmlIgnore]
         public bool Y
         {
             get
             {
-                return Convert.ToBoolean(this._y);
+                return this._y;
             }
             set
             {
-                this._y = Convert.ToInt32(value);
+                this._y = value;
             }
         }
         [XmlAttribute("Z")]
-        public int _z; // bool as int32
+        public bool _z; // bool
         [XmlIgnore]
         public bool Z
         {
             get
             {
-                return Convert.ToBoolean(this._z);
+                return this._z;
             }
             set
             {
-                this._z = Convert.ToInt32(value);
+                this._z = value;
             }
         }
         [XmlAttribute("top")]
