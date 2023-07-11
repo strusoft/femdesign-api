@@ -117,19 +117,19 @@ namespace FemDesign.Calculate
             var combItem = new Calculate.CombItem(2, 5, true, true, true, true, true, 5, 0.1234, 3);
 
             Assert.IsTrue(combItem.NLE == true);
-            Assert.IsTrue(combItem._nle == 1);
+            Assert.IsTrue(combItem._nle == true);
 
             Assert.IsTrue(combItem.PL == true);
-            Assert.IsTrue(combItem._pl == 1);
+            Assert.IsTrue(combItem._pl == true);
 
             Assert.IsTrue(combItem.NLS == true);
-            Assert.IsTrue(combItem._nls == 1);
+            Assert.IsTrue(combItem._nls == true);
 
             Assert.IsTrue(combItem.Cr == true);
-            Assert.IsTrue(combItem._cr == 1);
+            Assert.IsTrue(combItem._cr == true);
 
             Assert.IsTrue(combItem.f2nd == true);
-            Assert.IsTrue(combItem._f2nd == 1);
+            Assert.IsTrue(combItem._f2nd == true);
 
             Assert.IsTrue(combItem.Im == 5 );
             Assert.IsTrue(combItem.Waterlevel == 3 );
@@ -137,7 +137,6 @@ namespace FemDesign.Calculate
             Assert.IsTrue(combItem.StabRqd == 5 );
             Assert.IsTrue(combItem.Amplitude == 0.1234 );
         }
-
 
 
     }

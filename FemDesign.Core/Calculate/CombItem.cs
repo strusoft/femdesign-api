@@ -13,7 +13,7 @@ namespace FemDesign.Calculate
     public partial class CombItem
     {
         [XmlAttribute("NLE")]
-        public int _nle { get; set; }
+        public bool _nle { get; set; }
 
         /// <summary>
         /// Consider elastic nonlinear behaviour of structural elements.
@@ -21,13 +21,13 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NLE
         {
-            get { return Convert.ToBoolean(_nle); }
-            set { _nle = Convert.ToInt32(value); }
+            get { return _nle; }
+            set { _nle = value; }
         }
 
 
         [XmlAttribute("PL")]
-        public int _pl { get; set; }
+        public bool _pl { get; set; }
 
         /// <summary>
         /// Consider plastic behaviour of structural elements.
@@ -35,13 +35,13 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool PL
         {
-            get { return Convert.ToBoolean(_pl); }
-            set { _pl = Convert.ToInt32(value); }
+            get { return _pl; }
+            set { _pl = value; }
         }
 
 
         [XmlAttribute("NLS")]
-        public int _nls { get; set; }
+        public bool _nls { get; set; }
 
         /// <summary>
         /// Consider nonlinear behaviour of soil.
@@ -49,12 +49,12 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NLS
         {
-            get { return Convert.ToBoolean(_nls); }
-            set { _nls = Convert.ToInt32(value); }
+            get { return _nls; }
+            set { _nls = value; }
         }
 
         [XmlAttribute("Cr")]
-        public int _cr { get; set; }
+        public bool _cr { get; set; }
 
         /// <summary>
         /// Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.
@@ -62,13 +62,13 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool Cr
         {
-            get { return Convert.ToBoolean(_cr); }
-            set { _cr = Convert.ToInt32(value); }
+            get { return _cr; }
+            set { _cr = value; }
         }
 
 
         [XmlAttribute("f2nd")]
-        public int _f2nd { get; set; }
+        public bool _f2nd { get; set; }
 
         /// <summary>
         /// 2nd order analysis.
@@ -76,8 +76,8 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool f2nd
         {
-            get { return Convert.ToBoolean(_f2nd); }
-            set { _f2nd = Convert.ToInt32(value); }
+            get { return _f2nd; }
+            set { _f2nd = value; }
         }
 
 

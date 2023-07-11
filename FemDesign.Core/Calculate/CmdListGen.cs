@@ -19,6 +19,7 @@ namespace FemDesign.Calculate
     {
         [XmlAttribute("command")]
         public string Command = "$ MODULECOM LISTGEN"; // token, fixed.
+
         [XmlAttribute("bscfile")]
         public string BscFile { get; set; } // string
 
@@ -27,61 +28,68 @@ namespace FemDesign.Calculate
 
         [XmlAttribute("outfile")]
         public string OutFile { get; set; } // string
+
         [XmlAttribute("regional")]
-        public int _regional { get; set; }
+        public bool _regional { get; set; }
+
         [XmlIgnore]
         public bool Regional
         {
             get
             {
-                return Convert.ToBoolean(this._regional);
+                return this._regional;
             }
             set
             {
-                this._regional = Convert.ToInt32(value);
+                this._regional = value;
             }
         }
+
         [XmlAttribute("headers")]
-        public int _headers { get; set; }
+        public bool _headers { get; set; }
+
         [XmlIgnore]
         public bool Headers
         {
             get
             {
-                return Convert.ToBoolean(this._headers);
+                return this._headers;
             }
             set
             {
-                this._headers = Convert.ToInt32(value);
+                this._headers = value;
             }
         }
+
         [XmlAttribute("fillcells")]
-        public int _fillCells { get; set; }
+        public bool _fillCells { get; set; }
+
         [XmlIgnore]
         public bool FillCells
         {
             get
             {
-                return Convert.ToBoolean(this._fillCells);
+                return this._fillCells;
             }
             set
             {
-                this._fillCells = Convert.ToInt32(value);
+                this._fillCells = value;
             }
         }
 
         [XmlAttribute("ignorecasename")]
-        public int _ignoreCaseName { get; set; }
+        public bool _ignoreCaseName { get; set; }
+
         [XmlIgnore]
         public bool IgnoreCaseName
         {
             get
             {
-                return Convert.ToBoolean(this._ignoreCaseName);
+                return this._ignoreCaseName;
             }
             set
             {
-                this._ignoreCaseName = Convert.ToInt32(value);
+                this._ignoreCaseName = value;
             }
         }
 

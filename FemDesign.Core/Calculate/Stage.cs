@@ -11,22 +11,22 @@ namespace FemDesign.Calculate
     public partial class Stage
     {
         [XmlAttribute("ghost")]
-        public int _ghost { get; set; }
+        public bool _ghost { get; set; }
 
         [XmlIgnore]
         public bool Ghost
         {
-            get { return Convert.ToBoolean(_ghost); }
-            set { _ghost = Convert.ToInt32(value); }
+            get { return _ghost; }
+            set { _ghost = value; }
         }
 
         [XmlAttribute("tda")]
-        public int _timeDependentAnalysis { get; set; }
+        public bool _timeDependentAnalysis { get; set; }
         [XmlIgnore]
         public bool TimeDependentAnalysis
         {
-            get { return Convert.ToBoolean(_timeDependentAnalysis); }
-            set { _timeDependentAnalysis = Convert.ToInt32(value); }
+            get { return _timeDependentAnalysis; }
+            set { _timeDependentAnalysis = value; }
         }
 
         [XmlAttribute("creepincrementlimit")]
