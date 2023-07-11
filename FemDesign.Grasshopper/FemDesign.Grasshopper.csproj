@@ -219,6 +219,7 @@
     <Compile Include="Results\BarStress.cs" />
     <Compile Include="Results\EigenFrequencies.cs" />
     <Compile Include="Results\FiniteElements\FeaBar.cs" />
+    <Compile Include="Results\OBSOLETE\StabilityImperfection_OBSOLETE.cs" />
     <Compile Include="Results\OBSOLETE\FeaShell_OBSOLETE.cs" />
     <Compile Include="Results\FiniteElements\FeaShell.cs" />
     <Compile Include="Results\LabelledSection.cs" />
@@ -243,7 +244,7 @@
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />
-    <Compile Include="Results\Stability\StabilityImperfection.cs" />
+    <Compile Include="Results\Stability\ImperfectionCritical.cs" />
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
