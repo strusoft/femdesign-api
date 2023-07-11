@@ -157,7 +157,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 2, new List<string>
+            ValueListUtils.updateValueLists(this, 1, new List<string>
             { "EN 1990 6.4.3(6.10)", "EN 1990 6.4.3(6.10.a, b)" }, null, GH_ValueListMode.DropDown);
         }
 

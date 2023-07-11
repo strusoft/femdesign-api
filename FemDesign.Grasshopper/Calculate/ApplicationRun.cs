@@ -199,10 +199,9 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
-                if (_model.Value is string)
-                {
-                    model = connection.GetModel();
-                }
+                // return the new model
+                model = connection.GetModel();
+                
 
                 connection.Dispose();
             }));
