@@ -28,7 +28,7 @@ namespace FemDesign.Calculate
         [XmlAttribute("CRstifferror")]
         public int CRstifferror { get; set; } // int
         [XmlAttribute("NLSMohr")]
-        public int NLSMohr { get; set; } // bool
+        public bool NLSMohr { get; set; } // bool
         [XmlAttribute("NLSinitloadstep")]
         public int NLSinitloadstep { get; set; } // int
         [XmlAttribute("NLSminloadstep")]
@@ -54,7 +54,7 @@ namespace FemDesign.Calculate
             this.PLdefloadstep = _PLdefloadstep;
             this.PLminloadstep = _PLminloadstep;
             this.PLmaxeqiter = _PLmaxeqiter;
-            this.NLSMohr = Convert.ToInt32(_NLSMohr);
+            this.NLSMohr = _NLSMohr;
             this.NLSinitloadstep = _NLSinitloadstep;
             this.NLSminloadstep = _NLSminloadstep;
             this.NLSactiveelemratio = _NLSactiveelemratio;

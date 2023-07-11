@@ -88,7 +88,7 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
 
             analysis.SetLoadCombinationCalculationParameters(model);
 
-            using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22 Night Install\", outputDir: "My analyzed model", keepOpen: false))
+            using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22\", outputDir: "My analyzed model", keepOpen: false))
             {
                 femDesign.RunAnalysis(model, analysis);
                                 

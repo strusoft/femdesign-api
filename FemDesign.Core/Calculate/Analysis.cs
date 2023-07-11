@@ -31,188 +31,188 @@ namespace FemDesign.Calculate
 
         // attributes
         [XmlAttribute("calcCase")]
-        public int _calcCase; // bool as int
+        public bool _calcCase; 
         [XmlIgnore]
         public bool CalcCase
         {
             get
             {
-                return Convert.ToBoolean(this._calcCase);
+                return this._calcCase;
             }
             set
             {
-                this._calcCase = Convert.ToInt32(value);
+                this._calcCase = value;
             }
         }
         [XmlAttribute("calcCstage")]
-        public int _calcCStage; // bool as int
+        public bool _calcCStage; 
         [XmlIgnore]
         public bool CalcCStage
         {
             get
             {
-                return Convert.ToBoolean(this._calcCStage);
+                return this._calcCStage;
             }
             set
             {
-                this._calcCStage = Convert.ToInt32(value);
+                this._calcCStage = value;
             }
         }
         [XmlAttribute("calcImpf")]
-        public int _calcImpf; // bool as int
+        public bool _calcImpf; 
         [XmlIgnore]
         public bool CalcImpf
         {
             get
             {
-                return Convert.ToBoolean(this._calcImpf);
+                return this._calcImpf;
             }
             set
             {
-                this._calcImpf = Convert.ToInt32(value);
+                this._calcImpf = value;
             }
         }
         [XmlAttribute("calcComb")]
-        public int _calcComb; // bool as int
+        public bool _calcComb;
         [XmlIgnore]
         public bool CalcComb
         {
             get
             {
-                return Convert.ToBoolean(this._calcComb);
+                return this._calcComb;
             }
             set
             {
-                this._calcComb = Convert.ToInt32(value);
+                this._calcComb = value;
             }
         }
         [XmlAttribute("calcGmax")]
-        public int _calcGMax; // bool as int
+        public bool _calcGMax; 
         [XmlIgnore]
         public bool CalcGMax
         {
             get
             {
-                return Convert.ToBoolean(this._calcGMax);
+                return this._calcGMax;
             }
             set
             {
-                this._calcGMax = Convert.ToInt32(value);
+                this._calcGMax = value;
             }
         }
         [XmlAttribute("calcStab")]
-        public int _calcStab; // bool as int
+        public bool _calcStab;
         [XmlIgnore]
         public bool CalcStab
         {
             get
             {
-                return Convert.ToBoolean(this._calcStab);
+                return this._calcStab;
             }
             set
             {
-                this._calcStab = Convert.ToInt32(value);
+                this._calcStab = value;
             }
         }
         [XmlAttribute("calcFreq")]
-        public int _calcFreq; // bool as int
+        public bool _calcFreq;
         [XmlIgnore]
         public bool CalcFreq
         {
             get
             {
-                return Convert.ToBoolean(this._calcFreq);
+                return this._calcFreq;
             }
             set
             {
-                this._calcFreq = Convert.ToInt32(value);
+                this._calcFreq = value;
             }
         }
         [XmlAttribute("calcSeis")]
-        public int _calcSeis; // bool as int
+        public bool _calcSeis;
         [XmlIgnore]
         public bool CalcSeis
         {
             get
             {
-                return Convert.ToBoolean(this._calcSeis);
+                return this._calcSeis;
             }
             set
             {
-                this._calcSeis = Convert.ToInt32(value);
+                this._calcSeis = value;
             }
         }
         [XmlAttribute("calcDesign")]
-        public int _calcDesign; // bool as int
+        public bool _calcDesign;
         [XmlIgnore]
         public bool CalcDesign
         {
             get
             {
-                return Convert.ToBoolean(this._calcDesign);
+                return this._calcDesign;
             }
             set
             {
-                this._calcDesign = Convert.ToInt32(value);
+                this._calcDesign = value;
             }
         }
 
         [XmlAttribute("calcFootfall")]
-        public int _calcFootfall; // bool as int
+        public bool _calcFootfall;
         [XmlIgnore]
         public bool CalcFootfall
         {
             get
             {
-                return Convert.ToBoolean(this._calcFootfall);
+                return this._calcFootfall;
             }
             set
             {
-                this._calcFootfall = Convert.ToInt32(value);
+                this._calcFootfall = value;
             }
         }
 
 
         [XmlAttribute("elemfine")]
-        public int _elemFine; // bool as int
+        public bool _elemFine;
         [XmlIgnore]
         public bool ElemFine
         {
             get
             {
-                return Convert.ToBoolean(this._elemFine);
+                return this._elemFine;
             }
             set
             {
-                this._elemFine = Convert.ToInt32(value);
+                this._elemFine = value;
             }
         }
         [XmlAttribute("diaphragm")]
-        public int _diaphragm; // bool as int
+        public bool _diaphragm;
         [XmlIgnore]
         public bool Diaphragm
         {
             get
             {
-                return Convert.ToBoolean(this._diaphragm);
+                return this._diaphragm;
             }
             set
             {
-                this._diaphragm = Convert.ToInt32(value);
+                this._diaphragm = value;
             }
         }
         [XmlAttribute("peaksmoothing")]
-        public int _peakSmoothing; // bool as int
+        public bool _peakSmoothing; 
         [XmlIgnore]
         public bool PeakSmoothing
         {
             get
             {
-                return Convert.ToBoolean(this._peakSmoothing);
+                return this._peakSmoothing;
             }
             set
             {
-                this._peakSmoothing = Convert.ToInt32(value);
+                this._peakSmoothing = value;
             }
         }
  
