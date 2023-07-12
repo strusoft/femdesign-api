@@ -4,7 +4,7 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using System.Linq;
 using Rhino.Geometry;
-using FemDesign.Results;
+using FemDesign.Results.Utils;
 
 namespace FemDesign.Grasshopper
 {
@@ -59,7 +59,19 @@ namespace FemDesign.Grasshopper
             string combName = null;
             DA.GetData(1, ref combName);
 
-            var myRes = iResult.Where(x => x.Value.CaseIdentifier == combName);
+            int? shapeId = null;
+            DA.GetData(2, ref shapeId);
+
+            var myRes = iResult;
+            if (combName != null)
+            {
+                myRes = iResult.Where(x => x.Value.CaseIdentifier == combName).ToList();
+            }
+            if (shapeId != null)
+            {
+                myRes = iResult.Where(x => x.Value.Shape == shapeId).ToList();
+            }
+
 
             DA.SetDataList(0, myRes.Select(x => x.Value.CaseIdentifier).Distinct());
             DA.SetDataList(1, myRes.Select(x => x.Value.Shape));
