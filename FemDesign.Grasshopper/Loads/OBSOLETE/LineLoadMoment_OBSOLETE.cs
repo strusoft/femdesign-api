@@ -1,25 +1,24 @@
 // https://strusoft.com/
 using System;
-using GH = Grasshopper;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForce: GH_Component
+    public class LineLoadMoment_OBSOLETE : GH_Component
     {
-        public LineLoadForce(): base("LineLoad.Force", "Force", "Creates a force line load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LineLoadMoment_OBSOLETE(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "Curve defining the line load.", GH_ParamAccess.item);
-            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce. The start force will define the direction of the line load. [kN]", GH_ParamAccess.item);
-            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce. Optional. If undefined LineLoad will be uniform with a force of StartForce. [kN]", GH_ParamAccess.item);
+            pManager.AddVectorParameter("StartForce", "StartForce", "StartForce (Moment). The start force will define the direction of the line load. [kNm]", GH_ParamAccess.item);
+            pManager.AddVectorParameter("EndForce", "EndForce", "EndForce (Moment). Optional. If undefined LineLoad will be uniform with a force (moment) of StartForce. [kNm]", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction of load will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("ConstLoadDir", "ConstLoadDir", "Constant load direction? If true direction of load will be constant along action line. If false direction will vary along action line - characteristic direction is in the middle point of line. Optional.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -65,7 +64,7 @@ namespace FemDesign.Grasshopper
 
             try
             {
-                var obj = new Loads.LineLoad(edge, _startForce, _endForce, loadCase, Loads.ForceLoadType.Force, comment, constLoadDir, loadProjection);
+                var obj = new Loads.LineLoad(edge, _startForce, _endForce, loadCase, Loads.ForceLoadType.Moment, comment, constLoadDir, loadProjection);
                 DA.SetData("LineLoad", obj);
             }
             catch (ArgumentException e)
@@ -77,14 +76,15 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.LineLoadForce;
+                return FemDesign.Properties.Resources.LineLoadMoment;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("41b4dc32-d3c1-474d-9cfd-843fc18b799f"); }
+            get { return new Guid("2fdf8bbb-a3ae-4a63-8305-ae2d0b32e78e"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

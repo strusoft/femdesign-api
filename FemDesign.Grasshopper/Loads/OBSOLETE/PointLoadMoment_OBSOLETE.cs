@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointLoadMoment: GH_Component
+    public class PointLoadMoment_OBSOLETE : GH_Component
     {
-        public PointLoadMoment(): base("PointLoad.Moment", "Moment", "Create moment point load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public PointLoadMoment_OBSOLETE(): base("PointLoad.Moment", "Moment", "Create moment point load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("7d23fc57-ea12-46cc-8a32-d76beaafb9e9"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FemDesign.GenericClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,14 @@ namespace FemDesign.Loads
         /// Force
         /// </summary>
         [XmlEnum("force")]
+        [Parseable("Force", "force")]
         Force,
 
         /// <summary>
         /// Moment
         /// </summary>
         [XmlEnum("moment")]
+        [Parseable("Moment", "moment")]
         Moment,
     }
 }

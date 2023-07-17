@@ -119,9 +119,11 @@
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
+    <Compile Include="Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\LoadCombinationSetupCalculation.cs" />
     <Compile Include="Loads\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\MovingLoad.cs" />
+    <Compile Include="Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\VehicleFromStruxml.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
@@ -172,8 +174,8 @@
     <Compile Include="Helpers\_FileName.cs" />
     <Compile Include="Helpers\_GhRibbonLayout.cs" />
     <Compile Include="Loads\LineStressLoad.cs" />
-    <Compile Include="Loads\LineLoadForce.cs" />
-    <Compile Include="Loads\LineLoadMoment.cs" />
+    <Compile Include="Loads\OBSOLETE\LineLoadForce_OBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\LineLoadMoment_OBSOLETE.cs" />
     <Compile Include="Loads\LineTemperatureLoadDefine.cs" />
     <Compile Include="Loads\LoadCategoryConstruct.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
@@ -321,7 +323,7 @@
     <Compile Include="Loads\FootfallSelfExcitation.cs" />
     <Compile Include="Obsolete\LineLoadForceOBSOLETE.cs" />
     <Compile Include="Obsolete\LineLoadMomentOBSOLETE.cs" />
-    <Compile Include="Loads\LineTemperatureLoadDefineOBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\LineTemperatureLoadDefineOBSOLETE.cs" />
     <Compile Include="Loads\LoadCaseConstruct.cs" />
     <Compile Include="Loads\LoadCaseGetLoadCaseByName.cs" />
     <Compile Include="Loads\LoadCombinationConstruct.cs" />
@@ -329,8 +331,8 @@
     <Compile Include="Loads\LoadLocationValueConstruct.cs" />
     <Compile Include="Loads\MassConversionTableConstruct.cs" />
     <Compile Include="Loads\FootfallFullExcitation.cs" />
-    <Compile Include="Loads\PointLoadForce.cs" />
-    <Compile Include="Loads\PointLoadMoment.cs" />
+    <Compile Include="Loads\OBSOLETE\PointLoadForce_OBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\PointLoadMoment_OBSOLETE.cs" />
     <Compile Include="Loads\PressureLoadDefine.cs" />
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
