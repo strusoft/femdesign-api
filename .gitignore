@@ -22,3 +22,8 @@ FemDesign.Examples/Grasshopper/FEM-Design API
 !FemDesign.Examples/C#/Practical example - ResultsToJSON/*.str
 !FemDesign.Examples/C#/Practical example - ResultsToJSON/*.strFEM
 Icon
+
+FemDesign.GhTest/GhScript/results/
+FemDesign.GhTest/GhScript/scripts/
+FemDesign.GhTest/GhScript/*.log
+FemDesign.GhTest/GhScript/*.struxml
