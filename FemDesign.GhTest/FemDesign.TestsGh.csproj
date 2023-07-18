@@ -83,11 +83,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GhTests.cs" />
+    <Compile Include="GhApiTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GhScript\TenrecTest.gh">
+    <None Include="GhScript\ConstructModel.gh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GhScript\RunAnalysis.gh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
