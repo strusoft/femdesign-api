@@ -23,6 +23,25 @@ namespace FemDesignGhTests
     }
 
     [TestClass]
+    public partial class AutoTest_LoadCaseConstruct
+    {
+        public string FilePath => GetFile("GhScript/LoadCaseConstruct.gh");
+        private TestContext testContextInstance;
+        public TestContext TestContext { get => testContextInstance; set => testContextInstance = value; }
+        public static string GetFile(string filename)
+        {
+            string baseDirectory = Directory.GetCurrentDirectory();
+            return Path.Combine(baseDirectory, filename);
+        }
+        [TestMethod]
+        public void LoadCaseConstruct()
+        {
+            Tenrec.Runner.Initialize(TestContext);
+            Tenrec.Runner.RunTenrecGroup(FilePath, new System.Guid("794ea7c8-9284-4415-bfa5-ddb453703dd3"), TestContext);
+        }
+    }
+
+    [TestClass]
     public partial class AutoTest_RunAnalysis
     {
         public string FilePath => GetFile("GhScript/RunAnalysis.gh");

@@ -8,6 +8,8 @@
 
 ##### Create a Grasshopper Unit Test file
 
+![gif](generate_test.gif)
+
 1. Create a Grasshopper definition to make a Unit Test.
 2. Add the _Assert_ component, set input _Assert (A)_ to false when your Unit Test fail (and true otherwise) and include a message for when that happens.
 3. Select all components that are part of the Unit Test.
@@ -33,4 +35,4 @@
 
 ### 🌈 Acknowledge
 
-FEM-Design API use [Tenrec](https://github.com/DanielAbalde/Tenrec/tree/master) tool to test the grasshopper files.
+FEM-Design API use [Tenrec](https://github.com/DanielAbalde/Tenrec/tree/master) tool to generate and test the grasshopper files.
