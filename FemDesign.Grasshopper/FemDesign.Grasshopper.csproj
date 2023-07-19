@@ -125,6 +125,7 @@
     <Compile Include="Loads\MovingLoad.cs" />
     <Compile Include="Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\VehicleFromStruxml.cs" />
+    <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
@@ -250,8 +251,9 @@
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Units.cs" />
-    <Compile Include="Sections\SectionDatabaseFromStruxml.cs" />
-    <Compile Include="Sections\SectionDatabaseDefault.cs" />
+    <Compile Include="Sections\SectionDatabase.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDatabaseFromStruxml_OBSOLETE2.cs" />
+    <Compile Include="Sections\OBSOLETE\SectionDatabaseDefault_OBSOLETE2.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
@@ -338,8 +340,8 @@
     <Compile Include="Loads\SurfaceLoadVariable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoadOBSOLETE.cs" />
     <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
-    <Compile Include="Materials\MaterialDatabaseDefault.cs" />
-    <Compile Include="Materials\MaterialDatabaseFromStruxml.cs" />
+    <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefault_OBSOLETE2.cs" />
+    <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxml_OBSOLETE2.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialGetCltPanelTypeByNameOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialGetMaterialByNameOBSOLETE.cs" />

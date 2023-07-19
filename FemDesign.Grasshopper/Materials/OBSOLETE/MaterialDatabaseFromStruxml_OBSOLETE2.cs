@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseFromStruxml : GH_Component
+    public class MaterialDatabaseFromStruxml_OBSOLETE2 : GH_Component
     {
-        public MaterialDatabaseFromStruxml() : base("MaterialDatabase.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public MaterialDatabaseFromStruxml_OBSOLETE2() : base("MaterialDatabase.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
@@ -55,7 +55,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{201CD37E-D0EC-433D-9460-E9EF555D0AA8}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

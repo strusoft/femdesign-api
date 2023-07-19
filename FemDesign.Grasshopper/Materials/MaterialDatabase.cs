@@ -1,21 +1,24 @@
-// https://strusoft.com/
+﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
-using Grasshopper.Kernel;
-using FemDesign.Grasshopper.Extension.ComponentExtension;
 using System.Linq;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseDefault: GH_Component
+    public class MaterialDatabase : GH_Component
     {
-        public MaterialDatabaseDefault(): base("MaterialDatabase.Default", "Default", "Load the default MaterialDatabase for each respective country.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public MaterialDatabase() : base(" MaterialDatabase", "MaterialDatabase", "Load MaterialDatabase Default or FromStruxml.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("CountryCode", "CountryCode", "Connect 'ValueList' to get the options.\nNational annex of calculation code: D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item, "S");
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("FilePath", "FilePath", "File path to .struxml file.\nnote: `CountryCode` will not be use if `FilePath` is specified", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -26,22 +29,30 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Reinforcement Material", "Reinforcement Material", "", GH_ParamAccess.list);
             pManager.AddGenericParameter("Stratum Material", "Stratum Material", "", GH_ParamAccess.list);
             pManager.AddGenericParameter("Custom Material", "Custom Material", "", GH_ParamAccess.list);
-
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string countryCode = "S";
-            if (!DA.GetData(0, ref countryCode))
+            string countryCode = null;
+            DA.GetData(0, ref countryCode);
+
+            // get input
+            string filePath = null;
+            DA.GetData(1, ref filePath);
+
+            FemDesign.Materials.MaterialDatabase materialDatabase;
+
+            if(filePath == null)
             {
-                // pass
+                materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault(countryCode);
             }
-            if (countryCode == null)
+            else
             {
-                return;
+                if (countryCode != null)
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Filepath has been provided. `CountryCode` will be omitted.");
+                materialDatabase = FemDesign.Materials.MaterialDatabase.DeserializeStruxml(filePath);
             }
 
 
-            FemDesign.Materials.MaterialDatabase materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault(countryCode);
             (var steel, var concrete, var timber, var reinforcement, var stratum, var custom) = materialDatabase.ByType();
 
             // set output
@@ -56,21 +67,22 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.MaterialDatabaseDefault;
+                return FemDesign.Properties.Resources.MaterialDatabaseFromStruxml;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{BC3E170C-C4BB-46C9-87BC-F5E23B54AF5D}"); }
+            get { return new Guid("{89ECE4C6-13E9-49BF-8A1E-CFD88B651A87}"); }
         }
 
         protected override void BeforeSolveInstance()
         {
             ValueListUtils.updateValueLists(this, 0, new List<string>
             { "D","DK","EST","FIN","GB","H","N","PL","RO","S","TR"
-            }, null, 0);
+            }, null, GH_ValueListMode.DropDown);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
-    }   
+
+    }
 }

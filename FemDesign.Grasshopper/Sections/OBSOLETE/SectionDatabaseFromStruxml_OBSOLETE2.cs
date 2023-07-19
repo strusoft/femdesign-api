@@ -1,20 +1,19 @@
 ﻿// https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
 
-using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseDefault : GH_Component
+    public class SectionDatabaseFromStruxml_OBSOLETE2 : GH_Component
     {
-        public SectionDatabaseDefault() : base("SectionDatabase.Default", "Default", "Load the default SectionDatabase", CategoryName.Name(), SubCategoryName.Cat4b())
+        public SectionDatabaseFromStruxml_OBSOLETE2() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4b())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("filePath", "filePath", "File path to .struxml file.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -23,12 +22,16 @@ namespace FemDesign.Grasshopper
             pManager.Register_GenericParam("Timber Section", "Timber Section", "");
             pManager.Register_GenericParam("Hollow CoreSection", "HollowCore Section", "");
             pManager.Register_GenericParam("Custom Section", "Custom Section", "");
-
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // get input
+            string filePath = null;
+            if (!DA.GetData(0, ref filePath)) { return; }
+            if (filePath == null) { return; }
 
-            FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.GetDefault();
+            //
+            FemDesign.Sections.SectionDatabase sectionDatabase = FemDesign.Sections.SectionDatabase.DeserializeStruxml(filePath);
             (var steel, var concrete, var timber, var hollowCore, var custom) = sectionDatabase.ByType();
 
             // set output
@@ -42,14 +45,15 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.SectionDatabaseDefault;
+                return FemDesign.Properties.Resources.SectionDatabaseFromStruxml;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{6DD34A10-06B3-40ED-8A11-FEFABA2C8B70}"); }
+            get { return new Guid("{17C1C6E9-E68F-4AF1-93BD-133CD5DA4275}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+
     }
 }
