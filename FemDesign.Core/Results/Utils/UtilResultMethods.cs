@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Results.Utils
 {
-    internal class UtilResultMethods
+    public class UtilResultMethods
     {
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace FemDesign.Results.Utils
         /// <param name="loadCombination">Load combination name to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination) where T : IResult
+        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination)
         {
             PropertyInfo property = typeof(T).GetProperty(propertyName);
             if (property == null)
@@ -44,7 +44,7 @@ namespace FemDesign.Results.Utils
         /// <param name="shapeId">Index of shape identifier to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId) where T : IResult
+        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId)
         {
             PropertyInfo property = typeof(T).GetProperty(propertyName);
             if (property == null)

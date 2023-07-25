@@ -5,6 +5,9 @@ using Grasshopper.Kernel;
 using System.Linq;
 using Rhino.Geometry;
 using FemDesign.Results.Utils;
+using Grasshopper.Kernel.Data;
+using FemDesign.Results;
+
 
 namespace FemDesign.Grasshopper
 {
@@ -16,11 +19,15 @@ namespace FemDesign.Grasshopper
         public ImperfectionCritical()
           : base("ImperfectionCritical",
                 "ImperfectionCritical",
-                "Read the Imperfection factor/critical parameter results.",
+                "Read the imperfection factor/critical parameter results.",
                 CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
+
+
         }
+
+
 
         /// <summary>
         /// Registers all the input parameters for this component.
@@ -34,6 +41,8 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
         }
 
+
+
         /// <summary>
         /// Registers all the output parameters for this component.
         /// </summary>
@@ -45,6 +54,8 @@ namespace FemDesign.Grasshopper
             pManager.AddNumberParameter("Amplitude", "Amplitude", "", GH_ParamAccess.list);
         }
 
+
+
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
@@ -52,7 +63,6 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
-
             List<dynamic> iResult = new List<dynamic>();
             DA.GetDataList(0, iResult);
 
@@ -62,24 +72,74 @@ namespace FemDesign.Grasshopper
             int? shapeId = null;
             DA.GetData(2, ref shapeId);
 
-            var myRes = iResult;
+
+            // Filter results by load combination and shape identifier
+            string loadCombPropertyName;
+            string shapeIdPropertyName;
+
+
+            if (iResult.GetType() == typeof(ImperfectionFactor))
+            {
+                loadCombPropertyName = nameof(ImperfectionFactor.CaseIdentifier);
+                shapeIdPropertyName = nameof(ImperfectionFactor.Shape);
+            }
+            else if (iResult.GetType() == typeof(CriticalParameter))
+            {
+                loadCombPropertyName = nameof(CriticalParameter.CaseIdentifier);
+                shapeIdPropertyName = nameof(CriticalParameter.Shape);
+            }
+            else
+            {
+                throw new ArgumentException("This method cannot be used with the specified type.");
+            }
+
+
+            List<dynamic> filteredResults = iResult;
             if (combName != null)
             {
-                myRes = iResult.Where(x => x.Value.CaseIdentifier == combName).ToList();
+                filteredResults = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(filteredResults, loadCombPropertyName, combName);
             }
             if (shapeId != null)
             {
-                myRes = iResult.Where(x => x.Value.Shape == shapeId).ToList();
+                filteredResults = Results.Utils.UtilResultMethods.FilterResultsByShapeId(filteredResults, shapeIdPropertyName, (int)shapeId);
             }
 
 
-            DA.SetDataList(0, myRes.Select(x => x.Value.CaseIdentifier).Distinct());
-            DA.SetDataList(1, myRes.Select(x => x.Value.Shape));
-            DA.SetDataList(2, myRes.Select(x => x.Value.CriticalParam));
+
+            //DataTree<dynamic> CreateTreeFromResultsByCaseIdAndShape(dynamic result)
+            //{
+            //    var uniqueCaseId = iResult.Select(x => x.Value.CaseIdentifier).Distinct().ToList();
+            //    var uniqueShape = iResult.Select(x => x.Value.Shape).Distinct().ToList();
+            //    DataTree<dynamic> allResultsTree = new DataTree<dynamic>();
+
+            //    for (int i = 0; i < uniqueCaseId.Count; i++)
+            //    {
+            //        var allResultsByCaseId = iResult.Where(r => r.Value.CaseIdentifier == uniqueCaseId[i]).ToList();
+
+            //        for (int j = 0; j < uniqueShape.Count; j++)
+            //        {
+            //            var pathData = allResultsByCaseId.Where(s => s.Value.Shape == uniqueShape[j]);
+
+            //            allResultsTree.AddRange(pathData, new GH_Path(i, j));
+            //            j++;
+            //        }
+            //        i++;
+            //    }
+            //    return allResultsTree;
+            //}
+
+
+            
+
+            DA.SetDataList(0, filteredResults.Select(x => x.Value.CaseIdentifier));
+            DA.SetDataList(1, filteredResults.Select(x => x.Value.Shape));
+            DA.SetDataList(2, filteredResults.Select(x => x.Value.CriticalParam));
+
+
 
             try
             {
-                DA.SetDataList(3, myRes.Select(x => x.Value.Amplitude));
+                DA.SetDataList(3, filteredResults.Select(x => x.Value.Amplitude));
             }
             catch
             {
@@ -88,7 +148,11 @@ namespace FemDesign.Grasshopper
             }
         }
 
+
+
         public override GH_Exposure Exposure => GH_Exposure.senary;
+
+
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -102,6 +166,8 @@ namespace FemDesign.Grasshopper
                 return FemDesign.Properties.Resources.Results;
             }
         }
+
+
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
