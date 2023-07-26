@@ -7,7 +7,8 @@ namespace FemDesign.Grasshopper
 {
     public class SlabPeakSmoothingRegion : GH_Component
     {
-        public SlabPeakSmoothingRegion() : base("Slab.PeakSmoothingRegion", "PeakSmoothing", "Set peak smoothing regions.", CategoryName.Name(), SubCategoryName.Cat2b())
+        public SlabPeakSmoothingRegion() : base("Slab.PeakSmoothingRegion", "PeakSmoothing", "Set peak smoothing regions.\n\n" +
+            "*Note: Turn off the Automatic settings in FEM-Design/Settings/Calculation/Peak smoothing to avoid duplication of regions.", CategoryName.Name(), SubCategoryName.Cat2b())
         {
 
         }
