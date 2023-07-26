@@ -8,12 +8,12 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class StabilityImperfection : GH_Component
+    public class StabilityImperfection_OBSOLETE : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the StabilityImperfection class.
         /// </summary>
-        public StabilityImperfection()
+        public StabilityImperfection_OBSOLETE()
           : base("ImperfectionCritical",
                 "ImperfectionCritical",
                 "Read the Imperfection/critical parameter results",
@@ -72,7 +72,7 @@ namespace FemDesign.Grasshopper
             }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
