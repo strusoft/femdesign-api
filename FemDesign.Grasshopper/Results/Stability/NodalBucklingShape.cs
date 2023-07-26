@@ -130,7 +130,7 @@ namespace FemDesign.Grasshopper
                 }
                 else
                 {
-                    throw new System.ArgumentException("Shape index is unknown or out of range.");
+                    throw new System.ArgumentException($"Shape index {modeShapeId} is unknown or out of range.");
                 }
             }
 

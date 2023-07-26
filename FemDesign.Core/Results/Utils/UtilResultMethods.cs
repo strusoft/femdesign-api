@@ -18,7 +18,7 @@ namespace FemDesign.Results.Utils
         /// <param name="loadCombination">Load combination name to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination)
+        public static List<T> FilterResultsByLoadCombination<T>(List<T> results, string propertyName, string loadCombination) where T : IResult
         {
             PropertyInfo property = typeof(T).GetProperty(propertyName);
             if (property == null)
@@ -28,7 +28,7 @@ namespace FemDesign.Results.Utils
 
             if (!results.Select(r => property.GetValue(r).ToString()).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
             {
-                throw new ArgumentException("Incorrect or unknown load combination name.");
+                throw new ArgumentException($"Incorrect or unknown load combination name: {loadCombination}.");
             }
             var filteredResults = results.Where(r => String.Equals(property.GetValue(r).ToString(), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -44,17 +44,17 @@ namespace FemDesign.Results.Utils
         /// <param name="shapeId">Index of shape identifier to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId)
+        public static List<T> FilterResultsByShapeId<T>(List<T> results, string propertyName, int shapeId) where T : IResult
         {
             PropertyInfo property = typeof(T).GetProperty(propertyName);
             if (property == null)
             {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
+                throw new ArgumentException($"Property {property} doesn't exist in type {typeof(T).Name}.");
             }
 
             if ((shapeId < 1) || (shapeId > (int)results.Select(r => property.GetValue(r)).Max()))
             {
-                throw new ArgumentException("ShapeId is out of range.");
+                throw new ArgumentException($"ShapeId {shapeId} is out of range.");
             }
             var filteredResults = results.Where(r => (int)property.GetValue(r) == shapeId).ToList();
 
