@@ -50,8 +50,6 @@ namespace FemDesign.Examples
 
             // ENDING THE PROGRAM
             Console.WriteLine($"Saved an updated struxml file at path bin/debug/{struxmlPathOut}");
-            Console.WriteLine("\nPress any key to close console.");
-            Console.ReadKey();
         }
     }
 }

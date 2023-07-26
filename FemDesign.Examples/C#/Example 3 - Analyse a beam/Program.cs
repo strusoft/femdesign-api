@@ -156,10 +156,6 @@ namespace FemDesign.Examples
                 double min = group.Min(r => r.Ez);
                 Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
             }
-
-            Console.WriteLine();
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
             #endregion
         }
     }

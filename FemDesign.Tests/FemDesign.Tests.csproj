@@ -134,6 +134,7 @@
     <Compile Include="Shells\EdgeConnectionTests.cs" />
     <Compile Include="Shells\SlabTest.cs" />
     <Compile Include="Vehicle\VehicleTest.cs" />
+    <Compile Include="Examples\Examples.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\fdscript.xsd">
@@ -198,10 +199,6 @@
     <ProjectReference Include="..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1D91EBF4-A473-4C5B-A171-AB2DA1B7017B}</Project>
       <Name>FemDesign.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FemDesign.Examples\C#\Practical example - Load groups combining\Practical example - Load groups combining.csproj">
-      <Project>{6a2cb706-d4be-4ae8-a165-ec9f9f0d336e}</Project>
-      <Name>Practical example - Load groups combining</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

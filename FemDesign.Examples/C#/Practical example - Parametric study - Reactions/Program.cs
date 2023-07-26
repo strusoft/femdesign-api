@@ -57,10 +57,6 @@ namespace FemDesign.Examples
                         Console.WriteLine($"{reaction.Id,10} | {reaction.Fz,10}");
                     }
                 }
-
-            // ENDING THE PROGRAM
-            Console.WriteLine("\nPress any key to close console.");
-            Console.ReadKey();
         }
     }
 }
