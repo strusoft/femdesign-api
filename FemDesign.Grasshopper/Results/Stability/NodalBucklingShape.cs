@@ -35,8 +35,8 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.Register_StringParam("Identifier", "Id", "Case identifier");
-            pManager.Register_StringParam("CaseIdentifier", "CaseId", "Case identifier");
+            pManager.Register_StringParam("Identifier", "Id", "Element identifier.");
+            pManager.Register_StringParam("CaseIdentifier", "CaseId", "Case identifier.");
             pManager.Register_IntegerParam("ShapeId", "ShapeId", "Shape index");
             pManager.Register_IntegerParam("NodeId", "NodeId", "Node index");
             pManager.Register_VectorParam("Translation", "Translation", "Nodal translations in global x, y, z for all nodes");
@@ -130,7 +130,7 @@ namespace FemDesign.Grasshopper
                 }
                 else
                 {
-                    throw new System.ArgumentException("Shape index is unknown or out of range.");
+                    throw new System.ArgumentException($"Shape index {modeShapeId} is unknown or out of range.");
                 }
             }
 

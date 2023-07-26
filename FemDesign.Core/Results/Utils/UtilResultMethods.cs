@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Results.Utils
 {
-    internal class UtilResultMethods
+    public class UtilResultMethods
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace FemDesign.Results.Utils
 
             if (!results.Select(r => property.GetValue(r).ToString()).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
             {
-                throw new ArgumentException("Incorrect or unknown load combination name.");
+                throw new ArgumentException($"Incorrect or unknown load combination name: {loadCombination}.");
             }
             var filteredResults = results.Where(r => String.Equals(property.GetValue(r).ToString(), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -49,12 +49,12 @@ namespace FemDesign.Results.Utils
             PropertyInfo property = typeof(T).GetProperty(propertyName);
             if (property == null)
             {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
+                throw new ArgumentException($"Property {property} doesn't exist in type {typeof(T).Name}.");
             }
 
             if ((shapeId < 1) || (shapeId > (int)results.Select(r => property.GetValue(r)).Max()))
             {
-                throw new ArgumentException("ShapeId is out of range.");
+                throw new ArgumentException($"ShapeId {shapeId} is out of range.");
             }
             var filteredResults = results.Where(r => (int)property.GetValue(r) == shapeId).ToList();
 
