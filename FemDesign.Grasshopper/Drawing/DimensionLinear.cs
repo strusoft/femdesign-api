@@ -7,6 +7,8 @@ using Rhino.Geometry;
 using Struxml = StruSoft.Interop.StruXml.Data;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 
+using Grasshopper.Kernel.Special;
+
 namespace FemDesign.Grasshopper
 {
     public class DimensionLinear : GH_Component
@@ -63,8 +65,8 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 3, ArrowTypeValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 5, LengthUnitValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 3, ArrowTypeValueList, null, GH_ValueListMode.DropDown);
+            ValueListUtils.updateValueLists(this, 5, LengthUnitValueList, null, GH_ValueListMode.DropDown);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
