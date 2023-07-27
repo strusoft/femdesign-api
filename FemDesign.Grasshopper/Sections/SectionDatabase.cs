@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("FilePath", "filePath", "File path to .struxml file.", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePath", "filePath", "File path to .struxml file. If `FilePath` is not specified, default database will be use.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
