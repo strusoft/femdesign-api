@@ -22,9 +22,9 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Combination Name", "Combo Name", "Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Combination Name", "Combo Name", "Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -37,14 +37,14 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BucklingShapes", "Shapes", "Buckling shape results.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BucklingShapes", "Shapes", "Buckling shape results.", GH_ParamAccess.tree);
             pManager.AddGenericParameter("CriticalParameter", "CritParam", "Critical parameters.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{0FD2F66A-B989-4696-BDB4-E2BCDCBCB7C6}");
+        public override Guid ComponentGuid => new Guid("{D0BEDA49-8BF8-49AB-8784-CCD0F6422E88}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 
@@ -59,22 +59,71 @@ namespace FemDesign.Grasshopper
             return results;
         }
 
+        DataTree<dynamic> CreateFilteredTree(List<dynamic> results, List<string> loadCombinations = null, List<int> shapeIds = null)
+        {
+            DataTree<dynamic> filteredTree = new DataTree<dynamic>();
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                var elem = results[i];
+                string elemCaseIdentifier = elem.Value.CaseIdentifier;
+                int elemShape = elem.Value.Shape;
+
+                if (loadCombinations.Contains(elemCaseIdentifier) && shapeIds.Contains(elemShape))
+                {
+                    int caseIndex = loadCombinations.IndexOf(elemCaseIdentifier);
+                    int shapeIndex = shapeIds.IndexOf(elemShape);
+
+                    filteredTree.Add(elem, new GH_Path(caseIndex, shapeIndex));
+                }
+            }
+            return filteredTree;
+        }
+
+        DataTree<dynamic> CreateResultsTree(List<dynamic> results, List<string> loadCombinations = null, List<int> shapeIds = null)
+        {
+            var uniqueCaseId = results.Select(x => x.Value.CaseIdentifier).Distinct().ToList();
+            var uniqueShape = results.Select(x => x.Value.Shape).Distinct().ToList();
+            DataTree<dynamic> resultsTree = new DataTree<dynamic>();
+
+            for (int i = 0; i < uniqueCaseId.Count; i++)
+            {
+                var allResultsByCaseId = results.Where(r => r.Value.CaseIdentifier == uniqueCaseId[i]).ToList();
+
+                for (int j = 0; j < uniqueShape.Count; j++)
+                {
+                    var pathData = allResultsByCaseId.Where(s => s.Value.Shape == uniqueShape[j]);
+
+                    if(loadCombinations.Count == 0 || shapeIds.Count == 0 || (loadCombinations.Contains(uniqueCaseId[i]) && shapeIds.Contains(uniqueShape[j])))
+                    {
+                        resultsTree.AddRange(pathData, new GH_Path(i, j));
+                    }
+
+                    j++;
+                }
+                i++;
+            }
+            return resultsTree;
+        }
+
+
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
-        private string _combo = null;
-        private int? _shapeId = null;
+        private List<string> _combos = new List<string>();
+        private List<int> _shapeIds = new List<int>();
         private Results.UnitResults _units = null;
         private Calculate.Options _options = null;
         private bool _runNode = true;
 
-        private dynamic _bucklingResults = new List<FemDesign.Results.IResult>();
-        private dynamic _critParameterResults = new List<FemDesign.Results.IResult>();
+        private DataTree<dynamic> _bucklingTree = new DataTree<dynamic>();
         private bool _success = false;
 
 
         private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
         private Type _critParamType = typeof(FemDesign.Results.CriticalParameter);
         private Verbosity _verbosity = Verbosity.Normal;
+        private dynamic _bucklingResults = new List<FemDesign.Results.IResult>();
+        private dynamic _critParameterResults = new List<FemDesign.Results.IResult>();
 
 
         public ApplicationReadStabilityResultWorker(GH_Component component) : base(component) { }
@@ -119,8 +168,45 @@ namespace FemDesign.Grasshopper
                 
                 try
                 {
-                    _bucklingResults = _getStabilityResults(_resultType, _combo, _shapeId, _units, _options);
-                    _critParameterResults = _getStabilityResults(_critParamType, _combo, _shapeId, _units, _options);
+                    _bucklingResults = _getStabilityResults(_resultType, null, null, _units, _options);
+                    _bucklingTree = CreateResultsTree(_bucklingResults, _combos, _shapeIds);
+
+
+                    if(_combos.Any())
+                    {
+                        foreach(var comb in _combos)
+                        {
+                            if(_shapeIds.Any())
+                            {
+                                foreach(var id in _shapeIds)
+                                {
+                                    var res = _getStabilityResults(_critParamType, comb, id, _units, _options);
+                                    _critParameterResults.AddRange(res);
+                                }
+                            }
+                            else
+                            {
+                                var res = _getStabilityResults(_critParamType, comb, null, _units, _options);
+                                _critParameterResults.AddRange(res);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (_shapeIds.Any())
+                        {
+                            foreach (var id in _shapeIds)
+                            {
+                                var res = _getStabilityResults(_critParamType, null, id, _units, _options);
+                                _critParameterResults.AddRange(res);
+                            }
+                        }
+                        else
+                        {
+                            var res = _getStabilityResults(_critParamType, null, null, _units, _options);
+                            _critParameterResults.AddRange(res);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -143,12 +229,12 @@ namespace FemDesign.Grasshopper
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
-            if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("Combination Name", ref _combo);
-            DA.GetData("ShapeId", ref _shapeId);
-            DA.GetData("Units", ref _units);
-            DA.GetData("Options", ref _options);
-            DA.GetData("RunNode", ref _runNode);
+            if (!DA.GetData(0, ref _connection)) return;
+            DA.GetDataList(1, _combos);
+            DA.GetDataList(2, _shapeIds);
+            DA.GetData(3, ref _units);
+            DA.GetData(4, ref _options);
+            DA.GetData(5, ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
@@ -159,7 +245,7 @@ namespace FemDesign.Grasshopper
             }
 
             DA.SetData(0, _connection);
-            DA.SetDataList(1, _bucklingResults);
+            DA.SetDataTree(1, _bucklingTree);
             DA.SetDataList(2, _critParameterResults);
             DA.SetData(3, _success);
         }
