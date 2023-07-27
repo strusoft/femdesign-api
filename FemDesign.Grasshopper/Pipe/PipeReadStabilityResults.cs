@@ -58,80 +58,10 @@ namespace FemDesign.Grasshopper
 
             return results;
         }
-
-        DataTree<dynamic> CreateFilteredTree(List<dynamic> results, List<string> loadCombinations = null, List<int> shapeIds = null)
-        {
-            DataTree<dynamic> filteredTree = new DataTree<dynamic>();
-
-            for (int i = 0; i < results.Count; i++)
-            {
-                var elem = results[i];
-                string elemCaseIdentifier = elem.Value.CaseIdentifier;
-                int elemShape = elem.Value.Shape;
-
-                if (loadCombinations.Contains(elemCaseIdentifier) && shapeIds.Contains(elemShape))
-                {
-                    int caseIndex = loadCombinations.IndexOf(elemCaseIdentifier);
-                    int shapeIndex = shapeIds.IndexOf(elemShape);
-
-                    filteredTree.Add(elem, new GH_Path(caseIndex, shapeIndex));
-                }
-            }
-            return filteredTree;
-        }
-
-        //DataTree<dynamic> CreateResultsTree(List<dynamic> results, List<string> loadCombinations = null, List<int> shapeIds = null)
-        //{
-        //    var uniqueCaseId = results.Select(x => x.Value.CaseIdentifier).Distinct().ToList();
-        //    var uniqueShape = results.Select(x => x.Value.Shape).Distinct().ToList();
-        //    DataTree<dynamic> resultsTree = new DataTree<dynamic>();
-
-        //    for (int i = 0; i < uniqueCaseId.Count; i++)
-        //    {
-        //        var allResultsByCaseId = results.Where(r => r.Value.CaseIdentifier == uniqueCaseId[i]).ToList();
-
-        //        for (int j = 0; j < uniqueShape.Count; j++)
-        //        {
-        //            var pathData = allResultsByCaseId.Where(s => s.Value.Shape == uniqueShape[j]);
-
-        //            if(loadCombinations.Count == 0 || shapeIds.Count == 0 || (loadCombinations.Contains(uniqueCaseId[i]) && shapeIds.Contains(uniqueShape[j])))
-        //            {
-        //                resultsTree.AddRange(pathData, new GH_Path(i, j));
-        //            }
-        //        }
-        //    }
-        //    return resultsTree;
-        //}
-
-        DataTree<FemDesign.Results.NodalBucklingShape> CreateResultsTree(List<FemDesign.Results.NodalBucklingShape> results, List<string> loadCombinations = null, List<int> shapeIds = null)
-        {
-            var uniqueCaseId = results.Select(x => x.CaseIdentifier).Distinct().ToList();
-            var uniqueShape = results.Select(x => x.Shape).Distinct().ToList();
-            DataTree<FemDesign.Results.NodalBucklingShape> resultsTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
-
-            for (int i = 0; i < uniqueCaseId.Count; i++)
-            {
-                var allResultsByCaseId = results.Where(r => r.CaseIdentifier == uniqueCaseId[i]).ToList();
-
-                for (int j = 0; j < uniqueShape.Count; j++)
-                {
-                    var pathData = allResultsByCaseId.Where(s => s.Shape == uniqueShape[j]).ToList();
-
-                    if (!loadCombinations.Any() || !shapeIds.Any())
-                    {
-                        resultsTree.AddRange(pathData, new GH_Path(i, j));
-                    }
-                    else if (loadCombinations.Contains(uniqueCaseId[i]) && shapeIds.Contains(uniqueShape[j]))
-                    {
-                        resultsTree.AddRange(pathData, new GH_Path(i, j));
-                    }
-                }
-            }
-            return resultsTree;
-        }
-
+        
         DataTree<FemDesign.Results.NodalBucklingShape> CreateAllResultsTree(List<FemDesign.Results.NodalBucklingShape> results)
         {
+            // create data tree[i, j] indexed by i (load combination name) and j (shape index)
             var uniqueCaseId = results.Select(x => x.CaseIdentifier).Distinct().ToList();
             var uniqueShape = results.Select(x => x.Shape).Distinct().ToList();
             DataTree<FemDesign.Results.NodalBucklingShape> resultsTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
@@ -191,10 +121,6 @@ namespace FemDesign.Grasshopper
             return tree;
         }
 
-
-
-
-
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private List<string> _combos = new List<string>();
@@ -204,16 +130,13 @@ namespace FemDesign.Grasshopper
         private bool _runNode = true;
 
         private DataTree<FemDesign.Results.NodalBucklingShape> _bucklingTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
+        private dynamic _critParameterResults = new List<FemDesign.Results.IResult>();
         private bool _success = false;
-
 
         private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
         private Type _critParamType = typeof(FemDesign.Results.CriticalParameter);
         private Verbosity _verbosity = Verbosity.Normal;
-        //
-        //private dynamic _bucklingResults = new List<FemDesign.Results.IResult>();
-        private dynamic _critParameterResults = new List<FemDesign.Results.IResult>();
-
+               
 
         public ApplicationReadStabilityResultWorker(GH_Component component) : base(component) { }
 
