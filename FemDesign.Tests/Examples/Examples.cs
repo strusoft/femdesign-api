@@ -15,7 +15,8 @@ namespace FemDesign.Examples
     [TestClass()]
     public class ExampleTests
     {
-        [TestMethod]
+        [TestCategory("FEM-Design required")]
+        [TestMethod("Example_validation")]
         public void Examples()
         {
             int exitCode;
