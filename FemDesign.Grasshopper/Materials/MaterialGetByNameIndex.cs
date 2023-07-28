@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{9D0A102B-29AD-48A8-A51C-459444262E9B}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
         private static FemDesign.Materials.Material GetMaterialByNameOrIndex(List<FemDesign.Materials.Material> materials, dynamic materialInput)
         {

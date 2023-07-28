@@ -152,14 +152,10 @@ namespace FemDesign.Grasshopper
 
 
             bool fileExist = OnPingDocument().IsFilePathDefined;
-            if (!fileExist)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
-                return;
-            }
-            var filePath = OnPingDocument().FilePath;
+            var filePath = fileExist == false ? System.IO.Directory.GetCurrentDirectory() : OnPingDocument().FilePath;
             var outputDir = System.IO.Path.GetDirectoryName(filePath);
-            
+
+
 
             // Create Task
             var t = Task.Run((Action)(() =>
@@ -199,10 +195,9 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
-                if (_model.Value is string)
-                {
-                    model = connection.GetModel();
-                }
+                // return the new model
+                model = connection.GetModel();
+                
 
                 connection.Dispose();
             }));

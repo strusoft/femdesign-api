@@ -5,6 +5,7 @@ using System.Linq;
 using Eto.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
@@ -62,8 +63,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 4, HorAlignValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 5, VerAlignValueList, null, 0);
+            ValueListUtils.updateValueLists(this, 4, HorAlignValueList, null, GH_ValueListMode.DropDown);
+            ValueListUtils.updateValueLists(this, 5, VerAlignValueList, null, GH_ValueListMode.DropDown);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

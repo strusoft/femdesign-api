@@ -143,10 +143,6 @@ namespace FemDesign.Examples
                 counter++;
             }
 
-
-            // ENDING THE PROGRAM
-            Console.WriteLine("\nPress any key to close console.");
-            Console.ReadKey();
         }
     }
 }

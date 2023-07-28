@@ -161,15 +161,11 @@ namespace FemDesign.Examples
                 femDesign.Open(model);
                 femDesign.RunAnalysis(constructionStageAnalysis);
 
-                var displacements = femDesign.GetResults<Results.BarDisplacement>();
+                //var displacements = femDesign.GetResults<Results.BarDisplacement>();
 
-                double maxValue = displacements.Min(r => r.Ez); // Largest negative displacement
-                var maxDisplacement = displacements.Find(r => r.Ez == maxValue);
-                Console.WriteLine($"Max displacement: {displacements.Max(r => -r.Ez)}{units.Displacement} in '{maxDisplacement.CaseIdentifier}'");
-
-                // ENDING THE PROGRAM
-                Console.WriteLine("\nPress any key to close console...");
-                Console.ReadKey();
+                //double maxValue = displacements.Min(r => r.Ez); // Largest negative displacement
+                //var maxDisplacement = displacements.Find(r => r.Ez == maxValue);
+                //Console.WriteLine($"Max displacement: {displacements.Max(r => -r.Ez)}{units.Displacement} in '{maxDisplacement.CaseIdentifier}'");
             }
         }
     }

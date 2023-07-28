@@ -11,7 +11,7 @@ namespace FemDesign.Examples
 {
     internal class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             // EXAMPLE 2: ANALYSING A MODEL
             // This example will show you how to run an analysis
@@ -75,9 +75,6 @@ namespace FemDesign.Examples
                     Console.WriteLine($"{group.Key}: {min:0.000}{units.Displacement}");
                 }
 
-                Console.WriteLine();
-                Console.WriteLine("Press any key to close...");
-                Console.ReadKey();
             }
         }
     }

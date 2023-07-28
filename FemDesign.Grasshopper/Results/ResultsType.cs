@@ -31,7 +31,6 @@ namespace FemDesign.Grasshopper
             var values = new List<string>
             {
                 nameof(FemDesign.Results.NodalDisplacement),
-                nameof(FemDesign.Results.NodalDisplacement),
                 nameof(FemDesign.Results.PointSupportReaction),
                 nameof(FemDesign.Results.PointSupportReactionMinMax),
                 nameof(FemDesign.Results.PointConnectionForce),
