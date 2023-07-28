@@ -1,15 +1,17 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+using System.Reflection;
+
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
-using System.Linq;
-using System.Windows.Forms;
-
 using GrasshopperAsyncComponent;
+
 using FemDesign.Calculate;
-using System.Reflection;
+
 
 namespace FemDesign.Grasshopper
 {
@@ -58,7 +60,8 @@ namespace FemDesign.Grasshopper
 
             return results;
         }
-        
+
+
         DataTree<FemDesign.Results.NodalBucklingShape> CreateAllResultsTree(List<FemDesign.Results.NodalBucklingShape> results)
         {
             // create data tree[i, j] indexed by i (load combination name) and j (shape index)
@@ -89,7 +92,7 @@ namespace FemDesign.Grasshopper
                     emptyPath.Add(path);
                 }
             }
-            foreach(var item in emptyPath)
+            foreach (var item in emptyPath)
             {
                 resultsTree.RemovePath(item);
             }
@@ -104,7 +107,7 @@ namespace FemDesign.Grasshopper
             {
                 var path = tree.Paths[i];
                 var branch = tree.Branches[i].ToList();
-                
+
                 if ((loadCombinations.Any()) && (!loadCombinations.Contains(branch[0].CaseIdentifier, StringComparer.OrdinalIgnoreCase)))
                 {
                     removable.Add(path);
@@ -121,6 +124,9 @@ namespace FemDesign.Grasshopper
             return tree;
         }
 
+
+
+
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private List<string> _combos = new List<string>();
@@ -128,7 +134,7 @@ namespace FemDesign.Grasshopper
         private Results.UnitResults _units = null;
         private Calculate.Options _options = null;
         private bool _runNode = true;
-
+                
         private DataTree<FemDesign.Results.NodalBucklingShape> _bucklingTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
         private dynamic _critParameterResults = new List<FemDesign.Results.IResult>();
         private bool _success = false;
@@ -181,9 +187,21 @@ namespace FemDesign.Grasshopper
                 try
                 {
                     List<FemDesign.Results.NodalBucklingShape> bucklingRes = _getStabilityResults(_resultType, null, null, _units, _options);
-                    //_bucklingTree = CreateResultsTree(_bucklingResults, _combos, _shapeIds);
                     var tree = CreateAllResultsTree(bucklingRes);
                     _bucklingTree = FilterTree(tree, _combos, _shapeIds);
+
+
+
+                    //List<FemDesign.Results.CriticalParameter> critParamRes = _getStabilityResults(_critParamType, null, null, _units, _options);
+
+                    //foreach(var item in critParamRes)
+                    //{
+                    //    if ((_combos.Any()) && (!_combos.Contains(item.CaseIdentifier, StringComparer.OrdinalIgnoreCase)))
+                    //    {
+                    //        critParamRes
+                    //    }
+                    //}
+
 
                     if (_combos.Any())
                     {
@@ -223,7 +241,7 @@ namespace FemDesign.Grasshopper
                 }
                 catch (Exception ex)
                 {
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.InnerException.Message));
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, ex.InnerException.Message));
                     _success = false;
                 }
 
