@@ -86,7 +86,7 @@ namespace FemDesign.Reinforcement
             // check if mixed layers
             if (SurfaceReinforcement.MixedLayers(srfReinfs))
             {
-                throw new System.ArgumentException("Can't add mixed layers to the same slab");
+                throw new System.ArgumentException("Can't add top and bottom face reinforcement layout with mid face reinforcement layout to the same slab");
             }
 
             if (SurfaceReinforcement.AllStraight(srfReinfs))
