@@ -15,7 +15,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeReadResults : GH_AsyncComponent
     {
-        public PipeReadResults() : base("FEM-Design.GetCaseCombResults", "GetCaseCombResults", "Read load cases and load combinations results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeReadResults() : base(" FEM-Design.GetCaseCombResults", "GetCaseCombResults", "Read load cases and load combinations results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationReadResultWorker(this);
         }

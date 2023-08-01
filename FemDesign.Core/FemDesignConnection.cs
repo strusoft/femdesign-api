@@ -495,6 +495,67 @@ namespace FemDesign
 
             return results;
         }
+
+        /// <summary>
+        /// Create result points
+        /// </summary>
+        /// <param name="resultPoints"></param>
+        public void CreateResultPoint(List<CmdResultPoint> resultPoints)
+        {
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand>();
+
+            commands.Add(new CmdUser(CmdUserModule.RESMODE));
+            commands.AddRange(resultPoints);
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands);
+            this.RunScript(script, "CreateResultPoints");
+        }
+
+        public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoints, Results.UnitResults units = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
+
+            var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+            bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand>();
+
+            commands.Add(new CmdUser(CmdUserModule.RESMODE));
+            commands.Add(resultPoints);
+
+            for (int i = 0; i < bscPaths.Count; i++)
+                //listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+                commands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands.ToArray());
+            this.RunScript(script, "GetResultsOnPoints");
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+
         public List<Results.FemNode> GetFeaNodes(Results.Length units = Results.Length.m)
         {
             var _resultType = ListProc.FemNode;

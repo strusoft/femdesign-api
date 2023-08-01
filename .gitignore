@@ -27,3 +27,9 @@ FemDesign.GhTest/GhScript/results/
 FemDesign.GhTest/GhScript/scripts/
 FemDesign.GhTest/GhScript/*.log
 FemDesign.GhTest/GhScript/*.struxml
+
+
+FemDesign.Tests/Results/**/*.fdscript
+FemDesign.Tests/Results/**/*.csv
+FemDesign.Tests/Results/**/*.bsc
+FemDesign.Tests/Results/**/*.log

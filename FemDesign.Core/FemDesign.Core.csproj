@@ -62,6 +62,7 @@
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdListGen.cs" />
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
+    <Compile Include="Calculate\CmdResultPoint.cs" />
     <Compile Include="Calculate\Imperfection.cs" />
     <Compile Include="Calculate\Stability.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
@@ -414,6 +415,7 @@
     <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Supports\Supports.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
+    <Compile Include="Utils\XmlSerializationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

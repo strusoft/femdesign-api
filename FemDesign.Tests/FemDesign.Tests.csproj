@@ -75,6 +75,7 @@
     <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
     <Compile Include="Calculate\CmdConfig.cs" />
+    <Compile Include="Calculate\CmdResPoint.cs" />
     <Compile Include="Calculate\OptionsTests.cs" />
     <Compile Include="Calculate\CmdListGenTest.cs" />
     <Compile Include="Calculate\Stability.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
+    <Compile Include="Results\ResultPointsTests.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
@@ -181,6 +183,12 @@
     </None>
     <None Include="Performance\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Slab.str">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Slab.strFEM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Results\Stability\ReadBucklingShapesTest.struxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

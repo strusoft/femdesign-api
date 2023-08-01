@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetQuantities : GH_AsyncComponent
     {
-        public PipeGetQuantities() : base("FEM-Design.GetQuantities", "GetQuantities", "Get quantities from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeGetQuantities() : base(" FEM-Design.GetQuantities", "GetQuantities", "Get quantities from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationGetQuantitiesWorker(this);
         }
