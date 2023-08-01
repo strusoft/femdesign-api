@@ -114,8 +114,10 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
+    <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2250.cs" />
     <Compile Include="Deconstruct\PeakSmoothingRegionDeconstruct.cs" />
+    <Compile Include="Deconstruct\ResultPointDeconstruct.cs" />
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
@@ -154,7 +156,7 @@
     <Compile Include="Deconstruct\LineStressLoadDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadCategoryDeconstruct.cs" />
     <Compile Include="Deconstruct\LoadGroupDeconstruct.cs" />
-    <Compile Include="Deconstruct\ModelDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2260.cs" />
     <Compile Include="Deconstruct\OBSOLETE\GenericSupportObjectSortSupportsOBSOLETE.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2150.cs" />
     <Compile Include="Deconstruct\PanelContinousDeconstruct.cs" />
@@ -918,6 +920,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\ResultPointDeconstruct.png" />
     <None Include="Resources\icons\LoadGroupToComb.bmp" />
     <None Include="Resources\icons\StabilityDefine.png" />
     <None Include="Resources\icons\Vehicle.png" />
