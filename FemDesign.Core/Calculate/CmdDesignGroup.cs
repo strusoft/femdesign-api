@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.IO;
 using FemDesign.GenericClasses;
 using System.Drawing;
+using FemDesign.Bars;
 
 namespace FemDesign.Calculate
 {
@@ -138,10 +139,60 @@ namespace FemDesign.Calculate
         // Additionally, Concrete Bar group is required to have elements with same bar length.
         private void _validateGroup(List<FemDesign.GenericClasses.IStructureElement> elements)
         {
+            if (elements.Count == 0)
+                return;
             isSameType(elements);
+
+            // if bar
+            if (elements[0] is FemDesign.Bars.Bar)
+            {
+                _validateConcreteBeam(elements);
+                
+            }
+
+            // if it is concrete material, section, length of bar type must be the same
             //hasSameMaterial(elements);
         }
 
+
+        private void _validateConcreteBeam(List<FemDesign.GenericClasses.IStructureElement> elements)
+        {
+            var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
+
+            // if concrete
+            if (bars[0].BarPart.ComplexMaterialObj.Concrete != null)
+            {
+                // same material
+                var refMaterial = bars[0].BarPart.ComplexMaterialObj.Guid;
+                var sameMaterial = bars.All(x => x.BarPart.ComplexMaterialObj.Guid == refMaterial);
+
+                if (!sameMaterial)
+                    throw new Exception("Concrete material must be the same within the design group!");
+
+                // same section
+                var refSectionStart = bars[0].BarPart.ComplexSectionObj.Sections[0].Guid;
+                var refSectionEnd = bars[0].BarPart.ComplexSectionObj.Sections[1].Guid;
+
+                var sameSectionStart = bars.All(x => x.BarPart.ComplexSectionObj.Sections[0].Guid == refSectionStart);
+                var sameSectionEnd = bars.All(x => x.BarPart.ComplexSectionObj.Sections[1].Guid == refSectionEnd);
+
+                if (!sameSectionStart && !sameSectionEnd)
+                    throw new Exception("Concrete section must be the same within the design group!");
+
+                // same length
+                var refLength = bars[0].BarPart.Edge.Length;
+                var sameLength = bars.All(x => x.BarPart.Edge.Length == refLength);
+
+                if (!sameLength)
+                    throw new Exception("Concrete bars must be have the same length within the design group!");
+            }
+        }
+
+        /// <summary>
+        /// Check if elements in group have the same type
+        /// </summary>
+        /// <param name="elements"></param>
+        /// <exception cref="Exception"></exception>
         private void isSameType(List<FemDesign.GenericClasses.IStructureElement> elements)
         {
             var barCount = elements.OfType<FemDesign.Bars.Bar>().Count();
