@@ -141,17 +141,17 @@ namespace FemDesign.Calculate
         {
             if (elements.Count == 0)
                 return;
+
             isSameType(elements);
 
-            // if bar
-            if (elements[0] is FemDesign.Bars.Bar)
+            if (elements[0] is FemDesign.Bars.Bar bar)
             {
-                _validateConcreteBeam(elements);
-                
+                var material = bar.BarPart.ComplexMaterialObj;
+                if (material.Concrete != null)
+                    _validateConcreteBeam(elements);
+                else if (material.Steel != null || material.Timber != null)
+                    return;
             }
-
-            // if it is concrete material, section, length of bar type must be the same
-            //hasSameMaterial(elements);
         }
 
 
@@ -159,33 +159,30 @@ namespace FemDesign.Calculate
         {
             var bars = elements.Cast<FemDesign.Bars.Bar>().ToList();
 
-            // if concrete
-            if (bars[0].BarPart.ComplexMaterialObj.Concrete != null)
-            {
-                // same material
-                var refMaterial = bars[0].BarPart.ComplexMaterialObj.Guid;
-                var sameMaterial = bars.All(x => x.BarPart.ComplexMaterialObj.Guid == refMaterial);
+            // same material
+            var refMaterial = bars[0].BarPart.ComplexMaterialObj.Guid;
+            var sameMaterial = bars.All(x => x.BarPart.ComplexMaterialObj.Guid == refMaterial);
 
-                if (!sameMaterial)
-                    throw new Exception("Concrete material must be the same within the design group!");
+            if (!sameMaterial)
+                throw new Exception("Concrete material must be the same within the design group!");
 
-                // same section
-                var refSectionStart = bars[0].BarPart.ComplexSectionObj.Sections[0].Guid;
-                var refSectionEnd = bars[0].BarPart.ComplexSectionObj.Sections[1].Guid;
+            // same section
+            var refSectionStart = bars[0].BarPart.ComplexSectionObj.Sections[0].Guid;
+            var refSectionEnd = bars[0].BarPart.ComplexSectionObj.Sections[1].Guid;
 
-                var sameSectionStart = bars.All(x => x.BarPart.ComplexSectionObj.Sections[0].Guid == refSectionStart);
-                var sameSectionEnd = bars.All(x => x.BarPart.ComplexSectionObj.Sections[1].Guid == refSectionEnd);
+            var sameSectionStart = bars.All(x => x.BarPart.ComplexSectionObj.Sections[0].Guid == refSectionStart);
+            var sameSectionEnd = bars.All(x => x.BarPart.ComplexSectionObj.Sections[1].Guid == refSectionEnd);
 
-                if (!sameSectionStart && !sameSectionEnd)
-                    throw new Exception("Concrete section must be the same within the design group!");
+            if (!sameSectionStart && !sameSectionEnd)
+                throw new Exception("Concrete section must be the same within the design group!");
 
-                // same length
-                var refLength = bars[0].BarPart.Edge.Length;
-                var sameLength = bars.All(x => x.BarPart.Edge.Length == refLength);
+            // same length
+            var refLength = bars[0].BarPart.Edge.Length;
+            var sameLength = bars.All(x => x.BarPart.Edge.Length == refLength);
 
-                if (!sameLength)
-                    throw new Exception("Concrete bars must be have the same length within the design group!");
-            }
+            if (!sameLength)
+                throw new Exception("Concrete bars must be have the same length within the design group!");
+            
         }
 
         /// <summary>
