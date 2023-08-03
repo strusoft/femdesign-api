@@ -84,6 +84,16 @@ namespace FemDesign.Grasshopper
                 labelledSections = model.Entities.LabelledSections.LabelledSections;
             }
 
+            List<AuxiliaryResults.ResultPoint> resPoints;
+            if (model.Entities.ResultPoints != null)
+            {
+                resPoints = model.Entities.ResultPoints.ResultPoints;
+            }
+            else
+            {
+                resPoints = null;
+            }
+
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
             DA.SetDataList("Foundations", model.Entities.Foundations.GetFoundations());
@@ -104,7 +114,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Storeys", storeys);
             DA.SetDataList("Stages", stages);
             DA.SetDataList("PeakSmoothingRegion", model.Entities.PeakSmoothingRegions);
-            DA.SetDataList("ResultPoints", model.Entities.ResultPoints.ResultPoints);
+            DA.SetDataList("ResultPoints", resPoints);
         }
         protected override System.Drawing.Bitmap Icon
         {
