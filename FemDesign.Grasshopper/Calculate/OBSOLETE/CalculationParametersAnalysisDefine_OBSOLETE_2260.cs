@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersAnalysisDefine : GH_Component
+    public class CalculationParametersAnalysisDefine_OBSOLETE_2260 : GH_Component
     {
-        public CalculationParametersAnalysisDefine() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersAnalysisDefine_OBSOLETE_2260() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -26,11 +26,11 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcComb", "calcComb", "Load combinations", GH_ParamAccess.item, true);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcCstage", "calcCstage", "Construction stages.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcImpf", "calcImpf", "Imperfections", GH_ParamAccess.item, false);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("calcComb", "calcComb", "Load combinations", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcGmax", "calcGmax", "Maximum of load groups.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -97,29 +97,29 @@ namespace FemDesign.Grasshopper
             }
 
             bool calcCase = false;
-            if (!DA.GetData("calcCase", ref calcCase))
+            if (!DA.GetData(6, ref calcCase))
             {
                 // pass
             }
 
-            bool calcComb = false;
-            if (!DA.GetData("calcComb", ref calcComb))
-            {
-                // pass
-            }
 
             bool calcCstage = false;
-            if (!DA.GetData(8, ref calcCstage))
+            if (!DA.GetData(7, ref calcCstage))
             {
                 // pass
             }
 
             bool calcImpf = false;
-            if (!DA.GetData(9, ref calcImpf))
+            if (!DA.GetData(8, ref calcImpf))
             {
                 // pass
             }
 
+            bool calcComb = false;
+            if (!DA.GetData(9, ref calcComb))
+            {
+                // pass
+            }
 
             bool calcGMax = false;
             if (!DA.GetData(10, ref calcGMax))
@@ -195,9 +195,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{859B03EA-4AF7-4F30-8788-C6A7B3EC0072}"); }
+            get { return new Guid("{007389FF-8D8E-4AD9-BF85-8C8332F4CADC}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
