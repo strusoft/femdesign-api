@@ -55,6 +55,7 @@ namespace FemDesign.Grasshopper
                     if (_runNode == false)
                     {
                         _success = false;
+                        _connection = null;
                         RuntimeMessages.Add( (GH_RuntimeMessageLevel.Warning, "Run node set to false.") );
                         Done();
                         return;

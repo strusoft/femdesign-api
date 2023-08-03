@@ -247,7 +247,6 @@
     <Compile Include="Results\Quantities\SteelQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\TimberQuantityEstimation.cs" />
     <Compile Include="Results\ResultPoints.cs" />
-    <Compile Include="Pipe\ResultPoints.cs" />
     <Compile Include="Results\ShellDisplacement.cs" />
     <Compile Include="Results\ShellInternalForce.cs" />
     <Compile Include="Results\ShellStress.cs" />

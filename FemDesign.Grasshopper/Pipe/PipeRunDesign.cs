@@ -58,13 +58,13 @@ namespace FemDesign.Grasshopper
 
                     if (_design == null)
                     {
+                        _connection = null;
                         throw new Exception("Design is null.");
                     }
 
                     if (_connection == null)
                     {
                         _success = false;
-                        _connection = null;
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
                         Done();
                         return;
