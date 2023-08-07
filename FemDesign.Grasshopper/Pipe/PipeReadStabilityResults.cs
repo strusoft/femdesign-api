@@ -292,36 +292,28 @@ namespace FemDesign.Grasshopper
                     throw new Exception("FEM-Design have been closed.");
                 }
 
-                // Run the Analysis
-
                 ReportProgress("", "");
-                
-                try
-                {
-                    // get buckling results
-                    List<FemDesign.Results.NodalBucklingShape> bucklingRes = _getStabilityResults(_resultType, null, null, _units, _options);
-
-                    // check validity of filter values
-                    CaseIdIsValid(bucklingRes, _combos);
-                    ShapeIdIsValid(bucklingRes, _shapeIds);
-
-                    // create tree from buckling results
-                    var bucklingTree = CreateResultTree(bucklingRes);
-                    _bucklingTree = FilterTree(bucklingTree, _combos, _shapeIds);
-
-                    //create tree from critical parameter results
-                    List<FemDesign.Results.CriticalParameter> critParamRes = _getStabilityResults(_critParamType, null, null, _units, _options);
-                    var critParamTree = CreateResultTree(critParamRes);
-                    _critParameterResults = FilterTree(critParamTree, _combos, _shapeIds);
-
-                }
-                catch (Exception ex)
-                {
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, ex.Message));
-                    _success = false;
-                }
-
                 _success = true;
+
+
+                // Get stability results
+
+                // get buckling results
+                List<FemDesign.Results.NodalBucklingShape> bucklingRes = _getStabilityResults(_resultType, null, null, _units, _options);
+
+                // check validity of filter values
+                CaseIdIsValid(bucklingRes, _combos);
+                ShapeIdIsValid(bucklingRes, _shapeIds);
+
+                // create tree from buckling results
+                var bucklingTree = CreateResultTree(bucklingRes);
+                _bucklingTree = FilterTree(bucklingTree, _combos, _shapeIds);
+
+                //create tree from critical parameter results
+                List<FemDesign.Results.CriticalParameter> critParamRes = _getStabilityResults(_critParamType, null, null, _units, _options);
+                var critParamTree = CreateResultTree(critParamRes);
+                _critParameterResults = FilterTree(critParamTree, _combos, _shapeIds);
+                                
             }
             catch (Exception ex)
             {
