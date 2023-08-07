@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Results.Utils
 {
-    public class UtilResultMethods
+    public static class UtilResultMethods
     {
 
         /// <summary>

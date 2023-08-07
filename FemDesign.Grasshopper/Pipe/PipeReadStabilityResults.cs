@@ -114,15 +114,10 @@ namespace FemDesign.Grasshopper
             return resultsTree;
         }
 
-        //public DataTree<FemDesign.Results.CriticalParameter> FilterTree(DataTree<FemDesign.Results.CriticalParameter> tree, List<string> loadCombinations = null, List<int> shapeIds = null)
-        //{
-
-        //}
-
         public DataTree<FemDesign.Results.NodalBucklingShape> FilterTree(DataTree<FemDesign.Results.NodalBucklingShape> tree, List<string> loadCombinations = null, List<int> shapeIds = null)
         {
             var removable = new List<GH_Path>();
-            var filteredTree = tree;
+            DataTree<FemDesign.Results.NodalBucklingShape> filteredTree = tree;
 
             // sort and remove unnecessary branches 
             for (int i = 0; i < filteredTree.BranchCount; i++)
@@ -156,7 +151,7 @@ namespace FemDesign.Grasshopper
         public DataTree<FemDesign.Results.CriticalParameter> FilterTree(DataTree<FemDesign.Results.CriticalParameter> tree, List<string> loadCombinations = null, List<int> shapeIds = null)
         {
             var removable = new List<GH_Path>();
-            var filteredTree = tree;
+            DataTree<FemDesign.Results.CriticalParameter> filteredTree = tree;
 
             // sort and remove unnecessary branches 
             for (int i = 0; i < filteredTree.BranchCount; i++)
@@ -168,9 +163,15 @@ namespace FemDesign.Grasshopper
                 {
                     removable.Add(path);
                 }
-                if ((shapeIds.Any()) && (!shapeIds.Contains(branch[0].Shape)))
+                if (shapeIds.Any())
                 {
-                    removable.Add(path);
+                    for(int j = branch.Count - 1; j >= 0; j--)
+                    {
+                        if (!shapeIds.Contains(branch[j].Shape))
+                        {
+                            filteredTree.Branches[i].RemoveAt(j);
+                        }
+                    }
                 }
             }
             foreach (var item in removable)
@@ -180,9 +181,7 @@ namespace FemDesign.Grasshopper
 
             // renumber tree path
             if (removable.Any())
-            {
-                filteredTree.RenumberPaths();
-            }
+            filteredTree.RenumberPaths();
 
             return filteredTree;
         }
@@ -313,57 +312,12 @@ namespace FemDesign.Grasshopper
                     //create tree from critical parameter results
                     List<FemDesign.Results.CriticalParameter> critParamRes = _getStabilityResults(_critParamType, null, null, _units, _options);
                     var critParamTree = CreateResultTree(critParamRes);
-                    _critParameterResults = FilterTree(critParamTree);
+                    _critParameterResults = FilterTree(critParamTree, _combos, _shapeIds);
 
-
-                    //foreach (var item in critParamRes)
-                    //{
-                    //    if ((_combos.Any()) && (!_combos.Contains(item.CaseIdentifier, StringComparer.OrdinalIgnoreCase)))
-                    //    {
-                    //        critParamRes
-                    //    }
-                    //}
-
-
-                    //if (_combos.Any())
-                    //{
-                    //    foreach(var comb in _combos)
-                    //    {
-                    //        if(_shapeIds.Any())
-                    //        {
-                    //            foreach(var id in _shapeIds)
-                    //            {
-                    //                var res = _getStabilityResults(_critParamType, comb, id, _units, _options);
-                    //                _critParameterResults.AddRange(res);
-                    //            }
-                    //        }
-                    //        else
-                    //        {
-                    //            var res = _getStabilityResults(_critParamType, comb, null, _units, _options);
-                    //            _critParameterResults.AddRange(res);
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (_shapeIds.Any())
-                    //    {
-                    //        foreach (var id in _shapeIds)
-                    //        {
-                    //            var res = _getStabilityResults(_critParamType, null, id, _units, _options);
-                    //            _critParameterResults.AddRange(res);
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        var res = _getStabilityResults(_critParamType, null, null, _units, _options);
-                    //        _critParameterResults.AddRange(res);
-                    //    }
-                    //}
                 }
                 catch (Exception ex)
                 {
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, ex.InnerException.Message));
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, ex.Message));
                     _success = false;
                 }
 
