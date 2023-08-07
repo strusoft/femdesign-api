@@ -134,6 +134,7 @@
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeCreateResPoint.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />

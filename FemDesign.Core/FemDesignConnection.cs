@@ -922,7 +922,7 @@ namespace FemDesign
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetBucklingShapes" + loadCombination + shapeId + currentTime);
+            this.RunScript(script, $"Get{typeof(T).Name}" + loadCombination + shapeId + currentTime);
 
             // Read csv results files
             List<T> results = new List<T>();
