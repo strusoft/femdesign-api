@@ -145,11 +145,61 @@ namespace FemDesign.Sections
                     return "Custom";
             }
         }
-
         public override string ToString()
         {
             return $"{this.Name}";
         }
+    }
 
+
+    public enum Family
+    {
+        IPE,
+        HE_A,
+        HE_B,
+        HE_M,
+        I, 
+        U, 
+        UAP, 
+        UPE, 
+        T, 
+        TPS, 
+        LE, 
+        Z, 
+        LU, 
+        KCKR, 
+        VCKR, 
+        CHS,
+        UPE_Swedish, 
+        UKB, 
+        UKC, 
+        VKR, 
+        KKR, 
+        D, 
+        DR,
+        Rectangle,
+        Square,
+        Circle,
+        SawnLumber,
+        DressedLumber,
+        Glulam,
+        HD_F
+    }
+
+
+    public static class SectionExtension
+    {
+        public static List<FemDesign.Sections.Section> FilterSectionsByFamily(this List<FemDesign.Sections.Section> sections, FemDesign.Sections.Family family)
+        {
+            var familyString = family.ToString().Replace("_","-");
+            var sectionByFamily = sections.Where(x => x.TypeName == familyString).ToList();
+
+            if (sectionByFamily.Count == 0)
+            {
+                throw new Exception($"Sections does not contain any '{family}' section");
+            }
+
+            return sectionByFamily;
+        }
     }
 }
