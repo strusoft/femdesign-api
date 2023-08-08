@@ -15,18 +15,16 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeStabilityResults : GH_AsyncComponent
+    public class PipeEigenFrequencyResults : GH_AsyncComponent
     {
-        public PipeStabilityResults() : base("FEM-Design.GetStabilityResults", "StabilityResults", "Read the stability results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeEigenFrequencyResults() : base("FEM-Design.GetStabilityResults", "StabilityResults", "Read the stability results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationReadStabilityResultWorker(this);
+            BaseWorker = new ApplicationReadEigenFrequencyResultWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Combination Name", "Combo Name", "Optional parameter. If not defined, all load combinations will be listed.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Buckling shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Vibration shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -39,24 +37,23 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BucklingShapes", "Shapes", "Buckling shape results.", GH_ParamAccess.tree);
-            pManager.AddGenericParameter("CriticalParameter", "CritParam", "Critical parameters.", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("VibrationShapes", "Shapes", "Vibration shape results.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{D0BEDA49-8BF8-49AB-8784-CCD0F6422E88}");
+        public override Guid ComponentGuid => new Guid("{0EABF010-681D-444E-8E29-23E9F48ADCCB}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 
-    public class ApplicationReadStabilityResultWorker : WorkerInstance
+    public class ApplicationReadEigenFrequencyResultWorker : WorkerInstance
     {
-        public dynamic _getStabilityResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null)
+        public dynamic _getEigenFrequencyResults(Type resultType, int? shapeId = null, Results.UnitResults units = null, Options options = null)
         {
             var methodName = nameof(FemDesignConnection.GetStabilityResults);
             MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
-            dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
+            dynamic results = genericMethod.Invoke(_connection, new object[] { shapeId, units, options });
 
             return results;
         }
@@ -256,7 +253,7 @@ namespace FemDesign.Grasshopper
         private Verbosity _verbosity = Verbosity.Normal;
                
 
-        public ApplicationReadStabilityResultWorker(GH_Component component) : base(component) { }
+        public ApplicationReadEigenFrequencyResultWorker(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {

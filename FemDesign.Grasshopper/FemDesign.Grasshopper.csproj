@@ -140,6 +140,7 @@
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
+    <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
