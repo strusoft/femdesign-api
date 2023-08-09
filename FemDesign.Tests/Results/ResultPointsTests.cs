@@ -13,6 +13,7 @@ namespace FemDesign.Results
     [TestClass()]
     public class ResultPointsTests
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod]
         public void ResPoints()
         {
@@ -42,7 +43,7 @@ namespace FemDesign.Results
             var results = connection.GetAllLoadCaseResults<Results.ShellDisplacement>(options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints) );
 
             Assert.IsNotNull(results);
-            Assert.IsTrue(results.Count == 1);
+            Assert.IsTrue(results.Count == 3);
         }
     }
 }

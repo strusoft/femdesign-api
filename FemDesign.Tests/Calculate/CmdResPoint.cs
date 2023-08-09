@@ -19,7 +19,6 @@ namespace FemDesign.Calculate
     [TestClass]
     public class CmdResPointTests
     {
-
         [TestMethod("Constructor")]
         public void Construct()
         {
