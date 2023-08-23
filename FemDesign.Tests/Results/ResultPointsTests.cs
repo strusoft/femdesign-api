@@ -23,7 +23,8 @@ namespace FemDesign.Results
             var connection = new FemDesign.FemDesignConnection();
             connection.Open(filepath);
             var newModel = connection.GetModel();
-            connection.RunAnalysis();
+            var analysis = Analysis.StaticAnalysis();
+            connection.RunAnalysis(analysis);
 
             var slab = newModel.Entities.Slabs[0];
 
