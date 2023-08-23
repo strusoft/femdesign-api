@@ -238,10 +238,11 @@ namespace FemDesign
         /// Runs an analysis task on the current model in FEM-Design.
         /// </summary>
         /// <param name="analysis">The analysis to be run. Defaults to static analysis (<see cref="Analysis.StaticAnalysis(Comb, bool, bool)"/>)</param>
-        public void RunAnalysis(Analysis analysis = null)
+        public void RunAnalysis(Analysis analysis)
         {
-            if (analysis is null)
-                analysis = Analysis.StaticAnalysis();
+            if (analysis.Comb.CombItem != null)
+                analysis.SetCombAnalysis(this);
+
 
             if (analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
