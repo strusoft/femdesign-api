@@ -218,44 +218,13 @@ namespace FemDesign.Bars
         }
 
         [XmlAttribute("complex_composite")]
-        public System.Guid _complexCompositeRef;
+        public System.Guid ComplexCompositeRef { get; set; }
 
         [XmlIgnore]
-        public System.Guid ComplexCompositeRef
-        // Warning! It is not finished!
-        // BarPart should use either ComplexCompositeRef or ComplexMaterialRef and ComplexSectionRef
-        // Only BarType objects can support composites
-        // Truss cannot be composite
-        {
-            get 
-            { 
-                return this._complexCompositeRef; 
-            }
-            set 
-            { 
-                this._complexCompositeRef = value; 
-            }
-        }
+        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != System.Guid.Empty; }
 
         [XmlIgnore]
-        public bool HasComplexCompositeRef { get => this._complexCompositeRef != System.Guid.Empty; }
-
-        [XmlIgnore]
-        public Composites.ComplexComposite _complexCompositeObj;
-
-        [XmlIgnore]
-        public Composites.ComplexComposite ComplexCompositeObj
-        {
-            get
-            {
-                return this._complexCompositeObj;
-            }
-            set 
-            { 
-                this._complexCompositeObj = value;
-                this._complexCompositeRef = this._complexCompositeObj.Guid;
-            }
-        }
+        public Composites.ComplexComposite ComplexCompositeObj { get; set; }
 
         [XmlAttribute("complex_material")]
         public System.Guid _complexMaterialRef;
@@ -274,7 +243,7 @@ namespace FemDesign.Bars
         }
 
         [XmlIgnore]
-        public bool HasComplexMaterialRef { get => this._complexMaterialRef != System.Guid.Empty; }
+        public bool HasComplexMaterialRef { get => this.ComplexMaterialRef != System.Guid.Empty; }
 
         /// <summary>
         /// Material field

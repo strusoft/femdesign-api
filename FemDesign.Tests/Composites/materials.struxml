@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.004" start_time="1970-01-01T00:00:00.000" end_time="2023-08-21T16:38:52.000" guid="0fd6a3d8-4df5-430d-b673-212534905229" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="GB" xmlns="urn:strusoft">
+	<materials>
+		<material guid="3474222e-eb4e-4fd2-93d2-ede007ea156d" last_change="2023-08-21T15:51:49.000" action="added" standard="EC" country="GB" name="S 275">
+			<steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="0.000012" alfa_1="0.000012" alfa_2="0.000012" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="275" Fyk40="265" Fyk63="255" Fyk80="245" Fyk100="235" Fyk150="235" Fyk200="235" Fyk250="235" Fyk400="235" Fuk3="430" Fuk40="410" Fuk100="410" Fuk150="410" Fuk250="410" Fuk400="410" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.25" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012"></steel>
+		</material>
+		<material guid="d9f84c6f-6aef-48a5-8b78-df8fdede28de" last_change="2023-08-21T15:51:49.000" action="added" standard="EC" country="GB" name="C25/30">
+			<concrete mass="2.54842" E_0="31000000" E_1="31000000" E_2="31000000" nu_0="0.2" nu_1="0.2" nu_2="0.2" alfa_0="0.00001" alfa_1="0.00001" alfa_2="0.00001" G_0="12916666.6666667" G_1="12916666.6666667" G_2="12916666.6666667" Fck="25" Fctk="1.8" Fctm="2.6" Ecm="31000" gammaC_0="1.5" gammaC_1="1.2" gammaCE="1.2" gammaS_0="1.15" gammaS_1="1" alfaCc="0.85" alfaCt="1" Fcd_0="14.1666666666667" Fcd_1="17.7083333333333" Fctd_0="1.2" Fctd_1="1.5" Ecd_0="20666.6666666667" Ecd_1="25833.3333333333" Epsc2="0.002" Epscu2="0.0035" Epsc3="0.00175" Epscu3="0.0035" environment="0" creep="0" shrinkage="0" nu="0.2" alfa="0.00001"></concrete>
+		</material>
+	</materials>
+	<end></end>
+</database>

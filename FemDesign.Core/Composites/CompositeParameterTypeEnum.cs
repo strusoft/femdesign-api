@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Composites
 {
     [System.Serializable]
-    public enum CompositeSectionParameter
+    public enum CompositeParameterType  // number values must be expressed in mm
     {
         [XmlEnum("b")]
         b,

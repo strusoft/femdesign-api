@@ -5,15 +5,18 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Composites
 {
-    /// <summary>
-    /// Used in entity definition. References to database composite section.
-    /// strusoft.xsd: composite_section_type
-    /// </summary>
     [System.Serializable]
     public partial class ComplexCompositePart
     {
         [XmlAttribute("guid")]
-        public Guid CompositSectionRef { get; set; }
+        public Guid _compositeSectionRef { get; set; }
+
+        [XmlIgnore]
+        public Guid CompositeSectionRef 
+        { 
+            get { return this._compositeSectionRef; }
+            set { this._compositeSectionRef = value; }
+        }
 
         [XmlAttribute("pos")]
         public double _pos;
@@ -21,14 +24,8 @@ namespace FemDesign.Composites
         [XmlIgnore]
         public double Pos
         {
-            get 
-            { 
-                return this._pos; 
-            }
-            set 
-            { 
-                this._pos = RestrictedDouble.NonNegMax_1(value); 
-            }
+            get { return this._pos; }
+            set { this._pos = RestrictedDouble.NonNegMax_1(value); }
         }
 
         [XmlIgnore]
@@ -51,7 +48,7 @@ namespace FemDesign.Composites
         {
             this.Pos = pos;
             this.CompositeSectionObj = composite;
-            this.CompositSectionRef = composite.Guid;
+            this.CompositeSectionRef = composite.Guid;
         }
     }
 }

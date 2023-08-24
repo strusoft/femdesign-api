@@ -79,6 +79,7 @@
     <Compile Include="Calculate\OptionsTests.cs" />
     <Compile Include="Calculate\CmdListGenTest.cs" />
     <Compile Include="Calculate\Stability.cs" />
+    <Compile Include="Composites\CompositeBeamTest.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="Entities\IsolatedFoundationTests.cs" />
     <Compile Include="Calculate\FdScriptTests.cs" />
@@ -152,6 +153,12 @@
     </None>
     <None Include="Calculate\pickElement.struxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Composites\materials.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Composites\sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Entities\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

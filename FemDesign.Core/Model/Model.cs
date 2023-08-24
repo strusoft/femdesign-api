@@ -69,7 +69,7 @@ namespace FemDesign
         [XmlElement("reinforcing_materials", Order = 5)]
         public Materials.ReinforcingMaterials ReinforcingMaterials { get; set; }
         [XmlElement("composites", Order = 6)]
-        public StruSoft.Interop.StruXml.Data.DatabaseComposites Composites { get; set; }
+        public Composites.Composites Composites { get; set; }
         [XmlElement("point_connection_types", Order = 7)]
         public LibraryItems.PointConnectionTypes PointConnectionTypes { get; set; }
         [XmlElement("point_support_group_types", Order = 8)]
@@ -811,11 +811,11 @@ namespace FemDesign
         /// <summary>
         /// Check if CompositeSection in Model.
         /// </summary>
-        private void AddCompositeSection(StruSoft.Interop.StruXml.Data.Complex_composite_type obj, bool overwrite)
+        private void AddCompositeSection(Composites.ComplexComposite obj, bool overwrite)
         {
             // in model?
             // obj.Composite_section.Unique(x => x.Guid);
-            var uniqueCompositeSection = obj.Composite_section.Where(x => x.Guid != null).GroupBy(x => x.Guid).Select(grp => grp.FirstOrDefault());
+            var uniqueCompositeSection = obj.Parts.Where(x => x.CompositeSectionRef != null).GroupBy(x => x.CompositeSectionRef).Select(grp => grp.FirstOrDefault());
 
 
             foreach (var compositeSection in uniqueCompositeSection)
@@ -823,35 +823,36 @@ namespace FemDesign
                 // initialise variable as false
                 bool inModel = false;
 
-                if (this.Composites.Composite_section != null)
+                if (this.Composites.CompositeSection != null)
                 {
-                    inModel = this.Composites.Composite_section.Any(x => x.Guid == compositeSection.Guid);
+                    inModel = this.Composites.CompositeSection.Any(x => x.Guid == compositeSection.CompositeSectionRef);
                 }
                 else
                 {
-                    this.Composites.Composite_section = new List<StruSoft.Interop.StruXml.Data.Composite_data>();
+                    this.Composites.CompositeSection = new List<Composites.CompositeSection>();
                 }
 
 
                 // in model, don't overwrite
                 if (inModel && overwrite == false)
                 {
-                    throw new System.ArgumentException($"{compositeSection.GetType().FullName} with guid: {compositeSection.Guid} has already been added to model. Are you adding the same element twice?");
+                    throw new System.ArgumentException($"{compositeSection.GetType().FullName} with guid: {compositeSection.CompositeSectionRef} has already been added to model. Are you adding the same element twice?");
                 }
 
                 // in model, overwrite
                 else if (inModel && overwrite == true)
                 {
-                    this.Composites.Composite_section.RemoveAll(x => x.Guid == compositeSection.Guid);
+                    this.Composites.CompositeSection.RemoveAll(x => x.Guid == compositeSection.CompositeSectionRef);
                 }
 
                 // add complex composite
-                this.Composites.Composite_section.Add(compositeSection.CompositeSectionDataObj);
-                foreach (var part in compositeSection.CompositeSectionDataObj.Part)
+                this.Composites.CompositeSection.Add(compositeSection.CompositeSectionObj);
+                foreach (var part in compositeSection.CompositeSectionObj.Parts)
                 {
-                    this.AddMaterial(part.MaterialObj, overwrite);
-                    this.AddSection(part.SectionObj, overwrite);
+                    this.AddMaterial(part.Material, overwrite);
+                    this.AddSection(part.Section, overwrite);
                 }
+
             }
         }
 
@@ -859,22 +860,22 @@ namespace FemDesign
 
         /// <summary>
         /// Add ComplexComposite to Model.
-        /// if ComplexComposite is present, also compositeSection will be created 
+        /// if ComplexComposite is present, also CompositeSection will be created 
         /// </summary>
-        private void AddComplexComposite(StruSoft.Interop.StruXml.Data.Complex_composite_type obj, bool overwrite)
+        private void AddComplexComposite(Composites.ComplexComposite obj, bool overwrite)
         {
             // in model?
             bool inModel = false;
             // if composites present
             if (this.Composites != null)
             {
-                inModel = this.Composites.Complex_composite.Any(x => x.Guid == obj.Guid);
+                inModel = this.Composites.ComplexComposite.Any(x => x.Guid == obj.Guid);
             }
             // if composites not present
             else
             {
-                this.Composites = new StruSoft.Interop.StruXml.Data.DatabaseComposites();
-                this.Composites.Complex_composite = new List<StruSoft.Interop.StruXml.Data.Complex_composite_type>();
+                this.Composites = new Composites.Composites();
+                this.Composites.ComplexComposite = new List<Composites.ComplexComposite>();
             }
 
             // in model, don't overwrite
@@ -886,11 +887,11 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
-                this.Composites.Complex_composite.RemoveAll(x => x.Guid == obj.Guid);
+                this.Composites.ComplexComposite.RemoveAll(x => x.Guid == obj.Guid);
             }
 
             // add complex composite
-            this.Composites.Complex_composite.Add(obj);
+            this.Composites.ComplexComposite.Add(obj);
 
             // add composite section
             this.AddCompositeSection(obj, overwrite);
@@ -3467,13 +3468,13 @@ namespace FemDesign
             Dictionary<Guid, Sections.ComplexSection> complexSectionsMap = this.Sections.ComplexSection.ToDictionary(s => s.Guid, s => s.DeepClone());
             Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid, d => d.DeepClone());
             Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
-            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type> complexCompositeMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Complex_composite_type>();
-            Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data> compositeSectionMap = new Dictionary<Guid, StruSoft.Interop.StruXml.Data.Composite_data>();
+            Dictionary<Guid, Composites.ComplexComposite> complexCompositeMap = new Dictionary<Guid, Composites.ComplexComposite>();
+            Dictionary<Guid, Composites.CompositeSection> compositeSectionMap = new Dictionary<Guid, Composites.CompositeSection>();
 
             if (this.Composites != null)
             {
-                complexCompositeMap = this.Composites.Complex_composite.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
-                compositeSectionMap = this.Composites.Composite_section.ToDictionary(s => Guid.Parse(s.Guid), s => s.DeepClone());
+                complexCompositeMap = this.Composites.ComplexComposite.ToDictionary(s => s.Guid, s => s.DeepClone());
+                compositeSectionMap = this.Composites.CompositeSection.ToDictionary(s => s.Guid, s => s.DeepClone());
             }
 
             foreach (Bars.Bar item in this.Entities.Bars)
@@ -3561,22 +3562,23 @@ namespace FemDesign
                     try
                     {
                         // assign the Complex Composite Object to the bar part
-                        item.BarPart.ComplexCompositeObj = complexCompositeMap[new System.Guid(item.BarPart.ComplexCompositeRef)];
+                        item.BarPart.ComplexCompositeObj = complexCompositeMap[item.BarPart.ComplexCompositeRef];
 
-                        // iterate over the composite section inside the complex composite and assign the object from the database Composite
-                        foreach (StruSoft.Interop.StruXml.Data.Composite_section_type compositeSection in item.BarPart.ComplexCompositeObj.Composite_section)
+                        // iterate over the composite section inside the complex composite and assign the object from the Composites
+                        foreach (Composites.ComplexCompositePart complexCompositePart in item.BarPart.ComplexCompositeObj.Parts)
                         {
-                            compositeSection.CompositeSectionDataObj = compositeSectionMap[Guid.Parse(compositeSection.Guid)];
+                            complexCompositePart.CompositeSectionObj = compositeSectionMap[complexCompositePart.CompositeSectionRef];
                         }
 
                         // assign the material object to the Composite_part_type
                         // it might be clever to move this method outside the loop and call it (add compositePart)
-                        foreach (var compositeSection in item.BarPart.ComplexCompositeObj.Composite_section)
+
+                        foreach (Composites.ComplexCompositePart complexCompositePart in item.BarPart.ComplexCompositeObj.Parts)
                         {
-                            foreach (var compositePart in compositeSection.CompositeSectionDataObj.Part)
+                            foreach (var sectionPart in complexCompositePart.CompositeSectionObj.Parts)
                             {
-                                compositePart.MaterialObj = materialMap[Guid.Parse(compositePart.Material)];
-                                compositePart.SectionObj = sectionsMap[Guid.Parse(compositePart.Section)];
+                                sectionPart.Material = materialMap[sectionPart.MaterialRef];
+                                sectionPart.Section = sectionsMap[sectionPart.SectionRef];
                             }
                         }
                     }
