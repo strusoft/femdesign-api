@@ -331,8 +331,8 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(0, ref _connection)) return;
             DA.GetDataList(1, _combos);
             DA.GetDataList(2, _shapeIds);
-            DA.GetData(3, ref _units);
-            DA.GetData(4, ref _options);
+            DA.GetData(3, ref _options);
+            DA.GetData(4, ref _units);
             DA.GetData(5, ref _runNode);
         }
 
