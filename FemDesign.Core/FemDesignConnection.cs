@@ -92,7 +92,15 @@ namespace FemDesign
             _keepOpen = keepOpen;
 
             _connection = new PipeConnection(pipeName);
-            _process = Process.Start(startInfo);
+            try
+            {
+                _process = Process.Start(startInfo);
+            }
+            catch
+            {
+                throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 22\` does not exist!");
+            }
+
             _process.Exited += ProcessExited;
             _connection.WaitForConnection();
 
@@ -242,7 +250,6 @@ namespace FemDesign
         {
             if (analysis.Comb.CombItem != null)
                 analysis.SetCombAnalysis(this);
-
 
             if (analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
