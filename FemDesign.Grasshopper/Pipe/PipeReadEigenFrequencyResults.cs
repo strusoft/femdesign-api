@@ -11,20 +11,22 @@ using Grasshopper.Kernel.Data;
 using GrasshopperAsyncComponent;
 
 using FemDesign.Calculate;
+using FemDesign.Results.Utils;
 
 
 namespace FemDesign.Grasshopper
 {
     public class PipeEigenFrequencyResults : GH_AsyncComponent
     {
-        public PipeEigenFrequencyResults() : base("FEM-Design.GetStabilityResults", "StabilityResults", "Read the stability results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeEigenFrequencyResults() : base("FEM-Design.GetEigenfrequencyResults", "EigenfrequencyResults", "Read the eigenfrequency results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationReadEigenFrequencyResultWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Vibration shape identifier must be greater or equal to 1. Optional parameter. If not defined, all shapes will be listed.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ShapeId", "ShapeId", "Vibration shape identifier must be greater or equal to 1. Optional parameter. " +
+                "If not defined, all shapes will be listed.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -38,218 +40,66 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddGenericParameter("VibrationShapes", "Shapes", "Vibration shape results.", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("Eigenfrequencies", "Eigenfrequencies", "Eigenfrequency results.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{0EABF010-681D-444E-8E29-23E9F48ADCCB}");
+        public override Guid ComponentGuid => new Guid("{B32715AE-5F9C-44D0-978E-74A0B3FBD5A4}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 
     public class ApplicationReadEigenFrequencyResultWorker : WorkerInstance
     {
-        public dynamic _getEigenFrequencyResults(Type resultType, int? shapeId = null, Results.UnitResults units = null, Options options = null)
+        public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null)
         {
-            var methodName = nameof(FemDesignConnection.GetStabilityResults);
+            var methodName = nameof(FemDesignConnection.GetResults);
             MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
-            dynamic results = genericMethod.Invoke(_connection, new object[] { shapeId, units, options });
+            dynamic results = genericMethod.Invoke(_connection, new object[] { units, options });
 
             return results;
         }
-                        
-        public DataTree<FemDesign.Results.NodalBucklingShape> CreateResultTree(List<FemDesign.Results.NodalBucklingShape> results)
+
+        public DataTree<T> CreateResultTree<T>(List<T> results, string propertyName) where T : FemDesign.Results.IResult
         {
-            // create 2D data tree
-            var uniqueCaseId = results.Select(x => x.CaseIdentifier).Distinct().ToList();
-            var uniqueShape = results.Select(x => x.Shape).Distinct().ToList();
-            DataTree<FemDesign.Results.NodalBucklingShape> resultsTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
-
-            for (int i = 0; i < uniqueCaseId.Count; i++)
+            // check property
+            PropertyInfo property = typeof(T).GetProperty(propertyName);
+            if (property == null)
             {
-                var allResultsByCaseId = results.Where(r => r.CaseIdentifier == uniqueCaseId[i]).ToList();
-
-                for (int j = 0; j < uniqueShape.Count; j++)
-                {
-                    var pathData = allResultsByCaseId.Where(s => s.Shape == uniqueShape[j]).ToList();
-                    resultsTree.AddRange(pathData, new GH_Path(i, j));
-                }
+                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
             }
 
-            // sort and remove empty branches
-            var emptyPath = new List<GH_Path>();
-            for (int i = 0; i < resultsTree.BranchCount; i++)
-            {
-                var path = resultsTree.Paths[i];
-                var branch = resultsTree.Branches[i];
+            // get property values
+            var uniquePropertyValues = results.Select(r => property.GetValue(r)).Distinct().ToList();
 
-                if (!branch.Any())
-                {
-                    emptyPath.Add(path);
-                }
-            }
-            foreach (var item in emptyPath)
+            // create tree
+            DataTree<T> resultsTree = new DataTree<T>();
+            for (int i = 0; i < uniquePropertyValues.Count; i++)
             {
-                resultsTree.RemovePath(item);
+                var allResultsByProperty = results.Where(r => property.GetValue(r) == uniquePropertyValues[i]).ToList();
+                resultsTree.AddRange(allResultsByProperty, new GH_Path(i));
             }
 
             return resultsTree;
-        }
-
-        public DataTree<FemDesign.Results.CriticalParameter> CreateResultTree(List<FemDesign.Results.CriticalParameter> results)
-        {
-            // create 1D data tree
-            var uniqueCaseId = results.Select(x => x.CaseIdentifier).Distinct().ToList();
-            DataTree<FemDesign.Results.CriticalParameter> resultsTree = new DataTree<FemDesign.Results.CriticalParameter>();
-
-            for (int i = 0; i < uniqueCaseId.Count; i++)
-            {
-                var allResultsByCaseId = results.Where(r => r.CaseIdentifier == uniqueCaseId[i]).ToList();
-                resultsTree.AddRange(allResultsByCaseId, new GH_Path(i));
-            }
-
-            return resultsTree;
-        }
-
-        public DataTree<FemDesign.Results.NodalBucklingShape> FilterTree(DataTree<FemDesign.Results.NodalBucklingShape> tree, List<string> loadCombinations = null, List<int> shapeIds = null)
-        {
-            var removable = new List<GH_Path>();
-            DataTree<FemDesign.Results.NodalBucklingShape> filteredTree = tree;
-
-            // sort and remove unnecessary branches 
-            for (int i = 0; i < filteredTree.BranchCount; i++)
-            {
-                var path = filteredTree.Paths[i];
-                var branch = filteredTree.Branches[i].ToList();
-
-                if ((loadCombinations.Any()) && (!loadCombinations.Contains(branch[0].CaseIdentifier, StringComparer.OrdinalIgnoreCase)))
-                {
-                    removable.Add(path);
-                }
-                if ((shapeIds.Any()) && (!shapeIds.Contains(branch[0].Shape)))
-                {
-                    removable.Add(path);
-                }
-            }
-            foreach (var item in removable)
-            {
-                filteredTree.RemovePath(item);
-            }
-
-            // renumber tree path
-            if (removable.Any())
-            {
-                filteredTree = ReNumberTree(filteredTree);
-            }
-
-            return filteredTree;
-        }
-
-        public DataTree<FemDesign.Results.CriticalParameter> FilterTree(DataTree<FemDesign.Results.CriticalParameter> tree, List<string> loadCombinations = null, List<int> shapeIds = null)
-        {
-            var removable = new List<GH_Path>();
-            DataTree<FemDesign.Results.CriticalParameter> filteredTree = tree;
-
-            // sort and remove unnecessary branches 
-            for (int i = 0; i < filteredTree.BranchCount; i++)
-            {
-                var path = filteredTree.Paths[i];
-                var branch = filteredTree.Branches[i].ToList();
-
-                if ((loadCombinations.Any()) && (!loadCombinations.Contains(branch[0].CaseIdentifier, StringComparer.OrdinalIgnoreCase)))
-                {
-                    removable.Add(path);
-                }
-                if (shapeIds.Any())
-                {
-                    for(int j = branch.Count - 1; j >= 0; j--)
-                    {
-                        if (!shapeIds.Contains(branch[j].Shape))
-                        {
-                            filteredTree.Branches[i].RemoveAt(j);
-                        }
-                    }
-                }
-            }
-            foreach (var item in removable)
-            {
-                filteredTree.RemovePath(item);
-            }
-
-            // renumber tree path
-            if (removable.Any())
-            filteredTree.RenumberPaths();
-
-            return filteredTree;
-        }
-
-        public DataTree<FemDesign.Results.NodalBucklingShape> ReNumberTree(DataTree<FemDesign.Results.NodalBucklingShape> tree)
-        {
-            DataTree<FemDesign.Results.NodalBucklingShape> orderedTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
-            int i = 0;
-            int j = 0;
-            
-            orderedTree.AddRange(tree.Branches[0], new GH_Path(0,0));
-
-            for (int b=1; b<tree.Branches.Count; b++)
-            {
-                var currentBranch = tree.Branches[b];
-                var previousBranch = tree.Branches[b - 1];
-                                
-                if (currentBranch[0].CaseIdentifier != previousBranch[0].CaseIdentifier)
-                {
-                    i++;
-                    j = 0;
-                }
-                else if (currentBranch[0].Shape != previousBranch[0].Shape)
-                {
-                    j++;
-                }
-
-                var path = new GH_Path(i,j);
-                orderedTree.AddRange(currentBranch, path);
-            }
-
-            return orderedTree;
-        }
-
-        public bool CaseIdIsValid(List<FemDesign.Results.NodalBucklingShape> results, List<string> combos)
-        {
-            var caseIds = results.Select(x => x.CaseIdentifier).Distinct().ToList();
-            foreach (var comb in combos)
-            {
-                if (!caseIds.Contains(comb, StringComparer.OrdinalIgnoreCase))
-                    throw new ArgumentException($"Incorrect or unknown load combination name: {comb}.");
-            }
-            return true;
-        }
-
-        public bool ShapeIdIsValid(List<FemDesign.Results.NodalBucklingShape> results, List<int> shapes)
-        {
-            var shapeIds = results.Select(x => x.Shape).Distinct().ToList();
-            foreach (var shape in shapes)
-            {
-                if (!shapeIds.Contains(shape))
-                    throw new ArgumentException($"ShapeId {shape} is out of range.");
-            }
-            return true;
         }
 
 
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
-        private List<string> _combos = new List<string>();
         private List<int> _shapeIds = new List<int>();
         private Results.UnitResults _units = null;
         private Calculate.Options _options = null;
         private bool _runNode = true;
-                
-        private DataTree<FemDesign.Results.NodalBucklingShape> _bucklingTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
-        private DataTree<FemDesign.Results.CriticalParameter> _critParameterResults = new DataTree<FemDesign.Results.CriticalParameter>();
+
+        //private DataTree<FemDesign.Results.NodalVibration> _vibrationTree = new DataTree<FemDesign.Results.NodalVibration>();
+        //private DataTree<FemDesign.Results.EigenFrequencies> _frquencyResults = new DataTree<FemDesign.Results.EigenFrequencies>();
+        private DataTree<FemDesign.Results.IResult> _vibrationTree = new DataTree<Results.IResult>();
+        private DataTree<FemDesign.Results.IResult> _frequencyTree = new DataTree<Results.IResult>();
         private bool _success = false;
 
-        private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
-        private Type _critParamType = typeof(FemDesign.Results.CriticalParameter);
+        private Type _vibrationType = typeof(FemDesign.Results.NodalVibration);
+        private Type _frequencyType = typeof(FemDesign.Results.EigenFrequencies);
         private Verbosity _verbosity = Verbosity.Normal;
                
 
@@ -293,24 +143,22 @@ namespace FemDesign.Grasshopper
                 _success = true;
 
 
-                // Get stability results
+                // get results
+                var vibrationRes = this._getResults(_vibrationType, _units, _options);
+                var frequencyRes = this._getResults(_frequencyType, _units, _options);
 
-                // get buckling results
-                List<FemDesign.Results.NodalBucklingShape> bucklingRes = _getStabilityResults(_resultType, null, null, _units, _options);
 
-                // check validity of filter values
-                CaseIdIsValid(bucklingRes, _combos);
-                ShapeIdIsValid(bucklingRes, _shapeIds);
+                // filter results by shape idetifier
+                string vibPropName = nameof(FemDesign.Results.NodalVibration.ShapeId);
+                string freqPropName = nameof(FemDesign.Results.EigenFrequencies.ShapeId);
+                var filteredVibrationRes = vibrationRes.FilterResultsByShapeId(vibPropName, _shapeIds);
+                var filteredFrequencyRes = frequencyRes.FilterResultsByShapeId(freqPropName, _shapeIds);
 
-                // create tree from buckling results
-                var bucklingTree = CreateResultTree(bucklingRes);
-                _bucklingTree = FilterTree(bucklingTree, _combos, _shapeIds);
 
-                //create tree from critical parameter results
-                List<FemDesign.Results.CriticalParameter> critParamRes = _getStabilityResults(_critParamType, null, null, _units, _options);
-                var critParamTree = CreateResultTree(critParamRes);
-                _critParameterResults = FilterTree(critParamTree, _combos, _shapeIds);
-                                
+                // create a tree
+                _vibrationTree = this.CreateResultTree(filteredVibrationRes, vibPropName);
+                _frequencyType = this.CreateResultTree(filteredFrequencyRes, freqPropName);
+
             }
             catch (Exception ex)
             {
@@ -326,11 +174,10 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData(0, ref _connection)) return;
-            DA.GetDataList(1, _combos);
-            DA.GetDataList(2, _shapeIds);
+            DA.GetDataList(1, _shapeIds);
+            DA.GetData(2, ref _options);
             DA.GetData(3, ref _units);
-            DA.GetData(4, ref _options);
-            DA.GetData(5, ref _runNode);
+            DA.GetData(4, ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
@@ -341,8 +188,8 @@ namespace FemDesign.Grasshopper
             }
 
             DA.SetData(0, _connection);
-            DA.SetDataTree(1, _bucklingTree);
-            DA.SetDataTree(2, _critParameterResults);
+            DA.SetDataTree(1, _vibrationTree);
+            DA.SetDataTree(2, _frequencyTree);
             DA.SetData(3, _success);
         }
     }
