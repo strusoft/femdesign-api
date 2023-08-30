@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{B32715AE-5F9C-44D0-978E-74A0B3FBD5A4}");
+        public override Guid ComponentGuid => new Guid("{285AA531-CFCF-43A7-95DC-6101D5F674B4}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
 
@@ -56,7 +56,7 @@ namespace FemDesign.Grasshopper
         {
             var methodName = nameof(FemDesignConnection.GetResults);
             MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
-            dynamic results = genericMethod.Invoke(_connection, new object[] { units, options });
+            dynamic results = genericMethod.Invoke(_connection, new object[] { units, options, null });
 
             return results;
         }
@@ -71,13 +71,14 @@ namespace FemDesign.Grasshopper
             }
 
             // get property values
-            var uniquePropertyValues = results.Select(r => property.GetValue(r)).Distinct().ToList();
+            if (property.GetType() == typeof(int))
+            var uniquePropertyValues = results.Select(r => (int)property.GetValue(r)).Distinct().ToList();
 
             // create tree
             DataTree<T> resultsTree = new DataTree<T>();
             for (int i = 0; i < uniquePropertyValues.Count; i++)
             {
-                var allResultsByProperty = results.Where(r => property.GetValue(r) == uniquePropertyValues[i]).ToList();
+                var allResultsByProperty = results.Where(r => (int)property.GetValue(r) == uniquePropertyValues[i]).ToList();
                 resultsTree.AddRange(allResultsByProperty, new GH_Path(i));
             }
 
@@ -92,10 +93,8 @@ namespace FemDesign.Grasshopper
         private Calculate.Options _options = null;
         private bool _runNode = true;
 
-        //private DataTree<FemDesign.Results.NodalVibration> _vibrationTree = new DataTree<FemDesign.Results.NodalVibration>();
-        //private DataTree<FemDesign.Results.EigenFrequencies> _frquencyResults = new DataTree<FemDesign.Results.EigenFrequencies>();
-        private DataTree<FemDesign.Results.IResult> _vibrationTree = new DataTree<Results.IResult>();
-        private DataTree<FemDesign.Results.IResult> _frequencyTree = new DataTree<Results.IResult>();
+        private DataTree<FemDesign.Results.NodalVibration> _vibrationTree = new DataTree<FemDesign.Results.NodalVibration>();
+        private DataTree<FemDesign.Results.EigenFrequencies> _frequencyTree = new DataTree<FemDesign.Results.EigenFrequencies>();
         private bool _success = false;
 
         private Type _vibrationType = typeof(FemDesign.Results.NodalVibration);
@@ -147,17 +146,18 @@ namespace FemDesign.Grasshopper
                 var vibrationRes = this._getResults(_vibrationType, _units, _options);
                 var frequencyRes = this._getResults(_frequencyType, _units, _options);
 
-
                 // filter results by shape idetifier
                 string vibPropName = nameof(FemDesign.Results.NodalVibration.ShapeId);
                 string freqPropName = nameof(FemDesign.Results.EigenFrequencies.ShapeId);
-                var filteredVibrationRes = vibrationRes.FilterResultsByShapeId(vibPropName, _shapeIds);
-                var filteredFrequencyRes = frequencyRes.FilterResultsByShapeId(freqPropName, _shapeIds);
-
+                if (_shapeIds.Any())
+                {
+                    vibrationRes = FemDesign.Results.Utils.UtilResultMethods.FilterResultsByShapeId(vibrationRes, vibPropName, _shapeIds);
+                    frequencyRes = FemDesign.Results.Utils.UtilResultMethods.FilterResultsByShapeId(frequencyRes, freqPropName, _shapeIds);
+                }
 
                 // create a tree
-                _vibrationTree = this.CreateResultTree(filteredVibrationRes, vibPropName);
-                _frequencyType = this.CreateResultTree(filteredFrequencyRes, freqPropName);
+                _vibrationTree = this.CreateResultTree(vibrationRes, vibPropName);
+                _frequencyTree = this.CreateResultTree(frequencyRes, freqPropName);
 
             }
             catch (Exception ex)
@@ -169,7 +169,7 @@ namespace FemDesign.Grasshopper
 
             Done();
         }
-        public override WorkerInstance Duplicate() => new ApplicationReadStabilityResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationReadEigenFrequencyResultWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
