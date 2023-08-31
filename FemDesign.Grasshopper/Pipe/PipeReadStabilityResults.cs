@@ -301,6 +301,16 @@ namespace FemDesign.Grasshopper
                 // get buckling results
                 List<FemDesign.Results.NodalBucklingShape> bucklingRes = _getStabilityResults(_resultType, null, null, _units, _options);
 
+                if (bucklingRes.Count == 0)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Stability results have not been found. Have you run the Stability analysis?"));
+                    _success = false;
+                    _connection = null;
+                    Done();
+                    return;
+                }
+
+
                 // check validity of filter values
                 CaseIdIsValid(bucklingRes, _combos);
                 ShapeIdIsValid(bucklingRes, _shapeIds);

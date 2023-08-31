@@ -231,12 +231,13 @@ namespace FemDesign.Calculate
             this.Imperfection = imperfection;
             this.Freq = freq;
             this.Footfall = footfall;
+
             this.CalcCase = calcCase;
             this.CalcCStage = stage != null ? true : calcCStage;
-            this.CalcImpf = calcImpf;
+            this.CalcImpf = imperfection != null ? true : calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
-            this.CalcStab = calcStab;
+            this.CalcStab = stability != null ? true : calcStab;
             this.CalcFreq = freq != null ? true : calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;

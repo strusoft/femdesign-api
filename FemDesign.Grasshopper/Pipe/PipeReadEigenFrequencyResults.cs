@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Reflection;
-
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
@@ -160,8 +159,18 @@ namespace FemDesign.Grasshopper
 
 
                 // get results
-                var vibrationRes = this._getResults(_vibrationType, _units, _options);
-                var frequencyRes = this._getResults(_frequencyType, _units, _options);
+                var vibrationRes = (List<FemDesign.Results.NodalVibration>)this._getResults(_vibrationType, _units, _options);
+                var frequencyRes = (List<FemDesign.Results.EigenFrequencies>)this._getResults(_frequencyType, _units, _options);
+
+                if (vibrationRes.Count == 0 && frequencyRes.Count == 0)
+                {
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Eigenfrequencies results have not been found. Have you run the eigenfrequencies analysis?"));
+                    _success = false;
+                    _connection = null;
+                    Done();
+                    return;
+                }
+
 
                 // filter results by shape idetifier
                 string vibPropName = nameof(FemDesign.Results.NodalVibration.ShapeId);
