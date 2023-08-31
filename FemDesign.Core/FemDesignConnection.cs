@@ -36,7 +36,7 @@ namespace FemDesign
         /// </summary>
         private string CurrentOpenModel;
         public Verbosity Verbosity { get; private set; }
-        public const Verbosity DefaultVerbosity = Verbosity.Normal;
+        public const Verbosity DefaultVerbosity = Verbosity.ScriptLogLinesOnly;
 
         /// <summary>
         /// Keep FEM-Design open after <see cref="Dispose"/> is called.

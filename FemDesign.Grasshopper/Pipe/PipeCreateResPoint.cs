@@ -86,7 +86,6 @@ namespace FemDesign.Grasshopper
                     }
 
 
-                    _connection.SetVerbosity(_connection.Verbosity);
                     _connection.OnOutput += onOutput;
 
                     // Run the Analysis
