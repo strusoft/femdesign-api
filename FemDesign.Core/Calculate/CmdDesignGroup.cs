@@ -178,7 +178,7 @@ namespace FemDesign.Calculate
 
             // same length
             var refLength = bars[0].BarPart.Edge.Length;
-            var sameLength = bars.All(x => x.BarPart.Edge.Length == refLength);
+            var sameLength = bars.All(x => Math.Abs(x.BarPart.Edge.Length - refLength) < Tolerance.LengthComparison);
 
             if (!sameLength)
                 throw new Exception("Concrete bars must be have the same length within the design group!");
