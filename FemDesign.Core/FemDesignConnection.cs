@@ -352,7 +352,7 @@ namespace FemDesign
                 script.Add(new CmdApplyDesignChanges());
             }
 
-            this.RunScript(script, "RunDesign");
+            this.RunScript(script, $"RunDesign_{userModule}");
         }
 
         /// <summary>
