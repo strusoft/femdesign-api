@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
+using FemDesign.Geometry;
 
 namespace FemDesign.Composites
 {
@@ -32,6 +33,15 @@ namespace FemDesign.Composites
 
         [XmlElement("property", Order = 2)]
         public List<CompositeSectionParameter> ParameterList { get; set; }
+
+        [XmlIgnore]
+        public Dictionary<CompositeParameterType, string> ParameterDictionary 
+        { 
+            get
+            {
+                return ParameterList.ToDictionary(p => p.Name, p => p.Value);
+            }
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -118,6 +128,7 @@ namespace FemDesign.Composites
                 throw new ArgumentException("Composite section must contain at least one steel and one concrete section part.");
         }
 
+
         public static CompositeSection BeamA(List<Materials.Material> materials, List<Sections.Section> sections, List<double> offsetY, List<double> offsetZ, string name, double t, double bEff, double th, double bt, double bb, bool filled = false)
         {
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
@@ -132,7 +143,11 @@ namespace FemDesign.Composites
             return new CompositeSection(CompositeType.BeamA, materials, sections, offsetY, offsetZ, parameters);
         }
 
-        public static CompositeSection BeamB(List<Materials.Material> materials, List<Sections.Section> sections, List<double> offsetY, List<double> offsetZ, string name, double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
+        // + method description
+
+
+
+        public static CompositeSection BeamB(List<Materials.Material> materials, List<double> offsetY, List<double> offsetZ, string name, double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
             parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
@@ -145,8 +160,27 @@ namespace FemDesign.Composites
             parameters.Add(new CompositeSectionParameter(CompositeParameterType.tfb, tfb.ToString()));
             parameters.Add(new CompositeSectionParameter(CompositeParameterType.tft, tft.ToString()));
 
-            return new CompositeSection(CompositeType.BeamB, materials, sections, offsetY, offsetZ, parameters);
+            var compositeSection = new CompositeSection(CompositeType.BeamB, materials, sections, offsetY, offsetZ, parameters);
+
+            return compositeSection;
         }
+
+        internal Sections.Section CreateBeamBSection(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
+        {
+            Point3d pointA = new Point3d(-b / 2 + tw, -h / 2, 0);
+            Point3d pointB = new Point3d(-pointA.X, pointA.Y, 0);
+            Point3d pointC = new Point3d(-pointA.X, -pointA.Y, 0);
+            Point3d pointD = new Point3d(pointA.X, -pointA.Y, 0);
+
+            Point3d pointE = new Point3d(-bt / 2, h / 2, 0);
+            Point3d pointF = new Point3d(-pointE.X, pointE.Y, 0);
+            Point3d pointG = new Point3d(-pointE.X, pointE.Y + tft, 0);
+            Point3d pointH = new Point3d(pointE.X, pointE.Y + tft, 0);
+
+
+        }
+
+
 
         public static CompositeSection BeamP(List<Materials.Material> materials, List<Sections.Section> sections, List<double> offsetY, List<double> offsetZ, string name)
         {
@@ -212,5 +246,10 @@ namespace FemDesign.Composites
             return new CompositeSection(CompositeType.ColumnG, materials, sections, parameters);
         }
         
+        //public list<compositeparametertype> getcompositesectionparameters(compositesection compositesection)
+        //{
+        //    return compositesection.parameterlist.select(p => p.name).tolist();
+            
+        //}
     }
 }

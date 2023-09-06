@@ -16,8 +16,6 @@ namespace FemDesign.Composites
         [XmlAttribute("value")]
         public string Value { get; set; }
 
-        //[XmlIgnore]
-        //public Dictionary<CompositeParameterType, string> Parameter { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization

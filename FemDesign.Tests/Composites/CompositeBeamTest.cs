@@ -35,7 +35,12 @@ namespace FemDesign.Composites
             double cy = 80;     //mm
             double cz = 80;     //mm
             CompositeSection compositeSection = CompositeSection.ColumnA(matList, secList, name, cy, cz);
+
             composite.CompositeSection = new List<CompositeSection>() { compositeSection };
+
+            //composite.CompositeSection[0].ParameterDictionary[CompositeParameterType.];
+            //var sth = GetCompositeSectionParameters(compositeSection);
+
 
             // Create complex composite
             ComplexComposite complexComposite = new ComplexComposite(compositeSection);
