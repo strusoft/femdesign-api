@@ -16,9 +16,9 @@
 4. Add a _Tenrec_ group to the canvas, it will group all selected components.
 5. Change the _Tenrec_ group name by double click on it.
 6. Repeat step 1 to 5 if you want to include more Unit Test in the same file.
-7. Save the Grasshopper file in your test folder.
+7. Save the Grasshopper file as `.ghx` in your test folder.
 8. In the top right corner, click on _settings > Source Code Generator_.
-9. The _Unit Test Source Code Generator_ window should appear, set your test folder path in the _Grashopper file folder_ section, set the folder to save the code file in _Output folder_ section and its name in _Output name_.
+9. The _Unit Test Source Code Generator_ window should appear, _Grashopper file folder_ section should be set with the `.ghx` file folder location, _Output folder_ section should be set with `.ghx` the file folder location and _Output name_ is the name of the `.cs` file.
 10. Press _Generate_ and close the window. The code file will be located at _Output folder_/_Output name_.cs
 
 ##### Create a Unit Test Project
