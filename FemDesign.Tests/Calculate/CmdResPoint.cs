@@ -19,7 +19,6 @@ namespace FemDesign.Calculate
     [TestClass]
     public class CmdResPointTests
     {
-
         [TestMethod("Constructor")]
         public void Construct()
         {
@@ -28,7 +27,7 @@ namespace FemDesign.Calculate
             var beam = GetTestBar();
 
             var identifier = "myResPoint";
-            var cmdResPoint = new CmdResultPoint(pos, beam.Guid, identifier);
+            var cmdResPoint = new CmdResultPoint(pos, beam.BarPart.Guid, identifier);
 
             Assert.IsNotNull(cmdResPoint);
             Assert.AreEqual(cmdResPoint.Point, pos);

@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -95,6 +96,9 @@ namespace FemDesign.Calculate
 
         [XmlAttribute("Amplitudo")]
         public double Amplitude { get; set; }
+
+        [XmlIgnore]
+        public string CombName { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.

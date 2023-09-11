@@ -104,6 +104,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\CombSettings.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE_2260.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersCombDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
+    <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadResults.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />

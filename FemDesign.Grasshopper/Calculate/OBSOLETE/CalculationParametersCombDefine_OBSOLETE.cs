@@ -1,13 +1,12 @@
 // https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersCombDefine: GH_Component
+    public class CalculationParametersCombDefine_OBSOLETE: GH_Component
     {
-        public CalculationParametersCombDefine(): base("Comb.Define", "Comb", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersCombDefine_OBSOLETE(): base("Comb.Define", "Comb", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -36,9 +35,7 @@ namespace FemDesign.Grasshopper
            pManager.AddIntegerParameter("CRmaxiter", "CRmaxiter", "Cracked section analysis: Maximum iteration number.", GH_ParamAccess.item, 30);
            pManager[pManager.ParamCount - 1].Optional = true; 
            pManager.AddIntegerParameter("CRstifferror", "CRstifferror", "Cracked section analysis: Allowed stiffness change error [%]", GH_ParamAccess.item, 2);
-           pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("CombSettings", "CombSettings", "", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
+           pManager[pManager.ParamCount - 1].Optional = true; 
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -58,9 +55,6 @@ namespace FemDesign.Grasshopper
             int CRloadstep = 20;
             int CRmaxiter = 30;
             int CRstifferror = 2;
-
-            List<FemDesign.Calculate.CombItem> combItem = new List<Calculate.CombItem>();
-
             if (!DA.GetData(0, ref NLEmaxiter))
             {
                 // pass
@@ -110,13 +104,8 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            if (!DA.GetDataList(12, combItem))
-            {
-                combItem = null;
-            }
-
             //
-            FemDesign.Calculate.Comb obj = new FemDesign.Calculate.Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror, combItem);
+            FemDesign.Calculate.Comb obj = new FemDesign.Calculate.Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
 
             // return
             DA.SetData(0, obj);
@@ -130,10 +119,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{537E2187-E9DE-41D1-A897-B6B2E79B33AF}"); }
+            get { return new Guid("8576ce41-8d1d-4a12-a732-63f5674bb8d6"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

@@ -231,12 +231,13 @@ namespace FemDesign.Calculate
             this.Imperfection = imperfection;
             this.Freq = freq;
             this.Footfall = footfall;
+
             this.CalcCase = calcCase;
             this.CalcCStage = stage != null ? true : calcCStage;
-            this.CalcImpf = calcImpf;
+            this.CalcImpf = imperfection != null ? true : calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
-            this.CalcStab = calcStab;
+            this.CalcStab = stability != null ? true : calcStab;
             this.CalcFreq = freq != null ? true : calcFreq;
             this.CalcSeis = calcSeis;
             this.CalcDesign = calcDesign;
@@ -310,6 +311,46 @@ namespace FemDesign.Calculate
             }
             //this.Comb.CombItem.AddRange(model.Entities.Loads.LoadCombinations.Select(x => x.CombItem));
         }
+
+
+        public void SetCombAnalysis(FemDesignConnection connection)
+        {
+            //this.Comb.CombItem.Clear();
+            // ordered load combinations in the model
+            var loadCombination = connection.GetLoadCombinations();
+
+            _setCombAnalysis(loadCombination.Values.ToList());
+        }
+
+        internal void _setCombAnalysis(List<Loads.LoadCombination> loadCombination)
+        {
+            var combItems = this.Comb.CombItem.DeepClone();
+            this.Comb.CombItem.Clear();
+
+            foreach (var element in loadCombination)
+            {
+
+                bool isFound = false;
+                int i = 0;
+                foreach (var combItem in combItems)
+                {
+                    var combName = combItem.CombName;
+                    if (combName == element.Name)
+                    {
+                        var indexOf = loadCombination.Select(x => x.Name).ToList().IndexOf(combName);
+                        this.Comb.CombItem.Add(combItem);
+                        isFound = true;
+                        break;
+                    }
+                    i++;
+                }
+                if (isFound == true)
+                    continue;
+                else
+                    this.Comb.CombItem.Add(CombItem.Default());
+            }
+        }
+
 
         public void SetStabilityAnalysis(FemDesignConnection connection)
         {

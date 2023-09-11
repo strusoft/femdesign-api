@@ -37,7 +37,7 @@ namespace FemDesign
         /// </summary>
         private string CurrentOpenModel;
         public Verbosity Verbosity { get; private set; }
-        public const Verbosity DefaultVerbosity = Verbosity.Normal;
+        public const Verbosity DefaultVerbosity = Verbosity.ScriptLogLinesOnly;
 
         /// <summary>
         /// Keep FEM-Design open after <see cref="Dispose"/> is called.
@@ -93,7 +93,15 @@ namespace FemDesign
             _keepOpen = keepOpen;
 
             _connection = new PipeConnection(pipeName);
-            _process = Process.Start(startInfo);
+            try
+            {
+                _process = Process.Start(startInfo);
+            }
+            catch
+            {
+                throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 22\` does not exist!");
+            }
+
             _process.Exited += ProcessExited;
             _connection.WaitForConnection();
 
@@ -239,10 +247,10 @@ namespace FemDesign
         /// Runs an analysis task on the current model in FEM-Design.
         /// </summary>
         /// <param name="analysis">The analysis to be run. Defaults to static analysis (<see cref="Analysis.StaticAnalysis(Comb, bool, bool)"/>)</param>
-        public void RunAnalysis(Analysis analysis = null)
+        public void RunAnalysis(Analysis analysis)
         {
-            if (analysis is null)
-                analysis = Analysis.StaticAnalysis();
+            if (analysis.Comb.CombItem != null)
+                analysis.SetCombAnalysis(this);
 
             if (analysis.Stability != null)
                 analysis.SetStabilityAnalysis(this);
@@ -345,7 +353,7 @@ namespace FemDesign
                 script.Add(new CmdApplyDesignChanges());
             }
 
-            this.RunScript(script, "RunDesign");
+            this.RunScript(script, $"RunDesign_{userModule}");
         }
 
         /// <summary>
