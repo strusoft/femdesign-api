@@ -24,7 +24,7 @@ namespace FemDesign.Composites
             {
                 if (value.Length > 2)
                 {
-                    throw new System.ArgumentException($"Length of input composite sections: {value.Length}, does not match number of allowed composite sections: 2. It is ambigious how the sections should be positioned. Create new complex composite section or match input composite sections length.");
+                    throw new System.ArgumentException($"Length of input composite sections: {value.Length}, does not match number of allowed composite sections: 2. It is ambigious how the sections should be positioned. Create new complex composite section or match input CompositeSection's length.");
                 }
                 else if (this.Parts.Count == value.Length)
                 {
@@ -66,11 +66,11 @@ namespace FemDesign.Composites
         /// Create complex composite from a composite section. Same cross-section at both ends of bar.
         /// </summary>
         /// <param name="composite">Composite section</param>
-        public ComplexComposite(CompositeSection composite)
+        internal ComplexComposite(CompositeSection compositeSection)
         {
             this.EntityCreated();
-            this.Parts.Add(new ComplexCompositePart(0, composite));
-            this.Parts.Add(new ComplexCompositePart(1, composite));
+            this.Parts.Add(new ComplexCompositePart(0, compositeSection));
+            this.Parts.Add(new ComplexCompositePart(1, compositeSection));
 
         }
 

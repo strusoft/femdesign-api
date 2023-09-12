@@ -99,7 +99,7 @@ namespace FemDesign.Composites
         /// <param name="section">Section part.</param>
         /// <param name="offsetY">Offset of concrete section's centre from steel section's center in Y direction. It must be expressed in meter.</param>
         /// <param name="offsetZ">Offset of concrete section's centre from steel section's center in Z direction. It must be expressed in meter.</param>
-        public CompositeSectionPart(Materials.Material material, Sections.Section section, double offsetY, double offsetZ)
+        internal CompositeSectionPart(Materials.Material material, Sections.Section section, double offsetY, double offsetZ)
         {
             this.Material = material;
             this.Section = section;
@@ -114,7 +114,7 @@ namespace FemDesign.Composites
         /// <param name="material">Material of composite section part. Can be steel or concrete.</param>
         /// <param name="section">Section part.</param>
         /// <exception cref="ArgumentException"></exception>
-        public CompositeSectionPart(CompositeType type, Materials.Material material, Sections.Section section)
+        internal CompositeSectionPart(CompositeType type, Materials.Material material, Sections.Section section)
         {
 
 
@@ -130,7 +130,7 @@ namespace FemDesign.Composites
             this.Section = section;
         }
 
-        public bool IsOffsetNeeded(CompositeType type)
+        internal bool IsOffsetNeeded(CompositeType type)
         {
             switch(type)
             {
