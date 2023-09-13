@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml.Serialization;
@@ -12,9 +13,26 @@ namespace FemDesign.Loads
     [System.Serializable]
     public partial class LoadCase: EntityBase
     {
+
         // attributes
         [XmlAttribute("name")]
-        public string Name { get; set; } // name79
+        public string _name;
+
+        // attributes
+        [XmlIgnore]
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if (value.Contains(Environment.NewLine))
+                    throw new ArgumentException("'Name' cannot include a newline character.");
+                this._name = value;
+            }
+        }
         [XmlAttribute("type")]
         public LoadCaseType Type { get; set; } // loadcasetype_type
         [XmlAttribute("duration_class")]
