@@ -259,6 +259,7 @@
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
+    <Compile Include="Results\Timber\BarTimberUtilization.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Sections\SectionByFamily.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />

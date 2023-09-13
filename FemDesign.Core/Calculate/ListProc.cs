@@ -585,6 +585,31 @@ namespace FemDesign.Calculate
 
         #endregion
 
+        #region TIMBER
+
+        #region BEAM
+
+        /// <summary>
+        /// Timber: Utilization - Load Combination
+        /// </summary>
+        [XmlEnum("TmbUtilizationComb_ListProc")]
+        TimberBarUtilizationLoadCombination,
+
+        /// <summary>
+        /// Timber: Utilization - max of combinations.
+        /// </summary>
+        [XmlEnum("TmbUtilizationCmax_ListProc")]
+        TimberBarUtilizationMaxComb,
+
+        /// <summary>
+        /// Timber: Utilization - max of load groups.
+        /// </summary>
+        [XmlEnum("TmbUtilizationGmax_ListProc")]
+        TimberBarUtilizationMaxLoadGroup,
+
+
+        #endregion
+
         #region  CLT DESIGN
         /* CLT Design */
         /// <summary>
@@ -623,6 +648,7 @@ namespace FemDesign.Calculate
         OrthotropicPanelUtilizationMaxComb,
         #endregion
 
+        #endregion
     }
 
     public static class ListProcExtension
