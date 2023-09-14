@@ -66,7 +66,7 @@ namespace FemDesign.Composites
         [TestMethod]
         public void CompositeBeamB()
         {
-            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repos\femdesign-api\FemDesign.Tests\bin\Debug\Composites\materials.struxml");
+            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repository\femdesign-api\FemDesign.Tests\bin\Debug\Composites\materials.struxml");
             var steel = materialsDB.MaterialByName("S 275");
             var concrete = materialsDB.MaterialByName("C25/30");
             
@@ -87,11 +87,11 @@ namespace FemDesign.Composites
 
             // Serialize struxml
             string fileName1 = "BeamB1Serialization";
-            string filePath1 = @"D:\Andi\API_Work\Github\802_CompositeSections\tests\CSharp\" + fileName1 + ".struxml";
+            string filePath1 = @"D:\work\802_CompositeSection\" + fileName1 + ".struxml";
             this.SerializeComposite(filePath1, composite);
 
             string fileName2 = "BeamB1SectionSerialization";
-            string filePath2 = @"D:\Andi\API_Work\Github\802_CompositeSections\tests\CSharp\" + fileName2 + ".struxml";
+            string filePath2 = @"D:\work\802_CompositeSection\" + fileName2 + ".struxml";
             this.SerializeSection(filePath2, sections);
 
             //Deserialize struxml

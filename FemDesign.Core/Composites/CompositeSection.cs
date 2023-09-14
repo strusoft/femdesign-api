@@ -220,7 +220,7 @@ namespace FemDesign.Composites
             points.Add(new Point3d(points[8].X, points[5].Y, 0));
             points.Add(new Point3d(-points[5].X, points[5].Y, 0));
             points.Add(new Point3d(-points[4].X, points[4].Y, 0));
-            points.Add(new Point3d(bt / 2, -points[4].Y, 0));
+            points.Add(new Point3d(bt / 2, points[4].Y, 0));
             points.Add(new Point3d(points[12].X, points[12].Y + tft, 0));
             points.Add(new Point3d(-points[12].X, points[13].Y, 0));
             points.Add(new Point3d(-points[12].X, points[12].Y, 0));
@@ -239,8 +239,8 @@ namespace FemDesign.Composites
             var concreteRegionGroup = new RegionGroup(concreteRegion);
 
             // create sections
-            var steelSection = new Section(steelRegionGroup, "custom", MaterialTypeEnum.Concrete, "Concrete section", "Rectangle", $"{(b-2*tw)*1000}x{h*1000}");
-            var concreteSection = new Section(concreteRegionGroup, "custom", MaterialTypeEnum.SteelWelded, "Steel section", "Welded", " ");
+            var concreteSection = new Section(concreteRegionGroup, "custom", MaterialTypeEnum.Concrete, "Concrete section", "Rectangle", $"{(b-2*tw)*1000}x{h*1000}");
+            var steelSection = new Section(steelRegionGroup, "custom", MaterialTypeEnum.SteelWelded, "Steel section", "Welded", " ");
             List<Section> sections = new List<Section>() { steelSection, concreteSection };   // !the sequence of steel and concrete sections must match the sequence of steel and concrete materials
 
             return sections;
