@@ -1420,7 +1420,7 @@ namespace FemDesign
 
         None = EchoAndStatOnly,
         Low = BasicOnly | InputOnly,
-        Normal = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly,
+        Normal = ScriptLogLinesOnly | CalculationMessagesOnly,
         High = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly,
         All = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly | ProgressWindowTitleOnly,
     }

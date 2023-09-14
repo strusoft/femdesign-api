@@ -134,6 +134,7 @@
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
-    <Compile Include="Pipe\FemDesignConnection.cs" />
+    <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE2.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
@@ -207,8 +208,9 @@
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunAnalysis_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE3.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
+    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
