@@ -245,6 +245,23 @@ namespace FemDesign.Calculate
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
             this.PeakSmoothing = peakSmoothing;
+
+            _validateAnalysisSettings();
+        }
+
+        private void _validateAnalysisSettings()
+        {
+            if (this.CalcStab == true & this.Stability == null)
+                throw new Exception("calcStab == True. Stability must be defined!");
+
+            if (this.CalcImpf == true & this.Imperfection == null)
+                throw new Exception("calcImpf == True. Imperfection must be defined!");
+
+            if (this.CalcCStage == true & this.Stage == null)
+                throw new Exception("calcCStage == True. Stage must be defined!");
+
+            if (this.CalcFootfall == true & this.Footfall == null)
+                throw new Exception("calcFootfall == True. Footfall must be defined!");
         }
 
         /// <summary>
