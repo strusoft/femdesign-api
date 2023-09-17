@@ -8,6 +8,7 @@ using System.Linq;
 using FemDesign.Sections;
 using FemDesign.Materials;
 using FemDesign.Geometry;
+using System.CodeDom;
 
 namespace FemDesign.Composites
 {
@@ -36,14 +37,15 @@ namespace FemDesign.Composites
         [XmlElement("property", Order = 2)]
         public List<CompositeSectionParameter> ParameterList { get; set; }
 
-        [XmlIgnore]
-        public Dictionary<CompositeParameterType, string> ParameterDictionary 
-        { 
-            get
-            {
-                return ParameterList.ToDictionary(p => p.Name, p => p.Value);
-            }
-        }
+        //[XmlIgnore]
+        //public Dictionary<CompositeParameterType, string> ParameterDictionary 
+        //{ 
+        //    get
+        //    {
+        //        return ParameterList.ToDictionary(p => p.Name, p => p.Value);
+        //    }
+        //}
+
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -91,7 +93,7 @@ namespace FemDesign.Composites
         /// <param name="sections">The list of sections corresponding to each composite section part.</param>
         /// <param name="parameters">List of composite section parameters describing the composite section (e.g. name, geometry, etc.). Values of geometry parameters must be expressed in milimeters.</param>
         /// <exception cref="ArgumentException"></exception>
-        public CompositeSection(CompositeType type, List<Material> materials, List<Section> sections, List<CompositeSectionParameter> parameters)
+        internal CompositeSection(CompositeType type, List<Material> materials, List<Section> sections, List<CompositeSectionParameter> parameters)
         {
             // check incoming data
             if (materials.Count != sections.Count)
@@ -133,6 +135,9 @@ namespace FemDesign.Composites
 
         public static CompositeSection BeamA(List<Materials.Material> materials, List<Sections.Section> sections, double[] offsetY, double[] offsetZ, string name, double t, double bEff, double th, double bt, double bb, bool filled = false)
         {
+
+
+
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
             parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
             parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
@@ -151,10 +156,18 @@ namespace FemDesign.Composites
 
         public static CompositeSection BeamB(Material steel, Material concrete, string name, double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
-            List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            // conversion of geometric parameters from millimeters to meters
+            b = b / 1000;
+            bt = bt / 1000;
+            o1 = o1 / 1000;
+            o2 = o2 / 1000;
+            h = h / 1000;
+            tw = tw / 1000;
+            tfb = tfb / 1000;
+            tft = tft / 1000;
             
+            List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateBeamBSection(b, bt, o1, o2, h, tw, tfb, tft);
-
             (double[], double[]) offsetYZ = CalculateOffsetBeamB(b, bt, o1, o2, h, tw, tfb, tft);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
@@ -171,40 +184,8 @@ namespace FemDesign.Composites
             return new CompositeSection(CompositeType.BeamB, materials, sections, offsetYZ.Item1, offsetYZ.Item2, parameters);
         }
 
-        internal static (double[], double[]) CalculateOffsetBeamB(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
-        {
-            // conversion of geometric parameters from millimeters to meters
-            b = b / 1000;
-            bt = bt / 1000;
-            o1 = o1 / 1000;
-            o2 = o2 / 1000;
-            h = h / 1000;
-            tw = tw / 1000;
-            tfb = tfb / 1000;
-            tft = tft / 1000;
-
-            var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
-            var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
-            var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;
-
-            double[] offsetY = { eySteel, 0 };   // !the sequence of steel and concrete offsets must match the sequence of steel and concrete sections
-            double[] offsetZ = { ezSteel, 0 };
-
-            return (offsetY, offsetZ);
-        }
-
         internal static List<Sections.Section> CreateBeamBSection(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
-            // conversion of geometric parameters from millimeters to meters
-            b = b / 1000;
-            bt = bt / 1000;
-            o1 = o1 / 1000;
-            o2 = o2 / 1000;
-            h = h / 1000;
-            tw = tw / 1000;
-            tfb = tfb / 1000;
-            tft = tft / 1000;
-
             // definition of corner points
             List<Point3d> points = new List<Point3d>();
             points.Add(new Point3d(-b / 2 + tw, -h / 2, 0));
@@ -246,6 +227,96 @@ namespace FemDesign.Composites
             return sections;
         }
 
+        internal static (double[], double[]) CalculateOffsetBeamB(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
+        {
+            var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
+            var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
+            var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;
+
+            double[] offsetY = { eySteel, 0 };   // !the sequence of steel and concrete offsets must match the sequence of steel and concrete sections
+            double[] offsetZ = { ezSteel, 0 };
+
+            return (offsetY, offsetZ);
+        }
+
+        public static CompositeSection BeamP(List<Materials.Material> materials, List<Sections.Section> sections, double[] offsetY, double[] offsetZ, string name)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+
+            return new CompositeSection(CompositeType.BeamP, materials, sections, offsetY, offsetZ, parameters);
+        }
+        public static CompositeSection ColumnA(List<Materials.Material> materials, List<Sections.Section> sections, string name, double cy, double cz)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.cy, cy.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.cz, cz.ToString()));
+
+            return new CompositeSection(CompositeType.ColumnA, materials, sections, parameters);
+        }
+        public static CompositeSection ColumnC(List<Materials.Material> materials, List<Sections.Section> sections, string name, double bc, double hc, double bf, double tw, double tf)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.bc, bc.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.hc, hc.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.bf, bf.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.tw, tw.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.tf, tf.ToString()));
+
+            return new CompositeSection(CompositeType.ColumnC, materials, sections, parameters);
+        }
+        public static CompositeSection ColumnD(List<Materials.Material> materials, List<Sections.Section> sections, string name)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+
+            return new CompositeSection(CompositeType.ColumnD, materials, sections, parameters);
+        }
+        public static CompositeSection ColumnE(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d, double t)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d, d.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
+
+            return new CompositeSection(CompositeType.ColumnE, materials, sections, parameters);
+        }
+        public static CompositeSection ColumnF(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d, double t)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d, d.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
+
+            return new CompositeSection(CompositeType.ColumnE, materials, sections, parameters);
+        }
+        public static CompositeSection ColumnG(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d1, double d2, double t)
+        {
+            NotImplemented();
+
+            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d1, d1.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d2, d2.ToString()));
+            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
+
+            return new CompositeSection(CompositeType.ColumnG, materials, sections, parameters);
+        }
+        
         public static Geometry.Contour GetContour(List<Point3d> points)
         {
             List<Edge> edges = new List<Edge>();
@@ -266,68 +337,9 @@ namespace FemDesign.Composites
             return contour;
         }
 
-        public static CompositeSection BeamP(List<Materials.Material> materials, List<Sections.Section> sections, double[] offsetY, double[] offsetZ, string name)
+        internal static void NotImplemented()
         {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-
-            return new CompositeSection(CompositeType.BeamP, materials, sections, offsetY, offsetZ, parameters);
-        }
-        public static CompositeSection ColumnA(List<Materials.Material> materials, List<Sections.Section> sections, string name, double cy, double cz)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.cy, cy.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.cz, cz.ToString()));
-
-            return new CompositeSection(CompositeType.ColumnA, materials, sections, parameters);
-        }
-        public static CompositeSection ColumnC(List<Materials.Material> materials, List<Sections.Section> sections, string name, double bc, double hc, double bf, double tw, double tf)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.bc, bc.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.hc, hc.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.bf, bf.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.tw, tw.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.tf, tf.ToString()));
-
-            return new CompositeSection(CompositeType.ColumnC, materials, sections, parameters);
-        }
-        public static CompositeSection ColumnD(List<Materials.Material> materials, List<Sections.Section> sections, string name)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-
-            return new CompositeSection(CompositeType.ColumnD, materials, sections, parameters);
-        }
-        public static CompositeSection ColumnE(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d, double t)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d, d.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
-
-            return new CompositeSection(CompositeType.ColumnE, materials, sections, parameters);
-        }
-        public static CompositeSection ColumnF(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d, double t)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d, d.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
-
-            return new CompositeSection(CompositeType.ColumnE, materials, sections, parameters);
-        }
-        public static CompositeSection ColumnG(List<Materials.Material> materials, List<Sections.Section> sections, string name, double d1, double d2, double t)
-        {
-            List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>();
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.Name, name));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d1, d1.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.d2, d2.ToString()));
-            parameters.Add(new CompositeSectionParameter(CompositeParameterType.t, t.ToString()));
-
-            return new CompositeSection(CompositeType.ColumnG, materials, sections, parameters);
+            throw new ArgumentException("Composite section type is not implemented. If needed please contact us.");
         }
         
         //public list<compositeparametertype> getcompositesectionparameters(compositesection compositesection)

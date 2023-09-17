@@ -234,11 +234,25 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._complexMaterialRef;
+                if(this.HasComplexCompositeRef)
+                {
+                    return System.Guid.Empty;
+                }
+                else
+                {
+                    return this._complexMaterialRef;
+                }
             }
             set
             {
-                this._complexMaterialRef = value;
+                if(this.HasComplexCompositeRef)
+                {
+                    this._complexMaterialRef = System.Guid.Empty;
+                }
+                else
+                {
+                    this._complexMaterialRef = value;
+                }
             }
         }
 
@@ -259,12 +273,27 @@ namespace FemDesign.Bars
         {
             get
             {
-                return this._complexMaterialObj;
+                if(this.HasComplexCompositeRef)
+                {
+                    return null;
+                }
+                else
+                {
+                    return this._complexMaterialObj;
+                }
             }
             set
             {
-                this._complexMaterialObj = value;
-                this.ComplexMaterialRef = this._complexMaterialObj.Guid;
+                if(this.HasComplexCompositeRef)
+                {
+                    this._complexMaterialObj = null;
+                    this.ComplexMaterialRef = System.Guid.Empty;
+                }
+                else
+                {
+                    this._complexMaterialObj = value;
+                    this.ComplexMaterialRef = this._complexMaterialObj.Guid;
+                }
             }
         }
 
@@ -276,39 +305,53 @@ namespace FemDesign.Bars
         {
             get
             {
-                // if truss --> guid from TrussUniformSectionObj
-                if (this.Type == BarType.Truss)
+                if(this.HasComplexCompositeRef)
                 {
-                    if (this.TrussUniformSectionObj == null)
-                    {
-                        return this._complexSectionRef;
-                    }
-                    else
-                    {
-                        var r = this.TrussUniformSectionObj.Guid.ToString();
-                        this._complexSectionRef = r;
-                        return r;
-                    }
+                    return null;
                 }
-                // else --> guid from ComplexSectionObj
                 else
                 {
-                    if (this.ComplexSectionObj == null)
+                    // if truss --> guid from TrussUniformSectionObj
+                    if (this.Type == BarType.Truss)
                     {
-                        return this._complexSectionRef;
+                        if (this.TrussUniformSectionObj == null)
+                        {
+                            return this._complexSectionRef;
+                        }
+                        else
+                        {
+                            var r = this.TrussUniformSectionObj.Guid.ToString();
+                            this._complexSectionRef = r;
+                            return r;
+                        }
                     }
+                    // else --> guid from ComplexSectionObj
                     else
                     {
-                        var r = this.ComplexSectionObj.Guid.ToString();
-                        this._complexSectionRef = r;
-                        return r;
-                    }
+                        if (this.ComplexSectionObj == null)
+                        {
+                            return this._complexSectionRef;
+                        }
+                        else
+                        {
+                            var r = this.ComplexSectionObj.Guid.ToString();
+                            this._complexSectionRef = r;
+                            return r;
+                        }
 
+                    }
                 }
             }
             set
             {
-                this._complexSectionRef = value;
+                if (this.HasComplexCompositeRef)
+                {
+                    this._complexSectionRef = null;
+                }
+                else
+                {
+                    this._complexSectionRef = value;
+                }
             }
         }
 
@@ -319,7 +362,35 @@ namespace FemDesign.Bars
         public bool HasDeltaBeamComplexSectionRef { get => !System.Guid.TryParse(this.ComplexSectionRef, out System.Guid result); }
 
         [XmlIgnore]
-        public Sections.ComplexSection ComplexSectionObj;
+        public Sections.ComplexSection _complexSectionObj;
+
+        [XmlIgnore]
+        public Sections.ComplexSection ComplexSectionObj
+        {
+            get
+            {
+                if (this.HasComplexCompositeRef)
+                {
+                    return null;
+                }
+                else
+                {
+                    return this._complexSectionObj;
+                }
+            }
+            set
+            {
+                if (this.HasComplexCompositeRef)
+                {
+                    this._complexSectionObj = null;
+                }
+                else
+                {
+                    this._complexSectionObj = value;
+                    this._complexSectionRef = this._complexSectionObj.Guid.ToString();
+                }
+            }
+        }
 
         [XmlIgnore]
         public Sections.Section TrussUniformSectionObj;
@@ -506,6 +577,29 @@ namespace FemDesign.Bars
                 this.Edge = edge;
                 this.ComplexMaterialObj = material;
                 this.ComplexSectionObj = new Sections.ComplexSection(section, eccentricity);
+                this.Connectivity = new Connectivity[1] { connectivity };
+                this.EccentricityCalc = true;
+                this.Identifier = identifier;
+            }
+        }
+
+        /// <summary>
+        /// Construct composite beam or composite column with uniform section and uniform start/end conditions.
+        /// </summary>
+        public BarPart(Geometry.Edge edge, BarType type, Composites.Composites composites, Eccentricity eccentricity, Connectivity connectivity, string identifier)
+        {
+            if (type == BarType.Truss)
+            {
+                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
+            }
+            else
+            {
+                this.EntityCreated();
+                this.Type = type;
+                this.Edge = edge;
+                this.ComplexMaterialObj = null;
+                this.ComplexSectionObj = null;
+                this.ComplexCompositeObj = composites.ComplexComposite[0];
                 this.Connectivity = new Connectivity[1] { connectivity };
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
