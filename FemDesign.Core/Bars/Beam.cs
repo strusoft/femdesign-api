@@ -29,5 +29,9 @@ namespace FemDesign.Bars
 		public Beam(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier) : base(edge, BarType.Beam, material, sections, eccentricities, connectivities, identifier)
 		{
 		}
+
+		public Beam(Geometry.Edge edge, Composites.CompositeSection compositeSection, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B") : base(edge, BarType.Beam, compositeSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier)
+		{
+		}
 	}
 }

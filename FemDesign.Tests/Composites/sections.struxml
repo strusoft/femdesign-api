@@ -1,88 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <database struxml_version="01.00.000" source_software="FEM-Design 22.00.004" start_time="1970-01-01T00:00:00.000" end_time="2023-08-21T16:38:52.000" guid="0fd6a3d8-4df5-430d-b673-212534905229" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="GB" xmlns="urn:strusoft">
 	<sections>
-		<section guid="75208ef1-3e11-437a-97be-ae9d707a859e" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, HE-B, 300" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="HE-B" fd_name_size="300">
+		<section guid="2f5d5fa7-9fa5-4898-9918-fa7e7fbd85de" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Square, 350" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Square" fd_name_size="350" flags="0">
 			<region_group>
 				<region>
 					<contour>
 						<edge type="line">
-							<point x="-0.15" y="-0.15" z="0"></point>
-							<point x="0.15" y="-0.15" z="0"></point>
+							<point x="-0.175" y="-0.175" z="0"></point>
+							<point x="0.175" y="-0.175" z="0"></point>
 							<normal x="0" y="1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.15" y="-0.15" z="0"></point>
-							<point x="0.15" y="-0.131" z="0"></point>
+							<point x="0.175" y="-0.175" z="0"></point>
+							<point x="0.175" y="0.175" z="0"></point>
 							<normal x="-1" y="0" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.15" y="-0.131" z="0"></point>
-							<point x="0.0325" y="-0.131" z="0"></point>
-							<normal x="0" y="-1" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="0.0325" y="-0.104" z="0"></point>
-							<normal x="0" y="0" z="-1"></normal>
-							<x_axis x="0" y="-1" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="0.0055" y="-0.104" z="0"></point>
-							<point x="0.0055" y="0.104" z="0"></point>
-							<normal x="-1" y="0" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="0.0325" y="0.104" z="0"></point>
-							<normal x="0" y="0" z="-1"></normal>
-							<x_axis x="-1" y="0" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="0.0325" y="0.131" z="0"></point>
-							<point x="0.15" y="0.131" z="0"></point>
-							<normal x="0" y="1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="0.15" y="0.131" z="0"></point>
-							<point x="0.15" y="0.15" z="0"></point>
-							<normal x="-1" y="0" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="0.15" y="0.15" z="0"></point>
-							<point x="-0.15" y="0.15" z="0"></point>
+							<point x="0.175" y="0.175" z="0"></point>
+							<point x="-0.175" y="0.175" z="0"></point>
 							<normal x="0" y="-1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="-0.15" y="0.15" z="0"></point>
-							<point x="-0.15" y="0.131" z="0"></point>
-							<normal x="1" y="0" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="0.131" z="0"></point>
-							<point x="-0.0325" y="0.131" z="0"></point>
-							<normal x="0" y="1" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="-0.0325" y="0.104" z="0"></point>
-							<normal x="0" y="0" z="-1"></normal>
-							<x_axis x="0" y="1" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="-0.0055" y="0.104" z="0"></point>
-							<point x="-0.0055" y="-0.104" z="0"></point>
-							<normal x="1" y="0" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="-0.0325" y="-0.104" z="0"></point>
-							<normal x="0" y="0" z="-1"></normal>
-							<x_axis x="1" y="0" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="-0.0325" y="-0.131" z="0"></point>
-							<point x="-0.15" y="-0.131" z="0"></point>
-							<normal x="0" y="-1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="-0.131" z="0"></point>
-							<point x="-0.15" y="-0.15" z="0"></point>
+							<point x="-0.175" y="0.175" z="0"></point>
+							<point x="-0.175" y="-0.175" z="0"></point>
 							<normal x="1" y="0" z="0"></normal>
 						</edge>
 					</contour>
@@ -90,110 +30,28 @@
 			</region_group>
 			<end></end>
 		</section>
-		<section guid="deda2ff7-afaf-456d-84d5-694b1ebb1118" last_change="1970-01-01T00:00:00.000" action="added" name="Unnamed, Concrete, 3" type="custom" fd-mat="3" fd_name_code="Unnamed" fd_name_type="Concrete" fd_name_size="3" flags="0">
+		<section guid="d663b31e-fbf8-493a-bbf2-c3e71d76b858" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Square, 400" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Square" fd_name_size="400" flags="0">
 			<region_group>
 				<region>
 					<contour>
 						<edge type="line">
-							<point x="-0.23" y="-0.23" z="0"></point>
-							<point x="0.23" y="-0.23" z="0"></point>
+							<point x="-0.2" y="-0.2" z="0"></point>
+							<point x="0.2" y="-0.2" z="0"></point>
 							<normal x="0" y="1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.23" y="-0.23" z="0"></point>
-							<point x="0.23" y="0.23" z="0"></point>
+							<point x="0.2" y="-0.2" z="0"></point>
+							<point x="0.2" y="0.2" z="0"></point>
 							<normal x="-1" y="0" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="0.23" y="0.23" z="0"></point>
-							<point x="-0.23" y="0.23" z="0"></point>
+							<point x="0.2" y="0.2" z="0"></point>
+							<point x="-0.2" y="0.2" z="0"></point>
 							<normal x="0" y="-1" z="0"></normal>
 						</edge>
 						<edge type="line">
-							<point x="-0.23" y="0.23" z="0"></point>
-							<point x="-0.23" y="-0.23" z="0"></point>
-							<normal x="1" y="0" z="0"></normal>
-						</edge>
-					</contour>
-					<contour>
-						<edge type="line">
-							<point x="0.15" y="-0.15" z="0"></point>
-							<point x="-0.15" y="-0.15" z="0"></point>
-							<normal x="0" y="-1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="-0.15" z="0"></point>
-							<point x="-0.15" y="-0.131" z="0"></point>
-							<normal x="-1" y="0" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="-0.131" z="0"></point>
-							<point x="-0.0325" y="-0.131" z="0"></point>
-							<normal x="0" y="1" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="-0.0325" y="-0.104" z="0"></point>
-							<normal x="0" y="0" z="1"></normal>
-							<x_axis x="0" y="-1" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="-0.0055" y="-0.104" z="0"></point>
-							<point x="-0.0055" y="0.104" z="0"></point>
-							<normal x="-1" y="0" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="-0.0325" y="0.104" z="0"></point>
-							<normal x="0" y="0" z="1"></normal>
-							<x_axis x="1" y="0" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="-0.0325" y="0.131" z="0"></point>
-							<point x="-0.15" y="0.131" z="0"></point>
-							<normal x="0" y="-1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="0.131" z="0"></point>
-							<point x="-0.15" y="0.15" z="0"></point>
-							<normal x="-1" y="0" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="-0.15" y="0.15" z="0"></point>
-							<point x="0.15" y="0.15" z="0"></point>
-							<normal x="0" y="1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="0.15" y="0.15" z="0"></point>
-							<point x="0.15" y="0.131" z="0"></point>
-							<normal x="1" y="0" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="0.15" y="0.131" z="0"></point>
-							<point x="0.0325" y="0.131" z="0"></point>
-							<normal x="0" y="-1" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="0.0325" y="0.104" z="0"></point>
-							<normal x="0" y="0" z="1"></normal>
-							<x_axis x="0" y="1" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="0.0055" y="0.104" z="0"></point>
-							<point x="0.0055" y="-0.104" z="0"></point>
-							<normal x="1" y="0" z="0"></normal>
-						</edge>
-						<edge radius="0.027" start_angle="0" end_angle="1.5707963267949" type="arc">
-							<point x="0.0325" y="-0.104" z="0"></point>
-							<normal x="0" y="0" z="1"></normal>
-							<x_axis x="-1" y="0" z="0"></x_axis>
-						</edge>
-						<edge type="line">
-							<point x="0.0325" y="-0.131" z="0"></point>
-							<point x="0.15" y="-0.131" z="0"></point>
-							<normal x="0" y="1" z="0"></normal>
-						</edge>
-						<edge type="line">
-							<point x="0.15" y="-0.131" z="0"></point>
-							<point x="0.15" y="-0.15" z="0"></point>
+							<point x="-0.2" y="0.2" z="0"></point>
+							<point x="-0.2" y="-0.2" z="0"></point>
 							<normal x="1" y="0" z="0"></normal>
 						</edge>
 					</contour>
@@ -201,6 +59,844 @@
 			</region_group>
 			<end></end>
 		</section>
+		<section guid="a8dcf3f0-3fef-439f-b407-f87eb508e306" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Square, 450" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Square" fd_name_size="450" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.225" y="-0.225" z="0"></point>
+							<point x="0.225" y="-0.225" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.225" y="-0.225" z="0"></point>
+							<point x="0.225" y="0.225" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.225" y="0.225" z="0"></point>
+							<point x="-0.225" y="0.225" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.225" y="0.225" z="0"></point>
+							<point x="-0.225" y="-0.225" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="4e966274-6605-4bbe-9f12-702f9634ae38" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, HE-B, 100" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="HE-B" fd_name_size="100" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.05" y="-0.05" z="0"></point>
+							<point x="0.05" y="-0.05" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.05" z="0"></point>
+							<point x="0.05" y="-0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.04" z="0"></point>
+							<point x="0.015" y="-0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.015" y="-0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.003" y="-0.028" z="0"></point>
+							<point x="0.003" y="0.028" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.015" y="0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.015" y="0.04" z="0"></point>
+							<point x="0.05" y="0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="0.04" z="0"></point>
+							<point x="0.05" y="0.05" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="0.05" z="0"></point>
+							<point x="-0.05" y="0.05" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.05" z="0"></point>
+							<point x="-0.05" y="0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.04" z="0"></point>
+							<point x="-0.015" y="0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.015" y="0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.003" y="0.028" z="0"></point>
+							<point x="-0.003" y="-0.028" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.015" y="-0.028" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.015" y="-0.04" z="0"></point>
+							<point x="-0.05" y="-0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="-0.04" z="0"></point>
+							<point x="-0.05" y="-0.05" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="aebb72d7-e837-4b87-b347-061c88b356d0" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, HE-B, 120" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="HE-B" fd_name_size="120" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.06" y="-0.06" z="0"></point>
+							<point x="0.06" y="-0.06" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.06" z="0"></point>
+							<point x="0.06" y="-0.049" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.049" z="0"></point>
+							<point x="0.01525" y="-0.049" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.01525" y="-0.037" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.00325" y="-0.037" z="0"></point>
+							<point x="0.00325" y="0.037" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="0.01525" y="0.037" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.01525" y="0.049" z="0"></point>
+							<point x="0.06" y="0.049" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.049" z="0"></point>
+							<point x="0.06" y="0.06" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.06" z="0"></point>
+							<point x="-0.06" y="0.06" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.06" z="0"></point>
+							<point x="-0.06" y="0.049" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.049" z="0"></point>
+							<point x="-0.01525" y="0.049" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="-0.01525" y="0.037" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.00325" y="0.037" z="0"></point>
+							<point x="-0.00325" y="-0.037" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.01525" y="-0.037" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.01525" y="-0.049" z="0"></point>
+							<point x="-0.06" y="-0.049" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="-0.049" z="0"></point>
+							<point x="-0.06" y="-0.06" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="9c1e1d52-c4d2-4459-b2bd-f5a61c2e04ef" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, HE-B, 140" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="HE-B" fd_name_size="140" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.07" y="-0.07" z="0"></point>
+							<point x="0.07" y="-0.07" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.07" y="-0.07" z="0"></point>
+							<point x="0.07" y="-0.058" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.07" y="-0.058" z="0"></point>
+							<point x="0.0155" y="-0.058" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0155" y="-0.046" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0035" y="-0.046" z="0"></point>
+							<point x="0.0035" y="0.046" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0155" y="0.046" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0155" y="0.058" z="0"></point>
+							<point x="0.07" y="0.058" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.07" y="0.058" z="0"></point>
+							<point x="0.07" y="0.07" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.07" y="0.07" z="0"></point>
+							<point x="-0.07" y="0.07" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.07" y="0.07" z="0"></point>
+							<point x="-0.07" y="0.058" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.07" y="0.058" z="0"></point>
+							<point x="-0.0155" y="0.058" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0155" y="0.046" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0035" y="0.046" z="0"></point>
+							<point x="-0.0035" y="-0.046" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0155" y="-0.046" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0155" y="-0.058" z="0"></point>
+							<point x="-0.07" y="-0.058" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.07" y="-0.058" z="0"></point>
+							<point x="-0.07" y="-0.07" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="707198ea-ef7d-4324-bab6-2f4a6315e856" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, LE, 30*4" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="LE" fd_name_size="30*4" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-8.7847406041875E-03" y="-8.7847406041875E-03" z="0"></point>
+							<point x="2.12152593958125E-02" y="-8.7847406041875E-03" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="2.12152593958125E-02" y="-8.7847406041875E-03" z="0"></point>
+							<point x="2.12152593958125E-02" y="-7.2847406041875E-03" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.0025" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="1.87152593958125E-02" y="-7.2847406041875E-03" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="1.87152593958125E-02" y="-4.7847406041875E-03" z="0"></point>
+							<point x="2.15259395812501E-04" y="-4.7847406041875E-03" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="2.15259395812498E-04" y="2.152593958125E-04" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-4.7847406041875E-03" y="2.15259395812501E-04" z="0"></point>
+							<point x="-4.7847406041875E-03" y="1.87152593958125E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.0025" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-7.2847406041875E-03" y="1.87152593958125E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-7.28474060418751E-03" y="2.12152593958125E-02" z="0"></point>
+							<point x="-8.7847406041875E-03" y="2.12152593958125E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-8.7847406041875E-03" y="2.12152593958125E-02" z="0"></point>
+							<point x="-8.7847406041875E-03" y="-8.7847406041875E-03" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="e7fbb9cf-8338-4d67-b8c2-67c66495904d" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, VKR, 100x100x8" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="VKR" fd_name_size="100x100x8">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.038" y="-0.038" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.038" y="-0.05" z="0"></point>
+							<point x="0.038" y="-0.05" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.038" y="-0.038" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.038" z="0"></point>
+							<point x="0.05" y="0.038" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.038" y="0.038" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.038" y="0.05" z="0"></point>
+							<point x="-0.038" y="0.05" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.012" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.038" y="0.038" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.038" z="0"></point>
+							<point x="-0.05" y="-0.038" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.008" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.034" y="-0.034" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.042" y="-0.034" z="0"></point>
+							<point x="-0.042" y="0.034" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.008" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.034" y="0.034" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.034" y="0.042" z="0"></point>
+							<point x="0.034" y="0.042" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.008" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.034" y="0.034" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.042" y="0.034" z="0"></point>
+							<point x="0.042" y="-0.034" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.008" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.034" y="-0.034" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.034" y="-0.042" z="0"></point>
+							<point x="-0.034" y="-0.042" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="4a85cef0-5612-495f-b21c-2d210ded3efb" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, VKR, 100x100x10" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="VKR" fd_name_size="100x100x10">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.035" y="-0.035" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.035" y="-0.05" z="0"></point>
+							<point x="0.035" y="-0.05" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.035" y="-0.035" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.05" y="-0.035" z="0"></point>
+							<point x="0.05" y="0.035" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="0.035" y="0.035" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.035" y="0.05" z="0"></point>
+							<point x="-0.035" y="0.05" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.035" y="0.035" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.05" y="0.035" z="0"></point>
+							<point x="-0.05" y="-0.035" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.01" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.03" y="-0.03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.04" y="-0.03" z="0"></point>
+							<point x="-0.04" y="0.03" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.01" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.03" y="0.03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.03" y="0.04" z="0"></point>
+							<point x="0.03" y="0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.01" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.03" y="0.03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.04" y="0.03" z="0"></point>
+							<point x="0.04" y="-0.03" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.01" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="0.03" y="-0.03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.03" y="-0.04" z="0"></point>
+							<point x="-0.03" y="-0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="289bf773-65cd-416e-b59d-3aa3bb465168" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 240" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="240" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.06" y="-0.12" z="0"></point>
+							<point x="0.06" y="-0.12" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.12" z="0"></point>
+							<point x="0.06" y="-0.1102" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.1102" z="0"></point>
+							<point x="0.0181" y="-0.1102" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="0.0181" y="-0.0952" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0031" y="-0.0952" z="0"></point>
+							<point x="0.0031" y="0.0952" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0181" y="0.0952" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0181" y="0.1102" z="0"></point>
+							<point x="0.06" y="0.1102" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.1102" z="0"></point>
+							<point x="0.06" y="0.12" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.12" z="0"></point>
+							<point x="-0.06" y="0.12" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.12" z="0"></point>
+							<point x="-0.06" y="0.1102" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.1102" z="0"></point>
+							<point x="-0.0181" y="0.1102" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0181" y="0.0952" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0031" y="0.0952" z="0"></point>
+							<point x="-0.0031" y="-0.0952" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0181" y="-0.0952" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0181" y="-0.1102" z="0"></point>
+							<point x="-0.06" y="-0.1102" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="-0.1102" z="0"></point>
+							<point x="-0.06" y="-0.12" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="ff762f5d-b2f9-4d12-bafb-84ed3ca84ab7" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 270" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="270" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.0675" y="-0.135" z="0"></point>
+							<point x="0.0675" y="-0.135" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.0675" y="-0.135" z="0"></point>
+							<point x="0.0675" y="-0.1248" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.0675" y="-0.1248" z="0"></point>
+							<point x="0.0183" y="-0.1248" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0183" y="-0.1098" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0033" y="-0.1098" z="0"></point>
+							<point x="0.0033" y="0.1098" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0183" y="0.1098" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0183" y="0.1248" z="0"></point>
+							<point x="0.0675" y="0.1248" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.0675" y="0.1248" z="0"></point>
+							<point x="0.0675" y="0.135" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.0675" y="0.135" z="0"></point>
+							<point x="-0.0675" y="0.135" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.0675" y="0.135" z="0"></point>
+							<point x="-0.0675" y="0.1248" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.0675" y="0.1248" z="0"></point>
+							<point x="-0.0183" y="0.1248" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0183" y="0.1098" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0033" y="0.1098" z="0"></point>
+							<point x="-0.0033" y="-0.1098" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0183" y="-0.1098" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0183" y="-0.1248" z="0"></point>
+							<point x="-0.0675" y="-0.1248" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.0675" y="-0.1248" z="0"></point>
+							<point x="-0.0675" y="-0.135" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="789fbf46-0b40-43fe-8b6a-7cc9509219b1" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 300" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="300" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.075" y="-0.15" z="0"></point>
+							<point x="0.075" y="-0.15" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.075" y="-0.15" z="0"></point>
+							<point x="0.075" y="-0.1393" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.075" y="-0.1393" z="0"></point>
+							<point x="0.01855" y="-0.1393" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.57079632679491" type="arc">
+							<point x="0.01855" y="-0.1243" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.00355" y="-0.1243" z="0"></point>
+							<point x="0.00355" y="0.1243" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.01855" y="0.1243" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.01855" y="0.1393" z="0"></point>
+							<point x="0.075" y="0.1393" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.075" y="0.1393" z="0"></point>
+							<point x="0.075" y="0.15" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.075" y="0.15" z="0"></point>
+							<point x="-0.075" y="0.15" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.075" y="0.15" z="0"></point>
+							<point x="-0.075" y="0.1393" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.075" y="0.1393" z="0"></point>
+							<point x="-0.01855" y="0.1393" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="-0.01855" y="0.1243" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.00355" y="0.1243" z="0"></point>
+							<point x="-0.00355" y="-0.1243" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.015" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.01855" y="-0.1243" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.01855" y="-0.1393" z="0"></point>
+							<point x="-0.075" y="-0.1393" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.075" y="-0.1393" z="0"></point>
+							<point x="-0.075" y="-0.15" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="0033d85e-d54a-45ad-8754-2191206ccbaa" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, CHS, 159-5.6" type="custom" fd-mat="1" fd_name_code="Steel sections" fd_name_type="CHS" fd_name_size="159-5.6" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.0795" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.0739" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="39ab95f7-a2c6-4e5f-8af1-b7b17665d6d4" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, CHS, 193.7-16.0" type="custom" fd-mat="1" fd_name_code="Steel sections" fd_name_type="CHS" fd_name_size="193.7-16.0" flags="0">
+			<region_group>
+				<region>
+					<contour>
+						<edge radius="0.09685" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.08085" type="circle">
+							<point x="0" y="0" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		
 	</sections>
 	<end></end>
 </database>

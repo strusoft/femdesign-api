@@ -143,7 +143,7 @@ namespace FemDesign.Bars
         /// <param name="type"></param>
         /// <param name="material"></param>
         /// <param name="section">Section, same at start/end</param>
-        /// <param name="eccentricity">Analytical eccentricity, same at start. Eccentricity set to 0,0 if null/end</param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start/end. Eccentricity set to 0,0 if null</param>
         /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
         public Bar(Geometry.Edge edge, Materials.Material material, Sections.Section section, BarType type, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
@@ -168,9 +168,9 @@ namespace FemDesign.Bars
         /// <param name="material"></param>
         /// <param name="section">Section, same at start/end</param>
         /// <param name="localY">Vector to orient the cross section. If null, localY will be set as a cross product between Z-Axis and the local X Axis./end</param>
-        /// <param name="startEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null/end</param>
-        /// <param name="endEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null/end</param>
-        /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null/end</param>
+        /// <param name="startEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null</param>
+        /// <param name="endEccentricity">Analytical eccentricity. Eccentricity set to 0,0 if null</param>
+        /// <param name="startConnectivity">Connectivity. Connectivity set to Rigid if null</param>
         /// <param name="endConnectivity">Connectivity. Connectivity set to Rigid if null</param>
         /// <param name="identifier">Identifier</param>
         public Bar(FemDesign.Geometry.Point3d startPoint, FemDesign.Geometry.Point3d endPoint, Materials.Material material, Sections.Section section, BarType type, Geometry.Vector3d localY = null, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
@@ -190,8 +190,6 @@ namespace FemDesign.Bars
 
             this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
-
-
 
         /// <summary>
         /// Construct beam or column with uniform section and different start/end conditions
@@ -245,7 +243,6 @@ namespace FemDesign.Bars
             this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
 
-
         /// <summary>
         /// Construct beam or column with start/end section and different start/end conditions
         /// </summary>
@@ -288,7 +285,6 @@ namespace FemDesign.Bars
             this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, identifier);
         }
 
-
         /// <summary>
         /// Construct a truss element.
         /// </summary>
@@ -314,7 +310,52 @@ namespace FemDesign.Bars
             this.BarPart = new BarPart(edge, this.Type, material, section, identifier);
         }
 
+        /// <summary>
+        /// Construct a composite beam or composite column with uniform section and uniform start/end conditions
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="compositeSection"></param>
+        /// <param name="eccentricity">Analytical eccentricity, same at start/end. Eccentricity set to 0,0 if null</param>
+        /// <param name="connectivity">Connectivity, same at start/end. Connectivity set to Rigid if null</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(Geometry.Edge edge, BarType type, Composites.CompositeSection compositeSection, Eccentricity eccentricity = null, Connectivity connectivity = null, string identifier = "B")
+        {
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
 
+            this.EntityCreated();
+            this.Type = type;
+
+            if (eccentricity == null) { eccentricity = Eccentricity.Default; }
+            if (connectivity == null) { connectivity = Connectivity.Default; }
+            this.BarPart = new BarPart(edge, this.Type, compositeSection, eccentricity, connectivity, identifier);
+        }
+
+        /// <summary>
+        /// Construct composite beam or composite column with uniform section and different start/end conditions
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="type"></param>
+        /// <param name="compositeSection"></param>
+        /// <param name="startEccentricity">Analytical start eccentricity</param>
+        /// <param name="endEccentricity">Analytical end eccentricity</param>
+        /// <param name="startConnectivity">Start connectivity</param>
+        /// <param name="endConnectivity">End connectivity</param>
+        /// <param name="identifier">Identifier</param>
+        public Bar(Geometry.Edge edge, BarType type, Composites.CompositeSection compositeSection, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B")
+        {
+            if (type == BarType.Truss) { throw new System.Exception("Truss is not a valid type"); }
+
+            this.EntityCreated();
+            this.Type = type;
+
+            if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
+            if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
+            if (startConnectivity == null) { startConnectivity = Connectivity.Default; }
+            if (endConnectivity == null) { endConnectivity = Connectivity.Default; }
+
+            this.BarPart = new BarPart(edge, this.Type, compositeSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
+        }
 
         /// <summary>
         /// Construct a truss element.

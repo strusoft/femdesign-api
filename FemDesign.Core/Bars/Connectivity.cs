@@ -307,8 +307,8 @@ namespace FemDesign.Bars
         {
             get
             {
-                    Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
-                    return connectivity;
+                Connectivity connectivity = new Connectivity(true, true, true, true, true, true);
+                return connectivity;
 
             }
         }

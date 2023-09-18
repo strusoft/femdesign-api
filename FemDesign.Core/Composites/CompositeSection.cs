@@ -156,16 +156,6 @@ namespace FemDesign.Composites
 
         public static CompositeSection BeamB(Material steel, Material concrete, string name, double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
-            // conversion of geometric parameters from millimeters to meters
-            b = b / 1000;
-            bt = bt / 1000;
-            o1 = o1 / 1000;
-            o2 = o2 / 1000;
-            h = h / 1000;
-            tw = tw / 1000;
-            tfb = tfb / 1000;
-            tft = tft / 1000;
-            
             List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateBeamBSection(b, bt, o1, o2, h, tw, tfb, tft);
             (double[], double[]) offsetYZ = CalculateOffsetBeamB(b, bt, o1, o2, h, tw, tfb, tft);
@@ -186,6 +176,16 @@ namespace FemDesign.Composites
 
         internal static List<Sections.Section> CreateBeamBSection(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
+            // conversion of geometric parameters from millimeters to meters
+            b = b / 1000;
+            bt = bt / 1000;
+            o1 = o1 / 1000;
+            o2 = o2 / 1000;
+            h = h / 1000;
+            tw = tw / 1000;
+            tfb = tfb / 1000;
+            tft = tft / 1000;
+
             // definition of corner points
             List<Point3d> points = new List<Point3d>();
             points.Add(new Point3d(-b / 2 + tw, -h / 2, 0));
@@ -229,6 +229,16 @@ namespace FemDesign.Composites
 
         internal static (double[], double[]) CalculateOffsetBeamB(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
+            // conversion of geometric parameters from millimeters to meters
+            b = b / 1000;
+            bt = bt / 1000;
+            o1 = o1 / 1000;
+            o2 = o2 / 1000;
+            h = h / 1000;
+            tw = tw / 1000;
+            tfb = tfb / 1000;
+            tft = tft / 1000;
+
             var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
             var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
             var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;

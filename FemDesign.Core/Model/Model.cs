@@ -192,6 +192,10 @@ namespace FemDesign
             {
                 this.Materials = new Materials.Materials();
             }
+            if (this.Composites == null)
+            {
+                this.Composites = new Composites.Composites();
+            }
             if (this.ReinforcingMaterials == null)
             {
                 this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
@@ -807,7 +811,6 @@ namespace FemDesign
             return false;
         }
 
-
         /// <summary>
         /// Check if CompositeSection in Model.
         /// </summary>
@@ -855,8 +858,6 @@ namespace FemDesign
 
             }
         }
-
-
 
         /// <summary>
         /// Add ComplexComposite to Model.

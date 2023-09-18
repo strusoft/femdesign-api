@@ -10,6 +10,7 @@ using System.Linq;
 using FemDesign;
 using FemDesign.Materials;
 using FemDesign.Sections;
+using FemDesign.Geometry;
 
 namespace FemDesign.Composites
 {
@@ -66,39 +67,34 @@ namespace FemDesign.Composites
         [TestMethod]
         public void CompositeBeamB()
         {
-            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repository\femdesign-api\FemDesign.Tests\bin\Debug\Composites\materials.struxml");
+            // Geometry
+            Point3d firstPt = new Point3d(0, 0, 0);
+            Point3d secondPt = new Point3d(10, 0, 0);
+            Edge line = new Edge(firstPt, secondPt);
+
+
+            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repos\femdesign-api\FemDesign.Tests\Composites\materials.struxml");
             var steel = materialsDB.MaterialByName("S 275");
             var concrete = materialsDB.MaterialByName("C25/30");
             
-            // Create composite object
-            var composite = new Composites();
 
+            // Create composite beam
             CompositeSection compositeSection = CompositeSection.BeamB(steel, concrete, "beamB1", 200, 700, 400, 150, 360, 10, 50, 20);
+            Bars.Bar compositeBar = new Bars.Bar(line, Bars.BarType.Beam, compositeSection, null, null, "B");
+            
+            
+            // Create model
+            Model model = new Model(Country.S);
+            model.AddElements(compositeBar);
 
-            composite.CompositeSection = new List<CompositeSection>() { compositeSection };
+            using (var femDesign = new FemDesignConnection(
+                fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 22\", 
+                outputDir: @"D:\Andi\API_Work\Github\802_CompositeSections\CodeTest\Output", 
+                keepOpen: false))
+            {
+                femDesign.Open(model, false);
+            }
 
-            // Create complex composite
-            ComplexComposite complexComposite = new ComplexComposite(compositeSection);
-            composite.ComplexComposite = new List<ComplexComposite>() { complexComposite };
-
-
-            var sections = new ModelSections();
-            sections.Section = compositeSection.Parts.Select(p => p.Section).ToList();
-
-            // Serialize struxml
-            string fileName1 = "BeamB1Serialization";
-            string filePath1 = @"D:\work\802_CompositeSection\" + fileName1 + ".struxml";
-            this.SerializeComposite(filePath1, composite);
-
-            string fileName2 = "BeamB1SectionSerialization";
-            string filePath2 = @"D:\work\802_CompositeSection\" + fileName2 + ".struxml";
-            this.SerializeSection(filePath2, sections);
-
-            //Deserialize struxml
-            Composites inData = DeserializeComposite(filePath1);
-
-            //// Compare data
-            //Assert.AreEqual(composite, inData);
         }
 
         public void SerializeComposite(string filePath, Composites composite)
