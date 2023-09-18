@@ -70,10 +70,11 @@ namespace FemDesign.Loads
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            if(LoadCase != null)
-                return $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCase.Name}";
+            var text = $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}";
+            if (LoadCase != null)
+                return text + $", LoadCase: {this.LoadCase.Name}";
             else
-                return $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}";
+                return text;
         }
     }
 }

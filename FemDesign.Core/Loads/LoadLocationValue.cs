@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System.Collections.Generic;
 
 namespace FemDesign.Loads
 {
@@ -28,6 +29,14 @@ namespace FemDesign.Loads
         }
 
 
-
+        public static implicit operator LoadLocationValue(StruSoft.Interop.StruXml.Data.Location_value obj)
+        {
+            var loadLocation = new LoadLocationValue();
+            loadLocation.X = obj.X;
+            loadLocation.Y = obj.Y;
+            loadLocation.Z = obj.Z;
+            loadLocation.Value = obj.Val;
+            return loadLocation;
+        }
     }
 }

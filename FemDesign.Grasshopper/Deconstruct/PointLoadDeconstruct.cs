@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             }
 
             // return
-            DA.SetData(0, obj.LoadCaseGuid);
+            DA.SetData(0, obj.Guid);
             DA.SetData(1, obj.LoadType);
             DA.SetData(2, obj.GetRhinoGeometry());
             DA.SetData(3, obj.Direction.ToRhino());

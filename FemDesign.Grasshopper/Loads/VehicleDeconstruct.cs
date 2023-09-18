@@ -39,8 +39,8 @@ namespace FemDesign.Grasshopper
             var name = vehicle.Name;
 
             var pointLoad = vehicle.Point_load.Select( x => (PointLoad)x);
-            var lineLoad = vehicle.Line_load;
-            var surfaceLoad = vehicle.Surface_load;
+            var lineLoad = vehicle.Line_load.Select(x => (LineLoad)x);
+            var surfaceLoad = vehicle.Surface_load.Select(x => (SurfaceLoad)x);
 
             DA.SetData(0, name);
             DA.SetDataList(1, pointLoad);
