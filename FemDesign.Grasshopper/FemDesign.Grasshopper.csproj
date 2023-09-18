@@ -129,6 +129,7 @@
     <Compile Include="Loads\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\MovingLoad.cs" />
     <Compile Include="Loads\PointLoadDefine.cs" />
+    <Compile Include="Loads\VehicleDeconstruct.cs" />
     <Compile Include="Loads\VehicleFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
