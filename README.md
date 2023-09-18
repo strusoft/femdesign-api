@@ -24,10 +24,12 @@ Either
 - Download the grasshopper package with [Package Manager](https://femdesign-api-docs.onstrusoft.com/docs/grasshopper/get-started/#installation)
 - Or download it manually by downloading `FemDesign.Grasshopper.zip` from [latest release](https://github.com/strusoft/femdesign-api/releases/latest), unblock the file and unzip to the grasshopper libraries folder (e.g `C:\Users\USERNAME\AppData\Roaming\Grasshopper\Libraries`).
 
-### 🤖 Dynamo
+### 🤖 Dynamo (Deprecated)
 Either
 - Install it from within Dynamo using Online Package Search. Search for `FemDesign`. (Guide on [installing dynamo package](https://www.dynamonow.com/downloading-installing-packages/))
 - Or Install it manually by downloading `FemDesign.Dynamo.zip` from [latest release](https://github.com/strusoft/femdesign-api/releases/latest), unblock the file and unzip to the dynamo package folder of the version of Revit/Dynamo of your choice (e.g `C:\Users\USERNAME\AppData\Roaming\Dynamo\Dynamo Revit\2.6\packages` for Dynamo Revit 2.6 etc.)
+
+_**NOTE:** The Dynamo package is no longer being actively maintained, and the most recently tested version is 21.6.0._
 
 ### 🐍 Python
 There are multiple ways to install Python, but one of them is to download the installer from [Python.org](https://www.python.org/downloads/).
