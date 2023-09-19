@@ -91,7 +91,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.Temperature = tempLocValue;
-            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCase = loadCase;
             this.Comment = comment;
         }
         
@@ -110,7 +110,7 @@ namespace FemDesign.Loads
             this.Region = region;
             this.LocalZ = direction;
             this.Temperature = new List<TopBotLocationValue>{new TopBotLocationValue(region.Plane.Origin, topVal, bottomVal)};
-            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCase = loadCase;
             this.Comment = comment;
         }
 

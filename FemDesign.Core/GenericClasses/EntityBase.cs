@@ -23,7 +23,7 @@ namespace FemDesign
             {
                 return DateTime.Parse(this._lastChange);
             }
-            private set
+            internal set
             {
                 this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             }

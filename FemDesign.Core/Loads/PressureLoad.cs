@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         {
             // base
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
+            this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
             this.LoadType = loadType;

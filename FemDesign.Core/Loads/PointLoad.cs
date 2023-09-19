@@ -32,7 +32,6 @@ namespace FemDesign.Loads
         public PointLoad(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadType = type;
@@ -54,8 +53,12 @@ namespace FemDesign.Loads
         {
             var pointLoad = new PointLoad();
 
+
+
+
             pointLoad.Guid = new System.Guid( obj.Guid );
-            pointLoad.Action = obj.Action.ToString();
+            pointLoad.Action = obj.Action.ToString().ToLower();
+            pointLoad.LastChange = obj.Last_change;
             pointLoad.LoadType = (ForceLoadType)Enum.Parse(typeof(ForceLoadType), obj.Load_type.ToString());
 
             var pos = new Point3d(obj.Load.X, obj.Load.Y, obj.Load.Z);

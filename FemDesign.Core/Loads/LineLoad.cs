@@ -92,7 +92,6 @@ namespace FemDesign.Loads
         public LineLoad(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
@@ -109,7 +108,6 @@ namespace FemDesign.Loads
         public LineLoad(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;

@@ -4014,7 +4014,8 @@ namespace FemDesign
 
             foreach (var load in loads.OfType<LoadBase>())
             {
-                load.LoadCase = mapCase[load.LoadCaseGuid].DeepClone();
+                if(load.LoadCase != null)
+                    load.LoadCase = mapCase[load.LoadCaseGuid].DeepClone();
             }
         }
 

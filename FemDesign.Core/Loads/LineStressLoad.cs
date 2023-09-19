@@ -145,7 +145,6 @@ namespace FemDesign.Loads
             this.Edge = edge;
             this.Direction = direction;
             this.TopBotLocVal = topBotLocVals;
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
         }
