@@ -146,8 +146,9 @@
     <Compile Include="Pipe\PipeGetQuantities.cs" />
     <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
-    <Compile Include="Pipe\PipeReadResults.cs" />
+    <Compile Include="Pipe\PipeReadCaseCombResults.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
+    <Compile Include="Pipe\PipeResultFromBsc.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
