@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeResultFromBsc : GH_AsyncComponent
     {
-        public PipeResultFromBsc() : base(" FEM-Design.ResultFromBsc", "ResultFromBsc", "", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeResultFromBsc() : base(" FEM-Design.GetResultFromBsc", "ResultFromBsc", "Extract results from a model with a .bsc file", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationResultFromBsc(this);
         }

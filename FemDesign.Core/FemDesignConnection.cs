@@ -541,7 +541,7 @@ namespace FemDesign
             var script = new FdScript(logfile, commands);
             this.RunScript(script, "GetResultsFromBsc");
 
-            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8);
+            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t",",");
 
             return results;
         }
