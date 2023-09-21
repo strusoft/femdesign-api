@@ -101,6 +101,8 @@ namespace FemDesign.Composites
         /// <param name="offsetZ">Offset of concrete section's centre from steel section's center in Z direction. It must be expressed in meter.</param>
         internal CompositeSectionPart(Materials.Material material, Sections.Section section, double offsetY, double offsetZ)
         {
+            CheckCompositeSectionPart(material, section);
+
             this.Material = material;
             this.Section = section;
             this.OffsetY = offsetY;
@@ -110,51 +112,30 @@ namespace FemDesign.Composites
         /// <summary>
         /// Construct a new composite section part without offset. This is for composite section types where the centre of the concrete and steel sections are at the same point (e.g. column composite types).
         /// </summary>
-        /// <param name="type">CompositeType enum member.</param>
         /// <param name="material">Material of composite section part. Can be steel or concrete.</param>
         /// <param name="section">Section part.</param>
         /// <exception cref="ArgumentException"></exception>
-        internal CompositeSectionPart(CompositeType type, Materials.Material material, Sections.Section section)
+        internal CompositeSectionPart(Materials.Material material, Sections.Section section)
         {
+            CheckCompositeSectionPart(material, section);
 
-
-            // Check material >> it must be concrete or steel
-            // Check section shape >> e.g. for ColumnD, only "VKR" or "KKR" section types can be used as a steel part
-            // Check section by material 
-
-            if (IsOffsetNeeded(type))
-            {
-                throw new ArgumentException("Offset is required. For this type of composite section, the distance of concrete section part from the steel part must be defined.");
-            }
             this.Material = material;
             this.Section = section;
         }
 
-        internal bool IsOffsetNeeded(CompositeType type)
+        internal void CheckCompositeSectionPart(Materials.Material material, Sections.Section section)
         {
-            switch(type)
+            if ((material.Family == Materials.Family.Steel) || (material.Family == Materials.Family.Concrete))
             {
-                case CompositeType.BeamA: 
-                    return true;
-                case CompositeType.BeamB: 
-                    return true;
-                case CompositeType.BeamP:
-                    return true;
-                case CompositeType.ColumnA:
-                    return false;
-                case CompositeType.ColumnC:
-                    return false;
-                case CompositeType.ColumnD:
-                    return false;
-                case CompositeType.ColumnE:
-                    return false;
-                case CompositeType.ColumnF:
-                    return false;
-                case CompositeType.ColumnG:
-                    return false;
-                default:
-                    throw new ArgumentException("Incorrect or unknown type.");
+                //pass
             }
+            else
+            {
+                throw new ArgumentException("Material must be steel or concrete!");
+            }
+            if (section.MaterialFamily != material.Family.ToString())
+                throw new ArgumentException("Section material type doesn't match the specified material type");
         }
+                
     }
 }

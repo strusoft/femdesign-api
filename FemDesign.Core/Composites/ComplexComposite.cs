@@ -65,7 +65,7 @@ namespace FemDesign.Composites
         /// <summary>
         /// Create complex composite from a composite section. Same cross-section at both ends of bar.
         /// </summary>
-        /// <param name="composite">Composite section</param>
+        /// <param name="compositeSection">Composite section</param>
         internal ComplexComposite(CompositeSection compositeSection)
         {
             this.EntityCreated();
