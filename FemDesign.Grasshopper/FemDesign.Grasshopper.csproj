@@ -105,6 +105,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\FreqDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
@@ -297,7 +298,7 @@
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsConstruct.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
-    <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersFreqDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE3.cs" />

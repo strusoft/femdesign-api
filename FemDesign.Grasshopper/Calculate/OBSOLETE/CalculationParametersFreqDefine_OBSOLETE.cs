@@ -1,12 +1,14 @@
 // https://strusoft.com/
 using System;
 using Grasshopper.Kernel;
+using FemDesign;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersFreqDefine: GH_Component
+    public class CalculationParametersFreqDefine_OBSOLETE: GH_Component
     {
-        public CalculationParametersFreqDefine(): base("Freq.Define", "Freq", "Define calculation parameters for an eigenfrequency calculation.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersFreqDefine_OBSOLETE(): base("Freq.Define", "Freq", "Define calculation parameters for an eigenfrequency calculation.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -68,7 +70,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             
-            FemDesign.Calculate.Freq obj = new Calculate.Freq(numShapes, maxSturm, x, y, z, top);
+            Freq obj = new Calculate.Freq(numShapes, maxSturm, x, y, z, top);
 
             // return
             DA.SetData(0, obj);
@@ -77,7 +79,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.FreqDefine;
+                return Properties.Resources.FreqDefine;
             }
         }
         public override Guid ComponentGuid
@@ -85,7 +87,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("f29e56a7-6112-402c-af80-ad0fe07f12b2"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
