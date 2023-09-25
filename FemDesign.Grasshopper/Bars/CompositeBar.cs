@@ -7,6 +7,8 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 using FemDesign;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
@@ -19,10 +21,10 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BarType", "Type", "Beam or Column. Default value is Beam.",GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarType", "Type", "Beam or Column. Optional, default value if undefined. Default value is Beam.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("CompositeSection", "Section", "Composite section.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity.If 1 item this item defines both start and end.If two items the first item defines the start and the last item defines the end.Optional, default value if undefined.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("CompositeSection", "Section", "Steel-concrete composite section.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity.If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.Optional, default value if undefined.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. Optional, default value if undefined.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -37,14 +39,44 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("CompositeBar", "Bar", "Steel-concrete composite bar element", GH_ParamAccess.item);
         }
+
+        protected List<string> BarTypeNames
+        {
+            get
+            {
+                List<string> barTypeNames = new List<string>();
+                var values = Enum.GetValues(typeof(Bars.BarType));
+                foreach(var val in values)
+                {
+                    barTypeNames.Add(val.ToString());
+                }
+                return barTypeNames;
+            }
+        }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.updateValueLists(this, 1, BarTypeNames, null, GH_ValueListMode.DropDown);
+        }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get input data
+            // get input
             Curve curve = null;
             if(!DA.GetData(0, ref curve)) { return; }
 
             Bars.BarType barType = Bars.BarType.Beam;
-            if(!DA.GetData(1, ref barType)) { /* pass */ }
+            string barTypeName = null;
+            if (DA.GetData(1, ref barTypeName))
+            {
+                if(String.Equals(barTypeName, "Beam", StringComparison.OrdinalIgnoreCase))
+                {
+                    barType = Bars.BarType.Beam;
+                }
+                else if(String.Equals(barTypeName, "Column", StringComparison.OrdinalIgnoreCase))
+                {
+                    barType = Bars.BarType.Column;
+                }
+            }
 
             Composites.CompositeSection section = null;
             if(!DA.GetData(2, ref section)) { return; }
@@ -97,6 +129,39 @@ namespace FemDesign.Grasshopper
             {
                 // pass
             }
+
+            // check input data
+            if (curve == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
+
+            // create composite bar
+            Geometry.Edge line = curve.FromRhinoLineOrArc2();
+            var bar = new Bars.Bar(line, barType, section, eccentricity[0], eccentricity[1], connectivity[0], connectivity[1], identifier);
+
+            // set local y-axis
+            if (!v.Equals(Vector3d.Zero))
+            {
+                bar.BarPart.LocalY = v.FromRhino();
+            }
+            // else orient coordinate system to GCS
+            else if(orientLCS)
+            {
+                bar.BarPart.OrientCoordinateSystemToGCS();
+            }
+
+            // get output
+            DA.SetData(0, bar);
         }
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
+                return FemDesign.Properties.Resources.BeamDefine;
+            }
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("{4C301630-8109-4962-8933-0FFCCAE39501}"); }
+        }
+        public override GH_Exposure Exposure => GH_Exposure.primary;
     }
 }
