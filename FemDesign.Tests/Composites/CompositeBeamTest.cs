@@ -105,8 +105,8 @@ namespace FemDesign.Composites
             //var analyticalEccOut = BarPartsOut.Select(p => p.AnalyticalEccentricity).ToList();
             //var analyticalEccIn = BarPartsIn.Select(p => p.AnalyticalEccentricity).ToList();
 
-            var compSecParamsOut = modelOut.Composites.CompositeSection.Select(c => c.ParameterList);
-            var compSecParamsIn = modelIn.Composites.CompositeSection.Select(c => c.ParameterList);
+            //var compSecParamsOut = modelOut.Composites.CompositeSection.Select(c => c.ParameterList);
+            //var compSecParamsIn = modelIn.Composites.CompositeSection.Select(c => c.ParameterList);
 
             var compositesIn = modelIn.Composites;
             Assert.IsNotNull(compositesIn);

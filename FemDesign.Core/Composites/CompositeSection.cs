@@ -555,7 +555,7 @@ namespace FemDesign.Composites
                         Sections.Family.UKB, 
                         Sections.Family.UKC,
                         Sections.Family.KKR,
-                        Sections.Family.VKR 
+                        Sections.Family.VKR
                     };
                 case CompositeType.BeamP:
                     return new List<Sections.Family>()

@@ -73,6 +73,7 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
+    <Compile Include="Bars\CompositeBar.cs" />
     <Compile Include="Bars\OBSOLETE\Bar.SetStiffnessModifier_OBSOLETE.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
