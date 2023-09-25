@@ -61,7 +61,7 @@ namespace FemDesign.Results
                     {
                         var x = Double.Parse( values[1], CultureInfo.InvariantCulture);
                         var y = Double.Parse( values[2], CultureInfo.InvariantCulture);
-                        var z = Double.Parse( values[3], CultureInfo.InvariantCulture);
+                        var z = Double.Parse( values[3], CultureInfo.InvariantCulture) * -1;
                         vertices[key] = new Geometry.Point3d(x, y, z);
                     }
                 }
