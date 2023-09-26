@@ -7,6 +7,8 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 using FemDesign;
+using FemDesign.Bars;
+
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
 
@@ -40,22 +42,10 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("CompositeBar", "Bar", "Steel-concrete composite bar element", GH_ParamAccess.item);
         }
 
-        protected List<string> BarTypeNames
-        {
-            get
-            {
-                List<string> barTypeNames = new List<string>();
-                var values = Enum.GetValues(typeof(Bars.BarType));
-                foreach(var val in values)
-                {
-                    barTypeNames.Add(val.ToString());
-                }
-                return barTypeNames;
-            }
-        }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 1, BarTypeNames, null, GH_ValueListMode.DropDown);
+            var valListNames = new List<string>() { Bars.BarType.Beam.ToString(), Bars.BarType.Column.ToString() };
+            ValueListUtils.updateValueLists(this, 1, valListNames, null, GH_ValueListMode.DropDown);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -68,14 +58,7 @@ namespace FemDesign.Grasshopper
             string barTypeName = null;
             if (DA.GetData(1, ref barTypeName))
             {
-                if(String.Equals(barTypeName, "Beam", StringComparison.OrdinalIgnoreCase))
-                {
-                    barType = Bars.BarType.Beam;
-                }
-                else if(String.Equals(barTypeName, "Column", StringComparison.OrdinalIgnoreCase))
-                {
-                    barType = Bars.BarType.Column;
-                }
+                barType = GenericClasses.EnumParser.Parse<BarType>(barTypeName);
             }
 
             Composites.CompositeSection section = null;
@@ -113,10 +96,7 @@ namespace FemDesign.Grasshopper
             }
 
             Vector3d v = Vector3d.Zero;
-            if (!DA.GetData(5, ref v))
-            {
-                // pass
-            }
+            DA.GetData(5, ref v);
 
             bool orientLCS = true;
             if (!DA.GetData(6, ref orientLCS))
@@ -131,7 +111,10 @@ namespace FemDesign.Grasshopper
             }
 
             // check input data
-            if (curve == null || section == null || connectivity == null || eccentricity == null || identifier == null) { return; }
+            if (curve == null || section == null || connectivity == null || eccentricity == null || identifier == null) 
+            { 
+                return; 
+            }
 
             // create composite bar
             Geometry.Edge line = curve.FromRhinoLineOrArc2();

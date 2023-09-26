@@ -11,12 +11,83 @@ using FemDesign;
 using FemDesign.Materials;
 using FemDesign.Sections;
 using FemDesign.Geometry;
+using System.Collections;
 
 namespace FemDesign.Composites
 {
     [TestClass]
     public class CompositeBeamTest
     {
+        [TestMethod]
+        public void CompositeBeamB()
+        {
+            // Geometry
+            Point3d firstPt = new Point3d(0, 0, 0);
+            Point3d secondPt = new Point3d(10, 0, 0);
+            Edge line = new Edge(firstPt, secondPt);
+
+
+            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repository\femdesign-api\FemDesign.Tests\Composites\materials.struxml");
+            var steel = materialsDB.MaterialByName("S 275");
+            var concrete = materialsDB.MaterialByName("C25/30");
+            
+
+            // Create composite beam
+            CompositeSection compositeSection = CompositeSection.BeamB(steel: steel, concrete: concrete, name: "beamB1", b: 200, bt: 700, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
+            Bars.Bar compositeBar = new Bars.Bar(line, Bars.BarType.Beam, compositeSection, null, null, "B");
+            
+
+            // Create output and input model
+            Model modelIn = new Model(Country.S);
+            Model modelOut = new Model(Country.S);
+            modelOut.AddElements(compositeBar);
+
+            using (var femDesign = new FemDesignConnection(
+                fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 22\", 
+                outputDir: @"D:\Andi\API_Work\Github\802_CompositeSections\tests\CSharp\CompositeBeamB_out", 
+                keepOpen: false))
+            {
+                femDesign.Open(modelOut, false);
+                modelIn = femDesign.GetModel();
+            }
+
+            
+            // check Composite obj.
+            var compositesIn = modelIn.Composites;
+            Assert.IsNotNull(compositesIn);
+            
+            var compositeSectionsOut = modelOut.Composites.CompositeSection.OrderBy(c => c.Guid).ToList();
+            var compositeSectionsIn = modelIn.Composites.CompositeSection.OrderBy(c => c.Guid).ToList();
+            Assert.IsNotNull(compositeSectionsIn);
+            Assert.AreEqual(compositeSectionsIn.Count, compositeSectionsOut.Count);
+            for (int i = 0; i < compositeSectionsIn.Count; i++)
+            {
+                var partsIn = compositeSectionsIn[i].Parts;
+                var partsOut = compositeSectionsOut[i].Parts;
+                Assert.AreEqual(partsIn.Count, partsOut.Count);
+
+                var partsMaterialIn = partsIn.Select(p => p.Material.Family).ToList();
+                var partsMaterialOut = partsOut.Select(p => p.Material.Family).ToList();
+                Assert.AreEqual(partsMaterialIn.Count, partsMaterialOut.Count);
+                for(int j = 0;  j < partsMaterialIn.Count; j++)
+                {
+                    Assert.AreEqual(partsMaterialIn[j], partsMaterialOut[j]);
+                }
+
+                var paramsIn = compositeSectionsIn[i].ParameterList;
+                var paramsOut = compositeSectionsOut[i].ParameterList;
+                Assert.AreEqual(paramsIn.Count, paramsOut.Count);
+                for (int j = 0; j < paramsIn.Count; j++)
+                {
+                    Assert.AreEqual(paramsIn[j].Value, paramsOut[j].Value);
+                }
+            }
+
+            var complexCompositesOut = modelOut.Composites.ComplexComposite;
+            var complexCompositesIn = modelIn.Composites.ComplexComposite;
+            Assert.IsNotNull(complexCompositesIn);
+            Assert.AreEqual(complexCompositesOut.Count, complexCompositesIn.Count);
+        }
         
         public void CompositeColumnA()
         {
@@ -64,82 +135,6 @@ namespace FemDesign.Composites
             Assert.AreEqual(composite, inData);
         }
 
-        [TestMethod]
-        public void CompositeBeamB()
-        {
-            // Geometry
-            Point3d firstPt = new Point3d(0, 0, 0);
-            Point3d secondPt = new Point3d(10, 0, 0);
-            Edge line = new Edge(firstPt, secondPt);
-
-
-            var materialsDB = Materials.MaterialDatabase.DeserializeStruxml(@"C:\Repos\femdesign-api\FemDesign.Tests\Composites\materials.struxml");
-            var steel = materialsDB.MaterialByName("S 275");
-            var concrete = materialsDB.MaterialByName("C25/30");
-            
-
-            // Create composite beam
-            CompositeSection compositeSection = CompositeSection.BeamB(steel: steel, concrete: concrete, name: "beamB1", b: 200, bt: 700, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
-            Bars.Bar compositeBar = new Bars.Bar(line, Bars.BarType.Beam, compositeSection, null, null, "B");
-            
-
-            // Create output and input model
-            Model modelIn = new Model(Country.S);
-            Model modelOut = new Model(Country.S);
-            modelOut.AddElements(compositeBar);
-
-            using (var femDesign = new FemDesignConnection(
-                fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 22\", 
-                outputDir: @"D:\Andi\API_Work\Github\802_CompositeSections\tests\CSharp\CompositeBeamB_out", 
-                keepOpen: false))
-            {
-                femDesign.Open(modelOut, false);
-                modelIn = femDesign.GetModel();
-            }
-
-
-            //var BarPartsOut = modelOut.Entities.Bars.Select(b => b.BarPart).OrderBy(p => p.Guid).ToList();
-            //var BarPartsIn = modelIn.Entities.Bars.Select(b => b.BarPart).OrderBy(b => b.Guid).ToList();
-            ////Assert.AreEqual(BarPartsOut.Select(p => p.AnalyticalEccentricity), BarPartsIn.Select(p => p.AnalyticalEccentricity));
-
-            //var analyticalEccOut = BarPartsOut.Select(p => p.AnalyticalEccentricity).ToList();
-            //var analyticalEccIn = BarPartsIn.Select(p => p.AnalyticalEccentricity).ToList();
-
-            //var compSecParamsOut = modelOut.Composites.CompositeSection.Select(c => c.ParameterList);
-            //var compSecParamsIn = modelIn.Composites.CompositeSection.Select(c => c.ParameterList);
-
-            var compositesIn = modelIn.Composites;
-            Assert.IsNotNull(compositesIn);
-            
-            var compositeSectionsOut = modelOut.Composites.CompositeSection.OrderBy(c => c.Guid).ToList();
-            var compositeSectionsIn = modelIn.Composites.CompositeSection.OrderBy(c => c.Guid).ToList();
-            Assert.IsNotNull(compositeSectionsIn);
-            Assert.AreEqual(compositeSectionsIn.Count, compositeSectionsOut.Count);
-            for (int i = 0; i < compositeSectionsIn.Count; i++)
-            {
-                var partsIn = compositeSectionsIn[i].Parts;
-                var partsOut = compositeSectionsOut[i].Parts;
-                Assert.AreEqual(partsIn.Count, partsOut.Count);
-
-                var partsMaterialIn = partsIn.Select(p => p.Material.Family).ToList();
-                var partsMaterialOut = partsOut.Select(p => p.Material.Family).ToList();
-                Assert.AreEqual(partsMaterialIn, partsMaterialOut);
-
-                var paramsIn = compositeSectionsIn[i].ParameterList;
-                var paramsOut = compositeSectionsOut[i].ParameterList;
-                Assert.AreEqual(paramsIn.Count, paramsOut.Count);
-
-                var paramValuesIn = paramsIn.Select(p => p.Value).ToList();
-                var paramValuesOut = paramsOut.Select(p => p.Value).ToList();
-                Assert.AreEqual(paramValuesIn, paramValuesOut);
-
-            }
-
-            var complexCompositesOut = modelOut.Composites.ComplexComposite;
-            var complexCompositesIn = modelIn.Composites.ComplexComposite;
-            Assert.IsNotNull(complexCompositesIn);
-            Assert.AreEqual(complexCompositesOut.Count, complexCompositesIn.Count);
-        }
 
 
         public void SerializeComposite(string filePath, Composites composite)

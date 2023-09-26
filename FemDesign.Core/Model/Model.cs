@@ -818,17 +818,17 @@ namespace FemDesign
         {
             // in model?
             // obj.Composite_section.Unique(x => x.Guid);
-            var uniqueCompositeSection = obj.Parts.Where(x => x.CompositeSectionRef != null).GroupBy(x => x.CompositeSectionRef).Select(grp => grp.FirstOrDefault());
+            var uniqueComplexCompositePart = obj.Parts.Where(x => x.CompositeSectionRef != null).GroupBy(x => x.CompositeSectionRef).Select(grp => grp.FirstOrDefault());
 
 
-            foreach (var compositeSection in uniqueCompositeSection)
+            foreach (var complexCompositePart in uniqueComplexCompositePart)
             {
                 // initialise variable as false
                 bool inModel = false;
 
                 if (this.Composites.CompositeSection != null)
                 {
-                    inModel = this.Composites.CompositeSection.Any(x => x.Guid == compositeSection.CompositeSectionRef);
+                    inModel = this.Composites.CompositeSection.Any(x => x.Guid == complexCompositePart.CompositeSectionRef);
                 }
                 else
                 {
@@ -839,18 +839,18 @@ namespace FemDesign
                 // in model, don't overwrite
                 if (inModel && overwrite == false)
                 {
-                    throw new System.ArgumentException($"{compositeSection.GetType().FullName} with guid: {compositeSection.CompositeSectionRef} has already been added to model. Are you adding the same element twice?");
+                    throw new System.ArgumentException($"{complexCompositePart.GetType().FullName} with guid: {complexCompositePart.CompositeSectionRef} has already been added to model. Are you adding the same element twice?");
                 }
 
                 // in model, overwrite
                 else if (inModel && overwrite == true)
                 {
-                    this.Composites.CompositeSection.RemoveAll(x => x.Guid == compositeSection.CompositeSectionRef);
+                    this.Composites.CompositeSection.RemoveAll(x => x.Guid == complexCompositePart.CompositeSectionRef);
                 }
 
                 // add complex composite
-                this.Composites.CompositeSection.Add(compositeSection.CompositeSectionObj);
-                foreach (var part in compositeSection.CompositeSectionObj.Parts)
+                this.Composites.CompositeSection.Add(complexCompositePart.CompositeSectionObj);
+                foreach (var part in complexCompositePart.CompositeSectionObj.Parts)
                 {
                     this.AddMaterial(part.Material, overwrite);
                     this.AddSection(part.Section, overwrite);
@@ -3467,15 +3467,34 @@ namespace FemDesign
         internal void GetBars()
         {
             Dictionary<Guid, Sections.ComplexSection> complexSectionsMap = this.Sections.ComplexSection.ToDictionary(s => s.Guid, s => s.DeepClone());
-            Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid, d => d.DeepClone());
             Dictionary<Guid, Sections.Section> sectionsMap = this.Sections.Section.ToDictionary(s => s.Guid, s => s.DeepClone());
+            Dictionary<Guid, Materials.Material> materialMap = this.Materials.Material.ToDictionary(d => d.Guid, d => d.DeepClone());
             Dictionary<Guid, Composites.ComplexComposite> complexCompositeMap = new Dictionary<Guid, Composites.ComplexComposite>();
             Dictionary<Guid, Composites.CompositeSection> compositeSectionMap = new Dictionary<Guid, Composites.CompositeSection>();
 
             if (this.Composites != null)
             {
-                complexCompositeMap = this.Composites.ComplexComposite.ToDictionary(s => s.Guid, s => s.DeepClone());
+                // assign the material and section objects to the CompositeSectionPart
+                foreach (var compositeSection in this.Composites.CompositeSection)
+                {
+                    foreach(var part in compositeSection.Parts)
+                    {
+                        part.Material = materialMap[part.MaterialRef];
+                        part.Section = sectionsMap[part.SectionRef];
+                    }
+                }
+
                 compositeSectionMap = this.Composites.CompositeSection.ToDictionary(s => s.Guid, s => s.DeepClone());
+                complexCompositeMap = this.Composites.ComplexComposite.ToDictionary(s => s.Guid, s => s.DeepClone());
+
+                // assign the CompositeSection object to the ComplexCompositePart
+                foreach (var complexComposite in this.Composites.ComplexComposite)
+                {
+                    foreach (var part in complexComposite.Parts)
+                    {
+                        part.CompositeSectionObj = compositeSectionMap[part.CompositeSectionRef];
+                    }
+                }
             }
 
             foreach (Bars.Bar item in this.Entities.Bars)
@@ -3562,30 +3581,18 @@ namespace FemDesign
                 {
                     try
                     {
-                        // assign the Complex Composite Object to the bar part
+                        // assign the ComplexComposite Object to the bar part
                         item.BarPart.ComplexCompositeObj = complexCompositeMap[item.BarPart.ComplexCompositeRef];
 
-                        // iterate over the composite section inside the complex composite and assign the object from the Composites
+                        // iterate over the CompositeSection inside the ComplexComposite and assign the object from the Composites
                         foreach (Composites.ComplexCompositePart complexCompositePart in item.BarPart.ComplexCompositeObj.Parts)
                         {
                             complexCompositePart.CompositeSectionObj = compositeSectionMap[complexCompositePart.CompositeSectionRef];
                         }
-
-                        // assign the material object to the Composite_part_type
-                        // it might be clever to move this method outside the loop and call it (add compositePart)
-
-                        foreach (Composites.ComplexCompositePart complexCompositePart in item.BarPart.ComplexCompositeObj.Parts)
-                        {
-                            foreach (var sectionPart in complexCompositePart.CompositeSectionObj.Parts)
-                            {
-                                sectionPart.Material = materialMap[sectionPart.MaterialRef];
-                                sectionPart.Section = sectionsMap[sectionPart.SectionRef];
-                            }
-                        }
                     }
                     catch (KeyNotFoundException)
                     {
-                        throw new ArgumentException("No matching complex composite or composite section");
+                        throw new ArgumentException("No matching complex composite or composite section.");
                     }
                 }
                 else

@@ -10,13 +10,16 @@ namespace FemDesign.Composites
     {
         [XmlAttribute("guid")]
         public Guid _compositeSectionRef { get; set; }
-
+        
         [XmlIgnore]
         public Guid CompositeSectionRef 
         { 
             get { return this._compositeSectionRef; }
             set { this._compositeSectionRef = value; }
         }
+
+        [XmlIgnore]
+        public CompositeSection CompositeSectionObj { get; set; }
 
         [XmlAttribute("pos")]
         public double _pos;
@@ -27,9 +30,6 @@ namespace FemDesign.Composites
             get { return this._pos; }
             set { this._pos = RestrictedDouble.NonNegMax_1(value); }
         }
-
-        [XmlIgnore]
-        public CompositeSection CompositeSectionObj { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.

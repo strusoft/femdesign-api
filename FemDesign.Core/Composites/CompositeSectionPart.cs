@@ -16,8 +16,14 @@ namespace FemDesign.Composites
         [XmlIgnore]
         public Guid MaterialRef
         {
-            get { return this._materialRef; }
-            set { this._materialRef = value; }
+            get 
+            { 
+                return this._materialRef; 
+            }
+            set 
+            { 
+                this._materialRef = value; 
+            }
         }
 
         [XmlIgnore]
@@ -33,7 +39,7 @@ namespace FemDesign.Composites
             set
             {
                 this._material = value;
-                this._materialRef = value.Guid;
+                this.MaterialRef = value.Guid;
             }
         }
 
