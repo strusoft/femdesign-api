@@ -5,33 +5,33 @@ using System.Xml.Serialization;
 namespace FemDesign.Composites
 {
     [System.Serializable]
-    public enum CompositeType
+    public enum CompositeSectionType
     {
         [XmlEnum("beam_a")]
-        BeamA,
+        IProfileWithEffectiveConcreteSlab,
 
         [XmlEnum("beam_b")]
-        BeamB,
+        FilledHSQProfile,
         
         [XmlEnum("beam_p")]
-        BeamP,
+        FilledDeltaBeamProfile,
         
         [XmlEnum("column_a")]
-        ColumnA,
+        FilledIProfile,
         
         [XmlEnum("column_c")]
-        ColumnC,
+        FilledCruciformProfile,
         
         [XmlEnum("column_d")]
-        ColumnD,
+        FilledRHSProfile,
         
         [XmlEnum("column_e")]
-        ColumnE,
+        FilledSteelTube,
         
         [XmlEnum("column_f")]
-        ColumnF,
+        FilledSteelTubeWithIProfile,
         
         [XmlEnum("column_g")]
-        ColumnG,
+        FilledSteelTubeWithSteelCore,
     }
 }

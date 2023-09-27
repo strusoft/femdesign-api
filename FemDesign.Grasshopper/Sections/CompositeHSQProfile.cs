@@ -8,9 +8,9 @@ using FemDesign;
 
 namespace FemDesign.Grasshopper
 {
-    public class CompositeSectionBeamB : GH_Component
+    public class CompositeHSQProfile : GH_Component
     {
-        public CompositeSectionBeamB() : base("CompositeSection.BeamB", "CompositeSection", "Composite section. For more information check FEM-Design GUI.", CategoryName.Name(), SubCategoryName.Cat2a())
+        public CompositeHSQProfile() : base("Composite.HSQProfile", "Composite", "Create a composite section for HSQ cross-sections. For more information, see FEM-Design GUI.", CategoryName.Name(), SubCategoryName.Cat4b())
         {
 
         }
@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.Register_GenericParam("CompositeSection", "Section", "Steel-concrete composite section.");
+            pManager.AddGenericParameter("CompositeSection", "Section", "Steel-concrete composite section.",GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -88,25 +88,23 @@ namespace FemDesign.Grasshopper
             }
 
             // create composite section
-            Composites.CompositeSection compositeSection = Composites.CompositeSection.BeamB(steel, concrete, name, b, bt, o1, o2, h, tw, tfb, tft);
+            Composites.CompositeSection compositeSection = Composites.CompositeSection.FilledHSQProfile(steel, concrete, name, b, bt, o1, o2, h, tw, tfb, tft);
 
             // get output
             DA.SetData(0, null);
             DA.SetData(0, compositeSection);
         }
-        //protected override System.Drawing.Bitmap Icon
-        //{
-        //    get
-        //    {
-        //        return FemDesign.Properties.Resources
-        //    }
-        //}
-        protected override System.Drawing.Bitmap Icon { get { return null; } }
-
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
+                return null;
+            }
+        }
         public override Guid ComponentGuid
         {
             get { return new Guid("{D20F98A4-38DC-46C4-9E15-D6F4D0DF8AA5}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
     }
 }

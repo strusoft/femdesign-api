@@ -33,7 +33,7 @@ namespace FemDesign.Composites
             
 
             // Create composite beam
-            CompositeSection compositeSection = CompositeSection.BeamB(steel: steel, concrete: concrete, name: "beamB1", b: 200, bt: 700, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
+            CompositeSection compositeSection = CompositeSection.FilledHSQProfile(steel, concrete, name: "beamB1", b: 200, bt: 250, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
             Bars.Bar compositeBar = new Bars.Bar(line, Bars.BarType.Beam, compositeSection, null, null, "B");
             
 
@@ -110,7 +110,7 @@ namespace FemDesign.Composites
             string name = "TestColumnA1";
             double cy = 80;     //mm
             double cz = 80;     //mm
-            CompositeSection compositeSection = CompositeSection.ColumnA(steel, concrete, steelSection, name, cy, cz);
+            CompositeSection compositeSection = CompositeSection.FilledIProfile(steel, concrete, steelSection, name, cy, cz);
 
             composite.CompositeSection = new List<CompositeSection>() { compositeSection };
 

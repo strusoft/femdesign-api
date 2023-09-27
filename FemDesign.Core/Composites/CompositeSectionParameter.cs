@@ -11,7 +11,7 @@ namespace FemDesign.Composites
     public partial class CompositeSectionParameter
     {
         [XmlAttribute("name")]
-        public CompositeParameterType Name { get; set; }
+        public CompositeSectionParameterType Name { get; set; }
 
         [XmlAttribute("value")]
         public string Value { get; set; }
@@ -30,8 +30,11 @@ namespace FemDesign.Composites
         /// </summary>
         /// <param name="paramName">Parameter name.</param>
         /// <param name="paramValue">Parameter value. Number values must be expressed in milimeter.</param>
-        internal CompositeSectionParameter(CompositeParameterType paramName, string paramValue)
+        internal CompositeSectionParameter(CompositeSectionParameterType paramName, string paramValue)
         {
+            if ((paramName == CompositeSectionParameterType.Name) && (paramValue == null))
+                throw new ArgumentException("Name parameter cannot be null.");
+
             this.Name = paramName;
             this.Value = paramValue;
         }
