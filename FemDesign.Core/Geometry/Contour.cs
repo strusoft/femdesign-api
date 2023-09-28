@@ -132,7 +132,7 @@ namespace FemDesign.Geometry
         public Contour(List<Point3d> points)
         {
             List<Edge> edges = new List<Edge>();
-
+            
             for (int i = 0; i < points.Count; i++)
             {
                 if (i < points.Count - 1)

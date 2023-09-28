@@ -34,6 +34,36 @@ namespace FemDesign.Composites
         [XmlElement("part", Order = 1)]
         public List<CompositeSectionPart> Parts { get; set; }
 
+        [XmlIgnore]
+        public List<Material> Materials
+        { 
+            get
+            {
+                List<Material> list = new List<Material>();
+                foreach (var part in this.Parts)
+                {
+                    list.Add(part.Material);
+                }
+
+                return list;
+            } 
+        }
+
+        [XmlIgnore]
+        public List<Section> Sections
+        {
+            get
+            {
+                List<Section> list = new List<Section>();
+                foreach (var part in this.Parts)
+                {
+                    list.Add(part.Section);
+                }
+
+                return list;
+            }
+        }
+
         [XmlElement("property", Order = 2)]
         public List<CompositeSectionParameter> ParameterList { get; set; }
 
@@ -156,19 +186,19 @@ namespace FemDesign.Composites
         }
 
         /// <summary>
-        /// Create a BeamB type CompositeSection object.
+        /// Create a FilledHSQProfile type CompositeSection object.
         /// </summary>
         /// <param name="steel">Steel part material.</param>
         /// <param name="concrete">Concrete part material.</param>
         /// <param name="name">Composite section name.</param>
-        /// <param name="b">Intermediate width of the bottom flange.</param>
-        /// <param name="bt">Top flange width.</param>
-        /// <param name="o1">Left overhang.</param>
-        /// <param name="o2">Right overhang.</param>
-        /// <param name="h">Web hight.</param>
-        /// <param name="tw">Web thickness.</param>
-        /// <param name="tfb">Bottom flange thickness.</param>
-        /// <param name="tft">Top flange thickness.</param>
+        /// <param name="b">Intermediate width of the bottom flange [mm].</param>
+        /// <param name="bt">Top flange width [mm].</param>
+        /// <param name="o1">Left overhang [mm].</param>
+        /// <param name="o2">Right overhang [mm].</param>
+        /// <param name="h">Web hight [mm].</param>
+        /// <param name="tw">Web thickness [mm].</param>
+        /// <param name="tfb">Bottom flange thickness [mm].</param>
+        /// <param name="tft">Top flange thickness [mm].</param>
         /// <returns></returns>
         public static CompositeSection FilledHSQProfile(Material steel, Material concrete, string name, double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
@@ -204,11 +234,23 @@ namespace FemDesign.Composites
         /// <returns></returns>
         internal static List<Sections.Section> CreateHSQSection(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
+            // round inputs
+            b = Math.Round(b, 1, MidpointRounding.AwayFromZero);
+            bt = Math.Round(bt, 1, MidpointRounding.AwayFromZero);
+            o1 = Math.Round(o1, 1, MidpointRounding.AwayFromZero);
+            o2 = Math.Round(o2, 1, MidpointRounding.AwayFromZero);
+            h = Math.Round(h, 1, MidpointRounding.AwayFromZero);
+            tw = Math.Round(tw, 1, MidpointRounding.AwayFromZero);
+            tfb = Math.Round(tfb, 1, MidpointRounding.AwayFromZero);
+            tft = Math.Round(tft, 1, MidpointRounding.AwayFromZero);
+
             // check inputs
             if (b <= 0 || bt <= 0 || o1 <= 0 || o2 <= 0 || h <= 0 || tw <= 0 || tfb <= 0 || tft <= 0)
                 throw new ArgumentException("Composite section parameters must be positive, non zero numbers.");
             if (bt < b)
                 throw new ArgumentException("Top flange width must be greater than or equal to the bottom flange intermediate width.");
+            if (tw >= b / 2)
+                throw new ArgumentException($" tw must be smaller than b/2 = {b / 2}.");
 
             // conversion of geometric parameters from millimeters to meters
             b = b / 1000;
@@ -236,10 +278,16 @@ namespace FemDesign.Composites
             points.Add(new Point3d(points[8].X, points[5].Y, 0));
             points.Add(new Point3d(-points[5].X, points[5].Y, 0));
             points.Add(new Point3d(-points[4].X, points[4].Y, 0));
-            points.Add(new Point3d(bt / 2, points[4].Y, 0));
-            points.Add(new Point3d(points[12].X, points[12].Y + tft, 0));
-            points.Add(new Point3d(-points[12].X, points[13].Y, 0));
-            points.Add(new Point3d(-points[12].X, points[12].Y, 0));
+            if (b / 2 != bt / 2)
+            {
+                points.Add(new Point3d(bt / 2, points[4].Y, 0));
+            }
+            points.Add(new Point3d(points[points.Count - 1].X, points[4].Y + tft, 0));
+            points.Add(new Point3d(-points[points.Count - 1].X, points[points.Count - 1].Y, 0));
+            if(b/2 != bt/2)
+            {
+                points.Add(new Point3d(points[points.Count - 1].X, points[4].Y, 0));
+            }
             var extPoints = points.Skip(4).Take(points.Count - 4).ToList();                 
 
             // create contours
@@ -535,9 +583,9 @@ namespace FemDesign.Composites
 
             // Check materials
             List<Materials.Family> materialTypes = parts.Select(p => p.Material.Family).ToList();
-            int steelNum = materialTypes.Select(m => m == Materials.Family.Steel).Count();
+            int steelNum = materialTypes.Select(m => m == FemDesign.Materials.Family.Steel).Count();
 
-            if ((!materialTypes.Contains(Materials.Family.Concrete)) || (!materialTypes.Contains(Materials.Family.Steel)))
+            if ((!materialTypes.Contains(FemDesign.Materials.Family.Concrete)) || (!materialTypes.Contains(FemDesign.Materials.Family.Steel)))
                 throw new ArgumentException("Check the material types! Composite section must contain at least one steel and one concrete section part.");
             if(type == CompositeSectionType.FilledSteelTubeWithIProfile || type == CompositeSectionType.FilledSteelTubeWithSteelCore)
             {
@@ -553,49 +601,47 @@ namespace FemDesign.Composites
                 case CompositeSectionType.IProfileWithEffectiveConcreteSlab:
                     return new List<Sections.Family>() 
                     { 
-                        Sections.Family.HE_A, 
-                        Sections.Family.HE_B, 
-                        Sections.Family.HE_M, 
-                        Sections.Family.I, 
-                        Sections.Family.IPE, 
-                        Sections.Family.UKB, 
-                        Sections.Family.UKC,
-                        Sections.Family.KKR,
-                        Sections.Family.VKR
+                        FemDesign.Sections.Family.HE_A,
+                        FemDesign.Sections.Family.HE_B,
+                        FemDesign.Sections.Family.HE_M, 
+                        FemDesign.Sections.Family.I, 
+                        FemDesign.Sections.Family.IPE,
+                        FemDesign.Sections.Family.UKB, 
+                        FemDesign.Sections.Family.UKC,
+                        FemDesign.Sections.Family.KKR,
+                        FemDesign.Sections.Family.VKR
                     };
                 case CompositeSectionType.FilledDeltaBeamProfile:
                     return new List<Sections.Family>()
                     {
-                        Sections.Family.D,
-                        Sections.Family.DR
+                        FemDesign.Sections.Family.D,
+                        FemDesign.Sections.Family.DR
                     };
                 case CompositeSectionType.FilledIProfile:
                     return new List<Sections.Family>()
                     {
-                        Sections.Family.HE_A,
-                        Sections.Family.HE_B,
-                        Sections.Family.HE_M,
-                        Sections.Family.I,
-                        Sections.Family.IPE,
-                        Sections.Family.UKB,
-                        Sections.Family.UKC
+                        FemDesign.Sections.Family.HE_A,
+                        FemDesign.Sections.Family.HE_B,
+                        FemDesign.Sections.Family.HE_M,
+                        FemDesign.Sections.Family.I,
+                        FemDesign.Sections.Family.IPE,
+                        FemDesign.Sections.Family.UKB,
+                        FemDesign.Sections.Family.UKC
                     };
                 case CompositeSectionType.FilledRHSProfile:
                     return new List<Sections.Family>()
                     {
-                        Sections.Family.KKR,
-                        Sections.Family.VKR
+                        FemDesign.Sections.Family.KKR,
+                        FemDesign.Sections.Family.VKR
                     };
                 case CompositeSectionType.FilledSteelTubeWithIProfile:
                     return new List<Sections.Family>()
                     {
-                        Sections.Family.HE_A,
-                        Sections.Family.HE_B,
-                        Sections.Family.HE_M,
-                        Sections.Family.I,
-                        Sections.Family.IPE,
-                        Sections.Family.UKB,
-                        Sections.Family.UKC
+                        FemDesign.Sections.Family.HE_A,
+                        FemDesign.Sections.Family.HE_B , FemDesign.Sections.Family.HE_M , FemDesign.Sections.Family.I,
+                        FemDesign.Sections.Family.IPE,
+                        FemDesign.Sections.Family.UKB,
+                        FemDesign.Sections.Family.UKC
                     };
                 default:
                     throw new ArgumentException("For this CompositeType you cannot specify a steel section from database.");

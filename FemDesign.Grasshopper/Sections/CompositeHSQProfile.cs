@@ -1,4 +1,5 @@
-﻿using System;
+﻿// https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,21 +20,21 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("SectionName", "Name", "Composite section name.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Steel", "Steel", "Steel part material.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Concrete", "Concrete", "Concrete part material.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("b", "b", "Intermediate width of the bottom flange [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("b", "b", "Intermediate width of the bottom flange [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 200);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("bt", "bt", "Top flange width [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("bt", "bt", "Top flange width [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 240);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("o1", "o1", "Left overhang [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("o1", "o1", "Left overhang [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 150);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("o2", "o2", "Right overhang [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("o2", "o2", "Right overhang [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 150);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("h", "h", "Web hight [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("h", "h", "Web hight [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 360);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("tw", "tw", "Web thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("tw", "tw", "Web thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 10);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("tfb", "tfb", "Bottom flange thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("tfb", "tfb", "Bottom flange thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 20);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("tft", "tft", "Top flange thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("tft", "tft", "Top flange thickness [mm]. Optional, default value if undefined.", GH_ParamAccess.item, 20);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -98,7 +99,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.CompositeHSQProfile;
             }
         }
         public override Guid ComponentGuid

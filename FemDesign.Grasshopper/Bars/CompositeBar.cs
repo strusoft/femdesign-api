@@ -1,4 +1,5 @@
-﻿using System;
+﻿// https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,6 @@ using FemDesign;
 
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
-using FemDesign.Loads;
 using FemDesign.Bars;
 
 namespace FemDesign.Grasshopper
@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
             List<Bars.Connectivity> connectivity = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivity))
             {
-                var endConn = new List<Bars.Connectivity>() { FemDesign.Bars.Connectivity.Rigid, FemDesign.Bars.Connectivity.Rigid };
+                var endConn = new List<Bars.Connectivity>() { Bars.Connectivity.Rigid, Bars.Connectivity.Rigid };
                 connectivity.AddRange(endConn);
             }
 
@@ -79,7 +79,7 @@ namespace FemDesign.Grasshopper
             List<Bars.Eccentricity> eccentricity = new List<Bars.Eccentricity>();
             if (!DA.GetDataList(4, eccentricity))
             {
-                var ecc = new List<Bars.Eccentricity>() { FemDesign.Bars.Eccentricity.Default, FemDesign.Bars.Eccentricity.Default };
+                var ecc = new List<Bars.Eccentricity>() { Bars.Eccentricity.Default, Bars.Eccentricity.Default };
                 eccentricity.AddRange(ecc);
             }
             if (eccentricity.Count == 1)
