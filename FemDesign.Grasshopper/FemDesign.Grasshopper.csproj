@@ -928,6 +928,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\CompositeHSQProfile.png" />
     <None Include="Resources\CompositeHSQProfile.png" />
     <None Include="Resources\icons\ResultPointDeconstruct.png" />
     <None Include="Resources\icons\LoadGroupToComb.bmp" />

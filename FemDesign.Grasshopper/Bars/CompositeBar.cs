@@ -24,18 +24,18 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BarType", "Type", "Connect 'ValueList' to get the options.\nBarType can be:\nBeam\nColumn\n\nOptional, default value if undefined. Default value is Beam.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarType", "Type", "Connect 'ValueList' to get the options.\nBarType can be:\nBeam\nColumn\n. Default value is Beam.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("CompositeSection", "Section", "Steel-concrete composite section.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end. Optional, default value if undefined.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity. Optional, default value if undefined.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Eccentricity", "Eccentricity", "Eccentricity.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "B");
+            pManager.AddTextParameter("Identifier", "Identifier", "", GH_ParamAccess.item, "B");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
