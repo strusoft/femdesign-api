@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class VehicleDeconstruct : GH_Component
     {
-        public VehicleDeconstruct() : base("VehicleDeconstruct", "VehicleDeconstruct", "", CategoryName.Name(), SubCategoryName.Cat3())
+        public VehicleDeconstruct() : base("VehicleDeconstruct", "VehicleDeconstruct", "", CategoryName.Name(), "Deconstruct")
         {
 
         }
@@ -58,7 +58,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{DAD6C592-F8A4-46F1-BDB6-1F7674BC9F2C}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.obscure;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
     }
 }
