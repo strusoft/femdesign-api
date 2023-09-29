@@ -336,5 +336,16 @@ namespace FemDesign.Geometry
 
             return new LineSegment(edge.Points[0], edge.Points[1]);
         }
+
+        public static explicit operator Edge(StruSoft.Interop.StruXml.Data.Edge_type obj)
+        {
+            var start = (Point3d)obj.Point[0];
+            var end = (Point3d)obj.Point[1];
+            var normal = (Vector3d)obj.Normal;
+            var edge = new Edge(start, end, normal);
+            
+            return edge;
+        }
+
     }
 }

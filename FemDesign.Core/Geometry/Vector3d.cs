@@ -323,6 +323,14 @@ namespace FemDesign.Geometry
             Z = v.Z
         };
 
+        public static implicit operator Vector3d(StruSoft.Interop.StruXml.Data.Point_type_3d p) => new Vector3d
+        {
+            X = p.X,
+            Y = p.Y,
+            Z = p.Z
+        };
+
+
         public override int GetHashCode()
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();

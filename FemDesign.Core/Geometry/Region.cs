@@ -372,10 +372,22 @@ namespace FemDesign.Geometry
             return newRegion;
         }
 
+
         public static double Area(List<Point3d> points)
         {
             var area = System.Math.Abs(points.Take(points.Count - 1).Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y)).Sum() / 2);
             return area;
+        }
+
+        public static implicit operator Region(StruSoft.Interop.StruXml.Data.Region_type obj)
+        {
+            var edges = obj.Contour[0].Edge.Select( x => (Edge)x).ToList();
+            var contour = new Contour(edges);
+            var contours = new List<Contour>() { contour };
+
+            var region = new Region(contours);
+
+            return region;
         }
 
     }

@@ -201,6 +201,13 @@ namespace FemDesign.Geometry
             Z = p.Z
         };
 
+        public static implicit operator Point3d (StruSoft.Interop.StruXml.Data.Point_type_3d p) => new Point3d
+        {
+            X = p.X,
+            Y = p.Y,
+            Z = p.Z
+        };
+
 
         public override string ToString()
         {

@@ -1,5 +1,8 @@
 // https://strusoft.com/
 
+using FemDesign.Geometry;
+using StruSoft.Interop.StruXml.Data;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -89,7 +92,6 @@ namespace FemDesign.Loads
         public LineLoad(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
@@ -106,7 +108,6 @@ namespace FemDesign.Loads
         public LineLoad(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, ForceLoadType loadType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
@@ -224,10 +225,44 @@ namespace FemDesign.Loads
             return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Moment, comment, constLoadDir, loadProjection);
         }
 
+        public static explicit operator LineLoad(StruSoft.Interop.StruXml.Data.Caseless_line_load_type obj)
+        {
+            var lineLoad = new LineLoad();
+
+            lineLoad.Guid = new System.Guid(obj.Guid);
+            lineLoad.Action = obj.Action.ToString();
+            // constant of changing
+            lineLoad._constantLoadDirection = (LoadDirType)Enum.Parse(typeof(LoadDirType), obj.Load_dir.ToString());
+            lineLoad.LoadProjection = obj.Load_projection;
+
+            lineLoad.LoadType = (ForceLoadType)Enum.Parse(typeof(ForceLoadType), obj.Load_type.ToString());
+
+
+            //LineLoad.Edge
+            var start = obj.Edge.Point[0];
+            var end = obj.Edge.Point[1];
+            var normal = obj.Edge.Normal;
+            var edge = new Edge(start, end, normal);
+
+            lineLoad.Edge = edge;
+
+            lineLoad.Direction = new Vector3d(obj.Direction.X, obj.Direction.Y, obj.Direction.Z);
+            lineLoad.Normal = new Vector3d(obj.Normal.X, obj.Normal.Y, obj.Normal.Z);
+
+            lineLoad.StartLoad = obj.Load[0].Val;
+            lineLoad.EndLoad = obj.Load[1].Val;
+
+            return lineLoad;
+        }
+
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            return $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}, LoadCase: {this.LoadCase.Name}";
+            var text = $"{this.GetType().Name} Start: {this.StartForce} {units}, End: {this.EndForce} {units}, Projected: {this.LoadProjection}";
+            if (LoadCase != null)
+                return text + $", LoadCase: {this.LoadCase.Name}";
+            else
+                return text;
         }
     }
 }

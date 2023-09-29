@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using FemDesign.GenericClasses;
 using System;
 using System.Xml.Serialization;
 
@@ -12,11 +13,39 @@ namespace FemDesign.Calculate
     public partial class Freq
     {
         [XmlAttribute("Numshapes")]
-        public int NumShapes { get; set; } // int
+        public int NumShapes { get; set; }
+
+        /// <summary>
+        /// with the value of 0 disables the "Try to reach ..." option, and an integer greater than 0 activates the option and defines the maximum number of iteration.
+        /// </summary>
+        [XmlAttribute("AutoIter")]
+        public int AutoIter { get; set; } = 0;
+
+        [XmlAttribute("NormUnit")]
+        public int _shapeNormalization = 0;
+
+        /// <summary>
+        /// a Boolean-type parameter whose True value expresses the `Unit` option and its False value expresses the `Mass matrix` option as the Mode shape normalization method.
+        /// </summary>
+        [XmlIgnore]
+        public ShapeNormalisation ShapeNormalization
+        {
+            get
+            {
+                return (ShapeNormalisation)_shapeNormalization;
+            }
+            set
+            {
+                _shapeNormalization = (int)value;
+            }
+        }
+
         [XmlAttribute("MaxSturm")]
-        public int MaxSturm { get; set; } // int
+        public int MaxSturm { get; set; }
+
         [XmlAttribute("X")]
-        public bool _x; // bool
+        public bool _x;
+
         [XmlIgnore]
         public bool X
         {
@@ -29,8 +58,10 @@ namespace FemDesign.Calculate
                 this._x = value;
             }
         }
+
         [XmlAttribute("Y")]
-        public bool _y; // bool
+        public bool _y;
+
         [XmlIgnore]
         public bool Y
         {
@@ -43,8 +74,10 @@ namespace FemDesign.Calculate
                 this._y = value;
             }
         }
+
         [XmlAttribute("Z")]
-        public bool _z; // bool
+        public bool _z;
+
         [XmlIgnore]
         public bool Z
         {
@@ -57,8 +90,9 @@ namespace FemDesign.Calculate
                 this._z = value;
             }
         }
+
         [XmlAttribute("top")]
-        public double Top { get; set; } // double
+        public double Top { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -88,6 +122,29 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="numShapes"></param>
+        /// <param name="autoIter"></param>
+        /// <param name="normalisation"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="maxSturm"></param>
+        /// <param name="top"></param>
+        public Freq(int numShapes = 3, int autoIter = 0, ShapeNormalisation normalisation = ShapeNormalisation.Unit, bool x = true, bool y = true, bool z = true, int maxSturm = 0, double top = -0.01)
+        {
+            this.NumShapes = numShapes;
+            this.AutoIter = autoIter;
+            this.ShapeNormalization = normalisation;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.MaxSturm = maxSturm;
+            this.Top = top;
+        }
+
+        /// <summary>
         /// Define default calculation parameters for an eigenfrequency calculation.
         /// </summary>
         /// <returns></returns>
@@ -96,5 +153,13 @@ namespace FemDesign.Calculate
             return new Freq(3, 0, true, true, true, -0.01);
         }
 
+    }
+
+    public enum ShapeNormalisation
+    {
+        [Parseable("MassMatrix")]
+        MassMatrix, // 0
+        [Parseable("Unit")]
+        Unit,       // 1
     }
 }

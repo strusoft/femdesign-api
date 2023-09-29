@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Linq;
+using FemDesign.Geometry;
+using System;
 
 namespace FemDesign.Loads
 {
@@ -61,7 +63,6 @@ namespace FemDesign.Loads
         public SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.Vector3d loadDirection, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadProjection = loadProjection;
@@ -107,6 +108,35 @@ namespace FemDesign.Loads
 
             return new SurfaceLoad(region, loadLocationValue, direction, loadCase, loadProjection, comment);
         }
+
+        public static explicit operator SurfaceLoad(StruSoft.Interop.StruXml.Data.Caseless_surface_load_type obj)
+        {
+            var srfLoad = new SurfaceLoad();
+
+            srfLoad.Guid = new System.Guid(obj.Guid);
+            srfLoad.Action = obj.Action.ToString();
+            
+            srfLoad.LoadProjection = obj.Load_projection;
+            srfLoad.LoadType = (ForceLoadType)Enum.Parse(typeof(ForceLoadType), obj.Load_type.ToString());
+
+            
+            srfLoad.Direction = new Vector3d(obj.Direction.X, obj.Direction.Y, obj.Direction.Z);
+
+            // load location value
+            var loadLocationValue = new List<LoadLocationValue>();
+            foreach(var item in obj.Load)
+            {
+                loadLocationValue.Add(item);
+            }
+            srfLoad.Loads = loadLocationValue;
+
+            // region
+
+            srfLoad.Region = obj.Region;
+
+            return srfLoad;
+        }
+
         public override string ToString()
         {
             if (IsConstant)
@@ -114,7 +144,5 @@ namespace FemDesign.Loads
             else
                 return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m\u00B2, q2: {this.Loads[1].Value * this.Direction} kN/m\u00B2, q3: {this.Loads[2].Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCase.Name}";
         }
-
-
     }
 }

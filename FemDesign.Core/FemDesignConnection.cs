@@ -522,6 +522,32 @@ namespace FemDesign
             this.RunScript(script, "CreateResultPoints");
         }
 
+
+        public string GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
+        {
+            if (outputCsvPath == null)
+            {
+                outputCsvPath = System.IO.Path.ChangeExtension(inputBscPath, "csv");
+            }
+
+            if (System.IO.Path.GetExtension(outputCsvPath) != ".csv")
+                throw new Exception("Extension output file must be .csv");
+
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand> { new CmdUser(CmdUserModule.RESMODE), new CmdListGen(inputBscPath, outputCsvPath) };
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands);
+            this.RunScript(script, "GetResultsFromBsc");
+
+            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t",",");
+
+            return results;
+        }
+
+
+
         public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoints, Results.UnitResults units = null) where T : Results.IResult
         {
             if (units is null)
@@ -1420,7 +1446,7 @@ namespace FemDesign
 
         None = EchoAndStatOnly,
         Low = BasicOnly | InputOnly,
-        Normal = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly,
+        Normal = ScriptLogLinesOnly | CalculationMessagesOnly,
         High = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly,
         All = BasicOnly | InputOnly | LogLinesOnly | ScriptLogLinesOnly | CalculationMessagesOnly | ProgressWindowTitleOnly,
     }

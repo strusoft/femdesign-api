@@ -2,6 +2,8 @@
 
 using System.Xml.Serialization;
 using FemDesign.Geometry;
+using FemDesign.Utils;
+using System;
 
 namespace FemDesign.Loads
 {
@@ -30,7 +32,6 @@ namespace FemDesign.Loads
         public PointLoad(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment, ForceLoadType type)
         {
             this.EntityCreated();
-            this.LoadCaseGuid = loadCase.Guid;
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.LoadType = type;
@@ -48,10 +49,35 @@ namespace FemDesign.Loads
             return new PointLoad(point, force, loadCase, comment, ForceLoadType.Moment);
         }
 
+        public static explicit operator PointLoad( StruSoft.Interop.StruXml.Data.Caseless_point_load_type obj)
+        {
+            var pointLoad = new PointLoad();
+
+
+
+
+            pointLoad.Guid = new System.Guid( obj.Guid );
+            pointLoad.Action = obj.Action.ToString().ToLower();
+            pointLoad.LastChange = obj.Last_change;
+            pointLoad.LoadType = (ForceLoadType)Enum.Parse(typeof(ForceLoadType), obj.Load_type.ToString());
+
+            var pos = new Point3d(obj.Load.X, obj.Load.Y, obj.Load.Z);
+            var val = obj.Load.Val;
+            pointLoad.Load = new LoadLocationValue(pos, val);
+
+            pointLoad.Direction = new Vector3d( obj.Direction.X, obj.Direction.Y, obj.Direction.Z);
+
+            return pointLoad;
+        }
+
         public override string ToString()
         {
             var units = this.LoadType == ForceLoadType.Force ? "kN" : "kNm";
-            return $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}, LoadCase: {this.LoadCase.Name}";
+            var text = $"{this.GetType().Name} Pos: ({this.Load.X.ToString("0.00")}, {this.Load.Y.ToString("0.00")}, {this.Load.Z.ToString("0.00")}), {this.LoadType}: {this.Direction * this.Load.Value} {units}";
+            if (LoadCase != null)
+                return text + $", LoadCase: {this.LoadCase.Name}";
+            else
+                return text;
         }
     }
 }

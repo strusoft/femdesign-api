@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace FemDesign.Utils
 {
@@ -22,37 +23,44 @@ namespace FemDesign.Utils
         
         public readonly static List<string> WarningMessase = new List<string>{
             "Large nodal displacement or rotation was found.",
-            "One or more identical copies of 1 structural elements and loads are found."
+            "One or more identical copies of \\d+ structural elements and loads are found.",
         };
 
 
         public static string HasError(List<string> messages, out string error)
         {
+            error = null;
             foreach (string message in messages)
             {
-                if (ErrorMessage.Any(msg => message.Contains(msg)))
+                foreach (var errorMsg in ErrorMessage)
                 {
-                    error = ErrorMessage.First(msg => message.Contains(msg));
-                    return error;
+                    if (Regex.IsMatch(message, errorMsg))
+                    {
+                        error = errorMsg;
+                        return error;
+                    }
                 }
             }
 
-            error = null;
             return error;
         }
 
+
         public static string HasWarning(List<string> messages, out string warning)
         {
+            warning = null;
             foreach (string message in messages)
             {
-                if (WarningMessase.Any(msg => message.Contains(msg)))
+                foreach(var warningMsg in WarningMessase)
                 {
-                    warning = WarningMessase.First(msg => message.Contains(msg));
-                    return warning;
+                    if(Regex.IsMatch(message, warningMsg))
+                    {
+                        warning = warningMsg;
+                        return warning;
+                    }
                 }
             }
 
-            warning = null;
             return warning;
         }
     }

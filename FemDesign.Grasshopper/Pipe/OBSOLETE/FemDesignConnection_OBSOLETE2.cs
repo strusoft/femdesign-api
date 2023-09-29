@@ -1,19 +1,16 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FemDesignConnectionComponent : GH_Component
+    public class FemDesignConnectionComponent_OBSOLETE2 : GH_Component
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
+        public FemDesignConnectionComponent_OBSOLETE2() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -24,9 +21,6 @@ namespace FemDesign.Grasshopper
 
             pManager.AddBooleanParameter("Minimized", "Minimized",
                 "Should FEM-Design window be minimized?", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
-            pManager.AddTextParameter("Verbosity", "Verbosity", "", GH_ParamAccess.item, "ScriptLogLinesOnly");
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("OutputDir", "OutputDir",
@@ -52,7 +46,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // TODO: Set version as global variable in FemDesign.Core
-
+            
             string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 22\";
             DA.GetData("FEM-Design dir", ref fd_installation_folder);
 
@@ -81,32 +75,12 @@ namespace FemDesign.Grasshopper
 
             _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir, tempOutputDir: delteDir);
 
-            string verbosity = "";
-            if (DA.GetData("Verbosity", ref verbosity))
-            {
-                if (Enum.TryParse(verbosity, out Verbosity _verbosity))
-                {
-                    _connection.SetVerbosity(_verbosity);
-                }
-                else
-                {
-
-                }
-            };
-
             DA.SetData("Connection", _connection);
         }
 
-
-        protected override void BeforeSolveInstance()
-        {
-            ValueListUtils.updateValueLists(this, 2, new List<string> { "EchoAndStatOnly", "BasicOnly", "InputOnly", "LogLinesOnly", "ScriptLogLinesOnly", "CalculationMessagesOnly", "ProgressWindowTitleOnly", "None", "Low", "Normal", "High", "All"}, null, GH_ValueListMode.DropDown);
-        }
-
-
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Connection;
-        public override Guid ComponentGuid => new Guid("{B2D8285D-0260-479C-91BF-2FA8DAB5A37E}");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{F560002E-7AF2-41B7-BBFD-1F6B51A3A43E}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
 

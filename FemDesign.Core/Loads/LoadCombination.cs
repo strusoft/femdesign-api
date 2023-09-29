@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Linq;
 using System.IO;
+using System;
 
 namespace FemDesign.Loads
 {
@@ -16,7 +17,24 @@ namespace FemDesign.Loads
     public partial class LoadCombination : EntityBase
     {
         [XmlAttribute("name")]
-        public string Name { get; set; } // name159
+        public string _name { get; set; } // name159
+
+        // attributes
+        [XmlIgnore]
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if (value.Contains(Environment.NewLine))
+                    throw new ArgumentException("'Name' cannot include a newline character.");
+                this._name = value;
+            }
+        }
+
         [XmlAttribute("type")]
         public LoadCombType Type { get; set; } // loadcombtype
 

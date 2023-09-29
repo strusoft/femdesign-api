@@ -61,6 +61,7 @@ namespace FemDesign.Grasshopper
                 nameof(FemDesign.Results.QuantityEstimationGeneral),
                 nameof(FemDesign.Results.QuantityEstimationReinforcement),
                 nameof(FemDesign.Results.FiniteElement),
+                nameof(FemDesign.Results.BarTimberUtilization),
                 nameof(FemDesign.Results.BarSteelUtilization)
             };
             

@@ -35,7 +35,7 @@ namespace FemDesign.Loads
         }
 
         [XmlIgnore]
-        public Vehicle_lib_type Vehicle { get; set; }
+        public StruSoft.Interop.StruXml.Data.Vehicle_lib_type Vehicle { get; set; }
 
         [DefaultValue(0.0)]
         [XmlAttribute("vehicle_shift_x")]

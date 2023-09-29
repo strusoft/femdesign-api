@@ -105,6 +105,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\FreqDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
@@ -129,11 +130,13 @@
     <Compile Include="Loads\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\MovingLoad.cs" />
     <Compile Include="Loads\PointLoadDefine.cs" />
+    <Compile Include="Loads\VehicleDeconstruct.cs" />
     <Compile Include="Loads\VehicleFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
@@ -144,14 +147,15 @@
     <Compile Include="Pipe\PipeGetQuantities.cs" />
     <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
-    <Compile Include="Pipe\PipeReadResults.cs" />
+    <Compile Include="Pipe\PipeReadCaseCombResults.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
+    <Compile Include="Pipe\PipeResultFromBsc.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
-    <Compile Include="Pipe\FemDesignConnection.cs" />
+    <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE2.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\OBSOLETE\EdgeConnectionConstruct_OBSOLETE2.cs" />
@@ -207,8 +211,9 @@
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunAnalysis_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE3.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
+    <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -259,6 +264,7 @@
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\SurfaceSupportReaction.cs" />
     <Compile Include="Results\SurfaceSupportResultant.cs" />
+    <Compile Include="Results\Timber\BarTimberUtilization.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Sections\SectionByFamily.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
@@ -292,7 +298,7 @@
     <Compile Include="Materials\MaterialTimberPlateMaterial.cs" />
     <Compile Include="Materials\MaterialTimberFactorsConstruct.cs" />
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
-    <Compile Include="Calculate\CalculationParametersFreqDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersFreqDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
     <Compile Include="Deconstruct\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE3.cs" />
@@ -925,6 +931,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\CombSettings.bmp" />
     <None Include="Resources\icons\ResultPointDeconstruct.png" />
     <None Include="Resources\icons\LoadGroupToComb.bmp" />
     <None Include="Resources\icons\StabilityDefine.png" />
