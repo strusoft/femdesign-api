@@ -101,7 +101,7 @@ namespace FemDesign.Grasshopper
             , null, GH_ValueListMode.DropDown);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.tertiary;
 
 
     }

@@ -29,9 +29,5 @@ namespace FemDesign.Bars
 		public Column(Geometry.Edge edge, Materials.Material material, Sections.Section[] sections, Eccentricity[] eccentricities, Connectivity[] connectivities, string identifier) : base(edge, BarType.Column, material, sections, eccentricities, connectivities, identifier)
 		{
 		}
-
-		public Column(Geometry.Edge edge, Composites.CompositeSection compositeSection, Eccentricity startEccentricity = null, Eccentricity endEccentricity = null, Connectivity startConnectivity = null, Connectivity endConnectivity = null, string identifier = "B") : base(edge, BarType.Column, compositeSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier)
-		{
-		}
 	}
 }

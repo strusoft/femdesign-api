@@ -126,29 +126,6 @@ namespace FemDesign.Geometry
         }
 
         /// <summary>
-        /// Construct a closed contour from points. 
-        /// </summary>
-        /// <param name="points"></param>
-        public Contour(List<Point3d> points)
-        {
-            List<Edge> edges = new List<Edge>();
-            
-            for (int i = 0; i < points.Count; i++)
-            {
-                if (i < points.Count - 1)
-                {
-                    edges.Add(new Edge(points[i], points[i + 1]));
-                }
-                else
-                {
-                    edges.Add(new Edge(points[i], points[0]));
-                }
-            }
-
-            this.Edges = edges;
-        }
-
-        /// <summary>
         /// Reverse direction of edges in this contour
         /// </summary>
         internal void Reverse()

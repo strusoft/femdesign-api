@@ -64,14 +64,6 @@
     <Compile Include="Calculate\CmdResultPoint.cs" />
     <Compile Include="Calculate\Imperfection.cs" />
     <Compile Include="Calculate\Stability.cs" />
-    <Compile Include="Composites\ComplexComposite.cs" />
-    <Compile Include="Composites\ComplexCompositePart.cs" />
-    <Compile Include="Composites\CompositeSection.cs" />
-    <Compile Include="Composites\Composites.cs" />
-    <Compile Include="Composites\CompositeParameterTypeEnum.cs" />
-    <Compile Include="Composites\CompositeSectionParameter.cs" />
-    <Compile Include="Composites\CompositeSectionPart.cs" />
-    <Compile Include="Composites\CompositeTypeEnum.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />

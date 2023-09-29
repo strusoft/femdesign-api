@@ -218,69 +218,29 @@ namespace FemDesign.Bars
         }
 
         [XmlAttribute("complex_composite")]
-        public System.Guid _complexCompositeRef;
+        public string ComplexCompositeRef { get; set; } // guidtype
 
         [XmlIgnore]
-        public System.Guid ComplexCompositeRef 
-        { 
-            get
-            {
-                return this._complexCompositeRef;
-            }
-            set
-            {
-                this._complexCompositeRef = value;
-            }
-        }
+        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != null; }
 
         [XmlIgnore]
-        public bool HasComplexCompositeRef { get => this.ComplexCompositeRef != System.Guid.Empty; }
-
-        [XmlIgnore]
-        public Composites.ComplexComposite _complexCompositeObj;
-
-        [XmlIgnore]
-        public Composites.ComplexComposite ComplexCompositeObj 
-        { 
-            get
-            {
-                return this._complexCompositeObj;
-            }
-            set
-            {
-                this._complexCompositeObj = value;
-                this.ComplexCompositeRef = value.Guid;
-
-                // Composite bars BarPart doesn't have ComplexMaterial and ComplexSection attributes
-                if(this.HasComplexSectionRef)
-                {
-                    this.ComplexSectionObj = null;
-                    this.ComplexSectionRef = null;
-                }
-                if(this.HasComplexMaterialRef)
-                {
-                    this.ComplexMaterialObj = null;
-                    this.ComplexMaterialRef = System.Guid.Empty;
-                }
-            }
-        }
+        public StruSoft.Interop.StruXml.Data.Complex_composite_type ComplexCompositeObj { get; set; }
 
         [XmlAttribute("complex_material")]
-        public System.Guid _complexMaterialRef;
+        public string _complexMaterialRef;
 
         [XmlIgnore]
         public System.Guid ComplexMaterialRef
         {
             get
             {
-                return this._complexMaterialRef;
+                return System.Guid.Parse(this._complexMaterialRef);
             }
             set
             {
-                this._complexMaterialRef = value;
+                this._complexMaterialRef = value.ToString();
             }
         }
-
         [XmlIgnore]
         public bool HasComplexMaterialRef { get => this.ComplexMaterialRef != System.Guid.Empty; }
 
@@ -298,7 +258,7 @@ namespace FemDesign.Bars
         {
             get
             {
-                    return this._complexMaterialObj;
+                return this._complexMaterialObj;
             }
             set
             {
@@ -307,10 +267,10 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlAttribute("complex_section")]
+        [XmlIgnore]
         private string _complexSectionRef;
 
-        [XmlIgnore]
+        [XmlAttribute("complex_section")]
         public string ComplexSectionRef
         {
             get
@@ -358,21 +318,7 @@ namespace FemDesign.Bars
         public bool HasDeltaBeamComplexSectionRef { get => !System.Guid.TryParse(this.ComplexSectionRef, out System.Guid result); }
 
         [XmlIgnore]
-        public Sections.ComplexSection _complexSectionObj;
-
-        [XmlIgnore]
-        public Sections.ComplexSection ComplexSectionObj
-        {
-            get
-            {
-                return this._complexSectionObj;
-            }
-            set
-            {
-                this._complexSectionObj = value;
-                this._complexSectionRef = this._complexSectionObj.Guid.ToString();
-            }
-        }
+        public Sections.ComplexSection ComplexSectionObj;
 
         [XmlIgnore]
         public Sections.Section TrussUniformSectionObj;
@@ -428,9 +374,9 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlElement("eccentricity", Order = 4)]
-        public ModelEccentricity _eccentricityTypeField;
         [XmlIgnore]
+        public ModelEccentricity _eccentricityTypeField;
+        [XmlElement("eccentricity", Order = 4)]
         public ModelEccentricity _eccentricityTypeProperty
         {
             get
@@ -669,50 +615,6 @@ namespace FemDesign.Bars
                 this.Edge = edge;
                 this.ComplexMaterialObj = material;
                 this.TrussUniformSectionObj = section;
-                this.Identifier = identifier;
-            }
-        }
-
-        /// <summary>
-        /// Construct a composite barpart with uniform section and uniform start/end conditions.
-        /// </summary>
-        public BarPart(Geometry.Edge edge, BarType type, Composites.CompositeSection compositeSection, Eccentricity eccentricity, Connectivity connectivity, string identifier)
-        {
-            if (type == BarType.Truss)
-            {
-                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
-            }
-            else
-            {
-                this.EntityCreated();
-                this.Type = type;
-                this.Edge = edge;
-                this.ComplexCompositeObj = new Composites.ComplexComposite(compositeSection);
-                this.EccentricityCalc = true;
-                this._eccentricityTypeProperty = new ModelEccentricity(eccentricity, true);
-                this.Connectivity = new Connectivity[1] { connectivity };
-                this.Identifier = identifier;
-            }
-        }
-
-        /// <summary>
-        /// Construct a composite barpart with uniform section and different start/end conditions.
-        /// </summary>
-        public BarPart(Geometry.Edge edge, BarType type, Composites.CompositeSection compositeSection, Eccentricity startEccentricity, Eccentricity endEccentricity, Connectivity startConnectivity, Connectivity endConnectivity, string identifier)
-        {
-            if (type == BarType.Truss)
-            {
-                throw new System.ArgumentException($"Type: {type.ToString()}, is not of type {BarType.Beam.ToString()} or {BarType.Column.ToString()}");
-            }
-            else
-            {
-                this.EntityCreated();
-                this.Type = type;
-                this.Edge = edge;
-                this.ComplexCompositeObj = new Composites.ComplexComposite(compositeSection);
-                this.EccentricityCalc = true;
-                this._eccentricityTypeProperty = new ModelEccentricity(startEccentricity, endEccentricity, true);
-                this.Connectivity = new Connectivity[2] { startConnectivity, endConnectivity };
                 this.Identifier = identifier;
             }
         }
