@@ -15,6 +15,7 @@ using FemDesign.Calculate;
 using FemDesign.Bars;
 using System.Globalization;
 using FemDesign.Results;
+using FemDesign.Results.Utils;
 
 namespace FemDesign
 {
@@ -988,11 +989,11 @@ namespace FemDesign
 
             if (loadCombination != null)
             {
-                results = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
+                results.FilterResultsByLoadCombination(loadCombPropertyName, loadCombination);
             }
             if (shapeId != null)
             {
-                results = Results.Utils.UtilResultMethods.FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
+                results.FilterResultsByShapeId(shapeIdPropertyName, (int)shapeId);
             }
 
             return results;

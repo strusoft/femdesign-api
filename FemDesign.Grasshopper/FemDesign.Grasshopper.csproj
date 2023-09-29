@@ -73,6 +73,9 @@
     <Compile Include="AdvancedFem\Obsolete\CoverOneWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\Obsolete\CoverTwoWayOBSOLETE.cs" />
     <Compile Include="AdvancedFem\CoverTwoWay.cs" />
+    <Compile Include="Bars\CompositeBar.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\SectionDeconstruct_OBSOLETE.cs" />
+    <Compile Include="Sections\CompositeHSQProfile.cs" />
     <Compile Include="Bars\OBSOLETE\Bar.SetStiffnessModifier_OBSOLETE.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
     <Compile Include="Bars\BarsBeam.cs" />
@@ -931,6 +934,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\CompositeHSQProfile.png" />
+    <None Include="Resources\CompositeHSQProfile.png" />
     <None Include="Resources\icons\ResultPointDeconstruct.png" />
     <None Include="Resources\icons\LoadGroupToComb.bmp" />
     <None Include="Resources\icons\StabilityDefine.png" />
