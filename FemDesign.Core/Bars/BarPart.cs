@@ -220,6 +220,11 @@ namespace FemDesign.Bars
         [XmlAttribute("complex_composite")]
         public System.Guid _complexCompositeRef;
 
+        public bool ShouldSerialize_complexCompositeRef()
+        {
+            return this.HasComplexCompositeRef;
+        }
+
         [XmlIgnore]
         public System.Guid ComplexCompositeRef 
         { 
@@ -268,6 +273,11 @@ namespace FemDesign.Bars
         [XmlAttribute("complex_material")]
         public System.Guid _complexMaterialRef;
 
+        public bool ShouldSerialize_complexMaterialRef()
+        {
+            return this.HasComplexMaterialRef;
+        }
+
         [XmlIgnore]
         public System.Guid ComplexMaterialRef
         {
@@ -308,7 +318,12 @@ namespace FemDesign.Bars
         }
 
         [XmlAttribute("complex_section")]
-        private string _complexSectionRef;
+        public string _complexSectionRef;
+
+        public bool ShouldSerialize_complexSectionRef()
+        {
+            return this.HasComplexSectionRef;
+        }
 
         [XmlIgnore]
         public string ComplexSectionRef
