@@ -94,8 +94,10 @@ namespace FemDesign.Grasshopper
                     ReportProgress("", "");
                     _connection.RunDesign(_userModule, _design, designGroups);
 
+
                     if (_design.ApplyChanges == true)
                     {
+                        _connection.ApplyDesignChanges();
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Remark, "'Apply changes' == true. Run a new analysis to validate your model against the new section sizes."));
                     }
                     _connection.OnOutput -= onOutput;

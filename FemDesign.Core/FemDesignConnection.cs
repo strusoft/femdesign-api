@@ -347,13 +347,27 @@ namespace FemDesign
                     new CmdCalculation(design)
                 );
 
-            if (design.ApplyChanges == true)
-            {
-                script.Add(new CmdApplyDesignChanges());
-            }
-
             this.RunScript(script, $"RunDesign_{userModule}");
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ApplyDesignChanges()
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(
+                    logfile,
+                    new CmdApplyDesignChanges()
+                );
+
+            this.RunScript(script, $"ApplyDesignChanges");
+        }
+
+
+
 
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the design.
