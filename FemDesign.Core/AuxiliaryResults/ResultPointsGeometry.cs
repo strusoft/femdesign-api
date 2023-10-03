@@ -56,7 +56,9 @@ namespace FemDesign.AuxiliaryResults
             this.EntityCreated();
 
             Position = position;
-            
+
+            _checkValidDistance(element);
+
             Guid refGuid;
             if (element is Shells.Slab slab)
             {
@@ -74,6 +76,14 @@ namespace FemDesign.AuxiliaryResults
             BaseEntity = refGuid;
             Identifier = identifier;
             Font = new ResPointFont();
+        }
+
+        public void _checkValidDistance(IStructureElement element)
+        {
+            var onStructure = this.Position.OnStructuralElement(element);
+
+            if (onStructure != true)
+                throw new Exception("Point is not part of the structural element!");
         }
 
 

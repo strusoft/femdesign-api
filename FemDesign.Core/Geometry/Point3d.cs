@@ -1,6 +1,9 @@
 // https://strusoft.com/
 
+using FemDesign.Bars;
+using FemDesign.GenericClasses;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -192,8 +195,92 @@ namespace FemDesign.Geometry
             }
 
             return true;
-
         }
+
+
+        /// <summary>
+        /// Check if a point sit on top of a structural element
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public bool OnStructuralElement(IStructureElement element)
+        {
+            IBar bar = element as IBar;
+            if( bar != null )
+            {
+                var distance = DistancePointToLine(bar.Edge);
+
+                if (distance <= Tolerance.Point3d)
+                    return true;
+            }
+            else
+            {
+                IShell shell = element as IShell;
+                if (shell != null)
+                {
+                    var points = new List<Geometry.Point3d>();
+
+                    foreach (var contour in shell.Region.Contours)
+                    {
+                        foreach (var edge in contour.Edges)
+                        {
+                            points.AddRange(edge.Points);
+                        }
+                    }
+
+                    points.Add(this);
+                    var planar = ArePointsOnPlane(points);
+
+                    return planar;
+                }
+                else
+                {
+                    throw new Exception("It's neither IBar nor IShell");
+                }
+            }
+
+            return false;
+        }
+
+        // Calculate the distance between a point and a line defined by two points in 3D space
+        public double DistancePointToLine(Edge edge)
+        {
+            var lineStart = edge.Points[0];
+            var lineEnd = edge.Points[1];
+
+            // Vector from the start point of the line to the point
+            double lineToPointX = this.X - lineStart.X;
+            double lineToPointY = this.Y - lineStart.Y;
+            double lineToPointZ = this.Z - lineStart.Z;
+
+            // Vector representing the direction of the line
+            double lineDirectionX = lineEnd.X - lineStart.X;
+            double lineDirectionY = lineEnd.Y - lineStart.Y;
+            double lineDirectionZ = lineEnd.Z - lineStart.Z;
+
+            // Calculate the dot product of lineToPoint and lineDirection
+            double dotProduct = lineToPointX * lineDirectionX + lineToPointY * lineDirectionY + lineToPointZ * lineDirectionZ;
+
+            // Calculate the length squared of the line
+            double lineLengthSquared = lineDirectionX * lineDirectionX + lineDirectionY * lineDirectionY + lineDirectionZ * lineDirectionZ;
+
+            // Calculate the parameter along the line where the closest point is
+            double parameter = dotProduct / lineLengthSquared;
+
+            // Calculate the coordinates of the closest point on the line
+            double closestPointX = lineStart.X + parameter * lineDirectionX;
+            double closestPointY = lineStart.Y + parameter * lineDirectionY;
+            double closestPointZ = lineStart.Z + parameter * lineDirectionZ;
+
+            // Calculate the distance between the point and the closest point on the line
+            double distance = Math.Sqrt((this.X - closestPointX) * (this.X - closestPointX) +
+                                        (this.Y - closestPointY) * (this.Y - closestPointY) +
+                                        (this.Z - closestPointZ) * (this.Z - closestPointZ));
+
+            return distance;
+        }
+
 
         public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
             X = p.X,

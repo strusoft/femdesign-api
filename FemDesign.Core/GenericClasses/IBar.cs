@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace FemDesign.GenericClasses
 {
-    public interface IShell
+    public interface IBar
     {
-        void UpdateMaterial(Materials.Material material);
-        Region Region { get; }
+        Edge Edge { get; }
     }
 }

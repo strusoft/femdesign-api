@@ -9,14 +9,14 @@ namespace FemDesign.Grasshopper
 {
     public class ResultPoints : GH_Component
     {
-        public ResultPoints() : base("ResultPoints", "ResultPoints", "Define ResultPoints from a Point", CategoryName.Name(), SubCategoryName.Cat7b())
+        public ResultPoints() : base("ResultPoints", "ResultPoints", "Define ResultPoints on a strucural element", CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Point", "Point", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("StructuralElement", "StructuralElement", "", GH_ParamAccess.item);
+            pManager.AddPointParameter("Point", "Point", "Point location where the result should be returned", GH_ParamAccess.item);
+            pManager.AddGenericParameter("StructuralElement", "StructuralElement", "Structural element where the point is located.", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier. Optional, default value if undefined.", GH_ParamAccess.item, "LS");
             pManager[pManager.ParamCount - 1].Optional = true;
         }

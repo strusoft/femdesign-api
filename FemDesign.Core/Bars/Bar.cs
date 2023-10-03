@@ -19,7 +19,7 @@ namespace FemDesign.Bars
     [XmlInclude(typeof(Truss))]
     [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
-    public partial class Bar : EntityBase, INamedEntity, IStructureElement, IStageElement
+    public partial class Bar : EntityBase, INamedEntity, IStructureElement, IStageElement, IBar
     {
         /// <summary>
         /// Truss only.
@@ -58,7 +58,14 @@ namespace FemDesign.Bars
         [XmlAttribute("tensions_plasticity")]
         public bool TensionPlasticity { get; set; } // bool
 
-
+        [XmlIgnore]
+        public Geometry.Edge Edge
+        {
+            get
+            {
+                return this.BarPart.Edge;
+            }
+        }
 
         [XmlAttribute("type")]
         public BarType Type { get; set; }

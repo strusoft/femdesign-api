@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using FemDesign.Geometry;
 
 namespace FemDesign.Shells
 {
@@ -61,6 +62,15 @@ namespace FemDesign.Shells
         public SlabPart SlabPart { get; set; }
         [XmlElement("end", Order = 2)]
         public string End { get; set; } // empty_type
+
+        [XmlIgnore]
+        public Region Region
+        {
+            get
+            {
+                return this.SlabPart.Region;
+            }
+        }
 
         [XmlIgnore]
         public bool IsVariableThickness
