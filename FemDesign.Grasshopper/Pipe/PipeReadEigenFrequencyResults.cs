@@ -60,48 +60,6 @@ namespace FemDesign.Grasshopper
             return results;
         }
 
-        public DataTree<T> CreateResultTree<T>(List<T> results, string propertyName) where T : FemDesign.Results.IResult
-        {
-            DataTree<T> resultsTree = new DataTree<T>();
-            
-            // check property
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
-            }
-
-            // set tree values by property type
-            Type propType = property.PropertyType;
-            if (propType == typeof(int))
-            {
-                // get property values
-                var uniquePropertyValues = results.Select(r => (int)property.GetValue(r)).Distinct().ToList();
-
-                // set tree values
-                for (int i = 0; i < uniquePropertyValues.Count; i++)
-                {
-                    var allResultsByProperty = results.Where(r => (int)property.GetValue(r) == uniquePropertyValues[i]).ToList();
-                    resultsTree.AddRange(allResultsByProperty, new GH_Path(i));
-                }
-            }
-            else if (propType == typeof(string))
-            {
-                // get property values
-                var uniquePropertyValues = results.Select(r => property.GetValue(r).ToString()).Distinct().ToList();
-
-                // set tree values
-                for (int i = 0; i < uniquePropertyValues.Count; i++)
-                {
-                    var allResultsByProperty = results.Where(r => property.GetValue(r).ToString() == uniquePropertyValues[i]).ToList();
-                    resultsTree.AddRange(allResultsByProperty, new GH_Path(i));
-                }
-            }
-
-            return resultsTree;
-        }
-
-
         /* INPUT/OUTPUT */
         public FemDesignConnection _connection = null;
         private List<int> _shapeIds = new List<int>();
@@ -177,13 +135,13 @@ namespace FemDesign.Grasshopper
                 string freqPropName = nameof(FemDesign.Results.EigenFrequencies.ShapeId);
                 if (_shapeIds.Any())
                 {
-                    vibrationRes = FemDesign.Results.Utils.UtilResultMethods.FilterResultsByShapeId(vibrationRes, vibPropName, _shapeIds);
-                    frequencyRes = FemDesign.Results.Utils.UtilResultMethods.FilterResultsByShapeId(frequencyRes, freqPropName, _shapeIds);
+                    vibrationRes = vibrationRes.FilterResultsByShapeId(vibPropName, _shapeIds);
+                    frequencyRes = frequencyRes.FilterResultsByShapeId(freqPropName, _shapeIds);
                 }
 
                 // create a tree
-                _vibrationTree = this.CreateResultTree(vibrationRes, vibPropName);
-                _frequencyTree = this.CreateResultTree(frequencyRes, freqPropName);
+                _vibrationTree = vibrationRes.CreateResultTree(vibPropName);
+                _frequencyTree = frequencyRes.CreateResultTree(freqPropName);
 
             }
             catch (Exception ex)
