@@ -2,10 +2,10 @@
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
-
-namespace FemDesign.Reinforcement
+using FemDesign.Reinforcement;
+namespace FemDesign.Grasshopper
 {
-    public class ReinforcementPtc_OBSOLETE : GH_Component
+    public class ReinforcementPtc_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the ReinforcementPtc class.

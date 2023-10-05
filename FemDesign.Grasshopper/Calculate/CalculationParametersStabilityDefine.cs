@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersStabilityDefine : GH_Component
+    public class CalculationParametersStabilityDefine : FEM_Design_API_Component
     {
         public CalculationParametersStabilityDefine() : base("Stability.Define", "Stability", "Set parameters for stability.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-   public class GetLoadCategoryByName: GH_Component
+   public class GetLoadCategoryByName: FEM_Design_API_Component
     {
         public GetLoadCategoryByName(): base("LoadCategory.GetLoadCategoryByName", "GetLoadCategoryByName", "Get LoadCategory from LoadCategoryDatabase by name.", CategoryName.Name(), SubCategoryName.Cat3())
         {

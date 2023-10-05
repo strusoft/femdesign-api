@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class DesignGroup : GH_Component
+    public class DesignGroup : FEM_Design_API_Component
     {
         public DesignGroup() : base("DesignGroup.Define", "DesignGroup", "", CategoryName.Name(), SubCategoryName.Cat7a())
         {

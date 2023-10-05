@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class ExtrudedSolid : GH_Component
+    public class ExtrudedSolid : FEM_Design_API_Component
     {
         public ExtrudedSolid() : base("ExtrudedSolid", "ExtrudedSolid", "",
             CategoryName.Name(),

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-   public class MaterialGetMaterialByNameOBSOLETE: GH_Component
+   public class MaterialGetMaterialByNameOBSOLETE: FEM_Design_API_Component
     {
         public MaterialGetMaterialByNameOBSOLETE(): base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

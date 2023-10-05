@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FootfallFullExcitation : GH_Component
+    public class FootfallFullExcitation : FEM_Design_API_Component
     {
         public FootfallFullExcitation() : base("Footfall.FullExcitation", "FullExcitation", "Create a footfall full excitation point.", CategoryName.Name(), SubCategoryName.Cat3())
         {

@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class CoverOneWayOBSOLETE: GH_Component
+    public class CoverOneWayOBSOLETE: FEM_Design_API_Component
     {
         public CoverOneWayOBSOLETE(): base("Cover.OneWay", "OneWay", "Create a one way cover.", "FEM-Design", "Cover")
         {

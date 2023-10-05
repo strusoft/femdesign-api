@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseListMaterialNamesOBSOLETE : GH_Component
+    public class MaterialDatabaseListMaterialNamesOBSOLETE : FEM_Design_API_Component
     {
         public MaterialDatabaseListMaterialNamesOBSOLETE()
           : base("MaterialDatabase.ListMaterialNames", "ListMaterialNames",

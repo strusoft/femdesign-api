@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseSave : GH_Component
+    public class SectionDatabaseSave : FEM_Design_API_Component
     {
         public SectionDatabaseSave() : base("SectionDatabase.Save", "Save", "Save these Sections to .struxml.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

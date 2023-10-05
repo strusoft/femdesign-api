@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class EigenFrequencies : GH_Component
+    public class EigenFrequencies : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the EigenFrequencies class.

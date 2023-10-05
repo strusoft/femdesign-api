@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineStressLoadDeconstruct : GH_Component
+    public class LineStressLoadDeconstruct : FEM_Design_API_Component
     {
         public LineStressLoadDeconstruct() : base("LineStressLoad.Deconstruct", "Deconstruct", "Deconstruct a LineStressLoad.", "FEM-Design", "Deconstruct")
         {

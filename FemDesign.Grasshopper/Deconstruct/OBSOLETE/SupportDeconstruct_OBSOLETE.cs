@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SupportDeconstruct_OBSOLETE : GH_Component
+    public class SupportDeconstruct_OBSOLETE : FEM_Design_API_Component
     {
         public SupportDeconstruct_OBSOLETE() : base("Support.Deconstruct", "Deconstruct", "Deconstruct a PointSupport or LineSupport element.", "FEM-Design", "Deconstruct")
         {

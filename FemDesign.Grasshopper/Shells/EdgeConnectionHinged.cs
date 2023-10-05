@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class EdgeConnectionHinged: GH_Component
+    public class EdgeConnectionHinged: FEM_Design_API_Component
     {
         public EdgeConnectionHinged(): base("EdgeConnection.Hinged", "Hinged", "Create a Hinged EdgeConnection.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

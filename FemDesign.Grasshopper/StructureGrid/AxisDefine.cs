@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class AxisDefine: GH_Component
+    public class AxisDefine: FEM_Design_API_Component
     {
         public AxisDefine(): base("Axis.Define", "Define", "Define an Axis.", "FEM-Design", "ModellingTools")
         {

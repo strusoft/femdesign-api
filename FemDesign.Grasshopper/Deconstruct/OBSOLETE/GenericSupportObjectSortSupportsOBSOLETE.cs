@@ -7,7 +7,7 @@ using FemDesign.Supports;
 
 namespace FemDesign.Grasshopper
 {
-    public class SortSupportsOBSOLETE : GH_Component
+    public class SortSupportsOBSOLETE : FEM_Design_API_Component
     {
         public SortSupportsOBSOLETE() : base("Supports.SortSupports", "SortSupports", "Sort a list of Support objects into lists classified by each respective type of support.", "FEM-Design", "Deconstruct")
         {

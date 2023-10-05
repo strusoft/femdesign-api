@@ -12,7 +12,7 @@ using Grasshopper;
 
 namespace FemDesign.Grasshopper
 {
-    public class InteractionSurface_OnBar : GH_Component
+    public class InteractionSurface_OnBar : FEM_Design_API_Component
     {
         public InteractionSurface_OnBar() : base("InteractionSurface.OnBar", "InteractionSurface.OnBar", "Calculate the interaction surface for a concrete beam with rebars", "FEM-Design", "Reinforcement")
         {

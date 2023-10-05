@@ -9,7 +9,7 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadResults : GH_Component
+    public class ModelReadResults : FEM_Design_API_Component
     {
         public ModelReadResults() : base("Model.ReadResults", "ReadResults", "Read Results from .str file or model.", CategoryName.Name(), SubCategoryName.Cat6())
         {

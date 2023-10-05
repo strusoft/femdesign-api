@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionGetSectionByNameOBSOLETE: GH_Component
+    public class SectionGetSectionByNameOBSOLETE: FEM_Design_API_Component
     {
         public SectionGetSectionByNameOBSOLETE(): base("Section.GetSectionByName", "GetSectionByName", "Get a Section from a SectionDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

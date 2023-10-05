@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class AxisDeconstruct: GH_Component
+    public class AxisDeconstruct: FEM_Design_API_Component
     {
        public AxisDeconstruct(): base("Axis.Deconstruct", "Deconstruct", "Deconstruct an axis element.", "FEM-Design", "Deconstruct")
        {

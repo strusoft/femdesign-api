@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseDefault_OBSOLETE : GH_Component
+    public class SectionDatabaseDefault_OBSOLETE : FEM_Design_API_Component
     {
         public SectionDatabaseDefault_OBSOLETE() : base("SectionDatabase.Default", "Default", "Load the default SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

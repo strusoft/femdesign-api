@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersImperfectionDefine : GH_Component
+    public class CalculationParametersImperfectionDefine : FEM_Design_API_Component
     {
         public CalculationParametersImperfectionDefine() : base("Imperfection.Define", "Imperfection", "Set parameters for imperfection.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

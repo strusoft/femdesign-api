@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class ResultPoints : GH_Component
+    public class ResultPoints : FEM_Design_API_Component
     {
         public ResultPoints() : base("ResultPoints", "ResultPoints", "Define ResultPoints on a strucural element", CategoryName.Name(), SubCategoryName.Cat7b())
         {

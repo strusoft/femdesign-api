@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsRigidLine: GH_Component
+    public class RotationsRigidLine: FEM_Design_API_Component
     {
         public RotationsRigidLine(): base("Rotations.RigidLine", "RigidLine", "Define a rigid rotations release for a line-type release (1e+07 kNm/m/rad).", CategoryName.Name(), SubCategoryName.Cat5())
         {

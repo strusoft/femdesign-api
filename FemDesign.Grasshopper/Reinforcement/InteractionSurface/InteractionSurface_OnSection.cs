@@ -132,7 +132,7 @@ namespace FemDesign.Grasshopper
     }
 
 
-    public class InteractionSurface_section : GH_Component
+    public class InteractionSurface_section : FEM_Design_API_Component
     {
         public InteractionSurface_section() : base("InteractionSurface.OnSection", "InteractionSurface.OnSection", "Calculate the interaction surface for a concrete section with rebars", "FEM-Design", "Reinforcement")
         {

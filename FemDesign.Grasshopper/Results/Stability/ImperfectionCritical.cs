@@ -9,7 +9,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ImperfectionCritical : GH_Component
+    public class ImperfectionCritical : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the ImperfectionCritical class.

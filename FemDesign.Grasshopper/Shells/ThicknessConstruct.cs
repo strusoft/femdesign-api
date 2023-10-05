@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Thickness_Define: GH_Component
+    public class Thickness_Define: FEM_Design_API_Component
     {
         public Thickness_Define(): base("Thickness.Construct", "Construct", "Construct a Thickness object. Thickness objects are used to define Plates and Walls with variable thickness, [t1, t2, t3] and [t1, t2] respectively.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseDefaultOBSOLETE: GH_Component
+    public class MaterialDatabaseDefaultOBSOLETE: FEM_Design_API_Component
     {
         public MaterialDatabaseDefaultOBSOLETE(): base("MaterialDatabase.Default", "Default", "Load the default MaterialDatabase for each respective country.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

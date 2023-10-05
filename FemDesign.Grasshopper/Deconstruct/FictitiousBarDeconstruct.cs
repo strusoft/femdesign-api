@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousBarDeconstruct: GH_Component
+    public class FictitiousBarDeconstruct: FEM_Design_API_Component
     {
        public FictitiousBarDeconstruct(): base("FictitiousBar.Deconstruct", "Deconstruct", "Deconstruct a fictitious bar element.", "FEM-Design", "Deconstruct")
        {

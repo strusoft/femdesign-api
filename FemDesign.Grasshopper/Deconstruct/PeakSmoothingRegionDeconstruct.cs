@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class PeakSmoothingRegionDeconstruct : GH_Component
+    public class PeakSmoothingRegionDeconstruct : FEM_Design_API_Component
     {
         public PeakSmoothingRegionDeconstruct() : base("PeakSmoothingRegion.Deconstruct", "Deconstruct", "Deconstruct PeakSmoothingRegion.", CategoryName.Name(), "Deconstruct")
         {

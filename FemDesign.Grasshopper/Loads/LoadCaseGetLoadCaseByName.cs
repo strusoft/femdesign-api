@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCaseGetLoadCaseByName: GH_Component
+    public class LoadCaseGetLoadCaseByName: FEM_Design_API_Component
     {
         public LoadCaseGetLoadCaseByName(): base("LoadCase.GetLoadCaseFromListByName", "GetLoadCaseByName", "Returns a LoadCase from a list of LoadCases by name. The first LoadCase with a matching name will be returned.", CategoryName.Name(), SubCategoryName.Cat3())
         {

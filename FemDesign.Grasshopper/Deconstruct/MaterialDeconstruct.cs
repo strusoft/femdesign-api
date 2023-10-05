@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDeconstruct: GH_Component
+    public class MaterialDeconstruct: FEM_Design_API_Component
     {
        public MaterialDeconstruct(): base("Material.Deconstruct", "Deconstruct", "Deconstruct basic Material information.", "FEM-Design", "Deconstruct")
        {

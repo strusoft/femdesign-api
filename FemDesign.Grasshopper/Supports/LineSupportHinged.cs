@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineSupportHinged: GH_Component
+    public class LineSupportHinged: FEM_Design_API_Component
     {
         public LineSupportHinged(): base("LineSupport.Hinged", "Hinged", "Create a Hinged LineSupport element.",
             CategoryName.Name(),

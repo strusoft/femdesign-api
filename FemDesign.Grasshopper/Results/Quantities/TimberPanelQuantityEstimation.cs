@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class TimberPanelQuantityEstimation : GH_Component
+    public class TimberPanelQuantityEstimation : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the TimberPanelQuantityEstimation class.

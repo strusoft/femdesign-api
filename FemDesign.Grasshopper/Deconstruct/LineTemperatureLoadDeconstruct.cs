@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineTemperatureLoadDeconstruct : GH_Component
+    public class LineTemperatureLoadDeconstruct : FEM_Design_API_Component
     {
         public LineTemperatureLoadDeconstruct() : base("LineTemperatureLoad.Deconstruct", "Deconstruct", "Deconstruct a LineTemperatureLoad.", "FEM-Design", "Deconstruct")
         {

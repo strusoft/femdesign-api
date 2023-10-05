@@ -9,7 +9,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineConnectionForce : GH_Component
+    public class LineConnectionForce : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the LineConnectionForce class.

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabAverageMeshSize: GH_Component
+    public class SlabAverageMeshSize: FEM_Design_API_Component
     {
         public SlabAverageMeshSize(): base("Slab.AverageSurfaceElementSize", "AvgSrfElemSize", "Set average surface element size to slab.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

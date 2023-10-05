@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCaseDeconstruct: GH_Component
+    public class LoadCaseDeconstruct: FEM_Design_API_Component
     {
        public LoadCaseDeconstruct(): base("LoadCase.Deconstruct", "Deconstruct", "Deconstruct a LoadCase.", "FEM-Design", "Deconstruct")
        {

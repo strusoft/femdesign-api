@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class StabilityImperfection_OBSOLETE : GH_Component
+    public class StabilityImperfection_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the StabilityImperfection class.

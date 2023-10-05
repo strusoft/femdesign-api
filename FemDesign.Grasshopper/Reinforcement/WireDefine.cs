@@ -8,7 +8,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class WireDefine: GH_Component
+    public class WireDefine: FEM_Design_API_Component
     {
         public WireDefine(): base("Wire.Define", "Define", "Define a reinforcement bar (wire) for a normal reinforcement layout.", "FEM-Design", "Reinforcement")
         {

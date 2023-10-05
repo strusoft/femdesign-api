@@ -7,12 +7,12 @@ using System.Linq;
 using FemDesign.GenericClasses;
 using FemDesign.Utils;
 
-namespace FemDesign.Loads
+namespace FemDesign.Grasshopper
 {
     /// <summary>
     /// A class for generating load combinations based on a national annex
     /// </summary>
-    public class LoadGroupCombineGeneral : GH_Component
+    public class LoadGroupCombineGeneral : FEM_Design_API_Component
     {
         public LoadGroupCombineGeneral()
           : base("LoadGroup.CombineGeneral", "CombineGeneral", "This component/method is a utility contribution from a user (@GabrielEdefors) and further developed by another user (@Boohman). This component/method is not part of FEM-Design but might still be useful when automating stuff 😉\n\nCombines the load cases in each load group into load combinations", "FEM-Design Utils", "Loads")
@@ -82,9 +82,9 @@ namespace FemDesign.Loads
             int permanentGroupsCount = 0;
             if(combTypeEnum == ELoadCombinationType.SixTenA)
             {
-                foreach (ModelGeneralLoadGroup loadGroup in loadGroups)
+                foreach (FemDesign.Loads.ModelGeneralLoadGroup loadGroup in loadGroups)
                 {
-                    if (loadGroup.GetSpecificLoadGroup() is LoadGroupPermanent)
+                    if (loadGroup.GetSpecificLoadGroup() is FemDesign.Loads.LoadGroupPermanent)
                         permanentGroupsCount += 1;
                 }
                 if(permanentGroupsCount == 0)
@@ -94,13 +94,13 @@ namespace FemDesign.Loads
 
             // Create load combinations
             List<FemDesign.Loads.LoadCombination> loadCombinations;
-            List<LoadGroupBase> specificLoadGroups = loadGroups.Select(lg => lg.GetSpecificLoadGroup()).ToList();
+            List<FemDesign.Loads.LoadGroupBase> specificLoadGroups = loadGroups.Select(lg => lg.GetSpecificLoadGroup()).ToList();
             loadCombinations = CreateCombinations(specificLoadGroups, combTypeEnum, nationalAnnexEnum);
 
             DA.SetDataList(0, loadCombinations);
         }
 
-        private List<LoadCombination> CreateCombinations(List<LoadGroupBase> loadGroups, ELoadCombinationType combinationType, ENationalAnnex nationalAnnex)
+        private List<FemDesign.Loads.LoadCombination> CreateCombinations(List<FemDesign.Loads.LoadGroupBase> loadGroups, ELoadCombinationType combinationType, ENationalAnnex nationalAnnex)
         {
             // Fix how the combination type is printed
             string loadCombinationNameTag;

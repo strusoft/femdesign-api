@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class ProfiledPlateConstruct: GH_Component
+    public class ProfiledPlateConstruct: FEM_Design_API_Component
     {
         public ProfiledPlateConstruct(): base("ProfiledPlate.Construct", "Construct", "Construct a profiled plate", CategoryName.Name(), SubCategoryName.Cat2b())
         {

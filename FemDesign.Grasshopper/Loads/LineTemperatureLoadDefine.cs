@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineTemperatureLoadDefine: GH_Component
+    public class LineTemperatureLoadDefine: FEM_Design_API_Component
     {
         public LineTemperatureLoadDefine(): base("LineTemperatureLoad.Define", "Define", "Define a surface temperature load", CategoryName.Name(), SubCategoryName.Cat3())
         {

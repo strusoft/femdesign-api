@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LongitudinalBarDeconstruct: GH_Component
+    public class LongitudinalBarDeconstruct: FEM_Design_API_Component
     {
        public LongitudinalBarDeconstruct(): base("LongitudinalBar.Deconstruct", "Deconstruct", "Deconstruct a longitudinal bar.", "FEM-Design", "Deconstruct")
        {

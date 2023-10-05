@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessMatrix4TypeDeconstruct: GH_Component
+    public class StiffnessMatrix4TypeDeconstruct: FEM_Design_API_Component
     {
        public StiffnessMatrix4TypeDeconstruct(): base("StiffnessMatrix4Type.Deconstruct", "Deconstruct", "Deconstruct a StiffnessMatrix4Type element.", "FEM-Design", "Deconstruct")
        {

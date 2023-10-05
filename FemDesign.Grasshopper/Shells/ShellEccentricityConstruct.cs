@@ -5,7 +5,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEccentricityConstruct: GH_Component
+    public class ShellEccentricityConstruct: FEM_Design_API_Component
     {
         public ShellEccentricityConstruct(): base("ShellEccentricity.Construct", "Construct", "Construct a ShellEccentricity", CategoryName.Name(), SubCategoryName.Cat2b())
         {

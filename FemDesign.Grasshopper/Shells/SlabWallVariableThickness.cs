@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabWallVariableThickness: GH_Component
+    public class SlabWallVariableThickness: FEM_Design_API_Component
     {
         public SlabWallVariableThickness(): base("Slab.WallVariableThickness", "WallVariable", "Create a wall element with variable thickness.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

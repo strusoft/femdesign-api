@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FootfallSelfExcitation : GH_Component
+    public class FootfallSelfExcitation : FEM_Design_API_Component
     {
         public FootfallSelfExcitation() : base("Footfall.SelfExcitation", "SelfExcitation", "Create a footfall self excitation region.", CategoryName.Name(), SubCategoryName.Cat3())
         {

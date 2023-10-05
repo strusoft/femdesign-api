@@ -6,7 +6,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceReinforcementLayout: GH_Component
+    public class SurfaceReinforcementLayout: FEM_Design_API_Component
     {
         public SurfaceReinforcementLayout(): base("SurfaceReinforcement.Layout", "ReinforcementLayout", "Define straight reinforcement layout for surface reinforcement", "FEM-Design", "Reinforcement")
         {

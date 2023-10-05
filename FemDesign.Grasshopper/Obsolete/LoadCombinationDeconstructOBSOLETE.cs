@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationDeconstructOBSOLETE : GH_Component
+    public class LoadCombinationDeconstructOBSOLETE : FEM_Design_API_Component
     {
         public LoadCombinationDeconstructOBSOLETE() : base("LoadCombination.Deconstruct", "Deconstruct", "Deconstruct a LoadCombination.", "FEM-Design", "Deconstruct")
         {

@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class TopBotLocationValueConstructOBSOLETE: GH_Component
+    public class TopBotLocationValueConstructOBSOLETE: FEM_Design_API_Component
     {
         public TopBotLocationValueConstructOBSOLETE(): base("TopBotLocationValue.Construct", "Construct", "Define a top bottom location value", CategoryName.Name(), SubCategoryName.Cat3())
         {

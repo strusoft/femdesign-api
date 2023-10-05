@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCategoryDefault: GH_Component
+    public class LoadCategoryDefault: FEM_Design_API_Component
     {
         public LoadCategoryDefault(): base("LoadCategoryDatabase.Default", "Default", "Load the default LoadCategoryDatabase for each respective country.", CategoryName.Name(), SubCategoryName.Cat3())
         {

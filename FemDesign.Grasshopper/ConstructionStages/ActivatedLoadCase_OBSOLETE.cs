@@ -11,7 +11,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ActivatedLoadCase_OBSOLETE : GH_Component
+    public class ActivatedLoadCase_OBSOLETE : FEM_Design_API_Component
     {
         public ActivatedLoadCase_OBSOLETE() : base("ActivatedLoadCase", "ActivatedLoadCase", "Creates an (construction stage) activated load case.", CategoryName.Name(),
             SubCategoryName.Cat7a())

@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class MassConversionTableConstruct : GH_Component
+    public class MassConversionTableConstruct : FEM_Design_API_Component
     {
         public MassConversionTableConstruct(): base("MassConversionTable.Construct", "Construct", "Define a MassConversionTable from a LoadCase or a list of LoadCases. The MassConversionTable is considered as a load type and should be added to the model as a load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

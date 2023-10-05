@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SoilMaterialFromStruxml : GH_Component
+    public class SoilMaterialFromStruxml : FEM_Design_API_Component
     {
         public SoilMaterialFromStruxml() : base("SoilMaterial.FromStruxml", "SoilMaterial", "Load a custom MaterialDatabase which contains the Soil Material type from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

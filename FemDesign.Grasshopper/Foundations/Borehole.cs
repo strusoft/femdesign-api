@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Borehole : GH_Component
+    public class Borehole : FEM_Design_API_Component
     {
         public Borehole()
           : base("Borehole", "Borehole", "Create a Borehole element.",

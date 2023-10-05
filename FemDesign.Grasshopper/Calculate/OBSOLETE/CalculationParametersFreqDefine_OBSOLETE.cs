@@ -6,7 +6,7 @@ using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersFreqDefine_OBSOLETE: GH_Component
+    public class CalculationParametersFreqDefine_OBSOLETE: FEM_Design_API_Component
     {
         public CalculationParametersFreqDefine_OBSOLETE(): base("Freq.Define", "Freq", "Define calculation parameters for an eigenfrequency calculation.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

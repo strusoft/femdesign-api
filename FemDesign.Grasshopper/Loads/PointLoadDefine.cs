@@ -9,7 +9,7 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointLoadDefine : GH_Component
+    public class PointLoadDefine : FEM_Design_API_Component
     {
         public PointLoadDefine() : base("PointLoad.Define", "PointLoad.Define", "Create point load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

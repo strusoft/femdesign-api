@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class FeaNode : GH_Component
+    public class FeaNode : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the FeaNode class.

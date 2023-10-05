@@ -10,7 +10,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class TextAnnotation : GH_Component
+    public class TextAnnotation : FEM_Design_API_Component
     {
         public static readonly List<string> HorAlignValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Hor_align)).ToList();
         public static string HorAlignValueListDescription
@@ -146,7 +146,7 @@ namespace FemDesign.Grasshopper
 
         public override GH_Exposure Exposure => GH_Exposure.septenary;
     }
-    public class TextAnnotationDeconstruct : GH_Component
+    public class TextAnnotationDeconstruct : FEM_Design_API_Component
     {
         public TextAnnotationDeconstruct() : base("TextAnnotationDeconstruct", "TxtAnnotDecon", "Deconstruct or modify a text annotation.", CategoryName.Name(), "Deconstruct")
         {

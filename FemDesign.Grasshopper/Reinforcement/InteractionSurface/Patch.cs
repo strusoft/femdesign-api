@@ -8,7 +8,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public partial class PatchComp : GH_Component
+    public partial class PatchComp : FEM_Design_API_Component
     {
         public PatchComp() : base("Patch", "Patch", "Define the boundary of the structural section", "FEM-Design", "Reinforcement")
         {

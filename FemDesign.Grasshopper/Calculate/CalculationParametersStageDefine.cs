@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersStageDefine: GH_Component
+    public class CalculationParametersStageDefine: FEM_Design_API_Component
     {
         public CalculationParametersStageDefine(): base("StageSetting.Define", "StageSetting", "Define construction stage method", CategoryName.Name(), SubCategoryName.Cat7a())
         {

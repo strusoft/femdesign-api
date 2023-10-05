@@ -8,7 +8,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessModifierSlab : GH_Component
+    public class StiffnessModifierSlab : FEM_Design_API_Component
     {
         public StiffnessModifierSlab() : base("StiffnessModifierSlab", "StiffnessModifierSlab", "StiffnessModifier factor on Slab.", CategoryName.Name(),
              SubCategoryName.Cat2b())

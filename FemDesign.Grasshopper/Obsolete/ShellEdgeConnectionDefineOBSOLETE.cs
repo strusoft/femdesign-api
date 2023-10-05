@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellEdgeConnectionDefineOBSOLETE : GH_Component
+    public class ShellEdgeConnectionDefineOBSOLETE : FEM_Design_API_Component
     {
         public ShellEdgeConnectionDefineOBSOLETE() : base("ShellEdgeConnection.Define", "Define", "Define a new ShellEdgeConnection", CategoryName.Name(), SubCategoryName.Cat2b())
         {

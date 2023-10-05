@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsModifyOBSOLETE: GH_Component
+    public class BarsModifyOBSOLETE: FEM_Design_API_Component
     {
        public BarsModifyOBSOLETE(): base("Bars.Modify", "Modify", "Modify properties of an exiting bar element of any type.", CategoryName.Name(),
             SubCategoryName.Cat2a())

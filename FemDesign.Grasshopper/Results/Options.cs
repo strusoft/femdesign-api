@@ -13,7 +13,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ResultOption : GH_Component
+    public class ResultOption : FEM_Design_API_Component
     {
         public ResultOption() : base("ResultOption", "Option", "Specify the output result locations. 'ResultPoints' options requires some prefedined result points to be present in your FEM-Design Model.", CategoryName.Name(), SubCategoryName.Cat7b())
         {

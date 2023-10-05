@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersDesignDefine : GH_Component
+    public class CalculationParametersDesignDefine : FEM_Design_API_Component
     {
         public CalculationParametersDesignDefine() : base("Design.Define", "Design", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

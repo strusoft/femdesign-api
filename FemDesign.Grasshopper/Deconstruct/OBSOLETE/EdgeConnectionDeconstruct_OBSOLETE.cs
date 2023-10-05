@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class EdgeConnectionDeconstruct_OBSOLETE: GH_Component
+    public class EdgeConnectionDeconstruct_OBSOLETE: FEM_Design_API_Component
     {
        public EdgeConnectionDeconstruct_OBSOLETE(): base("EdgeConnection.Deconstruct", "Deconstruct", "Deconstruct a EdgeConnection element.", "FEM-Design", "Deconstruct")
        {

@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForce_OBSOLETE: GH_Component
+    public class LineLoadForce_OBSOLETE: FEM_Design_API_Component
     {
         public LineLoadForce_OBSOLETE(): base("LineLoad.Force", "Force", "Creates a force line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsConnectivityConstructOBSOLETE: GH_Component
+    public class BarsConnectivityConstructOBSOLETE: FEM_Design_API_Component
     {
         public BarsConnectivityConstructOBSOLETE(): base("Connectivity.Construct", "Construct", "Construct end releases for a bar element.", CategoryName.Name(),
             SubCategoryName.Cat2a())

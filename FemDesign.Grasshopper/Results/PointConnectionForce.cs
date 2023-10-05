@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointConnectionForce : GH_Component
+    public class PointConnectionForce : FEM_Design_API_Component
     {
         public PointConnectionForce()
           : base("PointConnectionForce",

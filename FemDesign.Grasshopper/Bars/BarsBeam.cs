@@ -2,18 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using FemDesign.Utils;
+using Grasshopper.GUI.HTML;
 using Grasshopper.Kernel;
+
 using Rhino.Geometry;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsBeam : GH_Component
+    public class BarsBeam : FEM_Design_API_Component
     {
         public BarsBeam() : base("Bars.Beam", "Beam", "Create a bar element of type beam with same start/end properties.", CategoryName.Name(),
              SubCategoryName.Cat2a())
         {
-
         }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);

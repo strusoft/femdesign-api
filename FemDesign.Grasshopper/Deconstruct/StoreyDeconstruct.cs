@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StoreyDeconstruct: GH_Component
+    public class StoreyDeconstruct: FEM_Design_API_Component
     {
        public StoreyDeconstruct(): base("Storey.Deconstruct", "Deconstruct", "Deconstruct a storey element.", "FEM-Design", "Deconstruct")
        {

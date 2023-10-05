@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabase : GH_Component
+    public class SectionDatabase : FEM_Design_API_Component
     {
         public SectionDatabase() : base(" SectionDatabase", "SectionDatabase", "SectionDatabase Default or FromStruxml", CategoryName.Name(), SubCategoryName.Cat4b())
         {

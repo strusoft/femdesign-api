@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialSetConcreteMaterialProperties: GH_Component
+    public class MaterialSetConcreteMaterialProperties: FEM_Design_API_Component
     {
         public MaterialSetConcreteMaterialProperties(): base("SetConcreteMaterialProperties", "SetConcreteMaterialProperties", "Set creep and shrinkage parameters to a concrete Material.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

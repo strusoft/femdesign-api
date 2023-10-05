@@ -1,12 +1,11 @@
 ﻿using Grasshopper.Kernel;
-using Rhino.Geometry;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 
-namespace FemDesign.Reinforcement
+using System;
+using FemDesign.Reinforcement;
+
+namespace FemDesign.Grasshopper
 {
-    public class ReinforcementPtcLosses : GH_Component
+    public class ReinforcementPtcLosses : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.

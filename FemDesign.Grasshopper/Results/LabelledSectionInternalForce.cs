@@ -9,7 +9,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class LabelledSectionInternalForce : GH_Component
+    public class LabelledSectionInternalForce : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the LabelledSectionInternalForce class.

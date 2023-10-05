@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousShellDeconstruct: GH_Component
+    public class FictitiousShellDeconstruct: FEM_Design_API_Component
     {
        public FictitiousShellDeconstruct(): base("FictitiousShell.Deconstruct", "Deconstruct", "Deconstruct a fictitious Shell element.", "FEM-Design", "Deconstruct")
        {

@@ -5,7 +5,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class Bars_LateralTorsionalDefine: GH_Component
+    public class Bars_LateralTorsionalDefine: FEM_Design_API_Component
     {
         public Bars_LateralTorsionalDefine(): base("BucklingLength.LateralTorsionalDefine", "LateralTorsionalDefine", "Define BucklingLength for Lateral Torsional buckling.", CategoryName.Name(), SubCategoryName.Cat2a())
         {

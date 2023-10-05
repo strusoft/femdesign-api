@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCategoryDatabaseListLoadCategoryNames : GH_Component
+    public class LoadCategoryDatabaseListLoadCategoryNames : FEM_Design_API_Component
     {
         public LoadCategoryDatabaseListLoadCategoryNames()
           : base("LoadCategoryDatabase.ListLoadCategoryNames", "ListLoadCategoryNames",

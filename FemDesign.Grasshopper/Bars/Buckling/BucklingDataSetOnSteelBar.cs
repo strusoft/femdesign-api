@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class Bars_BucklingDataSetOnSteelBar: GH_Component
+    public class Bars_BucklingDataSetOnSteelBar: FEM_Design_API_Component
     {
         public Bars_BucklingDataSetOnSteelBar(): base("BucklingData.SetOnSteelBar", "SetOnSteelBar", "Set BucklingData on a Steel bar-element.", CategoryName.Name(), SubCategoryName.Cat2a())
         {

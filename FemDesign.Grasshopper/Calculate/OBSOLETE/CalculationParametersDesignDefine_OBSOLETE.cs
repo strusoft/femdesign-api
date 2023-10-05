@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersDesignDefine_OBSOLETE : GH_Component
+    public class CalculationParametersDesignDefine_OBSOLETE : FEM_Design_API_Component
     {
         public CalculationParametersDesignDefine_OBSOLETE() : base("Design.Define", "Define", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

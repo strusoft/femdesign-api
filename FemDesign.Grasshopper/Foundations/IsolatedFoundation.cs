@@ -10,7 +10,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class IsolatedFoundation : GH_Component
+    public class IsolatedFoundation : FEM_Design_API_Component
     {
         public IsolatedFoundation() : base("IsolatedFoundation", "IsolatedFoundation", "Create an IsolatedFoundation element.",
             CategoryName.Name(),

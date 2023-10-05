@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadFromFile : GH_Component
+    public class ModelReadFromFile : FEM_Design_API_Component
     {
         public ModelReadFromFile() : base("Model.ReadFromFile", "ReadFromFile", "Read model from .struxml or .str. Note: Only supported elements will loaded from the .struxml model.", CategoryName.Name(), SubCategoryName.Cat6())
         {

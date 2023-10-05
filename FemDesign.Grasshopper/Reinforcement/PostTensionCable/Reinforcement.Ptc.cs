@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
-using FemDesign.Grasshopper;
+using FemDesign.Reinforcement;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 
-namespace FemDesign.Reinforcement
+namespace FemDesign.Grasshopper
 {
-    public class ReinforcementPtc : GH_Component
+    public class ReinforcementPtc : FEM_Design_API_Component
     {
         public static readonly List<string> JackingSideValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Ptc_jacking_side)).ToList();
         public static string JackingSideValueListDescription

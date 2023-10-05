@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class NodalBucklingShape : GH_Component
+    public class NodalBucklingShape : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the NodalBucklingShape class.

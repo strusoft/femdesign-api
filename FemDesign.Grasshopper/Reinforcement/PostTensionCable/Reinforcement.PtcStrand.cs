@@ -3,10 +3,11 @@ using Rhino.Geometry;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using FemDesign.Reinforcement;
 
-namespace FemDesign.Reinforcement
+namespace FemDesign.Grasshopper
 {
-    public class PtcStrand : GH_Component
+    public class PtcStrand : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the PtcStrand class.

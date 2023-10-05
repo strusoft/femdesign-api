@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialTimberFactorsConstruct : GH_Component
+    public class MaterialTimberFactorsConstruct : FEM_Design_API_Component
     {
         public MaterialTimberFactorsConstruct() : base("TimberFactors.Construct", "Construct", "Define timber factor parameters for a timber panel type.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

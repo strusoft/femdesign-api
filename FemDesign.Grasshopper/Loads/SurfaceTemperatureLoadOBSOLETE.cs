@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceTemperatureLoadOBSOLETE: GH_Component
+    public class SurfaceTemperatureLoadOBSOLETE: FEM_Design_API_Component
     {
         public SurfaceTemperatureLoadOBSOLETE(): base("SurfaceTemperatureLoad.Construct", "Construct", "Construct a surface temperature load. Direction of surface load will be defined by surface normal.", CategoryName.Name(), SubCategoryName.Cat3())
         {

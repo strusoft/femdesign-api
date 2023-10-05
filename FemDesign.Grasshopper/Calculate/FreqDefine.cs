@@ -12,7 +12,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersFreqDefine : GH_Component
+    public class CalculationParametersFreqDefine : FEM_Design_API_Component
     {
         public CalculationParametersFreqDefine() : base("Freq.Define", "Freq", "Define calculation parameters for an eigenfrequency calculation.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

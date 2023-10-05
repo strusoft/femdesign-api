@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class TopBotLocValDeconstruct: GH_Component
+    public class TopBotLocValDeconstruct: FEM_Design_API_Component
     {
        public TopBotLocValDeconstruct(): base("TopBotLocVal.Deconstruct", "Deconstruct", "Deconstruct a TopBottomLocationValue.", "FEM-Design", "Deconstruct")
        {

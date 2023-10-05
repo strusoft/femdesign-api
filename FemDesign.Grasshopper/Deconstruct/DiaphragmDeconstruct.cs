@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class DiaphragmDeconstruct : GH_Component
+    public class DiaphragmDeconstruct : FEM_Design_API_Component
     {
        public DiaphragmDeconstruct(): base("Diaphragm.Deconstruct", "Deconstruct", "Deconstruct a slab element.", "FEM-Design", "Deconstruct")
        {

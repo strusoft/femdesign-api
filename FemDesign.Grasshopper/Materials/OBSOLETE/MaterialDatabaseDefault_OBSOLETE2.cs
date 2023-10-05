@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabaseDefault_OBSOLETE2: GH_Component
+    public class MaterialDatabaseDefault_OBSOLETE2: FEM_Design_API_Component
     {
         public MaterialDatabaseDefault_OBSOLETE2(): base("MaterialDatabase.Default", "Default", "Load the default MaterialDatabase for each respective country.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

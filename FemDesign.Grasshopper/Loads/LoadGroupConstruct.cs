@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadGroupConstruct : GH_Component
+    public class LoadGroupConstruct : FEM_Design_API_Component
     {
         public LoadGroupConstruct() : base("LoadGroup.Construct", "Construct", "Construct a load group.", CategoryName.Name(), SubCategoryName.Cat3())
         {

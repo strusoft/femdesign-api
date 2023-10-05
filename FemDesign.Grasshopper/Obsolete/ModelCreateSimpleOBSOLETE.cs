@@ -7,7 +7,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreateSimpleOBSOLETE : GH_Component
+    public class ModelCreateSimpleOBSOLETE : FEM_Design_API_Component
     {
         public ModelCreateSimpleOBSOLETE() : base("Model.CreateSimple", "Create", "Create new model. Add entities to model. Nested lists are not supported.", "FemDesign", "Model")
         {

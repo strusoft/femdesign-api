@@ -9,7 +9,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class StageComponent : GH_Component
+    public class StageComponent : FEM_Design_API_Component
     {
         public StageComponent() : base("Stage", "Stage", "Creates a construction stage.", CategoryName.Name(),
             SubCategoryName.Cat7a())

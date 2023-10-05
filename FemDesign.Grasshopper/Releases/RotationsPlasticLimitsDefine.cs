@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsPlasticLimitsDefine: GH_Component
+    public class RotationsPlasticLimitsDefine: FEM_Design_API_Component
     {
         public RotationsPlasticLimitsDefine(): base("RotationsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat5())
         {

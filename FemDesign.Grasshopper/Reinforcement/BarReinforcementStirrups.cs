@@ -6,7 +6,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarReinforcementStirrups: GH_Component
+    public class BarReinforcementStirrups: FEM_Design_API_Component
     {
         public BarReinforcementStirrups(): base("BarReinforcement.Stirrups", "Stirrups", "Add stirrup reinforcement to a bar.", "FEM-Design", "Reinforcement")
         {
