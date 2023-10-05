@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class PressureLoadDeconstruct : GH_Component
+    public class PressureLoadDeconstruct : FEM_Design_API_Component
     {
         public PressureLoadDeconstruct() : base("PressureLoad.Deconstruct", "Deconstruct", "Deconstruct a PressureLoad.", "FEM-Design", "Deconstruct")
         {

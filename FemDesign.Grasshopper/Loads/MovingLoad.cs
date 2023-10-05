@@ -14,7 +14,7 @@ using System.Xml;
 
 namespace FemDesign.Grasshopper
 {
-    public class MovingLoad : GH_Component
+    public class MovingLoad : FEM_Design_API_Component
     {
         public MovingLoad() : base("MovingLoad.Construct", "MovingLoad.Construct", "Creates a moving load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

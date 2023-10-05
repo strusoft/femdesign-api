@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseFromStruxml_OBSOLETE2 : GH_Component
+    public class SectionDatabaseFromStruxml_OBSOLETE2 : FEM_Design_API_Component
     {
         public SectionDatabaseFromStruxml_OBSOLETE2() : base("SectionDatabase.FromStruxml", "FromStruxml", "Load a custom SectionDatabase from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

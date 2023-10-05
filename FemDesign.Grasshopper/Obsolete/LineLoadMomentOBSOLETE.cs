@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadMomentOBSOLETE: GH_Component
+    public class LineLoadMomentOBSOLETE: FEM_Design_API_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.hidden;
         public LineLoadMomentOBSOLETE(): base("LineLoad.Moment", "Moment", "Creates a moment line load.", "FemDesign", "Loads")

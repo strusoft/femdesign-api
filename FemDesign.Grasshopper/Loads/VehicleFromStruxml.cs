@@ -9,7 +9,7 @@ using FemDesign.LibraryItems;
 
 namespace FemDesign.Grasshopper
 {
-    public class VehicleDatabaseFromStruxml : GH_Component
+    public class VehicleDatabaseFromStruxml : FEM_Design_API_Component
     {
         public VehicleDatabaseFromStruxml() : base("VehicleDatabase", "VehicleDatabase Default or FromStruxml", "Load VehicleDatabase from a .struxml file or default.", CategoryName.Name(), SubCategoryName.Cat3())
         {

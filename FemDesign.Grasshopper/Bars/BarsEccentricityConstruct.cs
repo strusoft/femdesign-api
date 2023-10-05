@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsEccentricityConstruct: GH_Component
+    public class BarsEccentricityConstruct: FEM_Design_API_Component
     {
         public BarsEccentricityConstruct(): base("Eccentricity.Construct", "Construct", "Construct the eccentricity of bar element along its local axes. Sign convention of values as defined in FEM-Design GUI. Note that the value defined here will be negated in the generated .struxml file based on the data-protocol.", CategoryName.Name(),
             SubCategoryName.Cat2a())

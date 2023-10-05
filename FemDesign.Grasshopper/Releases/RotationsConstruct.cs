@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsConstruct: GH_Component
+    public class RotationsConstruct: FEM_Design_API_Component
     {
         public RotationsConstruct(): base("Rotations.Construct", "Construct", "Construct a new rotations release [kNm/rad or kNm/m/rad].", CategoryName.Name(), SubCategoryName.Cat5())
         {

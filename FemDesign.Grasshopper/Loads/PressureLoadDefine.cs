@@ -7,7 +7,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class PressureLoadConstruct : GH_Component
+    public class PressureLoadConstruct : FEM_Design_API_Component
     {
         public PressureLoadConstruct(): base("PressureLoad.Construct", "Construct", "Construct a pressure load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class IsolatedFoundationDeconstruct : GH_Component
+    public class IsolatedFoundationDeconstruct : FEM_Design_API_Component
     {
         public IsolatedFoundationDeconstruct() : base("IsolatedFoundation.Deconstruct", "Deconstruct", "Deconstruct an Isolated Foundation element.", "FEM-Design", "Deconstruct")
         {

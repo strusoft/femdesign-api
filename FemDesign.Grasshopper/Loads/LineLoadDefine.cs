@@ -10,7 +10,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForceDefine : GH_Component
+    public class LineLoadForceDefine : FEM_Design_API_Component
     {
         public LineLoadForceDefine() : base("LineLoad.Define", "LineLoad.Define", "Creates a line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

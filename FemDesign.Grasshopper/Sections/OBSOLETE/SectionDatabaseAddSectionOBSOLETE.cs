@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseAddSectionOBSOLETE: GH_Component
+    public class SectionDatabaseAddSectionOBSOLETE: FEM_Design_API_Component
     {
        public SectionDatabaseAddSectionOBSOLETE(): base("SectionDatabase.AddSection", "AddSection", "Add a section to the SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4b())
        {

@@ -6,7 +6,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsPressuredBottomFlangeDefine: GH_Component
+    public class BarsPressuredBottomFlangeDefine: FEM_Design_API_Component
     {
         public BarsPressuredBottomFlangeDefine(): base("BucklingLength.PressuredBottomFlangeDefine", "PressuredBottomFlangeDefine", "Define BucklingLength for Pressured Bottom Flange.", CategoryName.Name(), SubCategoryName.Cat2a())
         {

@@ -10,7 +10,7 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadGroupToLoadComb : GH_Component
+    public class LoadGroupToLoadComb : FEM_Design_API_Component
     {
         public LoadGroupToLoadComb() : base("LoadGroupToLoadComb", "LoadGroupToLoadComb", "", CategoryName.Name(), SubCategoryName.Cat3())
         {

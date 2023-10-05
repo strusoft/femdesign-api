@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointSupportReaction : GH_Component
+    public class PointSupportReaction : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the PointSupportReaction class.

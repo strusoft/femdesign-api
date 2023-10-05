@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class LabelledSectionDeconstruct : GH_Component
+    public class LabelledSectionDeconstruct : FEM_Design_API_Component
     {
         public LabelledSectionDeconstruct() : base("LabelledSection.Deconstruct", "Deconstruct", "Deconstruct a LabelledSection element.", "FEM-Design", "Deconstruct")
         {

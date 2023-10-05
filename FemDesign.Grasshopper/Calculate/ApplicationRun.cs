@@ -19,7 +19,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : GH_Component
+    public class ApplicationRun : FEM_Design_API_Component
     {
         public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

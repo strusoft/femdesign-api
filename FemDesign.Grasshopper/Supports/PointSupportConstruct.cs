@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointSupportConstruct : GH_Component
+    public class PointSupportConstruct : FEM_Design_API_Component
     {
         public PointSupportConstruct() : base("PointSupport.Construct", "Construct", "Construct a PointSupport element.",
             CategoryName.Name(),

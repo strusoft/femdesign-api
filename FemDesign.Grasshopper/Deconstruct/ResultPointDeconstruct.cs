@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ResultPointDeconstruct : GH_Component
+    public class ResultPointDeconstruct : FEM_Design_API_Component
     {
         public ResultPointDeconstruct() : base("ResultPoint.Deconstruct", "Deconstruct", "Deconstruct a ResultPoint.", "FEM-Design", "Deconstruct")
         {

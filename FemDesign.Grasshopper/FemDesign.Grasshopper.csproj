@@ -117,6 +117,7 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersCombDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
+    <Compile Include="Components\FEM_Design_API_Component.cs" />
     <Compile Include="ConstructionStages\ActivatedLoadCase.cs" />
     <Compile Include="Deconstruct\ModelDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2250.cs" />
@@ -282,6 +283,7 @@
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
+    <Compile Include="Extension\HtmlWriter.cs" />
     <Compile Include="Utils\LoadGroupCombineGeneral.cs" />
     <Compile Include="Loads\LoadGroupConstruct.cs" />
     <Compile Include="Loads\LoadCategoryDatabaseDefault.cs" />

@@ -6,7 +6,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarReinforcementLongitudinal_OBSOLETE: GH_Component
+    public class BarReinforcementLongitudinal_OBSOLETE: FEM_Design_API_Component
     {
         public BarReinforcementLongitudinal_OBSOLETE(): base("BarReinforcement.LongitudinalBar", "LongitudinalBar", "Create a longitudinal reinforcement bar.", "FEM-Design", "Reinforcement")
         {

@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FemDesignConnectionComponent_OBSOLETE : GH_Component
+    public class FemDesignConnectionComponent_OBSOLETE : FEM_Design_API_Component
     {
         private FemDesignConnection _connection;
 

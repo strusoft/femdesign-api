@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabWall_OBSOLETE: GH_Component
+    public class SlabWall_OBSOLETE: FEM_Design_API_Component
     {
         public SlabWall_OBSOLETE(): base("Wall", "Construct", "Construct a wall element.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

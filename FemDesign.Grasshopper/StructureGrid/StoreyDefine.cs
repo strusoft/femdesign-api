@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StoreyDefine: GH_Component
+    public class StoreyDefine: FEM_Design_API_Component
     {
         public StoreyDefine(): base("Storey.Define", "Define", "Define a storey.", "FEM-Design", "ModellingTools")
         {

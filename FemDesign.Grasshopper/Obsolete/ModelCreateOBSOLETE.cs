@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelCreateOBSOLETE : GH_Component
+    public class ModelCreateOBSOLETE : FEM_Design_API_Component
     {
         public ModelCreateOBSOLETE() : base("Model.Create", "Create", "Create new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {

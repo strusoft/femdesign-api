@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Slab_SetStiffnessModifier : GH_Component
+    public class Slab_SetStiffnessModifier : FEM_Design_API_Component
     {
         public Slab_SetStiffnessModifier() : base("Slab.SetStiffnessModifier", "StiffnessModifier", "Set StiffnessModifier factor on Slab.", CategoryName.Name(),
              SubCategoryName.Cat2b())

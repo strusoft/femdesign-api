@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsTrussLimitedCapacityOBSOLETE: GH_Component
+    public class BarsTrussLimitedCapacityOBSOLETE: FEM_Design_API_Component
     {
         public BarsTrussLimitedCapacityOBSOLETE(): base("Bars.TrussLimitedCapacity", "TrussLimitedCapacity", "Create a bar element of type truss with limited capacity in compression and tension.", CategoryName.Name(),
             SubCategoryName.Cat2a())

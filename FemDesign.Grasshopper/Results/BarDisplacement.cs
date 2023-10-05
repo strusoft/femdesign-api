@@ -9,7 +9,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarDisplacement : GH_Component
+    public class BarDisplacement : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the BarDisplacement class.

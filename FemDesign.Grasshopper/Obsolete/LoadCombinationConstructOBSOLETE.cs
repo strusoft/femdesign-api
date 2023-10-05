@@ -9,7 +9,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationConstructOBSOLETE : GH_Component
+    public class LoadCombinationConstructOBSOLETE : FEM_Design_API_Component
     {
         public LoadCombinationConstructOBSOLETE() : base("LoadCombination.Construct", "Construct", "Construct a LoadCombination from a LoadCase or a list of LoadCases.", CategoryName.Name(), SubCategoryName.Cat3())
         {

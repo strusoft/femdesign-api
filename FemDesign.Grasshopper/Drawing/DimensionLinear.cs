@@ -11,7 +11,7 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class DimensionLinear : GH_Component
+    public class DimensionLinear : FEM_Design_API_Component
     {
         public static readonly List<string> ArrowTypeValueList = Enum.GetNames(typeof(Struxml.Arrowtype_type)).ToList();
         public static string ArrowTypeValueListDescription
@@ -145,7 +145,7 @@ namespace FemDesign.Grasshopper
 
         public override GH_Exposure Exposure => GH_Exposure.septenary;
     }
-    public class DimensionLinearDeconstruct : GH_Component
+    public class DimensionLinearDeconstruct : FEM_Design_API_Component
     {
         public DimensionLinearDeconstruct() : base("LinearDimensionDeconstruct", "LnDimDecon", "Deconstruct or modify a linear dimension.", CategoryName.Name(), "Deconstruct")
         {

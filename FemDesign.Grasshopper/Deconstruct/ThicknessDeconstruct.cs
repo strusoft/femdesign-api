@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ThicknessValDeconstruct: GH_Component
+    public class ThicknessValDeconstruct: FEM_Design_API_Component
     {
        public ThicknessValDeconstruct(): base("Thickness.Deconstruct", "Deconstruct", "Deconstruct a ThicknessLocationValue.", "FEM-Design", "Deconstruct")
        {

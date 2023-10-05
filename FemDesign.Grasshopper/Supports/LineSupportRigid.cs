@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineSupportRigid: GH_Component
+    public class LineSupportRigid: FEM_Design_API_Component
     {
         public LineSupportRigid(): base("LineSupport.Rigid", "Rigid", "Create a Rigid LineSupport element.",
             CategoryName.Name(),

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsFree: GH_Component
+    public class RotationsFree: FEM_Design_API_Component
     {
         public RotationsFree(): base("Rotations.Free", "Free", "Define a Free rotations release.", CategoryName.Name(), SubCategoryName.Cat5())
         {

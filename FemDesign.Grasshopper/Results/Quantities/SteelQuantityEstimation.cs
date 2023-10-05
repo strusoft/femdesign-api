@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SteelQuantityEstimation : GH_Component
+    public class SteelQuantityEstimation : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the SteelQuantityEstimation class.

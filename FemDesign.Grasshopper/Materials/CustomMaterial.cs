@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CustomMaterial : GH_Component
+    public class CustomMaterial : FEM_Design_API_Component
     {
         public CustomMaterial() : base("CustomMaterial", "CustomMaterial", ".", CategoryName.Name(), SubCategoryName.Cat4a())
         {

@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsConnectivityDefineSemiRigidOBSOLETE: GH_Component
+    public class BarsConnectivityDefineSemiRigidOBSOLETE: FEM_Design_API_Component
     {
         public BarsConnectivityDefineSemiRigidOBSOLETE(): base("Connectivity.SemiRigid", "SemiRigid", "Define semi-rigid end releases for a bar element.", CategoryName.Name(),
             SubCategoryName.Cat2a())

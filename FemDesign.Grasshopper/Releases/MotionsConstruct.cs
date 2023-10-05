@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MotionsConstruct: GH_Component
+    public class MotionsConstruct: FEM_Design_API_Component
     {
         public MotionsConstruct(): base("Motions.Construct", "Construct", "Construct a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat5())
         {

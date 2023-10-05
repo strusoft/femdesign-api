@@ -7,7 +7,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCategoryConstruct : GH_Component
+    public class LoadCategoryConstruct : FEM_Design_API_Component
     {
         public LoadCategoryConstruct() : base("LoadCategory.Construct", "Construct", "Construct a load category.", CategoryName.Name(), SubCategoryName.Cat3())
         {

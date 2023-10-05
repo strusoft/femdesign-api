@@ -10,7 +10,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCaseConstruct: GH_Component
+    public class LoadCaseConstruct: FEM_Design_API_Component
     {
         public LoadCaseConstruct(): base("LoadCase.Construct", "Construct", "Construct a load case.", CategoryName.Name(), SubCategoryName.Cat3())
         {

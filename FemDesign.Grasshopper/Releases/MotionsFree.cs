@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MotionsFree: GH_Component
+    public class MotionsFree: FEM_Design_API_Component
     {
         public MotionsFree(): base("Motions.Free", "Free", "Define a free motions release.", CategoryName.Name(), SubCategoryName.Cat5())
         {

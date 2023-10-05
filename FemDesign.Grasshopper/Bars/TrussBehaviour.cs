@@ -10,7 +10,7 @@ using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Grasshopper
 {
-    public class TrussBehaviour : GH_Component
+    public class TrussBehaviour : FEM_Design_API_Component
     {
         public TrussBehaviour() : base("TrussBehaviour", "TrussBehaviour", "Define a truss behaviour object.", CategoryName.Name(),
             SubCategoryName.Cat2a())

@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsBeam_OBSOLETE : GH_Component
+    public class BarsBeam_OBSOLETE : FEM_Design_API_Component
     {
         public BarsBeam_OBSOLETE() : base("Bars.Beam", "Beam", "Create a bar element of type beam.",
             CategoryName.Name(),

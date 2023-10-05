@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceLoadVariableOBSOLETE: GH_Component
+    public class SurfaceLoadVariableOBSOLETE: FEM_Design_API_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.hidden;
         public SurfaceLoadVariableOBSOLETE(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", "FemDesign", "Loads")

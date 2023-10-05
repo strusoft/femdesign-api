@@ -7,7 +7,7 @@ using FemDesign.Releases;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceSupportConstruct : GH_Component
+    public class SurfaceSupportConstruct : FEM_Design_API_Component
     {
         public SurfaceSupportConstruct() : base("SurfaceSupport.Construct", "Construct", "Construct a SurfaceSupport element.", CategoryName.Name(),
             SubCategoryName.Cat1())

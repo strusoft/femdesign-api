@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class GroundWater : GH_Component
+    public class GroundWater : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.

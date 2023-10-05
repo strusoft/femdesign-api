@@ -8,7 +8,7 @@ using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
-    public partial class RebarComp : GH_Component
+    public partial class RebarComp : FEM_Design_API_Component
     {
         public RebarComp() : base("Rebar", "Rebar", "Define a single rebar.", "FEM-Design", "Reinforcement")
         {

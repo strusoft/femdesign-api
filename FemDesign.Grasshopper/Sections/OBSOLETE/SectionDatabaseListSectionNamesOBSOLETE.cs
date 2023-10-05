@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionDatabaseListSectionNamesOBSOLETE: GH_Component
+    public class SectionDatabaseListSectionNamesOBSOLETE: FEM_Design_API_Component
     {
        public SectionDatabaseListSectionNamesOBSOLETE(): base("SectionDatabase.ListSectionNames", "ListSectionNames", "List the names of all Sections in SectionDatabase.", CategoryName.Name(), SubCategoryName.Cat4b())
        {

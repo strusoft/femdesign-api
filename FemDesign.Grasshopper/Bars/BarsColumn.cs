@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsColumn : GH_Component
+    public class BarsColumn : FEM_Design_API_Component
     {
         public BarsColumn() : base("Bars.Column", "Column", "Create a bar element of type column with same start/end properties.", CategoryName.Name(),
              SubCategoryName.Cat2a())

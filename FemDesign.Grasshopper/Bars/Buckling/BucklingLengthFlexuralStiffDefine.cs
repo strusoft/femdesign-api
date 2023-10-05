@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsBucklingLengthFlexuralStiffDefine: GH_Component
+    public class BarsBucklingLengthFlexuralStiffDefine: FEM_Design_API_Component
     {
         public BarsBucklingLengthFlexuralStiffDefine(): base("BucklingLength.FlexuralStiffDefine", "FlexuralStiffDefine", "Define BucklingLength in Flexural Stiff direction.", CategoryName.Name(), SubCategoryName.Cat2a())
         {

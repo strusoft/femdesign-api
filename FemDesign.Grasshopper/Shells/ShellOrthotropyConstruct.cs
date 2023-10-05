@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ShellOrthotropyConstruct: GH_Component
+    public class ShellOrthotropyConstruct: FEM_Design_API_Component
     {
         public ShellOrthotropyConstruct(): base("ShellOrthotropy.Construct", "Construct", "Construct a definition for ShellOrthotropy.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

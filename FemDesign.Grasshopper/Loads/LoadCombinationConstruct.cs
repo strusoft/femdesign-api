@@ -13,7 +13,7 @@ using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationConstruct : GH_Component
+    public class LoadCombinationConstruct : FEM_Design_API_Component
     {
         public LoadCombinationConstruct() : base("LoadCombination.Construct", "Construct", "Construct a LoadCombination from a LoadCase or a list of LoadCases.", CategoryName.Name(), SubCategoryName.Cat3())
         {

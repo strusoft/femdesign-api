@@ -8,7 +8,7 @@ using Grasshopper.Kernel.Data;
 using System.Text.RegularExpressions;
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadStr_21_7_0_OBSOLETE : GH_Component
+    public class ModelReadStr_21_7_0_OBSOLETE : FEM_Design_API_Component
     {
         public ModelReadStr_21_7_0_OBSOLETE() : base("Model.ReadStr", "ReadStr", "Read model from .str file.", CategoryName.Name(), SubCategoryName.Cat6())
         {

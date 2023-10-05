@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StraightDeconstruct: GH_Component
+    public class StraightDeconstruct: FEM_Design_API_Component
     {
        public StraightDeconstruct(): base("Straight.Deconstruct", "Deconstruct", "Deconstruct a Straight element.", "FEM-Design", "Deconstruct")
        {

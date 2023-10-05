@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForceOBSOLETE: GH_Component
+    public class LineLoadForceOBSOLETE: FEM_Design_API_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.hidden;
         public LineLoadForceOBSOLETE(): base("LineLoad.Force", "Force", "Creates a force line load.", "FemDesign", "Loads")

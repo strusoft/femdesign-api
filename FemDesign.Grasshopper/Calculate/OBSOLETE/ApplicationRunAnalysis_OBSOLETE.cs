@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelRunAnalysis_OBSOLETE : GH_Component
+    public class ModelRunAnalysis_OBSOLETE : FEM_Design_API_Component
     {
         public ModelRunAnalysis_OBSOLETE() : base("Application.RunAnalysis", "RunAnalysis", "Run analysis of model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

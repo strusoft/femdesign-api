@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarTimberUtilization : GH_Component
+    public class BarTimberUtilization : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.

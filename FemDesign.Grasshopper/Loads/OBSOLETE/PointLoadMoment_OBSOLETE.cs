@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointLoadMoment_OBSOLETE : GH_Component
+    public class PointLoadMoment_OBSOLETE : FEM_Design_API_Component
     {
         public PointLoadMoment_OBSOLETE(): base("PointLoad.Moment", "Moment", "Create moment point load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

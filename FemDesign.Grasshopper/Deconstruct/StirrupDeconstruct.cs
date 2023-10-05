@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class StirrupDeconstruct: GH_Component
+    public class StirrupDeconstruct: FEM_Design_API_Component
     {
        public StirrupDeconstruct(): base("Stirrups.Deconstruct", "Deconstruct", "Deconstruct a distribution of stirrups.", "FEM-Design", "Deconstruct")
        {

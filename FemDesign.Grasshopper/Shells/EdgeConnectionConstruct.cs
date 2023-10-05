@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class EdgeConnectionConstruct: GH_Component
+    public class EdgeConnectionConstruct: FEM_Design_API_Component
     {
         public EdgeConnectionConstruct(): base("EdgeConnection.Construct", "Construct", "Construct a new EdgeConnection", CategoryName.Name(), SubCategoryName.Cat2b())
         {

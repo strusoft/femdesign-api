@@ -8,7 +8,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class NodalDisplacement : GH_Component
+    public class NodalDisplacement : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the NodalDisplacement class.

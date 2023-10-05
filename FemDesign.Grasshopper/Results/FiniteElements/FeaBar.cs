@@ -9,7 +9,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class FeaBar : GH_Component
+    public class FeaBar : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the FeaBar class.

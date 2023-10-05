@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class Strata : GH_Component
+    public class Strata : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.

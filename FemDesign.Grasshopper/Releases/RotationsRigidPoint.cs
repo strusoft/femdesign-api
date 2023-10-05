@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsRigidPoint: GH_Component
+    public class RotationsRigidPoint: FEM_Design_API_Component
     {
         public RotationsRigidPoint(): base("Rotations.RigidPoint", "RigidPoint", "Define a rigid rotations release for a point-type release (1e+10 kNm/rad).", CategoryName.Name(), SubCategoryName.Cat5())
         {

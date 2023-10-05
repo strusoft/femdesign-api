@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceLoadUniformOBSOLETE: GH_Component
+    public class SurfaceLoadUniformOBSOLETE: FEM_Design_API_Component
     {
         public SurfaceLoadUniformOBSOLETE(): base("SurfaceLoad.Uniform", "Uniform", "Create a uniform surface load.", "FemDesign", "Loads")
         {

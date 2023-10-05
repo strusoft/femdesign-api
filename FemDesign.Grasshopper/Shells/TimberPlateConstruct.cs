@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class TimberPlateConstruct: GH_Component
+    public class TimberPlateConstruct: FEM_Design_API_Component
     {
         public TimberPlateConstruct(): base("TimberPlate.Construct", "Construct", "Construct a timber plate", CategoryName.Name(), SubCategoryName.Cat2b())
         {

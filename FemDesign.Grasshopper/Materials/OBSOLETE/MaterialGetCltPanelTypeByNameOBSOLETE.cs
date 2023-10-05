@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-   public class MaterialGetCltPanelTypeByNameOBSOLETE : GH_Component
+   public class MaterialGetCltPanelTypeByNameOBSOLETE : FEM_Design_API_Component
     {
         public MaterialGetCltPanelTypeByNameOBSOLETE() : base("Material.GetCltPanelTypeByName", "GetCltPanelTypeByName", "Get CltPanelLibraryType from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

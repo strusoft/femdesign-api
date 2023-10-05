@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelDeconstruct_OBSOLETE2250 : GH_Component
+    public class ModelDeconstruct_OBSOLETE2250 : FEM_Design_API_Component
     {
         public ModelDeconstruct_OBSOLETE2250() : base("Model.Deconstruct", "Deconstruct", "Deconstruct Model.", "FEM-Design", "Deconstruct")
         {

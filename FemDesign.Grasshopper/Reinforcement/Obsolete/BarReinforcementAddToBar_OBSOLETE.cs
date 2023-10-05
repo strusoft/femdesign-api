@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarReinforcementAddToBar_OBSOLETE: GH_Component
+    public class BarReinforcementAddToBar_OBSOLETE: FEM_Design_API_Component
     {
         public BarReinforcementAddToBar_OBSOLETE(): base("BarReinforcement.AddToBar", "AddToBar", "Add bar reinforcement to bar.", "FEM-Design", "Reinforcement")
         {

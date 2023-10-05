@@ -3,10 +3,11 @@ using Rhino.Geometry;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using FemDesign.Reinforcement;
 
-namespace FemDesign.Reinforcement
+namespace FemDesign.Grasshopper
 {
-    public class PtcShapeComponent : GH_Component
+    public class PtcShapeComponent : FEM_Design_API_Component
     {
         public PtcShapeComponent(): base("PtcShape", "Shape", "Description", "FEM-Design", "Reinforcement"  )
         {

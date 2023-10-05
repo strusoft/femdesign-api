@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MotionsRigidLine: GH_Component
+    public class MotionsRigidLine: FEM_Design_API_Component
     {
         public MotionsRigidLine(): base("Motions.RigidLine", "RigidLine", "Define a rigid motions release for a line-type release (1.000e+7).", CategoryName.Name(), SubCategoryName.Cat5())
         {

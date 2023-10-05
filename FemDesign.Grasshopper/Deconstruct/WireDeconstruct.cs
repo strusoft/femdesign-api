@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class WireDeconstruct: GH_Component
+    public class WireDeconstruct: FEM_Design_API_Component
     {
        public WireDeconstruct(): base("Wire.Deconstruct", "Deconstruct", "Deconstruct a Wire element.", "FEM-Design", "Deconstruct")
        {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialGetMaterialByNameOBSOLETE2 : GH_Component
+    public class MaterialGetMaterialByNameOBSOLETE2 : FEM_Design_API_Component
     {
         public MaterialGetMaterialByNameOBSOLETE2() : base("Material.GetMaterialByName", "GetMaterialByName", "Get Material from MaterialDatabase by name.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

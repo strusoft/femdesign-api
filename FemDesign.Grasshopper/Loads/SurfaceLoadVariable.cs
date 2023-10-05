@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceLoadVariable: GH_Component
+    public class SurfaceLoadVariable: FEM_Design_API_Component
     {
         public SurfaceLoadVariable(): base("SurfaceLoad.Variable", "Variable", "Create a variable surface load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

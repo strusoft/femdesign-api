@@ -8,7 +8,7 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class MaterialDatabase : GH_Component
+    public class MaterialDatabase : FEM_Design_API_Component
     {
         public MaterialDatabase() : base(" MaterialDatabase", "MaterialDatabase", "Load MaterialDatabase Default or FromStruxml.", CategoryName.Name(), SubCategoryName.Cat4a())
         {

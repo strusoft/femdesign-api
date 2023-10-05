@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SortLoads : GH_Component
+    public class SortLoads : FEM_Design_API_Component
     {
         public SortLoads() : base("Loads.SortLoads", "SortLoads", "Sort a list of Loads (List<ILoadElement>) into lists classified by each respective type of load.", "FEM-Design", "Deconstruct")
         {

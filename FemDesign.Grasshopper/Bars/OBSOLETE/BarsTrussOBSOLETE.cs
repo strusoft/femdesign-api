@@ -5,7 +5,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsTruss__OBSOLETE: GH_Component
+    public class BarsTruss__OBSOLETE: FEM_Design_API_Component
     {
         public BarsTruss__OBSOLETE(): base("Bars.Truss", "Truss", "Create a bar element of type truss.", CategoryName.Name(),
             SubCategoryName.Cat2a())

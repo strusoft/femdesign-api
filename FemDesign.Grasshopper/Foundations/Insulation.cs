@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class Insulation : GH_Component
+    public class Insulation : FEM_Design_API_Component
     {
         public Insulation() : base("Insulation", "Insulation", "",
             CategoryName.Name(),

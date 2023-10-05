@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineStressLoad : GH_Component
+    public class LineStressLoad : FEM_Design_API_Component
     {
         public LineStressLoad() : base("LineStressLoad.Define", "Define", "Creates a line stress load.", CategoryName.Name(), SubCategoryName.Cat3())
         {

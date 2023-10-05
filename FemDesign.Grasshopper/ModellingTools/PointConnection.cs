@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointConnection : GH_Component
+    public class PointConnection : FEM_Design_API_Component
     {
         public PointConnection() : base("PointConnection", "PtConnect", "Construct a Point Connection", "FEM-Design", "ModellingTools")
         {

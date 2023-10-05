@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceReinforcementAddToSlab_OBSOLETE : GH_Component
+    public class SurfaceReinforcementAddToSlab_OBSOLETE : FEM_Design_API_Component
     {
         public SurfaceReinforcementAddToSlab_OBSOLETE() : base("SurfaceReinforcement.AddToSlab", "AddToSlab", "Add surface reinforcement to slab.", "FEM-Design", "Reinforcement")
         {

@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelReadStrOBSOLETE: GH_Component
+    public class ModelReadStrOBSOLETE: FEM_Design_API_Component
     {
         public ModelReadStrOBSOLETE(): base("Model.ReadStr", "ReadStr", "Read model from .str file.", "FemDesign", "Model")
         {

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarsConnectivityHinged: GH_Component
+    public class BarsConnectivityHinged: FEM_Design_API_Component
     {
         public BarsConnectivityHinged(): base("Connectivity.Hinged", "Hinged", "Define hinged releases for a bar element.", CategoryName.Name(),
             SubCategoryName.Cat2a())

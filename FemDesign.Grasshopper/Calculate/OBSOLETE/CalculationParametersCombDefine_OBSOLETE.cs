@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersCombDefine_OBSOLETE: GH_Component
+    public class CalculationParametersCombDefine_OBSOLETE: FEM_Design_API_Component
     {
         public CalculationParametersCombDefine_OBSOLETE(): base("Comb.Define", "Comb", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", CategoryName.Name(), SubCategoryName.Cat7a())
         {

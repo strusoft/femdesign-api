@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationSetupCalculation_OBSOLETE: GH_Component
+    public class LoadCombinationSetupCalculation_OBSOLETE: FEM_Design_API_Component
     {
         public LoadCombinationSetupCalculation_OBSOLETE(): base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
         {

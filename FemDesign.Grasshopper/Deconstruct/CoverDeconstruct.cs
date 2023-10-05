@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CoverDeconstruct: GH_Component
+    public class CoverDeconstruct: FEM_Design_API_Component
     {
        public CoverDeconstruct(): base("Cover.Deconstruct", "Deconstruct", "Deconstruct a cover element.", "FEM-Design", "Deconstruct")
        {

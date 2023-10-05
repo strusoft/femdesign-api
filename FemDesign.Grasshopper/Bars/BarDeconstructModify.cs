@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class BarDeconstructModify: GH_Component
+    public class BarDeconstructModify : FEM_Design_API_Component
     {
        public BarDeconstructModify(): base("Bar.Deconstruct.Modify", "Deconstruct.Modify", "Deconstruct and modify properties of an exiting bar element of any type.", CategoryName.Name(),
             SubCategoryName.Cat2a())

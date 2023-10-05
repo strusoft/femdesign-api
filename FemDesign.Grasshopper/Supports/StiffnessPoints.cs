@@ -7,7 +7,7 @@ using FemDesign.Releases;
 
 namespace FemDesign.Grasshopper
 {
-    public class StiffnessPoint : GH_Component
+    public class StiffnessPoint : FEM_Design_API_Component
     {
         public StiffnessPoint() : base("StiffnessPoint", "StiffnessPoint", "Add Stiffness Point to a SurfaceSupport element.", CategoryName.Name(),
             SubCategoryName.Cat1())

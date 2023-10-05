@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersFootfallDefine: GH_Component
+    public class CalculationParametersFootfallDefine: FEM_Design_API_Component
     {
         public CalculationParametersFootfallDefine(): base("Footfall.Define", "Footfall", "Define calculation parameters for an footfall calculation.", CategoryName.Name(), SubCategoryName.Cat7a())
         {

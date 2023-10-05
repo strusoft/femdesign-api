@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LabelledSection : GH_Component
+    public class LabelledSection : FEM_Design_API_Component
     {
         public LabelledSection() : base("LabelledSection", "LabelledSection", "Define LabelledSection from a Line or Polyline", CategoryName.Name(), SubCategoryName.Cat7b())
         {

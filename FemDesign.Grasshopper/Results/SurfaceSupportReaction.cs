@@ -9,7 +9,7 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceSupportReaction : GH_Component
+    public class SurfaceSupportReaction : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the SurfaceSupportReaction class.

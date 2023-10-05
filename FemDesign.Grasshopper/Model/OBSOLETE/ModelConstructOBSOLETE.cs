@@ -9,7 +9,7 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelConstructOBSOLETE : GH_Component
+    public class ModelConstructOBSOLETE : FEM_Design_API_Component
     {
         public ModelConstructOBSOLETE() : base("Model.Construct", "Construct", "Construct new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {

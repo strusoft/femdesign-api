@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class SlabPlateVariableThickness: GH_Component
+    public class SlabPlateVariableThickness: FEM_Design_API_Component
     {
         public SlabPlateVariableThickness(): base("PlateVariableThickness.Construct", "Construct", "Construct a plate element with variable thickness.", CategoryName.Name(), SubCategoryName.Cat2b())
         {

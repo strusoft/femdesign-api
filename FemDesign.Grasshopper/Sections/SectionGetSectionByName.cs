@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionGetSectionByName : GH_Component
+    public class SectionGetSectionByName : FEM_Design_API_Component
     {
         public SectionGetSectionByName() : base("Section.GetSectionByName|Index", "GetSectionByName|Index", "Get a Section from a SectionDatabase by ByName or Index.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

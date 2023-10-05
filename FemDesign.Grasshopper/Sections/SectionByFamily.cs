@@ -10,7 +10,7 @@ using FemDesign.Sections;
 
 namespace FemDesign.Grasshopper
 {
-    public class SectionsByFamily : GH_Component
+    public class SectionsByFamily : FEM_Design_API_Component
     {
         public SectionsByFamily() : base("Section.ByShape", ".ByShape", "Get a Section from a SectionDatabase by shape.", CategoryName.Name(), SubCategoryName.Cat4b())
         {

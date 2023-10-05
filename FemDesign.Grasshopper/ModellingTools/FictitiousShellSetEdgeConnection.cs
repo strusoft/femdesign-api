@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousShellSetEdgeConnection: GH_Component
+    public class FictitiousShellSetEdgeConnection: FEM_Design_API_Component
     {
         public FictitiousShellSetEdgeConnection(): base("FictitiousShell.SetEdgeConnection", "SetEdgeConnection", "Set EdgeConnection by index. Index for each respective edge can be extracted using FictitiousShellDeconstruct.", "FEM-Design", "ModellingTools")
         {

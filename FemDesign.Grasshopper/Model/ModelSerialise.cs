@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelSerialise: GH_Component
+    public class ModelSerialise: FEM_Design_API_Component
     {
         public ModelSerialise(): base("Model.Serialise", "Serialise", "Serialise a model to .struxml", CategoryName.Name(), SubCategoryName.Cat6())
         {
