@@ -1,4 +1,5 @@
-﻿using Grasshopper.Kernel;
+﻿using FemDesign.Grasshopper;
+using Grasshopper.Kernel;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace GrasshopperAsyncComponent
   /// <summary>
   /// Inherit your component from this class to make all the async goodness available.
   /// </summary>
-  public abstract class GH_AsyncComponent : GH_Component
+  public abstract class GH_AsyncComponent : FEM_Design_API_Component
   {
     public override Guid ComponentGuid => throw new Exception("ComponentGuid should be overriden in any descendant of GH_AsyncComponent!");
 

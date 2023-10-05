@@ -6,8 +6,10 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using FemDesign.Grasshopper;
+using Grasshopper.Kernel;
 
-namespace FemDesign.Utils
+namespace FemDesign.Grasshopper.Extension
 {
     public sealed class HtmlWriter
     {
@@ -129,7 +131,7 @@ namespace FemDesign.Utils
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
                     bitmap_0.Save(memoryStream, ImageFormat.Png);
-                    text = Convert.ToBase64String(memoryStream.GetBuffer());
+                    text = System.Convert.ToBase64String(memoryStream.GetBuffer());
                 }
                 this.stringBuilder_0.Append("<img src=\"").Append("data:image/png;base64,").Append(text).Append("\"");
                 if (!string.IsNullOrEmpty(string_2))
@@ -257,6 +259,83 @@ namespace FemDesign.Utils
                 return "gt;";
             }
             return match_0.Value;
+        }
+
+
+        internal static string FemDesignHtml(GH_Component component)
+        {
+            HtmlWriter htmlWriter = new HtmlWriter("Help file for " + component.Name, null, HtmlCss.Standard);
+            htmlWriter.AddOpenTag("body");
+            htmlWriter.AddClosedTag("div", "class=\"small\"", string.Concat(new string[]
+            {
+                component.Category,
+                " &raquo; ",
+                component.SubCategory,
+                " &raquo; ",
+                component.NickName
+            }));
+            htmlWriter.AddOpenTag("h2");
+            htmlWriter.AddImageTag(FemDesign.Properties.Resources.Fd_TabIcon_24_24, component.GetType().Name, 24, 24);
+            htmlWriter.AddLine(component.NickName);
+            htmlWriter.CloseLastTag();
+            htmlWriter.AddClosedTag("div", "class=\"medium\"", component.Description);
+            htmlWriter.AddLine().AddClosedTag("hr").AddLine();
+            htmlWriter.AddClosedTag("div", "class=\"small\"", "Input parameters:");
+            if (component.Params.Input.Count > 0)
+            {
+                htmlWriter.AddOpenTag("table", "border=\"0\" cellspacing=\"1\" cellpadding=\"2\"");
+                for (int i = 0; i < component.Params.Input.Count; i++)
+                {
+                    IGH_Param iGH_Param = component.Params.Input[i];
+                    htmlWriter.AddOpenTag("tr");
+                    htmlWriter.AddOpenTag("td", "valign=\"top\" class=\"medium\"");
+                    htmlWriter.AddLine(iGH_Param.NickName);
+                    htmlWriter.CloseLastTag();
+                    htmlWriter.AddOpenTag("td", "class=\"mPale\"");
+                    htmlWriter.AddLine(iGH_Param.Name + " <em>(" + iGH_Param.TypeName + ")</em>");
+                    htmlWriter.AddClosedTag("br");
+                    htmlWriter.AddLine(HtmlWriter.ParseTextIntoHtml(iGH_Param.Description));
+                    htmlWriter.CloseLastTag();
+                    htmlWriter.CloseLastTag();
+                }
+                htmlWriter.CloseLastTag();
+            }
+            else
+            {
+                htmlWriter.AddClosedTag("div", "class=\"medium\"", "None");
+            }
+            htmlWriter.AddLine().AddClosedTag("hr").AddLine();
+            htmlWriter.AddClosedTag("div", "class=\"small\"", "Output parameters:");
+            if (component.Params.Output.Count > 0)
+            {
+                htmlWriter.AddOpenTag("table", "border=\"0\" cellspacing=\"1\" cellpadding=\"2\"");
+                for (int j = 0; j < component.Params.Output.Count; j++)
+                {
+                    IGH_Param iGH_Param2 = component.Params.Output[j];
+                    htmlWriter.AddOpenTag("tr");
+                    htmlWriter.AddOpenTag("td", "valign=\"top\" class=\"medium\"");
+                    htmlWriter.AddLine(iGH_Param2.NickName);
+                    htmlWriter.CloseLastTag();
+                    htmlWriter.AddOpenTag("td", "class=\"mPale\"");
+                    htmlWriter.AddLine(iGH_Param2.Name + " <em>(" + iGH_Param2.TypeName + ")</em>");
+                    htmlWriter.AddClosedTag("br");
+                    htmlWriter.AddLine(HtmlWriter.ParseTextIntoHtml(iGH_Param2.Description));
+                    htmlWriter.CloseLastTag();
+                    htmlWriter.CloseLastTag();
+                }
+                htmlWriter.CloseLastTag();
+            }
+            else
+            {
+                htmlWriter.AddClosedTag("div", "class=\"medium\"", "None");
+            }
+            htmlWriter.AddLine().AddClosedTag("hr").AddLine();
+            htmlWriter.AddOpenTag("div", "class=\"mPale\"", htmlWriter.Generator);
+
+            htmlWriter.AddClosedTag("a", "title=\"Join our community and raise your question :).\" href=\"microsoft-edge:https://femdesign-api.discourse.group/\" target=\"_blank\"", "contact");
+            htmlWriter.AddClosedTag("a", "title=\"Visit the webpage for additional reading.\" href=\"microsoft-edge:https://femdesign-api-docs.onstrusoft.com/\" target=\"_blank\"", "website");
+            htmlWriter.CloseLastTag();
+            return htmlWriter.ToString();
         }
     }
 
