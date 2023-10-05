@@ -10,7 +10,7 @@ namespace FemDesign
         /// <summary>
         /// Predefined brep tolerance.
         /// </summary>
-        public static double Brep = Math.Pow(10, -6);
+        public static double Brep = Math.Pow(10, -5);
 
         /// <summary>
         /// Predefined tolerance when controlling if two vectors, v0 and v1, are perpendicular by assuming v0.Dot(v1) == 0.
