@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace FemDesign.Loads
@@ -13,7 +14,7 @@ namespace FemDesign.Loads
     [System.Serializable]
     public partial class LoadCase: EntityBase
     {
-
+        private static Regex _caseNamePattern = new Regex(@"^[ -#%'-;=?A-\uFFFD]{1,80}$");
         // attributes
         [XmlAttribute("name")]
         public string _name;
@@ -28,8 +29,8 @@ namespace FemDesign.Loads
             }
             set
             {
-                if (value.Contains(Environment.NewLine))
-                    throw new ArgumentException("'Name' cannot include a newline character.");
+                if (!_caseNamePattern.IsMatch(value))
+                    throw new ArgumentException("'Name' is not valid!");
                 this._name = value;
             }
         }

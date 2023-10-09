@@ -6,6 +6,7 @@ using System.Xml;
 using System.Linq;
 using System.IO;
 using System;
+using System.Text.RegularExpressions;
 
 namespace FemDesign.Loads
 {
@@ -16,6 +17,8 @@ namespace FemDesign.Loads
     [XmlRoot("load_combination", Namespace = "urn:strusoft")]
     public partial class LoadCombination : EntityBase
     {
+        private static Regex _combinationNamePattern = new Regex( @"^[ -#%'-;=?A-\uFFFD]{1,159}$" );
+
         [XmlAttribute("name")]
         public string _name { get; set; } // name159
 
@@ -29,8 +32,8 @@ namespace FemDesign.Loads
             }
             set
             {
-                if (value.Contains(Environment.NewLine))
-                    throw new ArgumentException("'Name' cannot include a newline character.");
+                if(!_combinationNamePattern.IsMatch(value))
+                    throw new ArgumentException("'Name' is not valid!");
                 this._name = value;
             }
         }

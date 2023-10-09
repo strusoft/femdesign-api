@@ -121,5 +121,36 @@ namespace FemDesign.Loads
             Assert.IsTrue(expected.LoadCombinations[2].Name == "LComb3");
             Assert.IsTrue(expected.LoadCombinations[3].Name == "LComb4");
         }
+
+        [TestMethod("Combination Name")]
+        public void LoadCombinationName()
+        {
+            var loadCase = new LoadCase("loadcase", LoadCaseType.Static, LoadCaseDuration.Permanent);
+
+            var raiseErrorText = new List<string>
+            {
+                new String('a', 200),
+                new String('a', 160),
+                "\n case",
+                "\n",
+                "\n\n",
+            };
+
+            var validText = new List<string>
+            {
+                "wind",
+                "wind snow",
+                "åö - ö"
+            };
+
+
+            foreach (var text in raiseErrorText)
+                Assert.ThrowsException<ArgumentException>(() => new FemDesign.Loads.LoadCombination(text, LoadCombType.UltimateOrdinary, (loadCase, 3)));
+
+
+            foreach (var text in validText)
+                new FemDesign.Loads.LoadCombination(text, LoadCombType.UltimateOrdinary, (loadCase, 3));
+        }
+
     }
 }
