@@ -248,22 +248,39 @@ namespace FemDesign
         /// <param name="analysis">The analysis to be run. Defaults to static analysis (<see cref="Analysis.StaticAnalysis(Comb, bool, bool)"/>)</param>
         public void RunAnalysis(Analysis analysis)
         {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            FdScript script;
+
             if (analysis.Comb.CombItem != null)
+            {
                 analysis.SetCombAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
+            }
 
             if (analysis.Stability != null)
+            {
                 analysis.SetStabilityAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
+            }
 
             if (analysis.Imperfection != null)
+            {
                 analysis.SetImperfectionAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
+            }
 
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(
-                logfile,
-                new CmdUser(CmdUserModule.RESMODE),
-                new CmdCalculation(analysis)
-            );
-            this.RunScript(script, "RunAnalysis");
         }
 
 

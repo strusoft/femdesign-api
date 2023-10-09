@@ -64,34 +64,34 @@ namespace FemDesign.Grasshopper
             }
 
 
-            FemDesign.Calculate.Comb comb = FemDesign.Calculate.Comb.Default();
-            if (!DA.GetData(1, ref comb))
+            FemDesign.Calculate.Comb _comb = FemDesign.Calculate.Comb.Default();
+            if (!DA.GetData(1, ref _comb))
             {
                 // pass
             }
 
 
-            FemDesign.Calculate.Stability stability = null;
-            if (!DA.GetData(2, ref stability))
+            FemDesign.Calculate.Stability _stability = null;
+            if (!DA.GetData(2, ref _stability))
             {
                 // pass
             }
 
 
-            FemDesign.Calculate.Imperfection imperfection = null;
-            if (!DA.GetData(3, ref imperfection))
+            FemDesign.Calculate.Imperfection _imperfection = null;
+            if (!DA.GetData(3, ref _imperfection))
             {
                 //pass
             }
 
-            FemDesign.Calculate.Freq freq = null;
-            if (!DA.GetData(4, ref freq))
+            FemDesign.Calculate.Freq _freq = null;
+            if (!DA.GetData(4, ref _freq))
             {
                 // pass
             }
 
-            FemDesign.Calculate.Footfall footfall = null;
-            if (!DA.GetData(5, ref footfall))
+            FemDesign.Calculate.Footfall _footfall = null;
+            if (!DA.GetData(5, ref _footfall))
             {
                 // pass
             }
@@ -175,13 +175,13 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            if (stage == null || comb == null || freq == null)
+            if (stage == null || _comb == null || _freq == null)
             {
                 // pass
             }
 
             //
-            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, stability, imperfection, comb, freq, footfall, calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemFine, diaphragm, peakSmoothing);
+            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, _stability.DeepClone(), _imperfection.DeepClone(), _comb.DeepClone(), _freq.DeepClone(), _footfall.DeepClone(), calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemFine, diaphragm, peakSmoothing);
 
             // return
             DA.SetData(0, obj);

@@ -251,17 +251,20 @@ namespace FemDesign.Calculate
 
         private void _validateAnalysisSettings()
         {
-            if (this.CalcStab == true & this.Stability == null)
+            if (this.CalcStab == true && this.Stability == null)
                 throw new Exception("calcStab == True. Stability must be defined!");
 
-            if (this.CalcImpf == true & this.Imperfection == null)
+            if (this.CalcImpf == true && this.Imperfection == null)
                 throw new Exception("calcImpf == True. Imperfection must be defined!");
 
-            if (this.CalcCStage == true & this.Stage == null)
+            if (this.CalcCStage == true && this.Stage == null)
                 throw new Exception("calcCStage == True. Stage must be defined!");
 
-            if (this.CalcFootfall == true & this.Footfall == null)
+            if (this.CalcFootfall == true && this.Footfall == null)
                 throw new Exception("calcFootfall == True. Footfall must be defined!");
+
+            if (this.Stability != null && this.Imperfection != null)
+                throw new Exception("Stability and Imperfection can not be run simultaneously. Consider running only Imperfection!");
         }
 
         /// <summary>
