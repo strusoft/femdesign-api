@@ -839,23 +839,31 @@ namespace FemDesign
                 // in model, don't overwrite
                 if (inModel && overwrite == false)
                 {
-                    throw new System.ArgumentException($"{complexCompositePart.GetType().FullName} with guid: {complexCompositePart.CompositeSectionRef} has already been added to model. Are you adding the same element twice?");
+                    //throw new System.ArgumentException($"{complexCompositePart.GetType().FullName} with guid: {complexCompositePart.CompositeSectionRef} has already been added to model. Are you adding the same element twice?");
                 }
 
                 // in model, overwrite
                 else if (inModel && overwrite == true)
                 {
                     this.Composites.CompositeSection.RemoveAll(x => x.Guid == complexCompositePart.CompositeSectionRef);
+                    this.Composites.CompositeSection.Add(complexCompositePart.CompositeSectionObj);
+                    foreach (var part in complexCompositePart.CompositeSectionObj.Parts)
+                    {
+                        this.AddMaterial(part.Material, overwrite);
+                        this.AddSection(part.Section, overwrite);
+                    }
                 }
 
-                // add complex composite
-                this.Composites.CompositeSection.Add(complexCompositePart.CompositeSectionObj);
-                foreach (var part in complexCompositePart.CompositeSectionObj.Parts)
+                // not in model
+                if (!inModel)
                 {
-                    this.AddMaterial(part.Material, overwrite);
-                    this.AddSection(part.Section, overwrite);
+                    this.Composites.CompositeSection.Add(complexCompositePart.CompositeSectionObj);
+                    foreach (var part in complexCompositePart.CompositeSectionObj.Parts)
+                    {
+                        this.AddMaterial(part.Material, overwrite);
+                        this.AddSection(part.Section, overwrite);
+                    }
                 }
-
             }
         }
 
@@ -888,14 +896,22 @@ namespace FemDesign
             // in model, overwrite
             else if (inModel && overwrite == true)
             {
+                // remove objects with the same GUID
                 this.Composites.ComplexComposite.RemoveAll(x => x.Guid == obj.Guid);
+                // add complex composite
+                this.Composites.ComplexComposite.Add(obj);
+                // add composite section
+                this.AddCompositeSection(obj, overwrite);
             }
 
-            // add complex composite
-            this.Composites.ComplexComposite.Add(obj);
-
-            // add composite section
-            this.AddCompositeSection(obj, overwrite);
+            // not in model
+            if (!inModel)
+            {
+                // add complex composite
+                this.Composites.ComplexComposite.Add(obj);
+                // add composite section
+                this.AddCompositeSection(obj, overwrite);
+            }
         }
 
 

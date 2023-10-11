@@ -21,22 +21,22 @@ namespace FemDesign.Composites
         [XmlIgnore]
         public CompositeSectionType Type
         {
-            get 
-            { 
-                return this._type; 
+            get
+            {
+                return this._type;
             }
-            set 
+            set
             {
                 this._type = value;
             }
         }
-                
+
         [XmlElement("part", Order = 1)]
         public List<CompositeSectionPart> Parts { get; set; }
 
         [XmlIgnore]
         public List<Material> Materials
-        { 
+        {
             get
             {
                 List<Material> list = new List<Material>();
@@ -46,7 +46,7 @@ namespace FemDesign.Composites
                 }
 
                 return list;
-            } 
+            }
         }
 
         [XmlIgnore]
@@ -107,12 +107,12 @@ namespace FemDesign.Composites
             this.Type = type;
             this.ParameterList = parameters;
             this.Parts = new List<CompositeSectionPart>();
-            
+
             for (int i = 0; i < materials.Count; i++)
             {
                 this.Parts.Add(new CompositeSectionPart(materials[i], sections[i], offsetY[i], offsetZ[i]));
             }
-            this.CheckCompositeSectionPartList(type, this.Parts);            
+            this.CheckCompositeSectionPartList(type, this.Parts);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace FemDesign.Composites
             this.Type = type;
             this.ParameterList = parameters;
             this.Parts = new List<CompositeSectionPart>();
-            
+
             for (int i = 0; i < materials.Count; i++)
             {
                 this.Parts.Add(new CompositeSectionPart(materials[i], sections[i]));
@@ -235,20 +235,20 @@ namespace FemDesign.Composites
         internal static List<Sections.Section> CreateHSQSection(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
         {
             // round inputs
-            b = Math.Round(b, 1, MidpointRounding.AwayFromZero);
-            bt = Math.Round(bt, 1, MidpointRounding.AwayFromZero);
-            o1 = Math.Round(o1, 1, MidpointRounding.AwayFromZero);
-            o2 = Math.Round(o2, 1, MidpointRounding.AwayFromZero);
-            h = Math.Round(h, 1, MidpointRounding.AwayFromZero);
-            tw = Math.Round(tw, 1, MidpointRounding.AwayFromZero);
-            tfb = Math.Round(tfb, 1, MidpointRounding.AwayFromZero);
-            tft = Math.Round(tft, 1, MidpointRounding.AwayFromZero);
+            b = Math.Round(b, 0, MidpointRounding.AwayFromZero);
+            bt = Math.Round(bt, 0, MidpointRounding.AwayFromZero);
+            o1 = Math.Round(o1, 0, MidpointRounding.AwayFromZero);
+            o2 = Math.Round(o2, 0, MidpointRounding.AwayFromZero);
+            h = Math.Round(h, 0, MidpointRounding.AwayFromZero);
+            tw = Math.Round(tw, 0, MidpointRounding.AwayFromZero);
+            tfb = Math.Round(tfb, 0, MidpointRounding.AwayFromZero);
+            tft = Math.Round(tft, 0, MidpointRounding.AwayFromZero);
 
             // check inputs
             if (b <= 0 || bt <= 0 || o1 <= 0 || o2 <= 0 || h <= 0 || tw <= 0 || tfb <= 0 || tft <= 0)
-                throw new ArgumentException("Composite section parameters must be positive, non zero numbers.");
+                throw new ArgumentException(" Composite section parameters must be positive, non zero numbers.");
             if (bt < b)
-                throw new ArgumentException("Top flange width must be greater than or equal to the bottom flange intermediate width.");
+                throw new ArgumentException(" Top flange width must be greater than or equal to the bottom flange intermediate width.");
             if (tw >= b / 2)
                 throw new ArgumentException($" tw must be smaller than b/2 = {b / 2}.");
 
@@ -269,7 +269,7 @@ namespace FemDesign.Composites
             points.Add(new Point3d(-points[0].X, -points[0].Y, 0));
             points.Add(new Point3d(points[0].X, -points[0].Y, 0));
             var intPoints = points.Take(4).ToList();
-                        
+
             points.Add(new Point3d(-b / 2, h / 2, 0));
             points.Add(new Point3d(points[4].X, -points[4].Y, 0));
             points.Add(new Point3d(points[5].X - o1, points[5].Y, 0));
@@ -284,11 +284,11 @@ namespace FemDesign.Composites
             }
             points.Add(new Point3d(points[points.Count - 1].X, points[4].Y + tft, 0));
             points.Add(new Point3d(-points[points.Count - 1].X, points[points.Count - 1].Y, 0));
-            if(b/2 != bt/2)
+            if (b / 2 != bt / 2)
             {
                 points.Add(new Point3d(points[points.Count - 1].X, points[4].Y, 0));
             }
-            var extPoints = points.Skip(4).Take(points.Count - 4).ToList();                 
+            var extPoints = points.Skip(4).Take(points.Count - 4).ToList();
 
             // create contours
             var intContour = new Contour(intPoints);
@@ -301,7 +301,7 @@ namespace FemDesign.Composites
             var concreteRegionGroup = new RegionGroup(concreteRegion);
 
             // create sections
-            var concreteSection = new Section(concreteRegionGroup, "custom", MaterialTypeEnum.Concrete, "Concrete section", "Rectangle", $"{(b-2*tw)*1000}x{h*1000}");
+            var concreteSection = new Section(concreteRegionGroup, "custom", MaterialTypeEnum.Concrete, "Concrete section", "Rectangle", $"{(b - 2 * tw) * 1000}x{h * 1000}");
             var steelSection = new Section(steelRegionGroup, "custom", MaterialTypeEnum.SteelWelded, "Steel section", "Welded", " ");
             List<Section> sections = new List<Section>() { steelSection, concreteSection };   // !the sequence of steel and concrete sections must match the sequence of steel and concrete materials
 
@@ -534,7 +534,7 @@ namespace FemDesign.Composites
             parameters.Add(new CompositeSectionParameter(CompositeSectionParameterType.t, t.ToString()));
 
             return new CompositeSection(CompositeSectionType.FilledSteelTubeWithSteelCore, materials, sections, parameters);
-        }      
+        }
 
         internal static void NotImplemented()
         {
@@ -587,7 +587,7 @@ namespace FemDesign.Composites
 
             if ((!materialTypes.Contains(FemDesign.Materials.Family.Concrete)) || (!materialTypes.Contains(FemDesign.Materials.Family.Steel)))
                 throw new ArgumentException("Check the material types! Composite section must contain at least one steel and one concrete section part.");
-            if(type == CompositeSectionType.FilledSteelTubeWithIProfile || type == CompositeSectionType.FilledSteelTubeWithSteelCore)
+            if (type == CompositeSectionType.FilledSteelTubeWithIProfile || type == CompositeSectionType.FilledSteelTubeWithSteelCore)
             {
                 if (steelNum != 2)
                     throw new ArgumentException($"{type} must have 2 steel composite section parts, but it has {steelNum}.");
@@ -599,14 +599,14 @@ namespace FemDesign.Composites
             switch (type)
             {
                 case CompositeSectionType.IProfileWithEffectiveConcreteSlab:
-                    return new List<Sections.Family>() 
-                    { 
+                    return new List<Sections.Family>()
+                    {
                         FemDesign.Sections.Family.HE_A,
                         FemDesign.Sections.Family.HE_B,
-                        FemDesign.Sections.Family.HE_M, 
-                        FemDesign.Sections.Family.I, 
+                        FemDesign.Sections.Family.HE_M,
+                        FemDesign.Sections.Family.I,
                         FemDesign.Sections.Family.IPE,
-                        FemDesign.Sections.Family.UKB, 
+                        FemDesign.Sections.Family.UKB,
                         FemDesign.Sections.Family.UKC,
                         FemDesign.Sections.Family.KKR,
                         FemDesign.Sections.Family.VKR
@@ -647,12 +647,12 @@ namespace FemDesign.Composites
                     throw new ArgumentException("For this CompositeType you cannot specify a steel section from database.");
             }
         }
-                
+
         public static void CheckSteelSectionCompatibility(CompositeSectionType type, Section steelSection)
         {
             // check section material
             if (steelSection.MaterialFamily != "Steel")
-                throw new ArgumentException("Section group name must be Steel!");                    
+                throw new ArgumentException("Section group name must be Steel!");
 
             // check steel section TypeName
             string typeName = steelSection.TypeName;
@@ -661,6 +661,6 @@ namespace FemDesign.Composites
             if (!compatibleSectionTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase))
                 throw new ArgumentException($"Invalid steel section type. Compatible section type for {type}: {string.Join(" ", compatibleSectionTypes)}.");
         }
-        
+
     }
 }

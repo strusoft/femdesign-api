@@ -51,14 +51,14 @@ namespace FemDesign.Grasshopper
         {
             // get input
             Curve curve = null;
-            if(!DA.GetData(0, ref curve)) { return; }
+            if (!DA.GetData(0, ref curve)) { return; }
 
             string barType = Bars.BarType.Beam.ToString();
             DA.GetData(1, ref barType);
             BarType _barType = FemDesign.GenericClasses.EnumParser.Parse<BarType>(barType);
 
             Composites.CompositeSection section = null;
-            if(!DA.GetData(2, ref section)) { return; }
+            if (!DA.GetData(2, ref section)) { return; }
 
             List<Bars.Connectivity> connectivity = new List<Bars.Connectivity>();
             if (!DA.GetDataList(3, connectivity))
@@ -101,11 +101,11 @@ namespace FemDesign.Grasshopper
             DA.GetData(7, ref identifier);
 
             // check input data
-            if (curve == null || section == null || connectivity == null || eccentricity == null || identifier == null) 
-            { 
-                return; 
+            if (curve == null || section == null || connectivity == null || eccentricity == null || identifier == null)
+            {
+                return;
             }
-            if(_barType == Bars.BarType.Truss)
+            if (_barType == Bars.BarType.Truss)
             {
                 throw new ArgumentException($"BarType must be Beam or Column, but it is {barType}.");
             }
@@ -120,13 +120,14 @@ namespace FemDesign.Grasshopper
                 bar.BarPart.LocalY = v.FromRhino();
             }
             // else orient coordinate system to GCS
-            else if(orientLCS)
+            else if (orientLCS)
             {
                 bar.BarPart.OrientCoordinateSystemToGCS();
             }
 
             // get output
             DA.SetData(0, bar);
+            v.IsPerpendicularTo(v);
         }
         protected override System.Drawing.Bitmap Icon
         {
