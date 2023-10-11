@@ -1,6 +1,11 @@
+// https://strusoft.com/
 using System;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 using FemDesign.GenericClasses;
+using FemDesign.Geometry;
+using FemDesign.Releases;
+
 
 
 namespace FemDesign.ModellingTools
@@ -17,7 +22,7 @@ namespace FemDesign.ModellingTools
         
         // choice rigidity data
         [XmlElement("rigidity", Order = 2)]
-        public Releases.RigidityDataType2 Rigidity { get; set; } 
+        public Releases.RigidityDataType1 Rigidity { get; set; } 
 
         [XmlElement("predefined_rigidity", Order = 3)]
         public GuidListType _predefRigidityRef;
@@ -82,6 +87,68 @@ namespace FemDesign.ModellingTools
                 this._interface = RestrictedDouble.NonNegMax_1(value);
             }
         }
-        
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private SurfaceConnection()
+        {
+
+        }
+
+        /// <summary>
+        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// </summary>
+        public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, string identifier = "CS")
+        {
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        /// <summary>
+        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// </summary>
+        public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, double distance = 0, string identifier = "CS")
+        {
+            this.Initialize(region, rigidity, references, identifier);
+            this.Distance = distance;
+        }
+
+        /// <summary>
+        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// </summary>
+        public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, double interfaceAttribute = 0, double distance = 0, string identifier = "CS")
+        {
+            this.Initialize(region, rigidity, references, identifier);
+            this.Interface = interfaceAttribute;
+            this.Distance = distance;
+        }
+
+        /// <summary>
+        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions).
+        /// </summary>
+        public SurfaceConnection(Region region, Motions motions, GuidListType[] references, string identifier = "CS")
+        {
+            RigidityDataType1 rigidity = new RigidityDataType1(motions);
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        /// <summary>
+        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions and platic limits).
+        /// </summary>
+        public SurfaceConnection(Region region, Motions motions, MotionsPlasticLimits motionsPlasticLimits, GuidListType[] references, string identifier = "CS")
+        {
+            RigidityDataType1 rigidity = new RigidityDataType1(motions, motionsPlasticLimits);
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        private void Initialize(Region region, RigidityDataType1 rigidity, GuidListType[] references, string identifier)
+        {
+            this.EntityCreated();
+            this.Region = region;
+            this.Plane = region.Plane;
+            this.Rigidity = rigidity;
+            this.References = references;
+            this.Identifier = identifier;
+        }
     }
 }

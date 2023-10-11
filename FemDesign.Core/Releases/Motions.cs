@@ -15,6 +15,10 @@ namespace FemDesign.Releases
         /// </summary>
         public static double ValueRigidLine = 1e7;
         /// <summary>
+        /// Rigid translation/rotation stiffness value for surface support. [kN/m2/m]
+        /// </summary>
+        public static double ValueRigidSurface = 1e5;
+        /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
         private Motions()
@@ -68,6 +72,14 @@ namespace FemDesign.Releases
         public static Motions RigidLine()
         {
             double val = Motions.ValueRigidLine;
+            return new Motions(val, val, val, val, val, val);
+        }
+        /// <summary>
+        /// /// Define a rigid translation release for a surface-type release (1.000e+5)
+        /// </summary>
+        public static Motions RigidSurface()
+        {
+            double val = Motions.ValueRigidSurface;
             return new Motions(val, val, val, val, val, val);
         }
         /// <summary>

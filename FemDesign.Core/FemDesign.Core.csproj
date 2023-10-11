@@ -149,9 +149,9 @@
     <Compile Include="Results\Timber Design\CLTShellUtilization.cs" />
     <Compile Include="Shells\SlabStiffnessFactors.cs" />
     <Compile Include="Stage\ActivatedLoadCase.cs" />
-    <Compile Include="AdvancedFem\AdvancedFem.cs" />
-    <Compile Include="AdvancedFem\Cover.cs" />
-    <Compile Include="AdvancedFem\CoverReferenceList.cs" />
+    <Compile Include="ModellingTools\AdvancedFem.cs" />
+    <Compile Include="ModellingTools\Cover.cs" />
+    <Compile Include="ModellingTools\CoverReferenceList.cs" />
     <Compile Include="Stage\ConstructionStages.cs" />
     <Compile Include="Stage\Stage.cs" />
     <Compile Include="AuxiliaryResults\LabelledSectionsGeometry.cs" />

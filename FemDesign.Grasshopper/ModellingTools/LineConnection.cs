@@ -8,7 +8,7 @@ namespace FemDesign.Grasshopper
 {
     public class LineConnection : FEM_Design_API_Component
     {
-        public LineConnection() : base("LineConnection", "LineConnection", "Construct a Line Connection", "FEM-Design", "ModellingTools")
+        public LineConnection() : base("LineConnection", "LnConnect", "Construct a Line Connection.", "FEM-Design", "ModellingTools")
         {
 
         }

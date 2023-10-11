@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
        protected override void SolveInstance(IGH_DataAccess DA)
        {
             // get input
-            FemDesign.Cover cover = null;
+            FemDesign.ModellingTools.Cover cover = null;
             if (!DA.GetData(0, ref cover))
             {
                 return;

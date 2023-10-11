@@ -1,3 +1,4 @@
+// https://strusoft.com/
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;

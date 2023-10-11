@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace FemDesign
+namespace FemDesign.ModellingTools
 {
     /// <summary>
     /// cover_referencelist_type

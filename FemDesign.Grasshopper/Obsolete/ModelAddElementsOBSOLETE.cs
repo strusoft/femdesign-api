@@ -88,7 +88,7 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
+            List<FemDesign.ModellingTools.Cover> covers = new List<FemDesign.ModellingTools.Cover>();
             if (!DA.GetDataList(6, covers))
             {
                 // pass

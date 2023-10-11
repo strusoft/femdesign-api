@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
 
-namespace FemDesign
+namespace FemDesign.ModellingTools
 {
     /// <summary>
     /// cover_type

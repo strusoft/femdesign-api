@@ -70,7 +70,7 @@ namespace FemDesign.Grasshopper
             List<FemDesign.Shells.Panel> panels = new List<Shells.Panel>();
             DA.GetDataList("Panels", panels);
 
-            List<FemDesign.Cover> covers = new List<FemDesign.Cover>();
+            List<FemDesign.ModellingTools.Cover> covers = new List<FemDesign.ModellingTools.Cover>();
             DA.GetDataList("Covers", covers);
 
             List<FemDesign.GenericClasses.ILoadElement> loads = new List<FemDesign.GenericClasses.ILoadElement>();

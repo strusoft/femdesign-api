@@ -435,7 +435,7 @@ namespace FemDesign
         /// <summary>
         /// Add entities to Model.
         /// </summary>
-        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups, bool overwrite)
+        public Model AddEntities(List<Bars.Bar> bars, List<ModellingTools.FictitiousBar> fictitiousBars, List<Shells.Slab> shells, List<ModellingTools.FictitiousShell> fictitiousShells, List<Shells.Panel> panels, List<ModellingTools.Cover> covers, List<object> loads, List<Loads.LoadCase> loadCases, List<Loads.LoadCombination> loadCombinations, List<ISupportElement> supports, List<StructureGrid.Storey> storeys, List<StructureGrid.Axis> axes, List<Loads.ModelGeneralLoadGroup> loadGroups, bool overwrite)
         {
             // check if model contains entities, sections and materials
             if (this.Entities == null)
@@ -502,7 +502,7 @@ namespace FemDesign
 
             if (covers != null)
             {
-                foreach (Cover cover in covers)
+                foreach (ModellingTools.Cover cover in covers)
                 {
                     this.AddCover(cover, overwrite);
                 }
@@ -900,7 +900,7 @@ namespace FemDesign
         /// <summary>
         /// Add Cover to Model.
         /// </summary>
-        private void AddCover(Cover obj, bool overwrite)
+        private void AddCover(ModellingTools.Cover obj, bool overwrite)
         {
             // in model?
             bool inModel = this.CoverInModel(obj);
@@ -924,9 +924,9 @@ namespace FemDesign
         /// <summary>
         /// Check if Cover in Model.
         /// </summary>
-        private bool CoverInModel(Cover obj)
+        private bool CoverInModel(ModellingTools.Cover obj)
         {
-            foreach (Cover elem in this.Entities.AdvancedFem.Covers)
+            foreach (ModellingTools.Cover elem in this.Entities.AdvancedFem.Covers)
             {
                 if (elem.Guid == obj.Guid)
                 {
@@ -941,7 +941,7 @@ namespace FemDesign
             // advanced fem null?
             if (this.Entities.AdvancedFem == null)
             {
-                this.Entities.AdvancedFem = new AdvancedFem();
+                this.Entities.AdvancedFem = new ModellingTools.AdvancedFem();
             }
 
             // connected lines null?
@@ -1008,7 +1008,7 @@ namespace FemDesign
             // advanced fem null?
             if (this.Entities.AdvancedFem == null)
             {
-                this.Entities.AdvancedFem = new AdvancedFem();
+                this.Entities.AdvancedFem = new ModellingTools.AdvancedFem();
             }
 
             // connected points null?
@@ -3405,7 +3405,7 @@ namespace FemDesign
         private void AddEntity(Reinforcement.Ptc obj, bool overwrite) => AddPtc(obj, overwrite);
 
 
-        private void AddEntity(Cover obj, bool overwrite) => AddCover(obj, overwrite);
+        private void AddEntity(ModellingTools.Cover obj, bool overwrite) => AddCover(obj, overwrite);
 
         private void AddEntity(ModellingTools.FictitiousShell obj, bool overwrite) => AddFictShell(obj, overwrite);
         private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
