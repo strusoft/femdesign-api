@@ -1,6 +1,7 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -14,12 +15,17 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Surface structural elements (e.g. slabs, surface supports, fictious shells, etc).", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Elements", "Elements", "Surface structural elements (e.g. slabs, surface supports, fictious shells, etc).", GH_ParamAccess.list);
-
-            pManager.AddGenericParameter("Motion", "Motion", "Motion.", GH_ParamAccess.item);
+            
+            pManager.AddGenericParameter("Motion", "Motion", "Default motion release is rigid (1.000e+5 kN/m2/m).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("PlaticLimits", "Limits", "Motion plastic limits.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs. No plastic limits defined by default.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
+            pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CS");
@@ -27,34 +33,40 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("LineConnection", "LineConnection", "LineConnection.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SurfaceConnection", "SrfConnect", "SurfaceConnection.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get input
+            var elements = new List<EntityBase>();
+            DA.GetDataList(0, elements);
+
             Brep surface = null;
-            if (!DA.GetData("Surface", ref surface)) { return; }
+            if (!DA.GetData(1, ref surface)) { return; }
+            if (surface == null) { return; }
 
             Releases.Motions motions = null;
-            if (!DA.GetData("Motion", ref motions))
+            if (!DA.GetData(2, ref motions))
             {
                 motions = Releases.Motions.RigidSurface();
             }
 
+            Releases.MotionsPlasticLimits limits = new Releases.MotionsPlasticLimits(null, null, null, null, null, null);
+            DA.GetData(3, ref limits);
+
+            Vector3d localX = Vector3d.Zero;
+            DA.GetData(4, ref localX);
+
+            Vector3d localZ = Vector3d.Zero;
+            DA.GetData(5, ref localZ);
+
             string identifier = "CS";
-            if (!DA.GetData("Identifier", ref identifier))
-            {
-                // pass
-            }
+            DA.GetData(6, ref identifier);
+            if(identifier == null) { return; }
+                               
 
-
-
-
-            
-
-            var elements = new List<EntityBase>();
-            DA.GetDataList("Elements", elements);
-
+            var fdSuface = surface.FromRhino();
+            var rigidity = new Releases.RigidityDataType1(motions, limits);
 
             GuidListType[] refs = new GuidListType[elements.Count];
             for (int idx = 0; idx < refs.Length; idx++)
@@ -63,24 +75,26 @@ namespace FemDesign.Grasshopper
                 {
                     refs[idx] = new GuidListType(slab.SlabPart);
                 }
-                else if (elements[idx] is Bars.Bar bar)
-                {
-                    refs[idx] = new GuidListType(bar.BarPart);
-                }
                 else
                 {
                     refs[idx] = new GuidListType(elements[idx]);
                 }
+            }
 
+            var obj = new FemDesign.ModellingTools.SurfaceConnection(fdSuface, rigidity, refs, identifier);
+
+            if(!localX.Equals(Vector3d.Zero))
+            {
+                obj.LocalX = localX.FromRhino();
+            }
+            if (!localZ.Equals(Vector3d.Zero))
+            {
+                obj.LocalZ = localZ.FromRhino();
             }
 
 
-            var rigidity = new Releases.RigidityDataType3(motions, rotations);
-
-            var connectedLines = new FemDesign.ModellingTools.ConnectedLines(firstEdge.FromRhino(), secondEdge.FromRhino(), localX.FromRhino(), localY.FromRhino(), rigidity, refs, identifier, movingLocal, interfaceStart, interfaceEnd);
-
             // output
-            DA.SetData(0, connectedLines);
+            DA.SetData(0, obj);
 
         }
         protected override System.Drawing.Bitmap Icon

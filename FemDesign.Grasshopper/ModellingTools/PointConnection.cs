@@ -14,17 +14,25 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements (bars, slabs, supports, etc.) to connect.", GH_ParamAccess.list);
             
-            pManager.AddPointParameter("MasterPoint", "MasterPoint", "Define a master point.", GH_ParamAccess.item);
-            pManager.AddPointParameter("OtherPoint", "OtherPoint", "Define an other point (slave point).", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Motion", "Motion", "Default motion release is rigid (1.000e+10 kN/m).", GH_ParamAccess.item);
+            pManager.AddPointParameter("MasterPoint", "MPoint", "Define a master point.", GH_ParamAccess.item);
+            pManager.AddPointParameter("SlavePoint", "SPoint", "Define a slave point.", GH_ParamAccess.item);
+            
+            pManager.AddGenericParameter("Motion", "Mot", "Default motion release is rigid (1.000e+10 kN/m).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Rotation", "Rotation", "Default rotation release is rigid (1.000e+10 kNm/rad).", GH_ParamAccess.item);
+            pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs. No plastic limits defined by default.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ElementToConnect", "ElementToConnect", "Objects to connect.", GH_ParamAccess.list);
-            pManager.AddPlaneParameter("LocalPlane", "LocalPlane", "Default orientation is WorldXY Plane.", GH_ParamAccess.item);
+
+            pManager.AddGenericParameter("Rotation", "Rot", "Default rotation release is rigid (1.000e+10 kNm/rad).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Identifier", "Identifier", "Define an identifier (position number).", GH_ParamAccess.item, "CP");
+            pManager.AddGenericParameter("RotationsPlaticLimits", "PlaLimR", "Plastic limits moments for rotation springs. No plastic limits defined by default.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
+            pManager.AddPlaneParameter("LocalPlane", "Plane", "Default orientation is WorldXY Plane.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            
+            pManager.AddTextParameter("Identifier", "ID", "Define an identifier.", GH_ParamAccess.item, "CP");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -33,34 +41,42 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // get input
+            var elements = new List<EntityBase>();
+            DA.GetDataList(0, elements);
+            
             Point3d masterPoint = Point3d.Unset;
-            DA.GetData(0, ref masterPoint);
+            DA.GetData(1, ref masterPoint);
 
-            Rhino.Geometry.Point3d otherPoint = Point3d.Unset;
-            DA.GetData(1, ref otherPoint);
+            Point3d slavePoint = Point3d.Unset;
+            DA.GetData(2, ref slavePoint);
 
             Releases.Motions motions = null;
-            if (!DA.GetData(2, ref motions))
+            if (!DA.GetData(3, ref motions))
             {
                 motions = Releases.Motions.RigidPoint();
             }
 
+            Releases.MotionsPlasticLimits motLimits = new Releases.MotionsPlasticLimits(null, null, null, null, null, null);
+            DA.GetData(4, ref motLimits);
+
             Releases.Rotations rotations = null;
-            if (!DA.GetData(3, ref rotations))
+            if (!DA.GetData(5, ref rotations))
             {
                 rotations = Releases.Rotations.RigidPoint();
             }
 
-            var elements = new List<EntityBase>();
-            DA.GetDataList(4, elements);
+            Releases.RotationsPlasticLimits rotLimits = new Releases.RotationsPlasticLimits(null, null, null, null, null, null);
+            DA.GetData(6, ref rotLimits);
 
             Plane plane = Plane.WorldXY;
-            DA.GetData(5, ref plane);
+            DA.GetData(7, ref plane);
             //Conversion
             FemDesign.Geometry.Plane fdPlane = plane.FromRhinoPlane();
 
             string identifier = "CP";
-            DA.GetData(6, ref identifier);
+            DA.GetData(8, ref identifier);
+
 
             GuidListType[] refs = new GuidListType[elements.Count];
             for (int idx = 0; idx < refs.Length; idx++)
@@ -79,11 +95,10 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            //var rigidity = new Releases.RigidityDataType2(motions, rotations);
+            var connectedPoints = new FemDesign.ModellingTools.ConnectedPoints(fdPlane, masterPoint.FromRhino(), slavePoint.FromRhino(), motions, motLimits, rotations, rotLimits, refs, identifier);
 
-            var connectedPoints = new FemDesign.ModellingTools.ConnectedPoints(fdPlane, masterPoint.FromRhino(), otherPoint.FromRhino(), motions, rotations, refs, identifier);
 
-            // output
+            // get output
             DA.SetData(0, connectedPoints);
 
         }
@@ -96,7 +111,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("FCD121E5-3BCD-42A6-B8C8-CCEDA1DD5D80"); }
+            get { return new Guid("F26C4669-B309-45B4-8389-611B0E673160"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

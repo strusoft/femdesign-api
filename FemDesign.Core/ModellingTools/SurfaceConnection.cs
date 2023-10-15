@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using FemDesign.GenericClasses;
@@ -54,7 +55,59 @@ namespace FemDesign.ModellingTools
         private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlElement("local_system", Order = 5)]
-        public Geometry.Plane Plane { get; set; }
+        private Geometry.Plane _plane;
+
+        [XmlIgnore]
+        private Geometry.Plane Plane
+        {
+            get
+            {
+                return this._plane;
+            }
+            set
+            {
+                this._plane = value;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalX
+        {
+            get
+            {
+                return this.Plane.LocalX;
+            }
+            set
+            {
+                this.Plane.SetXAroundZ(value);
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalY
+        {
+            get
+            {
+                return this.Plane.LocalY;
+            }
+            set
+            {
+                this.Plane.SetYAroundZ(value);
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalZ
+        {
+            get
+            {
+                return this.Plane.LocalZ;
+            }
+            set
+            {
+                this.Plane.SetZAroundX(value);
+            }
+        }
 
         [XmlAttribute("distance")]
         public double _distance;
@@ -97,7 +150,7 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
         /// </summary>
         public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, string identifier = "CS")
         {
@@ -105,7 +158,7 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
         /// </summary>
         public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, double distance = 0, string identifier = "CS")
         {
@@ -114,7 +167,7 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity.
         /// </summary>
         public SurfaceConnection(Region region, RigidityDataType1 rigidity, GuidListType[] references, double interfaceAttribute = 0, double distance = 0, string identifier = "CS")
         {
@@ -124,7 +177,7 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions).
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions).
         /// </summary>
         public SurfaceConnection(Region region, Motions motions, GuidListType[] references, string identifier = "CS")
         {
@@ -133,11 +186,40 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Create a surface connection between 2 or more surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions and platic limits).
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions and platic limits).
         /// </summary>
         public SurfaceConnection(Region region, Motions motions, MotionsPlasticLimits motionsPlasticLimits, GuidListType[] references, string identifier = "CS")
         {
             RigidityDataType1 rigidity = new RigidityDataType1(motions, motionsPlasticLimits);
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        /// <summary>
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using elements and rigidity.
+        /// </summary>
+        public SurfaceConnection(Region region, RigidityDataType1 rigidity, IEnumerable<EntityBase> elements, string identifier = "CS")
+        {
+            GuidListType[] references = elements.Select(r => new GuidListType(r)).ToArray();
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        /// <summary>
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions).
+        /// </summary>
+        public SurfaceConnection(Region region, Motions motions, IEnumerable<EntityBase> elements, string identifier = "CS")
+        {
+            RigidityDataType1 rigidity = new RigidityDataType1(motions);
+            GuidListType[] references = elements.Select(r => new GuidListType(r)).ToArray();
+            this.Initialize(region, rigidity, references, identifier);
+        }
+
+        /// <summary>
+        /// Create a surface connection between surface structural elements (e.g. slabs, surface supports, etc.) using their GUIDs and rigidity (motions and platic limits).
+        /// </summary>
+        public SurfaceConnection(Region region, Motions motions, MotionsPlasticLimits motionsPlasticLimits, IEnumerable<EntityBase> elements, string identifier = "CS")
+        {
+            RigidityDataType1 rigidity = new RigidityDataType1(motions, motionsPlasticLimits);
+            GuidListType[] references = elements.Select(r => new GuidListType(r)).ToArray();
             this.Initialize(region, rigidity, references, identifier);
         }
 

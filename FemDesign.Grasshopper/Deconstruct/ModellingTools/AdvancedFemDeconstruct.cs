@@ -8,13 +8,13 @@ namespace FemDesign.Grasshopper
 {
     public class AdvancedFemDeconstruct : FEM_Design_API_Component
     {
-       public AdvancedFemDeconstruct(): base("AdvancedFem.Deconstruct", "Deconstruct", "Deconstruct an AdvancedFem object. Returns Modelling tools and Covers.", CategoryName.Name(), "Deconstruct")
+       public AdvancedFemDeconstruct(): base("ModellingTools.Deconstruct", "Deconstruct", "Deconstruct a ModellingTools object. Returns Modelling tools and Covers.", CategoryName.Name(), "Deconstruct")
        {
 
        }
        protected override void RegisterInputParams(GH_InputParamManager pManager)
        {
-           pManager.AddGenericParameter("AdvancedFem", "AdvancedFem", "AdvancedFem object from Model.Deconstruct.", GH_ParamAccess.item);           
+           pManager.AddGenericParameter("ModellingTools", "ModellingTools", "ModellingTools object from Model.Deconstruct.", GH_ParamAccess.item);           
        } 
        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
        {

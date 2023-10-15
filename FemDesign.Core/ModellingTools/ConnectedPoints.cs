@@ -161,6 +161,17 @@ namespace FemDesign.ModellingTools
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
             this.LocalX = plane.LocalX;
             this.LocalY = plane.LocalY;
+        }
+
+        /// <summary>
+        /// Create a connected point between 2 points with coordinate system, rigidity (motions, rotations) and plastic limits (forces, moments). 
+        /// </summary>
+        public ConnectedPoints(Plane plane, Point3d firstPoint, Point3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, GuidListType[] references, string identifier = "CP")
+        {
+            RigidityDataType2 rigidity = new RigidityDataType2(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            Initialize(firstPoint, secondPoint, rigidity, references, identifier);
+            this.LocalX = plane.LocalX;
+            this.LocalY = plane.LocalY;
 
         }
 
