@@ -15,17 +15,17 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Surface structural elements (e.g. slabs, surface supports, fictious shells, etc).", GH_ParamAccess.list);
-            pManager.AddSurfaceParameter("Surface", "Surface", "Surface must be flat.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Surface structural elements to be connected (e.g. slabs, surface supports, fictious shells, etc).", GH_ParamAccess.list);
+            pManager.AddSurfaceParameter("Surface", "Srf", "Surface must be flat.", GH_ParamAccess.item);
             
-            pManager.AddGenericParameter("Motion", "Motion", "Default motion release is rigid (1.000e+5 kN/m2/m).", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Motion", "Mot", "Default motion release is rigid (1.000e+5 kN/m2/m).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs. No plastic limits defined by default.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("LocalX", "X", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddVectorParameter("LocalZ", "LocalZ", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("LocalZ", "Z", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CS");
@@ -101,7 +101,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.LineConnection;
+                return FemDesign.Properties.Resources.SurfaceConnection;
             }
         }
         public override Guid ComponentGuid

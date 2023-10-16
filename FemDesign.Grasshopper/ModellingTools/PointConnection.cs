@@ -8,13 +8,13 @@ namespace FemDesign.Grasshopper
 {
     public class PointConnection : FEM_Design_API_Component
     {
-        public PointConnection() : base("PointConnection", "PtConnect", "Construct a Point Connection.", "FEM-Design", "ModellingTools")
+        public PointConnection() : base("PointConnection", "PtConnect", "Construct a Point Connection.", CategoryName.Name(), "ModellingTools")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements (bars, slabs, supports, etc.) to connect.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements to be connected (bars, slabs, supports, etc.).", GH_ParamAccess.list);
             
             pManager.AddPointParameter("MasterPoint", "MPoint", "Define a master point.", GH_ParamAccess.item);
             pManager.AddPointParameter("SlavePoint", "SPoint", "Define a slave point.", GH_ParamAccess.item);

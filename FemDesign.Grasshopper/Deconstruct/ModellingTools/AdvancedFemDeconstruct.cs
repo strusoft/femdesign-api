@@ -30,14 +30,8 @@ namespace FemDesign.Grasshopper
        {
             // get input
             FemDesign.ModellingTools.AdvancedFem obj = null;
-            if (!DA.GetData(0, ref obj))
-            {
-                return;
-            }
-            if (obj == null)
-            {
-                return;
-            }
+            if (!DA.GetData(0, ref obj)) { return; }
+            if (obj == null) { return; }
 
             // get output
             DA.SetDataList("PointConnections", obj.ConnectedPoints);

@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements (bars, slabs, supports, etc.) to connect.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements to be connected (bars, slabs, supports, etc.).", GH_ParamAccess.list);
             
             pManager.AddCurveParameter("MasterLine", "MLine", "LineCurve", GH_ParamAccess.item);
             pManager.AddCurveParameter("SlaveLine", "SLine", "LineCurve", GH_ParamAccess.item);
@@ -29,9 +29,9 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("RotationsPlaticLimits", "PlaLimR", "Plastic limits moments for rotation springs. No plastic limits defined by default.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("LocalX", "X", "Set local x-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("LocalY", "Y", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CL");

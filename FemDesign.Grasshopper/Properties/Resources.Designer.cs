@@ -813,6 +813,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LineConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineConnectionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineLoadDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LineLoadDeconstruct", resourceCulture);
@@ -1523,6 +1533,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PointConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("PointConnectionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PointLoadForce {
             get {
                 object obj = ResourceManager.GetObject("PointLoadForce", resourceCulture);
@@ -2206,6 +2226,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SupportsDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("SupportsDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SurfaceConnection {
+            get {
+                object obj = ResourceManager.GetObject("SurfaceConnection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SurfaceConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("SurfaceConnectionDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

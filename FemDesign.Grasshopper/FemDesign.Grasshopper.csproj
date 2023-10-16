@@ -69,6 +69,11 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
+    <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2290.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
@@ -308,7 +313,7 @@
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersFreqDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
-    <Compile Include="Deconstruct\AxisDeconstruct.cs" />
+    <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE3.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\ModellingTools\CoverDeconstruct.cs" />
@@ -334,7 +339,7 @@
     <Compile Include="Deconstruct\Loads\SortLoads.cs" />
     <Compile Include="Deconstruct\ModellingTools\StiffnessMatrix2TypeDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\StiffnessMatrix4TypeDeconstruct.cs" />
-    <Compile Include="Deconstruct\StoreyDeconstruct.cs" />
+    <Compile Include="Deconstruct\StructureGrid\StoreyDeconstruct.cs" />
     <Compile Include="Deconstruct\Reinforcement\StraightDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\SupportDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Loads\SurfaceLoadDeconstruct.cs" />
@@ -939,6 +944,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\SurfaceConnection.png" />
+    <None Include="Resources\icons\SurfaceConnectionDeconstruct.png" />
+    <None Include="Resources\icons\PointConnectionDeconstruct.png" />
+    <None Include="Resources\icons\LineConnectionDeconstruct.png" />
     <None Include="Resources\icons\CombSettings.bmp" />
     <None Include="Resources\icons\ResultPointDeconstruct.png" />
     <None Include="Resources\icons\LoadGroupToComb.bmp" />

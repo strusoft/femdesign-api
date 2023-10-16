@@ -270,6 +270,8 @@ namespace FemDesign
                 model.GetPointConnections();
             if (model.Entities.AdvancedFem.ConnectedLines.Any())
                 model.GetLineConnections();
+            if (model.Entities.AdvancedFem.SurfaceConnections.Any())
+                model.GetSurfaceConnections();
             if (model.ConstructionStages != null && model.ConstructionStages.Stages.Any())
                 model.GetConstructionStages();
             if (model.Entities?.Loads?.LoadCombinations != null && model.Entities.Loads.LoadCombinations.Any())
@@ -934,6 +936,73 @@ namespace FemDesign
                 }
             }
             return false;
+        }
+
+        private void AddSurfaceConnection(ModellingTools.SurfaceConnection obj, bool overwrite)
+        {
+            // advanced fem null?
+            if (this.Entities.AdvancedFem == null)
+            {
+                this.Entities.AdvancedFem = new ModellingTools.AdvancedFem();
+            }
+
+            // surface connection null?
+            if (this.Entities.AdvancedFem.SurfaceConnections == null)
+            {
+                this.Entities.AdvancedFem.SurfaceConnections = new List<ModellingTools.SurfaceConnection>();
+            }
+
+            // in model?
+            bool inModel = this.Entities.AdvancedFem.SurfaceConnections.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.AdvancedFem.SurfaceConnections.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add surface connection
+            this.Entities.AdvancedFem.SurfaceConnections.Add(obj);
+
+            // add predefined rigidity
+            if (obj.PredefRigidity != null)
+            {
+                this.AddSurfaceConnectionLibItem(obj.PredefRigidity, overwrite);
+            }
+        }
+
+        private void AddSurfaceConnectionLibItem(Releases.RigidityDataLibType1 obj, bool overwrite)
+        {
+            // if null create new element
+            if (this.SurfaceConnectionTypes == null)
+            {
+                this.SurfaceConnectionTypes = new LibraryItems.SurfaceConnectionTypes();
+                this.SurfaceConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType1>();
+            }
+
+            // in model?
+            bool inModel = this.SurfaceConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.SurfaceConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add lib item
+            this.SurfaceConnectionTypes.PredefinedTypes.Add(obj);
         }
 
         private void AddConnectedLine(ModellingTools.ConnectedLines obj, bool overwrite)
@@ -1993,7 +2062,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Check if Material (reinforcring) in Model.
+        /// Check if predefined rigidity.
         /// </summary>
         private bool PredefRigidityInModel(Releases.RigidityDataLibType3 obj)
         {
@@ -3411,7 +3480,7 @@ namespace FemDesign
         private void AddEntity(ModellingTools.FictitiousBar obj, bool overwrite) => AddFictBar(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedPoints obj, bool overwrite) => AddConnectedPoints(obj, overwrite);
         private void AddEntity(ModellingTools.ConnectedLines obj, bool overwrite) => AddConnectedLine(obj, overwrite);
-        //private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
+        private void AddEntity(ModellingTools.SurfaceConnection obj, bool overwrite) => AddSurfaceConnection(obj, overwrite);
         private void AddEntity(ModellingTools.Diaphragm obj, bool overwrite) => AddDiaphragm(obj, overwrite);
 
         private void AddEntity(AuxiliaryResults.LabelledSection obj, bool overwrite) => AddLabelledSection(obj, overwrite);
@@ -3904,6 +3973,24 @@ namespace FemDesign
                         if (connectedLine._predefRigidityRef != null && predefinedType.Guid == connectedLine._predefRigidityRef.Guid)
                         {
                             connectedLine.PredefRigidity = predefinedType;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void GetSurfaceConnections()
+        {
+            foreach (ModellingTools.SurfaceConnection connectedSurf in this.Entities.AdvancedFem.SurfaceConnections)
+            {
+                // predefined rigidity
+                if (this.SurfaceConnectionTypes != null && this.SurfaceConnectionTypes.PredefinedTypes != null)
+                {
+                    foreach (Releases.RigidityDataLibType1 predefinedType in this.SurfaceConnectionTypes.PredefinedTypes)
+                    {
+                        if (connectedSurf._predefRigidityRef != null && predefinedType.Guid == connectedSurf._predefRigidityRef.Guid)
+                        {
+                            connectedSurf.PredefRigidity = predefinedType;
                         }
                     }
                 }

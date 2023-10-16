@@ -55,10 +55,10 @@ namespace FemDesign.ModellingTools
         private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlElement("local_system", Order = 5)]
-        private Geometry.Plane _plane;
+        public Geometry.Plane _plane;
 
         [XmlIgnore]
-        private Geometry.Plane Plane
+        public Geometry.Plane Plane
         {
             get
             {
@@ -144,7 +144,7 @@ namespace FemDesign.ModellingTools
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        private SurfaceConnection()
+        public SurfaceConnection()
         {
 
         }
