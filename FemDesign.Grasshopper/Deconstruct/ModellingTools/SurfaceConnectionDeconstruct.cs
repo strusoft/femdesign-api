@@ -26,6 +26,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalX", "X", "Local x-axis.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalZ", "Z", "Local z-axis.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Distance", "d", "Distance in meter.", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -43,7 +44,8 @@ namespace FemDesign.Grasshopper
             DA.SetData(4, obj.Rigidity.PlasticLimitForces);
             DA.SetData(5, obj.LocalX.ToRhino());
             DA.SetData(6, obj.LocalZ.ToRhino());
-            DA.SetData(7, obj.Identifier);
+            DA.SetData(7, obj.Distance);
+            DA.SetData(8, obj.Identifier);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -54,7 +56,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("BC56C638-27ED-4773-971F-778CCDA21594"); }
+            get { return new Guid("{5994409D-2C7D-48E4-8968-4FBAA71A98FA}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.senary;

@@ -31,7 +31,7 @@ namespace FemDesign.Grasshopper
 
             pManager.AddVectorParameter("LocalX", "X", "Set local x-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddVectorParameter("LocalY", "Y", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
+            pManager.AddVectorParameter("LocalY", "Y", "Set local y-axis. Vector must be perpendicular to Curve mid-point local y-axis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CL");
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
                 motions = Releases.Motions.RigidLine();
             }
 
-            Releases.MotionsPlasticLimits motLimits = new Releases.MotionsPlasticLimits(null, null, null, null, null, null);
+            Releases.MotionsPlasticLimits motLimits = null;
             DA.GetData(4, ref motLimits);
 
             Releases.Rotations rotations = null;
@@ -74,24 +74,26 @@ namespace FemDesign.Grasshopper
                 rotations = Releases.Rotations.RigidLine();
             }
 
-            Releases.RotationsPlasticLimits rotLimits = new Releases.RotationsPlasticLimits(null, null, null, null, null, null);
+            Releases.RotationsPlasticLimits rotLimits = null;
             DA.GetData(6, ref rotLimits);
 
             Plane plane;
             var averageCurve = Curve.CreateTweenCurves(firstEdge, secondEdge, 1, 0.01)[0];
             averageCurve.PerpendicularFrameAt(averageCurve.GetLength() / 2.0, out plane);
 
-            Rhino.Geometry.Vector3d localX = Vector3d.Zero;
-            if (!DA.GetData(7, ref localX))
+            Rhino.Geometry.Vector3d localX = plane.XAxis;
+            DA.GetData(7, ref localX);
+            if(localX == null || localX.IsZero)
             {
-                localX = plane.XAxis;
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "LocalX parameter cannot be null or zero.");
             }
 
-            Rhino.Geometry.Vector3d localY = Vector3d.Zero;
-            if (!DA.GetData(8, ref localY))
+            Rhino.Geometry.Vector3d localY = plane.YAxis;
+            DA.GetData(8, ref localY);
+            if (localY == null || localY.IsZero)
             {
-                localY = plane.YAxis;
-            }         
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "LocalY parameter cannot be null or zero.");
+            }
 
             string identifier = "CL";
             DA.GetData(9, ref identifier);
@@ -132,7 +134,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("D70A2DCD-B746-4A9E-B1E9-CBAE1A4C09D8"); }
+            get { return new Guid("{1240C784-AE43-45B4-9AA2-A75692708979}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

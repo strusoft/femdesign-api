@@ -17,17 +17,16 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("ElementsToConnect", "Elements", "Surface structural elements to be connected (e.g. slabs, surface supports, fictious shells, etc).", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("Surface", "Srf", "Surface must be flat.", GH_ParamAccess.item);
-            
             pManager.AddGenericParameter("Motion", "Mot", "Default motion release is rigid (1.000e+5 kN/m2/m).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs. No plastic limits defined by default.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-
             pManager.AddVectorParameter("LocalX", "X", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalZ", "Z", "Set local z-axis. Vector must be perpendicular to surface local x-axis. Local y-axis will be adjusted accordingly. Optional, local z-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-
+            pManager.AddNumberParameter("Distance", "d", "Distance in meter.", GH_ParamAccess.item, 0);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CS");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -51,7 +50,7 @@ namespace FemDesign.Grasshopper
                 motions = Releases.Motions.RigidSurface();
             }
 
-            Releases.MotionsPlasticLimits limits = new Releases.MotionsPlasticLimits(null, null, null, null, null, null);
+            Releases.MotionsPlasticLimits limits = null;
             DA.GetData(3, ref limits);
 
             Vector3d localX = Vector3d.Zero;
@@ -60,8 +59,15 @@ namespace FemDesign.Grasshopper
             Vector3d localZ = Vector3d.Zero;
             DA.GetData(5, ref localZ);
 
+            double distance = 0;
+            DA.GetData(6, ref distance);
+            if (distance < 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Distance must be positive.");
+            }
+
             string identifier = "CS";
-            DA.GetData(6, ref identifier);
+            DA.GetData(7, ref identifier);
             if(identifier == null) { return; }
                                
 
@@ -81,7 +87,7 @@ namespace FemDesign.Grasshopper
                 }
             }
 
-            var obj = new FemDesign.ModellingTools.SurfaceConnection(fdSuface, rigidity, refs, identifier);
+            var obj = new FemDesign.ModellingTools.SurfaceConnection(fdSuface, rigidity, refs, identifier, distance);
 
             if(!localX.Equals(Vector3d.Zero))
             {
@@ -106,7 +112,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{D72F0A21-FE61-483A-93F9-53FFEF68746B}"); }
+            get { return new Guid("{5C965AFE-FA8F-4161-B85C-ED51B3154D37}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

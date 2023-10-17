@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Motion", "Mot", "Motion release.", GH_ParamAccess.item);
             pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rotation", "Rot", "Rotation release.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimR", "Plastic limits moments for rotation springs.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("RotationsPlasticLimits", "PlaLimR", "Plastic limits moments for rotation springs.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalX", "X", "Local x-axis.", GH_ParamAccess.item);
             pManager.AddVectorParameter("LocalY", "Y", "Local y-axis.", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item);
@@ -60,7 +60,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("737E1C49-FE03-427B-9D74-7B0FDA3DCE3B"); }
+            get { return new Guid("{49D35435-806E-4E21-90CF-B13729388D0C}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.senary;

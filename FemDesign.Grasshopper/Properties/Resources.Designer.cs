@@ -1263,6 +1263,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ModellingToolsDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("ModellingToolsDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ModelOpen {
             get {
                 object obj = ResourceManager.GetObject("ModelOpen", resourceCulture);

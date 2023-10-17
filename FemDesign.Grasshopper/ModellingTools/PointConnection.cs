@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
                 motions = Releases.Motions.RigidPoint();
             }
 
-            Releases.MotionsPlasticLimits motLimits = new Releases.MotionsPlasticLimits(null, null, null, null, null, null);
+            Releases.MotionsPlasticLimits motLimits = null;
             DA.GetData(4, ref motLimits);
 
             Releases.Rotations rotations = null;
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
                 rotations = Releases.Rotations.RigidPoint();
             }
 
-            Releases.RotationsPlasticLimits rotLimits = new Releases.RotationsPlasticLimits(null, null, null, null, null, null);
+            Releases.RotationsPlasticLimits rotLimits = null;
             DA.GetData(6, ref rotLimits);
 
             Plane plane = Plane.WorldXY;
@@ -111,7 +111,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("F26C4669-B309-45B4-8389-611B0E673160"); }
+            get { return new Guid("{13F2ED2A-364C-4B5B-9D62-D725ED7CE7A1}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
