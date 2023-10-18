@@ -64,7 +64,7 @@ namespace FemDesign.ModellingTools
             }
         }
 
-        [XmlElement("local_x", Order = 3)]
+        [XmlElement("local_x", Order = 2)]
         public Geometry.Vector3d _localX;
 
         [XmlIgnore]
@@ -82,7 +82,7 @@ namespace FemDesign.ModellingTools
             }
         }
 
-        [XmlElement("local_y", Order = 4)]
+        [XmlElement("local_y", Order = 3)]
         public Geometry.Vector3d _localY;
 
         [XmlIgnore]
