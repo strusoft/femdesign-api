@@ -11,30 +11,13 @@ namespace FemDesign
     public partial class LoadBase: EntityBase, ILoadElement
     {
         [XmlAttribute("load_case")]
-        public System.Guid _loadCaseGuid;
-
-        [XmlIgnore]
-        public System.Guid LoadCaseGuid
-        {
-            get
-            {
-                if (LoadCase != null)
-                    return _loadCase.Guid;
-                else
-                    return default(System.Guid);
-            }
-            set
-            {
-                _loadCaseGuid = value;
-            }
-        }
+        public System.Guid LoadCaseGuid { get; set; }
 
         [XmlAttribute("comment")]
         public string Comment { get; set; } // comment_string
 
-
         [XmlIgnore]
-        public Loads.LoadCase _loadCase;
+        public Loads.LoadCase _loadCase { get; set; }
 
         [XmlIgnore]
         public Loads.LoadCase LoadCase
@@ -46,6 +29,5 @@ namespace FemDesign
                 LoadCaseGuid = value.Guid;
             }
         }
-
     }
 }
