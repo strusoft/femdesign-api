@@ -15,7 +15,7 @@ namespace FemDesign.Shells
     {
         private static int _plateInstance = 0;
         private static int _wallInstance = 0;
-        protected override int GetUniqueInstanceCount()
+        protected override int? GetUniqueInstanceCount()
         {
             switch (this.SlabType)
             {

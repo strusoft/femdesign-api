@@ -10,7 +10,7 @@ namespace FemDesign.Reinforcement
     {   
         
         private static int _hiddenBarInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_hiddenBarInstances;
+        protected override int? GetUniqueInstanceCount() => ++_hiddenBarInstances;
 
         [XmlElement("rectangle", Order = 1)]
         public Geometry.RectangleType Rectangle { get; set; }

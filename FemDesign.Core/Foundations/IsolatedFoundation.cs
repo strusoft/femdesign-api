@@ -17,7 +17,7 @@ namespace FemDesign.Foundations
         [XmlIgnore]
         internal static int _instance = 0;
 
-        protected override int GetUniqueInstanceCount() => ++_instance;
+        protected override int? GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("bedding_modulus")]
         [DefaultValue(10000)]

@@ -15,7 +15,7 @@ namespace FemDesign.Supports
     {
         [XmlIgnore]
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
-        protected override int GetUniqueInstanceCount() => ++_instance;
+        protected override int? GetUniqueInstanceCount() => ++_instance;
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;

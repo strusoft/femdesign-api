@@ -10,7 +10,7 @@ namespace FemDesign.ModellingTools
     {
         [XmlIgnore]
         private static int _surfaceConnectionInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_surfaceConnectionInstances;
+        protected override int? GetUniqueInstanceCount() => ++_surfaceConnectionInstances;
 
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; }

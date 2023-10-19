@@ -13,7 +13,7 @@ namespace FemDesign.ModellingTools
     {
         [XmlIgnore]
         private static int _connectedPointInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_connectedPointInstances;
+        protected override int? GetUniqueInstanceCount() => ++_connectedPointInstances;
 
         [XmlElement("point", Order = 1)]
         public Point3d[] _points;

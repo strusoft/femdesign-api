@@ -15,7 +15,7 @@ namespace FemDesign.Soil
         [XmlIgnore]
         private static int _boreHoleInstances = 0;
         public static void ResetInstanceCount() => _boreHoleInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_boreHoleInstances;
+        protected override int? GetUniqueInstanceCount() => ++_boreHoleInstances;
 
         [XmlElement]
         public List<double> StrataLevels { get; set; }

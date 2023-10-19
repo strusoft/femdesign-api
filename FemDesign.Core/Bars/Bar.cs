@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -19,8 +20,11 @@ namespace FemDesign.Bars
     [XmlInclude(typeof(Truss))]
     [XmlRoot("database", Namespace = "urn:strusoft")]
     [System.Serializable]
-    public partial class Bar : EntityBase, INamedEntity, IStructureElement, IStageElement, IBar
+    public partial class Bar : NamedEntityBase, INamedEntity, IStructureElement, IStageElement, IBar
     {
+        protected override int? GetUniqueInstanceCount() { return null; }
+
+
         /// <summary>
         /// Truss only.
         /// </summary>enum
@@ -105,9 +109,9 @@ namespace FemDesign.Bars
             }
         }
 
-        [XmlAttribute("name")]
-        public string _name; // identifier
-        public string Name
+        //[XmlAttribute("name")]
+        //public string _name; // identifier
+        public override string Name
         {
             get
             {
@@ -120,16 +124,16 @@ namespace FemDesign.Bars
             }
         }
 
-        public int Instance => this.BarPart.Instance;
+        public override int Instance => this.BarPart.Instance;
 
         [XmlIgnore]
-        public string Identifier
+        public override string Identifier
         {
             get => this.BarPart.Identifier;
             set => this.BarPart.Identifier = value;
         }
         [XmlIgnore]
-        public bool LockedIdentifier
+        public override bool LockedIdentifier
         {
             get => this.BarPart.LockedIdentifier;
             set => this.BarPart.LockedIdentifier = value;

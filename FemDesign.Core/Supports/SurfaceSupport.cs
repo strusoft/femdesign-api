@@ -10,7 +10,7 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class SurfaceSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
-        protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and SurfaceSupport share the same instance counter.
+        protected override int? GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and SurfaceSupport share the same instance counter.
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;

@@ -17,7 +17,7 @@ namespace FemDesign
         /// Cover instance number
         /// </summary>
         private static int _coverInstance = 0;
-        protected override int GetUniqueInstanceCount() => ++_coverInstance;
+        protected override int? GetUniqueInstanceCount() => ++_coverInstance;
 
         /// <summary>
         /// Load bearing direction (point_type_3d)

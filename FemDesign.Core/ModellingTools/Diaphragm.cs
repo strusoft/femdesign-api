@@ -8,13 +8,13 @@ namespace FemDesign.ModellingTools
     {
         [XmlIgnore]
         private static int _diaphragmInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_diaphragmInstances;
+        protected override int? GetUniqueInstanceCount() => ++_diaphragmInstances;
 
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; }
 
-        [XmlAttribute("name")]
-        public string _name;
+        //[XmlAttribute("name")]
+        //public string _name;
 
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;

@@ -13,11 +13,12 @@ namespace FemDesign.Shells
     /// slab_type
     /// </summary>
     [System.Serializable]
-    public partial class Slab : EntityBase, INamedEntity, IStructureElement, IStageElement, IShell
+    public partial class Slab : NamedEntityBase, INamedEntity, IStructureElement, IStageElement, IShell
     {
-        [XmlAttribute("name")]
-        public string _name; // identifier
-        public string Name
+        protected override int? GetUniqueInstanceCount() { return null; }
+        //[XmlAttribute("name")]
+        //public string _name; // identifier
+        public override string Name
         {
             get
             {
@@ -29,16 +30,16 @@ namespace FemDesign.Shells
                 return this.SlabPart.Name.Substring(0, foundIndexes.Last());
             }
         }
-        public int Instance => this.SlabPart.Instance;
+        public override int Instance => this.SlabPart.Instance;
 
         [XmlIgnore]
-        public string Identifier
+        public override string Identifier
         {
             get => this.SlabPart.Identifier;
             set => this.SlabPart.Identifier = value;
         }
         [XmlIgnore]
-        public bool LockedIdentifier
+        public override bool LockedIdentifier
         {
             get => this.SlabPart.LockedIdentifier;
             set => this.SlabPart.LockedIdentifier = value;

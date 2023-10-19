@@ -18,7 +18,7 @@ namespace FemDesign.Shells
         /// Panel instance counter
         /// </summary>
         private static int _panelInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_panelInstances;
+        protected override int? GetUniqueInstanceCount() => ++_panelInstances;
 
         [XmlIgnore]
         [Obsolete("Use _plane", true)]

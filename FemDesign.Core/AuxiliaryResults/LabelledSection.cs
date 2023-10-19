@@ -17,7 +17,7 @@ namespace FemDesign.AuxiliaryResults
         [XmlIgnore]
         private static int _labelledSectioninstances = 0;
         public static void ResetInstanceCount() => _labelledSectioninstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_labelledSectioninstances;
+        protected override int? GetUniqueInstanceCount() => ++_labelledSectioninstances;
 
         [XmlElement("line_segment")]
         public LineSegment _lineSegment;

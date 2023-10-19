@@ -24,7 +24,7 @@ namespace FemDesign.Bars
         private static int _columnInstance = 0; // Number of column instances created
         [XmlIgnore]
         private static int _trussInstance = 0; // Number of truss instances created
-        protected override int GetUniqueInstanceCount()
+        protected override int? GetUniqueInstanceCount()
         {
             switch (this.Type)
             {

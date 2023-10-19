@@ -11,7 +11,7 @@ namespace FemDesign.Soil
     {
         [XmlIgnore]
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
-        protected override int GetUniqueInstanceCount() => 1; // Only ONE instance can be created.
+        protected override int? GetUniqueInstanceCount() => 1; // Only ONE instance can be created.
 
         [XmlElement("contour", Order = 1)]
         public Geometry.HorizontalPolygon2d Contour { get; set; }

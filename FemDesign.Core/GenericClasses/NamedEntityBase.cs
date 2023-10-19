@@ -70,7 +70,7 @@ namespace FemDesign
         /// This value will be used to set number (like ".1") part of the entity name (like "B.1"). Typically this is a counter starting at 1 and incrementing for each new instance of this class that has been created.
         /// </summary>
         /// <returns>A unique number.</returns>
-        protected abstract int GetUniqueInstanceCount();
+        protected abstract int? GetUniqueInstanceCount();
     }
 
     public abstract partial class NamedEntityPartBase : NamedEntityBase
