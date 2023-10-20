@@ -137,6 +137,7 @@
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Model\OBSOLETE\ModelConstruct_OBSOLETE2209.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />

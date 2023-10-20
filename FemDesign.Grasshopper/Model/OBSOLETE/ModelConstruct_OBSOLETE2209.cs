@@ -9,9 +9,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelConstruct : FEM_Design_API_Component
+    public class ModelConstruct_OBSOLETE2209 : FEM_Design_API_Component
     {
-        public ModelConstruct() : base("Model.Construct", "Construct", "Construct new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelConstruct_OBSOLETE2209() : base("Model.Construct", "Construct", "Construct new model. Add entities to model. Nested lists are not supported.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -84,21 +84,6 @@ namespace FemDesign.Grasshopper
             if (_soil.Count != 0)
                 soil = _soil[0];
 
-            if(loadCases == null || loadCases.Count == 0)
-            {
-                string message = "LoadCase must be connected to get loads or load combinations in FEM-Design.";
-                if(loads == null || loads.Count == 0)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
-                    return;
-                }
-                if(loadCombinations == null || loadCombinations.Count == 0)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
-                    return;
-                }
-
-            }
 
             // Create model
             Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage, soil);
@@ -121,10 +106,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{A0E6EA1A-1A75-4C16-B5D8-831E2ECA4E35}"); }
+            get { return new Guid("{C2A1F38B-E81E-4B0E-8E58-16DC74F3B91A}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
