@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class TopBotLocValDeconstruct: FEM_Design_API_Component
+    public class TopBotLocValDeconstruct_OBSOLETE2209: FEM_Design_API_Component
     {
-       public TopBotLocValDeconstruct(): base("TopBotLocVal.Deconstruct", "Deconstruct", "Deconstruct a TopBottomLocationValue.", "FEM-Design", "Deconstruct")
+       public TopBotLocValDeconstruct_OBSOLETE2209(): base("TopBotLocVal.Deconstruct", "Deconstruct", "Deconstruct a TopBottomLocationValue.", "FEM-Design", "Deconstruct")
        {
 
        }
@@ -49,5 +49,6 @@ namespace FemDesign.Grasshopper
        {
            get { return new Guid("46e7462c-80a8-4894-a43f-1a00fb5a4e52"); }
        }
+       public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
