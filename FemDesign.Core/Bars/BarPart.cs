@@ -24,7 +24,7 @@ namespace FemDesign.Bars
         private static int _columnInstance = 0; // Number of column instances created
         [XmlIgnore]
         private static int _trussInstance = 0; // Number of truss instances created
-        protected override int GetUniqueInstanceCount()
+        protected override int GetUniqueInstanceCount() // This method body must be the same as the method of the Bar class
         {
             switch (this.Type)
             {
@@ -38,6 +38,7 @@ namespace FemDesign.Bars
                     throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
             }
         }
+
         /// <summary>
         /// Edge field
         /// </summary>

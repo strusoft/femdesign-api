@@ -9,7 +9,25 @@ namespace FemDesign
     public abstract partial class NamedEntityBase : EntityBase, INamedEntity
     {
         [XmlAttribute("name")]
-        public string _name; // identifier
+        public string _xmlName; // identifier for serialisation purposes
+        [XmlIgnore]
+        public string _name // identifier;  !It must be locked otherwise FEM-Design overrides the instance index. GitHub case: https://github.com/strusoft/femdesign-api/issues/850
+        {
+            get
+            {
+                if (_xmlName.StartsWith("@"))
+                    return this._xmlName;
+                else
+                    return "@" + this._xmlName;
+            }
+            set 
+            {
+                if (value.StartsWith("@"))
+                    this._xmlName = value;
+                else
+                    this._xmlName = "@" + value; 
+            }
+        }
         [XmlIgnore]
         public virtual string Name => _namePattern.Match(this._name).Groups["name"].Value;
         [XmlIgnore]
