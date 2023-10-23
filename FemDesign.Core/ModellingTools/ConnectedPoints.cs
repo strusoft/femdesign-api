@@ -38,11 +38,82 @@ namespace FemDesign.ModellingTools
             }
         }
 
+        [XmlIgnore]
+        private Geometry.Plane _plane;
+
+        [XmlIgnore]
+        public Geometry.Plane Plane
+        {
+            get
+            {
+                if (this._plane == null)
+                {
+                    this._plane = new Geometry.Plane(new Point3d(0, 0, 0), this.LocalX, this.LocalY);
+                    return this._plane;
+                }
+                else
+                {
+                    return this._plane;
+                }
+            }
+            set
+            {
+                this._plane = value;
+                this._localX = value.LocalX;
+                this._localY = value.LocalY;
+            }
+        }
+
         [XmlElement("local_x", Order = 2)]
-        public Vector3d LocalX { get; set; }
+        public Geometry.Vector3d _localX;
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalX
+        {
+            get
+            {
+                return this._localX;
+            }
+            set
+            {
+                this.Plane.SetXAroundZ(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
+            }
+        }
 
         [XmlElement("local_y", Order = 3)]
-        public Vector3d LocalY { get; set; }
+        public Geometry.Vector3d _localY;
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalY
+        {
+            get
+            {
+                return this._localY;
+            }
+            set
+            {
+                this.Plane.SetYAroundZ(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
+            }
+        }
+
+        [XmlIgnore]
+        public Geometry.Vector3d LocalZ
+        {
+            get
+            {
+                return this.Plane.LocalZ;
+            }
+            set
+            {
+                this.Plane.SetZAroundX(value);
+                this._localX = this.Plane.LocalX;
+                this._localY = this.Plane.LocalY;
+            }
+        }
 
         // rigidity data choice
 
@@ -161,24 +232,33 @@ namespace FemDesign.ModellingTools
             Initialize(firstPoint, secondPoint, rigidity, references, identifier);
             this.LocalX = plane.LocalX;
             this.LocalY = plane.LocalY;
+        }
+
+        /// <summary>
+        /// Create a connected point between 2 points with coordinate system, rigidity (motions, rotations) and plastic limits (forces, moments). 
+        /// </summary>
+        public ConnectedPoints(Plane plane, Point3d firstPoint, Point3d secondPoint, Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, GuidListType[] references, string identifier = "CP")
+        {
+            RigidityDataType2 rigidity = new RigidityDataType2(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits);
+            Initialize(firstPoint, secondPoint, rigidity, references, identifier);
+            this.Plane = plane;
 
         }
 
         private void Initialize(Point3d firstPoint, Point3d secondPoint, RigidityDataType2 rigidity, GuidListType[] references, string identifier)
         {
             this.EntityCreated();
+
             this.Points = new Point3d[2]
             {
                 firstPoint,
                 secondPoint
             };
-            this.LocalX = Vector3d.UnitX;
+            this.Plane = new Plane(new Point3d(0, 0, 0), Vector3d.UnitX, Vector3d.UnitY);
             this.LocalY = Vector3d.UnitY;
             this.Rigidity = rigidity;
             this.References = references;
             this.Identifier = identifier;
-        }
-
-        
+        }        
     }
 }

@@ -96,7 +96,7 @@ namespace FemDesign
         public Supports.Supports Supports { get; set; } = new Supports.Supports();
 
         [XmlElement("advanced-fem", Order = 28)]
-        public AdvancedFem AdvancedFem { get; set; } = new AdvancedFem();
+        public ModellingTools.AdvancedFem AdvancedFem { get; set; } = new ModellingTools.AdvancedFem();
 
         [XmlElement("storeys", Order = 29)]
         public StructureGrid.Storeys Storeys { get; set; }

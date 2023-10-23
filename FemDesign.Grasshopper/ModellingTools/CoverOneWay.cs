@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Vector3d fdVector3d = vector.FromRhino().Normalize();
 
             //
-            FemDesign.Cover obj = FemDesign.Cover.OneWayCover(region, structures, fdVector3d, identifier);
+            FemDesign.ModellingTools.Cover obj = FemDesign.ModellingTools.Cover.OneWayCover(region, structures, fdVector3d, identifier);
 
             // return
             DA.SetData(0, obj);
@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{7F1B0264-54F0-4D31-BEB3-23E5F151FE09}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
     }
 }

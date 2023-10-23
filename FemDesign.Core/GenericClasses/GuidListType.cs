@@ -27,12 +27,16 @@ namespace FemDesign
             this.Guid = guid;
         }
 
-
         /// <summary>
         /// Implicit conversion of a Entity to its Global Unique Identifier.
         /// </summary>
         /// <param name="entity"></param>
         public static implicit operator GuidListType(EntityBase entity) => new GuidListType(entity.Guid);
+
+        public override string ToString()
+        {
+            return $"{this.Guid}";
+        }
     }
 
     /// <summary>

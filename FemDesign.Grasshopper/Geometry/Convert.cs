@@ -56,7 +56,7 @@ namespace FemDesign.Grasshopper
         /// <summary>
         /// Create Rhino brep from underlying Region of Cover.
         /// </summary>
-        internal static Rhino.Geometry.Brep GetRhinoSurface(this Cover cover)
+        internal static Rhino.Geometry.Brep GetRhinoSurface(this ModellingTools.Cover cover)
         {
             return cover.Region.ToRhinoBrep();
         }
@@ -64,7 +64,7 @@ namespace FemDesign.Grasshopper
         /// <summary>
         /// Create Rhino curves from underlying Edges in Region of Cover.
         /// </summary>
-        internal static List<Rhino.Geometry.Curve> GetRhinoCurves(this Cover cover)
+        internal static List<Rhino.Geometry.Curve> GetRhinoCurves(this ModellingTools.Cover cover)
         {
             return cover.Region.ToRhinoCurves();
         }

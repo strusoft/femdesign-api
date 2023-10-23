@@ -25,7 +25,7 @@ namespace FemDesign.Grasshopper
        protected override void SolveInstance(IGH_DataAccess DA)
        {
             // get input
-            FemDesign.Cover cover = null;
+            FemDesign.ModellingTools.Cover cover = null;
             if (!DA.GetData(0, ref cover))
             {
                 return;
@@ -54,7 +54,7 @@ namespace FemDesign.Grasshopper
            get { return new Guid("145f6331-bf19-4d89-9e81-9e5e0d137f87"); }
        }
 
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.senary;
 
     }
 }

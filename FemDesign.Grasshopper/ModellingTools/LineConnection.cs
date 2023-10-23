@@ -8,28 +8,33 @@ namespace FemDesign.Grasshopper
 {
     public class LineConnection : FEM_Design_API_Component
     {
-        public LineConnection() : base("LineConnection", "LineConnection", "Construct a Line Connection", "FEM-Design", "ModellingTools")
+        public LineConnection() : base("LineConnection", "LnConnect", "Construct a Line Connection.", "FEM-Design", "ModellingTools")
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("MasterLine", "MasterLine", "LineCurve", GH_ParamAccess.item);
-            pManager.AddCurveParameter("SlaveLine", "SlaveLine", "LineCurve", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ElementsToConnect", "Elements", "Structural elements to be connected (bars, slabs, supports, etc.).", GH_ParamAccess.list);
+            
+            pManager.AddCurveParameter("MasterLine", "MLine", "LineCurve", GH_ParamAccess.item);
+            pManager.AddCurveParameter("SlaveLine", "SLine", "LineCurve", GH_ParamAccess.item);
 
-            pManager.AddGenericParameter("Motion", "Motion", "Motion.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Motion", "Mot", "Motion.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Rotation", "Rotation", "Rotation.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
-            pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
+            pManager.AddGenericParameter("MotionsPlasticLimits", "PlaLimM", "Plastic limits forces for motion springs. No plastic limits defined by default.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddGenericParameter("ElementToConnect", "ElementToConnect", "ElementToConnect.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Rotation", "Rot", "Rotation.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("RotationsPlaticLimits", "PlaLimR", "Plastic limits moments for rotation springs. No plastic limits defined by default.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "CL");
+            pManager.AddVectorParameter("LocalX", "X", "Set local x-axis. Vector must be perpendicular to Curve mid-point local x-axis.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddVectorParameter("LocalY", "Y", "Set local y-axis. Vector must be perpendicular to Curve mid-point local y-axis.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
+            pManager.AddTextParameter("Identifier", "ID", "Identifier.", GH_ParamAccess.item, "CL");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -43,48 +48,55 @@ namespace FemDesign.Grasshopper
             double interfaceStart = 0.50;
             double interfaceEnd = 0.50;
 
+            // get input
+            var elements = new List<EntityBase>();
+            DA.GetDataList(0, elements);
 
             Rhino.Geometry.Curve firstEdge = null;
-            DA.GetData(0, ref firstEdge);
+            DA.GetData(1, ref firstEdge);
 
             Rhino.Geometry.Curve secondEdge = null;
-            DA.GetData(1, ref secondEdge);
+            DA.GetData(2, ref secondEdge);
 
 
             Releases.Motions motions = null;
-            if (!DA.GetData(2, ref motions))
+            if (!DA.GetData(3, ref motions))
             {
                 motions = Releases.Motions.RigidLine();
             }
 
+            Releases.MotionsPlasticLimits motLimits = null;
+            DA.GetData(4, ref motLimits);
+
             Releases.Rotations rotations = null;
-            if (!DA.GetData(3, ref rotations))
+            if (!DA.GetData(5, ref rotations))
             {
                 rotations = Releases.Rotations.RigidLine();
             }
 
+            Releases.RotationsPlasticLimits rotLimits = null;
+            DA.GetData(6, ref rotLimits);
 
             Plane plane;
             var averageCurve = Curve.CreateTweenCurves(firstEdge, secondEdge, 1, 0.01)[0];
-            averageCurve.PerpendicularFrameAt(averageCurve.GetLength()/2.0, out plane);
+            averageCurve.PerpendicularFrameAt(averageCurve.GetLength() / 2.0, out plane);
 
-            Rhino.Geometry.Vector3d localX = Vector3d.Zero;
-            if (!DA.GetData(4, ref localX))
+            Rhino.Geometry.Vector3d localX = plane.XAxis;
+            DA.GetData(7, ref localX);
+            if(localX == null || localX.IsZero)
             {
-                localX = plane.XAxis;
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "LocalX parameter cannot be null or zero.");
             }
 
-            Rhino.Geometry.Vector3d localY = Vector3d.Zero;
-            if (!DA.GetData(5, ref localY))
+            Rhino.Geometry.Vector3d localY = plane.YAxis;
+            DA.GetData(8, ref localY);
+            if (localY == null || localY.IsZero)
             {
-                localY = plane.YAxis;
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "LocalY parameter cannot be null or zero.");
             }
-
-            var elements = new List<EntityBase>();
-            DA.GetDataList(6, elements);
 
             string identifier = "CL";
-            DA.GetData(7, ref identifier);
+            DA.GetData(9, ref identifier);
 
             GuidListType[] refs = new GuidListType[elements.Count];
             for (int idx = 0; idx < refs.Length; idx++)
@@ -104,10 +116,10 @@ namespace FemDesign.Grasshopper
 
             }
 
-
-            var rigidity = new Releases.RigidityDataType3(motions, rotations);
+            var rigidity = new Releases.RigidityDataType3(motions, motLimits, rotations, rotLimits);
 
             var connectedLines = new FemDesign.ModellingTools.ConnectedLines(firstEdge.FromRhino(), secondEdge.FromRhino(), localX.FromRhino(), localY.FromRhino(), rigidity, refs, identifier, movingLocal, interfaceStart, interfaceEnd);
+
 
             // output
             DA.SetData(0, connectedLines);
@@ -122,7 +134,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{2A493ED7-9395-47B5-8321-FF797692DEEF}"); }
+            get { return new Guid("{1240C784-AE43-45B4-9AA2-A75692708979}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

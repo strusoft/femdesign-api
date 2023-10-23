@@ -48,7 +48,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Region region = brep.FromRhino();
 
             //
-            FemDesign.Cover obj = FemDesign.Cover.TwoWayCover(region, structures, identifier);
+            FemDesign.ModellingTools.Cover obj = FemDesign.ModellingTools.Cover.TwoWayCover(region, structures, identifier);
 
             // return
             DA.SetData(0, obj);
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{63D6BD65-94F5-4B78-95D8-141630B8FF9E}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
 
     }

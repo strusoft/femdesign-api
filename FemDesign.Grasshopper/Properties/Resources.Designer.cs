@@ -813,6 +813,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LineConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("LineConnectionDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineLoadDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("LineLoadDeconstruct", resourceCulture);
@@ -1253,6 +1263,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ModellingToolsDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("ModellingToolsDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ModelOpen {
             get {
                 object obj = ResourceManager.GetObject("ModelOpen", resourceCulture);
@@ -1516,6 +1536,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap PointConnection {
             get {
                 object obj = ResourceManager.GetObject("PointConnection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PointConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("PointConnectionDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2206,6 +2236,26 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SupportsDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("SupportsDeconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SurfaceConnection {
+            get {
+                object obj = ResourceManager.GetObject("SurfaceConnection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SurfaceConnectionDeconstruct {
+            get {
+                object obj = ResourceManager.GetObject("SurfaceConnectionDeconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
