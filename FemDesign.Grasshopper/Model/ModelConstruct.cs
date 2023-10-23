@@ -86,18 +86,22 @@ namespace FemDesign.Grasshopper
 
             if(loadCases == null || loadCases.Count == 0)
             {
-                string message = "LoadCase must be connected to get loads or load combinations in FEM-Design.";
-                if(loads == null || loads.Count == 0)
+                string message = "LoadCase must be connected to get loads, load combinations or load groups in FEM-Design.";
+                if(loads.Count != 0)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
                     return;
                 }
-                if(loadCombinations == null || loadCombinations.Count == 0)
+                else if(loadCombinations.Count != 0)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
                     return;
                 }
-
+                else if (loadGroups.Count != 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
+                    return;
+                }
             }
 
             // Create model
