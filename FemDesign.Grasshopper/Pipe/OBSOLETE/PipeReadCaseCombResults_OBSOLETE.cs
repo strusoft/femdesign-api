@@ -10,20 +10,19 @@ using System.Reflection;
 using GrasshopperAsyncComponent;
 using FemDesign;
 using FemDesign.Calculate;
-using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeReadResults : GH_AsyncComponent
+    public class PipeReadResults_OBSOLETE : GH_AsyncComponent
     {
-        public PipeReadResults() : base(" FEM-Design.GetCaseCombResults", "CaseCombResults", "Read load cases and load combinations results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeReadResults_OBSOLETE() : base(" FEM-Design.GetCaseCombResults", "CaseCombResults", "Read load cases and load combinations results from a model. .csv list files are saved in the same work directory as StruxmlPath.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationReadResultWorker(this);
+            BaseWorker = new ApplicationReadResultWorker_OBSOLETE(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.list);
+            pManager.AddTextParameter("ResultType", "ResultType", "ResultType", GH_ParamAccess.item);
             pManager.AddTextParameter("Case Name", "Case Name", "Name of Load Case to return the results. Default will return the values for all load cases.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results. Default will return the values for all load combinations.", GH_ParamAccess.list);
@@ -47,9 +46,9 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{169E5FC3-469F-499C-96DF-D12E042C1FD0}");
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
-        private class ApplicationReadResultWorker : WorkerInstance
+        public override Guid ComponentGuid => new Guid("{AC9B1E92-5C07-4F62-A0B3-E5E12254CD05}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+        private class ApplicationReadResultWorker_OBSOLETE : WorkerInstance
         {
             public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
             {
@@ -66,7 +65,7 @@ namespace FemDesign.Grasshopper
                 var method = nameof(FemDesign.FemDesignConnection.GetResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
                 MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements});
+                dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }
@@ -85,23 +84,23 @@ namespace FemDesign.Grasshopper
             public FemDesignConnection _connection = null;
             private Calculate.Options _options = null;
             private Results.UnitResults _units = null;
-            private List<string> _resultTypes = new List<string>();
+            private string _resultType;
             private List<string> _case = new List<string>();
             private List<string> _combo = new List<string>();
 
             List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
 
             private List<Results.IResult> _results = new List<Results.IResult>();
-            private DataTree<object>  resultsTree = new DataTree<object>();
             private bool _runNode = true;
             private bool _success = false;
 
             private Verbosity _verbosity = Verbosity.Normal;
 
-            public ApplicationReadResultWorker(GH_Component component) : base(component) { }
+            public ApplicationReadResultWorker_OBSOLETE(GH_Component component) : base(component) { }
 
             public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
+
                 try
                 {
                     if (_runNode == false)
@@ -136,53 +135,40 @@ namespace FemDesign.Grasshopper
 
                     ReportProgress("", "");
 
-
                     // Run the Analysis
-                    int resIndex = 0;
-                    foreach (var _resultType in _resultTypes)
+                    var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
+                    Type type = Type.GetType(_type);
+                    if (type == null)
+                        throw new ArgumentException($"Class object of name '{_type}' does not exist!");
+
+                    if (!_combo.Any() && !_case.Any())
                     {
-                        int caseIndex = 0;
-                        int combIndex = 0;
-                        var _type = $"FemDesign.Results.{_resultType}, FemDesign.Core";
-                        Type type = Type.GetType(_type);
-                        if (type == null)
-                            throw new ArgumentException($"Class object of name '{_type}' does not exist!");
-
-                        if (!_combo.Any() && !_case.Any())
-                        {
-                            var res = _getResults(type, _units, _options, _elements);
-                            resultsTree.AddRange(res, new GH_Path(resIndex));
-                        }
-
-                        if (_case.Any())
-                        {
-                            foreach (var item in _case)
-                            {
-                                var res = _getLoadCaseResults(type, item, _units, _options);
-                                resultsTree.AddRange(res, new GH_Path(resIndex, caseIndex));
-                                caseIndex++;
-                            }
-                        }
-
-                        if (_combo.Any())
-                        {
-                            combIndex = caseIndex;
-                            foreach (var item in _combo)
-                            {
-                                var res = _getLoadCombinationResults(type, item, _units, _options);
-                                resultsTree.AddRange(res, new GH_Path(resIndex, combIndex));
-                                combIndex++;
-                            }
-                        }
-
-                        resIndex++;
+                        var res = _getResults(type, _units, _options, _elements);
+                        _results.AddRange(res);
                     }
 
+                    if (_case.Any())
+                    {
+                        foreach (var item in _case)
+                        {
+                            var res = _getLoadCaseResults(type, item, _units, _options);
+                            _results.AddRange(res);
+                        }
+                    }
+
+                    if (_combo.Any())
+                    {
+                        foreach (var item in _combo)
+                        {
+                            var res = _getLoadCombinationResults(type, item, _units, _options);
+                            _results.AddRange(res);
+                        }
+                    }
                     _success = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    RuntimeMessages.Add(( GH_RuntimeMessageLevel.Error, ex.InnerException.Message ) );
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                     _success = false;
                     _connection = null;
                 }
@@ -190,12 +176,12 @@ namespace FemDesign.Grasshopper
                 Done();
             }
 
-            public override WorkerInstance Duplicate() => new ApplicationReadResultWorker(Parent);
+            public override WorkerInstance Duplicate() => new ApplicationReadResultWorker_OBSOLETE(Parent);
 
             public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
             {
                 if (!DA.GetData("Connection", ref _connection)) return;
-                DA.GetDataList("ResultType", _resultTypes);
+                DA.GetData("ResultType", ref _resultType);
                 DA.GetDataList("Case Name", _case);
                 DA.GetDataList("Combination Name", _combo);
                 DA.GetDataList("Elements", _elements);
@@ -212,7 +198,7 @@ namespace FemDesign.Grasshopper
                 }
 
                 DA.SetData("Connection", _connection);
-                DA.SetDataTree(1, resultsTree);
+                DA.SetDataList("Results", _results);
                 DA.SetData("Success", _success);
             }
         }

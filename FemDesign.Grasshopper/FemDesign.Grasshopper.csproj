@@ -137,10 +137,8 @@
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
-    <Compile Include="Model\OBSOLETE\ModelConstruct_OBSOLETE2209.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeReadCaseCombResults_OBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
-    <Compile Include="Pipe\OBSOLETE\FemDesignConnection_OBSOLETE.cs" />
-    <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeCreateResPoint.cs" />
@@ -150,7 +148,6 @@
     <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadCaseCombResults.cs" />
-    <Compile Include="Pipe\OBSOLETE\PipeReadResults_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeResultFromBsc.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
@@ -211,7 +208,6 @@
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
-    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunAnalysis_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE3.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
