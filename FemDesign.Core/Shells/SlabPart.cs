@@ -13,11 +13,9 @@ namespace FemDesign.Shells
     [System.Serializable]
     public partial class SlabPart: NamedEntityPartBase
     {
-        [XmlIgnore]
-        private static int _plateInstance = 0; // Number of plate instances created
-        [XmlIgnore]
-        private static int _wallInstance = 0; // Number of wall instances created
-        protected override int GetUniqueInstanceCount() // This method body must be the same as the method of the Slab class
+        private static int _plateInstance = 0;
+        private static int _wallInstance = 0;
+        protected override int GetUniqueInstanceCount()
         {
             switch (this.SlabType)
             {
