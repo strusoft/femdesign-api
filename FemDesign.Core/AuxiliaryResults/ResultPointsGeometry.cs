@@ -29,7 +29,7 @@ namespace FemDesign.AuxiliaryResults
         [XmlIgnore]
         private static int _resultPointinstances = 0;
         public static void ResetInstanceCount() => _resultPointinstances = 0;
-        protected override int? GetUniqueInstanceCount() => ++_resultPointinstances;
+        protected override int GetUniqueInstanceCount() => ++_resultPointinstances;
 
         [XmlElement("position")]
         public Point3d Position { get; set; }

@@ -11,7 +11,7 @@ namespace FemDesign.ModellingTools
     {
         [XmlIgnore]
         private static int _ficticiousBarInstances = 0;
-        protected override int? GetUniqueInstanceCount() => ++_ficticiousBarInstances;
+        protected override int GetUniqueInstanceCount() => ++_ficticiousBarInstances;
 
         [XmlElement("edge", Order = 1)]
         public Geometry.Edge Edge { get; set; }

@@ -12,7 +12,7 @@ namespace FemDesign.ModellingTools
         
         [XmlIgnore]
         private static int _ficticiousShellInstances = 0;
-        protected override int? GetUniqueInstanceCount() => ++_ficticiousShellInstances;
+        protected override int GetUniqueInstanceCount() => ++_ficticiousShellInstances;
 
         [XmlIgnore]
         [Obsolete("Use _plane", true)]

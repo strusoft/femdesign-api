@@ -14,7 +14,7 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class LineSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
-        protected override int? GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and LineSupport share the same instance counter.
+        protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and LineSupport share the same instance counter.
 
         [XmlAttribute("moving_local")]
         public bool MovingLocal { get; set; } // bool

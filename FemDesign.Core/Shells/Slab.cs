@@ -15,34 +15,21 @@ namespace FemDesign.Shells
     [System.Serializable]
     public partial class Slab : NamedEntityBase, INamedEntity, IStructureElement, IStageElement, IShell
     {
-        protected override int? GetUniqueInstanceCount() { return null; }
-        //[XmlAttribute("name")]
-        //public string _name; // identifier
-        public override string Name
+        [XmlIgnore]
+        private static int _plateInstance = 0; // Number of plate instances created
+        [XmlIgnore]
+        private static int _wallInstance = 0; // Number of wall instances created
+        protected override int GetUniqueInstanceCount() // This method body must be the same as the method of the SlabPart class
         {
-            get
+            switch (this.Type)
             {
-                var foundIndexes = new List<int>();
-                for (int i = 0; i < this.SlabPart.Name.Length; i++)
-                    if (this.SlabPart.Name[i] == '.')
-                        foundIndexes.Add(i);
-
-                return this.SlabPart.Name.Substring(0, foundIndexes.Last());
+                case SlabType.Plate:
+                    return ++_plateInstance;
+                case SlabType.Wall:
+                    return ++_wallInstance;
+                default:
+                    throw new ArgumentException($"Incorrect type of slab: {this.Type}");
             }
-        }
-        public override int Instance => this.SlabPart.Instance;
-
-        [XmlIgnore]
-        public override string Identifier
-        {
-            get => this.SlabPart.Identifier;
-            set => this.SlabPart.Identifier = value;
-        }
-        [XmlIgnore]
-        public override bool LockedIdentifier
-        {
-            get => this.SlabPart.LockedIdentifier;
-            set => this.SlabPart.LockedIdentifier = value;
         }
 
         [XmlIgnore]

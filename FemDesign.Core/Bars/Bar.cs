@@ -22,8 +22,26 @@ namespace FemDesign.Bars
     [System.Serializable]
     public partial class Bar : NamedEntityBase, INamedEntity, IStructureElement, IStageElement, IBar
     {
-        protected override int? GetUniqueInstanceCount() { return null; }
-
+        [XmlIgnore]
+        private static int _barInstance = 0; // Number of bar/beam instances created
+        [XmlIgnore]
+        private static int _columnInstance = 0; // Number of column instances created
+        [XmlIgnore]
+        private static int _trussInstance = 0; // Number of truss instances created
+        protected override int GetUniqueInstanceCount() // This method body must be the same as the method of the BarPart class
+        {
+            switch (this.Type)
+            {
+                case BarType.Beam:
+                    return ++_barInstance;
+                case BarType.Column:
+                    return ++_columnInstance;
+                case BarType.Truss:
+                    return ++_trussInstance;
+                default:
+                    throw new System.ArgumentException($"Incorrect type of bar: {this.Type}");
+            }
+        }
 
         /// <summary>
         /// Truss only.
@@ -108,37 +126,7 @@ namespace FemDesign.Bars
                 return this.Reinforcement.Where(x => x.LongitudinalBar != null).ToList();
             }
         }
-
-        //[XmlAttribute("name")]
-        //public string _name; // identifier
-        public override string Name
-        {
-            get
-            {
-                var foundIndexes = new List<int>();
-                for (int i = 0; i < this.BarPart.Name.Length; i++)
-                    if (this.BarPart.Name[i] == '.')
-                        foundIndexes.Add(i);
-
-                return this.BarPart.Name.Substring(0, foundIndexes.Last());
-            }
-        }
-
-        public override int Instance => this.BarPart.Instance;
-
-        [XmlIgnore]
-        public override string Identifier
-        {
-            get => this.BarPart.Identifier;
-            set => this.BarPart.Identifier = value;
-        }
-        [XmlIgnore]
-        public override bool LockedIdentifier
-        {
-            get => this.BarPart.LockedIdentifier;
-            set => this.BarPart.LockedIdentifier = value;
-        }
-
+                
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -163,7 +151,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
 
             if (eccentricity == null) { eccentricity = Eccentricity.Default; }
             if (connectivity == null) { connectivity = Connectivity.Default; }
@@ -192,7 +180,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
 
             if (startEccentricity == null) { startEccentricity = Eccentricity.Default; }
             if (endEccentricity == null) { endEccentricity = Eccentricity.Default; }
@@ -227,8 +215,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
-
+            this.Identifier = identifier;
 
             this.BarPart = new BarPart(edge, this.Type, material, section, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
@@ -252,7 +239,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
             this.BarPart = new BarPart(edge, this.Type, material, startSection, endSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
 
@@ -273,7 +260,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
             this.BarPart = new BarPart(edge, this.Type, material, sections, eccentricities, connectivities, identifier);
         }
 
@@ -295,7 +282,7 @@ namespace FemDesign.Bars
 
             this.EntityCreated();
             this.Type = type;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
             this.BarPart = new BarPart(edge, this.Type, material, sections, positions, eccentricities, startConnectivity, endConnectivity, identifier);
         }
 
@@ -313,7 +300,7 @@ namespace FemDesign.Bars
         {
             this.EntityCreated();
             this.Type = BarType.Truss;
-            //this.Identifier = identifier;
+            this.Identifier = identifier;
             if(trussBehaviour != null)
             {
                 this.TrussBehaviour = trussBehaviour;
@@ -341,7 +328,7 @@ namespace FemDesign.Bars
 
             truss.EntityCreated();
             truss.Type = BarType.Truss;
-            //truss.Identifier = identifier;
+            truss.Identifier = identifier;
             truss.BarPart = new BarPart(edge, truss.Type, material, section, identifier);
             return truss;
         }

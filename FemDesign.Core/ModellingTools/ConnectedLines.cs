@@ -10,7 +10,7 @@ namespace FemDesign.ModellingTools
     {
         [XmlIgnore]
         private static int _connectedLineInstances = 0;
-        protected override int? GetUniqueInstanceCount() => ++_connectedLineInstances;
+        protected override int GetUniqueInstanceCount() => ++_connectedLineInstances;
 
         [XmlElement("edge" , Order = 1)]
         public Geometry.Edge[] Edges { get; set; }
