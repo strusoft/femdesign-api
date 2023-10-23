@@ -10,6 +10,7 @@ using System.Reflection;
 using GrasshopperAsyncComponent;
 using FemDesign;
 using FemDesign.Calculate;
+using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
@@ -143,6 +144,20 @@ namespace FemDesign.Grasshopper
 
                     if (!_combo.Any() && !_case.Any())
                     {
+
+
+                        //if (types.Count != 0)
+                        //{
+                        //    int i = 0;
+                        //    foreach (var type in types)
+                        //    {
+                        //        var res = _getResults(connection, type, units);
+                        //        resultsTree.AddRange(res, new GH_Path(i));
+                        //        i++;
+                        //    }
+                        //}
+
+
                         var res = _getResults(type, _units, _options, _elements);
                         _results.AddRange(res);
                     }
@@ -168,7 +183,7 @@ namespace FemDesign.Grasshopper
                 }
                 catch(Exception ex)
                 {
-                    RuntimeMessages.Add(( GH_RuntimeMessageLevel.Error, ex.Message ) );
+                    RuntimeMessages.Add(( GH_RuntimeMessageLevel.Error, ex.InnerException.Message ) );
                     _success = false;
                     _connection = null;
                 }
