@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadLocationValueConstruct: FEM_Design_API_Component
+    public class LoadLocationValueConstruct_OBSOLETE2209 : FEM_Design_API_Component
     {
-        public LoadLocationValueConstruct(): base("LoadLocationValue.Construct", "Construct", "Construct a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadLocationValueConstruct_OBSOLETE2209(): base("LoadLocationValue.Construct", "Construct", "Construct a LoadLocationValue object. LoadLocationValue objects are used to define a SurfaceLoad with variable intensity [q1, q2, q3].", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -50,7 +50,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("d7c9d6be-3474-41f6-b58c-0029fd24729f"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
