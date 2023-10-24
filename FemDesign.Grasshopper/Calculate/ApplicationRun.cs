@@ -173,28 +173,31 @@ namespace FemDesign.Grasshopper
                 if (analysis != null)
                     connection.RunAnalysis(analysis);
 
-                CmdUserModule userModule = design.Mode;
+
+                // run design
 
                 if (design != null)
                 {
+                    CmdUserModule userModule = design.Mode;
                     if (designGroups.Count() == 0)
                         connection.RunDesign(userModule, design);
                     else
                         connection.RunDesign(userModule, design, designGroups);
+
+                    if (design.ApplyChanges == true)
+                    {
+                        connection.ApplyDesignChanges();
+                    }
+
+                    if(design.ApplyChanges == true && design.Check == true)
+                    {
+                        connection.RunAnalysis(analysis);
+                        var _design = new Design(check: true);
+
+                        connection.RunDesign(userModule, _design);
+                    }
                 }
 
-                if (design.ApplyChanges == true)
-                {
-                    connection.ApplyDesignChanges();
-                }
-
-                if(design.ApplyChanges == true && design.Check == true)
-                {
-                    connection.RunAnalysis(analysis);
-                    var _design = new Design(check: true);
-
-                    connection.RunDesign(userModule, _design);
-                }
 
                 finiteElement = connection.GetFeaModel(units.Length);
 
