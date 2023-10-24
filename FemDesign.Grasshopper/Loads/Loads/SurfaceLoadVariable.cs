@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddSurfaceParameter("Surface", "Surface", "Surface.", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Vector. Direction of force.", GH_ParamAccess.item);
-            pManager.AddPointParameter("Positions", "Position", "Location Values. List of 3 items [pt1, pt2, pt3].", GH_ParamAccess.list);
+            pManager.AddPointParameter("Positions", "Positions", "Location Values. List of 3 items [pt1, pt2, pt3].", GH_ParamAccess.list);
             pManager.AddNumberParameter("Intensity", "Intensity", "Load Values. List of 3 items [q1, q2, q3]. [kN/m²]", GH_ParamAccess.list);
             pManager.AddBooleanParameter("LoadProjection", "LoadProjection", "LoadProjection. \nFalse: Intensity meant along action line (eg. dead load). \nTrue: Intensity meant perpendicular to direction of load (eg. snow load).", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
