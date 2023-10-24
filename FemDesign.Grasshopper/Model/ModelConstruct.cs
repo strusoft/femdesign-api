@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR/NL", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code.\nConnect 'ValueList' to get the options.\nD,DK,EST,FIN,GB,H,N,PL,RO,S,TR,NL", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Structure Elements", "Elements", "Single structure element or list of structure elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -89,17 +89,17 @@ namespace FemDesign.Grasshopper
                 string message = "LoadCase must be connected to get loads, load combinations or load groups in FEM-Design.";
                 if(loads.Count != 0)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
                     return;
                 }
                 else if(loadCombinations.Count != 0)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
                     return;
                 }
                 else if (loadGroups.Count != 0)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
                     return;
                 }
             }
