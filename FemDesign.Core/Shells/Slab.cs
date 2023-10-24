@@ -47,7 +47,23 @@ namespace FemDesign.Shells
         public int StageId { get; set; } = 1;
 
         [XmlElement("slab_part", Order = 1)]
-        public SlabPart SlabPart { get; set; }
+        public SlabPart _slabPart;
+
+        [XmlIgnore]
+        public SlabPart SlabPart
+        {
+            get
+            {
+                this._slabPart._name = this._name + ".1";
+                return this._slabPart;
+            }
+            set
+            {
+                this._slabPart = value;
+                this._name = this._slabPart._name.Remove(this._slabPart._name.Length - 2);
+            }
+        }
+
         [XmlElement("end", Order = 2)]
         public string End { get; set; } // empty_type
 

@@ -133,10 +133,10 @@ namespace FemDesign.Bars
             Bar bar = GetTestBar();
             bar.LockedIdentifier = false;
 
-            Assert.IsFalse(bar.LockedIdentifier);
+            Assert.IsTrue(bar.LockedIdentifier);    // All objects must be locked in the background anyway. https://github.com/strusoft/femdesign-api/issues/850
             Assert.IsFalse(bar.Name.StartsWith("@"));
 
-            Assert.IsFalse(bar.BarPart.LockedIdentifier);
+            Assert.IsTrue(bar.BarPart.LockedIdentifier);
             Assert.IsFalse(bar.BarPart.Name.StartsWith("@"));
         }
 

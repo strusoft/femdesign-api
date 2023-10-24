@@ -11,7 +11,7 @@ namespace FemDesign
         [XmlAttribute("name")]
         public string _xmlName; // identifier for serialisation purposes
         [XmlIgnore]
-        public string _name // identifier;  !It must be locked otherwise FEM-Design overrides the instance index. GitHub case: https://github.com/strusoft/femdesign-api/issues/850
+        internal string _name // identifier;  !It must be locked otherwise FEM-Design overrides the instance index. GitHub case: https://github.com/strusoft/femdesign-api/issues/850
         {
             get
             {
@@ -46,8 +46,11 @@ namespace FemDesign
             }
         }
 
+        /// <summary>
+        /// All objects are locked automatically, otherwise FEM-Design overrides the object names.
+        /// </summary>
         [XmlIgnore]
-        public virtual bool LockedIdentifier
+        public virtual bool LockedIdentifier    // Each object will be locked in the _name field
         {
             get => _name.StartsWith("@");
             set
