@@ -103,13 +103,13 @@ namespace FemDesign.Bars
         { 
             get
             {
-                this._barPart._name = this._name + ".1";
+                this._barPart._name = this._name + ".1";    // BarPart name must be updated with the Bar's name.
                 return this._barPart;
             }
             set
             {
                 this._barPart = value;
-                this._name = this._barPart._name.Remove(this._barPart._name.Length - 2);
+                this._name = this._barPart._name.Remove(this._barPart._name.Length - 2);    // The BarPart class is public, so the user can create a new BarPart obj. and assign it to this property. Bar name must be updated with the BarPart's name.
             }
         }
 

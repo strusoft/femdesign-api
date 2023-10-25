@@ -54,13 +54,13 @@ namespace FemDesign.Shells
         {
             get
             {
-                this._slabPart._name = this._name + ".1";
+                this._slabPart._name = this._name + ".1";   // SlabPart name must be updated with the Slab's name.
                 return this._slabPart;
             }
             set
             {
                 this._slabPart = value;
-                this._name = this._slabPart._name.Remove(this._slabPart._name.Length - 2);
+                this._name = this._slabPart._name.Remove(this._slabPart._name.Length - 2);  // The SlabPart class is public, so the user can create a new SlabPart obj. and assign it to this property. Slab name must be updated with the SlabPart's name.
             }
         }
 
