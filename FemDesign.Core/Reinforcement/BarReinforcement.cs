@@ -101,7 +101,7 @@ namespace FemDesign.Reinforcement
         }
 
         /// <summary>
-        /// Construct stirrup bar reinforcement
+        /// Construct stirrup bar reinforcement for a normal bar
         /// </summary>
         public BarReinforcement(Guid baseBar, Wire wire, Stirrups stirrups)
         {
@@ -112,7 +112,7 @@ namespace FemDesign.Reinforcement
         }
 
         /// <summary>
-        /// Construct stirrup bar reinforcement
+        /// Construct stirrup bar reinforcement for a normal bar
         /// </summary>
         public BarReinforcement(Bars.Bar bar, Wire wire, Stirrups stirrups)
         {
@@ -121,9 +121,20 @@ namespace FemDesign.Reinforcement
             this.Wire = wire;
             this.Stirrups = stirrups;
         }
-        
+
         /// <summary>
-        /// Construct longitudinal bar reinforcement
+        /// Construct stirrup bar reinforcement for a concealed bar
+        /// </summary>
+        public BarReinforcement(HiddenBar concealedBar, Wire wire, Stirrups stirrups)
+        {
+            this.EntityCreated();
+            this.BaseBar = new GuidListType(concealedBar.Guid);
+            this.Wire = wire;
+            this.Stirrups = stirrups;
+        }
+
+        /// <summary>
+        /// Construct longitudinal bar reinforcement for a normal bar
         /// </summary>
         public BarReinforcement(Guid baseBar, Wire wire, LongitudinalBar longBar)
         {
@@ -134,12 +145,23 @@ namespace FemDesign.Reinforcement
         }
 
         /// <summary>
-        /// Construct longitudinal bar reinforcement
+        /// Construct longitudinal bar reinforcement for a normal bar
         /// </summary>
         public BarReinforcement(Bars.Bar bar, Wire wire, LongitudinalBar longBar)
         {
             this.EntityCreated();
             this.BaseBar = new GuidListType(bar.BarPart.Guid);
+            this.Wire = wire;
+            this.LongitudinalBar = longBar;
+        }
+
+        /// <summary>
+        /// Construct longitudinal bar reinforcement for a concealed bar
+        /// </summary>
+        public BarReinforcement(HiddenBar concealedBar, Wire wire, LongitudinalBar longBar)
+        {
+            this.EntityCreated();
+            this.BaseBar = new GuidListType(concealedBar.Guid);
             this.Wire = wire;
             this.LongitudinalBar = longBar;
         }
@@ -205,6 +227,50 @@ namespace FemDesign.Reinforcement
                 }
             }
             return bar;
+        }
+
+        /// <summary>
+        /// Add reinforcement to a concealed bar.
+        /// </summary>
+        /// <param name="concealedBar"></param>
+        /// <param name="rebar"></param>
+        /// <param name="overwrite">Overwrite rebar on bar if a rebar sharing guid already exists on the bar?</param>
+        public static HiddenBar AddReinforcementToHiddenBar(HiddenBar concealedBar, List<BarReinforcement> rebar, bool overwrite)
+        {
+            foreach (BarReinforcement item in rebar)
+            {
+                // empty base bar - update with current barPart guid
+                if (item.BaseBar.Guid == Guid.Empty)
+                {
+                    item.BaseBar.Guid = concealedBar.Guid;
+                }
+
+                // base bar does not equal current barPart guid - reinforcement probably added to another bar already.
+                else if (item.BaseBar.Guid != concealedBar.Guid)
+                {
+                    throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has a base bar guid: {item.BaseBar.Guid} that does not correnspond with the current concealed bar");
+                }
+
+                // add reinforcement to current bar
+                bool exists = concealedBar.Reinforcement.Any(x => x.Guid == item.Guid);
+                if (exists)
+                {
+                    if (overwrite)
+                    {
+                        concealedBar.Reinforcement.RemoveAll(x => x.Guid == item.Guid);
+                        concealedBar.Reinforcement.Add(item);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException($"{item.GetType().FullName} with guid: {item.Guid} has already been added to the concealed bar. Are you adding the same element twice?");
+                    }
+                }
+                else
+                {
+                    concealedBar.Reinforcement.Add(item);
+                }
+            }
+            return concealedBar;
         }
 
         public override string ToString()

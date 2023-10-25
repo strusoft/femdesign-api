@@ -130,5 +130,35 @@ namespace FemDesign.Bars.Buckling
 
             return bar;
         }
+
+        /// <summary>
+        /// Set BucklingData on a concealed bar-element.
+        /// </summary>
+        /// <remarks>Action</remarks>
+        /// <param name="concealedBar">HiddenBar. Concealed bar-element.</param>
+        /// <param name="flexuralStiff">BucklingLength definition in Flexural Stiff direction.</param>
+        /// <param name="flexuralWeak">BucklingLength definition in Flexural Weak direction.</param>
+        /// <returns></returns>
+        public static Reinforcement.HiddenBar SetOnHiddenBar(Reinforcement.HiddenBar concealedBar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
+        {
+            concealedBar = concealedBar.DeepClone();
+            
+            if (flexuralStiff.Type != BucklingType.FlexuralStiff)
+            {
+                throw new System.ArgumentException("flexuralStiff is not of type FlexuralStiff!");
+            }
+            if (flexuralWeak.Type != BucklingType.FlexuralWeak)
+            {
+                throw new System.ArgumentException("flexuralWeak is not of type FlexuralWeak!");
+            }
+
+            // add input
+            BucklingData bucklingData = new BucklingData();
+            bucklingData.BucklingLength.Add(flexuralStiff);
+            bucklingData.BucklingLength.Add(flexuralWeak);
+            concealedBar.BucklingData = bucklingData;
+
+            return concealedBar;
+        }
     }
 }
