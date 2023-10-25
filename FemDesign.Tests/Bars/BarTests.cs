@@ -21,6 +21,7 @@ namespace FemDesign.Bars
             barPartType.SetStaticFieldOrProperty("_barInstance", 0);
             barPartType.SetStaticFieldOrProperty("_columnInstance", 0);
             barPartType.SetStaticFieldOrProperty("_trussInstance", 0);
+
         }
 
         [TestMethod("Bar constructor 1")]
