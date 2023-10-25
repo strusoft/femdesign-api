@@ -22,10 +22,6 @@ namespace FemDesign.Bars
             barPartType.SetStaticFieldOrProperty("_columnInstance", 0);
             barPartType.SetStaticFieldOrProperty("_trussInstance", 0);
 
-            PrivateType barType = new PrivateType(typeof(Bar));
-            barType.SetStaticFieldOrProperty("_barInstance", 0);
-            barType.SetStaticFieldOrProperty("_columnInstance", 0);
-            barType.SetStaticFieldOrProperty("_trussInstance", 0);
         }
 
         [TestMethod("Bar constructor 1")]
