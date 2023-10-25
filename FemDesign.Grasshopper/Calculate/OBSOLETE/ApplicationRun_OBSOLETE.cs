@@ -19,9 +19,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : FEM_Design_API_Component
+    public class ApplicationRun_OBSOLETE : GH_Component
     {
-        public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun_OBSOLETE() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
         }
@@ -91,7 +91,7 @@ namespace FemDesign.Grasshopper
         }
 
 
- 
+
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -113,7 +113,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Calculate.Design design = null;
             DA.GetData("Design", ref design);
 
-            if(analysis == null && design == null)
+            if (analysis == null && design == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Specify 'Analysis' or 'Design' to run the calculation!");
                 return;
@@ -165,16 +165,13 @@ namespace FemDesign.Grasshopper
                 connection.Open(_model.Value);
 
                 if (cfg != null)
-                    connection.SetConfig( new Calculate.CmdConfig(cfg) );
+                    connection.SetConfig(new Calculate.CmdConfig(cfg));
 
                 if (globalCfg != null)
                     connection.SetGlobalConfig(CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(globalCfg));
 
                 if (analysis != null)
                     connection.RunAnalysis(analysis);
-
-
-                // run design
 
                 if (design != null)
                 {
@@ -183,25 +180,11 @@ namespace FemDesign.Grasshopper
                         connection.RunDesign(userModule, design);
                     else
                         connection.RunDesign(userModule, design, designGroups);
-
-                    if (design.ApplyChanges == true)
-                    {
-                        connection.ApplyDesignChanges();
-                    }
-
-                    if(design.ApplyChanges == true && design.Check == true)
-                    {
-                        connection.RunAnalysis(analysis);
-                        var _design = new Design(check: true);
-
-                        connection.RunDesign(userModule, _design);
-                    }
                 }
-
 
                 finiteElement = connection.GetFeaModel(units.Length);
 
-                if(types.Count != 0)
+                if (types.Count != 0)
                 {
                     int i = 0;
                     foreach (var type in types)
@@ -214,12 +197,12 @@ namespace FemDesign.Grasshopper
 
                 // return the new model
                 model = connection.GetModel();
-                
+
 
                 connection.Dispose();
             }));
 
-            
+
             t.ConfigureAwait(false);
             try
             {
@@ -244,10 +227,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{81ECF200-1217-4CE8-B2F3-9C35CC49D3CD}"); }
+            get { return new Guid("{D671E128-439D-43A5-B19C-01AAC57851AF}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
