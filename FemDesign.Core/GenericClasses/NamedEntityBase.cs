@@ -20,12 +20,12 @@ namespace FemDesign
                 else
                     return "@" + this._xmlName;
             }
-            set 
+            set
             {
                 if (value.StartsWith("@"))
                     this._xmlName = value;
                 else
-                    this._xmlName = "@" + value; 
+                    this._xmlName = "@" + value;
             }
         }
         [XmlIgnore]
@@ -41,7 +41,7 @@ namespace FemDesign
             {
                 this._name = $"{value}.{GetUniqueInstanceCount()}";
 
-                if (string .IsNullOrEmpty(value) || _namePattern.IsMatch(this._name) == false)
+                if (string.IsNullOrEmpty(value) || _namePattern.IsMatch(this._name) == false)
                     throw new ArgumentException($"'{value}' is not a valid Identifier.");
             }
         }
