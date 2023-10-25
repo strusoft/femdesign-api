@@ -149,6 +149,7 @@
     <Compile Include="ModellingTools\SurfaceConnection.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
+    <Compile Include="Model\OBSOLETE\ModelConstruct_OBSOLETE_2.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadCaseCombResults_OBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
