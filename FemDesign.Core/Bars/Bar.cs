@@ -74,7 +74,22 @@ namespace FemDesign.Bars
         public int StageId { get; set; } = 1;
 
         [XmlElement("bar_part", Order = 1)]
-        public BarPart BarPart { get; set; } // bar_part_type
+        public BarPart _barPart; // bar_part_type
+
+        [XmlIgnore]
+        public BarPart BarPart
+        { 
+            get
+            {
+                this._barPart._name = this._name + ".1";    // BarPart name must be updated with the Bar's name.
+                return this._barPart;
+            }
+            set
+            {
+                this._barPart = value;
+                this._name = this._barPart._name.Remove(this._barPart._name.Length - 2);    // The BarPart class is public, so the user can create a new BarPart obj. and assign it to this property. Bar name must be updated with the BarPart's name.
+            }
+        }
 
         [XmlElement("truss_behaviour", Order = 2)]
         public StruSoft.Interop.StruXml.Data.Truss_chr_type TrussBehaviour { get; set; }

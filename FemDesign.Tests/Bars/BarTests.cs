@@ -21,6 +21,11 @@ namespace FemDesign.Bars
             barPartType.SetStaticFieldOrProperty("_barInstance", 0);
             barPartType.SetStaticFieldOrProperty("_columnInstance", 0);
             barPartType.SetStaticFieldOrProperty("_trussInstance", 0);
+
+            PrivateType barType = new PrivateType(typeof(Bar));
+            barType.SetStaticFieldOrProperty("_barInstance", 0);
+            barType.SetStaticFieldOrProperty("_columnInstance", 0);
+            barType.SetStaticFieldOrProperty("_trussInstance", 0);
         }
 
         [TestMethod("Bar constructor 1")]
@@ -133,10 +138,10 @@ namespace FemDesign.Bars
             Bar bar = GetTestBar();
             bar.LockedIdentifier = false;
 
-            Assert.IsFalse(bar.LockedIdentifier);
+            Assert.IsTrue(bar.LockedIdentifier);    // All objects must be locked in the background anyway. https://github.com/strusoft/femdesign-api/issues/850
             Assert.IsFalse(bar.Name.StartsWith("@"));
 
-            Assert.IsFalse(bar.BarPart.LockedIdentifier);
+            Assert.IsTrue(bar.BarPart.LockedIdentifier);
             Assert.IsFalse(bar.BarPart.Name.StartsWith("@"));
         }
 
