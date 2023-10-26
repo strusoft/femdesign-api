@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "GlobalCfg file path. You can use the 'cmdglobalcfg.xml' file in located package manager library folder as a starting point.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documenation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
+            pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
