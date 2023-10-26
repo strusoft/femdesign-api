@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.TestsGh", "FemDes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Stiffness Point from CSV", "FemDesign.Examples\C#\Practical example - Create Stiffness Point from a CSV\Practical example - Stiffness Point from CSV.csproj", "{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - PrintDocumentation", "FemDesign.Examples\C#\Practical example - PrintDocumentation\Practical example - PrintDocumentation.csproj", "{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,10 @@ Global
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,6 +190,7 @@ Global
 		{3646ABCA-0703-425A-BB27-4D838DB92FE8} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{2747D6C1-1E22-4262-A938-44FEE99A022C} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

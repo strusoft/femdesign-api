@@ -429,6 +429,38 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Save the documentation in a docx file.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public void SaveDocx(string filePath)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(
+                logfile,
+                new CmdSaveDocx(filePath)
+            );
+
+            this.RunScript(script, "SaveDocx");
+        }
+
+        /// <summary>
+        /// Apply a template to a documentation
+        /// </summary>
+        /// <param name="templatePath"></param>
+        public void SaveDocxFromTemplate(string templatePath)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+
+            var script = new FdScript(
+                logfile,
+                new CmdChild(templatePath)
+            );
+
+            this.RunScript(script, "SaveDocxFromTemplate");
+        }
+
+        /// <summary>
         /// Retrieves the loads from the currently opened model with all available elements as a <see cref="Loads.Loads"/> object.
         /// </summary>
         public Loads.Loads GetLoads()

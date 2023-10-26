@@ -30,15 +30,13 @@ namespace FemDesign.Calculate
         }
         public CmdSaveDocx(string filePath)
         {
-            //
             string extension = Path.GetExtension(filePath);
             if (extension != ".docx")
             {
                 throw new System.ArgumentException("Incorrect file-extension. Expected .docx. CmdSaveDocx failed.");
             }
-
-            //
-            this.FilePath = filePath;
+            
+            this.FilePath = Path.GetFullPath(filePath);
         }
         public override XElement ToXElement()
         {
