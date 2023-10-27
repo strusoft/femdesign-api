@@ -14,11 +14,10 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 2: ANALYSING A MODEL
-            // This example will show you how to run an analysis
-            // with a given model.
+            // PRACTICAL EXAMPLE: Create Documentation through the API
+            // This example will show you how to print a .docx file with an already applied template
 
-            // This example was last updated using the ver. 21.6.0 FEM-Design API.
+            // This example was last updated using the ver. 21.9.0 FEM-Design API.
 
             // LOADING UP THE MODEL
             string strFile = "test.str";
@@ -28,6 +27,7 @@ namespace FemDesign.Examples
             // RUN THE ANALYSIS
             using (var femDesign = new FemDesignConnection())
             {
+                femDesign.OnOutput += Console.WriteLine;
                 femDesign.Open(strFile);
                 femDesign.SaveDocx(docxFilePath);
             }
