@@ -1,6 +1,7 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace FemDesign.Loads
 {
@@ -27,6 +28,7 @@ namespace FemDesign.Loads
         public List<TopBotLocationValue> _temperature;
 
         [XmlIgnore]
+        [Obsolete("Temperature is OBSOLETE. Use `TemperatureValues` instead")]
         public List<TopBotLocationValue> Temperature
         {
             get
@@ -90,7 +92,7 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
-            this.Temperature = tempLocValue;
+            this.TemperatureValues = tempLocValue;
             this.LoadCase = loadCase;
             this.Comment = comment;
         }
@@ -109,14 +111,14 @@ namespace FemDesign.Loads
             this.EntityCreated();
             this.Region = region;
             this.LocalZ = direction;
-            this.Temperature = new List<TopBotLocationValue>{new TopBotLocationValue(region.Plane.Origin, topVal, bottomVal)};
+            this.TemperatureValues = new List<TopBotLocationValue>{new TopBotLocationValue(region.Plane.Origin, topVal, bottomVal)};
             this.LoadCase = loadCase;
             this.Comment = comment;
         }
 
         public override string ToString()
         {
-            if (Temperature.Any())
+            if (Temperature!= null && Temperature.Any())
             {
                 if (Temperature.Count == 1)
                 {
