@@ -44,19 +44,19 @@ namespace FemDesign.Grasshopper
             DA.SetData(2, obj.LocalZ.ToRhino());
 
             // if uniform
-            if (obj.Temperature.Count == 1)
+            if (obj.TemperatureValues.Count == 1)
             {
-                DA.SetData(3, obj.Temperature[0]);
-                DA.SetData(4, obj.Temperature[0]);
-                DA.SetData(5, obj.Temperature[0]);
+                DA.SetData(3, obj.TemperatureValues[0]);
+                DA.SetData(4, obj.TemperatureValues[0]);
+                DA.SetData(5, obj.TemperatureValues[0]);
             }
 
             // if variable
-            else if (obj.Temperature.Count == 3)
+            else if (obj.TemperatureValues.Count == 3)
             {
-                DA.SetData(3, obj.Temperature[0]);
-                DA.SetData(4, obj.Temperature[1]);
-                DA.SetData(5, obj.Temperature[2]);
+                DA.SetData(3, obj.TemperatureValues[0]);
+                DA.SetData(4, obj.TemperatureValues[1]);
+                DA.SetData(5, obj.TemperatureValues[2]);
             }
 
             // else
