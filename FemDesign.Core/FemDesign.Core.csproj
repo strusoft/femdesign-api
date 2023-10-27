@@ -340,7 +340,7 @@
     <Compile Include="Reinforcement\Centric.cs" />
     <Compile Include="Reinforcement\WireProfileTypeEnum.cs" />
     <Compile Include="Reinforcement\ReinforcementDirectionEnum.cs" />
-    <Compile Include="Reinforcement\HiddenBar.cs" />
+    <Compile Include="Reinforcement\ConcealedBar.cs" />
     <Compile Include="Reinforcement\LongitudinalBar.cs" />
     <Compile Include="Reinforcement\NoShear.cs" />
     <Compile Include="Reinforcement\Ptc.cs" />

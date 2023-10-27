@@ -11,10 +11,10 @@ using FemDesign.Geometry;
 namespace FemDesign.Reinforcement
 {
     [System.Serializable]
-    public partial class HiddenBar: NamedEntityBase, IStructureElement
+    public partial class ConcealedBar: NamedEntityBase, IStructureElement
     {
-        private static int _hiddenBarInstances = 0;
-        protected override int GetUniqueInstanceCount() => ++_hiddenBarInstances;
+        private static int _concealedBarInstances = 0;
+        protected override int GetUniqueInstanceCount() => ++_concealedBarInstances;
 
         [XmlElement("rectangle", Order = 1)]
         public RectangleType Rectangle { get; set; }
@@ -61,33 +61,10 @@ namespace FemDesign.Reinforcement
         /// <param name="slab">Base shell element.</param>
         /// <param name="startPoint">The start point of the reactangle definition. Must be positioned on the SlabParts's region.</param>
         /// <param name="rectangle">Rectangle area where the concealed bar is specified. Must be inside the SlabPart region boundary.</param>
-        /// <param name="identifier">Structural element identifier.</param>
-        /// <exception cref="System.ArgumentException"></exception>
-        public HiddenBar(Shells.Slab slab, Point3d startPoint, RectangleType rectangle, string identifier = "CB")
-        {
-            if(slab.SlabPart.ComplexMaterial.Concrete == null)
-            {
-                throw new System.ArgumentException("Material of slab must be concrete!");
-            }
-
-            this.EntityCreated();
-            this.BaseShell = slab.SlabPart.Guid;
-            this.Start = startPoint;
-            this.Rectangle = rectangle;
-            this.AxisInLongerSide = true;
-            this.Identifier = identifier;
-        }
-
-        /// <summary>
-        /// Concealed bar constructor.
-        /// </summary>
-        /// <param name="slab">Base shell element.</param>
-        /// <param name="startPoint">The start point of the reactangle definition. Must be positioned on the SlabParts's region.</param>
-        /// <param name="rectangle">Rectangle area where the concealed bar is specified. Must be inside the SlabPart region boundary.</param>
         /// <param name="axisInLongerSide">If true, the axis of the concealed bar is parallel to the longer side of the rectangle, otherwise it is parallel to the shorter side.</param>
         /// <param name="identifier">Structural element identifier.</param>
         /// <exception cref="System.ArgumentException"></exception>
-        public HiddenBar(Shells.Slab slab, Point3d startPoint, RectangleType rectangle, bool axisInLongerSide = true, string identifier = "CB")
+        public ConcealedBar(Shells.Slab slab, Point3d startPoint, RectangleType rectangle, bool axisInLongerSide = true, string identifier = "CB")
         {
             if (slab.SlabPart.ComplexMaterial.Concrete == null)
             {

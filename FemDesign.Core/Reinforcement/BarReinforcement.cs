@@ -125,7 +125,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Construct stirrup bar reinforcement for a concealed bar
         /// </summary>
-        public BarReinforcement(HiddenBar concealedBar, Wire wire, Stirrups stirrups)
+        public BarReinforcement(ConcealedBar concealedBar, Wire wire, Stirrups stirrups)
         {
             this.EntityCreated();
             this.BaseBar = new GuidListType(concealedBar.Guid);
@@ -158,7 +158,7 @@ namespace FemDesign.Reinforcement
         /// <summary>
         /// Construct longitudinal bar reinforcement for a concealed bar
         /// </summary>
-        public BarReinforcement(HiddenBar concealedBar, Wire wire, LongitudinalBar longBar)
+        public BarReinforcement(ConcealedBar concealedBar, Wire wire, LongitudinalBar longBar)
         {
             this.EntityCreated();
             this.BaseBar = new GuidListType(concealedBar.Guid);
@@ -235,7 +235,7 @@ namespace FemDesign.Reinforcement
         /// <param name="concealedBar"></param>
         /// <param name="rebar"></param>
         /// <param name="overwrite">Overwrite rebar on bar if a rebar sharing guid already exists on the bar?</param>
-        public static HiddenBar AddReinforcementToHiddenBar(HiddenBar concealedBar, List<BarReinforcement> rebar, bool overwrite)
+        public static ConcealedBar AddReinforcementToHiddenBar(ConcealedBar concealedBar, List<BarReinforcement> rebar, bool overwrite)
         {
             foreach (BarReinforcement item in rebar)
             {

@@ -39,7 +39,7 @@ namespace FemDesign
         public List<StruSoft.Interop.StruXml.Data.Beam_reduction_zone_type> BeamReductionZones { get; set; }
 
         [XmlElement("hidden_bar", Order = 9)]
-        public List<Reinforcement.HiddenBar> HiddenBars { get; set; } = new List<Reinforcement.HiddenBar>();
+        public List<Reinforcement.ConcealedBar> HiddenBars { get; set; } = new List<Reinforcement.ConcealedBar>();
 
         [XmlElement("bar_reinforcement", Order = 10)]
         public List<Reinforcement.BarReinforcement> BarReinforcements { get; set; } = new List<Reinforcement.BarReinforcement>();

@@ -139,7 +139,7 @@ namespace FemDesign.Bars.Buckling
         /// <param name="flexuralStiff">BucklingLength definition in Flexural Stiff direction.</param>
         /// <param name="flexuralWeak">BucklingLength definition in Flexural Weak direction.</param>
         /// <returns></returns>
-        public static Reinforcement.HiddenBar SetOnHiddenBar(Reinforcement.HiddenBar concealedBar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
+        public static Reinforcement.ConcealedBar SetOnHiddenBar(Reinforcement.ConcealedBar concealedBar, BucklingLength flexuralStiff, BucklingLength flexuralWeak)
         {
             concealedBar = concealedBar.DeepClone();
             
