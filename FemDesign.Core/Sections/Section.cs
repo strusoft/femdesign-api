@@ -74,7 +74,7 @@ namespace FemDesign.Sections
         public string TypeName { get; set; } // string. Optional i.e. CHS, HE-A
 
         [XmlAttribute("fd_name_size")]
-        public string SizeName { get; set; } // string. Optional
+        public string SizeName { get; set; } // string. Optional for regular sections. For composite sections, it must be a non-empty value, otherwise FD will only read the first steel section part's Section obj.
 
         [XmlIgnore]
         internal string _sectionName

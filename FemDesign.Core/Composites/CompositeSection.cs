@@ -302,7 +302,7 @@ namespace FemDesign.Composites
 
             // create sections
             var concreteSection = new Section(concreteRegionGroup, "custom", MaterialTypeEnum.Concrete, "Concrete section", "Rectangle", $"{(b - 2 * tw) * 1000}x{h * 1000}");
-            var steelSection = new Section(steelRegionGroup, "custom", MaterialTypeEnum.SteelWelded, "Steel section", "Welded", " ");
+            var steelSection = new Section(steelRegionGroup, "custom", MaterialTypeEnum.SteelWelded, "Steel section", "Welded", $"{bt * 1000}x{tft * 1000}-{h * 1000}x{tw * 1000}-{(b + o1 + o2) * 1000}x{tfb * 1000}");
             List<Section> sections = new List<Section>() { steelSection, concreteSection };   // !the sequence of steel and concrete sections must match the sequence of steel and concrete materials
 
             return sections;

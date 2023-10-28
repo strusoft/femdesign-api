@@ -65,6 +65,8 @@ namespace FemDesign.Composites
             }
             set
             {
+                if (value.SizeName == null || value.SizeName == " ")
+                    throw new ArgumentException("SizeName in Section object, must be a non-empty value.");
                 this._section = value;
                 this._sectionRef = value.Guid;
             }
