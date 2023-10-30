@@ -3,7 +3,7 @@ using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.ComponentModel;
 using FemDesign.GenericClasses;
 using FemDesign.Geometry;
 
@@ -31,8 +31,9 @@ namespace FemDesign.Reinforcement
         [XmlAttribute("base_shell")]
         public Guid BaseShell { get; set; }
 
-        [XmlAttribute("axisInLongerSide")]
-        public bool AxisInLongerSide { get; set; }
+        [XmlAttribute("axis_in_longer_side")]
+        [DefaultValue(true)]
+        public bool AxisInLongerSide { get; set; } = true;
 
 
         [XmlIgnore]
@@ -55,27 +56,38 @@ namespace FemDesign.Reinforcement
             }
         }
 
+        private ConcealedBar()
+        {
+
+        }
+
         /// <summary>
         /// Concealed bar constructor.
         /// </summary>
         /// <param name="slab">Base shell element.</param>
-        /// <param name="startPoint">The start point of the reactangle definition. Must be positioned on the SlabParts's region.</param>
         /// <param name="rectangle">Rectangle area where the concealed bar is specified. Must be inside the SlabPart region boundary.</param>
         /// <param name="axisInLongerSide">If true, the axis of the concealed bar is parallel to the longer side of the rectangle, otherwise it is parallel to the shorter side.</param>
         /// <param name="identifier">Structural element identifier.</param>
         /// <exception cref="System.ArgumentException"></exception>
-        public ConcealedBar(Shells.Slab slab, Point3d startPoint, RectangleType rectangle, bool axisInLongerSide = true, string identifier = "CB")
+        public ConcealedBar(Shells.Slab slab, RectangleType rectangle, bool axisInLongerSide = true, string identifier = "CB")
         {
             if (slab.SlabPart.ComplexMaterial.Concrete == null)
             {
-                throw new System.ArgumentException("Material of slab must be concrete!");
+                throw new System.ArgumentException("Slab material must be concrete!");
             }
 
             this.EntityCreated();
             this.BaseShell = slab.SlabPart.Guid;
-            this.Start = startPoint;
-            this.Rectangle = rectangle;
             this.AxisInLongerSide = axisInLongerSide;
+            //if(axisInLongerSide)
+            //{
+            //    this.Start = rectangle.BaseCorner + new Vector3d(0, rectangle.DimY / 2, 0);
+            //}
+            //else
+            //{
+            //    this.Start = rectangle.BaseCorner + new Vector3d(rectangle.DimX / 2, 0, 0);
+            //}
+            this.Rectangle = rectangle;
             this.Identifier = identifier;
         }
 

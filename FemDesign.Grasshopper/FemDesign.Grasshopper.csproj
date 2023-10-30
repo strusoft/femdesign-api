@@ -945,6 +945,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\ConcealedBar.png" />
     <None Include="Resources\icons\ModellingToolsDeconstruct.png" />
     <None Include="Resources\icons\SurfaceConnection.png" />
     <None Include="Resources\icons\SurfaceConnectionDeconstruct.png" />

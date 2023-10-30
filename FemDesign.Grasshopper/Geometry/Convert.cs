@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using FemDesign.Geometry;
 using FemDesign.Loads;
@@ -69,6 +70,21 @@ namespace FemDesign.Grasshopper
             return cover.Region.ToRhinoCurves();
         }
 
+        #endregion
+
+        #region Rectangle
+
+        public static FemDesign.Geometry.RectangleType FromRhino(this Rhino.Geometry.Rectangle3d obj)
+        {
+            var baseCorner = obj.PointAt(0, 0).FromRhino();
+            var dimX = obj.Width;
+            var dimY = obj.Height;
+            var localX = obj.Plane.XAxis.FromRhino();
+            var localY = obj.Plane.YAxis.FromRhino();
+
+            var rectangle = new RectangleType(baseCorner, localX, localY, dimX, dimY);
+            return rectangle;
+        }
         #endregion
 
         #region Edge
@@ -873,7 +889,7 @@ namespace FemDesign.Grasshopper
 
 #endregion
 
-#region RegionGroup
+        #region RegionGroup
 /// <summary>
 /// Get rhino breps of underlying regions
 /// </summary>

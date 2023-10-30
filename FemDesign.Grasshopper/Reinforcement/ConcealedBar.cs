@@ -17,8 +17,12 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddRectangleParameter("Rectangle", "Rectangle", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("RefConcreteSlab", "RefConcreteSlab", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("AxisLongerSide", "AxisLongerSide", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("RefConcreteSlab", "RefConcreteSlab", "Concrete slab/wall where the concealed bar should be created", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("AxisLongerSide", "AxisLongerSide",
+                "True:  the axis of the concealed bar will follow the X axis of the rectangle.\n" +
+                "False: the axis of the concealed bar will follow the Y axis of the rectangle.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddTextParameter("Identifier", "Identifier", "", GH_ParamAccess.item, "CB");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,21 +38,25 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData("RefConcreteSlab", ref slab)) return;
 
             bool axisLongerDirection = true;
-            DA.GetData(3, ref axisLongerDirection);
+            DA.GetData("AxisLongerSide", ref axisLongerDirection);
 
-            var point3d = rectangle.PointAt(0,0).FromRhino();
+            string identifier = "CB";
+            DA.GetData("Identifier", ref identifier);
 
-            var obj = new FemDesign.Reinforcement.ConcealedBar(slab, point3d, rectangle, axisLongerDirection);
+            var _rectangle = rectangle.FromRhino();
+
+
+            var obj = new FemDesign.Reinforcement.ConcealedBar(slab, _rectangle, axisLongerDirection, identifier);
+
+            if(axisLongerDirection == false)
+            {
+                var start = rectangle.PointAt(0.5, 0);
+                obj.Start = start.FromRhino();
+            }
 
             DA.SetData(0, obj);
         }
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                return null;
-            }
-        }
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.ConcealedBar;
         public override Guid ComponentGuid
         {
             get { return new Guid("{C03C50FB-33BE-45B5-B48B-ED94C3B8F1C3}"); }
