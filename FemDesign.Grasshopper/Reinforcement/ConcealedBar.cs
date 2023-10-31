@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddRectangleParameter("Rectangle", "Rectangle", "", GH_ParamAccess.item);
             pManager.AddGenericParameter("RefConcreteSlab", "RefConcreteSlab", "Concrete slab/wall where the concealed bar should be created", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("AxisLongerSide", "AxisLongerSide",
+            pManager.AddBooleanParameter("Axis", "Axis",
                 "True:  the axis of the concealed bar will follow the X axis of the rectangle.\n" +
                 "False: the axis of the concealed bar will follow the Y axis of the rectangle.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -45,6 +45,15 @@ namespace FemDesign.Grasshopper
 
             var _rectangle = rectangle.FromRhino();
 
+            for(int i = 0; i < 4; i++)
+            {
+                var pt = rectangle.Corner(i);
+                var closestPt = slab.Region.ToRhinoBrep().ClosestPoint(pt);
+                if(closestPt.DistanceTo(pt) >= Tolerance.LengthComparison)
+                {
+                    throw new Exception($"Rectangle does not lie on the slab region!");
+                }
+            }
 
             var obj = new FemDesign.Reinforcement.ConcealedBar(slab, _rectangle, axisLongerDirection, identifier);
 
