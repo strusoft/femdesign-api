@@ -78,15 +78,9 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
-            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(calcComb : true, calcStab : true);
+            var stabily = new Calculate.Stability(new List<string> { "LC1ULS" }, new List<int> { 10 }, false, 5);
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(stability: stabily, calcComb : true, calcStab : true);
 
-            var combItem = new FemDesign.Calculate.CombItem(stabReq: 10);
-            model.Entities.Loads.LoadCombinations.ForEach(lComb =>
-            {
-                lComb.CombItem = combItem;
-            });
-
-            analysis.SetLoadCombinationCalculationParameters(model);
 
             using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22\", outputDir: "My analyzed model", keepOpen: false))
             {
