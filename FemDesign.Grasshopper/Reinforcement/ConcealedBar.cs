@@ -38,13 +38,15 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData("RefConcreteSlab", ref slab)) return;
 
             bool axisLongerDirection = true;
-            DA.GetData("AxisLongerSide", ref axisLongerDirection);
+            DA.GetData("Axis", ref axisLongerDirection);
 
             string identifier = "CB";
             DA.GetData("Identifier", ref identifier);
 
             var _rectangle = rectangle.FromRhino();
 
+            // error handling in Grasshopper
+            // check if corners are in the slab
             for(int i = 0; i < 4; i++)
             {
                 var pt = rectangle.Corner(i);
@@ -56,12 +58,6 @@ namespace FemDesign.Grasshopper
             }
 
             var obj = new FemDesign.Reinforcement.ConcealedBar(slab, _rectangle, axisLongerDirection, identifier);
-
-            if(axisLongerDirection == false)
-            {
-                var start = rectangle.PointAt(0.5, 0);
-                obj.Start = start.FromRhino();
-            }
 
             DA.SetData(0, obj);
         }

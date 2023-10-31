@@ -79,14 +79,10 @@ namespace FemDesign.Reinforcement
             this.EntityCreated();
             this.BaseShell = slab.SlabPart.Guid;
             this.AxisInLongerSide = axisInLongerSide;
-            //if(axisInLongerSide)
-            //{
-            //    this.Start = rectangle.BaseCorner + new Vector3d(0, rectangle.DimY / 2, 0);
-            //}
-            //else
-            //{
-            //    this.Start = rectangle.BaseCorner + new Vector3d(rectangle.DimX / 2, 0, 0);
-            //}
+            if (axisInLongerSide == false)
+            {
+                this.Start = rectangle.BaseCorner + rectangle.LocalX * (rectangle.DimX / 2);
+            }
             this.Rectangle = rectangle;
             this.Identifier = identifier;
         }
