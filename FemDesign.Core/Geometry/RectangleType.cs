@@ -23,5 +23,19 @@ namespace FemDesign.Geometry
 
         [XmlAttribute("y_size")]
         public double DimY { get; set; }
+
+        private RectangleType()
+        {
+
+        }
+
+        public RectangleType(Point3d baseCorner, Vector3d xDir, Vector3d yDir, double xDim, double yDim)
+        {
+            this.BaseCorner = baseCorner;
+            this.LocalX = xDir;
+            this.LocalY = yDir;
+            this.DimX = xDim;
+            this.DimY = yDim;
+        }
     }
 }

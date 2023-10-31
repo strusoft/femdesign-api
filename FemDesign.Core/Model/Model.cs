@@ -682,6 +682,45 @@ namespace FemDesign
             return false;
         }
 
+
+        /// <summary>
+        /// Add Post-tensioned cable to Model.
+        /// </summary>
+        private void AddConcealedBar(Reinforcement.ConcealedBar obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.ConcealedBarInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.HiddenBars.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add concealed bar
+            this.Entities.HiddenBars.Add(obj);
+        }
+
+        private bool ConcealedBarInModel(Reinforcement.ConcealedBar obj)
+        {
+            foreach (Reinforcement.ConcealedBar elem in this.Entities.HiddenBars)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
         /// <summary>
         /// Add Fictitious Bar to Model.
         /// </summary>
@@ -3472,6 +3511,7 @@ namespace FemDesign
         private void AddEntity(Shells.Slab obj, bool overwrite) => AddSlab(obj, overwrite);
         private void AddEntity(Shells.Panel obj, bool overwrite) => AddPanel(obj, overwrite);
         private void AddEntity(Reinforcement.Ptc obj, bool overwrite) => AddPtc(obj, overwrite);
+        private void AddEntity(Reinforcement.ConcealedBar obj, bool overwrite) => AddConcealedBar(obj, overwrite);
 
 
         private void AddEntity(ModellingTools.Cover obj, bool overwrite) => AddCover(obj, overwrite);
