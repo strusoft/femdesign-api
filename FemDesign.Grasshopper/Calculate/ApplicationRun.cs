@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path. You can use the 'cfg.xml' file in located package manager library folder as a starting point..\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path with design parameters for structural materials. \nYou can use the 'cfg.xml' file in located package manager library folder as a starting point..\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "GlobalCfg file path. You can use the 'cmdglobalcfg.xml' file in located package manager library folder as a starting point.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
