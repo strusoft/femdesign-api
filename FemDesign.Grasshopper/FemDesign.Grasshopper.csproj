@@ -225,6 +225,7 @@
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE3.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
+    <Compile Include="Pipe\PipeSaveAs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
