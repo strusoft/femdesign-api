@@ -1063,6 +1063,11 @@ namespace FemDesign
 
         public void Save(string filePath)
         {
+            if(System.IO.Path.GetExtension(filePath) != ".str" && System.IO.Path.GetExtension(filePath) != ".struxml")
+            {
+                throw new Exception("Only .str and .struxml extensions are valid!");
+            }
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, new CmdSave(filePath));
             this.RunScript(script);
@@ -1153,6 +1158,8 @@ namespace FemDesign
                 throw;
             }
         }
+
+        private string _outputDir;
         public string OutputDir
         {
             get { return _outputDir; }
@@ -1167,7 +1174,6 @@ namespace FemDesign
                     _outputDir = Path.GetFullPath(value);
             }
         }
-        private string _outputDir;
         private List<string> _outputDirsToBeDeleted = new List<string>();
     }
 
@@ -1556,11 +1562,17 @@ namespace FemDesign
                 
             return path;
         }
-        public static string GetStrPath(string baseDir)
+
+        public static string GetStrPath(string baseDir, string modelName = null)
         {
             if (!Directory.Exists(baseDir))
                 Directory.CreateDirectory(baseDir);
-            string path = Path.GetFullPath(Path.Combine(baseDir, _strFileName));
+            string path;
+            if (string.IsNullOrEmpty(modelName))
+                path = Path.GetFullPath(Path.Combine(baseDir, _strFileName));
+            else
+                path = Path.GetFullPath(Path.Combine(baseDir, Path.ChangeExtension(Path.GetFileName(modelName), "str")));
+
             return path;
         }
         public static string GetBscPath(string baseDir, string fileName)

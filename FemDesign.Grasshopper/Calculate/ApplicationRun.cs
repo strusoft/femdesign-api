@@ -158,15 +158,14 @@ namespace FemDesign.Grasshopper
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
                 return;
             }
-            string filePath = OnPingDocument().FilePath;
-            var outputDir = System.IO.Path.GetDirectoryName(filePath);
 
-
+            var _ghfileDir = System.IO.Path.GetDirectoryName(OnPingDocument().FilePath);
+            System.IO.Directory.SetCurrentDirectory(_ghfileDir);
 
             // Create Task
             var t = Task.Run((Action)(() =>
             {
-                var connection = new FemDesign.FemDesignConnection(minimized: _minimised, outputDir: outputDir);
+                var connection = new FemDesign.FemDesignConnection(minimized: _minimised);
 
                 connection.Open(_model.Value);
 
@@ -220,7 +219,11 @@ namespace FemDesign.Grasshopper
 
                 // return the new model
                 model = connection.GetModel();
-                
+
+
+                // save calculated model in .str format
+                var strFile = OutputFileHelper.GetStrPath(connection.OutputDir);
+                connection.Save(strFile);
 
                 connection.Dispose();
             }));
