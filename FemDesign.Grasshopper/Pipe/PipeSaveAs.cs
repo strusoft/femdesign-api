@@ -50,39 +50,47 @@ namespace FemDesign.Grasshopper
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
-            if (_runNode == false)
+            try
             {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0.ToString());
-                return;
-            }
+                if (_runNode == false)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
+                    ReportProgress(Id, 0.0.ToString());
+                    return;
+                }
 
-            if (_connection == null)
+                if (_connection == null)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    return;
+                }
+
+                if (_connection.IsDisconnected)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost."));
+                    return;
+                }
+
+                if (_connection.HasExited)
+                {
+                    _success = false;
+                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, "FEM-Design have been closed."));
+                    return;
+                }
+                // Save the model
+                _connection.Save(_filePath);
+                _success = true;
+            }
+            catch (Exception ex)
             {
+                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
                 _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
+                _connection = null;
             }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-            // Save the model
-            _connection.Save(_filePath);
-            _success = true;
-
+            
             Done();
         }
 
@@ -97,6 +105,11 @@ namespace FemDesign.Grasshopper
 
         public override void SetData(IGH_DataAccess DA)
         {
+                            foreach (var (level, message) in RuntimeMessages)
+                {
+                    Parent.AddRuntimeMessage(level, message);
+                }
+
             DA.SetData("Connection", _connection);
             DA.SetData("Success", _success);
         }
