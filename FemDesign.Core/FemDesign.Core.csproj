@@ -374,7 +374,6 @@
     <Compile Include="Results\BarEndForce.cs" />
     <Compile Include="Results\Node\NodalDisplacement.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
-    <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\Node\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="Results\Shell\ShellStress.cs" />
