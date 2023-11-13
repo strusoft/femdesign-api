@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
 using System.Drawing;
-
+using FemDesign.GenericClasses;
+using System.Xml.Linq;
+using FemDesign.Bars;
 namespace FemDesign.Grasshopper
 {
     public static class GeomUtility
@@ -171,6 +173,31 @@ namespace FemDesign.Grasshopper
                 list.Add(mesh2);
             }
             return list;
+        }
+
+        internal static BoundingBox GetBoundingBox(List<IStructureElement> elements)
+        {
+            // check bounding box
+            // it assumes that the model will have at least one bar or shell
+            var points = new List<Rhino.Geometry.Point3d>();
+
+            foreach (var element in elements)
+            {
+                if (element is IBar obj)
+                {
+                    var pts = obj.Edge.Points.Select(x => x.ToRhino()).ToList();
+                    points.AddRange(pts);
+                }
+
+                if (element is IShell shell)
+                {
+                    var pts = shell.Region.Contours.SelectMany(x => x.Edges).SelectMany(x => x.Points).Select(x => x.ToRhino()).ToList();
+                    points.AddRange(pts);
+                }
+            }
+
+            var box = new Rhino.Geometry.BoundingBox(points);
+            return box;
         }
 
     }

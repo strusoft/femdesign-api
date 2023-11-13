@@ -6,6 +6,8 @@ using System.Linq;
 using FemDesign.GenericClasses;
 using Grasshopper.Kernel.Special;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
+using FemDesign.Bars;
+using FemDesign.Geometry;
 
 namespace FemDesign.Grasshopper
 {
@@ -106,6 +108,11 @@ namespace FemDesign.Grasshopper
 
             // Create model
             Model model = new Model(EnumParser.Parse<Country>(countryCode), elements, loads, loadCases, loadCombinations, loadGroups, constructionStage, soil);
+
+            // check bounding box
+            if (GeomUtility.GetBoundingBox(elements).Diagonal.Length >= 500)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Bounding Box model is larger than 500 meters. Ensure your model is set up in meters.");
+
             DA.SetData("Model", model);
         }
 
