@@ -65,12 +65,17 @@ namespace FemDesign.Grasshopper
                 bool fileExist = OnPingDocument().IsFilePathDefined;
                 if (!fileExist)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
-                    return;
+                    // hops issue
+                    //var folderPath = System.IO.Directory.GetCurrentDirectory();
+                    string tempPath = System.IO.Path.GetTempPath();
+                    System.IO.Directory.SetCurrentDirectory(tempPath);
                 }
-
-                var _ghfileDir = System.IO.Path.GetDirectoryName(OnPingDocument().FilePath);
-                System.IO.Directory.SetCurrentDirectory(_ghfileDir);
+                else
+                {
+                    var filePath = OnPingDocument().FilePath;
+                    var currentDir = System.IO.Path.GetDirectoryName(filePath);
+                    System.IO.Directory.SetCurrentDirectory(currentDir);
+                }
             }
 
             bool delteDir = false;

@@ -151,16 +151,21 @@ namespace FemDesign.Grasshopper
             }
 
 
-            // check if .gh file exist to store the .fdscript/.csv/.struxml file in the same folder
             bool fileExist = OnPingDocument().IsFilePathDefined;
             if (!fileExist)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Save your .gh script or specfy a FilePath.");
-                return;
+                // hops issue
+                //var folderPath = System.IO.Directory.GetCurrentDirectory();
+                string tempPath = System.IO.Path.GetTempPath();
+                System.IO.Directory.SetCurrentDirectory(tempPath);
+            }
+            else
+            {
+                var filePath = OnPingDocument().FilePath;
+                var currentDir = System.IO.Path.GetDirectoryName(filePath);
+                System.IO.Directory.SetCurrentDirectory(currentDir);
             }
 
-            var _ghfileDir = System.IO.Path.GetDirectoryName(OnPingDocument().FilePath);
-            System.IO.Directory.SetCurrentDirectory(_ghfileDir);
 
             // Create Task
             var t = Task.Run((Action)(() =>
