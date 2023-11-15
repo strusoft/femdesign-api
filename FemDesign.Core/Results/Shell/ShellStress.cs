@@ -73,7 +73,7 @@ namespace FemDesign.Results
 
         /// <summary>
         /// Angle between the local X axis and the direction
-        /// of the principle stress Sigma1 [rad]
+        /// of the principle stress Sigma1
         /// </summary>
         public double Alpha { get; }
 

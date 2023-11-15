@@ -49,7 +49,7 @@ namespace FemDesign.Grasshopper
             pManager.Register_GenericParam("Sigma1", "Sigma1", "Principal Stress Value - First direction");
             pManager.Register_GenericParam("Sigma2", "Sigma2", "Principal Stress Value - Second direction");
             pManager.Register_GenericParam("SigmaVM", "SigmaVM", "VonMises Stress");
-            pManager.Register_GenericParam("Alpha", "Alpha", "Angle between the local X axis and the direction");
+            pManager.Register_GenericParam("Alpha", "Alpha", "Angle between the local X axis and the direction of the principle stress Sigma1");
         }
 
         /// <summary>
