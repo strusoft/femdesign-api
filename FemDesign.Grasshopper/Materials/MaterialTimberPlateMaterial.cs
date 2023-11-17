@@ -1,5 +1,6 @@
 // https://strusoft.com/
 using System;
+using FemDesign.Materials;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
@@ -12,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("CltPanelLibraryType", "CltType", "Clt Panel LibraryType.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PanelLibraryType", "CltType", "Clt Panel LibraryType.", GH_ParamAccess.item);
             pManager.AddGenericParameter("TimberFactors", "Factors", "Timber Factors", GH_ParamAccess.item);
             pManager.AddBooleanParameter("ShearCoupling", "ShearCoupling", "Consider shear coupling between layers", GH_ParamAccess.item, true);
             pManager.AddBooleanParameter("GluedNarrowSides", "Glued", "Glue at narrow sides", GH_ParamAccess.item, true);
@@ -23,8 +24,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Materials.CltPanelLibraryType cltPanelLibraryType = null;
-            if (!DA.GetData("CltPanelLibraryType", ref cltPanelLibraryType)) return;
+            IPanelLibraryType panelLibraryType = null;
+            if (!DA.GetData("PanelLibraryType", ref panelLibraryType)) return;
 
             Materials.TimberFactors factors = null;
             if (!DA.GetData("TimberFactors", ref factors)) return;
@@ -33,7 +34,7 @@ namespace FemDesign.Grasshopper
             DA.GetData("ShearCoupling", ref shearCoupling);
             DA.GetData("GluedNarrowSides", ref gluedNarrowSides);
 
-            FemDesign.Materials.TimberPanelType obj = new Materials.TimberPanelType(cltPanelLibraryType, factors, shearCoupling, gluedNarrowSides);
+            FemDesign.Materials.TimberPanelType obj = new Materials.TimberPanelType(panelLibraryType, factors, shearCoupling, gluedNarrowSides);
 
             DA.SetData(0, obj);
         }

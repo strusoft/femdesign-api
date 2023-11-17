@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("CltPanelType", "CltPanelType", "CltPanelLibraryType.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("OrthotropicShell", "OrthotropicShell", "NOT yet implemented. Contact us at support@strusoft.freshdesk.com if you need it.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("OrthotropicShell", "OrthotropicShell", "OrthotropicPanelLibraryType", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -27,9 +27,11 @@ namespace FemDesign.Grasshopper
 
             var materialDatabase = Materials.MaterialDatabase.DeserializeStruxml(fillePath);
             List<Materials.CltPanelLibraryType> cltPaneltype = materialDatabase.GetCltPanelLibrary();
+            List<Materials.OrthotropicPanelLibraryType> orthotropicPaneltype = materialDatabase.GetOrthotropicPanelLibrary();
+
 
             DA.SetDataList(0, cltPaneltype);
-            DA.SetDataList(1, null);
+            DA.SetDataList(1, orthotropicPaneltype);
         }
         protected override System.Drawing.Bitmap Icon
         {

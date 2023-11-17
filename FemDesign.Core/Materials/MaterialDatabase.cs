@@ -41,6 +41,8 @@ namespace FemDesign.Materials
         public Materials ReinforcingMaterials { get; set; } // reinforcing_materials
         [XmlElement("clt_panel_types")]
         public CltPanelTypes CltPanelTypes { get; set; } // clt_panel_types
+        [XmlElement("timber_panel_types")]
+        public OrthotropicPanelTypes OrthotropicPanelTypes { get; set; } // clt_panel_types
         [XmlElement("end")]
         public string End { get; set; }
         [XmlIgnore]
@@ -81,6 +83,13 @@ namespace FemDesign.Materials
             if (this.CltPanelTypes != null)
             {
                 foreach (CltPanelLibraryType panelType in this.CltPanelTypes.CltPanelLibraryTypes)
+                {
+                    list.Add(panelType.Name);
+                }
+            }
+            if (this.OrthotropicPanelTypes != null)
+            {
+                foreach (OrthotropicPanelLibraryType panelType in this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes)
                 {
                     list.Add(panelType.Name);
                 }
@@ -147,6 +156,15 @@ namespace FemDesign.Materials
             if (this.CltPanelTypes != null)
             {
                 return this.CltPanelTypes.CltPanelLibraryTypes;
+            }
+            return null;
+        }
+
+        public List<OrthotropicPanelLibraryType> GetOrthotropicPanelLibrary()
+        {
+            if (this.OrthotropicPanelTypes != null)
+            {
+                return this.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes;
             }
             return null;
         }

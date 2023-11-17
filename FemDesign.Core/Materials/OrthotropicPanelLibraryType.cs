@@ -12,6 +12,11 @@ namespace FemDesign.Materials
     {
         [XmlElement("predefined_type", Order = 1)]
         public List<OrthotropicPanelLibraryType> OrthotropicPanelLibraryTypes { get; set; }
+
+        public OrthotropicPanelTypes()
+        {
+        
+        }
     }
 
     /// <summary>
@@ -21,11 +26,16 @@ namespace FemDesign.Materials
     public partial class OrthotropicPanelLibraryType: LibraryBase, IPanelLibraryType
     {
         [XmlElement("timber_panel_data", Order = 1)]
-        public TimberPanelData TimberPanelData { get; set; }
+        public OrthotropicPanelData TimberPanelData { get; set; }
 
         public OrthotropicPanelLibraryType()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"Orthotropic Panel - {this.Name}";
         }
     }
 }

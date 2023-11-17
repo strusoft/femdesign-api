@@ -7,7 +7,7 @@ namespace FemDesign.Materials
     /// tp_datatype
     /// </summary>
     [System.Serializable]
-    public partial class TimberPanelData
+    public partial class OrthotropicPanelData
     {
         [XmlElement("stiffness", Order=1)]
         public TimberPanelStiffness Stiffness { get; set; }

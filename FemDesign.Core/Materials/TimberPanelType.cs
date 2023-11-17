@@ -122,24 +122,21 @@ namespace FemDesign.Materials
             
         }
 
-        public TimberPanelType(IPanelLibraryType panelType)
-        {
-            PanelType = panelType;
-        }
 
         /// <summary>
         /// Create a TimberPlateMaterial
         /// </summary>
-        /// <param name="cltPanelLibraryType"></param>
-        /// <param name="factors">TimberFactors</param>
-        /// <param name="shearCoupling">Consider shear coupling between layers</param>
-        /// <param name="gluedNarrowSides">Glue at narrow sides</param>
-        public TimberPanelType(CltPanelLibraryType cltPanelLibraryType, TimberFactors factors, bool shearCoupling = true, bool gluedNarrowSides = true)
+        /// <param name="IPanelLibraryType"></param>
+        /// <param name="factors"></param>
+        /// <param name="shearCoupling"></param>
+        /// <param name="gluedNarrowSides"></param>
+        public TimberPanelType(IPanelLibraryType IPanelLibraryType, TimberFactors factors, bool shearCoupling = true, bool gluedNarrowSides = true)
         {
-            PanelType = cltPanelLibraryType;
+            PanelType = IPanelLibraryType;
             TimberFactors = factors;
             ShearCoupling = shearCoupling;
             GluedNarrowSides = gluedNarrowSides;
         }
+
     }
 }

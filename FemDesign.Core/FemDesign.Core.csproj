@@ -311,7 +311,7 @@
     <Compile Include="Materials\Steel.cs" />
     <Compile Include="Materials\Timber.cs" />
     <Compile Include="Materials\TimberFactors.cs" />
-    <Compile Include="Materials\TimberPanelData.cs" />
+    <Compile Include="Materials\OrthotropicPanelData.cs" />
     <Compile Include="Materials\OrthotropicPanelLibraryType.cs" />
     <Compile Include="Materials\TimberPanelStiffness.cs" />
     <Compile Include="Materials\TimberPanelStrength.cs" />
