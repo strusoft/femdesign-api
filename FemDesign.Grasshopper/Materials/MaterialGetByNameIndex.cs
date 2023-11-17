@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
+using FemDesign.Materials;
 
 namespace FemDesign.Grasshopper
 {
@@ -57,7 +58,8 @@ namespace FemDesign.Grasshopper
             {
                 try
                 {
-                    material = materials.Where(x => x.Name == materialInput).First();
+                    string _material = materialInput.ToString();
+                    material = materials.MaterialByName(_material);
                 }
                 catch (Exception ex)
                 {

@@ -159,4 +159,21 @@ namespace FemDesign.Materials
         ReinforcingSteel,
         Custom
     }
+
+
+    public static class MaterialExtension
+    {
+        public static Material MaterialByName(this List<FemDesign.Materials.Material> materials, string materialName)
+        {
+            var materialNames = materials.Select(x => x.Name).ToArray();
+            var extracted = FuzzySharp.Process.ExtractOne(materialName, materialNames);
+
+            if (extracted.Score < 80)
+                throw new Exception($"{materialName} can not be found!");
+
+            var index = extracted.Index;
+            return materials[index];
+        }
+    }
+
 }

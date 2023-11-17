@@ -201,5 +201,15 @@ namespace FemDesign.Sections
 
             return sectionByFamily;
         }
+
+        public static Section SectionByName(this List<FemDesign.Sections.Section> sections, string sectionName)
+        {
+            var sectionNames = sections.Select(x => x._sectionName).ToArray();
+            var extracted = FuzzySharp.Process.ExtractOne(sectionName, sectionNames);
+            if (extracted.Score < 79)
+                throw new Exception($"{sectionName} can not be found!");
+            var index = extracted.Index;
+            return sections[index];
+        }
     }
 }
