@@ -24,7 +24,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BarType", "Type", "Connect 'ValueList' to get the options.\nBarType can be:\nBeam\nColumn\n. Default value is Beam.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BarType", "Type", "Connect 'ValueList' to get the options.\nBarType can be:\nBeam\nColumn\n\nDefault value is Beam.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("CompositeSection", "Section", "Steel-concrete composite section.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. If 1 item this item defines both start and end. If two items the first item defines the start and the last item defines the end.", GH_ParamAccess.list);

@@ -18,8 +18,8 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("SectionName", "Name", "Composite section name.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Steel", "Steel", "Steel material part.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Concrete", "Concrete", "Concrete material part.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Steel", "Steel", "Steel material.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
             pManager.AddNumberParameter("b", "b", "Intermediate width of the bottom flange [mm].", GH_ParamAccess.item, 200);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddNumberParameter("bt", "bt", "Top flange width [mm].", GH_ParamAccess.item, 240);
@@ -78,7 +78,6 @@ namespace FemDesign.Grasshopper
             DA.GetData(10, ref tft);
 
             // check input data
-            if (name == null || steel == null || concrete == null || b == 0 || bt == 0 || h == 0 || tw == 0 || tfb == 0 || tft == 0) { return; }
             if (steel.Family != Materials.Family.Steel)
             {
                 throw new ArgumentException($"Steel input must be steel material but it is {steel.Family}");
@@ -89,10 +88,9 @@ namespace FemDesign.Grasshopper
             }
 
             // create composite section
-            Composites.CompositeSection compositeSection = Composites.CompositeSection.FilledHSQProfile(steel, concrete, name, b, bt, o1, o2, h, tw, tfb, tft);
+            Composites.CompositeSection compositeSection = Composites.CompositeSection.FilledHSQProfile(name, steel, concrete, b, bt, o1, o2, h, tw, tfb, tft);
 
             // get output
-            DA.SetData(0, null);
             DA.SetData(0, compositeSection);
         }
         protected override System.Drawing.Bitmap Icon
