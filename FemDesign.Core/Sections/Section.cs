@@ -13,6 +13,8 @@ namespace FemDesign.Sections
     [System.Serializable]
     public partial class Section: EntityBase
     {
+        internal static int _fuzzyScore = 79;
+
         [XmlElement("region_group", Order = 1)]
         public Geometry.RegionGroup _regionGroup;
 
@@ -206,7 +208,7 @@ namespace FemDesign.Sections
         {
             var sectionNames = sections.Select(x => x._sectionName).ToArray();
             var extracted = FuzzySharp.Process.ExtractOne(sectionName, sectionNames);
-            if (extracted.Score < 79)
+            if (extracted.Score < Section._fuzzyScore)
                 throw new Exception($"{sectionName} can not be found!");
             var index = extracted.Index;
             return sections[index];
