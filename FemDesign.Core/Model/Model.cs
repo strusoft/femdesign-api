@@ -248,7 +248,7 @@ namespace FemDesign
             // cast type
             Model model = (Model)obj;
 
-            if (model.Entities == null) model.Entities = new Entities();
+             if (model.Entities == null) model.Entities = new Entities();
 
             // prepare elements with library reference
             // Check if there are any elements of type to avoid null checks on each library type (sections, materials etc.) in each method below
@@ -3933,6 +3933,11 @@ namespace FemDesign
         {
             foreach (Supports.PointSupport pointSupport in this.Entities.Supports.PointSupport)
             {
+
+                if(pointSupport.IsDirected)
+                {
+                    continue;
+                }
                 // predefined rigidity
                 if (this.PointSupportGroupTypes != null && this.PointSupportGroupTypes.PredefinedTypes != null)
                 {
@@ -3951,6 +3956,10 @@ namespace FemDesign
         {
             foreach (Supports.LineSupport lineSupport in this.Entities.Supports.LineSupport)
             {
+                if(lineSupport.IsDirected)
+                {
+                    continue;
+                }
                 // predefined rigidity
                 if (this.LineSupportGroupTypes != null && this.LineSupportGroupTypes.PredefinedTypes != null)
                 {
