@@ -684,7 +684,7 @@ namespace FemDesign.Grasshopper
             }
 
             // check if brep surface is planar
-            if (!obj.Surfaces[0].IsPlanar())
+            if (!obj.Surfaces[0].IsPlanar(FemDesign.Tolerance.Brep))
             {
                 throw new System.ArgumentException("Brep surface is not planar. This problem might occur due to tolerance error - if your model space is in millimeters try to change to meters.");
             }
