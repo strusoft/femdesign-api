@@ -15,7 +15,7 @@ namespace FemDesign.Materials
         public double Mass
         {
             get { return _mass; }
-            set { RestrictedDouble.NonNegMax_1e20(value); } // non_neg_max_1e20
+            set { _mass = RestrictedDouble.NonNegMax_1e20(value); } // non_neg_max_1e20
         }
 
         [XmlAttribute("E_0")]
