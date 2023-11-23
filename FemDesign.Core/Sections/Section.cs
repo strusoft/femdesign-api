@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FuzzySharp.Extractor;
 
 namespace FemDesign.Sections
 {
@@ -13,6 +14,8 @@ namespace FemDesign.Sections
     [System.Serializable]
     public partial class Section: EntityBase
     {
+        internal static int _fuzzyScore = 85;
+
         [XmlElement("region_group", Order = 1)]
         public Geometry.RegionGroup _regionGroup;
 
@@ -200,6 +203,25 @@ namespace FemDesign.Sections
             }
 
             return sectionByFamily;
+        }
+
+        public static Section SectionByName(this List<FemDesign.Sections.Section> sections, string sectionName)
+        {
+            // abbreviation HEA 100
+            var sectionNames = sections.Select(x => x._sectionName).ToArray();
+
+            // steel section, HE-A, 100
+            var sectionCompleteNames = sections.Select(x => x.Name).ToArray();
+
+            var extracted = FuzzySharp.Process.ExtractOne(sectionName, sectionNames);
+            var extract = FuzzySharp.Process.ExtractOne(sectionName, sectionCompleteNames);
+
+            ExtractedResult<string> extr = extracted.Score > extract.Score ? extracted : extract;
+
+            if (extr.Score < Section._fuzzyScore)
+                throw new Exception($"{sectionName} can not be found!");
+            else
+                return sections[extr.Index];
         }
     }
 }

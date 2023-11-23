@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
+using FemDesign.Sections;
 
 namespace FemDesign.Grasshopper
 {
@@ -55,7 +56,8 @@ namespace FemDesign.Grasshopper
             {
                 try
                 {
-                    section = sections.Where(x => x.Name == sectionInput).First();
+                    string _sectionInput = sectionInput.ToString();
+                    section = sections.SectionByName(_sectionInput);
                 }
                 catch (Exception ex)
                 {

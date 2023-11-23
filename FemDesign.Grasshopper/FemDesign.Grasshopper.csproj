@@ -1045,11 +1045,13 @@
     <ItemGroup>
       <Dlls Include="$(OutDir)FemDesign.*.dll" />
       <Ghas Include="$(OutDir)FemDesign.*.gha" />
+      <Fuzzy Include="$(OutDir)FuzzySharp*.dll" />
       <CmdGlobalCfg Include="$(OutDir)Calculate\Config\cmdglobalcfg.xml" />
       <Cfg Include="$(OutDir)Calculate\Config\cfg.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(Dlls)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Ghas)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
+    <Copy SourceFiles="@(Fuzzy)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(CmdGlobalCfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Cfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
   </Target>
