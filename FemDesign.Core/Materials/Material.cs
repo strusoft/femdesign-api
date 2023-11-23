@@ -177,5 +177,4 @@ namespace FemDesign.Materials
             return materials[index];
         }
     }
-
 }
