@@ -1203,8 +1203,7 @@ namespace FemDesign
         public PipeConnection(string pipeBaseName = "FdPipe1")
         {
             // todo(Gustav): figure out 9-bit encoding?
-            // encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
-            _encoding = System.Text.Encoding.ASCII;
+            _encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
 
             string input_name = pipeBaseName;
             string output_name = pipeBaseName + "b";
