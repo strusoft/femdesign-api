@@ -113,12 +113,44 @@ namespace FemDesign.Geometry
             get { return this._type; }
             set { this._type = RestrictedString.EdgeType(value); }
         }
+
         [XmlAttribute("radius")]
-        public double Radius { get; set; }   // optional. double
+        private double _radius;
+
+        [XmlIgnore]
+        public double Radius
+        {
+            get { return _radius; }
+            set { _radius = value; }
+        }
+
+        public bool ShouldSerializeRadius()
+        {
+            return _radius > 0.0;
+        }
+
+
         [XmlAttribute("start_angle")]
-        public double StartAngle { get; set; } // optional. double
+        public double _startAngle;
+
+        [XmlIgnore]
+        public double StartAngle
+        {
+            get { return _startAngle; }
+            set { _startAngle = value; }
+        }
+
         [XmlAttribute("end_angle")]
-        public double EndAngle { get; set; } // optional. double
+        public double _endAngle;
+
+        [XmlIgnore]
+        public double EndAngle
+        {
+            get { return _endAngle; }
+            set { _endAngle = value; }
+        }
+
+
         [XmlIgnore]
         public double Length
         {
