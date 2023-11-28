@@ -292,6 +292,7 @@
     <Compile Include="Shells\SlabPlate.cs" />
     <Compile Include="Shells\SlabWall.cs" />
     <Compile Include="Shells\StiffnessModifierSlab.cs" />
+    <Compile Include="StructureGrid\AxisDefine.cs" />
     <Compile Include="Supports\LineSupportSimple.cs" />
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
@@ -448,7 +449,7 @@
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessConstruct.cs" />
     <Compile Include="Shells\TimberPlateConstruct.cs" />
-    <Compile Include="StructureGrid\AxisDefine.cs" />
+    <Compile Include="StructureGrid\AxisDefine_OBSOLETE.cs" />
     <Compile Include="StructureGrid\StoreyDefine.cs" />
     <Compile Include="Supports\LineSupportConstruct.cs" />
     <Compile Include="Supports\LineSupportHinged.cs" />

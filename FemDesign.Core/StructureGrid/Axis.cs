@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
@@ -48,9 +49,10 @@ namespace FemDesign.StructureGrid
             }
             set
             {
-                this._id = RestrictedInteger.ValueInRange(value, 1, 1024);
+                this._id = RestrictedInteger.ValueInRange(value, 1, 321272406);
             }
         }
+
         [XmlAttribute("id_is_letter")]
         public bool IdIsLetter { get; set; } // bool
 
@@ -60,6 +62,26 @@ namespace FemDesign.StructureGrid
         /// </summary>
         private Axis()
         {
+
+        }
+
+        /// <summary>
+        /// Convert alphabet to index. A, AA, BA, ZZA
+        /// </summary>
+        /// <param name="letters"></param>
+        /// <returns></returns>
+        private int alphabetNumbering(string letters)
+        {
+            int index = 0;
+
+            foreach (char c in letters)
+            {
+                if (char.IsLetter(c))
+                {
+                    index = index * 26 + (char.ToUpper(c) - 'A' + 1);
+                }
+            }
+            return index;
 
         }
 
@@ -76,9 +98,29 @@ namespace FemDesign.StructureGrid
             this.EntityCreated();
             this.StartPoint = startPoint;
             this.EndPoint = endPoint;
-            this.Prefix = prefix;
             this.Id = id;
             this.IdIsLetter = idIsLetter;
+            this.Prefix = prefix;
+        }
+
+        public Axis(Geometry.Point3d startPoint, Geometry.Point3d endPoint, int number, string prefix = "")
+        {
+            this.EntityCreated();
+            this.StartPoint = startPoint;
+            this.EndPoint = endPoint;
+            this.Id = number;
+            this.IdIsLetter = false;
+            this.Prefix = prefix;
+        }
+
+        public Axis(Geometry.Point3d startPoint, Geometry.Point3d endPoint, string letter, string prefix = "")
+        {
+            this.EntityCreated();
+            this.StartPoint = startPoint;
+            this.EndPoint = endPoint;
+            this.Id = alphabetNumbering(letter);
+            this.IdIsLetter = true;
+            this.Prefix = prefix;
         }
 
     }
