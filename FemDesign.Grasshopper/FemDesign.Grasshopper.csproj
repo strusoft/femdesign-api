@@ -76,6 +76,7 @@
     <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2290.cs" />
+    <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\Obsolete\CoverOneWayOBSOLETE.cs" />
@@ -316,7 +317,7 @@
     <Compile Include="Calculate\CalculationParametersFootfallDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersFreqDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersStageDefine.cs" />
-    <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
+    <Compile Include="Deconstruct\OBSOLETE\AxisDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE3.cs" />
     <Compile Include="Deconstruct\OBSOLETE\BarsDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\ModellingTools\CoverDeconstruct.cs" />
@@ -449,7 +450,7 @@
     <Compile Include="Shells\SlabWallVariableThickness.cs" />
     <Compile Include="Shells\ThicknessConstruct.cs" />
     <Compile Include="Shells\TimberPlateConstruct.cs" />
-    <Compile Include="StructureGrid\AxisDefine_OBSOLETE.cs" />
+    <Compile Include="StructureGrid\OBSOLETE\AxisDefine_OBSOLETE.cs" />
     <Compile Include="StructureGrid\StoreyDefine.cs" />
     <Compile Include="Supports\LineSupportConstruct.cs" />
     <Compile Include="Supports\LineSupportHinged.cs" />

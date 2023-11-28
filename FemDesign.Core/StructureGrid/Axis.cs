@@ -1,6 +1,9 @@
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using FemDesign.Reinforcement;
 
 
 namespace FemDesign.StructureGrid
@@ -39,7 +42,7 @@ namespace FemDesign.StructureGrid
              }
         }
         [XmlAttribute("id")]
-        public int _id; // int_1_to_1024
+        public int _id; // int_1_to_321272406
         [XmlIgnore]
         public int Id
         {
@@ -50,6 +53,30 @@ namespace FemDesign.StructureGrid
             set
             {
                 this._id = RestrictedInteger.ValueInRange(value, 1, 321272406);
+            }
+        }
+
+        [XmlIgnore]
+        public string Letter
+        {
+            get
+            {
+                if(this.IdIsLetter)
+                    return IntToAlphabet(this.Id);
+                else
+                    return null;
+            }
+        }
+
+        [XmlIgnore]
+        public int? Number
+        {
+            get
+            {
+                if (this.IdIsLetter)
+                    return null;
+                else
+                    return this.Id;
             }
         }
 
@@ -70,7 +97,7 @@ namespace FemDesign.StructureGrid
         /// </summary>
         /// <param name="letters"></param>
         /// <returns></returns>
-        private int alphabetNumbering(string letters)
+        private int AlphabetToInt(string letters)
         {
             int index = 0;
 
@@ -83,6 +110,21 @@ namespace FemDesign.StructureGrid
             }
             return index;
 
+        }
+
+        public static string IntToAlphabet(int index)
+        {
+            string result = "";
+
+            while (index > 0)
+            {
+                index--;  // Adjust for 1-based indexing
+                int remainder = index % 26;
+                result = (char)('A' + remainder) + result;
+                index /= 26;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -118,7 +160,7 @@ namespace FemDesign.StructureGrid
             this.EntityCreated();
             this.StartPoint = startPoint;
             this.EndPoint = endPoint;
-            this.Id = alphabetNumbering(letter);
+            this.Id = AlphabetToInt(letter);
             this.IdIsLetter = true;
             this.Prefix = prefix;
         }

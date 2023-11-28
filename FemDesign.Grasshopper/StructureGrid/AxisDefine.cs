@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Line", "Line", "Line of axis. Line will be projected onto XY-plane.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Id", "Id", "Number or letters of axis identifier.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Number|Letter", "Number|Letter", "Numbers or letters of axis identifier.", GH_ParamAccess.item);
             pManager.AddTextParameter("Prefix", "Prefix", "Prefix of axis identifier.", GH_ParamAccess.item, "");
             pManager[pManager.ParamCount - 1].Optional = true;
 
@@ -48,18 +48,27 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Point3d p0 = Convert.FromRhino(line.PointAtStart);
             FemDesign.Geometry.Point3d p1 = Convert.FromRhino(line.PointAtEnd);
 
-            //
 
 
-            if (int.TryParse( id.Value, out int _number))
+            if (id.Value is string _letter)
+            {
+                if(int.TryParse(_letter, out int _numberString))
+                {
+                    var objs = new StructureGrid.Axis(p0, p1, _numberString, prefix);
+                    DA.SetData(0, objs);
+                    return;
+                }
+
+                FemDesign.StructureGrid.Axis obj = new StructureGrid.Axis(p0, p1, _letter, prefix);
+                DA.SetData(0, obj);
+                return;
+            }
+
+            if (id.Value is int _number)
             {
                 FemDesign.StructureGrid.Axis obj = new StructureGrid.Axis(p0, p1, _number, prefix);
                 DA.SetData(0, obj);
-            }
-            else
-            {
-                FemDesign.StructureGrid.Axis obj = new StructureGrid.Axis(p0, p1, id.Value, prefix);
-                DA.SetData(0, obj);
+                return;
             }
 
         }
