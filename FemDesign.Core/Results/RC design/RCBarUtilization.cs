@@ -88,10 +88,10 @@ namespace FemDesign.Results
             {
                 string id = row[0];
                 double max = double.Parse(row[1], CultureInfo.InvariantCulture);
-                double sec = double.Parse(row[2], CultureInfo.InvariantCulture);
-                double st = double.Parse(row[3], CultureInfo.InvariantCulture);
-                double c = double.Parse(row[4], CultureInfo.InvariantCulture);
-                double t = double.Parse(row[5], CultureInfo.InvariantCulture);
+                double sec = row[2] == "-" ? 0 : double.Parse(row[2], CultureInfo.InvariantCulture);
+                double st = row[3] == "-" ? 0 : double.Parse(row[3], CultureInfo.InvariantCulture);
+                double c = row[4] == "-" ? 0 : double.Parse(row[4], CultureInfo.InvariantCulture);
+                double t = row[5] == "-" ? 0 : double.Parse(row[5], CultureInfo.InvariantCulture);
                 double cw = row[6] == "-" ? 0 : double.Parse(row[6], CultureInfo.InvariantCulture);
                 string lc = HeaderData["casename"]; ;
                 return new RCBarUtilization(id, max, sec, st, c, t, cw, lc);  
@@ -100,10 +100,10 @@ namespace FemDesign.Results
             {
                 string id = row[0];
                 double max = double.Parse(row[1], CultureInfo.InvariantCulture);
-                double sec = double.Parse(row[3], CultureInfo.InvariantCulture);
-                double st = double.Parse(row[4], CultureInfo.InvariantCulture);
-                double c = double.Parse(row[5], CultureInfo.InvariantCulture);
-                double t = double.Parse(row[6], CultureInfo.InvariantCulture);
+                double sec = row[3] == "-" ? 0 : double.Parse(row[3], CultureInfo.InvariantCulture);
+                double st = row[4] == "-" ? 0 : double.Parse(row[4], CultureInfo.InvariantCulture);
+                double c = row[5] == "-" ? 0 : double.Parse(row[5], CultureInfo.InvariantCulture);
+                double t = row[6] == "-" ? 0 : double.Parse(row[6], CultureInfo.InvariantCulture);
                 double cw = row[7] == "-" ? 0 : double.Parse(row[7], CultureInfo.InvariantCulture);
                 string lc = row[2];
                 return new RCBarUtilization(id, max, sec, st, c, t, cw, lc);
