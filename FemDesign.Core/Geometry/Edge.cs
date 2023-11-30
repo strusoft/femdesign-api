@@ -115,7 +115,7 @@ namespace FemDesign.Geometry
         }
 
         [XmlAttribute("radius")]
-        private double _radius;
+        public double _radius;
 
         [XmlIgnore]
         public double Radius
