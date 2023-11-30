@@ -4,7 +4,7 @@
     <foundations />
     <bar last_change="2022-11-25T10:17:05.718" guid="925d8192-ce7d-49b7-8e03-70edd64e6fe9" action="added" stage="1" maxforce="0" type="beam" tension="0" compressions_plasticity="false" tensions_plasticity="false">
       <bar_part last_change="2022-11-25T10:17:05.719" guid="9b8a27bb-9bc1-4dfd-9764-176cc58e1fe3" action="added" name="B.1.1" stage="1" complex_material="cd7f26ab-8fb6-41e3-8207-2021120a48d4" ecc_calc="true" complex_section="f87ed7a7-bf15-4b30-ba69-c0d49c14d6ab">
-        <curve start_angle="0" end_angle="0" type="line" radius="0">
+        <curve start_angle="0" end_angle="0" type="line">
           <point x="9.6351498208540362E-17" y="1.9270299641708072E-16" z="0" />
           <point x="9.6351498208540362E-17" y="1.9270299641708072E-16" z="6" />
           <normal x="1" y="0" z="-0" />
@@ -47,25 +47,25 @@
       <surface_support last_change="2022-11-25T10:17:05.765" guid="5d3d59b7-f429-4883-bd4e-1c8f2c343326" action="added" name="S.1" stage="1">
         <region>
           <contour>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-1" y="2" z="0" />
               <point x="-1" y="-2" z="0" />
               <normal x="0" y="-0" z="-1" />
               <x_axis x="0" y="-1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line">
               <point x="-1" y="-2" z="0" />
               <point x="1" y="-2" z="0" />
               <normal x="-0" y="1" z="0" />
               <x_axis x="1" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="1" y="-2" z="0" />
               <point x="1" y="2" z="0" />
               <normal x="0" y="-0" z="1" />
               <x_axis x="0" y="1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="1" y="2" z="0" />
               <point x="-1" y="2" z="0" />
               <normal x="-0" y="-1" z="0" />
@@ -90,17 +90,17 @@
       <region_group>
         <region>
           <contour>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.08" y="-0.165" z="0" />
               <point x="0.08" y="-0.165" z="0" />
               <normal x="0" y="1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.08" y="-0.165" z="0" />
               <point x="0.08" y="-0.1535" z="0" />
               <normal x="0" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.08" y="-0.1535" z="0" />
               <point x="0.02175" y="-0.1535" z="0" />
               <normal x="0" y="-1" z="0" />
@@ -110,7 +110,7 @@
               <normal x="0" y="0" z="-1" />
               <x_axis x="0" y="-1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.00375" y="-0.1355" z="0" />
               <point x="0.00375" y="0.1355" z="0" />
               <normal x="-1" y="0" z="0" />
@@ -120,27 +120,27 @@
               <normal x="0" y="0" z="-1" />
               <x_axis x="-1" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.02175" y="0.1535" z="0" />
               <point x="0.08" y="0.1535" z="0" />
               <normal x="0" y="1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.08" y="0.1535" z="0" />
               <point x="0.08" y="0.165" z="0" />
               <normal x="0" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="0.08" y="0.165" z="0" />
               <point x="-0.08" y="0.165" z="0" />
               <normal x="0" y="-1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.08" y="0.165" z="0" />
               <point x="-0.08" y="0.1535" z="0" />
               <normal x="0" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.08" y="0.1535" z="0" />
               <point x="-0.02175" y="0.1535" z="0" />
               <normal x="0" y="1" z="0" />
@@ -150,7 +150,7 @@
               <normal x="0" y="0" z="-1" />
               <x_axis x="0" y="1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.00375" y="0.1355" z="0" />
               <point x="-0.00375" y="-0.1355" z="0" />
               <normal x="1" y="0" z="0" />
@@ -160,12 +160,12 @@
               <normal x="0" y="0" z="-1" />
               <x_axis x="1" y="0" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.02175" y="-0.1535" z="0" />
               <point x="-0.08" y="-0.1535" z="0" />
               <normal x="0" y="-1" z="0" />
             </edge>
-            <edge start_angle="0" end_angle="0" type="line" radius="0">
+            <edge start_angle="0" end_angle="0" type="line" >
               <point x="-0.08" y="-0.1535" z="0" />
               <point x="-0.08" y="-0.165" z="0" />
               <normal x="0" y="0" z="0" />
