@@ -1028,14 +1028,9 @@ namespace FemDesign
             // in model?
             bool inModel = this.SurfaceConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
 
-            // in model, don't overwrite
-            if (inModel && !overwrite)
-            {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
-            }
 
             // in model, overwrite
-            else if (inModel && overwrite)
+            if (inModel && overwrite)
             {
                 this.SurfaceConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
             }
@@ -1095,14 +1090,16 @@ namespace FemDesign
             // in model?
             bool inModel = this.LineConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
 
-            // in model, don't overwrite
-            if (inModel && !overwrite)
-            {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
-            }
+
+            //// in model, don't overwrite
+            //if (inModel && !overwrite)
+            //{
+            /// predefinedTypes can be duplicate
+            //    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            //}
 
             // in model, overwrite
-            else if (inModel && overwrite)
+            if (inModel && overwrite)
             {
                 this.LineConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
             }
@@ -1163,13 +1160,13 @@ namespace FemDesign
             bool inModel = this.PointConnectionTypes.PredefinedTypes.Any(x => x.Guid == obj.Guid);
 
             // in model, don't overwrite
-            if (inModel && !overwrite)
-            {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
-            }
+            //if (inModel && !overwrite)
+            //{
+            //    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            //}
 
             // in model, overwrite
-            else if (inModel && overwrite)
+            if (inModel && overwrite)
             {
                 this.PointConnectionTypes.PredefinedTypes.RemoveAll(x => x.Guid == obj.Guid);
             }
