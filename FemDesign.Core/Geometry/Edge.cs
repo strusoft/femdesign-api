@@ -124,7 +124,7 @@ namespace FemDesign.Geometry
             set { _radius = value; }
         }
 
-        public bool ShouldSerializeRadius()
+        public bool ShouldSerialize_radius()
         {
             return _radius > 0.0;
         }
