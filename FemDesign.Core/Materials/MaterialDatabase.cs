@@ -241,6 +241,35 @@ namespace FemDesign.Materials
             }
             throw new System.ArgumentException("Material library resource not in assembly! Was project compiled without embedded resources?");
         }
+
+        private static MaterialDatabase DeserializeResourceTimberPlate()
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(MaterialDatabase));
+
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            foreach (string resourceName in assembly.GetManifestResourceNames())
+            {
+                if (resourceName.EndsWith("timberPlate.struxml"))
+                {
+                    using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        TextReader reader = new StreamReader(stream);
+                        object obj = deserializer.Deserialize(reader);
+                        MaterialDatabase materialDatabase = (MaterialDatabase)obj;
+                        reader.Close();
+
+                        if (materialDatabase.CltPanelTypes.CltPanelLibraryTypes.Count == 0 || materialDatabase.OrthotropicPanelTypes.OrthotropicPanelLibraryTypes.Count == 0)
+                        {
+                            throw new System.ArgumentException("The project was compiled without any materials. Add materials to your project and re-compile or use another method to construct the material database (i.e DeserializeStruxml).");
+                        }
+
+                        return materialDatabase;
+                    }
+                }
+            }
+            throw new System.ArgumentException("Material library resource not in assembly! Was project compiled without embedded resources?");
+        }
+
         /// <summary>
         /// Load the default MaterialDatabase for each respective country.
         /// </summary>
@@ -256,6 +285,12 @@ namespace FemDesign.Materials
                 _defaultSectionDatabaseCache[countryCode].End = "";
             }
             return _defaultSectionDatabaseCache[countryCode];
+        }
+
+        public static MaterialDatabase DefaultTimberPlateLibrary()
+        {
+            var database = DeserializeResourceTimberPlate();
+            return database;
         }
 
         public (List<Material> steel, List<Material> concrete, List<Material> timber, List<Material> reinforcement, List<Material> stratum, List<Material> custom) ByType()

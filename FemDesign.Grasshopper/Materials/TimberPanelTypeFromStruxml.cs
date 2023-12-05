@@ -1,19 +1,21 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using FemDesign.Materials;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
     public class TimberPanelTypeFromStruxml : FEM_Design_API_Component
     {
-        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary.FromStruxml", "FromStruxml", "Load a custom MaterialDatabase which contains the TimberPanel type from a .struxml file.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public TimberPanelTypeFromStruxml() : base("TimberPlateLibrary", "TimberPlateLibrary", "Load Clt or Orthotropic panel Default or FromStruxml.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FilePath", "FilePath", "File path to .struxml file.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -22,12 +24,24 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string fillePath = null;
-            DA.GetData(0, ref fillePath);
+            string filePath = null;
+            DA.GetData(0, ref filePath);
 
-            var materialDatabase = Materials.MaterialDatabase.DeserializeStruxml(fillePath);
-            List<Materials.CltPanelLibraryType> cltPaneltype = materialDatabase.GetCltPanelLibrary();
-            List<Materials.OrthotropicPanelLibraryType> orthotropicPaneltype = materialDatabase.GetOrthotropicPanelLibrary();
+            FemDesign.Materials.MaterialDatabase materialDatabase;
+            List<Materials.CltPanelLibraryType> cltPaneltype;
+            List<Materials.OrthotropicPanelLibraryType> orthotropicPaneltype;
+
+            if (filePath == null)
+            {
+                materialDatabase = FemDesign.Materials.MaterialDatabase.DefaultTimberPlateLibrary();
+            }
+            else
+            {
+                materialDatabase = FemDesign.Materials.MaterialDatabase.DeserializeStruxml(filePath);
+            }
+
+            cltPaneltype = materialDatabase.GetCltPanelLibrary();
+            orthotropicPaneltype = materialDatabase.GetOrthotropicPanelLibrary();
 
 
             DA.SetDataList(0, cltPaneltype);
