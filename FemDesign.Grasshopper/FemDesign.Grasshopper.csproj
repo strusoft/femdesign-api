@@ -69,6 +69,7 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
@@ -120,7 +121,7 @@
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStabilityDefine.cs" />
-    <Compile Include="Calculate\ApplicationRun.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE_22_10_0.cs" />
     <Compile Include="Calculate\DesignGroup.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE_2260.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE.cs" />

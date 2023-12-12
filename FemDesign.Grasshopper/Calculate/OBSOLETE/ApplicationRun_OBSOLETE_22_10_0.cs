@@ -19,9 +19,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : FEM_Design_API_Component
+    public class ApplicationRun_OBSOLETE_22_10_0 : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun_OBSOLETE_22_10_0() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
         }
@@ -42,9 +42,6 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("ResultTypes", "ResultTypes", "Results to be extracted from model. This might require the model to have been analysed. Item or list.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
             pManager.AddGenericParameter("Units", "Units", "Specify the Result Units for some specific type. \n" +
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -55,7 +52,7 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "GlobalCfg file path. You can use the 'cmdglobalcfg.xml' file in located package manager library folder as a starting point.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc). The documentation will be saved in the `FEM-Design API` folder. Optional parameter.", GH_ParamAccess.item);
+            pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc) to run. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
@@ -94,6 +91,8 @@ namespace FemDesign.Grasshopper
         }
 
 
+ 
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             bool runNode = true;
@@ -114,7 +113,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Calculate.Design design = null;
             DA.GetData("Design", ref design);
 
-            if (analysis == null && design == null)
+            if(analysis == null && design == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Specify 'Analysis' or 'Design' to run the calculation!");
                 return;
@@ -129,9 +128,6 @@ namespace FemDesign.Grasshopper
 
             List<string> _resultType = new List<string>();
             DA.GetDataList("ResultTypes", _resultType);
-
-            FemDesign.Calculate.Options options = null;
-            DA.GetData("Options", ref options);
 
             string cfg = null;
             DA.GetData("Cfg", ref cfg);
@@ -182,7 +178,7 @@ namespace FemDesign.Grasshopper
                 connection.Open(_model.Value);
 
                 if (cfg != null)
-                    connection.SetConfig(new Calculate.CmdConfig(cfg));
+                    connection.SetConfig( new Calculate.CmdConfig(cfg) );
 
                 if (globalCfg != null)
                     connection.SetGlobalConfig(CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(globalCfg));
@@ -206,7 +202,7 @@ namespace FemDesign.Grasshopper
                         connection.ApplyDesignChanges();
                     }
 
-                    if (design.ApplyChanges == true && design.Check == true)
+                    if(design.ApplyChanges == true && design.Check == true)
                     {
                         connection.RunAnalysis(analysis);
                         var _design = new Design(check: true);
@@ -218,18 +214,18 @@ namespace FemDesign.Grasshopper
 
                 finiteElement = connection.GetFeaModel(units.Length);
 
-                if (types.Count != 0)
+                if(types.Count != 0)
                 {
                     int i = 0;
                     foreach (var type in types)
                     {
-                        var res = _getResults(connection, type, units, options);
+                        var res = _getResults(connection, type, units);
                         resultsTree.AddRange(res, new GH_Path(i));
                         i++;
                     }
                 }
 
-                if (dscTemplate != null)
+                if(dscTemplate != null)
                 {
                     var outputDocx = OutputFileHelper.GetDocxPath(connection.OutputDir);
                     connection.SaveDocx(outputDocx, dscTemplate);
@@ -246,7 +242,7 @@ namespace FemDesign.Grasshopper
                 connection.Dispose();
             }));
 
-
+            
             t.ConfigureAwait(false);
             try
             {
@@ -271,10 +267,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{220C17E9-5474-4962-97B6-C64FE7C83B94}"); }
+            get { return new Guid("{81ECF200-1217-4CE8-B2F3-9C35CC49D3CD}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
