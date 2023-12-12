@@ -29,7 +29,7 @@ namespace FemDesign.Examples
             {
                 femDesign.OnOutput += Console.WriteLine;
                 femDesign.Open(strFile);
-                femDesign.SaveDocx(docxFilePath);
+                femDesign.SaveDocx(docxFilePath, dscTemplateFilePath);
             }
 
             Console.WriteLine("Done!");

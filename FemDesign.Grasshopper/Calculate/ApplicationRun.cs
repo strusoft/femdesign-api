@@ -135,6 +135,9 @@ namespace FemDesign.Grasshopper
             string globalCfg = null;
             DA.GetData("GlobalCfg", ref globalCfg);
 
+            string dscTemplate = null;
+            DA.GetData("DocxTemplatePath", ref dscTemplate);
+
             // Collect Outputs
             Model model = null;
             List<Results.IResult> results = new List<Results.IResult>();
@@ -222,12 +225,18 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
+                if(dscTemplate != null)
+                {
+                    var outputDocx = OutputFileHelper.GetDocxPath(connection.OutputDir);
+                    connection.SaveDocx(outputDocx, dscTemplate);
+                }
+
                 // return the new model
                 model = connection.GetModel();
 
 
                 // save calculated model in .str format
-                var strFile = OutputFileHelper.GetStrPath(connection.OutputDir);
+                var strFile = OutputFileHelper.GetStrPath(connection.OutputDir, "model_saved");
                 connection.Save(strFile);
 
                 connection.Dispose();

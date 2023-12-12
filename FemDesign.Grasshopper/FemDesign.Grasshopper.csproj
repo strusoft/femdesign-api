@@ -227,6 +227,7 @@
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeRunDesign.cs" />
     <Compile Include="Pipe\PipeSaveAs.cs" />
+    <Compile Include="Pipe\PipeSaveDocumentation.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -948,6 +949,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\FEM_SaveAs.png" />
+    <None Include="Resources\icons\Docx.png" />
     <None Include="Resources\icons\ConcealedBar.png" />
     <None Include="Resources\icons\ModellingToolsDeconstruct.png" />
     <None Include="Resources\icons\SurfaceConnection.png" />

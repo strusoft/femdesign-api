@@ -403,6 +403,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Docx {
+            get {
+                object obj = ResourceManager.GetObject("Docx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EdgeConnectionDeconstruct {
             get {
                 object obj = ResourceManager.GetObject("EdgeConnectionDeconstruct", resourceCulture);
@@ -576,6 +586,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap FEM_RunDesign {
             get {
                 object obj = ResourceManager.GetObject("FEM_RunDesign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FEM_SaveAs {
+            get {
+                object obj = ResourceManager.GetObject("FEM_SaveAs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

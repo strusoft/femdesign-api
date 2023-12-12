@@ -431,24 +431,36 @@ namespace FemDesign
         /// <summary>
         /// Save the documentation in a docx file.
         /// </summary>
-        /// <param name="filePath"></param>
-        public void SaveDocx(string filePath)
+        /// <param name="docxFilePath"></param>
+        private void SaveDocx(string docxFilePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
             var script = new FdScript(
                 logfile,
-                new CmdSaveDocx(filePath)
+                new CmdSaveDocx(docxFilePath)
             );
 
             this.RunScript(script, "SaveDocx");
         }
 
         /// <summary>
+        /// Save the documentation in a docx file using a .bsc template file
+        /// </summary>
+        /// <param name="docxFilePath">.docx file path where the documentatio will be saved</param>
+        /// <param name="templatePath">template .dsc file path to apply to the documentation</param>
+        public void SaveDocx(string docxFilePath, string templatePath = null)
+        {
+            if(templatePath != null)
+                this.ApplyDocumentationTemplate(templatePath);
+            this.SaveDocx(docxFilePath);
+        }
+
+        /// <summary>
         /// Apply a template to a documentation
         /// </summary>
         /// <param name="templatePath"></param>
-        public void SaveDocxFromTemplate(string templatePath)
+        public void ApplyDocumentationTemplate(string templatePath)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
 
@@ -1528,6 +1540,7 @@ namespace FemDesign
         private const string _logFileName = "logfile.log";
         private const string _struxmlFileName = "model.struxml";
         private const string _strFileName = "model.str";
+        private const string _docxFileName = "model.docx";
 
         private const string _intSrfFileName = "intSrf.txt";
 
@@ -1559,6 +1572,19 @@ namespace FemDesign
             else
                 path = Path.GetFullPath(Path.Combine(baseDir, Path.ChangeExtension(Path.GetFileName(modelName), "struxml")));
                 
+            return path;
+        }
+
+        public static string GetDocxPath(string baseDir, string modelName = null)
+        {
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            string path;
+            if (string.IsNullOrEmpty(modelName))
+                path = Path.GetFullPath(Path.Combine(baseDir, _docxFileName));
+            else
+                path = Path.GetFullPath(Path.Combine(baseDir, Path.ChangeExtension(Path.GetFileName(modelName), "docx")));
+
             return path;
         }
 

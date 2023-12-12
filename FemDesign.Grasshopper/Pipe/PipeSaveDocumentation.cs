@@ -12,16 +12,18 @@ using System.Reflection;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipSave : GH_AsyncComponent
+    public class PipeDocx : GH_AsyncComponent
     {
-        public PipSave() : base("FEM-Design.Save", "Save", "Save a model.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeDocx() : base("FEM-Design.Documentation", "SaveDocx", "Save documentation of a model.", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationSaveAs(this);
+            BaseWorker = new ApplicationSaveDocxWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("FilePath", "FilePath", "Save the model to .struxml or .str file", GH_ParamAccess.item);
+            pManager.AddTextParameter("Docx", "Docx", "Docx file path for the documentation output.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Template", "Template", ".dsc file path.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -31,21 +33,23 @@ namespace FemDesign.Grasshopper
             pManager.AddBooleanParameter("Success", "Success", "True if session has exited. False if session is open or was closed manually.", GH_ParamAccess.item);
         }
 
-        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_SaveAs;
-        public override Guid ComponentGuid => new Guid("{473C29D5-4021-4D26-8397-56035D3EBC95}");
+        protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.Docx;
+        public override Guid ComponentGuid => new Guid("{48633F87-356E-4E10-AC86-189DAD5AD0B0}");
         public override GH_Exposure Exposure => GH_Exposure.primary;
     }
 
-    public class ApplicationSaveAs : WorkerInstance
+    public class ApplicationSaveDocxWorker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
+        private string _docxFilePath = null;
+        private string _dscFilePath = null;
         private bool _runNode = true;
         private bool _success = false;
-        private string _filePath = null;
+        private string filePath = null;
 
 
-        public ApplicationSaveAs(GH_Component component) : base(component) { }
+        public ApplicationSaveDocxWorker(GH_Component component) : base(component) { }
 
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
@@ -55,33 +59,34 @@ namespace FemDesign.Grasshopper
                 if (_runNode == false)
                 {
                     _success = false;
+                    _connection = null;
                     RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Run node set to false."));
-                    ReportProgress(Id, 0.0.ToString());
+                    Done();
                     return;
                 }
 
                 if (_connection == null)
                 {
-                    _success = false;
                     RuntimeMessages.Add((GH_RuntimeMessageLevel.Warning, "Connection is null."));
+                    Done();
                     return;
                 }
 
                 if (_connection.IsDisconnected)
                 {
                     _success = false;
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost."));
-                    return;
+                    _connection = null;
+                    throw new Exception("Connection to FEM-Design have been lost.");
                 }
 
                 if (_connection.HasExited)
                 {
                     _success = false;
-                    RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, "FEM-Design have been closed."));
-                    return;
+                    _connection = null;
+                    throw new Exception("FEM-Design have been closed.");
                 }
-                // Save the model
-                _connection.Save(_filePath);
+
+                _connection.SaveDocx(_docxFilePath, _dscFilePath);
                 _success = true;
             }
             catch (Exception ex)
@@ -90,25 +95,26 @@ namespace FemDesign.Grasshopper
                 _success = false;
                 _connection = null;
             }
-            
+
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationSaveAs(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationSaveDocxWorker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("FilePath", ref _filePath);
+            DA.GetData("Docx", ref _docxFilePath);
+            DA.GetData("Template", ref _dscFilePath);
             DA.GetData("RunNode", ref _runNode);
         }
 
         public override void SetData(IGH_DataAccess DA)
         {
-                            foreach (var (level, message) in RuntimeMessages)
-                {
-                    Parent.AddRuntimeMessage(level, message);
-                }
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
 
             DA.SetData("Connection", _connection);
             DA.SetData("Success", _success);
