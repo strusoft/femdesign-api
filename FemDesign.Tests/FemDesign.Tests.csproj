@@ -91,6 +91,7 @@
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
+    <Compile Include="ModellingTools\ModellingToolsTest.cs" />
     <Compile Include="Results\ResultPointsTests.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />

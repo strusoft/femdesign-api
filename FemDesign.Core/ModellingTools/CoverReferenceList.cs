@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -23,6 +24,18 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
+        /// Constructor Cover Reference List
+        /// </summary>
+        /// <param name="guids">BarPart or SlabPart guid from objects (only bars and slabs supported) in list</param>
+        public CoverReferenceList(List<Guid> guids)
+        {
+            foreach (var guid in guids)
+            {
+                this.RefGuid.Add(new GuidListType(guid));
+            }
+        }
+
+        /// <summary>
         /// Get guid from objects (only bars and slabs supported) in list.
         /// </summary>
         /// <param name="objs">Bars and/or Slabs</param>
@@ -41,11 +54,11 @@ namespace FemDesign.ModellingTools
             CoverReferenceList refList = new CoverReferenceList();
             foreach (object elem in objs)
             {
-                if (elem.GetType() == typeof(Bars.Bar))
+                if (IsSameOrSubclass(typeof(Bars.Bar), elem.GetType()))
                 {
                     refList.RefGuid.Add(new GuidListType(((Bars.Bar)elem).BarPart.Guid));
                 }
-                else if (elem.GetType() == typeof(Shells.Slab))
+                else if (IsSameOrSubclass(typeof(Shells.Slab), elem.GetType()))
                 {
                     refList.RefGuid.Add(new GuidListType(((Shells.Slab)elem).SlabPart.Guid));
                 }
@@ -72,11 +85,11 @@ namespace FemDesign.ModellingTools
             CoverReferenceList refList = new CoverReferenceList();
             foreach (object elem in objs)
             {
-                if (elem.GetType() == typeof(Bars.Bar))
+                if (IsSameOrSubclass(typeof(Bars.Bar), elem.GetType()))
                 {
                     refList.RefGuid.Add(new GuidListType(((Bars.Bar)elem).BarPart.Guid));
                 }
-                else if (elem.GetType() == typeof(Shells.Slab))
+                else if (IsSameOrSubclass(typeof(Shells.Slab), elem.GetType()))
                 {
                     refList.RefGuid.Add(new GuidListType(((Shells.Slab)elem).SlabPart.Guid));
                 }
@@ -88,7 +101,11 @@ namespace FemDesign.ModellingTools
             return refList;
         }
 
-
+        private static bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        {
+            return potentialDescendant.IsSubclassOf(potentialBase)
+                   || potentialDescendant == potentialBase;
+        }
 
     }
 }
