@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3646ABCA-0703-425A-BB27-4D838DB92FE8}</ProjectGuid>
+    <ProjectGuid>{AA4FC8FC-8E08-4510-9293-C9B025C4FA3F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Example_7___Creating_a_wall</RootNamespace>
-    <AssemblyName>Example 7 - Creating a wall</AssemblyName>
+    <RootNamespace>CreatingASimpleBeam</RootNamespace>
+    <AssemblyName>CreatingASimpleBeam</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,17 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="materials.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="sections.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\FemDesign.Core\FemDesign.Core.csproj">
       <Project>{1d91ebf4-a473-4c5b-a171-ab2da1b7017b}</Project>
       <Name>FemDesign.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="materials.struxml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

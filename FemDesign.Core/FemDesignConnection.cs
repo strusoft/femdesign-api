@@ -60,12 +60,15 @@ namespace FemDesign
         /// <param name="keepOpen">If true FEM-Design will be left open and have to be manually exited.</param>
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
         /// <param name="tempOutputDir"><code>BE CAREFUL!</code>If true the <paramref name="outputDir"/> will be deleted on exit. This option has no effect unless <paramref name="outputDir"/> has been specified.</param>
+        /// <param name="verbosity"></param>
+
         public FemDesignConnection(
             string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 22\",
             bool minimized = false,
             bool keepOpen = false,
             string outputDir = null,
-            bool tempOutputDir = false)
+            bool tempOutputDir = false,
+            Verbosity verbosity = DefaultVerbosity)
         {
             string pathToFemDesign = Path.Combine(fdInstallationDir, "fd3dstruct.exe");
 
@@ -111,7 +114,7 @@ namespace FemDesign
                 if (isGuid == false)
                     OnOutput?.Invoke(message);
             };
-            SetVerbosity(DefaultVerbosity);
+            SetVerbosity(verbosity);
         }
 
 
@@ -1405,7 +1408,6 @@ namespace FemDesign
         private void _startOutputThread()
         {
             _outputWorker.WorkerSupportsCancellation = true;
-
             _outputWorker.DoWork += _onOutputThread;
 
             _outputWorker.WorkerReportsProgress = true;

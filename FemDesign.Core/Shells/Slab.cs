@@ -100,7 +100,7 @@ namespace FemDesign.Shells
         /// <summary>
         /// Construct Slab.
         /// </summary>
-        private Slab(SlabType type, string identifier, SlabPart slabPart, Materials.Material material)
+        public Slab(SlabType type, string identifier, SlabPart slabPart, Materials.Material material)
         {
             this.EntityCreated();
             this.SlabPart = slabPart;

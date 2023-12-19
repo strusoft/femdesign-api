@@ -95,11 +95,25 @@ namespace FemDesign.Examples
             model.AddLoads(loads);
 
 
-            // Open model in FEM-Design
+            // Run Analysis
             using (var femDesign = new FemDesignConnection(outputDir: "My simple beam", keepOpen: true))
             {
-                // Inside the "using..." we can send commands to FEM-Design.
+                var analysis = FemDesign.Calculate.Analysis.StaticAnalysis();
+
+                // Create analysis
                 femDesign.Open(model);
+                femDesign.RunAnalysis(analysis);
+
+                // Read results
+                var pointSupportReactions = femDesign.GetResults<PointSupportReaction>();
+
+                // Print results
+                Console.WriteLine();
+                Console.WriteLine("Id         | Reaction   | Case Identifier");
+                foreach (var reaction in pointSupportReactions)
+                {
+                    Console.WriteLine($"{reaction.Id,10} | {reaction.Fz,10} | {reaction.CaseIdentifier,10}");
+                }
             }
         }
     }

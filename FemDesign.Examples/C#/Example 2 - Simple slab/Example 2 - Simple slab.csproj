@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FCD2AD4D-00AD-43AC-AD3A-FBF5819554BB}</ProjectGuid>
+    <ProjectGuid>{E3BB2331-4FF0-4869-8929-52A5FBAD19B6}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CreatingASimpleBeam</RootNamespace>
-    <AssemblyName>CreatingASimpleBeam</AssemblyName>
+    <RootNamespace>Example_3b___Simple_Slab</RootNamespace>
+    <AssemblyName>Example 3b - Simple Slab</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,12 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="materials.struxml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="sections.struxml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\FemDesign.Core\FemDesign.Core.csproj">

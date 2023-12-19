@@ -136,6 +136,21 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
+        public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        {
+            this.CombName = combName;
+            this.NLE = NLE;
+            this.PL = PL;
+            this.NLS = NLS;
+            this.Cr = Cr;
+            this.f2nd = f2nd;
+            this.Im = Im;
+            this.Waterlevel = waterlevel;
+            this.ImpfRqd = impfRqd;
+            this.Amplitude = amplitude;
+            this.StabRqd = stabReq;
+        }
+
         public static CombItem Stability(int stabReq)
         {
             var combItem = new CombItem(stabReq: stabReq);
