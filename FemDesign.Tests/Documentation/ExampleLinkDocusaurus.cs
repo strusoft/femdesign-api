@@ -20,6 +20,7 @@ namespace FemDesign.Documentation
         /// If example change location or name, an error occurs.
         /// </summary>
         [TestMethod("ExampleDocumentation")]
+        [TestCategory("IgnoreGithubActions")]
         public void UrlExampleDocusaurus()
         {
             var github = "https://github.com/strusoft/femdesign-api/blob/master/FemDesign.Examples/C%23/";
