@@ -357,6 +357,25 @@ namespace FemDesign.Geometry
             }
         }
 
+        public Point3d GetIntermediatePoint(double percentage)
+        {
+            if (percentage < 0 || percentage > 1)
+            {
+                throw new ArgumentOutOfRangeException("Percentage must be between 0 and 1.");
+            }
+
+            double deltaX = Points[1].X - Points[0].X;
+            double deltaY = Points[1].Y - Points[0].Y;
+            double deltaZ = Points[1].Z - Points[0].Z;
+
+            double newX = Points[0].X + (deltaX * percentage);
+            double newY = Points[0].Y + (deltaY * percentage);
+            double newZ = Points[0].Z + (deltaZ * percentage);
+
+
+            return new Point3d(newX, newY, newZ);
+        }
+
         /// <summary>
         /// Convert an Edge to a LineSegment
         /// </summary>
