@@ -15,6 +15,8 @@ using FemDesign.Calculate;
 using FemDesign.Bars;
 using System.Globalization;
 using FemDesign.Results;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace FemDesign
 {
@@ -1187,6 +1189,13 @@ namespace FemDesign
                 }
                 else // Use given directory
                     _outputDir = Path.GetFullPath(value);
+
+                // check if special characters
+                // not supported
+                if (!OutputFileHelper.IsASCII(_outputDir))
+                {
+                    throw new Exception("`OutputDir` has special characters. Only ASCII characters are supported!");
+                }
             }
         }
         private List<string> _outputDirsToBeDeleted = new List<string>();
@@ -1217,8 +1226,11 @@ namespace FemDesign
         /// <exception cref="Exception"></exception>
         public PipeConnection(string pipeBaseName = "FdPipe1")
         {
-            // todo(Gustav): figure out 9-bit encoding?
-            _encoding = System.Text.Encoding.GetEncoding(1252); // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
+            // Encoding that allow to have special character
+            // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
+            //_encoding = System.Text.Encoding.GetEncoding(1252); 
+
+            _encoding = System.Text.Encoding.ASCII;
 
             string input_name = pipeBaseName;
             string output_name = pipeBaseName + "b";
@@ -1629,5 +1641,18 @@ namespace FemDesign
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
         }
+
+        public static bool IsASCII(string filePath)
+        {
+            // Encode the string using ASCII encoding
+            byte[] asciiBytes = Encoding.ASCII.GetBytes(filePath);
+
+            // Decode the ASCII-encoded bytes back to a string
+            string decodedString = Encoding.ASCII.GetString(asciiBytes);
+
+            // Compare the original string with the decoded string
+            return filePath.Equals(decodedString);
+        }
+
     }
 }
