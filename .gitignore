@@ -36,3 +36,15 @@ FemDesign.Tests/Results/**/*.log
 
 !FemDesign.Tests/Assets/*.str
 !FemDesign.Tests/Assets/*.strFEM
+FemDesign.Core/Resources/materialLibrary/materials_D.struxml
+FemDesign.Core/Resources/materialLibrary/materials_DK.struxml
+FemDesign.Core/Resources/materialLibrary/materials_EST.struxml
+FemDesign.Core/Resources/materialLibrary/materials_FIN.struxml
+FemDesign.Core/Resources/materialLibrary/materials_GB.struxml
+FemDesign.Core/Resources/materialLibrary/materials_H.struxml
+FemDesign.Core/Resources/materialLibrary/materials_N.struxml
+FemDesign.Core/Resources/materialLibrary/materials_PL.struxml
+FemDesign.Core/Resources/materialLibrary/materials_RO.struxml
+FemDesign.Core/Resources/materialLibrary/materials_S.struxml
+FemDesign.Core/Resources/materialLibrary/materials_TR.struxml
+FemDesign.Core/Resources/sectionLibrary/sections.struxml

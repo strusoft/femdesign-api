@@ -24,7 +24,8 @@ namespace FemDesign.Composites
             {
                 if (value.Length > 2)
                 {
-                    throw new System.ArgumentException($"Length of input composite sections: {value.Length}, does not match number of allowed composite sections: 2. It is ambigious how the sections should be positioned. Create new complex composite section or match input CompositeSection's length.");
+                    throw new System.ArgumentException($"Length of input composite sections: {value.Length}, does not match number of allowed composite sections: 2." +
+                        $" It is ambigious how the sections should be positioned. Create new complex composite section or match input CompositeSection's length.");
                 }
                 else if (this.Parts.Count == value.Length)
                 {
