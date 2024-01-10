@@ -17,7 +17,7 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Private constructor [kNm/rad or kNm/m/rad].
+        /// Rotations constructor [kNm/rad or kNm/m/rad].
         /// </summary>
         /// <param name="xNeg">Cx' compression. </param>
         /// <param name="xPos">Cx' tension.</param>

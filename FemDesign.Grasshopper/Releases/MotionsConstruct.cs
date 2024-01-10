@@ -6,23 +6,23 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsConstruct: FEM_Design_API_Component
     {
-        public MotionsConstruct(): base("Motions.Construct", "Construct", "Construct a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat5())
+        public MotionsConstruct(): base("Motions.Construct", "Construct", "Construct a new motion release [kN/m, kN/m/m or kN/m2/m].", CategoryName.Name(), SubCategoryName.Cat1())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m or kN/m/m].", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m, kN/m/m or kN/m2/m].", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -76,7 +76,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("807b2b9d-eafb-4b59-9eda-89d7150c6427"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
     }
 }

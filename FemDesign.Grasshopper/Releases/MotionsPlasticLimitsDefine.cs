@@ -6,23 +6,23 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsPlasticLimitsDefine: FEM_Design_API_Component
     {
-        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define a new motions release [kN/m or kN/m/m].", CategoryName.Name(), SubCategoryName.Cat5())
+        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define translational stiffness values for plastic limits [kN, kN/m or kN/m2].", CategoryName.Name(), SubCategoryName.Cat1())
         {
 
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("x_neg", "x_neg", "Kx' compression [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("x_pos", "x_pos", "Kx' tension [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("y_neg", "y_neg", "Ky' compression [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("y_pos", "y_pos", "Ky' tension [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("z_neg", "z_neg", "Kz' compression [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN/m or kN/m/m]. Default value empty means no plastic limit.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("z_pos", "z_pos", "Kz' tension [kN, kN/m or kN/m2]. Default value empty means no plastic limit.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("834b0c8b-5224-4719-832f-7561f91a3bd2"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
 
     }
 }

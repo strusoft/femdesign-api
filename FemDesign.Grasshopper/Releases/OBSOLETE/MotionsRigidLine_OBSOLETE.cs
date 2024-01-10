@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MotionsRigidLine: FEM_Design_API_Component
+    public class MotionsRigidLine_OBSOLETE: FEM_Design_API_Component
     {
-        public MotionsRigidLine(): base("Motions.RigidLine", "RigidLine", "Define a rigid motions release for a line-type release (1.000e+7).", CategoryName.Name(), SubCategoryName.Cat5())
+        public MotionsRigidLine_OBSOLETE(): base("Motions.RigidLine", "RigidLine", "Define a rigid motions release for a line-type release (1.000e+7).", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("bf81bc4e-e76d-482d-a983-37afbc0148bb"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

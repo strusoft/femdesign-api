@@ -15,14 +15,14 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Define a new translations release plastic limit [kN/m or kN/m/m].
+        /// Define translational stiffness values for plastic limits [kN, kN/m or kN/m2].
         /// </summary>
-        /// <param name="xNeg">Kx' compression. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
-        /// <param name="xPos">Kx' tension. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
-        /// <param name="yNeg">Ky' compression. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
-        /// <param name="yPos">Ky' tension. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
-        /// <param name="zNeg">Kz' compression. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
-        /// <param name="zPos">Kz' tension. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
+        /// <param name="xNeg">Kx' compression. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
+        /// <param name="xPos">Kx' tension. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
+        /// <param name="yNeg">Ky' compression. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
+        /// <param name="yPos">Ky' tension. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
+        /// <param name="zNeg">Kz' compression. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
+        /// <param name="zPos">Kz' tension. [kN, kN/m or kN/m2]. Default input null means no plastic limit.</param>
         public MotionsPlasticLimits(double? xNeg = null, double? xPos = null, double? yNeg = null, double? yPos = null, double? zNeg = null, double? zPos = null)
         {
             this.XNeg = xNeg;

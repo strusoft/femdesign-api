@@ -15,7 +15,7 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Define a new rotations release plastic limit [kN/m or kN/m/m].
+        /// Define rotational stiffness values for plastic limits [kN/m or kN/m/m].
         /// </summary>
         /// <param name="xNeg">Kx' compression. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>
         /// <param name="xPos">Kx' tension. [kN/m or kN/m/m]. Default input null means no plastic limit.</param>

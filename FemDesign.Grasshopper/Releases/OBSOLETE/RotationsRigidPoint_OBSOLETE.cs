@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class RotationsRigidPoint: FEM_Design_API_Component
+    public class RotationsRigidPoint_OBSOLETE: FEM_Design_API_Component
     {
-        public RotationsRigidPoint(): base("Rotations.RigidPoint", "RigidPoint", "Define a rigid rotations release for a point-type release (1e+10 kNm/rad).", CategoryName.Name(), SubCategoryName.Cat5())
+        public RotationsRigidPoint_OBSOLETE(): base("Rotations.RigidPoint", "RigidPoint", "Define a rigid rotations release for a point-type release (1e+10 kNm/rad).", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("214724d1-c9cf-4b22-8c71-d328f8e27f6c"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

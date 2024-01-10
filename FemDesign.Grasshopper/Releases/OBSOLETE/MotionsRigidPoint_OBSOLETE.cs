@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class MotionsFree: FEM_Design_API_Component
+    public class MotionsRigidPoint_OBSOLETE: FEM_Design_API_Component
     {
-        public MotionsFree(): base("Motions.Free", "Free", "Define a free motions release.", CategoryName.Name(), SubCategoryName.Cat5())
+        public MotionsRigidPoint_OBSOLETE(): base("Motions.RigidPoint", "RigidPoint", "Define a rigid motions release for a point-type release (1.000e+10).", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             //
-            FemDesign.Releases.Motions obj = FemDesign.Releases.Motions.Free();
+            FemDesign.Releases.Motions obj = FemDesign.Releases.Motions.RigidPoint();
 
             // return
             DA.SetData(0, obj);
@@ -29,15 +29,14 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.MotionsFree;
+                return FemDesign.Properties.Resources.MotionsRigidPoint;
             }
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("7f26ab11-7a13-442d-89c5-bc95ce1ce3f1"); }
+            get { return new Guid("bf81bc4e-e76d-482d-a983-37afbc0548bb"); }
         }
-
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

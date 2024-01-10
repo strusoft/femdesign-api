@@ -15,7 +15,7 @@ namespace FemDesign.Releases
         /// </summary>
         public static double ValueRigidLine = 1e7;
         /// <summary>
-        /// Rigid translation/rotation stiffness value for surface support. [kN/m2/m]
+        /// Rigid translation stiffness value for surface support. [kN/m2/m]
         /// </summary>
         public static double ValueRigidSurface = 1e5;
         /// <summary>
@@ -27,7 +27,7 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Private constructor [kN/m or kN/m/m].
+        /// Motions constructor [kN/m, kN/m/m or kN/m2/m].
         /// </summary>
         /// <param name="xNeg">Kx' compression.</param>
         /// <param name="xPos">Kx' tension.</param>
@@ -46,20 +46,20 @@ namespace FemDesign.Releases
         }
 
         /// <summary>
-        /// Define a new translations release [kN/m or kN/m/m].
+        /// Define a new translations release [kN/m, kN/m/m or kN/m2/m].
         /// </summary>
-        /// <param name="xNeg">Kx' compression [kN/m or kN/m/m].</param>
-        /// <param name="xPos">Kx' tension [kN/m or kN/m/m].</param>
-        /// <param name="yNeg">Ky' compression [kN/m or kN/m/m].</param>
-        /// <param name="yPos">Ky' tension [kN/m or kN/m/m].</param>
-        /// <param name="zNeg">Kz' compression [kN/m or kN/m/m].</param>
-        /// <param name="zPos">Kz' tension [kN/m or kN/m/m].</param>
+        /// <param name="xNeg">Kx' compression [kN/m, kN/m/m or kN/m2/m].</param>
+        /// <param name="xPos">Kx' tension [kN/m, kN/m/m or kN/m2/m].</param>
+        /// <param name="yNeg">Ky' compression [kN/m, kN/m/m or kN/m2/m].</param>
+        /// <param name="yPos">Ky' tension [kN/m, kN/m/m or kN/m2/m].</param>
+        /// <param name="zNeg">Kz' compression [kN/m, kN/m/m or kN/m2/m].</param>
+        /// <param name="zPos">Kz' tension [kN/m, kN/m/m or kN/m2/m].</param>
         public static Motions Define(double xNeg = 0, double xPos = 0, double yNeg = 0, double yPos = 0, double zNeg = 0, double zPos = 0)
         {
             return new Motions(xNeg, xPos, yNeg, yPos, zNeg, zPos);
         }
         /// <summary>
-        /// Define a rigid translation release for a point-type release (1.000e+10)
+        /// Define a rigid translation release for a point-type release (1.000e+10 kN/m)
         /// </summary>
         public static Motions RigidPoint()
         {
@@ -67,7 +67,7 @@ namespace FemDesign.Releases
             return new Motions(val, val, val, val, val, val);
         }
         /// <summary>
-        /// /// Define a rigid translation release for a line-type release (1.000e+7)
+        /// Define a rigid translation release for a line-type release (1.000e+7 kN/m/m)
         /// </summary>
         public static Motions RigidLine()
         {
@@ -75,7 +75,7 @@ namespace FemDesign.Releases
             return new Motions(val, val, val, val, val, val);
         }
         /// <summary>
-        /// /// Define a rigid translation release for a surface-type release (1.000e+5)
+        /// Define a rigid translation release for a surface-type release (1.000e+5 kN/m2/m)
         /// </summary>
         public static Motions RigidSurface()
         {
