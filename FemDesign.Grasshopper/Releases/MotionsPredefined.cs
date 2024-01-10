@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Free", "F", "Define a free translation release (0.000e+0).", GH_ParamAccess.item);
             pManager.AddGenericParameter("RigidPoint", "Pt", "Define a rigid translation release for a point-type release (1.000e+10 kN/m).", GH_ParamAccess.item);
-            pManager.AddGenericParameter("RigidPLine", "Ln", "Define a rigid translation release for a line-type release (1.000e+7 kN/m/m).", GH_ParamAccess.item);
+            pManager.AddGenericParameter("RigidLine", "Ln", "Define a rigid translation release for a line-type release (1.000e+7 kN/m/m).", GH_ParamAccess.item);
             pManager.AddGenericParameter("RigidSurface", "Srf", "Define a rigid translation release for a surface-type release (1.000e+5 kN/m2/m).", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)

@@ -17,7 +17,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Free", "F", "Define a free rotation release.", GH_ParamAccess.item);
             pManager.AddGenericParameter("RigidPoint", "Pt", "Define a rigid rotation release for a point-type release (1e+10 kNm/rad).", GH_ParamAccess.item);
-            pManager.AddGenericParameter("RigidPLine", "Ln", "Define a rigid rotation release for a line-type release (1e+07 kNm/m/rad).", GH_ParamAccess.item);
+            pManager.AddGenericParameter("RigidLine", "Ln", "Define a rigid rotation release for a line-type release (1e+07 kNm/m/rad).", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
