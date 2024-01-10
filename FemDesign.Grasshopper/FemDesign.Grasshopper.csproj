@@ -138,7 +138,7 @@
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
-    <Compile Include="Loads\Load combinations\LoadCombinationSetupCalculation.cs" />
+    <Compile Include="Loads\Load combinations\LoadCombinationSetupCalculation_OBSOLETE2212.cs" />
     <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />

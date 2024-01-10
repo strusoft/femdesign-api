@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadCombinationSetupCalculation : FEM_Design_API_Component
+    public class LoadCombinationSetupCalculation_OBSOLETE2212 : FEM_Design_API_Component
     {
-        public LoadCombinationSetupCalculation() : base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadCombinationSetupCalculation_OBSOLETE2212() : base("LoadCombination.SetupCalculation", "SetupCalculation", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -125,6 +125,6 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{2FFD5F21-8920-4F73-90E3-81874C361414}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }
