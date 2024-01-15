@@ -1,16 +1,12 @@
 ﻿// https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Special;
-
-using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersAnalysisDefine : FEM_Design_API_Component
+    public class CalculationParametersAnalysisDefine_OBSOLETE2212 : FEM_Design_API_Component
     {
-        public CalculationParametersAnalysisDefine() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersAnalysisDefine_OBSOLETE2212() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -50,7 +46,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("elemfine", "elemfine", "Fine or standard elements", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddIntegerParameter("diaphragm", "diaphragm", "Diaphragm calculation. Connect 'ValueList' to get the options.\n\n'0'= None\n'1'= Rigid membrane\n'2'= Fully rigid", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("diaphragm", "diaphragm", "Diaphragm calculation.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("peakSmoothing", "peakSmoothing", "Peak smoothing of internal forces", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -58,10 +54,6 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Analysis", "Analysis", "Analysis.", GH_ParamAccess.item);
-        }
-        protected override void BeforeSolveInstance()
-        {
-            ValueListUtils.updateValueLists(this, 17, new List<string> { "None", "Rigid membrane", "Fully rigid" }, new List<int> { 0, 1, 2 }, GH_ValueListMode.DropDown);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -203,9 +195,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{CC77B519-A3C2-44AC-BD6A-228E7000A836}"); }
+            get { return new Guid("{859B03EA-4AF7-4F30-8788-C6A7B3EC0072}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

@@ -42,7 +42,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("elemfine", "elemfine", "Fine or standard elements", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("diaphragm", "diaphragm", "Diaphragm calculation.", GH_ParamAccess.item, false);
+            pManager.AddIntegerParameter("diaphragm", "diaphragm", "Diaphragm calculation.", GH_ParamAccess.item, 0);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("peakSmoothing", "peakSmoothing", "Peak smoothing of internal forces", GH_ParamAccess.item, false);
         }
@@ -144,7 +144,7 @@ namespace FemDesign.Grasshopper
                 // pass
             }
             
-            bool diaphragm = false;
+            int diaphragm = 0;
             if (!DA.GetData(15, ref diaphragm))
             {
                 // pass
