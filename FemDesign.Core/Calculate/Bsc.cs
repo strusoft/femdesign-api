@@ -66,7 +66,17 @@ namespace FemDesign.Calculate
             SerializeBsc(); // why it is in the constructor?
         }
 
-        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int? shapeID, Results.UnitResults unitResult = null, Options options = null)
+        /// <summary>
+        /// Constructor for .bsc files. Constructs a Bsc object for batch files to list specific analysis results by shape identifiers.
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="bscPath"></param>
+        /// <param name="loadCombination"></param>
+        /// <param name="shapeID"></param>
+        /// <param name="unitResult"></param>
+        /// <param name="options"></param>
+        /// <exception cref="ArgumentException"></exception>
+        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int shapeID, Results.UnitResults unitResult = null, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {

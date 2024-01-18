@@ -15,23 +15,19 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="propertyName">Type T property name related to load combination.</param>
+        /// <param name="loadCombinationPropertyName">Type T property name related to load combination.</param>
         /// <param name="loadCombination">Load combination name to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByLoadCombination<T>(this List<T> results, string propertyName, string loadCombination) where T : IResult
+        public static List<T> FilterResultsByLoadCombination<T>(this List<T> results, string loadCombinationPropertyName, string loadCombination) where T : IResult
         {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
-            }
+            PropertyInfo property = GetProperty<T>(loadCombinationPropertyName);
 
-            if (!results.Select(r => property.GetValue(r).ToString()).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
+            if (!results.Select(r => (string)property.GetValue(r)).Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
             {
                 throw new ArgumentException($"Incorrect or unknown load combination name: {loadCombination}.");
             }
-            var filteredResults = results.Where(r => String.Equals(property.GetValue(r).ToString(), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredResults = results.Where(r => String.Equals((string)property.GetValue(r), loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return filteredResults;
         }
@@ -41,26 +37,22 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="propertyName">Type T property name related to load combinations.</param>
+        /// <param name="loadCombinationPropertyName">Type T property name related to load combinations.</param>
         /// <param name="loadCombination">List of load combination names to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByLoadCombination<T>(this List<T> results, string propertyName, List<string> loadCombination) where T : IResult
+        public static List<T> FilterResultsByLoadCombination<T>(this List<T> results, string loadCombinationPropertyName, List<string> loadCombination) where T : IResult
         {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Porperty {property} doesn't exist in type {typeof(T).Name}.");
-            }
+            PropertyInfo property = GetProperty<T>(loadCombinationPropertyName);
 
             List<T> filteredResults = new List<T>();
             foreach (var comb in loadCombination)
             {
-                if (!results.Select(r => property.GetValue(r).ToString()).Contains(comb, StringComparer.OrdinalIgnoreCase))
+                if (!results.Select(r => (string)property.GetValue(r)).Contains(comb, StringComparer.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException($"Incorrect or unknown load combination name: {comb}.");
                 }
-                var res = results.Where(r => String.Equals(property.GetValue(r).ToString(), comb, StringComparison.OrdinalIgnoreCase)).ToList();
+                var res = results.Where(r => String.Equals((string)property.GetValue(r), comb, StringComparison.OrdinalIgnoreCase)).ToList();
                 
                 filteredResults.AddRange(res);
             }
@@ -73,17 +65,13 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="propertyName">Type T property name related to shape identifier.</param>
+        /// <param name="shapeIdPropertyName">Type T property name related to shape identifier.</param>
         /// <param name="shapeId">Index of shape identifier to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByShapeId<T>(this List<T> results, string propertyName, int shapeId) where T : IResult
+        public static List<T> FilterResultsByShapeId<T>(this List<T> results, string shapeIdPropertyName, int shapeId) where T : IResult
         {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Property {property} doesn't exist in type {typeof(T).Name}.");
-            }
+            PropertyInfo property = GetProperty<T>(shapeIdPropertyName);
 
             if ((shapeId < 1) || (shapeId > (int)results.Select(r => property.GetValue(r)).Max()))
             {
@@ -99,17 +87,13 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="propertyName">Type T property name related to shape identifiers.</param>
+        /// <param name="shapeIdPropertyName">Type T property name related to shape identifiers.</param>
         /// <param name="shapeId">Indexes of shape identifiers to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static List<T> FilterResultsByShapeId<T>(this List<T> results, string propertyName, List<int> shapeId) where T : IResult
+        public static List<T> FilterResultsByShapeId<T>(this List<T> results, string shapeIdPropertyName, List<int> shapeId) where T : IResult
         {
-            PropertyInfo property = typeof(T).GetProperty(propertyName);
-            if (property == null)
-            {
-                throw new ArgumentException($"Property {property} doesn't exist in type {typeof(T).Name}.");
-            }
+            PropertyInfo property = GetProperty<T>(shapeIdPropertyName);
 
             List<T> filteredResults = new List<T>();
             foreach (var shape in shapeId)
@@ -124,6 +108,38 @@ namespace FemDesign.Results.Utils
             }
 
             return filteredResults;
+        }
+
+        public static (List<string>, List<int>) GetCombosAndShapes<T>(this List<T> results, string loadCombinationPropertyName, string shapeIdPropertyName) where T : IResult
+        {
+            // get properties
+            PropertyInfo comboProperty = GetProperty<T>(loadCombinationPropertyName);
+            PropertyInfo shapeProperty = GetProperty<T>(shapeIdPropertyName);
+
+            // get load combinations from results
+            List<string> combsFromCalc = results.Select(r => (string)comboProperty.GetValue(r)).Distinct().ToList();
+
+            // get number of shapes by load combinations
+            List<int> maxIdsByComb = new List<int>();
+            foreach (var combo in combsFromCalc)
+            {
+                maxIdsByComb.Add(
+                    results.Where(r => (string)comboProperty.GetValue(r) == combo).Select(sr => (int)shapeProperty.GetValue(sr)).Max()
+                    );
+            }
+
+            return (combsFromCalc, maxIdsByComb);
+        }
+
+        private static PropertyInfo GetProperty<T>(string propertyName) where T : IResult
+        {
+            PropertyInfo property = typeof(T).GetProperty(propertyName);
+            if (property == null)
+            {
+                throw new ArgumentException($"Property {propertyName} doesn't exist in type {typeof(T).Name}.");
+            }
+
+            return property;
         }
     }
 }

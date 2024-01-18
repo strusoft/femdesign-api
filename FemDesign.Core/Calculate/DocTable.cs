@@ -135,22 +135,36 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// DocTable to return the buckling shape and imperfection shapes
+        /// DocTable to return specific analysis results by shape identifiers.
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="loadCombination"></param>
         /// <param name="shapeID"></param>
         /// <param name="unitResult"></param>
         /// <param name="options"></param>
-        public DocTable(ListProc resultType, string loadCombination, int? shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        internal DocTable(ListProc resultType, string loadCombination, int shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
         {
+            // check input
+            if (shapeID <= 0)
+                throw new Exception("Invalid shapeID. Parameter must be a positive, non-zero number!");
+
             ListProc = resultType;
-            ResType = GetResType(resultType);
-            if((loadCombination != null) || (shapeID != null))
+
+            if(resultType != ListProc.NodalVibrationShape)
             {
+                if (loadCombination == null)
+                    throw new Exception("loadCombination input cannot be null!");
+
                 Suffix = $"{loadCombination} / {shapeID}";
             }
-            CaseIndex = GetDefaultCaseIndex(resultType);
+            else
+            {
+                Suffix = $"{shapeID}";
+            }
+            
+            ResType = GetResType(resultType);
+            CaseIndex = 0;  //  If the CaseIndex is set to its default value (see 'GetDefaultCaseIndex()' method), FD will ignore the suffix and the all results will be listed.
+                            //  To get the specified result cases, use 0, and suffix will override the index in the batch file.
             Units = Results.Units.GetUnits(unitResult);
             Option = options ?? Options.GetOptions(resultType);
         }

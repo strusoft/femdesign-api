@@ -139,7 +139,7 @@ namespace FemDesign.Grasshopper
 
             Done();
         }
-        public override WorkerInstance Duplicate() => new ApplicationReadStabilityResultWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationReadStabilityResultWorker_OBSOLETE(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {

@@ -1021,8 +1021,8 @@ namespace FemDesign
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
 
             var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + currentTime)).ToList();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + "_" + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + "_" + currentTime)).ToList();
 
             var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
@@ -1077,6 +1077,78 @@ namespace FemDesign
 
             return results;
         }
+
+        /// <summary>
+        /// Gets results for those result types where FEM-Design uses eigen solver. E.g. imperfections, stability analysis, vibrations.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="loadCombinations">Load combination names for which you want to list the results.</param>
+        /// <param name="shapeIds">Shape identifiers for which you want to list the results. Must be positive, non-zero numbers.</param>
+        /// <param name="elements">Structural elements for which you want to list the results.</param>
+        /// <param name="units"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetEigenResults<T>(List<string> loadCombinations, List<int> shapeIds, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : IResult
+        {
+            // Check inputs
+            if (loadCombinations == null || loadCombinations.Count == 0)
+                throw new ArgumentException("loadCombinations input cannot be null or empty!");
+            if (shapeIds == null || shapeIds.Count == 0)
+                throw new ArgumentException("shapeIds input cannot be null or empty!");
+            
+
+            // Get default units
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Create .bsc files and output (.csv) file paths
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = new List<string>();
+            var csvPaths = new List<string>();
+            var bscs = new List<Bsc>();
+            
+            foreach(var combo in loadCombinations)
+            {
+                foreach(var sh in shapeIds)
+                {
+                    var bscPth = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + combo + sh + "_" + currentTime)).ToList();
+                    var csvPth = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + combo + sh + "_" + currentTime)).ToList();
+                    bscPaths.AddRange(bscPth);
+                    csvPaths.AddRange(csvPth);
+
+                    // Generate .bsc files
+                    bscs.AddRange(listProcs.Zip(bscPth, (l, p) => new Bsc(l, p, combo, sh, units, options)).ToList());
+                }
+            }
+
+            //bscs.ForEach(b => b.SerializeBsc());
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
+
+            // Run .fdscript
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script, $"Get{typeof(T).Name}" + currentTime);
+
+            // Read results from .csv files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+
 
         public void Save(string filePath)
         {
