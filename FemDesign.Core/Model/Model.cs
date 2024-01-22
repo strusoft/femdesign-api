@@ -373,6 +373,10 @@ namespace FemDesign
             }
 
             this.SerializeModel(filePath);
+
+            if (this.FdApp == null)
+                this.FdApp = new Calculate.Application();
+
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
