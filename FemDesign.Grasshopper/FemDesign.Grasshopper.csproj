@@ -396,11 +396,10 @@
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelCreate_21.2.0.OBSOLETEe.cs" />
     <Compile Include="Model\OBSOLETE\ModelCreate3OBSOLETE.cs" />
-    <Compile Include="Model\ModelOpen.cs" />
     <Compile Include="Model\OBSOLETE\ModelReadStrOBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelReadStr_OBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelReadStruxml_OBSOLETE.cs" />
-    <Compile Include="Model\ModelSerialise.cs" />
+    <Compile Include="Model\OBSOLETE\ModelSerialise_OBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

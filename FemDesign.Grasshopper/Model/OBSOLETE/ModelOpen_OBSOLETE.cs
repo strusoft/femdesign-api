@@ -4,9 +4,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelOpen: FEM_Design_API_Component
+    public class ModelOpen_OBSOLETE: FEM_Design_API_Component
     {
-        public ModelOpen(): base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelOpen_OBSOLETE(): base("Model.Open", "Open", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -76,7 +76,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("237b7d25-1a97-4604-9f07-68ef62abf016"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

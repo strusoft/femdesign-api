@@ -14,9 +14,9 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Grasshopper
 {
-    public class ModelSerialise: FEM_Design_API_Component
+    public class ModelSerialise_OBSOLETE: FEM_Design_API_Component
     {
-        public ModelSerialise(): base("Model.Serialise", "Serialise", "Serialise a model to .struxml", CategoryName.Name(), SubCategoryName.Cat6())
+        public ModelSerialise_OBSOLETE(): base("Model.Serialise", "Serialise", "Serialise a model to .struxml", CategoryName.Name(), SubCategoryName.Cat6())
         {
 
         }
@@ -75,7 +75,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("ba85f198-112f-404e-a759-8417308849d7"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
