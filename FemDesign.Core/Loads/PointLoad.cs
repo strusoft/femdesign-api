@@ -39,6 +39,7 @@ namespace FemDesign.Loads
             this.Load = new LoadLocationValue(point, force.Length());
         }
 
+
         public static PointLoad Force(Geometry.Point3d point, Geometry.Vector3d force, LoadCase loadCase, string comment = "")
 		{
             return new PointLoad(point, force, loadCase, comment, ForceLoadType.Force);
@@ -49,11 +50,19 @@ namespace FemDesign.Loads
             return new PointLoad(point, force, loadCase, comment, ForceLoadType.Moment);
         }
 
+        public static PointLoad CaselessPointLoad(Geometry.Point3d point, Geometry.Vector3d force)
+        {
+            var caseless = new PointLoad();
+            caseless.EntityCreated();
+            caseless.LoadType = ForceLoadType.Force;
+            caseless.Direction = force.Normalize();
+            caseless.Load = new LoadLocationValue(point, force.Length());
+            return caseless;
+        }
+
         public static explicit operator PointLoad( StruSoft.Interop.StruXml.Data.Caseless_point_load_type obj)
         {
             var pointLoad = new PointLoad();
-
-
 
 
             pointLoad.Guid = new System.Guid( obj.Guid );

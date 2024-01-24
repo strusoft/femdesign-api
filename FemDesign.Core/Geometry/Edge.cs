@@ -388,13 +388,23 @@ namespace FemDesign.Geometry
             return new LineSegment(edge.Points[0], edge.Points[1]);
         }
 
-        public static explicit operator Edge(StruSoft.Interop.StruXml.Data.Edge_type obj)
+        public static implicit operator Edge(StruSoft.Interop.StruXml.Data.Edge_type obj)
         {
             var start = (Point3d)obj.Point[0];
             var end = (Point3d)obj.Point[1];
             var normal = (Vector3d)obj.Normal;
             var edge = new Edge(start, end, normal);
             
+            return edge;
+        }
+
+        public static implicit operator StruSoft.Interop.StruXml.Data.Edge_type(Edge obj)
+        {
+            var edge = new StruSoft.Interop.StruXml.Data.Edge_type();
+
+            edge.Point = new List<StruSoft.Interop.StruXml.Data.Point_type_3d> { obj.Points[0] , obj.Points[1] };
+            edge.Normal = obj.Normal;
+
             return edge;
         }
 

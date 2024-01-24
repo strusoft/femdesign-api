@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace FemDesign.Geometry
@@ -139,5 +140,19 @@ namespace FemDesign.Geometry
             // reverse list of edges
             this.Edges.Reverse();
         }
+
+        public static implicit operator StruSoft.Interop.StruXml.Data.Contour_type(Geometry.Contour obj)
+        {
+            var contour = new StruSoft.Interop.StruXml.Data.Contour_type();
+            var edges = new List<StruSoft.Interop.StruXml.Data.Edge_type>();
+
+            foreach (var edge in obj.Edges)
+                edges.Add(edge);
+
+            contour.Edge = edges;
+
+            return contour;
+        }
+
     }
 }

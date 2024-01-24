@@ -29,5 +29,13 @@ namespace FemDesign
                 LoadCaseGuid = value.Guid;
             }
         }
+
+        public bool IsCaseless
+        {
+            get
+            {
+                return this.LoadCase == null;
+            }
+        }
     }
 }

@@ -38,5 +38,16 @@ namespace FemDesign.Loads
             loadLocation.Value = obj.Val;
             return loadLocation;
         }
+
+        public static implicit operator StruSoft.Interop.StruXml.Data.Location_value(LoadLocationValue obj)
+        {
+            var loadLocationValue = new StruSoft.Interop.StruXml.Data.Location_value();
+            loadLocationValue.X = obj.X;
+            loadLocationValue.Y = obj.Y;
+            loadLocationValue.Z = obj.Z;
+            loadLocationValue.Val = obj.Value;
+
+            return loadLocationValue;
+        }
     }
 }

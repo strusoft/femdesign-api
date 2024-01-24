@@ -210,6 +210,21 @@ namespace FemDesign.Loads
             return new LineLoad(edge, constantForce, loadCase, ForceLoadType.Force, comment, constLoadDir, loadProjection);
         }
 
+        public static LineLoad CaselessUniformForce(Geometry.Edge edge, Geometry.Vector3d constantForce, bool constLoadDir = true, bool loadProjection = false)
+        {
+            var caseless = new LineLoad();
+
+            caseless.EntityCreated();
+            caseless.ConstantLoadDirection = constLoadDir;
+            caseless.LoadProjection = loadProjection;
+            caseless.LoadType = ForceLoadType.Force;
+            caseless.Edge = edge;
+            caseless.Normal = edge.Plane.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
+            caseless.SetStartAndEndForces(constantForce, constantForce);
+
+            return caseless;
+        }
+
         /// <summary>
         /// Create a Uniform Distributed Moment Load to be applied to an Edge [kNm/m]
         /// </summary>

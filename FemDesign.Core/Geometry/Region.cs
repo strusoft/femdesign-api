@@ -390,5 +390,17 @@ namespace FemDesign.Geometry
             return region;
         }
 
+        public static implicit operator StruSoft.Interop.StruXml.Data.Region_type(Region obj)
+        {
+            var region = new StruSoft.Interop.StruXml.Data.Region_type();
+            var contours = new List<StruSoft.Interop.StruXml.Data.Contour_type>();
+
+            foreach(var contour in obj.Contours)
+                contours.Add(contour);
+
+            region.Contour  = contours;
+
+            return region;
+        }
     }
 }

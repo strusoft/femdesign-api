@@ -94,7 +94,6 @@ namespace FemDesign.LibraryItems
             throw new System.ArgumentException("Vehicle library resource not in assembly! Was project compiled without embedded resource?");
         }
 
-
         public static List<StruSoft.Interop.StruXml.Data.Vehicle_lib_type> DeserializeFromFilePath(string filePath)
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(VehicleDatabase));

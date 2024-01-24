@@ -94,6 +94,7 @@
     <Compile Include="Loads\RelationTable.cs" />
     <Compile Include="Loads\SurfaceTemperatureLoad.cs" />
     <Compile Include="Loads\TopBotLocationValue.cs" />
+    <Compile Include="Loads\Vehicle.cs" />
     <Compile Include="Materials\IPanelLibraryType.cs" />
     <Compile Include="Materials\TimberPanelType.cs" />
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="GenericClasses\TextFormatting.cs" />
     <Compile Include="Reinforcement\ShearControlRegion.cs" />
     <Compile Include="Stage\SFactorType.cs" />
+    <Compile Include="StruSoft\Interop\StruXml\Data\CaselessLoads.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\FD 22.00.001 Strusoft.cs" />
     <Compile Include="StruSoft\Interop\StruXml\Data\Vehicle_lib_type.cs" />
     <Compile Include="Utils\LoadCombinationTable.cs" />

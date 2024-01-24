@@ -9,9 +9,9 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointLoadDefine : FEM_Design_API_Component
+    public class PointLoadDefine_OBSOLETE : FEM_Design_API_Component
     {
-        public PointLoadDefine() : base("PointLoad.Define", "PointLoad.Define", "Create point load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public PointLoadDefine_OBSOLETE() : base("PointLoad.Define", "PointLoad.Define", "Create point load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -33,21 +33,16 @@ namespace FemDesign.Grasshopper
         {
             // get data
             Point3d point = Point3d.Origin;
-            if (!DA.GetData(0, ref point)) { return; }
-
             Vector3d force = Vector3d.Zero;
-            if (!DA.GetData(1, ref force)) { return; }
-            
-            dynamic loadCase = null;
-            if (!DA.GetData(2, ref loadCase)) { return; }
-
             string type = "Force";
-            DA.GetData(3, ref type);
-            
+            FemDesign.Loads.LoadCase loadCase = null;
             string comment = null;
+            if (!DA.GetData(0, ref point)) { return; }
+            if (!DA.GetData(1, ref force)) { return; }
+            if (!DA.GetData(2, ref loadCase)) { return; }
+            DA.GetData(3, ref type);
             DA.GetData(4, ref comment);
-
-
+            if (force == null || loadCase == null) { return; };
 
             ForceLoadType _type = FemDesign.GenericClasses.EnumParser.Parse<ForceLoadType>(type);
 
@@ -56,19 +51,8 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Vector3d _force = force.FromRhino();
 
 
-            PointLoad obj = null;
 
-            if (loadCase.Value is string str)
-            {
-                if (str != "caseless")
-                    throw new Exception("Load case must be a Load case object or \"caseless\" string");
-                obj = FemDesign.Loads.PointLoad.CaselessPointLoad(fdPoint, _force);
-            }
-            else if (loadCase.Value is FemDesign.Loads.LoadCase ldCase)
-            {
-                obj = new FemDesign.Loads.PointLoad(fdPoint, _force, ldCase, comment, _type);
-            }
-
+            PointLoad obj = new FemDesign.Loads.PointLoad(fdPoint, _force, loadCase, comment, _type);
 
             DA.SetData(0, obj);
         }
@@ -89,9 +73,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{E8BFB4CB-A458-43EC-A464-3C8DC013A051}"); }
+            get { return new Guid("{2BDC495D-0C7C-4F26-8C0B-DCFCCFC8CD4D}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

@@ -7,13 +7,12 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
 using System.Collections.Generic;
 using FemDesign.Loads;
-using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineLoadForceDefine : FEM_Design_API_Component
+    public class LineLoadForceDefine_OBSOLETE : FEM_Design_API_Component
     {
-        public LineLoadForceDefine() : base("LineLoad.Define", "LineLoad.Define", "Creates a line load.", CategoryName.Name(), SubCategoryName.Cat3())
+        public LineLoadForceDefine_OBSOLETE() : base("LineLoad.Define", "LineLoad.Define", "Creates a line load.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -52,7 +51,7 @@ namespace FemDesign.Grasshopper
                 endForce = startForce;
             }
 
-            dynamic loadCase = null;
+            Loads.LoadCase loadCase = null;
             if (!DA.GetData("LoadCase", ref loadCase)) return;
 
             bool constLoadDir = true;
@@ -75,21 +74,15 @@ namespace FemDesign.Grasshopper
 
             ForceLoadType _type = FemDesign.GenericClasses.EnumParser.Parse<ForceLoadType>(type);
 
-            LineLoad obj = null;
-
-            if (loadCase.Value is string str)
+            try
             {
-                if (str != "caseless")
-                    throw new Exception("Load case must be a Load case object or \"caseless\" string");
-
-                obj = FemDesign.Loads.LineLoad.CaselessUniformForce(edge, _startForce, constLoadDir, loadProjection);
+                var obj = new Loads.LineLoad(edge, _startForce, _endForce, loadCase, _type, comment, constLoadDir, loadProjection);
+                DA.SetData("LineLoad", obj);
             }
-            else if (loadCase.Value is FemDesign.Loads.LoadCase ldCase)
+            catch (ArgumentException e)
             {
-                obj = new Loads.LineLoad(edge, _startForce, _endForce, ldCase, _type, comment, constLoadDir, loadProjection);
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
             }
-
-            DA.SetData("LineLoad", obj);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -107,9 +100,9 @@ namespace FemDesign.Grasshopper
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("{03DF328D-0FA5-4345-BF7D-5C7B107196EA}"); }
+            get { return new Guid("{D15D0DB5-25A8-49D3-B966-11B880BBEADF}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

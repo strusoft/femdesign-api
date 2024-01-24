@@ -30,7 +30,8 @@ namespace FemDesign.Loads
         {
             get
             {
-                return new Guid(this.Vehicle.AnyAttr.FirstOrDefault(attr => attr.Name == "guid").Value);
+                //return new Guid(this.Vehicle.AnyAttr.FirstOrDefault(attr => attr.Name == "guid").Value);
+                return this.Vehicle.Guid;
             }
         }
 

@@ -103,5 +103,6 @@ namespace FemDesign.Loads
         [Parseable("+Seis load, Max", "seis_max", "Seis_max", "SeisMax", "SEIS_MAX")]
         [XmlEnum("seis_max")]
         Seis_max,
+
     }
 }

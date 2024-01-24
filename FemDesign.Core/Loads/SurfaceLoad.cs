@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using System.Linq;
 using FemDesign.Geometry;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FemDesign.Loads
 {
@@ -76,6 +77,34 @@ namespace FemDesign.Loads
         }
 
         /// <summary>
+        /// Caseless surface load
+        /// </summary>
+        private SurfaceLoad(Geometry.Region region, Geometry.Vector3d load, bool loadProjection = false) : this(region, new List<LoadLocationValue> { new LoadLocationValue(region.Contours[0].Edges[0].Points[0], load.Length()) }, load.Normalize(), loadProjection)
+        {
+
+        }
+
+        /// <summary>
+        /// Caseless surface load
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="loads"></param>
+        /// <param name="loadDirection"></param>
+        /// <param name="loadProjection"></param>
+        private SurfaceLoad(Geometry.Region region, List<LoadLocationValue> loads, Geometry.Vector3d loadDirection, bool loadProjection = false)
+        {
+            this.EntityCreated();
+            this.LoadProjection = loadProjection;
+            this.LoadType = ForceLoadType.Force;
+            this.Region = region;
+            this.Direction = loadDirection;
+            foreach (LoadLocationValue _load in loads)
+            {
+                this.Loads.Add(_load);
+            }
+        }
+
+        /// <summary>
         /// Create uniform SurfaceLoad
         /// </summary>
         /// <param name="region"></param>
@@ -87,6 +116,11 @@ namespace FemDesign.Loads
         public static SurfaceLoad Uniform(Geometry.Region region, Geometry.Vector3d force, LoadCase loadCase, bool loadProjection = false, string comment = "")
         {
             return  new SurfaceLoad(region, force, loadCase, loadProjection, comment);
+        }
+
+        public static SurfaceLoad CaselessUniform(Geometry.Region region, Geometry.Vector3d force)
+        {
+            return new SurfaceLoad(region, force, false);
         }
 
         /// <summary>
@@ -139,10 +173,20 @@ namespace FemDesign.Loads
 
         public override string ToString()
         {
+            string text = "";
             if (IsConstant)
-                return $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Constant, LoadCase: {this.LoadCase.Name}";
+            {
+                text = $"{this.GetType().Name} q1: {this.Loads.First().Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Constant";
+            }
             else
-                return $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m\u00B2, q2: {this.Loads[1].Value * this.Direction} kN/m\u00B2, q3: {this.Loads[2].Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Variable, LoadCase: {this.LoadCase.Name}";
+            {
+                text = $"{this.GetType().Name} q1: {this.Loads[0].Value * this.Direction} kN/m\u00B2, q2: {this.Loads[1].Value * this.Direction} kN/m\u00B2, q3: {this.Loads[2].Value * this.Direction} kN/m\u00B2, Projected: {this.LoadProjection}, Variable";
+            }
+
+            if (LoadCase != null)
+                return text + $", LoadCase: {this.LoadCase.Name}";
+            else
+                return text;
         }
     }
 }
