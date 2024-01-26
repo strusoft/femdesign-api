@@ -96,6 +96,7 @@
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
+    <Compile Include="Results\Read.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
@@ -194,6 +195,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\Slab.strFEM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Assets\Model.str">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Assets\Model.strFEM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Results\Stability\ReadBucklingShapesTest.struxml">

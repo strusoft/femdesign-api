@@ -34,5 +34,6 @@ FemDesign.Tests/Results/**/*.csv
 FemDesign.Tests/Results/**/*.bsc
 FemDesign.Tests/Results/**/*.log
 
-!FemDesign.Tests/Assets/*.str
-!FemDesign.Tests/Assets/*.strFEM
+
+!**/Assets/*.str
+!**/Assets/*.strFEM
