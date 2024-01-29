@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class VehicleDeconstruct : FEM_Design_API_Component
     {
-        public VehicleDeconstruct() : base("VehicleDeconstruct", "VehicleDeconstruct", "", CategoryName.Name(), "Deconstruct")
+        public VehicleDeconstruct() : base("Vehicle.Deconstruct", "VehicleDeconstruct", "", CategoryName.Name(), "Deconstruct")
         {
 
         }
