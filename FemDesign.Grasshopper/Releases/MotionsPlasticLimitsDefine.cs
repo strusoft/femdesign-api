@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsPlasticLimitsDefine: FEM_Design_API_Component
     {
-        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define translational stiffness values for plastic limits [kN, kN/m or kN/m2].", CategoryName.Name(), SubCategoryName.Cat1())
+        public MotionsPlasticLimitsDefine(): base("MotionsPlasticLimits.Define", "Define", "Define translational stiffness values for plastic limits [kN, kN/m or kN/m2].", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("834b0c8b-5224-4719-832f-7561f91a3bd2"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }

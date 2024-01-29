@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsPlasticLimitsDefine: FEM_Design_API_Component
     {
-        public RotationsPlasticLimitsDefine(): base("RotationsPlasticLimits.Define", "Define", "Define rotational stiffness values for plastic limits [kNm or kNm/m].", CategoryName.Name(), SubCategoryName.Cat1())
+        public RotationsPlasticLimitsDefine(): base("RotationsPlasticLimits.Define", "Define", "Define rotational stiffness values for plastic limits [kNm or kNm/m].", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -63,7 +63,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("88b1043f-c344-4b8b-b7af-883996b6ae9f"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.senary;
 
     }
 }

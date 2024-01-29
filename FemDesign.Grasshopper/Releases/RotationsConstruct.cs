@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsConstruct: FEM_Design_API_Component
     {
-        public RotationsConstruct(): base("Rotations.Construct", "Construct", "Construct a new rotation release [kNm/rad or kNm/m/rad].", CategoryName.Name(), SubCategoryName.Cat1())
+        public RotationsConstruct(): base("Rotations.Construct", "Construct", "Construct a new rotation release [kNm/rad or kNm/m/rad].", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -76,7 +76,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("310ca6da-196c-4961-a345-9a7346bfa054"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.senary;
 
     }
 }
