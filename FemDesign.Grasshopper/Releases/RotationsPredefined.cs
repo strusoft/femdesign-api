@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class RotationsPredefined : FEM_Design_API_Component
     {
-        public RotationsPredefined(): base("Rotations.Predefined", "Rotations", "Provide predifined rotation stiffness values for point-, line- and surface-type releases.", CategoryName.Name(), SubCategoryName.Cat1())
+        public RotationsPredefined(): base("Rotations.Predefined", "Rotations", "Provide predifined rotation stiffness values for point-, line- and surface-type releases.", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("283CA555-FF55-42FE-8AA1-295EE1129D97"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
 
     }
 }

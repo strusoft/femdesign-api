@@ -6,7 +6,7 @@ namespace FemDesign.Grasshopper
 {
     public class MotionsPredefined : FEM_Design_API_Component
     {
-        public MotionsPredefined(): base("Motions.Predefined", "Motions", "Provide predifined translation stiffness values for point-, line- and surface-type releases.", CategoryName.Name(), SubCategoryName.Cat1())
+        public MotionsPredefined(): base("Motions.Predefined", "Motions", "Provide predifined translation stiffness values for point-, line- and surface-type releases.", CategoryName.Name(), SubCategoryName.Cat5())
         {
 
         }
@@ -44,7 +44,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("D67136BF-CECA-4AE5-99AF-3A5306AACEC2"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.quarternary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
     }
 }
