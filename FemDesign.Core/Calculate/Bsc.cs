@@ -53,9 +53,7 @@ namespace FemDesign.Calculate
         }
 
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 23.00.0")]
         public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")

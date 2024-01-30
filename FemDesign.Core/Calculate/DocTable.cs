@@ -88,7 +88,9 @@ namespace FemDesign.Calculate
         public int ResType { get; set; }
 
         [XmlIgnore]
+        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
         private static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
+        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
         private static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
 
         /// <summary>
@@ -99,9 +101,8 @@ namespace FemDesign.Calculate
 
         }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
+        
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 23.00.0")]
         public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
         {
             ListProc = resultType;

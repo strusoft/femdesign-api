@@ -53,7 +53,7 @@ namespace FemDesign.Examples
 
                 // Readying the .bsc script
                 string bscPath = Path.Combine(fileName.Replace(".struxml", $" - LabelledSectionsInternalForcesLoadCombination.bsc"));
-                var bsc = new FemDesign.Calculate.Bsc(FemDesign.Calculate.ListProc.LabelledSectionsInternalForcesLoadCombination, bscPath, null, true, null);
+                var bsc = new FemDesign.Calculate.Bsc(FemDesign.Calculate.ListProc.LabelledSectionsInternalForcesLoadCombination, bscPath, null, null, null);
 
                 // Running the analysis
                 FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(currentPath, analysisSettings, new List<string> { bsc.BscPath }, null, true);

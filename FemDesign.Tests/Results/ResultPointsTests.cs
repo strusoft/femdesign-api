@@ -41,7 +41,7 @@ namespace FemDesign.Results
             connection.CreateResultPoint(resultPoint);
 
 
-            var results = connection.GetLoadCaseResults<Results.ShellDisplacement>(loadCase: null, options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints) );
+            var results = connection.GetLoadCaseResults<Results.ShellDisplacement>(loadCase: null, element: null, options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints) );
 
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Count == 3);
