@@ -147,6 +147,9 @@ namespace FemDesign.Calculate
         {
         }
 
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         internal CmdListGen(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapCase != null))
@@ -157,6 +160,10 @@ namespace FemDesign.Calculate
                 MapCase = mapCase;
             }
         }
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0  
+        /// </summary>
         internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
@@ -167,6 +174,7 @@ namespace FemDesign.Calculate
                 MapComb = mapComb;
             }
         }
+
         private CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             Initialize(bscPath, outputDir);
@@ -174,11 +182,18 @@ namespace FemDesign.Calculate
             this.FillCells = fillCells;
             this.Headers = headers;
         }
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
         {
             MapCase = mapcase;
         }
 
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
         {
             MapComb = mapComb;

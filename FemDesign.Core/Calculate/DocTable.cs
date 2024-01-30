@@ -100,10 +100,8 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// DocTable Constructor
-        /// The name of LoadCase will be specified in cmdlistgen object
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
         /// </summary>
-        /// <param name="resultType"></param>
         public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
         {
             ListProc = resultType;
@@ -133,6 +131,41 @@ namespace FemDesign.Calculate
 
             Option = options ?? Options.GetOptions(resultType);
         }
+
+
+
+        /// <summary>
+        /// DocTable Constructor
+        /// </summary>
+        internal DocTable(ListProc resultType, string loadCaseCombName = null, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        {
+            ListProc = resultType;
+
+            if(loadCaseCombName != null)
+            {
+                if (resultType.IsLoadCase())
+                {
+                    Suffix = $"Ultimate - Load case: {loadCaseCombName}";
+                }
+                else if (resultType.IsLoadCombination())
+                {
+                    Suffix = $"Load Comb.: {loadCaseCombName}";
+                }
+            }            
+            else
+            {
+                // return all the output related to the analysis
+                // i.e eigen frequency will return all the eigen values
+                CaseIndex = GetDefaultCaseIndex(resultType);
+            }
+
+            Units = Results.Units.GetUnits(unitResult);
+            ResType = GetResType(resultType);
+
+            Option = options ?? Options.GetOptions(resultType);
+        }
+
+
 
         /// <summary>
         /// DocTable to return specific analysis results by shape identifiers.

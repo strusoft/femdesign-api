@@ -52,6 +52,10 @@ namespace FemDesign.Calculate
 
         }
 
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
@@ -65,6 +69,30 @@ namespace FemDesign.Calculate
             CmdEndSession = new CmdEndSession();
             SerializeBsc(); // why it is in the constructor?
         }
+
+        /// <summary>
+        /// Constructor for .bsc files.
+        /// </summary>
+        /// <param name="resultType"></param>
+        /// <param name="bscPath"></param>
+        /// <param name="loadCaseCombName"></param>
+        /// <param name="unitResult"></param>
+        /// <param name="options"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public Bsc(ListProc resultType, string bscPath, string loadCaseCombName = null, Results.UnitResults unitResult = null, Options options = null)
+        {
+            if (Path.GetExtension(bscPath) != ".bsc")
+            {
+                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
+            }
+            BscPath = Path.GetFullPath(bscPath);
+            Cwd = Path.GetDirectoryName(BscPath);
+            DocTable = new DocTable(resultType, loadCaseCombName, unitResult, options);
+            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
+            CmdEndSession = new CmdEndSession();
+            SerializeBsc(); // why it is in the constructor?
+        }
+
 
         /// <summary>
         /// Constructor for .bsc files. Constructs a Bsc object for batch files to list specific analysis results by shape identifiers.
@@ -117,7 +145,7 @@ namespace FemDesign.Calculate
             if (units == null)
                 units = Results.UnitResults.Default();
 
-            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), units, allLoadCase, options)));
+            var batchResults = listProcs.SelectMany(lp => lp.Select(l => new Calculate.Bsc(l, Path.Combine(dataDir, $"{l}.bsc"), null, units, options)));
             var bscPathsFromResultTypes = batchResults.Select(bsc => bsc.BscPath).ToList();
             return bscPathsFromResultTypes;
         }

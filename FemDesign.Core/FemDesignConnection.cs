@@ -557,7 +557,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
             bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
@@ -640,8 +640,7 @@ namespace FemDesign
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
 
             var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> commands = new List<CmdCommand>();
@@ -682,8 +681,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, unitResults)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -719,8 +717,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, unitResults)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -756,8 +753,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, unitResults, true)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, unitResults)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -796,10 +792,10 @@ namespace FemDesign
 
             return fdFEa;
         }
-        public List<T> GetLoadCaseResults<T>(string loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
-        {
-            var mapCase = new MapCase(loadCase);
 
+        public List<T> GetLoadCaseResults<T>(string loadCase = null, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
+        {
+            
             if (units is null)
                 units = Results.UnitResults.Default();
 
@@ -816,14 +812,14 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCase, units, options)).ToList();
+            
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapCase));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -841,6 +837,10 @@ namespace FemDesign
 
             return results;
         }
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
@@ -857,8 +857,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -882,10 +881,9 @@ namespace FemDesign
 
             return results;
         }
-        public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
-        {
-            var mapComb = new MapComb(loadCombination);
 
+        public List<T> GetLoadCombinationResults<T>(string loadCombination = null, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
+        {
             if (units is null)
                 units = Results.UnitResults.Default();
 
@@ -902,14 +900,13 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, false, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCombination, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscs[i], csvPaths[i], false, mapComb));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -927,6 +924,10 @@ namespace FemDesign
 
             return results;
         }
+
+        /// <summary>
+        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
+        /// </summary>
         public List<T> GetAllLoadCombinationResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
@@ -943,8 +944,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -969,6 +969,7 @@ namespace FemDesign
 
             return results;
         }
+
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
             if (units is null)
@@ -985,8 +986,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -1024,8 +1024,7 @@ namespace FemDesign
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + shapeId + "_" + currentTime)).ToList();
             var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + shapeId + "_" + currentTime)).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, units, true, options)).ToList();
-            bscs.ForEach(b => b.SerializeBsc());
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
@@ -1124,7 +1123,6 @@ namespace FemDesign
                 }
             }
 
-            //bscs.ForEach(b => b.SerializeBsc());
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
