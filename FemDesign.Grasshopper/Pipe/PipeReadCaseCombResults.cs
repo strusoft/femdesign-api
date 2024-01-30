@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Combination Name", "Combo Name", "Name of Load Combination to return the results. Default will return the values for all load combinations.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Elements", "Elements", "Elements for which the results will be return. Default will return the values for all elements.\nWARNING:\nIf you specified 'Elements', Case/Combination will be overwritten and all load case and load combination will be returned.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Elements", "Elements", "Elements for which the results will be return. Default will return the values for all elements.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Options", "Options", "Settings for output location. Default is 'ByStep' and 'Vertices'", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -51,12 +51,12 @@ namespace FemDesign.Grasshopper
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
         private class ApplicationReadResultWorker : WorkerInstance
         {
-            public dynamic _getLoadCaseResults(Type resultType, string loadCase, Results.UnitResults units = null, Options options = null)
+            public dynamic _getLoadCaseResults(Type resultType, string loadCase, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
             {
                 var method = nameof(FemDesign.FemDesignConnection.GetLoadCaseResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
                 MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, units, options });
+                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, elements, units, options });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }
@@ -71,12 +71,12 @@ namespace FemDesign.Grasshopper
                 return mixedResults;
             }
 
-            public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, Results.UnitResults units = null, Options options = null)
+            public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
             {
                 var method = nameof(FemDesign.FemDesignConnection.GetLoadCombinationResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
                 MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, units, options });
+                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, elements, units, options });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }
@@ -158,7 +158,7 @@ namespace FemDesign.Grasshopper
                         {
                             foreach (var item in _case)
                             {
-                                var res = _getLoadCaseResults(type, item, _units, _options);
+                                var res = _getLoadCaseResults(type, item, _elements, _units, _options);
                                 resultsTree.AddRange(res, new GH_Path(resIndex, caseIndex));
                                 caseIndex++;
                             }
@@ -169,7 +169,7 @@ namespace FemDesign.Grasshopper
                             combIndex = caseIndex;
                             foreach (var item in _combo)
                             {
-                                var res = _getLoadCombinationResults(type, item, _units, _options);
+                                var res = _getLoadCombinationResults(type, item, _elements, _units, _options);
                                 resultsTree.AddRange(res, new GH_Path(resIndex, combIndex));
                                 combIndex++;
                             }

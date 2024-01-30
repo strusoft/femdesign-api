@@ -88,7 +88,9 @@ namespace FemDesign.Calculate
         public int ResType { get; set; }
 
         [XmlIgnore]
+        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
         private static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
+        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
         private static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
 
         /// <summary>
@@ -99,11 +101,8 @@ namespace FemDesign.Calculate
 
         }
 
-        /// <summary>
-        /// DocTable Constructor
-        /// The name of LoadCase will be specified in cmdlistgen object
-        /// </summary>
-        /// <param name="resultType"></param>
+        
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 23.00.0")]
         public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
         {
             ListProc = resultType;
@@ -134,23 +133,72 @@ namespace FemDesign.Calculate
             Option = options ?? Options.GetOptions(resultType);
         }
 
+
+
         /// <summary>
-        /// DocTable to return the buckling shape and imperfection shapes
+        /// DocTable Constructor
+        /// </summary>
+        internal DocTable(ListProc resultType, string loadCaseCombName = null, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        {
+            ListProc = resultType;
+
+            if(loadCaseCombName != null)
+            {
+                if (resultType.IsLoadCase())
+                {
+                    Suffix = $"Ultimate - Load case: {loadCaseCombName}";
+                }
+                else if (resultType.IsLoadCombination())
+                {
+                    Suffix = $"Load Comb.: {loadCaseCombName}";
+                }
+            }            
+            else
+            {
+                // return all the output related to the analysis
+                // i.e eigen frequency will return all the eigen values
+                CaseIndex = GetDefaultCaseIndex(resultType);
+            }
+
+            Units = Results.Units.GetUnits(unitResult);
+            ResType = GetResType(resultType);
+
+            Option = options ?? Options.GetOptions(resultType);
+        }
+
+
+
+        /// <summary>
+        /// DocTable to return specific analysis results by shape identifiers.
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="loadCombination"></param>
         /// <param name="shapeID"></param>
         /// <param name="unitResult"></param>
         /// <param name="options"></param>
-        public DocTable(ListProc resultType, string loadCombination, int? shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
+        internal DocTable(ListProc resultType, string loadCombination, int shapeID, FemDesign.Results.UnitResults unitResult = null, Options options = null)
         {
+            // check input
+            if (shapeID <= 0)
+                throw new Exception("Invalid shapeID. Parameter must be a positive, non-zero number!");
+
             ListProc = resultType;
-            ResType = GetResType(resultType);
-            if((loadCombination != null) || (shapeID != null))
+
+            if(resultType != ListProc.NodalVibrationShape)
             {
+                if (loadCombination == null)
+                    throw new Exception("loadCombination input cannot be null!");
+
                 Suffix = $"{loadCombination} / {shapeID}";
             }
-            CaseIndex = GetDefaultCaseIndex(resultType);
+            else
+            {
+                Suffix = $"{shapeID}";
+            }
+            
+            ResType = GetResType(resultType);
+            CaseIndex = 0;  //  If the CaseIndex is set to its default value (see 'GetDefaultCaseIndex()' method), FD will ignore the suffix and the all results will be listed.
+                            //  To get the specified result cases, use 0, and suffix will override the index in the batch file.
             Units = Results.Units.GetUnits(unitResult);
             Option = options ?? Options.GetOptions(resultType);
         }

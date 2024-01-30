@@ -325,7 +325,7 @@ namespace FemDesign.Calculate
             var listProcs = results.SelectMany(r => r.GetCustomAttribute<ResultAttribute>().ListProcs);
 
             var dir = Path.GetDirectoryName(strPath);
-            var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc"));
+            var batchResults = listProcs.Select(lp => new Bsc(lp, $"{dir}\\{lp}.bsc", null, null, null));
             var bscPaths = batchResults.Select(bsc => bsc.BscPath).ToList();
 
             return ReadStr(strPath, bscPaths);

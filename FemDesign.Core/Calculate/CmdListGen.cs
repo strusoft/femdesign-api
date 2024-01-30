@@ -93,11 +93,13 @@ namespace FemDesign.Calculate
             }
         }
 
-        [XmlElement("mapcase")]
-        public MapCase MapCase { get; set; }
+        [XmlIgnore]
+        [Obsolete("This object is no longer available and will be deprecated in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
+        public MapCase MapCase;
 
-        [XmlElement("mapcomb")]
-        public MapComb MapComb { get; set; }
+        [XmlIgnore]
+        [Obsolete("This object is no longer available and will be deprecated in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
+        public MapComb MapComb;
 
         [XmlIgnore]
         public List<FemDesign.GenericClasses.IStructureElement> StructureElements { get; set; }
@@ -134,7 +136,8 @@ namespace FemDesign.Calculate
 
         public CmdListGen(string bscPath, string outPath, FemDesign.GenericClasses.IStructureElement elements, bool regional = false) : this(bscPath, outPath, regional)
         {
-            StructureElements = new List<FemDesign.GenericClasses.IStructureElement> { elements };
+            if(elements != null)
+                StructureElements = new List<FemDesign.GenericClasses.IStructureElement> { elements };
         }
 
         public CmdListGen(string bscPath, string outPath, List<FemDesign.GenericClasses.IStructureElement> elements, bool regional = false) : this(bscPath, outPath, regional)
@@ -147,6 +150,7 @@ namespace FemDesign.Calculate
         {
         }
 
+        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
         internal CmdListGen(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapCase != null))
@@ -157,6 +161,8 @@ namespace FemDesign.Calculate
                 MapCase = mapCase;
             }
         }
+
+        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
         internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
         {
             if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
@@ -167,6 +173,7 @@ namespace FemDesign.Calculate
                 MapComb = mapComb;
             }
         }
+
         private CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             Initialize(bscPath, outputDir);
@@ -174,41 +181,29 @@ namespace FemDesign.Calculate
             this.FillCells = fillCells;
             this.Headers = headers;
         }
+
+        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
         public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
         {
             MapCase = mapcase;
         }
-
+                
+        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
         public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
         {
             MapComb = mapComb;
         }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
-        /// </summary>
-        /// <param name="bscPath"></param>
-        /// <param name="outputDir"></param>
-        /// <param name="regional"></param>
-        /// <param name="fillCells"></param>
-        /// <param name="headers"></param>
-        /// <returns></returns>
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
         internal static CmdListGen Default(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             return new CmdListGen(bscPath, outputDir, regional, fillCells, headers);
         }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
-        /// </summary>
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
         private string FileName { get; set; }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVE IN 22.00.0
-        /// </summary>
-        /// <param name="bscPath"></param>
-        /// <param name="outputDir"></param>
-        /// <exception cref="System.ArgumentException"></exception>
+        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
         private void Initialize(string bscPath, string outputDir)
         {
             string _fileName = Path.GetFileNameWithoutExtension(bscPath);
@@ -232,11 +227,8 @@ namespace FemDesign.Calculate
     }
 
 
-
-
-
-
-
+    
+    [Obsolete("This object is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
     public partial class MapCase
     {
 
@@ -267,7 +259,7 @@ namespace FemDesign.Calculate
         }
     }
 
-
+    [Obsolete("This object is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
     public partial class MapComb
     {
         public static readonly string _oname = "loadcombname";

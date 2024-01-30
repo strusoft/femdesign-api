@@ -70,10 +70,9 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             }
         }
 
-
         [TestCategory("FEM-Design required")]
         [TestMethod]
-        public void TestReadStabilityResults()
+        public void TestGetStabilityResults()
         {
             string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
@@ -107,5 +106,94 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
                 Assert.IsNotNull(critParam);
             }
         }
+
+        //[TestCategory("FEM-Design required")]
+        //[TestMethod]
+        //public void TestGetEigenResults()
+        //{
+        //    // get model data
+        //    string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
+        //    Model model = Model.DeserializeFromFilePath(struxmlPath);
+        //    List<string> loadCombinations = model.Entities.Loads.LoadCombinations.Select(l => l.Name).ToList();
+
+        //    // setup stability analysis
+        //    List<List<string>> validCombos = new List<List<string>>
+        //    {
+        //        new List<string>(){ "LC1ULS" },                
+        //        new List<string>(){ "LC2ULS" },
+        //        loadCombinations
+        //    };
+        //    List<List<string>> invalidCombos = new List<List<string>>
+        //    {
+        //        new List<string>(){ "Lc1uLs" },
+        //        new List<string>(){ "LC5ULS" }
+        //    };
+        //    List<List<string>> combos = validCombos.Concat(invalidCombos).ToList();
+        //    List<List<int>> reqShapes = new List<List<int>>
+        //    {
+        //        new List<int>(){ 8},
+        //        new List<int>(){ 8},
+        //        new List<int>(){ 10, 15 },
+        //        new List<int>(){ 8 },
+        //        new List<int>(){ 8 },
+        //    };
+
+        //    var stab = new List<Calculate.Stability>();
+        //    var analysis = new List<Calculate.Analysis>();
+        //    for (int i = 0; i < combos.Count; i++)
+        //    {
+        //        stab.Add(new Calculate.Stability(combos[i], reqShapes[i], false, 5));
+        //        analysis.Add(new FemDesign.Calculate.Analysis(stability: stab[i], calcComb: true, calcStab: true));
+
+        //    }
+
+
+        //    List<List<string>> combos2 = invalidCombos.Concat(validCombos).ToList();
+        //    List<List<int>> shapeIds = new List<List<int>>
+        //    {
+        //        new List<int>(){ 8, 4, 10 },
+        //        new List<int>(){ 1, 3, 7, 8 },
+        //        new List<int>(){ 10, 15 },
+        //        new List<int>(){ 8 },
+        //        new List<int>(){ 8 },
+        //    };
+        //    var bucklRes = new List<List<NodalBucklingShape>>();
+        //    var bucklRes2 = new List<List<NodalBucklingShape>>();
+
+        //    using (var femDesign = new FemDesignConnection(fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 22\", outputDir: "My analyzed model", keepOpen: false))
+        //    {
+        //        // open model
+        //        femDesign.Open(model);
+
+                
+        //        for (int i = 0; i < combos.Count; i++)
+        //        {
+        //            // run analysis
+        //            femDesign.RunAnalysis(analysis[i]);
+
+        //            // get results
+        //            bucklRes.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos[i], shapeIds[i]));
+        //            bucklRes2.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos2[i], shapeIds[i]));
+        //        }
+        //    }
+
+        //    // check results
+        //    for(int i = 0; i < validCombos.Count; i++)            
+        //    {
+        //        Assert.IsTrue(bucklRes[i].Count != 0);                
+        //    }
+        //    for (int i = validCombos.Count; i < combos.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes[i].Count == 0);
+        //    }
+        //    for (int i = 0; i < invalidCombos.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes2[i].Count == 0);
+        //    }
+        //    for (int i = invalidCombos.Count + 1; i < combos2.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes2[i].Count == 0);
+        //    }
+        //}
     }
 }

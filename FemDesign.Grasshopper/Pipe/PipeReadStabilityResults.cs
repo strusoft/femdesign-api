@@ -60,7 +60,7 @@ namespace FemDesign.Grasshopper
 
             return results;
         }
-                        
+
         public DataTree<FemDesign.Results.NodalBucklingShape> CreateResultTree(List<FemDesign.Results.NodalBucklingShape> results)
         {
             // create 2D data tree
@@ -150,7 +150,7 @@ namespace FemDesign.Grasshopper
                 }
                 if (shapeIds.Any())
                 {
-                    for(int j = branch.Count - 1; j >= 0; j--)
+                    for (int j = branch.Count - 1; j >= 0; j--)
                     {
                         if (!shapeIds.Contains(branch[j].Shape))
                         {
@@ -166,7 +166,7 @@ namespace FemDesign.Grasshopper
 
             // renumber tree path
             if (removable.Any())
-            filteredTree.RenumberPaths();
+                filteredTree.RenumberPaths();
 
             return filteredTree;
         }
@@ -176,14 +176,14 @@ namespace FemDesign.Grasshopper
             DataTree<FemDesign.Results.NodalBucklingShape> orderedTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
             int i = 0;
             int j = 0;
-            
-            orderedTree.AddRange(tree.Branches[0], new GH_Path(0,0));
 
-            for (int b=1; b<tree.Branches.Count; b++)
+            orderedTree.AddRange(tree.Branches[0], new GH_Path(0, 0));
+
+            for (int b = 1; b < tree.Branches.Count; b++)
             {
                 var currentBranch = tree.Branches[b];
                 var previousBranch = tree.Branches[b - 1];
-                                
+
                 if (currentBranch[0].CaseIdentifier != previousBranch[0].CaseIdentifier)
                 {
                     i++;
@@ -194,7 +194,7 @@ namespace FemDesign.Grasshopper
                     j++;
                 }
 
-                var path = new GH_Path(i,j);
+                var path = new GH_Path(i, j);
                 orderedTree.AddRange(currentBranch, path);
             }
 
@@ -231,7 +231,7 @@ namespace FemDesign.Grasshopper
         private Results.UnitResults _units = null;
         private Calculate.Options _options = null;
         private bool _runNode = true;
-                
+
         private DataTree<FemDesign.Results.NodalBucklingShape> _bucklingTree = new DataTree<FemDesign.Results.NodalBucklingShape>();
         private DataTree<FemDesign.Results.CriticalParameter> _critParameterResults = new DataTree<FemDesign.Results.CriticalParameter>();
         private bool _success = false;
@@ -239,7 +239,7 @@ namespace FemDesign.Grasshopper
         private Type _resultType = typeof(FemDesign.Results.NodalBucklingShape);
         private Type _critParamType = typeof(FemDesign.Results.CriticalParameter);
         private Verbosity _verbosity = Verbosity.Normal;
-               
+
 
         public ApplicationReadStabilityResultWorker(GH_Component component) : base(component) { }
 
@@ -306,7 +306,7 @@ namespace FemDesign.Grasshopper
                 string critParamPropName = nameof(FemDesign.Results.CriticalParameter.CaseIdentifier);
                 var critParamTree = critParamRes.CreateResultTree(critParamPropName);
                 _critParameterResults = FilterTree(critParamTree, _combos, _shapeIds);
-                                
+
             }
             catch (Exception ex)
             {
