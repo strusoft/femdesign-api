@@ -792,53 +792,6 @@ namespace FemDesign
             return fdFEa;
         }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
-        private List<T> GetLoadCaseResults<T>(string loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
-
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCase result type!");
-            }
-
-            // listproc that are only load case
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
-
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCase, units, options)).ToList();
-
-
-            // FdScript commands
-            List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-            for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetLoadCase" + currentTime);
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-
         public List<T> GetLoadCaseResults<T>(string loadCase = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
@@ -882,141 +835,6 @@ namespace FemDesign
 
             return results;
         }
-
-        private List<T> GetLoadCaseResults<T>(string loadCase = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
-
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCase result type!");
-            }
-
-            // listproc that are only load case
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCase + currentTime)).ToList();
-
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCase, units, options)).ToList();
-
-
-            // FdScript commands
-            List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-            for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], element));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetLoadCase" + currentTime);
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
-        public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
-
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCase result type!");
-            }
-
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
-
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
-
-            // FdScript commands
-            List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-            for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script);
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
-        private List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
-
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCombination result type!");
-            }
-
-            // listproc that are only load combination
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
-
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCombination, units, options)).ToList();
-
-            // FdScript commands
-            List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-            for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetLoadCombo" + currentTime);
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-
         public List<T> GetLoadCombinationResults<T>(string loadCombination = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
@@ -1060,36 +878,36 @@ namespace FemDesign
             return results;
         }
 
-        private List<T> GetLoadCombinationResults<T>(string loadCombination = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+
+        [Obsolete("Method will be removed in 23.0.0", false)]
+        public List<T> GetAllLoadCaseResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
 
             // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>();
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>();
 
             if (!listProcs.Any())
             {
-                throw new ArgumentException("T parameter must be a LoadCombination result type!");
+                throw new ArgumentException("T parameter must be a LoadCase result type!");
             }
 
-            // listproc that are only load combination
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + loadCombination + currentTime)).ToList();
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString())).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString())).ToList();
 
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCombination, units, options)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
 
             // FdScript commands
             List<CmdCommand> listGenCommands = new List<CmdCommand>();
             listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
             for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], element));
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, "GetLoadCombo" + currentTime);
+            this.RunScript(script);
 
             // Read csv results files
             List<T> results = new List<T>();
@@ -1103,9 +921,9 @@ namespace FemDesign
             return results;
         }
 
-        /// <summary>
-        /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
-        /// </summary>
+
+
+        [Obsolete("Method will be removed in 23.0.0", false)]
         public List<T> GetAllLoadCombinationResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
         {
             if (units is null)

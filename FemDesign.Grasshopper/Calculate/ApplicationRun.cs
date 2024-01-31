@@ -140,6 +140,12 @@ namespace FemDesign.Grasshopper
             DA.GetData("SaveFilePath", ref saveFilePath);
 
 
+            if (analysis == null && design == null && saveFilePath == null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design' or 'SaveFilePath'");
+                return;
+            }
+
             // Collect Outputs
             Model model = null;
             List<Results.IResult> results = new List<Results.IResult>();
