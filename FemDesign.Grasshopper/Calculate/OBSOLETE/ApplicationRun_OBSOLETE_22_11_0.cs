@@ -19,9 +19,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : FEM_Design_API_Component
+    public class ApplicationRun_OBSOLETE_22_11_0 : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun_OBSOLETE_22_11_0() : base("Application.RunCalculation", "RunCalculation", "Run calculation for a model. .csv list files and .docx documentation files are saved in the same work directory as StruxmlPath.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
         }
@@ -57,8 +57,7 @@ namespace FemDesign.Grasshopper
 
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc). The documentation will be saved in the `FEM-Design API` folder. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .strux.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
+
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
 
@@ -115,6 +114,13 @@ namespace FemDesign.Grasshopper
             FemDesign.Calculate.Design design = null;
             DA.GetData("Design", ref design);
 
+            if (analysis == null && design == null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Specify 'Analysis' or 'Design' to run the calculation!");
+                return;
+            }
+
+
             FemDesign.Results.UnitResults units = UnitResults.Default();
             DA.GetData("Units", ref units);
 
@@ -135,10 +141,6 @@ namespace FemDesign.Grasshopper
 
             string dscTemplate = null;
             DA.GetData("DocxTemplatePath", ref dscTemplate);
-
-            string saveFilePath = null;
-            DA.GetData("SaveFilePath", ref saveFilePath);
-
 
             // Collect Outputs
             Model model = null;
@@ -238,19 +240,14 @@ namespace FemDesign.Grasshopper
 
 
                 // save calculated model in .str format
-                if (saveFilePath == null)
-                {
-                    saveFilePath = OutputFileHelper.GetStrPath(connection.OutputDir, "model_saved");
-                }
-
-                connection.Save(saveFilePath);
+                var strFile = OutputFileHelper.GetStrPath(connection.OutputDir, "model_saved");
+                connection.Save(strFile);
 
                 connection.Dispose();
             }));
 
 
             t.ConfigureAwait(false);
-
             try
             {
                 t.Wait();
@@ -274,10 +271,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{C99D4B16-CF9A-4A2D-BD54-BBC230F36611}"); }
+            get { return new Guid("{220C17E9-5474-4962-97B6-C64FE7C83B94}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
