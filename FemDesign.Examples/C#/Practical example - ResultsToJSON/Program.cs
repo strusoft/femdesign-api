@@ -42,7 +42,7 @@ namespace FemDesign.Examples
                 femDesign.Open(filePath);
                 //nodalDisplacement = femDesign.GetResults<Results.NodalDisplacement>(units);
 
-                nodalDisplacement = femDesign.GetLoadCombinationResults<Results.NodalDisplacement>(loadCombination: null, units);
+                nodalDisplacement = femDesign.GetLoadCombinationResults<Results.NodalDisplacement>(loadCombination: null, elements: null, units);
 
 
                 // Convert the Results to JSON Format
