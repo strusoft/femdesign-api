@@ -41,7 +41,7 @@ namespace FemDesign.Examples
                     femDesign.RunAnalysis(analysis);
 
                     // Results
-                    var displacements = femDesign.GetLoadCaseResults<NodalDisplacement>(loadCase: null, unit);
+                    var displacements = femDesign.GetLoadCaseResults<NodalDisplacement>(loadCase: null, elements: null, unit);
                     var maxDisp = displacements.Select(x => Math.Abs(x.Ez)).Max();
                     // Print results
                     Console.WriteLine();

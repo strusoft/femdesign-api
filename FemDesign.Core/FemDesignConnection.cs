@@ -795,7 +795,7 @@ namespace FemDesign
         /// <summary>
         /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
         /// </summary>
-        public List<T> GetLoadCaseResults<T>(string loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        private List<T> GetLoadCaseResults<T>(string loadCase, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -883,7 +883,7 @@ namespace FemDesign
             return results;
         }
 
-        public List<T> GetLoadCaseResults<T>(string loadCase = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        private List<T> GetLoadCaseResults<T>(string loadCase = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -974,7 +974,7 @@ namespace FemDesign
         /// <summary>
         /// OBSOLETE. IT WILL BE REMOVED IN 23.00.0 
         /// </summary>
-        public List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        private List<T> GetLoadCombinationResults<T>(string loadCombination, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -1060,7 +1060,7 @@ namespace FemDesign
             return results;
         }
 
-        public List<T> GetLoadCombinationResults<T>(string loadCombination = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        private List<T> GetLoadCombinationResults<T>(string loadCombination = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
