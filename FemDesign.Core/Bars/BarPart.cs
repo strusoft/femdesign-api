@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 
 using FemDesign.GenericClasses;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Bars
 {
@@ -458,7 +459,10 @@ namespace FemDesign.Bars
         [XmlElement("stiffness_modifiers", Order = 7)]
         public List<BarStiffnessFactors> StiffnessModifiers { get; set; }
 
-        [XmlElement("end", Order = 8)]
+        [XmlElement("colouring", Order = 8)]
+        public StruSoft.Interop.StruXml.Data.Entity_color Colouring { get; set; }
+
+        [XmlElement("end", Order = 9)]
         public string End = "";
 
         [XmlAttribute("ecc_crack")]

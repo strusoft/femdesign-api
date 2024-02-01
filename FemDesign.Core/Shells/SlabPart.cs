@@ -218,8 +218,11 @@ namespace FemDesign.Shells
             }
         }
 
-        [XmlElement("end", Order = 7)]
-        public string End {get; set;} // empty_type
+        [XmlElement("colouring", Order = 7)]
+        public StruSoft.Interop.StruXml.Data.Entity_color Colouring { get; set; }
+
+        [XmlElement("end", Order = 8)]
+        public string End = ""; // empty_type
 
         /// <summary>
         /// Parameterless constructor for serialization.
