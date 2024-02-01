@@ -22,7 +22,7 @@ namespace FemDesign.Drawing
         /// <value>
         /// Dimension text font
         /// </value>
-        public Struxml.Dimtext_font_type Font;
+        public Struxml.Font_type Font;
 
 
         /// <value>
@@ -110,7 +110,7 @@ namespace FemDesign.Drawing
         public void Initialise()
         {
             EntityCreated();
-            Font = new Struxml.Dimtext_font_type();
+            Font = new Struxml.Font_type();
             Arrow = new Struxml.Arrow_type();
         }
 
