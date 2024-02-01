@@ -99,7 +99,7 @@ namespace FemDesign.Results
             double fix = Double.Parse(row[5], CultureInfo.InvariantCulture);
             double fiy = Double.Parse(row[6], CultureInfo.InvariantCulture);
             double fiz = Double.Parse(row[7], CultureInfo.InvariantCulture);
-            string lc = row[8];
+            string lc = HeaderData["casename"];
             return new NodalDisplacement(supportname, nodeId, ex, ey, ez, fix, fiy, fiz, lc);
         }
 
