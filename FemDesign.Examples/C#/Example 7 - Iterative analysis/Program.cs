@@ -24,7 +24,7 @@ namespace FemDesign.Examples
             var analysis = Analysis.StaticAnalysis();
             var unit = new UnitResults(Length.mm, Angle.rad, SectionalData.mm, Force.kN, Mass.kg, Displacement.mm, Stress.MPa);
 
-            using(var femDesign = new FemDesign.FemDesignConnection("C:\\Program Files\\StruSoft\\FEM-Design 23 Night Install"))
+            using(var femDesign = new FemDesign.FemDesignConnection())
             {                             
                 for(double i = 0; i < 1; i += 0.1)
                 {

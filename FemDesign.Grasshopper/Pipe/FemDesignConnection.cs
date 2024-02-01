@@ -53,7 +53,7 @@ namespace FemDesign.Grasshopper
         {
             // TODO: Set version as global variable in FemDesign.Core
 
-            string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 22\";
+            string fd_installation_folder = $@"C:\Program Files\StruSoft\FEM-Design 23\";
             DA.GetData("FEM-Design dir", ref fd_installation_folder);
 
             bool minimized = false;

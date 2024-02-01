@@ -65,7 +65,7 @@ namespace FemDesign
         /// <param name="verbosity"></param>
 
         public FemDesignConnection(
-            string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 22\",
+            string fdInstallationDir = @"C:\Program Files\StruSoft\FEM-Design 23\",
             bool minimized = false,
             bool keepOpen = false,
             string outputDir = null,
@@ -103,7 +103,7 @@ namespace FemDesign
             }
             catch
             {
-                throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 22\` does not exist!");
+                throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 23\` does not exist!");
             }
 
             _process.Exited += ProcessExited;
