@@ -24,19 +24,22 @@ namespace FemDesign.Examples
             // open an instance of FEM-Design
             var femDesign = new FemDesignConnection(minimized: true);
 
-            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 1 - Creating a simple beam/bin/Debug");
+            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 1 - Simple beam/bin/Debug");
             Assert.IsTrue(exitCode == 0);
 
-            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 2 - Analysing a model/bin/Debug");
+            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 2 - Simple slab/bin/Debug");
             Assert.IsTrue(exitCode == 0);
 
-            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 3 - Analyse a beam/bin/Debug");
+            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 3 - Analyse struxml/bin/Debug");
             Assert.IsTrue(exitCode == 0);
 
             exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 4 - Edit existing model/bin/Debug");
             Assert.IsTrue(exitCode == 0);
 
-            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 7 - Creating a wall/bin/Debug");
+            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 5 - Design a beam/bin/Debug");
+            Assert.IsTrue(exitCode == 0);
+
+            exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example 7 - Iterative analysis/bin/Debug");
             Assert.IsTrue(exitCode == 0);
 
             exitCode = RunExample(@"../../../FemDesign.Examples/C#/Example10 - ConstructionStages/bin/Debug");
