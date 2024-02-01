@@ -10842,7 +10842,7 @@ namespace StruSoft.Interop.StruXml.Data
         private double elastoplastic_strain_limit_option_ScField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_bahaviour_U")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_U")]
         public bool Elastoplastic_bahaviour_U
         {
             get
@@ -10856,7 +10856,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_U")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_U")]
         public bool Elastoplastic_strain_limit_U
         {
             get
@@ -10870,7 +10870,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_option_U")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_U")]
         public double Elastoplastic_strain_limit_option_U
         {
             get
@@ -10884,7 +10884,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_bahaviour_Sq")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sq")]
         public bool Elastoplastic_bahaviour_Sq
         {
             get
@@ -10898,7 +10898,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_Sq")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sq")]
         public bool Elastoplastic_strain_limit_Sq
         {
             get
@@ -10912,7 +10912,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_option_Sq")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sq")]
         public double Elastoplastic_strain_limit_option_Sq
         {
             get
@@ -10926,7 +10926,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_bahaviour_Sf")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sf")]
         public bool Elastoplastic_bahaviour_Sf
         {
             get
@@ -10940,7 +10940,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_Sf")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sf")]
         public bool Elastoplastic_strain_limit_Sf
         {
             get
@@ -10954,7 +10954,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_option_Sf")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sf")]
         public double Elastoplastic_strain_limit_option_Sf
         {
             get
@@ -10968,7 +10968,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_bahaviour_Sc")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sc")]
         public bool Elastoplastic_bahaviour_Sc
         {
             get
@@ -10982,7 +10982,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_Sc")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sc")]
         public bool Elastoplastic_strain_limit_Sc
         {
             get
@@ -10996,7 +10996,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_strain_limit_option_Sc")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sc")]
         public double Elastoplastic_strain_limit_option_Sc
         {
             get
@@ -11215,7 +11215,7 @@ namespace StruSoft.Interop.StruXml.Data
         private bool ultimate_strainField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elastoplastic_bahaviour")]
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour")]
         public bool Elastoplastic_bahaviour
         {
             get
