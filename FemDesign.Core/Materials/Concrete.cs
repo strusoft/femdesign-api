@@ -10,6 +10,18 @@ namespace FemDesign.Materials
     [System.Serializable]
     public partial class Concrete: MaterialBase
     {
+        [XmlElement("tda_creep", Order = 1)]
+        public StruSoft.Interop.StruXml.Data.Tda_creep2 CreepTimeDependant { get; set; }
+
+        [XmlElement("tda_shrinkage", Order = 2)]
+        public StruSoft.Interop.StruXml.Data.Tda_shrinkage ShrinkageTimeDependant { get; set; }
+
+        [XmlElement("tda_elasticity", Order = 3)]
+        public StruSoft.Interop.StruXml.Data.Tda_elasticity EalsticityTimeDependant { get; set; }
+
+        [XmlElement("plastic_analysis_data", Order = 4)]
+        public StruSoft.Interop.StruXml.Data.Concrete_pl_data Plasticity { get; set; }
+
         [XmlAttribute("Fck")]
         public string Fck { get; set; } // material_base_value
         [XmlAttribute("Fck_cube")]
