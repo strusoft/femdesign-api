@@ -13,22 +13,27 @@ namespace FemDesign.StructureGrid
     {
         [XmlElement("start_point", Order = 1)]
         public Geometry.Point2d _startPoint; // point_type_2d
+
         [XmlIgnore]
         public Geometry.Point3d StartPoint
         {
             get { return this._startPoint.To3d(); }
             set { this._startPoint = value.To2d(); }
         }
+
         [XmlElement("end_point", Order = 2)]
         public Geometry.Point2d _endPoint; // point_type_2d
+
         [XmlIgnore]
         public Geometry.Point3d EndPoint
         {
             get { return this._endPoint.To3d(); }
             set { this._endPoint = value.To2d(); }
         }
+
         [XmlAttribute("prefix")]
         public string _prefix; // string15
+
         [XmlIgnore]
         public string Prefix
         {
@@ -41,8 +46,12 @@ namespace FemDesign.StructureGrid
                  this._prefix = RestrictedString.Length(value, 15);
              }
         }
+
+        public StruSoft.Interop.StruXml.Data.Axis_label_props AxisLabel { get; set; }
+
         [XmlAttribute("id")]
         public int _id; // int_1_to_321272406
+
         [XmlIgnore]
         public int Id
         {
