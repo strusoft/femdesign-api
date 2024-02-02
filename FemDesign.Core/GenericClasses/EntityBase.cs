@@ -14,8 +14,10 @@ namespace FemDesign
     {
         [XmlAttribute("guid")]
         public Guid Guid { get; set; }
+
         [XmlAttribute("last_change")]
         public string _lastChange;
+
         [XmlIgnore]
         public DateTime LastChange
         {
@@ -28,6 +30,7 @@ namespace FemDesign
                 this._lastChange = value.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
         }
+
         [XmlAttribute("action")]
         public string Action { get; set; }
 
