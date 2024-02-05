@@ -94,14 +94,6 @@ namespace FemDesign.Calculate
         }
 
         [XmlIgnore]
-        [Obsolete("This object is no longer available and will be deprecated in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        public MapCase MapCase;
-
-        [XmlIgnore]
-        [Obsolete("This object is no longer available and will be deprecated in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        public MapComb MapComb;
-
-        [XmlIgnore]
         public List<FemDesign.GenericClasses.IStructureElement> StructureElements { get; set; }
 
         [XmlElement("GUID")]
@@ -146,34 +138,6 @@ namespace FemDesign.Calculate
                 StructureElements = elements;
         }
 
-        private CmdListGen(Bsc bsc, string outPath, bool regional = false) : this(bsc.BscPath, outPath, regional)
-        {
-        }
-
-        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapCase mapCase) : this(bsc, outPath, regional)
-        {
-            if (bsc.DocTable.AllCaseComb == true && (mapCase != null))
-                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
-
-            if (bsc.DocTable.AllCaseComb == false)
-            {
-                MapCase = mapCase;
-            }
-        }
-
-        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        internal CmdListGen(Bsc bsc, string outPath, bool regional, MapComb mapComb) : this(bsc, outPath, regional)
-        {
-            if (bsc.DocTable.AllCaseComb == true && (mapComb != null))
-                throw new Exception("Bsc file has been setup to return all loadCase/loadCombination. MapCase, MapComb are not necessary");
-
-            if (bsc.DocTable.AllCaseComb == false)
-            {
-                MapComb = mapComb;
-            }
-        }
-
         private CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             Initialize(bscPath, outputDir);
@@ -182,43 +146,11 @@ namespace FemDesign.Calculate
             this.Headers = headers;
         }
 
-        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        public CmdListGen(string bscPath, string outPath, bool regional, MapCase mapcase, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
-        {
-            MapCase = mapcase;
-        }
-                
-        [Obsolete("MapCase/MapComb is no longer available and will be romoved in version 23.00.0. You can specify the load case/combination using the Suffix property in DocTable.")]
-        public CmdListGen(string bscPath, string outPath, bool regional, MapComb mapComb, FemDesign.GenericClasses.IStructureElement elements = null) : this(bscPath, outPath, elements, regional)
-        {
-            MapComb = mapComb;
-        }
-
         [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
         internal static CmdListGen Default(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
         {
             return new CmdListGen(bscPath, outputDir, regional, fillCells, headers);
         }
-
-        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
-        private string FileName { get; set; }
-
-        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
-        private void Initialize(string bscPath, string outputDir)
-        {
-            string _fileName = Path.GetFileNameWithoutExtension(bscPath);
-            string _extension = Path.GetExtension(bscPath);
-
-            if (_extension != ".bsc")
-            {
-                throw new System.ArgumentException("Incorrect file-extension. Expected .bsc. CmdListGen failed.");
-            }
-
-            this.BscFile = bscPath;
-            this.FileName = _fileName;
-            this.OutFile = Path.Combine(outputDir, this.FileName + ".csv");
-        }
-
 
         public override XElement ToXElement()
         {

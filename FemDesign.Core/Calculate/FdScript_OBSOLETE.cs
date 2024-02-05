@@ -20,8 +20,8 @@ namespace FemDesign.Calculate
         [XmlAttribute("noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
         public string XmlAttrib { get; set; }
 
-        [XmlElement("fdscriptheader", Order = 1)]
-        public FdScriptHeader Header { get; set; } // FDSCRIPTHEADER
+        //[XmlElement("fdscriptheader", Order = 1)]
+        //public FdScriptHeader Header { get; set; } // FDSCRIPTHEADER
 
         [XmlElement("cmdopen", Order = 2)]
         public CmdOpen CmdOpen { get; set; } // CMDOPEN
@@ -55,10 +55,10 @@ namespace FemDesign.Calculate
 
         [XmlIgnore]
         public string StruxmlPath { get; set; } // path to struxml file, string 259
-        [XmlIgnore]
-        public string FileName { get; set; } // file name of struxlm file, string 259
-        [XmlIgnore]
-        public string Cwd { get; set; } // current work directory, string
+        //[XmlIgnore]
+        //public string FileName { get; set; } // file name of struxlm file, string 259
+        //[XmlIgnore]
+        //public string Cwd { get; set; } // current work directory, string
         [XmlIgnore]
         public string FdScriptPath { get; set; } // path to fdscript file, string
 

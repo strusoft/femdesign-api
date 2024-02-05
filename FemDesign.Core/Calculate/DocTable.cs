@@ -66,8 +66,6 @@ namespace FemDesign.Calculate
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool _xmlSomeValueSpecified { get { return CaseIndex.HasValue; } }
 
-
-
         [XmlIgnore]
         public bool AllCaseComb
         {
@@ -87,12 +85,7 @@ namespace FemDesign.Calculate
         [XmlElement("restype")]
         public int ResType { get; set; }
 
-        [XmlIgnore]
-        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
-        private static readonly string _loadCaseSuffix = $"Ultimate - Load case: {MapCase._oname}"; // we can only return Ultimate. BP to update their code.
-        [Obsolete("MapCase/MapComb is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
-        private static readonly string _loadCombSuffix = $"Load Comb.: {MapComb._oname}";
-
+        
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -100,40 +93,6 @@ namespace FemDesign.Calculate
         {
 
         }
-
-        
-        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 23.00.0")]
-        public DocTable(ListProc resultType, FemDesign.Results.UnitResults unitResult = null, bool allCaseCombo = false, Options options = null)
-        {
-            ListProc = resultType;
-
-            var isLoadCase = resultType.IsLoadCase();
-            var isLoadComb = resultType.IsLoadCombination();
-            if (!allCaseCombo)
-            {
-                if (isLoadCase)
-                {
-                    Suffix = _loadCaseSuffix;
-                }
-                else if (isLoadComb)
-                {
-                    Suffix = _loadCombSuffix;
-                }
-            }
-            else
-            {
-                // return all the output related to the analysis
-                // i.e eigen frequency will return all the eigen values
-                CaseIndex = GetDefaultCaseIndex(resultType);
-            }
-
-            Units = Results.Units.GetUnits(unitResult);
-            ResType = GetResType(resultType);
-
-            Option = options ?? Options.GetOptions(resultType);
-        }
-
-
 
         /// <summary>
         /// DocTable Constructor

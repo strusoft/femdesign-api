@@ -52,22 +52,6 @@ namespace FemDesign.Calculate
 
         }
 
-
-        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 23.00.0")]
-        public Bsc(ListProc resultType, string bscPath, Results.UnitResults unitResult = null, bool allLoadCase = true, Options options = null)
-        {
-            if (Path.GetExtension(bscPath) != ".bsc")
-            {
-                throw new ArgumentException($"File path must be '.bsc' but got '{bscPath}'");
-            }
-            BscPath = Path.GetFullPath(bscPath);
-            Cwd = Path.GetDirectoryName(BscPath);
-            DocTable = new DocTable(resultType, unitResult, allLoadCase, options);
-            FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
-            CmdEndSession = new CmdEndSession();
-            SerializeBsc(); // why it is in the constructor?
-        }
-
         /// <summary>
         /// Constructor for .bsc files.
         /// </summary>
