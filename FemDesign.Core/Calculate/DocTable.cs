@@ -78,6 +78,9 @@ namespace FemDesign.Calculate
             }
         }
 
+        [XmlElement("coldata")]
+        public List<Coldata> ColData = Coldata.Default();
+
         [XmlElement("units")]
         public List<FemDesign.Results.Units> Units { get; set; }
 
