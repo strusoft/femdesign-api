@@ -138,86 +138,9 @@ namespace FemDesign.Calculate
                 StructureElements = elements;
         }
 
-        private CmdListGen(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
-        {
-            Initialize(bscPath, outputDir);
-            this.Regional = regional;
-            this.FillCells = fillCells;
-            this.Headers = headers;
-        }
-
-        [Obsolete("OBSOLETE. IT WILL BE REMOVED IN 22.00.0")]
-        internal static CmdListGen Default(string bscPath, string outputDir, bool regional = false, bool fillCells = true, bool headers = true)
-        {
-            return new CmdListGen(bscPath, outputDir, regional, fillCells, headers);
-        }
-
         public override XElement ToXElement()
         {
             return Extension.ToXElement<CmdListGen>(this);
-        }
-    }
-
-
-    
-    [Obsolete("This object is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
-    public partial class MapCase
-    {
-
-        public static readonly string _oname = "loadcasename";
-
-        [XmlAttribute("oname")]
-        public string _refCaseName = MapCase._oname;
-
-        [XmlAttribute("nname")]
-        public string _loadCaseName { get; set; }
-
-        // We are not using index in our API.
-        // The API reference the Load Case by Name 
-        //[XmlAttribute("idx")]
-        //public int Index { get; set; }
-
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private MapCase()
-        {
-
-        }
-
-        public MapCase(string loadCaseName)
-        {
-            this._loadCaseName = loadCaseName;
-        }
-    }
-
-    [Obsolete("This object is no longer available. You can specify the load case/combination using the Suffix property in DocTable.")]
-    public partial class MapComb
-    {
-        public static readonly string _oname = "loadcombname";
-
-        [XmlAttribute("oname")]
-        public string _refCombName = MapComb._oname;
-
-        [XmlAttribute("nname")]
-        public string _loadCombName { get; set; }
-
-        // We are not using index in our API.
-        // The API reference the Load Combination by Name 
-        //[XmlAttribute("idx")]
-        //public int Index { get; set; }
-
-        /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private MapComb()
-        {
-
-        }
-
-        public MapComb(string loadCombName)
-        {
-            this._loadCombName = loadCombName;
         }
     }
 }

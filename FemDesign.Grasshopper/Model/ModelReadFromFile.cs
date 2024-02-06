@@ -46,24 +46,32 @@ namespace FemDesign.Grasshopper
             Model model = null;
 
             // create Task
-            var t = Task.Run((Action)(() =>
+            if(filePath.EndsWith(".str"))
             {
-                var connection = new FemDesign.FemDesignConnection(minimized: true);
-                connection.Open(filePath);
-                model = connection.GetModel();
-                connection.Dispose();
-            }));
+                var t = Task.Run((Action)(() =>
+                {
+                    var connection = new FemDesign.FemDesignConnection(minimized: true);
+                    connection.Open(filePath);
+                    model = connection.GetModel();
+                }));
 
-            t.ConfigureAwait(false);
+                t.ConfigureAwait(false);
 
-            try
-            {
-                t.Wait();
+                try
+                {
+                    t.Wait();
+                }
+                catch (Exception ex)
+                {
+                    throw ex.InnerException;
+                }
             }
-            catch (Exception ex)
+            else if(filePath.EndsWith(".struxml"))
             {
-                throw ex.InnerException;
+                model = Model.DeserializeFromFilePath(filePath);
             }
+
+
 
 
             // get output
@@ -78,7 +86,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{B5904420-07A9-4F1E-BB1E-0282A962A70F}"); }
+            get { return new Guid("{A556C259-234A-43EB-A401-4D69C82098D9}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.tertiary;

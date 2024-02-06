@@ -19,8 +19,6 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
-        [XmlIgnore]
-        public Calculate.Application FdApp { get; set; }// start a new FdApp to get process information.
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
         /// </summary>
@@ -230,13 +228,6 @@ namespace FemDesign
             }
             catch (System.InvalidOperationException ex)
             {
-                if (ex.InnerException != null && ex.InnerException.GetType() == typeof(System.Reflection.TargetInvocationException))
-                {
-                    if (ex.InnerException.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(Calculate.ProgramNotStartedException))
-                    {
-                        throw ex.InnerException.InnerException; // FEM-Design 21 - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script
-                    }
-                }
                 throw ex; // There is an error in XML document (3, 2).
             }
             finally
@@ -316,72 +307,7 @@ namespace FemDesign
             }
         }
 
-        /// <summary>
-        /// Reads a .str model, then saves and deserialize it from file (.struxml).
-        /// </summary>
-        /// <param name="strPath">FEM-Design model (.str) to be read.</param>
-        /// <param name="resultTypes">Results that should be read. (Might require model to have been analysed)</param>
-        /// <param name="killProcess"></param>
-        /// <param name="endSession"></param>
-        /// <param name="checkOpenFiles"></param>
-        public static (Model fdModel, IEnumerable<Results.IResult> results) ReadStr(string strPath, IEnumerable<Type> resultTypes, bool killProcess = false, bool endSession = true, bool checkOpenFiles = true)
-        {
-            if (resultTypes != null)
-            {
-                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-                if (notAResultType != null)
-                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-            }
-
-            var fdScript = Calculate.FdScript.ExtractResults(strPath, resultTypes);
-
-            var app = new Calculate.Application();
-            app.RunFdScript(fdScript, killProcess, endSession, checkOpenFiles);
-
-            Model model = Model.DeserializeFromFilePath(fdScript.CmdSave.FilePath);
-
-            IEnumerable<Results.IResult> results = Enumerable.Empty<Results.IResult>();
-            if (resultTypes != null && resultTypes.Any())
-            {
-                results = fdScript.CmdListGen.Select(cmd => cmd.OutFile).SelectMany(path =>
-                {
-                    try
-                    {
-                        return Results.ResultsReader.Parse(path);
-                    }
-                    catch (System.ApplicationException)
-                    {
-                        return Enumerable.Empty<Results.IResult>();
-                    }
-                });
-            }
-
-            return (model, results);
-        }
-
-        /// <summary>
-        /// Open a Model in FemDesign
-        /// </summary>
-        /// <param name="filePath">if null, the file will be created in the current directory with the name "myModel.struxml"</param>
-        /// <param name="closeOpenWindows"></param>
-        public void Open(string filePath = null, bool closeOpenWindows = false)
-        {
-            if (filePath == null)
-            {
-                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-                filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            }
-
-            this.SerializeModel(filePath);
-
-            if (this.FdApp == null)
-                this.FdApp = new Calculate.Application();
-
-            this.FdApp.OpenStruxml(filePath, closeOpenWindows);
-        }
-
-        
-
+      
         /// <summary>
         /// Serialize Model to string.
         /// </summary>
