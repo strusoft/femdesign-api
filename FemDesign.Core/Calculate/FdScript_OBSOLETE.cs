@@ -245,44 +245,7 @@ namespace FemDesign.Calculate
             return fdScript;
         }
 
-        /// <summary>
-        /// Create fdscript to run analysis and design.
-        /// </summary>
-        public static FdScript Design(string mode, string struxmlPath, Analysis analysis, Design design, List<string> bscPath, string docxTemplatePath, bool endSession, CmdGlobalCfg cmdGlobalCfg = null)
-        {
-            CmdUserModule _mode = CmdUserModule.RCDESIGN;
-            switch (mode)
-            {
-                case "rc":
-                case "Rc":
-                case "RC":
-                case "RCDESIGN":
-                    _mode = CmdUserModule.RCDESIGN;
-                    break;
-                case "steel":
-                case "Steel":
-                case "STEEL":
-                case "STEELDESIGN":
-                    _mode = CmdUserModule.STEELDESIGN;
-                    break;
-                case "timber":
-                case "Timber":
-                case "TIMBER":
-                case "TIMBERDESIGN":
-                    _mode = CmdUserModule.TIMBERDESIGN;
-                    break;
-                default:
-                    throw new ArgumentException("Mode is not supported. Mode should be rc, steel or timber");
-            }
-
-            FdScript fdScript = FdScript.CalculateStruxml(struxmlPath, _mode, bscPath, docxTemplatePath, endSession, cmdGlobalCfg);
-            fdScript.CmdCalculation = new CmdCalculation(analysis, design);
-            if (design.ApplyChanges)
-            {
-                fdScript.CmdDesignDesignChanges = new CmdApplyDesignChanges();
-            }
-            return fdScript;
-        }
+        
 
         /// <summary>
         /// Generate a FEM-Design documentation.

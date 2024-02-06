@@ -835,6 +835,8 @@ namespace FemDesign
 
             return results;
         }
+
+        
         public List<T> GetLoadCombinationResults<T>(string loadCombination = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)

@@ -4,6 +4,10 @@ using System.IO;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Text.RegularExpressions;
+using FemDesign.Calculate;
+using FemDesign.Results;
+using Grasshopper.Kernel.Data;
+using System.Threading.Tasks;
 
 namespace FemDesign.Grasshopper
 {
@@ -39,26 +43,31 @@ namespace FemDesign.Grasshopper
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
 
 
-            if (Path.GetExtension(filePath) == ".str")
-            {
-                // Create FdScript
-                var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath);
+            Model model = null;
 
-                // Run FdScript
-                var app = new FemDesign.Calculate.Application();
-                app.RunFdScript(fdScript, false, true, false, true);
-
-                // Read model and results
-                var strModel = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
-                DA.SetData(0, strModel);
-            }
-            else
+            // create Task
+            var t = Task.Run((Action)(() =>
             {
-                //
-                FemDesign.Model obj = FemDesign.Model.DeserializeFromFilePath(filePath);
-                // return
-                DA.SetData(0, obj);
+                var connection = new FemDesign.FemDesignConnection(minimized: true);
+                connection.Open(filePath);
+                model = connection.GetModel();
+                connection.Dispose();
+            }));
+
+            t.ConfigureAwait(false);
+
+            try
+            {
+                t.Wait();
             }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+
+
+            // get output
+            DA.SetData(0, model);
         }
         protected override System.Drawing.Bitmap Icon
         {

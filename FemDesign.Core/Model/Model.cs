@@ -380,46 +380,7 @@ namespace FemDesign
             this.FdApp.OpenStruxml(filePath, closeOpenWindows);
         }
 
-        public bool RunAnalysis(Calculate.Analysis analysis, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
-        {
-            if (struxmlPath == null)
-            {
-                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-                struxmlPath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            }
-
-            List<string> bscPath = null;
-            if (resultTypes != null)
-            {
-                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
-            }
-
-            this.SerializeModel(struxmlPath);
-            analysis.SetLoadCombinationCalculationParameters(this);
-            return this.FdApp.RunAnalysis(struxmlPath, analysis, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
-        }
-
-        public bool RunDesign(Calculate.CmdUserModule mode, Calculate.Analysis analysis, Calculate.Design design, IEnumerable<Type> resultTypes = null, Results.UnitResults units = null, string struxmlPath = null, string docxTemplatePath = null, bool endSession = false, bool closeOpenWindows = false, Calculate.CmdGlobalCfg cmdGlobalCfg = null)
-        {
-            if (struxmlPath == null)
-            {
-                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-                struxmlPath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            }
-
-            List<string> bscPath = null;
-            if (resultTypes != null)
-            {
-                var notAResultType = resultTypes.Where(r => !typeof(Results.IResult).IsAssignableFrom(r)).FirstOrDefault();
-                if (notAResultType != null)
-                    throw new ArgumentException($"{notAResultType.Name} is not a result type. (It does not inherit from {typeof(FemDesign.Results.IResult).FullName})");
-                bscPath = FemDesign.Calculate.Bsc.BscPathFromResultTypes(resultTypes, struxmlPath, units);
-            }
-
-            this.SerializeModel(struxmlPath);
-            analysis.SetLoadCombinationCalculationParameters(this);
-            return this.FdApp.RunDesign(mode.ToString(), struxmlPath, analysis, design, bscPath, docxTemplatePath, endSession, closeOpenWindows, cmdGlobalCfg);
-        }
+        
 
         /// <summary>
         /// Serialize Model to string.

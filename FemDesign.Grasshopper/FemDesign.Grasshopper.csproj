@@ -122,8 +122,6 @@
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE2212.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
     <Compile Include="Calculate\FreqDefine.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunAnalysis_OBSOLETE.cs" />
-    <Compile Include="Calculate\OBSOLETE\ApplicationRunDesign_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStabilityDefine.cs" />
@@ -158,7 +156,6 @@
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Model\OBSOLETE\ModelConstruct_OBSOLETE_2.cs" />
-    <Compile Include="Model\OBSOLETE\ModelOpen_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadCaseCombResults_OBSOLETE.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeReadStabilityResults_OBSOLETE.cs" />
@@ -227,7 +224,6 @@
     <Compile Include="Model\OBSOLETE\ModelConstructOBSOLETE.cs" />
     <Compile Include="Model\ModelReadFromFile.cs" />
     <Compile Include="Model\ModelReadResults.cs" />
-    <Compile Include="Model\OBSOLETE\ModelReadStr_21.7.0_OBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationDeconstructOBSOLETE.cs" />
     <Compile Include="Obsolete\LoadCombinationConstructOBSOLETE.cs" />
     <Compile Include="Obsolete\ShellEdgeConnectionDefineOBSOLETE.cs" />
@@ -403,10 +399,6 @@
     <Compile Include="Obsolete\ModelCreateOBSOLETE.cs" />
     <Compile Include="Model\OBSOLETE\ModelCreate_21.2.0.OBSOLETEe.cs" />
     <Compile Include="Model\OBSOLETE\ModelCreate3OBSOLETE.cs" />
-    <Compile Include="Model\OBSOLETE\ModelReadStrOBSOLETE.cs" />
-    <Compile Include="Model\OBSOLETE\ModelReadStr_OBSOLETE.cs" />
-    <Compile Include="Model\OBSOLETE\ModelReadStruxml_OBSOLETE.cs" />
-    <Compile Include="Model\OBSOLETE\ModelSerialise_OBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadUniformOBSOLETE.cs" />
     <Compile Include="Obsolete\SurfaceLoadVariableOBSOLETE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
