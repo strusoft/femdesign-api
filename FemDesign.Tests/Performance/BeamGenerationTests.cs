@@ -62,7 +62,10 @@ namespace FemDesign.Performance
             stopWatch.Stop();
             time = stopWatch.ElapsedMilliseconds;
             Console.WriteLine($"Time to Serialise {numberOfBeam} elements is: {time}");
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model);
+            }
             Assert.IsTrue(time < 1500);
         }
     }

@@ -34,7 +34,10 @@ namespace FemDesign.Shells
             {
                 slab.UpdateMaterial(s235);
             }
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
         }
 
         [TestCategory("FEM-Design required")]
@@ -55,7 +58,10 @@ namespace FemDesign.Shells
             var points = new List<Geometry.Point3d> { ptOne, ptTwo, ptThree };
             var values = new List<double> { 1, 2, 0.50 };
             slabTwo.UpdateThickness(points, values);
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
         }
     }
 }

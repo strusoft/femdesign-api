@@ -36,7 +36,10 @@ namespace FemDesign.Entities
             elements.AddRange(psrList);
 
             FemDesign.Model model = new FemDesign.Model(Country.S, elements);
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
         }
 
         public static string SerializeToString(PeakSmoothingRegion peakSmothingRegion)

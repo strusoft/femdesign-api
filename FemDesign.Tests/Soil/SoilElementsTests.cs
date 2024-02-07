@@ -75,7 +75,10 @@ namespace FemDesign.Soil
             var soilElements = new FemDesign.Soil.SoilElements(strata, boreholes);
 
             var model = new Model(Country.S, soil: soilElements);
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
 
             Console.WriteLine(model.SerializeToString());
         }

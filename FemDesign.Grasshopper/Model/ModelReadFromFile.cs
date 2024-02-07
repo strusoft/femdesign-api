@@ -4,6 +4,10 @@ using System.IO;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Text.RegularExpressions;
+using FemDesign.Calculate;
+using FemDesign.Results;
+using Grasshopper.Kernel.Data;
+using System.Threading.Tasks;
 
 namespace FemDesign.Grasshopper
 {
@@ -39,26 +43,40 @@ namespace FemDesign.Grasshopper
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
 
 
-            if (Path.GetExtension(filePath) == ".str")
-            {
-                // Create FdScript
-                var fdScript = FemDesign.Calculate.FdScript.ReadStr(filePath);
+            Model model = null;
 
-                // Run FdScript
-                var app = new FemDesign.Calculate.Application();
-                app.RunFdScript(fdScript, false, true, false, true);
-
-                // Read model and results
-                var strModel = Model.DeserializeFromFilePath(fdScript.StruxmlPath);
-                DA.SetData(0, strModel);
-            }
-            else
+            // create Task
+            if(filePath.EndsWith(".str"))
             {
-                //
-                FemDesign.Model obj = FemDesign.Model.DeserializeFromFilePath(filePath);
-                // return
-                DA.SetData(0, obj);
+                var t = Task.Run((Action)(() =>
+                {
+                    var connection = new FemDesign.FemDesignConnection(minimized: true);
+                    connection.Open(filePath);
+                    model = connection.GetModel();
+                    connection.Dispose();
+                }));
+
+                t.ConfigureAwait(false);
+
+                try
+                {
+                    t.Wait();
+                }
+                catch (Exception ex)
+                {
+                    throw ex.InnerException;
+                }
             }
+            else if(filePath.EndsWith(".struxml"))
+            {
+                model = Model.DeserializeFromFilePath(filePath);
+            }
+
+
+
+
+            // get output
+            DA.SetData(0, model);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -69,7 +87,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{B5904420-07A9-4F1E-BB1E-0282A962A70F}"); }
+            get { return new Guid("{A556C259-234A-43EB-A401-4D69C82098D9}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.tertiary;

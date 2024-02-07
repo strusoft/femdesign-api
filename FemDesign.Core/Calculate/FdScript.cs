@@ -52,10 +52,12 @@ namespace FemDesign.Calculate
     /// <summary>
     /// Fdscript root class
     /// </summary>
+    [XmlRoot("fdscript")]
     public partial class FdScript
     {
-
         public static readonly string Version = "2300";
+                
+        public FdScriptHeader Header { get; set; }
 
         [XmlIgnore]
         public List<CmdCommand> Commands = new List<CmdCommand>();

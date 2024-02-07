@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using FemDesign.AuxiliaryResults;
+using FemDesign.Results;
 
 namespace FemDesign.Examples
 {
@@ -42,55 +44,31 @@ namespace FemDesign.Examples
             Dictionary<double, List<double>> allForces = new Dictionary<double, List<double>>() {};
 
 
-            // RUNNING THE ANALYSIS FOR EACH MESH SIZE
-            foreach (double size in meshSizes)
+            using (var connection = new FemDesign.FemDesignConnection())
             {
-                model.Entities.Slabs[0].SlabPart.MeshSize = size;
 
-                // Serializing new model
-                string currentPath = Path.GetFullPath(Path.Combine(fileName.Replace(".struxml", $"_{size.ToString(System.Globalization.CultureInfo.InvariantCulture)}.struxml")));
-                model.SerializeModel(currentPath);
-
-                // Readying the .bsc script
-                string bscPath = Path.Combine(fileName.Replace(".struxml", $" - LabelledSectionsInternalForcesLoadCombination.bsc"));
-                var bsc = new FemDesign.Calculate.Bsc(FemDesign.Calculate.ListProc.LabelledSectionsInternalForcesLoadCombination, bscPath, null, null, null);
-
-                // Running the analysis
-                FemDesign.Calculate.FdScript fdScript = FemDesign.Calculate.FdScript.Analysis(currentPath, analysisSettings, new List<string> { bsc.BscPath }, null, true);
-                var app = new FemDesign.Calculate.Application();
-                app.RunFdScript(fdScript, false, true, true);
-
-                // Preprarations
-                //string csvPath = bscPath.Replace(".bsc", ".csv");
-                string csvPath = fdScript.CmdListGen[0].OutFile;
-                List<double> currentForces = new List<double>();
-                List<string> L = new List<string>();
-
-                // Reading results
-                using (var reader = new StreamReader(csvPath))
+                // RUNNING THE ANALYSIS FOR EACH MESH SIZE
+                foreach (double size in meshSizes)
                 {
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var values = line.Split('\t');
-                        if (values[0] == labeledSectionIdentifier)
-                        {
-                            L.Add(values[1]);
-                            currentForces.Add(double.Parse(values[forceIdIndex], System.Globalization.CultureInfo.InvariantCulture));
-                        }
-                    }
-                }
+                    model.Entities.Slabs[0].SlabPart.MeshSize = size;
 
-                // Printing results
-                Console.WriteLine($"\nMesh size: {size:##0.00}\n" + $"{"x:",6} | {"Mx':",6}");
-                Console.WriteLine($"{"[m]",6} | {"[kNm/m]",6}");
-                for (int i = 0; i < currentForces.Count; i++)
-                {
-                    Console.WriteLine($"{L[i],6:##0.0} | {currentForces[i]/1000,6:##0.0}");
+                    // Serializing new model
+                    string currentPath = Path.GetFullPath(Path.Combine(fileName.Replace(".struxml", $"_{size.ToString(System.Globalization.CultureInfo.InvariantCulture)}.struxml")));
+                    model.SerializeModel(currentPath);
+
+                    // Running the analysis
+
+                    connection.Open(model, true);
+                    connection.RunAnalysis(analysisSettings);
+                    
+
+                    var forceResults = connection.GetLoadCombinationResults<LabelledSectionInternalForce>();
+
+                    // Preprarations
+                    List<double> currentForces = forceResults.Select(x => x.Tyz).ToList();
+                    allForces.Add(size, currentForces);
                 }
-                allForces.Add(size, currentForces);
             }
-
 
             // PREPARATIONS
             // Variables needed for the convergence calculation.

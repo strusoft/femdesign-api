@@ -175,7 +175,6 @@
     <Compile Include="Bars\Eccentricity.cs" />
     <Compile Include="Bars\ModelEccentricity.cs" />
     <Compile Include="Calculate\Analysis.cs" />
-    <Compile Include="Calculate\Application.cs" />
     <Compile Include="Calculate\Bsc.cs" />
     <Compile Include="Calculate\CmdUserModuleEnum.cs" />
     <Compile Include="Calculate\Footfall.cs" />
@@ -190,7 +189,6 @@
     <Compile Include="Calculate\CombItem.cs" />
     <Compile Include="Calculate\Design.cs" />
     <Compile Include="Calculate\DocTable.cs" />
-    <Compile Include="Calculate\FdScript_OBSOLETE.cs" />
     <Compile Include="Calculate\FdScriptHeader.cs" />
     <Compile Include="Calculate\Font.cs" />
     <Compile Include="Calculate\Freq.cs" />
