@@ -39,7 +39,10 @@ namespace FemDesign.Geometry
             var model = new FemDesign.Model(Country.S);
             var elements = new List<FemDesign.Shells.Slab>() { rectangleWall, rectangleWall2, slab, slab2 };
             model.AddElements(elements);
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
         }
     }
 }

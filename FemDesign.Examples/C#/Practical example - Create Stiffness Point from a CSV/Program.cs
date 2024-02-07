@@ -35,4 +35,7 @@ foreach (var point in points)
 var model = new FemDesign.Model(FemDesign.Country.S);
 model.AddElements(struElements);
 
-model.Open();
+using(var connection = new FemDesign.FemDesignConnection())
+{
+    connection.Open(model, true);
+}

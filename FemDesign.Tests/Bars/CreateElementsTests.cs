@@ -68,7 +68,10 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
             var struxmlTxt = model.SerializeToString();
             Console.WriteLine(struxmlTxt);
 
@@ -122,7 +125,10 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
             var struxmlTxt = model.SerializeToString();
             Console.WriteLine(struxmlTxt);
 
@@ -197,7 +203,10 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
             var struxmlTxt = model.SerializeToString();
             Console.WriteLine(struxmlTxt);
 

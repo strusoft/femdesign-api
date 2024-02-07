@@ -53,6 +53,7 @@ namespace FemDesign.Grasshopper
                     var connection = new FemDesign.FemDesignConnection(minimized: true);
                     connection.Open(filePath);
                     model = connection.GetModel();
+                    connection.Dispose();
                 }));
 
                 t.ConfigureAwait(false);

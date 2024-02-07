@@ -137,7 +137,10 @@ namespace FemDesign.Models
         public void Open()
         {
             Model model = new Model(Country.S);
-            model.Open();
+            using (var connection = new FemDesign.FemDesignConnection())
+            {
+                connection.Open(model, true);
+            }
         }
 
         /// <summary>
