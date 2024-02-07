@@ -10817,195 +10817,195 @@ namespace StruSoft.Interop.StruXml.Data
     public partial class Steel_pl_data
     {
         
-        private bool elastoplastic_bahaviour_UField;
+        private bool elasto_plastic_behaviour_UField;
         
-        private bool elastoplastic_strain_limit_UField;
+        private bool elasto_plastic_strain_limit_UField;
         
-        private double elastoplastic_strain_limit_option_UField;
+        private double elasto_plastic_strain_limit_option_UField;
         
-        private bool elastoplastic_bahaviour_SqField;
+        private bool elasto_plastic_behaviour_SqField;
         
-        private bool elastoplastic_strain_limit_SqField;
+        private bool elasto_plastic_strain_limit_SqField;
         
-        private double elastoplastic_strain_limit_option_SqField;
+        private double elasto_plastic_strain_limit_option_SqField;
         
-        private bool elastoplastic_bahaviour_SfField;
+        private bool elasto_plastic_behaviour_SfField;
         
-        private bool elastoplastic_strain_limit_SfField;
+        private bool elasto_plastic_strain_limit_SfField;
         
-        private double elastoplastic_strain_limit_option_SfField;
+        private double elasto_plastic_strain_limit_option_SfField;
         
-        private bool elastoplastic_bahaviour_ScField;
+        private bool elasto_plastic_behaviour_ScField;
         
-        private bool elastoplastic_strain_limit_ScField;
+        private bool elasto_plastic_strain_limit_ScField;
         
-        private double elastoplastic_strain_limit_option_ScField;
+        private double elasto_plastic_strain_limit_option_ScField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_U")]
-        public bool Elastoplastic_bahaviour_U
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_behaviour_U")]
+        public bool Elasto_plastic_behaviour_U
         {
             get
             {
-                return this.elastoplastic_bahaviour_UField;
+                return this.elasto_plastic_behaviour_UField;
             }
             set
             {
-                this.elastoplastic_bahaviour_UField = value;
+                this.elasto_plastic_behaviour_UField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_U")]
-        public bool Elastoplastic_strain_limit_U
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_U")]
+        public bool Elasto_plastic_strain_limit_U
         {
             get
             {
-                return this.elastoplastic_strain_limit_UField;
+                return this.elasto_plastic_strain_limit_UField;
             }
             set
             {
-                this.elastoplastic_strain_limit_UField = value;
+                this.elasto_plastic_strain_limit_UField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_U")]
-        public double Elastoplastic_strain_limit_option_U
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_option_U")]
+        public double Elasto_plastic_strain_limit_option_U
         {
             get
             {
-                return this.elastoplastic_strain_limit_option_UField;
+                return this.elasto_plastic_strain_limit_option_UField;
             }
             set
             {
-                this.elastoplastic_strain_limit_option_UField = value;
+                this.elasto_plastic_strain_limit_option_UField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sq")]
-        public bool Elastoplastic_bahaviour_Sq
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_behaviour_Sq")]
+        public bool Elasto_plastic_behaviour_Sq
         {
             get
             {
-                return this.elastoplastic_bahaviour_SqField;
+                return this.elasto_plastic_behaviour_SqField;
             }
             set
             {
-                this.elastoplastic_bahaviour_SqField = value;
+                this.elasto_plastic_behaviour_SqField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sq")]
-        public bool Elastoplastic_strain_limit_Sq
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_Sq")]
+        public bool Elasto_plastic_strain_limit_Sq
         {
             get
             {
-                return this.elastoplastic_strain_limit_SqField;
+                return this.elasto_plastic_strain_limit_SqField;
             }
             set
             {
-                this.elastoplastic_strain_limit_SqField = value;
+                this.elasto_plastic_strain_limit_SqField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sq")]
-        public double Elastoplastic_strain_limit_option_Sq
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_option_Sq")]
+        public double Elasto_plastic_strain_limit_option_Sq
         {
             get
             {
-                return this.elastoplastic_strain_limit_option_SqField;
+                return this.elasto_plastic_strain_limit_option_SqField;
             }
             set
             {
-                this.elastoplastic_strain_limit_option_SqField = value;
+                this.elasto_plastic_strain_limit_option_SqField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sf")]
-        public bool Elastoplastic_bahaviour_Sf
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_behaviour_Sf")]
+        public bool Elasto_plastic_behaviour_Sf
         {
             get
             {
-                return this.elastoplastic_bahaviour_SfField;
+                return this.elasto_plastic_behaviour_SfField;
             }
             set
             {
-                this.elastoplastic_bahaviour_SfField = value;
+                this.elasto_plastic_behaviour_SfField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sf")]
-        public bool Elastoplastic_strain_limit_Sf
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_Sf")]
+        public bool Elasto_plastic_strain_limit_Sf
         {
             get
             {
-                return this.elastoplastic_strain_limit_SfField;
+                return this.elasto_plastic_strain_limit_SfField;
             }
             set
             {
-                this.elastoplastic_strain_limit_SfField = value;
+                this.elasto_plastic_strain_limit_SfField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sf")]
-        public double Elastoplastic_strain_limit_option_Sf
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_option_Sf")]
+        public double Elasto_plastic_strain_limit_option_Sf
         {
             get
             {
-                return this.elastoplastic_strain_limit_option_SfField;
+                return this.elasto_plastic_strain_limit_option_SfField;
             }
             set
             {
-                this.elastoplastic_strain_limit_option_SfField = value;
+                this.elasto_plastic_strain_limit_option_SfField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour_Sc")]
-        public bool Elastoplastic_bahaviour_Sc
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_behaviour_Sc")]
+        public bool Elasto_plastic_behaviour_Sc
         {
             get
             {
-                return this.elastoplastic_bahaviour_ScField;
+                return this.elasto_plastic_behaviour_ScField;
             }
             set
             {
-                this.elastoplastic_bahaviour_ScField = value;
+                this.elasto_plastic_behaviour_ScField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_Sc")]
-        public bool Elastoplastic_strain_limit_Sc
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_Sc")]
+        public bool Elasto_plastic_strain_limit_Sc
         {
             get
             {
-                return this.elastoplastic_strain_limit_ScField;
+                return this.elasto_plastic_strain_limit_ScField;
             }
             set
             {
-                this.elastoplastic_strain_limit_ScField = value;
+                this.elasto_plastic_strain_limit_ScField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_strain_limit_option_Sc")]
-        public double Elastoplastic_strain_limit_option_Sc
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_strain_limit_option_Sc")]
+        public double Elasto_plastic_strain_limit_option_Sc
         {
             get
             {
-                return this.elastoplastic_strain_limit_option_ScField;
+                return this.elasto_plastic_strain_limit_option_ScField;
             }
             set
             {
-                this.elastoplastic_strain_limit_option_ScField = value;
+                this.elasto_plastic_strain_limit_option_ScField = value;
             }
         }
     }
@@ -11188,7 +11188,7 @@ namespace StruSoft.Interop.StruXml.Data
     public partial class Concrete_pl_attribs
     {
         
-        private bool elastoplastic_bahaviourField;
+        private bool elasto_plastic_behaviourField;
         
         private bool plastic_hardeningField;
         
@@ -11215,16 +11215,16 @@ namespace StruSoft.Interop.StruXml.Data
         private bool ultimate_strainField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("elasto-plastic_bahaviour")]
-        public bool Elastoplastic_bahaviour
+        [System.Xml.Serialization.XmlAttributeAttribute("elasto_plastic_behaviour")]
+        public bool Elasto_plastic_behaviour
         {
             get
             {
-                return this.elastoplastic_bahaviourField;
+                return this.elasto_plastic_behaviourField;
             }
             set
             {
-                this.elastoplastic_bahaviourField = value;
+                this.elasto_plastic_behaviourField = value;
             }
         }
         
