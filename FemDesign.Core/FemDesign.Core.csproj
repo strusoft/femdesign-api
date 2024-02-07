@@ -66,6 +66,7 @@
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
     <Compile Include="Calculate\CmdResultPoint.cs" />
+    <Compile Include="Calculate\Coldata.cs" />
     <Compile Include="Calculate\Imperfection.cs" />
     <Compile Include="Calculate\Stability.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
