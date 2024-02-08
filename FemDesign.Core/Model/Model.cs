@@ -1949,6 +1949,12 @@ namespace FemDesign
         /// </summary>
         private bool ReinforcingMaterialInModel(Materials.Material obj)
         {
+            if(this.ReinforcingMaterials == null)
+            {
+                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+                return false;
+            }
+
             foreach (Materials.Material elem in this.ReinforcingMaterials.Material)
             {
                 if (elem.Guid == obj.Guid)

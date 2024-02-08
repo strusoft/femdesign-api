@@ -10,8 +10,10 @@ namespace FemDesign.Materials
     [System.Serializable]
     public partial class Steel: MaterialBase
     {
+        [XmlElement("tda_creep")]
         public StruSoft.Interop.StruXml.Data.Tda_creep1 CreepTimeDependant { get; set; }
-        
+
+        [XmlElement("plastic_analysis_data")]
         public StruSoft.Interop.StruXml.Data.Steel_pl_data Plasticity { get; set; }
 
         [XmlAttribute("Fyk16")]
