@@ -78,7 +78,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlElement("coldata", Order = 6)]
-        public List<Coldata> ColData = Coldata.Default(); // number of columns should be equal to the number of columns in the output file
+        public List<Coldata> ColData = Coldata.Default(); // we are using 61 column data as it should be the maximum number of column in our result type
 
         [XmlElement("units", Order = 7)]
         public List<FemDesign.Results.Units> Units { get; set; }
@@ -174,7 +174,7 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors" || r.StartsWith("Equilibrium"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors" || r.StartsWith("Equilibrium") || r.StartsWith("Section"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;
@@ -191,7 +191,7 @@ namespace FemDesign.Calculate
         private int GetDefaultCaseIndex(ListProc resultType)
         {
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors")
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors" || r.StartsWith("Section"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return -65536; // All load cases
