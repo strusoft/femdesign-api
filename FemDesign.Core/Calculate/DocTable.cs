@@ -45,26 +45,27 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public partial class DocTable
     {
-        [XmlElement("version")]
-        public string FemDesignVersion { get; set; } = FdScript.Version;
-        
-        [XmlElement("listproc")]
+        [XmlElement("listproc", Order = 2)]
         public ListProc ListProc { get; set; }
 
-        [XmlElement("suffix")]
-        public string Suffix { get; set; }
-
+        [XmlElement("version", Order = 3)]
+        public string FemDesignVersion { get; set; } = FdScript.Version;
+        
 
         // micro pattern to avoid an empty element
         // https://stackoverflow.com/a/610630/14969396
         [XmlIgnore]
         public int? CaseIndex { get; set; }
-
-        [XmlElement("index")]
+        [XmlElement("index", Order = 4)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int _xmlSomeValue { get { return CaseIndex.Value; } set { CaseIndex = value; } }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool _xmlSomeValueSpecified { get { return CaseIndex.HasValue; } }
+
+        [XmlElement("suffix", Order = 5)]
+        public string Suffix { get; set; }
+
+
 
         [XmlIgnore]
         public bool AllCaseComb
@@ -76,16 +77,16 @@ namespace FemDesign.Calculate
             }
         }
 
-        [XmlElement("coldata")]
-        public List<Coldata> ColData = Coldata.Default();
+        [XmlElement("coldata", Order = 6)]
+        public List<Coldata> ColData = Coldata.Default(); // number of columns should be equal to the number of columns in the output file
 
-        [XmlElement("units")]
+        [XmlElement("units", Order = 7)]
         public List<FemDesign.Results.Units> Units { get; set; }
 
-        [XmlElement("options")]
+        [XmlElement("options", Order = 8)]
         public Options Option { get; set; }
         
-        [XmlElement("restype")]
+        [XmlElement("restype", Order = 9)]
         public int ResType { get; set; }
 
         
@@ -124,7 +125,6 @@ namespace FemDesign.Calculate
 
             Units = Results.Units.GetUnits(unitResult);
             ResType = GetResType(resultType);
-
             Option = options ?? Options.GetOptions(resultType);
         }
 
