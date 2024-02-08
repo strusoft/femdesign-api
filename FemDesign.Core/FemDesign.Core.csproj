@@ -115,6 +115,7 @@
     <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
     <Compile Include="Results\RC design\RCShellShearCapacity.cs" />
     <Compile Include="Results\RC design\RCShellShearUtilization.cs" />
+    <Compile Include="Results\SectionProperties.cs" />
     <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />

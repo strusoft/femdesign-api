@@ -17,6 +17,15 @@ namespace FemDesign.Calculate
     #endif
     public enum ListProc
     {
+        #region STRUCTURE
+        /* STRUCTURE */
+        /// <summary>
+        /// Section properties
+        /// </summary>
+        [XmlEnum("StrucSection_ListProc")]
+        SectionProperties,
+        #endregion
+
         #region FINITE ELEMENTS
         /* FINITE ELEMENTS */
         /// <summary>
