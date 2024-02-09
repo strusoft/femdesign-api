@@ -99,6 +99,7 @@
     <Compile Include="Materials\TimberServiceClassFactors.cs" />
     <Compile Include="Materials\TimberServiceClassKdefs.cs" />
     <Compile Include="Results\BarStress.cs" />
+    <Compile Include="Results\Equilibrium.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
     <Compile Include="Results\InteractionSurface.cs" />

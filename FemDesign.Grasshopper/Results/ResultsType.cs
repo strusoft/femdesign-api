@@ -47,8 +47,10 @@ namespace FemDesign.Grasshopper
                 nameof(FemDesign.Results.CLTShellUtilization),
                 nameof(FemDesign.Results.CLTFireUtilization),
                 nameof(FemDesign.Results.RCBarUtilization),
+                nameof(FemDesign.Results.RCShellUtilization),
                 nameof(FemDesign.Results.LabelledSectionInternalForce),
                 nameof(FemDesign.Results.LabelledSectionResultant),
+                nameof(FemDesign.Results.Equilibrium),
                 nameof(FemDesign.Results.NodalVibration),
                 nameof(FemDesign.Results.EigenFrequencies),
                 nameof(FemDesign.Results.NodalBucklingShape),
@@ -62,7 +64,7 @@ namespace FemDesign.Grasshopper
                 nameof(FemDesign.Results.QuantityEstimationReinforcement),
                 nameof(FemDesign.Results.FiniteElement),
                 nameof(FemDesign.Results.BarTimberUtilization),
-                nameof(FemDesign.Results.BarSteelUtilization)
+                nameof(FemDesign.Results.BarSteelUtilization),
             };
             
             GH_ValueListItem vi;

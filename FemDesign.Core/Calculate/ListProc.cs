@@ -12,9 +12,9 @@ using Autodesk.DesignScript.Runtime;
 namespace FemDesign.Calculate
 {
     [System.Serializable]
-    #if ISDYNAMO
+#if ISDYNAMO
 	[IsVisibleInDynamoLibrary(false)]
-    #endif
+#endif
     public enum ListProc
     {
         #region FINITE ELEMENTS
@@ -214,6 +214,11 @@ namespace FemDesign.Calculate
         /// </summary>
         [XmlEnum("frCaseStrsBotShellExtract_ListProc")]
         ShellStressesBottomExtractLoadCase,
+        /// <summary>
+        /// Load case: Equilibrium
+        /// </summary>
+        [XmlEnum("frCaseEqui_ListProc")]
+        EquilibriumLoadCase,
         #endregion
 
         #region LOAD COMBINATIONS
@@ -229,12 +234,12 @@ namespace FemDesign.Calculate
         [XmlEnum("frCombIntfBar_ListProc")]
         BarsInternalForcesLoadCombination,
         /// <summary>
-        /// Load case: Shells, Derived Forces
+        /// Load combination: Shells, Derived Forces
         /// </summary>
         [XmlEnum("frCombIntfDerShell_ListProc")]
         ShellDerivedForceLoadCombination,
         /// <summary>
-        /// Load case: Shells, Derived Forces (Extract)
+        /// Load combination: Shells, Derived Forces (Extract)
         /// </summary>
         [XmlEnum("frCombIntfDerShellExtract_ListProc")]
         ShellDerivedForceExtractLoadCombination,
@@ -294,12 +299,12 @@ namespace FemDesign.Calculate
         [XmlEnum("frCombReacLnGroupRes_ListProc")]
         LineSupportResultantsLoadCombination,
         /// <summary>
-        /// Load case: Surface support, Reactions
+        /// Load combination: Surface support, Reactions
         /// </summary>
         [XmlEnum("frCombReacSf_ListProc")]
         SurfaceSupportReactionsLoadCombination,
         /// <summary>
-        /// Load case: Surface support, Resultants
+        /// Load combination: Surface support, Resultants
         /// </summary>
         [XmlEnum("frCombReacSfRes_ListProc")]
         SurfaceSupportResultantsLoadCombination,
@@ -325,35 +330,40 @@ namespace FemDesign.Calculate
         ShellInternalForceExtractLoadCombination,
 
         /// <summary>
-        /// Load case: Shells, Stresses Top Side
+        /// Load combination: Shells, Stresses Top Side
         /// </summary>
         [XmlEnum("frCombStrsTopShell_ListProc")]
         ShellStressesTopLoadCombination,
         /// <summary>
-        /// Load case: Shells, Stresses Top Side (Extract)
+        /// Load combination: Shells, Stresses Top Side (Extract)
         /// </summary>
         [XmlEnum("frCombStrsTopShellExtract_ListProc")]
         ShellStressesTopExtractLoadCombination,
         /// <summary>
-        /// Load case: Shells, Stresses Mid Axis
+        /// Load combination: Shells, Stresses Mid Axis
         /// </summary>
         [XmlEnum("frCombStrsMembShell_ListProc")]
         ShellStressesMembraneLoadCombination,
         /// <summary>
-        /// Load case: Shells, Stresses Mid Axis (Extract)
+        /// Load combination: Shells, Stresses Mid Axis (Extract)
         /// </summary>
         [XmlEnum("frCombStrsMembShellExtract_ListProc")]
         ShellStressesMembraneExtractLoadCombination,
         /// <summary>
-        /// Load case: Shells, Stresses Bottom Side
+        /// Load combination: Shells, Stresses Bottom Side
         /// </summary>
         [XmlEnum("frCombStrsBotShell_ListProc")]
         ShellStressesBottomLoadCombination,
         /// <summary>
-        /// Load case: Shells, Stresses Bottom Side (Extract)
+        /// Load combination: Shells, Stresses Bottom Side (Extract)
         /// </summary>
         [XmlEnum("frCombStrsBotShellExtract_ListProc")]
         ShellStressesBottomExtractLoadCombination,
+        /// <summary>
+        /// Load combination: Equilibrium
+        /// </summary>
+        [XmlEnum("frCombEqui_ListProc")]
+        EquilibriumLoadCombination,
         #endregion
 
         #region MAX OF LOAD COMBINATION
