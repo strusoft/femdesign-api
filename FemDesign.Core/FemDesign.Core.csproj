@@ -249,7 +249,6 @@
     <Compile Include="Geometry\Contour.cs" />
     <Compile Include="Geometry\Degree.cs" />
     <Compile Include="Geometry\Edge.cs" />
-    <Compile Include="Geometry\CoordinateSystem.cs" />
     <Compile Include="Geometry\Plane.cs" />
     <Compile Include="Geometry\Point2d.cs" />
     <Compile Include="Geometry\Point3d.cs" />

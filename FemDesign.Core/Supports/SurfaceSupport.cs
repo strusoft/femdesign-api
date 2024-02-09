@@ -40,9 +40,6 @@ namespace FemDesign.Supports
                 this._predefRigidityRef = new GuidListType(value.Guid);
             }
         }
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlElement("local_system", Order= 4)]
         public Geometry.Plane Plane { get; set; }

@@ -111,12 +111,6 @@ namespace FemDesign.Bars
                 this.Plane = value.Plane;
             }
         }
-        [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlIgnore]
         private Geometry.Plane _plane;

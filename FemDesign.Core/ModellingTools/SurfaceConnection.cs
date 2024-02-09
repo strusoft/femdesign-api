@@ -50,10 +50,6 @@ namespace FemDesign.ModellingTools
         [XmlElement("ref", Order = 4)]
         public GuidListType[] References { get; set; }
 
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
-
         [XmlElement("local_system", Order = 5)]
         public Geometry.Plane _plane;
 

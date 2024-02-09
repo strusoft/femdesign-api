@@ -30,10 +30,11 @@ namespace FemDesign.Calculate
             foreach(FemDesign.GenericClasses.IStructureElement element in myElement)
                 elements.Add(element);
 
-            using (var femDesign = new FemDesignConnection(keepOpen: true))
+            using (var femDesign = new FemDesignConnection(keepOpen: false))
             {
                 // Run analysis and red some results
-                var myFile = @"C:\GitHub\femdesign-api\FemDesign.Tests\Calculate\pickElement.str";
+                var myFile = @"Calculate\pickElement.str";
+                myFile = System.IO.Path.GetFullPath(myFile);
                 femDesign.Open(myFile);
                 var results = femDesign.GetResults<Results.NodalDisplacement>(elements: elements);
             }

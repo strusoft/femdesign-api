@@ -116,7 +116,6 @@
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
-    <Compile Include="Loads\Load combinations\LoadCombinationSetupCalculation_OBSOLETE2212.cs" />
     <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadVariable.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnSection.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
-    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
     <Compile Include="Releases\RotationsPredefined.cs" />
     <Compile Include="Releases\MotionsPredefined.cs" />
     <Compile Include="Results\BarInternalForce.cs" />
@@ -314,7 +312,6 @@
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeStart.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShape.cs" />
-    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc_OBSOLETE.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />

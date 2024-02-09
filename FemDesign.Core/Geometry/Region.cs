@@ -15,9 +15,6 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class Region
     {
-        [Obsolete("Use Plane", true)]
-        [XmlIgnore]
-        public Geometry.CoordinateSystem CoordinateSystem { get; set; }
         [XmlIgnore]
         public Plane Plane { get; set; }
 

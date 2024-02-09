@@ -99,23 +99,6 @@ namespace FemDesign.Sections
         /// <summary>
         /// Construct a new section
         /// </summary>
-        [Obsolete("Consider use the other constructor. 'Name' shouldn't be set.")]
-        public Section(Geometry.RegionGroup regionGroup, string name, string type, Materials.MaterialTypeEnum materialTypeEnum, string groupName, string typeName, string sizeName)
-        {
-            this.EntityCreated();
-            this.RegionGroup = regionGroup;
-            this.Name = name;
-            this.Type = type;
-            this.MaterialType = ((int)materialTypeEnum).ToString();
-            this.GroupName = groupName;
-            this.TypeName = typeName;
-            this.SizeName = sizeName;
-            this._end = "";
-        }
-
-        /// <summary>
-        /// Construct a new section
-        /// </summary>
         public Section(Geometry.RegionGroup regionGroup, string type, Materials.MaterialTypeEnum materialTypeEnum, string groupName, string typeName, string sizeName)
         {
             this.EntityCreated();

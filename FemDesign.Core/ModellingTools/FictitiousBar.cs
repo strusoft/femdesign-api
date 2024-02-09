@@ -17,13 +17,6 @@ namespace FemDesign.ModellingTools
         public Geometry.Edge Edge { get; set; }
 
         [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
-
-        [XmlIgnore]
         private Geometry.Plane _plane;
 
         [XmlIgnore]
