@@ -178,6 +178,9 @@ namespace FemDesign.Grasshopper
             }
 
 
+            // Gets how many times SolveInstance() has been called
+            var iteration = DA.Iteration;
+
             // Create Task
             var t = Task.Run((Action)(() =>
             {
@@ -228,7 +231,7 @@ namespace FemDesign.Grasshopper
                     foreach (var type in types)
                     {
                         var res = _getResults(connection, type, units, options);
-                        resultsTree.AddRange(res, new GH_Path(i));
+                        resultsTree.AddRange(res, new GH_Path(iteration,i));
                         i++;
                     }
                 }
