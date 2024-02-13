@@ -29,18 +29,29 @@ namespace FemDesign.Grasshopper
         {
             // get indata
             string filePath = null;
-            if (!DA.GetData(0, ref filePath))
-            {
-                return;
-            }
+            DA.GetData(0, ref filePath);
 
-            if (filePath == null)
-            {
-                return;
-            }
 
             if (_FileName.IsASCII(filePath))
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "File path has special characters. This might cause problems.");
+
+
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                // hops issue
+                //var folderPath = System.IO.Directory.GetCurrentDirectory();
+                string tempPath = System.IO.Path.GetTempPath();
+                System.IO.Directory.SetCurrentDirectory(tempPath);
+            }
+            else
+            {
+                filePath = OnPingDocument().FilePath;
+                var currentDir = System.IO.Path.GetDirectoryName(filePath);
+                System.IO.Directory.SetCurrentDirectory(currentDir);
+            }
+
+
 
 
             Model model = null;
