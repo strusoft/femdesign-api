@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
 {
     public class ApplicationRun : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
         }
@@ -140,9 +140,9 @@ namespace FemDesign.Grasshopper
             DA.GetData("SaveFilePath", ref saveFilePath);
 
 
-            if (analysis == null && design == null && saveFilePath == null)
+            if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design' or 'SaveFilePath'");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
                 return;
             }
 
