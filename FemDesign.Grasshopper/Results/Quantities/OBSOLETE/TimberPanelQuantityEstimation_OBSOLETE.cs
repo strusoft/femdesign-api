@@ -8,15 +8,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SteelQuantityEstimation : FEM_Design_API_Component
+    public class TimberPanelQuantityEstimation_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
-        /// Initializes a new instance of the SteelQuantityEstimation class.
+        /// Initializes a new instance of the TimberPanelQuantityEstimation class.
         /// </summary>
-        public SteelQuantityEstimation()
-          : base("SteelQuantityEstimation",
-                "SteelQuantityEstimation",
-                "Read the Steel Quantity Estimation results for the entire model",
+        public TimberPanelQuantityEstimation_OBSOLETE()
+          : base("TimberPanelQuantityEstimation",
+                "TimberPanelQuantityEstimation",
+                "Read the Timber Panel Quantity Estimation results for the entire model",
                 CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
@@ -37,14 +37,15 @@ namespace FemDesign.Grasshopper
         {
             pManager.Register_StringParam("Storey", "Storey", "");
             pManager.Register_StringParam("Structure", "Structure", "");
-            pManager.Register_StringParam("Id", "Id", "");
             pManager.Register_StringParam("Quality", "Quality", "");
-            pManager.Register_StringParam("Section", "Section", "");
-            pManager.Register_DoubleParam("UnitWeight", "UnitWeight", "");
-            pManager.Register_DoubleParam("Subtotal", "Subtotal", "");
+            pManager.Register_StringParam("Id", "Id", "");
+            pManager.Register_StringParam("PanelType", "PanelType", "");
+            pManager.Register_DoubleParam("Thickness", "Thickness", "");
+            pManager.Register_DoubleParam("Length", "Length", "");
+            pManager.Register_DoubleParam("Width", "Width", "");
+            pManager.Register_DoubleParam("Area", "Area", "");
+            pManager.Register_IntegerParam("Pieces", "Pieces", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
-            pManager.Register_DoubleParam("PaintedArea", "PaintedArea", "");
-            pManager.Register_DoubleParam("CO2Footprint", "CO2Footprint", "kg CO2e");
         }
 
         /// <summary>
@@ -55,35 +56,38 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.QuantityEstimationSteel> iResult = new List<FemDesign.Results.QuantityEstimationSteel>();
+            List<FemDesign.Results.QuantityEstimationTimberPanel> iResult = new List<FemDesign.Results.QuantityEstimationTimberPanel>();
             DA.GetDataList("Result", iResult);
 
-            var storey = iResult.Select(x => x.Storey);
+
             var structure = iResult.Select(x => x.Structure);
+            var storey = iResult.Select(x => x.Storey);
             var id = iResult.Select(x => x.Id);
             var quality = iResult.Select(x => x.Quality);
-            var section = iResult.Select(x => x.Section);
-            var unitWeight = iResult.Select(x => x.UnitWeight);
-            var subTotal = iResult.Select(x => x.SubTotal);
+            var panelType = iResult.Select(x => x.PanelType);
+            var thickness = iResult.Select(x => x.Thickness);
             var totalWeight = iResult.Select(x => x.TotalWeight);
-            var paintedArea = iResult.Select(x => x.PaintedArea);
-            var co2 = iResult.Select(x => x.CO2Footprint);
+            var length = iResult.Select(x => x.Length);
+            var width = iResult.Select(x => x.Width);
+            var area = iResult.Select(x => x.Area);
+            var pieces = iResult.Select(x => x.Count);
 
 
             // Set output
             DA.SetDataList("Storey", storey);
             DA.SetDataList("Structure", structure);
-            DA.SetDataList("Id", id);
             DA.SetDataList("Quality", quality);
-            DA.SetDataList("Section", section);
-            DA.SetDataList("UnitWeight", unitWeight);
-            DA.SetDataList("Subtotal", subTotal);
+            DA.SetDataList("Id", id);
+            DA.SetDataList("PanelType", panelType);
+            DA.SetDataList("Thickness", thickness);
+            DA.SetDataList("Length", length);
+            DA.SetDataList("Width", width);
+            DA.SetDataList("Area", area);
+            DA.SetDataList("Pieces", pieces);
             DA.SetDataList("TotalWeight", totalWeight);
-            DA.SetDataList("PaintedArea", paintedArea);
-            DA.SetDataList("CO2Footprint", co2);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -103,7 +107,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7E6355D0-9BB7-4F85-A8AB-65EDF4AA3B7E}"); }
+            get { return new Guid("{95931DAA-9F3A-4931-8AB3-BBE814587AF8}"); }
         }
     }
 }

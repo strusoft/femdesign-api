@@ -8,12 +8,12 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SteelQuantityEstimation : FEM_Design_API_Component
+    public class SteelQuantityEstimation_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the SteelQuantityEstimation class.
         /// </summary>
-        public SteelQuantityEstimation()
+        public SteelQuantityEstimation_OBSOLETE()
           : base("SteelQuantityEstimation",
                 "SteelQuantityEstimation",
                 "Read the Steel Quantity Estimation results for the entire model",
@@ -44,7 +44,6 @@ namespace FemDesign.Grasshopper
             pManager.Register_DoubleParam("Subtotal", "Subtotal", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
             pManager.Register_DoubleParam("PaintedArea", "PaintedArea", "");
-            pManager.Register_DoubleParam("CO2Footprint", "CO2Footprint", "kg CO2e");
         }
 
         /// <summary>
@@ -67,7 +66,6 @@ namespace FemDesign.Grasshopper
             var subTotal = iResult.Select(x => x.SubTotal);
             var totalWeight = iResult.Select(x => x.TotalWeight);
             var paintedArea = iResult.Select(x => x.PaintedArea);
-            var co2 = iResult.Select(x => x.CO2Footprint);
 
 
             // Set output
@@ -80,10 +78,9 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Subtotal", subTotal);
             DA.SetDataList("TotalWeight", totalWeight);
             DA.SetDataList("PaintedArea", paintedArea);
-            DA.SetDataList("CO2Footprint", co2);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -103,7 +100,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7E6355D0-9BB7-4F85-A8AB-65EDF4AA3B7E}"); }
+            get { return new Guid("{59BAD8C3-D381-4749-8572-96D4A7B437B8}"); }
         }
     }
 }

@@ -8,15 +8,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SteelQuantityEstimation : FEM_Design_API_Component
+    public class ConcreteQuantityEstimation_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
-        /// Initializes a new instance of the SteelQuantityEstimation class.
+        /// Initializes a new instance of the ConcreteQuantityEstimation class.
         /// </summary>
-        public SteelQuantityEstimation()
-          : base("SteelQuantityEstimation",
-                "SteelQuantityEstimation",
-                "Read the Steel Quantity Estimation results for the entire model",
+        public ConcreteQuantityEstimation_OBSOLETE()
+          : base("ConcreteQuantityEstimation",
+                "ConcreteQuantityEstimation",
+                "Read the Concrete Quantity Estimation results for the entire model",
                 CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
@@ -40,11 +40,11 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("Id", "Id", "");
             pManager.Register_StringParam("Quality", "Quality", "");
             pManager.Register_StringParam("Section", "Section", "");
-            pManager.Register_DoubleParam("UnitWeight", "UnitWeight", "");
             pManager.Register_DoubleParam("Subtotal", "Subtotal", "");
+            pManager.Register_DoubleParam("Volume", "Volume", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
-            pManager.Register_DoubleParam("PaintedArea", "PaintedArea", "");
-            pManager.Register_DoubleParam("CO2Footprint", "CO2Footprint", "kg CO2e");
+            pManager.Register_DoubleParam("Formwork", "Formwork", "");
+            pManager.Register_DoubleParam("Reinforcement", "Reinforcement", "");
         }
 
         /// <summary>
@@ -55,19 +55,20 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.QuantityEstimationSteel> iResult = new List<FemDesign.Results.QuantityEstimationSteel>();
+            List<FemDesign.Results.QuantityEstimationConcrete> iResult = new List<FemDesign.Results.QuantityEstimationConcrete>();
             DA.GetDataList("Result", iResult);
 
-            var storey = iResult.Select(x => x.Storey);
+
             var structure = iResult.Select(x => x.Structure);
+            var storey = iResult.Select(x => x.Storey);
             var id = iResult.Select(x => x.Id);
-            var quality = iResult.Select(x => x.Quality);
             var section = iResult.Select(x => x.Section);
-            var unitWeight = iResult.Select(x => x.UnitWeight);
+            var quality = iResult.Select(x => x.Quality);
             var subTotal = iResult.Select(x => x.SubTotal);
+            var volume = iResult.Select(x => x.Volume);
             var totalWeight = iResult.Select(x => x.TotalWeight);
-            var paintedArea = iResult.Select(x => x.PaintedArea);
-            var co2 = iResult.Select(x => x.CO2Footprint);
+            var formwork = iResult.Select(x => x.Formwork);
+            var reinforcement = iResult.Select(x => x.Reinforcement);
 
 
             // Set output
@@ -76,14 +77,14 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Id", id);
             DA.SetDataList("Quality", quality);
             DA.SetDataList("Section", section);
-            DA.SetDataList("UnitWeight", unitWeight);
             DA.SetDataList("Subtotal", subTotal);
+            DA.SetDataList("Volume", volume);
             DA.SetDataList("TotalWeight", totalWeight);
-            DA.SetDataList("PaintedArea", paintedArea);
-            DA.SetDataList("CO2Footprint", co2);
+            DA.SetDataList("Formwork", formwork);
+            DA.SetDataList("Reinforcement", reinforcement);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -103,7 +104,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7E6355D0-9BB7-4F85-A8AB-65EDF4AA3B7E}"); }
+            get { return new Guid("{A7C11ACB-788E-40F9-BDD9-3129B7AFFAEB}"); }
         }
     }
 }

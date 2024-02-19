@@ -44,6 +44,7 @@ namespace FemDesign.Grasshopper
             pManager.Register_DoubleParam("Subtotal", "Subtotal", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
             pManager.Register_DoubleParam("PaintedArea", "PaintedArea", "");
+            pManager.Register_DoubleParam("CO2Footprint", "CO2Footprint", "kg CO2e");
         }
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace FemDesign.Grasshopper
             var subTotal = iResult.Select(x => x.SubTotal);
             var totalWeight = iResult.Select(x => x.TotalWeight);
             var paintedArea = iResult.Select(x => x.PaintedArea);
+            var co2 = iResult.Select(x => x.CO2Footprint);
 
 
             // Set output
@@ -78,6 +80,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Subtotal", subTotal);
             DA.SetDataList("TotalWeight", totalWeight);
             DA.SetDataList("PaintedArea", paintedArea);
+            DA.SetDataList("CO2Footprint", co2);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.septenary;
@@ -100,7 +103,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{E2C3C8D3-7428-46FB-99A3-E59C4D3D29ED}"); }
+            get { return new Guid("{76655DA2-078F-4C4A-9740-840BDC21FC6A}"); }
         }
     }
 }

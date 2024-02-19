@@ -8,15 +8,15 @@ using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
-    public class SteelQuantityEstimation : FEM_Design_API_Component
+    public class ReinforcementQuantityEstimation_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
-        /// Initializes a new instance of the SteelQuantityEstimation class.
+        /// Initializes a new instance of the ReinforcementQuantityEstimation class.
         /// </summary>
-        public SteelQuantityEstimation()
-          : base("SteelQuantityEstimation",
-                "SteelQuantityEstimation",
-                "Read the Steel Quantity Estimation results for the entire model",
+        public ReinforcementQuantityEstimation_OBSOLETE()
+          : base("ReinforcementQuantityEstimation",
+                "ReinforcementQuantityEstimation",
+                "Read the Steel Reinforcement Estimation results for the entire model",
                 CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
@@ -39,12 +39,8 @@ namespace FemDesign.Grasshopper
             pManager.Register_StringParam("Structure", "Structure", "");
             pManager.Register_StringParam("Id", "Id", "");
             pManager.Register_StringParam("Quality", "Quality", "");
-            pManager.Register_StringParam("Section", "Section", "");
-            pManager.Register_DoubleParam("UnitWeight", "UnitWeight", "");
-            pManager.Register_DoubleParam("Subtotal", "Subtotal", "");
+            pManager.Register_StringParam("Diameter", "Diameter", "");
             pManager.Register_DoubleParam("TotalWeight", "TotalWeight", "");
-            pManager.Register_DoubleParam("PaintedArea", "PaintedArea", "");
-            pManager.Register_DoubleParam("CO2Footprint", "CO2Footprint", "kg CO2e");
         }
 
         /// <summary>
@@ -55,19 +51,15 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.QuantityEstimationSteel> iResult = new List<FemDesign.Results.QuantityEstimationSteel>();
+            List<FemDesign.Results.QuantityEstimationReinforcement> iResult = new List<FemDesign.Results.QuantityEstimationReinforcement>();
             DA.GetDataList("Result", iResult);
 
             var storey = iResult.Select(x => x.Storey);
             var structure = iResult.Select(x => x.Structure);
             var id = iResult.Select(x => x.Id);
             var quality = iResult.Select(x => x.Quality);
-            var section = iResult.Select(x => x.Section);
-            var unitWeight = iResult.Select(x => x.UnitWeight);
-            var subTotal = iResult.Select(x => x.SubTotal);
+            var diameter = iResult.Select(x => x.Diameter);
             var totalWeight = iResult.Select(x => x.TotalWeight);
-            var paintedArea = iResult.Select(x => x.PaintedArea);
-            var co2 = iResult.Select(x => x.CO2Footprint);
 
 
             // Set output
@@ -75,15 +67,11 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Structure", structure);
             DA.SetDataList("Id", id);
             DA.SetDataList("Quality", quality);
-            DA.SetDataList("Section", section);
-            DA.SetDataList("UnitWeight", unitWeight);
-            DA.SetDataList("Subtotal", subTotal);
+            DA.SetDataList("Diameter", diameter);
             DA.SetDataList("TotalWeight", totalWeight);
-            DA.SetDataList("PaintedArea", paintedArea);
-            DA.SetDataList("CO2Footprint", co2);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.septenary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -103,7 +91,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7E6355D0-9BB7-4F85-A8AB-65EDF4AA3B7E}"); }
+            get { return new Guid("{D97AFC97-B793-4FA8-AF1D-9B614F5E6B06}"); }
         }
     }
 }
