@@ -38,7 +38,7 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        double CO2Footprint { get; }
+        double? CO2Footprint { get; }
     }
 
     /// <summary>
@@ -99,10 +99,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationConcrete(string storey, string structure, string id, string quality, string section, double height, double width, double subTotal, double volume, double totalWeight, double formwork, double reinforcement, double c02Footprint)
+        internal QuantityEstimationConcrete(string storey, string structure, string id, string quality, string section, double height, double width, double subTotal, double volume, double totalWeight, double formwork, double reinforcement, double? c02Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -154,9 +154,18 @@ namespace FemDesign.Results
             double totalWeight = double.Parse(row[9], CultureInfo.InvariantCulture);
             double formwork = double.Parse(row[10], CultureInfo.InvariantCulture);
             double reinforcement = double.Parse(row[11], CultureInfo.InvariantCulture);
-            double co2footprint = double.Parse(row[12], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[12].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[12], CultureInfo.InvariantCulture);
+            }
             //string test = HeaderData["result"];
-            return new QuantityEstimationConcrete(storey, structure, id, quality, section, height, width, subTotal, volume, totalWeight, formwork, reinforcement, co2footprint);
+            return new QuantityEstimationConcrete(storey, structure, id, quality, section, height, width, subTotal, volume, totalWeight, formwork, reinforcement, co2Footprint);
         }
     }
 
@@ -193,10 +202,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationReinforcement(string storey, string structure, string id, string quality, double diameter, double totalWeight, double cO2Footprint)
+        internal QuantityEstimationReinforcement(string storey, string structure, string id, string quality, double diameter, double totalWeight, double? cO2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -236,7 +245,17 @@ namespace FemDesign.Results
             string quality = row[3];
             double diameter = double.Parse(row[4], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[5], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[6], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[6].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[6], CultureInfo.InvariantCulture);
+            }
+
             return new QuantityEstimationReinforcement(storey, structure, id, quality, diameter, totalWeight, co2Footprint);
         }
     }
@@ -286,10 +305,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationSteel(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double co2Footprint)
+        internal QuantityEstimationSteel(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double? co2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -335,7 +354,17 @@ namespace FemDesign.Results
             double subtotal = double.Parse(row[6], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
             double paintedArea = double.Parse(row[8], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[9].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+            }
+
             return new QuantityEstimationSteel(storey, structure, id, quality, section, unitWeight, subtotal, totalWeight, paintedArea, co2Footprint);
         }
     }
@@ -385,10 +414,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationTimber(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double co2Footprint)
+        internal QuantityEstimationTimber(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double? co2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -434,7 +463,16 @@ namespace FemDesign.Results
             double subtotal = double.Parse(row[6], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
             double paintedArea = double.Parse(row[8], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if ( row[9].Contains("there is no matching value in the CO2 database!") )
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+            }
             return new QuantityEstimationTimber(storey, structure, id, quality, section, unitWeight, subtotal, totalWeight, paintedArea, co2Footprint);
         }
     }
@@ -496,10 +534,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationTimberPanel(string storey, string structure, string id, string quality, double thickness, string panelType, double length, double width, double area, double weight, int count, double totalWeight, double cO2Footprint)
+        internal QuantityEstimationTimberPanel(string storey, string structure, string id, string quality, double thickness, string panelType, double length, double width, double area, double weight, int count, double totalWeight, double? cO2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -551,7 +589,16 @@ namespace FemDesign.Results
             double weight = double.Parse(row[9], CultureInfo.InvariantCulture);
             int pcs = int.Parse(row[10], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[11], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[12], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[12].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[12], CultureInfo.InvariantCulture);
+            }
             return new QuantityEstimationTimberPanel(storey, structure, id, quality, thickness, panelType, length, width, area, weight, pcs, totalWeight, co2Footprint);
         }
     }
@@ -617,10 +664,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, double thickness, string type, double length, double width, double area, double weight,  int count, double totalWeight, double cO2Footprint)
+        internal QuantityEstimationProfiledPlate(string id, string storey, string structure, string quality, string section, double thickness, string type, double length, double width, double area, double weight,  int count, double totalWeight, double? cO2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -674,7 +721,17 @@ namespace FemDesign.Results
             double weight = double.Parse(row[10], CultureInfo.InvariantCulture);
             int count = int.Parse(row[11], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[12], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[13], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[13].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[13], CultureInfo.InvariantCulture);
+            }
+
             return new QuantityEstimationProfiledPlate(storey, structure, id, quality, section, thickness, type, length, width, area, weight, count, totalWeight, co2Footprint);
         }
     }
@@ -720,10 +777,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationMasonry(string storey, string structure, string id, string quality, double thickness, double unitWeight, double totalArea, double totalWeight, double cO2Footprint)
+        internal QuantityEstimationMasonry(string storey, string structure, string id, string quality, double thickness, double unitWeight, double totalArea, double totalWeight, double? cO2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -767,7 +824,17 @@ namespace FemDesign.Results
             double unitWeight = double.Parse(row[5], CultureInfo.InvariantCulture);
             double totalArea = double.Parse(row[6], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[8], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[8].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[8], CultureInfo.InvariantCulture);
+            }
+
             return new QuantityEstimationMasonry(storey, structure, id, quality, thickness, unitWeight, totalArea, totalWeight, co2Footprint);
         }
     }
@@ -817,10 +884,10 @@ namespace FemDesign.Results
         /// <summary>
         /// CO2 footprint (A1-A3)
         /// </summary>
-        public double CO2Footprint { get; }
+        public double? CO2Footprint { get; }
 
         [JsonConstructor]
-        internal QuantityEstimationGeneral(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double cO2Footprint)
+        internal QuantityEstimationGeneral(string storey, string structure, string id, string quality, string section, double unitWeight, double subtotal, double totalWeight, double paintedArea, double? cO2Footprint)
         {
             Storey = storey;
             Structure = structure;
@@ -866,7 +933,17 @@ namespace FemDesign.Results
             double subtotal = double.Parse(row[6], CultureInfo.InvariantCulture);
             double totalWeight = double.Parse(row[7], CultureInfo.InvariantCulture);
             double paintedArea = double.Parse(row[8], CultureInfo.InvariantCulture);
-            double co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+
+            double? co2Footprint;
+            if (row[9].Contains("there is no matching value in the CO2 database!"))
+            {
+                co2Footprint = null;
+            }
+            else
+            {
+                co2Footprint = double.Parse(row[9], CultureInfo.InvariantCulture);
+            }
+
             return new QuantityEstimationGeneral(storey, structure, id, quality, section, unitWeight, subtotal, totalWeight, paintedArea, co2Footprint);
         }
     }

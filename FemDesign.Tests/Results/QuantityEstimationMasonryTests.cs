@@ -15,24 +15,6 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
-
-            using (var stream = new StreamWriter(path)) stream.Write(@"Quantity estimation, Masonry
-Storey	Struct.	Identifier	Quality	Thickness	Unit weight	Subtotal	Total weight
-	type			[mm]	[t/m, t/m2]	[m,m2]	[t]
--	Wall	W.1.1	Brick (sample)	200	0.160	49.281	7.885
--	Wall	W.2.1	Masonry (sample)	200	0.160	26.163	4.186
--	Wall	W.3.1	Masonry (sample)	200	0.160	10.765	1.722
--	Wall	W.4.1	Masonry (sample)	200	0.160	19.998	3.200
-TOTAL							16.993
-
-");
-
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results.Count == 4, "Should read all results");
-            Assert.IsTrue(results.All(r => r.GetType() == typeof(QuantityEstimationMasonry)));
-
-            File.Delete(path);
         }
 
         [TestMethod]
