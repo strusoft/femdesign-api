@@ -89,6 +89,7 @@
     <Compile Include="Calculate\FdScriptTests.cs" />
     <Compile Include="Entities\PeakSmoothingRegionTests.cs" />
     <Compile Include="Entities\StiffnessPointsTests.cs" />
+    <Compile Include="GenericClasses\EntityColorTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
     <Compile Include="ModellingTools\ModellingToolsTest.cs" />

@@ -454,7 +454,7 @@ namespace FemDesign.Bars
         public List<BarStiffnessFactors> StiffnessModifiers { get; set; }
 
         [XmlElement("colouring", Order = 8)]
-        public StruSoft.Interop.StruXml.Data.Entity_color Colouring { get; set; }
+        public EntityColor Colouring { get; set; }
 
         [XmlElement("end", Order = 9)]
         public string End = "";
