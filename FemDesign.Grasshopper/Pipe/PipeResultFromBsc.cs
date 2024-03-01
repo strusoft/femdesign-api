@@ -109,6 +109,7 @@ namespace FemDesign.Grasshopper
                 }
 
                 Done();
+
             }
 
             public override WorkerInstance Duplicate() => new ApplicationResultFromBsc(Parent);
