@@ -19,9 +19,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : FEM_Design_API_Component
+    public class ApplicationRun_OBSOLETE : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun_OBSOLETE() : base("Application.RunCalculation", "RunCalculation", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
         }
@@ -140,9 +140,9 @@ namespace FemDesign.Grasshopper
             DA.GetData("SaveFilePath", ref saveFilePath);
 
 
-            if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
+            if (analysis == null && design == null && saveFilePath == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design' or 'SaveFilePath'");
                 return;
             }
 
@@ -207,6 +207,11 @@ namespace FemDesign.Grasshopper
                         connection.RunDesign(userModule, design);
                     else
                         connection.RunDesign(userModule, design, designGroups);
+
+                    if (design.ApplyChanges == true)
+                    {
+                        connection.ApplyDesignChanges();
+                    }
 
                     if (design.ApplyChanges == true && design.Check == true)
                     {
@@ -278,10 +283,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{FDECFC6E-4E0C-41A5-8414-207C77FCB503}"); }
+            get { return new Guid("{C99D4B16-CF9A-4A2D-BD54-BBC230F36611}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

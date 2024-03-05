@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeCreateResPoint.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />

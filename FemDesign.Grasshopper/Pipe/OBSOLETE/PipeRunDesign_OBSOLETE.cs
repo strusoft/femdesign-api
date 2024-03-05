@@ -6,9 +6,9 @@ using GrasshopperAsyncComponent;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeRunDesign : GH_AsyncComponent
+    public class PipeRunDesign_OBSOLETE : GH_AsyncComponent
     {
-        public PipeRunDesign() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeRunDesign_OBSOLETE() : base("FEM-Design.RunDesign", "RunDesign", "Run design of model.\nDO NOT USE THE COMPONENT IF YOU WANT TO PERFORM ITERATIVE ANALYSIS (i.e. Galapos)", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationRunDesignWorker(this);
         }
@@ -30,8 +30,8 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
-        public override Guid ComponentGuid => new Guid("{DF2E8AA9-EF06-4E93-83EA-685E17F0FF61}");
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override Guid ComponentGuid => new Guid("{920DB78D-34C5-43A8-918E-0A6951E5561D}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
         private class ApplicationRunDesignWorker : WorkerInstance
         {
             /* INPUT/OUTPUT */
@@ -97,6 +97,7 @@ namespace FemDesign.Grasshopper
 
                     if (_design.ApplyChanges == true)
                     {
+                        _connection.ApplyDesignChanges();
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Remark, "'Apply changes' == true. Run a new analysis to validate your model against the new section sizes."));
                     }
                     _connection.OnOutput -= onOutput;
