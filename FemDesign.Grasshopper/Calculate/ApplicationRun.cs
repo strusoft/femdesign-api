@@ -24,9 +24,11 @@ namespace FemDesign.Grasshopper
         public ApplicationRun() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
+            _keepOpen = false;
         }
 
         public bool _minimised { get; set; }
+        public bool _keepOpen { get; set; }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -57,7 +59,7 @@ namespace FemDesign.Grasshopper
 
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc). The documentation will be saved in the `FEM-Design API` folder. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .strux.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
+            pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -85,12 +87,19 @@ namespace FemDesign.Grasshopper
         protected override void AppendAdditionalComponentMenuItems(System.Windows.Forms.ToolStripDropDown menu)
         {
             // Append the item to the menu, making sure it's always enabled and checked if Absolute is True.
-            ToolStripMenuItem item = Menu_AppendItem(menu, "Minimise FEM-Design", Menu_AbsoluteClicked, null, true, _minimised);
+            ToolStripMenuItem minimisedItem = Menu_AppendItem(menu, "Minimise FEM-Design", Menu_AbsoluteClicked, null, true, _minimised);
+            ToolStripMenuItem keepOpenItem = Menu_AppendItem(menu, "Keep open", keepOpenClick, null, true, _keepOpen);
         }
 
         private void Menu_AbsoluteClicked(object sender, EventArgs e)
         {
             _minimised = !_minimised;
+            ExpireSolution(true);
+        }
+
+        private void keepOpenClick(object sender, EventArgs e)
+        {
+            _keepOpen = !_keepOpen;
             ExpireSolution(true);
         }
 
@@ -184,7 +193,7 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run((Action)(() =>
             {
-                var connection = new FemDesign.FemDesignConnection(minimized: _minimised);
+                var connection = new FemDesign.FemDesignConnection(minimized: _minimised, keepOpen: _keepOpen);
 
                 connection.Open(_model.Value);
 
