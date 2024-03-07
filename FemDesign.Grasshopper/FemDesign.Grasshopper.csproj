@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
     <Compile Include="Calculate\FreqDefine.cs" />
-    <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersDesignDefine_OBSOLETE.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
     <Compile Include="Calculate\CalculationParametersStabilityDefine.cs" />
     <Compile Include="Calculate\DesignGroup.cs" />

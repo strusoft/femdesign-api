@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace FemDesign.Calculate
@@ -22,6 +23,8 @@ namespace FemDesign.Calculate
         public bool ApplyChanges { get; set; } // bool
         [XmlIgnore]
         public CmdUserModule Mode { get; set; }
+        [XmlIgnore]
+        public List<Sections.Section> SectionPool { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -47,9 +50,10 @@ namespace FemDesign.Calculate
             this.ApplyChanges = applyChanges;
         }
 
-        public Design(CmdUserModule mode, bool autoDesign = false, bool check = true, bool loadCombination = true, bool applyChanges = false) : this(autoDesign, check, loadCombination, applyChanges)
+        public Design(CmdUserModule mode, bool autoDesign = false, bool check = true, bool loadCombination = true, bool applyChanges = false, List<Sections.Section> sectionPool = null) : this(autoDesign, check, loadCombination, applyChanges)
         {
             this.Mode = mode;
+            this.SectionPool = sectionPool;
         }
     }
 }

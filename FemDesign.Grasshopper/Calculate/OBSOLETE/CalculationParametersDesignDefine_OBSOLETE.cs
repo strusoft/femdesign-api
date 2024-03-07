@@ -1,14 +1,13 @@
 ﻿// https://strusoft.com/
 using System;
-using System.Collections.Generic;
 using FemDesign.Calculate;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersDesignDefine : FEM_Design_API_Component
+    public class CalculationParametersDesignDefine_OBSOLETE : FEM_Design_API_Component
     {
-        public CalculationParametersDesignDefine() : base("Design.Define", "Design", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersDesignDefine_OBSOLETE() : base("Design.Define", "Design", "Set parameters for design.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -22,9 +21,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("BasedOn", "BasedOn", "Based on analysis of LoadCombination or LoadGroup.\nTrue: Load Combination\nFalse: Load Group", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("ApplyChanges", "ApplyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("SectionPool", "SectionPool", "", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("applyChanges", "applyChanges", "Force FemDesign to apply the new cross sections to the model at the end of the design process.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -50,10 +47,8 @@ namespace FemDesign.Grasshopper
             bool applychanges = true;
             DA.GetData(4, ref applychanges);
 
-            List<Sections.Section> sectionPool = new List<Sections.Section>();
-            DA.GetDataList(5, sectionPool);
 
-            Calculate.Design _obj = new FemDesign.Calculate.Design(_mode, autoDesign, check, isLoadCombination, applychanges, sectionPool);
+            Calculate.Design _obj = new FemDesign.Calculate.Design(_mode, autoDesign, check, isLoadCombination, applychanges);
 
             DA.SetData(0, _obj);
         }
@@ -66,9 +61,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{1AC35B2F-0889-4335-811F-05596A670E53}"); }
+            get { return new Guid("{92D78FF2-A6C1-4045-9AD8-E4A09D8A687D}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

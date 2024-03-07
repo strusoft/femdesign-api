@@ -115,8 +115,8 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            dynamic _model = null;
-            DA.GetData("Model", ref _model);
+            Model model = null;
+            DA.GetData("Model", ref model);
 
             FemDesign.Calculate.Analysis analysis = null;
             DA.GetData("Analysis", ref analysis);
@@ -156,7 +156,6 @@ namespace FemDesign.Grasshopper
             }
 
             // Collect Outputs
-            Model model = null;
             List<Results.IResult> results = new List<Results.IResult>();
             FemDesign.Results.FiniteElement finiteElement = null;
             var resultsTree = new DataTree<object>();
@@ -195,7 +194,12 @@ namespace FemDesign.Grasshopper
             {
                 var connection = new FemDesign.FemDesignConnection(minimized: _minimised, keepOpen: _keepOpen);
 
-                connection.Open(_model.Value);
+                if(design.SectionPool.Count != 0 && design.SectionPool != null)
+                {
+                    model.Sections.Section.AddRange(design.SectionPool);
+                }
+
+                connection.Open(model);
 
                 if (cfg != null)
                     connection.SetConfig(new Calculate.CmdConfig(cfg));
