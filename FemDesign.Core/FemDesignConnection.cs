@@ -512,6 +512,21 @@ namespace FemDesign
             return dictLoadComb;
         }
 
+        /// <summary>
+        /// Read and parse result data from .csv files
+        /// </summary>
+        public List<T> ParseCsvFiles<T>(List<string> csvPaths) where T : Results.IResult
+        {
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+            return results;
+        }
+
 
         /// The result seems to be save in memory and not in the .strFEM.
         /// Ask Pasa
@@ -541,77 +556,6 @@ namespace FemDesign
         //}
 
 
-        private List<string> createResultFileNames(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false)
-        {
-            string currentTime = timeStamp ? DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff") : null;
-            List<string> fileName = listProcs.Select(l => l.ToString() + "_" + loadCaseCombName + "_" + shapeId + "_" + currentTime).ToList();
-
-            return fileName;
-        }
-
-        private (List<CmdListGen> cmdListGens, List<string> csvPaths) createListGenData(List<ListProc> listProcs, List<string> fileNames, string loadCaseCombName = null, int? shapeId = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
-        {
-            // Input bsc files and output csv files
-            var bscPaths = fileNames.Select(f => OutputFileHelper.GetBscPath(OutputDir, f)).ToList();
-            var csvPaths = fileNames.Select(f => OutputFileHelper.GetCsvPath(OutputDir, f)).ToList();
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, units, options)).ToList();
-
-            // List commands
-            List<CmdListGen> cmdListGens = new List<CmdListGen>();
-            for (int i = 0; i < bscPaths.Count; i++)
-                cmdListGens.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
-
-            return (cmdListGens, csvPaths);
-        }
-
-        private void listResultsByFdScript(string scriptFileName, List<CmdListGen> listGenCommands, List<CmdResultPoint> resPoints = null)
-        {
-            // FdScript commands
-            List<CmdCommand> scriptCommands = new List<CmdCommand>
-            {
-                new CmdUser(CmdUserModule.RESMODE)
-            };
-            if(resPoints != null)
-                scriptCommands.AddRange(resPoints);
-            scriptCommands.AddRange(listGenCommands);
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, scriptCommands.ToArray());
-            this.RunScript(script, scriptFileName);
-        }
-
-        /// <summary>
-        /// Read and parse result data from .csv files
-        /// </summary>
-        public List<T> ParseCsvFiles<T>(List<string> csvPaths) where T : Results.IResult
-        {
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-            return results;
-        }
-
-        /// <summary>
-        /// For internal use only
-        /// </summary>
-        private List<T> readResults<T>(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null, List<CmdResultPoint> resPoints = null) where T : IResult
-        {
-            if (listProcs.Count == 0 || listProcs == null)
-                throw new ArgumentNullException("No existing ListProc for type <T>.");
-
-            List<string> fileNames = createResultFileNames(listProcs, loadCaseCombName, shapeId, timeStamp);
-            (List<CmdListGen> cmdListGens, List<string> csvPaths) = createListGenData(listProcs, fileNames, loadCaseCombName, shapeId, elements, units, options);
-
-            //CreateAndRunFdSript($"Get{typeof(T).Name}", commands);
-            listResultsByFdScript($"Get{typeof(T).Name}Results", cmdListGens, resPoints);
-
-            return ParseCsvFiles<T>(csvPaths);
-        }
 
         /// <summary>
         /// Retreive results from the opened model.
@@ -625,7 +569,7 @@ namespace FemDesign
         {
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
-            return readResults<T>(listProcs, null, null, true, elements, units, options);
+            return _readResults<T>(listProcs, null, null, true, elements, units, options);
         }
 
         /*  Old version
@@ -719,11 +663,33 @@ namespace FemDesign
 
         public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoint, Results.UnitResults units = null) where T : Results.IResult
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
             var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
-            List<CmdResultPoint> resPoints = new List<CmdResultPoint>() { resultPoint };
+            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
-            return readResults<T>(listProcs, null, null, true, null, units, options, resPoints);
+            // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
+            if (!listProcs.Any())
+                throw new ArgumentNullException("No existing ListProc for type <T>.");
+
+            // Create file name for .bsc and .csv files
+            string currentTime = "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+
+            // Get listing commands and .csv file paths for .fdscript file generation
+            (List<CmdListGen> cmdListGens, List<string> csvPaths) = _createListGenData(listProcs, null, null, currentTime, null, units, options);
+
+            // FdScript commands
+            List<CmdCommand> scriptCommands = new List<CmdCommand>
+            {
+                new CmdUser(CmdUserModule.RESMODE),
+                resultPoint
+            };
+            scriptCommands.AddRange(cmdListGens);
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, scriptCommands.ToArray());
+            this.RunScript(script, $"Get{typeof(T).Name}Results" + currentTime);    // Generate .csv result file
+
+            return ParseCsvFiles<T>(csvPaths);
         }
 
         /*  Old version
@@ -812,7 +778,7 @@ namespace FemDesign
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return readResults<FemNode>(listProcs, null, null, false, null, units);
+            return _readResults<FemNode>(listProcs, null, null, false, null, units);
         }
 
         public List<Results.FemBar> GetFeaBars(Results.Length length = Results.Length.m)
@@ -821,7 +787,7 @@ namespace FemDesign
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return readResults<FemBar>(listProcs, null, null, false, null, units);
+            return _readResults<FemBar>(listProcs, null, null, false, null, units);
         }
 
         /* Old version
@@ -870,7 +836,7 @@ namespace FemDesign
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return readResults<FemShell>(listProcs, null, null, false, null, units);
+            return _readResults<FemShell>(listProcs, null, null, false, null, units);
         }
 
         /*  Old version
@@ -936,7 +902,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a LoadCase result type!");
             }
 
-            return readResults<T>(listProcs, loadCase, null, true, elements, units, options);
+            return _readResults<T>(listProcs, loadCase, null, true, elements, units, options);
         }
 
         /*   Old version
@@ -993,7 +959,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a LoadCombination result type!");
             }
 
-            return readResults<T>(listProcs, loadCombination, null, true, elements, units, options);
+            return _readResults<T>(listProcs, loadCombination, null, true, elements, units, options);
         }
 
         /*  Old version
@@ -1049,7 +1015,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a Quantity Estimation result type!");
             }
 
-            return readResults<T>(listProcs, null, null, false, null, units);
+            return _readResults<T>(listProcs, null, null, false, null, units);
         }
 
         /*  Old version
@@ -1100,7 +1066,7 @@ namespace FemDesign
         {
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
-            List<T> results = readResults<T>(listProcs, loadCombination, shapeId, true, null, units);
+            List<T> results = _readResults<T>(listProcs, loadCombination, shapeId, true, null, units);
 
             // Filter results by load combination and shape identifier
             string loadCombPropertyName;
@@ -1300,6 +1266,71 @@ namespace FemDesign
                 // The exception is not related to a file or folder being in use, rethrow it
                 throw;
             }
+        }
+
+        //private List<string> _createResultFileNames(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false)
+        //{
+        //    string currentTime = timeStamp ? DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff") : null;
+        //    List<string> fileName = listProcs.Select(l => l.ToString() + "_" + loadCaseCombName + "_" + shapeId + "_" + currentTime).ToList();
+
+        //    return fileName;
+        //}
+
+        /// <summary>
+        /// Create the .bsc files, and return the listing commands for .fdscript and .csv output file paths.
+        /// </summary>
+        private (List<CmdListGen> cmdListGens, List<string> csvPaths) _createListGenData(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, string currentTime = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
+        {
+            // Input bsc files and output csv files
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + "_" + loadCaseCombName + "_" + shapeId + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + "_" + loadCaseCombName + "_" + shapeId + currentTime)).ToList();
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, units, options)).ToList();
+
+            // List commands
+            List<CmdListGen> cmdListGens = new List<CmdListGen>();
+            for (int i = 0; i < bscPaths.Count; i++)
+                cmdListGens.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
+
+            return (cmdListGens, csvPaths);
+        }
+
+        /// <summary>
+        /// Create and run the .fdscript file that lists the result tables and creates the .csv output files.
+        /// </summary>
+        private void _listResultsByFdScript(string scriptFileName, List<CmdListGen> listGenCommands)
+        {
+            // FdScript commands
+            List<CmdCommand> scriptCommands = new List<CmdCommand>
+            {
+                new CmdUser(CmdUserModule.RESMODE)
+            };
+            scriptCommands.AddRange(listGenCommands);
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, scriptCommands.ToArray());
+            this.RunScript(script, scriptFileName);
+        }
+
+        /// <summary>
+        /// For internal use only!
+        /// </summary>
+        private List<T> _readResults<T>(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
+        {
+            // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
+            if (!listProcs.Any())
+                throw new ArgumentNullException("No existing ListProc for type <T>.");
+
+            // Create file name for .bsc and .csv files
+            string currentTime = timeStamp ? ("_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff")) : null;
+
+            // Get listing commands and .csv file paths for .fdscript file generation
+            (List<CmdListGen> cmdListGens, List<string> csvPaths) = _createListGenData(listProcs, loadCaseCombName, shapeId, currentTime, elements, units, options);
+
+            // Generate .csv result file
+            _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, cmdListGens);
+
+            return ParseCsvFiles<T>(csvPaths);
         }
 
         private string _outputDir;
