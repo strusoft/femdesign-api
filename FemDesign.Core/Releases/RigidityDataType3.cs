@@ -58,6 +58,12 @@ namespace FemDesign.Releases
         {
         }
 
+        public RigidityDataType3(Motions motions, MotionsPlasticLimits motionsPlasticLimits, Rotations rotations, RotationsPlasticLimits rotationsPlasticLimits, double friction, DetachType detachType) : base(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits)
+        {
+            this.Friction = friction;
+            this.DetachType = detachType;
+        }
+
         /// <summary>
         /// Construct RigidityDataType3 with defined friction
         /// </summary>
