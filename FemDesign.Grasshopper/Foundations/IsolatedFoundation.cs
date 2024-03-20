@@ -85,7 +85,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 4, new List<string>
+            ValueListUtils.UpdateValueLists(this, 4, new List<string>
             { "Simple", "SurfaceSupportGroup"}, null, GH_ValueListMode.DropDown);
 
         }

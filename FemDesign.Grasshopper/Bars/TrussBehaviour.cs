@@ -89,9 +89,9 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof( StruSoft.Interop.StruXml.Data.ItemChoiceType)).ToList(), null);
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof( StruSoft.Interop.StruXml.Data.ItemChoiceType)).ToList(), null);
 
-            ValueListUtils.updateValueLists(this, 2, Enum.GetNames(typeof( StruSoft.Interop.StruXml.Data.ItemChoiceType)).ToList(), null);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof( StruSoft.Interop.StruXml.Data.ItemChoiceType)).ToList(), null);
         }
     }
 }

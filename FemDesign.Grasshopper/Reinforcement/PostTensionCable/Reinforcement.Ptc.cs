@@ -62,7 +62,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 5, JackingSideValueList, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 5, JackingSideValueList, null, GH_ValueListMode.DropDown);
         }
 
         /// <summary>

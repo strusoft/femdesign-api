@@ -120,7 +120,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 2, Enum.GetNames(typeof(ShapeNormalisation)).ToList(), null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(ShapeNormalisation)).ToList(), null, GH_ValueListMode.DropDown);
         }
 
 

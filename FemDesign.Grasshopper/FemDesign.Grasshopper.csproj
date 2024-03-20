@@ -246,6 +246,7 @@
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\EdgeConnectionConstruct.cs" />
     <Compile Include="Shells\SlabPeakSmoothingRegion.cs" />
     <Compile Include="Shells\Slab.SetStiffnessModifier.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
@@ -335,7 +336,7 @@
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
     <Compile Include="Shells\ProfiledPlateConstruct.cs" />
     <Compile Include="Shells\ShellEccentricityConstruct.cs" />
-    <Compile Include="Shells\EdgeConnectionConstruct.cs" />
+    <Compile Include="Shells\OBSOLETE\EdgeConnectionConstruct_OBSOLETE.cs" />
     <Compile Include="Shells\EdgeConnectionHinged.cs" />
     <Compile Include="Shells\EdgeConnectionRigid.cs" />
     <Compile Include="Shells\ShellOrthotropyConstruct.cs" />
