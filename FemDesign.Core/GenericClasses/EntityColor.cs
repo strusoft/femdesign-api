@@ -14,7 +14,7 @@ namespace FemDesign
     [Serializable]
     public partial class EntityColor
     {
-        private EntityColor()
+        public EntityColor()
         {
         }
 
