@@ -73,10 +73,9 @@ namespace FemDesign.Grasshopper
 
         public dynamic _getResults(FemDesignConnection connection, Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
         {
-            var method = nameof(FemDesign.FemDesignConnection.GetResults);
             List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = typeof(FemDesign.FemDesignConnection).GetMethod(method).MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(connection, new object[] { units, options, elements });
+            MethodInfo genericMethod = typeof(FemDesign.FemDesignConnection).GetMethod("_getResults", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(connection, new object[] { units, options, elements, true });
             mixedResults.AddRange(result);
             return mixedResults;
         }

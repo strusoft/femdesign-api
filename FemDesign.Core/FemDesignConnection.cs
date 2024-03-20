@@ -528,8 +528,8 @@ namespace FemDesign
         }
 
 
-        /// The result seems to be save in memory and not in the .strFEM.
-        /// Ask Pasa
+        // The result seems to be save in memory and not in the .strFEM.
+        // Ask Pasa
 
         ///// <summary>
         ///// Check if the open model with FemDesignConnection has results
@@ -556,182 +556,13 @@ namespace FemDesign
         //}
 
 
-
-        /// <summary>
-        /// Retreive results from the opened model.
-        /// </summary>
-        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
-        /// <param name="units">Optional. Unit setting for the results.</param>
-        /// <param name="options">Optional. Options to set up the output location.</param>
-        /// <param name="elements">Structural element for which the results should be return.</param>
-        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
-        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
+        public List<Results.FemNode> GetFeaNodes(Results.Length length = Results.Length.m)
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
+            var units = Results.UnitResults.Default();
+            units.Length = length;
 
-            return _readResults<T>(listProcs, null, null, true, elements, units, options);
+            return _readResults<FemNode>(null, null, null, false, null, units);
         }
-
-        /*  Old version
-        /// <summary>
-        /// Retreive results from the opened model.
-        /// </summary>
-        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
-        /// <param name="units">Optional. Unit setting for the results.</param>
-        /// <param name="options">Optional. Options to set up the output location.</param>
-        /// <param name="elements">Structural element for which the results should be return.</param>
-        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
-        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
-
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
-
-            // FdScript commands
-            List<CmdCommand> listGenCommands = new List<CmdCommand>();
-            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-            for (int i = 0; i < bscPaths.Count; i++)
-                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, listGenCommands.ToArray());
-            this.RunScript(script, $"Get{typeof(T).Name}" + currentTime);
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-        */
-
-        /// <summary>
-        /// Create result points
-        /// </summary>
-        /// <param name="resultPoints"></param>
-        public void CreateResultPoint(List<CmdResultPoint> resultPoints)
-        {
-            // FdScript commands
-            List<CmdCommand> commands = new List<CmdCommand>
-            {
-                new CmdUser(CmdUserModule.RESMODE)
-            };
-            commands.AddRange(resultPoints);
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, commands);
-            this.RunScript(script, "CreateResultPoints");
-        }
-        
-
-        public string GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
-        {
-            if (outputCsvPath == null)
-            {
-                outputCsvPath = System.IO.Path.ChangeExtension(inputBscPath, "csv");
-            }
-
-            if (System.IO.Path.GetExtension(outputCsvPath) != ".csv")
-                throw new Exception("Extension output file must be .csv");
-
-            // FdScript commands
-            List<CmdCommand> commands = new List<CmdCommand> { new CmdUser(CmdUserModule.RESMODE), new CmdListGen(inputBscPath, outputCsvPath) };
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, commands);
-            this.RunScript(script, "GetResultsFromBsc");
-
-            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t",",");
-
-            return results;
-        }
-
-        public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoint, Results.UnitResults units = null) where T : Results.IResult
-        {
-            var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
-
-            // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
-            if (!listProcs.Any())
-                throw new ArgumentNullException("No existing ListProc for type <T>.");
-
-            // Create file name for .bsc and .csv files
-            string currentTime = "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-
-            // Get listing commands and .csv file paths for .fdscript file generation
-            (List<CmdListGen> cmdListGens, List<string> csvPaths) = _createListGenData(listProcs, null, null, currentTime, null, units, options);
-
-            // FdScript commands
-            List<CmdCommand> scriptCommands = new List<CmdCommand>
-            {
-                new CmdUser(CmdUserModule.RESMODE),
-                resultPoint
-            };
-            scriptCommands.AddRange(cmdListGens);
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, scriptCommands.ToArray());
-            this.RunScript(script, $"Get{typeof(T).Name}Results" + currentTime);    // Generate .csv result file
-
-            return ParseCsvFiles<T>(csvPaths);
-        }
-
-        /*  Old version
-        public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoints, Results.UnitResults units = null) where T : Results.IResult
-        {
-            if (units is null)
-                units = Results.UnitResults.Default();
-
-            // Input bsc files and output csv files
-            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
-
-            var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
-
-            // FdScript commands
-            List<CmdCommand> commands = new List<CmdCommand>();
-            commands.Add(new CmdUser(CmdUserModule.RESMODE));
-            commands.Add(resultPoints);
-
-            for (int i = 0; i < bscPaths.Count; i++)
-                commands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
-
-            // Run the script
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, commands.ToArray());
-            this.RunScript(script, "GetResultsOnPoints");
-
-            // Read csv results files
-            List<T> results = new List<T>();
-            foreach (string resultFile in csvPaths)
-            {
-                results.AddRange(
-                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-                );
-            }
-
-            return results;
-        }
-        */
 
         /*  Old version
         public List<Results.FemNode> GetFeaNodes(Results.Length units = Results.Length.m)
@@ -772,22 +603,12 @@ namespace FemDesign
         }
         */
 
-        public List<Results.FemNode> GetFeaNodes(Results.Length length = Results.Length.m)
-        {
-            var listProcs = new List<ListProc> { ListProc.FemNode };
-            var units = Results.UnitResults.Default();
-            units.Length = length;
-
-            return _readResults<FemNode>(listProcs, null, null, false, null, units);
-        }
-
         public List<Results.FemBar> GetFeaBars(Results.Length length = Results.Length.m)
         {
-            var listProcs = new List<ListProc> { ListProc.FemBar };
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return _readResults<FemBar>(listProcs, null, null, false, null, units);
+            return _readResults<FemBar>(null, null, null, false, null, units);
         }
 
         /* Old version
@@ -829,14 +650,12 @@ namespace FemDesign
         }
         */
 
-
         public List<Results.FemShell> GetFeaShells(Results.Length length = Results.Length.m)
         {
-            var listProcs = new List<ListProc> { ListProc.FemShell };
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return _readResults<FemShell>(listProcs, null, null, false, null, units);
+            return _readResults<FemShell>(null, null, null, false, null, units);
         }
 
         /*  Old version
@@ -894,15 +713,268 @@ namespace FemDesign
             return fdFea;
         }
 
-        public List<T> GetLoadCaseResults<T>(string loadCase = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        /// <summary>
+        /// Create result points
+        /// </summary>
+        /// <param name="resultPoints"></param>
+        public void CreateResultPoint(List<CmdResultPoint> resultPoints)
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>()).ToList();
-            if (!listProcs.Any())
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand>
             {
-                throw new ArgumentException("T parameter must be a LoadCase result type!");
+                new CmdUser(CmdUserModule.RESMODE)
+            };
+            commands.AddRange(resultPoints);
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands);
+            this.RunScript(script, "CreateResultPoints");
+        }
+
+        /*  Old version
+        public string GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
+        {
+            if (outputCsvPath == null)
+            {
+                outputCsvPath = System.IO.Path.ChangeExtension(inputBscPath, "csv");
             }
 
-            return _readResults<T>(listProcs, loadCase, null, true, elements, units, options);
+            if (System.IO.Path.GetExtension(outputCsvPath) != ".csv")
+                throw new Exception("Extension output file must be .csv");
+
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand> { new CmdUser(CmdUserModule.RESMODE), new CmdListGen(inputBscPath, outputCsvPath) };
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands);
+            this.RunScript(script, "GetResultsFromBsc");
+
+            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t",",");
+
+            return results;
+        }
+        */
+
+        public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoint, Results.UnitResults units = null) where T : Results.IResult
+        {
+            return GetResultsOnPoints<T>(new List<CmdResultPoint> { resultPoint }, units);
+        }
+
+        public List<T> GetResultsOnPoints<T>(List<CmdResultPoint> resultPoints, Results.UnitResults units = null) where T : Results.IResult
+        {
+            var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
+            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
+
+            // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
+            if (!listProcs.Any())
+                throw new ArgumentNullException("No existing ListProc for type <T>.");
+
+            // Get .bsc and .csv file paths for .fdscript file generation
+            (List<string> bscPaths, List<string> csvPaths) = _createBscCsvFilePaths(listProcs, loadCaseCombName: null, shapeId: null, null, units, options);
+
+            // List commands
+            List<CmdListGen> listGenCommands = new List<CmdListGen>();
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // FdScript commands
+            List<CmdCommand> scriptCommands = new List<CmdCommand>
+            {
+                new CmdUser(CmdUserModule.RESMODE),
+            };
+            scriptCommands.AddRange(resultPoints);
+            scriptCommands.AddRange(listGenCommands);
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, scriptCommands.ToArray());
+            this.RunScript(script, $"Get{typeof(T).Name}Results");
+
+            return ParseCsvFiles<T>(csvPaths);
+        }
+
+        /*  Old version
+        public List<T> GetResultsOnPoints<T>(CmdResultPoint resultPoints, Results.UnitResults units = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
+
+            var options = new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints);
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
+
+            // FdScript commands
+            List<CmdCommand> commands = new List<CmdCommand>();
+            commands.Add(new CmdUser(CmdUserModule.RESMODE));
+            commands.Add(resultPoints);
+
+            for (int i = 0; i < bscPaths.Count; i++)
+                commands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, commands.ToArray());
+            this.RunScript(script, "GetResultsOnPoints");
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+        */
+
+        public string GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
+        {
+            // Check input
+            if (outputCsvPath == null)
+            {
+                outputCsvPath = System.IO.Path.ChangeExtension(inputBscPath, "csv");
+            }
+            if (System.IO.Path.GetExtension(outputCsvPath) != ".csv")
+                throw new Exception("Extension output file must be .csv");
+
+            // Create .fdscript and list results
+            _listResultsByFdScript("GetResultsFromBsc", new List<string> { inputBscPath }, new List<string> { outputCsvPath });
+
+            // Read results
+            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t", ",");
+
+            return results;
+        }
+
+        /// <summary>
+        /// Retreive results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="elements">Optional. Structural elements for which the results should be return.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
+        {
+            return _getResults<T>(units, options, elements, false);
+        }
+
+        /*  Old version
+        /// <summary>
+        /// Retreive results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="elements">Structural element for which the results should be return.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null) where T : Results.IResult
+        {
+            if (units is null)
+                units = Results.UnitResults.Default();
+
+            // Input bsc files and output csv files
+            var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
+            var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + currentTime)).ToList();
+
+            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, null, units, options)).ToList();
+
+            // FdScript commands
+            List<CmdCommand> listGenCommands = new List<CmdCommand>();
+            listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
+            for (int i = 0; i < bscPaths.Count; i++)
+                listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
+
+            // Run the script
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(logfile, listGenCommands.ToArray());
+            this.RunScript(script, $"Get{typeof(T).Name}" + currentTime);
+
+            // Read csv results files
+            List<T> results = new List<T>();
+            foreach (string resultFile in csvPaths)
+            {
+                results.AddRange(
+                    Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
+                );
+            }
+
+            return results;
+        }
+        */
+
+        /// <summary>
+        /// Retreive load case results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCase">Optional. Load case name for which the results should be return.</param>
+        /// <param name="element">Optional. Structural element for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetLoadCaseResults<T>(string loadCase = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            List<string> loadCases = loadCase != null ? new List<string> { loadCase } : null;
+            List<GenericClasses.IStructureElement> elements = element != null ? new List<GenericClasses.IStructureElement> { element } : null;
+
+            return _getLoadCaseResults<T>(loadCases, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load case results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCase">Load case name for which the results should be return.</param>
+        /// <param name="elements">Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetLoadCaseResults<T>(string loadCase, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            List<string> loadCases = loadCase != null ? new List<string> { loadCase } : null;
+
+            return _getLoadCaseResults<T>(loadCases, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load case results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCases">Load case names for which the results should be return.</param>
+        /// <param name="element">Optional. Structural element for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetLoadCaseResults<T>(List<string> loadCases, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            List<GenericClasses.IStructureElement> elements = element != null ? new List<GenericClasses.IStructureElement> { element } : null;
+
+            return _getLoadCaseResults<T>(loadCases, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load case results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCases">Load case names for which the results should be return.</param>
+        /// <param name="elements">Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        public List<T> GetLoadCaseResults<T>(List<string> loadCases, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            return _getLoadCaseResults<T>(loadCases, elements, units, options);
         }
 
         /*   Old version
@@ -951,15 +1023,71 @@ namespace FemDesign
         }
         */
 
-        public List<T> GetLoadCombinationResults<T>(string loadCombination = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        /// <summary>
+        /// Retreive load combination results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombination">Optional. Load combination name for which the results should be return.</param>
+        /// <param name="element">Optional. Structural element for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetLoadCombinationResults<T>(string loadCombination = null, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>()).ToList();
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCombination result type!");
-            }
+            List<string> loadCombinations = loadCombination != null ? new List<string> { loadCombination } : null;
+            List<GenericClasses.IStructureElement> elements = element != null ? new List<GenericClasses.IStructureElement> { element } : null;
 
-            return _readResults<T>(listProcs, loadCombination, null, true, elements, units, options);
+            return _getLoadCombinationResults<T>(loadCombinations, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load combination results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombination">Load combination name for which the results should be return.</param>
+        /// <param name="elements">Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetLoadCombinationResults<T>(string loadCombination, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            List<string> loadCombinations = loadCombination != null ? new List<string> { loadCombination } : null;
+
+            return _getLoadCombinationResults<T>(loadCombinations, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load combination results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombinations">Load combination names for which the results should be return.</param>
+        /// <param name="element">Optional. Structural element for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetLoadCombinationResults<T>(List<string> loadCombinations, FemDesign.GenericClasses.IStructureElement element = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            List<GenericClasses.IStructureElement> elements = element != null ? new List<GenericClasses.IStructureElement> { element } : null;
+
+            return _getLoadCombinationResults<T>(loadCombinations, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load combination results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombinations">Load combination names for which the results should be return.</param>
+        /// <param name="elements">Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetLoadCombinationResults<T>(List<string> loadCombinations, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        {
+            return _getLoadCombinationResults<T>(loadCombinations, elements, units, options);
         }
 
         /*  Old version
@@ -1018,6 +1146,14 @@ namespace FemDesign
             return _readResults<T>(listProcs, null, null, false, null, units);
         }
 
+        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
+        {
+            List<int> shapeIds = shapeId.HasValue ? new List<int> { (int)shapeId } : null;
+            List<string> loadCombinations = loadCombination != null ? new List<string> { loadCombination } : null;
+
+            return _getStabilityResults<T>(loadCombinations, shapeIds, units, options);
+        }
+
         /*  Old version
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
@@ -1061,113 +1197,50 @@ namespace FemDesign
             return results;
         }
         */
-
-        public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
+        
+        /// <summary>
+        /// Get results for those result types where FEM-Design uses eigen solver. E.g. imperfections, stability analysis, vibrations.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="loadCombinations">Load combination names for which you want to list the results.</param>
+        /// <param name="shapeIds">Shape identifiers for which you want to list the results. Must be positive, non-zero numbers.</param>
+        /// <param name="elements">Structural elements for which you want to list the results.</param>
+        /// <param name="units"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<T> GetEigenResults<T>(List<string> loadCombinations, List<int> shapeIds, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : IResult
         {
+            // Check inputs
+            if (loadCombinations == null || loadCombinations.Count == 0)
+                throw new ArgumentException("loadCombinations input cannot be null or empty!");
+            if (shapeIds == null || shapeIds.Count == 0)
+                throw new ArgumentException("shapeIds input cannot be null or empty!");
+
+
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
-            List<T> results = _readResults<T>(listProcs, loadCombination, shapeId, true, null, units);
+            // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
+            var currentTime = "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
 
-            // Filter results by load combination and shape identifier
-            string loadCombPropertyName;
-            string shapeIdPropertyName;
-
-            if (typeof(T) == typeof(NodalBucklingShape))
+            // Get .bsc and .csv file paths for .fdscript file generation
+            var bscPaths = new List<string>();
+            var csvPaths = new List<string>();            
+            foreach(var combo in loadCombinations)
             {
-                loadCombPropertyName = nameof(NodalBucklingShape.CaseIdentifier);
-                shapeIdPropertyName = nameof(NodalBucklingShape.Shape);
-            }
-            else if (typeof(T) == typeof(CriticalParameter))
-            {
-                loadCombPropertyName = nameof(CriticalParameter.CaseIdentifier);
-                shapeIdPropertyName = nameof(CriticalParameter.Shape);
-            }
-            else
-            {
-                throw new ArgumentException("This method cannot be used with the specified type.");
+                foreach(var sh in shapeIds)
+                {
+                    var path = _createBscCsvFilePaths(listProcs, combo, sh, currentTime, units, options);
+                    bscPaths.AddRange(path.bscPaths);
+                    csvPaths.AddRange(path.csvPaths);
+                }
             }
 
-            if (loadCombination != null)
-            {
-                results = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombination);
-            }
-            if (shapeId != null)
-            {
-                results = Results.Utils.UtilResultMethods.FilterResultsByShapeId(results, shapeIdPropertyName, (int)shapeId);
-            }
+            // Generate .csv result files
+            _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, bscPaths, csvPaths, elements);
 
-            return results;
+            return ParseCsvFiles<T>(csvPaths);
         }
-
-        ///// <summary>
-        ///// Gets results for those result types where FEM-Design uses eigen solver. E.g. imperfections, stability analysis, vibrations.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="loadCombinations">Load combination names for which you want to list the results.</param>
-        ///// <param name="shapeIds">Shape identifiers for which you want to list the results. Must be positive, non-zero numbers.</param>
-        ///// <param name="elements">Structural elements for which you want to list the results.</param>
-        ///// <param name="units"></param>
-        ///// <param name="options"></param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentException"></exception>
-        //public List<T> GetEigenResults<T>(List<string> loadCombinations, List<int> shapeIds, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : IResult
-        //{
-        //    // Check inputs
-        //    if (loadCombinations == null || loadCombinations.Count == 0)
-        //        throw new ArgumentException("loadCombinations input cannot be null or empty!");
-        //    if (shapeIds == null || shapeIds.Count == 0)
-        //        throw new ArgumentException("shapeIds input cannot be null or empty!");
-            
-
-        //    // Get default units
-        //    if (units is null)
-        //        units = Results.UnitResults.Default();
-
-        //    // Create .bsc files and output (.csv) file paths
-        //    var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
-
-        //    var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
-        //    var bscPaths = new List<string>();
-        //    var csvPaths = new List<string>();
-        //    var bscs = new List<Bsc>();
-            
-        //    foreach(var combo in loadCombinations)
-        //    {
-        //        foreach(var sh in shapeIds)
-        //        {
-        //            var bscPth = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + combo + sh + "_" + currentTime)).ToList();
-        //            var csvPth = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + combo + sh + "_" + currentTime)).ToList();
-        //            bscPaths.AddRange(bscPth);
-        //            csvPaths.AddRange(csvPth);
-
-        //            // Generate .bsc files
-        //            bscs.AddRange(listProcs.Zip(bscPth, (l, p) => new Bsc(l, p, combo, sh, units, options)).ToList());
-        //        }
-        //    }
-
-
-        //    // FdScript commands
-        //    List<CmdCommand> listGenCommands = new List<CmdCommand>();
-        //    listGenCommands.Add(new CmdUser(CmdUserModule.RESMODE));
-        //    for (int i = 0; i < bscPaths.Count; i++)
-        //        listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
-
-        //    // Run .fdscript
-        //    string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-        //    var script = new FdScript(logfile, listGenCommands.ToArray());
-        //    this.RunScript(script, $"Get{typeof(T).Name}" + currentTime);
-
-        //    // Read results from .csv files
-        //    List<T> results = new List<T>();
-        //    foreach (string resultFile in csvPaths)
-        //    {
-        //        results.AddRange(
-        //            Results.ResultsReader.Parse(resultFile).ConvertAll(r => (T)r)
-        //        );
-        //    }
-
-        //    return results;
-        //}
 
 
         public void Save(string filePath)
@@ -1268,69 +1341,241 @@ namespace FemDesign
             }
         }
 
-        //private List<string> _createResultFileNames(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false)
-        //{
-        //    string currentTime = timeStamp ? DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff") : null;
-        //    List<string> fileName = listProcs.Select(l => l.ToString() + "_" + loadCaseCombName + "_" + shapeId + "_" + currentTime).ToList();
+        /// <summary>
+        /// Create .bsc files, and return the .bsc and .csv file paths.
+        /// </summary>
+        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, string currentTime = null, Results.UnitResults units = null, Options options = null)
+        {
+            if (listProcs == null)
+                throw new ArgumentNullException("listProcs input cannot be null!");
 
-        //    return fileName;
-        //}
+            string suffix1 = loadCaseCombName != null ? "_" + loadCaseCombName : null;
+            string suffix2 = shapeId != null ? "_" + shapeId : null;
+
+            // Input bsc and output csv file paths
+            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + suffix1 + suffix2 + currentTime)).ToList();
+            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + suffix1 + suffix2 + currentTime)).ToList();
+
+            // Create bsc files
+            if (shapeId.HasValue)
+            {
+                var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, (int)shapeId ,units, options)).ToList();
+            }
+            else
+            {
+                var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, units, options)).ToList();
+            }
+
+            return (bscPaths, csvPaths);
+        }
 
         /// <summary>
-        /// Create the .bsc files, and return the listing commands for .fdscript and .csv output file paths.
+        /// Create .bsc files, and return the .bsc and .csv file paths.
         /// </summary>
-        private (List<CmdListGen> cmdListGens, List<string> csvPaths) _createListGenData(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, string currentTime = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
+        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, List<string> loadCaseCombNames = null, List<int> shapeIds = null, string currentTime = null, Results.UnitResults units = null, Options options = null)
         {
-            // Input bsc files and output csv files
-            var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + "_" + loadCaseCombName + "_" + shapeId + currentTime)).ToList();
-            var csvPaths = listProcs.Select(l => OutputFileHelper.GetCsvPath(OutputDir, l.ToString() + "_" + loadCaseCombName + "_" + shapeId + currentTime)).ToList();
-            var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, units, options)).ToList();
+            // Initialize outputs
+            List<string> bscPaths = new List<string>();
+            List<string> csvPaths = new List<string>();
 
-            // List commands
-            List<CmdListGen> cmdListGens = new List<CmdListGen>();
-            for (int i = 0; i < bscPaths.Count; i++)
-                cmdListGens.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
+            // Check inputs
+            if (loadCaseCombNames != null && shapeIds != null)
+            {
+                if (loadCaseCombNames.Count != shapeIds.Count)
+                    throw new ArgumentException("Count of load combination names must be the same as the number of the shape identifiers!");
 
-            return (cmdListGens, csvPaths);
+                foreach (var combo in loadCaseCombNames)
+                {
+                    foreach (var id in shapeIds)
+                    {
+                        var item = _createBscCsvFilePaths(listProcs, combo, id, currentTime, units, options);
+                        bscPaths.AddRange(item.bscPaths);
+                        csvPaths.AddRange(item.csvPaths);
+                    }
+                }
+            }
+            else if (loadCaseCombNames != null && shapeIds == null)
+            {
+                foreach (var combo in loadCaseCombNames)
+                {
+                    var item = _createBscCsvFilePaths(listProcs, combo, shapeId: null, currentTime, units, options);
+                    bscPaths.AddRange(item.bscPaths);
+                    csvPaths.AddRange(item.csvPaths);
+                }
+            }
+            else if (loadCaseCombNames == null && shapeIds != null)
+            {
+                foreach (var id in shapeIds)
+                {
+                    var item = _createBscCsvFilePaths(listProcs, loadCaseCombName: null, id, currentTime, units, options);
+                    bscPaths.AddRange(item.bscPaths);
+                    csvPaths.AddRange(item.csvPaths);
+                }
+            }
+            else if (loadCaseCombNames == null && shapeIds == null)
+            {
+                return _createBscCsvFilePaths(listProcs, loadCaseCombName: null, shapeId: null, currentTime, units, options);
+            }
+
+            return (bscPaths, csvPaths);
         }
 
         /// <summary>
         /// Create and run the .fdscript file that lists the result tables and creates the .csv output files.
         /// </summary>
-        private void _listResultsByFdScript(string scriptFileName, List<CmdListGen> listGenCommands)
+        private void _listResultsByFdScript(string scriptFileName, List<string> bscPaths, List<string> csvPaths, List<FemDesign.GenericClasses.IStructureElement> elements = null)
         {
             // FdScript commands
             List<CmdCommand> scriptCommands = new List<CmdCommand>
             {
                 new CmdUser(CmdUserModule.RESMODE)
             };
-            scriptCommands.AddRange(listGenCommands);
+            for (int i = 0; i < bscPaths.Count; i++)
+                scriptCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
             // Run the script
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(logfile, scriptCommands.ToArray());
+            var script = new FdScript(logfile, scriptCommands);
             this.RunScript(script, scriptFileName);
         }
 
         /// <summary>
-        /// For internal use only!
+        /// <strong>For internal use only!</strong>
         /// </summary>
-        private List<T> _readResults<T>(List<ListProc> listProcs, string loadCaseCombName = null, int? shapeId = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
+        private List<T> _readResults<T>(List<ListProc> listProcs = null, List<string> loadCaseCombNames = null, List<int> shapeIds = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
         {
             // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
+            if (listProcs == null)
+                listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
             if (!listProcs.Any())
                 throw new ArgumentNullException("No existing ListProc for type <T>.");
 
-            // Create file name for .bsc and .csv files
+            // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
             string currentTime = timeStamp ? ("_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff")) : null;
 
-            // Get listing commands and .csv file paths for .fdscript file generation
-            (List<CmdListGen> cmdListGens, List<string> csvPaths) = _createListGenData(listProcs, loadCaseCombName, shapeId, currentTime, elements, units, options);
+            // Get .bsc and .csv file paths for .fdscript file generation
+            var (bscPaths, csvPaths) = _createBscCsvFilePaths(listProcs, loadCaseCombNames, shapeIds, currentTime, units, options);
 
-            // Generate .csv result file
-            _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, cmdListGens);
+            // Generate .csv result files
+            _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, bscPaths, csvPaths, elements);
 
             return ParseCsvFiles<T>(csvPaths);
+        }
+
+        /// <summary>
+        /// Retreive results from the opened model.
+        /// <br></br>
+        /// <br></br>
+        /// <strong>WARNING! Do not change the method name!</strong>
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="elements">Structural elements for which the results should be return.</param>
+        /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        internal List<T> _getResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, bool timeStamp = false) where T : Results.IResult
+        {
+            return _readResults<T>(null, null, null, timeStamp, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load case results from the opened model.
+        /// <br></br>
+        /// <br></br>
+        /// <strong>WARNING! Do not change the method name!</strong>
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCases">Optional. Load case names for which the results should be return.</param>
+        /// <param name="elements">Optional. Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        internal List<T> _getLoadCaseResults<T>(List<string> loadCases = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : Results.IResult
+        {
+            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>()).ToList();
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCase result type!");
+            }
+
+            return _readResults<T>(listProcs, loadCases, null, timeStamp, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive load combination results from the opened model.
+        /// <br></br>
+        /// <br></br>
+        /// <strong>WARNING! Do not change the method name!</strong>
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombinations">Optional. Load combination names for which the results should be return.</param>
+        /// <param name="elements">Optional. Structural elements for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        internal List<T> _getLoadCombinationResults<T>(List<string> loadCombinations = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : Results.IResult
+        {
+            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>()).ToList();
+            if (!listProcs.Any())
+            {
+                throw new ArgumentException("T parameter must be a LoadCombination result type!");
+            }
+
+            return _readResults<T>(listProcs, loadCombinations, null, timeStamp, elements, units, options);
+        }
+
+        /// <summary>
+        /// Retreive all of the stability results from the opened model.
+        /// <br></br>
+        /// <br></br>
+        /// <strong>WARNING! Do not change the method name!</strong>
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombinations">Optional. Load combination names for which the results should be return.</param>
+        /// <param name="shapeIds">Optional. Shape identifiers for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        internal List<T> _getStabilityResults<T>(List<string> loadCombinations = null, List<int> shapeIds = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : IResult
+        {
+            List<T> results = _readResults<T>(null, null, null, timeStamp, null, units, options);   // Temporary solution. loadCombinations & shapeIds inputs are null to get all of the results. This part must be updated later. Related issue: https://github.com/strusoft/femdesign-api/issues/876 
+
+            // Filter results by load combination and shape identifier
+            string loadCombPropertyName;
+            string shapeIdPropertyName;
+
+            if (typeof(T) == typeof(NodalBucklingShape))
+            {
+                loadCombPropertyName = nameof(NodalBucklingShape.CaseIdentifier);
+                shapeIdPropertyName = nameof(NodalBucklingShape.Shape);
+            }
+            else if (typeof(T) == typeof(CriticalParameter))
+            {
+                loadCombPropertyName = nameof(CriticalParameter.CaseIdentifier);
+                shapeIdPropertyName = nameof(CriticalParameter.Shape);
+            }
+            else
+            {
+                throw new ArgumentException("This method cannot be used with the specified type.");
+            }
+
+            if (loadCombinations != null)
+            {
+                results = Results.Utils.UtilResultMethods.FilterResultsByLoadCombination(results, loadCombPropertyName, loadCombinations);
+            }
+            if (shapeIds != null)
+            {
+                results = Results.Utils.UtilResultMethods.FilterResultsByShapeId(results, shapeIdPropertyName, shapeIds);
+            }
+
+            return results;
         }
 
         private string _outputDir;

@@ -149,7 +149,7 @@ namespace FemDesign.Calculate
             if(resultType != ListProc.NodalVibrationShape)
             {
                 if (loadCombination == null)
-                    throw new Exception("loadCombination input cannot be null!");
+                    throw new Exception("Load combination input cannot be null!");
 
                 Suffix = $"{loadCombination} / {shapeID}";
             }
