@@ -522,10 +522,10 @@ namespace FemDesign
             // Input bsc files and output csv files
             var listProcs = typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>();
 
-            return GetResultsCommon<T>(listProcs, $"Get{typeof(T).Name}", elements, units, options);
+            return _getResultsCommon<T>(listProcs, $"Get{typeof(T).Name}", elements, units, options);
         }
 
-        private List<T> GetResults<T>(Func<ListProc, bool> filter, string identifier = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
+        private List<T> _getResults<T>(Func<ListProc, bool> filter, string identifier = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
             if (units is null)
                 units = Results.UnitResults.Default();
@@ -538,10 +538,10 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a result type that matches the provided filter!");
             }
 
-            return GetResultsCommon<T>(listProcs, identifier, elements, units, options);
+            return _getResultsCommon<T>(listProcs, identifier, elements, units, options);
         }
 
-        private List<T> GetResultsCommon<T>(IEnumerable<ListProc> listProcs, string identifier, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units, Options options) where T : Results.IResult
+        private List<T> _getResultsCommon<T>(IEnumerable<ListProc> listProcs, string identifier, List<FemDesign.GenericClasses.IStructureElement> elements, Results.UnitResults units, Options options) where T : Results.IResult
         {
             var currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + identifier + currentTime)).ToList();
@@ -723,17 +723,17 @@ namespace FemDesign
 
         public List<T> GetLoadCaseResults<T>(string loadCase = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
-            return GetResults<T>(p => p.IsLoadCase() == true, loadCase, elements, units, options);
+            return _getResults<T>(p => p.IsLoadCase() == true, loadCase, elements, units, options);
         }
 
         public List<T> GetLoadCombinationResults<T>(string loadCombination = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null) where T : Results.IResult
         {
-            return GetResults<T>(p => p.IsLoadCombination() == true, loadCombination, elements, units, options);
+            return _getResults<T>(p => p.IsLoadCombination() == true, loadCombination, elements, units, options);
         }
 
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
-            return GetResults<T>(p => p.IsQuantityEstimation() == true, null, null, units);
+            return _getResults<T>(p => p.IsQuantityEstimation() == true, null, null, units);
         }
 
         public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
