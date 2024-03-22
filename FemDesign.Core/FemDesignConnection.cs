@@ -527,41 +527,12 @@ namespace FemDesign
             return results;
         }
 
-
-        // The result seems to be save in memory and not in the .strFEM.
-        // Ask Pasa
-
-        ///// <summary>
-        ///// Check if the open model with FemDesignConnection has results
-        ///// </summary>
-        ///// <returns></returns>
-        //public bool HasResult()
-        //{
-        //    if(CurrentOpenModel == null)
-        //    {
-        //        throw new Exception("The model has been open manually. Open a file using FemDesignConnection.Open() if you want to read the results!");
-        //    }
-        //    var directory = System.IO.Path.GetDirectoryName(CurrentOpenModel);
-        //    var fileNames = Directory.GetFiles(directory);
-
-        //    var strFEM = System.IO.Path.ChangeExtension(CurrentOpenModel, ".strFEM");
-
-        //    foreach(var filename in fileNames)
-        //    {
-        //        if (filename == strFEM)
-        //            return true;
-        //    }
-
-        //    return false;
-        //}
-
-
         public List<Results.FemNode> GetFeaNodes(Results.Length length = Results.Length.m)
         {
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return _readResults<FemNode>(null, null, null, false, null, units);
+            return _readResults<FemNode>(p => true, null, null, false, null, units);
         }
 
         /*  Old version
@@ -608,7 +579,7 @@ namespace FemDesign
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return _readResults<FemBar>(null, null, null, false, null, units);
+            return _readResults<FemBar>(p => true, null, null, false, null, units);
         }
 
         /* Old version
@@ -655,7 +626,7 @@ namespace FemDesign
             var units = Results.UnitResults.Default();
             units.Length = length;
 
-            return _readResults<FemShell>(null, null, null, false, null, units);
+            return _readResults<FemShell>(p => true, null, null, false, null, units);
         }
 
         /*  Old version
@@ -699,11 +670,6 @@ namespace FemDesign
 
         public Results.FiniteElement GetFeaModel(Results.Length units = Results.Length.m)
         {
-            //if( !HasResult())
-            //{
-            //    throw new Exception("The current open model does not have results!");
-            //}
-
             var feaNode = GetFeaNodes(units);
             var feaBar = GetFeaBars(units);
             var feaShell = GetFeaShells(units);
@@ -1135,17 +1101,26 @@ namespace FemDesign
         }
         */
 
+        /// <summary>
+        /// Retreive all of the quantity estimation results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <returns></returns>
         public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsQuantityEstimation() == true) ?? Enumerable.Empty<ListProc>()).ToList();
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a Quantity Estimation result type!");
-            }
-
-            return _readResults<T>(listProcs, null, null, false, null, units);
+            return _getQuantities<T>(units);
         }
 
+        /// <summary>
+        /// Retreive the stability results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="loadCombination">Optional. Load combination name for which the results should be return.</param>
+        /// <param name="shapeId">Optional. Shape identifier for which the results should be return.</param>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="options">Optional. Options to set up the output location.</param>
+        /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
         public List<T> GetStabilityResults<T>(string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null) where T : IResult
         {
             List<int> shapeIds = shapeId.HasValue ? new List<int> { (int)shapeId } : null;
@@ -1197,7 +1172,9 @@ namespace FemDesign
             return results;
         }
         */
-        
+
+
+        /*  WIP - GitHub case: 876
         /// <summary>
         /// Get results for those result types where FEM-Design uses eigen solver. E.g. imperfections, stability analysis, vibrations.
         /// </summary>
@@ -1241,6 +1218,7 @@ namespace FemDesign
 
             return ParseCsvFiles<T>(csvPaths);
         }
+        */
 
 
         public void Save(string filePath)
@@ -1442,13 +1420,11 @@ namespace FemDesign
         /// <summary>
         /// <strong>For internal use only!</strong>
         /// </summary>
-        private List<T> _readResults<T>(List<ListProc> listProcs = null, List<string> loadCaseCombNames = null, List<int> shapeIds = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
-        {
-            // Check listProcs input parameter. Must have at least one item in the list. Type <T> object can have multiple ListProc attribute.
-            if (listProcs == null)
-                listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
+        private List<T> _readResults<T>(Func<ListProc, bool> filter, List<string> loadCaseCombNames = null, List<int> shapeIds = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
+        {            
+            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(filter) ?? Enumerable.Empty<ListProc>()).ToList();
             if (!listProcs.Any())
-                throw new ArgumentNullException("No existing ListProc for type <T>.");
+                throw new ArgumentException("T parameter must be a result type that matches the provided filter!");
 
             // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
             string currentTime = timeStamp ? ("_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff")) : null;
@@ -1464,9 +1440,6 @@ namespace FemDesign
 
         /// <summary>
         /// Retreive results from the opened model.
-        /// <br></br>
-        /// <br></br>
-        /// <strong>WARNING! Do not change the method name!</strong>
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
@@ -1476,14 +1449,11 @@ namespace FemDesign
         /// <returns>List of results of type <typeparamref name="T"/> if any could be retrieved. If the model has no results of type <typeparamref name="T"/> or cannot access them at the moment, then the list will be empty.</returns>
         internal List<T> _getResults<T>(Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, bool timeStamp = false) where T : Results.IResult
         {
-            return _readResults<T>(null, null, null, timeStamp, elements, units, options);
+            return _readResults<T>(p => true, null, null, timeStamp, elements, units, options);
         }
 
         /// <summary>
         /// Retreive load case results from the opened model.
-        /// <br></br>
-        /// <br></br>
-        /// <strong>WARNING! Do not change the method name!</strong>
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="loadCases">Optional. Load case names for which the results should be return.</param>
@@ -1495,20 +1465,11 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         internal List<T> _getLoadCaseResults<T>(List<string> loadCases = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : Results.IResult
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCase() == true) ?? Enumerable.Empty<ListProc>()).ToList();
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCase result type!");
-            }
-
-            return _readResults<T>(listProcs, loadCases, null, timeStamp, elements, units, options);
+            return _readResults<T>(p => p.IsLoadCase() == true, loadCases, null, timeStamp, elements, units, options);
         }
 
         /// <summary>
         /// Retreive load combination results from the opened model.
-        /// <br></br>
-        /// <br></br>
-        /// <strong>WARNING! Do not change the method name!</strong>
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="loadCombinations">Optional. Load combination names for which the results should be return.</param>
@@ -1520,20 +1481,23 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         internal List<T> _getLoadCombinationResults<T>(List<string> loadCombinations = null, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : Results.IResult
         {
-            var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(p => p.IsLoadCombination() == true) ?? Enumerable.Empty<ListProc>()).ToList();
-            if (!listProcs.Any())
-            {
-                throw new ArgumentException("T parameter must be a LoadCombination result type!");
-            }
-
-            return _readResults<T>(listProcs, loadCombinations, null, timeStamp, elements, units, options);
+            return _readResults<T>(p => p.IsLoadCombination() == true, loadCombinations, null, timeStamp, elements, units, options);
         }
 
         /// <summary>
-        /// Retreive all of the stability results from the opened model.
-        /// <br></br>
-        /// <br></br>
-        /// <strong>WARNING! Do not change the method name!</strong>
+        /// Retreive all of the quantity estimation results from the opened model.
+        /// </summary>
+        /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
+        /// <param name="units">Optional. Unit setting for the results.</param>
+        /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
+        /// <returns></returns>
+        internal List<T> _getQuantities<T>(Results.UnitResults units = null, bool timeStamp = false) where T : Results.IResult
+        {
+            return _readResults<T>(p => p.IsQuantityEstimation() == true, null, null, timeStamp, null, units);
+        }
+
+        /// <summary>
+        /// Retreive the stability results from the opened model.
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="loadCombinations">Optional. Load combination names for which the results should be return.</param>

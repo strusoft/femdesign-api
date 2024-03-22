@@ -60,13 +60,12 @@ namespace FemDesign.Grasshopper
 
     public class ApplicationGetQuantitiesWorker : WorkerInstance
     {
-
         public dynamic _getQuantities(Type resultType, Results.UnitResults units = null)
         {
-            var method = nameof(FemDesign.FemDesignConnection.GetQuantities);
+            var methodName = nameof(FemDesign.FemDesignConnection._getQuantities);
             List<Results.IResult> mixedResults = new List<Results.IResult>();
-            MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-            dynamic result = genericMethod.Invoke(_connection, new object[] { units });
+            MethodInfo genericMethod = _connection.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+            dynamic result = genericMethod.Invoke(_connection, new object[] { units, true });
             mixedResults.AddRange(result);
             return mixedResults;
         }
