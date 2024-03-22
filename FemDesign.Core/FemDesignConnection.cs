@@ -1327,8 +1327,8 @@ namespace FemDesign
             if (listProcs == null)
                 throw new ArgumentNullException("listProcs input cannot be null!");
 
-            string suffix1 = loadCaseCombName != null ? "_" + loadCaseCombName : null;
-            string suffix2 = shapeId != null ? "_" + shapeId : null;
+            string suffix1 = loadCaseCombName != null ? "__" + loadCaseCombName : null;
+            string suffix2 = shapeId != null ? "_shape-" + shapeId : null;
 
             // Input bsc and output csv file paths
             var bscPaths = listProcs.Select(l => OutputFileHelper.GetBscPath(OutputDir, l.ToString() + suffix1 + suffix2 + currentTime)).ToList();
@@ -1427,7 +1427,7 @@ namespace FemDesign
                 throw new ArgumentException("T parameter must be a result type that matches the provided filter!");
 
             // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
-            string currentTime = timeStamp ? ("_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff")) : null;
+            string currentTime = timeStamp ? ("__" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff")) : null;
 
             // Get .bsc and .csv file paths for .fdscript file generation
             var (bscPaths, csvPaths) = _createBscCsvFilePaths(listProcs, loadCaseCombNames, shapeIds, currentTime, units, options);

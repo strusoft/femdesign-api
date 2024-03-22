@@ -43,6 +43,9 @@ namespace FemDesign.Results
 
             var results = connection.GetLoadCaseResults<Results.ShellDisplacement>(options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints) );
 
+            var lcs = connection.GetLoads().LoadCases.Select(c => c.Name).ToList();
+            var lcResults = connection.GetLoadCaseResults<Results.ShellDisplacement>(loadCase: lcs[1], options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints));
+
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Count == 3);
         }
