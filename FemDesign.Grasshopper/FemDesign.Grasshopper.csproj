@@ -216,6 +216,7 @@
     <Compile Include="Results\NodalDisplacement.cs" />
     <Compile Include="Results\NodalVibration.cs" />
     <Compile Include="Results\OBSOLETE\BarDisplacement_OBSOLETE.cs" />
+    <Compile Include="Results\OBSOLETE\BarSteelUtilisation_OBSOLETE.cs" />
     <Compile Include="Results\Options.cs" />
     <Compile Include="Results\PointConnectionForce.cs" />
     <Compile Include="Results\PointSupportReactionMinMax.cs" />
