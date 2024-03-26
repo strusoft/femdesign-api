@@ -1350,7 +1350,7 @@ namespace FemDesign
         /// <summary>
         /// Create .bsc files, and return the .bsc and .csv file paths.
         /// </summary>
-        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, List<string> loadCaseCombNames = null, List<int> shapeIds = null, string currentTime = null, Results.UnitResults units = null, Options options = null)
+        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, List<string> loadCaseCombNames, List<int> shapeIds, string currentTime = null, Results.UnitResults units = null, Options options = null)
         {
             // Initialize outputs
             List<string> bscPaths = new List<string>();

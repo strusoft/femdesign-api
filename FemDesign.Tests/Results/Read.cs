@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace FemDesign.Results
 {
@@ -92,6 +94,72 @@ namespace FemDesign.Results
                 // crashes FEM-Design
                 //results = femdesign.GetResults<QuantityEstimationTimberPanel>();
                 results = femdesign.GetResults<QuantityEstimationProfiledPlate>();
+
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("FEM-Design required")]
+        public void GetResultMethodTests()
+        {
+            string filepath = "Results\\Assets\\Model.str";
+
+            using (var connection = new FemDesignConnection())
+            {
+                connection.Open(filepath);
+
+                var model = connection.GetModel();
+                var bars = model.Entities.Bars;
+                var elements = new List<FemDesign.Bars.Bar> { bars[1], bars[2] };
+                var elemIds = elements.Select(e => e.BarPart.Name).ToList();
+
+                var loads = connection.GetLoads();
+                var loadCases = loads.LoadCases.Select(c => c.Name).ToList();
+                var loadCombs = loads.LoadCombinations.Select(c => c.Name).ToList();
+
+                //------------------------------------------------------------------
+                // Test GetResults() method
+                //------------------------------------------------------------------
+
+                // Get all of the BarDisplacement results
+                var allRes = connection.GetResults<BarDisplacement>().OrderBy(r => r.Id).ToList();
+                Assert.IsTrue(allRes.Count != 0);
+
+                List<BarDisplacement> filteredAllRes = new List<BarDisplacement>();
+                foreach (var id in elemIds)
+                {
+                    var filteredRes = allRes.Where(r => r.Id == id).ToList();
+                    filteredAllRes.AddRange(filteredRes);
+                }
+                filteredAllRes = filteredAllRes.OrderBy(r => r.Pos).OrderBy(r => r.CaseIdentifier).OrderBy(r => r.Id).ToList();
+
+
+                // Get all of the BarDisplacement results by structural elements
+                var structElements = elements.Select(e => (FemDesign.GenericClasses.IStructureElement)e).ToList();
+                var allResByElements = connection.GetResults<BarDisplacement>(elements: structElements).OrderBy(r => r.Pos).OrderBy(r => r.CaseIdentifier).OrderBy(r => r.Id).ToList();
+                Assert.IsTrue(allRes.Count != 0);
+
+
+                // Check
+                Assert.AreEqual(allResByElements.Count, filteredAllRes.Count);
+                for (int i = 0; i < allResByElements.Count; i++)
+                {
+                    PropertyInfo[] properties = typeof(BarDisplacement).GetProperties();
+                    properties = properties.Where(p => p.Name != nameof(BarDisplacement.CaseIdentifier)).ToArray();
+
+                    foreach (var prop in properties)
+                    {
+                        var item1 = prop.GetValue(allResByElements[i]);
+                        var item2 = prop.GetValue(filteredAllRes[i]);
+                        Assert.AreEqual(item1, item2);
+                    }
+                    string caseId1 = allResByElements[i].CaseIdentifier.Replace(" - selected objects", "");
+                    string caseId2 = filteredAllRes[i].CaseIdentifier;
+                    Assert.AreEqual(caseId1, caseId2);
+                }
+
+
+
 
             }
         }
