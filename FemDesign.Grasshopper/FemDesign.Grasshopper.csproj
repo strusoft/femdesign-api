@@ -213,7 +213,9 @@
     <Compile Include="Results\LineConnectionResultant.cs" />
     <Compile Include="Results\LineSupportReaction.cs" />
     <Compile Include="Results\FiniteElements\FeaNode.cs" />
+    <Compile Include="Results\NodalDisplacement.cs" />
     <Compile Include="Results\NodalVibration.cs" />
+    <Compile Include="Results\OBSOLETE\BarDisplacement_OBSOLETE.cs" />
     <Compile Include="Results\Options.cs" />
     <Compile Include="Results\PointConnectionForce.cs" />
     <Compile Include="Results\PointSupportReactionMinMax.cs" />
@@ -330,7 +332,7 @@
     <Compile Include="Releases\MotionsConstruct.cs" />
     <Compile Include="Releases\RotationsConstruct.cs" />
     <Compile Include="Results\BarDisplacement.cs" />
-    <Compile Include="Results\NodalDisplacement.cs" />
+    <Compile Include="Results\OBSOLETE\NodalDisplacement_OBSOLETE.cs" />
     <Compile Include="Results\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsType.cs" />
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />

@@ -5,18 +5,15 @@ using Grasshopper.Kernel;
 using System.Linq;
 using Rhino.Geometry;
 using FemDesign.Results;
-using FemDesign.Loads;
-using Rhino.Commands;
-using Grasshopper.Kernel.Data;
 
 namespace FemDesign.Grasshopper
 {
-    public class NodalDisplacement : FEM_Design_API_Component
+    public class NodalDisplacement_OBSOLETE : FEM_Design_API_Component
     {
         /// <summary>
         /// Initializes a new instance of the NodalDisplacement class.
         /// </summary>
-        public NodalDisplacement()
+        public NodalDisplacement_OBSOLETE()
           : base("NodalDisplacement",
                 "NodalDisplacement",
                 "Read the nodal displacement for the entire model",
@@ -32,7 +29,6 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
         }
 
         /// <summary>
@@ -41,7 +37,6 @@ namespace FemDesign.Grasshopper
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.", GH_ParamAccess.list);
-            pManager.AddTextParameter("ElementId", "ElementId", "", GH_ParamAccess.list);
             pManager.AddIntegerParameter("NodeId", "NodeId", "Node Index", GH_ParamAccess.list);
             pManager.AddVectorParameter("Translation", "Translation", "Nodal translations in global x, y, z for all nodes.", GH_ParamAccess.list);
             pManager.AddVectorParameter("Rotation", "Rotation", "Nodal rotations in global x, y, z for all nodes.", GH_ParamAccess.list);
@@ -55,56 +50,47 @@ namespace FemDesign.Grasshopper
         {
             // get indata
 
-            List<FemDesign.Results.NodalDisplacement> results = new List<FemDesign.Results.NodalDisplacement>();
-            DA.GetDataList("Result", results);
+            List<FemDesign.Results.NodalDisplacement> iResult = new List<FemDesign.Results.NodalDisplacement>();
+            DA.GetDataList("Result", iResult);
 
-            string loadCase = null;
-            DA.GetData(1, ref loadCase);
+            string iLoadCase = null;
+            DA.GetData(1, ref iLoadCase);
 
 
-            if (loadCase != null)
+            // Read Result from Abstract Method
+            Dictionary<string, object> result;
+
+
+            try
             {
-                results = results.Where(x => x.CaseIdentifier == loadCase).ToList();
+                result = FemDesign.Results.NodalDisplacement.DeconstructNodalDisplacements(iResult, iLoadCase);
+            }
+            catch (ArgumentException ex)
+            {
+                AddRuntimeMessage( GH_RuntimeMessageLevel.Warning, ex.Message);
+                return;
             }
 
-            // collect output in datatree
-            DataTree<string> loadCases = new DataTree<string>();
-            DataTree<string> elementId = new DataTree<string>();
-            DataTree<int> nodeId = new DataTree<int>();
-            DataTree<Vector3d> translation = new DataTree<Vector3d>();
-            DataTree<Vector3d> rotation = new DataTree<Vector3d>();
 
-            var grouping = results.GroupBy(x => x.CaseIdentifier);
+            var loadCases = (List<string>) result ["CaseIdentifier"];
+            var nodeId = (List<int>) result["NodeId"];
+            var iTranslation = (List<FemDesign.Geometry.Vector3d>) result["Translation"];
+            var iRotation = (List<FemDesign.Geometry.Vector3d>) result["Rotation"];
 
-            int iteration = DA.Iteration;
-            int grpCounter = 0;
-            foreach (var group in grouping)
-            {
-                var caseIdentifier = group.Key;
-                var elementIds = group.Select(x => x.Id);
-                var nodeIds = group.Select(x => x.NodeId);
-                var translations = group.Select(x => new Vector3d(x.Ex, x.Ey, x.Ez));
-                var rotations = group.Select(x => new Vector3d(x.Fix, x.Fiy, x.Fiz));
+            // Convert the FdVector to Dynamo
+            var oTranslation = iTranslation.Select(x => x.ToRhino());
+            var oRotation = iRotation.Select(x => x.ToRhino());
 
-
-                loadCases.Add(caseIdentifier, new GH_Path(iteration, grpCounter));
-                elementId.AddRange(elementIds, new GH_Path(iteration, grpCounter));
-                nodeId.AddRange(nodeIds, new GH_Path(iteration, grpCounter));
-                translation.AddRange(translations, new GH_Path(iteration, grpCounter));
-                rotation.AddRange(rotations, new GH_Path(iteration, grpCounter));
-                grpCounter++;
-            }
 
 
             // Set output
-            DA.SetDataTree(0, loadCases);
-            DA.SetDataTree(1, elementId);
-            DA.SetDataTree(2, nodeId);
-            DA.SetDataTree(3, translation);
-            DA.SetDataTree(4, rotation);
+            DA.SetDataList("CaseIdentifier", loadCases);
+            DA.SetDataList("NodeId", nodeId);
+            DA.SetDataList("Translation", oTranslation);
+            DA.SetDataList("Rotation", oRotation);
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -124,7 +110,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{AF74B638-2EE0-43F1-82BC-89CFB17728FB}"); }
+            get { return new Guid("4A4FD737-4510-4C00-893E-3DB6814A8F68"); }
         }
     }
 }
