@@ -38,7 +38,7 @@ namespace FemDesign.Calculate
         public bool PlKeepLoadStep { get; set; } = true;
 
         /// <summary>
-        /// Golbal tolerance value [‰]
+        /// Global tolerance value [‰]
         /// </summary>
         [XmlAttribute("PlTolerance")]
         public int PlTolerance { get; set; } = 1;
@@ -131,6 +131,28 @@ namespace FemDesign.Calculate
             this.CombItem = CombItem ?? new List<CombItem>();
         }
 
+        public Comb(int nLEmaxiter = 30, int pLdefloadstep = 20, int pLminloadstep = 2, bool plKeepLoadStep = true, int plTolerance = 1, int pLmaxeqiter = 50, int plShellLayers = 10, bool nLSMohr = true, int nLSinitloadstep = 10, int nLSminloadstep = 10, int nLSactiveelemratio = 5, int nLSplasticelemratio = 5, int cRloadstep = 20, int cRmaxiter = 30, int cRstifferror = 2, List<CombItem> combItem = null)
+        {
+            NLEmaxiter = nLEmaxiter;
+            PLdefloadstep = pLdefloadstep;
+            PLminloadstep = pLminloadstep;
+            PlKeepLoadStep = plKeepLoadStep;
+            PlTolerance = plTolerance;
+            PLmaxeqiter = pLmaxeqiter;
+            PlShellLayers = plShellLayers;
+            NLSMohr = nLSMohr;
+            NLSinitloadstep = nLSinitloadstep;
+            NLSminloadstep = nLSminloadstep;
+            NLSactiveelemratio = nLSactiveelemratio;
+            NLSplasticelemratio = nLSplasticelemratio;
+            CRloadstep = cRloadstep;
+            CRmaxiter = cRmaxiter;
+            CRstifferror = cRstifferror;
+            CombItem = combItem;
+        }
+
+
+
         /// <summary>
         /// Set default calculation parameters for load combinations.
         /// </summary>
@@ -138,20 +160,9 @@ namespace FemDesign.Calculate
         /// <returns></returns>
         public static Comb Default()
         {
-            int NLEmaxiter = 30;
-            int PLdefloadstep = 20;
-            int PLminloadstep = 2;
-            int PLmaxeqiter = 30;
-            bool NLSMohr = true;
-            int NLSinitloadstep = 10;
-            int NLSminloadstep = 10;
-            int NLSactiveelemratio = 5;
-            int NLSplasticelemratio = 5;
-            int CRloadstep = 20;
-            int CRmaxiter = 30;
-            int CRstifferror = 2;
-            return new Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror);
+            return new Comb();
         }
+        
 
     }
 }

@@ -71,6 +71,8 @@
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\CombDefine.cs" />
+    <Compile Include="Calculate\CombSettings.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
@@ -102,7 +104,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
-    <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\OBSOLETE\CombSettings_OBSOLETE.cs" />
     <Compile Include="Calculate\FreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
@@ -144,7 +146,7 @@
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
-    <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersCombDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\Shells\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\Foundations\IsolatedFoundationDeconstruct.cs" />

@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class CombinationSettings : FEM_Design_API_Component
+    public class CombinationSettings_OBSOLETE : FEM_Design_API_Component
     {
-        public CombinationSettings() : base("Comb.Settings", "Comb.Settings", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CombinationSettings_OBSOLETE() : base("Comb.Settings", "Comb.Settings", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
             {
                 loadCombination = loads.Name;
             }
-
+            
 
 
             bool nle = false;
@@ -104,8 +104,9 @@ namespace FemDesign.Grasshopper
                 cr = false;
             }
 
-            var combItem = new FemDesign.Calculate.CombItem(loadCombination, 0, 0, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
+            var combItem = new FemDesign.Calculate.CombItem(0, 0, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
 
+            combItem.CombName = loadCombination;
 
             // return
             DA.SetData(0, combItem);
@@ -121,9 +122,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{D73ECF46-8D71-442E-845D-7E4474EE3FAF}"); }
+            get { return new Guid("{4472967C-F22A-494A-94F5-70F9AB7E2C29}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

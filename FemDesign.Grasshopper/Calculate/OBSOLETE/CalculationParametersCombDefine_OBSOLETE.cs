@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersCombDefine: FEM_Design_API_Component
+    public class CalculationParametersCombDefine_OBSOLETE: FEM_Design_API_Component
     {
-        public CalculationParametersCombDefine(): base("Comb.Define", "Comb", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersCombDefine_OBSOLETE(): base("Comb.Define", "Comb", "Define calculation parameters for the Load combinations calculation type. To setup which analysis types to consider for a specific load combination - use LoadCombination.SetupCalculation", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -115,7 +115,7 @@ namespace FemDesign.Grasshopper
                 combItem = null;
             }
 
-            //
+            
             FemDesign.Calculate.Comb obj = new FemDesign.Calculate.Comb(NLEmaxiter, PLdefloadstep, PLminloadstep, PLmaxeqiter, NLSMohr, NLSinitloadstep, NLSminloadstep, NLSactiveelemratio, NLSplasticelemratio, CRloadstep, CRmaxiter, CRstifferror, combItem);
 
             // return
@@ -133,7 +133,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("{537E2187-E9DE-41D1-A897-B6B2E79B33AF}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
