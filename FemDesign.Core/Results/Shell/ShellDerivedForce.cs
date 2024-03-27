@@ -12,9 +12,9 @@ using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
-    /// FemDesign "Bars, End forces" result
+    /// FemDesign "Shell, Derived forces" result
     /// </summary>
-    [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceExtractLoadCase, ListProc.ShellDerivedForceExtractLoadCombination)]
+    [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceLoadCase, ListProc.ShellDerivedForceLoadCombination)]
     public partial class ShellDerivedForce : IResult
     {
         /// <summary>
