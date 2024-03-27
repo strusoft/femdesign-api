@@ -15,7 +15,10 @@ using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using FemDesign.Grasshopper.Extension.ComponentExtension;           
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+
+using GH_IO.Serialization;
+
 
 namespace FemDesign.Grasshopper
 {
@@ -29,6 +32,29 @@ namespace FemDesign.Grasshopper
 
         public bool _minimised { get; set; }
         public bool _keepOpen { get; set; }
+
+
+        public override bool Write(GH_IWriter writer)
+        {
+            // Save the version when this component was created
+            writer.SetBoolean("minimised", _minimised);
+            writer.SetBoolean("keepOpen", _keepOpen);
+            return base.Write(writer);
+        }
+
+        public override bool Read(GH_IReader reader)
+        {
+            // Read the version when this component was created
+            try
+            {
+                _minimised = reader.GetBoolean("minimised");
+                _keepOpen = reader.GetBoolean("keepOpen");
+            }
+            catch (NullReferenceException) { } // In case the info component was created before the VersionWhenFirstCreated was implemented.
+            return base.Read(reader);
+        }
+
+
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
