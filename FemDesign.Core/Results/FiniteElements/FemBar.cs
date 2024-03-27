@@ -63,7 +63,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Bar elements)|^Bar\t");
+                return new Regex(@"^(?'type'Bar elements)|Bar\tElem\tNode 1\tNode 2");
             }
         }
 

@@ -15,51 +15,32 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
+            string modelPath = "Results\\Assets\\Model.str";
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Bar elements
-Bar	Elem	Node 1	Node 2
-B.1.1	1	6038	5857
-B.1.1	2	5857	5642
-B.1.1	3	5642	5405
-B.1.1	4	5405	5123
-B.2.1	5	5123	4686");
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<FemBar>(modelPath);
 
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(FemBar), "FeaBar should be parsed");
-            File.Delete(path);
-        }
 
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Bar elements",
-            };
+            // Check parsed data
+            Assert.IsTrue(results[0].GetType() == typeof(FemBar), $"{typeof(FemBar).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = FemBar.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(FemBar).Name}");
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = FemBar.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = FemBar.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(FemBar).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
             }
-        }
 
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Bar elements",
-                "Bar	Elem	Node 1	Node 2",
-            };
-
-            foreach (var header in headers)
-            {
-                var match = FemBar.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-            }
         }
+                
     }
 }

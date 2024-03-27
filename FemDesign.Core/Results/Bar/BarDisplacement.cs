@@ -90,7 +90,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Bar\t|\[.+\]");
+                return new Regex(@"^(?'type'Bars), (?'result'Displacements), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Bar\tx\tex'\tey'\tez'\t\u03c6 x'\t\u03c6 y'\t\u03c6 z'\t|\[.+\]");
             }
         }
 
