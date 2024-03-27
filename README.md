@@ -2,6 +2,10 @@
  <img src="https://strusoft.com/wp-content/uploads/2022/02/MicrosoftTeams-image-69.png">
 </p>
 
+[![NuGet Downloads](https://img.shields.io/nuget/dt/FemDesign.Core)](https://www.nuget.org/packages/FemDesign.Core)
+
+
+
 # femdesign-api
 This repository contains source code for the FEM-Design API wrapper. It consists of the `C#`-Core together with the `Dynamo` and `Grasshopper` plugins. 
 
