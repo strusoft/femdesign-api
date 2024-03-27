@@ -53,6 +53,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("local_system", Order = 5)]
         public Geometry.Plane _plane;
 
+        [XmlElement("colouring", Order = 6)]
+        public EntityColor Colouring { get; set; }
+
         [XmlIgnore]
         public Geometry.Plane Plane
         {

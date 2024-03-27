@@ -78,15 +78,9 @@
             return new string(' ', 1) + "Results";
         }
 
-        public static string CatLast()
-        {
-            return new string(' ', 1) + "StruSoft";
-        }
-
         public static string Cat8()
         {
-            return "\u03B2eta";
+            return "StruSoft - LiveLink";
         }
-
     }
 }

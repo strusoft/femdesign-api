@@ -146,6 +146,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("ref", Order = 6)]
         public GuidListType[] References { get; set; }
 
+        [XmlElement("colouring", Order = 7)]
+        public EntityColor Colouring { get; set; }
+
         [XmlAttribute("interface")]
         public double _interface;
 

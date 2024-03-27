@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_RunDesign;
-        public override Guid ComponentGuid => new Guid("{920DB78D-34C5-43A8-918E-0A6951E5561D}");
+        public override Guid ComponentGuid => new Guid("{DF2E8AA9-EF06-4E93-83EA-685E17F0FF61}");
         public override GH_Exposure Exposure => GH_Exposure.secondary;
         private class ApplicationRunDesignWorker : WorkerInstance
         {
@@ -97,7 +97,6 @@ namespace FemDesign.Grasshopper
 
                     if (_design.ApplyChanges == true)
                     {
-                        _connection.ApplyDesignChanges();
                         RuntimeMessages.Add((GH_RuntimeMessageLevel.Remark, "'Apply changes' == true. Run a new analysis to validate your model against the new section sizes."));
                     }
                     _connection.OnOutput -= onOutput;

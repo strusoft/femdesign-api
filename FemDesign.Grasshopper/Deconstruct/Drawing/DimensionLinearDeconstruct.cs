@@ -49,8 +49,8 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 4, DimensionLinear.ArrowTypeValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 6, DimensionLinear.LengthUnitValueList, null, 0);
+            ValueListUtils.UpdateValueLists(this, 4, DimensionLinear.ArrowTypeValueList, null, 0);
+            ValueListUtils.UpdateValueLists(this, 6, DimensionLinear.LengthUnitValueList, null, 0);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

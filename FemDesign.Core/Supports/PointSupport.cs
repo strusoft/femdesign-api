@@ -61,6 +61,9 @@ namespace FemDesign.Supports
 
         [XmlElement("position", Order = 3)]
         public Point3d Position { get; set; } // point_type_3d
+
+        [XmlElement("colouring", Order = 4)]
+        public EntityColor Colouring { get; set; }
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
         public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }

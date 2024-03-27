@@ -5,6 +5,9 @@ using Grasshopper.Kernel;
 using System.Linq;
 using Rhino.Geometry;
 using FemDesign.Results;
+using Grasshopper.Kernel.Data;
+using Rhino.Commands;
+using FemDesign.Loads;
 
 namespace FemDesign.Grasshopper
 {
@@ -37,6 +40,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
             pManager.Register_StringParam("Id", "Id", "");
             pManager.Register_StringParam("SectionName", "SectionName", "Applied profile");
             pManager.Register_DoubleParam("Max", "Max", "Maximum utilisation from all the verifications");
@@ -47,7 +51,6 @@ namespace FemDesign.Grasshopper
             pManager.Register_DoubleParam("LTBb", "LTBb", "Lateral torsional buckling, bottom flange - Part 1-1: 6.3.2.4");
             pManager.Register_DoubleParam("SB", "SB", "Shear buckling - Part 1-5: 5");
             pManager.Register_DoubleParam("IA", "IA", "Interaction - Part 1-1: 6.3.3");
-            pManager.Register_StringParam("CaseIdentifier", "CaseIdentifier", "CaseIdentifier.");
         }
 
         /// <summary>
@@ -56,54 +59,76 @@ namespace FemDesign.Grasshopper
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<FemDesign.Results.BarSteelUtilization> iResult = new List<FemDesign.Results.BarSteelUtilization>();
-            if(!DA.GetDataList("Result", iResult)) return;
+            List<FemDesign.Results.BarSteelUtilization> results = new List<FemDesign.Results.BarSteelUtilization>();
+            DA.GetDataList("Result", results);
 
             string loadCombination = null;
             DA.GetData(1, ref loadCombination);
 
-            // Return the unique load case - load combination
-            var uniqueLoadCases = iResult.Select(n => n.CaseIdentifier).Distinct().ToList();
-
-            if(loadCombination != null)
+            if (loadCombination != null)
             {
-                if (uniqueLoadCases.Contains(loadCombination, StringComparer.OrdinalIgnoreCase))
-                {
-                    iResult = iResult.Where(n => String.Equals(n.CaseIdentifier, loadCombination, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                else
-                {
-                    var warning = $"Load Combination '{loadCombination}' does not exist";
-                    throw new ArgumentException(warning);
-                }
+                results = results.Where(x => x.CaseIdentifier == loadCombination).ToList();
             }
 
 
-            var id = iResult.Select(x => x.Id);
-            var section = iResult.Select(x => x.Section);
-            var max = iResult.Select(x => x.Max);
-            var rcs = iResult.Select(x => x.RCS);
-            var fb = iResult.Select(x => x.FB);
-            var tfb = iResult.Select(x => x.TFB);
-            var ltbt = iResult.Select(x => x.LTBt);
-            var ltbb = iResult.Select(x => x.LTBb);
-            var sb = iResult.Select(x => x.SB);
-            var ia = iResult.Select(x => x.IA);
-            var caseIdentifier = iResult.Select(x => x.CaseIdentifier);
+            // group iResults by loadCombination and output a datatrees
+            DataTree<string> caseIdentifier = new DataTree<string>();
+            DataTree<string> id = new DataTree<string>();
+            DataTree<string> sectionName = new DataTree<string>();
+            DataTree<double> max = new DataTree<double>();
+            DataTree<double> rcs = new DataTree<double>();
+            DataTree<double> fb = new DataTree<double>();
+            DataTree<double> tfb = new DataTree<double>();
+            DataTree<double> ltbT = new DataTree<double>();
+            DataTree<double> ltbB = new DataTree<double>();
+            DataTree<double> sb = new DataTree<double>();
+            DataTree<double> ia = new DataTree<double>();
 
+            var grouping = results.GroupBy(x => x.CaseIdentifier);
 
-            // Set output
-            DA.SetDataList(0, id);
-            DA.SetDataList(1, section);
-            DA.SetDataList(2, max);
-            DA.SetDataList(3, rcs);
-            DA.SetDataList(4, fb);
-            DA.SetDataList(5, tfb);
-            DA.SetDataList(6, ltbt);
-            DA.SetDataList(7, ltbb);
-            DA.SetDataList(8, sb);
-            DA.SetDataList(9, ia);
-            DA.SetDataList(10, caseIdentifier);
+            int iteration = DA.Iteration;
+            int grpCounter = 0;
+            foreach (var group in grouping)
+            {
+                var caseId = group.Key;
+                var elementIds = group.Select(x => x.Id);
+                var sectionNames = group.Select(x => x.Section);
+                var maxs = group.Select(x => x.Max);
+                var rcss = group.Select(x => x.RCS);
+                var fbs = group.Select(x => x.FB);
+                var tfbs = group.Select(x => x.TFB);
+                var ltbTs = group.Select(x => x.LTBt);
+                var ltbBs = group.Select(x => x.LTBb);
+                var sbs = group.Select(x => x.SB);
+                var ias = group.Select(x => x.IA);
+
+                caseIdentifier.Add(caseId, new GH_Path(iteration, grpCounter));
+                id.AddRange(elementIds, new GH_Path(iteration, grpCounter));
+                sectionName.AddRange(sectionNames, new GH_Path(iteration, grpCounter));
+                max.AddRange(maxs, new GH_Path(iteration, grpCounter));
+                rcs.AddRange(rcss, new GH_Path(iteration, grpCounter));
+                fb.AddRange(fbs, new GH_Path(iteration, grpCounter));
+                tfb.AddRange(tfbs, new GH_Path(iteration, grpCounter));
+                ltbT.AddRange(ltbTs, new GH_Path(iteration, grpCounter));
+                ltbB.AddRange(ltbBs, new GH_Path(iteration, grpCounter));
+                sb.AddRange(sbs, new GH_Path(iteration, grpCounter));
+                ia.AddRange(ias, new GH_Path(iteration, grpCounter));
+
+                grpCounter++;
+            }
+
+            // output
+            DA.SetDataTree(0, caseIdentifier);
+            DA.SetDataTree(1, id);
+            DA.SetDataTree(2, sectionName);
+            DA.SetDataTree(3, max);
+            DA.SetDataTree(4, rcs);
+            DA.SetDataTree(5, fb);
+            DA.SetDataTree(6, tfb);
+            DA.SetDataTree(7, ltbT);
+            DA.SetDataTree(8, ltbB);
+            DA.SetDataTree(9, sb);
+            DA.SetDataTree(10, ia);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
@@ -126,7 +151,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{005B0B34-029B-4B96-9F98-E45DB7AA87EA}"); }
+            get { return new Guid("{A92848C4-2664-432B-9838-27D33B9D787B}"); }
         }
     }
 }

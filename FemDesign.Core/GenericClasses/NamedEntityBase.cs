@@ -6,6 +6,7 @@ using FemDesign.GenericClasses;
 
 namespace FemDesign
 {
+    [System.Serializable]
     public abstract partial class NamedEntityBase : EntityBase, INamedEntity
     {
         [XmlAttribute("name")]
@@ -76,6 +77,7 @@ namespace FemDesign
         protected abstract int GetUniqueInstanceCount();
     }
 
+    [System.Serializable]
     public abstract partial class NamedEntityPartBase : NamedEntityBase
     {
         public override string Name => _namePattern.Match(base._name).Groups["name"].Value;

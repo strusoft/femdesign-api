@@ -130,6 +130,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("shear_stiffness", Order=7)]
         public StiffnessMatrix2Type ShearStiffness { get; set; }
 
+        [XmlElement("colouring", Order = 8)]
+        public EntityColor Colouring { get; set; }
+
         /// <summary>
         /// Density in t/m2
         /// </summary>

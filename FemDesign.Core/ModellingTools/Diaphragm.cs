@@ -13,6 +13,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("region", Order = 1)]
         public Geometry.Region Region { get; set; }
 
+        [XmlElement("colouring", Order = 2)]
+        public EntityColor Colouring { get; set; }
+
         [XmlAttribute("stage")]
         public int StageId { get; set; } = 1;
 

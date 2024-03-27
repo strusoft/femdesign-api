@@ -228,7 +228,7 @@ namespace FemDesign.Results
         protected CsvParser(string filePath, char delimiter = ',', Func<string[], CsvParser, Dictionary<string, string>, object> rowParser = null, Func<string, CsvParser, bool> headerParser = null)
         {
             FilePath = filePath;
-            Stream = new StreamReader(filePath, System.Text.Encoding.Default, true);
+            Stream = new StreamReader(filePath, System.Text.Encoding.UTF8, true);
             Delimiter = delimiter;
             RowParser = rowParser;
             HeaderParser = headerParser;

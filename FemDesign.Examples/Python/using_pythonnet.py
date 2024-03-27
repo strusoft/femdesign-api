@@ -1,8 +1,9 @@
 """
 FemDesign API (C#) from python using Python.NET (clr)
-Date:   2021-08-05
-Authors: Alexander Radne - @xRadne, Marco Pellegrino - @Marco-Pellegrino 
-Github: https://github.com/strusoft/femdesign-api
+Date:       2024-02-027
+API:        23.0.1
+Authors:    Alexander Radne - @xRadne, Marco Pellegrino - @Marco-Pellegrino 
+Github:     https://github.com/strusoft/femdesign-api
 
 Documentation at https://www.fuget.org/packages/FemDesign.Core
 Read more about Python.NET (clr) at http://pythonnet.github.io/
@@ -39,7 +40,7 @@ for i in range(11):
 
 beamtype = FemDesign.Bars.BarType.Beam
 materialDB = FemDesign.Materials.MaterialDatabase.GetDefault()
-material = materialDB.MaterialByName("S 355")
+material = materialDB.MaterialByName("S355")
 sectionDB = FemDesign.Sections.SectionDatabase.GetDefault()
 section = sectionDB.SectionByName("Steel sections, UKB, 127x76x13")
 

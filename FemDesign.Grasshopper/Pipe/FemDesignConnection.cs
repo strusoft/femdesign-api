@@ -105,7 +105,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 2, new List<string> { "EchoAndStatOnly", "BasicOnly", "InputOnly", "LogLinesOnly", "ScriptLogLinesOnly", "CalculationMessagesOnly", "ProgressWindowTitleOnly", "None", "Low", "Normal", "High", "All"}, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, new List<string> { "EchoAndStatOnly", "BasicOnly", "InputOnly", "LogLinesOnly", "ScriptLogLinesOnly", "CalculationMessagesOnly", "ProgressWindowTitleOnly", "None", "Low", "Normal", "High", "All"}, null, GH_ValueListMode.DropDown);
         }
 
 

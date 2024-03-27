@@ -88,6 +88,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
 
+        [XmlElement("colouring", Order = 4)]
+        public EntityColor Colouring { get; set; }
+
         [XmlIgnore]
         public Bars.Connectivity StartConnectivity
         {

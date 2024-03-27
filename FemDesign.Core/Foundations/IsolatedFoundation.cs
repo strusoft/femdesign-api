@@ -42,6 +42,9 @@ namespace FemDesign.Foundations
         [XmlElement("insulation", Order = 5)]
         public Insulation Insulation { get; set; }
 
+        [XmlElement("colouring", Order = 6)]
+        public EntityColor Colouring { get; set; }
+
         [XmlAttribute("analythical_system")]
         [DefaultValue(FoundationSystem.Simple)]
         public FoundationSystem FoundationSystem { get; set; }

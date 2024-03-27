@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Bars
 {
+    [System.Serializable]
     public partial class BarStiffnessFactors
     {
         [XmlElement("factors", Order = 1)]

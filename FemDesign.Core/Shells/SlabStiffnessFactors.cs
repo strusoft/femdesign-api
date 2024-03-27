@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Shells
 {
+    [System.Serializable]
     public partial class SlabStiffnessFactors
     {
         [XmlElement("factors", Order = 1)]

@@ -61,7 +61,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 17, new List<string> { "None", "Rigid membrane", "Fully rigid" }, new List<int> { 0, 1, 2 }, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 17, new List<string> { "None", "Rigid membrane", "Fully rigid" }, new List<int> { 0, 1, 2 }, GH_ValueListMode.DropDown);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

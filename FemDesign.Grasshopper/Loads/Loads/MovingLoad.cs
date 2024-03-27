@@ -129,7 +129,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 1, new List<string>
+            ValueListUtils.UpdateValueLists(this, 1, new List<string>
             { "EC LM1 Lane 1. (Truck) [Concentrated]", "EC LM1 Lane 2. (Truck) [Concentrated]", "EC LM1 Lane 3. (Truck) [Concentrated]", "EC LM2 (Truck) [Concentrated]", "EC LM1 Lane 1. (Truck) [Distributed]", "EC LM1 Lane 2. (Truck) [Distributed]", "EC LM1 Lane 3. (Truck) [Distributed]", "EC LM2 (Truck) [Distributed]", "EC LM71 (Train)", "EC LM71 Right (Train) [e=79mm, r=1435mm]", "EC LM71 Left (Train) [e=79mm, r=1435mm]", "EC SW/0 (Train)", "EC SW/0 Right (Train) [e=79mm, r=1435mm]", "EC SW/0 Left (Train) [e=79mm, r=1435mm]", "EC SW/2 (Train)", "EC SW/2 Right (Train) [e=79mm, r=1435mm]", "EC SW/2 Left (Train) [e=79mm, r=1435mm]", "Unit"
             }, null, GH_ValueListMode.DropDown);
         }

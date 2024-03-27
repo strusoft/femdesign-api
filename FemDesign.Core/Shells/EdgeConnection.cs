@@ -3,6 +3,7 @@
 using System.Globalization;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using FemDesign.Releases;
 
 namespace FemDesign.Shells
 {
@@ -126,6 +127,11 @@ namespace FemDesign.Shells
         /// <param name="rotationsPlasticLimits">Rotations plastic limit forces</param>
         /// <param name="libraryName">When <paramref name="libraryName"/> is not null or empty, the <see cref="EdgeConnection"/> will be treated as a <em>predefined/library</em> item. Default is to treat is a a unique <em>custom</em> edge connection.</param>
         public EdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits, string libraryName = null) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits), libraryName)
+        {
+
+        }
+
+        public EdgeConnection(Releases.Motions motions, Releases.MotionsPlasticLimits motionsPlasticLimits, Releases.Rotations rotations, Releases.RotationsPlasticLimits rotationsPlasticLimits, double friction, DetachType detachType, string libraryName = null) : this(new Releases.RigidityDataType3(motions, motionsPlasticLimits, rotations, rotationsPlasticLimits, friction, detachType), libraryName)
         {
 
         }

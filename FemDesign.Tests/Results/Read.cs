@@ -89,7 +89,8 @@ namespace FemDesign.Results
                 results = femdesign.GetResults<QuantityEstimationTimber>();
                 results = femdesign.GetResults<QuantityEstimationGeneral>();
                 results = femdesign.GetResults<QuantityEstimationMasonry>();
-                results = femdesign.GetResults<QuantityEstimationTimberPanel>();
+                // crashes FEM-Design
+                //results = femdesign.GetResults<QuantityEstimationTimberPanel>();
                 results = femdesign.GetResults<QuantityEstimationProfiledPlate>();
 
             }

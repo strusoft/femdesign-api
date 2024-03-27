@@ -210,6 +210,9 @@ namespace FemDesign.Shells
         [XmlElement("external_predefined_rigidity", Order = 17)]
         public GuidListType ExternalPredefinedRigidity { get; set; }
 
+        [XmlElement("colouring", Order = 18)]
+        public EntityColor Colouring { get; set; }
+
         [XmlAttribute("type")]
         public PanelType Type { get; set; }
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<cmdglobalcfg command="$ FEM $CODE(GLOBALCFG)">
+    <!-- modify the value below if you want to change the Globalcfg setting -->
+    <!-- attributes that start with 'f' must be 0 or 1 -->
+    <!-- attributes that start with 'r' are double numbers -->
+    <!-- attributes that start with 's' are integer numbers -->
+    <mesh_general
+        fAdjustToLoads = "0" />
+    <mesh_elements
+        fElemCalcRegion = "1"
+        rElemSizeDiv = "6.0"
+        fCorrectToMinDivNum = "1"
+        sDefaultDivision = "2"
+        rDefaultAngle = "15.0" />
+    <mesh_functions
+        fRefineLocally = "1"
+        sRefineMaxStepNum = "5"
+        fMaxIterWarning = "0"
+        fReduceSize = "1"
+        sSmoothStepNum = "3"
+        fCheckMeshGeom = "1"
+        rCheckGeomMinAngle = "10.0"
+        rCheckGeomMaxAngle = "170.0"
+        rCheckGeomMaxSideRatio = "8.0"
+        fCheckMeshOverlap = "1"
+        fCheckMeshTopology = "1" />
+    <mesh_prepare
+        fAutoRegen = "1"
+        fThPeak = "1"
+        fThBeam = "0"
+        fThColumn = "1"
+        fThTruss = "0"
+        fThFicBeam = "0"
+        fThFreeEdge = "0"
+        fThRegionBorder = "0"
+        fThSuppPt = "1"
+        fThSuppLn = "0"
+        fThSuppSf = "0"
+        fThEdgeConn = "0"
+        fThConnPt = "0"
+        fThConnLn = "0"
+        fThConnSf = "0"
+        fThLoadPt = "0"
+        fThLoadLn = "0"
+        fThLoadSf = "0"
+        fThFixPt = "0"
+        fThFixLn = "0"
+        fAutoRebuild = "1"
+        fAutoSmooth = "1"
+        fAutoCheck = "0" />
+    <peaksm_method
+        sPeakFormFunc_M = "1"
+        sPeakFormFunc_N = "1"
+        sPeakFormFunc_V = "1" />
+    <peaksm_auto
+        fPeakBeam = "0"
+        fPeakColumn = "1"
+        fPeakTruss = "0"
+        fPeakFicBeam = "0"
+        fPeakPlate = "0"
+        fPeakWall = "0"
+        fPeakFicShell = "0"
+        fPeakSuppPt = "1"
+        fPeakSuppLn = "0"
+        fPeakSuppSf = "0"
+        fPeakConnPt = "0"
+        fPeakConnLn = "0"
+        fPeakConnSf = "0"
+        rPeakFactor = "0.5" />
+</cmdglobalcfg>

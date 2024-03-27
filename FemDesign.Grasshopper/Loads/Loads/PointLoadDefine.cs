@@ -75,7 +75,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 3, new List<string>
+            ValueListUtils.UpdateValueLists(this, 3, new List<string>
             { "Force", "Moment" }, null, GH_ValueListMode.DropDown);
         }
 
