@@ -58,7 +58,7 @@ namespace FemDesign.Examples
 
                     // Running the analysis
 
-                    connection.Open(model, true);
+                    connection.Open(model);
                     connection.RunAnalysis(analysisSettings);
                     
 
