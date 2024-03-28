@@ -37,7 +37,10 @@ namespace FemDesign.Materials
         public ReinforcingSteel ReinforcingSteel { get; set; }
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
-        
+        [XmlElement("brick")]
+        public StruSoft.Interop.StruXml.Data.Material_typeBrick Brick { get; set; }
+        [XmlElement("masonry")]
+        public StruSoft.Interop.StruXml.Data.Material_typeMasonry Masonry { get; set; }
 
         [XmlIgnore]
         public Family Family

@@ -44,6 +44,8 @@ namespace FemDesign.Soil
 
         [XmlElement("whole_level_data")]
         public AllLevels WholeLevelData { get; set; }
+        [XmlElement("colouring")]
+        public EntityColor Colouring { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.

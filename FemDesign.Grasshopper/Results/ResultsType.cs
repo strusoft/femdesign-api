@@ -28,51 +28,20 @@ namespace FemDesign.Grasshopper
             // It should automatically get the name from the Enum
 
 
-            var values = new List<string>
-            {
-                nameof(FemDesign.Results.NodalDisplacement),
-                nameof(FemDesign.Results.PointSupportReaction),
-                nameof(FemDesign.Results.PointSupportReactionMinMax),
-                nameof(FemDesign.Results.PointConnectionForce),
-                nameof(FemDesign.Results.BarDisplacement),
-                nameof(FemDesign.Results.BarInternalForce),
-                nameof(FemDesign.Results.BarStress),
-                nameof(FemDesign.Results.LineSupportReaction),
-                nameof(FemDesign.Results.LineConnectionResultant),
-                nameof(FemDesign.Results.LineConnectionForce),
-                nameof(FemDesign.Results.SurfaceSupportReaction),
-                nameof(FemDesign.Results.ShellDisplacement),
-                nameof(FemDesign.Results.ShellInternalForce),
-                nameof(FemDesign.Results.ShellStress),
-                nameof(FemDesign.Results.CLTShellUtilization),
-                nameof(FemDesign.Results.CLTFireUtilization),
-                nameof(FemDesign.Results.RCBarUtilization),
-                nameof(FemDesign.Results.RCShellUtilization),
-                nameof(FemDesign.Results.LabelledSectionInternalForce),
-                nameof(FemDesign.Results.LabelledSectionResultant),
-                nameof(FemDesign.Results.Equilibrium),
-                nameof(FemDesign.Results.NodalVibration),
-                nameof(FemDesign.Results.EigenFrequencies),
-                nameof(FemDesign.Results.NodalBucklingShape),
-                nameof(FemDesign.Results.CriticalParameter),
-                nameof(FemDesign.Results.ImperfectionFactor),
-                nameof(FemDesign.Results.QuantityEstimationConcrete),
-                nameof(FemDesign.Results.QuantityEstimationSteel),
-                nameof(FemDesign.Results.QuantityEstimationTimber),
-                nameof(FemDesign.Results.QuantityEstimationTimberPanel),
-                nameof(FemDesign.Results.QuantityEstimationGeneral),
-                nameof(FemDesign.Results.QuantityEstimationReinforcement),
-                nameof(FemDesign.Results.FiniteElement),
-                nameof(FemDesign.Results.BarTimberUtilization),
-                nameof(FemDesign.Results.BarSteelUtilization),
-            };
+            //var a = FemDesign.Results.ResultTypes.All.Values;
+
+            var values = FemDesign.Results.ResultTypes.All.Keys.ToList();
+
+
+
             
             GH_ValueListItem vi;
             foreach (string value in values)
             {
-                if (value.Contains("---"))
+                // dirty solution to remove the FemNode, FemBar, FemShell
+                if (value.Contains("Fem"))
                 {
-                    vi = new GH_ValueListItem(value, String.Format("\"{0}\"", ""));
+                    continue;
                 }
                 else
                 {

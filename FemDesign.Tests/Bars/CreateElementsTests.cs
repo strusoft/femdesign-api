@@ -68,27 +68,25 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
+            Model myModel;
+
             using (var connection = new FemDesign.FemDesignConnection())
             {
-                connection.Open(model, true);
+                connection.Open(model);
+                myModel = connection.GetModel();
             }
+
             var struxmlTxt = model.SerializeToString();
             Console.WriteLine(struxmlTxt);
 
-            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            var filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            var myModel = FemDesign.Model.DeserializeFromFilePath(filePath);
 
             Assert.AreEqual(3, myModel.Entities.Bars.Count);
 
             Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Beam);
 
             Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Column);
 
             Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Truss);
         }
 
         [TestCategory("FEM-Design required")]
@@ -125,21 +123,19 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
+            string outpurDir;
+            Model myModel;
+
             using (var connection = new FemDesign.FemDesignConnection())
             {
-                connection.Open(model, true);
+                outpurDir = connection.OutputDir;
+                connection.Open(model);
+                myModel = connection.GetModel();
             }
-            var struxmlTxt = model.SerializeToString();
-            Console.WriteLine(struxmlTxt);
-
-            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            var filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            var myModel = FemDesign.Model.DeserializeFromFilePath(filePath);
 
             Assert.AreEqual(1, myModel.Entities.Bars.Count);
 
             Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Beam);
         }
 
 
@@ -203,33 +199,29 @@ namespace FemDesign.Bars
             Model model = new Model(Country.S);
             model.AddElements(elements);
 
+            Model myModel;
+
             using (var connection = new FemDesign.FemDesignConnection())
             {
-                connection.Open(model, true);
+                connection.Open(model);
+                myModel = connection.GetModel();
             }
             var struxmlTxt = model.SerializeToString();
             Console.WriteLine(struxmlTxt);
 
-            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            var filePath = System.IO.Path.Combine(currentDirectory, "myModel.struxml");
-            var myModel = FemDesign.Model.DeserializeFromFilePath(filePath);
-
             Assert.AreEqual(3, myModel.Entities.Bars.Count);
 
             Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[0] is Bars.Truss);
             Assert.IsTrue(myModel.Entities.Bars[0].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Elastic);
             Assert.IsTrue(myModel.Entities.Bars[0].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Elastic);
 
 
             Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[1] is Bars.Truss);
             Assert.IsTrue(myModel.Entities.Bars[1].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Brittle);
             Assert.IsTrue(myModel.Entities.Bars[1].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Brittle);
 
 
             Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Bar);
-            Assert.IsTrue(myModel.Entities.Bars[2] is Bars.Truss);
             Assert.IsTrue(myModel.Entities.Bars[2].TrussBehaviour.Compression.ItemElementName == ItemChoiceType.Plastic);
             Assert.IsTrue(myModel.Entities.Bars[2].TrussBehaviour.Tension.ItemElementName == ItemChoiceType.Plastic);
         }

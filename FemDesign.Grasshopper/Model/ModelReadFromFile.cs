@@ -46,9 +46,9 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-                filePath = OnPingDocument().FilePath;
-                var currentDir = System.IO.Path.GetDirectoryName(filePath);
-                System.IO.Directory.SetCurrentDirectory(currentDir);
+                var ghFilePath = OnPingDocument().FilePath;
+                var dirName = System.IO.Path.GetDirectoryName(ghFilePath);
+                System.IO.Directory.SetCurrentDirectory(dirName);
             }
 
 

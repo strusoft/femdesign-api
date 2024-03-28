@@ -65,8 +65,8 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 3, ArrowTypeValueList, null, GH_ValueListMode.DropDown);
-            ValueListUtils.updateValueLists(this, 5, LengthUnitValueList, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 3, ArrowTypeValueList, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 5, LengthUnitValueList, null, GH_ValueListMode.DropDown);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

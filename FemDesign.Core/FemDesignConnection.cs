@@ -370,6 +370,9 @@ namespace FemDesign
                 );
 
             this.RunScript(script, $"RunDesign_{userModule}");
+
+            if(design.ApplyChanges == true)
+                this.ApplyDesignChanges();
         }
 
 

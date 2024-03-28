@@ -54,10 +54,10 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.BarResultPosition)).ToList(), null);
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.Calculate.BarResultPosition)).ToList(), null);
 
 
-            ValueListUtils.updateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Calculate.ShellResultPosition)).ToList(), null);
+            ValueListUtils.UpdateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Calculate.ShellResultPosition)).ToList(), null);
         }
 
         protected override System.Drawing.Bitmap Icon

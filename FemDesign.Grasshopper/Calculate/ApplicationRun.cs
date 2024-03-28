@@ -15,18 +15,46 @@ using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using FemDesign.Grasshopper.Extension.ComponentExtension;           
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+
+using GH_IO.Serialization;
+
 
 namespace FemDesign.Grasshopper
 {
     public class ApplicationRun : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.RunCalculation", "RunCalculation", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
+            _keepOpen = false;
         }
 
         public bool _minimised { get; set; }
+        public bool _keepOpen { get; set; }
+
+
+        public override bool Write(GH_IWriter writer)
+        {
+            // Save the version when this component was created
+            writer.SetBoolean("minimised", _minimised);
+            writer.SetBoolean("keepOpen", _keepOpen);
+            return base.Write(writer);
+        }
+
+        public override bool Read(GH_IReader reader)
+        {
+            // Read the version when this component was created
+            try
+            {
+                _minimised = reader.GetBoolean("minimised");
+                _keepOpen = reader.GetBoolean("keepOpen");
+            }
+            catch (NullReferenceException) { } // In case the info component was created before the VersionWhenFirstCreated was implemented.
+            return base.Read(reader);
+        }
+
+
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -57,7 +85,7 @@ namespace FemDesign.Grasshopper
 
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc). The documentation will be saved in the `FEM-Design API` folder. Optional parameter.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .strux.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
+            pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -85,12 +113,19 @@ namespace FemDesign.Grasshopper
         protected override void AppendAdditionalComponentMenuItems(System.Windows.Forms.ToolStripDropDown menu)
         {
             // Append the item to the menu, making sure it's always enabled and checked if Absolute is True.
-            ToolStripMenuItem item = Menu_AppendItem(menu, "Minimise FEM-Design", Menu_AbsoluteClicked, null, true, _minimised);
+            ToolStripMenuItem minimisedItem = Menu_AppendItem(menu, "Minimise FEM-Design", Menu_AbsoluteClicked, null, true, _minimised);
+            ToolStripMenuItem keepOpenItem = Menu_AppendItem(menu, "Keep open", keepOpenClick, null, true, _keepOpen);
         }
 
         private void Menu_AbsoluteClicked(object sender, EventArgs e)
         {
             _minimised = !_minimised;
+            ExpireSolution(true);
+        }
+
+        private void keepOpenClick(object sender, EventArgs e)
+        {
+            _keepOpen = !_keepOpen;
             ExpireSolution(true);
         }
 
@@ -140,9 +175,9 @@ namespace FemDesign.Grasshopper
             DA.GetData("SaveFilePath", ref saveFilePath);
 
 
-            if (analysis == null && design == null && saveFilePath == null)
+            if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design' or 'SaveFilePath'");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
                 return;
             }
 
@@ -184,7 +219,7 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run((Action)(() =>
             {
-                var connection = new FemDesign.FemDesignConnection(minimized: _minimised);
+                var connection = new FemDesign.FemDesignConnection(minimized: _minimised, keepOpen: _keepOpen);
 
                 connection.Open(_model.Value);
 
@@ -207,11 +242,6 @@ namespace FemDesign.Grasshopper
                         connection.RunDesign(userModule, design);
                     else
                         connection.RunDesign(userModule, design, designGroups);
-
-                    if (design.ApplyChanges == true)
-                    {
-                        connection.ApplyDesignChanges();
-                    }
 
                     if (design.ApplyChanges == true && design.Check == true)
                     {
@@ -283,7 +313,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{C99D4B16-CF9A-4A2D-BD54-BBC230F36611}"); }
+            get { return new Guid("{FDECFC6E-4E0C-41A5-8414-207C77FCB503}"); }
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

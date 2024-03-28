@@ -30,6 +30,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Result", "Result", "Result to be Parse", GH_ParamAccess.list);
             pManager.AddTextParameter("Case/Combination Name", "Case/Comb Name", "Name of Load Case/Load Combination for which to return the results.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
 
         /// <summary>
@@ -51,71 +52,52 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // get indata
-            List<FemDesign.Results.BarDisplacement> iResult = new List<FemDesign.Results.BarDisplacement>();
-            DA.GetDataList("Result", iResult);
+            List<FemDesign.Results.BarDisplacement> results = new List<FemDesign.Results.BarDisplacement>();
+            DA.GetDataList("Result", results);
 
-            string iLoadCase = null;
-            DA.GetData(1, ref iLoadCase);
+            string loadCase = null;
+            DA.GetData(1, ref loadCase);
 
-
-            // Read Result from Abstract Method
-            Dictionary<string, object> result;
-
-            try
+            if (loadCase != null)
             {
-                result = FemDesign.Results.BarDisplacement.DeconstructBarDisplacements(iResult, iLoadCase);
-            }
-            catch (ArgumentException ex)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, ex.Message);
-                return;
+                results = results.Where(x => x.CaseIdentifier == loadCase).ToList();
             }
 
-            // Extract Results from the Dictionary
-            var loadCases = (List<string>)result["CaseIdentifier"];
-            var elementId = (List<string>)result["ElementId"];
-            var positionResult = (List<double>)result["PositionResult"];
-            var iTranslation = (List<FemDesign.Geometry.Vector3d>)result["Translation"];
-            var iRotation = (List<FemDesign.Geometry.Vector3d>)result["Rotation"];
 
+            DataTree<string> loadCases = new DataTree<string>();
+            DataTree<string> elementId = new DataTree<string>();
+            DataTree<double> positionResult = new DataTree<double>();
+            DataTree<Vector3d> translation = new DataTree<Vector3d>();
+            DataTree<Vector3d> rotation = new DataTree<Vector3d>();
 
-            var uniqueId = elementId.Distinct().ToList();
+            var grouping = results.GroupBy(x => x.CaseIdentifier);
+            
+            int i = 0;
+            int iteration = DA.Iteration;
 
-
-            // Convert Data in DataTree structure
-            DataTree<object> elementIdTree = new DataTree<object>();
-            DataTree<object> positionResultTree = new DataTree<object>();
-            DataTree<object> oTranslationTree = new DataTree<object>();
-            DataTree<object> oRotationTree = new DataTree<object>();
-
-
-            var ghPath = DA.Iteration;
-            var i = 0;
-
-            foreach (var id in uniqueId)
+            foreach (var group in grouping)
             {
-                // indexes where the uniqueId matches in the list
-                elementIdTree.Add(id, new GH_Path(ghPath, i));
+                var caseIdentifier = group.Key;
+                var elementIds = group.Select(x => x.Id);
+                var positionResults = group.Select(x => x.Pos);
+                var translations = group.Select(x => new Vector3d(x.Ex, x.Ey, x.Ez));
+                var rotations = group.Select(x => new Vector3d(x.Fix, x.Fiy, x.Fiz));
 
-                var indexes = elementId.Select((value, index) => new { value, index })
-                  .Where(a => string.Equals(a.value, id))
-                  .Select(a => a.index);
 
-                foreach (int index in indexes)
-                {
-                    positionResultTree.Add(positionResult.ElementAt(index), new GH_Path(ghPath, i));
-                    oTranslationTree.Add(iTranslation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
-                    oRotationTree.Add(iRotation.ElementAt(index).ToRhino(), new GH_Path(ghPath, i));
-                }
+                loadCases.Add(caseIdentifier, new GH_Path(iteration, i));
+                elementId.AddRange(elementIds, new GH_Path(iteration, i));
+                positionResult.AddRange(positionResults, new GH_Path(iteration, i));
+                translation.AddRange(translations, new GH_Path(iteration, i));
+                rotation.AddRange(rotations, new GH_Path(iteration, i));
                 i++;
             }
 
             // Set output
-            DA.SetDataList(0, loadCases);
-            DA.SetDataTree(1, elementIdTree);
-            DA.SetDataTree(2, positionResultTree);
-            DA.SetDataTree(3, oTranslationTree);
-            DA.SetDataTree(4, oRotationTree);
+            DA.SetDataTree(0, loadCases);
+            DA.SetDataTree(1, elementId);
+            DA.SetDataTree(2, positionResult);
+            DA.SetDataTree(3, translation);
+            DA.SetDataTree(4, rotation);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
@@ -138,7 +120,7 @@ namespace FemDesign.Grasshopper
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("A30A0D60-ECBE-4B34-8B38-0F95E9Fbbbbb"); }
+            get { return new Guid("{0F122166-B666-4B59-9FBC-EA1B7D9A466D}"); }
         }
     }
 }
