@@ -12,61 +12,32 @@ namespace FemDesign.Results
     [TestClass()]
     public class LineConnectionForceTests
     {
-
         [TestMethod]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
+            string modelPath = "Results\\Assets\\Model.str";
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Line connection forces, Ultimate - Load case: Omapaino
-No.	Elem	Node	Fx'	Fy'	Fz'	Mx'	My'	Mz'	Fr	Mr
-[-]	[-]	[-]	[kN/m]	[kN/m]	[kN/m]	[kNm/m]	[kNm/m]	[kNm/m]	[kN/m]	[kNm/m]
-PP.1.CE.1	649	385	-0.013	0.031	-41.232	0.000	0.000	0.000	41.232	0.000
-PP.1.CE.1	649	1648	-0.015	-0.009	-6.096	0.000	0.000	0.000	6.096	0.000
-PP.1.CE.1	649	1382	-0.014	0.009	-19.386	0.000	0.000	0.000	19.386	0.000
-PP.1.CE.1	650	1648	-0.015	-0.009	-6.096	0.000	0.000	0.000	6.096	0.000
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<LineConnectionForce>(modelPath);
 
-");
 
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results.Count == 4);
-            Assert.IsTrue(results.First().GetType() == typeof(LineConnectionForce));
-            Assert.IsTrue(results.Last().GetType() == typeof(LineConnectionForce));
-
-            File.Delete(path);
-        }
-
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Line connection forces, Ultimate - Load case: dl",
-                "Line connection forces, Load comb.: ll",
-            };
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(LineConnectionForce), $"{typeof(LineConnectionForce).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(LineConnectionForce), $"{typeof(LineConnectionForce).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = LineConnectionForce.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(LineConnectionForce).Name}");
-            }
-        }
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = LineConnectionForce.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
 
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Line connection forces, Ultimate - Load case: dl",
-                "Line connection forces, Load comb.: ll",
-                "No.	Elem	Node	Fx'	Fy'	Fz'	Mx'	My'	Mz'	Fr	Mr",
-                "[-]	[-]	[-]	[kN/m]	[kN/m]	[kN/m]	[kNm/m]	[kNm/m]	[kNm/m]	[kN/m]	[kNm/m]",
-            };
-
-            foreach (var header in headers)
-            {
-                var match = LineConnectionForce.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
+                // Check identification
+                var identifier = header[0];
+                var match = LineConnectionForce.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(LineConnectionForce).Name}");
             }
         }
 

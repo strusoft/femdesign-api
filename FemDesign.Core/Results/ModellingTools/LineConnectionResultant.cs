@@ -75,7 +75,7 @@ namespace FemDesign.Results
 
         internal static Regex IdentificationExpression => new Regex(@"^Line connection, Resultants, .*$");
 
-        internal static Regex HeaderExpression => new Regex(@"^Line connection, Resultants, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\t|^\t\[.*\]");
+        internal static Regex HeaderExpression => new Regex(@"^Line connection, Resultants, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tl/2\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\t(Case|Comb\.)|^\t\[.*\]");
 
         internal static LineConnectionResultant Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {

@@ -22,7 +22,8 @@ namespace FemDesign.Results
 
 
             // Check parsed data
-            Assert.IsTrue(results[0].GetType() == typeof(EigenFrequencies), $"{typeof(EigenFrequencies).Name} should be parsed");
+            Assert.IsTrue(results.First().GetType() == typeof(EigenFrequencies), $"{typeof(EigenFrequencies).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(EigenFrequencies), $"{typeof(EigenFrequencies).Name} should be parsed");
             Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)

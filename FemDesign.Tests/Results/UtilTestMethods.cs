@@ -71,7 +71,7 @@ namespace FemDesign.Results
             }
 
             // Remove test files
-            Directory.Delete(outDir, true);
+            //Directory.Delete(outDir, true);
 
             return (resultLines, headers, results);
         }

@@ -58,7 +58,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Footfall analysis), (?'result'Nodal accelerations), (?'casename'[\w\ ]+)");
+                return new Regex(@"^(?'type'Footfall analysis), (?'result'Nodal accelerations), (?'casename'[\w\ ]+)");
             }
         }
 
@@ -66,7 +66,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Footfall analysis), (?'result'Nodal accelerations), (?'casename'[\w\ ]+)|ID\tNode|\[.*\]");
+                return new Regex(@"^(?'type'Footfall analysis), (?'result'Nodal accelerations), (?'casename'[\w\ ]+)|^ID\tNode\tax\tay\taz|^\[.*\]");
             }
         }
 

@@ -84,7 +84,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Line support group), (?'result'Resultants), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|ID|\[.+\]");
+                return new Regex(@"^(?'type'Line support group), (?'result'Resultants), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^ID\tl/2\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\t(Case|Comb.)|^\t\[.+\]");
             }
         }
 

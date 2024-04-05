@@ -77,11 +77,11 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
             string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
             Model model = Model.DeserializeFromFilePath(struxmlPath);
 
-            var stabily = new Calculate.Stability(new List<string> { "LC1ULS" }, new List<int> { 10 }, false, 5);
-            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(stability: stabily, calcComb : true, calcStab : true);
+            var stability = new Calculate.Stability(new List<string> { "LC2ULS" }, new List<int> { 10 }, false, 5);
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(stability: stability, calcComb : true, calcStab : true);
 
 
-            using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 22\", outputDir: "My analyzed model", keepOpen: false))
+            using (var femDesign = new FemDesignConnection(fdInstallationDir : @"C:\Program Files\StruSoft\FEM-Design 23 Night Install\", outputDir: "My analyzed model", keepOpen: false))
             {
                 femDesign.RunAnalysis(model, analysis);
                                 
@@ -89,7 +89,7 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
                 var critParam = new List<Results.CriticalParameter>();
 
                 List<string> allCombNames = model.Entities.Loads.LoadCombinations.Select(r => r.Name).ToList();
-                var combName = new List<string>() { allCombNames[0]};
+                var combName = new List<string>() { allCombNames[1]};
                 List<int> id = new List<int>() { 5, 3};
                 foreach(string c in combName)
                 {
@@ -119,7 +119,7 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
         //    // setup stability analysis
         //    List<List<string>> validCombos = new List<List<string>>
         //    {
-        //        new List<string>(){ "LC1ULS" },                
+        //        new List<string>(){ "LC1ULS" },
         //        new List<string>(){ "LC2ULS" },
         //        loadCombinations
         //    };
@@ -159,13 +159,15 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
         //    };
         //    var bucklRes = new List<List<NodalBucklingShape>>();
         //    var bucklRes2 = new List<List<NodalBucklingShape>>();
+        //    var critParams = new List<List<CriticalParameter>>();
+        //    var critParams2 = new List<List<CriticalParameter>>();
 
-        //    using (var femDesign = new FemDesignConnection(fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 22\", outputDir: "My analyzed model", keepOpen: false))
+        //    using (var femDesign = new FemDesignConnection(fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 23\", outputDir: "StabilityResultsTest", keepOpen: false))
         //    {
         //        // open model
         //        femDesign.Open(model);
 
-                
+
         //        for (int i = 0; i < combos.Count; i++)
         //        {
         //            // run analysis
@@ -174,13 +176,15 @@ B.1.1	47	-0.000	-0.014	-0.000	0.008	0.000	-0.009
         //            // get results
         //            bucklRes.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos[i], shapeIds[i]));
         //            bucklRes2.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos2[i], shapeIds[i]));
+        //            critParams.Add(femDesign.GetEigenResults<Results.CriticalParameter>(combos[i], shapeIds[i]));
+        //            critParams2.Add(femDesign.GetEigenResults<Results.CriticalParameter>(combos2[i], shapeIds[i]));
         //        }
         //    }
 
         //    // check results
-        //    for(int i = 0; i < validCombos.Count; i++)            
+        //    for (int i = 0; i < validCombos.Count; i++)
         //    {
-        //        Assert.IsTrue(bucklRes[i].Count != 0);                
+        //        Assert.IsTrue(bucklRes[i].Count != 0);
         //    }
         //    for (int i = validCombos.Count; i < combos.Count; i++)
         //    {

@@ -20,7 +20,8 @@ namespace FemDesign.Results
             var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<BarInternalForce>(modelPath);
 
             // Check parsed data
-            Assert.IsTrue(results[0].GetType() == typeof(BarInternalForce), $"{typeof(BarInternalForce).Name} should be parsed");
+            Assert.IsTrue(results.First().GetType() == typeof(BarInternalForce), $"{typeof(BarInternalForce).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(BarInternalForce), $"{typeof(BarInternalForce).Name} should be parsed");
             Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)

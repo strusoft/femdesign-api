@@ -1174,6 +1174,13 @@ namespace FemDesign
         */
 
 
+
+
+
+
+
+
+
         /*  WIP - GitHub case: 876
         /// <summary>
         /// Get results for those result types where FEM-Design uses eigen solver. E.g. imperfections, stability analysis, vibrations.
@@ -1198,20 +1205,10 @@ namespace FemDesign
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
             // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
-            var currentTime = "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var currentTime = "__" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
 
             // Get .bsc and .csv file paths for .fdscript file generation
-            var bscPaths = new List<string>();
-            var csvPaths = new List<string>();            
-            foreach(var combo in loadCombinations)
-            {
-                foreach(var sh in shapeIds)
-                {
-                    var path = _createBscCsvFilePaths(listProcs, combo, sh, currentTime, units, options);
-                    bscPaths.AddRange(path.bscPaths);
-                    csvPaths.AddRange(path.csvPaths);
-                }
-            }
+            var (bscPaths, csvPaths) = _createBscCsvFilePaths(listProcs, loadCombinations, shapeIds, currentTime, units, options);
 
             // Generate .csv result files
             _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, bscPaths, csvPaths, elements);
@@ -1359,8 +1356,8 @@ namespace FemDesign
             // Check inputs
             if (loadCaseCombNames != null && shapeIds != null)
             {
-                if (loadCaseCombNames.Count != shapeIds.Count)
-                    throw new ArgumentException("Count of load combination names must be the same as the number of the shape identifiers!");
+                //if (loadCaseCombNames.Count != shapeIds.Count)
+                //    throw new ArgumentException("Count of load combination names must be the same as the number of the shape identifiers!");
 
                 foreach (var combo in loadCaseCombNames)
                 {
@@ -1509,7 +1506,7 @@ namespace FemDesign
         /// <exception cref="ArgumentException"></exception>
         internal List<T> _getStabilityResults<T>(List<string> loadCombinations = null, List<int> shapeIds = null, Results.UnitResults units = null, Options options = null, bool timeStamp = false) where T : IResult
         {
-            List<T> results = _readResults<T>(null, null, null, timeStamp, null, units, options);   // Temporary solution. loadCombinations & shapeIds inputs are null to get all of the results. This part must be updated later. Related issue: https://github.com/strusoft/femdesign-api/issues/876 
+            List<T> results = _readResults<T>(p => true, loadCombinations, shapeIds, timeStamp, null, units, options);   // Temporary solution. loadCombinations & shapeIds inputs are null to get all of the results. This part must be updated later. Related issue: https://github.com/strusoft/femdesign-api/issues/876 
 
             // Filter results by load combination and shape identifier
             string loadCombPropertyName;
