@@ -87,7 +87,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Area", area);
             DA.SetDataList("Pieces", pieces);
             DA.SetDataList("TotalWeight", totalWeight);
-            DA.SetDataList("Co2Footprint", co2);
+            DA.SetDataList("CO2Footprint", co2);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.septenary;
