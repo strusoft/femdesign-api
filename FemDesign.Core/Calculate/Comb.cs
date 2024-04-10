@@ -109,10 +109,12 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private Comb()
+        public Comb()
         {
             
         }
+
+        [Obsolete("Use the other constructor. It will be removed in 23.3.0", false)]
         public Comb(int _NLEmaxiter = 30, int _PLdefloadstep = 20, int _PLminloadstep = 2, int _PLmaxeqiter = 30, bool _NLSMohr = true, int _NLSinitloadstep = 10, int _NLSminloadstep = 10, int _NLSactiveelemratio = 5, int _NLSplasticelemratio = 5, int _CRloadstep = 20, int _CRmaxiter = 30, int _CRstifferror = 2, List<CombItem> combItem = null)
         {
             this.NLEmaxiter = _NLEmaxiter;

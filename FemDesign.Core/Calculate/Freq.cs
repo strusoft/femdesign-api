@@ -97,7 +97,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private Freq()
+        public Freq()
         {
             
         }
