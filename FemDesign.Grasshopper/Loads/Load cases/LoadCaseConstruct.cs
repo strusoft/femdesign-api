@@ -7,6 +7,7 @@ using Rhino.Geometry;
 using FemDesign.Loads;
 
 using FemDesign.Grasshopper.Extension.ComponentExtension;
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
@@ -66,14 +67,10 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.UpdateValueLists(this, 1, new List<string>
-            { "ordinary", "dead_load", "soil_dead_load", "shrinkage", "prestressing", "fire", "seis_sxp", "seis_sxm", "seis_syp", "seis_sym"
-            }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 1, Enum.GetNames(typeof(LoadCaseType)).ToList(), null, GH_ValueListMode.DropDown);
 
         
-            ValueListUtils.UpdateValueLists(this, 2, new List<string>
-            { "permanent", "long-term", "medium-term", "short-term", "instantaneous"
-            }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(LoadCaseDuration)).ToList(), null, GH_ValueListMode.DropDown);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
