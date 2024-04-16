@@ -92,9 +92,9 @@ namespace FemDesign.Results
             return ResultsReader.ObjectRepresentation(this);
         }
 
-        internal static Regex IdentificationExpression => new Regex(@"^Point connection forces, .*$");
+        internal static Regex IdentificationExpression => new Regex(@"^Point connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
 
-        internal static Regex HeaderExpression => new Regex(@"^Point connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^No.\t|^\[.*\]");
+        internal static Regex HeaderExpression => new Regex(@"^Point connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^No\.\tx\ty\tz\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb\.)|^\[.*\]");
 
         internal static PointConnectionForce Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {

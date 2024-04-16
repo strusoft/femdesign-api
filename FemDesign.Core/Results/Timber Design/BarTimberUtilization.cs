@@ -87,7 +87,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Timber bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Member\t|\[.+\]");
+                return new Regex(@"^(?'type'Timber bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^Member\tSection\tStatus\tMaximum\tT\tC\tS\tFB1\tFB2\tLTB|^\[.+\]");
             }
         }
 

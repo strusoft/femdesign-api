@@ -83,6 +83,9 @@ namespace FemDesign.Results
         /// <returns></returns>
         private static int SetMultiplier(ListProc listProc)
         {
+            if (listProc.ToString().StartsWith("QuantityEstimation"))
+                return 5;
+
             switch(listProc)
             {
                 case ListProc.FemBar:

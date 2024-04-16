@@ -69,7 +69,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Footfall analysis), (?'result'Nodal response factors), (?'casename'[\w\ ]+)|ID\tNode|\[.*\]");
+                return new Regex(@"(?'type'Footfall analysis), (?'result'Nodal response factors), (?'casename'[\w\ ]+)|^ID\tNode\tx\ty\tz|^\[.*\]");
             }
         }
 

@@ -15,39 +15,31 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-        }
+            string modelPath = "Results\\Assets\\General.str";
 
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Quantity estimation, Masonry",
-            };
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<QuantityEstimationMasonry>(modelPath);
+
+
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(QuantityEstimationMasonry), $"{typeof(QuantityEstimationMasonry).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(QuantityEstimationMasonry), $"{typeof(QuantityEstimationMasonry).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = QuantityEstimationMasonry.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(QuantityEstimationMasonry).Name}");
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = QuantityEstimationMasonry.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = QuantityEstimationMasonry.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(QuantityEstimationMasonry).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
                 Assert.IsTrue(match.Groups["result"].Success);
-            }
-        }
-
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Quantity estimation, Masonry",
-                "Storey	Struct.	Identifier	Quality	Thickness	Unit weight	Subtotal	Total weight",
-                "	type			[mm]	[t/m, t/m2]	[m,m2]	[t]"
-            };
-
-            foreach (var header in headers)
-            {
-                var match = QuantityEstimationMasonry.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
             }
         }
     }

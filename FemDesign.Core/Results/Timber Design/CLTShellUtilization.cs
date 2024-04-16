@@ -117,7 +117,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, CLT panel, Utilization)|(?'type'CLT panel, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Panel\t|\[.*\]");
+                return new Regex(@"(?'max'Max. of load combinations, CLT panel, Utilization)|(?'type'CLT panel, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^Panel\tMax\.\t(Combination\t)?Sx\+\tSy\+\tSx-\tSy-\tTxy\tTx\tTy\tSI\tTS\tCS\tBu\tTo|^\[.*\]");
             }
         }
 

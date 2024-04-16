@@ -93,12 +93,29 @@
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
     <Compile Include="ModellingTools\ModellingToolsTest.cs" />
-    <Compile Include="Results\FeaShellTests.cs" />
+    <Compile Include="Results\Bar\BarEndForceTest.cs" />
+    <Compile Include="Results\FiniteElement\NodalDisplacementsTests.cs" />
+    <Compile Include="Results\FiniteElement\FeaShellTests.cs" />
+    <Compile Include="Results\ModellingTools\PointConnectionForceTests.cs" />
+    <Compile Include="Results\QuantityEstimation\QuantityEstimationGeneralTests.cs" />
+    <Compile Include="Results\QuantityEstimation\QuantityEstimationTimberTests.cs" />
+    <Compile Include="Results\QuantityEstimation\QuantityEstimationReinforcementTest.cs" />
+    <Compile Include="Results\QuantityEstimation\QuantityEstimationSteelTests.cs" />
+    <Compile Include="Results\RCDesign\BarUtilizationTests.cs" />
+    <Compile Include="Results\RCDesign\ShellDesignForcesTests.cs" />
+    <Compile Include="Results\RCDesign\ShellShearUtilizationTests.cs" />
+    <Compile Include="Results\RCDesign\ShellShearCapacityTests.cs" />
+    <Compile Include="Results\RCDesign\ShellReinforcementRequiredTests.cs" />
     <Compile Include="Results\ResultPointsTests.cs" />
+    <Compile Include="Results\Stability\CriticalParameterTests.cs" />
+    <Compile Include="Results\Stability\ImperfectionFactorTests.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Results\Read.cs" />
+    <Compile Include="Results\Support\PointSupportReactionMinMaxTests.cs" />
+    <Compile Include="Results\Support\SurfaceSupportResultantTests.cs" />
+    <Compile Include="Results\TimberDesign\BarTimberUtilizationTests.cs" />
     <Compile Include="Results\UtilTestMethods.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
@@ -118,13 +135,13 @@
     <Compile Include="Results\Bar\BarDisplacementTests.cs" />
     <Compile Include="Results\Bar\BarInternalForcesTest.cs" />
     <Compile Include="Results\Bar\BarStressTests.cs" />
-    <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
-    <Compile Include="Results\FeaBarTests.cs" />
-    <Compile Include="Results\LineConnectionForceTests.cs" />
-    <Compile Include="Results\LineConnectionResultantTests.cs" />
+    <Compile Include="Results\EigenFrequencies\NodalVibrationTests.cs" />
+    <Compile Include="Results\FiniteElement\FeaBarTests.cs" />
+    <Compile Include="Results\ModellingTools\LineConnectionForceTests.cs" />
+    <Compile Include="Results\ModellingTools\LineConnectionResultantTests.cs" />
     <Compile Include="Shells\ShellInternalForceTests.cs" />
-    <Compile Include="Results\EigenFrequencies\EigenFrequenciesTest.cs" />
-    <Compile Include="Results\FeaNodeTests.cs" />
+    <Compile Include="Results\EigenFrequencies\EigenFrequenciesTests.cs" />
+    <Compile Include="Results\FiniteElement\FeaNodeTests.cs" />
     <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactorTests.cs" />
     <Compile Include="Results\Support\LineSupportResultantTests.cs" />
@@ -133,15 +150,15 @@
     <Compile Include="Results\QuantityEstimation\QuantityEstimationProfiledPlateTests.cs" />
     <Compile Include="Results\QuantityEstimation\QuantityEstimationMasonryTests.cs" />
     <Compile Include="Results\QuantityEstimation\QuantityEstimationTimberPanelTests.cs" />
-    <Compile Include="Results\RC design\ShellCrackWidthTests.cs" />
-    <Compile Include="Results\RC design\ShellUtilizationTests.cs" />
+    <Compile Include="Results\RCDesign\ShellCrackWidthTests.cs" />
+    <Compile Include="Results\RCDesign\ShellUtilizationTests.cs" />
     <Compile Include="Shells\ShellDerivedForceTests.cs" />
     <Compile Include="Shells\ShellsDisplacementTests.cs" />
     <Compile Include="Shells\ShellsStressTests.cs" />
     <Compile Include="Results\Support\PointSupportReactionTests.cs" />
     <Compile Include="Results\Support\SurfaceSupportReactionTests.cs" />
-    <Compile Include="Results\Timber Design\CLTFireUtilizationTests.cs" />
-    <Compile Include="Results\Timber Design\CLTUtilisationTests.cs" />
+    <Compile Include="Results\TimberDesign\CLTFireUtilizationTests.cs" />
+    <Compile Include="Results\TimberDesign\CLTUtilisationTests.cs" />
     <Compile Include="Sections\SectionDatabaseTests.cs" />
     <Compile Include="Shells\EdgeConnectionTests.cs" />
     <Compile Include="Shells\SlabTest.cs" />
@@ -198,6 +215,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\Slab.strFEM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Assets\General.str">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Assets\General.strFEM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Results\Assets\Model.str">

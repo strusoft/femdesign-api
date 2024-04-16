@@ -9,95 +9,6 @@ namespace FemDesign.Results
     [TestClass]
     public class Read
     {
-        [TestCategory("FEM-Design required")]
-        [TestMethod("ReadResults")]
-        public void ReadResults()
-        {
-            dynamic results;
-            var filePath = @"Results/Assets/Model.str";
-
-            using(var femdesign = new FemDesign.FemDesignConnection())
-            {
-                femdesign.Open(filePath);
-
-
-                // Finite element
-                results = femdesign.GetResults<FemNode>();
-                results = femdesign.GetResults<FemBar>();
-                results = femdesign.GetResults<FemShell>();
-
-                results = femdesign.GetResults<NodalDisplacement>();
-
-
-                // RC
-                results = femdesign.GetResults<RCBarUtilization>();
-                results = femdesign.GetResults<RCShellCrackWidth>();
-                results = femdesign.GetResults<RCShellDesignForces>();
-                results = femdesign.GetResults<RCShellReinforcementRequired>();
-                results = femdesign.GetResults<RCShellShearCapacity>();
-                results = femdesign.GetResults<RCShellShearUtilization>();
-                results = femdesign.GetResults<RCShellUtilization>();
-
-                // Shell
-                results = femdesign.GetResults<ShellDerivedForce>();
-                results = femdesign.GetResults<ShellDisplacement>();
-                results = femdesign.GetResults<ShellInternalForce>();
-                results = femdesign.GetResults<ShellStress>();
-
-                // Stability
-                results = femdesign.GetResults<CriticalParameter>();
-                results = femdesign.GetResults<ImperfectionFactor>();
-                results = femdesign.GetResults<NodalBucklingShape>();
-
-                // Dynamic
-                results = femdesign.GetResults<NodalVibration>();
-                results = femdesign.GetResults<EigenFrequencies>();
-
-                // Timber
-                results = femdesign.GetResults<BarTimberUtilization>();
-                results = femdesign.GetResults<CLTShellUtilization>();
-                results = femdesign.GetResults<CLTFireUtilization>();
-
-                // Bar
-                results = femdesign.GetResults<BarDisplacement>();
-                results = femdesign.GetResults<BarEndForce>();
-                results = femdesign.GetResults<BarInternalForce>();
-                results = femdesign.GetResults<BarStress>();
-
-                results = femdesign.GetResults<LabelledSectionInternalForce>();
-                results = femdesign.GetResults<LabelledSectionResultant>();
-
-                // Support
-                results = femdesign.GetResults<PointSupportReaction>();
-                results = femdesign.GetResults<PointSupportReactionMinMax>();
-
-                results = femdesign.GetResults<LineSupportReaction>();
-                results = femdesign.GetResults<LineSupportResultant>();
-
-                results = femdesign.GetResults<SurfaceSupportReaction>();
-                results = femdesign.GetResults<SurfaceSupportResultant>();
-
-                // Connection
-                results = femdesign.GetResults<PointConnectionForce>();
-
-                results = femdesign.GetResults<LineConnectionForce>();
-                results = femdesign.GetResults<LineConnectionResultant>();
-
-
-                // Quantity
-                results = femdesign.GetResults<QuantityEstimationConcrete>();
-                results = femdesign.GetResults<QuantityEstimationReinforcement>();
-                results = femdesign.GetResults<QuantityEstimationSteel>();
-                results = femdesign.GetResults<QuantityEstimationTimber>();
-                results = femdesign.GetResults<QuantityEstimationGeneral>();
-                results = femdesign.GetResults<QuantityEstimationMasonry>();
-                // crashes FEM-Design
-                //results = femdesign.GetResults<QuantityEstimationTimberPanel>();
-                results = femdesign.GetResults<QuantityEstimationProfiledPlate>();
-
-            }
-        }
-
         [TestMethod]
         [TestCategory("FEM-Design required")]
         public void GetResultMethodTests()
@@ -159,9 +70,139 @@ namespace FemDesign.Results
                 }
 
 
-
-
             }
         }
+
+        [TestCategory("FEM-Design required")]
+        [TestMethod]
+        public void TestGetStabilityResults()
+        {
+            string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
+            Model model = Model.DeserializeFromFilePath(struxmlPath);
+
+            var stability = new Calculate.Stability(new List<string> { "LC2ULS" }, new List<int> { 10 }, false, 5);
+            FemDesign.Calculate.Analysis analysis = new FemDesign.Calculate.Analysis(stability: stability, calcComb: true, calcStab: true);
+
+
+            using (var femDesign = new FemDesignConnection(fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 23 Night Install\", outputDir: "My analyzed model", keepOpen: false))
+            {
+                femDesign.RunAnalysis(model, analysis);
+
+                var resultsBuckling = new List<Results.NodalBucklingShape>();
+                var critParam = new List<Results.CriticalParameter>();
+
+                List<string> allCombNames = model.Entities.Loads.LoadCombinations.Select(r => r.Name).ToList();
+                var combName = new List<string>() { allCombNames[1] };
+                List<int> id = new List<int>() { 5, 3 };
+                foreach (string c in combName)
+                {
+                    foreach (int i in id)
+                    {
+                        var res = femDesign.GetStabilityResults<Results.NodalBucklingShape>(c, i);
+                        resultsBuckling.AddRange(res);
+                        var crit = femDesign.GetStabilityResults<Results.CriticalParameter>(c, i);
+                        critParam.AddRange(crit);
+                    }
+                }
+
+                Assert.IsNotNull(resultsBuckling);
+                Assert.IsNotNull(critParam);
+            }
+        }
+
+        //[TestCategory("FEM-Design required")]
+        //[TestMethod]
+        //public void TestGetEigenResults()
+        //{
+        //    // get model data
+        //    string struxmlPath = "Results\\Stability\\ReadBucklingShapesTest.struxml";
+        //    Model model = Model.DeserializeFromFilePath(struxmlPath);
+        //    List<string> loadCombinations = model.Entities.Loads.LoadCombinations.Select(l => l.Name).ToList();
+
+        //    // setup stability analysis
+        //    List<List<string>> validCombos = new List<List<string>>
+        //    {
+        //        new List<string>(){ "LC1ULS" },
+        //        new List<string>(){ "LC2ULS" },
+        //        loadCombinations
+        //    };
+        //    List<List<string>> invalidCombos = new List<List<string>>
+        //    {
+        //        new List<string>(){ "Lc1uLs" },
+        //        new List<string>(){ "LC5ULS" }
+        //    };
+        //    List<List<string>> combos = validCombos.Concat(invalidCombos).ToList();
+        //    List<List<int>> reqShapes = new List<List<int>>
+        //    {
+        //        new List<int>(){ 8},
+        //        new List<int>(){ 8},
+        //        new List<int>(){ 10, 15 },
+        //        new List<int>(){ 8 },
+        //        new List<int>(){ 8 },
+        //    };
+
+        //    var stab = new List<Calculate.Stability>();
+        //    var analysis = new List<Calculate.Analysis>();
+        //    for (int i = 0; i < combos.Count; i++)
+        //    {
+        //        stab.Add(new Calculate.Stability(combos[i], reqShapes[i], false, 5));
+        //        analysis.Add(new FemDesign.Calculate.Analysis(stability: stab[i], calcComb: true, calcStab: true));
+
+        //    }
+
+
+        //    List<List<string>> combos2 = invalidCombos.Concat(validCombos).ToList();
+        //    List<List<int>> shapeIds = new List<List<int>>
+        //    {
+        //        new List<int>(){ 8, 4, 10 },
+        //        new List<int>(){ 1, 3, 7, 8 },
+        //        new List<int>(){ 10, 15 },
+        //        new List<int>(){ 8 },
+        //        new List<int>(){ 8 },
+        //    };
+        //    var bucklRes = new List<List<NodalBucklingShape>>();
+        //    var bucklRes2 = new List<List<NodalBucklingShape>>();
+        //    var critParams = new List<List<CriticalParameter>>();
+        //    var critParams2 = new List<List<CriticalParameter>>();
+
+        //    using (var femDesign = new FemDesignConnection(fdInstallationDir: @"C:\Program Files\StruSoft\FEM-Design 23\", outputDir: "StabilityResultsTest", keepOpen: false))
+        //    {
+        //        // open model
+        //        femDesign.Open(model);
+
+
+        //        for (int i = 0; i < combos.Count; i++)
+        //        {
+        //            // run analysis
+        //            femDesign.RunAnalysis(analysis[i]);
+
+        //            // get results
+        //            bucklRes.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos[i], shapeIds[i]));
+        //            bucklRes2.Add(femDesign.GetEigenResults<Results.NodalBucklingShape>(combos2[i], shapeIds[i]));
+        //            critParams.Add(femDesign.GetEigenResults<Results.CriticalParameter>(combos[i], shapeIds[i]));
+        //            critParams2.Add(femDesign.GetEigenResults<Results.CriticalParameter>(combos2[i], shapeIds[i]));
+        //        }
+        //    }
+
+        //    // check results
+        //    for (int i = 0; i < validCombos.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes[i].Count != 0);
+        //    }
+        //    for (int i = validCombos.Count; i < combos.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes[i].Count == 0);
+        //    }
+        //    for (int i = 0; i < invalidCombos.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes2[i].Count == 0);
+        //    }
+        //    for (int i = invalidCombos.Count + 1; i < combos2.Count; i++)
+        //    {
+        //        Assert.IsTrue(bucklRes2[i].Count == 0);
+        //    }
+        //}
+
+
     }
 }

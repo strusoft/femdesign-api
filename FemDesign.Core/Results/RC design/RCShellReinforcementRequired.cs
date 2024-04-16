@@ -74,27 +74,13 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Required reinforcement)|(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t|\[.*\]");
+                return new Regex(@"(?'max'Max. of load combinations, Shell, Required reinforcement)|(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tElem\tNode\tx' or r bottom( Comb)?\ty' or t bottom( Comb)?\tx' or r top( Comb)?\ty' or t top( Comb)?\tx' or r mid( Comb)?\ty' or t mid( Comb)?|Shell\t|^\[.*\]");
             }
         }
 
         internal static RCShellReinforcementRequired Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            //if (HeaderData.ContainsKey("max"))
-            //{
-            //    string id = row[0];
-            //    double rbx = double.Parse(row[3], CultureInfo.InvariantCulture);
-            //    double rby = double.Parse(row[4], CultureInfo.InvariantCulture);
-            //    double rtx = double.Parse(row[5], CultureInfo.InvariantCulture);
-            //    double rty = double.Parse(row[6], CultureInfo.InvariantCulture);
-            //    double bu = double.Parse(row[7], CultureInfo.InvariantCulture);
-            //    bool sc = row[8] == "OK";
-            //    double cwb = double.Parse(row[9], CultureInfo.InvariantCulture);
-            //    double cwt = double.Parse(row[10], CultureInfo.InvariantCulture);
-            //    string lc = row[2];
-            //    return new RCShellUtilization(id, rbx, rby, rtx, rty, bu, sc, cwb, cwt, lc);
-            //}
-
+            
             {
                 string id = row[0];
                 int elementId = Int32.Parse(row[1], CultureInfo.InvariantCulture);

@@ -128,7 +128,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Concrete)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Concrete)");
             }
         }
 
@@ -136,7 +136,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Concrete|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Concrete|^Storey\tStruct\.\tIdentifier\tQuality\tSection/\tHeight\tWidth\tTotal\tlength\[m\]/\tVolume\tTotal weight\tFormwork\tReinforcement\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -225,7 +225,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Reinforcement)$");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Reinforcement)$");
             }
         }
 
@@ -233,7 +233,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Reinforcement|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Reinforcement|^Storey\tStruct\.\tIdentifier\tQuality\tDiameter\tTotal weight\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -331,7 +331,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Steel)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Steel)");
             }
         }
 
@@ -339,7 +339,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Steel|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Steel|^Storey\tStruct\.\tIdentifier\tQuality\tSection/\tUnit weight\tTotal length\[m\]/\tTotal weight\tPainted area\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -440,7 +440,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Timber)$");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Timber)$");
             }
         }
 
@@ -448,7 +448,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Timber|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Timber|^Storey\tStruct\.\tIdentifier\tQuality\tSection/\tUnit weight\tTotal length\[m\]/\tTotal weight\tPainted area\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -571,7 +571,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Timber panel|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Timber panel|^Storey\tStruct\.\tIdentifier\tQuality\tThickness\tPanel type\tLength\tWidth\tArea\tWeight\tPcs\tTotal weight\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -702,7 +702,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^Quantity estimation, Profiled panel$|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Profiled panel$|^Storey\tStruct\.\tIdentifier\tQuality\tSection\tThickness\tPanel type\tLength\tWidth\tArea\tWeight\tPcs\tTotal weight\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -802,7 +802,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'Masonry)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'Masonry)");
             }
         }
 
@@ -810,7 +810,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, Masonry|^Storey\t|^\ttype\t+\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, Masonry|^Storey\tStruct\.\tIdentifier\tQuality\tThickness\tUnit weight\tTotal area\tTotal weight\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^TOTAL\t");
             }
         }
 
@@ -910,7 +910,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Quantity estimation), (?'result'General)");
+                return new Regex(@"^(?'type'Quantity estimation), (?'result'General)");
             }
         }
 
@@ -918,7 +918,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Quantity estimation, General|Storey\t|\t*\[.+\]|TOTAL\t");
+                return new Regex(@"^Quantity estimation, General|^Storey\tStruct\.\tIdentifier\tQuality\tSection/\tUnit weight\tTotal length\[m\]/\tTotal weight\tPainted area\tCO2 footprint \(A1-A3\)|\t*\[.+\]|^\t*\[.+\]|^TOTAL\t");
             }
         }
 

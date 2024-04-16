@@ -86,7 +86,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal vibration) shapes,\s*(?'shapeid'\d*)|^ID.*|\[.*\]");
+                return new Regex(@"^(?'type'Nodal vibration) shapes,\s*(?'shapeid'\d*)|^ID\tNode\tex\tey\tez\t\u03c6 x\t\u03c6 y\t\u03c6 z|^\[.*\]");
             }
         }
 

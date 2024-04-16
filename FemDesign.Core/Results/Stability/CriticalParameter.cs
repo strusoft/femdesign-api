@@ -38,7 +38,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Critical parameters) \(Only positive\)");
+                return new Regex(@"^(?'type'Critical parameters) \(Only positive\)");
             }
         }
 
@@ -46,7 +46,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Critical parameters) \(Only positive\)|Comb\tShape\tCritical param.|\t\t\[.*\]");
+                return new Regex(@"^(?'type'Critical parameters) \(Only positive\)|^Comb\tShape\tCritical param\.|^\t\t\[.*\]");
             }
         }
 

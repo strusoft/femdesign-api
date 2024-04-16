@@ -110,7 +110,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^ID\tElem\tNode\tMx'\tMy'\tMx'y'\tNx'\tNy'\tNx'y'\tTx'z'\tTy'z'.*|ID\tMax\..*|\[.*\]");
+                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^ID\t(Max\.\t)?Elem\tNode\tMx'\tMy'\tMx'y'\tNx'\tNy'\tNx'y'\tTx'z'\tTy'z'\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

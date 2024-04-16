@@ -15,7 +15,7 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-            string modelPath = "Results\\Assets\\Model.str";
+            string modelPath = "Results\\Assets\\General.str";
 
             var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<LineSupportResultant>(modelPath);
 

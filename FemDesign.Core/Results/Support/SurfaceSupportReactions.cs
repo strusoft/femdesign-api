@@ -71,7 +71,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Surface support), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Surface support), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
             }
         }
 
@@ -79,7 +79,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Surface support), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|No\.|\[.*\]");
+                return new Regex(@"^(?'type'Surface support), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^No\.\tElem\tNode\tFx'\tFy'\tFz'\tFr\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

@@ -12,64 +12,33 @@ namespace FemDesign.Results
     [TestClass()]
     public class PointSupportReactionTests
     {
-
         [TestMethod]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
+            string modelPath = "Results\\Assets\\General.str";
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Max. of load combinations, Point support group, Reactions, MinMax, Ultimate
-Max.	ID	x	y	z	Node	Fx'	Fy'	Fz'	Mx'	My'	Mz'	Fr	Mr	Comb
-[-]	[-]	[m]	[m]	[m]	[-]	[kN]	[kN]	[kN]	[kNm]	[kNm]	[kNm]	[kN]	[kNm]	[-]
-Fx' (+)	S.1	2.000	6.000	0.000	1	5.000	5.555	2.565	2.500	-5.346	6.664	7.902	8.902	ULS3
-Fy' (+)	S.1	2.000	6.000	0.000	1	5.000	5.555	2.565	2.500	-5.346	6.664	7.902	8.902	ULS3
-Fz' (+)	S.2	8.000	6.000	0.000	9	2.500	1.945	9.784	5.000	12.003	-3.336	10.284	13.424	ULS3
-Mx' (+)	S.2	8.000	6.000	0.000	9	2.500	1.945	9.784	5.000	12.003	-3.336	10.284	13.424	ULS3
-My' (+)	S.2	8.000	6.000	0.000	9	2.500	1.945	9.784	5.000	12.003	-3.336	10.284	13.424	ULS3
-Mz' (+)	S.1	2.000	6.000	0.000	1	5.000	5.555	2.565	2.500	-5.346	6.664	7.902	8.902	ULS3
-");
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<PointSupportReaction>(modelPath);
 
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results.Count == 6);
-            Assert.IsTrue(results.First().GetType() == typeof(PointSupportReactionMinMax));
-            Assert.IsTrue(results.Last().GetType() == typeof(PointSupportReactionMinMax));
 
-            File.Delete(path);
-        }
-
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Max. of load combinations, Point support group, Reactions, MinMax, Ultimate",
-                "Max. of load combinations, Point support group, Reactions, MinMax, Accidental",
-            };
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(PointSupportReaction), $"{typeof(PointSupportReaction).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(PointSupportReaction), $"{typeof(PointSupportReaction).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = PointSupportReactionMinMax.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(PointSupportReactionMinMax).Name}");
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = PointSupportReaction.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = PointSupportReaction.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(PointSupportReaction).Name}");
             }
-        }
-
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Max. of load combinations, Point support group, Reactions, MinMax, Ultimate",
-                "Max. of load combinations, Point support group, Reactions, MinMax, Accidental",
-                "Max.	ID	x	y	z	Node	Fx'	Fy'	Fz'	Mx'	My'	Mz'	Fr	Mr	Comb",
-                "[-]	[-]	[m]	[m]	[m]	[-]	[kN]	[kN]	[kN]	[kNm]	[kNm]	[kNm]	[kN]	[kNm]	[-]"
-            };
-
-            foreach (var header in headers)
-            {
-                var match = PointSupportReactionMinMax.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-            }
-
         }
 
     }

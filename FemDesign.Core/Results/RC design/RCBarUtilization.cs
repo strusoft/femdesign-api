@@ -78,7 +78,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'Cmax'Max. of load combinations, RC bar, Utilization)|(?'Gmax'Max. of load groups, RC bar, Utilization)|(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Bar\t|\[.*\]");
+                return new Regex(@"(?'Cmax'Max. of load combinations, RC bar, Utilization)|(?'Gmax'Max. of load groups, RC bar, Utilization)|(?'type'RC bar, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^Bar\tMax\.\tSEC\tST\tC\tT\tCW|^\[.*\]");
             }
         }
 

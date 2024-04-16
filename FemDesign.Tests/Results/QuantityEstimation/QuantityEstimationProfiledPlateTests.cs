@@ -15,40 +15,33 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-        }
+            string modelPath = "Results\\Assets\\General.str";
 
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Quantity estimation, Profiled panel",
-            };
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<QuantityEstimationProfiledPlate>(modelPath);
+
+
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(QuantityEstimationProfiledPlate), $"{typeof(QuantityEstimationProfiledPlate).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(QuantityEstimationProfiledPlate), $"{typeof(QuantityEstimationProfiledPlate).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = QuantityEstimationProfiledPlate.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(QuantityEstimationProfiledPlate).Name}");
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = QuantityEstimationProfiledPlate.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = QuantityEstimationProfiledPlate.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(QuantityEstimationProfiledPlate).Name}");
                 Assert.IsTrue(match.Groups["type"].Success);
                 Assert.IsTrue(match.Groups["result"].Success);
             }
         }
 
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Quantity estimation, Profiled panel",
-                "Storey	Struct.	Identifier	Quality	Section	Thickness	Panel type	Length	Width	Area	Weight	Pcs	Total weight",
-                "	type				[mm]	[-]	[mm]	[mm]	[mm2]	[t]	[-]	[t]"
-            };
-
-            foreach (var header in headers)
-            {
-                var match = QuantityEstimationProfiledPlate.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-            }
-        }
     }
 }
