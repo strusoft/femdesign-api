@@ -84,6 +84,8 @@
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\Vehicle\VehicleConstruct.cs" />
+    <Compile Include="Materials\SetConcretePlasticity.cs" />
+    <Compile Include="Materials\SetSteelMaterialProperties.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\CoverTwoWay.cs" />
