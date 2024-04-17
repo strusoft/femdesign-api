@@ -143,7 +143,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Sections)$|Section\tComposite\tHeight|\[.+\]");
+                return new Regex(@"^(?'type'Sections)$|^Section\tComposite\tHeight\tWidth\tA\tP\tA/P\tYg\tZg\tYs\tZs\tIy\tWy\tez max\tez min\tiy\tSy\tIz\tWz\tey max\tey min\tiz\tSz\tIt\tWt\tIw\tIyz\tz \u03C9\t\u03B1 1\tI1\tW1 min\tW1 max\te2 max\te2 min\ti1\tS1\tS01\tc1\t\u03C1 1\tz2\t\u03B1 2\tI2\tW2 min\tW2 max\te1 max\te1 min\ti2\tS2\tS02\tc2\t\u03C1 2\tz1\tOther|^\[.+\]");
             }
         }
 

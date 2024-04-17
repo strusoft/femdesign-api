@@ -112,6 +112,7 @@
     <Compile Include="Results\Stability\CriticalParameterTests.cs" />
     <Compile Include="Results\Stability\ImperfectionFactorTests.cs" />
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
+    <Compile Include="Results\SectionPropertiesTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Results\Steel\BarSteelUtilizationTests.cs" />
@@ -227,6 +228,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Results\Utils\ReadBucklingShapesTest.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Results\Assets\SectionTest.str">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shells\EdgeConnection-model.struxml">
