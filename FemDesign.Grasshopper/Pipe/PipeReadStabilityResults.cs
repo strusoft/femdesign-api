@@ -54,9 +54,11 @@ namespace FemDesign.Grasshopper
     {
         public dynamic _getStabilityResults(Type resultType, string loadCombination = null, int? shapeId = null, Results.UnitResults units = null, Options options = null)
         {
-            var methodName = nameof(FemDesignConnection.GetStabilityResults);
-            MethodInfo genericMethod = _connection.GetType().GetMethod(methodName).MakeGenericMethod(resultType);
-            dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombination, shapeId, units, options });
+            string methodName = nameof(FemDesign.FemDesignConnection._getStabilityResults);
+            MethodInfo genericMethod = _connection.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+            List<int> shapeIds = shapeId.HasValue ? new List<int> { (int)shapeId } : null;
+            List<string> loadCombinations = loadCombination != null ? new List<string> { loadCombination } : null;
+            dynamic results = genericMethod.Invoke(_connection, new object[] { loadCombinations, shapeIds, units, options, true });
 
             return results;
         }

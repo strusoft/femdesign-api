@@ -131,7 +131,7 @@ namespace FemDesign.Calculate
 
 
         /// <summary>
-        /// DocTable to return specific analysis results by shape identifiers.
+        /// DocTable to return specific analysis results (e.g. NodalBucklingShapes, EigenFrequencies, etc.) by shape identifiers.
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="loadCombination"></param>
@@ -149,7 +149,7 @@ namespace FemDesign.Calculate
             if(resultType != ListProc.NodalVibrationShape)
             {
                 if (loadCombination == null)
-                    throw new Exception("loadCombination input cannot be null!");
+                    throw new Exception("Load combination input cannot be null!");
 
                 Suffix = $"{loadCombination} / {shapeID}";
             }

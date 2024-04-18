@@ -14,5 +14,8 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("FemDesign.Tests")]
 #endif
 
+// Allow internal methods to be accessed from the Grasshopper project
+[assembly: InternalsVisibleTo("FemDesign.Grasshopper")]
+
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("00f74121-ff13-46da-bd54-1d81c62c4952")]
