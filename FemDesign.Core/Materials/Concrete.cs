@@ -1,5 +1,6 @@
 // https://strusoft.com/
 
+using StruSoft.Interop.StruXml.Data;
 using System.Xml.Serialization;
 
 namespace FemDesign.Materials
@@ -17,7 +18,7 @@ namespace FemDesign.Materials
         public StruSoft.Interop.StruXml.Data.Tda_shrinkage ShrinkageTimeDependant { get; set; }
 
         [XmlElement("tda_elasticity")]
-        public StruSoft.Interop.StruXml.Data.Tda_elasticity EalsticityTimeDependant { get; set; }
+        public StruSoft.Interop.StruXml.Data.Tda_elasticity ElasticityTimeDependant { get; set; }
 
         [XmlElement("plastic_analysis_data")]
         public StruSoft.Interop.StruXml.Data.Concrete_pl_data Plasticity { get; set; }
@@ -97,5 +98,107 @@ namespace FemDesign.Materials
             this.CreepSlc = creepSlc;
             this.Shrinkage = shrinkage;
         }
+
+        internal void SetPlasticity(bool plastic = true, bool hardening = true, CrushingCriterion crushing = CrushingCriterion.Prager, bool tensionStrength = true, TensionStiffening tensionStiffening = TensionStiffening.Hinton, ReducedCompression reducedCompression = ReducedCompression.Vecchio1, bool reducedTransverse = false, bool ultimateStrainRebars = true )
+        {
+            var plasticity = new StruSoft.Interop.StruXml.Data.Concrete_pl_attribs();
+            plasticity.Elasto_plastic_behaviour = plastic;
+            plasticity.Plastic_hardening = hardening;
+
+            if(crushing == CrushingCriterion.None)
+            {
+                plasticity.Concrete_crushing = false;
+            }
+            else
+            {
+                plasticity.Concrete_crushing = true;
+                plasticity.Concrete_crushing_option = (Cc_type)crushing;
+            }
+
+            plasticity.Tension_strength = tensionStrength;
+
+            if(tensionStiffening == TensionStiffening.None)
+            {
+                plasticity.Tension_stiffening = false;
+            }
+            else
+            {
+                plasticity.Tension_stiffening = true;
+                plasticity.Tension_stiffening_option = (Ts_type)tensionStiffening;
+
+                if(tensionStiffening == TensionStiffening.Hinton)
+                    plasticity.Tension_stiffening_param = 0.5;
+                else if(tensionStiffening == TensionStiffening.Vecchio)
+                    plasticity.Tension_stiffening_param = 500;
+                else if(tensionStiffening == TensionStiffening.Linear)
+                    plasticity.Tension_stiffening_param = 11;
+                else if(tensionStiffening == TensionStiffening.Cervera)
+                    plasticity.Tension_stiffening_param = 0.150;
+            }
+
+            if(reducedCompression == ReducedCompression.None)
+            {
+                plasticity.Reduced_compression_strength = false;
+            }
+            else
+            {
+                plasticity.Reduced_compression_strength = true;
+                plasticity.Reduced_compression_strength_option = (Rcsm_type) reducedCompression;
+
+                if(reducedCompression == ReducedCompression.Cervera)
+                    plasticity.Reduced_compression_strength_param = 0.550;
+            }
+
+
+            plasticity.Reduced_transverse_shear_stiffnes = reducedTransverse;
+            plasticity.Ultimate_strain = ultimateStrainRebars;
+
+
+            this.Plasticity.U = plasticity;
+            this.Plasticity.Sq = plasticity;
+            this.Plasticity.Sf = plasticity;
+            this.Plasticity.Sc = plasticity;
+        }
+
+    }
+
+    public enum CrushingCriterion
+    {
+        /// <remarks/>
+        Crisfield,
+
+        /// <remarks/>
+        Cervera,
+
+        /// <remarks/>
+        Hinton,
+
+        /// <remarks/>
+        Prager,
+        None,
+    }
+
+    public enum TensionStiffening
+    {
+        Hinton,
+        Vecchio,
+        Linear,
+        Cervera,
+        None,
+    }
+
+    public enum ReducedCompression
+    {
+        [System.Xml.Serialization.XmlEnumAttribute("Vecchio 1")]
+        Vecchio1,
+
+        [System.Xml.Serialization.XmlEnumAttribute("Vecchio 2")]
+        Vecchio2,
+
+        Cervera,
+
+        [System.Xml.Serialization.XmlEnumAttribute("Model Code 2010")]
+        ModelCode2010,
+        None,
     }
 }
