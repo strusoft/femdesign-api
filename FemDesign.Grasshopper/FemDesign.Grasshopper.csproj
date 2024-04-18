@@ -739,9 +739,6 @@
     <EmbeddedResource Include="Resources\icons\StiffnessMatrix2TypeDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\StiffnessMatrix4Type.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\icons\StiffnessMatrix4TypeDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
