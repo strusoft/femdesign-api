@@ -1006,7 +1006,7 @@ namespace FemDesign
             if (listProcs == null)
                 throw new ArgumentNullException("listProcs input cannot be null!");
 
-            string suffix1 = loadCaseCombName != null ? "_" + loadCaseCombName : null;
+            string suffix1 = loadCaseCombName != null ? "__" + loadCaseCombName : null;
             string suffix2 = shapeId != null ? "_Shape-" + shapeId : null;
 
             // Input bsc and output csv file paths
