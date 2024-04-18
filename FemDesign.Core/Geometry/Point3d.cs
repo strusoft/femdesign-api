@@ -169,20 +169,7 @@ namespace FemDesign.Geometry
 
         public static bool ArePointsOnPlane(List<Point3d> points)
         {
-            int i = 0;
-            bool colinearPoints = true;
-
-            while( colinearPoints && i < points.Count )
-            {
-                colinearPoints = ArePointsCollinear(points[0], points[1], points[i]);
-                i++;
-            }
-
-            if (!colinearPoints)
-                return false;
-
-
-            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[i-1]);
+            (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[points.Count-1]);
 
             for(int j = 0; j < points.Count; j++)
             {
