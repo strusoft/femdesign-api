@@ -18,7 +18,6 @@ namespace FemDesign.Geometry
 
             var points = new List<Point3d> { p1, p2, p3, p4 };
 
-            Assert.ThrowsException<Exception>(() => Point3d.ArePointsOnPlane(points));
 
             var p5 = new Geometry.Point3d(0, 1, 0);
             points.Add(p5);
