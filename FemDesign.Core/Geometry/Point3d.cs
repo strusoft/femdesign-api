@@ -178,10 +178,9 @@ namespace FemDesign.Geometry
                 i++;
             }
 
-            if (colinearPoints)
-            {
-                throw new Exception("Points are colinear!");
-            }
+            if (!colinearPoints)
+                return false;
+
 
             (double a, double b, double c, double d) = _getPlaneEquation(points[0], points[1], points[i-1]);
 
