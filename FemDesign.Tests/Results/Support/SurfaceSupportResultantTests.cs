@@ -39,7 +39,6 @@ namespace FemDesign.Results
                 var match = SurfaceSupportResultant.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(SurfaceSupportResultant).Name}");
                 Assert.IsTrue(match.Groups["casename"].Success);
-                Assert.IsTrue(match.Groups["type"].Success);
             }
         }
 

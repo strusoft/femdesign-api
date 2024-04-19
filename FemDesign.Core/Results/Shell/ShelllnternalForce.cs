@@ -102,7 +102,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -110,7 +110,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^ID\t(Max\.\t)?Elem\tNode\tMx'\tMy'\tMx'y'\tNx'\tNy'\tNx'y'\tTx'z'\tTy'z'\t(Case|Comb\.)|^\[.*\]");
+                return new Regex(@"^(?'type'Shells), (?'result'Internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\t(Max\.\t)?Elem\tNode\tMx'\tMy'\tMx'y'\tNx'\tNy'\tNx'y'\tTx'z'\tTy'z'\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

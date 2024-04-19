@@ -37,6 +37,7 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = CLTShellUtilization.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(CLTShellUtilization).Name}");
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 

@@ -73,7 +73,7 @@ using FemDesign.Calculate;
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Crack width)|(?'type'Shell, Crack width), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Crack width)(?: - selected objects)?$|^(?'type'Shell, Crack width), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -81,7 +81,7 @@ using FemDesign.Calculate;
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Crack width)|(?'type'Shell, Crack width), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tElem\tFace\tWidth 1\tDirection 1\tWidth 2\tDirection 2(\tComb)?|^\[.*\]");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Crack width)(?: - selected objects)?$|^(?'type'Shell, Crack width), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tElem\tFace\tWidth 1\tDirection 1\tWidth 2\tDirection 2(\tComb)?|^\[.*\]");
             }
         }
 

@@ -87,9 +87,9 @@ namespace FemDesign.Results
             return ResultsReader.ObjectRepresentation(this);
         }
 
-        internal static Regex IdentificationExpression => new Regex(@"^Line connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+        internal static Regex IdentificationExpression => new Regex(@"^Line connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
 
-        internal static Regex HeaderExpression => new Regex(@"^Line connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|^No\.\tElem\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb\.)|^\[.*\]");
+        internal static Regex HeaderExpression => new Regex(@"^Line connection forces, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^No\.\tElem\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb\.)|^\[.*\]");
 
         internal static LineConnectionForce Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {

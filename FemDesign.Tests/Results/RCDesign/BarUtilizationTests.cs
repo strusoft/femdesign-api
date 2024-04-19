@@ -38,6 +38,7 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = RCBarUtilization.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(RCBarUtilization).Name}");
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 

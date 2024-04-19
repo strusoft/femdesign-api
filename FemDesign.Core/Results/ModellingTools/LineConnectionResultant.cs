@@ -73,9 +73,9 @@ namespace FemDesign.Results
             return ResultsReader.ObjectRepresentation(this);
         }
 
-        internal static Regex IdentificationExpression => new Regex(@"^Line connection, Resultants, .*$");
+        internal static Regex IdentificationExpression => new Regex(@"^Line connection, Resultants, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
 
-        internal static Regex HeaderExpression => new Regex(@"^Line connection, Resultants, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tl/2\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\t(Case|Comb\.)|^\t\[.*\]");
+        internal static Regex HeaderExpression => new Regex(@"^Line connection, Resultants, .*: (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tl/2\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\t(Case|Comb\.)|^\t\[.*\]");
 
         internal static LineConnectionResultant Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {

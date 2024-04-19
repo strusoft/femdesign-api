@@ -108,7 +108,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Max\. of load combinations, (?'type'Point support group), (?'result'Reactions), MinMax, (?'casename'(Ultimate|Accidental|Quasi-permanent))");
+                return new Regex(@"^Max\. of load combinations, (?'type'Point support group), (?'result'Reactions), MinMax, (?'casename'(Ultimate|Accidental|Quasi-permanent))(?: - selected objects)?$");
             }
         }
 
@@ -116,7 +116,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"Max\. of load combinations, (?'type'Point support group), (?'result'Reactions), MinMax, (?'casename'(Ultimate|Accidental|Quasi-permanent))|^Max\.\tID\tx\ty\tz\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb)|^\[.*\]");
+                return new Regex(@"^Max\. of load combinations, (?'type'Point support group), (?'result'Reactions), MinMax, (?'casename'(Ultimate|Accidental|Quasi-permanent))(?: - selected objects)?$|^Max\.\tID\tx\ty\tz\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\tComb|^\[.*\]");
             }
         }
 

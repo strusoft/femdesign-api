@@ -103,7 +103,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Point support group), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Point support group), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -111,7 +111,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Point support group), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tx\ty\tz\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb\.)|^\[.*\]");
+                return new Regex(@"^(?'type'Point support group), (?'result'Reactions),( (?'loadcasetype'[\w\s\-]+) -)? Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tx\ty\tz\tNode\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\tFr\tMr\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

@@ -40,7 +40,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Imperfection factors) \(Only positive cr.\)");
+                return new Regex(@"^(?'type'Imperfection factors) \(Only positive cr\.\)");
             }
         }
 
@@ -48,7 +48,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Imperfection factors) \(Only positive cr.\)|^Comb\tShape\tCritical param\.\tAmplitude|^\t\t\[.*\]");
+                return new Regex(@"^(?'type'Imperfection factors) \(Only positive cr\.\)|^Comb\tShape\tCritical param\.\tAmplitude|^\t\t\[.*\]");
             }
         }
 

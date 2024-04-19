@@ -47,7 +47,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, CLT panel, Fire design, Utilization)|(?'type'CLT panel, Fire design, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"(?'max'Max\. of load combinations, CLT panel, Fire design, Utilization)(?: - selected objects)?$|(?'type'CLT panel, Fire design, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -55,7 +55,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, CLT panel, Fire design, Utilization)|(?'type'CLT panel, Fire design, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^Panel\tDuration\tFire protection\tMax\.\t(Combination\t)?Sx\+\tSy\+\tSx-\tSy-\tTxy\tTx\tTy\tSI\tTS\tCS\tBu\tTo|^\[.*\]");
+                return new Regex(@"(?'max'Max\. of load combinations, CLT panel, Fire design, Utilization)(?: - selected objects)?$|(?'type'CLT panel, Fire design, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^Panel\tDuration\tFire protection\tMax\.\t(Combination\t)?Sx\+\tSy\+\tSx-\tSy-\tTxy\tTx\tTy\tSI\tTS\tCS\tBu\tTo|^\[.*\]");
             }
         }
 

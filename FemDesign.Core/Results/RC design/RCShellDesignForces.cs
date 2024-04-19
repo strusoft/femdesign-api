@@ -93,7 +93,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Design forces)|(?'type'Shell, Design forces), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Design forces)(?: - selected objects)?$|^(?'type'Shell, Design forces), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -101,7 +101,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Design forces)|(?'type'Shell, Design forces), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tElem\tNode\tmx or mr bottom\tmy or mt bottom\tmx or mr top\tmy or mt top\tnx or nr max\.\tny or nt max\.\tnx or nr min\.\tny or nt min\.|^\[.*\]");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Design forces)(?: - selected objects)?$|^(?'type'Shell, Design forces), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tElem\tNode\tmx or mr bottom\tmy or mt bottom\tmx or mr top\tmy or mt top\tnx or nr max\.\tny or nt max\.\tnx or nr min\.\tny or nt min\.|^\[.*\]");
             }
         }
 

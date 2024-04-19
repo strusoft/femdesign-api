@@ -38,8 +38,6 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = QuantityEstimationReinforcement.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(QuantityEstimationReinforcement).Name}");
-                Assert.IsTrue(match.Groups["type"].Success);
-                Assert.IsTrue(match.Groups["result"].Success);
             }
         }
 

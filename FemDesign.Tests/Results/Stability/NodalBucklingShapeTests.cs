@@ -40,6 +40,8 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = NodalBucklingShape.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(NodalBucklingShape).Name}");
+                Assert.IsTrue(match.Groups["casename"].Success);
+                Assert.IsTrue(match.Groups["shape"].Success);
             }
         }
 

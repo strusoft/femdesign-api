@@ -72,7 +72,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Labelled sections), Resultants, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Labelled sections), Resultants, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -80,7 +80,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Labelled sections), Resultants, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|ID\tBase point from SP*|\t\[.*\]");
+                return new Regex(@"^(?'type'Labelled sections), Resultants, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tBase point from SP\.\tFx'\tFy'\tFz'\tMx'\tMy'\tMz'\t(Case|Comb\.)|^\t\[.*\]");
             }
         }
 

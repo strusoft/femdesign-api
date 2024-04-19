@@ -70,7 +70,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Eigenfrequencies)");
+                return new Regex(@"^(?'type'Eigenfrequencies)");
             }
         }
 
@@ -78,7 +78,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Eigenfrequencies)$|Shape\tFrequency\tPeriod\tModal mass\tmx'\tmy'\tmz'|\[.*\]");
+                return new Regex(@"^(?'type'Eigenfrequencies)$|^Shape\tFrequency\tPeriod\tModal mass\tmx'\tmy'\tmz'|^\[.*\]");
             }
         }
 

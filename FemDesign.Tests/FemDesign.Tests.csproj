@@ -96,6 +96,8 @@
     <Compile Include="Results\Bar\BarEndForceTest.cs" />
     <Compile Include="Results\FiniteElement\NodalDisplacementsTests.cs" />
     <Compile Include="Results\FiniteElement\FeaShellTests.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSectionResultantTests.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSectionInternalForceTests.cs" />
     <Compile Include="Results\ModellingTools\PointConnectionForceTests.cs" />
     <Compile Include="Results\QuantityEstimation\QuantityEstimationGeneralTests.cs" />
     <Compile Include="Results\QuantityEstimation\QuantityEstimationTimberTests.cs" />
@@ -112,11 +114,12 @@
     <Compile Include="Results\Stability\NodalBucklingShapeTests.cs" />
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
-    <Compile Include="Results\Read.cs" />
+    <Compile Include="Results\Steel\BarSteelUtilizationTests.cs" />
+    <Compile Include="Results\Utils\Read.cs" />
     <Compile Include="Results\Support\PointSupportReactionMinMaxTests.cs" />
     <Compile Include="Results\Support\SurfaceSupportResultantTests.cs" />
     <Compile Include="Results\TimberDesign\BarTimberUtilizationTests.cs" />
-    <Compile Include="Results\UtilTestMethods.cs" />
+    <Compile Include="Results\Utils\UtilTestMethods.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
     <Compile Include="GenericClasses\EnumHelpersTests.cs" />
     <Compile Include="Geometry\EdgeTests.cs" />
@@ -223,13 +226,7 @@
     <None Include="Results\Assets\General.strFEM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Results\Assets\Model.str">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Results\Assets\Model.strFEM">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Results\Stability\ReadBucklingShapesTest.struxml">
+    <None Include="Results\Utils\ReadBucklingShapesTest.struxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shells\EdgeConnection-model.struxml">

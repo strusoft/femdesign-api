@@ -37,6 +37,7 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = BarTimberUtilization.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(BarTimberUtilization).Name}");
+                Assert.IsTrue(match.Groups["casename"].Success);
             }
         }
 

@@ -66,7 +66,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Required reinforcement)|(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Required reinforcement)(?: - selected objects)?$|^(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -74,7 +74,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'max'Max. of load combinations, Shell, Required reinforcement)|(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^ID\tElem\tNode\tx' or r bottom( Comb)?\ty' or t bottom( Comb)?\tx' or r top( Comb)?\ty' or t top( Comb)?\tx' or r mid( Comb)?\ty' or t mid( Comb)?|Shell\t|^\[.*\]");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Required reinforcement)(?: - selected objects)?$|^(?'type'Shell, Required reinforcement), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\tElem\tNode\tx' or r bottom( Comb)?\ty' or t bottom( Comb)?\tx' or r top( Comb)?\ty' or t top( Comb)?\tx' or r mid( Comb)?\ty' or t mid( Comb)?|^\[.*\]");
             }
         }
 

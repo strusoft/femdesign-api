@@ -85,7 +85,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Utilization)|^(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Utilization)(?: - selected objects)?$|^(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -93,7 +93,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Utilization)|^(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|^Shell\tMax\.\t(Combination\t)?RBX\tRBY\tRTX\tRTY\tBU\tCWB\tCWT|^\[.*\]");
+                return new Regex(@"^(?'max'Max\. of load combinations, Shell, Utilization)(?: - selected objects)?$|^(?'type'Shell, Utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^Shell\tMax\.\t(Combination\t)?RBX\tRBY\tRTX\tRTY\tBU\tCWB\tCWT|^\[.*\]");
             }
         }
 

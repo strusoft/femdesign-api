@@ -38,6 +38,7 @@ namespace FemDesign.Results
                 var identifier = header[0];
                 var match = NodalVibration.IdentificationExpression.Match(identifier);
                 Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(NodalVibration).Name}");
+                Assert.IsTrue(match.Groups["shapeid"].Success);
             }
         }
 
