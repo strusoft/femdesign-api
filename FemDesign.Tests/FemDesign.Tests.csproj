@@ -142,7 +142,7 @@
     <Compile Include="Results\FiniteElement\FeaBarTests.cs" />
     <Compile Include="Results\ModellingTools\LineConnectionForceTests.cs" />
     <Compile Include="Results\ModellingTools\LineConnectionResultantTests.cs" />
-    <Compile Include="Shells\ShellInternalForceTests.cs" />
+    <Compile Include="Results\Shell\ShellInternalForceTests.cs" />
     <Compile Include="Results\EigenFrequencies\EigenFrequenciesTests.cs" />
     <Compile Include="Results\FiniteElement\FeaNodeTests.cs" />
     <Compile Include="Results\FootFall\NodalAccelerationTests.cs" />
@@ -155,9 +155,9 @@
     <Compile Include="Results\QuantityEstimation\QuantityEstimationTimberPanelTests.cs" />
     <Compile Include="Results\RCDesign\ShellCrackWidthTests.cs" />
     <Compile Include="Results\RCDesign\ShellUtilizationTests.cs" />
-    <Compile Include="Shells\ShellDerivedForceTests.cs" />
-    <Compile Include="Shells\ShellsDisplacementTests.cs" />
-    <Compile Include="Shells\ShellsStressTests.cs" />
+    <Compile Include="Results\Shell\ShellDerivedForceTests.cs" />
+    <Compile Include="Results\Shell\ShellsDisplacementTests.cs" />
+    <Compile Include="Results\Shell\ShellsStressTests.cs" />
     <Compile Include="Results\Support\PointSupportReactionTests.cs" />
     <Compile Include="Results\Support\SurfaceSupportReactionTests.cs" />
     <Compile Include="Results\TimberDesign\CLTFireUtilizationTests.cs" />
