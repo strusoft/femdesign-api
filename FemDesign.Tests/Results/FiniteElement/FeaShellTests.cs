@@ -13,6 +13,7 @@ namespace FemDesign.Results
     public class FeaShellTests
     {
         [TestMethod]
+        [TestCategory("FEM-Design required")]
         public void Parse()
         {
             string modelPath = "Results\\Assets\\General.str";

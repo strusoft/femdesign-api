@@ -13,6 +13,7 @@ namespace FemDesign.Results
     public class ShellShearCapacityTests
     {
         [TestMethod]
+        [TestCategory("FEM-Design required")]
         public void Parse()
         {
             string modelPath = "Results\\Assets\\General.str";
