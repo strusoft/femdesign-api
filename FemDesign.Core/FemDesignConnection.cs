@@ -119,9 +119,6 @@ namespace FemDesign
             SetVerbosity(verbosity);
         }
 
-
-
-
         private void ProcessExited(object sender, EventArgs e)
         {
             this.HasExited = true;
@@ -302,9 +299,6 @@ namespace FemDesign
 
         }
 
-
-
-
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the analysis.
         /// </summary>
@@ -389,7 +383,6 @@ namespace FemDesign
                 this.ApplyDesignChanges();
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -404,9 +397,6 @@ namespace FemDesign
 
             this.RunScript(script, $"ApplyDesignChanges");
         }
-
-
-
 
         /// <summary>
         /// Opens <paramref name="model"/> in FEM-Design and runs the design.
@@ -437,7 +427,6 @@ namespace FemDesign
 
             this.RunScript(script, "EndSession");
         }
-
 
         /// <summary>
         /// Retrieves the currently opened model with all available elements as a <see cref="Model"/> object.
@@ -892,20 +881,10 @@ namespace FemDesign
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs ?? Enumerable.Empty<ListProc>()).ToList();
 
             // Time stamp in file names (bsc, csv, fdscript). Required for Grasshopper components, otherwise Grasshoper cannot access the files at runtime.
-            var currentTime = "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
+            var currentTime = "__" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff");
 
             // Get .bsc and .csv file paths for .fdscript file generation
-            var bscPaths = new List<string>();
-            var csvPaths = new List<string>();            
-            foreach(var combo in loadCombinations)
-            {
-                foreach(var sh in shapeIds)
-                {
-                    var path = _createBscCsvFilePaths(listProcs, combo, sh, currentTime, units, options);
-                    bscPaths.AddRange(path.bscPaths);
-                    csvPaths.AddRange(path.csvPaths);
-                }
-            }
+            var (bscPaths, csvPaths) = _createBscCsvFilePaths(listProcs, loadCombinations, shapeIds, currentTime, units, options);
 
             // Generate .csv result files
             _listResultsByFdScript($"Get{typeof(T).Name}Results" + currentTime, bscPaths, csvPaths, elements);
@@ -1044,7 +1023,7 @@ namespace FemDesign
         /// <summary>
         /// Create .bsc files, and return the .bsc and .csv file paths.
         /// </summary>
-        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, List<string> loadCaseCombNames = null, List<int> shapeIds = null, string currentTime = null, Results.UnitResults units = null, Options options = null)
+        private (List<string> bscPaths, List<string> csvPaths) _createBscCsvFilePaths(List<ListProc> listProcs, List<string> loadCaseCombNames, List<int> shapeIds, string currentTime = null, Results.UnitResults units = null, Options options = null)
         {
             // Initialize outputs
             List<string> bscPaths = new List<string>();
@@ -1053,9 +1032,6 @@ namespace FemDesign
             // Check inputs
             if (loadCaseCombNames != null && shapeIds != null)
             {
-                if (loadCaseCombNames.Count != shapeIds.Count)
-                    throw new ArgumentException("Count of load combination names must be the same as the number of the shape identifiers!");
-
                 foreach (var combo in loadCaseCombNames)
                 {
                     foreach (var id in shapeIds)

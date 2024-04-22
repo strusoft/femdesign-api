@@ -51,7 +51,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'Cmax'Max. of load combinations, Shell, Shear utilization)|(?'Gmax'Max. of load groups, Shell, Shear utilization)|(?'type'Shell, Shear utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'Cmax'Max\. of load combinations, Shell, Shear utilization)(?: - selected objects)?$|^(?'Gmax'Max\. of load groups, Shell, Shear utilization)(?: - selected objects)?$|^(?'type'Shell, Shear utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -59,7 +59,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'Cmax'Max. of load combinations, Shell, Shear utilization)|(?'Gmax'Max. of load groups, Shell, Shear utilization)|(?'type'Shell, Shear utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})|Shell\t|\[.*\]");
+                return new Regex(@"^(?'Cmax'Max\. of load combinations, Shell, Shear utilization)(?: - selected objects)?$|^(?'Gmax'Max\. of load groups, Shell, Shear utilization)(?: - selected objects)?$|^(?'type'Shell, Shear utilization), ((?'loadcasetype'[\w\s]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^Shell\tMax\.\t(Combination\t)?vRd,Max\tvRd,c\tvRd,s|^\[.*\]");
             }
         }
 

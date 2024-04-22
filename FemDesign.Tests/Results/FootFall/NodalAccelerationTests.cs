@@ -15,59 +15,31 @@ namespace FemDesign.Results
         [TestMethod]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
+            string modelPath = "Results\\Assets\\General.str";
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Footfall analysis, Nodal accelerations, SE.1 - Overall maximum - for selected objects
-ID	Node	ax	ay	az
-[-]	[-]	[m/s2]	[m/s2]	[m/s2]
-P.1.1	1	0.000	0.000	0.000
-P.1.1	2	0.000	0.000	0.000
-P.1.1	3	0.000	0.000	0.000
-P.1.1	4	0.000	0.000	0.000
-P.1.1	5	0.000	0.000	0.000
-P.1.1	6	0.000	0.000	0.000
-");
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<NodalAcceleration>(modelPath);
 
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(NodalAcceleration), "Nodal Acceleration should be parsed");
-            Assert.IsTrue(results.Count == 6, "Should read all results.");
 
-            File.Delete(path);
-        }
-
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Footfall analysis, Nodal accelerations, SE.1",
-            };
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(NodalAcceleration), $"{typeof(NodalAcceleration).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(NodalAcceleration), $"{typeof(NodalAcceleration).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = NodalAcceleration.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalAcceleration).Name}");
-                Assert.IsTrue(match.Groups["type"].Success);
-                Assert.IsTrue(match.Groups["result"].Success);
-                Assert.IsTrue(match.Groups["casename"].Success);
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = NodalAcceleration.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = NodalAcceleration.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(NodalAcceleration).Name}");
             }
         }
 
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Footfall analysis, Nodal accelerations, SE.1",
-                "ID	Node	ax	ay	az",
-                "[-]	[-]	[m/s2]	[m/s2]	[m/s2]"
-            };
-
-            foreach (var header in headers)
-            {
-                var match = NodalAcceleration.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-            }
-        }
     }
 }

@@ -70,7 +70,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Surface elements)");
+                return new Regex(@"^(?'type'Surface elements)(?: - selected objects)?$");
             }
         }
 
@@ -78,7 +78,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Surface elements)|^Shell\t");
+                return new Regex(@"^(?'type'Surface elements)(?: - selected objects)?$|^Shell\tElem\tNode 1\tNode 2\tNode 3\tNode 4");
             }
         }
 

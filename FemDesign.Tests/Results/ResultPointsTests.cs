@@ -17,10 +17,10 @@ namespace FemDesign.Results
         [TestMethod]
         public void ResPoints()
         {
-            string filepath = @"Assets/Slab.str";
+            string filepath = "Assets\\Slab.str";
 
 
-            var connection = new FemDesign.FemDesignConnection();
+            var connection = new FemDesign.FemDesignConnection(minimized: true);
             connection.Open(filepath);
             var newModel = connection.GetModel();
             var analysis = Analysis.StaticAnalysis();
@@ -41,7 +41,7 @@ namespace FemDesign.Results
             connection.CreateResultPoint(resultPoint);
 
 
-            var results = connection.GetLoadCaseResults<Results.ShellDisplacement>(options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints) );
+            var results = connection.GetLoadCaseResults<Results.ShellDisplacement>(options: new Options(BarResultPosition.ResultPoints, ShellResultPosition.ResultPoints));
 
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Count == 3);
