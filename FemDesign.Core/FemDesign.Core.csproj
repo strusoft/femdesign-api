@@ -107,10 +107,6 @@
     
     <Compile Include="Results\Node\NodalDisplacement.cs" />
         
-    <Compile Include="Results\Node\PointSupportReaction.cs" />
-    <Compile Include="Results\Node\PointSupportReactionMinMax.cs" />
-    <Compile Include="Results\Node\PointSupportReaction.cs" />
-        
     <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
