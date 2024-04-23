@@ -36,15 +36,15 @@ namespace FemDesign.Loads
         [XmlElement("surface_stress_load", Order = 8)]
         public List<DummyXmlObject> SurfaceStressLoads { get { return null; } set { value = null; } } // surface_stress_load
         [XmlElement("point_support_motion_load", Order = 9)]
-        public List<DummyXmlObject> PointSupportMotionLoads { get { return null; } set { value = null; } } // point_support_motion_load_type
+        public List<PointMotion> PointMotionLoads { get; set; } = new List<PointMotion>(); // point_support_motion_load_type
         [XmlElement("line_support_motion_load", Order = 10)]
-        public List<DummyXmlObject> LineSupportMotionLoads { get { return null; } set { value = null; } } // line_support_motion_load_type
+        public List<LineSupportMotion> LineSupportMotionLoads { get; set; } = new List<LineSupportMotion>(); // line_support_motion_load_type
 
         [XmlElement("surface_support_motion_load", Order = 11)]
         public List<DummyXmlObject> SurfaceSupportMotionLoads { get { return null; } set { value = null; } } // surface_support_motion_load_type
 
         [XmlElement("mass", Order = 12)]
-        public List<DummyXmlObject> Masses { get { return null; } set { value = null; } } // mass_point_type
+        public List<StruSoft.Interop.StruXml.Data.Mass_point_type> Masses { get { return null; } set { value = null; } } // mass_point_type
 
         [XmlElement("load_case_mass_conversion_table", Order = 13)]
         public MassConversionTable LoadCaseMassConversionTable { get; set; } // mass_conversion_type
@@ -76,6 +76,8 @@ namespace FemDesign.Loads
             var objs = new List<FemDesign.GenericClasses.ILoadElement>();
             objs.AddRange(this.PointLoads);
             objs.AddRange(this.LineLoads);
+            objs.AddRange(this.PointMotionLoads);
+            objs.AddRange(this.LineSupportMotionLoads);
             objs.AddRange(this.LineStressLoads);
             objs.AddRange(this.LineTemperatureLoads);
             objs.AddRange(this.PressureLoads);

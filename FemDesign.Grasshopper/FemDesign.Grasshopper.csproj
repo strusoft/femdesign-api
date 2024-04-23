@@ -82,6 +82,7 @@
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
+    <Compile Include="Loads\Loads\PointMotionDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\Vehicle\VehicleConstruct.cs" />
     <Compile Include="Materials\SetConcretePlasticity.cs" />
@@ -844,6 +845,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\PointMotion.bmp" />
+    <None Include="Resources\icons\SurfaceMotion.bmp" />
+    <None Include="Resources\icons\LineMotion.bmp" />
     <None Include="Resources\icons\FEM_SaveAs.png" />
     <None Include="Resources\icons\Docx.png" />
     <None Include="Resources\icons\ConcealedBar.png" />
@@ -863,7 +867,6 @@
     <None Include="Resources\icons\PeakSmoothingRegion.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
-    <None Include="Resources\icons\Patch.png.png" />
     <None Include="Resources\icons\Layer.png" />
     <None Include="Resources\icons\Rebar.png" />
     <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />

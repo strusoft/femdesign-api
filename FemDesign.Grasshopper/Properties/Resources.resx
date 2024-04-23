@@ -7302,4 +7302,13 @@
   <data name="FEM_SaveAs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\FEM_SaveAs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LineMotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\LineMotion.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SurfaceMotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\SurfaceMotion.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointMotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\PointMotion.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

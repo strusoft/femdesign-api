@@ -1126,6 +1126,10 @@ namespace FemDesign
             {
                 this.AddPointLoad((Loads.PointLoad)obj, overwrite);
             }
+            else if (obj.GetType() == typeof(Loads.PointMotion))
+            {
+                this.AddPointMotion((Loads.PointMotion)obj, overwrite);
+            }
             else if (obj.GetType() == typeof(Loads.LineLoad))
             {
                 this.AddLineLoad((Loads.LineLoad)obj, overwrite);
@@ -1299,6 +1303,49 @@ namespace FemDesign
             }
             return false;
         }
+
+
+
+        /// <summary>
+        /// Add PointLoad to Model.
+        /// </summary>
+        private void AddPointMotion(Loads.PointMotion obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PointMotionInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.Loads.PointMotionLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add point load
+            this.Entities.Loads.PointMotionLoads.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if PointLoad in Model.
+        /// </summary>
+        private bool PointMotionInModel(Loads.PointMotion obj)
+        {
+            foreach (Loads.PointMotion elem in this.Entities.Loads.PointMotionLoads)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
         /// <summary>
         /// Add LineLoad to Model.
@@ -3440,6 +3487,7 @@ namespace FemDesign
 
         #region LOADS
         private void AddEntity(Loads.PointLoad obj, bool overwrite) => AddPointLoad(obj, overwrite);
+        private void AddEntity(Loads.PointMotion obj, bool overwrite) => AddPointMotion(obj, overwrite);
         private void AddEntity(Loads.SurfaceTemperatureLoad obj, bool overwrite) => AddSurfaceTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.SurfaceLoad obj, bool overwrite) => AddSurfaceLoad(obj, overwrite);
         private void AddEntity(Loads.PressureLoad obj, bool overwrite) => AddPressureLoad(obj, overwrite);

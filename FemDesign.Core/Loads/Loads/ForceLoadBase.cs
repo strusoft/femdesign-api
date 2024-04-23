@@ -1,4 +1,5 @@
 // https://strusoft.com/
+using FemDesign.Loads;
 using System.Xml.Serialization;
 
 
@@ -12,5 +13,14 @@ namespace FemDesign
         /// </summary>
         [XmlAttribute("load_type")] // force_load_type
         public Loads.ForceLoadType LoadType { get; set; }
+
     }
+
+    [System.Serializable]
+    public partial class SupportMotionBase : LoadBase
+    {
+        [XmlAttribute("load_type")]
+        public SupportMotionType SupportMotionType { get; set; }
+    }
+
 }

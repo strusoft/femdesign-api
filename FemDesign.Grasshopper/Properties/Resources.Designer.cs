@@ -883,6 +883,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LineMotion {
+            get {
+                object obj = ResourceManager.GetObject("LineMotion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineStressLoadConstruct {
             get {
                 object obj = ResourceManager.GetObject("LineStressLoadConstruct", resourceCulture);
@@ -1596,6 +1606,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap PointLoadMoment {
             get {
                 object obj = ResourceManager.GetObject("PointLoadMoment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PointMotion {
+            get {
+                object obj = ResourceManager.GetObject("PointMotion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2326,6 +2346,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap SurfaceLoadVariable {
             get {
                 object obj = ResourceManager.GetObject("SurfaceLoadVariable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SurfaceMotion {
+            get {
+                object obj = ResourceManager.GetObject("SurfaceMotion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

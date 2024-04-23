@@ -27,4 +27,28 @@ namespace FemDesign.Loads
         [Parseable("Moment", "moment")]
         Moment,
     }
+
+
+    /// <summary>
+    /// Specifies if the motion vector describes a motion or a rotation
+    /// </summary>
+    public enum SupportMotionType
+    {
+
+        /// <summary>
+        /// Moment
+        /// </summary>
+        [XmlEnum("motion")]
+        [Parseable("Motion", "motion")]
+        Motion,
+
+        /// <summary>
+        /// Moment
+        /// </summary>
+        [XmlEnum("moment")]
+        [Parseable("Moment", "rotation")]
+        Rotation,
+    }
+
+
 }
