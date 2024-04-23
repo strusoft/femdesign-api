@@ -10,11 +10,32 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public class Coldata
     {
+        /// <summary>
+        /// Column number to set the properties of.
+        /// </summary>
         [XmlElement("num")]
         public int Num { get; set; }
 
+        
         [XmlElement("flags")]
-        public int Flags { get; set; }
+        public int Flags { get; set; } = 0;
+
+        /// <summary>
+        /// Width of column
+        /// </summary>
+        [XmlElement("width")]
+        public int? Width { get; set; }
+
+        private bool ShouldSerializeWidth()
+        {
+            return Width != null;
+        }
+
+        /// <summary>
+        /// %s for string, %d for integer, %.3f for float with 3 digits
+        /// </summary>
+        [XmlElement("format")]
+        public string Format { get; set; }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -28,6 +49,12 @@ namespace FemDesign.Calculate
         {
             this.Num = num;
             this.Flags = flags;
+        }
+
+        public Coldata(int num, int flags, int width = 20, string format = "%s") : this(num, flags)
+        {
+            this.Width = width;
+            this.Format = format;
         }
 
 

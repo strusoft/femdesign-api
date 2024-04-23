@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FemDesign.Utils;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace FemDesign.Calculate
@@ -36,6 +37,34 @@ namespace FemDesign.Calculate
         {
             var globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(@"Calculate\cmdglobalcfg.xml");
             Assert.IsNotNull(globalCfg);
+        }
+
+        // write a test for Coldata object
+        [TestMethod("Coldata")]
+        public void TestColdata()
+        {
+            var coldata = new Coldata(1, 0);
+            Assert.IsNotNull(coldata);
+            Assert.IsTrue(coldata.Num == 1);
+            Assert.IsTrue(coldata.Flags == 0);
+            Assert.IsTrue(coldata.Width == null);
+            Assert.IsTrue(coldata.Format == null);
+
+            Console.WriteLine(coldata.SerializeObjectToXml());
+
+            coldata = new Coldata(1, 0, 20, "%s");
+            Assert.IsNotNull(coldata);
+            Assert.IsTrue(coldata.Num == 1);
+            Assert.IsTrue(coldata.Flags == 0);
+            Assert.IsTrue(coldata.Width == 20);
+            Assert.IsTrue(coldata.Format == "%s");
+
+            Console.WriteLine(coldata.SerializeObjectToXml());
+
+
+            var coldataList = Coldata.Default();
+            Assert.IsNotNull(coldataList);
+            Assert.IsTrue(coldataList.Count == 61);
         }
     }
 }
