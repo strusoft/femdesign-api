@@ -45,8 +45,8 @@ namespace FemDesign.Loads
         /// <summary>
         /// Moment
         /// </summary>
-        [XmlEnum("moment")]
-        [Parseable("Moment", "rotation")]
+        [XmlEnum("rotation")]
+        [Parseable("rotation", "rotation")]
         Rotation,
     }
 

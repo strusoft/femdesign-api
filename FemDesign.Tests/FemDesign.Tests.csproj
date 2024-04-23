@@ -189,6 +189,9 @@
     <None Include="Bars\sections.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Loads\Assets\support-motion.struxml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Loads\Load combination case types.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

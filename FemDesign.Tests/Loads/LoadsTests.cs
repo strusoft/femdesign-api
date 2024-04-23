@@ -35,5 +35,16 @@ namespace FemDesign.Loads
 
             Assert.AreEqual(expected.Entities.Loads.MovingLoads.Count, expected.Entities.Loads.MovingLoads.Count);
         }
+
+        [TestMethod("MotionLoad")]
+        public void MotionLoadTest()
+        {
+            string path = "Loads/Assets/support-motion.struxml";
+            Model model = Model.DeserializeFromFilePath(path);
+
+            
+
+        }
+
     }
 }

@@ -21,30 +21,39 @@ namespace FemDesign.Loads
         // when serializing these dummy elements must be nulled. 
         [XmlElement("point_load", Order = 1)]
         public List<PointLoad> PointLoads = new List<PointLoad>(); // point_load_type
+
         [XmlElement("line_load", Order = 2)]
         public List<LineLoad> LineLoads = new List<LineLoad>(); // line_load_type
+
         [XmlElement("pressure_load", Order = 3)]
         public List<PressureLoad> PressureLoads = new List<PressureLoad>(); // pressure_load_type
+
         [XmlElement("surface_load", Order = 4)]
         public List<SurfaceLoad> SurfaceLoads = new List<SurfaceLoad>(); // surface_load_type
+
         [XmlElement("line_temperature_variation_load", Order = 5)]
         public List<LineTemperatureLoad> LineTemperatureLoads = new List<LineTemperatureLoad>(); // line_temperature_load_type
+
         [XmlElement("surface_temperature_variation_load", Order = 6)]
         public List<SurfaceTemperatureLoad> SurfaceTemperatureLoads = new List<SurfaceTemperatureLoad>(); // surface_temperature_variation_load
+
         [XmlElement("line_stress_load", Order = 7)]
         public List<LineStressLoad> LineStressLoads = new List<LineStressLoad>(); // line_stress_load
+
         [XmlElement("surface_stress_load", Order = 8)]
         public List<DummyXmlObject> SurfaceStressLoads { get { return null; } set { value = null; } } // surface_stress_load
+
         [XmlElement("point_support_motion_load", Order = 9)]
-        public List<PointMotion> PointMotionLoads { get; set; } = new List<PointMotion>(); // point_support_motion_load_type
+        public List<PointMotion> PointMotionLoads = new List<PointMotion>(); // point_support_motion_load_type
+
         [XmlElement("line_support_motion_load", Order = 10)]
-        public List<LineSupportMotion> LineSupportMotionLoads { get; set; } = new List<LineSupportMotion>(); // line_support_motion_load_type
+        public List<LineSupportMotion> LineSupportMotionLoads = new List<LineSupportMotion>(); // line_support_motion_load_type
 
         [XmlElement("surface_support_motion_load", Order = 11)]
-        public List<DummyXmlObject> SurfaceSupportMotionLoads { get { return null; } set { value = null; } } // surface_support_motion_load_type
+        public List<StruSoft.Interop.StruXml.Data.Surface_support_load_type> SurfaceSupportMotionLoads { get; set;}
 
         [XmlElement("mass", Order = 12)]
-        public List<StruSoft.Interop.StruXml.Data.Mass_point_type> Masses { get { return null; } set { value = null; } } // mass_point_type
+        public List<StruSoft.Interop.StruXml.Data.Mass_point_type> Masses { get; set;}
 
         [XmlElement("load_case_mass_conversion_table", Order = 13)]
         public MassConversionTable LoadCaseMassConversionTable { get; set; } // mass_conversion_type

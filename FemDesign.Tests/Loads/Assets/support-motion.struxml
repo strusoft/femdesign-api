@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2023, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 23.00.001" start_time="1970-01-01T00:00:00.000" end_time="2024-04-23T13:27:29.000" guid="9b51d466-4e15-40dd-ad0a-372f94113e1b" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<entities>
+		<loads>
+			<point_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="8bdd86c8-50cd-463b-91c3-5c801843d70c" last_change="2024-04-23T13:09:18.000" action="added" load_type="force" apply_on_ecc="true">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="20" y="22" z="0" val="10"></load>
+			</point_load>
+			<point_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="0e092e3c-ce5a-49c0-8bcc-1c08f95fb541" last_change="2024-04-23T13:09:21.000" action="added" load_type="moment">
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="24" y="22" z="0" val="10"></load>
+			</point_load>
+			<line_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="d52300bf-b4d0-49f8-8567-b0db3fe5e130" last_change="2024-04-23T13:09:38.000" action="added" load_dir="constant" load_projection="false" load_type="force" apply_on_ecc="true">
+				<edge type="line">
+					<point x="30" y="22" z="0"></point>
+					<point x="34" y="22" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="30" y="22" z="0" val="10"></load>
+				<load x="34" y="22" z="0" val="10"></load>
+			</line_load>
+			<line_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="5e0dc3d8-61ac-4945-907c-987761a33de9" last_change="2024-04-23T13:09:43.000" action="added" load_dir="constant" load_projection="false" load_type="moment">
+				<edge type="line">
+					<point x="36" y="22" z="0"></point>
+					<point x="40" y="22" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<load x="36" y="22" z="0" val="10"></load>
+				<load x="40" y="22" z="0" val="10"></load>
+			</line_load>
+			<surface_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="9fe5ee89-f820-4d3a-8092-1f11e76ae96c" last_change="2024-04-23T13:09:52.000" action="added" load_projection="false" load_type="force" apply_on_ecc="true">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="44" y="22" z="0"></point>
+							<point x="46" y="22" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="46" y="22" z="0"></point>
+							<point x="46" y="20" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="46" y="20" z="0"></point>
+							<point x="44" y="20" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="44" y="20" z="0"></point>
+							<point x="44" y="22" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<load x="44" y="22" z="0" val="10"></load>
+			</surface_load>
+			<point_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="98d43a1a-fac1-4101-8875-f1c091298cd0" last_change="2024-04-23T13:09:31.000" action="added" load_type="motion">
+				<direction x="0" y="0" z="-1"></direction>
+				<displacement x="20" y="20" z="0" val="0.01"></displacement>
+			</point_support_motion_load>
+			<point_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="b0b8576f-299c-4f50-a6ff-251a48289391" last_change="2024-04-23T13:09:33.000" action="added" load_type="rotation">
+				<direction x="0" y="0" z="-1"></direction>
+				<displacement x="24" y="20" z="0" val="0.01"></displacement>
+			</point_support_motion_load>
+			<line_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="c0be5c02-2641-4a7f-9f63-9a3489780958" last_change="2024-04-23T13:09:47.000" action="added" load_dir="constant" load_type="motion">
+				<edge type="line">
+					<point x="30" y="20" z="0"></point>
+					<point x="34" y="20" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<displacement x="30" y="20" z="0" val="0.01"></displacement>
+				<displacement x="34" y="20" z="0" val="0.01"></displacement>
+			</line_support_motion_load>
+			<line_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="dce8d70f-baf4-4452-9377-f40325dc6f4f" last_change="2024-04-23T13:09:49.000" action="added" load_dir="constant" load_type="rotation">
+				<edge type="line">
+					<point x="36" y="20" z="0"></point>
+					<point x="40" y="20" z="0"></point>
+					<normal x="0" y="1" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<displacement x="36" y="20" z="0" val="0.01"></displacement>
+				<displacement x="40" y="20" z="0" val="0.01"></displacement>
+			</line_support_motion_load>
+			<line_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="8f39f25d-dd59-44d4-8875-d09a12cb704b" last_change="2024-04-23T13:27:29.000" action="added" load_dir="constant" load_type="motion">
+				<edge type="line">
+					<point x="48" y="14" z="0"></point>
+					<point x="52" y="12" z="0"></point>
+					<normal x="0.4472135955" y="0.894427190999916" z="0"></normal>
+				</edge>
+				<direction x="0" y="0" z="-1"></direction>
+				<normal x="0" y="0" z="1"></normal>
+				<displacement x="48" y="14" z="0" val="0.01"></displacement>
+				<displacement x="52" y="12" z="0" val="1"></displacement>
+			</line_support_motion_load>
+			<surface_support_motion_load load_case="4278c5be-6907-445d-878a-467d835f686a" guid="2393217b-4593-4cb2-9d0f-0cbc006596e8" last_change="2024-04-23T13:09:57.000" action="added" load_projection="false" load_type="motion">
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="48" y="22" z="0"></point>
+							<point x="50" y="22" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="50" y="22" z="0"></point>
+							<point x="50" y="20" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="50" y="20" z="0"></point>
+							<point x="48" y="20" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="48" y="20" z="0"></point>
+							<point x="48" y="22" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+				<direction x="0" y="0" z="-1"></direction>
+				<displacement x="48" y="22" z="0" val="0.01"></displacement>
+			</surface_support_motion_load>
+			<load_case type="static" duration_class="permanent" guid="4278c5be-6907-445d-878a-467d835f686a" last_change="2024-04-23T13:09:18.000" action="added" name="DL"></load_case>
+		</loads>
+	</entities>
+	<end></end>
+</database>
