@@ -63,7 +63,7 @@ namespace FemDesign
         /// <summary>
         /// Open a new instance of FEM-Design and connect to it.
         /// </summary>
-        /// <param name="fdInstallationDir"></param>
+        /// <param name="fdInstallationDir">FEM-Design software installation directory.</param>
         /// <param name="minimized">Open FEM-Design as a minimized window.</param>
         /// <param name="keepOpen">If true FEM-Design will be left open and have to be manually exited.</param>
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
@@ -77,7 +77,8 @@ namespace FemDesign
             bool tempOutputDir = false,
             Verbosity verbosity = DefaultVerbosity)
         {
-            string pathToFemDesign = Path.Combine(fdInstallationDir, "fd3dstruct.exe");
+            string installDir = SetFemDesignDirectory(fdInstallationDir);
+            string pathToFemDesign = Path.Combine(installDir, "fd3dstruct.exe");
 
             string pipeName = "FdPipe" + Guid.NewGuid().ToString();
             var startInfo = new ProcessStartInfo()
@@ -111,7 +112,7 @@ namespace FemDesign
                 throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 23\` does not exist!");
             }
 
-            _process.Exited += ProcessExited;
+            _process.Exited += _processExited;
             _connection.WaitForConnection();
 
             // Forward all output messages from pipe (except echo guid commands).
@@ -124,7 +125,48 @@ namespace FemDesign
             SetVerbosity(verbosity);
         }
 
-        private void ProcessExited(object sender, EventArgs e)
+        /// <summary>
+        /// Retrieve the default FEM-Design installation directory or specify a custom directory path for FemDesignConnection.
+        /// </summary>
+        /// <param name="fdInstallationDir">FEM-Design software installation directory. If set to `null`, the default directory will be used.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public string SetFemDesignDirectory(string fdInstallationDir)
+        {
+            string dir = null;
+            
+            // Check directory path
+            if(fdInstallationDir != null) 
+            {
+                if (Directory.Exists(fdInstallationDir))
+                {
+                    dir = fdInstallationDir;
+                }
+            }
+            else            
+            {
+                var dirNames = new List<string>()
+                {
+                    @"C:\Program Files\StruSoft\FEM-Design 23\",
+                    @"C:\Program Files\StruSoft\FEM-Design 23 Educational\",
+                    @"C:\Program Files\StruSoft\FEM-Design 23 Student\"
+                };
+                for (int i = 0; i < dirNames.Count; i++)
+                {
+                    if (Directory.Exists(dirNames[i]))
+                    {
+                        dir = dirNames[i];
+                        break;
+                    }
+                }
+            }
+            if (dir == null)
+                throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
+
+            return dir;
+        }
+
+        private void _processExited(object sender, EventArgs e)
         {
             this.HasExited = true;
         }
@@ -536,91 +578,6 @@ namespace FemDesign
             return results;
         }
 
-        public List<SectionProperties> GetSectionProperties(Sections.Section section, Results.SectionalData sectionUnits = SectionalData.mm)
-        {
-            // Check input
-            if (section == null)
-                throw new ArgumentNullException("'section' input cannot be null!");
-
-            return GetSectionProperties(new List<Sections.Section> { section }, sectionUnits);
-        }
-
-        public List<SectionProperties> GetSectionProperties(List<Sections.Section> sections, Results.SectionalData sectionUnits = SectionalData.mm)
-        {
-            // Check input
-            if (sections == null || sections.Count == 0)
-                throw new ArgumentNullException("'sections' input cannot be null!");
-
-
-            // CREATE A MODEL
-            // Get materials
-            var materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault();
-            (var steelMat, var concreteMat, var timberMat, var reinforcementMat, var stratumMat, var customMat) = materialDatabase.ByType();
-            Material steel = steelMat[0];
-            Material concrete = concreteMat[0];
-            Material timber = timberMat[0];
-            Material custom = customMat[0];
-
-            // Create bars
-            var bars = new List<IStructureElement>();
-            int x = 0;
-            foreach (Sections.Section sec in sections)
-            {
-                // Set material
-                Material mat = new Material();
-                if (sec.MaterialFamily is "Concrete")
-                    mat = concrete;
-                else if (sec.MaterialFamily is "Steel")
-                    mat = steel;
-                else if (sec.MaterialFamily is "Timber")
-                    mat = timber;
-                else if (sec.MaterialFamily is "Hollow")
-                    mat = concrete;
-                else if (sec.MaterialFamily is "Custom")
-                    mat = custom;
-
-                bars.Add(new Bar(new Point3d(x, 0, 0), new Point3d(x, 1, 0), mat, sec, BarType.Beam));
-                x++;
-            }
-
-            var model = new Model(Country.S, bars);
-
-
-            // LIST SECTION PROPERTIES
-            var secProp = new List<SectionProperties>();
-
-            // Set FD directory
-            string dir = null;
-            List<string> dirNames = new List<string>()
-            {
-                @"C:\Program Files\StruSoft\FEM-Design 23\",
-                @"C:\Program Files\StruSoft\FEM-Design 23 Educational\"
-            };
-            for(int i = 0; i<dirNames.Count; i++)
-            {
-                if (Directory.Exists(dirNames[i]))
-                {
-                    dir = dirNames[i];
-                    break;
-                }
-            }
-            if (dir == null)
-                throw new ArgumentNullException("FEM-Design 23 is not found.");
-
-            // Run pipe
-            using(var femDesign = new FemDesignConnection(fdInstallationDir: dir, minimized: true, tempOutputDir: true))
-            {
-                femDesign.Open(model);
-
-                var units = Results.UnitResults.Default();
-                units.SectionalData = sectionUnits;
-
-                secProp = _getResults<SectionProperties>(units);
-            }
-
-            return secProp;
-        }
-
         /// <summary>
         /// Retrieve node geometry data from the finite element mesh.
         /// </summary>
@@ -776,7 +733,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Retreive results from the opened model.
+        /// Retreive all of the results from the opened model.
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>

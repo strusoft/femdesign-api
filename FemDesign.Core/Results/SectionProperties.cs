@@ -53,19 +53,19 @@ namespace FemDesign.Results
         public double c1 { get; }
         public double rho1 { get; }
         public double z2 { get; }
-        public double alfa2 { get; }
-        public double I2 { get; }
-        public double W2min { get; }
-        public double W2max { get; }
-        public double e1max { get; }
-        public double e1min { get; }
-        public double i2 { get; }
-        public double S2 { get; }
-        public double S02 { get; }
-        public double c2 { get; }
-        public double rho2 { get; }
-        public double z1 { get; }
-        public string Other { get; }
+        public double alfa2 { get; }    // NO!
+        public double I2 { get; }    // NO!
+        public double W2min { get; }    // NO!
+        public double W2max { get; }    // NO!
+        public double e1max { get; }    // NO!
+        public double e1min { get; }    // NO!
+        public double i2 { get; }    // NO!
+        public double S2 { get; }    // NO!
+        public double S02 { get; }    // NO!
+        public double c2 { get; }    // NO!
+        public double rho2 { get; }    // NO!
+        public double z1 { get; }    // NO!
+        public string Other { get; }    // NO!
 
 
         [JsonConstructor]
