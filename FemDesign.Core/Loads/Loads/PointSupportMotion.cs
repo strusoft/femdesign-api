@@ -11,7 +11,7 @@ namespace FemDesign.Loads
     /// point_load_type
     /// </summary>
     [System.Serializable]
-    public partial class PointMotion : SupportMotionBase
+    public partial class PointSupportMotion : SupportMotionBase
     {
         [XmlElement("direction")]
         public Geometry.Vector3d Direction { get; set; } // point_type_3d
@@ -21,12 +21,12 @@ namespace FemDesign.Loads
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private PointMotion()
+        private PointSupportMotion()
         {
 
         }
 
-        public PointMotion(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment, SupportMotionType type)
+        public PointSupportMotion(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment, SupportMotionType type)
         {
             this.EntityCreated();
             this.LoadCase = loadCase;
@@ -37,14 +37,14 @@ namespace FemDesign.Loads
         }
 
 
-        public static PointMotion Motion(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment = "")
+        public static PointSupportMotion Motion(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment = "")
         {
-            return new PointMotion(point, disp, loadCase, comment, SupportMotionType.Motion);
+            return new PointSupportMotion(point, disp, loadCase, comment, SupportMotionType.Motion);
         }
 
-        public static PointMotion Rotation(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment = "")
+        public static PointSupportMotion Rotation(Geometry.Point3d point, Geometry.Vector3d disp, LoadCase loadCase, string comment = "")
         {
-            return new PointMotion(point, disp, loadCase, comment, SupportMotionType.Rotation);
+            return new PointSupportMotion(point, disp, loadCase, comment, SupportMotionType.Rotation);
         }
 
         

@@ -10,9 +10,9 @@ using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
-    public class PointMotionDefine : FEM_Design_API_Component
+    public class PointSupportMotionDefine : FEM_Design_API_Component
     {
-        public PointMotionDefine() : base("PointMotion.Define", "PointMotion.Define", "Create point support motion.", CategoryName.Name(), SubCategoryName.Cat3())
+        public PointSupportMotionDefine() : base("PointSupportMotion.Define", "PointSupportMotion.Define", "Create point support motion.", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -56,7 +56,7 @@ namespace FemDesign.Grasshopper
             FemDesign.Geometry.Point3d fdPoint = point.FromRhino();
             FemDesign.Geometry.Vector3d _force = displacement.FromRhino();
 
-            var obj = new FemDesign.Loads.PointMotion(fdPoint, _force, loadCase, comment, _type);
+            var obj = new FemDesign.Loads.PointSupportMotion(fdPoint, _force, loadCase, comment, _type);
 
             DA.SetData(0, obj);
         }

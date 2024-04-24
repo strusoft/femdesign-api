@@ -82,7 +82,7 @@
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
-    <Compile Include="Loads\Loads\PointMotionDefine.cs" />
+    <Compile Include="Loads\Loads\PointSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\Vehicle\VehicleConstruct.cs" />
     <Compile Include="Materials\SetConcretePlasticity.cs" />

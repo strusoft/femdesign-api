@@ -90,7 +90,7 @@
     <Compile Include="Loads\Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\Loads\LineSupportMotion.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
-    <Compile Include="Loads\Loads\PointMotion.cs" />
+    <Compile Include="Loads\Loads\PointSupportMotion.cs" />
     <Compile Include="Loads\Loads\PressureLoad.cs" />
     <Compile Include="Loads\Load groups\RelationTable.cs" />
     <Compile Include="Materials\IPanelLibraryType.cs" />

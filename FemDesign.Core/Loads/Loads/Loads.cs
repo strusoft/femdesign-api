@@ -44,7 +44,7 @@ namespace FemDesign.Loads
         public List<DummyXmlObject> SurfaceStressLoads { get { return null; } set { value = null; } } // surface_stress_load
 
         [XmlElement("point_support_motion_load", Order = 9)]
-        public List<PointMotion> PointMotionLoads = new List<PointMotion>(); // point_support_motion_load_type
+        public List<PointSupportMotion> PointSupportMotionLoads = new List<PointSupportMotion>(); // point_support_motion_load_type
 
         [XmlElement("line_support_motion_load", Order = 10)]
         public List<LineSupportMotion> LineSupportMotionLoads = new List<LineSupportMotion>(); // line_support_motion_load_type
@@ -85,7 +85,7 @@ namespace FemDesign.Loads
             var objs = new List<FemDesign.GenericClasses.ILoadElement>();
             objs.AddRange(this.PointLoads);
             objs.AddRange(this.LineLoads);
-            objs.AddRange(this.PointMotionLoads);
+            objs.AddRange(this.PointSupportMotionLoads);
             objs.AddRange(this.LineSupportMotionLoads);
             objs.AddRange(this.LineStressLoads);
             objs.AddRange(this.LineTemperatureLoads);

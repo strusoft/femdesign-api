@@ -34,7 +34,6 @@ namespace FemDesign.Loads
     /// </summary>
     public enum SupportMotionType
     {
-
         /// <summary>
         /// Moment
         /// </summary>
@@ -46,7 +45,7 @@ namespace FemDesign.Loads
         /// Moment
         /// </summary>
         [XmlEnum("rotation")]
-        [Parseable("rotation", "rotation")]
+        [Parseable("Rotation", "rotation")]
         Rotation,
     }
 
