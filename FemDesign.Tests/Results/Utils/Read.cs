@@ -1,6 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FemDesign.Sections;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -71,6 +73,61 @@ namespace FemDesign.Results
 
 
             }
+        }
+
+        [TestCategory("FEM-Design required")]
+        [TestMethod]
+        public void TestGetSectionProperties()
+        {
+            var sectionsDB = Sections.SectionDatabase.DeserializeStruxml("Results\\Utils\\Sections.struxml");
+            List<Section> sections = sectionsDB.Sections.Section;
+            var sectionProps = sections.GetSectionProperties();
+
+            List<string[]> resValList = new List<string[]>();   // Each string array in the list represents a section property result line from  'SectionPropertiesResultFile.csv', where the cell values are split into array elements.
+            int n = 0;
+            using (var reader = new StreamReader("Results\\Utils\\SectionPropertiesResultFile.csv"))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var row = reader.ReadLine();
+
+                    if (row != "")
+                    {
+                        n++;
+                        if (n > 3)
+                        {
+                            resValList.Add(row.Split('\t'));
+                        }
+                    }
+                }
+            }
+
+
+            // Check section properties
+            Assert.IsTrue(sectionProps.Count == 5, "Check 'Results\\Utils\\Sections.struxml'! It must contain 5 sections!");
+            Assert.IsTrue(sectionProps.Count == resValList.Count, "Check 'Results\\Utils\\SectionPropertiesResultFile.csv'! " +
+                "The number of result lines must be the same as the number of 'sectionProps.Count'!");
+
+            PropertyInfo[] objProps = typeof(Results.SectionProperties).GetProperties();
+            Assert.IsTrue(resValList[0].Length == objProps.Length);
+
+            //for (int i = 0; i < sectionProps.Count; i++)
+            //{
+            //    for (int j = 0; j < objProps.Length; j++)
+            //    {
+            //        var objPropValue = objProps[j].GetValue(sectionProps[i]);    // Value of 'property j' from 'section i' if using GetSectionProperties()
+            //        var resVal = resValList[i][j];  // Individual section property value (e.g. Height, A, Iz,...) from file.
+            //        string message = "Section property values from 'GetSectionProperties()' must be the same as in 'SectionPropertiesResultFile.csv'!";
+
+            //        var type = objPropValue.GetType();
+            //        if (type == typeof(double))
+            //        {
+            //            object compareVal = Double.Parse(resVal, System.Globalization.CultureInfo.InvariantCulture);
+            //            Assert.IsTrue(objPropValue == compareVal, message);
+            //        }
+            //        Assert.IsTrue(objPropValue.ToString() == resVal, message);
+            //    }
+            //}
         }
 
         [TestCategory("FEM-Design required")]

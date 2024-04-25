@@ -8,7 +8,7 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using FemDesign.Sections;
-
+using FemDesign.Reinforcement;
 
 namespace FemDesign.Grasshopper
 {
@@ -22,6 +22,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Sections", "Sections", "Section list.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Units", "Units", "Connect `Units` to modify the measurement units for section properties. By default, the output is in millimetres.", GH_ParamAccess.item);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -61,29 +62,93 @@ namespace FemDesign.Grasshopper
             // Get section properties
             var secProps = sections.GetSectionProperties(units.SectionalData);
 
-            PropertyInfo[] properties = typeof(Results.SectionProperties).GetProperties();
-            properties = properties.Where(p => p.Name != nameof(Results.SectionProperties.Section) && p.Name != nameof(Results.SectionProperties.Composite) && p.Name != nameof(Results.SectionProperties.Other)).ToArray();
 
-            DataTree<double> general = new DataTree<double>();
-            DataTree<double> firstP = new DataTree<double>();
-            DataTree<double> secondP = new DataTree<double>();
-
-            for (int i = 0; i < properties.Length; i++)
+            List<string> genPropNames = new List<string>()
             {
+                nameof(Results.SectionProperties.Height),
+                nameof(Results.SectionProperties.Width),
+                nameof(Results.SectionProperties.A),
+                nameof(Results.SectionProperties.P),
+                nameof(Results.SectionProperties.AP),
+                nameof(Results.SectionProperties.Yg),
+                nameof(Results.SectionProperties.Zg),
+                nameof(Results.SectionProperties.Ys),
+                nameof(Results.SectionProperties.Zs),
+                nameof(Results.SectionProperties.Iy),
+                nameof(Results.SectionProperties.Wy),
+                nameof(Results.SectionProperties.ezmax),
+                nameof(Results.SectionProperties.ezmin),
+                nameof(Results.SectionProperties.iy),
+                nameof(Results.SectionProperties.Sy),
+                nameof(Results.SectionProperties.Iz),
+                nameof(Results.SectionProperties.Wz),
+                nameof(Results.SectionProperties.eymax),
+                nameof(Results.SectionProperties.eymin),
+                nameof(Results.SectionProperties.iz),
+                nameof(Results.SectionProperties.Sz),
+                nameof(Results.SectionProperties.It),
+                nameof(Results.SectionProperties.Wt),
+                nameof(Results.SectionProperties.Iw),
+                nameof(Results.SectionProperties.Iyz),
+                nameof(Results.SectionProperties.zomega)
+            };
 
+            List<string> firstPropNames = new List<string>()
+            {
+                nameof(Results.SectionProperties.alfa1),
+                nameof(Results.SectionProperties.I1),
+                nameof(Results.SectionProperties.W1min),
+                nameof(Results.SectionProperties.W1max),
+                nameof(Results.SectionProperties.e2max),
+                nameof(Results.SectionProperties.e2min),
+                nameof(Results.SectionProperties.i1),
+                nameof(Results.SectionProperties.S1),
+                nameof(Results.SectionProperties.S01),
+                nameof(Results.SectionProperties.c1),
+                nameof(Results.SectionProperties.rho1),
+                nameof(Results.SectionProperties.z2)
+            };
+
+            List<string> secondPropNames = new List<string>()
+            {
+                nameof(Results.SectionProperties.alfa2),
+                nameof(Results.SectionProperties.I2),
+                nameof(Results.SectionProperties.W2min),
+                nameof(Results.SectionProperties.W2max),
+                nameof(Results.SectionProperties.e1max),
+                nameof(Results.SectionProperties.e1min),
+                nameof(Results.SectionProperties.i2),
+                nameof(Results.SectionProperties.S2),
+                nameof(Results.SectionProperties.S02),
+                nameof(Results.SectionProperties.c2),
+                nameof(Results.SectionProperties.rho2),
+                nameof(Results.SectionProperties.z1)
+            };
+
+            PropertyInfo[] genProps = genPropNames.Select(n => typeof(Results.SectionProperties).GetProperty(n)).ToArray();
+            PropertyInfo[] firstProps = firstPropNames.Select(n => typeof(Results.SectionProperties).GetProperty(n)).ToArray();
+            PropertyInfo[] secondProps = secondPropNames.Select(n => typeof(Results.SectionProperties).GetProperty(n)).ToArray();
+            List<PropertyInfo[]> propList = new List<PropertyInfo[]>() { genProps, firstProps, secondProps };
+
+            List<DataTree<double>> trees = new List<DataTree<double>>() { };
+
+            for (int i = 0; i < propList.Count; i++)
+            {
+                int path = 0;
+                foreach(var prop in propList[i])
+                { 
+                    var values = secProps.Select(s => (double)prop.GetValue(s));
+
+                    trees[i].AddRange(values, new GH_Path(path));
+                    path++;
+                }
             }
 
-            int i = 0;
-            foreach(var prop in properties)
-            { 
-                var values = secProps.Select(s => (double)prop.GetValue(s));
+            DataTree<double> general = trees[0];
+            DataTree<double> firstP = trees[1];
+            DataTree<double> secondP = trees[2];
 
-                general.AddRange(values, new GH_Path(i));
-
-                i++;
-            }
-
-
+            // Set outputs
             DA.SetDataList("Height", secProps.Select(s => s.Height).ToList());
             DA.SetDataList("Width", secProps.Select(s => s.Width).ToList());
             DA.SetDataList("ey.max", secProps.Select(s => s.eymax).ToList());

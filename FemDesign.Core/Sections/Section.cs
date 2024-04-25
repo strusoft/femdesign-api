@@ -271,7 +271,7 @@ namespace FemDesign.Sections
 
                 secProp = femDesign._getResults<Results.SectionProperties>(units);
 
-                femDesign.Disconnect();     // Check this. FEM-Design should not be left open after the process!
+                //femDesign.Disconnect();     // Check this. FEM-Design should not be left open after the process!
             }
 
             return secProp;
