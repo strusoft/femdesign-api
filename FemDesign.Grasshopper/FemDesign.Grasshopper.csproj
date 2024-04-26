@@ -81,6 +81,7 @@
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
+    <Compile Include="Loads\Loads\LineSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\Loads\PointSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />

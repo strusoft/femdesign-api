@@ -25,8 +25,6 @@ namespace FemDesign.Loads
                 this._constantLoadDirection = value ? LoadDirType.Constant : LoadDirType.Changing;
             }
         }
-        [XmlAttribute("load_projection")]
-        public bool LoadProjection { get; set; } // bool
 
         // elements
         [XmlElement("edge", Order = 1)]
@@ -86,33 +84,31 @@ namespace FemDesign.Loads
 
         }
 
-        public LineSupportMotion(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, SupportMotionType supportMotionType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineSupportMotion(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, SupportMotionType supportMotionType, string comment = "", bool constLoadDir = true)
         {
             this.EntityCreated();
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
-            this.LoadProjection = loadProjection;
             this.SupportMotionType = supportMotionType;
             this.Edge = edge;
             this.Normal = edge.Plane.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
-            this.SetStartAndEndForces(constantForce, constantForce);
+            this.SetStartAndEndDisplacements(constantForce, constantForce);
         }
 
-        public LineSupportMotion(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, SupportMotionType supportMotionType, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public LineSupportMotion(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, SupportMotionType supportMotionType, string comment = "", bool constLoadDir = true)
         {
             this.EntityCreated();
             this.LoadCase = loadCase;
             this.Comment = comment;
             this.ConstantLoadDirection = constLoadDir;
-            this.LoadProjection = loadProjection;
             this.SupportMotionType = supportMotionType;
             this.Edge = edge;
             this.Normal = edge.Plane.LocalZ; // Note that LineLoad normal and Edge normal are not necessarily the same.
-            this.SetStartAndEndForces(startForce, endForce);
+            this.SetStartAndEndDisplacements(startForce, endForce);
         }
 
-        internal void SetStartAndEndForces(Geometry.Vector3d startForce, Geometry.Vector3d endForce)
+        internal void SetStartAndEndDisplacements(Geometry.Vector3d startForce, Geometry.Vector3d endForce)
         {
             if (startForce.IsZero() && !endForce.IsZero())
             {
@@ -167,9 +163,9 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineSupportMotion VariableMotion(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineSupportMotion VariableMotion(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true)
         {
-            return new LineSupportMotion(edge, startForce, endForce, loadCase, SupportMotionType.Motion, comment, constLoadDir, loadProjection);
+            return new LineSupportMotion(edge, startForce, endForce, loadCase, SupportMotionType.Motion, comment, constLoadDir);
         }
 
 
@@ -184,9 +180,9 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineSupportMotion VariableRotation(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineSupportMotion VariableRotation(Geometry.Edge edge, Geometry.Vector3d startForce, Geometry.Vector3d endForce, LoadCase loadCase, string comment = "", bool constLoadDir = true)
         {
-            return new LineSupportMotion(edge, startForce, endForce, loadCase, SupportMotionType.Rotation, comment, constLoadDir, loadProjection);
+            return new LineSupportMotion(edge, startForce, endForce, loadCase, SupportMotionType.Rotation, comment, constLoadDir);
         }
 
         /// <summary>
@@ -199,9 +195,9 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineSupportMotion UniformMotion(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineSupportMotion UniformMotion(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true)
         {
-            return new LineSupportMotion(edge, constantForce, loadCase, SupportMotionType.Motion, comment, constLoadDir, loadProjection);
+            return new LineSupportMotion(edge, constantForce, loadCase, SupportMotionType.Motion, comment, constLoadDir);
         }
 
         /// <summary>
@@ -214,15 +210,15 @@ namespace FemDesign.Loads
         /// <param name="constLoadDir"></param>
         /// <param name="loadProjection"></param>
         /// <returns></returns>
-        public static LineSupportMotion UniformRotation(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true, bool loadProjection = false)
+        public static LineSupportMotion UniformRotation(Geometry.Edge edge, Geometry.Vector3d constantForce, LoadCase loadCase, string comment = "", bool constLoadDir = true)
         {
-            return new LineSupportMotion(edge, constantForce, loadCase, SupportMotionType.Rotation, comment, constLoadDir, loadProjection);
+            return new LineSupportMotion(edge, constantForce, loadCase, SupportMotionType.Rotation, comment, constLoadDir);
         }
 
         public override string ToString()
         {
             var units = this.SupportMotionType == SupportMotionType.Motion ? "m" : "rad";
-            var text = $"{this.GetType().Name} Start: {this.StartDisp} {units}, End: {this.EndDisp} {units}, Projected: {this.LoadProjection}";
+            var text = $"{this.GetType().Name} Start: {this.StartDisp} {units}, End: {this.EndDisp} {units}";
             if (LoadCase != null)
                 return text + $", LoadCase: {this.LoadCase.Name}";
             else

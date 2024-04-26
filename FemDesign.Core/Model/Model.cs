@@ -1134,6 +1134,10 @@ namespace FemDesign
             {
                 this.AddLineLoad((Loads.LineLoad)obj, overwrite);
             }
+            else if (obj.GetType() == typeof(Loads.LineSupportMotion))
+            {
+                this.AddLineSupportMotionLoad((Loads.LineSupportMotion)obj, overwrite);
+            }
             else if (obj.GetType() == typeof(Loads.LineStressLoad))
             {
                 this.AddLineStressLoad((Loads.LineStressLoad)obj, overwrite);
@@ -1385,6 +1389,56 @@ namespace FemDesign
             }
             return false;
         }
+
+
+
+
+        /// <summary>
+        /// Add LineSupportMotiomLoad to Model.
+        /// </summary>
+        private void AddLineSupportMotionLoad(Loads.LineSupportMotion obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.LineSupportoMotionLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.Loads.LineSupportMotionLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add line load
+            this.Entities.Loads.LineSupportMotionLoads.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if LineLoad in Model.
+        /// </summary>
+        private bool LineSupportoMotionLoadInModel(Loads.LineSupportMotion obj)
+        {
+            foreach (Loads.LineSupportMotion elem in this.Entities.Loads.LineSupportMotionLoads)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
 
         private void AddLineStressLoad(Loads.LineStressLoad obj, bool overwrite)
         {
@@ -3494,6 +3548,7 @@ namespace FemDesign
         private void AddEntity(Loads.LineTemperatureLoad obj, bool overwrite) => AddLineTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);
         private void AddEntity(Loads.LineLoad obj, bool overwrite) => AddLineLoad(obj, overwrite);
+        private void AddEntity(Loads.LineSupportMotion obj, bool overwrite) => AddLineSupportMotionLoad(obj, overwrite);
         private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
         private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
         private void AddEntity(Loads.MovingLoad obj, bool overwrite) => AddMovingLoad(obj, overwrite);

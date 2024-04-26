@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("PointMotion", "PointMotion", "PointMotion.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PointMotionLoad", "PointMotionLoad", "PointMotionLoad.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -47,8 +47,6 @@ namespace FemDesign.Grasshopper
 
             string comment = null;
             DA.GetData(4, ref comment);
-
-
 
             SupportMotionType _type = FemDesign.GenericClasses.EnumParser.Parse<SupportMotionType>(type);
 

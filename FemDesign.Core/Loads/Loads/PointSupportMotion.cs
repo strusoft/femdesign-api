@@ -8,7 +8,7 @@ using System;
 namespace FemDesign.Loads
 {
     /// <summary>
-    /// point_load_type
+    /// point_support_motion_load_type
     /// </summary>
     [System.Serializable]
     public partial class PointSupportMotion : SupportMotionBase
@@ -46,8 +46,6 @@ namespace FemDesign.Loads
         {
             return new PointSupportMotion(point, disp, loadCase, comment, SupportMotionType.Rotation);
         }
-
-        
 
         public override string ToString()
         {
