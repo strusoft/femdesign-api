@@ -9,6 +9,8 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using FemDesign.Sections;
 using FemDesign.Reinforcement;
+using System.Threading.Tasks;
+using FemDesign.Results;
 
 namespace FemDesign.Grasshopper
 {
@@ -21,34 +23,27 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Sections", "Sections", "Section list.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Units", "Units", "Connect `Units` to modify the measurement units for section properties. By default, the output is in millimetres.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Units", "Units", "Connect `Units for section properties. By default, the output is in millimetres. Accepted input are: \n " +
+                "mm, cm, dm, m, inch, feet, yd", GH_ParamAccess.item, "mm");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddNumberParameter("Height", "h", "Section height.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Width", "w", "Section width.", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("ey.max", "ey.max", "Max. distance from extreme fibre in the y-direction.", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("ez.max", "ez.max", "Max. distance from extreme fibre in the z-direction.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Area", "A", "Section area.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Iy", "Iy", "Moment of inertia about the local y-axis.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Iz", "Iz", "Moment of inertia about the local z-axis.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Wy", "Wy", "Section modulus about the local y-axis.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Wz", "Wz", "Section modulus about the local z-axis.", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("Sy", "Sy", "Max. statical moment about the local y-axis.", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("Sz", "Sz", "Max. statical moment about the local z-axis.", GH_ParamAccess.list);
             pManager.AddNumberParameter("It", "It", "Torsional moment of inertia.", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("Wt", "Wt", "Torsional section modulus.", GH_ParamAccess.list);
-            //pManager.AddGenericParameter("Iw", "Iw", "Warping parameter.", GH_ParamAccess.item);
-            //pManager.AddGenericParameter("Iyz", "Iyz", "Centroidal product of inertia.", GH_ParamAccess.item);
-            //pManager.AddGenericParameter("z omega", "z omega", "Wagner warping parameter.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("General", "Gen", "General section properties.\t\t" +
-                "1 - Height\t2 - Width\t3 - A\t4 - P\t5 - A/P\t6 - Yg\t7 - Zg\t8 - Ys\t9 - Zs\t10 - Iy\t11 - Wy\t12 - ez.max\t13 - ez.min\t14 - iy\t15 - Sy\t" +
-                "16 - Iz\t17 - Wz\t18 - ey.max\t19 - ey.min\t20 - iz\t21 - Sz\t22 - It\t23 - Wt\t24 - Iw\t25 - Iyz\t26 - zomega", GH_ParamAccess.tree);
-            pManager.AddGenericParameter("Principal 1", "1", "Section properties computed around the first principal axis.\t\t" +
-                "1 - alfa1\t2 - I1\t3 - W1.min\t4 - W1.max\t5 - e2.max\t6 - e2.min\t7 - i1\t8 - S1\t9 - S01\t10 - c1\t11 - rho1\t12 - z2", GH_ParamAccess.tree);
-            pManager.AddGenericParameter("Principal 2", "2", "Section properties computed around the second principal axis.\t\t" +
-                "1 - alfa2\t2 - I2\t3 - W2.min\t4 - W2.max\t5 - e1.max\t6 - e1.min\t7 - i2\t8 - S2\t9 - S02\t10 - c2\t11 - rho2\t12 - z1", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("General", "Gen", "General section properties.\n" +
+                "1 - Height\n2 - Width\n3 - A\n4 - P\n5 - A/P\n6 - Yg\n7 - Zg\n8 - Ys\n9 - Zs\n10 - Iy\n11 - Wy\n12 - ez.max\n13 - ez.min\n14 - iy\n15 - Sy\n" +
+                "16 - Iz\n17 - Wz\n18 - ey.max\n19 - ey.min\n20 - iz\n21 - Sz\n22 - It\n23 - Wt\n24 - Iw\n25 - Iyz\n26 - zomega", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("Principal 1", "1", "Section properties computed around the first principal axis.\n" +
+                "1 - alfa1\n2 - I1\n3 - W1.min\n4 - W1.max\n5 - e2.max\n6 - e2.min\n7 - i1\n8 - S1\n9 - S01\n10 - c1\n11 - rho1\n12 - z2", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("Principal 2", "2", "Section properties computed around the second principal axis.\n" +
+                "1 - alfa2\n2 - I2\n3 - W2.min\n4 - W2.max\n5 - e1.max\n6 - e1.min\n7 - i2\n8 - S2\n9 - S02\n10 - c2\n11 - rho2\n12 - z1", GH_ParamAccess.tree);
             pManager.AddTextParameter("SectionNames", "Names", "Section names.", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -57,15 +52,29 @@ namespace FemDesign.Grasshopper
             var sections = new List<Section>();
             if (!DA.GetDataList(0, sections)) { return; }
 
-            var units = new Results.UnitResults();
-            if(!DA.GetData(1, ref units))
+            SectionalData unit = SectionalData.mm;
+            string sectionalData = null;
+            if(DA.GetData(1, ref sectionalData))
             {
-                units.SectionalData = Results.SectionalData.mm;
+                unit = (Results.SectionalData)Enum.Parse(typeof(Results.SectionalData), sectionalData);
             }
 
-            // Get section properties
-            var secProps = sections.GetSectionProperties(units.SectionalData);
+            // Create Task to get section properties
+            List<Results.SectionProperties> secProps = new List<Results.SectionProperties>();
+            var t = Task.Run(() =>
+            {
+                secProps = sections.GetSectionProperties(unit);
+            });
 
+            t.ConfigureAwait(false);
+            try
+            {
+                t.Wait();
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
 
             List<string> genPropNames = new List<string>()
             {
@@ -96,7 +105,6 @@ namespace FemDesign.Grasshopper
                 nameof(Results.SectionProperties.Iyz),
                 nameof(Results.SectionProperties.zomega)
             };
-
             List<string> firstPropNames = new List<string>()
             {
                 nameof(Results.SectionProperties.alfa1),
@@ -112,7 +120,6 @@ namespace FemDesign.Grasshopper
                 nameof(Results.SectionProperties.rho1),
                 nameof(Results.SectionProperties.z2)
             };
-
             List<string> secondPropNames = new List<string>()
             {
                 nameof(Results.SectionProperties.alfa2),
@@ -135,17 +142,17 @@ namespace FemDesign.Grasshopper
             List<PropertyInfo[]> propList = new List<PropertyInfo[]>() { genProps, firstProps, secondProps };
 
             List<DataTree<double>> trees = new List<DataTree<double>>() { };
-
             for (int i = 0; i < propList.Count; i++)
             {
+                var tree = new DataTree<double>();
                 int path = 0;
-                foreach(var prop in propList[i])
-                { 
-                    var values = secProps.Select(s => (double)prop.GetValue(s));
-
-                    trees[i].AddRange(values, new GH_Path(path));
+                foreach(var sec in secProps)
+                {
+                    var values = propList[i].Select(p => (double)p.GetValue(sec));
+                    tree.AddRange(values, new GH_Path(path));
                     path++;
                 }
+                trees.Add(tree);
             }
 
             DataTree<double> general = trees[0];
@@ -155,17 +162,12 @@ namespace FemDesign.Grasshopper
             // Set outputs
             DA.SetDataList("Height", secProps.Select(s => s.Height).ToList());
             DA.SetDataList("Width", secProps.Select(s => s.Width).ToList());
-            //DA.SetDataList("ey.max", secProps.Select(s => s.eymax).ToList());
-            //DA.SetDataList("ez.max", secProps.Select(s => s.ezmax).ToList());
             DA.SetDataList("Area", secProps.Select(s => s.A).ToList());
             DA.SetDataList("Iy", secProps.Select(s => s.Iy).ToList());
             DA.SetDataList("Iz", secProps.Select(s => s.Iz).ToList());
             DA.SetDataList("Wy", secProps.Select(s => s.Wy).ToList());
             DA.SetDataList("Wz", secProps.Select(s => s.Wz).ToList());
-            //DA.SetDataList("Sy", secProps.Select(s => s.Sy).ToList());
-            //DA.SetDataList("Sz", secProps.Select(s => s.Sz).ToList());
             DA.SetDataList("It", secProps.Select(s => s.It).ToList());
-            //DA.SetDataList("Wt", secProps.Select(s => s.Wt).ToList());
             DA.SetDataTree(8, general);
             DA.SetDataTree(9, firstP);
             DA.SetDataTree(10, secondP);
@@ -175,7 +177,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.SectionGetSectionProperties;
             }
         }
         public override Guid ComponentGuid
