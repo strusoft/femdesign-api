@@ -18,7 +18,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddPointParameter("Point", "Point", "Point. [m]", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Force", "Force", "Force. [kN]", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Force", "Force", "Force. [kN]-[kNm]", GH_ParamAccess.item);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Type", "Type", "Connect 'ValueList' to get the options.\nPoint load type:\nForce\nMoment", GH_ParamAccess.item, "Force");
             pManager[pManager.ParamCount - 1].Optional = true;

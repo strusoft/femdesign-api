@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddPointParameter("Point", "Point", "Point. [m]", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Displacement", "Displacement", "Displacement. [m]", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Displacement", "Displacement", "Displacement. [m]-[rad]", GH_ParamAccess.item);
             pManager.AddGenericParameter("LoadCase", "LoadCase", "LoadCase.", GH_ParamAccess.item);
             pManager.AddTextParameter("Type", "Type", "Connect 'ValueList' to get the options.\nPoint load type:\nMotion\nRotation", GH_ParamAccess.item, "Motion");
             pManager[pManager.ParamCount - 1].Optional = true;
