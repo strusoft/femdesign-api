@@ -143,6 +143,7 @@
     <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\IResult.cs" />
+    <Compile Include="Sections\SectionProperties.cs" />
     <Compile Include="Soil\BoreHole.cs" />
     <Compile Include="Soil\SoilElements.cs" />
     <Compile Include="Soil\Strata.cs" />
