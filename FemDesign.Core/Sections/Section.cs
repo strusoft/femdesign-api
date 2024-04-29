@@ -1,6 +1,7 @@
 // https://strusoft.com/
 
 using System;
+using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -65,26 +66,42 @@ namespace FemDesign.Sections
         public string Name { get; set; } // string i.e. GroupName, TypeName, SizeName --> "Steel sections, CHS, 20-2.0"
 
         [XmlAttribute("type")]
-        public string Type { get; set; } // sectiontype
+        public string Type { get; set; } // sectiontype i.e. CHS
 
         [XmlAttribute("fd-mat")]
         public string MaterialType { get; set; } // int i.e. 1, 2, 3
 
         [XmlAttribute("fd_name_code")]
-        public string GroupName { get; set; } // string. Optional i.e. Steel section, Concrete section
+        public string GroupName { get; set; } // string. Optional i.e. Steel section || Concrete section
 
         [XmlAttribute("fd_name_type")]
-        public string TypeName { get; set; } // string. Optional i.e. CHS, HE-A
+        public string TypeName { get; set; } // string. Optional i.e. CHS || HE-A
 
         [XmlAttribute("fd_name_size")]
         public string SizeName { get; set; } // string. Optional
 
+        /// <summary>
+        /// CHS-100
+        /// </summary>
         [XmlIgnore]
         internal string _sectionName
         {
             get
             {
                 return string.Join("-", new List<string> { this.TypeName + this.SizeName });
+            }
+        }
+
+        /// <summary>
+        /// Section name in results does not match with .struxml results name
+        /// Steel sections HE-A 100
+        /// </summary>
+        [XmlIgnore]
+        internal string _sectionNameInResults
+        {
+            get
+            {
+                return string.Join(" ", new List<string> { this.GroupName, this.TypeName, this.SizeName });
             }
         }
 
@@ -206,5 +223,91 @@ namespace FemDesign.Sections
             else
                 return sections[extr.Index];
         }
+
+        public static List<Results.SectionProperties> GetSectionProperties(this Section section, Results.SectionalData sectionUnits = Results.SectionalData.mm )
+        {
+            // Check input
+            if (section == null)
+                throw new ArgumentNullException("'section' input cannot be null!");
+
+            return GetSectionProperties(new List<Section> { section } , sectionUnits);
+        }
+
+        public static List<Results.SectionProperties> GetSectionProperties(this List<Section> sections, Results.SectionalData sectionUnits = Results.SectionalData.mm)
+        {
+
+            // Check input
+            if (sections == null || sections.Count == 0)
+                throw new ArgumentNullException("'sections' input cannot be null!");
+
+            // create a copy of sections using deepclone
+            sections = sections.DeepClone();
+
+            // it allows to return the same amount of sections as in the input list
+            foreach (var section in sections)
+            {
+                section.EntityCreated();
+            }
+
+            // CREATE A MODEL
+            // Get materials
+            var materialDatabase = FemDesign.Materials.MaterialDatabase.GetDefault();
+            var matDatabaseByType = materialDatabase.ByType();
+            Materials.Material steel = matDatabaseByType.steel[0];
+            Materials.Material concrete = matDatabaseByType.concrete[0];
+            Materials.Material timber = matDatabaseByType.timber[0];
+            Materials.Material custom = matDatabaseByType.custom[0];
+
+            // Create bars
+            var bars = new List<GenericClasses.IStructureElement>();
+            int x = 0;
+            foreach (Section sec in sections)
+            {
+                // Set material
+                var mat = new Materials.Material();
+                if (sec.MaterialFamily is "Concrete")
+                    mat = concrete;
+                else if (sec.MaterialFamily is "Steel")
+                    mat = steel;
+                else if (sec.MaterialFamily is "Timber")
+                    mat = timber;
+                else if (sec.MaterialFamily is "Hollow")
+                    mat = concrete;
+                else if (sec.MaterialFamily is "Custom")
+                    mat = custom;
+
+                bars.Add(new Bars.Bar(new Geometry.Point3d(x, 0, 0), new Geometry.Point3d(x, 1, 0), mat, sec, Bars.BarType.Beam));
+                x++;
+            }
+
+            var model = new Model(Country.S, bars);
+
+
+            // LIST SECTION PROPERTIES
+            var secProp = new List<Results.SectionProperties>();
+
+            // Run pipe
+            using (var femDesign = new FemDesignConnection(minimized: true, tempOutputDir: true))
+            {
+                femDesign.Open(model);
+
+                var units = Results.UnitResults.Default();
+                units.SectionalData = sectionUnits;
+
+                secProp = femDesign.GetResults<Results.SectionProperties>(units);
+                //femDesign.Dispose();
+            }
+
+            // Method that reorder the secProp list to match the input order using the section name
+            var orderedSecProp = new List<Results.SectionProperties>();
+            foreach (Section sec in sections)
+            {
+                var secPropItem = secProp.Find(y => y.Section == sec._sectionNameInResults);
+                orderedSecProp.Add(secPropItem);
+            }
+
+            return orderedSecProp;
+        }
+
     }
 }
