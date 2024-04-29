@@ -300,6 +300,12 @@ namespace FemDesign.Calculate
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
+        public static Analysis Eigenfrequencies(int numShapes = 3, int autoIteration = 0, ShapeNormalisation shapeNormalisation = ShapeNormalisation.Unit, int maxSturm = 0, bool x = true, bool y = true, bool z = true, double top = -0.01)
+        {
+            var freqSettings = new Freq(numShapes, autoIteration, shapeNormalisation, x, y, z, maxSturm, top);
+            return new Analysis(freq: freqSettings, calcFreq: true);
+        }
+
 
         /// <summary>
         /// 

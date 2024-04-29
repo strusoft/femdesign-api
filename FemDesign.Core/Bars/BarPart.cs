@@ -111,12 +111,6 @@ namespace FemDesign.Bars
                 this.Plane = value.Plane;
             }
         }
-        [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlIgnore]
         private Geometry.Plane _plane;
@@ -460,7 +454,7 @@ namespace FemDesign.Bars
         public List<BarStiffnessFactors> StiffnessModifiers { get; set; }
 
         [XmlElement("colouring", Order = 8)]
-        public StruSoft.Interop.StruXml.Data.Entity_color Colouring { get; set; }
+        public EntityColor Colouring { get; set; }
 
         [XmlElement("end", Order = 9)]
         public string End = "";

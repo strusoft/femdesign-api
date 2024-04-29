@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using FemDesign.Geometry;
 using FemDesign.Loads;
@@ -824,6 +825,16 @@ namespace FemDesign.Grasshopper
             // Create contours
             List<Geometry.Edge> edges = new List<Geometry.Edge>();
             List<Geometry.Contour> contours = new List<Geometry.Contour>();
+
+            // in case of hollow section, grasshopper does not explode
+            if(container.Count >1)
+                if (container[1].Count == 1 && container[1][0].IsArc() == false)
+                {
+                    var crvs = Grasshopper.GeomUtility.Explode(container[1][0]);
+                    container[1].Clear();
+                    container[1].AddRange(crvs);
+                }
+
 
             foreach (List<Rhino.Geometry.Curve> items in container)
             {

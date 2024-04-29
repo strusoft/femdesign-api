@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace FemDesign.Geometry
 {
+    [System.Serializable]
     public class Plane
     {
         [XmlElement("local_pos", Order = 1)]

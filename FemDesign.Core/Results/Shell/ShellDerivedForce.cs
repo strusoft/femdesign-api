@@ -12,9 +12,9 @@ using Newtonsoft.Json;
 namespace FemDesign.Results
 {
     /// <summary>
-    /// FemDesign "Bars, End forces" result
+    /// FemDesign "Shell, Derived forces" result
     /// </summary>
-    [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceExtractLoadCase, ListProc.ShellDerivedForceExtractLoadCombination)]
+    [Result(typeof(ShellDerivedForce), ListProc.ShellDerivedForceLoadCase, ListProc.ShellDerivedForceLoadCombination)]
     public partial class ShellDerivedForce : IResult
     {
         /// <summary>
@@ -80,7 +80,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+                return new Regex(@"^(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -88,7 +88,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|ID\t[Elem|Max].*|\[.*\]");
+                return new Regex(@"^(?'type'Shells), (?'result'Derived internal forces) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^ID\t(Max\.\t)?Elem\tNode\tM1\tM2\t\u03b1 \(M\)\tN1\tN2\t\u03b1 \(N\)\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

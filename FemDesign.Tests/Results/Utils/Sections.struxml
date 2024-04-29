@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2023, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 23.00.001" start_time="1970-01-01T00:00:00.000" end_time="2024-04-24T22:43:06.000" guid="6368a406-1d81-427b-84f9-b52894cc4ff8" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="common" xmlns="urn:strusoft">
+	<sections>
+		<section guid="4987c406-68d0-42d5-a158-6ab8f608c851" last_change="1970-01-01T00:00:00.000" action="added" name="Concrete sections, Rectangle, 120x150" type="custom" fd-mat="3" fd_name_code="Concrete sections" fd_name_type="Rectangle" fd_name_size="120x150" rData0="18000" rData1="44513132.1219103" rData2="-1.30967237055302E-09" rData3="0" rData4="0" rData5="0" rData6="0" rData7="0" rData8="0" rData9="0" rData10="33750000" rData11="450000" rData12="337644.630004718" rData13="43.3012701892223" rData14="450000" rData15="21600000" rData16="360000" rData17="270185.640646055" rData18="34.6410161513778" rData19="360000" rData20="33750000" rData21="450000" rData22="43.3012701892223" rData23="337644.630004717" rData24="0.833336076826604" rData25="21600000" rData26="360000" rData27="34.6410161513778" rData28="270185.640646055" rData29="0.833334399079199" rData30="2662229974.17869" rData31="540" rData32="33.3333333333333" rData33="1.5707963267949" rData34="478563.457225812" rData35="0" rData36="0" rData37="337608.645569658" rData38="270149.176418528" rData39="0" rData40="1.50048286919848" rData41="1.50082875788071" rData42="60" rData43="60" rData44="75" rData45="75" rData46="60" rData47="60" rData48="75" rData49="75">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.06" y="-0.075" z="0"></point>
+							<point x="0.06" y="-0.075" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="-0.075" z="0"></point>
+							<point x="0.06" y="0.075" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.06" y="0.075" z="0"></point>
+							<point x="-0.06" y="0.075" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.06" y="0.075" z="0"></point>
+							<point x="-0.06" y="-0.075" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="e1d2a173-87bb-4adb-867e-856322b28c1d" last_change="1970-01-01T00:00:00.000" action="added" name="Steel sections, IPE, 80" type="custom" fd-mat="0" fd_name_code="Steel sections" fd_name_type="IPE" fd_name_size="80" rData0="764.340183660255" rData1="6726.89381044581" rData2="-1.3737236299103E-03" rData3="0" rData4="0" rData5="0" rData6="0" rData7="0" rData8="0" rData9="0" rData10="801376.982847514" rData11="20034.4245711568" rData12="11608.4907588843" rData13="32.37986375556" rData14="20034.4245491319" rData15="84890.2960258083" rData16="3690.88243589012" rData17="2908.79917627356" rData18="10.5386652262599" rData19="3690.88242361226" rData20="801376.982847514" rData21="20034.4245490698" rData22="32.37986375556" rData23="11608.4907588843" rData24="0.577105433240062" rData25="84890.2960258083" rData26="3690.88242358308" rData27="10.5386652262599" rData28="2908.79917627372" rData29="0.380386043803088" rData30="115142437.734923" rData31="327.815926535898" rData32="2.33161393876498" rData33="1.5707963267949" rData34="819.722400079516" rData35="5.40536192958082E-09" rData36="-1.56333628816189E-07" rData37="11608.4681432821" rData38="2908.79917627373" rData39="0" rData40="1.15885216616527" rData41="1.57620798630041" rData42="23.0000000000909" rData43="22.9999999999091" rData44="40.000000000062" rData45="39.999999999938" rData46="23.0000000767831" rData47="23.0000000766013" rData48="40.00000004416" rData49="40.000000044036">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.023" y="-0.04" z="0"></point>
+							<point x="0.023" y="-0.04" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.023" y="-0.04" z="0"></point>
+							<point x="0.023" y="-0.0348" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.023" y="-0.0348" z="0"></point>
+							<point x="0.0069" y="-0.0348" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="0.0069" y="-0.0298" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="-1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0019" y="-0.0298" z="0"></point>
+							<point x="0.0019" y="0.0298" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.57079632679491" type="arc">
+							<point x="0.0069" y="0.0298" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0069" y="0.0348" z="0"></point>
+							<point x="0.023" y="0.0348" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.023" y="0.0348" z="0"></point>
+							<point x="0.023" y="0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.023" y="0.04" z="0"></point>
+							<point x="-0.023" y="0.04" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.023" y="0.04" z="0"></point>
+							<point x="-0.023" y="0.0348" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.023" y="0.0348" z="0"></point>
+							<point x="-0.0069" y="0.0348" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.57079632679489" type="arc">
+							<point x="-0.0069" y="0.0298" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0" y="1" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0019" y="0.0298" z="0"></point>
+							<point x="-0.0019" y="-0.0298" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.005" start_angle="0" end_angle="1.5707963267949" type="arc">
+							<point x="-0.0069" y="-0.0298" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="1" y="0" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0069" y="-0.0348" z="0"></point>
+							<point x="-0.023" y="-0.0348" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.023" y="-0.0348" z="0"></point>
+							<point x="-0.023" y="-0.04" z="0"></point>
+							<normal x="0" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="0b086884-7bd2-4b57-837d-b8f0e0fd1fb8" last_change="1970-01-01T00:00:00.000" action="added" name="Hollow Core, HD-F, 120-20" type="custom" fd-mat="3" fd_name_code="Hollow Core" fd_name_type="HD-F" fd_name_size="120-20" rData0="125026.131389463" rData1="1982337952.59014" rData2="3.07893638381364" rData3="1.5707963267949" rData4="0" rData5="0" rData6="4.18851272051683E-08" rData7="-3.35572271826434E-05" rData8="5.53118132162226E-04" rData9="8.99288306642149" rData10="630265893.740365" rData11="6228389.73827593" rData12="4119483.44816663" rData13="71.0004875971955" rData14="26818598.2461609" rData15="16050930958.2997" rData16="26818598.0905202" rData17="19470551.5234133" rData18="358.302254995404" rData19="6346603.14463511" rData20="16050930958.2997" rData21="26818597.8914099" rData22="358.302254995404" rData23="19470551.5234187" rData24="0.439715306541697" rData25="630265893.740365" rData26="6228388.12069639" rData27="71.0004875971955" rData28="4119483.44808564" rData29="0.563101923202173" rData30="63142197577218.3" rData31="5664.81210744241" rData32="22.070658129191" rData33="0" rData34="6954145.7765794" rData35="1.10716371008812E-03" rData36="-102.385680117112" rData37="19470550.0227996" rData38="4117716.65363464" rData39="2.42332534282889E-06" rData40="1.45201849117071" rData41="1.32224150898748" rData42="598.500000041885" rData43="598.499999958116" rData44="101.192430182577" rData45="99.3075698174235" rData46="101.192456463342" rData47="99.3075948467235" rData48="598.500004485351" rData49="598.499996568514">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.5985" y="-0.101192463739804" z="0"></point>
+							<point x="0.5985" y="-0.101192463739804" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.5985" y="-0.101192463739804" z="0"></point>
+							<point x="0.5985" y="-7.71924637398043E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.73491937959608E-03" start_angle="0" end_angle="1.46181341431352" type="arc">
+							<point x="0.596846153846154" y="-6.86155406628815E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.189337311768416" y="-0.98191210521732" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.5885" y="-7.11924637398042E-02" z="0"></point>
+							<point x="0.5835" y="1.88075362601964E-02" z="0"></point>
+							<normal x="-0.998460353205412" y="-5.54700196225238E-02" z="0"></normal>
+						</edge>
+						<edge radius="2.18770560714463E-02" start_angle="0" end_angle="2.20578684865935" type="arc">
+							<point x="0.592353944562898" y="3.88128667506015E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.404713711661328" y="-0.914443443627495" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.5815" y="5.78075362601963E-02" z="0"></point>
+							<point x="0.58" y="8.93075362601961E-02" z="0"></point>
+							<normal x="-0.998868137724438" y="-4.75651494154304E-02" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.58" y="8.93075362601961E-02" z="0"></point>
+							<point x="0.57" y="9.93075362601963E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.57" y="9.93075362601963E-02" z="0"></point>
+							<point x="-0.57" y="9.93075362601962E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.57" y="9.93075362601962E-02" z="0"></point>
+							<point x="-0.58" y="8.93075362601965E-02" z="0"></point>
+							<normal x="0" y="0" z="1"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.58" y="8.93075362601965E-02" z="0"></point>
+							<point x="-0.5815" y="5.78075362601963E-02" z="0"></point>
+							<normal x="0.998868137724438" y="-0.047565149415444" z="0"></normal>
+						</edge>
+						<edge radius="0.021877056071447" start_angle="0" end_angle="2.20578684865924" type="arc">
+							<point x="-0.5923539445629" y="3.88128667506014E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.496133690358179" y="0.868246140959794" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.5835" y="1.88075362601962E-02" z="0"></point>
+							<point x="-0.5885" y="-0.071192463739804" z="0"></point>
+							<normal x="0.998460353205412" y="-5.54700196225216E-02" z="0"></normal>
+						</edge>
+						<edge radius="8.7349193795966E-03" start_angle="0" end_angle="1.46181341431337" type="arc">
+							<point x="-0.596846153846154" y="-6.86155406628805E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.955492945435685" y="-0.295013950894933" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.5985" y="-7.71924637398039E-02" z="0"></point>
+							<point x="-0.5985" y="-0.101192463739804" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.07" type="circle">
+							<point x="-0.4725" y="-1.19246373980361E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.108275297275046" start_angle="0" end_angle="0.538728144599172" type="arc">
+							<point x="-0.263" y="1.15075362601948E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.586468027316454" y="-0.8099723778843" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.3625" y="-3.11924637398039E-02" z="0"></point>
+							<point x="-0.3625" y="1.68075362601964E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.11805258530504E-02" start_angle="0" end_angle="2.53704765642956" type="arc">
+							<point x="-0.285" y="-7.35913040647047E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.954662453656524" y="0.297690442538058" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.2075" y="1.68075362601962E-02" z="0"></point>
+							<point x="-0.2075" y="-3.11924637398038E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.108275297275046" start_angle="0" end_angle="0.538728144599179" type="arc">
+							<point x="-0.307" y="0.011507536260195" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.91895383807854" y="-0.394365114431692" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.2435" y="-7.61924637398038E-02" z="0"></point>
+							<point x="-0.3265" y="-7.61924637398037E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.108275297275044" start_angle="0" end_angle="0.538728144599183" type="arc">
+							<point x="-0.073" y="1.15075362601936E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.586468027316451" y="-0.809972377884302" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.1725" y="-3.11924637398037E-02" z="0"></point>
+							<point x="-0.1725" y="1.68075362601964E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.11805258530506E-02" start_angle="0" end_angle="2.53704765642955" type="arc">
+							<point x="-0.095" y="-7.35913040647078E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.954662453656523" y="0.297690442538062" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0175" y="1.68075362601966E-02" z="0"></point>
+							<point x="-0.0175" y="-3.11924637398043E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.108275297275048" start_angle="0" end_angle="0.538728144599163" type="arc">
+							<point x="-0.117" y="1.15075362601963E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.918953838078536" y="-0.394365114431701" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="-0.0535" y="-7.61924637398039E-02" z="0"></point>
+							<point x="-0.1365" y="-7.61924637398037E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.108275297275049" start_angle="0" end_angle="0.538728144599161" type="arc">
+							<point x="0.117" y="0.011507536260197" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.586468027316454" y="-0.8099723778843" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.0175" y="-3.11924637398039E-02" z="0"></point>
+							<point x="0.0175" y="1.68075362601961E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="8.11805258530503E-02" start_angle="0" end_angle="2.53704765642957" type="arc">
+							<point x="0.095" y="-7.35913040647057E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.954662453656525" y="0.297690442538056" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.1725" y="0.016807536260196" z="0"></point>
+							<point x="0.1725" y="-3.11924637398033E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.108275297275046" start_angle="0" end_angle="0.538728144599178" type="arc">
+							<point x="0.073" y="1.15075362601952E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.918953838078542" y="-0.394365114431687" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.1365" y="-7.61924637398038E-02" z="0"></point>
+							<point x="0.0535" y="-7.61924637398038E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.108275297275042" start_angle="0" end_angle="0.538728144599195" type="arc">
+							<point x="0.307" y="0.011507536260192" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.586468027316442" y="-0.809972377884309" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.2075" y="-0.031192463739804" z="0"></point>
+							<point x="0.2075" y="1.68075362601947E-02" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.08118052585305" start_angle="0" end_angle="2.53704765642959" type="arc">
+							<point x="0.285" y="-7.35913040647043E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="-0.95466245365653" y="0.297690442538039" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.3625" y="1.68075362601958E-02" z="0"></point>
+							<point x="0.3625" y="-3.11924637398034E-02" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+						<edge radius="0.108275297275051" start_angle="0" end_angle="0.538728144599155" type="arc">
+							<point x="0.263" y="1.15075362601982E-02" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+							<x_axis x="0.918953838078537" y="-0.394365114431699" z="0"></x_axis>
+						</edge>
+						<edge type="line">
+							<point x="0.3265" y="-7.61924637398038E-02" z="0"></point>
+							<point x="0.2435" y="-7.61924637398038E-02" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+					</contour>
+					<contour>
+						<edge radius="0.07" type="circle">
+							<point x="0.4725" y="-1.19246373980379E-03" z="0"></point>
+							<normal x="0" y="0" z="-1"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="47f10290-e6bc-438f-a8c6-e52fda6c55e2" last_change="1970-01-01T00:00:00.000" action="added" name="Custom, Custom, Custom" type="custom" fd-mat="65535" fd_name_code="Custom" fd_name_type="Custom" fd_name_size="Custom" rData0="3270.9800641714" rData1="887519.391780477" rData2="247546.818857787" rData3="-0.676747747023007" rData4="0" rData5="0" rData6="0" rData7="0" rData8="-1.15720585296737" rData9="2.18825271138609" rData10="1103197.46143358" rData11="26049.2846930232" rData12="25409.2614694666" rData13="18.3648623825881" rData14="33350.9273040037" rData15="993887.230657662" rData16="19207.3269093805" rData17="23218.2252028591" rData18="17.4312931561058" rData19="19496.7044135734" rData20="1302050.94385777" rData21="31529.2984106977" rData22="19.9514764434125" rData23="27652.3870665655" rData24="0.672712171712041" rData25="795033.748233472" rData26="16342.3921187614" rData27="15.5902770710933" rData28="20679.909965089" rData29="0.720537852225999" rData30="65871053.6371326" rData31="329.778871009202" rData32="9.9187072057146" rData33="0.894048579771889" rData34="12964.8703323331" rData35="-2.72952280220716" rData36="8.67805369637116" rData37="27618.1787153826" rData38="20678.3573527579" rData39="0.55534244908647" rData40="1.75190569454676" rData41="2.53064021502933" rData42="51.7452134462431" rData43="43.3883049991934" rData44="42.3503936647077" rData45="39.8407869243511" rData46="48.6485541685637" rData47="40.7778530857748" rData48="41.2965403447096" rData49="39.0409217707556">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-4.33883049991934E-02" y="1.11003915942663E-02" z="0"></point>
+							<point x="-1.70140092628266E-02" y="-4.12681514792229E-03" z="0"></point>
+							<normal x="0.499999999978093" y="0.866025403797087" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.70140092628266E-02" y="-4.12681514792229E-03" z="0"></point>
+							<point x="-3.55175614168772E-02" y="-2.44393922550782E-02" z="0"></point>
+							<normal x="0.739259070214184" y="-0.673421136515672" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-3.55175614168772E-02" y="-2.44393922550782E-02" z="0"></point>
+							<point x="-4.49479696008412E-03" y="-4.23503936647077E-02" z="0"></point>
+							<normal x="0.499999999989399" y="0.866025403790559" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-4.49479696008412E-03" y="-4.23503936647077E-02" z="0"></point>
+							<point x="1.22977254522041E-02" y="-1.32648916607988E-02" z="0"></point>
+							<normal x="-0.866025403773918" y="0.500000000018223" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="1.22977254522041E-02" y="-1.32648916607988E-02" z="0"></point>
+							<point x="5.17452134462431E-02" y="-1.32648916607988E-02" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="5.17452134462431E-02" y="-1.32648916607988E-02" z="0"></point>
+							<point x="1.58072033335841E-02" y="7.48392815218069E-03" z="0"></point>
+							<normal x="-0.500000000005356" y="-0.866025403781346" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="1.58072033335841E-02" y="7.48392815218069E-03" z="0"></point>
+							<point x="3.74604419083837E-02" y="1.99854312720734E-02" z="0"></point>
+							<normal x="-0.49999999999715" y="0.866025403786084" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="3.74604419083837E-02" y="1.99854312720734E-02" z="0"></point>
+							<point x="3.06995711586625E-03" y="3.98407869243511E-02" z="0"></point>
+							<normal x="-0.499999999995391" y="-0.866025403787099" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="3.06995711586625E-03" y="3.98407869243511E-02" z="0"></point>
+							<point x="-1.91852488713339E-02" y="1.70427710350242E-02" z="0"></point>
+							<normal x="0.715574205880785" y="-0.698536724788385" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-1.91852488713339E-02" y="1.70427710350242E-02" z="0"></point>
+							<point x="-4.33883049991934E-02" y="1.11003915942663E-02" z="0"></point>
+							<normal x="0.23844031397681" y="-0.971157153436374" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+		<section guid="184587bd-40b1-416a-b5bc-635bf72cd419" last_change="1970-01-01T00:00:00.000" action="added" name="Timber sections, Glulam, 42x270" type="custom" fd-mat="4" fd_name_code="Timber sections" fd_name_type="Glulam" fd_name_size="42x270" rData0="11340" rData1="6014224.11956873" rData2="-7.45785655453841E-11" rData3="0" rData4="0" rData5="0" rData6="0" rData7="0" rData8="0" rData9="0" rData10="68890500" rData11="510300" rData12="382757.021505437" rData13="77.9422863406" rData14="510300" rData15="1666980" rData16="79380" rData17="59722.9611541309" rData18="12.1243556529822" rData19="79380" rData20="68890500" rData21="510300" rData22="77.9422863406" rData23="382757.021505437" rData24="0.833391183616799" rData25="1666980" rData26="79380" rData27="12.1243556529822" rData28="59722.9611541309" rData29="0.833333373958303" rData30="9125294541.98383" rData31="624" rData32="18.1730769230769" rData33="1.5707963267949" rData34="143205.605039039" rData35="0" rData36="1.60971667746099E-12" rData37="382739.94923612" rData38="59706.6476523387" rData39="0" rData40="1.50005858999066" rData41="1.50432470779387" rData42="21" rData43="21" rData44="135" rData45="135" rData46="21" rData47="21" rData48="135" rData49="135">
+			<region_group>
+				<region>
+					<contour>
+						<edge type="line">
+							<point x="-0.021" y="-0.135" z="0"></point>
+							<point x="0.021" y="-0.135" z="0"></point>
+							<normal x="0" y="1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.021" y="-0.135" z="0"></point>
+							<point x="0.021" y="0.135" z="0"></point>
+							<normal x="-1" y="0" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="0.021" y="0.135" z="0"></point>
+							<point x="-0.021" y="0.135" z="0"></point>
+							<normal x="0" y="-1" z="0"></normal>
+						</edge>
+						<edge type="line">
+							<point x="-0.021" y="0.135" z="0"></point>
+							<point x="-0.021" y="-0.135" z="0"></point>
+							<normal x="1" y="0" z="0"></normal>
+						</edge>
+					</contour>
+				</region>
+			</region_group>
+			<end></end>
+		</section>
+	</sections>
+	<end></end>
+</database>

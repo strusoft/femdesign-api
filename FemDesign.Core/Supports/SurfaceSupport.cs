@@ -40,12 +40,12 @@ namespace FemDesign.Supports
                 this._predefRigidityRef = new GuidListType(value.Guid);
             }
         }
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
 
         [XmlElement("local_system", Order= 4)]
         public Geometry.Plane Plane { get; set; }
+
+        [XmlElement("colouring", Order = 5)]
+        public EntityColor Colouring { get; set; }
         public Motions Motions { get { return Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Rigidity?.PlasticLimitForces; } }
 

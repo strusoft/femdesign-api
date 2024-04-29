@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using FemDesign.Calculate;
-using System.ComponentModel;
 
 namespace FemDesign.Results.Utils
 {
@@ -15,7 +13,10 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="loadCombinationPropertyName">Type T property name related to load combination.</param>
+        /// <param name="loadCombinationPropertyName">
+        ///     The name of the property in type T that represents the load combination.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "CaseIdentifier",
+        ///     which is a property containing the load combination name.</param>
         /// <param name="loadCombination">Load combination name to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -37,7 +38,10 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="loadCombinationPropertyName">Type T property name related to load combinations.</param>
+        /// <param name="loadCombinationPropertyName">
+        ///     The name of the property in type T that represents the load combination.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "CaseIdentifier",
+        ///     which is a property containing the load combination name.</param>
         /// <param name="loadCombination">List of load combination names to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -65,7 +69,10 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="shapeIdPropertyName">Type T property name related to shape identifier.</param>
+        /// <param name="shapeIdPropertyName">
+        ///     The name of the property in type T that represents the shape identifier.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "Shape",
+        ///     which is a property containing the shape identifier value.</param>
         /// <param name="shapeId">Index of shape identifier to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -87,7 +94,10 @@ namespace FemDesign.Results.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="results"></param>
-        /// <param name="shapeIdPropertyName">Type T property name related to shape identifiers.</param>
+        /// <param name="shapeIdPropertyName">
+        ///     The name of the property in type T that represents the shape identifier.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "Shape",
+        ///     which is a property containing the shape identifier value.</param>
         /// <param name="shapeId">Indexes of shape identifiers to filter results.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -110,6 +120,20 @@ namespace FemDesign.Results.Utils
             return filteredResults;
         }
 
+        /// <summary>
+        /// Returns the load combinations and the corresponding number of shapes for each load combination on which the results have been run.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="results"></param>
+        /// <param name="loadCombinationPropertyName">
+        ///     The name of the property in type T that represents the load combination.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "CaseIdentifier",
+        ///     which is a property containing the load combination name.</param>
+        /// <param name="shapeIdPropertyName">
+        ///     The name of the property in type T that represents the shape identifier.
+        ///     For example, if T is a NodalBucklingShape, this should be set to "Shape",
+        ///     which is a property containing the shape identifier value.</param>
+        /// <returns></returns>
         public static (List<string>, List<int>) GetCombosAndShapes<T>(this List<T> results, string loadCombinationPropertyName, string shapeIdPropertyName) where T : IResult
         {
             // get properties

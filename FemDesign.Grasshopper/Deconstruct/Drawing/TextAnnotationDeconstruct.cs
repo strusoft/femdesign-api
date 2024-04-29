@@ -44,8 +44,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 5, TextAnnotation.HorAlignValueList, null, 0);
-            ValueListUtils.updateValueLists(this, 6, TextAnnotation.VerAlignValueList, null, 0);
+            ValueListUtils.UpdateValueLists(this, 5, TextAnnotation.HorAlignValueList, null, 0);
+            ValueListUtils.UpdateValueLists(this, 6, TextAnnotation.VerAlignValueList, null, 0);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {

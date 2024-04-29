@@ -82,7 +82,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Steel bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$");
+                return new Regex(@"^(?'Cmax'Max\. of load combinations, Steel bar, Utilization)(?: - selected objects)?$|^(?'Gmax'Max\. of load groups, Steel bar, Utilization)(?: - selected objects)?$|^(?'type'Steel bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -90,25 +90,44 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Steel bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Member\t|\[.+\]");
+                return new Regex(@"^(?'Cmax'Max\. of load combinations, Steel bar, Utilization)(?: - selected objects)?$|^(?'Gmax'Max\. of load groups, Steel bar, Utilization)(?: - selected objects)?$|^(?'type'Steel bar), (?'result'Utilization), ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^Member\tSection\tStatus\tMaximum\t(Combination\t)?RCS\tFB\tTFB\tLTB,t\tLTB,b\tSB\tIA|^\[.+\]");
             }
         }
 
         internal static BarSteelUtilization Parse(string[] row, CsvParser reader, Dictionary<string, string> HeaderData)
         {
-            string id = row[0];
-            string section = row[1];
-            string status = row[2];
-            double max = Double.Parse(row[3], CultureInfo.InvariantCulture);
-            double rcs = Double.Parse(row[4], CultureInfo.InvariantCulture);
-            double fb = row[5] == "-" ? 0 : Double.Parse(row[5], CultureInfo.InvariantCulture);
-            double tfb = row[6] == "-" ? 0 : Double.Parse(row[6], CultureInfo.InvariantCulture);
-            double ltbt = row[7] == "-" ? 0 : Double.Parse(row[7], CultureInfo.InvariantCulture);
-            double ltbb = row[8] == "-" ? 0 : Double.Parse(row[8], CultureInfo.InvariantCulture);
-            double sb = row[9] == "-" ? 0 : Double.Parse(row[9], CultureInfo.InvariantCulture);
-            double ia = row[10] == "-" ? 0 : Double.Parse(row[10], CultureInfo.InvariantCulture);
-            string lc = HeaderData["casename"];
-            return new BarSteelUtilization(id, section, status, max, rcs, fb, tfb, ltbt, ltbb, sb, ia, lc);
+            if(HeaderData.ContainsKey("casename"))
+            {
+                string id = row[0];
+                string section = row[1];
+                string status = row[2];
+                double max = Double.Parse(row[3], CultureInfo.InvariantCulture);
+                double rcs = Double.Parse(row[4], CultureInfo.InvariantCulture);
+                double fb = row[5] == "-" ? 0 : Double.Parse(row[5], CultureInfo.InvariantCulture);
+                double tfb = row[6] == "-" ? 0 : Double.Parse(row[6], CultureInfo.InvariantCulture);
+                double ltbt = row[7] == "-" ? 0 : Double.Parse(row[7], CultureInfo.InvariantCulture);
+                double ltbb = row[8] == "-" ? 0 : Double.Parse(row[8], CultureInfo.InvariantCulture);
+                double sb = row[9] == "-" ? 0 : Double.Parse(row[9], CultureInfo.InvariantCulture);
+                double ia = row[10] == "-" ? 0 : Double.Parse(row[10], CultureInfo.InvariantCulture);
+                string lc = HeaderData["casename"];
+                return new BarSteelUtilization(id, section, status, max, rcs, fb, tfb, ltbt, ltbb, sb, ia, lc);
+            }
+            else
+            {
+                string id = row[0];
+                string section = row[1];
+                string status = row[2];
+                double max = Double.Parse(row[3], CultureInfo.InvariantCulture);
+                double rcs = Double.Parse(row[5], CultureInfo.InvariantCulture);
+                double fb = row[6] == "-" ? 0 : Double.Parse(row[5], CultureInfo.InvariantCulture);
+                double tfb = row[7] == "-" ? 0 : Double.Parse(row[6], CultureInfo.InvariantCulture);
+                double ltbt = row[8] == "-" ? 0 : Double.Parse(row[7], CultureInfo.InvariantCulture);
+                double ltbb = row[9] == "-" ? 0 : Double.Parse(row[8], CultureInfo.InvariantCulture);
+                double sb = row[10] == "-" ? 0 : Double.Parse(row[9], CultureInfo.InvariantCulture);
+                double ia = row[11] == "-" ? 0 : Double.Parse(row[10], CultureInfo.InvariantCulture);
+                string lc = row[4];
+                return new BarSteelUtilization(id, section, status, max, rcs, fb, tfb, ltbt, ltbb, sb, ia, lc);
+            }
         }
     }
 }

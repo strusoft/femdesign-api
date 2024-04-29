@@ -81,12 +81,12 @@ namespace FemDesign.Calculate
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="bscPath"></param>
-        /// <param name="loadCombination"></param>
+        /// <param name="loadCombName"></param>
         /// <param name="shapeID"></param>
         /// <param name="unitResult"></param>
         /// <param name="options"></param>
         /// <exception cref="ArgumentException"></exception>
-        internal Bsc(ListProc resultType, string bscPath, string loadCombination, int shapeID, Results.UnitResults unitResult = null, Options options = null)
+        internal Bsc(ListProc resultType, string bscPath, string loadCombName, int shapeID, Results.UnitResults unitResult = null, Options options = null)
         {
             if (Path.GetExtension(bscPath) != ".bsc")
             {
@@ -94,7 +94,7 @@ namespace FemDesign.Calculate
             }
             BscPath = Path.GetFullPath(bscPath);
             Cwd = Path.GetDirectoryName(BscPath);
-            DocTable = new DocTable(resultType, loadCombination, shapeID, unitResult, options);
+            DocTable = new DocTable(resultType, loadCombName, shapeID, unitResult, options);
             FdScriptHeader = new FdScriptHeader("Generated script.", Path.Combine(Cwd, "logfile.log"));
             CmdEndSession = new CmdEndSession();
             SerializeBsc(); // why it is in the constructor?

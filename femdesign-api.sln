@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 3 - Analyse struxml
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 7 - Iterative analysis", "FemDesign.Examples\C#\Example 7 - Iterative analysis\Example 7 - Iterative analysis.csproj", "{EA1F0B6B-317D-44DF-BDD0-7FEE2339EE04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Run analysis", "FemDesign.Examples\C#\Practical example - Run analysis\Practical example - Run analysis.csproj", "{A3DEC58E-F148-486E-9812-9B01484F1E58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +140,10 @@ Global
 		{EA1F0B6B-317D-44DF-BDD0-7FEE2339EE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA1F0B6B-317D-44DF-BDD0-7FEE2339EE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA1F0B6B-317D-44DF-BDD0-7FEE2339EE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DEC58E-F148-486E-9812-9B01484F1E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DEC58E-F148-486E-9812-9B01484F1E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3DEC58E-F148-486E-9812-9B01484F1E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DEC58E-F148-486E-9812-9B01484F1E58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{E3BB2331-4FF0-4869-8929-52A5FBAD19B6} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{ED2C94CD-D31D-43DD-8793-ECAC369C2680} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{EA1F0B6B-317D-44DF-BDD0-7FEE2339EE04} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{A3DEC58E-F148-486E-9812-9B01484F1E58} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

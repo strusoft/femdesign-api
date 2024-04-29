@@ -20,12 +20,6 @@ namespace FemDesign.Shells
         private static int _panelInstances = 0;
         protected override int GetUniqueInstanceCount() => ++_panelInstances;
 
-        [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
         /// <summary>
         /// Coordinate system
         /// </summary>
@@ -215,6 +209,9 @@ namespace FemDesign.Shells
 
         [XmlElement("external_predefined_rigidity", Order = 17)]
         public GuidListType ExternalPredefinedRigidity { get; set; }
+
+        [XmlElement("colouring", Order = 18)]
+        public EntityColor Colouring { get; set; }
 
         [XmlAttribute("type")]
         public PanelType Type { get; set; }

@@ -163,6 +163,12 @@ namespace FemDesign.Calculate
             return combItem;
         }
 
+        public static CombItem NonLinear(bool plastic = true)
+        {
+            var combItem = new CombItem(NLE: true, PL: plastic);
+            return combItem;
+        }
+
         public static CombItem Default()
         {
             int impfRqd = 0;

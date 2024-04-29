@@ -7,8 +7,6 @@ namespace FemDesign.Calculate
 {
     public partial class Stability
     {
-        [XmlIgnore]
-        public List<FemDesign.Loads.LoadCombination> LoadCombinations { get; set; }
 
         [XmlIgnore]
         public List<string> CombNames { get; set; }
@@ -25,7 +23,7 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        private protected Stability()
+        public Stability()
         {
 
         }
@@ -42,5 +40,14 @@ namespace FemDesign.Calculate
             this.PositiveOnly = positiveOnly;
             this.numberIteration = numberIteration;
         }
+
+        public Stability(string loadCombination, int numShape, bool positiveOnly = false, int numberIteration = 5)
+        {
+            this.CombNames = new List<string> { loadCombination };
+            this.NumShapes = new List<int> { numShape };
+            this.PositiveOnly = positiveOnly;
+            this.numberIteration = numberIteration;
+        }
+
     }
 }

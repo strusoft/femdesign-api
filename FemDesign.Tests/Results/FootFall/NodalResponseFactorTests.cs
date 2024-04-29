@@ -12,62 +12,35 @@ namespace FemDesign.Results
     public class NodalResponseFactorTests
     {
         [TestMethod]
+        [TestCategory("FEM-Design required")]
         public void Parse()
         {
-            string path = Path.GetTempFileName();
+            string modelPath = "Results\\Assets\\General.str";
 
-            using (var stream = new StreamWriter(path)) stream.Write(@"Footfall analysis, Nodal response factors, SE.1 - Overall maximum - for selected objects
-ID	Node	x	y	z
-[-]	[-]	[-]	[-]	[-]
-P.1.1	1	0.000	0.000	0.000
-	2	0.000	0.000	0.000
-	3	0.000	0.000	0.000
-	4	0.000	0.000	0.000
-	5	0.000	0.000	0.000
-	6	0.000	0.000	0.000
-	7	0.000	0.000	0.000
-	8	0.000	0.000	0.000
-	9	0.000	0.000	0.000
-");
-
-            var results = ResultsReader.Parse(path);
-            Assert.IsTrue(results[0].GetType() == typeof(NodalResponseFactor), "Nodal Acceleration should be parsed");
-            Assert.IsTrue(results.Count == 9, "Should read all results.");
-
-            File.Delete(path);
-        }
+            var (resultLines, headers, results) = UtilTestMethods.GetCsvParseData<NodalResponseFactor>(modelPath);
 
 
-        [TestMethod]
-        public void Identification()
-        {
-            var headers = new string[]
-            {
-                "Footfall analysis, Nodal response factors, SE.1 - Overall maximum - for selected objects"
-            };
+            // Check parsed data
+            Assert.IsTrue(results.First().GetType() == typeof(NodalResponseFactor), $"{typeof(NodalResponseFactor).Name} should be parsed");
+            Assert.IsTrue(results.Last().GetType() == typeof(NodalResponseFactor), $"{typeof(NodalResponseFactor).Name} should be parsed");
+            Assert.IsTrue(results.Count == resultLines.Sum(), "Should read all results.");
 
             foreach (var header in headers)
             {
-                var match = NodalResponseFactor.IdentificationExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify type of \"{header}\" as {typeof(NodalResponseFactor).Name}");
+                // Check header
+                foreach (var line in header)
+                {
+                    var headerMatch = NodalResponseFactor.HeaderExpression.Match(line);
+                    Assert.IsTrue(headerMatch.Success, $"Should identify \"{line}\" as header");
+                }
+
+                // Check identification
+                var identifier = header[0];
+                var match = NodalResponseFactor.IdentificationExpression.Match(identifier);
+                Assert.IsTrue(match.Success, $"Should identify type of \"{identifier}\" as {typeof(NodalResponseFactor).Name}");
             }
         }
 
-        [TestMethod]
-        public void Headers()
-        {
-            var headers = new string[]
-            {
-                "Footfall analysis, Nodal response factors, SE.1 - Overall maximum - for selected objects",
-                "ID	Node	x	y	z",
-                "[-]	[-]	[-]	[-]	[-]"
-            };
 
-            foreach (var header in headers)
-            {
-                var match = NodalResponseFactor.HeaderExpression.Match(header);
-                Assert.IsTrue(match.Success, $"Should identify \"{header}\" as header");
-            }
-        }
     }
 }

@@ -133,6 +133,9 @@ namespace FemDesign.ModellingTools
         [XmlElement("ref", Order = 7)]
         public GuidListType[] References { get; set; }
 
+        [XmlElement("colouring", Order = 8)]
+        public EntityColor Colouring { get; set; }
+
         [XmlIgnore]
         private bool _movingLocal = false;
 

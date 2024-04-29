@@ -131,7 +131,7 @@ namespace FemDesign.Calculate
 
 
         /// <summary>
-        /// DocTable to return specific analysis results by shape identifiers.
+        /// DocTable to return specific analysis results (e.g. NodalBucklingShapes, EigenFrequencies, etc.) by shape identifiers.
         /// </summary>
         /// <param name="resultType"></param>
         /// <param name="loadCombination"></param>
@@ -149,7 +149,7 @@ namespace FemDesign.Calculate
             if(resultType != ListProc.NodalVibrationShape)
             {
                 if (loadCombination == null)
-                    throw new Exception("loadCombination input cannot be null!");
+                    throw new Exception("Load combination input cannot be null!");
 
                 Suffix = $"{loadCombination} / {shapeID}";
             }
@@ -174,7 +174,7 @@ namespace FemDesign.Calculate
             */
 
             string r = resultType.ToString();
-            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors" || r.StartsWith("Section"))
+            if (r.StartsWith("QuantityEstimation") || r.EndsWith("Utilization") || r.Contains("MaxComb") || r.Contains("MaxLoadGroup") || r.StartsWith("FemNode") || r.StartsWith("FemBar") || r.StartsWith("FemShell") || r.StartsWith("EigenFrequencies") || r.Contains("MaxOfLoadCombinationMinMax") || r == "CriticalParameters" || r == "ImperfectionFactors" || r.StartsWith("Equilibrium") || r.StartsWith("Section"))
                 return 0;
             if (r.EndsWith("LoadCase"))
                 return 1;

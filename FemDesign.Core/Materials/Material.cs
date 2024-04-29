@@ -37,7 +37,10 @@ namespace FemDesign.Materials
         public ReinforcingSteel ReinforcingSteel { get; set; }
         [XmlElement("stratum")]
         public StruSoft.Interop.StruXml.Data.Material_typeStratum Stratum { get; set; }
-        
+        [XmlElement("brick")]
+        public StruSoft.Interop.StruXml.Data.Material_typeBrick Brick { get; set; }
+        [XmlElement("masonry")]
+        public StruSoft.Interop.StruXml.Data.Material_typeMasonry Masonry { get; set; }
 
         [XmlIgnore]
         public Family Family
@@ -96,6 +99,8 @@ namespace FemDesign.Materials
                 throw new System.ArgumentException("Material must be concrete!");
             }
         }
+
+
 
         /// <summary>
         /// Set material properties for timber material.
@@ -176,5 +181,56 @@ namespace FemDesign.Materials
             var index = extracted.Index;
             return materials[index];
         }
+
+
+
+        /// <summary>
+        /// Set plasticy parameters to a steel Material.
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="plastic"></param>
+        /// <param name="strainLimit"></param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        public static Material SetSteelPlasticity(this Material material, bool plastic = true, double strainLimit = 2.5)
+        {
+            var newMaterial = material.SetSteelPlasticity( new List<bool> { plastic, plastic, plastic, plastic }, new List<double> { strainLimit, strainLimit, strainLimit, strainLimit });
+            return newMaterial;
+        }
+
+        public static Material SetSteelPlasticity(this Material material, List<bool> plastic, List<double> strainLimit)
+        {
+            if (material.Steel == null)
+            {
+                throw new System.ArgumentException("Material must be concrete!");
+            }
+
+            // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
+            Material newMaterial = material.DeepClone();
+            newMaterial.EntityCreated();
+            newMaterial.Steel.SetPlasticity(plastic, strainLimit);
+            newMaterial.EntityModified();
+
+            // return
+            return newMaterial;
+        }
+
+        public static Material SetConcretePlasticity(this Material material, bool plastic = true, bool hardening = true, CrushingCriterion crushing = CrushingCriterion.Prager, bool tensionStrength = true, TensionStiffening tensionStiffening = TensionStiffening.Hinton, ReducedCompression reducedCompression = ReducedCompression.Vecchio1, bool reducedTransverse = false, bool ultimateStrainRebars = true)
+        {
+            if (material.Concrete == null)
+            {
+                throw new System.ArgumentException("Material must be concrete!");
+            }
+
+            // deep clone. downstreams objs will have contain changes made in this method, upstream objs will not.
+            Material newMaterial = material.DeepClone();
+            newMaterial.EntityCreated();
+            newMaterial.Concrete.SetPlasticity(plastic, hardening, crushing, tensionStrength, tensionStiffening, reducedCompression, reducedTransverse, ultimateStrainRebars);
+            newMaterial.EntityModified();
+
+            // return
+            return newMaterial;
+        }
+
     }
 }

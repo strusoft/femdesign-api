@@ -219,7 +219,7 @@ namespace FemDesign.Shells
         }
 
         [XmlElement("colouring", Order = 7)]
-        public StruSoft.Interop.StruXml.Data.Entity_color Colouring { get; set; }
+        public EntityColor Colouring { get; set; }
 
         [XmlElement("end", Order = 8)]
         public string End = ""; // empty_type

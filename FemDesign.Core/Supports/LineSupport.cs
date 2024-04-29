@@ -72,7 +72,10 @@ namespace FemDesign.Supports
         /// </summary>
         [XmlElement("normal", Order = 4)]
         public Vector3d EdgeNormal;
-        
+
+        [XmlElement("colouring", Order = 5)]
+        public EntityColor Colouring { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>

@@ -97,7 +97,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Materials.MaterialTypeEnum)).ToList()
+            ValueListUtils.UpdateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Materials.MaterialTypeEnum)).ToList()
             , null, GH_ValueListMode.DropDown);
         }
 

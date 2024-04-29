@@ -17,13 +17,6 @@ namespace FemDesign.ModellingTools
         public Geometry.Edge Edge { get; set; }
 
         [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
-
-        [XmlIgnore]
         private Geometry.Plane _plane;
 
         [XmlIgnore]
@@ -94,6 +87,9 @@ namespace FemDesign.ModellingTools
 
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
+
+        [XmlElement("colouring", Order = 4)]
+        public EntityColor Colouring { get; set; }
 
         [XmlIgnore]
         public Bars.Connectivity StartConnectivity

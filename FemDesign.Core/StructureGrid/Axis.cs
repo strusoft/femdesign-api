@@ -50,6 +50,7 @@ namespace FemDesign.StructureGrid
         [XmlElement("axis_label_props", Order = 3)]
         public StruSoft.Interop.StruXml.Data.Axis_label_props AxisLabel { get; set; }
 
+
         [XmlAttribute("id")]
         public int _id; // int_1_to_321272406
 

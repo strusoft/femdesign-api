@@ -13,7 +13,7 @@ namespace FemDesign.Results
     /// <summary>
     /// FemDesign "Shells, Stresses" result
     /// </summary>
-    [Result(typeof(ShellStress), ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination, ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination, ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination, ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination)]
+    [Result(typeof(ShellStress), ListProc.ShellStressesBottomLoadCase, ListProc.ShellStressesBottomLoadCombination, ListProc.ShellStressesMembraneLoadCase, ListProc.ShellStressesMembraneLoadCombination, ListProc.ShellStressesTopLoadCase, ListProc.ShellStressesTopLoadCombination /*ListProc.ShellStressesBottomExtractLoadCase, ListProc.ShellStressesBottomExtractLoadCombination, ListProc.ShellStressesMembraneExtractLoadCase, ListProc.ShellStressesMembraneExtractLoadCombination, ListProc.ShellStressesTopExtractLoadCase, ListProc.ShellStressesTopExtractLoadCombination*/)]
     public partial class ShellStress : IResult
     {
         /// <summary>
@@ -116,7 +116,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})");
+                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$");
             }
         }
 
@@ -124,7 +124,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79})$|Shell\t(Elem|Max\.).*|\[.*\]");
+                return new Regex(@"^(?'type'Shells, Stresses), (?'side'top|bottom|membrane) ?(?'extract'\(Extract\))?, ((?'loadcasetype'[\w\s\-]+)? - )?Load (?'casecomb'case|comb\.+): (?'casename'[ -#%'-;=?A-\ufffd]{1,79}?)(?: - selected objects)?$|^Shell\t(Max\.\t)?Elem\tNode\t\u03c3 x'\t\u03c3 y'\t\u03c4 x'y'\t\u03c4 x'z'\t\u03c4 y'z'\t\u03c3 vm\t\u03c3 1\t\u03c3 2\t\u03b1\t(Case|Comb\.)|^\[.*\]");
             }
         }
 

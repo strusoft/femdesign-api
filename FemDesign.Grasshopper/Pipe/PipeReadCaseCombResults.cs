@@ -51,32 +51,32 @@ namespace FemDesign.Grasshopper
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
         private class ApplicationReadResultWorker : WorkerInstance
         {
-            public dynamic _getLoadCaseResults(Type resultType, string loadCase, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
+            public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
             {
-                var method = nameof(FemDesign.FemDesignConnection.GetLoadCaseResults);
+                string methodName = nameof(FemDesign.FemDesignConnection._getResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
-                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCase, elements, units, options });
+                MethodInfo genericMethod = _connection.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements, true });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }
 
-            public dynamic _getResults(Type resultType, Results.UnitResults units = null, Options options = null, List<FemDesign.GenericClasses.IStructureElement> elements = null)
+            public dynamic _getLoadCaseResults(Type resultType, string loadCase, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
             {
-                var method = nameof(FemDesign.FemDesignConnection.GetResults);
+                string methodName = nameof(FemDesign.FemDesignConnection._getLoadCaseResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
-                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { units, options, elements});
+                MethodInfo genericMethod = _connection.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { new List<string>{ loadCase }, elements, units, options, true });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }
 
             public dynamic _getLoadCombinationResults(Type resultType, string loadCombination, List<FemDesign.GenericClasses.IStructureElement> elements = null, Results.UnitResults units = null, Options options = null)
             {
-                var method = nameof(FemDesign.FemDesignConnection.GetLoadCombinationResults);
+                string methodName = nameof(FemDesign.FemDesignConnection._getLoadCombinationResults);
                 List<Results.IResult> mixedResults = new List<Results.IResult>();
-                MethodInfo genericMethod = _connection.GetType().GetMethod(method).MakeGenericMethod(resultType);
-                dynamic result = genericMethod.Invoke(_connection, new object[] { loadCombination, elements, units, options });
+                MethodInfo genericMethod = _connection.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(resultType);
+                dynamic result = genericMethod.Invoke(_connection, new object[] { new List<string> { loadCombination }, elements, units, options, true });
                 mixedResults.AddRange(result);
                 return mixedResults;
             }

@@ -15,13 +15,6 @@ namespace FemDesign.ModellingTools
         protected override int GetUniqueInstanceCount() => ++_ficticiousShellInstances;
 
         [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
-
-        [XmlIgnore]
         private Geometry.Plane _plane;
 
         [XmlIgnore]
@@ -136,6 +129,9 @@ namespace FemDesign.ModellingTools
 
         [XmlElement("shear_stiffness", Order=7)]
         public StiffnessMatrix2Type ShearStiffness { get; set; }
+
+        [XmlElement("colouring", Order = 8)]
+        public EntityColor Colouring { get; set; }
 
         /// <summary>
         /// Density in t/m2

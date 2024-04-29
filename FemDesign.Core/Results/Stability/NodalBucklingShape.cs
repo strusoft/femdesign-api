@@ -83,7 +83,7 @@ namespace FemDesign.Results
             get
             {
                 //A load combination name can be up to 159 characters long.
-                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+)");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+?)(?: - selected objects)?$");
             }
         }
 
@@ -91,7 +91,7 @@ namespace FemDesign.Results
         {
             get
             {
-                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+)|ID\tNode\tex\tey\tez\tfix\tfiy\tfiz|\[.*\]");
+                return new Regex(@"^(?'type'Nodal buckling shapes), (?'casename'[ -#%'-;=?A-\ufffd]{1,159}) / (?'shape'[\d]+?)(?: - selected objects)?$|^ID\tNode\tex\tey\tez\t\u03c6 x\t\u03c6 y\t\u03c6 z|^\[.*\]");
             }
         }
         

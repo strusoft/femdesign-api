@@ -20,12 +20,6 @@ namespace FemDesign.Geometry
     public partial class Edge
     {
         [XmlIgnore]
-        [Obsolete("Use _plane", true)]
-        private Geometry.CoordinateSystem _coordinateSystem;
-        [XmlIgnore]
-        [Obsolete("Use Plane", true)]
-        private Geometry.CoordinateSystem CoordinateSystem;
-        [XmlIgnore]
         private Plane _plane;
         /// <summary>
         /// Get/Set LCS

@@ -71,6 +71,9 @@
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
+    <Compile Include="Calculate\CombDefine.cs" />
+    <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
@@ -81,6 +84,8 @@
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
     <Compile Include="Loads\Vehicle\VehicleConstruct.cs" />
+    <Compile Include="Materials\SetConcretePlasticity.cs" />
+    <Compile Include="Materials\SetSteelMaterialProperties.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\CoverTwoWay.cs" />
@@ -101,7 +106,7 @@
     <Compile Include="Bars\Buckling\BucklingLengthLateralTorsionalDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredBottomFlangeDefine.cs" />
     <Compile Include="Bars\Buckling\BucklingLengthPressuredTopFlangeDefine.cs" />
-    <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\OBSOLETE\CombSettings_OBSOLETE.cs" />
     <Compile Include="Calculate\FreqDefine.cs" />
     <Compile Include="Calculate\CalculationParametersDesignDefine.cs" />
     <Compile Include="Calculate\CalculationParametersImperfectionDefine.cs" />
@@ -116,7 +121,6 @@
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
-    <Compile Include="Loads\Load combinations\LoadCombinationSetupCalculation_OBSOLETE2212.cs" />
     <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadVariable.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="Model\ModelAddElements.cs" />
     <Compile Include="Model\ModelConstruct.cs" />
     <Compile Include="Pipe\FemDesignConnection.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeCfg.cs" />
     <Compile Include="Pipe\PipeCreateResPoint.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
@@ -143,7 +148,7 @@
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
-    <Compile Include="Calculate\CalculationParametersCombDefine.cs" />
+    <Compile Include="Calculate\OBSOLETE\CalculationParametersCombDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\Shells\EdgeConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\Foundations\IsolatedFoundationDeconstruct.cs" />
@@ -198,48 +203,55 @@
     <Compile Include="Reinforcement\InteractionSurface\InteractionSurface_OnSection.cs" />
     <Compile Include="Pipe\PipeSetGlobalCfg.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc.cs" />
-    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand_OBSOLETE.cs" />
     <Compile Include="Releases\RotationsPredefined.cs" />
     <Compile Include="Releases\MotionsPredefined.cs" />
-    <Compile Include="Results\BarInternalForce.cs" />
-    <Compile Include="Results\BarStress.cs" />
-    <Compile Include="Results\EigenFrequencies.cs" />
+    <Compile Include="Results\Bar\BarInternalForce.cs" />
+    <Compile Include="Results\Bar\BarStress.cs" />
+    <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\FiniteElements\FeaBar.cs" />
     <Compile Include="Results\FiniteElements\FeaShell.cs" />
-    <Compile Include="Results\LabelledSection.cs" />
-    <Compile Include="Results\LabelledSectionInternalForce.cs" />
-    <Compile Include="Results\LabelledSectionResultant.cs" />
-    <Compile Include="Results\LineConnectionForces.cs" />
-    <Compile Include="Results\LineConnectionResultant.cs" />
-    <Compile Include="Results\LineSupportReaction.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSection.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSectionInternalForce.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSectionResultant.cs" />
+    <Compile Include="Results\ModellingTools\LineConnectionForces.cs" />
+    <Compile Include="Results\ModellingTools\LineConnectionResultant.cs" />
+    <Compile Include="Results\Support\LineSupportReaction.cs" />
     <Compile Include="Results\FiniteElements\FeaNode.cs" />
-    <Compile Include="Results\NodalVibration.cs" />
+    <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
     <Compile Include="Results\Options.cs" />
-    <Compile Include="Results\PointConnectionForce.cs" />
-    <Compile Include="Results\PointSupportReactionMinMax.cs" />
-    <Compile Include="Results\Quantities\ReinforcementQuantityEstimation.cs" />
-    <Compile Include="Results\Quantities\TimberPanelQuantityEstimation.cs" />
+    <Compile Include="Results\ModellingTools\PointConnectionForce.cs" />
+    <Compile Include="Results\Support\PointSupportReactionMinMax.cs" />
     <Compile Include="Results\Quantities\ConcreteQuantityEstimation.cs" />
     <Compile Include="Results\Quantities\GeneralQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\ReinforcementQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\ReinforcementQuantityEstimation_OBSOLETE.cs" />
     <Compile Include="Results\Quantities\SteelQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\TimberPanelQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\TimberPanelQuantityEstimation_OBSOLETE.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\ConcreteQuantityEstimation_OBSOLETE.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\GeneralQuantityEstimation_OBSOLETE.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\SteelQuantityEstimation_OBSOLETE.cs" />
     <Compile Include="Results\Quantities\TimberQuantityEstimation.cs" />
+    <Compile Include="Results\Quantities\OBSOLETE\TimberQuantityEstimation_OBSOLETE.cs" />
     <Compile Include="Results\ResultPoints.cs" />
-    <Compile Include="Results\ShellDisplacement.cs" />
-    <Compile Include="Results\ShellInternalForce.cs" />
-    <Compile Include="Results\ShellStress.cs" />
+    <Compile Include="Results\Shell\ShellDisplacement.cs" />
+    <Compile Include="Results\Shell\ShellInternalForce.cs" />
+    <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />
     <Compile Include="Results\Stability\ImperfectionCritical.cs" />
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
-    <Compile Include="Results\SurfaceSupportReaction.cs" />
-    <Compile Include="Results\SurfaceSupportResultant.cs" />
+    <Compile Include="Results\Support\SurfaceSupportReaction.cs" />
+    <Compile Include="Results\Support\SurfaceSupportResultant.cs" />
     <Compile Include="Results\Timber\BarTimberUtilization.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Results\Utils\UtilGhMethods.cs" />
+    <Compile Include="Sections\SectionGetSectionProperties.cs" />
     <Compile Include="Sections\SectionByFamily.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
     <Compile Include="Sections\SectionDatabaseSave.cs" />
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
+    <Compile Include="Shells\EdgeConnectionConstruct.cs" />
     <Compile Include="Shells\SlabPeakSmoothingRegion.cs" />
     <Compile Include="Shells\Slab.SetStiffnessModifier.cs" />
     <Compile Include="Shells\SlabPlate.cs" />
@@ -314,7 +326,6 @@
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShapeStart.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcStrand.cs" />
     <Compile Include="Reinforcement\PostTensionCable\Reinforcement.PtcShape.cs" />
-    <Compile Include="Reinforcement\PostTensionCable\Reinforcement.Ptc_OBSOLETE.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementLayout.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementAddToSlab.cs" />
     <Compile Include="Reinforcement\SurfaceReinforcementBySurface.cs" />
@@ -323,14 +334,14 @@
     <Compile Include="Releases\MotionsPlasticLimitsDefine.cs" />
     <Compile Include="Releases\MotionsConstruct.cs" />
     <Compile Include="Releases\RotationsConstruct.cs" />
-    <Compile Include="Results\BarDisplacement.cs" />
+    <Compile Include="Results\Bar\BarDisplacement.cs" />
     <Compile Include="Results\NodalDisplacement.cs" />
-    <Compile Include="Results\PointSupportReaction.cs" />
+    <Compile Include="Results\Support\PointSupportReaction.cs" />
     <Compile Include="Results\ResultsType.cs" />
     <Compile Include="Shells\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel.cs" />
     <Compile Include="Shells\ProfiledPlateConstruct.cs" />
     <Compile Include="Shells\ShellEccentricityConstruct.cs" />
-    <Compile Include="Shells\EdgeConnectionConstruct.cs" />
+    <Compile Include="Shells\OBSOLETE\EdgeConnectionConstruct_OBSOLETE.cs" />
     <Compile Include="Shells\EdgeConnectionHinged.cs" />
     <Compile Include="Shells\EdgeConnectionRigid.cs" />
     <Compile Include="Shells\ShellOrthotropyConstruct.cs" />
@@ -726,9 +737,6 @@
     <EmbeddedResource Include="Resources\icons\StiffnessMatrix2TypeDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\icons\StiffnessMatrix4Type.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\icons\StiffnessMatrix4TypeDeconstruct.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -837,6 +845,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\SectionGetSectionProperties.png" />
     <None Include="Resources\icons\FEM_SaveAs.png" />
     <None Include="Resources\icons\Docx.png" />
     <None Include="Resources\icons\ConcealedBar.png" />
@@ -856,7 +865,6 @@
     <None Include="Resources\icons\PeakSmoothingRegion.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
-    <None Include="Resources\icons\Patch.png.png" />
     <None Include="Resources\icons\Layer.png" />
     <None Include="Resources\icons\Rebar.png" />
     <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />

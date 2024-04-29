@@ -118,9 +118,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 0, new List<string>
-            { "D","DK","EST","FIN","GB","H","N","PL","RO","S","TR","NL"
-            }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(Country)).ToList() , null, GH_ValueListMode.DropDown);
         }
 
         protected override System.Drawing.Bitmap Icon

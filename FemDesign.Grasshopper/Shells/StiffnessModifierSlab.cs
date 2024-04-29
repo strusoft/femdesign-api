@@ -261,7 +261,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.updateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.GenericClasses.StiffnessAnalysisType)).ToList(), null, 0);
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(FemDesign.GenericClasses.StiffnessAnalysisType)).ToList(), null, 0);
         }
 
         protected override System.Drawing.Bitmap Icon
