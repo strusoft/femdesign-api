@@ -12,11 +12,11 @@ using System.Reflection;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeCfg : GH_AsyncComponent
+    public class PipeCfg_OBSOLETE : GH_AsyncComponent
     {
-        public PipeCfg() : base("FEM-Design.SetCfg", "SetCfg", "SetCfg of a model.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeCfg_OBSOLETE() : base("FEM-Design.SetCfg", "SetCfg", "SetCfg of a model.", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationSetCfgWorker(this);
+            BaseWorker = new ApplicationSetCfgWorker_OBSOLETE(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -34,19 +34,20 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Config;
         public override Guid ComponentGuid => new Guid("{0A439F82-F10E-47D0-9EB6-406E33AECA9C}");
-        public override GH_Exposure Exposure => GH_Exposure.obscure;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
-    public class ApplicationSetCfgWorker : WorkerInstance
+    public class ApplicationSetCfgWorker_OBSOLETE : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
+        private string _globalCfgPath = null;
         private bool _runNode = true;
         private bool _success = false;
-        private string _cfgfilePath = null;
+        private string filePath = null;
 
 
-        public ApplicationSetCfgWorker(GH_Component component) : base(component) { }
+        public ApplicationSetCfgWorker_OBSOLETE(GH_Component component) : base(component) { }
 
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
@@ -82,26 +83,26 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
 
-            if (_cfgfilePath == null)
+            if (filePath == null)
             {
                 string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                _cfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
+                filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
             }
 
 
-            var _cfg = new Calculate.CmdConfig(_cfgfilePath);
+            var _cfg = new Calculate.CmdConfig(filePath);
             _connection.SetConfig(_cfg);
             _success = true;
 
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationSetCfgWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationSetCfgWorker_OBSOLETE(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("Cfg", ref _cfgfilePath);
+            DA.GetData("Cfg", ref _globalCfgPath);
             DA.GetData("RunNode", ref _runNode);
         }
 
