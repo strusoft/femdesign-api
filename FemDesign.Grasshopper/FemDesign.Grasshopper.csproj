@@ -847,6 +847,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\MaterialSetSteelMaterialProperties.bmp" />
     <None Include="Resources\icons\PointMotion.bmp" />
     <None Include="Resources\icons\SurfaceMotion.bmp" />
     <None Include="Resources\icons\LineMotion.bmp" />

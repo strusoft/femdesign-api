@@ -1243,6 +1243,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MaterialSetSteelMaterialProperties {
+            get {
+                object obj = ResourceManager.GetObject("MaterialSetSteelMaterialProperties", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MaterialSetTimberMaterialProperties {
             get {
                 object obj = ResourceManager.GetObject("MaterialSetTimberMaterialProperties", resourceCulture);
