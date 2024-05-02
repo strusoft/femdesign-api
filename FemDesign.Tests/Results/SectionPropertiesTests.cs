@@ -12,6 +12,7 @@ namespace FemDesign.Results
     [TestClass()]
     public class SectionPropertiesTests
     {
+        [TestCategory("FEM-Design required")]
         [TestMethod()]
         public void Parse()
         {
