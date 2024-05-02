@@ -24,7 +24,7 @@ namespace FemDesign.Calculate
         /// Width of column
         /// </summary>
         [XmlElement("width")]
-        public int Width { get; set; }
+        public int Width { get; set; } = 0;
 
         private bool ShouldSerializeWidth()
         {

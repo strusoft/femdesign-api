@@ -47,7 +47,7 @@ namespace FemDesign.Calculate
             Assert.IsNotNull(coldata);
             Assert.IsTrue(coldata.Num == 1);
             Assert.IsTrue(coldata.Flags == 0);
-            Assert.IsTrue(coldata.Width == null);
+            Assert.IsTrue(coldata.Width == 0);
             Assert.IsTrue(coldata.Format == null);
 
             Console.WriteLine(coldata.SerializeObjectToXml());
