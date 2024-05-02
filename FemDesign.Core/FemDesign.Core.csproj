@@ -107,7 +107,6 @@
     <Compile Include="Reinforcement\LongitudinalBarReinforcement.cs" />
     <Compile Include="Reinforcement\StirrupsReinforcement.cs" />
     <Compile Include="Results\Node\NodalDisplacement.cs" />
-    <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Results\Shell\ShelllnternalForce.cs" />
@@ -125,7 +124,6 @@
     <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
-    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\Timber Design\BarTimberUtilization.cs" />
     <Compile Include="Results\Timber Design\CLTFireUtilization.cs" />
     <Compile Include="Results\Timber Design\CLTShellUtilization.cs" />
@@ -133,13 +131,9 @@
     <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
     <Compile Include="Results\RC design\RCShellShearCapacity.cs" />
     <Compile Include="Results\RC design\RCShellShearUtilization.cs" />
-    <Compile Include="Results\RC design\RCShellReinforcementRequired.cs" />
-    <Compile Include="Results\RC design\RCShellDesignForces.cs" />
-    <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
-    <Compile Include="Results\RC design\RCShellUtilization.cs" />
-    <Compile Include="Results\Units.cs" />
+    <Compile Include="Results\SectionProperties.cs" />
+    <Compile Include="Results\Steel\BarSteelUtilization.cs" />
     <Compile Include="Results\Utils\UtilResultMethods.cs" />
-    <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\ResultsReader.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\IResult.cs" />

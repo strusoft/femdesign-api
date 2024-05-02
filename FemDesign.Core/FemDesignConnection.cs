@@ -18,6 +18,11 @@ using FemDesign.Results;
 using System.Text.RegularExpressions;
 using System.Text;
 using FemDesign.AuxiliaryResults;
+using FemDesign.Geometry;
+using FemDesign.Materials;
+using FemDesign.GenericClasses;
+using FemDesign.Sections;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FemDesign
 {
@@ -58,7 +63,7 @@ namespace FemDesign
         /// <summary>
         /// Open a new instance of FEM-Design and connect to it.
         /// </summary>
-        /// <param name="fdInstallationDir"></param>
+        /// <param name="fdInstallationDir">FEM-Design software installation directory.</param>
         /// <param name="minimized">Open FEM-Design as a minimized window.</param>
         /// <param name="keepOpen">If true FEM-Design will be left open and have to be manually exited.</param>
         /// <param name="outputDir">The directory to save script files. If set to null, the files will be will be written to a temporary directory and deleted after.</param>
@@ -72,7 +77,8 @@ namespace FemDesign
             bool tempOutputDir = false,
             Verbosity verbosity = DefaultVerbosity)
         {
-            string pathToFemDesign = Path.Combine(fdInstallationDir, "fd3dstruct.exe");
+            string installDir = SetFemDesignDirectory(fdInstallationDir);
+            string pathToFemDesign = Path.Combine(installDir, "fd3dstruct.exe");
 
             string pipeName = "FdPipe" + Guid.NewGuid().ToString();
             var startInfo = new ProcessStartInfo()
@@ -106,7 +112,7 @@ namespace FemDesign
                 throw new Exception(@"fd3dstruct.exe has not been found. `C:\Program Files\StruSoft\FEM-Design 23\` does not exist!");
             }
 
-            _process.Exited += ProcessExited;
+            _process.Exited += _processExited;
             _connection.WaitForConnection();
 
             // Forward all output messages from pipe (except echo guid commands).
@@ -119,7 +125,48 @@ namespace FemDesign
             SetVerbosity(verbosity);
         }
 
-        private void ProcessExited(object sender, EventArgs e)
+        /// <summary>
+        /// Retrieve the default FEM-Design installation directory or specify a custom directory path for FemDesignConnection.
+        /// </summary>
+        /// <param name="fdInstallationDir">FEM-Design software installation directory. If set to `null`, the default directory will be used.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public string SetFemDesignDirectory(string fdInstallationDir)
+        {
+            string dir = null;
+            
+            // Check directory path
+            if(fdInstallationDir != null) 
+            {
+                if (Directory.Exists(fdInstallationDir))
+                {
+                    dir = fdInstallationDir;
+                }
+            }
+            else            
+            {
+                var dirNames = new List<string>()
+                {
+                    @"C:\Program Files\StruSoft\FEM-Design 23\",
+                    @"C:\Program Files\StruSoft\FEM-Design 23 Educational\",
+                    @"C:\Program Files\StruSoft\FEM-Design 23 Student\"
+                };
+                for (int i = 0; i < dirNames.Count; i++)
+                {
+                    if (Directory.Exists(dirNames[i]))
+                    {
+                        dir = dirNames[i];
+                        break;
+                    }
+                }
+            }
+            if (dir == null)
+                throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
+
+            return dir;
+        }
+
+        private void _processExited(object sender, EventArgs e)
         {
             this.HasExited = true;
         }
@@ -686,7 +733,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Retreive results from the opened model.
+        /// Retreive all of the results from the opened model.
         /// </summary>
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
