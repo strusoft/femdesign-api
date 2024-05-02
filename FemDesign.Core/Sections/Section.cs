@@ -89,6 +89,16 @@ namespace FemDesign.Sections
             }
         }
 
+        [XmlIgnore]
+        internal string _sectionNameInResults
+        {
+            get
+            {
+                var _groupName = this.GroupName.Remove(GroupName.Length - 1);
+                return string.Join(" ", new List<string> { _groupName, this.TypeName, this.SizeName });
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
@@ -269,12 +279,20 @@ namespace FemDesign.Sections
                 var units = Results.UnitResults.Default();
                 units.SectionalData = sectionUnits;
 
-                secProp = femDesign._getResults<Results.SectionProperties>(units);
+                secProp = femDesign._getResults<Results.SectionProperties>(units, timeStamp: true);
 
                 //femDesign.Disconnect();     // Check this. FEM-Design should not be left open after the process!
             }
 
-            return secProp;
+            // Method that reorder the secProp list to match the input order using the section name
+            var orderedSecProp = new List<Results.SectionProperties>();
+            foreach (Section sec in sections)
+            {
+                var secPropItem = secProp.Find(y => y.Section == sec._sectionNameInResults);
+                orderedSecProp.Add(secPropItem);
+            }
+
+            return orderedSecProp;
         }
 
     }

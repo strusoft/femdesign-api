@@ -29,22 +29,22 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Height", "h", "Section height.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Width", "w", "Section width.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Area", "A", "Section area.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Iy", "Iy", "Moment of inertia about the local y-axis.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Iz", "Iz", "Moment of inertia about the local z-axis.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Wy", "Wy", "Section modulus about the local y-axis.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Wz", "Wz", "Section modulus about the local z-axis.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("It", "It", "Torsional moment of inertia.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("General", "Gen", "General section properties.\n" +
-                "1 - Height\n2 - Width\n3 - A\n4 - P\n5 - A/P\n6 - Yg\n7 - Zg\n8 - Ys\n9 - Zs\n10 - Iy\n11 - Wy\n12 - ez.max\n13 - ez.min\n14 - iy\n15 - Sy\n" +
-                "16 - Iz\n17 - Wz\n18 - ey.max\n19 - ey.min\n20 - iz\n21 - Sz\n22 - It\n23 - Wt\n24 - Iw\n25 - Iyz\n26 - zomega", GH_ParamAccess.tree);
-            pManager.AddGenericParameter("Principal 1", "1", "Section properties computed around the first principal axis.\n" +
-                "1 - alfa1\n2 - I1\n3 - W1.min\n4 - W1.max\n5 - e2.max\n6 - e2.min\n7 - i1\n8 - S1\n9 - S01\n10 - c1\n11 - rho1\n12 - z2", GH_ParamAccess.tree);
-            pManager.AddGenericParameter("Principal 2", "2", "Section properties computed around the second principal axis.\n" +
-                "1 - alfa2\n2 - I2\n3 - W2.min\n4 - W2.max\n5 - e1.max\n6 - e1.min\n7 - i2\n8 - S2\n9 - S02\n10 - c2\n11 - rho2\n12 - z1", GH_ParamAccess.tree);
-            pManager.AddTextParameter("SectionNames", "Names", "Section names.", GH_ParamAccess.list);
+            pManager.Register_DoubleParam("Height", "h", "Section height.");
+            pManager.Register_DoubleParam("Width", "w", "Section width.");
+            pManager.Register_DoubleParam("Area", "A", "Section area.");
+            pManager.Register_DoubleParam("Iy", "Iy", "Moment of inertia about the local y-axis.");
+            pManager.Register_DoubleParam("Iz", "Iz", "Moment of inertia about the local z-axis.");
+            pManager.Register_DoubleParam("Wy", "Wy", "Section modulus about the local y-axis.");
+            pManager.Register_DoubleParam("Wz", "Wz", "Section modulus about the local z-axis.");
+            pManager.Register_DoubleParam("It", "It", "Torsional moment of inertia.");
+            pManager.Register_GenericParam("General", "Gen", "General section properties.\n" +
+                "0 - Height\n1 - Width\n2 - A\n3 - P\n4 - A/P\n5 - Yg\n6 - Zg\n7 - Ys\n8 - Zs\n9 - Iy\n10 - Wy\n11 - ez.max\n12 - ez.min\n13 - iy\n14 - Sy\n" +
+                "15 - Iz\n16 - Wz\n17 - ey.max\n18 - ey.min\n19 - iz\n20 - Sz\n21 - It\n22 - Wt\n23 - Iw\n24 - Iyz\n25 - zomega");
+            pManager.Register_GenericParam("Principal 1", "Principal 1", "Section properties computed around the first principal axis.\n" +
+                "0 - alfa1\n1 - I1\n2 - W1.min\n3 - W1.max\n4 - e2.max\n5 - e2.min\n6 - i1\n7 - S1\n8 - S01\n9 - c1\n10 - rho1\n11 - z2");
+            pManager.Register_GenericParam("Principal 2", "Principal 2", "Section properties computed around the second principal axis.\n" +
+                "0 - alfa2\n1 - I2\n2 - W2.min\n3 - W2.max\n4 - e1.max\n5 - e1.min\n6 - i2\n7 - S2\n8 - S02\n9 - c2\n10 - rho2\n11 - z1");
+            pManager.Register_StringParam("SectionNames", "Names", "Section names.");
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -58,6 +58,26 @@ namespace FemDesign.Grasshopper
             {
                 unit = (Results.SectionalData)Enum.Parse(typeof(Results.SectionalData), sectionalData);
             }
+
+
+            #region Set Current Directory
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                // hops issue
+                //var folderPath = System.IO.Directory.GetCurrentDirectory();
+                string tempPath = System.IO.Path.GetTempPath();
+                System.IO.Directory.SetCurrentDirectory(tempPath);
+            }
+            else
+            {
+                var filePath = OnPingDocument().FilePath;
+                var currentDir = System.IO.Path.GetDirectoryName(filePath);
+                System.IO.Directory.SetCurrentDirectory(currentDir);
+            }
+            #endregion
+
+
 
             // Create Task to get section properties
             List<Results.SectionProperties> secProps = new List<Results.SectionProperties>();
