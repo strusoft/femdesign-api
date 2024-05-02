@@ -94,8 +94,7 @@ namespace FemDesign.Sections
         {
             get
             {
-                var _groupName = this.GroupName.Remove(GroupName.Length - 1);
-                return string.Join(" ", new List<string> { _groupName, this.TypeName, this.SizeName });
+                return string.Join(" ", new List<string> { this.GroupName, this.TypeName, this.SizeName });
             }
         }
 
@@ -288,7 +287,7 @@ namespace FemDesign.Sections
             var orderedSecProp = new List<Results.SectionProperties>();
             foreach (Section sec in sections)
             {
-                var secPropItem = secProp.Find(y => y.Section == sec._sectionNameInResults);
+                var secPropItem = secProp.Find(y => y.Section == sec.Name.Replace(",", ""));
                 orderedSecProp.Add(secPropItem);
             }
 

@@ -10,7 +10,7 @@ namespace FemDesign.Grasshopper
 {
     public class MaterialSetSteelMaterialProperties : FEM_Design_API_Component
     {
-        public MaterialSetSteelMaterialProperties() : base("SetSteelMaterialProperties", "SetSteelMaterialProperties", "Set plasticity parameters to a steel Material.", CategoryName.Name(), SubCategoryName.Cat4a())
+        public MaterialSetSteelMaterialProperties() : base("SetSteelPlasticity", "SetSteelPlasticity", "Set plasticity parameters to a steel Material.", CategoryName.Name(), SubCategoryName.Cat4a())
         {
 
         }

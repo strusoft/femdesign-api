@@ -423,7 +423,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
-    <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
@@ -431,6 +430,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
+    <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
     <EmbeddedResource Include="Resources\Vehicles\vehicles.struxml" />
     <EmbeddedResource Include="Resources\timberPlateLibrary\timberPlate.struxml" />
   </ItemGroup>
