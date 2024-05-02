@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
 {
     public class SectionGetSetionProperties : FEM_Design_API_Component
     {
-        public SectionGetSetionProperties() : base("Section.GetSectionProperties", "SecProps", "Retrieve geometric properties for cross-sections.", CategoryName.Name(), SubCategoryName.Cat4b())
+        public SectionGetSetionProperties() : base("Section.Properties", "SecProps", "Retrieve geometric properties for cross-sections.", CategoryName.Name(), SubCategoryName.Cat4b())
         {
 
         }
