@@ -24,11 +24,11 @@ namespace FemDesign.Calculate
         /// Width of column
         /// </summary>
         [XmlElement("width")]
-        public int? Width { get; set; }
+        public int Width { get; set; }
 
         private bool ShouldSerializeWidth()
         {
-            return Width != null;
+            return Width != 0;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FemDesign.Calculate
             this.Flags = flags;
         }
 
-        public Coldata(int num, int flags, int width = 20, string format = "%s") : this(num, flags)
+        public Coldata(int num, int flags, int width = 50, string format = "%s") : this(num, flags)
         {
             this.Width = width;
             this.Format = format;
