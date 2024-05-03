@@ -109,6 +109,10 @@ namespace FemDesign.Grasshopper
                 {
                     refs[idx] = new GuidListType(bar.BarPart);
                 }
+                else if (elements[idx] is Shells.Panel panel)
+                {
+                    refs[idx] = new GuidListType(panel.InternalPanels.IntPanels[0].Guid);
+                }
                 else
                 {
                     refs[idx] = new GuidListType(elements[idx]);
