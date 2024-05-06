@@ -13,13 +13,13 @@ namespace FemDesign.Calculate
     public partial class Freq
     {
         [XmlAttribute("Numshapes")]
-        public int NumShapes { get; set; }
+        public int NumShapes { get; set; } = 3;
 
         /// <summary>
         /// with the value of 0 disables the "Try to reach ..." option, and an integer greater than 0 activates the option and defines the maximum number of iteration.
         /// </summary>
         [XmlAttribute("AutoIter")]
-        public int AutoIter { get; set; } = 0;
+        public int AutoIter { get; set; } = 5;
 
         [XmlAttribute("NormUnit")]
         public int _shapeNormalization = 0;
@@ -41,7 +41,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("MaxSturm")]
-        public int MaxSturm { get; set; }
+        public int MaxSturm { get; set; } = 0;
 
         [XmlAttribute("X")]
         public bool _x;
@@ -92,7 +92,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("top")]
-        public double Top { get; set; }
+        public double Top { get; set; } = -0.01;
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -122,17 +122,17 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// 
+        /// Define calculation parameters for an eigenfrequency calculation.
         /// </summary>
-        /// <param name="numShapes"></param>
-        /// <param name="autoIter"></param>
-        /// <param name="normalisation"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="maxSturm"></param>
-        /// <param name="top"></param>
-        public Freq(int numShapes = 3, int autoIter = 0, ShapeNormalisation normalisation = ShapeNormalisation.Unit, bool x = true, bool y = true, bool z = true, int maxSturm = 0, double top = -0.01)
+        /// <param name="numShapes">Number of shapes.</param>
+        /// <param name="autoIter">Max. number of iteration.</param>
+        /// <param name="normalisation">Mode shape normalisation.</param>
+        /// <param name="x">Consider masses in global x-direction.</param>
+        /// <param name="y">Consider masses in global y-direction.</param>
+        /// <param name="z">Consider masses in global z-direction.</param>
+        /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
+        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.</param>
+        public Freq(int numShapes = 3, int autoIter = 5, ShapeNormalisation normalisation = ShapeNormalisation.MassMatrix, bool x = true, bool y = true, bool z = true, int maxSturm = 0, double top = -0.01)
         {
             this.NumShapes = numShapes;
             this.AutoIter = autoIter;
@@ -150,7 +150,7 @@ namespace FemDesign.Calculate
         /// <returns></returns>
         public static Freq Default()
         {
-            return new Freq(3, 0, true, true, true, -0.01);
+            return new Freq(3, 5, true, true, true, -0.01);
         }
 
     }

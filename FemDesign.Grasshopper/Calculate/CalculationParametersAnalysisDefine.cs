@@ -189,7 +189,7 @@ namespace FemDesign.Grasshopper
             }
 
             //
-            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage, _stability.DeepClone(), _imperfection.DeepClone(), _comb.DeepClone(), _freq.DeepClone(), _footfall.DeepClone(), calcCase, calcCstage, calcImpf, calcComb, calcGMax, calcStab, calcFreq, calcSeis, calcDesign, calcFootfall, elemFine, diaphragm, peakSmoothing);
+            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage: stage, stability: _stability.DeepClone(), imperfection: _imperfection.DeepClone(), comb: _comb.DeepClone(), freq: _freq.DeepClone(), footfall: _footfall.DeepClone(), calcCase: calcCase, calcCStage: calcCstage, calcImpf: calcImpf, calcComb: calcComb, calcGMax: calcGMax, calcStab: calcStab, calcFreq: calcFreq, calcSeis: calcSeis, calcFootfall: calcFootfall, calcDesign: calcDesign, elemFine: elemFine, diaphragm: diaphragm, peakSmoothing: peakSmoothing);
 
             // return
             DA.SetData(0, obj);
