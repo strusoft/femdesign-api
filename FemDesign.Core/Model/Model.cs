@@ -1667,30 +1667,30 @@ namespace FemDesign
 
             bool inModel = this.VehicleInModel(obj);
 
-            // in model, don't overwrite
-            if (inModel && !overwrite)
-            {
-                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
-            }
+            //// in model, don't overwrite
+            //if (inModel && !overwrite)
+            //{
+            //    throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            //}
 
-            else if (inModel && overwrite)
-            {
-                this.VehicleTypes.PredefinedTypes.RemoveAll(x => x.AnyAttr[0].Value == obj.Guid.ToString());
-                this.VehicleTypes.PredefinedTypes.Add(obj.Vehicle);
-            }
+            //else if (inModel && overwrite)
+            //{
+            //    this.VehicleTypes.PredefinedTypes.RemoveAll(x => x.AnyAttr[0].Value == obj.Guid.ToString());
+            //    this.VehicleTypes.PredefinedTypes.Add(obj.Vehicle);
+            //}
 
-            else if (!inModel)
+            if (!inModel)
             {
                 this.VehicleTypes.PredefinedTypes.Add(obj.Vehicle);
             }
 
         }
 
-        private bool VehicleInModel(Loads.MovingLoad obj)
+        private bool VehicleInModel(MovingLoad obj)
         {
             foreach (var elem in this.VehicleTypes.PredefinedTypes)
             {
-                if (elem.AnyAttr[0].Value == obj.Guid.ToString())
+                if (elem.Guid == obj._vehicleGuid)
                 {
                     return true;
                 }

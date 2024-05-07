@@ -26,14 +26,7 @@ namespace FemDesign.Loads
         public string Name { get; set; }
 
         [XmlAttribute("vehicle")]
-        public Guid _vehicleGuid
-        {
-            get
-            {
-                //return new Guid(this.Vehicle.AnyAttr.FirstOrDefault(attr => attr.Name == "guid").Value);
-                return this.Vehicle.Guid;
-            }
-        }
+        public Guid _vehicleGuid { get; set; }
 
         [XmlIgnore]
         public StruSoft.Interop.StruXml.Data.Vehicle_lib_type Vehicle { get; set; }
@@ -133,6 +126,7 @@ namespace FemDesign.Loads
             this.PathPosition = pathPosition;
             this.VehiclePosition = new VehiclePosition(vehiclePosition);
             this.Vehicle = vehicle;
+            this._vehicleGuid = vehicle.Guid;
             this.DivisionPoint = vehiclePosition.Count;
 
             this.VehicleShiftX = shiftX;
