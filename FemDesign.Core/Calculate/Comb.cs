@@ -9,7 +9,6 @@ namespace FemDesign.Calculate
 
     /// <summary>
     /// fdscript.xsd
-    /// ANALCOMB
     /// </summary>
     public partial class Comb
     {

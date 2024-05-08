@@ -8,7 +8,6 @@ namespace FemDesign.Calculate
 {
     /// <summary>
     /// fdscript.xsd
-    /// ANALFREQ
     /// </summary>
     public partial class Freq
     {
@@ -19,7 +18,7 @@ namespace FemDesign.Calculate
         /// with the value of 0 disables the "Try to reach ..." option, and an integer greater than 0 activates the option and defines the maximum number of iteration.
         /// </summary>
         [XmlAttribute("AutoIter")]
-        public int AutoIter { get; set; } = 5;
+        public int AutoIter { get; set; } = 0;
 
         [XmlAttribute("NormUnit")]
         public int _shapeNormalization = 0;
@@ -132,7 +131,7 @@ namespace FemDesign.Calculate
         /// <param name="z">Consider masses in global z-direction.</param>
         /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
         /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.</param>
-        public Freq(int numShapes = 3, int autoIter = 5, ShapeNormalisation normalisation = ShapeNormalisation.MassMatrix, bool x = true, bool y = true, bool z = true, int maxSturm = 0, double top = -0.01)
+        public Freq(int numShapes = 3, int autoIter = 0, ShapeNormalisation normalisation = ShapeNormalisation.MassMatrix, bool x = true, bool y = true, bool z = true, int maxSturm = 0, double top = -0.01)
         {
             this.NumShapes = numShapes;
             this.AutoIter = autoIter;
@@ -150,7 +149,7 @@ namespace FemDesign.Calculate
         /// <returns></returns>
         public static Freq Default()
         {
-            return new Freq(3, 5, true, true, true, -0.01);
+            return new Freq(3, 0, true, true, true, -0.01);
         }
 
     }

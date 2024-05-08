@@ -9,25 +9,24 @@ namespace FemDesign.Calculate
 {
     /// <summary>
     /// fdscript.xsd
-    /// ANALYSIS
     /// </summary>
     public partial class Analysis
     {
         // elements
         [XmlElement("stage")]
-        public Stage Stage { get; set; } // ANALSTAGE
+        public Stage Stage { get; set; }
 
         [XmlElement("comb")]
-        public Comb Comb { get; set; } // ANALCOMB
+        public Comb Comb { get; set; }
 
         [XmlIgnore]
-        public Stability Stability { get; set; } // STABILITY
+        public Stability Stability { get; set; }
 
         [XmlIgnore]
-        public Imperfection Imperfection { get; set; } // IMPERFECTION
+        public Imperfection Imperfection { get; set; }
 
         [XmlElement("freq")]
-        public Freq Freq { get; set; } // ANALFREQ
+        public Freq Freq { get; set; }
 
         [XmlElement("footfall")]
         public Footfall Footfall { get; set; }
@@ -57,6 +56,7 @@ namespace FemDesign.Calculate
                 this._calcCase = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcCstage")]
         public int _calcCStage; 
         [XmlIgnore]
@@ -71,6 +71,7 @@ namespace FemDesign.Calculate
                 this._calcCStage = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcImpf")]
         public int _calcImpf; 
         [XmlIgnore]
@@ -85,6 +86,7 @@ namespace FemDesign.Calculate
                 this._calcImpf = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcComb")]
         public int _calcComb;
         [XmlIgnore]
@@ -99,6 +101,7 @@ namespace FemDesign.Calculate
                 this._calcComb = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcGmax")]
         public int _calcGMax; 
         [XmlIgnore]
@@ -113,6 +116,7 @@ namespace FemDesign.Calculate
                 this._calcGMax = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcStab")]
         public int _calcStab;
         [XmlIgnore]
@@ -127,6 +131,7 @@ namespace FemDesign.Calculate
                 this._calcStab = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcFreq")]
         public int _calcFreq;
         [XmlIgnore]
@@ -141,6 +146,7 @@ namespace FemDesign.Calculate
                 this._calcFreq = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("calcSeis")]
         public int _calcSeis;
         [XmlIgnore]
@@ -245,6 +251,7 @@ namespace FemDesign.Calculate
                 this._elemFine = Convert.ToInt32(value);
             }
         }
+
         [XmlAttribute("diaphragm")]
         public int _diaphragm;
         [XmlIgnore]
@@ -262,6 +269,7 @@ namespace FemDesign.Calculate
                 this._diaphragm = value;
             }
         }
+
         [XmlAttribute("peaksmoothing")]
         public int _peakSmoothing; 
         [XmlIgnore]
@@ -344,11 +352,11 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// Define a Static Analysis.
+        /// Define a static analysis.
         /// </summary>
-        /// <param name="comb"></param>
-        /// <param name="calcCase"></param>
-        /// <param name="calccomb"></param>
+        /// <param name="comb">Calculation parameters for load combinations.</param>
+        /// <param name="calcCase">If true, the load case calculation will be executed.</param>
+        /// <param name="calccomb">If true, the load combination calculation will be executed.</param>
         /// <returns></returns>
         public static Analysis StaticAnalysis(Comb comb = null, bool calcCase = true, bool calccomb = true)
         {
@@ -358,7 +366,7 @@ namespace FemDesign.Calculate
 
 
         /// <summary>
-        /// Define an EigenFrequencies Analysis
+        /// Define an eigenfrequencies analysis.
         /// </summary>
         /// <param name="numShapes">Number of shapes.</param>
         /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
@@ -373,15 +381,79 @@ namespace FemDesign.Calculate
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
+        /// <summary>
+        /// Define an eigenfrequencies analysis.
+        /// </summary>
+        /// <param name="numShapes">Number of shapes.</param>
+        /// <param name="autoIteration"></param>
+        /// <param name="shapeNormalisation">Mode shape normalisation type.</param>
+        /// <param name="maxSturm">Max number of Sturm check steps (checking missing eigenvalues).</param>
+        /// <param name="x">Consider masses in global x-direction.</param>
+        /// <param name="y">Consider masses in global y-direction.</param>
+        /// <param name="z">Consider masses in global z-direction.</param>
+        /// <param name="top">Top of substructure. Masses on this level and below are not considered in Eigenfrequency</param>
+        /// <returns></returns>
         public static Analysis Eigenfrequencies(int numShapes = 3, int autoIteration = 0, ShapeNormalisation shapeNormalisation = ShapeNormalisation.Unit, int maxSturm = 0, bool x = true, bool y = true, bool z = true, double top = -0.01)
         {
             var freqSettings = new Freq(numShapes, autoIteration, shapeNormalisation, x, y, z, maxSturm, top);
             return new Analysis(freq: freqSettings, calcFreq: true);
         }
 
+        /// <summary>
+        /// Define ground acceleration analysis.
+        /// </summary>
+        /// <param name="levelAccSpectra">If true, the level acceleration response spectra calculation will be executed.</param>
+        /// <param name="deltaT">Calculation parameter for Level acceleration spectra analysis.</param>
+        /// <param name="tEnd">Calculation parameter for Level acceleration spectra analysis.</param>
+        /// <param name="q">Calculation parameter for Level acceleration spectra analysis.</param>
+        /// <param name="timeHistory">If true, the time history calculation will be executed.</param>
+        /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
+        /// <param name="lastMoment">Last time moment of the time history calculation.</param>
+        /// <param name="method">Integration scheme method type.</param>
+        /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="dmpFactor">'ksi' damping factor.</param>
+        /// <returns></returns>
+        public static Analysis GroundAcceleration(bool levelAccSpectra = true, double deltaT = 0.2, double tEnd = 5.0, double q = 1.0, bool timeHistory = true, int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        {
+            GroundAcc grAccSettings = new GroundAcc(levelAccSpectra, deltaT, tEnd, q, timeHistory, step, lastMoment, method, alpha, beta, dmpFactor);
+            return new Analysis(groundAcc: grAccSettings, calcGroundAcc: true);
+        }
 
         /// <summary>
-        /// 
+        /// Define excitation force analysis.
+        /// </summary>
+        /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
+        /// <param name="lastMoment">Last time moment of the time history calculation.</param>
+        /// <param name="method">Integration scheme method type.</param>
+        /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="dmpFactor">'ksi' damping factor.</param>
+        /// <returns></returns>
+        public static Analysis ExcitationForce(int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        {
+            ExcitationForce grAccSettings = new ExcitationForce(step, lastMoment, method, alpha, beta, dmpFactor);
+            return new Analysis(exForce: grAccSettings, calcExForce: true);
+        }
+
+        /// <summary>
+        /// Define periodic excitation analysis.
+        /// </summary>
+        /// <param name="deltaT">Calculation parameter.</param>
+        /// <param name="timeEnd">Calculation parameter.</param>
+        /// <param name="dmpType">Damping type.</param>
+        /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="dmpFactor">'ksi' damping factor.</param>
+        /// <returns></returns>
+        public static Analysis PeriodicExcitation(double deltaT = 0.01, double timeEnd = 5.0, DampingType dmpType = DampingType.Rayleigh, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        {
+            PeriodicExcitation perExSettings = new PeriodicExcitation(deltaT, timeEnd, dmpType, alpha, beta, dmpFactor);
+            return new Analysis(periodicEx: perExSettings, calcPeriodicEx: true);
+        }
+
+        /// <summary>
+        /// Define an construction stages analysis.
         /// </summary>
         /// <param name="ghost"></param>
         /// <returns></returns>
@@ -392,7 +464,7 @@ namespace FemDesign.Calculate
             return new Analysis(stage: stage, calcCStage: true);
         }
 
-        // TODO
+        // TODO (missing calculation parameters in .fdscript)
         private static Analysis FootFall(Footfall footfall)
         {
             var analisys = new Analysis(footfall: footfall, calcFootfall: true);

@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class CombinationSettings : FEM_Design_API_Component
+    public class CombinationSettings_OBSOLETE2303 : FEM_Design_API_Component
     {
-        public CombinationSettings() : base("Comb.Settings", "Comb.Settings", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CombinationSettings_OBSOLETE2303() : base("Comb.Settings", "Comb.Settings", "Setup which analyses to consider during calculation of a specific load combination.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -16,10 +16,6 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCombination", "LoadCombination", "LoadCombination.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Calc", "Calc", "Calculate load combination (linear analysis).", GH_ParamAccess.item, true);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("CS", "CS", "Calculate construction stages.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements.", GH_ParamAccess.item, false);
@@ -58,8 +54,7 @@ namespace FemDesign.Grasshopper
             }
 
 
-            bool calc = true;
-            bool cs = false;
+
             bool nle = false;
             bool pl = false;
             bool nls = false;
@@ -69,14 +64,7 @@ namespace FemDesign.Grasshopper
             double amplitude = 0.0;
             int waterlevel = 0;
 
-            if (!DA.GetData(1, ref calc))
-            {
-                // pass
-            }
-            if (!DA.GetData(1, ref cs))
-            {
-                // pass
-            }
+
             if (!DA.GetData(1, ref nle))
             {
                 // pass
@@ -115,8 +103,6 @@ namespace FemDesign.Grasshopper
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "PL and Cr can not be mutually be equal True. Cr is set to False!");
                 cr = false;
             }
-            if (calc == false && (cs == true || nle == true || pl == true || nls == true || cr == true || f2nd == true))
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "'Calc' is set to false. 'Calc' must be true to set other analysis types.");
 
             var combItem = new FemDesign.Calculate.CombItem(loadCombination, 0, 0, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
 
@@ -135,9 +121,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7CDF02D8-41B9-40BA-845A-B2D4959E03D3}"); }
+            get { return new Guid("{D73ECF46-8D71-442E-845D-7E4474EE3FAF}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

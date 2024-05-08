@@ -52,6 +52,8 @@ namespace FemDesign.Examples
             {
                 ImpfRqd = 0,
                 StabRqd = 0,
+                Calc = true,
+                CS = false,
                 NLE = true,
                 PL = true,
                 NLS = false,
@@ -64,6 +66,8 @@ namespace FemDesign.Examples
             {
                 ImpfRqd = 0,
                 StabRqd = 0,
+                Calc = true,
+                CS = false,
                 NLE = false,
                 PL = false,
                 NLS = false,
@@ -76,7 +80,9 @@ namespace FemDesign.Examples
             {
                 ImpfRqd = 0,
                 StabRqd = 0,
-                NLE = true,
+                Calc = true,
+                CS = false,
+                NLE = false,
                 PL = false,
                 NLS = false,
                 Cr = false,
@@ -119,6 +125,8 @@ namespace FemDesign.Examples
                 CombName = "ULS VERTICAL",
                 ImpfRqd = 0,
                 StabRqd = 0,
+                Calc = true,
+                CS = false,
                 NLE = false,
                 PL = false,
                 NLS = false,

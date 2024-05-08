@@ -72,6 +72,7 @@
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CombDefine.cs" />
+    <Compile Include="Calculate\CombSettings_OBSOLETE2303.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />

@@ -13,8 +13,36 @@ namespace FemDesign.Calculate
     [System.Serializable]
     public partial class CombItem
     {
+        [XmlAttribute("Calc")]
+        public int _calc { get; set; }
+
+        /// <summary>
+        /// Calculate load combination (linear analysis).
+        /// </summary>
+        [XmlIgnore]
+        public bool Calc
+        {
+            get { return Convert.ToBoolean(_calc); }
+
+            set { _calc = Convert.ToInt32(value); }
+        }
+
+        [XmlAttribute("CS")]
+        public int _cs { get; set; }
+
+        /// <summary>
+        /// Calculate construction stages.
+        /// </summary>
+        [XmlIgnore]
+        public bool CS
+        {
+            get { return Convert.ToBoolean(_cs); }
+
+            set { _cs = Convert.ToInt32(value); }
+        }
+
         [XmlAttribute("NLE")]
-        public bool _nle { get; set; }
+        public int _nle { get; set; }
 
         /// <summary>
         /// Consider elastic nonlinear behaviour of structural elements.
@@ -22,13 +50,14 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NLE
         {
-            get { return _nle; }
-            set { _nle = value; }
+            get { return Convert.ToBoolean(_nle); }
+
+            set { _nle = Convert.ToInt32(value); }
         }
 
 
         [XmlAttribute("PL")]
-        public bool _pl { get; set; }
+        public int _pl { get; set; }
 
         /// <summary>
         /// Consider plastic behaviour of structural elements.
@@ -36,13 +65,13 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool PL
         {
-            get { return _pl; }
-            set { _pl = value; }
+            get { return Convert.ToBoolean(_pl); }
+            set { _pl = Convert.ToInt32(value); }
         }
 
 
         [XmlAttribute("NLS")]
-        public bool _nls { get; set; }
+        public int _nls { get; set; }
 
         /// <summary>
         /// Consider nonlinear behaviour of soil.
@@ -50,12 +79,12 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NLS
         {
-            get { return _nls; }
-            set { _nls = value; }
+            get { return Convert.ToBoolean(_nls); }
+            set { _nls = Convert.ToInt32(value); }
         }
 
         [XmlAttribute("Cr")]
-        public bool _cr { get; set; }
+        public int _cr { get; set; }
 
         /// <summary>
         /// Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.
@@ -63,13 +92,13 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool Cr
         {
-            get { return _cr; }
-            set { _cr = value; }
+            get { return Convert.ToBoolean(_cr); }
+            set { _cr = Convert.ToInt32(value); }
         }
 
 
         [XmlAttribute("f2nd")]
-        public bool _f2nd { get; set; }
+        public int _f2nd { get; set; }
 
         /// <summary>
         /// 2nd order analysis.
@@ -77,8 +106,8 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool f2nd
         {
-            get { return _f2nd; }
-            set { _f2nd = value; }
+            get { return Convert.ToBoolean(_f2nd); }
+            set { _f2nd = Convert.ToInt32(value); }
         }
 
 
@@ -108,20 +137,7 @@ namespace FemDesign.Calculate
 
         }
 
-        /// <summary>
-        /// Load combination-specific settings for calculations.
-        /// </summary>
-        /// <param name="impfRqd">Required imperfection shapes.</param >
-        /// <param name="stabReq">Required buckling shapes for stability analysis.</param>
-        /// <param name="NLE">Consider elastic nonlinear behaviour of structural elements.</param>
-        /// <param name="PL">Consider plastic behaviour of structural elements.</param>
-        /// <param name="NLS">Consider nonlinear behaviour of soil.</param>
-        /// <param name="Cr">Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.</param>
-        /// <param name="f2nd">2nd order analysis.</param>
-        /// <param name="Im">Imperfection shape for 2nd order analysis.</param>
-        /// <param name="amplitude">Ground water level.</param>
-        /// <param name="waterlevel">Ground water level.</param>
-        // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
+        [Obsolete("This constructor is deprecated and will be removed in version 23.4.0!", false)]
         public CombItem(int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
         {
             this.NLE = NLE;
@@ -136,6 +152,7 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
+        [Obsolete("This constructor is deprecated and will be removed in version 23.4.0!", false)]
         public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
         {
             this.CombName = combName;
@@ -151,21 +168,87 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
+        /// <summary>
+        /// Load combination-specific settings for calculations.
+        /// </summary>
+        /// <param name="impfRqd">Required imperfection shapes.</param >
+        /// <param name="stabReq">Required buckling shapes for stability analysis.</param>
+        /// <param name="calc">Calculate load combination (linear analysis).</param>
+        /// <param name="CS">Calculate construction stages.</param>
+        /// <param name="NLE">Consider elastic nonlinear behaviour of structural elements.</param>
+        /// <param name="PL">Consider plastic behaviour of structural elements.</param>
+        /// <param name="NLS">Consider nonlinear behaviour of soil.</param>
+        /// <param name="Cr">Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.</param>
+        /// <param name="f2nd">2nd order analysis.</param>
+        /// <param name="Im">Imperfection shape for 2nd order analysis.</param>
+        /// <param name="amplitude">Amplitude of selected imperfection shape.</param>
+        /// <param name="waterlevel">Ground water level.</param>
+        // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
+        public CombItem(int impfRqd = 0, int stabReq = 0, bool calc = true, bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        {
+            this.Calc = calc;
+            this.CS = CS;
+            this.NLE = NLE;
+            this.PL = PL;
+            this.NLS = NLS;
+            this.Cr = Cr;
+            this.f2nd = f2nd;
+            this.Im = Im;
+            this.Waterlevel = waterlevel;
+            this.ImpfRqd = impfRqd;
+            this.Amplitude = amplitude;
+            this.StabRqd = stabReq;
+        }
+
+        /// <summary>
+        /// Load combination-specific settings for calculations.
+        /// </summary>
+        /// <param name="combName">Load combination name.</param>
+        /// <param name="impfRqd">Required imperfection shapes.</param >
+        /// <param name="stabReq">Required buckling shapes for stability analysis.</param>
+        /// <param name="calc">Calculate load combination (linear analysis).</param>
+        /// <param name="CS">Calculate construction stages.</param>
+        /// <param name="NLE">Consider elastic nonlinear behaviour of structural elements.</param>
+        /// <param name="PL">Consider plastic behaviour of structural elements.</param>
+        /// <param name="NLS">Consider nonlinear behaviour of soil.</param>
+        /// <param name="Cr">Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.</param>
+        /// <param name="f2nd">2nd order analysis.</param>
+        /// <param name="Im">Imperfection shape for 2nd order analysis.</param>
+        /// <param name="amplitude">Amplitude of selected imperfection shape.</param>
+        /// <param name="waterlevel">Ground water level.</param>
+        // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
+        public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool calc = true, bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        {
+            this.CombName = combName;
+            this.Calc = calc;
+            this.CS = CS;
+            this.NLE = NLE;
+            this.PL = PL;
+            this.NLS = NLS;
+            this.Cr = Cr;
+            this.f2nd = f2nd;
+            this.Im = Im;
+            this.Waterlevel = waterlevel;
+            this.ImpfRqd = impfRqd;
+            this.Amplitude = amplitude;
+            this.StabRqd = stabReq;
+        }
+
         public static CombItem Stability(int stabReq)
         {
-            var combItem = new CombItem(stabReq: stabReq);
+            var combItem = new CombItem(calc: true, stabReq: stabReq);
             return combItem;
         }
 
         public static CombItem Imperfection(int impfRqd)
         {
-            var combItem = new CombItem(impfRqd: impfRqd);
+            var combItem = new CombItem(calc: true, impfRqd: impfRqd);
             return combItem;
         }
 
         public static CombItem NonLinear(bool plastic = true)
         {
-            var combItem = new CombItem(NLE: true, PL: plastic);
+            var combItem = new CombItem(calc: true, NLE: true, PL: plastic);
             return combItem;
         }
 
@@ -173,6 +256,8 @@ namespace FemDesign.Calculate
         {
             int impfRqd = 0;
             int stabRqd = 0;
+            bool calc = true;
+            bool CS = false;
             bool NLE = true;
             bool PL = true;
             bool NLS = false;
@@ -182,7 +267,7 @@ namespace FemDesign.Calculate
             double amplitude = 0.0;
             int waterlevel = 0;
 
-            var combItem = new CombItem(impfRqd, stabRqd, NLE, PL, NLS, Cr, f2nd, im, amplitude, waterlevel);
+            var combItem = new CombItem(impfRqd, stabRqd, calc, CS, NLE, PL, NLS, Cr, f2nd, im, amplitude, waterlevel);
             return combItem;
         }
     }
