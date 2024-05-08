@@ -14,7 +14,7 @@ namespace FemDesign.Calculate
     public partial class CombItem
     {
         [XmlAttribute("Calc")]
-        public int _calc { get; set; }
+        public int _calc { get; set; } = 1;
 
         /// <summary>
         /// Calculate load combination (linear analysis).
@@ -28,7 +28,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("CS")]
-        public int _cs { get; set; }
+        public int _cs { get; set; } = 0;
 
         /// <summary>
         /// Calculate construction stages.
@@ -168,6 +168,8 @@ namespace FemDesign.Calculate
             this.StabRqd = stabReq;
         }
 
+
+
         /// <summary>
         /// Load combination-specific settings for calculations.
         /// </summary>
@@ -184,7 +186,7 @@ namespace FemDesign.Calculate
         /// <param name="amplitude">Amplitude of selected imperfection shape.</param>
         /// <param name="waterlevel">Ground water level.</param>
         // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
-        public CombItem(int impfRqd = 0, int stabReq = 0, bool calc = true, bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        public CombItem(int impfRqd = 0, int stabReq = 0, , bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
         {
             this.Calc = calc;
             this.CS = CS;
