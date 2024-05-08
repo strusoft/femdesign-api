@@ -8,9 +8,9 @@ using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
-    public class CalculationParametersAnalysisDefine : FEM_Design_API_Component
+    public class CalculationParametersAnalysisDefine_OBSOLETE2303 : FEM_Design_API_Component
     {
-        public CalculationParametersAnalysisDefine() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public CalculationParametersAnalysisDefine_OBSOLETE2303() : base("Analysis.Define", "Analysis", "Set parameters for analysis.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
 
         }
@@ -27,12 +27,6 @@ namespace FemDesign.Grasshopper
             pManager.AddGenericParameter("Freq", "Freq", "Eigienfrequency calculation options. Optional, if undefined default values will be used - for reference please see default values of Freq.Define component.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Footfall", "Footfall", "Footfall calculation options. Optional, if undefined default values will be used - for reference please see default values of Footfall.Define component.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;            
-            pManager.AddGenericParameter("GroundAcc", "GroundAcc", "Ground acceleration calculation options. Optional, if undefined default values will be used - for reference please see default values of GroundAcc.Define component.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ExForce", "ExForce", "Excitation force calculation options. Optional, if undefined default values will be used - for reference please see default values of ExForce.Define component.", GH_ParamAccess.item);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("PeriodicEx", "PeriodicEx", "Periodic excitation calculation options. Optional, if undefined default values will be used - for reference please see default values of PeriodicEx.Define component.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -50,15 +44,9 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcSeis", "calcSeis", "Seismic analysis.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcFootfall", "calcFootfall", "Footfall analysis", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcGroundAcc", "calcGroundAcc", "Time history, ground acceleration analysis.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcExForce", "calcExForce", "Time history, excitation force analysis.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcPeriodicEx", "calcPeriodicEx", "Periodic excitation analysis.", GH_ParamAccess.item, false);
-            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcDesign", "calcDesign", "Design calculations", GH_ParamAccess.item, false);
+            pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddBooleanParameter("calcFootfall", "calcFootfall", "Footfall analysis", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("elemfine", "elemfine", "Fine or standard elements", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -78,55 +66,40 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             FemDesign.Calculate.Stage stage = null;
-            if (!DA.GetData("StageSetting", ref stage))
+            if (!DA.GetData(0, ref stage))
             {
                 // pass
             }
+
 
             FemDesign.Calculate.Comb _comb = FemDesign.Calculate.Comb.Default();
-            if (!DA.GetData("Comb", ref _comb))
+            if (!DA.GetData(1, ref _comb))
             {
                 // pass
             }
+
 
             FemDesign.Calculate.Stability _stability = null;
-            if (!DA.GetData("Stability", ref _stability))
+            if (!DA.GetData(2, ref _stability))
             {
                 // pass
             }
 
+
             FemDesign.Calculate.Imperfection _imperfection = null;
-            if (!DA.GetData("Imperfection", ref _imperfection))
+            if (!DA.GetData(3, ref _imperfection))
             {
                 //pass
             }
 
             FemDesign.Calculate.Freq _freq = null;
-            if (!DA.GetData("Freq", ref _freq))
+            if (!DA.GetData(4, ref _freq))
             {
                 // pass
             }
 
             FemDesign.Calculate.Footfall _footfall = null;
-            if (!DA.GetData("Footfall", ref _footfall))
-            {
-                // pass
-            }
-
-            FemDesign.Calculate.GroundAcc _groundAcc = null;
-            if (!DA.GetData("GroundAcc", ref _groundAcc))
-            {
-                // pass
-            }
-
-            FemDesign.Calculate.ExcitationForce _exForce = null;
-            if (!DA.GetData("ExForce", ref _exForce))
-            {
-                // pass
-            }
-
-            FemDesign.Calculate.PeriodicExcitation _periodicExcitation = null;
-            if (!DA.GetData("PeriodicEx", ref _periodicExcitation))
+            if (!DA.GetData(5, ref _footfall))
             {
                 // pass
             }
@@ -144,93 +117,79 @@ namespace FemDesign.Grasshopper
             }
 
             bool calcCstage = false;
-            if (!DA.GetData("calcCstage", ref calcCstage))
+            if (!DA.GetData(8, ref calcCstage))
             {
                 // pass
             }
 
             bool calcImpf = false;
-            if (!DA.GetData("calcImpf", ref calcImpf))
+            if (!DA.GetData(9, ref calcImpf))
             {
                 // pass
             }
 
 
             bool calcGMax = false;
-            if (!DA.GetData("calcGmax", ref calcGMax))
+            if (!DA.GetData(10, ref calcGMax))
             {
                 // pass
             }
 
             bool calcStab = false;
-            if (!DA.GetData("calcStab", ref calcStab))
+            if (!DA.GetData(11, ref calcStab))
             {
                 // pass
             }
 
             bool calcFreq = false;
-            if (!DA.GetData("calcFreq", ref calcFreq))
+            if (!DA.GetData(12, ref calcFreq))
             {
                 // pass
             }
 
             bool calcSeis = false;
-            if (!DA.GetData("calcSeis", ref calcSeis))
-            {
-                // pass
-            }
-
-            bool calcFootfall = false;
-            if (!DA.GetData("calcFootfall", ref calcFootfall))
-            {
-                // pass
-            }
-
-            bool calcGroundAcc = false;
-            if (!DA.GetData("calcFootfall", ref calcGroundAcc))
-            {
-                // pass
-            }
-
-            bool calcExForce = false;
-            if (!DA.GetData("calcFootfall", ref calcExForce))
-            {
-                // pass
-            }
-
-            bool calcPeriodicEx = false;
-            if (!DA.GetData("calcFootfall", ref calcPeriodicEx))
+            if (!DA.GetData(13, ref calcSeis))
             {
                 // pass
             }
 
             bool calcDesign = false;
-            if (!DA.GetData("calcDesign", ref calcDesign))
+            if (!DA.GetData(14, ref calcDesign))
+            {
+                // pass
+            }
+
+            bool calcFootfall = false;
+            if (!DA.GetData(15, ref calcFootfall))
             {
                 // pass
             }
 
             bool elemFine = true;
-            if (!DA.GetData("elemfine", ref elemFine))
+            if (!DA.GetData(16, ref elemFine))
             {
                 // pass
             }
 
             int diaphragm = 0;
-            if (!DA.GetData("diaphragm", ref diaphragm))
+            if (!DA.GetData(17, ref diaphragm))
             {
                 // pass
             }
 
             bool peakSmoothing = false;
-            if (!DA.GetData("peakSmoothing", ref peakSmoothing))
+            if (!DA.GetData(18, ref peakSmoothing))
             {
                 // pass
             }
 
+            if (stage == null || _comb == null || _freq == null)
+            {
+                // pass
+            }
 
-            // Create Analysis
-            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage: stage, stability: _stability.DeepClone(), imperfection: _imperfection.DeepClone(), comb: _comb.DeepClone(), freq: _freq.DeepClone(), footfall: _footfall.DeepClone(), groundAcc: _groundAcc.DeepClone(), exForce: _exForce.DeepClone(), periodicEx: _periodicExcitation.DeepClone(), calcCase: calcCase, calcCStage: calcCstage, calcImpf: calcImpf, calcComb: calcComb, calcGMax: calcGMax, calcStab: calcStab, calcFreq: calcFreq, calcSeis: calcSeis, calcFootfall: calcFootfall, calcGroundAcc: calcGroundAcc, calcExForce: calcExForce, calcPeriodicEx: calcPeriodicEx, calcDesign: calcDesign, elemFine: elemFine, diaphragm: diaphragm, peakSmoothing: peakSmoothing);
+            //
+            FemDesign.Calculate.Analysis obj = new FemDesign.Calculate.Analysis(stage: stage, stability: _stability.DeepClone(), imperfection: _imperfection.DeepClone(), comb: _comb.DeepClone(), freq: _freq.DeepClone(), footfall: _footfall.DeepClone(), calcCase: calcCase, calcCStage: calcCstage, calcImpf: calcImpf, calcComb: calcComb, calcGMax: calcGMax, calcStab: calcStab, calcFreq: calcFreq, calcSeis: calcSeis, calcFootfall: calcFootfall, calcDesign: calcDesign, elemFine: elemFine, diaphragm: diaphragm, peakSmoothing: peakSmoothing);
 
             // return
             DA.SetData(0, obj);
@@ -244,9 +203,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{79605F1D-5311-4315-B320-A4C691A29BDE}"); }
+            get { return new Guid("{CC77B519-A3C2-44AC-BD6A-228E7000A836}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

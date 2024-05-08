@@ -22,23 +22,34 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool Calc
         {
-            get { return Convert.ToBoolean(_calc); }
-
-            set { _calc = Convert.ToInt32(value); }
+            get 
+            { 
+                return Convert.ToBoolean(_calc); 
+            }
+            set 
+            { 
+                _calc = Convert.ToInt32(value);
+                if(!value)
+                {
+                    NLE = PL = NLS = Cr = f2nd = false;
+                }
+            }
         }
 
-        [XmlAttribute("CS")]
-        public int _cs { get; set; } = 0;
-
         /// <summary>
-        /// Calculate construction stages.
+        /// If true, no calculations will be executed for load combinations.
         /// </summary>
         [XmlIgnore]
-        public bool CS
+        public bool NoCalc
         {
-            get { return Convert.ToBoolean(_cs); }
-
-            set { _cs = Convert.ToInt32(value); }
+            get
+            {
+                return Calc == false;
+            }
+            set
+            {
+                Calc = value ? false : true ;
+            }
         }
 
         [XmlAttribute("NLE")]
@@ -50,9 +61,15 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NLE
         {
-            get { return Convert.ToBoolean(_nle); }
-
-            set { _nle = Convert.ToInt32(value); }
+            get 
+            { 
+                return Convert.ToBoolean(_nle); 
+            }
+            set 
+            { 
+                _nle = Convert.ToInt32(value);
+                if (!value) PL = false;
+            }
         }
 
 
@@ -65,8 +82,15 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool PL
         {
-            get { return Convert.ToBoolean(_pl); }
-            set { _pl = Convert.ToInt32(value); }
+            get 
+            { 
+                return Convert.ToBoolean(_pl); 
+            }
+            set 
+            { 
+                _pl = Convert.ToInt32(value);
+                if (value) NLE = true; 
+            }
         }
 
 
@@ -92,8 +116,15 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool Cr
         {
-            get { return Convert.ToBoolean(_cr); }
-            set { _cr = Convert.ToInt32(value); }
+            get 
+            { 
+                return Convert.ToBoolean(_cr); 
+            }
+            set 
+            { 
+                _cr = Convert.ToInt32(value);
+                if (value) PL = false;
+            }
         }
 
 
@@ -137,46 +168,11 @@ namespace FemDesign.Calculate
 
         }
 
-        [Obsolete("This constructor is deprecated and will be removed in version 23.4.0!", false)]
-        public CombItem(int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
-        {
-            this.NLE = NLE;
-            this.PL = PL;
-            this.NLS = NLS;
-            this.Cr = Cr;
-            this.f2nd = f2nd;
-            this.Im = Im;
-            this.Waterlevel = waterlevel;
-            this.ImpfRqd = impfRqd;
-            this.Amplitude = amplitude;
-            this.StabRqd = stabReq;
-        }
-
-        [Obsolete("This constructor is deprecated and will be removed in version 23.4.0!", false)]
-        public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
-        {
-            this.CombName = combName;
-            this.NLE = NLE;
-            this.PL = PL;
-            this.NLS = NLS;
-            this.Cr = Cr;
-            this.f2nd = f2nd;
-            this.Im = Im;
-            this.Waterlevel = waterlevel;
-            this.ImpfRqd = impfRqd;
-            this.Amplitude = amplitude;
-            this.StabRqd = stabReq;
-        }
-
-
-
         /// <summary>
         /// Load combination-specific settings for calculations.
         /// </summary>
         /// <param name="impfRqd">Required imperfection shapes.</param >
         /// <param name="stabReq">Required buckling shapes for stability analysis.</param>
-        /// <param name="calc">Calculate load combination (linear analysis).</param>
-        /// <param name="CS">Calculate construction stages.</param>
         /// <param name="NLE">Consider elastic nonlinear behaviour of structural elements.</param>
         /// <param name="PL">Consider plastic behaviour of structural elements.</param>
         /// <param name="NLS">Consider nonlinear behaviour of soil.</param>
@@ -186,10 +182,8 @@ namespace FemDesign.Calculate
         /// <param name="amplitude">Amplitude of selected imperfection shape.</param>
         /// <param name="waterlevel">Ground water level.</param>
         // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
-        public CombItem(int impfRqd = 0, int stabReq = 0, , bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        public CombItem(int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
         {
-            this.Calc = calc;
-            this.CS = CS;
             this.NLE = NLE;
             this.PL = PL;
             this.NLS = NLS;
@@ -208,8 +202,6 @@ namespace FemDesign.Calculate
         /// <param name="combName">Load combination name.</param>
         /// <param name="impfRqd">Required imperfection shapes.</param >
         /// <param name="stabReq">Required buckling shapes for stability analysis.</param>
-        /// <param name="calc">Calculate load combination (linear analysis).</param>
-        /// <param name="CS">Calculate construction stages.</param>
         /// <param name="NLE">Consider elastic nonlinear behaviour of structural elements.</param>
         /// <param name="PL">Consider plastic behaviour of structural elements.</param>
         /// <param name="NLS">Consider nonlinear behaviour of soil.</param>
@@ -219,11 +211,9 @@ namespace FemDesign.Calculate
         /// <param name="amplitude">Amplitude of selected imperfection shape.</param>
         /// <param name="waterlevel">Ground water level.</param>
         // <param name="Amplitude">Amplitude of selected imperfection shape.</param> // TODO Amplitude?
-        public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool calc = true, bool CS = false, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
+        public CombItem(string combName, int impfRqd = 0, int stabReq = 0, bool NLE = true, bool PL = true, bool NLS = false, bool Cr = false, bool f2nd = false, int Im = 0, double amplitude = 0.0, int waterlevel = 0)
         {
             this.CombName = combName;
-            this.Calc = calc;
-            this.CS = CS;
             this.NLE = NLE;
             this.PL = PL;
             this.NLS = NLS;
@@ -238,19 +228,19 @@ namespace FemDesign.Calculate
 
         public static CombItem Stability(int stabReq)
         {
-            var combItem = new CombItem(calc: true, stabReq: stabReq);
+            var combItem = new CombItem(stabReq: stabReq);
             return combItem;
         }
 
         public static CombItem Imperfection(int impfRqd)
         {
-            var combItem = new CombItem(calc: true, impfRqd: impfRqd);
+            var combItem = new CombItem(impfRqd: impfRqd);
             return combItem;
         }
 
         public static CombItem NonLinear(bool plastic = true)
         {
-            var combItem = new CombItem(calc: true, NLE: true, PL: plastic);
+            var combItem = new CombItem(NLE: true, PL: plastic);
             return combItem;
         }
 
@@ -258,8 +248,6 @@ namespace FemDesign.Calculate
         {
             int impfRqd = 0;
             int stabRqd = 0;
-            bool calc = true;
-            bool CS = false;
             bool NLE = true;
             bool PL = true;
             bool NLS = false;
@@ -269,7 +257,7 @@ namespace FemDesign.Calculate
             double amplitude = 0.0;
             int waterlevel = 0;
 
-            var combItem = new CombItem(impfRqd, stabRqd, calc, CS, NLE, PL, NLS, Cr, f2nd, im, amplitude, waterlevel);
+            var combItem = new CombItem(impfRqd, stabRqd, NLE, PL, NLS, Cr, f2nd, im, amplitude, waterlevel);
             return combItem;
         }
     }

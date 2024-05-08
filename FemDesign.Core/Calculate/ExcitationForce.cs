@@ -112,7 +112,7 @@ namespace FemDesign.Calculate
         /// Define calculation parameters for excitation force calculation.
         /// </summary>
         /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
-        /// <param name="lastMoment">Last time moment of the time history calculation.</param>
+        /// <param name="lastMoment">Last time moment of the time history calculation [s].</param>
         /// <param name="method">Integration scheme method type.</param>
         /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
