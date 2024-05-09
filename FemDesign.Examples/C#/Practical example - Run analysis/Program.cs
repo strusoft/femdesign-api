@@ -39,7 +39,7 @@ namespace FemDesign.Examples
             // Define stability analysis settings
             var stabilitySettings = new Calculate.Stability
             {
-                CombNames = new List<string> { "ULS_1" },
+                CombNames = new List<string> { "WIND LEAD" },
                 NumShapes = new List<int> { 3 },
             };
 
@@ -76,7 +76,7 @@ namespace FemDesign.Examples
             {
                 ImpfRqd = 0,
                 StabRqd = 0,
-                NLE = false,
+                NLE = true,
                 PL = false,
                 NLS = false,
                 Cr = false,
@@ -154,6 +154,10 @@ namespace FemDesign.Examples
                 CombItem = combItemsWithName,
             };
 
+            // DEFAULT SETTINGS
+            var combDefault = Calculate.Comb.Default();
+
+
             Analysis analysis;
             using (var connection = new FemDesignConnection(keepOpen: true))
             {
@@ -163,6 +167,9 @@ namespace FemDesign.Examples
                 connection.RunAnalysis(analysis);
 
                 analysis = new Analysis(comb: combWithName, calcCase: true, calcComb: true);
+                connection.RunAnalysis(analysis);
+
+                analysis = new Analysis(comb: combDefault, calcCase: true, calcComb: true);
                 connection.RunAnalysis(analysis);
 
                 analysis = new Analysis(freq: freqSettings);

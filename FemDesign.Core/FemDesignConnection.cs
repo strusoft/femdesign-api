@@ -302,9 +302,8 @@ namespace FemDesign
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             FdScript script;
 
-            if(analysis.Comb.CombItem.Any(x => x.CombName != null))
-            {
-                if (analysis.Comb.CombItem != null)
+
+                if (analysis.Comb != null)
                 {
                     analysis.SetCombAnalysis(this);
                     script = new FdScript(
@@ -312,6 +311,7 @@ namespace FemDesign
                         new CmdUser(CmdUserModule.RESMODE),
                         new CmdCalculation(analysis));
                     this.RunScript(script, "RunAnalysis");
+                    
                 }
 
                 if (analysis.Stability != null)
@@ -333,8 +333,8 @@ namespace FemDesign
                         new CmdCalculation(analysis));
                     this.RunScript(script, "RunAnalysis");
                 }
-            }
-            else
+
+            if (analysis.Freq != null || analysis.Footfall != null)
             {
                 script = new FdScript(
                     logfile,

@@ -229,7 +229,7 @@ namespace FemDesign.Calculate
         public Analysis(Calculate.Stage stage = null, Stability stability = null, Imperfection imperfection = null, Comb comb = null, Freq freq = null, Footfall footfall = null, bool calcCase = false, bool calcCStage = false, bool calcImpf = false, bool calcComb = false, bool calcGMax = false, bool calcStab = false, bool calcFreq = false, bool calcSeis = false, bool calcDesign = false, bool calcFootfall = false, bool elemFine = true, int diaphragm = 0, bool peakSmoothing = false)
         {
             this.Stage = stage;
-            this.Comb = comb ?? Comb.Default();
+            this.Comb = comb;
             this.Stability = stability;
             this.Imperfection = imperfection;
             this.Freq = freq;
@@ -383,7 +383,6 @@ namespace FemDesign.Calculate
 
         public void SetStabilityAnalysis(FemDesignConnection connection)
         {
-            this.Comb.CombItem.Clear();
             // ordered load combinations in the model
             var loadCombination = connection.GetLoadCombinations();
 
@@ -392,9 +391,13 @@ namespace FemDesign.Calculate
 
         internal void _setStabilityAnalysis(List<Loads.LoadCombination> loadCombination)
         {
-            this.Comb.CombItem.Clear();
+            // check if comb is defined. if not, create a new one. if exist, clear it
+            if (this.Comb == null)
+                this.Comb = new Comb();
+            else
+                this.Comb.CombItem.Clear();
 
-            // check if 
+
 
             foreach (var element in loadCombination)
             {
@@ -420,7 +423,6 @@ namespace FemDesign.Calculate
 
         public void SetImperfectionAnalysis(FemDesignConnection connection)
         {
-            this.Comb.CombItem.Clear();
             // ordered load combinations in the model
             var loadCombination = connection.GetLoadCombinations();
 
@@ -429,7 +431,7 @@ namespace FemDesign.Calculate
 
         internal void _setImperfectionAnalysis(List<Loads.LoadCombination> loadCombination)
         {
-            this.Comb.CombItem.Clear();
+            //this.Comb.CombItem.Clear();
 
             // check if 
 
