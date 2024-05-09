@@ -76,30 +76,8 @@ namespace FemDesign.Calculate
         {
             var stability = new Analysis(stability: Stability_2(), calcStab: true);
 
-            stability.Comb.CombItem.Clear();
-            // ordered load combinations in the model
             var loadCombination = GetLoadCombinationsTests();
-
-            foreach (var element in loadCombination.Values)
-            {
-                bool isFound = false;
-                int i = 0;
-                foreach (var combName in stability.Stability.CombNames)
-                {
-                    if (combName == element.Name)
-                    {
-                        var indexOf = loadCombination.Values.Select(x => x.Name).ToList().IndexOf(combName);
-                        stability.Comb.CombItem.Add(CombItem.Stability(stability.Stability.NumShapes[i]));
-                        isFound = true;
-                        break;
-                    }
-                    i++;
-                }
-                if (isFound == true)
-                    continue;
-                else
-                    stability.Comb.CombItem.Add(CombItem.Default());
-            }
+            stability._setStabilityAnalysis(loadCombination.Values.ToList());
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "FEM-Design API");
             string logfile = OutputFileHelper.GetLogfilePath(path);
@@ -127,7 +105,7 @@ namespace FemDesign.Calculate
         {
             var stability = new Analysis(stability: Stability_1(), calcStab: true);
 
-            stability.Comb.CombItem.Clear();
+            //stability.Comb.CombItem.Clear();
             var loadCombination = GetLoadCombinationsTests();
             stability._setStabilityAnalysis(loadCombination.Values.ToList());
 
