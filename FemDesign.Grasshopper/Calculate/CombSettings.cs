@@ -57,8 +57,8 @@ namespace FemDesign.Grasshopper
 
             // Default values for input parameters
             bool calc = true;
-            bool nle = false;
-            bool pl = false;
+            bool nle = true;
+            bool pl = true;
             bool nls = false;
             bool cr = false;
             bool f2nd = false;
@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             double amplitude = 0.0;
             int waterlevel = 0;
 
-            var combItem = new FemDesign.Calculate.CombItem();
+            var combItem = new FemDesign.Calculate.CombItem(combName: loadCombination);
 
             DA.GetData(1, ref calc);
             if(calc)
