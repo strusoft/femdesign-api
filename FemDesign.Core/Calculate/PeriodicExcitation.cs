@@ -111,8 +111,8 @@ namespace FemDesign.Calculate
         /// <summary>
         /// Define calculation parameters for periodic excitation.
         /// </summary>
-        /// <param name="deltaT">Calculation parameter.</param>
-        /// <param name="timeEnd">Calculation parameter.</param>
+        /// <param name="deltaT">Calculation parameter [s].</param>
+        /// <param name="timeEnd">Calculation parameter [s].</param>
         /// <param name="dmpType">Damping type.</param>
         /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>

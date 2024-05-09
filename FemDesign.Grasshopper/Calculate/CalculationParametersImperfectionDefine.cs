@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.ImperfectionDefine;
+                return FemDesign.Properties.Resources.ImperfectionDefine2;
             }
         }
         public override Guid ComponentGuid

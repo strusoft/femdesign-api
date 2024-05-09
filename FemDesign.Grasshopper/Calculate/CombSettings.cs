@@ -16,11 +16,11 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("LoadCombination", "LoadCombination", "LoadCombination.", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Calc", "Calc", "Calculate load combination (linear analysis).", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Calc", "Calc", "Calculate load combination (linear analysis). If set to False, no calculations will be performed for this load combination.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("NLE", "NLE", "Consider elastic non-linear behaviour of structural elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("PL", "PL", "Consider plastic behaviour of structural elements.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("NLS", "NLS", "Consider non-linear behaviour of soil.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -91,7 +91,7 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'Calc' is set to False. No calculations will be executed for load combinations!");
+                // No calculations will be performed for this load combination
                 combItem.NoCalc = true;
             }
             

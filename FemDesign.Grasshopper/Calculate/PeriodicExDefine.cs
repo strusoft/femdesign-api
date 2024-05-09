@@ -20,30 +20,23 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("NumShapes", "NumShapes", "Number of shapes.", GH_ParamAccess.item, 2);
+            pManager.AddNumberParameter("dT", "dT", "'Delta t' calculation parameter [s].", GH_ParamAccess.item, 0.01);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddIntegerParameter("AutoIter", "AutoIter", "Iteration to try to reach 90% of horizontal effective mass", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("t_end", "t_end", "'t end' calculation parameter [s].", GH_ParamAccess.item, 5.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("ShapeNormalisation", "ShapeNormalisation", "Connect 'ValueList' to get the options.\nShapeNormalisation type:\nUnit\nMassMatrix.", GH_ParamAccess.item, "Unit");
+            pManager.AddTextParameter("DmpType", "DmpType", "Connect 'ValueList' to get the options.\nDamping type:\nRayleigh\nKelvinVoigt", GH_ParamAccess.item, "Rayleigh");
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddIntegerParameter("MaxSturm", "MaxSturm", "Max number of Sturm check steps (checking missing eigenvalues).", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddBooleanParameter("X", "X", "Consider masses in global x-direction.", GH_ParamAccess.item, true);
+            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddBooleanParameter("Y", "Y", "Consider masses in global y-direction.", GH_ParamAccess.item, true);
+            pManager.AddNumberParameter("ksi", "ksi", "'ksi' damping factor.", GH_ParamAccess.item, 5.0);
             pManager[pManager.ParamCount - 1].Optional = true;
-
-            pManager.AddBooleanParameter("Z", "Z", "Consider masses in global z-direction.", GH_ParamAccess.item, true);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
-            pManager.AddNumberParameter("Top", "Top", "Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.", GH_ParamAccess.item, -0.01);
-            pManager[pManager.ParamCount - 1].Optional = true;
-
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -51,57 +44,29 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int numShapes = 2;
-            if (!DA.GetData(0, ref numShapes))
-            {
-                // pass
-            }
+            // Get input parameters
+            int dT = 5;
+            DA.GetData(0, ref dT);
 
-            int autoIter = 0;
-            if (!DA.GetData(1, ref autoIter))
-            {
-                // pass
-            }
+            double tEnd = 20.0;
+            DA.GetData(1, ref tEnd);
 
-            string shapeNormalisation = "";
-            if (!DA.GetData(2, ref shapeNormalisation))
-            {
-                // pass
-            }
+            string type = "Rayleigh";
+            DA.GetData(2, ref type);
 
-            int maxSturm = 0;
-            if (!DA.GetData(3, ref maxSturm))
-            {
-                // pass
-            }
+            double alpha = 0.0;
+            DA.GetData(3, ref alpha);
 
-            bool x = true;
-            if (!DA.GetData(4, ref x))
-            {
-                // pass
-            }
+            double beta = 0.0;
+            DA.GetData(4, ref beta);
 
-            bool y = true;
-            if (!DA.GetData(5, ref y))
-            {
-                // pass
-            }
+            double ksi = 5.0;
+            DA.GetData(5, ref ksi);
 
-            bool z = true;
-            if (!DA.GetData(6, ref z))
-            {
-                // pass
-            }
+            // Parse 'method' input to enum
+            DampingType _type = FemDesign.GenericClasses.EnumParser.Parse<DampingType>(type);
 
-            double top = -0.01;
-            if (!DA.GetData(7, ref top))
-            {
-                // pass
-            }
-
-            ShapeNormalisation _shapeNormalisation = FemDesign.GenericClasses.EnumParser.Parse<ShapeNormalisation>(shapeNormalisation);
-
-            Freq obj = new Calculate.Freq(numShapes, autoIter, _shapeNormalisation, x, y, z, maxSturm, top);
+            PeriodicExcitation obj = new Calculate.PeriodicExcitation(dT, tEnd, _type, alpha, beta, ksi);
 
             // return
             DA.SetData(0, obj);
@@ -110,21 +75,17 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PeriodicExcitationDefine2;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("{DC6FE7D7-D4BB-4E1C-9084-9AD70E6D9FE9}"); }
         }
-
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(ShapeNormalisation)).ToList(), null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(DampingType)).ToList(), null, GH_ValueListMode.DropDown);
         }
-
-
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
     }
 }

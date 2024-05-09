@@ -187,12 +187,12 @@ namespace FemDesign.Calculate
         /// Define calculation parameters for ground acceleration calculation.
         /// </summary>
         /// <param name="levelAccSpectra">If true, the level acceleration response spectra calculation will be executed.</param>
-        /// <param name="deltaT">Calculation parameter for Level acceleration spectra analysis.</param>
-        /// <param name="tEnd">Calculation parameter for Level acceleration spectra analysis.</param>
+        /// <param name="deltaT">Calculation parameter for Level acceleration spectra analysis [s].</param>
+        /// <param name="tEnd">Calculation parameter for Level acceleration spectra analysis [s].</param>
         /// <param name="q">Calculation parameter for Level acceleration spectra analysis.</param>
         /// <param name="timeHistory">If true, the time history calculation will be executed.</param>
         /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
-        /// <param name="lastMoment">Last time moment of the time history calculation.</param>
+        /// <param name="lastMoment">Last time moment of the time history calculation [s].</param>
         /// <param name="method">Integration scheme method type.</param>
         /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
@@ -213,25 +213,10 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// Define calculation parameters for time history analysis (ground acceleration calculation).
-        /// </summary>
-        /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
-        /// <param name="lastMoment">Last time moment of the time history calculation.</param>
-        /// <param name="method">Integration scheme method type.</param>
-        /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
-        /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
-        /// <param name="dampingFactor">'ksi' damping factor.</param>
-        /// <returns></returns>
-        public static GroundAcc TimeHistoryCalc(int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dampingFactor = 5.0)
-        {
-            return new GroundAcc(levelAccSpectra: false, timeHistory: true, step: step, lastMoment: lastMoment, method: method, alpha: alpha, beta: beta, dampingFactor: dampingFactor);
-        }
-
-        /// <summary>
         /// Define calculation parameters for level acceleration response spectra (ground acceleration calculation).
         /// </summary>
-        /// <param name="deltaT">Calculation parameter for Level acceleration spectra analysis.</param>
-        /// <param name="tEnd">Calculation parameter for Level acceleration spectra analysis.</param>
+        /// <param name="deltaT">Calculation parameter for Level acceleration spectra analysis [s].</param>
+        /// <param name="tEnd">Calculation parameter for Level acceleration spectra analysis [s].</param>
         /// <param name="q">Calculation parameter for Level acceleration spectra analysis.</param>
         /// <param name="method">Integration scheme method type.</param>
         /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
@@ -241,6 +226,21 @@ namespace FemDesign.Calculate
         public static GroundAcc LevelAccResponseSpectraCalc(double deltaT = 0.2, double tEnd = 5.0, double q = 1.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dampingFactor = 5.0)
         {
             return new GroundAcc(levelAccSpectra: true, deltaT: deltaT, tEnd: tEnd, q: q, timeHistory: false, method: method, alpha: alpha, beta: beta, dampingFactor: dampingFactor);
+        }
+
+        /// <summary>
+        /// Define calculation parameters for time history analysis (ground acceleration calculation).
+        /// </summary>
+        /// <param name="step">The number of every nth time steps when results are saved during the calculation.</param>
+        /// <param name="lastMoment">Last time moment of the time history calculation [s].</param>
+        /// <param name="method">Integration scheme method type.</param>
+        /// <param name="alpha">'alpha' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
+        /// <param name="dampingFactor">'ksi' damping factor.</param>
+        /// <returns></returns>
+        public static GroundAcc TimeHistoryCalc(int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dampingFactor = 5.0)
+        {
+            return new GroundAcc(levelAccSpectra: false, timeHistory: true, step: step, lastMoment: lastMoment, method: method, alpha: alpha, beta: beta, dampingFactor: dampingFactor);
         }
 
         /// <summary>

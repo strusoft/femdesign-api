@@ -20,30 +20,38 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("NumShapes", "NumShapes", "Number of shapes.", GH_ParamAccess.item, 2);
+            pManager.AddBooleanParameter("LevelAccResponseSpectraCalc", "LARS", "If true, the level acceleration response spectra calculation will be executed.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddIntegerParameter("AutoIter", "AutoIter", "Iteration to try to reach 90% of horizontal effective mass", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("dT", "dT", "'Delta t' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 0.2);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("ShapeNormalisation", "ShapeNormalisation", "Connect 'ValueList' to get the options.\nShapeNormalisation type:\nUnit\nMassMatrix.", GH_ParamAccess.item, "Unit");
+            pManager.AddNumberParameter("t_end", "t_end", "'t end' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 5.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddIntegerParameter("MaxSturm", "MaxSturm", "Max number of Sturm check steps (checking missing eigenvalues).", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("q", "q", "'q' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 1.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddBooleanParameter("X", "X", "Consider masses in global x-direction.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("TimeHistoryCalc", "TH", "If true, the time history calculation will be executed.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddBooleanParameter("Y", "Y", "Consider masses in global y-direction.", GH_ParamAccess.item, true);
+            pManager.AddIntegerParameter("TimeStep", "Step", "The number of every nth time steps when results are saved during the calculation.", GH_ParamAccess.item, 5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddBooleanParameter("Z", "Z", "Consider masses in global z-direction.", GH_ParamAccess.item, true);
+            pManager.AddNumberParameter("LastMoment", "LastMoment", "Last time moment of the time history calculation [s].", GH_ParamAccess.item, 20.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("Top", "Top", "Top of substructure. Masses on this level and below are not considered in Eigenfrequency calculation.", GH_ParamAccess.item, -0.01);
+            pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta", GH_ParamAccess.item, "Newmark");
             pManager[pManager.ParamCount - 1].Optional = true;
 
+            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
+            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
+
+            pManager.AddNumberParameter("ksi", "ksi", "'ksi' damping factor.", GH_ParamAccess.item, 5.0);
+            pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
@@ -51,57 +59,44 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int numShapes = 2;
-            if (!DA.GetData(0, ref numShapes))
-            {
-                // pass
-            }
+            // Get input parameters
+            bool calcType1 = true;
+            DA.GetData(0, ref calcType1);
 
-            int autoIter = 0;
-            if (!DA.GetData(1, ref autoIter))
-            {
-                // pass
-            }
+            double dT = 0.2;
+            DA.GetData(1, ref dT);
 
-            string shapeNormalisation = "";
-            if (!DA.GetData(2, ref shapeNormalisation))
-            {
-                // pass
-            }
+            double tEnd = 5.0;
+            DA.GetData(2, ref tEnd);
 
-            int maxSturm = 0;
-            if (!DA.GetData(3, ref maxSturm))
-            {
-                // pass
-            }
+            double q = 1.0;
+            DA.GetData(3, ref q);
 
-            bool x = true;
-            if (!DA.GetData(4, ref x))
-            {
-                // pass
-            }
+            bool calcType2 = true;
+            DA.GetData(4, ref calcType2);
 
-            bool y = true;
-            if (!DA.GetData(5, ref y))
-            {
-                // pass
-            }
+            int step = 5;
+            DA.GetData(5, ref step);
 
-            bool z = true;
-            if (!DA.GetData(6, ref z))
-            {
-                // pass
-            }
+            double lastMoment = 20.0;
+            DA.GetData(6, ref lastMoment);
 
-            double top = -0.01;
-            if (!DA.GetData(7, ref top))
-            {
-                // pass
-            }
+            string method = "Newmark";
+            DA.GetData(7, ref method);
 
-            ShapeNormalisation _shapeNormalisation = FemDesign.GenericClasses.EnumParser.Parse<ShapeNormalisation>(shapeNormalisation);
+            double alpha = 0.0;
+            DA.GetData(8, ref alpha);
 
-            Freq obj = new Calculate.Freq(numShapes, autoIter, _shapeNormalisation, x, y, z, maxSturm, top);
+            double beta = 0.0;
+            DA.GetData(9, ref beta);
+
+            double ksi = 5.0;
+            DA.GetData(10, ref ksi);
+
+            // Parse 'method' input to enum
+            IntegrationSchemeMethod _method = FemDesign.GenericClasses.EnumParser.Parse<IntegrationSchemeMethod>(method);
+
+            GroundAcc obj = new Calculate.GroundAcc(calcType1, dT, tEnd, q, calcType2, step, lastMoment, _method, alpha, beta, ksi);
 
             // return
             DA.SetData(0, obj);
@@ -110,21 +105,17 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.GroundAccelerationDefine2;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("{78CF01FC-9D99-4E5E-8066-6BE9BAD5BF90}"); }
         }
-
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(ShapeNormalisation)).ToList(), null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(IntegrationSchemeMethod)).ToList(), null, GH_ValueListMode.DropDown);
         }
-
-
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
     }
 }

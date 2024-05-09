@@ -23,10 +23,10 @@ namespace FemDesign.Grasshopper
             pManager.AddIntegerParameter("TimeStep", "Step", "The number of every nth time steps when results are saved during the calculation.", GH_ParamAccess.item, 5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("t_end", "t_end", "Last time moment of the time history calculation [s].", GH_ParamAccess.item, 20.0);
+            pManager.AddNumberParameter("LastMoment", "LastMoment", "Last time moment of the time history calculation [s].", GH_ParamAccess.item, 20.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta.", GH_ParamAccess.item, "Newmark");
+            pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta", GH_ParamAccess.item, "Newmark");
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
@@ -48,8 +48,8 @@ namespace FemDesign.Grasshopper
             int step = 5;
             DA.GetData(0, ref step);
 
-            double tEnd = 20.0;
-            DA.GetData(1, ref tEnd);
+            double lastMoment = 20.0;
+            DA.GetData(1, ref lastMoment);
 
             string method = "Newmark";
             DA.GetData(2, ref method);
@@ -63,10 +63,10 @@ namespace FemDesign.Grasshopper
             double ksi = 5.0;
             DA.GetData(5, ref ksi);
 
-
+            // Parse 'method' input to enum
             IntegrationSchemeMethod _method = FemDesign.GenericClasses.EnumParser.Parse<IntegrationSchemeMethod>(method);
 
-            ExcitationForce obj = new Calculate.ExcitationForce(step, tEnd, _method, alpha, beta, ksi);
+            ExcitationForce obj = new Calculate.ExcitationForce(step, lastMoment, _method, alpha, beta, ksi);
 
             // return
             DA.SetData(0, obj);
@@ -75,21 +75,17 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.ExcitationForceDefine2;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("{1EA08508-EE0B-48BD-BDF8-A61ABB02BCDC}"); }
         }
-
         protected override void BeforeSolveInstance()
         {
             ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(IntegrationSchemeMethod)).ToList(), null, GH_ValueListMode.DropDown);
         }
-
-
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
     }
 }

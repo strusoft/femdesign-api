@@ -855,6 +855,24 @@
   <ItemGroup>
     <Content Include="images\logo.png" />
     <None Include="Resources\icons\Mass.png" />
+    <None Include="Resources\StageDefine3.png" />
+    <None Include="Resources\StabilityDefine3.png" />
+    <None Include="Resources\PeriodicExcitationDefine3.png" />
+    <None Include="Resources\ImperfectionDefine3.png" />
+    <None Include="Resources\GroundAccelerationDefine3.png" />
+    <None Include="Resources\FreqDefine3.png" />
+    <None Include="Resources\FootfallDefine3.png" />
+    <None Include="Resources\ExcitationForceDefine3.png" />
+    <None Include="Resources\CombDefine3.png" />
+    <None Include="Resources\StageDefine2.png" />
+    <None Include="Resources\StabilityDefine2.png" />
+    <None Include="Resources\PeriodicExcitationDefine2.png" />
+    <None Include="Resources\ImperfectionDefine2.png" />
+    <None Include="Resources\GroundAccelerationDefine2.png" />
+    <None Include="Resources\FreqDefine2.png" />
+    <None Include="Resources\FootfallDefine2.png" />
+    <None Include="Resources\ExcitationForceDefine2.png" />
+    <None Include="Resources\CombDefine2.png" />
     <None Include="Resources\icons\MaterialSetSteelMaterialProperties.bmp" />
     <None Include="Resources\icons\PointMotion.bmp" />
     <None Include="Resources\icons\SurfaceMotion.bmp" />
