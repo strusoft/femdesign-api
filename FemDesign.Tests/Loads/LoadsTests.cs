@@ -36,5 +36,24 @@ namespace FemDesign.Loads
             Assert.AreEqual(expected.Entities.Loads.MovingLoads.Count, expected.Entities.Loads.MovingLoads.Count);
         }
 
+        [TestMethod("Mass")]
+        public void MassTest()
+        {
+            // create mass
+            Geometry.Point3d position = new Geometry.Point3d(0, 0, 0);
+            double value = 1.0;
+            bool applyEcc = true;
+            Mass mass = new Mass(position, value, applyEcc);
+
+            // check properties
+            Assert.AreEqual(position, mass.Position);
+            Assert.AreEqual(value, mass.Value);
+            Assert.AreEqual("", mass.Comment);
+            Assert.AreEqual(applyEcc, mass.ApplyOnEcc);
+
+            Assert.IsNotNull(mass.Guid);
+
+        }
+
     }
 }

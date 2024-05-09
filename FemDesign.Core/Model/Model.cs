@@ -1311,6 +1311,50 @@ namespace FemDesign
 
 
         /// <summary>
+        /// Add Mass to Model.
+        /// </summary>
+        private void AddMass(Loads.Mass obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.MassInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.Loads.Masses.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add mass load
+            this.Entities.Loads.Masses.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if Mass is in Model.
+        /// </summary>
+        private bool MassInModel(Loads.Mass obj)
+        {
+            foreach (Loads.Mass elem in this.Entities.Loads.Masses)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+        /// <summary>
         /// Add PointLoad to Model.
         /// </summary>
         private void AddPointMotion(Loads.PointSupportMotion obj, bool overwrite)
@@ -3552,6 +3596,7 @@ namespace FemDesign
         private void AddEntity(Loads.Footfall obj, bool overwrite) => AddFootfall(obj, overwrite);
         private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
         private void AddEntity(Loads.MovingLoad obj, bool overwrite) => AddMovingLoad(obj, overwrite);
+        private void AddEntity(Loads.Mass obj, bool overwrite) => AddMass(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

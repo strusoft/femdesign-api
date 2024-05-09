@@ -82,6 +82,7 @@
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\LineSupportMotionDefine.cs" />
+    <Compile Include="Loads\Loads\Mass.cs" />
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\Loads\PointSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
@@ -848,6 +849,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\Mass.png" />
     <None Include="Resources\icons\MaterialSetSteelMaterialProperties.bmp" />
     <None Include="Resources\icons\PointMotion.bmp" />
     <None Include="Resources\icons\SurfaceMotion.bmp" />

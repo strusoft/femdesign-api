@@ -88,6 +88,7 @@
     <Compile Include="LibraryItems\PredefinedType.cs" />
     <Compile Include="Loads\Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\Loads\LineSupportMotion.cs" />
+    <Compile Include="Loads\Loads\Mass.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
     <Compile Include="Loads\Loads\PointSupportMotion.cs" />
     <Compile Include="Loads\Loads\PressureLoad.cs" />

@@ -53,7 +53,7 @@ namespace FemDesign.Loads
         public List<StruSoft.Interop.StruXml.Data.Surface_support_load_type> SurfaceSupportMotionLoads { get; set;}
 
         [XmlElement("mass", Order = 12)]
-        public List<StruSoft.Interop.StruXml.Data.Mass_point_type> Masses { get; set;}
+        public List<FemDesign.Loads.Mass> Masses { get; set;} = new List<FemDesign.Loads.Mass>(); // mass_point_type
 
         [XmlElement("load_case_mass_conversion_table", Order = 13)]
         public MassConversionTable LoadCaseMassConversionTable { get; set; } // mass_conversion_type
@@ -93,6 +93,7 @@ namespace FemDesign.Loads
             objs.AddRange(this.SurfaceLoads);
             objs.AddRange(this.SurfaceTemperatureLoads);
             objs.AddRange(this.FootfallAnalysisData);
+            objs.AddRange(this.Masses);
             return objs;
         }
 
