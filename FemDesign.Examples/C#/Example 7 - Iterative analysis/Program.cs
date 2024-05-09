@@ -22,7 +22,7 @@ namespace FemDesign.Examples
             var model = Model.DeserializeFromFilePath(filepath);
 
             var analysis = Analysis.StaticAnalysis();
-            var unit = new UnitResults(Length.mm, Angle.rad, SectionalData.mm, Force.kN, Mass.kg, Displacement.mm, Stress.MPa);
+            var unit = new UnitResults(Length.mm, Angle.rad, SectionalData.mm, Force.kN, Results.Mass.kg, Displacement.mm, Stress.MPa);
 
             using(var femDesign = new FemDesign.FemDesignConnection())
             {                             
