@@ -42,13 +42,9 @@ namespace FemDesign.Calculate
         [XmlIgnore]
         public bool NoCalc
         {
-            get
-            {
-                return Calc == false;
-            }
             set
             {
-                Calc = value ? false : true ;
+                Calc = !value;
             }
         }
 
