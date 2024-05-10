@@ -90,7 +90,7 @@ namespace FemDesign.Grasshopper
                 }
                 else
                 {
-                    throw new System.ArgumentException("Type not supported. SortLoads failed.");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Some type of loads could not be sorted.");
                 }
             }
 

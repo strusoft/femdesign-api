@@ -86,6 +86,7 @@
     <Compile Include="Loads\Loads\PointLoadDefine.cs" />
     <Compile Include="Loads\Loads\PointSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadUniform.cs" />
+    <Compile Include="Loads\Loads\SurfaceSupportMotionDefine.cs" />
     <Compile Include="Loads\Vehicle\VehicleConstruct.cs" />
     <Compile Include="Materials\SetConcretePlasticity.cs" />
     <Compile Include="Materials\SetSteelMaterialProperties.cs" />

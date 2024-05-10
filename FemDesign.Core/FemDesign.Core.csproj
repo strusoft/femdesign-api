@@ -93,6 +93,7 @@
     <Compile Include="Loads\Loads\PointSupportMotion.cs" />
     <Compile Include="Loads\Loads\PressureLoad.cs" />
     <Compile Include="Loads\Load groups\RelationTable.cs" />
+    <Compile Include="Loads\Loads\SurfaceSupportMotion.cs" />
     <Compile Include="Results\Bar\BarStress.cs" />
     <Compile Include="Results\RC design\InteractionSurface.cs" />
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />

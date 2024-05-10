@@ -1128,7 +1128,7 @@ namespace FemDesign
             }
             else if (obj.GetType() == typeof(Loads.PointSupportMotion))
             {
-                this.AddPointMotion((Loads.PointSupportMotion)obj, overwrite);
+                this.AddPointSupportMotion((Loads.PointSupportMotion)obj, overwrite);
             }
             else if (obj.GetType() == typeof(Loads.LineLoad))
             {
@@ -1357,7 +1357,7 @@ namespace FemDesign
         /// <summary>
         /// Add PointLoad to Model.
         /// </summary>
-        private void AddPointMotion(Loads.PointSupportMotion obj, bool overwrite)
+        private void AddPointSupportMotion(Loads.PointSupportMotion obj, bool overwrite)
         {
             // in model?
             bool inModel = this.PointMotionInModel(obj);
@@ -1443,7 +1443,7 @@ namespace FemDesign
         private void AddLineSupportMotionLoad(Loads.LineSupportMotion obj, bool overwrite)
         {
             // in model?
-            bool inModel = this.LineSupportoMotionLoadInModel(obj);
+            bool inModel = this.LineSupportMotionLoadInModel(obj);
 
             // in model, don't overwrite
             if (inModel && overwrite == false)
@@ -1464,7 +1464,7 @@ namespace FemDesign
         /// <summary>
         /// Check if LineLoad in Model.
         /// </summary>
-        private bool LineSupportoMotionLoadInModel(Loads.LineSupportMotion obj)
+        private bool LineSupportMotionLoadInModel(Loads.LineSupportMotion obj)
         {
             foreach (Loads.LineSupportMotion elem in this.Entities.Loads.LineSupportMotionLoads)
             {
@@ -1624,6 +1624,51 @@ namespace FemDesign
             }
             return false;
         }
+
+
+
+        /// <summary>
+        /// Add SurfaceLoad to Model.
+        /// </summary>
+        private void AddSurfaceSupportMotionLoad(Loads.SurfaceSupportMotion obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.SurfaceSupportMotionLoadInModel(obj);
+
+            // in model, don't overwrite
+            if (inModel && !overwrite)
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with guid: {obj.Guid} has already been added to model. Are you adding the same element twice?");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite)
+            {
+                this.Entities.Loads.SurfaceSupportMotionLoads.RemoveAll(x => x.Guid == obj.Guid);
+            }
+
+            // add surface load
+            this.Entities.Loads.SurfaceSupportMotionLoads.Add(obj);
+        }
+
+        /// <summary>
+        /// Check if SurfaceLoad in Model.
+        /// </summary>
+        private bool SurfaceSupportMotionLoadInModel(Loads.SurfaceSupportMotion obj)
+        {
+            foreach (var elem in this.Entities.Loads.SurfaceSupportMotionLoads)
+            {
+                if (elem.Guid == obj.Guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
 
         /// <summary>
         /// Add SurfaceTemperatureLoad to Model.
@@ -3585,9 +3630,10 @@ namespace FemDesign
 
         #region LOADS
         private void AddEntity(Loads.PointLoad obj, bool overwrite) => AddPointLoad(obj, overwrite);
-        private void AddEntity(Loads.PointSupportMotion obj, bool overwrite) => AddPointMotion(obj, overwrite);
+        private void AddEntity(Loads.PointSupportMotion obj, bool overwrite) => AddPointSupportMotion(obj, overwrite);
         private void AddEntity(Loads.SurfaceTemperatureLoad obj, bool overwrite) => AddSurfaceTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.SurfaceLoad obj, bool overwrite) => AddSurfaceLoad(obj, overwrite);
+        private void AddEntity(Loads.SurfaceSupportMotion obj, bool overwrite) => AddSurfaceSupportMotionLoad(obj, overwrite);
         private void AddEntity(Loads.PressureLoad obj, bool overwrite) => AddPressureLoad(obj, overwrite);
         private void AddEntity(Loads.LineTemperatureLoad obj, bool overwrite) => AddLineTemperatureLoad(obj, overwrite);
         private void AddEntity(Loads.LineStressLoad obj, bool overwrite) => AddLineStressLoad(obj, overwrite);

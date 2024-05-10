@@ -50,7 +50,7 @@ namespace FemDesign.Loads
         public List<LineSupportMotion> LineSupportMotionLoads = new List<LineSupportMotion>(); // line_support_motion_load_type
 
         [XmlElement("surface_support_motion_load", Order = 11)]
-        public List<StruSoft.Interop.StruXml.Data.Surface_support_load_type> SurfaceSupportMotionLoads { get; set;}
+        public List<SurfaceSupportMotion> SurfaceSupportMotionLoads { get; set;} = new List<SurfaceSupportMotion>(); // surface_support_motion_load_type
 
         [XmlElement("mass", Order = 12)]
         public List<FemDesign.Loads.Mass> Masses { get; set;} = new List<FemDesign.Loads.Mass>(); // mass_point_type
@@ -84,13 +84,14 @@ namespace FemDesign.Loads
         {
             var objs = new List<FemDesign.GenericClasses.ILoadElement>();
             objs.AddRange(this.PointLoads);
-            objs.AddRange(this.LineLoads);
             objs.AddRange(this.PointSupportMotionLoads);
+            objs.AddRange(this.LineLoads);
             objs.AddRange(this.LineSupportMotionLoads);
             objs.AddRange(this.LineStressLoads);
             objs.AddRange(this.LineTemperatureLoads);
             objs.AddRange(this.PressureLoads);
             objs.AddRange(this.SurfaceLoads);
+            objs.AddRange(this.SurfaceSupportMotionLoads);
             objs.AddRange(this.SurfaceTemperatureLoads);
             objs.AddRange(this.FootfallAnalysisData);
             objs.AddRange(this.Masses);
