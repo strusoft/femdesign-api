@@ -45,10 +45,10 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Get input parameters
-            int dT = 5;
+            double dT = 0.01;
             DA.GetData(0, ref dT);
 
-            double tEnd = 20.0;
+            double tEnd = 5.0;
             DA.GetData(1, ref tEnd);
 
             string type = "Rayleigh";
