@@ -11,6 +11,9 @@ using FemDesign.Sections;
 using FemDesign.Reinforcement;
 using System.Threading.Tasks;
 using FemDesign.Results;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using FemDesign.Loads;
+using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
@@ -23,8 +26,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Sections", "Sections", "Section list.", GH_ParamAccess.list);
-            pManager.AddTextParameter("Units", "Units", "Connect `Units for section properties. By default, the output is in millimetres. Accepted input are: \n " +
-                "mm, cm, dm, m, inch, feet, yd", GH_ParamAccess.item, "mm");
+            pManager.AddTextParameter("Units", "Units", "Units:\nmm\ncm\ndm\nm\ninch\nfeet\nyd", GH_ParamAccess.item, "mm");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -54,9 +56,9 @@ namespace FemDesign.Grasshopper
 
             SectionalData unit = SectionalData.mm;
             string sectionalData = null;
-            if(DA.GetData(1, ref sectionalData))
+            if(!DA.GetData(1, ref sectionalData))
             {
-                unit = (Results.SectionalData)Enum.Parse(typeof(Results.SectionalData), sectionalData);
+                return;
             }
 
 

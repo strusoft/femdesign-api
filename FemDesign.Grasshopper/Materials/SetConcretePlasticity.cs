@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using FemDesign.Soil;
 using Grasshopper.Kernel;
-
+using System.Linq;
 using FemDesign.Materials;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using FemDesign.Loads;
+using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
@@ -21,7 +24,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Plastic-Hardening", "Plastic-Hardening", "Plastic-Hardening", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Crushing", "Crushing", "Crushing", GH_ParamAccess.item, "Prager");
+            pManager.AddTextParameter("Crushing", "Crushing", "Crushing", GH_ParamAccess.item, "\"Connect 'ValueList' to get the options.\nCrushing type:\nPrager\nHinton\nCervera\nCrisfield");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("Tension-Strength", "Tension-Strength", "Tension strength in plastic flow rule", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -80,6 +83,13 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{76728C09-5064-4646-936C-C215CA807FD2}"); }
         }
+
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.UpdateValueLists(this, 3, Enum.GetNames(typeof(CrushingCriterion)).ToList(), null, GH_ValueListMode.DropDown);
+        }
+
 
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
     }
