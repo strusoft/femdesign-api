@@ -64,16 +64,25 @@ namespace FemDesign.Loads
         [XmlElement("footfall_analysis_data", Order = 15)]
         public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
 
-        [XmlElement("moving_load", Order = 16)]
+        [XmlElement("ground_acceleration", Order = 16)]
+        public List<StruSoft.Interop.StruXml.Data.Ground_acceleration_type> GroundAccelerations { get; set; } // ground_acceleration_type
+
+        [XmlElement("excitation_force", Order = 17)]
+        public List<StruSoft.Interop.StruXml.Data.Excitation_force_type> ExcitationForces { get; set; } // excitation_force_type
+
+        [XmlElement("periodic_excitation", Order = 18)]
+        public List<StruSoft.Interop.StruXml.Data.Periodic_excitation_type> PeriodicExcitations { get; set; } // periodic_excitation_type
+
+        [XmlElement("moving_load", Order = 19)]
         public List<StruSoft.Interop.StruXml.Data.Moving_load_type> MovingLoads { get; set; } // moving_load_type
 
-        [XmlElement("load_case", Order = 17)]
+        [XmlElement("load_case", Order = 20)]
         public List<LoadCase> LoadCases = new List<LoadCase>(); // load_case_type
 
-        [XmlElement("load_combination", Order = 18)]
+        [XmlElement("load_combination", Order = 21)]
         public List<LoadCombination> LoadCombinations = new List<LoadCombination>(); // load_combination_type
 
-        [XmlElement("load_group_table", Order = 19)]
+        [XmlElement("load_group_table", Order = 22)]
         public LoadGroupTable LoadGroupTable { get; set; } // load_group_table_type
 
 
