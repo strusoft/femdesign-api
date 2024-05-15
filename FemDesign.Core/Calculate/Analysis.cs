@@ -414,7 +414,7 @@ namespace FemDesign.Calculate
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="dmpFactor">'ksi' damping factor.</param>
         /// <returns></returns>
-        public static Analysis GroundAcceleration(bool levelAccSpectra = true, double deltaT = 0.2, double tEnd = 5.0, double q = 1.0, bool timeHistory = true, int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        public static Analysis GroundAcceleration(bool levelAccSpectra = true, double deltaT = 0.2, double tEnd = 5.0, double q = 1.0, bool timeHistory = true, int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0.5, double beta = 0.25, double dmpFactor = 5.0)
         {
             GroundAcc grAccSettings = new GroundAcc(levelAccSpectra, deltaT, tEnd, q, timeHistory, step, lastMoment, method, alpha, beta, dmpFactor);
             return new Analysis(groundAcc: grAccSettings, calcGroundAcc: true);
@@ -430,7 +430,7 @@ namespace FemDesign.Calculate
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="dmpFactor">'ksi' damping factor.</param>
         /// <returns></returns>
-        public static Analysis ExcitationForce(int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        public static Analysis ExcitationForce(int step = 5, double lastMoment = 20.0, IntegrationSchemeMethod method = IntegrationSchemeMethod.Newmark, double alpha = 0.5, double beta = 0.25, double dmpFactor = 5.0)
         {
             ExcitationForce grAccSettings = new ExcitationForce(step, lastMoment, method, alpha, beta, dmpFactor);
             return new Analysis(exForce: grAccSettings, calcExForce: true);
@@ -446,7 +446,7 @@ namespace FemDesign.Calculate
         /// <param name="beta">'beta' coefficient in the Rayleigh damping matrix.</param>
         /// <param name="dmpFactor">'ksi' damping factor.</param>
         /// <returns></returns>
-        public static Analysis PeriodicExcitation(double deltaT = 0.01, double timeEnd = 5.0, DampingType dmpType = DampingType.Rayleigh, double alpha = 0, double beta = 0, double dmpFactor = 5.0)
+        public static Analysis PeriodicExcitation(double deltaT = 0.01, double timeEnd = 5.0, DampingType dmpType = DampingType.Rayleigh, double alpha = 0.5, double beta = 0.25, double dmpFactor = 5.0)
         {
             PeriodicExcitation perExSettings = new PeriodicExcitation(deltaT, timeEnd, dmpType, alpha, beta, dmpFactor);
             return new Analysis(periodicEx: perExSettings, calcPeriodicEx: true);

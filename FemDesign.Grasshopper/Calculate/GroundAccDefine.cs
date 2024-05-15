@@ -26,28 +26,28 @@ namespace FemDesign.Grasshopper
             pManager.AddNumberParameter("dT", "dT", "'Delta t' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 0.2);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("t_end", "t_end", "'t end' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 5.0);
+            pManager.AddNumberParameter("Tend", "Tend", "'T end' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 5.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("q", "q", "'q' calculation parameter for Level acceleration spectra analysis [s].", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("q", "q", "Behaviour factor.", GH_ParamAccess.item, 1.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddBooleanParameter("TimeHistoryCalc", "TH", "If true, the time history calculation will be executed.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddIntegerParameter("TimeStep", "Step", "The number of every nth time steps when results are saved during the calculation.", GH_ParamAccess.item, 5);
+            pManager.AddIntegerParameter("TimeStep", "Step", "Frequency of saved results (every nth step will be saved).", GH_ParamAccess.item, 5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("LastMoment", "LastMoment", "Last time moment of the time history calculation [s].", GH_ParamAccess.item, 20.0);
+            pManager.AddNumberParameter("t_end", "t_end", "End time of calculation [s].", GH_ParamAccess.item, 20.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta", GH_ParamAccess.item, "Newmark");
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.25);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddNumberParameter("ksi", "ksi", "'ksi' damping factor.", GH_ParamAccess.item, 5.0);
@@ -84,10 +84,10 @@ namespace FemDesign.Grasshopper
             string method = "Newmark";
             DA.GetData(7, ref method);
 
-            double alpha = 0.0;
+            double alpha = 0.5;
             DA.GetData(8, ref alpha);
 
-            double beta = 0.0;
+            double beta = 0.25;
             DA.GetData(9, ref beta);
 
             double ksi = 5.0;

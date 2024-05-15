@@ -29,10 +29,10 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta", GH_ParamAccess.item, "Newmark");
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("alpha", "alpha", "'alpha' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("beta", "beta", "'beta' coefficient in the Rayleigh damping matrix.", GH_ParamAccess.item, 0.25);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddNumberParameter("ksi", "ksi", "'ksi' damping factor.", GH_ParamAccess.item, 5.0);
@@ -54,10 +54,10 @@ namespace FemDesign.Grasshopper
             string method = "Newmark";
             DA.GetData(2, ref method);
 
-            double alpha = 0.0;
+            double alpha = 0.5;
             DA.GetData(3, ref alpha);
 
-            double beta = 0.0;
+            double beta = 0.25;
             DA.GetData(4, ref beta);
 
             double ksi = 5.0;
