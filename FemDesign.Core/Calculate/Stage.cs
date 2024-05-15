@@ -6,7 +6,6 @@ namespace FemDesign.Calculate
 {
     /// <summary>    
     /// fdscript.xsd
-    /// ANALSTAGE
     /// </summary>
     public partial class Stage
     {

@@ -70,9 +70,14 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
+    <Compile Include="Calculate\CalculationParametersAnalysisDefine_OBSOLETE2303.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CombDefine.cs" />
+    <Compile Include="Calculate\CombSettings_OBSOLETE2303.cs" />
     <Compile Include="Calculate\CombSettings.cs" />
+    <Compile Include="Calculate\PeriodicExDefine.cs" />
+    <Compile Include="Calculate\GroundAccDefine.cs" />
+    <Compile Include="Calculate\ExForceDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
@@ -851,6 +856,24 @@
   <ItemGroup>
     <Content Include="images\logo.png" />
     <None Include="Resources\icons\Mass.png" />
+    <None Include="Resources\StageDefine3.png" />
+    <None Include="Resources\StabilityDefine3.png" />
+    <None Include="Resources\PeriodicExcitationDefine3.png" />
+    <None Include="Resources\ImperfectionDefine3.png" />
+    <None Include="Resources\GroundAccelerationDefine3.png" />
+    <None Include="Resources\FreqDefine3.png" />
+    <None Include="Resources\FootfallDefine3.png" />
+    <None Include="Resources\ExcitationForceDefine3.png" />
+    <None Include="Resources\CombDefine3.png" />
+    <None Include="Resources\StageDefine2.png" />
+    <None Include="Resources\StabilityDefine2.png" />
+    <None Include="Resources\PeriodicExcitationDefine2.png" />
+    <None Include="Resources\ImperfectionDefine2.png" />
+    <None Include="Resources\GroundAccelerationDefine2.png" />
+    <None Include="Resources\FreqDefine2.png" />
+    <None Include="Resources\FootfallDefine2.png" />
+    <None Include="Resources\ExcitationForceDefine2.png" />
+    <None Include="Resources\CombDefine2.png" />
     <None Include="Resources\icons\MaterialSetSteelMaterialProperties.bmp" />
     <None Include="Resources\icons\PointMotion.bmp" />
     <None Include="Resources\icons\SurfaceMotion.bmp" />

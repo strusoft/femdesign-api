@@ -9,7 +9,6 @@ namespace FemDesign.Calculate
 
     /// <summary>
     /// fdscript.xsd
-    /// ANALCOMB
     /// </summary>
     public partial class Comb
     {
@@ -112,25 +111,6 @@ namespace FemDesign.Calculate
         public Comb()
         {
             
-        }
-
-        [Obsolete("Use the other constructor. It will be removed in 23.3.0", false)]
-        public Comb(int _NLEmaxiter = 30, int _PLdefloadstep = 20, int _PLminloadstep = 2, int _PLmaxeqiter = 30, bool _NLSMohr = true, int _NLSinitloadstep = 10, int _NLSminloadstep = 10, int _NLSactiveelemratio = 5, int _NLSplasticelemratio = 5, int _CRloadstep = 20, int _CRmaxiter = 30, int _CRstifferror = 2, List<CombItem> combItem = null)
-        {
-            this.NLEmaxiter = _NLEmaxiter;
-            this.PLdefloadstep = _PLdefloadstep;
-            this.PLminloadstep = _PLminloadstep;
-            this.PLmaxeqiter = _PLmaxeqiter;
-            this.NLSMohr = _NLSMohr;
-            this.NLSinitloadstep = _NLSinitloadstep;
-            this.NLSminloadstep = _NLSminloadstep;
-            this.NLSactiveelemratio = _NLSactiveelemratio;
-            this.NLSplasticelemratio = _NLSplasticelemratio;
-            this.CRloadstep = _CRloadstep;
-            this.CRmaxiter = _CRmaxiter;
-            this.CRstifferror = _CRstifferror;
-
-            this.CombItem = combItem ?? new List<CombItem>();
         }
 
         public Comb(int nLEmaxiter = 30, int pLdefloadstep = 20, int pLminloadstep = 2, bool plKeepLoadStep = true, int plTolerance = 1, int pLmaxeqiter = 50, int plShellLayers = 10, bool nLSMohr = true, int nLSinitloadstep = 10, int nLSminloadstep = 10, int nLSactiveelemratio = 5, int nLSplasticelemratio = 5, int cRloadstep = 20, int cRmaxiter = 30, int cRstifferror = 2, List<CombItem> combItem = null)

@@ -37,7 +37,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.CalculateFootfall;
+                return FemDesign.Properties.Resources.FootfallDefine2;
             }
         }
         public override Guid ComponentGuid

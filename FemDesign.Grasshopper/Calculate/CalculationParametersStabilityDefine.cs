@@ -65,7 +65,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.StabilityDefine;
+                return FemDesign.Properties.Resources.StabilityDefine2;
             }
         }
         public override Guid ComponentGuid

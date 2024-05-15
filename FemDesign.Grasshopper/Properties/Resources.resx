@@ -7320,4 +7320,58 @@
   <data name="Mass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\Mass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CombDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CombDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CombDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CombDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExcitationForceDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExcitationForceDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExcitationForceDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExcitationForceDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FootfallDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FootfallDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FootfallDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FootfallDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FreqDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FreqDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FreqDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FreqDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GroundAccelerationDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GroundAccelerationDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GroundAccelerationDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GroundAccelerationDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImperfectionDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImperfectionDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImperfectionDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImperfectionDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PeriodicExcitationDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PeriodicExcitationDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PeriodicExcitationDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PeriodicExcitationDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StabilityDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StabilityDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StabilityDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StabilityDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StageDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StageDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StageDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StageDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

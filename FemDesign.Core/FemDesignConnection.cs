@@ -302,37 +302,36 @@ namespace FemDesign
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             FdScript script;
 
-
-                if (analysis.Comb != null)
-                {
-                    analysis.SetCombAnalysis(this);
-                    script = new FdScript(
-                        logfile,
-                        new CmdUser(CmdUserModule.RESMODE),
-                        new CmdCalculation(analysis));
-                    this.RunScript(script, "RunAnalysis");
+            if (analysis.Comb != null)
+            {
+                analysis.SetCombAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
                     
-                }
+            }
 
-                if (analysis.Stability != null)
-                {
-                    analysis.SetStabilityAnalysis(this);
-                    script = new FdScript(
-                        logfile,
-                        new CmdUser(CmdUserModule.RESMODE),
-                        new CmdCalculation(analysis));
-                    this.RunScript(script, "RunAnalysis");
-                }
+            if (analysis.Stability != null)
+            {
+                analysis.SetStabilityAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
+            }
 
-                if (analysis.Imperfection != null)
-                {
-                    analysis.SetImperfectionAnalysis(this);
-                    script = new FdScript(
-                        logfile,
-                        new CmdUser(CmdUserModule.RESMODE),
-                        new CmdCalculation(analysis));
-                    this.RunScript(script, "RunAnalysis");
-                }
+            if (analysis.Imperfection != null)
+            {
+                analysis.SetImperfectionAnalysis(this);
+                script = new FdScript(
+                    logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
+                    new CmdCalculation(analysis));
+                this.RunScript(script, "RunAnalysis");
+            }
 
             if (analysis.Freq != null || analysis.Footfall != null)
             {
