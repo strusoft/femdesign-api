@@ -64,7 +64,8 @@ namespace FemDesign.Calculate
             set 
             { 
                 _nle = Convert.ToInt32(value);
-                if (!value) PL = false;
+                if(!value)
+                    PL = false;
             }
         }
 
