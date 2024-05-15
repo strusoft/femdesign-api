@@ -54,6 +54,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcCase = Convert.ToInt32(value);
+                if (value == true && this.Comb == null)
+                    this.Comb = Comb.Default();
             }
         }
 
@@ -69,6 +71,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcCStage = Convert.ToInt32(value);
+                if (value == true && this.Stage == null)
+                    this.Stage = Stage.Default();
             }
         }
 
@@ -99,6 +103,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcComb = Convert.ToInt32(value);
+                if (value == true && this.Comb == null)
+                    this.Comb = Comb.Default();
             }
         }
 
@@ -144,6 +150,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcFreq = Convert.ToInt32(value);
+                if (value == true && this.Freq == null)
+                    this.Freq = Freq.Default();
             }
         }
 
@@ -174,6 +182,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcFootfall = Convert.ToInt32(value);
+                if(value == true && this.Footfall == null)
+                    this.Footfall = Footfall.Default();
             }
         }
 
@@ -189,6 +199,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcGroundAcc = Convert.ToInt32(value);
+                if (value == true && this.GroundAcc == null)
+                    this.GroundAcc = GroundAcc.Default();
             }
         }
 
@@ -204,6 +216,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcExcitationForce = Convert.ToInt32(value);
+                if (value == true && this.ExForce == null)
+                    this.ExForce = Calculate.ExcitationForce.Default();
             }
         }
 
@@ -219,6 +233,8 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcPeriodicExcitation = Convert.ToInt32(value);
+                if (value == true && this.PeriodicEx == null)
+                    this.PeriodicEx = Calculate.PeriodicExcitation.Default();
             }
         }
 
@@ -234,6 +250,7 @@ namespace FemDesign.Calculate
             set
             {
                 this._calcDesign = Convert.ToInt32(value);
+
             }
         }
 
@@ -307,15 +324,15 @@ namespace FemDesign.Calculate
             this.CalcCase = calcCase;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
-            this.CalcCStage = calcCStage == false ? false : (stage != null);
+            this.CalcCStage = calcCStage;
             this.CalcImpf = calcImpf == false ? false : (imperfection != null);
             this.CalcStab = calcStab == false ? false : (stability != null);
-            this.CalcFreq = calcFreq == false ? false : (freq != null);
+            this.CalcFreq = calcFreq;
             this.CalcSeis = calcSeis;
-            this.CalcFootfall = calcFootfall == false ? false : (footfall != null);
-            this.CalcGroundAcc = calcGroundAcc == false ? false : ( groundAcc != null ) ;
-            this.CalcExcitationForce = calcExForce == false ? false : (exForce != null);
-            this.CalcPeriodicExcitation = calcPeriodicEx == false ? false : (periodicEx != null);
+            this.CalcFootfall = calcFootfall;
+            this.CalcGroundAcc = calcGroundAcc;
+            this.CalcExcitationForce = calcExForce;
+            this.CalcPeriodicExcitation = calcPeriodicEx;
             this.CalcDesign = calcDesign;
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
