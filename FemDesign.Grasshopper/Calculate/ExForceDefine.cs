@@ -20,10 +20,10 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("TimeStep", "Step", "The number of every nth time steps when results are saved during the calculation.", GH_ParamAccess.item, 5);
+            pManager.AddIntegerParameter("TimeStep", "Step", "Frequency of saved results (every nth step will be saved).", GH_ParamAccess.item, 5);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddNumberParameter("LastMoment", "LastMoment", "Last time moment of the time history calculation [s].", GH_ParamAccess.item, 20.0);
+            pManager.AddNumberParameter("t_end", "t_end", "End time of calculation [s].", GH_ParamAccess.item, 20.0);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("Method", "Method", "Connect 'ValueList' to get the options.\nIntegration scheme method type:\nNewmark\nWilsonTheta", GH_ParamAccess.item, "Newmark");

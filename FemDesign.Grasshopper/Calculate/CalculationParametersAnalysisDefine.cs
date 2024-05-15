@@ -24,39 +24,39 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Imperfection", "Imperfection", "Imperfection calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Freq", "Freq", "Eigienfrequency calculation options. Optional, if undefined default values will be used - for reference please see default values of Freq.Define component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Freq", "Freq", "Eigenfrequency calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Footfall", "Footfall", "Footfall calculation options. Optional, if undefined default values will be used - for reference please see default values of Footfall.Define component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Footfall", "Footfall", "Footfall calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;            
-            pManager.AddGenericParameter("GroundAcc", "GroundAcc", "Ground acceleration calculation options. Optional, if undefined default values will be used - for reference please see default values of GroundAcc.Define component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("GroundAcc", "GroundAcc", "Ground acceleration calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("ExForce", "ExForce", "Excitation force calculation options. Optional, if undefined default values will be used - for reference please see default values of ExForce.Define component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ExForce", "ExForce", "Excitation force calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("PeriodicEx", "PeriodicEx", "Periodic excitation calculation options. Optional, if undefined default values will be used - for reference please see default values of PeriodicEx.Define component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PeriodicEx", "PeriodicEx", "Periodic excitation calculation options.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcCase", "calcCase", "Load cases.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcComb", "calcComb", "Load combinations", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcCstage", "calcCstage", "Construction stages.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcCstage", "calcCstage", "Construction stages.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcImpf", "calcImpf", "Imperfections", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcImpf", "calcImpf", "Imperfections", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcGmax", "calcGmax", "Maximum of load groups.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcStab", "calcStab", "Stability analysis.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcStab", "calcStab", "Stability analysis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcFreq", "calcFreq", "Eigenfrequencies", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcFreq", "calcFreq", "Eigenfrequencies", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcSeis", "calcSeis", "Seismic analysis.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcSeis", "calcSeis", "Seismic analysis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcFootfall", "calcFootfall", "Footfall analysis", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcFootfall", "calcFootfall", "Footfall analysis", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcGroundAcc", "calcGroundAcc", "Time history, ground acceleration analysis.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcGroundAcc", "calcGroundAcc", "Time history, ground acceleration analysis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcExForce", "calcExForce", "Time history, excitation force analysis.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcExForce", "calcExForce", "Time history, excitation force analysis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("calcPeriodicEx", "calcPeriodicEx", "Periodic excitation analysis.", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("calcPeriodicEx", "calcPeriodicEx", "Periodic excitation analysis.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("calcDesign", "calcDesign", "Design calculations", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -131,80 +131,80 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            bool calcCase = false;
+            bool calcCase = true;
             if (!DA.GetData("calcCase", ref calcCase))
             {
                 // pass
             }
 
-            bool calcComb = false;
+            bool calcComb = true;
             if (!DA.GetData("calcComb", ref calcComb))
             {
                 // pass
             }
 
-            bool calcCstage = false;
+            bool calcCstage = true;
             if (!DA.GetData("calcCstage", ref calcCstage))
             {
                 // pass
             }
 
-            bool calcImpf = false;
+            bool calcImpf = true;
             if (!DA.GetData("calcImpf", ref calcImpf))
             {
                 // pass
             }
 
 
-            bool calcGMax = false;
+            bool calcGMax = true;
             if (!DA.GetData("calcGmax", ref calcGMax))
             {
                 // pass
             }
 
-            bool calcStab = false;
+            bool calcStab = true;
             if (!DA.GetData("calcStab", ref calcStab))
             {
                 // pass
             }
 
-            bool calcFreq = false;
+            bool calcFreq = true;
             if (!DA.GetData("calcFreq", ref calcFreq))
             {
                 // pass
             }
 
-            bool calcSeis = false;
+            bool calcSeis = false; // not implemented
             if (!DA.GetData("calcSeis", ref calcSeis))
             {
                 // pass
             }
 
-            bool calcFootfall = false;
+            bool calcFootfall = true;
             if (!DA.GetData("calcFootfall", ref calcFootfall))
             {
                 // pass
             }
 
-            bool calcGroundAcc = false;
-            if (!DA.GetData("calcFootfall", ref calcGroundAcc))
+            bool calcGroundAcc = true;
+            if (!DA.GetData("calcGroundAcc", ref calcGroundAcc))
             {
                 // pass
             }
 
-            bool calcExForce = false;
-            if (!DA.GetData("calcFootfall", ref calcExForce))
+            bool calcExForce = true;
+            if (!DA.GetData("calcExForce", ref calcExForce))
             {
                 // pass
             }
 
-            bool calcPeriodicEx = false;
-            if (!DA.GetData("calcFootfall", ref calcPeriodicEx))
+            bool calcPeriodicEx = true;
+            if (!DA.GetData("calcPeriodicEx", ref calcPeriodicEx))
             {
                 // pass
             }
 
-            bool calcDesign = false;
+            bool calcDesign = true;
             if (!DA.GetData("calcDesign", ref calcDesign))
             {
                 // pass

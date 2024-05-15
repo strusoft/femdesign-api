@@ -305,17 +305,17 @@ namespace FemDesign.Calculate
             this.PeriodicEx = periodicEx;
 
             this.CalcCase = calcCase;
-            this.CalcCStage = stage != null ? true : calcCStage;
-            this.CalcImpf = imperfection != null ? true : calcImpf;
             this.CalcComb = calcComb;
             this.CalcGMax = calcGMax;
-            this.CalcStab = stability != null ? true : calcStab;
-            this.CalcFreq = freq != null ? true : calcFreq;
+            this.CalcCStage = calcCStage == false ? false : (stage != null);
+            this.CalcImpf = calcImpf == false ? false : (imperfection != null);
+            this.CalcStab = calcStab == false ? false : (stability != null);
+            this.CalcFreq = calcFreq == false ? false : (freq != null);
             this.CalcSeis = calcSeis;
-            this.CalcFootfall = footfall != null ? true : calcFootfall;
-            this.CalcGroundAcc = groundAcc != null ? true : calcGroundAcc;
-            this.CalcExcitationForce = exForce != null ? true : calcExForce;
-            this.CalcPeriodicExcitation = periodicEx != null ? true : calcPeriodicEx;
+            this.CalcFootfall = calcFootfall == false ? false : (footfall != null);
+            this.CalcGroundAcc = calcGroundAcc == false ? false : ( groundAcc != null ) ;
+            this.CalcExcitationForce = calcExForce == false ? false : (exForce != null);
+            this.CalcPeriodicExcitation = calcPeriodicEx == false ? false : (periodicEx != null);
             this.CalcDesign = calcDesign;
             this.ElemFine = elemFine;
             this.Diaphragm = diaphragm;
