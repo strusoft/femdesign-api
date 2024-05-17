@@ -13,7 +13,7 @@ namespace FemDesign.Examples
     {
         static void Main(string[] args)
         {
-            // EXAMPLE 5: Design a simple beam
+            // EXAMPLE 5: DESIGN A SIMPLE BEAM
             // This example will show you how to auto-design a beam in
             // FEM-Design. Before running, make sure you have a window
             // with FEM-Design open.

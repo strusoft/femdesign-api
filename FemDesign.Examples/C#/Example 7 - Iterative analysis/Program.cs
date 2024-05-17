@@ -13,7 +13,7 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 7: Iterative analysis
+            // EXAMPLE 7: ITERATIVE ANALYSIS
             // This example will show you how to iterate using only one instance of FEM-Design.
 
             // This example was last updated using the ver. 22.11.0 FEM-Design API.
