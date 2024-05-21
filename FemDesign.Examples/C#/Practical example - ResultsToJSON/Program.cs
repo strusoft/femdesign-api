@@ -16,12 +16,11 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 3: CREATING A SIMPLE BEAM
-            // This example shows how to model a simple supported beam,
-            // and how to run an alalysis with it in FEM-Design.
-            // Before running, make sure you have a window with FEM-Design open.
+            // EXAMPLE 3: WRITING ANALYSIS RESULTS INTO A JSON FILE
+            // This example shows how to run analysis, get the results
+            // and write them into a .json file.
 
-            // This example was last updated using the ver. 21.6.0 FEM-Design API.
+            // This example was last updated using the ver. 22.3.0 FEM-Design API.
 
 
             string filePath = Path.GetFullPath("myModel.str");

@@ -17,11 +17,13 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 3: Run several analysis on a model
-            // This example demonstrates how to run several analysis on a model. The example runs a frequency analysis, a stability analysis and a generic analysis which can be set up
-            // with different settings specified in the Calculate.CombItem class.
+            // PRACTICAL EXAMPLE: RUN SEVERAL ANALYSIS ON A MODEL
+            // This example demonstrates how to run several analysis on a model.
+            // The example runs a frequency analysis, a stability analysis and
+            // a generic analysis which can be set up with different settings
+            // specified in the Calculate.CombItem class.
 
-            // This example was last updated using the ver. 23.2.0 FEM-Design API.
+            // This example was last updated using the ver. 23.3.0 FEM-Design API.
 
             string filePath = Path.GetFullPath("model.struxml");
 
@@ -45,8 +47,8 @@ namespace FemDesign.Examples
 
 
             // ADVANCE ANALYSIS SETTINGS
-            // Comb Item needs to follow the same order as the load combinations
-            // If you have 3 load combinations, you must have 3 CombItems
+            // Comb Item needs to follow the same order as the load combinations.
+            // If you have 3 load combinations, you must have 3 CombItems.
 
             var combItem_1 = new Calculate.CombItem
             {
@@ -114,9 +116,11 @@ namespace FemDesign.Examples
                 CombItem = combItems,
             };
 
-            // ADVANCE ANALYSIS SETTINGS USING LOAD COMBINATION NAMES
-            // In this case we are only interested in setting up the analysis for one load combination
-            // The other load combination will have a default setting
+
+            // ADVANCE ANALYSIS SETTINGS USING LOAD COMBINATION NAMES (1)
+            // In this case we are only interested in setting up the analysis for one load combination.
+            // The other load combination will have a default setting.
+
             var combItem = new Calculate.CombItem
             {
                 CombName = "ULS VERTICAL",
@@ -131,7 +135,6 @@ namespace FemDesign.Examples
                 Im = 0,
                 Waterlevel = 0,
             };
-
 
             var combItemsWithName = new List<Calculate.CombItem>
             {
@@ -158,9 +161,67 @@ namespace FemDesign.Examples
                 CombItem = combItemsWithName,
             };
 
+
+            // ADVANCE ANALYSIS SETTINGS USING LOAD COMBINATION NAMES (2)
+            // Lets see how to set up advanced analysis settings if we only want to run one load combination.
+
+            var noCombItem_1 = new Calculate.CombItem
+            {
+                CombName = "WIND LEAD",
+                ImpfRqd = 0,
+                StabRqd = 0,
+                Calc = true,
+                NLE = false,
+                PL = false,
+                NLS = false,
+                Cr = false,
+                f2nd = false,
+                Im = 0,
+                Waterlevel = 0,
+            };
+            var noCombItem_2 = new Calculate.CombItem
+            {
+                CombName = "SNOW LEAD",
+                NoCalc = true,
+            };
+            var noCombItem_3 = new Calculate.CombItem
+            {
+                CombName = "ULS VERTICAL",
+                NoCalc = true,
+            };
+
+            var noCombItems = new List<Calculate.CombItem>
+            {
+                noCombItem_1,
+                noCombItem_2,
+                noCombItem_3,
+            };
+            var noComb = new Calculate.Comb
+            {
+                NLEmaxiter = 30,
+                PLdefloadstep = 20,
+                PLminloadstep = 2,
+                PlKeepLoadStep = true,
+                PlTolerance = 1,
+                PLmaxeqiter = 50,
+                PlShellLayers = 10,
+                NLSMohr = true,
+                NLSinitloadstep = 10,
+                NLSminloadstep = 10,
+                NLSactiveelemratio = 5,
+                NLSplasticelemratio = 5,
+                CRloadstep = 20,
+                CRmaxiter = 30,
+                CRstifferror = 2,
+                CombItem = noCombItems,
+            };
+
+
             // DEFAULT SETTINGS
+
             var combDefault = Calculate.Comb.Default();
 
+            // RUN ANALYSIS
 
             Analysis analysis;
             using (var connection = new FemDesignConnection(keepOpen: true))
@@ -173,13 +234,16 @@ namespace FemDesign.Examples
                 analysis = new Analysis(comb: combWithName, calcCase: true, calcComb: true);
                 connection.RunAnalysis(analysis);
 
+                analysis = new Analysis(comb: noComb, calcCase: true, calcComb: true);
+                connection.RunAnalysis(analysis);
+
                 analysis = new Analysis(comb: combDefault, calcCase: true, calcComb: true);
                 connection.RunAnalysis(analysis);
 
-                analysis = new Analysis(freq: freqSettings);
+                analysis = new Analysis(freq: freqSettings, calcFreq: true);
                 connection.RunAnalysis(analysis);
 
-                analysis = new Analysis(stability: stabilitySettings);
+                analysis = new Analysis(stability: stabilitySettings, calcStab: true);
                 connection.RunAnalysis(analysis);
             }
         }

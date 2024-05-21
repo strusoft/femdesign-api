@@ -14,7 +14,7 @@ namespace FemDesign.Examples
     {
         static void Main(string[] args)
         {
-            // EXAMPLE 2: ANALYSING A MODEL
+            // EXAMPLE 3: ANALYSING A MODEL
             // This example will show you how to run an analysis
             // with a given model.
 

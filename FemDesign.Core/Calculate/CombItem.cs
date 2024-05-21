@@ -37,7 +37,7 @@ namespace FemDesign.Calculate
         }
 
         /// <summary>
-        /// If true, no calculations will be executed for load combinations.
+        /// Write only property. If true, no calculations will be executed for load combinations.
         /// </summary>
         [XmlIgnore]
         public bool NoCalc

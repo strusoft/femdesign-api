@@ -19,7 +19,7 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // EXAMPLE 3b: CREATING A SIMPLE SLAB
+            // EXAMPLE 2: CREATING A SIMPLE SLAB
             // This example shows how to model a simple slab,
             // and how to run an analysis.
 

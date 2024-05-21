@@ -14,7 +14,7 @@ namespace FemDesign.Examples
     {
         static void Main()
         {
-            // PRACTICAL EXAMPLE: Create Documentation through the API
+            // PRACTICAL EXAMPLE: CREATE DOCUMENTATION THROUGH THE API
             // This example will show you how to print a .docx file with an already applied template
 
             // This example was last updated using the ver. 21.9.0 FEM-Design API.
