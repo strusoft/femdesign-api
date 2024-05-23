@@ -99,10 +99,10 @@ namespace FemDesign.Supports
 			{
                 if(this.Rigidity.PlasticLimitForces != null)
                     hasPlasticLimit = true;
-                return $"{this.GetType().Name}\nCoord: x: {this.Plane.LocalX} y: {this.Plane.LocalY} z: {this.Plane.LocalZ}\n{this.Rigidity.Motions}\nPlasticLimit: {hasPlasticLimit}";
+                return $"{this.GetType().Name}; Coord: x: {this.Plane.LocalX} y: {this.Plane.LocalY} z: {this.Plane.LocalZ}; {this.Rigidity.Motions}; PlasticLimit: {hasPlasticLimit}";
 			}
             else
-                return $"{this.GetType().Name}\nCoord: x: {this.Plane.LocalX} y: {this.Plane.LocalY} z: {this.Plane.LocalZ}\n{this.PredefRigidity.Rigidity.Motions}\nPlasticLimit: {hasPlasticLimit}";
+                return $"{this.GetType().Name}; Coord: x: {this.Plane.LocalX} y: {this.Plane.LocalY} z: {this.Plane.LocalZ}; {this.PredefRigidity.Rigidity.Motions}; PlasticLimit: {hasPlasticLimit}";
         }
     }
 }
