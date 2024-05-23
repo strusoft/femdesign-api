@@ -116,7 +116,8 @@ namespace FemDesign
             _connection.WaitForConnection();
 
             // Forward all output messages from pipe (except echo guid commands).
-            _connection.OnOutput += (message) => {
+            _connection.OnOutput += (message) =>
+            {
                 message = message.Replace(">echo ", "");
                 bool isGuid = Guid.TryParse(message, out Guid _);
                 if (isGuid == false)
@@ -134,16 +135,16 @@ namespace FemDesign
         public string SetFemDesignDirectory(string fdInstallationDir)
         {
             string dir = null;
-            
+
             // Check directory path
-            if(fdInstallationDir != null) 
+            if (fdInstallationDir != null)
             {
                 if (Directory.Exists(fdInstallationDir))
                 {
                     dir = fdInstallationDir;
                 }
             }
-            else            
+            else
             {
                 var dirNames = new List<string>()
                 {
@@ -201,7 +202,7 @@ namespace FemDesign
             string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir, filename);
 
             script.Serialize(scriptPath);
-            this._connection.Send("run " + scriptPath);
+            this._connection.Send("runUTF8 " + scriptPath);
             this._connection.WaitForCommandToFinish();
         }
 
@@ -218,7 +219,7 @@ namespace FemDesign
             string scriptPath = OutputFileHelper.GetFdScriptPath(OutputDir, filename);
 
             script.Serialize(scriptPath);
-            this._connection.Send("run " + scriptPath);
+            this._connection.Send("runUTF8 " + scriptPath);
             await this._connection.WaitForCommandToFinishAsync();
         }
 
@@ -425,7 +426,7 @@ namespace FemDesign
 
             this.RunScript(script, $"RunDesign_{userModule}");
 
-            if(design.ApplyChanges == true)
+            if (design.ApplyChanges == true)
                 this.ApplyDesignChanges();
         }
 
@@ -508,7 +509,7 @@ namespace FemDesign
         /// <param name="templatePath">template .dsc file path to apply to the documentation</param>
         public void SaveDocx(string docxFilePath, string templatePath = null)
         {
-            if(templatePath != null)
+            if (templatePath != null)
                 this.ApplyDocumentationTemplate(templatePath);
             this.SaveDocx(docxFilePath);
         }
@@ -942,7 +943,7 @@ namespace FemDesign
 
         public void Save(string filePath)
         {
-            if(System.IO.Path.GetExtension(filePath) != ".str" && System.IO.Path.GetExtension(filePath) != ".struxml")
+            if (System.IO.Path.GetExtension(filePath) != ".str" && System.IO.Path.GetExtension(filePath) != ".struxml")
             {
                 throw new Exception("Only .str and .struxml extensions are valid!");
             }
@@ -1056,7 +1057,7 @@ namespace FemDesign
             // Create bsc files
             if (shapeId.HasValue)
             {
-                var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, (int)shapeId ,units, options)).ToList();
+                var bscs = listProcs.Zip(bscPaths, (l, p) => new Bsc(l, p, loadCaseCombName, (int)shapeId, units, options)).ToList();
             }
             else
             {
@@ -1137,7 +1138,7 @@ namespace FemDesign
         /// <strong>For internal use only!</strong>
         /// </summary>
         private List<T> _readResults<T>(Func<ListProc, bool> filter, List<string> loadCaseCombNames = null, List<int> shapeIds = null, bool timeStamp = false, List<GenericClasses.IStructureElement> elements = null, UnitResults units = null, Options options = null) where T : IResult
-        {            
+        {
             var listProcs = (typeof(T).GetCustomAttribute<Results.ResultAttribute>()?.ListProcs.Where(filter) ?? Enumerable.Empty<ListProc>()).ToList();
             if (!listProcs.Any())
                 throw new ArgumentException("T parameter must be a result type that matches the provided filter!");
@@ -1272,12 +1273,13 @@ namespace FemDesign
                 else // Use given directory
                     _outputDir = Path.GetFullPath(value);
 
-                // check if special characters
-                // not supported
-                if (!OutputFileHelper.IsASCII(_outputDir))
-                {
-                    throw new Exception("`OutputDir` has special characters. Only ASCII characters are supported!");
-                }
+                //// IF 'PipeConnection._encoding' IS 'ASCII', THEN USE THE FOLLOWING CHECK!
+                //// check if special characters
+                //// not supported
+                //if (!OutputFileHelper.IsASCII(_outputDir))
+                //{
+                //    throw new Exception("`OutputDir` has special characters. Only ASCII characters are supported!");
+                //}
             }
         }
         private List<string> _outputDirsToBeDeleted = new List<string>();
@@ -1310,9 +1312,9 @@ namespace FemDesign
         {
             // Encoding that allow to have special character
             // https://nicolaiarocci.com/how-to-read-windows-1252-encoded-files-with-.netcore-and-.net5-/
-            //_encoding = System.Text.Encoding.GetEncoding(1252); 
-
-            _encoding = System.Text.Encoding.ASCII;
+            //_encoding = System.Text.Encoding.GetEncoding(1252);
+            //_encoding = System.Text.Encoding.ASCII;
+            _encoding = System.Text.Encoding.UTF8;
 
             string input_name = pipeBaseName;
             string output_name = pipeBaseName + "b";
@@ -1384,9 +1386,11 @@ namespace FemDesign
         
             run [scriptfile]
             Execute script as from tools / run script menu.
+            *Note: When using Unicode commands, add the suffix 'UTF8'. E.g.: "runUTF8 [scriptfile]".
         
             cmd [command]
             Execute command as if typed into the command window. No warranty!
+            *Note: When using Unicode commands, add the suffix 'UTF8'. E.g.: "cmdUTF8 [command]".
         
             esc
             Escape during calculation to break/stop it.
@@ -1539,11 +1543,11 @@ namespace FemDesign
             }
             catch (Exception ex)
             {
-                if(ex is Exception)
+                if (ex is Exception)
                 {
                     throw new Exception(ex.Message);
                 }
-                if(ex is Exception)
+                if (ex is Exception)
                 {
                     _outputWorker.ReportProgress(1, ex);
                 }
@@ -1667,7 +1671,7 @@ namespace FemDesign
                 path = Path.GetFullPath(Path.Combine(baseDir, _struxmlFileName));
             else
                 path = Path.GetFullPath(Path.Combine(baseDir, Path.ChangeExtension(Path.GetFileName(modelName), "struxml")));
-                
+
             return path;
         }
 
