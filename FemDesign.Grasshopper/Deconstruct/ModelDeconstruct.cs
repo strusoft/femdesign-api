@@ -1,6 +1,7 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using FemDesign.ModellingTools;
 using Grasshopper.Kernel;
 
 namespace FemDesign.Grasshopper
@@ -17,7 +18,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code D/DK/EST/FIN/GB/H/N/PL/RO/S/TR", GH_ParamAccess.item);
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Foundations", "Foundations", "Single foundation element or list of foundation elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Shells", "Shells", "Single shell element or list of shell elements.", GH_ParamAccess.list);
@@ -90,6 +91,12 @@ namespace FemDesign.Grasshopper
                 resPoints = null;
             }
 
+            AdvancedFem modellingTools = null;
+            if(model.Entities.AdvancedFem != null)
+            {
+                modellingTools = model.Entities.AdvancedFem;
+            }    
+
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
             DA.SetDataList("Foundations", model.Entities.Foundations.GetFoundations());
@@ -107,7 +114,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Stages", stages);
             DA.SetDataList("PeakSmoothingRegion", model.Entities.PeakSmoothingRegions);
             DA.SetDataList("ResultPoints", resPoints);
-            DA.SetData("ModellingTools", model.Entities.AdvancedFem);
+            DA.SetData("ModellingTools", modellingTools);
         }
         protected override System.Drawing.Bitmap Icon
         {
