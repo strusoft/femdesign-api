@@ -33,7 +33,6 @@ namespace FemDesign.ModellingTools
         [XmlElement("steel_joint", Order = 7)]
         public List<StruSoft.Interop.StruXml.Data.Steel_joint_type> SteelJointType { get; set; }
 
-
         /// <summary>
         /// List of Cover (cover_type)
         /// </summary>

@@ -1,6 +1,8 @@
 ﻿// https://strusoft.com/
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using FemDesign.ModellingTools;
 using Grasshopper.Kernel;
 
@@ -91,11 +93,20 @@ namespace FemDesign.Grasshopper
                 resPoints = null;
             }
 
-            AdvancedFem modellingTools = null;
-            if(model.Entities.AdvancedFem != null)
+            ModellingTools.AdvancedFem modTools = null;
+            ModellingTools.AdvancedFem advancedFEM = model.Entities.AdvancedFem;
+            bool hasConnPts = advancedFEM.ConnectedPoints?.Any() ?? false;
+            bool hasConnLns = advancedFEM.ConnectedLines?.Any() ?? false;
+            bool hasSrfConn = advancedFEM.SurfaceConnections?.Any() ?? false;
+            bool hasFictBars = advancedFEM.FictitiousBars?.Any() ?? false;
+            bool hasFictShells = advancedFEM.FictitiousShells?.Any() ?? false;
+            bool hasDiaphragms = advancedFEM.Diaphragms?.Any() ?? false;
+            bool hasCovers = advancedFEM.Covers?.Any() ?? false;
+
+            if (hasConnPts || hasConnLns || hasSrfConn || hasFictBars || hasFictShells || hasDiaphragms || hasCovers)
             {
-                modellingTools = model.Entities.AdvancedFem;
-            }    
+                modTools = advancedFEM;
+            }
 
             // return data
             DA.SetData("CountryCode", model.Country.ToString());
@@ -114,7 +125,7 @@ namespace FemDesign.Grasshopper
             DA.SetDataList("Stages", stages);
             DA.SetDataList("PeakSmoothingRegion", model.Entities.PeakSmoothingRegions);
             DA.SetDataList("ResultPoints", resPoints);
-            DA.SetData("ModellingTools", modellingTools);
+            DA.SetData("ModellingTools", modTools);
         }
         protected override System.Drawing.Bitmap Icon
         {
