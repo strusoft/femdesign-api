@@ -274,7 +274,7 @@ namespace FemDesign.Materials
         /// Load the default MaterialDatabase for each respective country.
         /// </summary>
         /// <remarks>Create</remarks>
-        /// <param name="countryCode">National annex of calculation code (D/DK/EST/FIN/GB/H/N/PL/RO/S/TR)</param>
+        /// <param name="countryCode">National annex of calculation code (B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR). Note: TR (Turkish) doesn't contain the plastic material properties.</param>
         /// <returns></returns>
         public static MaterialDatabase GetDefault(string countryCode = "S")
         {
