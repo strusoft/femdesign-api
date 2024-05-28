@@ -493,9 +493,9 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExcitationForceDefine2 {
+        internal static System.Drawing.Bitmap ExcitationForce {
             get {
-                object obj = ResourceManager.GetObject("ExcitationForceDefine2", resourceCulture);
+                object obj = ResourceManager.GetObject("ExcitationForce", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -503,9 +503,29 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExcitationForceDefine3 {
+        internal static System.Drawing.Bitmap ExcitationForceCombination {
             get {
-                object obj = ResourceManager.GetObject("ExcitationForceDefine3", resourceCulture);
+                object obj = ResourceManager.GetObject("ExcitationForceCombination", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExcitationForceDiagram {
+            get {
+                object obj = ResourceManager.GetObject("ExcitationForceDiagram", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExcitationForceSettings {
+            get {
+                object obj = ResourceManager.GetObject("ExcitationForceSettings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

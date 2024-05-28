@@ -85,6 +85,9 @@
     <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
+    <Compile Include="Loads\Loads\Dynamics\ExcitationDiagram.cs" />
+    <Compile Include="Loads\Loads\Dynamics\ExcitationForceCombination.cs" />
+    <Compile Include="Loads\Loads\Dynamics\ExcitationLoad.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\LineSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\Mass.cs" />
@@ -855,6 +858,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\logo.png" />
+    <None Include="Resources\icons\ExcitationForceDiagram.png" />
+    <None Include="Resources\icons\ExcitationForceCombination.png" />
+    <None Include="Resources\icons\ExcitationForce.png" />
     <None Include="Resources\icons\Mass.png" />
     <None Include="Resources\StageDefine3.png" />
     <None Include="Resources\StabilityDefine3.png" />

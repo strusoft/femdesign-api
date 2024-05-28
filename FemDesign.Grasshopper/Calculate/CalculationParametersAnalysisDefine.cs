@@ -143,32 +143,32 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            bool calcCstage = true;
+            bool calcCstage = false;
             if (!DA.GetData("calcCstage", ref calcCstage))
             {
                 // pass
             }
 
-            bool calcImpf = true;
+            bool calcImpf = false;
             if (!DA.GetData("calcImpf", ref calcImpf))
             {
                 // pass
             }
 
 
-            bool calcGMax = true;
+            bool calcGMax = false;
             if (!DA.GetData("calcGmax", ref calcGMax))
             {
                 // pass
             }
 
-            bool calcStab = true;
+            bool calcStab = false;
             if (!DA.GetData("calcStab", ref calcStab))
             {
                 // pass
             }
 
-            bool calcFreq = true;
+            bool calcFreq = false;
             if (!DA.GetData("calcFreq", ref calcFreq))
             {
                 // pass
@@ -180,25 +180,25 @@ namespace FemDesign.Grasshopper
                 // pass
             }
 
-            bool calcFootfall = true;
+            bool calcFootfall = false;
             if (!DA.GetData("calcFootfall", ref calcFootfall))
             {
                 // pass
             }
 
-            bool calcGroundAcc = true;
+            bool calcGroundAcc = false;
             if (!DA.GetData("calcGroundAcc", ref calcGroundAcc))
             {
                 // pass
             }
 
-            bool calcExForce = true;
+            bool calcExForce = false;
             if (!DA.GetData("calcExForce", ref calcExForce))
             {
                 // pass
             }
 
-            bool calcPeriodicEx = true;
+            bool calcPeriodicEx = false;
             if (!DA.GetData("calcPeriodicEx", ref calcPeriodicEx))
             {
                 // pass

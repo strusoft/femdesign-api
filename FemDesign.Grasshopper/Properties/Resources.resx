@@ -7326,10 +7326,7 @@
   <data name="CombDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CombDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExcitationForceDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ExcitationForceDefine2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ExcitationForceDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ExcitationForceSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExcitationForceDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FootfallDefine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -7373,5 +7370,14 @@
   </data>
   <data name="StageDefine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StageDefine3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExcitationForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ExcitationForce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExcitationForceCombination" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ExcitationForceCombination.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExcitationForceDiagram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\ExcitationForceDiagram.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

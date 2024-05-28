@@ -89,6 +89,7 @@
     <Compile Include="Drawing\TextAnnotation.cs" />
     <Compile Include="Geometry\Regions.cs" />
     <Compile Include="LibraryItems\PredefinedType.cs" />
+    <Compile Include="Loads\Loads\ExcitationForce.cs" />
     <Compile Include="Loads\Loads\ForceLoadBase.cs" />
     <Compile Include="Loads\Loads\LineSupportMotion.cs" />
     <Compile Include="Loads\Loads\Mass.cs" />

@@ -55,5 +55,53 @@ namespace FemDesign.Loads
 
         }
 
+        [TestMethod("ExcitationLoad")]
+        public void ExcitationLoadTest()
+        {
+            Diagram diagram;
+            List<TimeHistoryDiagram> th_diagram;
+
+            th_diagram = new List<TimeHistoryDiagram>()
+            {
+                new TimeHistoryDiagram(0.1, 0),
+                new TimeHistoryDiagram(0.2, 1),
+            };
+        
+
+            Assert.ThrowsException<ArgumentException>(() => new Diagram("diagram1", th_diagram));
+            Assert.ThrowsException<ArgumentException>(() => new Diagram("diagram3", new List<double> { 0.2, 1, 2 }, new List<double> { 1, 0.1, 0.3 }));
+
+
+            th_diagram = new List<TimeHistoryDiagram>()
+            {
+                new TimeHistoryDiagram(0.0, 0),
+                new TimeHistoryDiagram(0.2, 1),
+                new TimeHistoryDiagram(0.3, 2),
+            };
+
+            diagram = new Diagram("diagram2", th_diagram);
+
+            Assert.IsTrue(diagram.Records.Count == 3);
+            Assert.IsTrue(diagram.Records[0].Time == 0.0);
+            Assert.IsTrue(diagram._startValue == 0);
+            Assert.IsTrue(diagram.Records[0].Value == 0);
+
+
+            th_diagram = new List<TimeHistoryDiagram>()
+            {
+                new TimeHistoryDiagram(0.0, 0.5),
+                new TimeHistoryDiagram(0.2, 1),
+                new TimeHistoryDiagram(0.3, 2),
+            };
+
+            diagram = new Diagram("diagram2", th_diagram);
+
+            Assert.IsTrue(diagram.Records.Count == 3);
+            Assert.IsTrue(diagram.Records[0].Time == 0.0);
+            Assert.IsTrue(diagram._startValue == 0.5);
+            Assert.IsTrue(diagram.Records[0].Value == 0.5);
+
+        }
+
     }
 }

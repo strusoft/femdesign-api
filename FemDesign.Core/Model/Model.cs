@@ -1351,7 +1351,35 @@ namespace FemDesign
 
 
 
+        private void AddExcitationForce(Loads.ExcitationForce obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.ExcitationLoadInModel();
 
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"Model has already an excitation load. Only one excitation load is supported.");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.Loads.ExcitationForce = null;
+            }
+
+            // add mass load
+            this.Entities.Loads.ExcitationForce = obj;
+        }
+
+        private bool ExcitationLoadInModel()
+        {
+            if(this.Entities.Loads.ExcitationForce != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
 
         /// <summary>
@@ -3643,6 +3671,8 @@ namespace FemDesign
         private void AddEntity(Loads.MassConversionTable obj, bool overwrite) => AddMassConversionTable(obj);
         private void AddEntity(Loads.MovingLoad obj, bool overwrite) => AddMovingLoad(obj, overwrite);
         private void AddEntity(Loads.Mass obj, bool overwrite) => AddMass(obj, overwrite);
+
+        private void AddEntity(Loads.ExcitationForce obj, bool overwrite) => AddExcitationForce(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

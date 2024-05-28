@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             // Parse 'method' input to enum
             IntegrationSchemeMethod _method = FemDesign.GenericClasses.EnumParser.Parse<IntegrationSchemeMethod>(method);
 
-            ExcitationForce obj = new Calculate.ExcitationForce(step, lastMoment, _method, alpha, beta, ksi);
+            Calculate.ExcitationForce obj = new Calculate.ExcitationForce(step, lastMoment, _method, alpha, beta, ksi);
 
             // return
             DA.SetData(0, obj);
@@ -75,7 +75,7 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return FemDesign.Properties.Resources.ExcitationForceDefine2;
+                return FemDesign.Properties.Resources.ExcitationForceSettings;
             }
         }
         public override Guid ComponentGuid

@@ -65,13 +65,13 @@ namespace FemDesign.Loads
         public List<Footfall> FootfallAnalysisData = new List<Footfall>(); // footfall_type
 
         [XmlElement("ground_acceleration", Order = 16)]
-        public List<StruSoft.Interop.StruXml.Data.Ground_acceleration_type> GroundAccelerations { get; set; } // ground_acceleration_type
+        public StruSoft.Interop.StruXml.Data.Ground_acceleration_type GroundAccelerations { get; set; } // ground_acceleration_type
 
         [XmlElement("excitation_force", Order = 17)]
-        public List<StruSoft.Interop.StruXml.Data.Excitation_force_type> ExcitationForces { get; set; } // excitation_force_type
+        public ExcitationForce ExcitationForce { get; set; }
 
         [XmlElement("periodic_excitation", Order = 18)]
-        public List<StruSoft.Interop.StruXml.Data.Periodic_excitation_type> PeriodicExcitations { get; set; } // periodic_excitation_type
+        public StruSoft.Interop.StruXml.Data.Periodic_excitation_type PeriodicExcitations { get; set; } // periodic_excitation_type
 
         [XmlElement("moving_load", Order = 19)]
         public List<StruSoft.Interop.StruXml.Data.Moving_load_type> MovingLoads { get; set; } // moving_load_type
