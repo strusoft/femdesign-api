@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
     {
         private FemDesignConnection _connection;
 
-        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "FemDesign.Connection has been released in the Beta stage and may have some bugs.", CategoryName.Name(), SubCategoryName.Cat8())
+        public FemDesignConnectionComponent() : base("FEM-Design.Connection", "Connection", "Component that creates a direct link between Grasshopper and FEM-Design. Use it to specify the 'Connection' for LiveLink components.", CategoryName.Name(), SubCategoryName.Cat8())
         {
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)

@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetFeaModel : GH_AsyncComponent
     {
-        public PipeGetFeaModel() : base("FEM-Design.GetFeModel", "GetFeModel", "Read the finite element model data.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeGetFeaModel() : base("FEM-Design.GetFeModel", "GetFeModel", "Read the finite element mesh data.", CategoryName.Name(), SubCategoryName.Cat8())
         {
 
             BaseWorker = new ApplicationGetFeaModelWorker(this);

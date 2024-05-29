@@ -7,7 +7,7 @@ namespace FemDesign.Grasshopper
 {
     public class PipeGetModel : GH_AsyncComponent
     {
-        public PipeGetModel() : base("FEM-Design.GetModel", "GetModel", "Get the current open Model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeGetModel() : base("FEM-Design.GetModel", "GetModel", "Get the current open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new GetModelWorker();
         }
