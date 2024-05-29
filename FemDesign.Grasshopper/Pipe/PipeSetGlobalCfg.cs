@@ -14,14 +14,14 @@ namespace FemDesign.Grasshopper
 {
     public class PipeSetGlobalCfg : GH_AsyncComponent
     {
-        public PipeSetGlobalCfg() : base("FEM-Design.SetGlobalCfg", "SetGlobalCfg", "SetGlobalCfg define the calculation settings that will instruct FEM-Design in operation like creating the finite element model.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeSetGlobalCfg() : base("FEM-Design.SetGlobalConfigurations", "SetGlobalCfg", "Set global settings for a FEM-Design model using a global configuration file. It defines the calculation settings that will instruct FEM-Design in operation like creating the finite element mesh.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationSetGlobalCfgWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "GlobalCfg file path. If file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "Filepath of the global configuration file. If file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -87,8 +87,7 @@ namespace FemDesign.Grasshopper
                 _globalCfgPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
             }
 
-            var _globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(_globalCfgPath);
-            _connection.SetGlobalConfig(_globalCfg);
+            _connection.SetGlobalConfig(_globalCfgPath);
             _success = true;
 
             Done();

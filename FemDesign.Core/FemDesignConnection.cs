@@ -260,6 +260,10 @@ namespace FemDesign
             this.Open(struxml, disconnect);
         }
 
+        /// <summary>
+        /// Set global settings for a FEM-Design model.
+        /// </summary>
+        /// <param name="cmdglobalconfig">Global configuration object.</param>
         public void SetGlobalConfig(Calculate.CmdGlobalCfg cmdglobalconfig)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -270,7 +274,20 @@ namespace FemDesign
             this.RunScript(script, "SetGlobalConfig");
         }
 
+        /// <summary>
+        /// Set global settings for a FEM-Design model using a global configuration file.
+        /// </summary>
+        /// <param name="filepath">Filepath of the global configuration file.</param>
+        public void SetGlobalConfig(string filepath)
+        {
+            var globalCfg = Calculate.CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(filepath);
+            this.SetGlobalConfig(globalCfg);
+        }
 
+        /// <summary>
+        /// Set design settings for a FEM-Design model.
+        /// </summary>
+        /// <param name="cmdconfig">Configuration object.</param>
         public void SetConfig(Calculate.CmdConfig cmdconfig)
         {
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
@@ -279,6 +296,16 @@ namespace FemDesign
                 cmdconfig
             );
             this.RunScript(script, "SetConfig");
+        }
+
+        /// <summary>
+        /// Set design settings for a FEM-Design model using a configuration file.
+        /// </summary>
+        /// <param name="filepath">Filepath of the configuration file.</param>
+        public void SetConfig(string filepath)
+        {
+            var cfg = new Calculate.CmdConfig(filepath);
+            this.SetConfig(cfg);
         }
 
 

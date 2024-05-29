@@ -14,14 +14,14 @@ namespace FemDesign.Grasshopper
 {
     public class PipeCfg : GH_AsyncComponent
     {
-        public PipeCfg() : base("FEM-Design.SetCfg", "SetCfg", "SetCfg of a model.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeCfg() : base("FEM-Design.SetConfigurations", "SetCfg", "Set design settings for a FEM-Design model using a configuration file.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationSetCfgWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path. If file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddTextParameter("Cfg", "Cfg", "Filepath of the configuration file. If file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -88,9 +88,7 @@ namespace FemDesign.Grasshopper
                 _cfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
             }
 
-
-            var _cfg = new Calculate.CmdConfig(_cfgfilePath);
-            _connection.SetConfig(_cfg);
+            _connection.SetConfig(_cfgfilePath);
             _success = true;
 
             Done();
