@@ -75,8 +75,8 @@ namespace FemDesign.Loads
             th_diagram = new List<TimeHistoryDiagram>()
             {
                 new TimeHistoryDiagram(0.0, 0),
-                new TimeHistoryDiagram(0.2, 1),
-                new TimeHistoryDiagram(0.3, 2),
+                new TimeHistoryDiagram(0.2, 0.2),
+                new TimeHistoryDiagram(0.3, 0.5),
             };
 
             diagram = new Diagram("diagram2", th_diagram);
@@ -91,7 +91,7 @@ namespace FemDesign.Loads
             {
                 new TimeHistoryDiagram(0.0, 0.5),
                 new TimeHistoryDiagram(0.2, 1),
-                new TimeHistoryDiagram(0.3, 2),
+                new TimeHistoryDiagram(0.3, -1),
             };
 
             diagram = new Diagram("diagram2", th_diagram);
