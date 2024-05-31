@@ -87,7 +87,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("SaveFilePath", "SaveFilePath", "File path where to save the model as .struxml.\nIf not specified, the file will be saved in the `FEM-Design API` folder adjacent to your .gh script.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
 
         }
@@ -131,7 +131,7 @@ namespace FemDesign.Grasshopper
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            bool runNode = true;
+            bool runNode = false;
             DA.GetData("RunNode", ref runNode);
 
             if (runNode == false)
@@ -174,11 +174,11 @@ namespace FemDesign.Grasshopper
             DA.GetData("SaveFilePath", ref saveFilePath);
 
 
-            if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
-                return;
-            }
+            //if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
+            //{
+            //    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
+            //    return;
+            //}
 
             // Collect Outputs
             Model model = null;
