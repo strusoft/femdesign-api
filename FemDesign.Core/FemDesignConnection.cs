@@ -739,9 +739,8 @@ namespace FemDesign
         /// <param name="outputCsvPath"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public string GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
+        public List<string> GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
         {
-
             // Check input
             if (outputCsvPath == null)
             {
@@ -754,7 +753,7 @@ namespace FemDesign
             _listResultsByFdScript("GetResultsFromBsc", new List<string> { inputBscPath }, new List<string> { outputCsvPath });
 
             // Read results
-            var results = System.IO.File.ReadAllText(outputCsvPath, System.Text.Encoding.UTF8).Replace("\t", ",");
+            var results = System.IO.File.ReadAllLines(outputCsvPath, System.Text.Encoding.UTF8).Select(x => x.Replace("\t", ",")).ToList();
 
             return results;
         }

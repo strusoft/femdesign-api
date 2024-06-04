@@ -90,13 +90,12 @@ namespace FemDesign.Grasshopper
 
                     ReportProgress("", "");
 
-                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv) ).ToList();
+                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv) );
 
                     int i = 0;
                     foreach( var result in results)
                     {
-                        string[] lines = result.Split( new string[] { Environment.NewLine }, StringSplitOptions.None );
-                        _results.AddRange(lines, new GH_Path(i));
+                        _results.AddRange(result, new GH_Path(i));
                         i++;
                     }
                     _success = true;

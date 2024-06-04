@@ -70,6 +70,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
+    <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE_2.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE2303.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
     <Compile Include="Calculate\CombDefine.cs" />
