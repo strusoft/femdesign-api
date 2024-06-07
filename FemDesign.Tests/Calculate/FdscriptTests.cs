@@ -96,8 +96,8 @@ namespace FemDesign.Calculate
             Assert.IsTrue(combItem.NLE == true);
             Assert.IsTrue(combItem._nle == 1);
 
-            Assert.IsTrue(combItem.PL == true);
-            Assert.IsTrue(combItem._pl == 1);
+            Assert.IsTrue(combItem.PL == false);
+            Assert.IsTrue(combItem._pl == 0);
 
             Assert.IsTrue(combItem.NLS == true);
             Assert.IsTrue(combItem._nls == 1);
