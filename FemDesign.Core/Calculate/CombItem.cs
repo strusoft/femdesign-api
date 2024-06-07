@@ -52,7 +52,7 @@ namespace FemDesign.Calculate
         public int _nle { get; set; }
 
         /// <summary>
-        /// Consider elastic nonlinear behaviour of structural elements.
+        /// Consider elastic nonlinear behaviour of structural elements. If false, 'NLE' must be false.
         /// </summary>
         [XmlIgnore]
         public bool NLE
@@ -69,12 +69,11 @@ namespace FemDesign.Calculate
             }
         }
 
-
         [XmlAttribute("PL")]
         public int _pl { get; set; }
 
         /// <summary>
-        /// Consider plastic behaviour of structural elements.
+        /// Consider plastic behaviour of structural elements. If true, 'NLE' must be true.
         /// </summary>
         [XmlIgnore]
         public bool PL
@@ -89,7 +88,6 @@ namespace FemDesign.Calculate
                 if (value) NLE = true; 
             }
         }
-
 
         [XmlAttribute("NLS")]
         public int _nls { get; set; }
@@ -108,7 +106,7 @@ namespace FemDesign.Calculate
         public int _cr { get; set; }
 
         /// <summary>
-        /// Cracked section analysis. Note that Cr only executes properly in RCDesign with DesignCheck set to true.
+        /// Cracked section analysis. If true, 'PL' must be false. Note that Cr only executes properly in RCDesign with DesignCheck set to true. 
         /// </summary>
         [XmlIgnore]
         public bool Cr
@@ -124,20 +122,25 @@ namespace FemDesign.Calculate
             }
         }
 
-
         [XmlAttribute("f2nd")]
         public int _f2nd { get; set; }
 
         /// <summary>
-        /// 2nd order analysis.
+        /// 2nd order analysis. If true, 'PL' must be false.
         /// </summary>
         [XmlIgnore]
         public bool f2nd
         {
-            get { return Convert.ToBoolean(_f2nd); }
-            set { _f2nd = Convert.ToInt32(value); }
+            get 
+            { 
+                return Convert.ToBoolean(_f2nd); 
+            }
+            set 
+            { 
+                _f2nd = Convert.ToInt32(value);
+                if (value) PL = false;
+            }
         }
-
 
         [XmlAttribute("Im")]
         public int Im { get; set; }

@@ -41,21 +41,8 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            dynamic _loadCombination = null;
-            if (!DA.GetData(0, ref _loadCombination)) return;
-
-            string loadCombination = "";
-
-            if (_loadCombination.Value is string str)
-            {
-                loadCombination = str;
-            }
-            else if (_loadCombination.Value is FemDesign.Loads.LoadCombination loads)
-            {
-                loadCombination = loads.Name;
-            }
-
             // Default values for input parameters
+            dynamic _loadCombination = null;
             bool calc = true;
             bool nle = true;
             bool pl = true;
@@ -66,33 +53,61 @@ namespace FemDesign.Grasshopper
             double amplitude = 0.0;
             int waterlevel = 0;
 
-            var combItem = new FemDesign.Calculate.CombItem(combName: loadCombination);
+            // read input data
+            if (!DA.GetData(0, ref _loadCombination)) return;
+
+            string loadCombination = "";
+            if (_loadCombination.Value is string str)
+            {
+                loadCombination = str;
+            }
+            else if (_loadCombination.Value is FemDesign.Loads.LoadCombination loads)
+            {
+                loadCombination = loads.Name;
+            }
 
             DA.GetData(1, ref calc);
+            DA.GetData(2, ref nle);
+            DA.GetData(3, ref pl);
+            DA.GetData(4, ref nls);
+            DA.GetData(5, ref cr);
+            DA.GetData(6, ref f2nd);
+            DA.GetData(7, ref im);
+            DA.GetData(8, ref amplitude);
+            DA.GetData(9, ref waterlevel);
+
+
+            var combItem = new FemDesign.Calculate.CombItem(combName: loadCombination);
+
+            // Check inputs
             if(calc)
             {
-                DA.GetData(2, ref nle);
-                DA.GetData(3, ref pl);
-                DA.GetData(4, ref nls);
-                DA.GetData(5, ref cr);
-                DA.GetData(6, ref f2nd);
-                DA.GetData(7, ref im);
-                DA.GetData(8, ref amplitude);
-                DA.GetData(9, ref waterlevel);
-
-                // Check inputs
-                if (pl == true && cr == true)
+                if (pl && cr)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'PL' and 'Cr' can not be mutually be equal True. 'Cr' is set to False!");
-                    cr = false;
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'PL' and 'Cr' are mutually exclusive. 'PL' is set to False!");
+                    pl = false;
+                }
+                if (pl && !nle)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'NLE' is set to True as 'PL' is true.");
+                    nle = true;
+                }
+                if (pl && f2nd)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'PL' and 'f2nd' are mutually exclusive. 'PL' is set to False!");
+                    pl = false;
                 }
 
                 combItem = new FemDesign.Calculate.CombItem(loadCombination, 0, 0, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
             }
             else
             {
-                // No calculations will be performed for this load combination
                 combItem.NoCalc = true;
+
+                if (nle || pl || nls || cr || f2nd)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'Calc' is False. No calculations will be performed for this load combination.");
+                }
             }
             
             // return
