@@ -507,6 +507,8 @@ namespace FemDesign.Bars
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -529,6 +531,8 @@ namespace FemDesign.Bars
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -551,6 +555,8 @@ namespace FemDesign.Bars
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -573,6 +579,8 @@ namespace FemDesign.Bars
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -595,6 +603,8 @@ namespace FemDesign.Bars
                 this.EccentricityCalc = true;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -615,6 +625,8 @@ namespace FemDesign.Bars
                 this.TrussUniformSectionObj = section;
                 this.Identifier = identifier;
             }
+
+            this.CheckMaterialAndSectionType();
         }
 
         /// <summary>
@@ -625,6 +637,51 @@ namespace FemDesign.Bars
             var cs = this.Plane;
             cs.AlignYAroundXToGcs();
             this.Plane = cs;
+        }
+
+        /// <summary>
+        /// This method checks if the material type of a bar is consistent with the materials used in its sections.<br></br>
+        /// If the bar's material is custom, the check is skipped.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the material type of the bar does not match the material type of any section.</exception>
+        private void CheckMaterialAndSectionType()
+        {
+            // get BarPart's material
+            var material = this.ComplexMaterialObj.Family;
+
+            // section type check for custom material is unneccessary
+            if (material == Materials.Family.Custom)
+                return;
+
+
+            // get BarPart's sections materials
+            List<string> secMats = null;
+            if (this.ComplexSectionObj != null)     // if it is not a composite bar
+            {
+                secMats = this.ComplexSectionObj.Sections.Select(s => s.MaterialFamily).ToList();
+            }
+            else if (this.TrussUniformSectionObj != null)   // if it is a truss
+            {
+                secMats = new List<string> { this.TrussUniformSectionObj.MaterialFamily };
+            }
+            
+            // check section material type
+            if(secMats != null)
+            {
+                foreach(var item in secMats)
+                {
+                    string mat;
+                    if (item == "Custom")
+                        continue;
+                    if (item == "Hollow")
+                        mat = "Concrete";
+                    else
+                        mat = item;
+
+                    if (mat != material.ToString())
+                        throw new ArgumentException($"Material Family ({material}) must be the same as the Section MaterialFamily ({mat})!");
+                }
+            }
         }
     }
 }
