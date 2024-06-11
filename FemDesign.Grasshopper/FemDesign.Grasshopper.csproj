@@ -224,7 +224,8 @@
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\FiniteElements\FeaBar.cs" />
     <Compile Include="Results\FiniteElements\FeaShell.cs" />
-    <Compile Include="Results\LabelledSection\LabelledSection.cs" />
+    <Compile Include="Results\LabelledSection\LabelledSectionGeometry.cs" />
+    <Compile Include="Results\LabelledSection\OBSOLETE\LabelledSection.cs" />
     <Compile Include="Results\LabelledSection\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSection\LabelledSectionResultant.cs" />
     <Compile Include="Results\ModellingTools\LineConnectionForces.cs" />

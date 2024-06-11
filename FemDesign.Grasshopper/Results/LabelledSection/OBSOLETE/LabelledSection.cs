@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LabelledSection : FEM_Design_API_Component
+    public class LabelledSection_OBSOLETE : FEM_Design_API_Component
     {
-        public LabelledSection() : base("LabelledSection", "LabelledSection", "Define LabelledSection from a Line or Polyline", CategoryName.Name(), SubCategoryName.Cat7b())
+        public LabelledSection_OBSOLETE() : base("LabelledSection", "LabelledSection", "Define LabelledSection from a Line or Polyline", CategoryName.Name(), SubCategoryName.Cat7b())
         {
 
         }
@@ -59,7 +59,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{6FC92A88-5970-4B00-B272-A7B681447F7E}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
