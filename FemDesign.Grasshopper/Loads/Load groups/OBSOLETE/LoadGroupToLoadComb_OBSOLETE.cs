@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using FemDesign.Loads;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
-using FemDesign.GenericClasses;
 
 namespace FemDesign.Grasshopper
 {
-    public class LoadGroupToLoadComb : FEM_Design_API_Component
+    public class LoadGroupToLoadComb_OBSOLETE : FEM_Design_API_Component
     {
-        public LoadGroupToLoadComb() : base("LoadGroupToLoadComb", "LoadGroupToLoadComb", "", CategoryName.Name(), SubCategoryName.Cat3())
+        public LoadGroupToLoadComb_OBSOLETE() : base("LoadGroupToLoadComb", "LoadGroupToLoadComb", "", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -22,7 +21,6 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code.\nConnect 'ValueList' to get the options.\nD,DK,EST,FIN,GB,H,N,PL,RO,S,TR,NL", GH_ParamAccess.item, "S");
             pManager.AddGenericParameter("LoadGroups", "LoadGroups", "Load groups to convert in load combinations", GH_ParamAccess.list);
             pManager.AddTextParameter("CombinationMethod", "CombinationMethod", "Connect 'ValueList' to get the options.\nCombination Method type:\nEN 1990 6.4.3(6.10)\nEN 1990 6.4.3(6.10.a, b)", GH_ParamAccess.item, "EN 1990 6.4.3(6.10)");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -61,7 +59,7 @@ namespace FemDesign.Grasshopper
             var loadGroups = new List<Loads.ModelGeneralLoadGroup>();
             DA.GetDataList("LoadGroups", loadGroups);
 
-            if (loadGroups.Count == 0)
+            if(loadGroups.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input parameter 'LoadGroups' failed to collect data");
                 return;
@@ -71,27 +69,22 @@ namespace FemDesign.Grasshopper
 
             foreach (var loadGroup in loadGroups)
             {
-                if (loadGroup.ModelLoadGroupPermanent != null)
+                if(loadGroup.ModelLoadGroupPermanent != null)
                 {
                     _loadCases.AddRange(loadGroup.ModelLoadGroupPermanent.LoadCase);
                 }
-                else if (loadGroup.ModelLoadGroupTemporary != null)
+                else if(loadGroup.ModelLoadGroupTemporary != null)
                 {
                     _loadCases.AddRange(loadGroup.ModelLoadGroupTemporary.LoadCase);
                 }
             }
-
+            
             _loadCases = _loadCases.Distinct().ToList();
 
             string combinationMethod = "EN 1990 6.4.3(6.10)";
             DA.GetData("CombinationMethod", ref combinationMethod);
 
             LoadCombinationMethod _combinationMethod = FemDesign.GenericClasses.EnumParser.Parse<LoadCombinationMethod>(combinationMethod);
-
-            string _countryCode = "S";
-            DA.GetData("CountryCode", ref _countryCode);
-
-            Country countryCode = EnumParser.Parse<Country>(_countryCode);
 
             var fU = true;
             DA.GetData("fU", ref fU);
@@ -134,9 +127,9 @@ namespace FemDesign.Grasshopper
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection(minimized: true, tempOutputDir: false);
+                var connection = new FemDesignConnection( minimized: true, tempOutputDir: false);
 
-                var model = new Model(countryCode, loadCases: _loadCases, loadGroups: loadGroups);
+                var model = new Model(Country.S, loadCases: _loadCases, loadGroups: loadGroups);
                 model.Entities.Loads.LoadGroupTable.SimpleCombinationMethod = _combinationMethod;
 
                 connection.Open(model);
@@ -164,9 +157,8 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(Country)).ToList(), null, GH_ValueListMode.DropDown);
-
-            ValueListUtils.UpdateValueLists(this, 2, new List<string> { "EN 1990 6.4.3(6.10)", "EN 1990 6.4.3(6.10.a, b)" }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 1, new List<string>
+            { "EN 1990 6.4.3(6.10)", "EN 1990 6.4.3(6.10.a, b)" }, null, GH_ValueListMode.DropDown);
         }
 
 
@@ -179,9 +171,9 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{A5D427E1-B928-4684-A8B4-9E1353FF46CB}"); }
+            get { return new Guid("{9E952662-2BF2-4727-ABAA-094FA2D67DF9}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 }

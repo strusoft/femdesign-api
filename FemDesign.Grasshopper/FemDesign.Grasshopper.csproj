@@ -86,6 +86,7 @@
     <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
+    <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationDiagram.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationForceCombination.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationLoad.cs" />
@@ -134,7 +135,7 @@
     <Compile Include="Extension\GH_AsyncComponent.cs" />
     <Compile Include="Extension\WorkerInstance.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
-    <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
+    <Compile Include="Loads\Load groups\OBSOLETE\LoadGroupToLoadComb_OBSOLETE.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
     <Compile Include="Loads\Loads\SurfaceLoadVariable.cs" />
     <Compile Include="Loads\Vehicle\VehicleDeconstruct.cs" />
