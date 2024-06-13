@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Practical_example___WPF</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="FDlong-blue-trans back.png" />
+    <None Remove="FDlong-blue.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\FemDesign.Core\FemDesign.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="FDlong-blue-trans back.png" />
+    <Resource Include="FDlong-blue.png" />
+  </ItemGroup>
+
+</Project>

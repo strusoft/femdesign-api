@@ -1,0 +1,89 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practical_example___WPF"
+        xmlns:Collections="clr-namespace:System.Collections;assembly=System.Runtime" x:Class="Practical_example___WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="FEM-Design App" MinHeight="430" MinWidth="600" ResizeMode="CanResize" SizeToContent="WidthAndHeight" d:Width="800" Topmost="True" WindowStartupLocation="CenterScreen" Icon="/FDlong-blue.png">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="200"/>
+            <ColumnDefinition MinWidth="200"/>
+            <ColumnDefinition />
+            <ColumnDefinition MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition MinHeight="80" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Thk step [mm]" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" SelectedIndex="0" x:Name="Thk" Margin="10,10,10,10">
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+            </ComboBox>
+        </Grid>
+
+        <Image Grid.Row="0" Grid.Column="3" Source="/FDlong-blue-trans back.png" Margin="10,10,10,10" />
+        <Button x:Name="OpenFile" Content="Select file" Click="OpenFile_Click" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Margin="10,10,10,10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Grid.Column="1" x:Name="label1" Content="No file selected" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="92" />
+
+
+        <GroupBox Grid.Row="3" Grid.Column="0" Header="GroupBox" Margin="10,10,10,10">
+            <StackPanel>
+                <RadioButton x:Name="Radio_button_LE" Content="Linear analysis" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="Radio_button_LE_Checked"/>
+                <RadioButton x:Name="Radio_button_NLE" Content="Non linear analysis" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="Radio_button_NLE_Checked"/>
+            </StackPanel>
+        </GroupBox>
+
+
+        <TextBox Margin="10,10,10,10" Grid.Row="3" Grid.Column="3" Grid.RowSpan="3" x:Name="TextBox" TextWrapping="Wrap" MinLines="4" IsReadOnly="True" TextChanged="TextBox_TextChanged" Background="WhiteSmoke"/>
+
+        <Button Grid.Row="6" Grid.Column="0" Margin="10,10,10,10" x:Name="Run_Optimisation" Content="Run Optimisation" UseLayoutRounding="True"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Click="RunOptimisation_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+        <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Grid.Column="0" x:Name="ComboBox" SelectedIndex="1" IsReadOnly="True" Margin="10,10,10,10" >
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+        </ComboBox>
+        <Label Content="Number of iterations" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <ProgressBar x:Name="ProgressBar" Grid.Column="1" Grid.Row="4" IsIndeterminate="True" Visibility="Collapsed"/>
+
+
+    </Grid>
+
+
+</Window>
