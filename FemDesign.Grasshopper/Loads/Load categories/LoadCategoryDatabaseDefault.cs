@@ -13,7 +13,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: S/N.\n EST/FIN/GB/H/N/PL/RO/S/TR NOT yet implemented. Contact us at support@strusoft.freshdesk.com if you need it.", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: S/N.\n B/COMMON/D/DK/E/EST/FIN/GB/H/LT/NL/PL/RO are NOT yet implemented. Contact us at support@strusoft.freshdesk.com if you need it.", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
         } 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "Connect 'ValueList' to get the options.\nNational annex of calculation code: B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR\n\nNote: TR (Turkish) doesn't contain the plastic material properties.", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "Connect 'ValueList' to get the options.\nNational annex of calculation code: B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR\n\nNote: the TR (Turkish) national annex is no longer supported by FEM-Design. The default material database doesn't contain the plastic material properties for code 'TR'.", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("FilePath", "FilePath", "File path to .struxml file.\nnote: `CountryCode` will not be use if `FilePath` is specified", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -77,9 +77,7 @@ namespace FemDesign.Grasshopper
 
         protected override void BeforeSolveInstance()
         {
-            ValueListUtils.UpdateValueLists(this, 0, new List<string>
-            { "B","COMMON","D","DK","E","EST","FIN","GB","H","LT","N","NL","PL","RO","S","TR"
-            }, null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(Country)).ToList(), null, GH_ValueListMode.DropDown);
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;

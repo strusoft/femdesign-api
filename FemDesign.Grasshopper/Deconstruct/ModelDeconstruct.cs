@@ -20,7 +20,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR.", GH_ParamAccess.item);
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code: B/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR\n\nNote: the TR (Turkish) national annex is no longer supported by FEM-Design.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Foundations", "Foundations", "Single foundation element or list of foundation elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Bars", "Bars", "Single bar element or list of bar elements.", GH_ParamAccess.list);
             pManager.AddGenericParameter("Shells", "Shells", "Single shell element or list of shell elements.", GH_ParamAccess.list);

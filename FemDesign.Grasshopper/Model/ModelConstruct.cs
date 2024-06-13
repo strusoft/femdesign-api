@@ -19,7 +19,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code.\nConnect 'ValueList' to get the options.\nD,DK,EST,FIN,GB,H,N,PL,RO,S,TR,NL", GH_ParamAccess.item, "S");
+            pManager.AddTextParameter("CountryCode", "CountryCode", "National annex of calculation code.\nConnect 'ValueList' to get the options.\nB/COMMON/D/DK/E/EST/FIN/GB/H/LT/N/NL/PL/RO/S/TR\n\nNote: the TR (Turkish) national annex is no longer supported by FEM-Design.", GH_ParamAccess.item, "S");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Structure Elements", "Elements", "Single structure element or list of structure elements to add. Nested lists are not supported.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
