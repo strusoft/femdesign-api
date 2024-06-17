@@ -11,7 +11,7 @@ namespace FemDesign.Grasshopper
 {
     public class ReinforcementPtc : FEM_Design_API_Component
     {
-        public static readonly List<string> JackingSideValueList = Enum.GetNames(typeof(StruSoft.Interop.StruXml.Data.Ptc_jacking_side)).ToList();
+        public static readonly List<string> JackingSideValueList = Enum.GetNames(typeof(JackingSide)).ToList();
         public static string JackingSideValueListDescription
         {
             get
