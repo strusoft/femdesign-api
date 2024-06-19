@@ -332,7 +332,10 @@ namespace FemDesign
 
             if (analysis.Comb != null)
             {
-                analysis.SetCombAnalysis(this);
+                if(analysis.Comb.CombItem.Any(CombItem => CombItem.CombName != null) || analysis.Comb.CombItem.Count() == 0)
+                {
+                    analysis.SetCombAnalysis(this);
+                }
                 script = new FdScript(
                     logfile,
                     new CmdUser(CmdUserModule.RESMODE),

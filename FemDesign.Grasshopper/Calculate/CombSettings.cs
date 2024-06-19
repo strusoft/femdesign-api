@@ -80,7 +80,13 @@ namespace FemDesign.Grasshopper
             var combItem = new FemDesign.Calculate.CombItem(combName: loadCombination);
 
             // Check inputs
-            if(calc)
+            if (!calc)
+            {
+                combItem.Calc = false;
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"'Calc' is False. No calculations will be performed for load combination '{loadCombination}'.");
+                
+            }
+            else
             {
                 if (pl && cr)
                 {
@@ -100,15 +106,7 @@ namespace FemDesign.Grasshopper
 
                 combItem = new FemDesign.Calculate.CombItem(loadCombination, 0, 0, nle, pl, nls, cr, f2nd, im, amplitude, waterlevel);
             }
-            else
-            {
-                combItem.NoCalc = true;
-
-                if (nle || pl || nls || cr || f2nd)
-                {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "'Calc' is False. No calculations will be performed for this load combination.");
-                }
-            }
+           
             
             // return
             DA.SetData(0, combItem);

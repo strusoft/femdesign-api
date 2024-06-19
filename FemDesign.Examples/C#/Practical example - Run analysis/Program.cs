@@ -167,7 +167,7 @@ namespace FemDesign.Examples
 
             var noCombItem_1 = new Calculate.CombItem
             {
-                CombName = "WIND LEAD",
+                CombName = "SNOW LEAD",
                 ImpfRqd = 0,
                 StabRqd = 0,
                 Calc = true,
@@ -181,13 +181,13 @@ namespace FemDesign.Examples
             };
             var noCombItem_2 = new Calculate.CombItem
             {
-                CombName = "SNOW LEAD",
-                NoCalc = true,
+                CombName = "WIND LEAD",
+                Calc = false,
             };
             var noCombItem_3 = new Calculate.CombItem
             {
                 CombName = "ULS VERTICAL",
-                NoCalc = true,
+                Calc = false,
             };
 
             var noCombItems = new List<Calculate.CombItem>

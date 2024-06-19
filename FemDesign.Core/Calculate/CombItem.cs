@@ -36,18 +36,6 @@ namespace FemDesign.Calculate
             }
         }
 
-        /// <summary>
-        /// Write only property. If true, no calculations will be executed for load combinations.
-        /// </summary>
-        [XmlIgnore]
-        public bool NoCalc
-        {
-            set
-            {
-                Calc = !value;
-            }
-        }
-
         [XmlAttribute("NLE")]
         public int _nle { get; set; }
 

@@ -510,6 +510,13 @@ namespace FemDesign.Calculate
             // ordered load combinations in the model
             var loadCombination = connection.GetLoadCombinations();
 
+            var nullCombItems = this.Comb.CombItem.Where(x => x.CombName == null).Count();
+            var namedCombItems = this.Comb.CombItem.Where(x => x.CombName != null).Count();
+
+            if(nullCombItems != 0 && namedCombItems != 0)
+                throw new Exception("CombItem in Analysis contains both named and unnamed CombItems. This is not allowed.");
+
+
             _setCombAnalysis(loadCombination.Values.ToList());
         }
 
