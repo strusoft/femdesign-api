@@ -77,9 +77,16 @@ namespace FemDesign.Supports
         /// <summary>
         /// Create surface support with only translation rigidity and force plastic limits defined. 
         /// </summary>
+        [Obsolete("Constructor will be removed in FD 24.")]
         public SurfaceSupport(Geometry.Region region, Motions motions, MotionsPlasticLimits motionsPlasticLimits, string identifier = "S")
         {
             var rigidity = new RigidityDataType1(motions, motionsPlasticLimits);
+            Initialize(region, rigidity, identifier);
+        }
+
+        public SurfaceSupport(Geometry.Region region, Motions motions, MotionsPlasticLimits motionsPlasticLimits, DetachType detachType = DetachType.None, string identifier = "S")
+        {
+            var rigidity = new RigidityDataType1(motions, motionsPlasticLimits, detachType);
             Initialize(region, rigidity, identifier);
         }
 

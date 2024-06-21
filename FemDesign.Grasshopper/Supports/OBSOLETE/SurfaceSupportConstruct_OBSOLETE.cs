@@ -7,9 +7,9 @@ using FemDesign.Releases;
 
 namespace FemDesign.Grasshopper
 {
-    public class SurfaceSupportConstruct : FEM_Design_API_Component
+    public class SurfaceSupportConstruct_OBSOLETE : FEM_Design_API_Component
     {
-        public SurfaceSupportConstruct() : base("SurfaceSupport.Construct", "Construct", "Construct a SurfaceSupport element.", CategoryName.Name(),
+        public SurfaceSupportConstruct_OBSOLETE() : base("SurfaceSupport.Construct", "Construct", "Construct a SurfaceSupport element.", CategoryName.Name(),
             SubCategoryName.Cat1())
         {
 
@@ -86,7 +86,7 @@ namespace FemDesign.Grasshopper
             get { return new Guid("bb903392-e157-4802-954c-7208d9a48b2b"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

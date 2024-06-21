@@ -17,7 +17,7 @@ namespace FemDesign.Releases
         public Releases.MotionsPlasticLimits PlasticLimitForces { get; set; }
 
         [XmlAttribute("detach")]
-        public DetachType _deachType;
+        public DetachType _deachType = DetachType.None;
 
         [XmlIgnore]
         public DetachType DetachType
@@ -29,27 +29,27 @@ namespace FemDesign.Releases
             set
             {
                 this._deachType = value;
-                if(value == DetachType.X_Compression)
+                if (value == DetachType.X_Compression)
                 {
                     this.Motions.XNeg = 0.00;
                 }
-                else if(value == DetachType.X_Tension)
+                else if (value == DetachType.X_Tension)
                 {
                     this.Motions.XPos = 0.00;
                 }
-                else if(value == DetachType.Y_Compression)
+                else if (value == DetachType.Y_Compression)
                 {
                     this.Motions.YNeg = 0.00;
                 }
-                else if(value == DetachType.Y_Tension)
+                else if (value == DetachType.Y_Tension)
                 {
                     this.Motions.YPos = 0.00;
                 }
-                else if(value == DetachType.Z_Compression)
+                else if (value == DetachType.Z_Compression)
                 {
                     this.Motions.ZNeg = 0.00;
                 }
-                else if(value == DetachType.Z_Tension)
+                else if (value == DetachType.Z_Tension)
                 {
                     this.Motions.ZPos = 0.00;
                 }
@@ -76,10 +76,11 @@ namespace FemDesign.Releases
         /// <summary>
         /// Construct RigidityDataType1 with motions and plastic limits forces only
         /// </summary>
-        public RigidityDataType1(Motions motions, MotionsPlasticLimits motionsPlasticLimits)
+        public RigidityDataType1(Motions motions, MotionsPlasticLimits motionsPlasticLimits, DetachType detachType = DetachType.None)
         {
             this.Motions = motions;
             this.PlasticLimitForces = motionsPlasticLimits;
+            this.DetachType = detachType;
         }
     }
 }

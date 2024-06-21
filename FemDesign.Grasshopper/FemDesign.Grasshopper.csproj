@@ -278,6 +278,7 @@
     <Compile Include="Supports\PointSupportConstruct.cs" />
     <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Extension\HtmlWriter.cs" />
+    <Compile Include="Supports\SurfaceSupport.cs" />
     <Compile Include="Utils\LoadGroupCombineGeneral.cs" />
     <Compile Include="Loads\Load groups\LoadGroupConstruct.cs" />
     <Compile Include="Loads\Load categories\LoadCategoryDatabaseDefault.cs" />
@@ -374,7 +375,7 @@
     <Compile Include="Supports\PointSupportSimple.cs" />
     <Compile Include="Supports\PointSupportHinged.cs" />
     <Compile Include="Supports\PointSupportRigid.cs" />
-    <Compile Include="Supports\SurfaceSupportConstruct.cs" />
+    <Compile Include="Supports\OBSOLETE\SurfaceSupportConstruct_OBSOLETE.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
