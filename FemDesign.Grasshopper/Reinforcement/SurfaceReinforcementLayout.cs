@@ -1,6 +1,11 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
+
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
+
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 using FemDesign.GenericClasses;
 using FemDesign.Reinforcement;
 
@@ -14,9 +19,9 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Direction", "Direction", "Reinforcement layout direction. Allowed values: x/y.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Direction", "Direction", "Reinforcement layout direction. Connect 'ValueList' to get the options.\n\nAllowed values:\nx\ny", GH_ParamAccess.item);
             pManager.AddNumberParameter("Space", "Space", "Spacing between bars. [m]", GH_ParamAccess.item);
-            pManager.AddTextParameter("Face", "Face", "Surface reinforcement face. Allowed values: top/mid/bottom.", GH_ParamAccess.item);
+            pManager.AddTextParameter("Face", "Face", "Surface reinforcement face. Connect 'ValueList' to get the options.\n\nAllowed values:\ntop\nmid\nbottom", GH_ParamAccess.item);
             pManager.AddNumberParameter("Cover", "Cover", "Reinforcement concrete cover. [m]", GH_ParamAccess.item, 0.02);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -50,12 +55,17 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            Face _face = EnumParser.Parse<Face>(face);
             ReinforcementDirection _direction = EnumParser.Parse<ReinforcementDirection>(direction);
+            Face _face = EnumParser.Parse<Face>(face);
             FemDesign.Reinforcement.Straight obj = new FemDesign.Reinforcement.Straight(_direction, space, _face, cover);
 
             // return
             DA.SetData(0, obj);
+        }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.UpdateValueLists(this, 0, Enum.GetNames(typeof(ReinforcementDirection)).ToList(), null, GH_ValueListMode.DropDown);
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(Face)).ToList(), null, GH_ValueListMode.DropDown);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -1,10 +1,15 @@
 // https://strusoft.com/
 using System;
+using System.Linq;
 using System.Collections.Generic;
+
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
+
 using FemDesign.GenericClasses;
 using FemDesign.Reinforcement;
+using FemDesign.Grasshopper.Extension.ComponentExtension;
 
 namespace FemDesign.Grasshopper
 {
@@ -18,7 +23,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of reinforcement bar.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material of reinforcement bar.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Allowed values: smooth/ribbed", GH_ParamAccess.item, "ribbed");
+            pManager.AddTextParameter("Profile", "Profile", "Profile of reinforcement bar. Connect 'ValueList' to get the options.\n\nAllowed values:\nsmooth\nribbed", GH_ParamAccess.item, "ribbed");
             pManager[pManager.ParamCount - 1].Optional = true;
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -41,6 +46,10 @@ namespace FemDesign.Grasshopper
             FemDesign.Reinforcement.Wire obj = new FemDesign.Reinforcement.Wire(diameter, material, _profile);
 
             DA.SetData(0, obj);
+        }
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.UpdateValueLists(this, 2, Enum.GetNames(typeof(WireProfileType)).ToList(), null, GH_ValueListMode.DropDown);
         }
         protected override System.Drawing.Bitmap Icon
         {
