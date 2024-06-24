@@ -2760,7 +2760,7 @@ namespace FemDesign
             this.Entities.Supports.LineSupport.Add(obj);
 
             // add lib item
-            if (obj.Group.PredefRigidity != null)
+            if (obj.Group?.PredefRigidity != null)
             {
                 this.AddLineSupportGroupLibItem(obj.Group.PredefRigidity, overwrite);
             }
