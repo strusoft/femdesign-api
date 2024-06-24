@@ -129,7 +129,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._ae = RestrictedDouble.Positive(value);
+                this._ae = RestrictedDouble.NonZeroMax_1e15(value);
             }
         }
 
@@ -145,7 +145,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._itg = RestrictedDouble.Positive(value);
+                this._itg = RestrictedDouble.NonZeroMax_1e15(value);
             }
         }
 
@@ -161,7 +161,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._i1e = RestrictedDouble.Positive(value);
+                this._i1e = RestrictedDouble.NonZeroMax_1e15(value);
             }
         }
 
@@ -177,7 +177,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._i2e = RestrictedDouble.Positive(value);
+                this._i2e = RestrictedDouble.NonZeroMax_1e15(value);
             }
         }
 

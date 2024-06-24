@@ -17,7 +17,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._xz = RestrictedDouble.NonNegMax_1e20(value);
+                this._xz = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
         
@@ -32,7 +32,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._yz = RestrictedDouble.NonNegMax_1e20(value);
+                this._yz = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 

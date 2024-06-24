@@ -17,10 +17,10 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._xx = RestrictedDouble.NonNegMax_1e20(value);
+                this._xx = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
-        
+
         [XmlAttribute("xy")]
         public double _xy;
         [XmlIgnore]
@@ -32,7 +32,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._xy = RestrictedDouble.NonNegMax_1e20(value);
+                this._xy = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 
@@ -47,7 +47,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._yy = RestrictedDouble.NonNegMax_1e20(value);
+                this._yy = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 
@@ -62,7 +62,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._gxy = RestrictedDouble.NonNegMax_1e20(value);
+                this._gxy = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 
@@ -87,7 +87,14 @@ namespace FemDesign.ModellingTools
             this.XY = xy;
             this.YY = yy;
             this.GXY = gxy;
+
+            this.CheckMatrixValidity();
         }
 
+        private void CheckMatrixValidity()
+        {
+            if (XX * YY - XY * XY <= 0.0)
+                throw new System.Exception("(XX*YY)-(XY*XY) must be greater than 0.0!");
+        }
     }
 }

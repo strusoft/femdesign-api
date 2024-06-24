@@ -165,7 +165,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._t1 = RestrictedDouble.NonNegMax_1e20(value);
+                this._t1 = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 
@@ -183,7 +183,7 @@ namespace FemDesign.ModellingTools
             }
             set
             {
-                this._t2 = RestrictedDouble.NonNegMax_1e20(value);
+                this._t2 = RestrictedDouble.NonZeroMax_1e20(value);
             }
         }
 

@@ -168,6 +168,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_neg_max_1e7
+        /// </summary>
+        internal static double NonNegMax_1e7(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 1E7);
+        }
+
+        /// <summary>
         /// non_neg_max_1e10
         /// </summary>
         internal static double NonNegMax_1e10(double val)
@@ -184,11 +192,27 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Checks if the value is a positive, non-zero number that is no greater than 1e15.
+        /// </summary>
+        internal static double NonZeroMax_1e15(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 1E-5, 1E15);
+        }
+
+        /// <summary>
         /// non_neg_max_1e20
         /// </summary>
         internal static double NonNegMax_1e20(double val)
         {
             return RestrictedDouble.ValueInClosedInterval(val, 0, 1E20);
+        }
+
+        /// <summary>
+        /// Checks if the value is a positive, non-zero number that is no greater than 1e15.
+        /// </summary>
+        internal static double NonZeroMax_1e20(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 1E-5, 1E20);
         }
 
         /// <summary>
