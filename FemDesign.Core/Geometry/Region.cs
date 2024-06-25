@@ -261,7 +261,7 @@ namespace FemDesign.Geometry
                             Shells.EdgeConnection ec = Shells.EdgeConnection.CopyExisting(edgeConnection, name);
                             edge.EdgeConnection = ec;
                             // edge connection Normal are opposite to the normal of the contour
-                            edge.EdgeConnection.Normal = this.LocalZ.Reverse();
+                            edge.EdgeConnection.Normal = this.LocalZ;
                         }
                     }
                     else
@@ -290,7 +290,7 @@ namespace FemDesign.Geometry
                     if(edgeConnection != null)
                     {
                         edgeConnection.Edge = edge;
-                        edgeConnection.Normal = this.LocalZ.Reverse();
+                        edgeConnection.Normal = this.LocalZ;
                     }
                     edgeConnections.Add(edgeConnection);
                 }
