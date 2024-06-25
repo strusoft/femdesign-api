@@ -42,28 +42,24 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
-            // return
+            // set output
             DA.SetData(0, obj.Guid);
             DA.SetData(1, obj.Name);
 
-            var edgeCurve = obj.Edge.ToRhino();
-            DA.SetData(2, obj.Edge.ToRhino());
+            Curve edgeCurve = obj.Edge.ToRhino();
+            DA.SetData(2, edgeCurve);
 
-            if (!edgeCurve.IsLinear())
-            {
-                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Arc edge detected in the panel. Local plane is not calculated");
-                DA.SetData(3, null);
-            }
-            else // it is a line
-            {
-                edgeCurve.Domain = new Rhino.Geometry.Interval(0, 1.0);
-                var midPoint = edgeCurve.PointAt(0.5).FromRhino();
-                var localX = (edgeCurve.PointAtEnd - edgeCurve.PointAtStart).FromRhino();
-                var localZ = obj.Normal;
-                var localY = localX.Cross(localZ);
-                var localPlane = new FemDesign.Geometry.Plane(midPoint, localX, localY).ToRhino();
-                DA.SetData(3, localPlane);
-            }
+            // local coordinate system
+            Point3d midPoint = edgeCurve.PointAtNormalizedLength(0.5);
+            Point3d startPoint = edgeCurve.PointAtNormalizedLength(0.0);
+            Point3d endPoint = edgeCurve.PointAtNormalizedLength(1.0);
+
+            Vector3d xDir = new Vector3d(endPoint.X - startPoint.X, endPoint.Y - startPoint.Y, endPoint.Z - startPoint.Z);
+            Vector3d zDir = obj.Normal.ToRhino();
+            Vector3d yDir = Vector3d.CrossProduct(xDir, zDir);
+
+            Plane localPlane = new Plane(midPoint, xDir, yDir);
+            DA.SetData(3, localPlane);
 
             // catch pre-defined rigidity
             if (obj.Rigidity != null)
