@@ -142,6 +142,8 @@
     <Compile Include="Loads\Vehicle\VehicleFromStruxml.cs" />
     <Compile Include="Materials\MaterialDatabase.cs" />
     <Compile Include="Materials\MaterialSetTimberMaterialProperties.cs" />
+    <Compile Include="ModellingTools\OBSOLETE\FictitiousShellConstruct_OBSOLETE2304.cs" />
+    <Compile Include="ModellingTools\OBSOLETE\FictitiousShellSetEdgeConnection_OBSOLETE2304.cs" />
     <Compile Include="ModellingTools\PointConnection.cs" />
     <Compile Include="ModellingTools\SurfaceConnection.cs" />
     <Compile Include="Model\ModelAddElements.cs" />
@@ -268,6 +270,13 @@
     <Compile Include="Sections\SectionDefine.cs" />
     <Compile Include="Sections\SectionGetSectionByName.cs" />
     <Compile Include="Shells\EdgeConnectionConstruct.cs" />
+    <Compile Include="Shells\OBSOLETE\PanelSetExternalEdgeConnectionForContinuousAnalyticalModel_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\ProfiledPlateConstruct_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabPlateVariableThickness_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabPlate_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabWallVariableThickness_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\SlabWall_OBSOLETE2304.cs" />
+    <Compile Include="Shells\OBSOLETE\TimberPlateConstruct_OBSOLETE2304.cs" />
     <Compile Include="Shells\SlabPeakSmoothingRegion.cs" />
     <Compile Include="Shells\Slab.SetStiffnessModifier.cs" />
     <Compile Include="Shells\SlabPlate.cs" />

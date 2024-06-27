@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using System.ComponentModel;
 using System.Linq;
+using FemDesign.Releases;
 
 namespace FemDesign.Shells
 {
@@ -205,7 +206,7 @@ namespace FemDesign.Shells
         public GuidListType InternalPredefinedRigidity { get; set; }
 
         [XmlElement("external_rigidity", Order = 16)]
-        public Releases.RigidityDataType3 ExternalRigidity { get; set; } // // sets region border. region edgeconnection sets edgeconnection for specific edge. default should be hinged?
+        public Releases.RigidityDataType3 ExternalRigidity { get; set; } // sets region border. region edgeconnection sets edgeconnection for specific edge. default should be hinged?
 
         [XmlElement("external_predefined_rigidity", Order = 17)]
         public GuidListType ExternalPredefinedRigidity { get; set; }
@@ -352,7 +353,7 @@ namespace FemDesign.Shells
         public bool IgnoredInStability { get; set; } = false;
 
         /// <summary>
-        /// Set external edge connections (i.e. set edge connections around region). 
+        /// Set external edge connections (i.e. set edge connections on the border). 
         /// When this is performed for panels the external rigidity is changed accordingly.
         /// </summary>
         /// <param name="ec">EdgeConnection</param>
@@ -376,6 +377,27 @@ namespace FemDesign.Shells
                 this.ExternalPredefinedRigidity = ec.PredefRigidity;
         }
 
+        /// <summary>
+        /// Set external edge connections (i.e. set edge connections on the border).
+        /// When this is performed for panels the external rigidity is changed accordingly.
+        /// </summary>
+        /// <param name="edgeConnections">EdgeConnection</param>
+        public void SetExternalEdgeConnections(List<EdgeConnection> edgeConnections)
+        {
+            // set the edge connections of the external edges of the internal panels
+            if (this.InternalPanels.IntPanels.Count == 1)
+            {
+                this.InternalPanels.IntPanels[0].Region.SetEdgeConnections(edgeConnections);
+            }
+            else
+            {
+                throw new System.ArgumentException("Can't set external edge connections for panels with more than 1 internal panel (i.e. can only set external edge conncetions for panels with a continuous analytical model)");
+            }
+
+            // set external rigidity property
+            this.ExternalRigidity = RigidityDataType3.RigidLine();
+
+        }
 
         public List<EdgeConnection> GetEdgeConnections()
         {
@@ -456,16 +478,11 @@ namespace FemDesign.Shells
 
             foreach (int index in indices)
             {
-                if (index >= 0 & index < this.InternalPanels.IntPanels[0].Region.GetEdgeConnections().Count)
-                {
-                    // pass
-                }
-                else
+                if (index < 0 || index >= this.InternalPanels.IntPanels[0].Region.GetEdgeConnections().Count)
                 {
                     throw new System.ArgumentException("Index is out of bounds.");
                 }
                 
-                //
                 this.SetExternalEdgeConnectionAtIndexForContinousAnalyticalModel(shellEdgeConnection, index);  
             }
         }
@@ -505,10 +522,10 @@ namespace FemDesign.Shells
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
         /// <param name="internalPanels"></param>
-        /// <param name="externalEdgeConnection"></param>
+        /// <param name="externalEdgeConnections"></param>
         /// <param name="material"></param>
         /// <param name="section"></param>
-        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, EdgeConnection externalEdgeConnection, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
+        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, List<EdgeConnection> externalEdgeConnections, PanelType type, Materials.Material material, Sections.Section section, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal)
         {
             this.EntityCreated();
 
@@ -517,10 +534,10 @@ namespace FemDesign.Shells
             this.Plane = region.Plane;
             this.AnchorPoint = anchorPoint;
             this.InternalPanels = internalPanels;
-            this.ExternalRigidity = externalEdgeConnection.Rigidity;
+            this.ExternalRigidity = RigidityDataType3.RigidLine();
 
             // set edge connections
-            this.SetExternalEdgeConnections(externalEdgeConnection);
+            this.SetExternalEdgeConnections(externalEdgeConnections);
 
             // attributes
             this.Type = type;
@@ -543,7 +560,7 @@ namespace FemDesign.Shells
         /// <param name="region">Region of shell containing panels.</param>
         /// <param name="anchorPoint"></param>
         /// <param name="internalPanels"></param>
-        /// <param name="externalEdgeConnection">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
+        /// <param name="externalEdgeConnections">Default value for shell border EdgeConnections. Can be overwritten by EdgeConnection for each specific edge in Region.</param>
         /// <param name="timberApplicationData"></param>
         /// <param name="type">Type of panel.</param>
         /// <param name="identifier">Name of shell.</param>
@@ -553,7 +570,7 @@ namespace FemDesign.Shells
         /// <param name="ecc">ShellEccentricity.</param>
         /// <param name="externalMovingLocal">EdgeConnection LCS changes along edge?</param>
         /// <param name="panelWidth"></param>
-        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, EdgeConnection externalEdgeConnection, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
+        internal Panel(Geometry.Region region, Geometry.Point3d anchorPoint, InternalPanels internalPanels, Materials.TimberPanelType timberApplicationData, List<EdgeConnection> externalEdgeConnections, PanelType type, string identifier, string panelName, double gap, double orthotropy, ShellEccentricity ecc, bool externalMovingLocal, double panelWidth)
         {
             this.EntityCreated();
 
@@ -565,7 +582,7 @@ namespace FemDesign.Shells
             this.TimberPanelData = timberApplicationData;
 
             // set external rigidity
-            this.SetExternalEdgeConnections(externalEdgeConnection);
+            this.SetExternalEdgeConnections(externalEdgeConnections);
 
             // set internal rigidity - not relevant for a panel with continuous analytical model
 
@@ -574,6 +591,7 @@ namespace FemDesign.Shells
             this.Identifier = identifier;
             this.PanelName = panelName;
             this.Gap = gap;
+            this.Orthotropy = orthotropy;
             this.Alignment = ecc.Alignment;
             this.AlignOffset = ecc.Eccentricity;
             this.EccentricityCalculation = ecc.EccentricityCalculation;
@@ -603,7 +621,34 @@ namespace FemDesign.Shells
             double gap = 0.003;
             bool externalMovingLocal = externalEdgeConnection.MovingLocal;
             
-            return new Panel(region, anchorPoint, internalPanels, externalEdgeConnection, type, material, section, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal);
+            return new Panel(region, anchorPoint, internalPanels, new List<EdgeConnection> { externalEdgeConnection }, type, material, section, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal);
+        }
+
+        /// <summary>
+        /// Create a default concrete shell with panels using a continuous analytical model.
+        /// </summary>
+        /// <param name="region">Panel region.</param>
+        /// <param name="externalEdgeConnections"></param>
+        /// <param name="material"></param>
+        /// <param name="section"></param>
+        /// <param name="identifier">Name of shell.</param>
+        /// <param name="orthotropy"></param>
+        /// <param name="ecc"></param>
+        /// <returns></returns>
+        public static Panel DefaultContreteContinuous(Geometry.Region region, List<EdgeConnection> externalEdgeConnections, Materials.Material material, Sections.Section section, string identifier, double orthotropy, ShellEccentricity ecc)
+        {
+            if (externalEdgeConnections?.Count == 0 || externalEdgeConnections == null)
+                externalEdgeConnections = new List<EdgeConnection> { EdgeConnection.Default};
+
+            Geometry.Point3d anchorPoint = region.Contours[0].Edges[0].Points[0];
+            InternalPanel internalPanel = new InternalPanel(region);
+            InternalPanels internalPanels = new InternalPanels(internalPanel);
+            PanelType type = PanelType.Concrete;
+            string panelName = "A";
+            double gap = 0.003;
+            bool externalMovingLocal = true;
+
+            return new Panel(region, anchorPoint, internalPanels, externalEdgeConnections, type, material, section, identifier, panelName, gap, orthotropy, ecc, externalMovingLocal);
         }
 
         /// <summary>
@@ -634,10 +679,46 @@ namespace FemDesign.Shells
             double orthotropy = 1;
             bool externalMovingLocal = externalEdgeConnection.MovingLocal;
 
-            var panel = new Panel(region, anchorPoint, internalPanels, timberPlateMaterial, externalEdgeConnection, type, identifier, panelName, gap, orthotropy, eccentricity, externalMovingLocal, panelWidth);
+            var panel = new Panel(region, anchorPoint, internalPanels, timberPlateMaterial, new List<EdgeConnection> { externalEdgeConnection }, type, identifier, panelName, gap, orthotropy, eccentricity, externalMovingLocal, panelWidth);
 
             panel.LocalX = direction; // Set timber panel span direction
             
+            return panel;
+        }
+
+        /// <summary>
+        /// Create a default timber shell with panels using a continuous analytical model.
+        /// </summary>
+        /// <param name="region">Panel region.</param>
+        /// <param name="timberPlateMaterial">Timber material. See <see cref="FemDesign.Materials.TimberPanelType"/>.</param>
+        /// <param name="direction">Timber panel span direction.</param>
+        /// <param name="externalEdgeConnections"></param>
+        /// <param name="identifier">Name of shell.</param>
+        /// <param name="eccentricity"></param>
+        /// <param name="panelWidth"></param>
+        /// <returns></returns>
+        public static Panel DefaultTimberContinuous(Geometry.Region region, Materials.TimberPanelType timberPlateMaterial, Geometry.Vector3d direction, List<EdgeConnection> externalEdgeConnections, string identifier = "TP", ShellEccentricity eccentricity = null, double panelWidth = 1.5)
+        {
+
+            if (externalEdgeConnections?.Count == 0 || externalEdgeConnections == null)
+                externalEdgeConnections = new List<EdgeConnection> { EdgeConnection.Default};
+
+            if (eccentricity == null)
+                eccentricity = ShellEccentricity.Default;
+
+            Geometry.Point3d anchorPoint = region.Contours[0].Edges[0].Points[0];
+            InternalPanel internalPanel = new InternalPanel(region);
+            InternalPanels internalPanels = new InternalPanels(internalPanel);
+            PanelType type = PanelType.Timber;
+            string panelName = "A";
+            double gap = 0.01;
+            double orthotropy = 1;
+            bool externalMovingLocal = true;
+
+            var panel = new Panel(region, anchorPoint, internalPanels, timberPlateMaterial, externalEdgeConnections, type, identifier, panelName, gap, orthotropy, eccentricity, externalMovingLocal, panelWidth);
+
+            panel.LocalX = direction; // Set timber panel span direction
+
             return panel;
         }
     }

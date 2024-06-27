@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousShellConstruct: FEM_Design_API_Component
+    public class FictitiousShellConstruct_OBSOLETE2304 : FEM_Design_API_Component
     {
-        public FictitiousShellConstruct(): base("FictitiousShell.Construct", "Construct", "Construct a fictitious shell", "FEM-Design", "ModellingTools")
+        public FictitiousShellConstruct_OBSOLETE2304(): base("FictitiousShell.Construct", "Construct", "Construct a fictitious shell", "FEM-Design", "ModellingTools")
         {
 
         }
@@ -30,7 +30,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("IgnoreInStImpCalc", "IgnoreInStImpCalc", "Ignore in stability/imperfection calculation", GH_ParamAccess.item, false);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.list);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "Optional, rigid if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -48,60 +48,102 @@ namespace FemDesign.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Rhino.Geometry.Brep brep = null;
-            if (!DA.GetData(0, ref brep)) { return; }
+            if (!DA.GetData(0, ref brep))
+            {
+                return;
+            }
 
             ModellingTools.StiffnessMatrix4Type d = null;
-            if (!DA.GetData(1, ref d)) { return; }
+            if (!DA.GetData(1, ref d))
+            {
+                return;
+            }
 
             ModellingTools.StiffnessMatrix4Type k = null;
-            if (!DA.GetData(2, ref k)) { return; }
+            if (!DA.GetData(2, ref k))
+            {
+                return;
+            }
 
             ModellingTools.StiffnessMatrix2Type h = null;
-            if (!DA.GetData(3, ref h)) { return; }
+            if (!DA.GetData(3, ref h))
+            {
+                return;
+            }
 
             double density = 1;
-            DA.GetData(4, ref density);
+            if (!DA.GetData(4, ref density))
+            {
+                // pass
+            }
 
             double t1 = 0.1;
-            DA.GetData(5, ref t1);
+            if (!DA.GetData(5, ref t1))
+            {
+                // pass
+            }
 
             double t2 = 0.1;
-            DA.GetData(6, ref t2);
+            if (!DA.GetData(6, ref t2))
+            {
+                // pass
+            }
 
             double alpha1 = 0.00001;
-            DA.GetData(7, ref alpha1);
+            if (!DA.GetData(7, ref alpha1))
+            {
+                // pass
+            }
             
             double alpha2 = 0.00001;
-            DA.GetData(8, ref alpha2);
+            if (!DA.GetData(8, ref alpha2))
+            {
+                // pass
+            }
 
             bool ignore = false;
-            DA.GetData(9, ref ignore);
+            if (!DA.GetData(9, ref ignore))
+            {
+                // pass
+            }
 
-            List<FemDesign.Shells.EdgeConnection> edgeConnections = new List<FemDesign.Shells.EdgeConnection>();
-            DA.GetDataList(10, edgeConnections);
+            Shells.EdgeConnection edgeConnection = Shells.EdgeConnection.Default;
+            if (!DA.GetData(10, ref edgeConnection))
+            {
+                // pass
+            }
 
             Rhino.Geometry.Vector3d x = Vector3d.Zero;
-            DA.GetData(11, ref x);
+            if (!DA.GetData(11, ref x))
+            {
+                // pass
+            }
 
             Rhino.Geometry.Vector3d z = Vector3d.Zero;
-            DA.GetData(12, ref z);
+            if (!DA.GetData(12, ref z))
+            {
+                // pass
+            }
 
             double mesh = 0;
-            DA.GetData(13, ref mesh);
+            if (!DA.GetData(13, ref mesh))
+            {
+                // pass
+            }
 
             string identifier = "FS";
-            DA.GetData(14, ref identifier);
+            if (!DA.GetData(14, ref identifier))
+            {
+                // pass
+            }
 
             // convert geometry
             Geometry.Region region = brep.FromRhino();
 
             // add edge connection
-            if(edgeConnections?.Count == 0 || edgeConnections == null)
-                region.SetEdgeConnections(FemDesign.Shells.EdgeConnection.Default);
-            else
-                region.SetEdgeConnections(edgeConnections);
+            region.SetEdgeConnections(edgeConnection);
 
-            // create fictitious shell
+            //
             ModellingTools.FictitiousShell obj = new ModellingTools.FictitiousShell(region, d, k, h, density, t1, t2, alpha1, alpha2, ignore, mesh, identifier);
 
             // set local x-axis
@@ -128,10 +170,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{9C98A02F-8FA0-4BDE-8C7D-E60984316545}"); }
+            get { return new Guid("f9544346-eb4d-455e-804c-fee34b0d16a6"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

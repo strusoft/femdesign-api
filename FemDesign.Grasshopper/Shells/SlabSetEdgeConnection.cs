@@ -23,36 +23,43 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            // get inputs
             Shells.Slab slab = null;
+            if (!DA.GetData(0, ref slab)) { return; }
+            
+            
             List<Shells.EdgeConnection> shellEdgeConnections = new List<Shells.EdgeConnection>();
-            List<int> indices = new List<int>();
-            if (!DA.GetData(0, ref slab)) return;
-            if (!DA.GetDataList(1, shellEdgeConnections)) return;
-            if (!DA.GetDataList(2, indices)) return;
-            if (slab == null) return;
+            if (!DA.GetDataList(1, shellEdgeConnections)) { return; }
 
-            Shells.Slab obj;
+            List<int> indices = new List<int>();
+            if (!DA.GetDataList(2, indices)) { return; }
+
+            // check inputs
+            if (slab == null || shellEdgeConnections == null || indices == null) { return; }
             if (shellEdgeConnections.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"No shell edge connection added to shell {slab.Name}");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"No edge connection added to shell {slab.Name}");
                 return;
             }
-            else if (shellEdgeConnections.Count == 1)
+
+            // set edge connections on object
+            Shells.Slab obj;
+            if (shellEdgeConnections.Count == 1)
             {
-                var shellEdgeConnection = shellEdgeConnections[0];
-                obj = Shells.Slab.SetEdgeConnection(slab, shellEdgeConnection, indices);
+                obj = Shells.Slab.SetEdgeConnection(slab, shellEdgeConnections[0], indices);
             }
             else if (shellEdgeConnections.Count == indices.Count)
             {
                 obj = Shells.Slab.SetEdgeConnection(slab, shellEdgeConnections[0], indices[0]);
-                for (int i = 1; i < shellEdgeConnections.Count; i++)
+                for (int i = 0; i < shellEdgeConnections.Count; i++)
                     obj = Shells.Slab.SetEdgeConnection(obj, shellEdgeConnections[i], indices[i]);
             }
             else
             {
-                throw new ArgumentException($"The number of shellEdgeConnections must be 1 or eqal to the number of indices provided. Recieved {shellEdgeConnections.Count} and {indices.Count}");
+                throw new ArgumentException($"The number of EdgeConnections must be 1 or equal to the number of indices provided. Recieved {shellEdgeConnections.Count} and {indices.Count}");
             }
 
+            // get output
             DA.SetData(0, obj);
         }
         protected override System.Drawing.Bitmap Icon

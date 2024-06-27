@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("ShellOrthotropy", "Orthotropy", "ShellOrthotropy. Optional.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection. Optional.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("EdgeConnection", "EdgeConnection", "EdgeConnection. Optional.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddVectorParameter("LocalX", "LocalX", "Set local x-axis. Vector must be perpendicular to surface local z-axis. Local y-axis will be adjusted accordingly. Optional, local x-axis from surface coordinate system used if undefined.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -36,8 +36,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // get input
-            
+            // get inputs            
             Brep surface = null;
             if(!DA.GetData(0, ref surface)) { return; }
             
@@ -48,41 +47,25 @@ namespace FemDesign.Grasshopper
             if(!DA.GetData(2, ref material)) { return; }
             
             FemDesign.Shells.ShellEccentricity eccentricity = FemDesign.Shells.ShellEccentricity.Default;
-            if(!DA.GetData(3, ref eccentricity))
-            {
-                // pass
-            }
+            DA.GetData(3, ref eccentricity);
             
             FemDesign.Shells.ShellOrthotropy orthotropy = FemDesign.Shells.ShellOrthotropy.Default;
-            if(!DA.GetData(4, ref orthotropy))
-            {
-                // pass
-            }
-            
-            FemDesign.Shells.EdgeConnection edgeConnection = FemDesign.Shells.EdgeConnection.Rigid;
-            if(!DA.GetData(5, ref edgeConnection))
-            {
-                // pass
-            }
+            DA.GetData(4, ref orthotropy);
+
+            List<FemDesign.Shells.EdgeConnection> edgeConnections = new List<FemDesign.Shells.EdgeConnection>();
+            DA.GetDataList(5, edgeConnections);
 
             Rhino.Geometry.Vector3d x = Vector3d.Zero;
-            if (!DA.GetData(6, ref x))
-            {
-                // pass
-            }
+            DA.GetData(6, ref x);
 
             Rhino.Geometry.Vector3d z = Vector3d.Zero;
-            if (!DA.GetData(7, ref z))
-            {
-                // pass
-            }
+            DA.GetData(7, ref z);
             
             string identifier = "W";
-            if(!DA.GetData(8, ref identifier))
-            {
-                // pass
-            }
-            if (surface == null || thickness == null || material == null || eccentricity == null || orthotropy == null || edgeConnection == null) { return; }
+            DA.GetData(8, ref identifier);
+
+            // check inputs
+            if (surface == null || thickness == null || material == null || eccentricity == null || orthotropy == null) { return; }
             if (thickness.Count != 2)
             {
                 throw new System.ArgumentException("Thickness must contain exactly 2 items.");
@@ -91,8 +74,12 @@ namespace FemDesign.Grasshopper
             // convert geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
 
-            //
-            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, edgeConnection, eccentricity, orthotropy, thickness);
+            // create a slab plate
+            FemDesign.Shells.Slab obj = FemDesign.Shells.Slab.Wall(identifier, material, region, FemDesign.Shells.EdgeConnection.Rigid, eccentricity, orthotropy, thickness);
+
+
+            // set edge connections on slab
+            obj.SlabPart.Region.SetEdgeConnections(edgeConnections);
 
             // set local x-axis
             if (!x.Equals(Vector3d.Zero))
@@ -118,7 +105,7 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("fb3f47d6-f58d-42ec-9a24-14419b2dfa2f"); }
+            get { return new Guid("{D8B69867-E60E-4DDA-8031-5979C0E901A2}"); }
         }
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
