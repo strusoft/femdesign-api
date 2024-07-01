@@ -23,5 +23,5 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 
-[assembly: AssemblyVersion("23.4.0")]
-[assembly: AssemblyFileVersion("23.4.0")]
+[assembly: AssemblyVersion("23.5.0")]
+[assembly: AssemblyFileVersion("23.5.0")]
