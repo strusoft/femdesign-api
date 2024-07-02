@@ -57,7 +57,7 @@ namespace FemDesign.Grasshopper
             // check planes
             foreach (var reinf in surfaceReinforcement)
             {
-                if (slab.Region.LocalZ.IsParallel(reinf.Region.LocalZ) == 0)
+                if (slab.Region.Plane == reinf.Region.Plane)
                 {
                     throw new Exception($"Surface reinforcement (GUID: {reinf.Guid}) is on a different plane to the slab (GUID: {slab.Guid})!");
                 }
@@ -175,13 +175,13 @@ namespace FemDesign.Grasshopper
                     {
                         var holeRelations = Contains(hole, reinfSurfacesBoundPts[i], slabPlane);
 
-                        if(IsAllInside(holeRelations) || IsAllCoincident(holeRelations))
+                        if(IsCoincidentAndInside(holeRelations))
                         {
                             throw new Exception($"The surface reinforcement (GUID: {surfaceReinforcement[i].Guid}) is placed in a hole (slab GUID: {slab.Guid}). Reinforcement and slab surfaces must overlap!");
                         }
                     }
                 }
-                if(IsAllOutside(slabRelations) || IsCoincidentAndOutside(slabRelations))
+                if(IsCoincidentAndOutside(slabRelations))
                 {
                     var reinfRelations = Contains(reinfBounds[i], slabBoundPts, reinfSurfacesPlanes[i]);
 
@@ -191,13 +191,13 @@ namespace FemDesign.Grasshopper
                         {
                             var holeRelations = Contains(hole, slabBoundPts, reinfSurfacesPlanes[i]);
 
-                            if (IsAllInside(holeRelations) || IsAllCoincident(holeRelations))
+                            if (IsCoincidentAndInside(holeRelations))
                             {
                                 throw new Exception($"The slab (GUID: {slab.Guid}) is placed in a hole in the reinforcement's surface (reinforcement GUID: {surfaceReinforcement[i].Guid}). Reinforcement and slab surfaces must overlap!");
                             }
                         }
                     }
-                    if (IsAllOutside(reinfRelations) || IsCoincidentAndOutside(reinfRelations))
+                    if (IsCoincidentAndOutside(reinfRelations))
                     {
                         throw new Exception($"Reinforcement (GUID: {surfaceReinforcement[i].Guid}) and slab (GUID: {slab.Guid}) surfaces are not overlapping!");
                     }
