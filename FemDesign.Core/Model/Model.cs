@@ -2420,7 +2420,18 @@ namespace FemDesign
             {
                 if (elem.Guid == obj.Guid)
                 {
-                    return true;
+                    // If the GUID is the same and the `BaseBar` is different, it means that we are trying to add the same reinforcement object to the model that we used for a 
+                    // bar previously added to the model, but we want to use this reinf. again for a different bar. In this case, we need to add this reinf. as a new object
+                    // with a new GUID, and this method should return `true`, as we don't have a duplicate object case.
+                    if (elem.BaseBar.Guid == obj.BaseBar.Guid)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        obj.Guid = Guid.NewGuid();
+                        return false;
+                    }
                 }
             }
             return false;
@@ -2477,7 +2488,18 @@ namespace FemDesign
             {
                 if (elem.Guid == obj.Guid)
                 {
-                    return true;
+                    // If the GUID is the same and the `BaseShell` is different, it means that we are trying to add the same reinforcement object to the model that we used for a 
+                    // shell previously added to the model, but we want to use this reinf. again for a different shell. In this case, we need to add this reinf. as a new object
+                    // with a new GUID, and this method should return `true`, as we don't have a duplicate object case.
+                    if (elem.BaseShell.Guid == obj.BaseShell.Guid)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        obj.Guid = Guid.NewGuid();
+                        return false;
+                    }
                 }
             }
             return false;

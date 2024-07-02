@@ -99,13 +99,53 @@ namespace FemDesign.Shells
             get {return this._meshSize;}
             set {this._meshSize = RestrictedDouble.NonNegMax_1e20(value);}
         }
+        //[XmlElement("contour", Order = 1)]
+        //public List<Geometry.Contour> _contours;
+        //[XmlIgnore]
+        //public Geometry.Region _region
+        //{
+        //    get
+        //    {
+
+        //    }
+        //    set
+        //    {
+
+        //    }
+        //}
+        //[XmlIgnore]
+        //public Geometry.Region Region
+        //{
+        //    get 
+        //    { 
+        //        if(_region == null)
+        //            return 
+        //        return this._region; 
+        //    }
+        //    set 
+        //    {
+        //        this._contours = value.Contours;
+        //        this._region = value; 
+        //    }
+        //}
         [XmlElement("contour", Order = 1)]
         public List<Geometry.Contour> _region;
         [XmlIgnore]
         public Geometry.Region Region
         {
-            get { return new Geometry.Region(this._region); }
-            set { this._region = value.Contours; }
+            get 
+            { 
+                return new Geometry.Region(this._region, this.Plane); 
+            }
+            set 
+            { 
+                this._region = value.Contours;
+            }
+        }
+        [XmlIgnore]
+        public Geometry.Plane Plane
+        {
+            get => new Geometry.Plane(this.LocalPos, this.LocalX, this.LocalY);
         }
         [XmlElement("thickness", Order = 2)]
         public List<Thickness> _thickness; // sequence: location_value

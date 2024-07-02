@@ -898,13 +898,32 @@ namespace FemDesign.Grasshopper
             return curves;
         }
 
-#endregion
+        /// <summary>
+        /// Convert Contours in Region to a list of Rhino curves.
+        /// </summary>
+        internal static List<List<Rhino.Geometry.Curve>> ToRhinoCurveList(this Region region)
+        {
+            List<List<Rhino.Geometry.Curve>> curvesList = new List<List<Rhino.Geometry.Curve>>();
+
+            foreach (Geometry.Contour contour in region.Contours)
+            {
+                List<Rhino.Geometry.Curve> curves = new List<Rhino.Geometry.Curve>();
+                foreach (Geometry.Edge edge in contour.Edges)
+                {
+                    curves.Add(edge.ToRhino());
+                }
+                curvesList.Add(curves);
+            }
+            return curvesList;
+        }
+
+        #endregion
 
         #region RegionGroup
-/// <summary>
-/// Get rhino breps of underlying regions
-/// </summary>
-internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
+        /// <summary>
+        /// Get rhino breps of underlying regions
+        /// </summary>
+        internal static List<Rhino.Geometry.Brep> ToRhino(this RegionGroup regionGroup)
         {
             List<Rhino.Geometry.Brep> breps = new List<Rhino.Geometry.Brep>();
             foreach (Region region in regionGroup.Regions)

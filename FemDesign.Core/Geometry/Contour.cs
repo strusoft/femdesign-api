@@ -108,6 +108,19 @@ namespace FemDesign.Geometry
         [XmlElement("edge")]
         public List<Edge> Edges = new List<Edge>(); // sequence: edge_type
 
+        [XmlIgnore]
+        public List<Point3d> Points
+        {
+            get
+            {
+                List<Point3d> outPts = new List<Point3d> { this.Edges[0].Points[0] };
+                var endPts = this.Edges.Select(e => e.Points[1]).ToList();
+                outPts.AddRange(endPts);
+
+                return outPts;
+            }
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
