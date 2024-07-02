@@ -170,11 +170,6 @@
     <Compile Include="Examples\Examples.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\fdscript.xsd">
-      <Link>fdscript.xsd</Link>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Bars\materials.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
