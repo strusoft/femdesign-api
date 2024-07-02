@@ -47,8 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.Tests", "FemDesig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - ResultsToJSON", "FemDesign.Examples\C#\Practical example - ResultsToJSON\Practical example - ResultsToJSON.csproj", "{2747D6C1-1E22-4262-A938-44FEE99A022C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FemDesign.TestsGh", "FemDesign.GhTest\FemDesign.TestsGh.csproj", "{8EA7E166-D55A-40F0-83FE-E2CFB2013415}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Stiffness Point from CSV", "FemDesign.Examples\C#\Practical example - Create Stiffness Point from a CSV\Practical example - Stiffness Point from CSV.csproj", "{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - PrintDocumentation", "FemDesign.Examples\C#\Practical example - PrintDocumentation\Practical example - PrintDocumentation.csproj", "{649E8E00-EBE9-4F65-A75F-AF9F8B0FE601}"
@@ -117,9 +115,6 @@ Global
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2747D6C1-1E22-4262-A938-44FEE99A022C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EA7E166-D55A-40F0-83FE-E2CFB2013415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EA7E166-D55A-40F0-83FE-E2CFB2013415}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EA7E166-D55A-40F0-83FE-E2CFB2013415}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A17B115-949E-48F2-86E5-F8BEBBAA61B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
