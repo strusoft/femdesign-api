@@ -1481,8 +1481,8 @@
   <xs:complexType name="composite_part_type">
     <xs:attribute name="material"      type="guidtype"   use="required" />
     <xs:attribute name="section"       type="guidtype"   use="required" />
-    <xs:attribute name="cog_offset_x"  type="xs:double"  default="0" />
-    <xs:attribute name="cog_offset_y"  type="xs:double"  default="0" />
+    <xs:attribute name="cog_offset_x"  type="xs:double"  default="0" />   <!-- not used from FD23.00.002! -->
+    <xs:attribute name="cog_offset_y"  type="xs:double"  default="0" />   <!-- not used from FD23.00.002! -->
     <xs:anyAttribute   processContents="skip"/>
   </xs:complexType>
 
@@ -3110,7 +3110,7 @@
 
 
   <xs:complexType name="concrete_pl_attribs">
-    <xs:attribute name="elasto-plastic_bahaviour"            type="xs:boolean"   use="required" />
+    <xs:attribute name="elasto_plastic_behaviour"            type="xs:boolean"   use="required" />
     <xs:attribute name="plastic_hardening"                   type="xs:boolean"   use="required" />
     <xs:attribute name="concrete_crushing"                   type="xs:boolean"   use="required" />
     <xs:attribute name="concrete_crushing_option"            type="cc_type"      use="required" />
@@ -3136,24 +3136,24 @@
 
   <xs:simpleType name="spl_type">
     <xs:restriction base="xs:double">
-      <xs:minExclusive value="0.0"/>
+      <xs:minInclusive value="0.0"/>
       <xs:maxInclusive value="50"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:complexType name="steel_pl_data">
-    <xs:attribute name="elasto-plastic_bahaviour_U"            type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_U"         type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_option_U"  type="spl_type"   use="required" />
-    <xs:attribute name="elasto-plastic_bahaviour_Sq"           type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_Sq"        type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_option_Sq" type="spl_type"   use="required" />
-    <xs:attribute name="elasto-plastic_bahaviour_Sf"           type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_Sf"        type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_option_Sf" type="spl_type"   use="required" />
-    <xs:attribute name="elasto-plastic_bahaviour_Sc"           type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_Sc"        type="xs:boolean" use="required" />
-    <xs:attribute name="elasto-plastic_strain_limit_option_Sc" type="spl_type"   use="required" />
+    <xs:attribute name="elasto_plastic_behaviour_U"            type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_U"         type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_option_U"  type="spl_type"   use="required" />
+    <xs:attribute name="elasto_plastic_behaviour_Sq"           type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_Sq"        type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_option_Sq" type="spl_type"   use="required" />
+    <xs:attribute name="elasto_plastic_behaviour_Sf"           type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_Sf"        type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_option_Sf" type="spl_type"   use="required" />
+    <xs:attribute name="elasto_plastic_behaviour_Sc"           type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_Sc"        type="xs:boolean" use="required" />
+    <xs:attribute name="elasto_plastic_strain_limit_option_Sc" type="spl_type"   use="required" />
   </xs:complexType>
 
   <!--material type-->
@@ -4450,6 +4450,7 @@
     </xs:sequence>
     <xs:attributeGroup ref="entity_attribs" />
     <xs:attributeGroup ref="load_baseattribs" />
+    <xs:attribute      name="load_type"  type="motion_type" use="required"  />
     <xs:anyAttribute   processContents="skip"/>
   </xs:complexType>
 
