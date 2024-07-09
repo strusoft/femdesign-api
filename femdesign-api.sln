@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Run ana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example - Dynamic Loads", "FemDesign.Examples\C#\Example - Dynamic Loads\Example - Dynamic Loads.csproj", "{C22928AC-7359-40E3-8042-5C5BCF90343B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Windows Presentation Foundation (WPF)", "FemDesign.Examples\C#\Practical example - WPF\Practical example - Windows Presentation Foundation (WPF).csproj", "{0FB2E28B-8C5B-49C4-98B3-E34B6EE9F2FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Windows Presentation Foundation (WPF)", "FemDesign.Examples\C#\Practical example - Windows Presentation Foundation (WPF)\Practical example - Windows Presentation Foundation (WPF).csproj", "{0FB2E28B-8C5B-49C4-98B3-E34B6EE9F2FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
