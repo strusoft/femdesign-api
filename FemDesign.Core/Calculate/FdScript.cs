@@ -95,16 +95,7 @@ namespace FemDesign.Calculate
             doc.Add(root);
             doc.Save(path);
         }
-
-        /// <summary>
-        /// Serialize Model to string.
-        /// </summary>
-        public string SerializeToString(string fdScriptPath)
-        {
-            Serialize(fdScriptPath);
-            var xmlLines = System.IO.File.ReadAllLines(fdScriptPath);
-            string xmlText = string.Join("\n", xmlLines);
-            return xmlText;
-        }
     }
+
+    
 }

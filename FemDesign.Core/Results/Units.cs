@@ -140,31 +140,25 @@ namespace FemDesign.Results
         
     }
 
-    #if ISDYNAMO
-    [IsVisibleInDynamoLibrary(false)]
-    #endif
     public partial class UnitResults
     {
-        public Length Length { get; set; }
-        public Angle Angle { get; set; }
-        public SectionalData SectionalData { get; set; }
-        public Force Force { get; set; }
-        public Mass Mass { get; set; }
-        public Displacement Displacement { get; set; }
-        public Stress Stress { get; set; }
+        public Length Length { get; set; } = Length.m;
+        public Angle Angle { get; set; } = Angle.deg;
+        public SectionalData SectionalData { get; set; } = SectionalData.mm;
+        public Force Force { get; set; } = Force.kN;
+        public Mass Mass { get; set; } = Mass.kg;
+        public Displacement Displacement { get; set; } = Displacement.mm;
+        public Stress Stress { get; set; } = Stress.MPa;
 
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
-        public UnitResults()
+        private UnitResults()
         {
 
         }
 
-        #if ISDYNAMO
-        [IsVisibleInDynamoLibrary(true)]
-        #endif
-        public UnitResults(Length length, Angle angle, SectionalData sectionalData, Force force, Mass mass, Displacement displacement, Stress stress)
+        public UnitResults(Length length = Length.m, Angle angle = Angle.deg, SectionalData sectionalData = SectionalData.mm, Force force = Force.kN, Mass mass = Mass.kg, Displacement displacement = Displacement.mm, Stress stress = Stress.MPa)
         {
             this.Length = length;
             this.Angle = angle;
@@ -178,9 +172,6 @@ namespace FemDesign.Results
         /// <summary>
         /// Returns the Default UnitResults
         /// </summary>
-        #if ISDYNAMO
-        [IsVisibleInDynamoLibrary(true)]
-        #endif
         public static UnitResults Default()
         {
             return new UnitResults(Results.Length.m, Results.Angle.deg, Results.SectionalData.m, Results.Force.kN, Results.Mass.kg, Results.Displacement.m, Results.Stress.Pa);

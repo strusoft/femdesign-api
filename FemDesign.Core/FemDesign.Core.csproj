@@ -67,6 +67,11 @@
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
     <Compile Include="Calculate\CmdResultPoint.cs" />
     <Compile Include="Calculate\Coldata.cs" />
+    <Compile Include="Calculate\Config\ConcreteDesignConfiguration.cs" />
+    <Compile Include="Calculate\Config\MasonryDesignConfiguration.cs" />
+    <Compile Include="Calculate\Config\SteelBarCalculationParameters.cs" />
+    <Compile Include="Calculate\Config\SteelBarDesignParameters.cs" />
+    <Compile Include="Calculate\Config\SteelDesignConfiguration.cs" />
     <Compile Include="Calculate\ExcitationForce.cs" />
     <Compile Include="Calculate\GroundAcc.cs" />
     <Compile Include="Calculate\Imperfection.cs" />
@@ -318,41 +323,30 @@
     <Compile Include="Releases\StiffnessType.cs" />
     <Compile Include="Releases\StiffnessWithFriction.cs" />
     <Compile Include="Results\Node\NodalDisplacement.cs" />
-    
     <Compile Include="Results\Support\PointSupportReaction.cs" />
     <Compile Include="Results\Support\PointSupportReactionMinMax.cs" />
     <Compile Include="Results\Support\LineSupportReaction.cs" />
     <Compile Include="Results\Support\LineSupportResultant.cs" />
     <Compile Include="Results\Support\SurfaceSupportReactions.cs" />
     <Compile Include="Results\Support\SurfaceSupportResultant.cs" />
-
     <Compile Include="Results\Bar\BarInternalForce.cs" />
     <Compile Include="Results\Bar\BarDisplacement.cs" />
     <Compile Include="Results\Bar\BarEndForce.cs" />
     <Compile Include="Results\Bar\BarStress.cs" />
-    
     <Compile Include="Results\Shell\ShellStress.cs" />
     <Compile Include="Results\Shell\ShellDerivedForce.cs" />
     <Compile Include="Results\Shell\ShellDisplacement.cs" />
     <Compile Include="Results\Shell\ShelllnternalForce.cs" />
-    
     <Compile Include="Results\Equilibrium.cs" />
     <Compile Include="Results\QuantityEstimation.cs" />
-    
-    
     <Compile Include="Results\FiniteElements\FemNode.cs" />
     <Compile Include="Results\FiniteElements\FemBar.cs" />
     <Compile Include="Results\FiniteElements\FemShell.cs" />
     <Compile Include="Results\FiniteElements\FiniteElement.cs" />
-    
-
-
     <Compile Include="Results\Steel\BarSteelUtilization.cs" />
-
     <Compile Include="Results\Timber Design\BarTimberUtilization.cs" />
     <Compile Include="Results\Timber Design\CLTFireUtilization.cs" />
     <Compile Include="Results\Timber Design\CLTShellUtilization.cs" />
-
     <Compile Include="Results\RC design\InteractionSurface.cs" />
     <Compile Include="Results\RC design\RCBarUtilization.cs" />
     <Compile Include="Results\RC design\RCShellCrackWidth.cs" />
@@ -361,37 +355,25 @@
     <Compile Include="Results\RC design\RCShellReinforcementRequired.cs" />
     <Compile Include="Results\RC design\RCShellDesignForces.cs" />
     <Compile Include="Results\RC design\RCShellUtilization.cs" />
-
-    
-    
-    
     <Compile Include="Results\LabelledSection\LabelledSectionInternalForce.cs" />
     <Compile Include="Results\LabelledSection\LabelledSectionResultant.cs" />
-    
     <Compile Include="Results\ModellingTools\PointConnectionForce.cs" />
     <Compile Include="Results\ModellingTools\LineConnectionForce.cs" />
     <Compile Include="Results\ModellingTools\LineConnectionResultant.cs" />
-    
     <Compile Include="Results\EigenFrequencies\EigenFrequencies.cs" />
     <Compile Include="Results\EigenFrequencies\NodalVibration.cs" />
-    
     <Compile Include="Results\Stability\NodalBucklingShape.cs" />
     <Compile Include="Results\Stability\CriticalParameter.cs" />
     <Compile Include="Results\Stability\ImperfectionFactor.cs" />
-
     <Compile Include="Results\FootFall\NodalAcceleration.cs" />
     <Compile Include="Results\FootFall\NodalResponseFactor.cs" />
-    
     <Compile Include="Results\SectionProperties.cs" />
-
-    
     <Compile Include="Results\Units.cs" />
     <Compile Include="Results\Utils\UtilResultMethods.cs" />
     <Compile Include="Results\ResultAttribute.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Results\Convert.cs" />
     <Compile Include="Results\ResultsReader.cs" />
-
     <Compile Include="RevitTools\ProjectSettings.cs" />
     <Compile Include="Sections\ComplexSection.cs" />
     <Compile Include="Sections\DatabaseSections.cs" />

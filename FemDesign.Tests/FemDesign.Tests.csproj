@@ -78,7 +78,7 @@
     <Compile Include="AuxiliaryResults\LabelledSectionTests.cs" />
     <Compile Include="Bars\BarTests.cs" />
     <Compile Include="Bars\CreateElementsTests.cs" />
-    <Compile Include="Calculate\CmdConfig.cs" />
+    <Compile Include="Calculate\CmdConfigTests.cs" />
     <Compile Include="Calculate\CmdResPoint.cs" />
     <Compile Include="Calculate\OptionsTests.cs" />
     <Compile Include="Calculate\CmdListGenTest.cs" />

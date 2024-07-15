@@ -28,7 +28,8 @@ namespace FemDesign.Calculate
                 CmdGlobalCfg.Default(),
                 new CmdApplyDesignChanges(),
                 new CmdSave("model.struxml"),
-                new CmdSaveDocx("model.docx")
+                new CmdSaveDocx("model.docx"),
+                new CmdConfig("config.xml")
                 );
             script.Serialize(fdScriptPath);
 
@@ -48,6 +49,7 @@ namespace FemDesign.Calculate
             Assert.IsTrue(xmlText.Contains("<cmdglobalcfg"));
             Assert.IsTrue(xmlText.Contains("<cmdsave"));
             Assert.IsTrue(xmlText.Contains("<cmdsavedocx"));
+            Assert.IsTrue(xmlText.Contains("<cmdconfig"));
         }
 
         [TestMethod("Validate schema")]
@@ -115,6 +117,8 @@ namespace FemDesign.Calculate
             Assert.IsTrue(combItem.Amplitude == 0.1234 );
         }
 
+
+        
 
     }
 }

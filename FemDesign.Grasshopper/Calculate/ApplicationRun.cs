@@ -230,7 +230,7 @@ namespace FemDesign.Grasshopper
                 connection.Open(_model.Value);
 
                 if (cfg != null)
-                    connection.SetConfig(new Calculate.CmdConfig(cfg));
+                    connection.SetConfig(cfg);
 
                 if (globalCfg != null)
                     connection.SetGlobalConfig(CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(globalCfg));

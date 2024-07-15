@@ -284,12 +284,15 @@ namespace FemDesign
             this.SetGlobalConfig(globalCfg);
         }
 
+
         /// <summary>
-        /// Set design settings for a FEM-Design model.
+        /// Set design settings for a FEM-Design model using a configuration file.
         /// </summary>
-        /// <param name="cmdconfig">Configuration object.</param>
-        public void SetConfig(Calculate.CmdConfig cmdconfig)
+        /// <param name="filepath">Filepath of the configuration file.</param>
+        public void SetConfig(string filepath)
         {
+            var cmdconfig = new Calculate.CmdConfig(filepath);
+
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
             var script = new FdScript(
                 logfile,
@@ -299,15 +302,31 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Set design settings for a FEM-Design model using a configuration file.
+        /// Set design settings for a FEM-Design model.
         /// </summary>
-        /// <param name="filepath">Filepath of the configuration file.</param>
-        public void SetConfig(string filepath)
+        /// <param name="configs">Configuration objects.</param>
+        public void SetConfig(params CONFIG[] configs)
         {
-            var cfg = new Calculate.CmdConfig(filepath);
-            this.SetConfig(cfg);
+            var filePath = OutputFileHelper.GetConfigfilePath(OutputDir);
+            var cmdconfig = new Calculate.CmdConfig(filePath, configs);
+
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(
+                logfile,
+                cmdconfig
+            );
+            this.RunScript(script, "SetConfig");
         }
 
+        public void SetConfig(CmdConfig cmdConfig)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(
+                logfile,
+                cmdConfig
+            );
+            this.RunScript(script, "SetConfig");
+        }
 
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.
@@ -469,6 +488,7 @@ namespace FemDesign
 
             var script = new FdScript(
                     logfile,
+                    new CmdUser(CmdUserModule.RESMODE),
                     new CmdApplyDesignChanges()
                 );
 
@@ -910,7 +930,7 @@ namespace FemDesign
         /// <typeparam name="T">Result type to retrieve. Must be a type that implements the <see cref="Results.IResult"/> interface</typeparam>
         /// <param name="units">Optional. Unit setting for the results.</param>
         /// <returns></returns>
-        public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IResult
+        public List<T> GetQuantities<T>(Results.UnitResults units = null) where T : Results.IQuantityEstimationResult
         {
             return _getQuantities<T>(units);
         }
@@ -1237,7 +1257,7 @@ namespace FemDesign
         /// <param name="units">Optional. Unit setting for the results.</param>
         /// <param name="timeStamp">If true, the current time will be included in the file names.</param>
         /// <returns></returns>
-        internal List<T> _getQuantities<T>(Results.UnitResults units = null, bool timeStamp = false) where T : Results.IResult
+        internal List<T> _getQuantities<T>(Results.UnitResults units = null, bool timeStamp = false) where T : Results.IQuantityEstimationResult
         {
             return _readResults<T>(p => p.IsQuantityEstimation() == true, null, null, timeStamp, null, units);
         }
@@ -1301,14 +1321,6 @@ namespace FemDesign
                 }
                 else // Use given directory
                     _outputDir = Path.GetFullPath(value);
-
-                //// IF 'PipeConnection._encoding' IS 'ASCII', THEN USE THE FOLLOWING CHECK!
-                //// check if special characters
-                //// not supported
-                //if (!OutputFileHelper.IsASCII(_outputDir))
-                //{
-                //    throw new Exception("`OutputDir` has special characters. Only ASCII characters are supported!");
-                //}
             }
         }
         private List<string> _outputDirsToBeDeleted = new List<string>();
@@ -1671,6 +1683,9 @@ namespace FemDesign
         private const string _strFileName = "model.str";
         private const string _docxFileName = "model.docx";
 
+        private const string _configFileName = "config.xml";
+        private const string _globalConfigFileName = "globalConfig.xml";
+
         private const string _intSrfFileName = "intSrf.txt";
 
         private const string _fdscriptFileExtension = ".fdscript";
@@ -1689,6 +1704,22 @@ namespace FemDesign
             if (!Directory.Exists(baseDir))
                 Directory.CreateDirectory(baseDir);
             return Path.GetFullPath(Path.Combine(baseDir, _intSrfFileName));
+        }
+
+        public static string GetConfigfilePath(string baseDir)
+        {
+            string dir = Path.Combine(baseDir, _scriptsDirectory);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            return Path.GetFullPath(Path.Combine(dir, _configFileName));
+        }
+
+        public static string GetGlobalConfigfilePath(string baseDir)
+        {
+            string dir = Path.Combine(baseDir, _scriptsDirectory);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            return Path.GetFullPath(Path.Combine(dir, _globalConfigFileName));
         }
 
         public static string GetStruxmlPath(string baseDir, string modelName = null)
