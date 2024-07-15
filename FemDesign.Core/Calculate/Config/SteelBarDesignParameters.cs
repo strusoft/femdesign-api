@@ -90,6 +90,17 @@ namespace FemDesign.Calculate
             }
         }
 
+        public SteelBarDesignParameters(double utilizationLimit, List<Guid> sectionGuids)
+        {
+            UtilizationLimit = utilizationLimit;
+
+            // Add dynamic attributes
+            for (int i = 0; i < sectionGuids.Count; i++)
+            {
+                this._sections[$"vSection_csec_{i}"] = sectionGuids[i];
+            }
+        }
+
         public void SetParametersOnBars(List<Bar> bars)
         {
 

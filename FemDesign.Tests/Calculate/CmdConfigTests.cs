@@ -8,6 +8,7 @@ using FemDesign;
 using FemDesign.Calculate;
 using System.Xml.Serialization;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace FemDesign.Calculate
 {
@@ -22,7 +23,12 @@ namespace FemDesign.Calculate
             var logPath = "Calculate//logfile.log";
 
             var sections = Sections.SectionDatabase.GetDefault().Sections.Section;
-            var lib = sections.Where(s => s.MaterialFamily == "Steel").ToList().GetRange(0,20);
+            var lib = new List<Guid>
+            {
+                new Guid("16d7557c-87e7-4649-a302-df58a9810985"),
+                new Guid("b8dcc4b1-48ab-42b1-b5d4-a3080f045b41"),
+                new Guid("e26954f6-ee0c-481d-9bbb-94b69f102ab6"),
+            };
 
             var ecst = new Calculate.SteelDesignConfiguration(SteelDesignConfiguration.Method.Method1);
             var steelDesign = new Calculate.SteelBarDesignParameters(0.7, lib);
@@ -49,8 +55,7 @@ namespace FemDesign.Calculate
             var concreteConfig = new Calculate.ConcreteConfig(ConcreteConfig.CalculationMethod.NominalCurvature, true, false, true);
             concreteConfig.ReopeningCracks = true;
 
-            //var cmdConfig = new CmdConfig(configPath, ecst, steelDesign, steelConfig, concreteConfig);
-            var cmdConfig = new CmdConfig(configPath, concreteConfig);
+            var cmdConfig = new CmdConfig(configPath, ecst, steelDesign, steelConfig, concreteConfig);
 
             var fdscript = new FdScript(logPath, cmdConfig);
             fdscript.Serialize(fdScriptPath);
