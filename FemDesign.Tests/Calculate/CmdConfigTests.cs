@@ -62,12 +62,6 @@ namespace FemDesign.Calculate
             Console.WriteLine(fdscriptText);
             Console.WriteLine();
             Console.WriteLine(configText);
-
-            using(var connection = new FemDesignConnection(fdInstallationDir: "C:\\Program Files\\StruSoft\\FEM-Design 23 Night Install", keepOpen: true))
-            {
-                connection.Open("Assets\\Slab.str");
-                connection.SetConfig(configPath);
-            }
         }
     }
 }
