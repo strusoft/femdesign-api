@@ -136,7 +136,7 @@ namespace FemDesign
         {
             string dir = null;
 
-            // Check directory path
+            // Check if specified directory exists
             if (fdInstallationDir != null)
             {
                 if (Directory.Exists(fdInstallationDir))
@@ -144,7 +144,8 @@ namespace FemDesign
                     dir = fdInstallationDir;
                 }
             }
-            else
+
+            if(dir == null)
             {
                 var dirNames = new List<string>()
                 {
@@ -160,9 +161,9 @@ namespace FemDesign
                         break;
                     }
                 }
+                if (dir == null)
+                    throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
             }
-            if (dir == null)
-                throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
 
             return dir;
         }
