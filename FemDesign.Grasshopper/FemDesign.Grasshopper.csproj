@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>FemDesign.Grasshopper</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -40,21 +40,21 @@
     <RootNamespace>FemDesign</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\Eto.dll</HintPath>
+    <Reference Include="Eto, Version=2.7.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.7.36.23346.16351\lib\net48\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="GH_IO, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.6.35.21222.17001\lib\net45\GH_IO.dll</HintPath>
+    <Reference Include="GH_IO, Version=7.36.23346.16351, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.7.36.23346.16351\lib\net48\GH_IO.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.6.35.21222.17001\lib\net45\Grasshopper.dll</HintPath>
+    <Reference Include="Grasshopper, Version=7.36.23346.16351, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.7.36.23346.16351\lib\net48\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Rhino.UI, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\Rhino.UI.dll</HintPath>
+    <Reference Include="Rhino.UI, Version=7.36.23346.16351, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.7.36.23346.16351\lib\net48\Rhino.UI.dll</HintPath>
     </Reference>
-    <Reference Include="RhinoCommon, Version=6.35.21222.17000, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.35.21222.17001\lib\net45\RhinoCommon.dll</HintPath>
+    <Reference Include="RhinoCommon, Version=7.36.23346.16351, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.7.36.23346.16351\lib\net48\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,6 +70,8 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Calculate\ApplicationRun.cs" />
+    <Compile Include="Calculate\ConcreteDesignConfig.cs" />
+    <Compile Include="Calculate\ConfigSwitcher.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE_2.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE2303.cs" />
     <Compile Include="Calculate\CalculationParametersAnalysisDefine.cs" />
@@ -80,6 +82,9 @@
     <Compile Include="Calculate\GroundAccDefine.cs" />
     <Compile Include="Calculate\ExForceDefine.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE.cs" />
+    <Compile Include="Calculate\SteelBarDesignParameters.cs" />
+    <Compile Include="Calculate\SteelBarCalculationParameters.cs" />
+    <Compile Include="Calculate\SteelDesignConfiguration.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
@@ -151,13 +156,14 @@
     <Compile Include="Pipe\FemDesignConnection.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeRunDesign_OBSOLETE.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeCfg_OBSOLETE.cs" />
-    <Compile Include="Pipe\PipeCfg.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeCfg_OBSOLETE2.cs" />
     <Compile Include="Pipe\PipeCreateResPoint.cs" />
     <Compile Include="Pipe\PipeGetFEA.cs" />
     <Compile Include="Pipe\PipeGetModel.cs" />
     <Compile Include="Pipe\PipeGetQuantities.cs" />
     <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
+    <Compile Include="Pipe\PipeSetCfg.cs" />
     <Compile Include="Pipe\WIP_PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadCaseCombResults.cs" />
     <Compile Include="Pipe\PipeResultFromBsc.cs" />
@@ -288,6 +294,34 @@
     <Compile Include="Supports\StiffnessPoints.cs" />
     <Compile Include="Extension\HtmlWriter.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
+    <Compile Include="Components\UIWidgets\EvaluationUnit.cs" />
+    <Compile Include="Components\UIWidgets\EvaluationUnitContext.cs" />
+    <Compile Include="Components\UIWidgets\EvaluationUnitManager.cs" />
+    <Compile Include="Components\UIWidgets\ExtendedPlug.cs" />
+    <Compile Include="Components\UIWidgets\GH_Attr_Widget.cs" />
+    <Compile Include="Components\UIWidgets\GH_ExtendableComponent.cs" />
+    <Compile Include="Components\UIWidgets\GH_ExtendableComponentAttributes.cs" />
+    <Compile Include="Components\UIWidgets\GH_ExtendableMenu.cs" />
+    <Compile Include="Components\UIWidgets\GH_MenuCollection.cs" />
+    <Compile Include="Components\UIWidgets\GH_SwitchAction.cs" />
+    <Compile Include="Components\UIWidgets\GH_SwitcherComponent.cs" />
+    <Compile Include="Components\UIWidgets\GH_SwitcherComponentAttributes.cs" />
+    <Compile Include="Components\UIWidgets\MenuCheckBox.cs" />
+    <Compile Include="Components\UIWidgets\MenuDropDown.cs" />
+    <Compile Include="Components\UIWidgets\MenuPanel.cs" />
+    <Compile Include="Components\UIWidgets\MenuRadioButton.cs" />
+    <Compile Include="Components\UIWidgets\MenuRadioButtonGroup.cs" />
+    <Compile Include="Components\UIWidgets\MenuSlider.cs" />
+    <Compile Include="Components\UIWidgets\MenuStaticText.cs" />
+    <Compile Include="Components\UIWidgets\RuntimeComponentData.cs" />
+    <Compile Include="Components\UIWidgets\SilderDialog.cs" />
+    <Compile Include="Components\UIWidgets\SliderDialogResult.cs" />
+    <Compile Include="Components\UIWidgets\StandardFont.cs" />
+    <Compile Include="Components\UIWidgets\SubComponent.cs" />
+    <Compile Include="Components\UIWidgets\ValueChangeEventHandler.cs" />
+    <Compile Include="Components\UIWidgets\WidgetChannel.cs" />
+    <Compile Include="Components\UIWidgets\WidgetRenderArgs.cs" />
+    <Compile Include="Components\UIWidgets\WidgetServer.cs" />
     <Compile Include="Utils\LoadGroupCombineGeneral.cs" />
     <Compile Include="Loads\Load groups\LoadGroupConstruct.cs" />
     <Compile Include="Loads\Load categories\LoadCategoryDatabaseDefault.cs" />
@@ -873,6 +907,7 @@
     <Content Include="images\logo.png" />
     <Content Include="Resources\icons\CombDefine2.png" />
     <Content Include="Resources\icons\CombDefine3.png" />
+    <None Include="Resources\icons\Config.png" />
     <Content Include="Resources\icons\Diaphragm.bmp" />
     <Content Include="Resources\icons\DiaphragmDeconstruct.bmp" />
     <Content Include="Resources\icons\ExcitationForceSettings.png" />
@@ -1013,13 +1048,13 @@
     <Copy SourceFiles="@(CmdGlobalCfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
     <Copy SourceFiles="@(Cfg)" DestinationFolder="$(appdata)\Grasshopper\Libraries\FemDesign\" />
   </Target>
-  <Import Project="..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" />
+  <Import Project="..\packages\RhinoCommon.7.36.23346.16351\build\net48\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.7.36.23346.16351\build\net48\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.35.21222.17001\build\net45\RhinoCommon.targets'))" />
-    <Error Condition="!Exists('..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets'))" />
+    <Error Condition="!Exists('..\packages\RhinoCommon.7.36.23346.16351\build\net48\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.7.36.23346.16351\build\net48\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.7.36.23346.16351\build\net48\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.7.36.23346.16351\build\net48\Grasshopper.targets'))" />
   </Target>
-  <Import Project="..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.35.21222.17001\build\net45\Grasshopper.targets')" />
+  <Import Project="..\packages\Grasshopper.7.36.23346.16351\build\net48\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.7.36.23346.16351\build\net48\Grasshopper.targets')" />
 </Project>

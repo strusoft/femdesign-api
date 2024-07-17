@@ -52,7 +52,7 @@ namespace FemDesign.Calculate
             steelConfig.LatTorBuckGen = true;
 
             // Concrete calculation parameters
-            var concreteConfig = new Calculate.ConcreteConfig(ConcreteConfig.CalculationMethod.NominalCurvature, true, false, true);
+            var concreteConfig = new Calculate.ConcreteDesignConfig(ConcreteDesignConfig.CalculationMethod.NominalCurvature, true, false, true);
             concreteConfig.ReopeningCracks = true;
 
             var cmdConfig = new CmdConfig(configPath, ecst, steelDesign, steelConfig, concreteConfig);

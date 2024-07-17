@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace FemDesign.Calculate
 {
     [System.Serializable]
-    public partial class ConcreteConfig : CONFIG
+    public partial class ConcreteDesignConfig : CONFIG
     {
         [XmlAttribute("type")]
         public string Type = "ECRCCONFIG";
@@ -23,7 +23,7 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("s2ndOrder")]
-        public CalculationMethod SecondOrderCalculationMethod { get; set; } = ConcreteConfig.CalculationMethod.NominalStiffness;
+        public CalculationMethod SecondOrderCalculationMethod { get; set; } = ConcreteDesignConfig.CalculationMethod.NominalStiffness;
 
         /// <summary>
         /// Crack with load combinations
@@ -50,27 +50,28 @@ namespace FemDesign.Calculate
         public bool ReopeningCracks { get; set; }  = false;
 
 
-        private ConcreteConfig()
+        private ConcreteDesignConfig()
         {
 
         }
 
-        public ConcreteConfig(CalculationMethod secondOrder, bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false)
+        public ConcreteDesignConfig(CalculationMethod secondOrder, bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false, bool reopeningCracks = false)
         {
             SecondOrderCalculationMethod = secondOrder;
             CrackWidthQuasiPermanent = crackQuasiPermanent;
             CrackWidthFrequent = crackFrequent;
             CrackWidthCharacteristic = crackCharacteristic;
+            ReopeningCracks = reopeningCracks;
         }
 
-        public static ConcreteConfig NominalStiffness(bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false)
+        public static ConcreteDesignConfig NominalStiffness(bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false)
         {
-            return new ConcreteConfig(CalculationMethod.NominalStiffness, crackQuasiPermanent, crackFrequent, crackCharacteristic);
+            return new ConcreteDesignConfig(CalculationMethod.NominalStiffness, crackQuasiPermanent, crackFrequent, crackCharacteristic);
         }
 
-        public static ConcreteConfig NominalCurvature(bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false)
+        public static ConcreteDesignConfig NominalCurvature(bool crackQuasiPermanent = true, bool crackFrequent = false, bool crackCharacteristic = false)
         {
-            return new ConcreteConfig(CalculationMethod.NominalCurvature, crackQuasiPermanent, crackFrequent, crackCharacteristic);
+            return new ConcreteDesignConfig(CalculationMethod.NominalCurvature, crackQuasiPermanent, crackFrequent, crackCharacteristic);
         }
 
     }

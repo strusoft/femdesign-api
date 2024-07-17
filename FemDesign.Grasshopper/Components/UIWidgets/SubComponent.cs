@@ -1,0 +1,21 @@
+﻿using Grasshopper.Kernel;
+
+namespace FemDesign.Grasshopper.Components.UIWidgets
+{
+    public abstract class SubComponent
+    {
+        public abstract string name { get; }
+
+        public abstract string display_name {  get; }
+
+        public abstract void registerEvaluationUnits(EvaluationUnitManager mngr);
+
+        public abstract void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level);
+
+        public virtual void OnComponentLoaded()
+        {
+        }
+
+        public virtual GH_DocumentObject Parent_Component { get; set; }
+    }
+}

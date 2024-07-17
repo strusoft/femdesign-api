@@ -101,6 +101,12 @@ namespace FemDesign.Calculate
             }
         }
 
+
+        public SteelBarDesignParameters(double utilizationLimit, List<Sections.Section> sections, FemDesign.Bars.Bar bar) : this(utilizationLimit, sections)
+        {
+            SetParametersOnBars(bar);
+        }
+
         public void SetParametersOnBars(List<Bar> bars)
         {
 
