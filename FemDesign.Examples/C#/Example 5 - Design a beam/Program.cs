@@ -81,6 +81,9 @@ namespace FemDesign.Examples
             Console.WriteLine();
             Console.WriteLine("Log:");
             foreach (var line in outputLog) Console.WriteLine(line);
+
+            Console.WriteLine("\nDone!");
+            Console.ReadKey();
         }
     }
 }

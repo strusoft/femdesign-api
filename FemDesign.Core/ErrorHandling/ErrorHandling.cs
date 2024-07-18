@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Web;
+using FemDesign.Results;
 
 namespace FemDesign.Utils
 {
@@ -18,12 +21,20 @@ namespace FemDesign.Utils
             "No declared structure to calculate.",
             "None of the Construction stages contains any load case.",
             "Time-dependent analysis is requested, but none of the object has Time-dependent property.",
-            "Unknown error."
+            "Unknown error.",
+            "Model loading problems",
+            "The loading process aborted!",
+            @"^Error",
+            @"^ERROR",
         };
         
-        public readonly static List<string> WarningMessase = new List<string>{
+        public readonly static List<string> WarningMessage = new List<string>{
             "Large nodal displacement or rotation was found.",
-            "One or more identical copies of \\d+ structural elements and loads are found.",
+            @"One or more identical copies of \\d+ structural elements and loads are found.",
+            "Not enough data for time history calculation.",
+            "Applied reinforcement is missing for cracked section analysis.",
+            @"^Warning",
+            @"^WARNING",
         };
 
 
@@ -34,9 +45,9 @@ namespace FemDesign.Utils
             {
                 foreach (var errorMsg in ErrorMessage)
                 {
-                    if (Regex.IsMatch(message, errorMsg))
+                    if (Regex.IsMatch(message, errorMsg, RegexOptions.Multiline))
                     {
-                        error = errorMsg;
+                        error = message;
                         return error;
                     }
                 }
@@ -51,11 +62,11 @@ namespace FemDesign.Utils
             warning = null;
             foreach (string message in messages)
             {
-                foreach(var warningMsg in WarningMessase)
-                {
-                    if(Regex.IsMatch(message, warningMsg))
+                foreach(var warningMsg in WarningMessage)
+                {                    
+                    if(Regex.IsMatch(message, warningMsg, RegexOptions.Multiline))
                     {
-                        warning = warningMsg;
+                        warning = message;
                         return warning;
                     }
                 }
@@ -63,5 +74,6 @@ namespace FemDesign.Utils
 
             return warning;
         }
+
     }
 }

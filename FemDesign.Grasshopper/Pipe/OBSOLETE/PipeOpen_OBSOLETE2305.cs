@@ -7,11 +7,11 @@ using Rhino.Commands;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeOpen : GH_AsyncComponent
+    public class PipeOpen_OBSOLETE2305 : GH_AsyncComponent
     {
-        public PipeOpen() : base("FEM-Design.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeOpen_OBSOLETE2305() : base("FEM-Design.OpenModel", "OpenModel", "Open model in FEM-Design.", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ModelOpenWorker(this);
+            BaseWorker = new ModelOpenWorker_OBSOLETE2305(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -24,19 +24,18 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddGenericParameter("Model", "Model", "", GH_ParamAccess.item);
-            pManager.AddTextParameter("Log", "Log", "", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Success", "Success", "", GH_ParamAccess.item);
         }
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_open;
 
-        public override Guid ComponentGuid => new Guid("AF4D71BF-693D-48FA-8C63-9F344A54DDAC");
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("96dc72e0-c0c1-4081-ac2b-56be85905fb2");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
     /// <summary>
     /// https://github.com/specklesystems/GrasshopperAsyncComponent
     /// </summary>
-    public class ModelOpenWorker : WorkerInstance
+    public class ModelOpenWorker_OBSOLETE2305 : WorkerInstance
     {
         /* INPUT */
         dynamic model = null;
@@ -47,7 +46,7 @@ namespace FemDesign.Grasshopper
         /* OUTPUT */
         bool success = false;
 
-        public ModelOpenWorker(GH_Component component) : base(component) { }
+        public ModelOpenWorker_OBSOLETE2305(GH_Component component) : base(component) { }
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
@@ -83,13 +82,9 @@ namespace FemDesign.Grasshopper
                     return;
                 }
 
-                connection.OnOutput += onOutput;
-
                 ReportProgress("", "");
                 connection.Open(model.Value);
                 newModel = connection.GetModel();
-
-                connection.OnOutput -= onOutput;
                 success = true;
             }
             catch (Exception ex)
@@ -102,7 +97,7 @@ namespace FemDesign.Grasshopper
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ModelOpenWorker(Parent);
+        public override WorkerInstance Duplicate() => new ModelOpenWorker_OBSOLETE2305(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
@@ -120,7 +115,6 @@ namespace FemDesign.Grasshopper
 
             DA.SetData("Connection", connection);
             DA.SetData("Model", newModel);
-            DA.SetDataList("Log", _log);
             DA.SetData("Success", success);
 
         }
