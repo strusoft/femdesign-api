@@ -50,14 +50,7 @@ namespace FemDesign
         /// Keep FEM-Design open after <see cref="Dispose"/> is called.
         /// </summary>
         private bool _keepOpen;
-
-        /// <summary>
-        /// Parameter for FemDesign.Grasshopper project components
-        /// </summary>
-        internal bool _grasshopperMode = false;
-
-        public List<string> Log = new List<string>();
-        
+                
         public delegate void OnOutputEvent(string output);
         /// <summary>
         /// Occurs whenever FEM-Design writes a new log message.
@@ -131,8 +124,6 @@ namespace FemDesign
             };
 
             SetVerbosity(verbosity);
-
-            OnOutput += OutputErrorHandling;
         }
 
         /// <summary>
@@ -162,19 +153,6 @@ namespace FemDesign
             }
 
             throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
-        }
-        private void OutputErrorHandling(string message)
-        {
-            this.Log.Add(message);
-
-            if(!_grasshopperMode)
-            {
-                var msg = new List<string> { message };
-                if (FemDesign.Utils.ErrorHandling.HasError(msg, out string error) != null)
-                {
-                    throw new Exception(error);
-                }
-            }
         }
 
         private void _processExited(object sender, EventArgs e)

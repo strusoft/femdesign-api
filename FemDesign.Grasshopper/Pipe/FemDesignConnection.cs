@@ -85,7 +85,6 @@ namespace FemDesign.Grasshopper
                 _connection.Dispose();
 
             _connection = new FemDesignConnection(fd_installation_folder, minimized, outputDir: outputDir, tempOutputDir: delteDir);
-            _connection._grasshopperMode = true;
 
             string verbosity = "";
             if (DA.GetData("Verbosity", ref verbosity))
