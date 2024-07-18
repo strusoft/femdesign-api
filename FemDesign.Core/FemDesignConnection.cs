@@ -130,42 +130,28 @@ namespace FemDesign
         /// Retrieve the default FEM-Design installation directory or specify a custom directory path for FemDesignConnection.
         /// </summary>
         /// <param name="fdInstallationDir">FEM-Design software installation directory. If set to `null`, the default directory will be used.</param>
-        /// <returns></returns>
+        /// <returns>The installation directory path.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public string SetFemDesignDirectory(string fdInstallationDir)
         {
-            string dir = null;
-
             // Check if specified directory exists
-            if (fdInstallationDir != null)
+            if (!string.IsNullOrEmpty(fdInstallationDir) && Directory.Exists(fdInstallationDir))
+                return fdInstallationDir;
+
+            var defaultDirs = new List<string>()
             {
-                if (Directory.Exists(fdInstallationDir))
-                {
-                    dir = fdInstallationDir;
-                }
+                @"C:\Program Files\StruSoft\FEM-Design 23\",
+                @"C:\Program Files\StruSoft\FEM-Design 23 Educational\",
+                @"C:\Program Files\StruSoft\FEM-Design 23 Student\"
+            };
+
+            foreach (var dir in defaultDirs)
+            {
+                if (Directory.Exists(dir))
+                    return dir;
             }
 
-            if(dir == null)
-            {
-                var dirNames = new List<string>()
-                {
-                    @"C:\Program Files\StruSoft\FEM-Design 23\",
-                    @"C:\Program Files\StruSoft\FEM-Design 23 Educational\",
-                    @"C:\Program Files\StruSoft\FEM-Design 23 Student\"
-                };
-                for (int i = 0; i < dirNames.Count; i++)
-                {
-                    if (Directory.Exists(dirNames[i]))
-                    {
-                        dir = dirNames[i];
-                        break;
-                    }
-                }
-                if (dir == null)
-                    throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
-            }
-
-            return dir;
+            throw new ArgumentNullException($"Default FEM-Design installation directory is not found. Input directory `{fdInstallationDir}` does not exist!");
         }
 
         private void _processExited(object sender, EventArgs e)
