@@ -1,6 +1,7 @@
 // https://strusoft.com/
 using System;
 using System.Data.Common;
+using System.Linq;
 using Grasshopper.Kernel;
 using GrasshopperAsyncComponent;
 using Rhino.Commands;
@@ -116,6 +117,9 @@ namespace FemDesign.Grasshopper
             foreach (var (level, message) in RuntimeMessages)
             {
                 Parent.AddRuntimeMessage(level, message);
+
+                if(level == GH_RuntimeMessageLevel.Error)
+                    newModel = null;
             }
 
             DA.SetData("Connection", connection);
