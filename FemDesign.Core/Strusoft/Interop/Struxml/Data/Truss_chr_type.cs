@@ -27,6 +27,28 @@ namespace StruSoft.Interop.StruXml.Data
 
     }
 
+    public partial class Simple_truss_chr_type
+    {
+        private Simple_truss_chr_type() { }
+
+        public Simple_truss_chr_type(Simple_truss_behaviour_type compression, Simple_truss_behaviour_type tension)
+        {
+            this.Compression = compression;
+            this.Tension = tension;
+        }
+        public static Simple_truss_chr_type Elastic()
+        {
+            var compression = Simple_truss_behaviour_type.Elastic();
+            var tension = Simple_truss_behaviour_type.Elastic();
+
+            var trussBehaviour = new Simple_truss_chr_type(compression, tension);
+
+            return trussBehaviour;
+        }
+
+    }
+
+
     public partial class Truss_behaviour_type
     {
         private Truss_behaviour_type() { }
@@ -64,7 +86,6 @@ namespace StruSoft.Interop.StruXml.Data
             return plastic;
         }
 
-
         public static Truss_behaviour_type Brittle(List<double> values)
         {
             if(values.Count == 1)
@@ -82,6 +103,35 @@ namespace StruSoft.Interop.StruXml.Data
         public static Truss_behaviour_type Brittle(double value)
         {
             var brittle = new Truss_behaviour_type(new Truss_capacity_type(value), ItemChoiceType.Brittle);
+            return brittle;
+        }
+    }
+
+    public partial class Simple_truss_behaviour_type
+    {
+        private Simple_truss_behaviour_type() { }
+
+        public Simple_truss_behaviour_type(object item, ItemChoiceType1 behaviour)
+        {
+            this.Item = item;
+            this.ItemElementName = behaviour;
+        }
+
+        public static Simple_truss_behaviour_type Elastic()
+        {
+            var elastic = new Simple_truss_behaviour_type(new Empty_type(), ItemChoiceType1.Elastic);
+            return elastic;
+        }
+
+        public static Simple_truss_behaviour_type Plastic(double value)
+        {
+            var plastic = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(value), ItemChoiceType1.Plastic);
+            return plastic;
+        }
+
+        public static Simple_truss_behaviour_type Brittle(double value)
+        {
+            var brittle = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(value), ItemChoiceType1.Brittle);
             return brittle;
         }
     }
@@ -120,6 +170,14 @@ namespace StruSoft.Interop.StruXml.Data
         }
     }
 
+    public partial class Simple_truss_capacity_type
+    {
+        private Simple_truss_capacity_type() { }
+        public Simple_truss_capacity_type(double value)
+        {
+            this.Limit_force = new Truss_limit_type(value);
+        }
+    }
 
     public partial class Truss_limit_type
     {
