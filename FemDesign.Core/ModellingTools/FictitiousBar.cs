@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using StruSoft.Interop.StruXml.Data;
 
 
 namespace FemDesign.ModellingTools
@@ -88,7 +89,10 @@ namespace FemDesign.ModellingTools
         [XmlElement("connectivity", Order = 3)]
         public Bars.Connectivity[] _connectivity = new Bars.Connectivity[2];
 
-        [XmlElement("colouring", Order = 4)]
+        [XmlElement("truss_behaviour", Order = 4)]
+        public Simple_truss_chr_type TrussBehaviour { get; set; }
+
+        [XmlElement("colouring", Order = 5)]
         public EntityColor Colouring { get; set; }
 
         [XmlIgnore]
@@ -133,8 +137,29 @@ namespace FemDesign.ModellingTools
             }
         }
 
+        [XmlAttribute("unit_mass")]
+        public double _mass;
+
+        [XmlIgnore]
+        public double Mass
+        {
+            get
+            {
+                return this._mass;
+            }
+            set
+            {
+                this._mass = RestrictedDouble.NonNegMax_1e7(value);
+            }
+        }
+
         [XmlAttribute("ItG")]
         public double _itg;
+
+        /// <summary>
+        /// Only for serialization purposes!
+        /// </summary>
+        public bool ShouldSerialize_itg() => this.TrussBehaviour == null;
 
         [XmlIgnore]
         public double ItG
@@ -152,6 +177,12 @@ namespace FemDesign.ModellingTools
         [XmlAttribute("I1E")]
         public double _i1e;
 
+        /// <summary>
+        /// Only for serialization purposes!
+        /// </summary>
+        public bool ShouldSerialize_i1e() => this.TrussBehaviour == null;
+
+
         [XmlIgnore]
         public double I1E
         {
@@ -167,6 +198,11 @@ namespace FemDesign.ModellingTools
 
         [XmlAttribute("I2E")]
         public double _i2e;
+
+        /// <summary>
+        /// Only for serialization purposes!
+        /// </summary>
+        public bool ShouldSerialize_i2e() => this.TrussBehaviour == null;
 
         [XmlIgnore]
         public double I2E
@@ -190,9 +226,9 @@ namespace FemDesign.ModellingTools
         }
 
         /// <summary>
-        /// Internal constructor.
+        /// Bended bar type FictitiousBar constructor.
         /// </summary>
-        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string identifier, double ae, double itg, double i1e, double i2e)
+        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, Bars.Connectivity startConnectivity, Bars.Connectivity endConnectivity, string identifier = "BF", double ae = 1e+07, double itg = 1e+07, double i1e = 1e+07, double i2e = 1e+07, double mass = 0.1)
         {
             this.EntityCreated();
             this.Edge = edge;
@@ -204,6 +240,22 @@ namespace FemDesign.ModellingTools
             this.ItG = itg;
             this.I1E = i1e;
             this.I2E = i2e;
+            this.Mass = mass;
+        }
+
+        /// <summary>
+        /// Truss type FictitiousBar constructor.
+        /// </summary>
+        /// <param name="trussBehaviour">If null, elastic behaviour is set.</param>
+        public FictitiousBar(Geometry.Edge edge, Geometry.Vector3d localY, string identifier, double ae = 1e+07, double mass = 0.1, Simple_truss_chr_type trussBehaviour = null)
+        {
+            this.EntityCreated();
+            this.Edge = edge;
+            this.LocalY = localY;
+            this.Identifier = identifier;
+            this.AE = ae;
+            this.Mass = mass;
+            this.TrussBehaviour = trussBehaviour ?? Simple_truss_chr_type.Elastic();
         }
 
         /// <summary>
@@ -216,5 +268,12 @@ namespace FemDesign.ModellingTools
             this.Plane = cs;
         }
 
+        public Simple_truss_chr_type SetTrussBehaviour(ItemChoiceType1 compressionBehaviour, double compressionLimitForce, ItemChoiceType1 tensionBehaviour, double tensionLimitForce)
+        {
+            var compression = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(compressionLimitForce), compressionBehaviour);
+            var tension = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(tensionLimitForce), tensionBehaviour);
+
+            return new Simple_truss_chr_type(compression, tension);
+        }
     }
 }

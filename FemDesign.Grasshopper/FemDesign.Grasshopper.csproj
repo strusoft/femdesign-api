@@ -69,6 +69,8 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bars\TrussBehaviour_OBSOLETE2305.cs" />
+    <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE_2.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersAnalysisDefine_OBSOLETE2303.cs" />
@@ -101,6 +103,8 @@
     <Compile Include="Materials\SetConcretePlasticity.cs" />
     <Compile Include="Materials\SetSteelMaterialProperties.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
+    <Compile Include="ModellingTools\FictitiousBarTrussBehaviour.cs" />
+    <Compile Include="ModellingTools\OBSOLETE\FictitiousBarConstruct_OBSOLETE2305.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\CoverTwoWay.cs" />
     <Compile Include="Bars\BarConnectivityConstruct.cs" />
@@ -165,7 +169,6 @@
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />
-    <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\OBSOLETE\CalculationParametersCombDefine_OBSOLETE.cs" />
     <Compile Include="ConstructionStages\Stage.cs" />
     <Compile Include="Deconstruct\Shells\EdgeConnectionDeconstruct.cs" />
