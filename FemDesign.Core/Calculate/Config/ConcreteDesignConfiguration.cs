@@ -1,4 +1,5 @@
-﻿using FemDesign.Results;
+﻿using FemDesign.GenericClasses;
+using FemDesign.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,10 @@ namespace FemDesign.Calculate
         public enum CalculationMethod
         {
             [XmlEnum("0")]
+            [Parseable("NominalStiffness", "nominal_stiffness", "Nominal_stiffness", "NOMINAL_STIFFNESS")]
             NominalStiffness,
             [XmlEnum("1")]
+            [Parseable("NominalCurvature", "nominal_curvature", "Nominal_curvature", "NOMINAL_CURVATURE")]
             NominalCurvature
         }
 

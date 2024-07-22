@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
 using FemDesign.Grasshopper;
+using FemDesign.Loads;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -23,24 +25,21 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Integer(), "CalculationMethod", "CalculationMethod", "0: Nominal stiffness\n1: Nominal curvature", GH_ParamAccess.item, new GH_Integer(0));
-            evaluationUnit.Inputs[0].Parameter.Optional = true;
-
-            Param_Integer typeComb = evaluationUnit.Inputs[0].Parameter as Param_Integer;
-            typeComb.AddNamedValue("Nominal stiffness", 0);
-            typeComb.AddNamedValue("Nominal curvature", 1);
+            evaluationUnit.RegisterInputParam(new Param_String(), "CalculationMethod", "CalculationMethod", "Connect 'ValueList' to get the options.\nNominalStiffness\nNominalCurvature", GH_ParamAccess.item, new GH_String("NominalStiffness"));
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.ConcreteDesignConfig.CalculationMethod)).ToList();
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "CrackQuasiPermanent", "CrackQuasiPermanent", "", GH_ParamAccess.item, new GH_Boolean(false));
-            evaluationUnit.Inputs[1].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "CrackFrequent", "CrackFrequent", "", GH_ParamAccess.item, new GH_Boolean(false));
-            evaluationUnit.Inputs[2].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "CrackCharacteristic", "CrackCharacteristic", "", GH_ParamAccess.item, new GH_Boolean(false));
-            evaluationUnit.Inputs[3].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "ReopeningCracks", "ReopeningCracks", "", GH_ParamAccess.item, new GH_Boolean(false));
-            evaluationUnit.Inputs[4].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)
@@ -48,15 +47,10 @@ namespace FemDesign.Grasshopper
             msg = "";
             level = GH_RuntimeMessageLevel.Warning;
 
-            int calculationMethod = 0;
+            string calculationMethod = "";
             DA.GetData(0, ref calculationMethod);
 
-            if (!Enum.IsDefined(typeof(FemDesign.Calculate.ConcreteDesignConfig.CalculationMethod), calculationMethod))
-            {
-                throw new System.ArgumentException("CalculationMethod not valid. 0 = Nominal stiffness, 1 = Nominal curvature");
-            }
-
-            var _calculationMethod = (FemDesign.Calculate.ConcreteDesignConfig.CalculationMethod)calculationMethod;
+            ConcreteDesignConfig.CalculationMethod _calculationMethod = FemDesign.GenericClasses.EnumParser.Parse<ConcreteDesignConfig.CalculationMethod>(calculationMethod);
 
             bool crackQuasiPermanent = false;
             DA.GetData(1, ref crackQuasiPermanent);

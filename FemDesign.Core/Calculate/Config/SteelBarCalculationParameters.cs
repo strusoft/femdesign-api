@@ -1,10 +1,12 @@
 ﻿using FemDesign.Bars;
+using FemDesign.GenericClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using static FemDesign.Calculate.SteelBarCalculationParameters;
 
 namespace FemDesign.Calculate
 {
@@ -17,40 +19,54 @@ namespace FemDesign.Calculate
         public enum BucklingCurve
         {
             [XmlEnum("-1")]
+            [Parseable("Auto", "auto", "AUTO")]
             Auto = -1,
             [XmlEnum("0")]
+            [Parseable("a0", "A0")]
             a0,
             [XmlEnum("1")]
+            [Parseable("a", "A")]
             a,
             [XmlEnum("2")]
+            [Parseable("b", "B")]
             b,
             [XmlEnum("3")]
+            [Parseable("c", "C")]
             c,
             [XmlEnum("4")]
+            [Parseable("d", "D")]
             d,
         }
 
         public enum BucklingCurveLt
         {
             [XmlEnum("-1")]
+            [Parseable("Auto", "auto", "AUTO")]
             Auto = -1,
             [XmlEnum("0")]
+            [Parseable("a", "A")]
             a,
             [XmlEnum("1")]
+            [Parseable("b", "B")]
             b,
             [XmlEnum("2")]
+            [Parseable("c", "C")]
             c,
             [XmlEnum("3")]
+            [Parseable("d", "D")]
             d,
         }
 
         public enum SecondOrder
         {
             [XmlEnum("0")]
+            [Parseable("Ignore", "ignore", "IGNORE")]
             Ignore,
             [XmlEnum("1")]
+            [Parseable("ConsiderIfAvailable", "consider_if_available", "Consider_if_available", "CONSIDER_IF_AVAILABLE")]
             ConsiderIfAvailable,
             [XmlEnum("2")]
+            [Parseable("ConsiderAndFirstOrderDesign", "consider_and_first_order_design", "Consider_and_first_order_design", "CONSIDER_AND_FIRST_ORDER_DESIGN")]
             ConsiderAndFirstOrderDesign
         }
 
@@ -215,6 +231,28 @@ namespace FemDesign.Calculate
         public void SetParametersOnBars(Bar bars)
         {
             this.Guids = new List<Guid> { bars.BarPart.Guid };
+        }
+        public SteelBarCalculationParameters()
+        {
+        }
+
+        public SteelBarCalculationParameters(double sectionsDistance, SecondOrder secondOrder, bool plasticCalculation, bool equation641, bool class4, bool ignore, double convergence, int iteration, BucklingCurve stiffDirection, BucklingCurve weakDirection, BucklingCurve torsionalDirection, bool en1993_1_1_6_3_2_2, bool en1993_1_1_6_3_2_3, BucklingCurveLt topFlange, BucklingCurveLt bottomFlange)
+        {
+            this.DistanceCalculatedSection = sectionsDistance;
+            this.S2ndOrder = secondOrder;
+            this.PlasticIgnored = plasticCalculation;
+            this.UseEquation6_41 = equation641;
+            this.Class4Ignored = class4;
+            this.CheckResistanceOnly = ignore;
+            this.ConvergencyRatio = convergence;
+            this.MaxIterStep = iteration;
+            this.BucklingCurveFx1 = stiffDirection;
+            this.BucklingCurveFx2 = weakDirection;
+            this.BucklingCurveTf = torsionalDirection;
+            this.LatTorBuckGen = en1993_1_1_6_3_2_2;
+            this.LatTorBuckGenSpecForI = en1993_1_1_6_3_2_3;
+            this.BucklingCurveLtb = topFlange;
+            this.BucklingCurveLtt = bottomFlange;
         }
     }
 }

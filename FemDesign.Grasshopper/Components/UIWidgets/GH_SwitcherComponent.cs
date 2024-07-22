@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
 using FemDesign.Grasshopper;
+using System.Xml.Linq;
 
 namespace FemDesign.Grasshopper.Components.UIWidgets
 {
@@ -311,12 +312,12 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
                         // We just want to reset the list once!!!
                         if (val.ListItems.Count != item.EnumInput.Count || !(val.ListItems.Select(x => x.Name).SequenceEqual(item.EnumInput)))
                         {
-                            var counter = 0;
+                            //var counter = 0;
                             val.ListItems.Clear();
                             foreach (var input in item.EnumInput)
                             {
-                                val.ListItems.Add(new GH_ValueListItem(input, counter.ToString()));
-                                counter++;
+                                val.ListItems.Add(new GH_ValueListItem(input, $"\"{input}\""));
+                                //counter++;
                             }
                             val.ExpireSolution(true);
                         }

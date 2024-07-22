@@ -48,6 +48,7 @@ namespace FemDesign.Grasshopper
         {
             _subcomponents.Add(new SteelDesignConfiguration());
             _subcomponents.Add(new SteelBarDesignParameters());
+            _subcomponents.Add(new SteelCalculationParameters());
             _subcomponents.Add(new ConcreteDesignConfiguration());
 
             foreach (SubComponent item in _subcomponents)

@@ -12,6 +12,8 @@ using FemDesign.Loads;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using Grasshopper.Kernel.Special;
 using static FemDesign.Calculate.ConcreteDesignConfig;
+using FemDesign.GenericClasses;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -26,11 +28,9 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Integer(), "Interaction", "Interaction", "0: Method 1\n1: Method 2", GH_ParamAccess.item, new GH_Integer(0));
-            evaluationUnit.Inputs[0].Parameter.Optional = true;
-            Param_Integer typeComb = evaluationUnit.Inputs[0].Parameter as Param_Integer;
-            typeComb.AddNamedValue("Method 1", 0);
-            typeComb.AddNamedValue("Method 2", 1);
+            evaluationUnit.RegisterInputParam(new Param_String(), "Interaction", "Interaction", "Connect 'ValueList' to get the options.\nMethod1\nMethod2", GH_ParamAccess.item, new GH_Integer(0));
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelDesignConfiguration.Method)).ToList();
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)
@@ -38,15 +38,10 @@ namespace FemDesign.Grasshopper
             msg = "";
             level = GH_RuntimeMessageLevel.Warning;
 
-            int interaction = 0;
+            string interaction = "";
             DA.GetData(0, ref interaction);
 
-            if (!Enum.IsDefined(typeof(FemDesign.Calculate.SteelDesignConfiguration.Method), interaction))
-            {
-                throw new System.ArgumentException("Interaction not valid. 0 = Method 1, 1 = Method 2");
-            }
-
-            var _interaction = (FemDesign.Calculate.SteelDesignConfiguration.Method)interaction;
+            var _interaction = FemDesign.GenericClasses.EnumParser.Parse<Calculate.SteelDesignConfiguration.Method>(interaction);
 
             var results = new FemDesign.Calculate.SteelDesignConfiguration(_interaction);
             DA.SetData(0, results);
