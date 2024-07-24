@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Cfg", "Cfg", "Filepath of the configuration file or Config objects. If file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Cfg", "Cfg", "Filepath of the configuration file or Config objects.\nIf file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -91,39 +91,20 @@ namespace FemDesign.Grasshopper
             }
             else
             {
-                foreach(var cfg in _cfg)
+                foreach (var cfg in _cfg)
                 {
-                    if (cfg.Value is string)
+                    // Check if the value is a string
+                    if (cfg.Value is string filePath)
                     {
-                        _connection.SetConfig((string)cfg.Value);
+                        _connection.SetConfig(filePath);
                     }
-                    else if (cfg.Value is FemDesign.Calculate.CONFIG)
+                    // Check if the value is of type FemDesign.Calculate.CONFIG
+                    else if (cfg.Value is FemDesign.Calculate.CONFIG config)
                     {
-                        _connection.SetConfig((FemDesign.Calculate.CONFIG)cfg.Value);
-                    }
-                    else
-                    {
-                        _connection.SetConfig(cfg);
+                        _connection.SetConfig(config);
                     }
                 }
             }
-            // a list of filePath
-            //else if(_cfg.Any(x => x is string))
-            //{
-            //    foreach (var cfg in _cfg)
-            //    {
-            //        _connection.SetConfig((string)cfg);
-            //    }
-            //}
-            //// a list of CONFIG objects
-            //else if (_cfg.Any(x => x is FemDesign.Calculate.CONFIG))
-            //{
-            //    foreach (var cfg in _cfg)
-            //    {
-            //        _connection.SetConfig((FemDesign.Calculate.CONFIG)cfg);
-            //    }
-            //}
-
             _success = true;
 
             Done();

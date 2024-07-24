@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
             Bars.Bar bar = null;
             DA.GetData(0, ref bar);
 
-            double utilisation = 0;
+            double utilisation = 0.8;
             DA.GetData(1, ref utilisation);
 
             List<FemDesign.Sections.Section> sections = new List<FemDesign.Sections.Section>();

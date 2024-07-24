@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FemDesign.GenericClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +26,13 @@ namespace FemDesign.Calculate
             /// Method 1: Interaction factors k_ij for interaction formula in 6.3.3(4).
             /// </summary>
             [XmlEnum("0")]
+            [Parseable("Method1", "Method 1", "method1", "method 1")]
             Method1,
             /// <summary>
             /// Method 2: Interaction factors k_ij for interaction formula in 6.3.3(4).
             /// </summary>
             [XmlEnum("1")]
+            [Parseable("Method2", "Method 2", "method2", "method 2")]
             Method2
         }
 

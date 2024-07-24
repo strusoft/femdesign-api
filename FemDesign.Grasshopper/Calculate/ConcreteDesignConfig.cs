@@ -47,7 +47,7 @@ namespace FemDesign.Grasshopper
             msg = "";
             level = GH_RuntimeMessageLevel.Warning;
 
-            string calculationMethod = "";
+            string calculationMethod = "NominalStiffness";
             DA.GetData(0, ref calculationMethod);
 
             ConcreteDesignConfig.CalculationMethod _calculationMethod = FemDesign.GenericClasses.EnumParser.Parse<ConcreteDesignConfig.CalculationMethod>(calculationMethod);

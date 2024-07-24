@@ -141,7 +141,24 @@ namespace FemDesign.Bars
             }
         }
 
-        
+
+        public bool IsSteel()
+        {
+            return this.BarPart.ComplexMaterialObj.Family == Materials.Family.Steel;
+
+        }
+
+        public bool IsConcrete()
+        {
+            return this.BarPart.ComplexMaterialObj.Family == Materials.Family.Concrete;
+
+        }
+
+        public bool IsTimber()
+        {
+            return this.BarPart.ComplexMaterialObj.Family == Materials.Family.Timber;
+        }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>

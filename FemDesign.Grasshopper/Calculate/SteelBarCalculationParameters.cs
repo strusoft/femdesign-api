@@ -150,7 +150,7 @@ namespace FemDesign.Grasshopper
             double sectionsDistance = 0.5;
             DA.GetData(0, ref sectionsDistance);
 
-            string secondOrder = "";
+            string secondOrder = "ConsiderIfAvailable";
             DA.GetData(1, ref secondOrder);
 
             var _secondOrder = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.SecondOrder>(secondOrder);
@@ -173,19 +173,19 @@ namespace FemDesign.Grasshopper
             int iteration = 50;
             DA.GetData(7, ref iteration);
 
-            string stiffDirection = "";
+            string stiffDirection = "Auto";
             DA.GetData(8, ref stiffDirection);
 
             var _stiffDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(stiffDirection);
 
 
-            string weakDirection = "";
+            string weakDirection = "Auto";
             DA.GetData(9, ref weakDirection);
 
             var _weakDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(weakDirection);
 
 
-            string torsionalDirection = "";
+            string torsionalDirection = "Auto";
             DA.GetData(10, ref torsionalDirection);
 
             var _torsionalDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(torsionalDirection);
@@ -197,12 +197,12 @@ namespace FemDesign.Grasshopper
             bool en1993_1_1_6_3_2_3 = false;
             DA.GetData(12, ref en1993_1_1_6_3_2_3);
 
-            string topFlange = "";
+            string topFlange = "Auto";
             DA.GetData(13, ref topFlange);
 
             var _topFlange = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurveLt>(topFlange);
 
-            string bottomFlange = "";
+            string bottomFlange = "Auto";
             DA.GetData(14, ref bottomFlange);
 
             var _bottomFlange = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurveLt>(bottomFlange);

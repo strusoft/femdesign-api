@@ -28,7 +28,7 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Interaction", "Interaction", "Connect 'ValueList' to get the options.\nMethod1\nMethod2", GH_ParamAccess.item, new GH_Integer(0));
+            evaluationUnit.RegisterInputParam(new Param_String(), "Interaction", "Interaction", "Connect 'ValueList' to get the options.\nMethod1\nMethod2", GH_ParamAccess.item, new GH_String("Method1"));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelDesignConfiguration.Method)).ToList();
         }
@@ -38,7 +38,7 @@ namespace FemDesign.Grasshopper
             msg = "";
             level = GH_RuntimeMessageLevel.Warning;
 
-            string interaction = "";
+            string interaction = "Method1";
             DA.GetData(0, ref interaction);
 
             var _interaction = FemDesign.GenericClasses.EnumParser.Parse<Calculate.SteelDesignConfiguration.Method>(interaction);

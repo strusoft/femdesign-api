@@ -17,7 +17,7 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class ConfigSwitcher : GH_SwitcherComponent
+    public class Configs : GH_SwitcherComponent
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
         public override string UnitMenuName => "Configs";
@@ -27,7 +27,7 @@ namespace FemDesign.Grasshopper
 
         protected override Bitmap Icon => FemDesign.Properties.Resources.Config;
 
-        public ConfigSwitcher()
+        public Configs()
             : base("Config", "Config",
               "Calculation and design configurations",
               CategoryName.Name(), SubCategoryName.Cat7a())

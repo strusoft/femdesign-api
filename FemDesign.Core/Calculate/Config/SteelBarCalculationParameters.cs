@@ -224,13 +224,16 @@ namespace FemDesign.Calculate
 
         public void SetParametersOnBars(List<Bar> bars)
         {
-
             this.Guids = bars.Select(x => x.BarPart.Guid).ToList();
         }
 
-        public void SetParametersOnBars(Bar bars)
+        public void SetParametersOnBars(Bar bar)
         {
-            this.Guids = new List<Guid> { bars.BarPart.Guid };
+            if (bar.IsSteel() == false)
+            {
+                throw new System.ArgumentException("Bar must be steel.");
+            }
+            this.SetParametersOnBars(new List<Bar> { bar });
         }
         public SteelBarCalculationParameters()
         {

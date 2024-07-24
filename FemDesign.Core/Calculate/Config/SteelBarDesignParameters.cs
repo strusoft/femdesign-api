@@ -25,7 +25,7 @@ namespace FemDesign.Calculate
         public double UtilizationLimit
         {
             get { return _utilizationLimit; }
-            set { _utilizationLimit = RestrictedDouble.ValueInHalfClosedInterval(value, 0, 1); }
+            set { _utilizationLimit = RestrictedDouble.ValueInOpenInterval(value, 0, 1); }
         }
 
         /// <summary>
@@ -83,6 +83,11 @@ namespace FemDesign.Calculate
         {
             UtilizationLimit = utilizationLimit;
 
+            if ( sections.Any(x => x.MaterialFamily != "Steel"))
+            {
+                throw new System.ArgumentException("Section must be steel.");
+            }
+
             // Add dynamic attributes
             for (int i = 0; i < sections.Count; i++)
             {
@@ -109,13 +114,16 @@ namespace FemDesign.Calculate
 
         public void SetParametersOnBars(List<Bar> bars)
         {
-
+            if (bars.Any(x => x.IsSteel() == false))
+            {
+                throw new System.ArgumentException("Bar must be steel.");
+            }
             this.Guids = bars.Select(x => x.BarPart.Guid).ToList();
         }
 
         public void SetParametersOnBars(Bar bars)
         {
-            this.Guids = new List<Guid> { bars.BarPart.Guid };
+            SetParametersOnBars(new List<Bar> { bars });
         }
 
     }
