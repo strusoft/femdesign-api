@@ -26,7 +26,7 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "SectionsDistance", "SectionsDistance", "Distance between sections", GH_ParamAccess.item, new GH_Number(0.5));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "SectionsDistance", "SectionsDistance", "Distance between sections", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_String(), "2ndOrder", "2ndOrder", "Connect 'ValueList' to get the options.\nIgnore\nConsiderIfAvailable\nConsiderAndFirstOrderDesign", GH_ParamAccess.item);
@@ -34,56 +34,56 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.SecondOrder)).ToList();
 
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PlasticCalculation", "PlasticCalculation", "PlasticCalculation", GH_ParamAccess.item, new GH_Boolean(false));
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PlasticCalculation", "PlasticCalculation", "PlasticCalculation", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Equation6.41", "Equation6.41", "Equation6.41", GH_ParamAccess.item, new GH_Boolean(false));
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Equation6.41", "Equation6.41", "Equation6.41", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Class4", "Class4", "Class4", GH_ParamAccess.item, new GH_Boolean(false));
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Class4", "Class4", "Class4", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Ignore", "Ignore", "Ignore", GH_ParamAccess.item, new GH_Boolean(false));
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Ignore", "Ignore", "Ignore", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "Convergence", "Convergence", "Convergence", GH_ParamAccess.item, new GH_Number(1.00));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "Convergence", "Convergence", "Convergence", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_Integer(), "Iteration", "Iteration", "Iteration", GH_ParamAccess.item, new GH_Integer(50));
+            evaluationUnit.RegisterInputParam(new Param_Integer(), "Iteration", "Iteration", "Iteration", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "StiffDirection", "StiffDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item, new GH_String("Auto"));
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
-
-
-            evaluationUnit.RegisterInputParam(new Param_String(), "WeakDirection", "WeakDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item, new GH_String("Auto"));
+            evaluationUnit.RegisterInputParam(new Param_String(), "StiffDirection", "StiffDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "TorsionalDirection", "TorsionalDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item, new GH_String("Auto"));
+
+            evaluationUnit.RegisterInputParam(new Param_String(), "WeakDirection", "WeakDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "EN1993-1-1:6.3.2.2", "EN1993-1-1:6.3.2.2", "According to general case (EN1993-1-1:6.3.2.2), if sections is I, hollow or rectangle", GH_ParamAccess.item, new GH_Boolean(true));
+            evaluationUnit.RegisterInputParam(new Param_String(), "TorsionalDirection", "TorsionalDirection", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
+
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "EN1993-1-1:6.3.2.2", "EN1993-1-1:6.3.2.2", "According to general case (EN1993-1-1:6.3.2.2), if sections is I, hollow or rectangle", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "EN1993-1-1:6.3.2.3", "EN1993-1-1:6.3.2.3", "Use EN1993-1-1:6.3.2.3 for NA specified sections", GH_ParamAccess.item, new GH_Boolean(false));
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "EN1993-1-1:6.3.2.3", "EN1993-1-1:6.3.2.3", "Use EN1993-1-1:6.3.2.3 for NA specified sections", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "TopFlange", "TopFlange", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item, new GH_String("Auto"));
+            evaluationUnit.RegisterInputParam(new Param_String(), "TopFlange", "TopFlange", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurveLt)).ToList();
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "BottomFlange", "BottomFlange", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item, new GH_String("Auto"));
+            evaluationUnit.RegisterInputParam(new Param_String(), "BottomFlange", "BottomFlange", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurveLt)).ToList();
 
@@ -94,52 +94,52 @@ namespace FemDesign.Grasshopper
             GH_ExtendableMenu gH_ExtendableMenu0 = new GH_ExtendableMenu(0, "");
             gH_ExtendableMenu0.Name = "General settings";
             gH_ExtendableMenu0.Expand();
-            evaluationUnit.AddMenu(gH_ExtendableMenu0);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[0]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[1]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu0);
 
 
             GH_ExtendableMenu gH_ExtendableMenu1 = new GH_ExtendableMenu(1, "");
             gH_ExtendableMenu1.Name = "Resistante of cross-sections";
             gH_ExtendableMenu1.Expand();
-            evaluationUnit.AddMenu(gH_ExtendableMenu1);
             gH_ExtendableMenu1.RegisterInputPlug(evaluationUnit.Inputs[2]);
             gH_ExtendableMenu1.RegisterInputPlug(evaluationUnit.Inputs[3]);
             gH_ExtendableMenu1.RegisterInputPlug(evaluationUnit.Inputs[4]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu1);
 
             GH_ExtendableMenu gH_ExtendableMenu2 = new GH_ExtendableMenu(2, "");
             gH_ExtendableMenu2.Name = "Stability checks";
-            evaluationUnit.AddMenu(gH_ExtendableMenu2);
             gH_ExtendableMenu2.RegisterInputPlug(evaluationUnit.Inputs[5]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu2);
 
 
             GH_ExtendableMenu gH_ExtendableMenu3 = new GH_ExtendableMenu(3, "");
             gH_ExtendableMenu3.Name = "Effective cross-section of Class 4 sections";
-            evaluationUnit.AddMenu(gH_ExtendableMenu3);
             gH_ExtendableMenu3.RegisterInputPlug(evaluationUnit.Inputs[6]);
             gH_ExtendableMenu3.RegisterInputPlug(evaluationUnit.Inputs[7]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu3);
 
 
             GH_ExtendableMenu gH_ExtendableMenu4 = new GH_ExtendableMenu(4, "");
             gH_ExtendableMenu4.Name = "Flexural buckling";
-            evaluationUnit.AddMenu(gH_ExtendableMenu4);
             gH_ExtendableMenu4.RegisterInputPlug(evaluationUnit.Inputs[8]);
             gH_ExtendableMenu4.RegisterInputPlug(evaluationUnit.Inputs[9]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu4);
 
 
             GH_ExtendableMenu gH_ExtendableMenu5 = new GH_ExtendableMenu(5, "");
             gH_ExtendableMenu5.Name = "Torsional-flexural buckling";
-            evaluationUnit.AddMenu(gH_ExtendableMenu5);
             gH_ExtendableMenu5.RegisterInputPlug(evaluationUnit.Inputs[10]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu5);
 
 
             GH_ExtendableMenu gH_ExtendableMenu6 = new GH_ExtendableMenu(6, "");
             gH_ExtendableMenu6.Name = "Lateral-torsional buckling";
-            evaluationUnit.AddMenu(gH_ExtendableMenu6);
             gH_ExtendableMenu6.RegisterInputPlug(evaluationUnit.Inputs[11]);
             gH_ExtendableMenu6.RegisterInputPlug(evaluationUnit.Inputs[12]);
             gH_ExtendableMenu6.RegisterInputPlug(evaluationUnit.Inputs[13]);
             gH_ExtendableMenu6.RegisterInputPlug(evaluationUnit.Inputs[14]);
+            evaluationUnit.AddMenu(gH_ExtendableMenu6);
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)
