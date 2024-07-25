@@ -16,12 +16,12 @@ namespace FemDesign.Grasshopper
 {
     public class ConcreteDesignConfiguration : SubComponent
     {
-        public override string name => "ConcreteDesignConfiguration";
-        public override string display_name => "ConcreteDesignConfiguration";
+        public override string name() => "ConcreteDesignConfiguration";
+        public override string display_name() => "ConcreteDesignConfiguration";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name, display_name, "ConcreteDesignConfiguration");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "ConcreteDesignConfiguration");
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 

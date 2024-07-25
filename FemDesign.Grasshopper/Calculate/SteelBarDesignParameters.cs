@@ -14,12 +14,12 @@ namespace FemDesign.Grasshopper
 {
     public class SteelBarDesignParameters : SubComponent
     {
-        public override string name => "SteelBarDesignParameters";
-        public override string display_name => "SteelBarDesignParameters";
+        public override string name() => "SteelBarDesignParameters";
+        public override string display_name() => "SteelBarDesignParameters";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name, display_name, "SteelBarDesignParameters");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "SteelBarDesignParameters");
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 

@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
         public override string UnitMenuName => "Configs";
-        protected override string DefaultEvaluationUnit => _subcomponents[0].name;
+        protected override string DefaultEvaluationUnit => _subcomponents[0].name();
         public override Guid ComponentGuid => new Guid("{C854705D-555D-4784-8C2D-0299763484BD}");
         public override GH_Exposure Exposure => GH_Exposure.quinary;
 
@@ -74,7 +74,7 @@ namespace FemDesign.Grasshopper
             }
             foreach (SubComponent item in _subcomponents)
             {
-                if (unit.Name.Equals(item.name))
+                if (unit.Name.Equals(item.name()))
                 {
                     item.SolveInstance(DA, out var msg, out var level);
                     if (msg != "")
