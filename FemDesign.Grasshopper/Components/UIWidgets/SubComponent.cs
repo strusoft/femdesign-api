@@ -4,9 +4,9 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
 {
     public abstract class SubComponent
     {
-        public abstract string name { get; }
+        public abstract string name();
 
-        public abstract string display_name {  get; }
+        public abstract string display_name();
 
         public abstract void registerEvaluationUnits(EvaluationUnitManager mngr);
 
@@ -16,6 +16,6 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
         {
         }
 
-        public virtual GH_DocumentObject Parent_Component { get; set; }
+        public virtual GH_DocumentObject Parent_Component { get; set; } // To be able to call ExpireSolution() from subcomponents
     }
 }

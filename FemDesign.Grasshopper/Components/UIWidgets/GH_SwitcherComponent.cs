@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
-using FemDesign.Grasshopper;
 using System.Xml.Linq;
 
 namespace FemDesign.Grasshopper.Components.UIWidgets
@@ -15,15 +14,25 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
     public abstract class GH_SwitcherComponent : GH_Component
     {
         protected EvaluationUnitManager evalUnits;
+
         protected EvaluationUnit activeUnit;
+
         protected RuntimeComponentData staticData;
+
         public RuntimeComponentData StaticData => staticData;
+
         public List<EvaluationUnit> EvalUnits => evalUnits.Units;
+
         public EvaluationUnit ActiveUnit => activeUnit;
+
         protected virtual string DefaultEvaluationUnit => null;
+
         public virtual string UnitMenuName => "Evaluation Units";
+
         public virtual string UnitMenuHeader => "Select evaluation unit";
+
         public virtual bool UnitlessExistence => false;
+
 
         protected internal GH_SwitcherComponent(string sName, string sAbbreviation, string sDescription, string sCategory, string sSubCategory)
             : base(sName, sAbbreviation, sDescription, sCategory, sSubCategory)
@@ -73,6 +82,37 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
         }
 
         protected abstract void SolveInstance(IGH_DataAccess DA, EvaluationUnit unit);
+
+        public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
+        {
+            base.AppendAdditionalMenuItems(menu);
+            if (evalUnits.Units.Count > 0)
+            {
+                GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
+                ToolStripMenuItem toolStripMenuItem = GH_DocumentObject.Menu_AppendItem((ToolStrip)menu, "Units");
+                foreach (EvaluationUnit unit in evalUnits.Units)
+                {
+                    GH_DocumentObject.Menu_AppendItem((ToolStrip)toolStripMenuItem.DropDown, unit.Name, (EventHandler)Menu_ActivateUnit, (Image)null, true, unit.Active).Tag = unit;
+                }
+                GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
+            }
+        }
+
+        private void Menu_ActivateUnit(object sender, EventArgs e)
+        {
+            try
+            {
+                EvaluationUnit evaluationUnit = (EvaluationUnit)((ToolStripMenuItem)sender).Tag;
+                if (evaluationUnit != null)
+                {
+                    SwitchUnit(evaluationUnit);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         private void SetReadState()
         {
@@ -312,12 +352,12 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
                         // We just want to reset the list once!!!
                         if (val.ListItems.Count != item.EnumInput.Count || !(val.ListItems.Select(x => x.Name).SequenceEqual(item.EnumInput)))
                         {
-                            //var counter = 0;
+                            var counter = 0;
                             val.ListItems.Clear();
                             foreach (var input in item.EnumInput)
                             {
                                 val.ListItems.Add(new GH_ValueListItem(input, $"\"{input}\""));
-                                //counter++;
+                                counter++;
                             }
                             val.ExpireSolution(true);
                         }

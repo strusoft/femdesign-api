@@ -3,7 +3,7 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
-using Grasshopper.Kernel.Types;
+using GH = Grasshopper;
 using Rhino;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
-using GH = Grasshopper;
 using static Grasshopper.GUI.Canvas.GH_Canvas;
 
 namespace FemDesign.Grasshopper.Components.UIWidgets
