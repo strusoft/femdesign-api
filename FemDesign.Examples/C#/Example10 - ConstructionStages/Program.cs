@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using FemDesign.Geometry;
 using FemDesign.GenericClasses;
 
 namespace FemDesign.Examples

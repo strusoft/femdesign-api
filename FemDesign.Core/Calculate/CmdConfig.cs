@@ -117,7 +117,7 @@ namespace FemDesign.Calculate
     /// </summary>
     /// 
     [XmlInclude(typeof(MasonryConfig))]
-    [XmlInclude(typeof(ConcreteConfig))]
+    [XmlInclude(typeof(ConcreteDesignConfig))]
     [XmlInclude(typeof(SteelDesignConfiguration))]
     [XmlInclude(typeof(SteelBarDesignParameters))]
     [XmlInclude(typeof(SteelBarCalculationParameters))]

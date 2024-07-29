@@ -9,19 +9,20 @@ using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
 using System.Reflection;
+using System.Dynamic;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeCfg : GH_AsyncComponent
+    public class PipeSetCfg : GH_AsyncComponent
     {
-        public PipeCfg() : base("FEM-Design.SetConfigurations", "SetCfg", "Set design settings for a FEM-Design model using a configuration file.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeSetCfg() : base("FEM-Design.SetConfigurations", "SetCfg", "Set design settings for a FEM-Design model using a configuration file.", CategoryName.Name(), SubCategoryName.Cat8())
         {
             BaseWorker = new ApplicationSetCfgWorker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("Cfg", "Cfg", "Filepath of the configuration file. If file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Cfg", "Cfg", "Filepath of the configuration file or Config objects.\nIf file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -33,7 +34,7 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Config;
-        public override Guid ComponentGuid => new Guid("{D6D91401-2842-454C-A43D-8FA483378F85}");
+        public override Guid ComponentGuid => new Guid("{AADEF422-856D-4798-9936-125B614F1D8C}");
         public override GH_Exposure Exposure => GH_Exposure.obscure;
     }
 
@@ -43,7 +44,7 @@ namespace FemDesign.Grasshopper
         private FemDesignConnection _connection = null;
         private bool _runNode = true;
         private bool _success = false;
-        private string _cfgfilePath = null;
+        private List<dynamic> _cfg = new List<dynamic>();
 
 
         public ApplicationSetCfgWorker(GH_Component component) : base(component) { }
@@ -82,13 +83,28 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
 
-            if (_cfgfilePath == null)
+            if (_cfg.Count == 0)
             {
                 string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                _cfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
+                var _cfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
+                _connection.SetConfig(_cfgfilePath);
             }
-
-            _connection.SetConfig(_cfgfilePath);
+            else
+            {
+                foreach (var cfg in _cfg)
+                {
+                    // Check if the value is a string
+                    if (cfg.Value is string filePath)
+                    {
+                        _connection.SetConfig(filePath);
+                    }
+                    // Check if the value is of type FemDesign.Calculate.CONFIG
+                    else if (cfg.Value is FemDesign.Calculate.CONFIG config)
+                    {
+                        _connection.SetConfig(config);
+                    }
+                }
+            }
             _success = true;
 
             Done();
@@ -99,7 +115,7 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("Cfg", ref _cfgfilePath);
+            DA.GetDataList("Cfg", _cfg);
             DA.GetData("RunNode", ref _runNode);
         }
 

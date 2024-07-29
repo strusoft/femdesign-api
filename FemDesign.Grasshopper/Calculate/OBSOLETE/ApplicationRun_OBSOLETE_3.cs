@@ -22,9 +22,9 @@ using GH_IO.Serialization;
 
 namespace FemDesign.Grasshopper
 {
-    public class ApplicationRun : FEM_Design_API_Component
+    public class ApplicationRun_OBSOLETE_3 : FEM_Design_API_Component
     {
-        public ApplicationRun() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
+        public ApplicationRun_OBSOLETE_3() : base("Application.Run", "RunApplication", "Run application for a model.", CategoryName.Name(), SubCategoryName.Cat7a())
         {
             _minimised = false;
             _keepOpen = false;
@@ -81,10 +81,10 @@ namespace FemDesign.Grasshopper
                 "Default Units are: Length.m, Angle.deg, SectionalData.m, Force.kN, Mass.kg, Displacement.m, Stress.Pa", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddGenericParameter("Config", "Config", "Filepath of the configuration file or Config objects.\nIf file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
+            pManager.AddTextParameter("Cfg", "Cfg", "Cfg file path with design parameters for structural materials. \nYou can use the 'cfg.xml' file in located package manager library folder as a starting point..\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
-            pManager.AddTextParameter("GlobalConfig", "GlobalConfig", "GlobalCfg file path. You can use the 'cmdglobalcfg.xml' file in located package manager library folder as a starting point.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "GlobalCfg file path. You can use the 'cmdglobalcfg.xml' file in located package manager library folder as a starting point.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
 
             pManager.AddTextParameter("DocxTemplatePath", "DocxTemplatePath", "File path to documentation template file (.dsc). The documentation will be saved in the `FEM-Design API` folder. Optional parameter.", GH_ParamAccess.item);
@@ -168,11 +168,11 @@ namespace FemDesign.Grasshopper
             FemDesign.Calculate.Options options = null;
             DA.GetData("Options", ref options);
 
-            List<dynamic> cfg = new List<dynamic>();
-            DA.GetDataList("Config", cfg);
+            string cfg = null;
+            DA.GetData("Cfg", ref cfg);
 
             string globalCfg = null;
-            DA.GetData("GlobalConfig", ref globalCfg);
+            DA.GetData("GlobalCfg", ref globalCfg);
 
             string dscTemplate = null;
             DA.GetData("DocxTemplatePath", ref dscTemplate);
@@ -180,6 +180,12 @@ namespace FemDesign.Grasshopper
             string saveFilePath = null;
             DA.GetData("SaveFilePath", ref saveFilePath);
 
+
+            //if (analysis == null && design == null && saveFilePath == null && _resultType.Count == 0)
+            //{
+            //    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one of the following should be provided.\n'Analysis', 'Design', 'ResultTypes' or 'SaveFilePath'");
+            //    return;
+            //}
 
             // Collect Outputs
             Model model = null;
@@ -223,22 +229,8 @@ namespace FemDesign.Grasshopper
 
                 connection.Open(_model.Value);
 
-                if (cfg.Count != 0)
-                {
-                    foreach (var _cfg in cfg)
-                    {
-                        // Check if the value is a string
-                        if (_cfg.Value is string filePath)
-                        {
-                            connection.SetConfig(filePath);
-                        }
-                        // Check if the value is of type FemDesign.Calculate.CONFIG
-                        else if (_cfg.Value is FemDesign.Calculate.CONFIG config)
-                        {
-                            connection.SetConfig(config);
-                        }
-                    }
-                }
+                if (cfg != null)
+                    connection.SetConfig(cfg);
 
                 if (globalCfg != null)
                     connection.SetGlobalConfig(CmdGlobalCfg.DeserializeCmdGlobalCfgFromFilePath(globalCfg));
@@ -280,9 +272,9 @@ namespace FemDesign.Grasshopper
                     }
                 }
 
-                if (bscFilePath.Count != 0)
+                if(bscFilePath.Count != 0)
                 {
-                    foreach (var bsc in bscFilePath)
+                    foreach(var bsc in bscFilePath)
                     {
                         var res = connection.GetResultsFromBsc(bsc);
                         resultsTree.AddRange(res, new GH_Path(iteration, i));
@@ -338,10 +330,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{3BF26144-8F6A-46F3-A826-070A2B43D2A2}"); }
+            get { return new Guid("{1D5D200B-2F6F-4D81-A295-2924773782B3}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
