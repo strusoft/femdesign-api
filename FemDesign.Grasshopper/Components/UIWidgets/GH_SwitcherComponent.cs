@@ -83,20 +83,20 @@ namespace FemDesign.Grasshopper.Components.UIWidgets
 
         protected abstract void SolveInstance(IGH_DataAccess DA, EvaluationUnit unit);
 
-        public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
-        {
-            base.AppendAdditionalMenuItems(menu);
-            if (evalUnits.Units.Count > 0)
-            {
-                GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
-                ToolStripMenuItem toolStripMenuItem = GH_DocumentObject.Menu_AppendItem((ToolStrip)menu, "Units");
-                foreach (EvaluationUnit unit in evalUnits.Units)
-                {
-                    GH_DocumentObject.Menu_AppendItem((ToolStrip)toolStripMenuItem.DropDown, unit.Name, (EventHandler)Menu_ActivateUnit, (Image)null, true, unit.Active).Tag = unit;
-                }
-                GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
-            }
-        }
+        //public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
+        //{
+        //    base.AppendAdditionalMenuItems(menu);
+        //    if (evalUnits.Units.Count > 0)
+        //    {
+        //        GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
+        //        ToolStripMenuItem toolStripMenuItem = GH_DocumentObject.Menu_AppendItem((ToolStrip)menu, "Units");
+        //        foreach (EvaluationUnit unit in evalUnits.Units)
+        //        {
+        //            GH_DocumentObject.Menu_AppendItem((ToolStrip)toolStripMenuItem.DropDown, unit.Name, (EventHandler)Menu_ActivateUnit, (Image)null, true, unit.Active).Tag = unit;
+        //        }
+        //        GH_DocumentObject.Menu_AppendSeparator((ToolStrip)menu);
+        //    }
+        //}
 
         private void Menu_ActivateUnit(object sender, EventArgs e)
         {

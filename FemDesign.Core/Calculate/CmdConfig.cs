@@ -122,8 +122,11 @@ namespace FemDesign.Calculate
     [XmlInclude(typeof(SteelBarDesignParameters))]
     [XmlInclude(typeof(SteelBarCalculationParameters))]
     [System.Serializable]
-    public abstract partial class CONFIG
+    public abstract class CONFIG
     {
-    
+        public override string ToString()
+        {
+            return ResultsReader.ObjectRepresentation(this);
+        }
     }
 } 

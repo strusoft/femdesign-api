@@ -191,6 +191,10 @@ namespace FemDesign.Results
 
             foreach (PropertyInfo prop in props)
             {
+                // check if prop is a list. if it is, continue to next prop
+                if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(List<>) || prop.Name.StartsWith("_"))
+                    continue;
+
                 object propValue = prop.GetValue(myObject, null);
                 objRepr += $" {prop.Name}: {propValue},";
             }
