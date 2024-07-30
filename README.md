@@ -58,5 +58,10 @@ The FEM-Design API repository is developed and maintained by [StruSoft](https://
 In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package. 😊
 
 ## License
-[LICENSE.md](LICENSE)
+[LICENSE-MIT.md](MIT LICENSE)
+[LICENSE-APACHE.md](APACHE LICENSE)
 
+### NOTICE
+
+The code in FemDesign.Grasshopper.Components.UIWidgets folder includes code licensed under the Apache License, Version 2.0
+(https://www.apache.org/licenses/LICENSE-2.0).
