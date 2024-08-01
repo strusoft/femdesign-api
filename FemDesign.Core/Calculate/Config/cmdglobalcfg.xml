@@ -5,6 +5,8 @@
     <!-- attributes that start with 'f' must be 0 or 1 -->
     <!-- attributes that start with 'r' are double numbers -->
     <!-- attributes that start with 's' are integer numbers -->
+    <soil_calculation
+        fSoilAsSolid = "0" />
     <mesh_general
         fAdjustToLoads = "0" />
     <mesh_elements

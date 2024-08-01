@@ -33,6 +33,9 @@ namespace FemDesign.Calculate
         [XmlElement("peaksm_auto")]
         public PeaksmAuto PeaksmAuto { get; set; }
 
+        [XmlElement("soil_calculation")]
+        public SoilCalculation SoilCalculation { get; set; }
+
         /// <summary>
         /// Parameterless constructor for serialization.
         /// </summary>
@@ -41,7 +44,7 @@ namespace FemDesign.Calculate
 
         }
 
-        public CmdGlobalCfg(MeshGeneral meshGeneral, MeshElements meshElements, MeshFunctions meshFunctions, MeshPrepare meshPrepare, PeaksmMethod peaksmMethod, PeaksmAuto peaksmAuto)
+        public CmdGlobalCfg(MeshGeneral meshGeneral, MeshElements meshElements, MeshFunctions meshFunctions, MeshPrepare meshPrepare, PeaksmMethod peaksmMethod, PeaksmAuto peaksmAuto, SoilCalculation soilCalculation)
         {
             this.MeshGeneral = meshGeneral;
             this.MeshElements = meshElements;
@@ -49,6 +52,7 @@ namespace FemDesign.Calculate
             this.MeshPrepare = meshPrepare;
             this.PeaksmMethod = peaksmMethod;
             this.PeaksmAuto = peaksmAuto;
+            this.SoilCalculation = soilCalculation;
         }
 
         public static CmdGlobalCfg Default()
@@ -59,13 +63,15 @@ namespace FemDesign.Calculate
             var meshPrepare = MeshPrepare.Default();
             var peaksmMethod = PeaksmMethod.Default();
             var peaksmAuto = PeaksmAuto.Default();
+            var soilCalculation = SoilCalculation.Default();
 
             var cmdGlobalCfg = new CmdGlobalCfg(meshGeneral,
                                                 meshElements,
                                                 meshfunctions,
                                                 meshPrepare,
                                                 peaksmMethod,
-                                                peaksmAuto);
+                                                peaksmAuto,
+                                                soilCalculation);
 
             return cmdGlobalCfg;
         }
@@ -437,6 +443,30 @@ namespace FemDesign.Calculate
         public static PeaksmAuto Default()
         {
             return new PeaksmAuto(peakBeam : false);
+        }
+    }
+
+    public partial class SoilCalculation
+    {
+        [XmlAttribute("fSoilAsSolid")]
+        public int _soilAsSolid { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor for serialization.
+        /// </summary>
+        private SoilCalculation()
+        {
+
+        }
+
+        public SoilCalculation(bool soilAsSolid = true)
+        {
+            this._soilAsSolid = System.Convert.ToInt32(soilAsSolid);
+        }
+
+        public static SoilCalculation Default()
+        {
+            return new SoilCalculation(soilAsSolid : false);
         }
     }
 
