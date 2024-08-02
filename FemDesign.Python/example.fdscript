@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="fdscript.xsd">
+  <!-- SCRIPT HEADER  ==================================================================================  -->
+  <fdscriptheader>
+    <title>FEM-Design example script</title>
+    <version>1900</version>
+    <module>SFRAME</module>
+    <!-- log file where warnings from calculation and other interesting entries may appear -->
+    <logfile>e:\x.log</logfile>
+  </fdscriptheader>
+
+
+  <!-- Example script that loads a file, executes calculation, 
+       writes outputs as .csv .docx files, saves then exits
+       
+       You need to substitute filenames with real ones (look for "e:\)
+       
+       create .dsc file in documentation/Templates>/save as
+       create .bsc file List... panel/Save batch
+       
+       add/delete/arrange commands as needed, change the actual parameters.
+       the parameters are related to the interface, open the related panel 
+       and look what fields are on the dialog/table
+       
+       launch script trough Tool/Runs Script menu
+       or command line 
+         fd3dstruct /s e:\x.fdscript
+    -->
+
+
+<!--	commands for changing current TAB (i.e. necessary to start proper type of calculation)
+Structure
+  <cmduser command="; CXL $MODULE STRUCT" />
+Load  
+  <cmduser command="; CXL $MODULE LOADS" />
+Finite elements  
+  <cmduser command="; CXL $MODULE MESH" />
+Analysis  
+  <cmduser command="; CXL $MODULE RESMODE" />
+Foundation design  
+  <cmduser command="; CXL $MODULE FOUNDATIONDESIGN" />
+RC design  
+  <cmduser command="; CXL $MODULE RCDESIGN" />
+Steel design  
+  <cmduser command="; CXL $MODULE STEELDESIGN" />
+Timber design  
+  <cmduser command="; CXL $MODULE TIMBERDESIGN" />
+Masonry design
+  <cmduser command="; CXL $MODULE MASONRYDESIGN" />
+Composite design
+  <cmduser command="; CXL $MODULE COMPOSITEDESIGN" />
+PB design  
+  <cmduser command="; CXL $MODULE PERFORMANCEBASEDDESIGN" />
+-->
+  
+<!--	other commands 
+Enter documentation
+  <cmduser command="; CXL $MODULE DOCUMENT" />
+Leave documentation
+  <cmduser command="; CXL $MODULE DOCCLOSE" />
+Force to apply design changes after calculating with autodesign 
+  <cmduser command="; CXL FEM $CODE(DESCHANGESAPPLY)" />
+Place current selection on clipboard as list of GUIDs
+  <cmduser command="CXL CS2EDIT SEL2CLIP" />
+-->
+
+  <!--	 -->
+
+  <!-- always use absolute path for files! -->
+
+  <!-- command for menu file/open    use the filename with extension -->
+  <cmdopen command="; CXL CS2SHELL OPEN">
+    <filename>e:\x.struxml</filename>
+  </cmdopen>
+
+
+  <!-- commands to apply configuration  
+  use command in femdesign to dump existing config as starting point:
+       ; CXL MODULECOM WXMLCFG:c:\cfg.xml
+  
+  have the config right here
+  
+  <cmdconfig command="$ MODULECOM APPLYCFG">
+  	<CONFIG s2ndOrder="1" type="ECRCCONFIG"></CONFIG>
+   	<CONFIG LimitUtilization="1" type="CCDESPARAMCOCOLUMN">
+   	   <GUID>2e290437-e86a-4e36-af7d-acde6a6146c8</GUID>
+   	   <GUID>2cba9c00-255d-4258-94fb-f164aafff214</GUID>
+   	</CONFIG>
+  </cmdconfig>
+  
+  add the guid list to apply to only selected items instead of all
+  
+  read from file (content just as in previous example, a sequence of <CONFIG> elements)
+  
+  <cmdconfig command="$ MODULECOM APPLYCFG" file="c:\cfg.xml" />
+
+  -->
+
+  <!-- command to apply global settings
+  
+  only use elements/attribs you actually want to change !
+
+  <cmdglobalcfg command="$ FEM $CODE(GLOBALCFG)"> 
+    <mesh_general
+      fAdjustToLoads = "0"
+    />
+    <mesh_elements
+      fElemCalcRegion = "1"
+      rElemSizeDiv = "6.0"
+      fCorrectToMinDivNum = "1"
+      sDefaultDivision = "2"
+      rDefaultAngle = "15.0"
+      sDefaultEdgeDivision = "1"
+    />
+    <mesh_functions
+      fRefineLocally = "1"
+      sRefineMaxStepNum = "5"
+      fMaxIterWarning = "0"
+      fReduceSize = "1"
+      sSmoothStepNum = "3"
+      fCheckMeshGeom = "1"
+      rCheckGeomMinAngle = "10.0"
+      rCheckGeomMaxAngle = "170.0"
+      rCheckGeomMaxSideRatio = "8.0"
+      fCheckMeshOverlap = "1"
+      fCheckMeshTopology = "1"
+    />
+    <mesh_prepare
+       fAutoRegen = "1"
+       fThPeak = "1"
+       fThBeam = "0"
+       fThColumn = "1"
+       fThTruss = "0"
+       fThFicBeam = "0"
+       fThFreeEdge = "0"
+       fThRegionBorder = "0"
+       fThSuppPt = "1"
+       fThSuppLn = "0"
+       fThSuppSf = "0"
+       fThEdgeConn = "0"
+       fThConnPt = "0"
+       fThConnLn = "0"
+       fThConnSf = "0"
+       fThLoadPt = "0"
+       fThLoadLn = "0"
+       fThLoadSf = "0"
+       fThFixPt = "0"
+       fThFixLn = "0"
+       fAutoRebuild = "1"
+       fAutoSmooth = "1"
+       fAutoCheck = "0"
+    />
+    <peaksm_method
+       sPeakFormFunc_M = "1"
+       sPeakFormFunc_N = "1"
+       sPeakFormFunc_V = "1"
+    />
+    <peaksm_auto
+       fPeakBeam = "0"
+       fPeakColumn = "1"
+       fPeakTruss = "0"
+       fPeakFicBeam = "0"
+       fPeakPlate = "0"
+       fPeakWall = "0"
+       fPeakFicShell = "0"
+       fPeakSuppPt = "1"
+       fPeakSuppLn = "0"
+       fPeakSuppSf = "0"
+       fPeakConnPt = "0"
+       fPeakConnLn = "0"
+       fPeakConnSf = "0"
+       rPeakFactor = "0.5"
+    />
+  </cmdglobalcfg>
+  -->
+ 
+   <!-- command to calculate bars
+  
+  <cmdbarcalc command="$ CODE_COM BARCALC" inputfile="e:\c.dat" outfolder="e:\res" mat="timber" />
+      if attributes are omitted/left empty, uses path/name of last loaded drawing
+      mat can be "steel" (default, also if omitted) or "timber"
+
+  -->
+
+   <!-- command to List table Interaction Surface - Section Capacity
+  
+  <cmdinteractionsurface command="$ CODE_COM INTERACTIONSURFACE" guid="2e290437-e86a-4e36-af7d-acde6a6146c8" offset="0.0" fUlt="false" outfile="e:\res\a.txt"  />
+  guid must point to an existing bar. make sure you pass the analytical bar!
+  offset is cross-section position, measured along the bar from the starting point [m]
+  fUlt is true for Ultimate, false for Accidental or Seismic  combination (different gammaC)
+  
+  OUTPUT FORMAT:
+  #node
+  id,x,y,z
+  1,0,0,0
+  2,1,2,3
+  3,4,1,2
+  ...
+  #face
+  id,node_i,node_j,node_z
+  1,1,2,3
+  ...
+  -->
+
+
+  <!-- command to create result point for analytic entity at coordinates
+  
+  <cmdrespoint command="$ MODULECOM RESPOINT" 
+      guid="2e290437-e86a-4e36-af7d-acde6a6146c8"
+      x="1.0" 
+      y="2.0" 
+      z="3.0" 
+      name="MyResultPlace"
+    /> 
+  -->
+
+  <!-- command to create design group
+  
+  <cmddesgroup command="$ CODE_COM DESGROUP" 
+        name="A" color="0" force="false" type="STBAR">
+    <GUID>2e290437-e86a-4e36-af7d-acde6a6146c8</GUID>
+    <GUID>2cba9c00-255d-4258-94fb-f164aafff214</GUID>
+  </cmddesgroup>
+  valid types are:  
+"FNISOLATED", "FNWALL", "FNSLAB", "RCSURFLONG", "RCSURFSHEAR", "RCPUNCH", "STBARSHELL", "STJOINT", "TMBAR", "TMPANEL", "TMPANELCLT", "MS", "COCOLUMN", "CODELTABEAM", "RCBAR", "RCHIDDENBAR", "STBAR", "STFIRE", "TMFIRE", "CLTFIRE"
+  without force the group must not already exist. To delete a group use force="true" and empty guid list
+  all entities must be conforming to the group type. remember that you must pass analytical entities!
+  -->
+ 
+
+  <!-- command to generate load combinations from load groups
+  
+  <cmdldgroup2comb command="$ LOAD LDGROUP2COMB" 
+      fU="true" fUa="true" fUs="true" fSq="true" fSf="true" fSc="true"
+      fSeisSigned="true" fSeisTorsion="true" fSeisZdir="false"
+      fSkipMinDL="true" fForceTemp="true" fShortName="true" >
+    <GUID>2e290437-e86a-4e36-af7d-acde6a6146c8</GUID>
+    <GUID>2cba9c00-255d-4258-94fb-f164aafff214</GUID>
+  </cmdldgroup2comb>
+  
+  Similar "Generate" dialog from Load groups
+  guids designate load groups for filtering; all used is empty
+  -->
+
+
+  <!-- commands for punching reinforcement design
+  
+  <cmdsam 
+    command="$ CODE_COM PUNCHINGCHECK"
+    inputfile="e:\punching_design_force_db"
+    outputfolder="e:\punching_design_result"
+    reporttype="mathml" />
+  
+  <cmdsam
+    command="$ CODE_COM PUNCHINGDESIGN"
+    inputfile="e:\punching_design_force_db"
+    outputfolder="e:\punching_design_result"
+    reporttype="mathml" />
+
+  reporttype values: "mathml" "docx" "mathcad15"   
+    NOTE: docx is not functional at the moment
+
+  -->
+ 
+ 
+  <!-- command for calculation on Analysis tab  -->
+
+  <cmduser command="; CXL $MODULE RESMODE" />
+  <cmdcalculation command="; CXL $MODULE CALC">
+    <analysis
+      calcCase = "1"
+      calcCstage = "0"
+      calcImpf = "0"
+      calcComb = "1"
+      calcGmax = "0"
+      calcStab = "0"
+      calcFreq = "0"
+      calcSeis = "0"
+      calcFootfall = "0"
+      calcMovingLoad = "0"
+      calcBedding = "0"
+      calcThGroundAcc = "0"
+      calcThExforce = "0"
+      calcPeriodicExc = "0"
+      calcStoreyFreq = "0"
+      calcDesign = "0"
+      
+      elemfine = "1"
+      diaphragm = "0"
+      peaksmoothing = "1"
+    >
+      <stage ghost = "0" tda = "0" creepincrementlimit = "25.0" /> <!-- skip attributes to leave what is set in the model  -->
+      <comb
+        NLEmaxiter = "30"
+        
+        PLdefloadstep = "20"
+        PLminloadstep = "2"
+        PLmaxeqiter = "30"
+
+        PlKeepLoadStep = "1"
+        PlTolerance = "1"
+        PlShellLayers = "10"
+        PlShellCalcStr = "1"
+
+        NLSMohr = "1"
+        NLSinitloadstep = "10"
+        NLSminloadstep = "10"
+        NLSactiveelemratio = "5"
+        NLSplasticelemratio = "5"
+        
+        CRloadstep = "20"
+        CRmaxiter = "30"
+        CRstifferror = "2"
+      >
+        <combitem
+          ImpfRqd = "0"
+          StabRqd = "0"
+          
+          Calc = "1"
+          NLE = "0"
+          PL = "0"
+          NLS = "0"
+          Cr = "0"
+          f2nd = "0"
+          Im = "0"
+          Amplitudo = "1.0"
+          Waterlevel = "0"
+        />
+        <combitem
+          ImpfRqd = "0"
+          StabRqd = "0"
+          
+          Calc = "1"
+          NLE = "0"
+          PL = "0"
+          NLS = "0"
+          Cr = "0"
+          f2nd = "0"
+          Im = "0"
+          Amplitudo = "1.0"
+          Waterlevel = "0"
+          />
+      </comb>
+      <freq
+        Numshapes = "2"
+        MaxSturm = "0"
+        X = "1"
+        Y = "1"
+        Z = "1"
+        top = "0.0"
+        AutoIter = "5"
+        NormUnit = "0"
+      />
+      <footfall TopOfSubstructure = "-0.01" />
+      <bedding 
+        Ldcomb = "a" 
+        Meshprep = "0" 
+        Stiff_X = "0.5" 
+        Stiff_Y = "0.5" 
+      />
+      <thgroundacc
+        flevelspectra = "1"
+        dts = "0.20"
+        tsend = "5.0"
+        q = "1.0"
+
+        facc = "1"
+        nres = "5"
+        tcend = "20.0"
+
+        method = "0"
+
+        alpha = "0.000"
+        beta = "0.000"
+        ksi = "5.0"
+      />
+      <thexforce
+        nres = "5"
+        tcend = "20.0"
+
+        method = "0"
+
+        alpha = "0.000"
+        beta = "0.000"
+        ksi = "5.0"
+      />
+      <periodicexc 
+        deltat = "0.0100" 
+        tend = "5.00" 
+        dampeningtype = "0"
+        alpha = "0.000" 
+        beta = "0.000" 
+        ksi = "5.0" 
+      />
+    </analysis>
+  </cmdcalculation>
+
+  <!-- command for calculation on RC design tab for load combinations, autodesign may be false if reinforcement present in input file -->
+
+	<cmduser command="; CXL $MODULE RCDESIGN" />
+	<cmdcalculation command="; CXL $MODULE CALC">
+		<design>
+			<cmax />
+			<autodesign>true</autodesign>
+  		    <check>true</check>
+		</design>
+	</cmdcalculation>
+
+<!-- force applying the autodesign changes
+  <cmduser command="; CXL FEM $CODE(DESCHANGESAPPLY)" />
+-->  
+  
+  <!-- command for calculation on steel design tab, set autodesign to true if needed  -->
+
+	<cmduser command="; CXL $MODULE STEELDESIGN" />
+	<cmdcalculation command="; CXL $MODULE CALC">
+		<design>
+			<cmax />
+			<autodesign>false</autodesign>
+  		<check>true</check>
+		</design>
+	</cmdcalculation>
+
+
+    <cmdsave command="; CXL CS2SHELL SAVE">
+        <filename>e:\x1.str</filename>
+      </cmdsave>
+
+  <!-- command to generate csv file output as from list panel batch, use proper filenames and "1" if want the checkbox option   -->
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="e:\x.bsc" outfile="e:\x.csv" regional="0" fillcells="0" headers="0" />
+  <!-- repeat for additional batches if i.e each has just one table  -->
+  
+  <!-- list only selected elements instead of all  -->
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="e:\x.bsc" outfile="e:\x1.csv" regional="0" fillcells="0" headers="0" >
+     <GUID>2e290437-e86a-4e36-af7d-acde6a6146c8</GUID>
+     <GUID>2cba9c00-255d-4258-94fb-f164aafff214</GUID>
+  </cmdlistgen>
+
+  <!--  listgen with advanced parameters
+  <cmdlistgen command="$ MODULECOM LISTGEN" bscfile="e:\3\4\b1.bsc" outfile="e:\3\4\o2a.csv" regional="0" fillcells="0" ignorecasename="0">
+    <mapcase oname="a" idx="0"/>
+    <mapcase oname="b" nname="b with extra"/>
+    <mapcomb oname="comb1" idx="0"/>
+    <mapcomb oname="comb2" nname="comb2_new"/>
+  </cmdlistgen>
+   
+   supply name remapping table: oname is the name ised at .bsc creation
+   in the actual model that case/comb will be found by name nname or at the designated index (0-based in table). this way .bsc files can be reused with more models
+
+   attribute ignorecasename="1" : don't invalidate result based on name not found in the model, just use stored index -- dangerous!!!
+
+-->
+
+  <!-- command to make documentation from doc template   -->
+
+  <cmdchild>e:\x.dsc</cmdchild>
+
+  <!-- command to export documantation to .docx   -->
+
+  <cmdsavedocx command="$ DOC SAVEDOCX">
+    <filename>e:\x.docx</filename>
+  </cmdsavedocx>
+
+
+
+
+  <!-- may load another file and issue more commands...  -->
+
+
+  <!-- command to quit the program -->
+  <cmdendsession/>
+
+  <!-- END SESSION 	===================================================================================  -->
+</fdscript>
