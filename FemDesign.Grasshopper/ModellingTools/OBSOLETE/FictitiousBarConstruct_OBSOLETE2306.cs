@@ -1,20 +1,20 @@
 // https://strusoft.com/
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
-
+using FemDesign.Grasshopper.Extension.ComponentExtension;
+using FemDesign.Loads;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Special;
 using Rhino.Geometry;
-
 using StruSoft.Interop.StruXml.Data;
+using System.Reflection;
 
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousBarConstruct : FEM_Design_API_Component
+    public class FictitiousBarConstruct_OBSOLETE2306 : FEM_Design_API_Component
     {
-        public FictitiousBarConstruct() : base("FictitiousBar.Construct", "Construct", "Construct a fictitious bar element.", CategoryName.Name(), "ModellingTools")
+        public FictitiousBarConstruct_OBSOLETE2306() : base("FictitiousBar.Construct", "Construct", "Construct a fictitious bar element.", CategoryName.Name(), "ModellingTools")
         {
 
         }
@@ -36,7 +36,7 @@ namespace FemDesign.Grasshopper
             pManager.AddVectorParameter("LocalY", "LocalY", "Set local y-axis. Vector must be perpendicular to Curve mid-point local x-axis. This parameter overrides OrientLCS", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("OrientLCS", "OrientLCS", "Orient LCS to GCS? If true the LCS of this object will be oriented to the GCS trying to align local z to global z if possible or align local y to global y if possible (if object is vertical). If false local y-axis from Curve coordinate system at mid-point will be used.", GH_ParamAccess.item, true);
-            pManager.AddGenericParameter("TrussBehaviour", "TrussBehaviour", "Optional. If null or empty, this parameter is ignored. To set up the truss behaviour, connect the 'TrussBehaviour' component.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TrussBehaviour", "TrussBehaviour", "Optional. If null or empty, this parameter is ignored. To set up the truss behaviour, connect the 'FictitiousBarTrussBehaviour' component.", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddTextParameter("Identifier", "Identifier", "Identifier.", GH_ParamAccess.item, "BF");
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -95,7 +95,7 @@ namespace FemDesign.Grasshopper
             bool orientLCS = true;
             DA.GetData(8, ref orientLCS);
 
-            Truss_chr_type trussBehaviour = null;
+            StruSoft.Interop.StruXml.Data.Simple_truss_chr_type trussBehaviour = null;
             DA.GetData(9, ref trussBehaviour);
 
             string name = "BF";
@@ -106,25 +106,22 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+            // check truss behaviour
 
             // convert geometry
             Geometry.Edge edge = curve.FromRhinoLineOrArc2();
 
             // create virtual bar
             ModellingTools.FictitiousBar bar;
-            if (trussBehaviour is null)
+            if (trussBehaviour == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Bended bar behaviour.");
                 bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e, mass);
             }
             else
             {
-                // convert Truss_chr_type into Simple_truss_chr_type
-                var (behaviour, limForces) = GetFictTrussBehaviourData(trussBehaviour);
-                Simple_truss_chr_type fictTrussBehaviour = ModellingTools.FictitiousBar.SetTrussBehaviour(behaviour[0], behaviour[1], limForces[0], limForces[1]);
-
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Truss behaviour. Connectivity, ItG, I1E and I2E parameters are ignored.");
-                bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, name, ae, mass, fictTrussBehaviour);
+                bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, name, ae, mass, trussBehaviour);
             }
 
             // set local y-axis
@@ -146,71 +143,6 @@ namespace FemDesign.Grasshopper
             DA.SetData(0, bar);
 
         }
-        private (ItemChoiceType1[] behaviour, double[] limForces) GetFictTrussBehaviourData(Truss_chr_type trussBehaviour)
-        {
-            double[] limits = new double[2];
-            ItemChoiceType1[] behav = new ItemChoiceType1[2];
-            int i = 0;
-
-            var behavType = new List<Truss_behaviour_type>
-            {
-                trussBehaviour.Compression,     // order matters!
-                trussBehaviour.Tension
-            };
-            foreach (var type in behavType)
-            {
-                behav[i] = GetBehaviour(type);
-                limits[i] = GetLimitForces(type);
-                i++;
-            }
-
-            return (behav, limits);
-        }
-        private ItemChoiceType1 GetBehaviour(Truss_behaviour_type type)
-        {
-            switch (type.ItemElementName)
-            {
-                case ItemChoiceType.Elastic:
-                    return ItemChoiceType1.Elastic;
-                case ItemChoiceType.Brittle:
-                    return ItemChoiceType1.Brittle;
-                case ItemChoiceType.Plastic:
-                    return ItemChoiceType1.Plastic;
-                default: throw new Exception("Unknown behaviour type!");
-            }
-        }
-        private double GetLimitForces(Truss_behaviour_type type)
-        {
-            double limit = 0;
-
-            if (type.ItemElementName is ItemChoiceType.Brittle || type.ItemElementName is ItemChoiceType.Plastic)
-            {
-                var obj = type.Item;
-                PropertyInfo limForcePropName = typeof(Truss_capacity_type).GetProperty(nameof(Truss_capacity_type.Limit_force));
-                var values = limForcePropName.GetValue(obj);
-
-                if (values is IEnumerable<Truss_limit_type>)
-                {
-                    PropertyInfo countPropName = values.GetType().GetProperty("Count");
-                    if (countPropName != null)
-                    {
-                        int count = (int)countPropName.GetValue(values);
-                        if (count > 1)
-                            AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "For FictitiousBars, the limit force is the same for all calculations! " +
-                                "This object uses only the first compression and tension limit force values from the 'TrussBehaviour' component.");
-
-                        IEnumerable<Truss_limit_type> list = (IEnumerable<Truss_limit_type>)values;
-                        limit = list.ToList()[0].Value;
-                    }
-                }
-                else
-                {
-                    throw new Exception("'Item.Limit_force' must be List<Truss_limit_type>!");
-                }
-            }
-
-            return limit;
-        }
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -220,10 +152,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{4E93CC5F-E3E4-4CE1-BB5A-2E5922E97BA0}"); }
+            get { return new Guid("{1D179B29-59F4-4918-8A74-981E69ED1A13}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.secondary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }

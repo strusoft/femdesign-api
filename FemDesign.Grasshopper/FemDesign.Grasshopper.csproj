@@ -137,7 +137,8 @@
     <Compile Include="Materials\SetConcretePlasticity.cs" />
     <Compile Include="Materials\SetSteelMaterialProperties.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
-    <Compile Include="ModellingTools\FictitiousBarTrussBehaviour.cs" />
+    <Compile Include="ModellingTools\OBSOLETE\FictitiousBarConstruct_OBSOLETE2306.cs" />
+    <Compile Include="ModellingTools\OBSOLETE\FictitiousBarTrussBehaviour_OBSOLETE2306.cs" />
     <Compile Include="ModellingTools\OBSOLETE\FictitiousBarConstruct_OBSOLETE2305.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\CoverTwoWay.cs" />

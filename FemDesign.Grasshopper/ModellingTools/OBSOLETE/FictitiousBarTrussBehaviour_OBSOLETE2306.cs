@@ -10,9 +10,9 @@ using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Grasshopper
 {
-    public class FictitiousBarTrussBehaviour : FEM_Design_API_Component
+    public class FictitiousBarTrussBehaviour_OBSOLETE2306 : FEM_Design_API_Component
     {
-        public FictitiousBarTrussBehaviour() : base("FictitiousBarTrussBehaviour", "FictBarTrussBehaviour", "Define a truss behaviour object for FictitiousBars.", CategoryName.Name(), "ModellingTools")
+        public FictitiousBarTrussBehaviour_OBSOLETE2306() : base("FictitiousBarTrussBehaviour", "FictBarTrussBehaviour", "Define a truss behaviour object for FictitiousBars.", CategoryName.Name(), "ModellingTools")
         {
 
         }
@@ -87,7 +87,7 @@ namespace FemDesign.Grasshopper
         {
             get { return new Guid("{E9AC4B0D-1BD3-48BA-903F-E4213CFCBD1D}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
 
 
