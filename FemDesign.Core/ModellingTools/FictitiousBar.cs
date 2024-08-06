@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -268,12 +269,51 @@ namespace FemDesign.ModellingTools
             this.Plane = cs;
         }
 
-        public Simple_truss_chr_type SetTrussBehaviour(ItemChoiceType1 compressionBehaviour, double compressionLimitForce, ItemChoiceType1 tensionBehaviour, double tensionLimitForce)
+        /// <summary>
+        /// Create truss behaviour for FictitiousBar objects.
+        /// </summary>
+        /// <param name="compBehav">Default is elastic truss behaviour. If `Elastic` is set, `compLimit` is ignored.</param>
+        /// <param name="tensBehav">Default is elastic truss behaviour. If `Elastic` is set, `tensLimit` is ignored.</param>
+        /// <param name="compLimit">Compression limit force value [kN]. Ignored if `compBehav` is set to `Elastic`.</param>
+        /// <param name="tensLimit">Tension limit force value [kN]. Ignored if `tensBehav` is set to `Elastic`.</param>
+        /// <returns></returns>
+        public static Simple_truss_chr_type SetTrussBehaviour(ItemChoiceType1 compBehav = ItemChoiceType1.Elastic, ItemChoiceType1 tensBehav = ItemChoiceType1.Elastic, double compLimit = 1e+15, double tensLimit = 1e+15)
         {
-            var compression = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(compressionLimitForce), compressionBehaviour);
-            var tension = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(tensionLimitForce), tensionBehaviour);
+            // compression
+            Simple_truss_behaviour_type compression;
+            if (compBehav is ItemChoiceType1.Elastic)
+            {
+                compression = Simple_truss_behaviour_type.Elastic();
+            }
+            else
+            {
+                compression = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(compLimit), compBehav);
+            }
+
+            // tension
+            Simple_truss_behaviour_type tension;
+            if (tensBehav is ItemChoiceType1.Elastic)
+            {
+                tension = Simple_truss_behaviour_type.Elastic();
+            }
+            else
+            {
+                tension = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(tensLimit), tensBehav);
+            }
 
             return new Simple_truss_chr_type(compression, tension);
+        }
+
+        public override string ToString()
+        {
+            if(TrussBehaviour is null)
+            {
+                return $"Bended Bar, Start: {Edge.Points.First()}, End: {Edge.Points.Last()}, Length: {Edge.Length} m, AE: {AE} kN, Mass: {Mass} t/m, ItG: {ItG} kNm2, I1E: {I1E} kNm2, I2E: {I2E} kNm2;";
+            }
+            else
+            {
+                return $"Truss, Start: {Edge.Points.First()}, End: {Edge.Points.Last()}, Length: {Edge.Length} m, AE: {AE} kN, Mass: {Mass} t/m;";
+            }
         }
     }
 }
