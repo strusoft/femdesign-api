@@ -21,15 +21,15 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curve", "Curve", "LineCurve or ArcCurve", GH_ParamAccess.item);
-            pManager.AddNumberParameter("AE", "AE", "AE", GH_ParamAccess.item, 1E7);
+            pManager.AddNumberParameter("AE", "AE", "AE [kN]", GH_ParamAccess.item, 1E7);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("ItG", "ItG", "This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
+            pManager.AddNumberParameter("ItG", "ItG", "ItG [kNm2]. This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("I1E", "I1E", "This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
+            pManager.AddNumberParameter("I1E", "I1E", "I1E [kNm2]. This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("I2E", "I2E", "This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
+            pManager.AddNumberParameter("I2E", "I2E", "I2E [kNm2]. This parameter is ignored when using TrussBehaviour.", GH_ParamAccess.item, 1E7);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddNumberParameter("Mass", "Mass", "Unit mass", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("Mass", "Mass", "Unit mass [t/m].", GH_ParamAccess.item, 0.1);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("Connectivity", "Connectivity", "Connectivity. Connectivity. If 1 item this item defines both start and end connectivity. If two items the first item defines the start connectivity and the last item defines the end connectivity.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -43,7 +43,7 @@ namespace FemDesign.Grasshopper
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FictitiousBar", "FictitiousBar", "FictitiousBar.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FictitiousBar", "FictBar", "Fictitious bar.", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -114,8 +114,8 @@ namespace FemDesign.Grasshopper
             ModellingTools.FictitiousBar bar;
             if (trussBehaviour is null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Bended bar behaviour.");
                 bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, startConnectivity, endConnectivity, name, ae, itg, i1e, i2e, mass);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"Bended bar behaviour ({bar.Name}).");
             }
             else
             {
@@ -123,8 +123,13 @@ namespace FemDesign.Grasshopper
                 var (behaviour, limForces) = GetFictTrussBehaviourData(trussBehaviour);
                 Simple_truss_chr_type fictTrussBehaviour = ModellingTools.FictitiousBar.SetTrussBehaviour(behaviour[0], behaviour[1], limForces[0], limForces[1]);
 
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Truss behaviour. Connectivity, ItG, I1E and I2E parameters are ignored.");
+                if (!curve.IsLinear())
+                {
+                    throw new System.ArgumentException("For Truss objects, Curve must be a LineCurve!");
+                }
+
                 bar = new ModellingTools.FictitiousBar(edge, edge.Plane.LocalY, name, ae, mass, fictTrussBehaviour);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"Truss behaviour ({bar.Name}). Connectivity, ItG, I1E and I2E parameters are ignored.");
             }
 
             // set local y-axis
@@ -196,7 +201,7 @@ namespace FemDesign.Grasshopper
                     {
                         int count = (int)countPropName.GetValue(values);
                         if (count > 1)
-                            AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "For FictitiousBars, the limit force is the same for all calculations! " +
+                            AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "For FictitiousBars, the limit force is the same for all calculations! " +
                                 "This object uses only the first compression and tension limit force values from the 'TrussBehaviour' component.");
 
                         IEnumerable<Truss_limit_type> list = (IEnumerable<Truss_limit_type>)values;

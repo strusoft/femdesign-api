@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -301,6 +302,18 @@ namespace FemDesign.ModellingTools
             }
 
             return new Simple_truss_chr_type(compression, tension);
+        }
+
+        public override string ToString()
+        {
+            if(TrussBehaviour is null)
+            {
+                return $"Bended Bar, Start: {Edge.Points.First()}, End: {Edge.Points.Last()}, Length: {Edge.Length} m, AE: {AE} kN, Mass: {Mass} t/m, ItG: {ItG} kNm2, I1E: {I1E} kNm2, I2E: {I2E} kNm2;";
+            }
+            else
+            {
+                return $"Truss, Start: {Edge.Points.First()}, End: {Edge.Points.Last()}, Length: {Edge.Length} m, AE: {AE} kN, Mass: {Mass} t/m;";
+            }
         }
     }
 }

@@ -118,6 +118,7 @@
     <Compile Include="Components\UIWidgets\WidgetServer.cs" />
     <Compile Include="Deconstruct\Drawing\TextAnnotationDeconstruct.cs" />
     <Compile Include="Deconstruct\Drawing\DimensionLinearDeconstruct.cs" />
+    <Compile Include="Deconstruct\ModellingTools\FictitiousBarDeconstruct_OBSOLETE2306.cs" />
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
