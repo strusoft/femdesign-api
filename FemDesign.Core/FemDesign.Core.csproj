@@ -65,6 +65,7 @@
     <Compile Include="Calculate\CmdGlobalCfg.cs" />
     <Compile Include="Calculate\CmdInteractionSurface.cs" />
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
+    <Compile Include="Calculate\CmdProjDescr.cs" />
     <Compile Include="Calculate\CmdResultPoint.cs" />
     <Compile Include="Calculate\Coldata.cs" />
     <Compile Include="Calculate\Config\ConcreteDesignConfiguration.cs" />

@@ -298,12 +298,7 @@ namespace FemDesign
             var filePath = OutputFileHelper.GetConfigfilePath(OutputDir);
             var cmdconfig = new Calculate.CmdConfig(filePath, configs);
 
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(
-                logfile,
-                cmdconfig
-            );
-            this.RunScript(script, "SetConfig");
+            this.SetConfig(cmdconfig);
         }
 
         public void SetConfig(CmdConfig cmdConfig)
@@ -315,6 +310,23 @@ namespace FemDesign
             );
             this.RunScript(script, "SetConfig");
         }
+
+        public void SetProjDescription(CmdProjDescr cmdProjDescr)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(
+                logfile,
+                cmdProjDescr
+            );
+            this.RunScript(script, "SetConfig");
+        }
+
+        public void SetProjDescription(string project, string description, string designer, string signature, string comment, List<UserDefinedData> items = null)
+        {
+            var cmdProjdescr = new CmdProjDescr(project, description, designer, signature, comment, items);
+            this.SetProjDescription(cmdProjdescr);
+        }
+
 
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.

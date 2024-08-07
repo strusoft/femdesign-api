@@ -68,5 +68,44 @@ namespace FemDesign.Calculate
             Console.WriteLine();
             Console.WriteLine(configText);
         }
+
+        [TestMethod("CreateCmdProj")]
+        public void CreateCmdProjDescr()
+        {
+            string fdScriptPath = "Calculate//script.fdscript";
+            var logPath = "Calculate//logfile.log";
+
+            var cmdProjDescr = new CmdProjDescr("Project", "Description", "Designer", "Signature", "Comment");
+
+            var fdscript = new FdScript(logPath, cmdProjDescr);
+            fdscript.Serialize(fdScriptPath);
+
+            // read text from file path
+            string fdscriptText = System.IO.File.ReadAllText(fdScriptPath);
+
+            Console.WriteLine(fdscriptText);
+            Console.WriteLine();
+
+
+            var userData = new List<UserDefinedData>()
+            {
+                new UserDefinedData("key", "value"),
+                new UserDefinedData("key_2", "value_2"),
+            };
+            cmdProjDescr = new CmdProjDescr("Project", "Description", "Designer", "Signature", "Comment", userData);
+
+            fdscript = new FdScript(logPath, cmdProjDescr);
+            fdscript.Serialize(fdScriptPath);
+
+            // read text from file path
+            fdscriptText = System.IO.File.ReadAllText(fdScriptPath);
+
+            Console.WriteLine(fdscriptText);
+            Console.WriteLine();
+
+
+        }
+
+
     }
 }
